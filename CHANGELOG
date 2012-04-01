@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 829
+Build 830
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 830: moved statistic in editor to the top
   build 829: add warning in websiteSetup when languages are missing
   build 828: added websiteConfig localization
   build 827: add dialog when deactivating multi languages pages, or removing languages

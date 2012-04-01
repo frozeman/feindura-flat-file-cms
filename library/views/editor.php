@@ -41,6 +41,165 @@ echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['p
       <input type="hidden" name="savedBlock" id="savedBlock" value="" />
       </div>';
 
+
+if(!$newPage) {
+?>
+<!-- ***** PAGE STATISTICS -->
+<?php
+// dont shows the block below if pageSettings is saved
+//$hidden = ($savedForm) ? ' hidden' : '';
+$hidden = ' hidden';
+?>
+<div class="block<?php echo $hidden; ?>">
+  <h1><a href="#"><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27" /><?php echo $langFile['EDITOR_pagestatistics_h1']; ?></a></h1>
+  <div class="content">
+  <?php
+  $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
+  // -> statistic vars
+  // --------------
+  $firstVisitDate = StatisticFunctions::formatDate($pageStatistics['firstVisit']);
+  $firstVisitTime = StatisticFunctions::formatTime($pageStatistics['firstVisit']);
+  $lastVisitDate = StatisticFunctions::formatDate($pageStatistics['lastVisit']);
+  $lastVisitTime = StatisticFunctions::formatTime($pageStatistics['lastVisit']);
+  
+  $visitTimes_max = unserialize($pageStatistics['visitTimeMax']);
+  $visitTimes_min = unserialize($pageStatistics['visitTimeMin']);
+  ?>  
+  <table>   
+    
+    <colgroup>
+    <col class="left" />
+    </colgroup>
+    
+    <tr><td class="leftTop"></td><td></td></tr>
+    
+    <?php
+    
+    if($pageStatistics['firstVisit']) {
+    ?>
+    <tr>
+      <td class="left">
+        <?php echo $langFile['STATISTICS_TEXT_VISITORCOUNT']; ?>
+      </td><td class="right" style="font-size:15px;">
+        <?php
+        // -> VISIT COUNT
+        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']).'</span>';
+        ?>
+      </td>      
+    </tr>
+    <tr>
+      <td class="left">
+        <?php echo $langFile['STATISTICS_TEXT_FIRSTVISIT']; ?>
+      </td><td class="right" style="font-size:15px;">
+        <?php
+        // -> FIRST VISIT
+        echo '<span class="info brown toolTip" title="'.$firstVisitTime.'::">'.$firstVisitDate.'</span> ';
+        ?>
+      </td>
+    </tr>
+    
+    <tr>
+      <td class="left">
+        <?php echo $langFile['STATISTICS_TEXT_LASTVISIT']; ?>
+      </td><td class="right" style="font-size:15px;">
+        <?php
+        // -> LAST VISIT
+        echo '<span class="info blue toolTip" title="'.$lastVisitTime.'::">'.$lastVisitDate.'</span> ';
+        ?>
+      </td>
+    </tr>
+    
+    <tr><td class="spacer"></td><td></td></tr>
+    
+    <tr>
+      <td class="left">
+        <?php echo $langFile['STATISTICS_TEXT_VISITTIME_MAX']; ?>
+      </td><td class="right">
+        <?php
+        // -> VISIT TIME MAX
+        $showTimeHead = true;
+        if(is_array($visitTimes_max)) {
+          foreach($visitTimes_max as $visitTime_max) {
+            if($visitTime_max_formated = StatisticFunctions::showVisitTime($visitTime_max,$langFile)) {
+              if($showTimeHead)
+                echo '<span class="blue" id="visitTimeMax">'.$visitTime_max_formated.'</span><br />
+                <div id="visitTimeMaxContainer">';
+              else            
+                echo '<span class="blue">'.$visitTime_max_formated.'</span><br />';
+              
+              $showTimeHead = false;            
+            }
+          }
+        }
+        echo '</div>';    
+        ?>
+      </td>
+    </tr>
+    <tr>
+      <td class="left">
+        <?php echo $langFile['STATISTICS_TEXT_VISITTIME_MIN']; ?>
+      </td><td class="right">
+        <?php
+        // -> VISIT TIME MIN
+        $showTimeHead = true;
+        if(is_array($visitTimes_max)) {
+          $visitTimes_min = array_reverse($visitTimes_min);
+          foreach($visitTimes_min as $visitTime_min) {          
+            if($visitTime_min_formated = StatisticFunctions::showVisitTime($visitTime_min,$langFile)) {
+              if($showTimeHead)
+                echo '<span class="blue" id="visitTimeMin">'.$visitTime_min_formated.'</span><br />
+                <div id="visitTimeMinContainer">';
+              else            
+                echo '<span class="blue">'.$visitTime_min_formated.'</span><br />';
+            
+              $showTimeHead = false;
+            }          
+          }
+        }
+        echo '</div>';
+        ?>
+      </td>
+    </tr>
+    <?php
+    // -> show NO VISIT
+    } else {
+      echo '<tr>
+              <td class="left">
+              </td><td class="right" style="font-size:15px;">
+                '.$langFile['STATISTICS_TEXT_NOVISIT'].'
+              </td>
+            </tr>';
+    }    
+    ?>
+    
+    <tr><td class="spacer"></td><td></td></tr>
+    
+    <tr>
+      <td class="left">
+        <span><?php echo $langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']; ?></span>
+      </td><td class="right">
+      <div style="width:95%;max-height:160px;border:0px solid #cccccc;padding:0px 10px;">
+      <?php
+      
+      // -> show TAG CLOUD
+      echo '<div class="tagCloud">';
+      echo createTagCloud($pageStatistics['searchWords']);
+      echo '</div>';
+
+      ?>
+      </div>
+      </td>
+    </tr>
+    
+    <tr><td class="leftBottom"></td><td></td></tr>
+    
+  </table>
+  </div>
+  <div class="bottom"></div>
+</div>
+<?php
+}
+
 /**
  * Include the editor
  */
@@ -274,166 +433,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
 
 <!-- page settings anchor is here -->
 <a id="pageSettings" class="anchorTarget"></a>
-<?php
 
-if(!$newPage) {
-?>
-<!-- ***** PAGE STATISTICS -->
-<?php
-// dont shows the block below if pageSettings is saved
-//$hidden = ($savedForm) ? ' hidden' : '';
-$hidden = ' hidden';
-?>
-<div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27" /><?php echo $langFile['EDITOR_pagestatistics_h1']; ?></a></h1>
-  <div class="content">
-  <?php
-  $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
-  // -> statistic vars
-  // --------------
-  $firstVisitDate = StatisticFunctions::formatDate($pageStatistics['firstVisit']);
-  $firstVisitTime = StatisticFunctions::formatTime($pageStatistics['firstVisit']);
-  $lastVisitDate = StatisticFunctions::formatDate($pageStatistics['lastVisit']);
-  $lastVisitTime = StatisticFunctions::formatTime($pageStatistics['lastVisit']);
-  
-  $visitTimes_max = unserialize($pageStatistics['visitTimeMax']);
-  $visitTimes_min = unserialize($pageStatistics['visitTimeMin']);
-  ?>  
-  <table>   
-    
-    <colgroup>
-    <col class="left" />
-    </colgroup>
-    
-    <tr><td class="leftTop"></td><td></td></tr>
-    
-    <?php
-    
-    if($pageStatistics['firstVisit']) {
-    ?>
-    <tr>
-      <td class="left">
-        <?php echo $langFile['STATISTICS_TEXT_VISITORCOUNT']; ?>
-      </td><td class="right" style="font-size:15px;">
-        <?php
-        // -> VISIT COUNT
-        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']).'</span>';
-        ?>
-      </td>      
-    </tr>
-    <tr>
-      <td class="left">
-        <?php echo $langFile['STATISTICS_TEXT_FIRSTVISIT']; ?>
-      </td><td class="right" style="font-size:15px;">
-        <?php
-        // -> FIRST VISIT
-        echo '<span class="info brown toolTip" title="'.$firstVisitTime.'::">'.$firstVisitDate.'</span> ';
-        ?>
-      </td>
-    </tr>
-    
-    <tr>
-      <td class="left">
-        <?php echo $langFile['STATISTICS_TEXT_LASTVISIT']; ?>
-      </td><td class="right" style="font-size:15px;">
-        <?php
-        // -> LAST VISIT
-        echo '<span class="info blue toolTip" title="'.$lastVisitTime.'::">'.$lastVisitDate.'</span> ';
-        ?>
-      </td>
-    </tr>
-    
-    <tr><td class="spacer"></td><td></td></tr>
-    
-    <tr>
-      <td class="left">
-        <?php echo $langFile['STATISTICS_TEXT_VISITTIME_MAX']; ?>
-      </td><td class="right">
-        <?php
-        // -> VISIT TIME MAX
-        $showTimeHead = true;
-        if(is_array($visitTimes_max)) {
-          foreach($visitTimes_max as $visitTime_max) {
-            if($visitTime_max_formated = StatisticFunctions::showVisitTime($visitTime_max,$langFile)) {
-              if($showTimeHead)
-                echo '<span class="blue" id="visitTimeMax">'.$visitTime_max_formated.'</span><br />
-                <div id="visitTimeMaxContainer">';
-              else            
-                echo '<span class="blue">'.$visitTime_max_formated.'</span><br />';
-              
-              $showTimeHead = false;            
-            }
-          }
-        }
-        echo '</div>';    
-        ?>
-      </td>
-    </tr>
-    <tr>
-      <td class="left">
-        <?php echo $langFile['STATISTICS_TEXT_VISITTIME_MIN']; ?>
-      </td><td class="right">
-        <?php
-        // -> VISIT TIME MIN
-        $showTimeHead = true;
-        if(is_array($visitTimes_max)) {
-          $visitTimes_min = array_reverse($visitTimes_min);
-          foreach($visitTimes_min as $visitTime_min) {          
-            if($visitTime_min_formated = StatisticFunctions::showVisitTime($visitTime_min,$langFile)) {
-              if($showTimeHead)
-                echo '<span class="blue" id="visitTimeMin">'.$visitTime_min_formated.'</span><br />
-                <div id="visitTimeMinContainer">';
-              else            
-                echo '<span class="blue">'.$visitTime_min_formated.'</span><br />';
-            
-              $showTimeHead = false;
-            }          
-          }
-        }
-        echo '</div>';
-        ?>
-      </td>
-    </tr>
-    <?php
-    // -> show NO VISIT
-    } else {
-      echo '<tr>
-              <td class="left">
-              </td><td class="right" style="font-size:15px;">
-                '.$langFile['STATISTICS_TEXT_NOVISIT'].'
-              </td>
-            </tr>';
-    }    
-    ?>
-    
-    <tr><td class="spacer"></td><td></td></tr>
-    
-    <tr>
-      <td class="left">
-        <span><?php echo $langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']; ?></span>
-      </td><td class="right">
-      <div style="width:95%;max-height:160px;border:0px solid #cccccc;padding:0px 10px;">
-      <?php
-      
-      // -> show TAG CLOUD
-      echo '<div class="tagCloud">';
-      echo createTagCloud($pageStatistics['searchWords']);
-      echo '</div>';
-
-      ?>
-      </div>
-      </td>
-    </tr>
-    
-    <tr><td class="leftBottom"></td><td></td></tr>
-    
-  </table>
-  </div>
-  <div class="bottom"></div>
-</div>
-<?php
-}
-?>
 
 <!-- ***** PAGE SETTINGS -->
 <?php

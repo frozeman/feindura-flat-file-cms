@@ -813,6 +813,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     left: 0px;
     margin: 0px -20px;
     margin-bottom: -9px;
+    margin-top: -20px;
     background: url("../images/bg/content_block_normal.png") repeat-y;
     overflow: visible;
     width: 792px;
