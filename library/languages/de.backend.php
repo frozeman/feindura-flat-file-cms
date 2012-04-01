@@ -189,7 +189,8 @@ $langFile['LOG_BACKUP_CREATED']                                           = 'Bac
 $langFile['LOG_BACKUP_RESTORED']                                          = 'Backup wiederhergestellt';
 $langFile['LOG_BACKUP_DELETED']                                           = 'Backup gelöscht';
 
-$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Sprache &quot;%s&quot; für folgende Seite gelöscht:';
+$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Sprache &quot;%s&quot; gelöscht für Seite';
+$langFile['LOG_PAGELANGUAGE_ADD']                                         = 'Sprache &quot;%s&quot; hinzugefügt für Seite';
 
 
 // PAGE/CATEGORY STATUS
@@ -756,7 +757,7 @@ $langFile['deletePage_finish_error']                                      = 'FEH
 
 // ---------- DELETE PAGE LANGUAGE
 
-$langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION']                   = 'Soll die Sprache &quot;%s&quot; für Seite wirklich löschen?';
+$langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION']                   = 'Soll die Sprache &quot;%s&quot; für diese Seite wirklich gelöscht werden?';
 
 
 /*

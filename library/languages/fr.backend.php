@@ -177,7 +177,9 @@ $langFile['LOG_BACKUP_CREATED']                                           = 'sau
 $langFile['LOG_BACKUP_RESTORED']                                          = 'restauration de sauvegarde';
 $langFile['LOG_BACKUP_DELETED']                                           = 'supprimé de sauvegarde';
 
-$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Langue &quot;%s&quot; pour la page suivante supprimé:';
+$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Langue &quot;%s&quot; supprimé pour la page';
+$langFile['LOG_PAGELANGUAGE_ADD']                                         = 'Langue &quot;%s&quot; ajouter pour la page';
+
 
 // PAGE/CATEGORY STATUS
 $langFile['STATUS_PAGE_PUBLIC']                                           = 'site web public';

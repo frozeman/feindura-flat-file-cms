@@ -189,7 +189,8 @@ $langFile['LOG_BACKUP_CREATED']                                           = 'Bac
 $langFile['LOG_BACKUP_RESTORED']                                          = 'Backup restored';
 $langFile['LOG_BACKUP_DELETED']                                           = 'Backup deleted';
 
-$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Language &quot;%s&quot; for the following page deleted:';
+$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Language &quot;%s&quot; deleted for page';
+$langFile['LOG_PAGELANGUAGE_ADD']                                         = 'Language &quot;%s&quot; add for page';
 
 // PAGE/CATEGORY STATUS
 $langFile['STATUS_PAGE_PUBLIC']                                           = 'Page is public';

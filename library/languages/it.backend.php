@@ -189,7 +189,8 @@ $langFile['LOG_BACKUP_CREATED']                                           = 'Bac
 $langFile['LOG_BACKUP_RESTORED']                                          = 'Backup ripristinato';
 $langFile['LOG_BACKUP_DELETED']                                           = 'Backup cancellato';
 
-$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Lingua &quot;%s&quot; per la seguente pagina cancellata:';
+$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Lingua &quot;%s&quot; cancellata per pagina';
+$langFile['LOG_PAGELANGUAGE_ADD']                                         = 'Lingua &quot;%s&quot; aggiungere per pagina';
 
 
 // PAGE/CATEGORY STATUS

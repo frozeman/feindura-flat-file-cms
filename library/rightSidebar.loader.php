@@ -57,7 +57,7 @@ switch($_GET['site']) {
         echo '<ul class="flags">';
         foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
           if(!isset($websiteConfig['localization'][$langCode])) {
-            echo '<li><img src="'.getFlag($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="standardLink">'.$languageCodes[$langCode].'</a></li>';
+            echo '<li><img src="'.getFlag($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="standardLink gray">'.$languageCodes[$langCode].'</a></li>';
           }
         }
         echo '</ul>';

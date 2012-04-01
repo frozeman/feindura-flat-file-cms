@@ -160,6 +160,9 @@ foreach($logContent as $logRow) {
     case 32:
         $logText = sprintf($langFile['LOG_PAGELANGUAGE_DELETED'],$logTextValue);
         break;
+    case 33:
+        $logText = sprintf($langFile['LOG_PAGELANGUAGE_ADD'],$logTextValue);
+        break;
   }
   
   // ->> PROCESS LOG DATA

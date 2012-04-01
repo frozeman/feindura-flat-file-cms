@@ -191,7 +191,8 @@ $langFile['LOG_BACKUP_CREATED']                                           = 'К�
 $langFile['LOG_BACKUP_RESTORED']                                          = 'Копия восстановлена';
 $langFile['LOG_BACKUP_DELETED']                                           = 'Копия удалена';
 
-$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Язык &quot;%s&quot; на следующей странице удалены:';
+$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Язык &quot;%s&quot; удален за страницу';
+$langFile['LOG_PAGELANGUAGE_ADD']                                         = 'Язык &quot;%s&quot; добавить на страницу';
 
 
 // PAGE/CATEGORY STATUS
