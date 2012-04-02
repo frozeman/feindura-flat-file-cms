@@ -33,6 +33,11 @@ if($_GET['site'] != 'adminSetup')
 // if not throw a warning
 echo startPageWarning();
 
+// ***********************************************************************
+// CHECKs if the CATEGORY CONFIG or the WEBSITE CONFIG has missing languages
+if($_GET['site'] != 'websiteSetup' && $_GET['site'] != 'pageSetup')
+echo missingLanguageWarning();
+
 // start of loading the content
 // -------------------------------------------------------------------------------------------------------------
 

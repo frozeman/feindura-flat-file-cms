@@ -1092,6 +1092,9 @@ div.leftSidebarLoadingCircle {
   max-height: 400px;
   overflow: auto;
 }
+#rightSidebarMessageBox ul li {
+  margin-right: 15px;
+}
 #rightSidebarMessageBox ul.flags {
   list-style: none;
   margin-left: -5px;

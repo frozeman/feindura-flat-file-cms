@@ -83,7 +83,9 @@ content.css version 0.3 */
     color: #DFB300;
     }
 #content .block.info h2 {
+    margin-top: 20px;
     margin-left: 95px;
+    border-bottom: 1px dotted #DFB300;
     }
 #content .block.info .content {
     margin-top: 1px;
@@ -96,6 +98,15 @@ content.css version 0.3 */
     margin: 5px 3px;
     margin-left: 100px;
     color: #957700;
+    }
+
+/* missing Languages */
+#content .block.info.missingLanguages .content {
+    background: url("../images/icons/missingLanguages_big.png") no-repeat center left;
+    }
+#content .block.info.missingLanguages a {
+    background-image: none;
+    padding-left: 0;
     }
 
 /* open block */

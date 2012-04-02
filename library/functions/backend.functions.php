@@ -1981,6 +1981,80 @@ function startPageWarning() {
     return false;
 }
 
+/**
+ * <b>Name</b> missingLanguageWarning()<br />
+ * 
+ * Retruns a warning if the <var>$categoryConfig</var> or <var>$websiteConfig</var> has missing languages.
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+ *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
+ *    - <var>$languageCodes</var> an array with country codes and language names (included in the {@link general.include.php})
+ *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+ *    - <var>$langFile</var> the language file of the backend (included in the {@link general.include.php})
+ * 
+ * @return string|false a warning if the there are still missing languages, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function missingLanguageWarning() {
+  
+  // var
+  $return = false;
+
+  if(!$GLOBALS['adminConfig']['multiLanguageWebsite']['active'])
+    return false;
+  
+  // -> websiteConfig
+  $websiteConfig = '';
+  if($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] != array_keys($GLOBALS['websiteConfig']['localization'])) {
+    foreach ($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] as $langCode) {
+      if(!isset($GLOBALS['websiteConfig']['localization'][$langCode])) {
+        $websiteConfig .= '<span><img src="'.getFlag($langCode).'" class="flag"> <a href="?site=websiteSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageCodes'][$langCode].'</a></span><br>';
+      }
+    }
+  }
+
+  // -> categoryConfig
+  $categoryHasMissingLanguages = false;
+    foreach ($GLOBALS['categoryConfig'] as $category) {
+      if($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] != array_keys($category['localization']))
+        $categoryHasMissingLanguages = true;
+    }
+    if($categoryHasMissingLanguages) {
+        foreach ($GLOBALS['categoryConfig'] as $category) {
+          foreach ($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] as $langCode) {
+            if(!isset($category['localization'][$langCode])) {
+              $categoryName = GeneralFunctions::getLocalized($category['localization'],'name');
+              $categoryName = (!empty($categoryName)) ? ' &lArr; '.$categoryName : '';
+              $categoryConfig .= '<span><img src="'.getFlag($langCode).'" class="flag"> <a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageCodes'][$langCode].'</a>'.$categoryName.'</span><br>';
+            }
+          }
+        }
+    }
+
+  if(!empty($websiteConfig)) {
+    $return .= '<div class="block info missingLanguages">
+            <h1>'.$GLOBALS['langFile']['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>
+            <div class="content">
+              ';
+    if(!empty($websiteConfig))
+      $return .= '<h2>'.$GLOBALS['langFile']['BUTTON_WEBSITESETTINGS'].'</h2><p>'.$websiteConfig.'</p><!-- need <p> tags for margin-left:..-->';
+    if(!empty($categoryConfig))
+      $return .= '<h2>'.$GLOBALS['langFile']['BUTTON_PAGESETUP'].'</h2><p>'.$categoryConfig.'</p><!-- need <p> tags for margin-left:..-->';
+    
+    $return .= '</div> 
+            <div class="bottom"></div> 
+          </div>';
+
+  }
+
+  return $return;
+}
 
 /**
 * <b>Name</b> createBrowserChart()<br>

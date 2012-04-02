@@ -83,7 +83,7 @@ switch($_GET['site']) {
           foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
             if(!isset($category['localization'][$langCode])) {
               $categoryName = GeneralFunctions::getLocalized($category['localization'],'name');
-              $categoryName = (!empty($categoryName)) ? ' &rArr; '.$categoryName : '';
+              $categoryName = (!empty($categoryName)) ? ' &lArr; '.$categoryName : '';
               echo '<li><img src="'.getFlag($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="standardLink gray">'.$languageCodes[$langCode].'</a>'.$categoryName.'</li>';
             }
           }

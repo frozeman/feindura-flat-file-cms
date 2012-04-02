@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 833
+Build 834
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,7 +21,8 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
-  
+
+  build 834: add global missing languages warning
   build 833: add localization for categoryConfig
   build 832: add new body background image
   build 831: add taskLog text for add page language
