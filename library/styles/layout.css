@@ -23,9 +23,10 @@ html,body {
   	margin: 0px;
   	padding: 0px;
   	font: 12px Verdana, Arial, Sans-serif, Serif;
-  	background-color: #5b5b5b !important; /* #5b5b5b */
+  	background-color: #5b5b5b !important;
   	color: #000000;
   	height: 100%; /* makes the #leftSidebar box also in IE 100% */
+    background: url("../images/bg/body.png") repeat;
   	}
 
 /****************/	
@@ -241,20 +242,22 @@ span.gray, a.gray {
     top: -23px;
     width: 100%;
     min-width: 1255px;
+    height: 156px;
     clear: both;
     background: url("../images/bg/footer.png") repeat-x;
     }
 #footerBlock {
+    z-index: 1;
     position: relative;
     top: 0px;
     left: 0px;
     width: 1024px;
-    height: 155px;
+    height: 149px;
     background: url("../images/bg/footerBlock.png") no-repeat;
     }
 #copyright {
     position: absolute;
-    top: 120px;
+    top: 122px;
     left: 108px;
     width: 100%;
     font-size: 11px;

@@ -410,7 +410,7 @@ if($_GET['site'] == 'addons') {
     // -> add new language to the page languages selection, if $_GET['status'] = "addLanguage"
     if($addLanguage)
       $currentlanguageSlection = array_unique(array_merge($adminConfig['multiLanguageWebsite']['languages'],array_keys($pageContent['localization'])));
-    $_SESSION['feinduraSession']['websiteLanguage'] = in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection) ? $_SESSION['feinduraSession']['websiteLanguage']: $adminConfig['multiLanguageWebsite']['mainLanguage']; //current($currentlanguageSlection);
+    $_SESSION['feinduraSession']['websiteLanguage'] = in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection) ? $_SESSION['feinduraSession']['websiteLanguage']: current($currentlanguageSlection);
 
     // if NEW PAGE, overwrite with the mainLanguage
     if($newPage) {
@@ -555,7 +555,5 @@ if($_GET['site'] == 'addons') {
       </div>
     </div>
   </div>
-  
-
 </body>
 </html>
