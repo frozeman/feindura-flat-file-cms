@@ -988,10 +988,10 @@ class Feindura extends FeinduraBase {
 
       // -> create TITLE
       if($currentPage = GeneralFunctions::readPage($this->page,GeneralFunctions::getPageCategory($this->page)))
-        $pageNameInTitle = strip_tags($currentPage['title']).' - ';
+        $pageNameInTitle = strip_tags(GeneralFunctions::getLocalized($currentPage['localization'],'title',$this->language)).' - ';
       
       // -> add TITLE
-      $metaTags .= '  <title>'.$pageNameInTitle.$this->websiteConfig['title'].'</title>'."\n\n";
+      $metaTags .= '  <title>'.$pageNameInTitle.GeneralFunctions::getLocalized($this->websiteConfig['localization'],'title',$this->language).'</title>'."\n\n";
       
       // -> add BASE PATH if SPEAKING URLS are ON
       if($this->adminConfig['speakingUrl'])
@@ -1029,26 +1029,44 @@ class Feindura extends FeinduraBase {
       $metaTags .= '  <meta name="generator" content="feindura - flat file cms '.VERSION.' build:'.BUILD.'"'.$tagEnding."\n";
       $metaTags .= "\n";
       
-      // -> add FEEDS
+      // ->> add FEEDS
       $nonCategory[0] = array('id' => 0);
       $allCategories = $nonCategory + $this->categoryConfig;
-      // -----------------------------------------------------------------------------------------------------------
-      // ->> LIST CATEGORIES
+      // -> for all categories
       foreach($allCategories as $category) {
         
+        // check if feeds are is activated for that category
         if(($category['id'] != 0 && $category['public'] && $category['feeds']) ||
            ($category['id'] == 0 && $this->adminConfig['pages']['feeds'])) {
-          
-          $channelTitle = ($category['id'] == 0)
-            ? $this->websiteConfig['title']
-            : $category['name'].' - '.$this->websiteConfig['title'];
-          
-          $feedsLink = ($category['id'] == 0)
-            ? $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'
-            : $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$category['id'].'/';
-          
-          $metaTags .= '  <link rel="alternate" type="application/atom+xml" title="'.$channelTitle.' (Atom)" href="'.$feedsLink.'atom.xml"'.$tagEnding."\n";
-          $metaTags .= '  <link rel="alternate" type="application/rss+xml" title="'.$channelTitle.' (RSS 2.0)" href="'.$feedsLink.'rss2.xml"'.$tagEnding."\n";
+
+          // get languages
+          $feedLanguages = ($this->adminConfig['multiLanguageWebsite']['active'])
+            ? $this->adminConfig['multiLanguageWebsite']['languages']
+            : array(0 => 0);
+
+          foreach ($feedLanguages as $langCode) {
+
+            // filenames
+            $addLanguageToFilename = (!empty($langCode)) ? '.'.$langCode : '';
+            $atomLink = ($category == 0) 
+              ? $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/atom'.$addLanguageToFilename.'.xml'
+              : $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$category['id'].'/atom'.$addLanguageToFilename.'.xml';
+            $rss2Link = ($category == 0) 
+              ? $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/rss2'.$addLanguageToFilename.'.xml'
+              : $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$category['id'].'/rss2'.$addLanguageToFilename.'.xml';
+
+            // title
+            $websiteTitle = GeneralFunctions::getLocalized($this->websiteConfig['localization'],'title',$langCode);
+            $channelTitle = ($category['id'] == 0)
+              ? $websiteTitle
+              : GeneralFunctions::getLocalized($category['localization'],'name',$langCode).' - '.$websiteTitle;
+
+            $channelTitleLang = (!empty($langCode)) ? ', '.strtoupper($langCode).')' : ')';
+            
+            $metaTags .= '  <link rel="alternate" type="application/atom+xml" title="'.$channelTitle.' (Atom'.$channelTitleLang.'" href="'.$atomLink.'"'.$tagEnding."\n";
+            $metaTags .= '  <link rel="alternate" type="application/rss+xml" title="'.$channelTitle.' (RSS 2.0'.$channelTitleLang.'" href="'.$rss2Link.'"'.$tagEnding."\n";
+
+          }
           
           $metaTags .= "\n";
         }
@@ -1929,7 +1947,7 @@ class Feindura extends FeinduraBase {
                                       $this->titleCategorySeparator);                                      
           
           if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) // data-feindura format: "pageID categoryID"
-            $title = '<span class="feindura_editTitle" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].'">'.$title.'</span>';
+            $title = '<span class="feindura_editTitle" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$this->language.'">'.$title.'</span>';
           
           return $title;
           
@@ -2035,12 +2053,12 @@ class Feindura extends FeinduraBase {
           if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION && !$generatedPage['error']) {
             
             // data-feindura format: "pageID categoryID"
-            $generatedPage['title'] = '<span class="feindura_editTitle" data-feindura="'.$page.' '.$category.'">'.$generatedPage['title'].'</span>';
+            $generatedPage['title'] = '<span class="feindura_editTitle" data-feindura="'.$page.' '.$category.' '.$this->language.'">'.$generatedPage['title'].'</span>';
                         
             if(!preg_match('#<script.*>#',$generatedPage['content']))
-              $generatedPage['content'] = "\n".'<div class="feindura_editPage" data-feindura="'.$page.' '.$category.'">'.$generatedPage['content'].'</div>'."\n";
+              $generatedPage['content'] = "\n".'<div class="feindura_editPage" data-feindura="'.$page.' '.$category.' '.$this->language.'">'.$generatedPage['content'].'</div>'."\n";
             else
-              $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$generatedPage['content'].'</div>'."\n";
+              $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.' '.$this->language.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$generatedPage['content'].'</div>'."\n";
           }
           unset($generatedPage['error']);
           

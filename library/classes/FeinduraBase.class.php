@@ -359,7 +359,7 @@ class FeinduraBase {
         foreach($pages as $page) {
 
           // RETURNs the right page Id
-          if(GeneralFunctions::urlEncode($page['title']) == GeneralFunctions::urlEncode($_GET['page'])) { //GeneralFunctions::urlEncode($page['title'])
+          if(GeneralFunctions::urlEncode(GeneralFunctions::getLocalized($page['localization'],'title',$this->language)) == GeneralFunctions::urlEncode($_GET['page'])) {
             return $page['id'];
           }
         }
@@ -424,7 +424,7 @@ class FeinduraBase {
       
       foreach($this->categoryConfig as $category) {      
         // RETURNs the right category Id
-        if(GeneralFunctions::urlEncode($category['name']) == GeneralFunctions::urlEncode($_GET['category'])) { //GeneralFunctions::urlEncode($category['name'])
+        if(GeneralFunctions::urlEncode(GeneralFunctions::getLocalized($category['localization'],'name',$this->language)) == GeneralFunctions::urlEncode($_GET['category'])) {
           return $category['id'];
         }
       }
@@ -743,7 +743,8 @@ class FeinduraBase {
     // -> PAGE TITLE
     // *****************
     $title = '';
-    if(!empty($pageContent['title']))
+    $rawPageTitle = GeneralFunctions::getLocalized($pageContent['localization'],'title',$this->language);
+    if(!empty($rawPageTitle))
       $title = $this->createTitle($pageContent,				                          
                                   $this->titleLength,
                                   $this->titleAsLink,                                  
@@ -751,7 +752,7 @@ class FeinduraBase {
                                   $this->titleShowCategory,
                                   $this->titlePageDateSeparator,
                                   $this->titleCategorySeparator);      
-      
+
     // -> PAGE THUMBNAIL
     // *****************
     $returnThumbnail = false;
@@ -791,37 +792,37 @@ class FeinduraBase {
     // -> SET UP the PAGE ELEMENTS
     // *******************
     if(!empty($pageContent['id']))
-      $return['id'] = $pageContent['id'];
-    
+      $return['id']                                           = $pageContent['id'];
+
     if($pageContent['category'] && $pageContent['category'] != 0)
-      $return['category'] = $this->categoryConfig[$pageContent['category']]['name'];
-    
+      $return['category']                                     = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localization'],'name',$this->language);
+
     if($pageDate)
-      $return['pageDate']  = $pageDate;
-      
+      $return['pageDate']                                     = $pageDate;
+
     if($pageDate)
-      $return['pageDateTimestamp'] = $pageContent['pageDate']['date'];
-       
-    if(!empty($pageContent['title']))
-       $return['title']	    = $title;
-       
+      $return['pageDateTimestamp']                            = $pageContent['pageDate']['date'];
+
+    if(!empty($rawPageTitle))
+      $return['title']                                        = $title;
+
     if($returnThumbnail) {
-       $return['thumbnail'] = "\n".$returnThumbnail['thumbnail']."\n";
-       $return['thumbnailPath'] = $returnThumbnail['thumbnailPath'];
+      $return['thumbnail']                                    = "\n".$returnThumbnail['thumbnail']."\n";
+      $return['thumbnailPath']                                = $returnThumbnail['thumbnailPath'];
     }
-       
+
     if(!empty($pageContent['content']))
-       $return['content']   = "\n".$pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
-    
+      $return['content']                                      = "\n".$pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
+
     if(!empty($pageContent['description']))
-       $return['description'] = $pageContent['description'];
-    
+      $return['description']                                  = $pageContent['description'];
+
     if(!empty($pageContent['tags']))
-       $return['tags']   = $pageContent['tags'];
-    
+      $return['tags']                                         = $pageContent['tags'];
+
     if(isset($pageContent['plugins']))  
-      $return['plugins'] = $pageContent['plugins'];
-    
+      $return['plugins']                                      = $pageContent['plugins'];
+      
     $return['error'] = false;
     
     /*
@@ -875,7 +876,7 @@ class FeinduraBase {
       $titleAfter = '';
       
       // saves the long version of the title, for the title="" tag
-      //$fullTitle = strip_tags($pageContent['title']);
+      //$fullTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title',$this->language));
            
       // generate titleDate
       if($titleShowPageDate && StatisticFunctions::checkPageDate($pageContent)) {
@@ -893,14 +894,14 @@ class FeinduraBase {
       // show the category name
       if($titleShowCategory === true && $pageContent['category'] != 0) {
         $titleShowCategory = (is_string($titleCategorySeparator))
-          ? $this->categoryConfig[$pageContent['category']]['name'].$titleCategorySeparator
-          : $this->categoryConfig[$pageContent['category']]['name'];
+          ? GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localization'],'name',$this->language).$titleCategorySeparator
+          : GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localization'],'name',$this->language);
       } else
         $titleShowCategory = '';
         
       // generate titleBefore without tags
       //$titleBefore = $titleShowCategory.$titleDate;
-      $title = $titleShowCategory.$titleDate.$pageContent['title'];
+      $title = $titleShowCategory.$titleDate.GeneralFunctions::getLocalized($pageContent['localization'],'title',$this->language);
       
       // generates the title for the title="" tag
       //$titleTagText = $titleBefore.$fullTitle;      
@@ -982,7 +983,7 @@ class FeinduraBase {
       if($this->thumbnailAfter !== true)
         $thumbnailAfter = $this->thumbnailAfter;
       
-      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($pageContent['title'])).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title',$this->language))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       $pageThumbnail['thumbnailPath'] = $this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
       
       return $pageThumbnail;

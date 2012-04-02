@@ -44,7 +44,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 <head>
   <meta charset="UTF-8" />
   
-  <title>feindura: <?php echo $websiteConfig['title']; ?></title>
+  <title>feindura: <?= GeneralFunctions::getLocalized($websiteConfig['localization'],'title'); ?></title>
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=0.5" />
@@ -54,7 +54,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate" />
   
-  <meta name="title" content="feindura: <?php echo $websiteConfig['title']; ?>" />    
+  <meta name="title" content="feindura: <?= GeneralFunctions::getLocalized($websiteConfig['localization'],'title'); ?>" />    
   <meta name="author" content="Fabian Vogelsteller [frozeman.de]" />     
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]" />
   <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]" />    

@@ -52,7 +52,7 @@ $contactForm = new contactForm($pluginConfig['recipient']);
 
 // set configs
 $contactForm->xHtml = $this->xHtml; // set the xHtml property from the feindura class
-$contactForm->websiteTitle = $this->websiteConfig['title'];
+$contactForm->websiteTitle = GeneralFunctions::getLocalized($this->websiteConfig['localization'],'title',$this->language);
 $contactForm->websiteUrl = $this->adminConfig['url'];
 $contactForm->config = $pluginConfig;
 // include the $pluginLangFile
