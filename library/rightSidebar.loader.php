@@ -64,6 +64,34 @@ switch($_GET['site']) {
         echo '</div>';
       echo '<div class="bottom"></div></div>';
     }
+    break;
+
+  // ***** pageSetup sideBar -------------------------------------------- *********
+  case 'pageSetup':
+    $categoryHasMissingLanguages = false;
+    foreach ($categoryConfig as $category) {
+      if($adminConfig['multiLanguageWebsite']['languages'] != array_keys($category['localization']))
+        $categoryHasMissingLanguages = true;
+    }
+    if($categoryHasMissingLanguages) {
+      echo '<div id="rightSidebarMessageBox">';
+        echo '<div class="content">';
+        echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50" />';
+        echo '<h1>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>';
+        echo '<ul class="flags">';
+        foreach ($categoryConfig as $category) {
+          foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
+            if(!isset($category['localization'][$langCode])) {
+              $categoryName = GeneralFunctions::getLocalized($category['localization'],'name');
+              $categoryName = (!empty($categoryName)) ? ' &rArr; '.$categoryName : '';
+              echo '<li><img src="'.getFlag($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="standardLink gray">'.$languageCodes[$langCode].'</a>'.$categoryName.'</li>';
+            }
+          }
+        }
+        echo '</ul>';
+        echo '</div>';
+      echo '<div class="bottom"></div></div>';
+    }
     break; 
     
   // ***** DEFAULT --------------------------------------------------------- *********

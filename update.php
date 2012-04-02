@@ -36,7 +36,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 $oldVersion = '>= 1.0 rc';
 $newVersion = '1.1.6';
-
+    
 ?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -423,9 +423,15 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
         elseif(strpos($data,'|') !== false)
           $category['styleFile'] = changeToSerializedData($data,'|');
       
+      // v1.2 - localized
+      if(!isset($category['localization'])) {
+        $category['localization'][0]['name'] = $category['name'];
+      }
+
+      // change old keys
       $newKey = str_replace('id_','',$key);
       $newKey = intval($newKey);
-      
+
       $newCategoryConfig[$newKey] = $category;
     }
     if(saveCategories($newCategoryConfig))

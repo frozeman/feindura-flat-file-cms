@@ -46,6 +46,9 @@ $allCategories = $nonCategory + $categoryConfig;
 // -----------------------------------------------------------------------------------------------------------
 // ->> LIST CATEGORIES
 foreach($allCategories as $category) {
+
+  // vars
+  $categoryName = GeneralFunctions::getLocalized($category['localization'],'name');
   
   // -> LOAD the PAGES FROM the CATEGORY
   $pages = GeneralFunctions::loadPages($category['id'],true);
@@ -81,7 +84,6 @@ foreach($allCategories as $category) {
     //$categoryId = '<span style="font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
     $headerColor = ' class="blue"';
     $headerIcon = 'library/images/icons/categoryIcon_middle.png';
-    $category['name'] = ' '.$category['name'];
   } else {
     //$categoryId = '<span style="color: #999999; font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
     $headerColor = ' class="brown"';
@@ -95,7 +97,7 @@ foreach($allCategories as $category) {
   // -> CATEGORY HEADLINE
   echo "\n\n".'<div class="block listPages'.$hidden.'">';
   	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
-    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" width="35" height="35" />'.$category['name'].'</span> '.$sorting.'</a></h1>
+    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" width="35" height="35" /> '.$categoryName.'</span> '.$sorting.'</a></h1>
           <div class="category">';
       
       // CATEGORY STATUS

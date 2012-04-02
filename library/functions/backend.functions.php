@@ -513,28 +513,38 @@ function saveCategories($newCategories) {
       $category['styleClass'] = setStylesByPriority($category['styleClass'],'styleClass',true);        
       
       // WRITE
-      $fileContent .= "\$categoryConfig[".$category['id']."]['id'] =              ".XssFilter::int($category['id'],0).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['name'] =            '".XssFilter::text($category['name'])."';\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['id'] =                 ".XssFilter::int($category['id'],0).";\n";      
+      $fileContent .= "\$categoryConfig[".$category['id']."]['public'] =             ".XssFilter::bool($category['public'],true).";\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['createDelete'] =       ".XssFilter::bool($category['createDelete'],true).";\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbnail'] =          ".XssFilter::bool($category['thumbnail'],true).";\n";        
+      $fileContent .= "\$categoryConfig[".$category['id']."]['plugins'] =            '".$category['plugins']."';\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['showTags'] =           ".XssFilter::bool($category['showTags'],true).";\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['showPageDate'] =       ".XssFilter::bool($category['showPageDate'],true).";\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['feeds'] =              ".XssFilter::bool($category['feeds'],true).";\n\n";
       
-      $fileContent .= "\$categoryConfig[".$category['id']."]['public'] =          ".XssFilter::bool($category['public'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['createDelete'] =    ".XssFilter::bool($category['createDelete'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbnail'] =       ".XssFilter::bool($category['thumbnail'],true).";\n";        
-      $fileContent .= "\$categoryConfig[".$category['id']."]['plugins'] =         '".$category['plugins']."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['showTags'] =        ".XssFilter::bool($category['showTags'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['showPageDate'] =    ".XssFilter::bool($category['showPageDate'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['feeds'] =            ".XssFilter::bool($category['feeds'],true).";\n\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['sorting'] =            '".XssFilter::alphabetical($category['sorting'],'manually')."';\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['sortReverse'] =        ".XssFilter::bool($category['sortReverse'],true).";\n\n";
       
-      $fileContent .= "\$categoryConfig[".$category['id']."]['sorting'] =         '".XssFilter::alphabetical($category['sorting'],'manually')."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['sortReverse'] =     ".XssFilter::bool($category['sortReverse'],true).";\n\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['styleFile'] =          '".$category['styleFile']."';\n"; //XssFilter is in prepareStyleFilePaths() function
+      $fileContent .= "\$categoryConfig[".$category['id']."]['styleId'] =            '".XssFilter::string($category['styleId'])."';\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['styleClass'] =         '".XssFilter::string($category['styleClass'])."';\n\n";
       
-      $fileContent .= "\$categoryConfig[".$category['id']."]['styleFile'] =       '".$category['styleFile']."';\n"; //XssFilter is in prepareStyleFilePaths() function
-      $fileContent .= "\$categoryConfig[".$category['id']."]['styleId'] =         '".XssFilter::string($category['styleId'])."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['styleClass'] =      '".XssFilter::string($category['styleClass'])."';\n\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbWidth'] =         '".XssFilter::int($category['thumbWidth'])."';\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbHeight'] =        '".XssFilter::int($category['thumbHeight'])."';\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbRatio'] =         '".XssFilter::alphabetical($category['thumbRatio'])."';\n\n";
       
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbWidth'] =      '".XssFilter::int($category['thumbWidth'])."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbHeight'] =     '".XssFilter::int($category['thumbHeight'])."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbRatio'] =      '".XssFilter::alphabetical($category['thumbRatio'])."';\n\n\n";
-      
+      // save localized
+      if(is_array($category['localization'])) {
+        foreach ($category['localization'] as $langCode => $categoryLocalized) {
+
+          // remove the '' when its 0 (for non localized pages)
+          $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
+
+          $fileContent .= "\$categoryConfig[".$category['id']."]['localization'][".$langCode."]['name']   = '".XssFilter::text($categoryLocalized['name'])."';\n";
+         }
+      }
+      $fileContent .= "\n\n";
+
     }    
     $fileContent .= 'return $categoryConfig;';
     $fileContent .= PHPENDTAG; //? >

@@ -346,6 +346,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
   <div>
   <input type="hidden" name="send" value="categorySetup" />
   <input type="hidden" name="savedCategory" id="savedCategory" value="" />
+  <input type="hidden" name="websiteLanguage" value="<?= $_SESSION['feinduraSession']['websiteLanguage']; ?>" />
   </div>
 
 <div class="block">
@@ -379,6 +380,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       if(is_array($categoryConfig)) {
         $lastCategory = end($categoryConfig);
         $firstCategory = reset($categoryConfig);
+        $autoFocusFirst = true;
         
         foreach($categoryConfig as $category) {
         
@@ -434,13 +436,16 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td><td></td></tr>';
           
           // category NAME
-          $categoryName = (empty($category['name']))
-            ? '<i>'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_UNNAMED'].'</i>'
-            : $category['name'];
-            
-          $autofocus = (empty($category['name']))
-            ? ' autofocus="autofocus"'
-            : '';
+          $categoryName = GeneralFunctions::getLocalized($category['localization'],'name',true);
+          $autofocus = '';
+          // change to "unnamed category" if text is missing
+          if(empty($categoryName)) {
+            $categoryName = '<i>'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_UNNAMED'].'</i>';
+            if($autoFocusFirst) {
+              $autofocus = ' autofocus="autofocus"';
+              $autoFocusFirst = false;
+            }
+          }
           
           echo '<tr><td class="left">';
           echo '<span style="font-size:20px;font-weight:bold;">'.$categoryName.'</span><br />ID '.$category['id'];
@@ -450,13 +455,13 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 // deleteCategory
           echo '<td class="right" style="width:525px;">
                 <div style="border-bottom: 1px dotted #cccccc;width:400px;height:15px;float:left !important;"></div>
-                <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTip" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.$category['name'].'[br][br][span style=color:#990000;]'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'[/span]"></a>';          
+                <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTip" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.GeneralFunctions::getLocalized($category['localization'],'name',true).'[br][br][span style=color:#990000;]'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'[/span]"></a>';          
           echo '</td></tr>';
                 // category name
           echo '<tr><td class="left">
                 <label for="categories'.$category['id'].'name">'.$langFile['PAGESETUP_CATEGORY_TEXT_CATEGORYNAME'].'</label>
                 </td><td class="right">
-                <input id="categories'.$category['id'].'name" name="categories['.$category['id'].'][name]" value="'.$category['name'].'"'.$autofocus.' />
+                <input id="categories'.$category['id'].'name" name="categories['.$category['id'].'][name]" value="'.GeneralFunctions::getLocalized($category['localization'],'name',true).'"'.$autofocus.' />
                 </td></tr>';
           
           echo '<tr><td class="leftBottom"></td><td>';

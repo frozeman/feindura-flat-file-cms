@@ -280,9 +280,18 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['saveCategories'])) {
   
   // serialize the plugins array
-  foreach($_POST['categories'] as $key => $value)
-    $_POST['categories'][$key]['plugins'] = serialize($value['plugins']);
-  
+  foreach($_POST['categories'] as $key => $value) {
+    $_POST['categories'][$key]['plugins']      = serialize($value['plugins']);
+    $_POST['categories'][$key]['localization'] = $categoryConfig[$key]['localization'];
+
+    // STORE LOCALIZED CONTENT
+    if(!empty($value['name']))
+      $_POST['categories'][$key]['localization'][$_POST['websiteLanguage']]['name'] = $value['name'];
+    
+    // delete unnecessary variables
+    unset($_POST['categories'][$key]['name']);
+  }
+
   if(saveCategories($_POST['categories'])) {
     $documentSaved = true; // set documentSaved status
     StatisticFunctions::saveTaskLog(18); // <- SAVE the task in a LOG FILE

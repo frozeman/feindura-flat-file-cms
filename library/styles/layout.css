@@ -44,6 +44,9 @@ span.red, label.red, h1.red, ul.red, div.red, input.red {
 span.gray, a.gray {
     color: #999 !important;
 }
+a.gray:hover, a.gray:focus {
+    color: #DE7124 !important;
+}
 
 /****************/	
 /* *** DIMM-CONTAINER */

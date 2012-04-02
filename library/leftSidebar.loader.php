@@ -82,7 +82,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             $categorySelected = ' class="active"';
           else
             $categorySelected = '';                  
-        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="requestLeftSidebar(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span>'.$category['name'].'</span></a></li>';        
+        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="requestLeftSidebar(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span>'.GeneralFunctions::getLocalized($category['localization'],'name').'</span></a></li>';        
         $tabIndex++;
       }        
     echo '</ul>          
@@ -227,7 +227,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           
             // -> show a anchor link to each category
   	        foreach($categoryConfig as $category) {
-              echo '<li><a href="#categoryAnchor'.$category['id'].'" class="standardLink">'.$category['name'].'</a></li>';
+              echo '<li><a href="#categoryAnchor'.$category['id'].'" class="standardLink">'.GeneralFunctions::getLocalized($category['localization'],'name').'</a></li>';
           
             }	echo '</ul>';
 	      } echo '</div></div>';

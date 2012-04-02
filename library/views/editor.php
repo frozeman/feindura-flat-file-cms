@@ -344,7 +344,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
                                 
                 // -> shows category selection if create pages is allowed
                 if($listCategory['createDelete'])
-                  echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.$listCategory['name'].' (ID '.$listCategory['id'].')</option>'."\n";
+                  echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.GeneralFunctions::getLocalized($listCategory['localization'],'name').' (ID '.$listCategory['id'].')</option>'."\n";
               }
               
         echo '</select>
