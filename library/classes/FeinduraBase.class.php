@@ -443,38 +443,6 @@ class FeinduraBase {
   }
   
  /**
-  * <b>Name</b> replaceLinks()<br />
-  * 
-  * Replaces all feindura links (e.g. "?feinduraPageID=3") inside the given <var>$pageContentString</var> parameter, with real href links.
-  *
-  * @param string $pageContentString      the page content string, to replace all feindura links, with real hrefs
-  * 
-  * @uses GeneralFunctions::readPage()		to load the page for createHref()
-  * @uses GeneralFunctions::createHref()  to create the hreaf of the link
-  * @uses FeinduraBase::language
-  * 
-  * @return string the $pageContentString woth replaced feindura links
-  * 
-  * @see FeinduraBase::generatePage()
-  * 
-  * @access protected
-  * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
-  *    - 1.0 initial release
-  * 
-  */
-  public function replaceLinks($pageContentString) {
-    if(preg_match_all ('#\?*feinduraPageID\=([0-9]+)#i', $pageContentString, $matches,PREG_SET_ORDER)) {
-      // replace each link
-      foreach($matches as $match) {
-        $pageContentString = str_replace($match[0],GeneralFunctions::createHref(GeneralFunctions::readPage($match[1],GeneralFunctions::getPageCategory($match[1])),$this->sessionId,$this->language),$pageContentString);
-      }
-    }
-    return $pageContentString;
-  }
-  
- /**
   * <b>Name</b>     setCurrentPageId()<br />
   * <b>Alias</b>    setPageId()<br />
   * 
@@ -799,7 +767,7 @@ class FeinduraBase {
       $pageContentEdited = GeneralFunctions::htmLawed($pageContent['content'],$htmlLawedConfig);
       
       // replace feindura links
-      $pageContentEdited = self::replaceLinks($pageContentEdited);
+      $pageContentEdited = GeneralFunctions::replaceLinks($pageContentEdited,$this->sessionId,$this->language);
       
       // clear Html tags?
       if($useHtml === false || is_string($useHtml))
@@ -940,7 +908,7 @@ class FeinduraBase {
         
       // create a link for the title
       if($titleAsLink) {
-        $titleBefore = '<a href="'.$this->createHref($pageContent).'" title="'.str_replace('"','&quot;',strip_tags($title)).'">'."\n"; //.$titleBefore;
+        $titleBefore = '<a href="'.$this->createHref($pageContent,$this->sessionId,$this->language).'" title="'.str_replace('"','&quot;',strip_tags($title)).'">'."\n"; //.$titleBefore;
         $titleAfter = "\n</a>";
       }
       
@@ -1823,7 +1791,7 @@ class FeinduraBase {
         $string .= " \n".$moreLink;
       } elseif($moreLink && GeneralFunctions::isPageContentArray($pageContent)) {
         $text = (is_string($moreLink) && !is_bool($moreLink)) ? $moreLink : $this->languageFile['PAGE_TEXT_MORE'];
-        $string .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$text.'</a>';
+        $string .= " \n".'<a href="'.$this->createHref($pageContent,$this->sessionId,$this->language).'">'.$text.'</a>';
       }
       
       return $string;
@@ -1968,7 +1936,7 @@ class FeinduraBase {
         $moreLink = " \n".$moreLink;
       } elseif($moreLink && GeneralFunctions::isPageContentArray($pageContent)) {
         $text = (is_string($moreLink) && !is_bool($moreLink)) ? $moreLink : $this->languageFile['PAGE_TEXT_MORE'];
-        $moreLink = " \n".'<a href="'.$this->createHref($pageContent).'">'.$text.'</a>';
+        $moreLink = " \n".'<a href="'.$this->createHref($pageContent,$this->sessionId,$this->language).'">'.$text.'</a>';
       }
       
       $output = $input;

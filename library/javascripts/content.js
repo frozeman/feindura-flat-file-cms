@@ -856,8 +856,8 @@ window.addEvent('domready', function() {
   var categoryOld;
   var categoryNew;
 
-  if($('SORTABLEPAGELIST_status') !== null)
-    var sortablePageList_status = $('SORTABLEPAGELIST_status').get('value').split("|");
+  if($('sortablePageList_status') !== null)
+    var sortablePageList_status = $('sortablePageList_status').get('value').split("|");
 
   var preventLink = function (){
       return false;

@@ -165,7 +165,7 @@ if($_GET['site'] == 'addons') {
   var feindura_pages = [
   ['-',''],
   <?php foreach($getPages as $getPage) {
-    $categoryText = ($getPage['category'] != 0) ? $categoryConfig[$getPage['category']]['name'].' » ' : '';
+    $categoryText = ($getPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$getPage['category']]['localization'],'name').' » ' : '';
     echo "['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($getPage['localization'],'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
     } ?>  ];
   <?php } ?>

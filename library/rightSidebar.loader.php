@@ -70,8 +70,11 @@ switch($_GET['site']) {
   case 'pageSetup':
     $categoryHasMissingLanguages = false;
     foreach ($categoryConfig as $category) {
-      if($adminConfig['multiLanguageWebsite']['languages'] != array_keys($category['localization']))
+      $arrayDifferences = array_diff($adminConfig['multiLanguageWebsite']['languages'],array_keys($category['localization']));
+      if(!empty($arrayDifferences)) {
         $categoryHasMissingLanguages = true;
+        break;
+      }
     }
     if($categoryHasMissingLanguages) {
       echo '<div id="rightSidebarMessageBox">';

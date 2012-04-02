@@ -37,8 +37,8 @@ if($_POST['categoryOld'] != $_POST['categoryNew']) {
   }
 }
 
-// set Name of the non category
-$categoryConfig[0]['name'] = $langFile['categories_nocategories_name'].' '.$langFile['categories_nocategories_hint'];
+// // set Name of the non category
+// $categoryConfig[0]['localization'][0]['name'] = $langFile['categories_nocategories_name'].' '.$langFile['categories_nocategories_hint'];
 
 // go trough the sort_order which has the id of the pages in the new order
 foreach($sortOrder as $sort) {

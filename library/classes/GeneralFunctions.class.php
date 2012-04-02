@@ -607,30 +607,34 @@ class GeneralFunctions {
    *  
    * @param array        $localizationArray   a localized array in the form of: array('de' => .. , 'en' => .. )
    * @param string       $value               the anme of the value, which should be returned localized
-   * @param bool         $forceLanguage       if TRUE the language will be forced to be loaded, even if it does not exist
+   * @param bool|string  $forceOrUseLanguage  if TRUE the language will be forced to be loaded, even if it does not exist, if string it will use this as the testing language code, instead of the <var>$_SESSION['feinduraSession']['websiteLanguage']</var> var
    *   
    * @return string the localized value of the given <var>$localizationArray</var> parameter
    * 
    * 
    * @static
-   * @version 1.0
+   * @version 1.1
    * <br />
    * <b>ChangeLog</b><br />
+   *    - 1.1 changed $forceLanguage to $forceOrUseLanguage
    *    - 1.0 initial release
    * 
    */
-  public static function getLocalized($localizationArray, $value, $forceLanguage = false) {
+  public static function getLocalized($localizationArray, $value, $forceOrUseLanguage = false) {
 
     // var
-    $languageCode = $_SESSION['feinduraSession']['websiteLanguage'];
+    $languageCode = (!is_bool($forceOrUseLanguage) && is_string($forceOrUseLanguage) && strlen($forceOrUseLanguage) == 2)
+      ? $forceOrUseLanguage
+      : $_SESSION['feinduraSession']['websiteLanguage'];
     
-    // get the one matching $GLOBALS['websiteLanguage']
-    if(isset($localizationArray[$languageCode]) || $forceLanguage)
+    // get the one matching $languageCode
+    if(isset($localizationArray[$languageCode]) ||
+       (is_bool($forceOrUseLanguage) && $forceOrUseLanguage === true))
       $localizedValues = $localizationArray[$languageCode];
     // if not get the one matching the "Main Language"
     elseif(isset($localizationArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']]))
       $localizedValues = $localizationArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']];
-    // if not get the first one in the localized array
+    // if not get the first one in the localization array
     elseif(is_array($localizationArray))
       $localizedValues = current($localizationArray);
     // legacy fallback
@@ -1397,110 +1401,128 @@ class GeneralFunctions {
   * @return bool whether the saving of the feeds succeed or not
   * 
   * 
-  * @version 0.1
+  * @version 0.2
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 0.2 add multilanguage website, creating multiple feeds
   *    - 0.1 initial release
   * 
   */
   public static function saveFeeds($category) {
     
-    // vars    
-    $atomFileName = ($category == 0) 
-      ? dirname(__FILE__).'/../../pages/atom.xml'
-      : dirname(__FILE__).'/../../pages/'.$category.'/atom.xml';
-    $rss2FileName = ($category == 0) 
-      ? dirname(__FILE__).'/../../pages/rss2.xml'
-      : dirname(__FILE__).'/../../pages/'.$category.'/rss2.xml';
-    
-    // ->> DELETE the xml files, if category is deactivated, or nor rss feeds are activated for that
-    if(($category != 0 && (!self::$categoryConfig[$category]['public'] || !self::$categoryConfig[$category]['feeds'])) ||
-       ($category == 0 && !self::$adminConfig['pages']['feeds'])) {
-      if(is_file($atomFileName)) unlink($atomFileName);
-      if(is_file($rss2FileName)) unlink($rss2FileName);
-      return false;
-    }
-    
-    // get the FeedWriter class
-    require_once(dirname(__FILE__).'/../thirdparty/FeedWriter/FeedWriter.php');
-    
     // vars
-    $feedsPages = self::loadPages($category,true);
-    $channelTitle = ($category == 0)
-      ? self::$websiteConfig['title']
-      : self::$categoryConfig[$category]['name'].' - '.self::$websiteConfig['title'];
-    
-    // ->> START feeds
-    $atom = new FeedWriter(ATOM);
-    $rss2 = new FeedWriter(RSS2);
-  
-  	// ->> CHANNEL
-  	// -> ATOM
-  	$atom->setTitle($channelTitle);	
-  	$atom->setLink(self::$adminConfig['url']);	
-  	$atom->setChannelElement('updated', date(DATE_ATOM , time()));
-  	$atom->setChannelElement('author', array('name'=>self::$websiteConfig['publisher']));
-  	$atom->setChannelElement('rights', self::$websiteConfig['copyright']);
-  	$atom->setChannelElement('generator', 'feindura - flat file cms',array('uri'=>'http://feindura.org','version'=>VERSION));
-  	
-  	// -> RSS2
-  	$rss2->setTitle($channelTitle);
-  	$rss2->setLink(self::$adminConfig['url']);	
-  	$rss2->setDescription(self::$websiteConfig['description']);
-    //$rss2->setChannelElement('language', 'en-us');
-    $rss2->setChannelElement('pubDate', date(DATE_RSS, time()));
-    $rss2->setChannelElement('copyright', self::$websiteConfig['copyright']);	
-    
-    // ->> adds the feed ENTRIES/ITEMS
-    foreach($feedsPages as $feedsPage) {
+    $return = false;
+    $languages = (self::$adminConfig['multiLanguageWebsite']['active'])
+      ? self::$adminConfig['multiLanguageWebsite']['languages']
+      : array(0 => 0);
+
+    foreach ($languages as $langCode) {
       
-      if($feedsPage['public']) {
-        // shows the page link
-        $link = self::createHref($feedsPage,false,true);
-        
-        $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
-        $content = strip_tags($feedsPage['content'],'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><strong><small><span>');
-        $content = preg_replace('#<h[0-6]>#','<strong>',$content);
-        $content = preg_replace('#</h[0-6]>#','</strong>',$content);
-        
-        // ATOM
-      	$atomItem = $atom->createNewItem();  	
-      	$atomItem->setTitle(strip_tags($feedsPage['title']));
-      	$atomItem->setLink($link);
-      	$atomItem->setDate($feedsPage['lastSaveDate']);
-        $atomItem->addElement('content',$thumbnail.$content,array('src'=>$link));
+      $addLanguageToFilename = (!empty($langCode)) ? $langCode.'.' : '';
+
+      // vars
+      $atomFileName = ($category == 0) 
+        ? dirname(__FILE__).'/../../pages/atom'.$addLanguageToFilename.'.xml'
+        : dirname(__FILE__).'/../../pages/'.$category.'/atom'.$addLanguageToFilename.'.xml';
+      $rss2FileName = ($category == 0) 
+        ? dirname(__FILE__).'/../../pages/rss2'.$addLanguageToFilename.'.xml'
+        : dirname(__FILE__).'/../../pages/'.$category.'/rss2'.$addLanguageToFilename.'.xml';
       
-        // RSS2
-        $rssItem = $rss2->createNewItem();    
-        $rssItem->setTitle(strip_tags($feedsPage['title']));
-        $rssItem->setLink($link);
-        $rssItem->setDate($feedsPage['lastSaveDate']);
-        $rssItem->addElement('guid', $link,array('isPermaLink'=>'true'));
+      // ->> DELETE the xml files, if category is deactivated, or rss feeds are activated for that category
+      if(($category != 0 && (!self::$categoryConfig[$category]['public'] || !self::$categoryConfig[$category]['feeds'])) ||
+         ($category == 0 && !self::$adminConfig['pages']['feeds'])) {
+        if(is_file($atomFileName)) unlink($atomFileName);
+        if(is_file($rss2FileName)) unlink($rss2FileName);
+        return false;
+      }
+      
+      // get the FeedWriter class
+      require_once(dirname(__FILE__).'/../thirdparty/FeedWriter/FeedWriter.php');
+      
+      // vars
+      $feedsPages = self::loadPages($category,true);
+      $channelTitle = ($category == 0)
+        ? self::getLocalized(self::$websiteConfig['localization'],'title')
+        : self::getLocalized(self::$categoryConfig[$category]['localization'],'name').' - '.self::getLocalized(self::$websiteConfig['localization'],'title');
+      
+      // ->> START feeds
+      $atom = new FeedWriter(ATOM);
+      $rss2 = new FeedWriter(RSS2);
+    
+    	// ->> CHANNEL
+    	// -> ATOM
+    	$atom->setTitle($channelTitle);	
+    	$atom->setLink(self::$adminConfig['url']);	
+    	$atom->setChannelElement('updated', date(DATE_ATOM , time()));
+    	$atom->setChannelElement('author', array('name'=>self::getLocalized(self::$websiteConfig['localization'],'publisher')));
+    	$atom->setChannelElement('rights', self::getLocalized(self::$websiteConfig['localization'],'copyright'));
+    	$atom->setChannelElement('generator', 'feindura - flat file cms',array('uri'=>'http://feindura.org','version'=>VERSION));
+    	
+    	// -> RSS2
+    	$rss2->setTitle($channelTitle);
+    	$rss2->setLink(self::$adminConfig['url']);	
+    	$rss2->setDescription(self::getLocalized(self::$websiteConfig['localization'],'description'));
+      //$rss2->setChannelElement('language', 'en-us');
+      $rss2->setChannelElement('pubDate', date(DATE_RSS, time()));
+      $rss2->setChannelElement('copyright', self::getLocalized(self::$websiteConfig['localization'],'copyright'));	
+      
+      // ->> adds the feed ENTRIES/ITEMS
+      foreach($feedsPages as $feedsPage) {
         
-        // BOTH
-        if(empty($feedsPage['description'])) {
-          //$atomItem->setDescription($thumbnail.GeneralFunctions::shortenString(strip_tags($content),450)); // dont create Atom description when, there is already an content tag
-          $rssItem->setDescription($thumbnail.self::shortenString(strip_tags($content),450));
-        } else {
-          $atomItem->setDescription($thumbnail.$feedsPage['description']);
-          $rssItem->setDescription($thumbnail.$feedsPage['description']);
-        }
+        if($feedsPage['public']) {
+          // shows the page link
+          $link = self::createHref($feedsPage,false,$langCode,true);
+          $title = strip_tags(self::getLocalized($feedsPage['localization'],'title'));
+          
+          $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
+          $content = self::replaceLinks(self::getLocalized($feedsPage['localization'],'content'),false,$langCode);
+          $content = strip_tags($content,'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><em><s><u><strong><small><span>');
+          $content = preg_replace('#<h[0-6]>#','<strong>',$content);
+          $content = preg_replace('#</h[0-6]>#','</strong><br>',$content);
+          
+          // ATOM
+        	$atomItem = $atom->createNewItem();  	
+        	$atomItem->setTitle($title);
+        	$atomItem->setLink($link);
+        	$atomItem->setDate($feedsPage['lastSaveDate']);
+          $atomItem->addElement('content',$thumbnail.$content,array('src'=>$link));
         
-      	//Now add the feeds item	
-      	$atom->addItem($atomItem);
-      	//Now add the feeds item	
-      	$rss2->addItem($rssItem);
-    	}
+          // RSS2
+          $rssItem = $rss2->createNewItem();    
+          $rssItem->setTitle($title);
+          $rssItem->setLink($link);
+          $rssItem->setDate($feedsPage['lastSaveDate']);
+          $rssItem->addElement('guid', $link,array('isPermaLink'=>'true'));
+          
+// !!!!!!!!!!!!!!!!!! hier bin ich
+
+          // BOTH
+          if(empty($feedsPage['description'])) {
+            //$atomItem->setDescription($thumbnail.self::shortenString(strip_tags($content),450)); // dont create Atom description when, there is already an content tag
+            $rssItem->setDescription($thumbnail.self::shortenString(strip_tags($content),450));
+          } else {
+            $atomItem->setDescription($thumbnail.$feedsPage['description']);
+            $rssItem->setDescription($thumbnail.$feedsPage['description']);
+          }
+          
+        	//Now add the feeds item	
+        	$atom->addItem($atomItem);
+        	//Now add the feeds item	
+        	$rss2->addItem($rssItem);
+      	}
+      }
+        
+      // -> SAVE
+      if(file_put_contents($atomFileName,$atom->generateFeed(),LOCK_EX) !== false &&
+              file_put_contents($rss2FileName,$rss2->generateFeed(),LOCK_EX) !== false) {
+        @chmod($atomFileName, self::$adminConfig['permissions']);
+        @chmod($rss2FileName, self::$adminConfig['permissions']);
+        $return = true; 
+      } else
+        $return = false;
+
     }
-      
-    // -> SAVE
-    if(file_put_contents($atomFileName,$atom->generateFeed(),LOCK_EX) !== false &&
-            file_put_contents($rss2FileName,$rss2->generateFeed(),LOCK_EX) !== false) {
-      @chmod($atomFileName, self::$adminConfig['permissions']);
-      @chmod($rss2FileName, self::$adminConfig['permissions']);
-      return true; 
-    } else
-      return false;
+    return $return;
   }
   
  /**
@@ -1548,15 +1570,15 @@ class GeneralFunctions {
     // ->> adds the sitemap ENTRIES
     foreach($sitemapPages as $sitemapPage) {
       
-      // ->> if category is deactivated continue
+      // ->> if category is deactivated jump to the next item in the foreach loop
       if($sitemapPage['category'] != 0 && !self::$categoryConfig[$sitemapPage['category']]['public'])
         continue;
       
       if($sitemapPage['public']) {
         // generate page link
-        $link = self::createHref($sitemapPage,false,true);
+        $link = self::createHref($sitemapPage,false,self::$adminConfig['multiLanguageWebsite']['mainLanguage'],true);
         // add page to sitemap
-        $sitemap->url($link, date('Y-m-d',$sitemapPage['lastSaveDate']), 'monthly'); 
+        $sitemap->url($link, date('Y-m-d',$sitemapPage['lastSaveDate']), 'weekly'); 
     	}
     }
     
@@ -1598,6 +1620,40 @@ class GeneralFunctions {
   }
 
  /**
+  * <b>Name</b> replaceLinks()<br />
+  * 
+  * Replaces all feindura links (e.g. "?feinduraPageID=3") inside the given <var>$pageContentString</var> parameter, with real href links.
+  *
+  * @param string $pageContentString      the page content string, to replace all feindura links, with real hrefs
+  * @param bool|string $sessionId         (optional) the session id which should be transported to the {@link GeneralFunctions::createHref()} method
+  * @param bool|string $language          (optional) the language code id which should be transported to the {@link GeneralFunctions::createHref()} method
+  * 
+  * @uses GeneralFunctions::readPage()    to load the page for createHref()
+  * @uses GeneralFunctions::createHref()  to create the hreaf of the link
+  * @uses FeinduraBase::language
+  * 
+  * @return string the $pageContentString woth replaced feindura links
+  * 
+  * @see FeinduraBase::generatePage()
+  * 
+  * @access protected
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  public function replaceLinks($pageContentString,$sessionId = false,$language = false) {
+    if(preg_match_all ('#\?*feinduraPageID\=([0-9]+)#i', $pageContentString, $matches,PREG_SET_ORDER)) {
+      // replace each link
+      foreach($matches as $match) {
+        $pageContentString = str_replace($match[0],self::createHref(GeneralFunctions::readPage($match[1],self::getPageCategory($match[1])),$sessionId,$language),$pageContentString);
+      }
+    }
+    return $pageContentString;
+  }
+
+ /**
   * <b>Name</b> createHref()<br>
   * 
   * Creates a href-attribute from the given <var>$pageContent</var> parameter,
@@ -1605,6 +1661,7 @@ class GeneralFunctions {
   * 
   * @param array        $pageContent  the $pageContent array of a page
   * @param string|false $sessionId    (optional) the session ID string in the following format: "sessionName=sessionId"
+  * @param bool|string  $languageCode (optional) a language code to use when generating the link, if FALSE it uses the <var>$_SESSION['feinduraSession']['websiteLanguage']</var> variable
   * @param bool         $fullUrl      (optional) if TRUE it add also the URL to the href path  
   * 
   * @uses $adminConfig    for the variabel names which the $_GET variable will use for category and page and the when speakingURLs, for the websitePath
@@ -1641,24 +1698,24 @@ class GeneralFunctions {
       
       $href .= self::getDirname(self::$adminConfig['websitePath']);
 
+      // add the LANGUAGE if multilanguage page
+      $language = (is_string($languageCode) && strlen($languageCode) == 2) ? $languageCode : $_SESSION['feinduraSession']['websiteLanguage'];
+      if(self::$adminConfig['multiLanguageWebsite']['active']) {
+        $href .= $language.'/';
+      }
+
       // adds the CATEGORY to the href attribute
       if($category != 0)
         $href .= 'category/';
       else
         $href .= 'page/';
 
-      // add the LANGUAGE if multilanguage page
-      if(self::$adminConfig['multiLanguageWebsite']['active']) {
-        $language = (isset($_SESSION['feinduraSession']['websiteLanguage'])) ? $_SESSION['feinduraSession']['websiteLanguage'] : $_SESSION['feinduraSession']['language'];
-        $href .= $language.'/';
-      }
-
       // adds the CATEGORY NAME to the href attribute
       if($category != 0)
-        $href .= self::urlEncode(self::$categoryConfig[$category]['name']).'/';
+        $href .= self::urlEncode(self::getLocalized(self::$categoryConfig[$category]['localization'],'name',$language)).'/';
 
       // add PAGE NAME
-      $href .= self::urlEncode(GeneralFunctions::getLocalized($pageContent['localization'],'title',$languageCode));
+      $href .= self::urlEncode(self::getLocalized($pageContent['localization'],'title',$language));
       //$href .= '/'; //'.html';
       
       if($sessionId)

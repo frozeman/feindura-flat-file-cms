@@ -321,7 +321,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
       if($_GET['category'] == 0) // show only if categories exist
         $categoryName = '<span style="color:#A6A6A6;">'.$langFile['EDITOR_pageinfo_category_noCategory'].'</span>';
       else
-        $categoryName = '<span style="color:#A6A6A6;">'.$categoryConfig[$_GET['category']]['name'].' (ID </span>'.$_GET['category'].'<span style="color:#A6A6A6;">)</span>';
+        $categoryName = '<span style="color:#A6A6A6;">'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localization'],'name').' (ID </span>'.$_GET['category'].'<span style="color:#A6A6A6;">)</span>';
       
     
       // ->> if newPage
@@ -364,7 +364,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
               // -> goes trough categories and list them
               foreach($allPages as $curPage) {
                 $selected = ($curPage['id'] == $_GET['template']) ? ' selected="selected"' : $selected = '';
-                $categoryText = ($curPage['category'] != 0) ? $categoryConfig[$curPage['category']]['name'].' » ' : '';
+                $categoryText = ($curPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$curPage['category']]['localization'],'name').' » ' : '';
                 echo '<option value="'.$curPage['id'].'"'.$selected.'>'.$categoryText.GeneralFunctions::getLocalized($curPage['localization'],'title').'</option>'."\n";
               }
               

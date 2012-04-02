@@ -1093,10 +1093,10 @@ function saveSpeakingUrl(&$errorWindow) {
   $newWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($_POST['cfg_websitePath'])),1);
   $oldWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($GLOBALS['adminConfig']['websitePath'])),1);
   
-  $newRewriteRule = 'RewriteRule ^'.$newWebsitePath.'category/(?:[a-z]{2}/{1})?([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?category=$1&page=$2 [QSA,L]'."\n";
-  $newRewriteRule .= 'RewriteRule ^'.$newWebsitePath.'page/(?:[a-z]{2}/{1})?([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?page=$1 [QSA,L]';
-  $oldRewriteRule = 'RewriteRule ^'.$oldWebsitePath.'category/(?:[a-z]{2}/{1})?([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$1&page=$2 [QSA,L]'."\n";
-  $oldRewriteRule .= 'RewriteRule ^'.$oldWebsitePath.'page/(?:[a-z]{2}/{1})?([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$1 [QSA,L]';
+  $newRewriteRule = 'RewriteRule ^'.$newWebsitePath.'(?:[a-z]{2}/{1})?category/([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?category=$1&page=$2 [QSA,L]'."\n";
+  $newRewriteRule .= 'RewriteRule ^'.$newWebsitePath.'(?:[a-z]{2}/{1})?page/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?page=$1 [QSA,L]';
+  $oldRewriteRule = 'RewriteRule ^'.$oldWebsitePath.'(?:[a-z]{2}/{1})?category/([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$1&page=$2 [QSA,L]'."\n";
+  $oldRewriteRule .= 'RewriteRule ^'.$oldWebsitePath.'(?:[a-z]{2}/{1})?page/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$1 [QSA,L]';
   
   $speakingUrlCode = '#
 # feindura -flat file cms - speakingURL activation
@@ -2022,8 +2022,11 @@ function missingLanguageWarning() {
   // -> categoryConfig
   $categoryHasMissingLanguages = false;
     foreach ($GLOBALS['categoryConfig'] as $category) {
-      if($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] != array_keys($category['localization']))
+      $arrayDifferences = array_diff($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'],array_keys($category['localization']));
+      if(!empty($arrayDifferences)) {
         $categoryHasMissingLanguages = true;
+        break;
+      }
     }
     if($categoryHasMissingLanguages) {
         foreach ($GLOBALS['categoryConfig'] as $category) {
@@ -2037,7 +2040,7 @@ function missingLanguageWarning() {
         }
     }
 
-  if(!empty($websiteConfig)) {
+  if(!empty($websiteConfig) || !empty($categoryConfig)) {
     $return .= '<div class="block info missingLanguages">
             <h1>'.$GLOBALS['langFile']['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>
             <div class="content">

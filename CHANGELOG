@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 835
+Build 836
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 836: fixed localized category name displaying; sort order pages fixed too
   build 835: fixed taskLog displaying
   build 834: add global missing languages warning
   build 833: add localization for categoryConfig

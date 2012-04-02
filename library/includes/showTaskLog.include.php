@@ -204,7 +204,7 @@ foreach($logContent as $logRow) {
       
       $categoryName = ($categoryId == 0)
         ? $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']
-        : $categoryConfig[$categoryId]['name'];
+        : GeneralFunctions::getLocalized($categoryConfig[$categoryId]['localization'],'name');
       
       $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" tabindex="'.$count.'" title="'.$categoryName.'">'.GeneralFunctions::shortenString($categoryName, $maxLength).'</a>';
       
