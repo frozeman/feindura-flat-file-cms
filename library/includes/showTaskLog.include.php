@@ -57,7 +57,8 @@ foreach($logContent as $logRow) {
   if(is_array($logTextNumber)) {
     $logRow[2] = $logTextNumber[0];
     $logTextValue = $logTextNumber[1];
-  }
+  } elseif(is_numeric($logTextNumber))
+    $logRow[2] = $logTextNumber;
 
   // add the right languageText
   switch($logRow[2]) {
