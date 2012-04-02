@@ -1418,7 +1418,7 @@ class GeneralFunctions {
 
     foreach ($languages as $langCode) {
       
-      $addLanguageToFilename = (!empty($langCode)) ? $langCode.'.' : '';
+      $addLanguageToFilename = (!empty($langCode)) ? '.'.$langCode : '';
 
       // vars
       $atomFileName = ($category == 0) 
@@ -1473,6 +1473,7 @@ class GeneralFunctions {
           // shows the page link
           $link = self::createHref($feedsPage,false,$langCode,true);
           $title = strip_tags(self::getLocalized($feedsPage['localization'],'title'));
+          $description = self::getLocalized($feedsPage['localization'],'description');
           
           $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
           $content = self::replaceLinks(self::getLocalized($feedsPage['localization'],'content'),false,$langCode);
@@ -1493,16 +1494,14 @@ class GeneralFunctions {
           $rssItem->setLink($link);
           $rssItem->setDate($feedsPage['lastSaveDate']);
           $rssItem->addElement('guid', $link,array('isPermaLink'=>'true'));
-          
-// !!!!!!!!!!!!!!!!!! hier bin ich
 
           // BOTH
-          if(empty($feedsPage['description'])) {
+          if(empty($description)) {
             //$atomItem->setDescription($thumbnail.self::shortenString(strip_tags($content),450)); // dont create Atom description when, there is already an content tag
             $rssItem->setDescription($thumbnail.self::shortenString(strip_tags($content),450));
           } else {
-            $atomItem->setDescription($thumbnail.$feedsPage['description']);
-            $rssItem->setDescription($thumbnail.$feedsPage['description']);
+            $atomItem->setDescription($thumbnail.$description);
+            $rssItem->setDescription($thumbnail.$description);
           }
           
         	//Now add the feeds item	

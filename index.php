@@ -384,8 +384,16 @@ if($_GET['site'] == 'addons') {
                        ($_GET['category'] === 0 && $adminConfig['pages']['createDelete']) ||
                        ($_GET['category'] !== 0 && $categoryConfig[$_GET['category']]['createDelete']))) ? true : false;
     
+     // -> CHECK for DELETE PAGE
+    $showDeletePage = ($generallyCreatePages && !$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new' &&
+                       ($_GET['category'] === 0 && $adminConfig['pages']['createDelete']) ||
+                       ($_GET['category'] !== 0 && $categoryConfig[$_GET['category']]['createDelete'])) ? true : false;
+    
     $isInPageEditor = (isset($_GET['page']) && !$newPage) ? true : false;
     
+    // ->CHECK frontend editing
+    $showFrontendEditing = ($isInPageEditor && $adminConfig['user']['frontendEditing']) ? true : false;
+
     // -> CHECK for pageThumbnailUpload
     $showPageThumbnailUpload = (!$newPage &&
                                 empty($_GET['site']) && !empty($_GET['page']) &&
@@ -394,9 +402,6 @@ if($_GET['site'] == 'addons') {
     
     // -> CHECK for pageThumbnailDelete
     $showPageThumbnailDelete = (empty($_GET['site']) && !empty($pageContent['thumbnail'])) ? true : false;
-    
-     // -> CHECK for DELETE PAGE
-    $showDeletePage = (!$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new') ? true : false;
     
     // -> CHECK if show SUBMENU
     $showSubMenu = ((isset($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup') && 
@@ -458,23 +463,23 @@ if($_GET['site'] == 'addons') {
             <?php
             }
 
-            // FRONTEND EDITING
-            if($isInPageEditor && $adminConfig['user']['frontendEditing']) { ?>
-              <li class="spacer">&nbsp;</li>
-              <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'"'; ?> tabindex="30" class="editPage toolTip">&nbsp;</a></li>
-            <?php
-            }
-            
             // CREATE NEW PAGE
             if($showCreatePage) { ?>
               <li class="spacer">&nbsp;</li>
               <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" tabindex="31" class="createPage toolTip" title="<?= $langFile['BUTTON_CREATEPAGE'].'::'.$langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>">&nbsp;</a></li>
             <?php
+            }
+            
+            // FRONTEND EDITING
+            if($showFrontendEditing) { ?>
+              <li class="spacer">&nbsp;</li>
+              <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'"'; ?> tabindex="30" class="editPage toolTip">&nbsp;</a></li>
+            <?php }
             // DELETEPAGE
-            if($showDeletePage) { ?>
+            if($showDeletePage) {
+              if(!$showFrontendEditing) echo '<li class="spacer">&nbsp;</li>'; ?>
               <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\',true);return false;" title="'.$langFile['BUTTON_DELETEPAGE'].'::'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'"'; ?> tabindex="32" class="deletePage toolTip">&nbsp;</a></li>
-            <?php }          
-            }         
+            <?php }       
             
             // PAGETHUMBNAILUPLOAD
             if($showPageThumbnailUpload) { ?>

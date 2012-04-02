@@ -64,7 +64,9 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   $newAdminConfig['pageThumbnail']['ratio']               = $_POST['cfg_thumbRatio'];
   $newAdminConfig['pageThumbnail']['path']                = $_POST['cfg_thumbPath'];
 
-  // -> CHANGE PAGES to MULTI LANGUAGE pages
+  // ------------------------------------------------------------------
+
+  // ->> CHANGE PAGES to MULTI LANGUAGE pages
   if($newAdminConfig['multiLanguageWebsite']['active'] == 'true') {
 
     // -> CHANGE PAGES
@@ -101,9 +103,9 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
       unset($websiteConfig['localization'][0]);
     }
     if(!saveWebsiteConfig($websiteConfig))
-      $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['realBasePath']);
+      $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['realBasePath']);    
 
-  // -> CHANGE TO SINGLE LANGUAGE
+  // ->> CHANGE TO SINGLE LANGUAGE
   } else {
 
     // -> CHANGE PAGES
@@ -124,7 +126,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
         $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
     }
 
-
     // -> CHANGE WEBSITE CONFIG
     // change the localized content to non localized content using the the mainLanguage
     if(is_array($websiteConfig['localization']) && isset($websiteConfig['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
@@ -139,6 +140,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
       $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['realBasePath']);
 
   }
+  // ------------------------------------------------------------------
   
   // -> save ADMIN SETTINGS
   if(saveAdminConfig($newAdminConfig)) {
@@ -316,6 +318,19 @@ if($savedSettings) {
   StatisticFunctions::$adminConfig = $adminConfig;
   StatisticFunctions::$categoryConfig = $categoryConfig;
   
+  // DELETE old FEED FILES
+  // non category
+  $feedFiles = glob(dirname(__FILE__).'/../../pages/*.xml');
+  foreach ($feedFiles as $feedFile) {
+    unlink($feedFile);
+  }
+  foreach ($categoryConfig as $category) {
+    $feedFiles = glob(dirname(__FILE__).'/../../pages/'.$category['id'].'/*.xml');
+    foreach ($feedFiles as $feedFile) {
+      unlink($feedFile);
+    }
+  }
+  
   // ->> save the FEEDS for non-category pages, if activated
   GeneralFunctions::saveFeeds(0);
   // ->> save the FEEDS for categories, if activated
@@ -323,6 +338,7 @@ if($savedSettings) {
     foreach($categoryConfig as $category)
       GeneralFunctions::saveFeeds($category['id']);
   }
+  
   // ->> save the SITEMAP
   GeneralFunctions::saveSitemap();
 }
