@@ -69,6 +69,15 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   // ->> CHANGE PAGES to MULTI LANGUAGE pages
   if($newAdminConfig['multiLanguageWebsite']['active'] == 'true') {
 
+    // GET the REMOVED LANGUAGES
+    $removedLanguages = array();
+    if(is_array($adminConfig['multiLanguageWebsite']['languages'])) {
+      foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
+        if(!in_array($langCode, $newAdminConfig['multiLanguageWebsite']['languages']))
+          $removedLanguages[] = $langCode;
+      }
+    }
+        
     // -> CHANGE PAGES
     $allPages = GeneralFunctions::loadPages(true);
     foreach($allPages as $pageContent) {
@@ -83,18 +92,9 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
           ? $pageContent['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
           : current($pageContent['localization']);
 
-
-        // GET the REMOVED LANGUAGES
-        if(is_array($adminConfig['multiLanguageWebsite']['languages'])) {
-          $removedLanguages = array();
-          foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
-            if(!in_array($langCode, $newAdminConfig['multiLanguageWebsite']['languages']))
-              $removedLanguages[] = $langCode;
-          }
-          // REMOVE those LANGUAGES
-          foreach ($removedLanguages as $langCode) {
-            unset($pageContent['localization'][$langCode]);
-          }
+        // REMOVE old LANGUAGES
+        foreach ($removedLanguages as $langCode) {
+          unset($pageContent['localization'][$langCode]);
         }
 
         // put the mainLanguage on the top
@@ -115,9 +115,42 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
       // put the mainLanguage on the top
       $websiteConfig['localization'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $websiteConfig['localization']);
       unset($websiteConfig['localization'][0]);
+
+      // REMOVE old LANGUAGES
+      foreach ($removedLanguages as $langCode) {
+        unset($websiteConfig['localization'][$langCode]);
+      }
     }
     if(!saveWebsiteConfig($websiteConfig))
       $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['realBasePath']);    
+
+    // -> CHANGE CATEGORY CONFIG
+    // change the localized content to non localized content using the the mainLanguage
+    if(is_array($categoryConfig)) {
+      $newCategoryConfig = array();
+      foreach ($categoryConfig as $key => $category) {
+        $newCategoryConfig[$key] = $category;
+
+          // get the either the already existing mainLanguage, or use the next following language as the mainLanguage
+        $useLocalization = (isset($category['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
+          ? $category['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
+          : current($category['localization']);
+
+        // put the mainLanguage on the top
+        $newCategoryConfig[$key]['localization'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $category['localization']);
+        unset($newCategoryConfig[$key]['localization'][0]);
+
+        // REMOVE old LANGUAGES
+        foreach ($removedLanguages as $langCode) {
+          unset($newCategoryConfig[$key]['localization'][$langCode]);
+        }
+      }
+      if(!saveCategories($newCategoryConfig))
+        $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['realBasePath']);
+    }
+
+    // -> add SESSION
+    $_SESSION['feinduraSession']['websiteLanguage'] = $newAdminConfig['multiLanguageWebsite']['mainLanguage'];
 
   // ->> CHANGE TO SINGLE LANGUAGE
   } else {
@@ -153,6 +186,29 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     if(!saveWebsiteConfig($websiteConfig))
       $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['realBasePath']);
 
+
+    // -> CHANGE CATEGORY CONFIG
+    // change the localized content to non localized content using the the mainLanguage
+    if(is_array($categoryConfig)) {
+      $newCategoryConfig = array();
+      foreach ($categoryConfig as $key => $category) {
+        $newCategoryConfig[$key] = $category;
+
+        if(is_array($category['localization']) && isset($category['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
+          $storedMainLanguageArray = $category['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
+          unset($newCategoryConfig[$key]['localization']);
+          $newCategoryConfig[$key]['localization'][0] = $storedMainLanguageArray;
+        
+        // if the mainLanguage didnt exist create an empty array
+        } else
+          $newCategoryConfig[$key]['localization'][0] = array();
+      }
+      if(!saveCategories($newCategoryConfig))
+        $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['realBasePath']);
+    }
+
+    // -> unset SESSION
+    unset($_SESSION['feinduraSession']['websiteLanguage']);
   }
   // ------------------------------------------------------------------
   

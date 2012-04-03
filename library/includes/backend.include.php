@@ -108,19 +108,21 @@ if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {
  * GET the PAGE LANGUAGE CODE
  * 
  */
-//XSS Filter
-if(isset($_GET['websiteLanguage'])) $_GET['websiteLanguage'] = XssFilter::alphabetical($_GET['websiteLanguage']);
-if(isset($_SESSION['feinduraSession']['websiteLanguage'])) $_SESSION['feinduraSession']['websiteLanguage'] = XssFilter::alphabetical($_SESSION['feinduraSession']['websiteLanguage']);
+if($adminConfig['multiLanguageWebsite']['active']) {
+  //XSS Filter
+  if(isset($_GET['websiteLanguage'])) $_GET['websiteLanguage'] = XssFilter::alphabetical($_GET['websiteLanguage']);
+  if(isset($_SESSION['feinduraSession']['websiteLanguage'])) $_SESSION['feinduraSession']['websiteLanguage'] = XssFilter::alphabetical($_SESSION['feinduraSession']['websiteLanguage']);
 
-if($adminConfig['multiLanguageWebsite']['active'] && isset($_GET['websiteLanguage']))
-  $websiteLanguage = $_GET['websiteLanguage'];
-elseif($adminConfig['multiLanguageWebsite']['active'] && !isset($_GET['websiteLanguage']) && !empty($_SESSION['feinduraSession']['websiteLanguage']))
-  $websiteLanguage = $_SESSION['feinduraSession']['websiteLanguage'];
-elseif(!empty($adminConfig['multiLanguageWebsite']['mainLanguage']))
-  $websiteLanguage = $adminConfig['multiLanguageWebsite']['mainLanguage'];
-// reset the websiteLanguage SESSION var
-$_SESSION['feinduraSession']['websiteLanguage'] = $websiteLanguage;
-unset($websiteLanguage);
+  if($adminConfig['multiLanguageWebsite']['active'] && isset($_GET['websiteLanguage']))
+    $websiteLanguage = $_GET['websiteLanguage'];
+  elseif($adminConfig['multiLanguageWebsite']['active'] && !isset($_GET['websiteLanguage']) && !empty($_SESSION['feinduraSession']['websiteLanguage']))
+    $websiteLanguage = $_SESSION['feinduraSession']['websiteLanguage'];
+  elseif(!empty($adminConfig['multiLanguageWebsite']['mainLanguage']))
+    $websiteLanguage = $adminConfig['multiLanguageWebsite']['mainLanguage'];
+  // reset the websiteLanguage SESSION var
+  $_SESSION['feinduraSession']['websiteLanguage'] = $websiteLanguage;
+  unset($websiteLanguage);
+}
 
 /**
  * SET the BACKEND LANGUAGE

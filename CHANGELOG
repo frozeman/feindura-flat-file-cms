@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 840
+Build 841
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 841: fixed multilanguage website feature
   build 840: fixed some issues; now only changeing time by url is missing
   build 839: finsihed formally localization feature
   build 838: working on localization in the frontend (stopped at ['title'])

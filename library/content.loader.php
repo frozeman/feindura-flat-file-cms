@@ -14,8 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// content.loader.php version 0.4
-
+// content.loader.php version 0.5
 
 // ***********************************************************************
 // CHECKs if the DOCUMENTROOT could be resolved succesfully
