@@ -40,8 +40,8 @@ require_once(dirname(__FILE__).'/includes/Image.class.php');
 * ...
 * </samp> 
 *
-* <b>Notice</b>: works only with "png", "gif" and "jpg" or "jpeg" filetypes.
-* <b>Notice</b>: The image gallery is surrounded by an '<div class="feinduraPlugin_slideShow">' tag to help to style the image gallery. 
+* <b>Note</b>: works only with "png", "gif" and "jpg" or "jpeg" filetypes.
+* <b>Note</b>: The image gallery is surrounded by an '<div class="feinduraPlugin_slideShow">' tag to help to style the image gallery. 
 * 
 * @author Fabian Vogelsteller <fabian@feindura.org>
 * @copyright Fabian Vogelsteller
@@ -119,7 +119,7 @@ class slideShow {
   * 
   * All pictures will be resized to this width when the {@link slideShow::resizeImages()} method is called.
   * 
-  * <b>Notice</b>: If the {@link slideShow::$imageHeight} property is null, it keeps the aspect ratio of the images.
+  * <b>Note</b>: If the {@link slideShow::$imageHeight} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
   * @access public
@@ -134,7 +134,7 @@ class slideShow {
   * 
   * All pictures will be resized to this height when the {@link resizeImages()} method is called.
   * 
-  * <b>Notice</b>: If the {@link slideShow::$imageWidth} property is null, it keeps the aspect ratio of the images.
+  * <b>Note</b>: If the {@link slideShow::$imageWidth} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
   * @access public
@@ -431,7 +431,7 @@ class slideShow {
   * 
   * Generates the slide show for displaying in an HTML-page
   * 
-  * <b>Notice</b>: The slide show div tag has also a 'class="feinduraPlugin_slideShow nivoo-slider"' attribute for styling.  
+  * <b>Note</b>: The slide show div tag has also a 'class="feinduraPlugin_slideShow nivoo-slider"' attribute for styling.  
   * 
   * @param string       $containerId  the ID if the container div, which holds the slideshow
   * @param array        $pageContent (optional) the $pageContent array of the page which uses the plugin, to compare the last edit date with the one from the "lastmodification.log"

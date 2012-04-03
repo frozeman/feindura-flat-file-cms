@@ -413,7 +413,7 @@ if($_GET['site'] == 'addons') {
     $currentlanguageSlection = (isset($pageContent['localization'])) ? array_keys($pageContent['localization']) : $adminConfig['multiLanguageWebsite']['languages'];
 
     // -> add new language to the page languages selection, if $_GET['status'] = "addLanguage"
-    if($addLanguage)
+    if($_GET['status'] == 'addLanguage')
       $currentlanguageSlection = array_unique(array_merge($adminConfig['multiLanguageWebsite']['languages'],array_keys($pageContent['localization'])));
     $_SESSION['feinduraSession']['websiteLanguage'] = in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection) ? $_SESSION['feinduraSession']['websiteLanguage']: current($currentlanguageSlection);
 
@@ -517,7 +517,7 @@ if($_GET['site'] == 'addons') {
                 <?php
                   // create language selection
                   foreach($currentlanguageSlection as $langCode) {
-                    if($newPage || !isset($pageContent) || isset($pageContent['localization'][$langCode]) || ($addLanguage && $_SESSION['feinduraSession']['websiteLanguage'] == $langCode)) {
+                    if($newPage || !isset($pageContent) || isset($pageContent['localization'][$langCode]) || ($_GET['status'] == 'addLanguage' && $_SESSION['feinduraSession']['websiteLanguage'] == $langCode)) {
                       $selected = ($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) ? ' selected="selected"' : '';
                       echo '<option value="'.$langCode.'"'.$selected.'>'.$languageCodes[$langCode].'</option>';
                     }

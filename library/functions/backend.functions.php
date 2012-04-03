@@ -469,9 +469,10 @@ function createBasicFolders() {
  * 
  * @example backend/categoryConfig.array.example.php of the $categoryConfig array
  * 
- * @version 1.1
+ * @version 1.2
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.2 add localization
  *    - 1.1 change from fopen() to file_put_contents()
  *    - 1.0.2 add prevent resetting check
  *    - 1.0.1 add XssFilter to every value
@@ -940,9 +941,10 @@ function saveUserConfig($userConfig) {
  * 
  * @example backend/websiteConfig.array.example.php of the $websiteConfig array
  * 
- * @version 1.1
+ * @version 1.2
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.2 add localization
  *    - 1.1 change from fopen() to file_put_contents()
  *    - 1.0.3 add prevent resetting check
  *    - 1.0.2 add XssFilter to every value 

@@ -734,17 +734,18 @@ class FeinduraBase {
     if(StatisticFunctions::checkPageDate($pageContent)) {
     	$titleDateBefore = '';
     	$titleDateAfter = '';
+      $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localization'],'pageDate',$this->language);
     	// adds spaces on before and after
-    	if($pageContent['pageDate']['before']) $titleDateBefore = $pageContent['pageDate']['before'].' ';
-    	if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];
+    	if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
+    	if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
     	$pageDate = $titleDateBefore.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter;
     }
       
     // -> PAGE TITLE
     // *****************
     $title = '';
-    $rawPageTitle = GeneralFunctions::getLocalized($pageContent['localization'],'title',$this->language);
-    if(!empty($rawPageTitle))
+    $localizedPageTitle = GeneralFunctions::getLocalized($pageContent['localization'],'title',$this->language);
+    if(!empty($localizedPageTitle))
       $title = $this->createTitle($pageContent,				                          
                                   $this->titleLength,
                                   $this->titleAsLink,                                  
@@ -761,11 +762,12 @@ class FeinduraBase {
     
     // ->> MODIFING pageContent
     // ************************
-    if(!empty($pageContent['content'])) {
+    $localizedPageContent = GeneralFunctions::getLocalized($pageContent['localization'],'content',$this->language);
+    if(!empty($localizedPageContent)) {
       
       $htmlLawedConfig['safe'] = ($this->adminConfig['editor']['safeHtml']) ? 1 : 0;
       $htmlLawedConfig['valid_xhtml'] = ($this->xHtml) ? 1 : 0;
-      $pageContentEdited = GeneralFunctions::htmLawed($pageContent['content'],$htmlLawedConfig);
+      $pageContentEdited = GeneralFunctions::htmLawed($localizedPageContent,$htmlLawedConfig);
       
       // replace feindura links
       $pageContentEdited = GeneralFunctions::replaceLinks($pageContentEdited,$this->sessionId,$this->language);
@@ -788,6 +790,12 @@ class FeinduraBase {
       $contentEndTag = '';
       $pageContentEdited = '';
     }
+
+    // -> get description
+    $localizedPageDescription = GeneralFunctions::getLocalized($pageContent['localization'],'description',$this->language);
+
+    // -> get tags
+    $localizedPageTags = GeneralFunctions::getLocalized($pageContent['localization'],'tags',$this->language);
     
     // -> SET UP the PAGE ELEMENTS
     // *******************
@@ -803,7 +811,7 @@ class FeinduraBase {
     if($pageDate)
       $return['pageDateTimestamp']                            = $pageContent['pageDate']['date'];
 
-    if(!empty($rawPageTitle))
+    if(!empty($localizedPageTitle))
       $return['title']                                        = $title;
 
     if($returnThumbnail) {
@@ -811,14 +819,14 @@ class FeinduraBase {
       $return['thumbnailPath']                                = $returnThumbnail['thumbnailPath'];
     }
 
-    if(!empty($pageContent['content']))
+    if(!empty($localizedPageContent))
       $return['content']                                      = "\n".$pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
 
-    if(!empty($pageContent['description']))
-      $return['description']                                  = $pageContent['description'];
+    if(!empty($localizedPageDescription))
+      $return['description']                                  = $localizedPageDescription;
 
-    if(!empty($pageContent['tags']))
-      $return['tags']                                         = $pageContent['tags'];
+    if(!empty($localizedPageTags))
+      $return['tags']                                         = $localizedPageTags;
 
     if(isset($pageContent['plugins']))  
       $return['plugins']                                      = $pageContent['plugins'];
@@ -882,9 +890,10 @@ class FeinduraBase {
       if($titleShowPageDate && StatisticFunctions::checkPageDate($pageContent)) {
         $titleDateBefore = '';
         $titleDateAfter = '';
+        $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localization'],'pageDate',$this->language);
         // adds spaces on before and after
-        if($pageContent['pageDate']['before']) $titleDateBefore = $pageContent['pageDate']['before'].' ';
-        if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];
+        if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
+        if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
         $titleDate = $titleDateBefore.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter;
         $titleDate = (is_string($titlePageDateSeparator))
           ? $titleDate.$titlePageDateSeparator
@@ -1276,40 +1285,42 @@ class FeinduraBase {
   * 
   * If the given <var>$pageContent</var> array has one or more tags from the <var>$tags</var> parameter,
   * it returns the <var>$pageContent</var> array otherwise it FALSE.<br />
-  * <b>Notice</b>: the tags will be compared case insensitive.
+  * <b>Note</b>: the tags will be compared case insensitive.
   * 
-  * @param array $pageContent    the $pageContent array of a page
+  * @param array $pageContent    the <var>$pageContent</var> array of a page
   * @param array $tags           an array with tags to compare
   * 
   * 
-  * @return array|false the $pageContent array or FALSE if the $pageContent['tags'] doesn't match with any of the given tags
+  * @return array|false the $pageContent array or FALSE if the $pageContent['localization'][...]['tags'] doesn't match with any of the given tags
   * 
   * @see Feindura::listPagesByTags()
   * @see Feindura::createMenuByTags()
   * 
   * @access protected
-  * @version 1.0.1
+  * @version 1.1
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 1.1 add localization
   *    - 1.0.1 fixed comparision, beacause i changed separarion of tags from whitespace to ,  
   *    - 1.0 initial release
   *   
   */ 
-  protected function compareTags($pageContent,  // (Array) the pageContent Array, need the $pageContent['tags'] var
-                                 $tags) {       // (Array) with the search TAGs
+  protected function compareTags($pageContent, $tags) {
     
+    // var
+    $pageTags = GeneralFunctions::getLocalized($pageContent['localization'],'tags',$this->language);
+
     // CHECKS if the $tags are in an array,
     // and the pageContent['tags'] var exists and is not empty
-    if(is_array($tags) && isset($pageContent['tags']) && !empty($pageContent['tags'])) { 
+    if(is_array($tags) && isset($pageTags) && !empty($pageTags)) {
       // lowercase
-      $pageTags = strtolower($pageContent['tags']);
+      $pageTags = strtolower($pageTags);
       //$pageTags = str_replace(',',' ',$pageTags);
       
       // goes trough the given TAG Array, and look of one tga is in the pageContent['tags'} var
       foreach($tags as $tag) {
         // lowercase
         $tag = strtolower($tag);
-        
         if(strpos(','.$pageTags.',',','.$tag.',') !== false) {
           return $pageContent;
         }
@@ -1325,7 +1336,7 @@ class FeinduraBase {
   * 
   * Load pages by ID-type and ID(s), but only if the page(s) have one or more tags from the given <var>$tags</var> parameter.
   * 
-  * <b>Notice</b>: the tags will be compared case insensitive.
+  * <b>Note</b>: the tags will be compared case insensitive.
   * 
   * @param string         $idType    the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids       the category or page ID(s), can be a number or an array with numbers, if TRUE it checks all pages tags
@@ -1397,8 +1408,8 @@ class FeinduraBase {
   * If the given <var>$ids</var> parameter is a string/array with "first" or "last" it returns the first or last page ID in that category from the current {@link Feindura::$page} property/{@link Feindura::$category} property on.
   * If the string is "random" it returns a random page ID in the current category, if its an array like: array('random','random') it would return a random page ID from a random category.
   *
-  * <b>Notice</b>: What is the first or last page/category depends on the sorting you have of the pages/categories in the feindura backend.
-  * <b>Notice</b>: When using "previous","next","first" or "last" it will jump over pages/categories which are not public and return the next one.
+  * <b>Note</b>: What is the first or last page/category depends on the sorting you have of the pages/categories in the feindura backend.
+  * <b>Note</b>: When using "previous","next","first" or "last" it will jump over pages/categories which are not public and return the next one.
   *
   * Examples of possible <var>$ids</var> parameter.
   * <code>

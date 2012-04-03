@@ -157,7 +157,7 @@ class Feindura extends FeinduraBase {
   * Contains an id-Attribute which will be add to any <a ...> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: You can only set one specific id-Attribute to elements in a HTML page,
+  * <b>Note</b>: You can only set one specific id-Attribute to elements in a HTML page,
   * if you set this property and call {@link createMenu()} every link in the menu will get this id-Attribute.
   * 
   * @var string|false If no id-Attribute should be add, set it to FALSE.
@@ -174,7 +174,7 @@ class Feindura extends FeinduraBase {
   * Contains an class-Attribute which will be add to any <a ...> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this class-Attribute.
+  * <b>Note</b>: If you set this property and call {@link createMenu()} every link in the menu will get this class-Attribute.
   * 
   * @var string|false If no class-Attribute should be add, set it to FALSE.
   * @access public
@@ -190,7 +190,7 @@ class Feindura extends FeinduraBase {
   * Contains a string with attributes which will be add to any <a ...> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this attributes string.
+  * <b>Note</b>: If you set this property and call {@link createMenu()} every link in the menu will get this attributes string.
   * 
   * The string should have the following format
   * <samp>
@@ -211,7 +211,7 @@ class Feindura extends FeinduraBase {
   * Contains a string which will be add before any <a></a> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this string.
+  * <b>Note</b>: If you set this property and call {@link createMenu()} every link in the menu will get this string.
   * 
   * @var string|false If no text should be add before a link, set it to FALSE.
   * @access public
@@ -227,7 +227,7 @@ class Feindura extends FeinduraBase {
   * Contains a string which will be add after any <a></a> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this string.
+  * <b>Note</b>: If you set this property and call {@link createMenu()} every link in the menu will get this string.
   * 
   * @var string|false If no text should be add after a link, set it to FALSE.
   * @access public
@@ -243,7 +243,7 @@ class Feindura extends FeinduraBase {
   * Contains a string which will be add before the link text but inside any <a></a> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this string.  
+  * <b>Note</b>: If you set this property and call {@link createMenu()} every link in the menu will get this string.  
   * 
   * @var string|false If no text should be add before a link text, set it to FALSE.
   * @access public
@@ -259,7 +259,7 @@ class Feindura extends FeinduraBase {
   * Contains a string which will be add after the link text but inside any <a></a> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this string.  
+  * <b>Note</b>: If you set this property and call {@link createMenu()} every link in the menu will get this string.  
   * 
   * @var string|false If no text should be add after a link text, set it to FALSE.
   * @access public
@@ -307,7 +307,7 @@ class Feindura extends FeinduraBase {
   * If the {@link $linkShowCategory} property is TRUE, the page date is placed between the category name + separator and the link text.<br />
   * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend
   *   
-  * <b>Notice</b>: The page date will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
+  * <b>Note</b>: The page date will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
   * 
   * Example:
   * <samp>
@@ -328,7 +328,7 @@ class Feindura extends FeinduraBase {
   * If the {@link $linkShowPageDate} property is TRUE,
   * this string will be used as a separator between the page date and the link text of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will use this separator.
+  * <b>Note</b>: If you set this property and call {@link createMenu()} every link in the menu will use this separator.
   * 
   * @var string
   * @access public
@@ -365,7 +365,7 @@ class Feindura extends FeinduraBase {
   * If the {@link $linkShowCategory} property is TRUE,
   * this string will be used as a separator between the category name and the link text of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will use this separator.
+  * <b>Note</b>: If you set this property and call {@link createMenu()} every link in the menu will use this separator.
   * 
   * @var string
   * @access public
@@ -397,7 +397,7 @@ class Feindura extends FeinduraBase {
  /**
   * Contains an class-Attribute which will be add to the menu tag.
   * 
-  * <b>Notice</b>: This class-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
+  * <b>Note</b>: This class-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
   * 
   * @var string|false If no class-Attribute should be add, set it to FALSE.
   * @access public
@@ -411,7 +411,7 @@ class Feindura extends FeinduraBase {
  /**
   * Contains a string with attributes which will be add to the menu tag.
   * 
-  * <b>Notice</b>: This string with attributes will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
+  * <b>Note</b>: This string with attributes will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
   * 
   * The string should have the following format
   * <samp>
@@ -534,7 +534,7 @@ class Feindura extends FeinduraBase {
   * 
   * If the values are "left" or "right" a style-attribute will be add to the thumbnail <img> tag with "float:left/right;".
   * 
-  * <b>Notice</b>: If you set this property, you can't add any style attribute with the {@link $thumbnailAttributes} property anymore, it would not be used by the browser.
+  * <b>Note</b>: If you set this property, you can't add any style attribute with the {@link $thumbnailAttributes} property anymore, it would not be used by the browser.
   * 
   * <samp>
   * <img src="/path/image.png" ... style="float:left;" />
@@ -555,7 +555,7 @@ class Feindura extends FeinduraBase {
  /**
   * Contains an id-Attribute which will be add to the thumbnail <img> tag.
   * 
-  * <b>Notice</b>: You can only set one specific id-Attribute to elements in a HTML page.
+  * <b>Note</b>: You can only set one specific id-Attribute to elements in a HTML page.
   * 
   * @var string|false If no id-Attribute should be add, set it to FALSE.
   * @access public
@@ -657,7 +657,7 @@ class Feindura extends FeinduraBase {
  /**
   * The tag which should be used for the error message.
   * 
-  * <b>Notice</b>: If this property is no string, the {@link $errorId}, {@link $errorClass} and {@link $errorAttributes} property will not be add.<br />
+  * <b>Note</b>: If this property is no string, the {@link $errorId}, {@link $errorClass} and {@link $errorAttributes} property will not be add.<br />
   * 
   * Example:
   * <samp>
@@ -698,7 +698,7 @@ class Feindura extends FeinduraBase {
  /**
   * Contains an class-Attribute which will be add to the error tag.
   * 
-  * <b>Notice</b>: This class-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br />
+  * <b>Note</b>: This class-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br />
   * 
   * Example:
   * <samp>
@@ -825,7 +825,7 @@ class Feindura extends FeinduraBase {
   * 
   * Set the {@link FeinduraBase::$language} property and reloads the frontend language file.
   * 
-  * <b>Notice</b> The country code will NOT set to any <var>$_SESSION</var> variable, you have to take care of this yourself.
+  * <b>Note</b> The country code will NOT set to any <var>$_SESSION</var> variable, you have to take care of this yourself.
   * 
   * 
   * @param string $language a language country code like "en", "de", ...
@@ -936,8 +936,8 @@ class Feindura extends FeinduraBase {
   * 
   * Creates a string with basic HTML5 meta tags. See the example for a detailed list of the meta tags created.
   * 
-  * <b>Notice</b>: You have to call this method in the <head> tags of your website, to enable the frontend editing feature.
-  * <b>Notice</b>: This method also adds the Feed tags.  
+  * <b>Note</b>: You have to call this method in the <head> tags of your website, to enable the frontend editing feature.
+  * <b>Note</b>: This method also adds the Feed tags.  
   * 
   * Example:
   * {@example createMetaTags.example.php}
@@ -986,7 +986,7 @@ class Feindura extends FeinduraBase {
       // -> Set Visitors Local Timezone
       $metaTags .= GeneralFunctions::setVisitorTimzone();
 
-      // -> create TITLE
+      // -> get PAGE TITLE
       if($currentPage = GeneralFunctions::readPage($this->page,GeneralFunctions::getPageCategory($this->page)))
         $pageNameInTitle = strip_tags(GeneralFunctions::getLocalized($currentPage['localization'],'title',$this->language)).' - ';
       
@@ -1005,26 +1005,38 @@ class Feindura extends FeinduraBase {
         $metaTags .= '  <meta name="author" content="'.$author.'"'.$tagEnding."\n";
         
       // -> add puplisher
-      if($publisher && is_string($publisher))
-        $metaTags .= '  <meta name="publisher" content="'.$publisher.'"'.$tagEnding."\n";
-      elseif($publisher === true && !empty($this->websiteConfig['publisher']))
-        $metaTags .= '  <meta name="publisher" content="'.$this->websiteConfig['publisher'].'"'.$tagEnding."\n";
-        
+      if($publisher) {
+        $websiteConfigPublisher = GeneralFunctions::getLocalized($this->websiteConfig['localization'],'publisher',$this->language);
+        if(is_string($publisher) && !is_bool($publisher))
+          $metaTags .= '  <meta name="publisher" content="'.$publisher.'"'.$tagEnding."\n";
+        elseif(!empty($websiteConfigPublisher))
+          $metaTags .= '  <meta name="publisher" content="'.$websiteConfigPublisher.'"'.$tagEnding."\n";
+      }
+
       // -> add copyright
-      if($copyright && is_string($copyright))
-        $metaTags .= '  <meta name="copyright" content="'.$copyright.'"'.$tagEnding."\n";
-      elseif($copyright === true && !empty($this->websiteConfig['copyright']))
-        $metaTags .= '  <meta name="copyright" content="'.$this->websiteConfig['copyright'].'"'.$tagEnding."\n";
-        
-      // -> add description
-      if(isset($currentPage) && $currentPage['description'])
-        $metaTags .= '  <meta name="description" content="'.$currentPage['description'].'"'.$tagEnding."\n";
-      elseif($this->websiteConfig['description'])
-        $metaTags .= '  <meta name="description" content="'.$this->websiteConfig['description'].'"'.$tagEnding."\n";
-      
+      if($copyright) {
+        $websiteConfigCopyright = GeneralFunctions::getLocalized($this->websiteConfig['localization'],'copyright',$this->language);
+        if(is_string($copyright) && !is_bool($copyright))
+          $metaTags .= '  <meta name="copyright" content="'.$copyright.'"'.$tagEnding."\n";
+        elseif(!empty($websiteConfigCopyright))
+          $metaTags .= '  <meta name="copyright" content="'.$websiteConfigCopyright.'"'.$tagEnding."\n";
+      }
+     
       // -> add keywords
-      if($this->websiteConfig['keywords'])
-        $metaTags .= '  <meta name="keywords" content="'.$this->websiteConfig['keywords'].'"'.$tagEnding."\n";
+      $websiteConfigKeywords =  GeneralFunctions::getLocalized($this->websiteConfig['localization'],'keywords',$this->language);
+      if(!empty($websiteConfigKeywords))
+        $metaTags .= '  <meta name="keywords" content="'.$websiteConfigKeywords.'"'.$tagEnding."\n";
+
+      // -> add description
+      if(isset($currentPage)) {
+        $websiteConfigDescription = GeneralFunctions::getLocalized($this->websiteConfig['localization'],'description',$this->language);
+        $pageDescription = GeneralFunctions::getLocalized($currentPage['localization'],'description',$this->language);
+        if($pageDescription)
+          $metaTags .= '  <meta name="description" content="'.$pageDescription.'"'.$tagEnding."\n";
+        elseif(!empty($websiteConfigDescription))
+          $metaTags .= '  <meta name="description" content="'.$websiteConfigDescription.'"'.$tagEnding."\n";
+      }
+
       
       $metaTags .= '  <meta name="generator" content="feindura - flat file cms '.VERSION.' build:'.BUILD.'"'.$tagEnding."\n";
       $metaTags .= "\n";
@@ -1167,7 +1179,7 @@ class Feindura extends FeinduraBase {
   * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br />
   * If cookies are deactivated it attaches the {@link $sessionId} on the end.
   * 
-  * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Note</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
   * Examples of the <var>$id</var> parameters:
   * {@example ids.parameter.example.php}
@@ -1226,8 +1238,8 @@ class Feindura extends FeinduraBase {
   * it creates a link from the previous or the next page starting from the current page ID stored in the {@link $page} property.
   * If there is no current, next or previous page in it returns FALSE.
   * 
-  * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
-  * <b>Notice</b>: It add the class name <i>"active"</i> to the link, when the current {@link $page} property matches the page ID of the link.
+  * <b>Note</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Note</b>: It add the class name <i>"active"</i> to the link, when the current {@link $page} property matches the page ID of the link.
   * 
   * Example <var>$ids</var> parameters:
   * {@example ids.parameter.example.php}
@@ -1383,8 +1395,8 @@ class Feindura extends FeinduraBase {
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br />
-  * <b>Notice</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
+  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br />
+  * <b>Note</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
   * 
   * Example:
   * {@example createMenu.example.php}
@@ -1603,15 +1615,15 @@ class Feindura extends FeinduraBase {
   * Create a menu from category or page ID(s) with pages which have one or more of the tags from the given <var>$tags</var> parameter.
   * 
   * 
-  * <b>Notice</b>: the tags will be compared case insensitive.
+  * <b>Note</b>: the tags will be compared case insensitive.
   * 
   * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.
   * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
-  * <b>Notice</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
+  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Note</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
   * 
   * Example:
   * {@example createMenuByTags.example.php}
@@ -1703,8 +1715,8 @@ class Feindura extends FeinduraBase {
   * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
-  * <b>Notice</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
+  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Note</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
   * 
   * Example:
   * {@example createMenuByDate.example.php}
@@ -1794,8 +1806,8 @@ class Feindura extends FeinduraBase {
   * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
-  * <b>Notice</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
+  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Note</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
   * 
   * Example:
   * {@example createMenuBySortFunction.example.php}
@@ -1894,7 +1906,7 @@ class Feindura extends FeinduraBase {
   * Returns the title of a page.
   * This page title will be generated using the title properties.
   * 
-  * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Note</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
   * Example <var>$ids</var> parameters:
   * {@example ids.parameter.example.php}
@@ -1978,7 +1990,7 @@ class Feindura extends FeinduraBase {
   * an error will be placed in the ['content'] part of the returned array,
   * otherwiese it returns an empty array.<br />
   * 
-  * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Note</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
   * Example <var>$ids</var> parameters:
   * {@example ids.parameter.example.php}
@@ -2084,7 +2096,7 @@ class Feindura extends FeinduraBase {
   *
   * Check whether the given plugin(s) are activated for the given page.
   *
-  * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Note</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
   * Example <var>$ids</var> parameters:
   * {@example ids.parameter.example.php}
@@ -2150,7 +2162,7 @@ class Feindura extends FeinduraBase {
   * It can return an array where each element contain the HTML of a plugin (only the activated ones),
   * or if the <var>$plugins</var> parameter is a string with a plugin name (the foldername of the plugin, inside "../feindura_folder/plugins/"), it returns only a string with the HTML of this plugin.   
   * 
-  * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Note</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
   * Example <var>$ids</var> parameters:
   * {@example ids.parameter.example.php}
@@ -2260,7 +2272,7 @@ class Feindura extends FeinduraBase {
   * Returns an array with multiple pages for displaying in a HTML-page.
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * Example of the returned array:
   * {@example listPages.return.example.php}
@@ -2361,12 +2373,12 @@ class Feindura extends FeinduraBase {
   * List pages by given category or page ID(s), which have one or more of the tags from the given <var>$tags</var> parameter.
   * 
   * 
-  * <b>Notice</b>: the tags will be compared case insensitive.
+  * <b>Note</b>: the tags will be compared case insensitive.
   * 
   * Returns an array with multiple pages for displaying in a HTML-page. 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * Example usage:
   * {@example listPagesByTags.example.php}
@@ -2465,7 +2477,7 @@ class Feindura extends FeinduraBase {
   * Returns an array with multiple pages for displaying in a HTML-page. 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * Example usage:
   * {@example listPagesByTags.example.php}
@@ -2563,7 +2575,7 @@ class Feindura extends FeinduraBase {
   * Returns an array with multiple pages for displaying in a HTML-page.
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * Example of the returned array:
   * {@example listPages.return.example.php}

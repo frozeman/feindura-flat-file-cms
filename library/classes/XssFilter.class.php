@@ -28,7 +28,7 @@
 * based on the PHP Secure Class to prevent XSS Attacks from {@link http://www.webkami.com/programming/php/php-secure-class-to-avoid-xss/php-secure-class-to-avoid-xss-1-0-2.php},
 * but it's a complete rewrite.
 * 
-* <b>Notice</b>: this class will be used by the implementation classes AND the backend of the feindura-CMS.
+* <b>Note</b>: this class will be used by the implementation classes AND the backend of the feindura-CMS.
 * 
 * @package [Implementation]-[Backend]
 * 

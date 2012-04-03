@@ -40,8 +40,8 @@ require_once(dirname(__FILE__).'/includes/Image.class.php');
 * ...
 * </samp> 
 *
-* <b>Notice</b>: works only with "png", "gif" and "jpg" or "jpeg" filetypes.
-* <b>Notice</b>: The image gallery is surrounded by an '<div class="feinduraPlugin_imageGallery">' tag to help to style the image gallery. 
+* <b>Note</b>: works only with "png", "gif" and "jpg" or "jpeg" filetypes.
+* <b>Note</b>: The image gallery is surrounded by an '<div class="feinduraPlugin_imageGallery">' tag to help to style the image gallery. 
 * 
 * @author Fabian Vogelsteller <fabian@feindura.org>
 * @copyright Fabian Vogelsteller
@@ -123,7 +123,7 @@ class imageGallery {
   * 
   * All pictures will be resized to this width when the {@link imageGallery::resizeImages()} method is called.
   * 
-  * <b>Notice</b>: If the {@link imageGallery::$imageHeight} property is null, it keeps the aspect ratio of the images.
+  * <b>Note</b>: If the {@link imageGallery::$imageHeight} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
   * @access public
@@ -138,7 +138,7 @@ class imageGallery {
   * 
   * All pictures will be resized to this height when the {@link resizeImages()} method is called.
   * 
-  * <b>Notice</b>: If the {@link imageGallery::$imageWidth} property is null, it keeps the aspect ratio of the images.
+  * <b>Note</b>: If the {@link imageGallery::$imageWidth} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
   * @access public
@@ -153,7 +153,7 @@ class imageGallery {
   * 
   * the thumbnails will be created with this width when the {@link imageGallery::createThumbanils()} method is called.
   * 
-  * <b>Notice</b>: If the {@link imageGallery::$thumbnailHeight} property is null, it keeps the aspect ratio of the images.
+  * <b>Note</b>: If the {@link imageGallery::$thumbnailHeight} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
   * @access public
@@ -168,7 +168,7 @@ class imageGallery {
   * 
   * the thumbnails will be created with this height when the {@link imageGallery::createThumbanils()} method is called.
   * 
-  * <b>Notice</b>: If the {@link imageGallery::$thumbnailWidth} property is null, it keeps the aspect ratio of the images.
+  * <b>Note</b>: If the {@link imageGallery::$thumbnailWidth} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
   * @access public
@@ -618,7 +618,7 @@ class imageGallery {
   * 
   * Generates the gallery for displaying in an HTML-page
   * 
-  * <b>Notice</b>: The image gallery is surrounded by an '<div class="feinduraPlugin_imageGallery">' tag to help to style the image gallery.  
+  * <b>Note</b>: The image gallery is surrounded by an '<div class="feinduraPlugin_imageGallery">' tag to help to style the image gallery.  
   * 
   * @param string       $tag         the tag used to create the gallery, can be "ul", "table" or FALSE to return just images
   * @param int          $breakAfter  (optional) if the $tag parameter is "table" then it defines the number after which the table makes a new row

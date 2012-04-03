@@ -26,7 +26,7 @@
 * 
 * Provides public static functions for the website statistics.
 * 
-* <b>Notice</b>: this class will be used by the implementation classes AND the backend of the feindura-CMS.
+* <b>Note</b>: this class will be used by the implementation classes AND the backend of the feindura-CMS.
 * 
 * @package [Implementation]-[Backend]
 * 

@@ -25,10 +25,10 @@
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // -> available VARs from the editor.controller.php
-// $pageTitle
+// string   $pageTitle
 
 // -> available VARs from index.php -> subMenu
-// $missingLanguages
+// array    $missingLanguages
 
 
 // ->> SHOW the FORM
@@ -461,7 +461,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <label for="edit_title"><span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">
       <?php echo $langFile['EDITOR_pageSettings_title'] ?></span></label>
       </td><td class="right">
-        <input id="edit_title" name="title" style="width:492px;" value="<?= str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent['localization'],'title',$addLanguage)); ?>"<?= $autofocus; ?> class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>" />        
+        <input id="edit_title" name="title" style="width:492px;" value="<?= str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent['localization'],'title',true)); ?>"<?= $autofocus; ?> class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>" />        
       </td></tr>
       
       <!-- ***** PAGE DESCRIPTION -->      
@@ -469,7 +469,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <label for="edit_description"><span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_field1'].'::'.$langFile['EDITOR_pageSettings_field1_tip']; ?>">
       <?php echo $langFile['EDITOR_pageSettings_field1']; ?></span></label>
       </td><td class="right">
-      <textarea id="edit_description" name="description" cols="50" rows="2" style="white-space:normal;width:480px;" class="inputToolTip autogrow" title="<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?= GeneralFunctions::getLocalized($pageContent['localization'],'description',$addLanguage); ?></textarea>
+      <textarea id="edit_description" name="description" cols="50" rows="2" style="white-space:normal;width:480px;" class="inputToolTip autogrow" title="<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?= GeneralFunctions::getLocalized($pageContent['localization'],'description',true); ?></textarea>
       </td></tr>
       <?php
       
@@ -515,7 +515,10 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       </label>
       
       </td><td class="right">
-        <input name="pageDate[before]" value="<?php $pageDateBA = GeneralFunctions::getLocalized($pageContent['localization'],'pageDate',$addLanguage); echo $pageDateBA['before']; ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;" />
+        <?php
+        $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localization'],'pageDate',true);
+        ?>
+        <input name="pageDate[before]" value="<?= $pageDateBeforeAfter['before']; ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;" />
         
         <?php
         
@@ -581,7 +584,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         
         ?>
         
-        <input name="pageDate[after]" value="<?php $pageDateBA = GeneralFunctions::getLocalized($pageContent['localization'],'pageDate',$addLanguage); echo $pageDateBA['after']; ?>" class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_after_inputTip']; ?>" style="width:122px;" />
+        <input name="pageDate[after]" value="<?= $pageDateBeforeAfter['after']; ?>" class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_after_inputTip']; ?>" style="width:122px;" />
       </td></tr>
       <?php }
       
@@ -594,7 +597,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <label for="edit_tags"><span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip'] ?>">
       <?php echo $langFile['EDITOR_pageSettings_field2'] ?></span></label>
       </td><td class="right">
-        <input id="edit_tags" name="tags" class="inputToolTip" style="width:492px;" value="<?= GeneralFunctions::getLocalized($pageContent['localization'],'tags',$addLanguage); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>" />        
+        <input id="edit_tags" name="tags" class="inputToolTip" style="width:492px;" value="<?= GeneralFunctions::getLocalized($pageContent['localization'],'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>" />        
       </td></tr>
       <?php } ?>
       

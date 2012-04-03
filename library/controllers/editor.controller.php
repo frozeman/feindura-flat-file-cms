@@ -26,7 +26,6 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // -----------------------------------------------------------------------------
 $page	= $_GET['page'];
 $category = $_GET['category'];
-$addLanguage = ($_GET['status'] == 'addLanguage') ? true : false;
 
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
@@ -86,7 +85,9 @@ if($_POST['save'] && isBlocked() === false) {
     // STORE LOCALIZED CONTENT
     $_POST['localization'][$_POST['websiteLanguage']]['pageDate']['before'] = $_POST['pageDate']['before'];
     $_POST['localization'][$_POST['websiteLanguage']]['pageDate']['after'] = $_POST['pageDate']['after'];
-    $_POST['localization'][$_POST['websiteLanguage']]['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
+    $_POST['tags'] = trim(preg_replace("#[\;,]+#", ',', $_POST['tags']),',');
+    $_POST['tags'] = preg_replace("# +#", ' ', $_POST['tags']); // replace multiple whitespaces with one whitespace
+    $_POST['localization'][$_POST['websiteLanguage']]['tags'] = preg_replace("# *, *#", ',', $_POST['tags']); // make " , " to  ","
     $_POST['localization'][$_POST['websiteLanguage']]['title'] = $_POST['title'];
     $_POST['localization'][$_POST['websiteLanguage']]['description'] = $_POST['description'];
     $_POST['localization'][$_POST['websiteLanguage']]['content'] = $_POST['HTMLEditor'];
@@ -162,7 +163,7 @@ if($newPage) {
     $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
   
 } else {  
-  $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title',$addLanguage));
+  $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title',true));
 }
 
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file

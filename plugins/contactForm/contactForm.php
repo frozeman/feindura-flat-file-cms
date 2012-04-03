@@ -30,7 +30,7 @@ require(dirname(__FILE__).'/captcha.php');
 * 
 * This class creates an contact form with a simple captcha check.
 * 
-* <b>Notice</b>: The contact form is surrounded by an '<div class="contactForm">' tag to help to style the contact form.
+* <b>Note</b>: The contact form is surrounded by an '<div class="contactForm">' tag to help to style the contact form.
 * 
 * 
 * @author Fabian Vogelsteller <fabian@feindura.org>
@@ -585,7 +585,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
   * 
   * Shows the form, ready to display in an HTML-page. Also the {@link contactForm::sendForm()} method will be called if the form is send.
   * 
-  * <b>Notice</b>: The contact form is surrounded by an '<div class="contactForm">' tag to help to style the contact form.  
+  * <b>Note</b>: The contact form is surrounded by an '<div class="contactForm">' tag to help to style the contact form.  
   * 
   *   
   * @param string $folder the absolute path of an folder to read

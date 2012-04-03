@@ -25,7 +25,7 @@
 * 
 * Contains the basic functions for reading and saving pages
 * 
-* <b>Notice</b>: this class will be used by the implementation classes AND the backend of the feindura-CMS.
+* <b>Note</b>: this class will be used by the implementation classes AND the backend of the feindura-CMS.
 * 
 * @package [Implementation]-[Backend]
 * 
@@ -628,11 +628,12 @@ class GeneralFunctions {
       : $_SESSION['feinduraSession']['websiteLanguage'];
     
     // get the one matching $languageCode
-    if(isset($localizationArray[$languageCode]) ||
+    if((isset($localizationArray[$languageCode]) && !empty($localizationArray[$languageCode])) ||
        (is_bool($forceOrUseLanguage) && $forceOrUseLanguage === true))
       $localizedValues = $localizationArray[$languageCode];
     // if not get the one matching the "Main Language"
-    elseif(isset($localizationArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']]))
+    elseif(isset($localizationArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']]) &&
+           !empty($localizationArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']]))
       $localizedValues = $localizationArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']];
     // if not get the first one in the localization array
     elseif(is_array($localizationArray))
@@ -759,9 +760,10 @@ class GeneralFunctions {
   * @return bool TRUE if the page was succesfull saved, otherwise FALSE
   * 
   * @static
-  * @version 1.0.5
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 add localization
   *    - 1.0.5 removed page statistics  
   *    - 1.0.4 add XssFilter for every value  
   *    - 1.0.3 creates now category folder automatically  
@@ -849,11 +851,9 @@ class GeneralFunctions {
 
         $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['before'] = '".XssFilter::text($pageContentLocalized['pageDate']['before'])."';\n";
         $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['after'] =  '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['tags'] =               '".XssFilter::text(trim(preg_replace("#[\;,]+#", ',', $pageContentLocalized['tags']),','))."';\n\n";
-
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['tags'] =               '".XssFilter::text($pageContentLocalized['tags'])."';\n";
         $fileContent .= "\$pageContent['localization'][".$langCode."]['title'] =              '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['description'] =        '".XssFilter::text($pageContentLocalized['description'])."';\n\n";
-
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['description'] =        '".XssFilter::text($pageContentLocalized['description'])."';\n";
         $fileContent .= "\$pageContent['localization'][".$langCode."]['content'] = '".trim(self::htmLawed($pageContentLocalized['content']))."';\n\n";
       }
     }
@@ -1111,7 +1111,7 @@ class GeneralFunctions {
   * If not the {@link GeneralFunctions::readPage()} public static function is called to include the $pagecontent array of the page
   * and store it in the {@link $storedPages} property.
   * 
-  * <b>Notice</b>: after loading all $pageContent arrays of a category, the array with the containing $pageContent arrays will be sorted.
+  * <b>Note</b>: after loading all $pageContent arrays of a category, the array with the containing $pageContent arrays will be sorted.
   * 
   * Example of the returned $pageContent arrays:
   * {@example loadPages.return.example.php}
@@ -1209,7 +1209,7 @@ class GeneralFunctions {
   * 
   * Loads all $pageStatistics arrays of a given category, by going through the {@link $storedPageIds} property and load the right "[pageID].statistics.php".
   * 
-  * <b>Notice</b>: after loading all $pageStatistics arrays of a category, the array with the containing $pageStatistics arrays will be sorted.
+  * <b>Note</b>: after loading all $pageStatistics arrays of a category, the array with the containing $pageStatistics arrays will be sorted.
   * 
   * Example of the returned $pageStatistics arrays:
   * {@example loadPagesStatistics.return.example.php}
@@ -1290,7 +1290,7 @@ class GeneralFunctions {
   * Checks whether the given category(ies) are public and returns the ID or an array with IDs of the public ones.
   * 
   *
-  * <b>Notice</b>: This method can either return 0 for the non-category or false. Use "… === false" to check if a category is not public.
+  * <b>Note</b>: This method can either return 0 for the non-category or false. Use "… === false" to check if a category is not public.
   *
   * @param int|array|bool $ids the category or page ID(s), can be a number or an array with numbers, if TRUE then it check all categories
   * 

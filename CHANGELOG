@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 838
+Build 839
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 839: finsihed formally localization feature
   build 838: working on localization in the frontend (stopped at ['title'])
   build 837: changed position of new page in submenu
   build 836: fixed localized category name displaying; sort order pages fixed too
