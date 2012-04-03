@@ -752,10 +752,11 @@ class Feindura extends FeinduraBase {
   * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br />
   * If there is no page and category ID it sets the start page ID from the {@link FeinduraBase::$websiteConfig website-settings config}.
   * 
+  * 
   * Example:
   * {@example includeFeindura.example.php}
   * 
-  * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is also set to the {@link FeinduraBase::$language} property 
+  * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is set to the {@link FeinduraBase::$language} property
   * 
   * @uses FeinduraBase::__construct()		          the constructor of the parent class to load all necessary properties
   * @uses FeinduraBase::setCurrentCategoryId()  to set the fetched category ID from the $_GET variable to the {@link $category} property
@@ -834,7 +835,6 @@ class Feindura extends FeinduraBase {
   * 
   * @return string|false the {@link $language language country code} or FALSE if the given $language parameter is no country code
   * 
-  * @see feindura()  
   * @see FeinduraBase::__construct()
   * 
   * @access public

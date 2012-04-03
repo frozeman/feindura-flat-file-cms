@@ -181,29 +181,38 @@ class GeneralFunctions {
   * If no match to the browser language is found it uses the <var>$standardLang</var> parameter for loading a languageFile or returning the country code.
   * 
   * @param string $standardLang the standard country code to return when no language code was get
+  * @param bool   $simple       if TRUE it only returns a string with a language code, if FALSE it returns an array with the language
+  * 
+  * @return string|array  either a string with a language code, or a array in the format: array( [de-de] => 1, [en] => 0.5 ), depending on the <var>$simple</var> parameter
   * 
   * @link   http://www.dyeager.org/post/2008/10/getting-browser-default-language-php
   * @static
   */
-  public static function getBrowserLanguages($simple = true, $standardLang = "en") {
-     // var
-     $language = array(strtolower($standardLang) => 1.0);
-    
-     if(isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]) && strlen($_SERVER["HTTP_ACCEPT_LANGUAGE"]) > 1)  {
-        # Split possible languages into array
-        $x = explode(",",$_SERVER["HTTP_ACCEPT_LANGUAGE"]);
-        foreach ($x as $val) {
-           #check for q-value and create associative array. No q-value means 1 by rule
-           if(preg_match("/(.*);q=([0-1]{0,1}\.\d{0,4})/i",$val,$matches))
-              $lang[strtolower($matches[1])] = (float)$matches[2];
-           else
-              $lang[strtolower($val)] = 1.0;
-        }
-        
-        if(!empty($lang))
-          $language = $lang;
-     }
-     return $language;
+  public static function getBrowserLanguages($standardLang = "en", $simple = true) {
+    // var
+    $language = array(strtolower($standardLang) => 1.0);
+
+    if(isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]) && strlen($_SERVER["HTTP_ACCEPT_LANGUAGE"]) > 1)  {
+      # Split possible languages into array
+      $x = explode(",",$_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+      foreach ($x as $val) {
+         #check for q-value and create associative array. No q-value means 1 by rule
+         if(preg_match("/(.*);q=([0-1]{0,1}\.\d{0,4})/i",$val,$matches))
+            $lang[strtolower($matches[1])] = (float)$matches[2];
+         else
+            $lang[strtolower($val)] = 1.0;
+      }
+      
+      if(!empty($lang))
+        $language = $lang;
+    }
+
+    if($simple) {
+      $language = key($language);
+      $language = substr($language, 0,2);
+    }
+
+    return $language;
   }
 
  
@@ -250,7 +259,7 @@ class GeneralFunctions {
       $langPath = (strpos($langPath,DOCUMENTROOT) === false) ? DOCUMENTROOT.$langPath : $langPath;
 
     // checks if the BROWSER STANDARD LANGUAGE is found in the SUPPORTED COUNTRY CODE         
-    $browserLanguages = self::getBrowserLanguages($standardLang);
+    $browserLanguages = self::getBrowserLanguages($standardLang,false);
     // add the current language code
     if(!empty($currentLangCode) && !is_array($currentLangCode)) {
       $currentLangCodeArray = array($currentLangCode => 2); // set it as the highest qvalue
@@ -1691,6 +1700,8 @@ class GeneralFunctions {
     $page = $pageContent['id'];
     $category = $pageContent['category'];
     $href = '';
+    $language = (is_string($languageCode) && strlen($languageCode) == 2) ? $languageCode : $_SESSION['feinduraSession']['websiteLanguage']; // $languageCode == false is only in the backend
+
     
     // add (url) and websitepath
     if($fullUrl) $href .= self::$adminConfig['url'];
@@ -1702,7 +1713,6 @@ class GeneralFunctions {
       $href .= self::getDirname(self::$adminConfig['websitePath']);
 
       // add the LANGUAGE if multilanguage page
-      $language = (is_string($languageCode) && strlen($languageCode) == 2) ? $languageCode : $_SESSION['feinduraSession']['websiteLanguage'];
       if(self::$adminConfig['multiLanguageWebsite']['active']) {
         $href .= $language.'/';
       }
@@ -1738,6 +1748,10 @@ class GeneralFunctions {
       else $categoryLink = '';
       
       $href .= '?'.$categoryLink.self::$adminConfig['varName']['page'].'='.$page;
+
+      // add the LANGUAGE if multilanguage page
+      if(self::$adminConfig['multiLanguageWebsite']['active'])
+        $href .= '&amp;language='.$language;
       
       if($sessionId)
         $href .= '&amp;'.$sessionId;

@@ -195,7 +195,7 @@ class FeinduraBase {
   *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
   * 
   * 
-  * @param string $language (optional) A country code "de", "en", ... to load the right frontend language-file and will be set to the {@link $language} property 
+  * @param string $language (optional) A language code "de", "en", ... to load the right frontend language-file and it will be set to the {@link $language} property 
   * 
   * @uses $adminConfig                            the administrator-settings config array will set to this property
   * @uses $websiteConfig                          the website-settings config array will set to this property
@@ -203,7 +203,7 @@ class FeinduraBase {
   * @uses $loggedIn                               to set whether the visitor is logged in or not  
   * @uses $varNames                               the variable names from the administrator-settings config will set to this property
   * @uses $sessionId                              the session ID string will set to this property, if cookies are deactivated
-  * @uses $language                               to set the given $language parameter to, or try to find out the browser language
+  * @uses $language                               to set the given $language parameter to, or try to get the browser language automatically
   * @uses $languageFile                           set the loaded frontend language-file to this property
   * @uses StatisticFunctions::saveWebsiteStats()  save the website statistic like user visit count, first and last visit AND the visit time of the last visited pages
   * 
@@ -218,7 +218,7 @@ class FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  protected function __construct($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
+  protected function __construct($language = false) {
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->adminConfig = $GLOBALS["feindura_adminConfig"];
@@ -253,18 +253,34 @@ class FeinduraBase {
       $this->sessionId = htmlspecialchars(session_name().'='.session_id()); //SID
     }
     
-    // sets the language PROPERTY from the session var AND the languageFile Array
+    // SETS the LANGUAGE PROPERTY from the $_GET['language']
     // **************************************************************************
-    $language = XssFilter::alphabetical($language);
-    
-    // set the given country code
-    if(is_string($language) && strlen($language) == 2) {
-      $this->language = $language;
-      $this->loadFrontendLanguageFile($this->language);
-      
-    // if no country code is given, it will get the country code automatically
-    } else
-      $this->language = $this->loadFrontendLanguageFile();
+
+    // -> if the $language PARAMETER was given, it HAS PRIORITY
+    if(is_string($language) && strlen($language) == 2)
+      $_GET['language'] = $language;
+
+    // -> use the $_GET['language'] if available
+    if(is_string($_GET['language']) && strlen($_GET['language']) == 2) {
+      $this->language = XssFilter::alphabetical($_GET['language']);
+      // make sure the language exist
+      $this->language = (in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages'])) ? $this->language : $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
+      $_SESSION['feinduraSession']['language'] = $this->language;
+
+    // -> if NO LANGUAGE WAS GIVEN, it will try to get it automatically
+    } else {
+      // if language is NOT stored IN the SESSION, try to GET the BROWSERLANGUAGE
+      if(empty($_SESSION['feinduraSession']['language']) ||
+         (!empty($_SESSION['feinduraSession']['language']) && strlen($_SESSION['feinduraSession']['language']) != 2)) {
+        $this->language = GeneralFunctions::getBrowserLanguages($this->adminConfig['multiLanguageWebsite']['mainLanguage']);
+        // make sure the language exist
+        $this->language = (in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages'])) ? $this->language : $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
+        $_SESSION['feinduraSession']['language'] = $this->language;
+      } else
+        $this->language = $_SESSION['feinduraSession']['language'];
+    }
+    $this->loadFrontendLanguageFile($this->language);
+   
   }
 
 
@@ -322,9 +338,10 @@ class FeinduraBase {
   * @return int|false the current page ID or FALSE
   * 
   * @access public
-  * @version 1.0
+  * @version 1.1
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 1.1 add localization
   *    - 1.0 initial release
   * 
   */
@@ -358,9 +375,12 @@ class FeinduraBase {
       if($pages) {
         foreach($pages as $page) {
 
-          // RETURNs the right page Id
-          if(GeneralFunctions::urlEncode(GeneralFunctions::getLocalized($page['localization'],'title',$this->language)) == GeneralFunctions::urlEncode($_GET['page'])) {
-            return $page['id'];
+          // goes trough each localization and check if its fit the $_GET['page'] title
+          foreach ($page['localization'] as $localizedPageContent) {
+            // RETURNs the right page Id
+            if(GeneralFunctions::urlEncode($localizedPageContent['title']) == GeneralFunctions::urlEncode($_GET['page'])) {
+              return $page['id'];
+            }
           }
         }
       }
@@ -401,9 +421,10 @@ class FeinduraBase {
   * @return int|false the current category ID or FALSE
   * 
   * @access public
-  * @version 1.0
+  * @version 1.1
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 1.1 add localization
   *    - 1.0 initial release
   * 
   */
@@ -422,10 +443,13 @@ class FeinduraBase {
     } elseif(isset($_GET['category']) &&
              !empty($_GET['category'])) {
       
-      foreach($this->categoryConfig as $category) {      
-        // RETURNs the right category Id
-        if(GeneralFunctions::urlEncode(GeneralFunctions::getLocalized($category['localization'],'name',$this->language)) == GeneralFunctions::urlEncode($_GET['category'])) {
-          return $category['id'];
+      foreach($this->categoryConfig as $category) {   
+        // goes trough each localization and check if its fit the $_GET['category'] title
+        foreach($category['localization'] as $localizedCategory) {
+          // RETURNs the right category Id
+          if(GeneralFunctions::urlEncode($localizedCategory['name']) == GeneralFunctions::urlEncode($_GET['category'])) {
+            return $category['id'];
+          }
         }
       }
     } elseif(empty($_GET['page']) && $this->adminConfig['setStartPage'] && is_numeric($this->startCategory)) {
@@ -544,16 +568,17 @@ class FeinduraBase {
   * Loads the frontend language file into the {@link $languageFile} property.
   * 
   * 
-  * @param string $language  (optional) a given country code which will be used to try to load the language file
+  * @param string $language       (optional) a given country code which will be used to try to load the language file
   * 
   * @uses GeneralFunctions::loadLanguageFile() to load the language files
   * 
   * @return string the country code which was used to load the frontend language files
   * 
   * @access protected
-  * @version 1.1
+  * @version 1.2
   * <br />
   * <b>ChangeLog</b><br />
+  *    - add $standardLang parameter
   *    - 1.1 add new GeneralFunctions::loadLanguageFile() method
   *    - 1.0 initial release
   * 
