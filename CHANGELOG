@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 843
+Build 844
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 844: fixed speaking url
   build 843: integrated the frontend-multilanguage-website-url-switching
   build 842: fixed moorte
   build 841: fixed multilanguage website feature
