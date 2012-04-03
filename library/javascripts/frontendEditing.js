@@ -246,7 +246,7 @@
     // INSTANT
     if(instant) {
       logo.setStyle('top', '-55px');
-      if($$('div.MooRTE.rtePageTop')[0] !== null)
+      if(typeof($$('div.MooRTE.rtePageTop')[0]) !== 'undefined')
         $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
       topBar.setStyle('top', '-55px');
 

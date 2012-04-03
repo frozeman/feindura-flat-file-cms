@@ -1126,7 +1126,7 @@ class Feindura extends FeinduraBase {
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.3.2.1.js"></script>'."\n";   
         
         // add MooRTE
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/moorte.compressed.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/moorte.min.js"></script>'."\n";
         //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/dependencies/stickywin/StickyWinModalUI.js"></script>'."\n";
         // add raphael
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/raphael-1.5.2.js"></script>'."\n";
