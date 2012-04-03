@@ -947,10 +947,11 @@ class Feindura extends FeinduraBase {
   * @param string|bool  $publisher    (optional) the publisher of the website, if TRUE it uses the publisher from the {@link FeinduraBase::$websiteConfig website-settings config}
   * @param string|bool  $copyright    (optional) the copyright owner of the website, if TRUE it uses the copyright from the {@link FeinduraBase::$websiteConfig website-settings config}
   * 
-  * @uses Feindura::$page               to load the page title of teh righte page
-  * @uses Feindura::$category         to load the page title of teh righte page
-  * @uses FeinduraBase::$websiteConfig  for the website title, publisher, copyright, description and keywords
-  * @uses GeneralFunctions::readPage()	to load the page for the page title
+  * @uses Feindura::$page                         to load the page title of teh righte page
+  * @uses Feindura::$category                     to load the page title of teh righte page
+  * @uses FeinduraBase::$websiteConfig            for the website title, publisher, copyright, description and keywords
+  * @uses GeneralFunctions::readPage()	          to load the page for the page title
+  * @uses GeneralFunctions::setVisitorTimezone()  to try to set the timezone to the visitors one
   * 
   * @return string with all meta tags ready to display in a HTML page
   * 

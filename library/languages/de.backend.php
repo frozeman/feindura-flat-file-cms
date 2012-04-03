@@ -493,7 +493,7 @@ $langFile['editFilesSettings_deleteFile_error_delete']                    = '<b>
 $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tags können dazu verwendet werden Seiten untereinander in Beziehung zu setzen (abhängig von der Programmierung der Webseite)';
 
 // ---------- page settings
-$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Seiten-Einstellungen';
+$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Webseiten-Einstellungen';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Startseite ist einstellbar';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Startseite ist vom Benutzer selbst einstellbar.[br][br]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
 $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'Mehrsprachige Webseite';

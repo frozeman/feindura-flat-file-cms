@@ -418,10 +418,8 @@ if($_GET['site'] == 'addons') {
     $_SESSION['feinduraSession']['websiteLanguage'] = in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection) ? $_SESSION['feinduraSession']['websiteLanguage']: current($currentlanguageSlection);
 
     // if NEW PAGE, overwrite with the mainLanguage
-    if($newPage) {
-      $_SESSION['feinduraSession']['websiteLanguage'] = $adminConfig['multiLanguageWebsite']['mainLanguage'];
-      $currentlanguageSlection = array($adminConfig['multiLanguageWebsite']['mainLanguage']);
-    }
+    if($newPage)
+      $currentlanguageSlection = $adminConfig['multiLanguageWebsite']['languages'];
 
     // find out if there are missing languages
     if($isInPageEditor) {
@@ -506,9 +504,8 @@ if($_GET['site'] == 'addons') {
             <?php }
             }
 
-
             // PAGE LANGUAGE SELECTION with
-            if($adminConfig['multiLanguageWebsite']['active'] && !empty($adminConfig['multiLanguageWebsite']['languages']) && (!isset($pageContent) || !empty($pageContent['localization']))) {
+            if($adminConfig['multiLanguageWebsite']['active'] && !empty($adminConfig['multiLanguageWebsite']['languages']) && (empty($pageContent) || !empty($pageContent['localization']))) {
               ?>
               <li class="spacer">&nbsp;</li>
               <li>
@@ -517,7 +514,7 @@ if($_GET['site'] == 'addons') {
                 <?php
                   // create language selection
                   foreach($currentlanguageSlection as $langCode) {
-                    if($newPage || !isset($pageContent) || isset($pageContent['localization'][$langCode]) || ($_GET['status'] == 'addLanguage' && $_SESSION['feinduraSession']['websiteLanguage'] == $langCode)) {
+                    if($newPage || empty($pageContent) || isset($pageContent['localization'][$langCode]) || ($_GET['status'] == 'addLanguage' && $_SESSION['feinduraSession']['websiteLanguage'] == $langCode)) {
                       $selected = ($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) ? ' selected="selected"' : '';
                       echo '<option value="'.$langCode.'"'.$selected.'>'.$languageCodes[$langCode].'</option>';
                     }

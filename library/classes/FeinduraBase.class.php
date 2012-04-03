@@ -885,7 +885,7 @@ class FeinduraBase {
       
       // saves the long version of the title, for the title="" tag
       //$fullTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title',$this->language));
-           
+      
       // generate titleDate
       if($titleShowPageDate && StatisticFunctions::checkPageDate($pageContent)) {
         $titleDateBefore = '';

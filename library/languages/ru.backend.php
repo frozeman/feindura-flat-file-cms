@@ -191,8 +191,8 @@ $langFile['LOG_BACKUP_CREATED']                                           = 'К�
 $langFile['LOG_BACKUP_RESTORED']                                          = 'Копия восстановлена';
 $langFile['LOG_BACKUP_DELETED']                                           = 'Копия удалена';
 
-$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Язык &quot;%s&quot; удален за страницу';
-$langFile['LOG_PAGELANGUAGE_ADD']                                         = 'Язык &quot;%s&quot; добавить на страницу';
+$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Удаленные языка &quot;%s&quot; на странице';
+$langFile['LOG_PAGELANGUAGE_ADD']                                         = 'Добавить язык &quot;%s&quot; на странице';
 
 
 // PAGE/CATEGORY STATUS
@@ -489,7 +489,7 @@ $langFile['editFilesSettings_deleteFile_error_delete']                    = '<b>
 $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tags can be used to create connections between pages (depending on the programming of the website)';
 
 // ---------- page settings
-$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Настройки страниц';
+$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'настройках сайта';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Установка главной страницы';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Дает возможность установить любую страницу в качестве главной (стартовой).[br][br]Стартовая страница выводится если запрос в [i]$_GET[/i] пуст.';
 $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'Мульти язык сайта';

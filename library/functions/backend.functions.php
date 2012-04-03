@@ -811,7 +811,7 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['stylesheetPath'] =   '".XssFilter::path($adminConfig['stylesheetPath'])."';\n\n";
     
     $fileContent .= "\$adminConfig['permissions'] =      ".XssFilter::number($adminConfig['permissions']).";\n";
-    $fileContent .= "\$adminConfig['timeZone'] =         '".XssFilter::string($adminConfig['timeZone'],'\/','Europe/London')."';\n"; 
+    $fileContent .= "\$adminConfig['timezone'] =         '".XssFilter::string($adminConfig['timezone'],'\/','Europe/London')."';\n"; 
     $fileContent .= "\$adminConfig['dateFormat'] =       '".XssFilter::alphabetical($adminConfig['dateFormat'])."';\n";
     $fileContent .= "\$adminConfig['speakingUrl'] =      ".XssFilter::bool($adminConfig['speakingUrl'],true).";\n\n";
     

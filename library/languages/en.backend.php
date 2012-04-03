@@ -123,7 +123,7 @@ $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Cli
 
 $langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'visitors';
 $langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'current visitors';
-$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'last activity';
+$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'activity';
 
 $langFile['STATISTICS_TITLE_PAGESTATISTICS']                              = 'Page Statistics';
 
@@ -173,7 +173,7 @@ $langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC']                         = 'Web
 $langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS']                           = 'Page-Statistics deleted';
 $langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH']                           = 'Page-Length-Of-Stay-Statistics deleted';
 $langFile['LOG_CLEARSTATISTICS_REFERERLOG']                               = 'Referrer-Log deleted';
-$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG']                              = 'Last Activities-Log deleted';
+$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG']                              = 'Activities-Log deleted';
 
 $langFile['LOG_PAGESETUP_SAVED']                                          = 'Page-Settings saved';
 $langFile['LOG_PAGESETUP_CATEGORIES_SAVED']                               = 'Categories saved';
@@ -189,8 +189,8 @@ $langFile['LOG_BACKUP_CREATED']                                           = 'Bac
 $langFile['LOG_BACKUP_RESTORED']                                          = 'Backup restored';
 $langFile['LOG_BACKUP_DELETED']                                           = 'Backup deleted';
 
-$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Language &quot;%s&quot; deleted for page';
-$langFile['LOG_PAGELANGUAGE_ADD']                                         = 'Language &quot;%s&quot; add for page';
+$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Deleted language &quot;%s&quot; for page';
+$langFile['LOG_PAGELANGUAGE_ADD']                                         = 'Add language &quot;%s&quot; for page';
 
 // PAGE/CATEGORY STATUS
 $langFile['STATUS_PAGE_PUBLIC']                                           = 'Page is public';
@@ -313,7 +313,7 @@ $langFile['DASHBOARD_TEXT_WELCOME']                                       = '<sp
 $langFile['DASHBOARD_TITLE_STATISTICS']                                   = 'Website-Statistic';
 
 $langFile['DASHBOARD_TITLE_USER']                                         = 'User';
-$langFile['DASHBOARD_TITLE_ACTIVITY']                                     = 'last activities';
+$langFile['DASHBOARD_TITLE_ACTIVITY']                                     = 'Activities';
 $langFile['DASHBOARD_TEXT_ACTIVITY_NONE']                                 = 'none';
 
 $langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED']                       = 'most visted pages';
@@ -495,7 +495,7 @@ $langFile['editFilesSettings_deleteFile_error_delete']                    = '<b>
 $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tags can be used to create connections between pages (depending on the programming of the website)';
 
 // ---------- page settings
-$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Page-Settings';
+$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Website-Settings';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Set start page';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'The user can set a page as the start page.[br][br]The start page will be used if no page variable is given through the [i]$_GET[/i] variable in the website.';
 $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'Multi language Website';
@@ -629,7 +629,7 @@ $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics_tip'] = '';
 $langFile['statisticSetup_clearStatistics_refererLog']                    = 'Referrer-URLs Log'; // engl.: referer
 $langFile['statisticSetup_clearStatistics_refererLog_tip']                = 'A list of all URLs which led top this website.';
 $langFile['statisticSetup_clearStatistics_taskLog']                       = 'Activities-Log';
-$langFile['statisticSetup_clearStatistics_taskLog_tip']                   = 'A list of the last activities.';
+$langFile['statisticSetup_clearStatistics_taskLog_tip']                   = 'A list of the activities.';
 
 $langFile['statisticSetup_clearStatistics_question_h1']                   = 'Are you sure you want to delete these statistics?';
 

@@ -92,7 +92,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $adminConfig['stylesheetPath']           = $_POST['cfg_stylesheetPath'];
   
   $adminConfig['permissions']              = $_POST['cfg_permissions'];
-  $adminConfig['timeZone']                 = $_POST['cfg_timeZone'];
+  $adminConfig['timezone']                 = $_POST['cfg_timeZone'];
   $adminConfig['dateFormat']               = $_POST['cfg_dateFormat'];
   $adminConfig['speakingUrl']              = $_POST['cfg_speakingUrl'];
   

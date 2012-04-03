@@ -78,10 +78,24 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
       // change the non localized content to the mainLanguage
       if(is_array($pageContent['localization']) && is_array(current($pageContent['localization']))) {
         
-        // get the either the already existing mainLanguage, or use the next following language as the mainLanguage
+        // USE LOCALIZATION: Get either the already existing mainLanguage, or use the next following language as the mainLanguage
         $useLocalization = (isset($pageContent['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
           ? $pageContent['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
           : current($pageContent['localization']);
+
+
+        // GET the REMOVED LANGUAGES
+        if(is_array($adminConfig['multiLanguageWebsite']['languages'])) {
+          $removedLanguages = array();
+          foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
+            if(!in_array($langCode, $newAdminConfig['multiLanguageWebsite']['languages']))
+              $removedLanguages[] = $langCode;
+          }
+          // REMOVE those LANGUAGES
+          foreach ($removedLanguages as $langCode) {
+            unset($pageContent['localization'][$langCode]);
+          }
+        }
 
         // put the mainLanguage on the top
         $pageContent['localization'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $pageContent['localization']);
@@ -324,10 +338,12 @@ if($savedSettings) {
   foreach ($feedFiles as $feedFile) {
     unlink($feedFile);
   }
-  foreach ($categoryConfig as $category) {
-    $feedFiles = glob(dirname(__FILE__).'/../../pages/'.$category['id'].'/*.xml');
-    foreach ($feedFiles as $feedFile) {
-      unlink($feedFile);
+  if(is_array($categoryConfig)) {
+    foreach ($categoryConfig as $category) {
+      $feedFiles = glob(dirname(__FILE__).'/../../pages/'.$category['id'].'/*.xml');
+      foreach ($feedFiles as $feedFile) {
+        unlink($feedFile);
+      }
     }
   }
   

@@ -161,7 +161,8 @@ define('DOCUMENTROOT', $docRoot); unset($docRoot,$basePath,$localpath,$absolutep
 /**
  * Set the Timezone
  */
-date_default_timezone_set($adminConfig['timeZone']);
+if(function_exists('date_default_timezone_set'))
+  date_default_timezone_set($adminConfig['timezone']);
 
 /**
  * The required PHP version

@@ -38,6 +38,7 @@ echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['p
       <input type="hidden" name="category" value="'.$_GET['category'].'" />
       <input type="hidden" name="id" value="'.$_GET['page'].'" />
       <input type="hidden" name="websiteLanguage" value="'.$_SESSION['feinduraSession']['websiteLanguage'].'" />
+      <input type="hidden" name="status" value="'.$_GET['status'].'" />
       <input type="hidden" name="savedBlock" id="savedBlock" value="" />
       </div>';
 
@@ -325,7 +326,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
       
     
       // ->> if newPage
-      if($newPage) {
+      if($newPage && $_GET['status'] != 'addLanguage') {
       
         // -> show a CATEGORY SELECTION
         echo '<tr>

@@ -62,28 +62,28 @@ $question .= '</select>
               </div>';
 
 
-// DELETING PROCESS
+// ADD LANGUAGE
 if($_POST['asking']) {
 
-  if($_POST['useLanguageSelection'] != 'none')
-    $pageContent['localization'][$_POST['addLanguageSelection']] = $pageContent['localization'][$_POST['useLanguageSelection']];
-  else
-    $pageContent['localization'][$_POST['addLanguageSelection']] = array();
+  // if($_POST['useLanguageSelection'] != 'none')
+  //   $pageContent['localization'][$_POST['addLanguageSelection']] = $pageContent['localization'][$_POST['useLanguageSelection']];
+  // else
+  //   $pageContent['localization'][$_POST['addLanguageSelection']] = array();
 
 
-  if(GeneralFunctions::savePage($pageContent)) {
-    StatisticFunctions::saveTaskLog(array(33,$languageCodes[$_POST['addLanguageSelection']]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
+  // if(GeneralFunctions::savePage($pageContent)) {
+  //   StatisticFunctions::saveTaskLog(array(33,$languageCodes[$_POST['addLanguageSelection']]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
     
     $question = '';
     echo 'DONTSHOW';        
     // create redirect
-    $redirect = '?category='.$category.'&page='.$page.'&status=reload'.rand(1,99).'&websiteLanguage='.$_POST['addLanguageSelection'];
+    $redirect = '?category='.$category.'&page='.$page.'&websiteLanguage='.$_POST['addLanguageSelection'].'&status=addLanguage&template='.$_POST['useLanguageSelection'];
       
     // redirect
     echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php'.$redirect.'\');/* ]]> */</script>';
 
-  } else
-    $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
+  // } else
+  //   $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
 
 }
 

@@ -295,6 +295,9 @@ class GeneralFunctions {
   */
   public static function setVisitorTimzone() {
 
+    if(!function_exists('date_default_timezone_set'))
+      return false;
+
     // var
     $return = false;
     //unset($_SESSION['feinduraSession']['timezone']);
@@ -801,15 +804,15 @@ class GeneralFunctions {
     $fileContent = '';
     $fileContent .= PHPSTARTTAG;
     
-    $fileContent .= "\$pageContent['id'] =                 ".XssFilter::int($pageContent['id'],0).";\n";
-    $fileContent .= "\$pageContent['category'] =           ".XssFilter::int($pageContent['category'],0).";\n";
-    $fileContent .= "\$pageContent['sortOrder'] =          ".XssFilter::int($pageContent['sortOrder'],0).";\n";
-    $fileContent .= "\$pageContent['public'] =             ".XssFilter::bool($pageContent['public'],true).";\n\n";
+    $fileContent .= "\$pageContent['id']                 = ".XssFilter::int($pageContent['id'],0).";\n";
+    $fileContent .= "\$pageContent['category']           = ".XssFilter::int($pageContent['category'],0).";\n";
+    $fileContent .= "\$pageContent['sortOrder']          = ".XssFilter::int($pageContent['sortOrder'],0).";\n";
+    $fileContent .= "\$pageContent['public']             = ".XssFilter::bool($pageContent['public'],true).";\n\n";
     
-    $fileContent .= "\$pageContent['lastSaveDate'] =       ".XssFilter::int($pageContent['lastSaveDate'],0).";\n";
-    $fileContent .= "\$pageContent['lastSaveAuthor'] =     '".XssFilter::text($pageContent['lastSaveAuthor'])."';\n\n"; 
+    $fileContent .= "\$pageContent['lastSaveDate']       = ".XssFilter::int($pageContent['lastSaveDate'],0).";\n";
+    $fileContent .= "\$pageContent['lastSaveAuthor']     = '".XssFilter::text($pageContent['lastSaveAuthor'])."';\n\n"; 
     
-    $fileContent .= "\$pageContent['pageDate']['date'] =   ".XssFilter::int($pageContent['pageDate']['date'],0).";\n\n";
+    $fileContent .= "\$pageContent['pageDate']['date']   = ".XssFilter::int($pageContent['pageDate']['date'],0).";\n\n";
 
     // write the plugins
     if(is_array($pageContent['plugins'])) {
@@ -837,10 +840,10 @@ class GeneralFunctions {
       }
     }
     
-    $fileContent .= "\$pageContent['thumbnail'] =          '".XssFilter::filename($pageContent['thumbnail'])."';\n";
-    $fileContent .= "\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n"; //XssFilter is in prepareStyleFilePaths() function
-    $fileContent .= "\$pageContent['styleId'] =            '".XssFilter::string($pageContent['styleId'])."';\n";
-    $fileContent .= "\$pageContent['styleClass'] =         '".XssFilter::string($pageContent['styleClass'])."';\n\n";
+    $fileContent .= "\$pageContent['thumbnail']          = '".XssFilter::filename($pageContent['thumbnail'])."';\n";
+    $fileContent .= "\$pageContent['styleFile']          = '".$pageContent['styleFile']."';\n"; //XssFilter is in prepareStyleFilePaths() function
+    $fileContent .= "\$pageContent['styleId']            = '".XssFilter::string($pageContent['styleId'])."';\n";
+    $fileContent .= "\$pageContent['styleClass']         = '".XssFilter::string($pageContent['styleClass'])."';\n\n";
 
     // save localized
     if(is_array($pageContent['localization'])) {
@@ -850,11 +853,11 @@ class GeneralFunctions {
         $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
 
         $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['before'] = '".XssFilter::text($pageContentLocalized['pageDate']['before'])."';\n";
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['after'] =  '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['tags'] =               '".XssFilter::text($pageContentLocalized['tags'])."';\n";
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['title'] =              '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['description'] =        '".XssFilter::text($pageContentLocalized['description'])."';\n";
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['content'] = '".trim(self::htmLawed($pageContentLocalized['content']))."';\n\n";
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['after']  = '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['tags']               = '".XssFilter::text($pageContentLocalized['tags'])."';\n";
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['title']              = '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['description']        = '".XssFilter::text($pageContentLocalized['description'])."';\n";
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['content']            = '".trim(self::htmLawed($pageContentLocalized['content']))."';\n\n";
       }
     }
     
@@ -1149,7 +1152,8 @@ class GeneralFunctions {
       if($category === true) {
       	// puts the categories IDs in an array
       	$category = array(0);
-        $category = array_merge($category,array_keys(self::$categoryConfig));
+        if(is_array(self::$categoryConfig))
+          $category = array_merge($category,array_keys(self::$categoryConfig));
       }
       
       // change category into array

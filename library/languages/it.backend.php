@@ -189,8 +189,8 @@ $langFile['LOG_BACKUP_CREATED']                                           = 'Bac
 $langFile['LOG_BACKUP_RESTORED']                                          = 'Backup ripristinato';
 $langFile['LOG_BACKUP_DELETED']                                           = 'Backup cancellato';
 
-$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Lingua &quot;%s&quot; cancellata per pagina';
-$langFile['LOG_PAGELANGUAGE_ADD']                                         = 'Lingua &quot;%s&quot; aggiungere per pagina';
+$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Eliminata lingua &quot;%s&quot; per la pagina';
+$langFile['LOG_PAGELANGUAGE_ADD']                                         = 'Aggiungi lingua &quot;%s&quot; per la pagina';
 
 
 // PAGE/CATEGORY STATUS
@@ -496,7 +496,7 @@ $langFile['editFilesSettings_deleteFile_error_delete']                    = '<b>
 $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'I Tags possono essere utilizzati per creare connessioni tra le pagine (a seconda della programmazione del sito)';
 
 // ---------- page settings
-$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Impostazzioni-Pagina';
+$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Impostazzioni del Sito Web';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Imposta Pagina Iniziale';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'L\'utente può impostare una pagina come pagina iniziale.[br][br]Se selezionata questa impostazione l\'utente può decidere la pagina da visualizzare all\'entrata nel sito. Quando nessuna variabile [i]$_GET[/i] di altre pagine vengono passate nel sito o in qualunque pagina che è stata già visualizzata, sarà quella selezionata la Home Page.';
 $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'Sito web multi lingua';

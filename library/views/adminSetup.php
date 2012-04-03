@@ -82,7 +82,7 @@ foreach ($tab as $buf) {
 <a id="adminSettings" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
-$hidden = ($savedForm != 'adminSettings' && checkBasePathAndURL() && !documentrootWarning()) ? ' hidden' : '';
+$hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePathAndURL() && !documentrootWarning()) ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><?php echo $langFile['ADMINSETUP_GENERAL_h1']; ?></a></h1>
@@ -183,8 +183,8 @@ $hidden = ($savedForm != 'adminSettings' && checkBasePathAndURL() && !documentro
       </td><td class="right">
       <select id="cfg_timeZone" name="cfg_timeZone" style="width: 310px;">
         <?php
-          if(empty($adminConfig['timeZone']))
-            $adminConfig['timeZone'] = date_default_timezone_get();
+          if(empty($adminConfig['timezone']))
+            $adminConfig['timezone'] = date_default_timezone_get();
         
           $storedContinent = '';
           foreach($timezones as $zone => $zoneName) {
@@ -199,7 +199,7 @@ $hidden = ($savedForm != 'adminSettings' && checkBasePathAndURL() && !documentro
               echo '<optgroup label="'.$continent.'">'."\n";
             }
             
-            $selected = ($adminConfig['timeZone'] == $zone) ? ' selected="selected"': '';
+            $selected = ($adminConfig['timezone'] == $zone) ? ' selected="selected"': '';
             echo '<option value="'.$zone.'"'.$selected.'>'.$fullCityName.'</option>'."\n";
             
             $storedContinent = $continent;

@@ -73,7 +73,9 @@ if($_POST['save'] && isBlocked() === false) {
     if(!$pageContent = GeneralFunctions::readPage($page,$category))
       $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['realBasePath']);
     
-    $logText = 1;
+    $logText = ($_POST['status'] == 'addLanguage')
+      ? 33
+      : 1;
 
     // get OTHER LOCALIZED content
     $_POST['localization'] = $pageContent['localization'];
@@ -125,7 +127,11 @@ if($_POST['save'] && isBlocked() === false) {
 
     if(GeneralFunctions::savePage($_POST)) {
       $documentSaved = true;
-      StatisticFunctions::saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
+
+      if($_POST['status'] == 'addLanguage')
+        StatisticFunctions::saveTaskLog(array($logText,$languageCodes[$_POST['websiteLanguage']]),'page='.$page); // <- SAVE the task in a LOG FILE
+      else
+        StatisticFunctions::saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
       
       // set PERMISSIONS of the page
       $filePath = ($pageContent['category'] == 0)
@@ -158,7 +164,7 @@ if($newPage) {
   $_GET['page'] = 'new';
   $page = 'new';
   
-  // load template
+  // LOAD PAGE as TEMPLATE
   if(isset($_GET['template']) && is_numeric($_GET['template']))
     $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
   
@@ -170,6 +176,16 @@ if($newPage) {
 if(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) && isBlocked() === false) {
   $pageContent['thumbnail'] = '';
   GeneralFunctions::savePage($pageContent);
+}
+
+// if ADD LANGUAGE set the $newPage var to TRUE, and ADD TITLE TEXT
+if($_GET['status'] == 'addLanguage') {
+  $newPage = true;
+  $pageTitle = $langFile['BUTTON_WEBSITELANGUAGE_ADD'].': '.$languageCodes[$_SESSION['feinduraSession']['websiteLanguage']];
+
+  // LOAD LANGUAGE as template
+  if(isset($_GET['template']) && is_string($_GET['template']) && strlen($_GET['template']) == 2)
+    $pageContent['localization'][$_SESSION['feinduraSession']['websiteLanguage']] = $pageContent['localization'][$_GET['template']];
 }
 
 ?>
