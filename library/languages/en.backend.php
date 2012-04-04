@@ -329,7 +329,7 @@ $langFile['DASHBOARD_TITLE_REFERER']                                      = 'Web
 
 // ---------- PAGES SORTABLE LIST
 $langFile['SORTABLEPAGELIST_h1']                                          = 'The content of your website';
-$langFile['SORTABLEPAGELIST_headText1']                                   = 'filter';
+$langFile['SORTABLEPAGELIST_headText1']                                   = 'Filter';
 $langFile['SORTABLEPAGELIST_headText2']                                   = 'Last edited';
 $langFile['SORTABLEPAGELIST_headText3']                                   = 'Visitors';
 $langFile['SORTABLEPAGELIST_headText4']                                   = 'Status';
