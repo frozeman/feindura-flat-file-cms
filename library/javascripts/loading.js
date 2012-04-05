@@ -19,9 +19,9 @@
 // fix the layout height
 function layoutFix() {
   if($('leftSidebar') !== null) {
-    if(($('leftSidebar').offsetHeight + 15) > $('content').offsetHeight) {
+    if(($('leftSidebar').offsetHeight + 20) > $('content').offsetHeight) {
       $('mainBody').tween('height',$('leftSidebar').offsetHeight);
-    } else if(($('leftSidebar').offsetHeight - 15) < $('content').offsetHeight) {
+    } else if(($('leftSidebar').offsetHeight - 20) < $('content').offsetHeight) {
       $('mainBody').tween('height',$('content').offsetHeight);
     }
   }
@@ -130,8 +130,7 @@ window.addEvent('domready', function() {
 });
 
 // LOADING-CIRCLE when the website will be left
-window.addEvent('unload',  function() {
-  
+window.addEvent('beforeunload',  function() {
   hideLoadingCircle();
 
 });

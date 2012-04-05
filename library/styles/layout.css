@@ -242,10 +242,10 @@ a.gray:hover, a.gray:focus {
 #footer {
     z-index: 1;
     position: relative;
-    top: -23px;
+    top: -38px;
     width: 100%;
     min-width: 1255px;
-    height: 156px;
+    height: 176px;
     clear: both;
     background: url("../images/bg/footer.png") repeat-x;
     }
@@ -255,7 +255,7 @@ a.gray:hover, a.gray:focus {
     top: 0px;
     left: 0px;
     width: 1024px;
-    height: 149px;
+    height: 168px;
     background: url("../images/bg/footerBlock.png") no-repeat;
     }
 #copyright {
