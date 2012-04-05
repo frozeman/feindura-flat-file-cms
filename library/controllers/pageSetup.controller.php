@@ -82,43 +82,43 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     $allPages = GeneralFunctions::loadPages(true);
     foreach($allPages as $pageContent) {
 
-      // $pageContent['localization'][0] = (!isset($pageContent['localization'][0])) ? array() : $pageContent['localization'][0];
+      // $pageContent['localized'][0] = (!isset($pageContent['localized'][0])) ? array() : $pageContent['localized'][0];
 
       // change the non localized content to the mainLanguage
-      if(is_array($pageContent['localization']) && is_array(current($pageContent['localization']))) {
+      if(is_array($pageContent['localized']) && is_array(current($pageContent['localized']))) {
         
         // USE LOCALIZATION: Get either the already existing mainLanguage, or use the next following language as the mainLanguage
-        $useLocalization = (isset($pageContent['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
-          ? $pageContent['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
-          : current($pageContent['localization']);
+        $useLocalization = (isset($pageContent['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
+          ? $pageContent['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
+          : current($pageContent['localized']);
 
         // REMOVE old LANGUAGES
         foreach ($removedLanguages as $langCode) {
-          unset($pageContent['localization'][$langCode]);
+          unset($pageContent['localized'][$langCode]);
         }
 
         // put the mainLanguage on the top
-        $pageContent['localization'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $pageContent['localization']);
-        unset($pageContent['localization'][0]);
+        $pageContent['localized'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $pageContent['localized']);
+        unset($pageContent['localized'][0]);
       }
       if(!GeneralFunctions::savePage($pageContent))
         $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
     }
 
     // -> CHANGE WEBSITE CONFIG
-    if(is_array($websiteConfig['localization']) && is_array(current($websiteConfig['localization']))) {
+    if(is_array($websiteConfig['localized']) && is_array(current($websiteConfig['localized']))) {
       // get the either the already existing mainLanguage, or use the next following language as the mainLanguage
-      $useLocalization = (isset($websiteConfig['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
-        ? $websiteConfig['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
-        : current($websiteConfig['localization']);
+      $useLocalization = (isset($websiteConfig['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
+        ? $websiteConfig['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
+        : current($websiteConfig['localized']);
 
       // put the mainLanguage on the top
-      $websiteConfig['localization'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $websiteConfig['localization']);
-      unset($websiteConfig['localization'][0]);
+      $websiteConfig['localized'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $websiteConfig['localized']);
+      unset($websiteConfig['localized'][0]);
 
       // REMOVE old LANGUAGES
       foreach ($removedLanguages as $langCode) {
-        unset($websiteConfig['localization'][$langCode]);
+        unset($websiteConfig['localized'][$langCode]);
       }
     }
     if(!saveWebsiteConfig($websiteConfig))
@@ -132,17 +132,17 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
         $newCategoryConfig[$key] = $category;
 
           // get the either the already existing mainLanguage, or use the next following language as the mainLanguage
-        $useLocalization = (isset($category['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
-          ? $category['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
-          : current($category['localization']);
+        $useLocalization = (isset($category['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
+          ? $category['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
+          : current($category['localized']);
 
         // put the mainLanguage on the top
-        $newCategoryConfig[$key]['localization'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $category['localization']);
-        unset($newCategoryConfig[$key]['localization'][0]);
+        $newCategoryConfig[$key]['localized'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $category['localized']);
+        unset($newCategoryConfig[$key]['localized'][0]);
 
         // REMOVE old LANGUAGES
         foreach ($removedLanguages as $langCode) {
-          unset($newCategoryConfig[$key]['localization'][$langCode]);
+          unset($newCategoryConfig[$key]['localized'][$langCode]);
         }
       }
       if(!saveCategories($newCategoryConfig))
@@ -152,6 +152,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     // -> add SESSION
     $_SESSION['feinduraSession']['websiteLanguage'] = $newAdminConfig['multiLanguageWebsite']['mainLanguage'];
 
+
   // ->> CHANGE TO SINGLE LANGUAGE
   } else {
 
@@ -160,14 +161,14 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     foreach($allPages as $pageContent) {
 
       // change the localized content to non localized content using the the mainLanguage
-      if(is_array($pageContent['localization']) && isset($pageContent['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
-        $storedMainLanguageArray = $pageContent['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
-        unset($pageContent['localization']);
-        $pageContent['localization'][0] = $storedMainLanguageArray;
+      if(is_array($pageContent['localized']) && isset($pageContent['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
+        $storedMainLanguageArray = $pageContent['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
+        unset($pageContent['localized']);
+        $pageContent['localized'][0] = $storedMainLanguageArray;
       
       // if the mainLanguage didnt exist create an empty array
       } else
-        $pageContent['localization'][0] = array();
+        $pageContent['localized'][0] = array();
 
       if(!GeneralFunctions::savePage($pageContent))
         $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
@@ -175,14 +176,14 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
 
     // -> CHANGE WEBSITE CONFIG
     // change the localized content to non localized content using the the mainLanguage
-    if(is_array($websiteConfig['localization']) && isset($websiteConfig['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
-      $storedMainLanguageArray = $websiteConfig['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
-      unset($websiteConfig['localization']);
-      $websiteConfig['localization'][0] = $storedMainLanguageArray;
+    if(is_array($websiteConfig['localized']) && isset($websiteConfig['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
+      $storedMainLanguageArray = $websiteConfig['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
+      unset($websiteConfig['localized']);
+      $websiteConfig['localized'][0] = $storedMainLanguageArray;
     
     // if the mainLanguage didnt exist create an empty array
     } else
-      $websiteConfig['localization'][0] = array();
+      $websiteConfig['localized'][0] = array();
     if(!saveWebsiteConfig($websiteConfig))
       $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['realBasePath']);
 
@@ -194,14 +195,14 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
       foreach ($categoryConfig as $key => $category) {
         $newCategoryConfig[$key] = $category;
 
-        if(is_array($category['localization']) && isset($category['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
-          $storedMainLanguageArray = $category['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
-          unset($newCategoryConfig[$key]['localization']);
-          $newCategoryConfig[$key]['localization'][0] = $storedMainLanguageArray;
+        if(is_array($category['localized']) && isset($category['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
+          $storedMainLanguageArray = $category['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
+          unset($newCategoryConfig[$key]['localized']);
+          $newCategoryConfig[$key]['localized'][0] = $storedMainLanguageArray;
         
         // if the mainLanguage didnt exist create an empty array
         } else
-          $newCategoryConfig[$key]['localization'][0] = array();
+          $newCategoryConfig[$key]['localized'][0] = array();
       }
       if(!saveCategories($newCategoryConfig))
         $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['realBasePath']);
@@ -281,7 +282,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
    $_GET['status'] == 'deleteCategory') && isset($categoryConfig[$_GET['category']])) {  
   
   // save the name, to put it in the info
-  $storedCategoryName = GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localization'],'name');
+  $storedCategoryName = GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localized'],'name');
   
   // deletes the category with the given id from the array and saves the categoriesSettings.php
   unset($categoryConfig[$_GET['category']]);  
@@ -354,11 +355,11 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
   // serialize the plugins array
   foreach($_POST['categories'] as $key => $value) {
     $_POST['categories'][$key]['plugins']      = serialize($value['plugins']);
-    $_POST['categories'][$key]['localization'] = $categoryConfig[$key]['localization'];
+    $_POST['categories'][$key]['localized'] = $categoryConfig[$key]['localized'];
 
     // STORE LOCALIZED CONTENT
     if(!empty($value['name']))
-      $_POST['categories'][$key]['localization'][$_POST['websiteLanguage']]['name'] = $value['name'];
+      $_POST['categories'][$key]['localized'][$_POST['websiteLanguage']]['name'] = $value['name'];
     
     // delete unnecessary variables
     unset($_POST['categories'][$key]['name']);

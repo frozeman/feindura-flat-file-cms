@@ -322,7 +322,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
       if($_GET['category'] == 0) // show only if categories exist
         $categoryName = '<span style="color:#A6A6A6;">'.$langFile['EDITOR_pageinfo_category_noCategory'].'</span>';
       else
-        $categoryName = '<span style="color:#A6A6A6;">'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localization'],'name').' (ID </span>'.$_GET['category'].'<span style="color:#A6A6A6;">)</span>';
+        $categoryName = '<span style="color:#A6A6A6;">'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localized'],'name').' (ID </span>'.$_GET['category'].'<span style="color:#A6A6A6;">)</span>';
       
     
       // ->> if newPage
@@ -345,7 +345,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
                                 
                 // -> shows category selection if create pages is allowed
                 if($listCategory['createDelete'])
-                  echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.GeneralFunctions::getLocalized($listCategory['localization'],'name').' (ID '.$listCategory['id'].')</option>'."\n";
+                  echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.GeneralFunctions::getLocalized($listCategory['localized'],'name').' (ID '.$listCategory['id'].')</option>'."\n";
               }
               
         echo '</select>
@@ -365,8 +365,8 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
               // -> goes trough categories and list them
               foreach($allPages as $curPage) {
                 $selected = ($curPage['id'] == $_GET['template']) ? ' selected="selected"' : $selected = '';
-                $categoryText = ($curPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$curPage['category']]['localization'],'name').' » ' : '';
-                echo '<option value="'.$curPage['id'].'"'.$selected.'>'.$categoryText.GeneralFunctions::getLocalized($curPage['localization'],'title').'</option>'."\n";
+                $categoryText = ($curPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$curPage['category']]['localized'],'name').' » ' : '';
+                echo '<option value="'.$curPage['id'].'"'.$selected.'>'.$categoryText.GeneralFunctions::getLocalized($curPage['localized'],'title').'</option>'."\n";
               }
               
         echo '</select>
@@ -392,12 +392,12 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
           $categoryInLink = $adminConfig['varName']['category'].'='.$pageContent['category'].'&amp;';
         
         // shows the page languages
-        if(!isset($pageContent['localization'][0])) {
+        if(!isset($pageContent['localized'][0])) {
           echo '<tr>
                 <td class="left">
                 <span class="info"><strong>'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].'</strong></span>
                 </td><td class="right">';
-                foreach ($pageContent['localization'] as $langCode => $values) {
+                foreach ($pageContent['localized'] as $langCode => $values) {
                   echo '<a href="'.GeneralFunctions::addParameterToUrl(array('websiteLanguage','status'),array($langCode,'')).'" class="image" style="font-size:12px;"><img src="'.getFlag($langCode).'" class="flag"> '.$languageCodes[$langCode].'</a>';
                   if($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) echo '<img src="library/images/icons/edited_small.png" style="position:absolute; margin-top:1px;">';
                   echo '<br>';
@@ -462,7 +462,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <label for="edit_title"><span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">
       <?php echo $langFile['EDITOR_pageSettings_title'] ?></span></label>
       </td><td class="right">
-        <input id="edit_title" name="title" style="width:492px;" value="<?php echo str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent['localization'],'title',true)); ?>"<?php echo $autofocus; ?> class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">        
+        <input id="edit_title" name="title" style="width:492px;" value="<?php echo str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent['localized'],'title',true)); ?>"<?php echo $autofocus; ?> class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">        
       </td></tr>
       
       <!-- ***** PAGE DESCRIPTION -->      
@@ -470,7 +470,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <label for="edit_description"><span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_field1'].'::'.$langFile['EDITOR_pageSettings_field1_tip']; ?>">
       <?php echo $langFile['EDITOR_pageSettings_field1']; ?></span></label>
       </td><td class="right">
-      <textarea id="edit_description" name="description" cols="50" rows="2" style="white-space:normal;width:480px;" class="inputToolTip autogrow" title="<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($pageContent['localization'],'description',true); ?></textarea>
+      <textarea id="edit_description" name="description" cols="50" rows="2" style="white-space:normal;width:480px;" class="inputToolTip autogrow" title="<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($pageContent['localized'],'description',true); ?></textarea>
       </td></tr>
       <?php
       
@@ -517,7 +517,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       
       </td><td class="right">
         <?php
-        $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localization'],'pageDate',true);
+        $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate',true);
         ?>
         <input name="pageDate[before]" value="<?php echo $pageDateBeforeAfter['before']; ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;">
         
@@ -598,7 +598,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <label for="edit_tags"><span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip'] ?>">
       <?php echo $langFile['EDITOR_pageSettings_field2'] ?></span></label>
       </td><td class="right">
-        <input id="edit_tags" name="tags" class="inputToolTip" style="width:492px;" value="<?php echo GeneralFunctions::getLocalized($pageContent['localization'],'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>">        
+        <input id="edit_tags" name="tags" class="inputToolTip" style="width:492px;" value="<?php echo GeneralFunctions::getLocalized($pageContent['localized'],'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>">        
       </td></tr>
       <?php } ?>
       

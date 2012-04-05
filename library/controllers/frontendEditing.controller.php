@@ -30,16 +30,17 @@ if($_POST['save'] == 'true') {
   // var
   $return = '';
   $tmpReturn = '';
-  
+  $langCode = ($feindura_adminConfig['multiLanguageWebsite']['active']) ? $_POST['language'] : 0;
+
   // read the page
   $pageContent = GeneralFunctions::readPage($_POST['page'],$_POST['category']);
 
   // -> replace the existing data with the new one
-  if(is_array($pageContent['localization'])) {
-    $pageContent['localization'][$_POST['language']]['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['localization'][$_POST['language']]['title'];
-    $pageContent['localization'][$_POST['language']]['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['localization'][$_POST['language']]['content'];
-    $tmpReturn = ($_POST['type'] == 'title') ? $pageContent['localization'][$_POST['language']]['title'] : $tmpReturn;
-    $tmpReturn = ($_POST['type'] == 'content') ? $pageContent['localization'][$_POST['language']]['content'] : $tmpReturn;
+  if(is_array($pageContent['localized'])) {
+    $pageContent['localized'][$langCode]['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['localized'][$langCode]['title'];
+    $pageContent['localized'][$langCode]['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['localized'][$langCode]['content'];
+    $tmpReturn = ($_POST['type'] == 'title') ? $pageContent['localized'][$langCode]['title'] : $tmpReturn;
+    $tmpReturn = ($_POST['type'] == 'content') ? $pageContent['localized'][$langCode]['content'] : $tmpReturn;
   // legacy fallback
   } else {
     $pageContent['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['title'];

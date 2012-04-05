@@ -27,7 +27,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 ?>
 <div class="editor">
 <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
-<?php echo htmlspecialchars(GeneralFunctions::getLocalized($pageContent['localization'],'content',true),ENT_NOQUOTES,'UTF-8'); ?>
+<?php echo htmlspecialchars(GeneralFunctions::getLocalized($pageContent['localized'],'content',true),ENT_NOQUOTES,'UTF-8'); ?>
 </textarea>
 <?php
 

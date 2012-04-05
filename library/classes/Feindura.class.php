@@ -989,10 +989,10 @@ class Feindura extends FeinduraBase {
 
       // -> get PAGE TITLE
       if($currentPage = GeneralFunctions::readPage($this->page,GeneralFunctions::getPageCategory($this->page)))
-        $pageNameInTitle = strip_tags(GeneralFunctions::getLocalized($currentPage['localization'],'title',$this->language)).' - ';
+        $pageNameInTitle = strip_tags(GeneralFunctions::getLocalized($currentPage['localized'],'title',$this->language)).' - ';
       
       // -> add TITLE
-      $metaTags .= '  <title>'.$pageNameInTitle.GeneralFunctions::getLocalized($this->websiteConfig['localization'],'title',$this->language).'</title>'."\n\n";
+      $metaTags .= '  <title>'.$pageNameInTitle.GeneralFunctions::getLocalized($this->websiteConfig['localized'],'title',$this->language).'</title>'."\n\n";
       
       // -> add BASE PATH if SPEAKING URLS are ON
       if($this->adminConfig['speakingUrl'])
@@ -1007,7 +1007,7 @@ class Feindura extends FeinduraBase {
         
       // -> add puplisher
       if($publisher) {
-        $websiteConfigPublisher = GeneralFunctions::getLocalized($this->websiteConfig['localization'],'publisher',$this->language);
+        $websiteConfigPublisher = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'publisher',$this->language);
         if(is_string($publisher) && !is_bool($publisher))
           $metaTags .= '  <meta name="publisher" content="'.$publisher.'"'.$tagEnding."\n";
         elseif(!empty($websiteConfigPublisher))
@@ -1016,7 +1016,7 @@ class Feindura extends FeinduraBase {
 
       // -> add copyright
       if($copyright) {
-        $websiteConfigCopyright = GeneralFunctions::getLocalized($this->websiteConfig['localization'],'copyright',$this->language);
+        $websiteConfigCopyright = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'copyright',$this->language);
         if(is_string($copyright) && !is_bool($copyright))
           $metaTags .= '  <meta name="copyright" content="'.$copyright.'"'.$tagEnding."\n";
         elseif(!empty($websiteConfigCopyright))
@@ -1024,14 +1024,14 @@ class Feindura extends FeinduraBase {
       }
      
       // -> add keywords
-      $websiteConfigKeywords =  GeneralFunctions::getLocalized($this->websiteConfig['localization'],'keywords',$this->language);
+      $websiteConfigKeywords =  GeneralFunctions::getLocalized($this->websiteConfig['localized'],'keywords',$this->language);
       if(!empty($websiteConfigKeywords))
         $metaTags .= '  <meta name="keywords" content="'.$websiteConfigKeywords.'"'.$tagEnding."\n";
 
       // -> add description
       if(isset($currentPage)) {
-        $websiteConfigDescription = GeneralFunctions::getLocalized($this->websiteConfig['localization'],'description',$this->language);
-        $pageDescription = GeneralFunctions::getLocalized($currentPage['localization'],'description',$this->language);
+        $websiteConfigDescription = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'description',$this->language);
+        $pageDescription = GeneralFunctions::getLocalized($currentPage['localized'],'description',$this->language);
         if($pageDescription)
           $metaTags .= '  <meta name="description" content="'.$pageDescription.'"'.$tagEnding."\n";
         elseif(!empty($websiteConfigDescription))
@@ -1068,10 +1068,10 @@ class Feindura extends FeinduraBase {
             $rss2Link = $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$categoryPath.'rss2'.$addLanguageToFilename.'.xml';
 
             // title
-            $websiteTitle = GeneralFunctions::getLocalized($this->websiteConfig['localization'],'title',$langCode);
+            $websiteTitle = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'title',$langCode);
             $channelTitle = ($category['id'] == 0)
               ? $websiteTitle
-              : GeneralFunctions::getLocalized($category['localization'],'name',$langCode).' - '.$websiteTitle;
+              : GeneralFunctions::getLocalized($category['localized'],'name',$langCode).' - '.$websiteTitle;
 
             $channelTitleLang = (!empty($langCode)) ? ', '.strtoupper($langCode).')' : ')';
             
@@ -1958,8 +1958,10 @@ class Feindura extends FeinduraBase {
                                       $this->titlePageDateSeparator,
                                       $this->titleCategorySeparator);                                      
           
-          if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) // data-feindura format: "pageID categoryID"
-            $title = '<span class="feindura_editTitle" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$this->language.'">'.$title.'</span>';
+          if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION)  {// data-feindura="pageID categoryID language"
+            $langCode = ($this->adminConfig['multiLanguageWebsite']['active']) ? $this->language : 0;
+            $title = '<span class="feindura_editTitle" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.$title.'</span>';
+          }
           
           return $title;
           
@@ -2063,14 +2065,15 @@ class Feindura extends FeinduraBase {
           
           // -> adds the frontend editing container
           if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION && !$generatedPage['error']) {
+            $langCode = ($this->adminConfig['multiLanguageWebsite']['active']) ? $this->language : 0;
             
-            // data-feindura format: "pageID categoryID"
-            $generatedPage['title'] = '<span class="feindura_editTitle" data-feindura="'.$page.' '.$category.' '.$this->language.'">'.$generatedPage['title'].'</span>';
+            // data-feindura="pageID categoryID language"
+            $generatedPage['title'] = '<span class="feindura_editTitle" data-feindura="'.$page.' '.$category.' '.$langCode.'">'.$generatedPage['title'].'</span>';
                         
             if(!preg_match('#<script.*>#',$generatedPage['content']))
-              $generatedPage['content'] = "\n".'<div class="feindura_editPage" data-feindura="'.$page.' '.$category.' '.$this->language.'">'.$generatedPage['content'].'</div>'."\n";
+              $generatedPage['content'] = "\n".'<div class="feindura_editPage" data-feindura="'.$page.' '.$category.' '.$langCode.'">'.$generatedPage['content'].'</div>'."\n";
             else
-              $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.' '.$this->language.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$generatedPage['content'].'</div>'."\n";
+              $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.' '.$langCode.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$generatedPage['content'].'</div>'."\n";
           }
           unset($generatedPage['error']);
           

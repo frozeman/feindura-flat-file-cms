@@ -315,16 +315,16 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       $pageContent['pageDate']['date'] = (isset($pageContent['pagedate']['date'])) ? $pageContent['pagedate']['date'] : $pageContent['pageDate']['date'];
 
       // v1.2 - localized
-      if(!isset($pageContent['localization'])) {
+      if(!isset($pageContent['localized'])) {
 
-        $pageContent['localization'][0]['title'] = $pageContent['title'];
-        $pageContent['localization'][0]['content'] = $pageContent['content'];
-        $pageContent['localization'][0]['description'] = $pageContent['description'];
-        $pageContent['localization'][0]['tags'] = $pageContent['tags'];
+        $pageContent['localized'][0]['title'] = $pageContent['title'];
+        $pageContent['localized'][0]['content'] = $pageContent['content'];
+        $pageContent['localized'][0]['description'] = $pageContent['description'];
+        $pageContent['localized'][0]['tags'] = $pageContent['tags'];
 
         // page date before/after
-        $pageContent['localization'][0]['pageDate']['before'] = (isset($pageContent['pagedate']['before'])) ? $pageContent['pagedate']['before'] : $pageContent['pageDate']['before'];
-        $pageContent['localization'][0]['pageDate']['after'] = (isset($pageContent['pagedate']['after'])) ? $pageContent['pagedate']['after'] : $pageContent['pageDate']['after'];
+        $pageContent['localized'][0]['pageDate']['before'] = (isset($pageContent['pagedate']['before'])) ? $pageContent['pagedate']['before'] : $pageContent['pageDate']['before'];
+        $pageContent['localized'][0]['pageDate']['after'] = (isset($pageContent['pagedate']['after'])) ? $pageContent['pagedate']['after'] : $pageContent['pageDate']['after'];
       
       }
 
@@ -424,8 +424,8 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
           $category['styleFile'] = changeToSerializedData($data,'|');
       
       // v1.2 - localized
-      if(!isset($category['localization'])) {
-        $category['localization'][0]['name'] = $category['name'];
+      if(!isset($category['localized'])) {
+        $category['localized'][0]['name'] = $category['name'];
       }
 
       // change old keys
@@ -443,12 +443,12 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     
     // ->> SAVE NEW websiteConfig
     // v1.2 - localized
-    if(!isset($websiteConfig['localization'])) {
-      $websiteConfig['localization'][0]['title']       = $websiteConfig['title'];
-      $websiteConfig['localization'][0]['publisher']   = $websiteConfig['publisher'];
-      $websiteConfig['localization'][0]['copyright']   = $websiteConfig['copyright'];
-      $websiteConfig['localization'][0]['keywords']    = $websiteConfig['keywords'];
-      $websiteConfig['localization'][0]['description'] = $websiteConfig['description'];
+    if(!isset($websiteConfig['localized'])) {
+      $websiteConfig['localized'][0]['title']       = $websiteConfig['title'];
+      $websiteConfig['localized'][0]['publisher']   = $websiteConfig['publisher'];
+      $websiteConfig['localized'][0]['copyright']   = $websiteConfig['copyright'];
+      $websiteConfig['localized'][0]['keywords']    = $websiteConfig['keywords'];
+      $websiteConfig['localized'][0]['description'] = $websiteConfig['description'];
     }
     if(saveWebsiteConfig($websiteConfig))
       echo 'websiteConfig <span class="succesfull">succesfully updated</span><br>';

@@ -49,7 +49,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
         else
           $pageSelected = '';
              
-        echo '<li><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span>'.strip_tags(GeneralFunctions::getLocalized($page['localization'],'title')).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+        echo '<li><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span>'.strip_tags(GeneralFunctions::getLocalized($page['localized'],'title')).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
         $tabIndex++;
       }
     } else {
@@ -82,7 +82,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             $categorySelected = ' class="active"';
           else
             $categorySelected = '';                  
-        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="requestLeftSidebar(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span>'.GeneralFunctions::getLocalized($category['localization'],'name').'</span></a></li>';        
+        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="requestLeftSidebar(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span>'.GeneralFunctions::getLocalized($category['localized'],'name').'</span></a></li>';        
         $tabIndex++;
       }        
     echo '</ul>          
@@ -98,7 +98,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     echo '<div class="spacer arrow"></div>';
     
     echo '<div class="sidebarMenu free">
-    <div class="top gray"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localization'],'name').'</span><a href="#" class="toolTip" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localization'],'name').'::">&nbsp;</a></div>
+    <div class="top gray"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localized'],'name').'</span><a href="#" class="toolTip" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localized'],'name').'::">&nbsp;</a></div>
     <div class="content white">
       <ul class="verticalButtons">';      
       
@@ -110,7 +110,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           else
             $pageSelected = '';
                
-          echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span>'.GeneralFunctions::getLocalized($page['localization'],'title').'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+          echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span>'.GeneralFunctions::getLocalized($page['localized'],'title').'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
           $tabIndex++;
         }       
       } else {
@@ -227,7 +227,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           
             // -> show a anchor link to each category
   	        foreach($categoryConfig as $category) {
-              echo '<li><a href="#categoryAnchor'.$category['id'].'" class="standardLink">'.GeneralFunctions::getLocalized($category['localization'],'name').'</a></li>';
+              echo '<li><a href="#categoryAnchor'.$category['id'].'" class="standardLink">'.GeneralFunctions::getLocalized($category['localized'],'name').'</a></li>';
           
             }	echo '</ul>';
 	      } echo '</div></div>';

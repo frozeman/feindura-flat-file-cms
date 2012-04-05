@@ -44,7 +44,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 <head>
   <meta charset="UTF-8">
   
-  <title>feindura: <?php echo GeneralFunctions::getLocalized($websiteConfig['localization'],'title'); ?></title>
+  <title>feindura: <?php echo GeneralFunctions::getLocalized($websiteConfig['localized'],'title'); ?></title>
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=0.5">
@@ -54,7 +54,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate">
   
-  <meta name="title" content="feindura: <?php echo GeneralFunctions::getLocalized($websiteConfig['localization'],'title'); ?>">    
+  <meta name="title" content="feindura: <?php echo GeneralFunctions::getLocalized($websiteConfig['localized'],'title'); ?>">    
   <meta name="author" content="Fabian Vogelsteller [frozeman.de]">     
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
   <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">    
@@ -163,8 +163,8 @@ if($_GET['site'] == 'addons') {
   var feindura_pages = [
   ['-',''],
   <?php foreach($getPages as $getPage) {
-    $categoryText = ($getPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$getPage['category']]['localization'],'name').' » ' : '';
-    echo "['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($getPage['localization'],'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
+    $categoryText = ($getPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$getPage['category']]['localized'],'name').' » ' : '';
+    echo "['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($getPage['localized'],'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
     } ?>  ];
   <?php } ?>
   
@@ -410,11 +410,11 @@ if($_GET['site'] == 'addons') {
     if($adminConfig['multiLanguageWebsite']['active']) {
 
       // -> use the languages of the page
-      $currentlanguageSlection = (isset($pageContent['localization'])) ? array_keys($pageContent['localization']) : $adminConfig['multiLanguageWebsite']['languages'];
+      $currentlanguageSlection = (isset($pageContent['localized'])) ? array_keys($pageContent['localized']) : $adminConfig['multiLanguageWebsite']['languages'];
 
       // -> add new language to the page languages selection, if $_GET['status'] = "addLanguage"
       if($_GET['status'] == 'addLanguage')
-        $currentlanguageSlection = array_unique(array_merge($adminConfig['multiLanguageWebsite']['languages'],array_keys($pageContent['localization'])));
+        $currentlanguageSlection = array_unique(array_merge($adminConfig['multiLanguageWebsite']['languages'],array_keys($pageContent['localized'])));
       $_SESSION['feinduraSession']['websiteLanguage'] = in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection) ? $_SESSION['feinduraSession']['websiteLanguage']: current($currentlanguageSlection);
 
       // if NEW PAGE, overwrite with the mainLanguage
@@ -425,7 +425,7 @@ if($_GET['site'] == 'addons') {
       if($isInPageEditor) {
         $missingLanguages = false;
         foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
-          if(!isset($pageContent['localization'][$langCode]))
+          if(!isset($pageContent['localized'][$langCode]))
             $missingLanguages[] = $langCode;
         }
       } else
@@ -502,14 +502,14 @@ if($_GET['site'] == 'addons') {
               <?php
                 }
               // DELETE PAGE LANGUAGE
-              if(isset($_GET['page']) && !isset($pageContent['localization'][0]) && isset($pageContent['localization'][$_SESSION['feinduraSession']['websiteLanguage']])) { ?>
+              if(isset($_GET['page']) && !isset($pageContent['localized'][0]) && isset($pageContent['localized'][$_SESSION['feinduraSession']['websiteLanguage']])) { ?>
                 <!-- <li class="spacer">&nbsp;</li> -->
                 <li><a <?php echo 'href="?site=deletePageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'::'.sprintf($langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE'],'[b]'.$languageCodes[$_SESSION['feinduraSession']['websiteLanguage']].'[/b]').'"'; ?> tabindex="36" class="removePageLanguage toolTip">&nbsp;</a></li>
               <?php }
               }
 
               // PAGE LANGUAGE SELECTION with
-              if(!empty($adminConfig['multiLanguageWebsite']['languages']) && (empty($pageContent) || !empty($pageContent['localization']))) {
+              if(!empty($adminConfig['multiLanguageWebsite']['languages']) && (empty($pageContent) || !empty($pageContent['localized']))) {
                 ?>
                 <li class="spacer">&nbsp;</li>
                 <li>
@@ -518,7 +518,7 @@ if($_GET['site'] == 'addons') {
                   <?php
                     // create language selection
                     foreach($currentlanguageSlection as $langCode) {
-                      if($newPage || empty($pageContent) || isset($pageContent['localization'][$langCode]) || ($_GET['status'] == 'addLanguage' && $_SESSION['feinduraSession']['websiteLanguage'] == $langCode)) {
+                      if($newPage || empty($pageContent) || isset($pageContent['localized'][$langCode]) || ($_GET['status'] == 'addLanguage' && $_SESSION['feinduraSession']['websiteLanguage'] == $langCode)) {
                         $selected = ($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) ? ' selected="selected"' : '';
                         echo '<option value="'.$langCode.'"'.$selected.'>'.$languageCodes[$langCode].'</option>';
                       }

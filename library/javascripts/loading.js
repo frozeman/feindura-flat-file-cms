@@ -92,7 +92,7 @@ function onEndLoadingCircle() {
 window.addEvent('domready', function() {
 
   // ->> SHOW the loading circle
-  if($('content') !== null && loadingBox !== null &&
+  if($('content') !== null && $('loadingBox').getChildren('.content')[0] !== null &&
      $('documentSaved') !== null && !$('documentSaved').hasClass('saved')) {
     
     onStartLoadingCircle();

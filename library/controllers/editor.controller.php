@@ -78,21 +78,21 @@ if($_POST['save'] && isBlocked() === false) {
       : 1;
 
     // get OTHER LOCALIZED content
-    $_POST['localization'] = $pageContent['localization'];
+    $_POST['localized'] = $pageContent['localized'];
   }
 
   // -> only save page if no error occured
   if($errorWindow === false) {
 
     // STORE LOCALIZED CONTENT
-    $_POST['localization'][$_POST['websiteLanguage']]['pageDate']['before'] = $_POST['pageDate']['before'];
-    $_POST['localization'][$_POST['websiteLanguage']]['pageDate']['after'] = $_POST['pageDate']['after'];
+    $_POST['localized'][$_POST['websiteLanguage']]['pageDate']['before'] = $_POST['pageDate']['before'];
+    $_POST['localized'][$_POST['websiteLanguage']]['pageDate']['after'] = $_POST['pageDate']['after'];
     $_POST['tags'] = trim(preg_replace("#[\;,]+#", ',', $_POST['tags']),',');
     $_POST['tags'] = preg_replace("# +#", ' ', $_POST['tags']); // replace multiple whitespaces with one whitespace
-    $_POST['localization'][$_POST['websiteLanguage']]['tags'] = preg_replace("# *, *#", ',', $_POST['tags']); // make " , " to  ","
-    $_POST['localization'][$_POST['websiteLanguage']]['title'] = $_POST['title'];
-    $_POST['localization'][$_POST['websiteLanguage']]['description'] = $_POST['description'];
-    $_POST['localization'][$_POST['websiteLanguage']]['content'] = $_POST['HTMLEditor'];
+    $_POST['localized'][$_POST['websiteLanguage']]['tags'] = preg_replace("# *, *#", ',', $_POST['tags']); // make " , " to  ","
+    $_POST['localized'][$_POST['websiteLanguage']]['title'] = $_POST['title'];
+    $_POST['localized'][$_POST['websiteLanguage']]['description'] = $_POST['description'];
+    $_POST['localized'][$_POST['websiteLanguage']]['content'] = $_POST['HTMLEditor'];
     
     // delete unnecessary variables
     unset($_POST['pageDate']['before'],$_POST['pageDate']['after'],$_POST['tags'],$_POST['title'],$_POST['description'],$_POST['HTMLEditor']);
@@ -169,7 +169,7 @@ if($newPage) {
     $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
   
 } else {  
-  $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title',true));
+  $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title',true));
 }
 
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file
@@ -185,7 +185,7 @@ if($_GET['status'] == 'addLanguage') {
 
   // LOAD LANGUAGE as template
   if(isset($_GET['template']) && is_string($_GET['template']) && strlen($_GET['template']) == 2)
-    $pageContent['localization'][$_SESSION['feinduraSession']['websiteLanguage']] = $pageContent['localization'][$_GET['template']];
+    $pageContent['localized'][$_SESSION['feinduraSession']['websiteLanguage']] = $pageContent['localized'][$_GET['template']];
 }
 
 ?>

@@ -40,7 +40,7 @@ $question = '<div class="block">
              <select name="addLanguageSelection" id="addLanguageSelection">'."\n";
               // create language selection
               foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
-                if(!array_key_exists($langCode, $pageContent['localization'])) {
+                if(!array_key_exists($langCode, $pageContent['localized'])) {
                   $question .= '<option value="'.$langCode.'">'.$languageCodes[$langCode].'</option>';
                 }
               }
@@ -52,7 +52,7 @@ $question .= '<tr><td class="left"><label for="useLanguageSelection">'.$langFile
               <select name="useLanguageSelection" id="useLanguageSelection">
               <option value="none">-</option>'."\n";
               // -> goes trough categories and list them
-              foreach(array_keys($pageContent['localization']) as $langCode) {
+              foreach(array_keys($pageContent['localized']) as $langCode) {
                 $question .= '<option value="'.$langCode.'">'.$languageCodes[$langCode].'</option>';
               }
 $question .= '</select>
@@ -66,9 +66,9 @@ $question .= '</select>
 if($_POST['asking']) {
 
   // if($_POST['useLanguageSelection'] != 'none')
-  //   $pageContent['localization'][$_POST['addLanguageSelection']] = $pageContent['localization'][$_POST['useLanguageSelection']];
+  //   $pageContent['localized'][$_POST['addLanguageSelection']] = $pageContent['localized'][$_POST['useLanguageSelection']];
   // else
-  //   $pageContent['localization'][$_POST['addLanguageSelection']] = array();
+  //   $pageContent['localized'][$_POST['addLanguageSelection']] = array();
 
 
   // if(GeneralFunctions::savePage($pageContent)) {

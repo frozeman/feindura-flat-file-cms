@@ -48,7 +48,7 @@ $allCategories = $nonCategory + $categoryConfig;
 foreach($allCategories as $category) {
 
   // vars
-  $categoryName = GeneralFunctions::getLocalized($category['localization'],'name');
+  $categoryName = GeneralFunctions::getLocalized($category['localized'],'name');
   
   // -> LOAD the PAGES FROM the CATEGORY
   $pages = GeneralFunctions::loadPages($category['id'],true);
@@ -154,7 +154,7 @@ foreach($allCategories as $category) {
       }
       
       // shorten the title
-      $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title')),27);
+      $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title')),27);
       $visitorCount = GeneralFunctions::shortenString(StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']),12);
       
       // -> show lastSaveDate
@@ -164,21 +164,21 @@ foreach($allCategories as $category) {
       $toolTipPageDate = showPageDate($pageContent);
       
       // -> generate tags for toolTip
-      $localizedTags = GeneralFunctions::getLocalized($pageContent['localization'],'tags');
+      $localizedTags = GeneralFunctions::getLocalized($pageContent['localized'],'tags');
       if($category['showTags'] && !empty($localizedTags)) {
         $toolTipTags = '[br]';
         $toolTipTags .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].':[/b] '.$localizedTags;
       }
 
       // -> generate page languages for toolTip
-      if(!isset($pageContent['localization'][0])) {
+      if(!isset($pageContent['localized'][0])) {
         $toolTipPageLanguages .= '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].':[/b]';
-        foreach ($pageContent['localization'] as $langCode => $values) {
+        foreach ($pageContent['localized'] as $langCode => $values) {
           $toolTipPageLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] '.$languageCodes[$langCode];
         }
         // list not yet existing languages of the page
         foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
-          if(!isset($pageContent['localization'][$langCode])) {
+          if(!isset($pageContent['localized'][$langCode])) {
             $toolTipPageLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] [span class=gray][s]'.$languageCodes[$langCode].'[/s][/span]';
             $missingLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] '.$languageCodes[$langCode];
           }
@@ -201,7 +201,7 @@ foreach($allCategories as $category) {
       
       echo '<div class="name">
             <a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'"
-            title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title'))).'::
+            title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title'))).'::
             '.$startPageText.'[b]ID:[/b] '.$pageContent['id'].$toolTipPageDate.$toolTipTags.$toolTipPageLanguages.'">
             <b>'.$title.'</b>
             </a></div>';

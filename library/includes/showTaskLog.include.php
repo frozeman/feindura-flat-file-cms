@@ -181,7 +181,7 @@ foreach($logContent as $logRow) {
       $pageId = GeneralFunctions::cleanSpecialChars($pageId); // removes \n\r
       $pageContent = GeneralFunctions::readPage($pageId,GeneralFunctions::getPageCategory($pageId));
       
-      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" tabindex="'.$count.'" title="'.strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title')).'">'.GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title')), $maxLength).'</a>';
+      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" tabindex="'.$count.'" title="'.strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title')).'">'.GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title')), $maxLength).'</a>';
       
       $foundObject = true;
     }
@@ -204,7 +204,7 @@ foreach($logContent as $logRow) {
       
       $categoryName = ($categoryId == 0)
         ? $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']
-        : GeneralFunctions::getLocalized($categoryConfig[$categoryId]['localization'],'name');
+        : GeneralFunctions::getLocalized($categoryConfig[$categoryId]['localized'],'name');
       
       $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" tabindex="'.$count.'" title="'.$categoryName.'">'.GeneralFunctions::shortenString($categoryName, $maxLength).'</a>';
       

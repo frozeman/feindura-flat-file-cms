@@ -535,13 +535,13 @@ function saveCategories($newCategories) {
       $fileContent .= "\$categoryConfig[".$category['id']."]['thumbRatio'] =         '".XssFilter::alphabetical($category['thumbRatio'])."';\n\n";
       
       // save localized
-      if(is_array($category['localization'])) {
-        foreach ($category['localization'] as $langCode => $categoryLocalized) {
+      if(is_array($category['localized'])) {
+        foreach ($category['localized'] as $langCode => $categoryLocalized) {
 
           // remove the '' when its 0 (for non localized pages)
           $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
 
-          $fileContent .= "\$categoryConfig[".$category['id']."]['localization'][".$langCode."]['name']   = '".XssFilter::text($categoryLocalized['name'])."';\n";
+          $fileContent .= "\$categoryConfig[".$category['id']."]['localized'][".$langCode."]['name']   = '".XssFilter::text($categoryLocalized['name'])."';\n";
          }
       }
       $fileContent .= "\n\n";
@@ -832,7 +832,7 @@ function saveAdminConfig($adminConfig) {
         $fileContent .= "\$adminConfig['multiLanguageWebsite']['languages'][] =   ".XssFilter::alphabetical($langKey,$_SESSION['feinduraSession']['backendLanguage']).";\n";
       }
     }
-    $fileContent .= "\$adminConfig['multiLanguageWebsite']['mainLanguage'] =  ".XssFilter::alphabetical($adminConfig['multiLanguageWebsite']['mainLanguage'],$_SESSION['feinduraSession']['backendLanguage']).";\n\n";
+    $fileContent .= "\$adminConfig['multiLanguageWebsite']['mainLanguage'] =  ".XssFilter::alphabetical($adminConfig['multiLanguageWebsite']['mainLanguage'],0).";\n\n";
 
     $fileContent .= "\$adminConfig['pages']['createDelete'] = ".XssFilter::bool($adminConfig['pages']['createDelete'],true).";\n";
     $fileContent .= "\$adminConfig['pages']['thumbnails'] =   ".XssFilter::bool($adminConfig['pages']['thumbnails'],true).";\n";    
@@ -967,17 +967,17 @@ function saveWebsiteConfig($websiteConfig) {
     $fileContent .= "\$websiteConfig['startPage']      = ".XssFilter::int($websiteConfig['startPage'],0).";\n\n";
 
     // save localized
-    if(is_array($websiteConfig['localization'])) {
-      foreach ($websiteConfig['localization'] as $langCode => $websiteConfigLocalized) {
+    if(is_array($websiteConfig['localized'])) {
+      foreach ($websiteConfig['localized'] as $langCode => $websiteConfigLocalized) {
 
         // remove the '' when its 0 (for non localized pages)
         $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
 
-        $fileContent .= "\$websiteConfig['localization'][".$langCode."]['title']          = '".XssFilter::text($websiteConfigLocalized['title'])."';\n";
-        $fileContent .= "\$websiteConfig['localization'][".$langCode."]['publisher']      = '".XssFilter::text($websiteConfigLocalized['publisher'])."';\n";
-        $fileContent .= "\$websiteConfig['localization'][".$langCode."]['copyright']      = '".XssFilter::text($websiteConfigLocalized['copyright'])."';\n";
-        $fileContent .= "\$websiteConfig['localization'][".$langCode."]['keywords']       = '".XssFilter::text(trim(preg_replace("#[\; ,]+#", ',', $websiteConfigLocalized['keywords']),','))."';\n";
-        $fileContent .= "\$websiteConfig['localization'][".$langCode."]['description']    = '".XssFilter::text($websiteConfigLocalized['description'])."';\n\n";
+        $fileContent .= "\$websiteConfig['localized'][".$langCode."]['title']          = '".XssFilter::text($websiteConfigLocalized['title'])."';\n";
+        $fileContent .= "\$websiteConfig['localized'][".$langCode."]['publisher']      = '".XssFilter::text($websiteConfigLocalized['publisher'])."';\n";
+        $fileContent .= "\$websiteConfig['localized'][".$langCode."]['copyright']      = '".XssFilter::text($websiteConfigLocalized['copyright'])."';\n";
+        $fileContent .= "\$websiteConfig['localized'][".$langCode."]['keywords']       = '".XssFilter::text(trim(preg_replace("#[\; ,]+#", ',', $websiteConfigLocalized['keywords']),','))."';\n";
+        $fileContent .= "\$websiteConfig['localized'][".$langCode."]['description']    = '".XssFilter::text($websiteConfigLocalized['description'])."';\n\n";
       }
     }
     
@@ -1426,7 +1426,7 @@ function showPageDate($pageContent) {
   $titleDateAfter = '';
   
   if(StatisticFunctions::checkPageDate($pageContent)) {
-    $pageDate = GeneralFunctions::getLocalized($pageContent['localization'],'pageDate');
+    $pageDate = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate');
     $pageDateBefore = $pageDate['before'];
     $pageDateAfter = $pageDate['after'];
   	// adds spaces on before and after
@@ -2013,9 +2013,9 @@ function missingLanguageWarning() {
   
   // -> websiteConfig
   $websiteConfig = '';
-  if($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] != array_keys($GLOBALS['websiteConfig']['localization'])) {
+  if($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] != array_keys($GLOBALS['websiteConfig']['localized'])) {
     foreach ($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] as $langCode) {
-      if(!isset($GLOBALS['websiteConfig']['localization'][$langCode])) {
+      if(!isset($GLOBALS['websiteConfig']['localized'][$langCode])) {
         $websiteConfig .= '<span><img src="'.getFlag($langCode).'" class="flag"> <a href="?site=websiteSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageCodes'][$langCode].'</a></span><br>';
       }
     }
@@ -2024,7 +2024,7 @@ function missingLanguageWarning() {
   // -> categoryConfig
   $categoryHasMissingLanguages = false;
     foreach ($GLOBALS['categoryConfig'] as $category) {
-      $arrayDifferences = array_diff($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'],array_keys($category['localization']));
+      $arrayDifferences = array_diff($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'],array_keys($category['localized']));
       if(!empty($arrayDifferences)) {
         $categoryHasMissingLanguages = true;
         break;
@@ -2033,8 +2033,8 @@ function missingLanguageWarning() {
     if($categoryHasMissingLanguages) {
         foreach ($GLOBALS['categoryConfig'] as $category) {
           foreach ($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] as $langCode) {
-            if(!isset($category['localization'][$langCode])) {
-              $categoryName = GeneralFunctions::getLocalized($category['localization'],'name');
+            if(!isset($category['localized'][$langCode])) {
+              $categoryName = GeneralFunctions::getLocalized($category['localized'],'name');
               $categoryName = (!empty($categoryName)) ? ' &lArr; '.$categoryName : '';
               $categoryConfig .= '<span><img src="'.getFlag($langCode).'" class="flag"> <a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageCodes'][$langCode].'</a>'.$categoryName.'</span><br>';
             }

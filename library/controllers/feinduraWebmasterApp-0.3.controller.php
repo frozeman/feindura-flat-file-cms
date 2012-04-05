@@ -40,7 +40,7 @@ if(is_array($currentUser) && $currentUser['password'] == $_POST['password']) {
     $returnJSON = array();
     $returnJSON['feinduraVersion'] =  VERSION;
     $returnJSON['feinduraBuild'] =  BUILD;
-    $returnJSON['title'] = GeneralFunctions::getLocalized($websiteConfig['localization'],'title',$adminConfig['multiLanguageWebsite']['mainLanguage']);
+    $returnJSON['title'] = GeneralFunctions::getLocalized($websiteConfig['localized'],'title',$adminConfig['multiLanguageWebsite']['mainLanguage']);
     $returnJSON['websiteUrl'] = $adminConfig['url'].GeneralFunctions::getDirname($adminConfig['websitePath']);
     $returnJSON['statistics'] = array();
     $returnJSON['statistics']['userVisitCount'] = $websiteStatistic['userVisitCount'];
@@ -65,7 +65,7 @@ if(is_array($currentUser) && $currentUser['password'] == $_POST['password']) {
     $pages = GeneralFunctions::loadPages(true,true);
     $pagesArray = array();
     foreach($pagesStats as $key => $pageStats) {
-      $tmpPage['data']['title'] = GeneralFunctions::getLocalized($pages[$key]['localization'],'title',$adminConfig['multiLanguageWebsite']['mainLanguage']);
+      $tmpPage['data']['title'] = GeneralFunctions::getLocalized($pages[$key]['localized'],'title',$adminConfig['multiLanguageWebsite']['mainLanguage']);
       $tmpPage['data']['firstVisit'] = $pageStats['firstVisit'];
       $tmpPage['data']['lastVisit'] = $pageStats['lastVisit'];
       $tmpPage['data']['visitTimeMin'] = unserialize($pageStats['visitTimeMin']);

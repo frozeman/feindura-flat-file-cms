@@ -20,8 +20,8 @@ $categoryConfig[1]['thumbWidth'] =      '100';
 $categoryConfig[1]['thumbHeight'] =     '';
 $categoryConfig[1]['thumbRatio'] =      'x';
 
-$categoryConfig[1]['localization']['de']['name'] = 'Beispiel Kategorie 1';
-$categoryConfig[1]['localization']['en']['name'] = 'Example Category 1';
+$categoryConfig[1]['localized']['de']['name'] = 'Beispiel Kategorie 1';
+$categoryConfig[1]['localized']['en']['name'] = 'Example Category 1';
 
 
 $categoryConfig[2]['id'] =              2;
@@ -45,8 +45,8 @@ $categoryConfig[2]['thumbWidth'] =      '150';
 $categoryConfig[2]['thumbHeight'] =     '100';
 $categoryConfig[2]['thumbRatio'] =      '';
 
-$categoryConfig[2]['localization']['de']['name'] = 'Beispiel Kategorie 2';
-$categoryConfig[2]['localization']['en']['name'] = 'Example Category 2';
+$categoryConfig[2]['localized']['de']['name'] = 'Beispiel Kategorie 2';
+$categoryConfig[2]['localized']['en']['name'] = 'Example Category 2';
 
 ...
 

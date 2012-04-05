@@ -49,14 +49,14 @@ switch($_GET['site']) {
 
   // ***** websiteSetup sideBar -------------------------------------------- *********
   case 'websiteSetup':
-    if($adminConfig['multiLanguageWebsite']['languages'] != array_keys($websiteConfig['localization'])) {
+    if($adminConfig['multiLanguageWebsite']['languages'] != array_keys($websiteConfig['localized'])) {
       echo '<div id="rightSidebarMessageBox">';
         echo '<div class="content">';
         echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
         echo '<h1>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>';
         echo '<ul class="flags">';
         foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
-          if(!isset($websiteConfig['localization'][$langCode])) {
+          if(!isset($websiteConfig['localized'][$langCode])) {
             echo '<li><img src="'.getFlag($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="standardLink gray">'.$languageCodes[$langCode].'</a></li>';
           }
         }
@@ -70,7 +70,7 @@ switch($_GET['site']) {
   case 'pageSetup':
     $categoryHasMissingLanguages = false;
     foreach ($categoryConfig as $category) {
-      $arrayDifferences = array_diff($adminConfig['multiLanguageWebsite']['languages'],array_keys($category['localization']));
+      $arrayDifferences = array_diff($adminConfig['multiLanguageWebsite']['languages'],array_keys($category['localized']));
       if(!empty($arrayDifferences)) {
         $categoryHasMissingLanguages = true;
         break;
@@ -84,8 +84,8 @@ switch($_GET['site']) {
         echo '<ul class="flags">';
         foreach ($categoryConfig as $category) {
           foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
-            if(!isset($category['localization'][$langCode])) {
-              $categoryName = GeneralFunctions::getLocalized($category['localization'],'name');
+            if(!isset($category['localized'][$langCode])) {
+              $categoryName = GeneralFunctions::getLocalized($category['localized'],'name');
               $categoryName = (!empty($categoryName)) ? ' &lArr; '.$categoryName : '';
               echo '<li><img src="'.getFlag($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="standardLink gray">'.$languageCodes[$langCode].'</a>'.$categoryName.'</li>';
             }

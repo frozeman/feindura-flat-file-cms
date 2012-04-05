@@ -69,7 +69,7 @@ foreach($sortOrder as $sort) {
       }        
       
       /*
-      echo substr(GeneralFunctions::getLocalized($pageContent['localization'],'title'),0,4).',';
+      echo substr(GeneralFunctions::getLocalized($pageContent['localized'],'title'),0,4).',';
       echo $pageContent['id'].',';
       echo $pageContent['sortOrder'].'|';
       */

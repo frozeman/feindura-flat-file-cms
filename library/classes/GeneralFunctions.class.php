@@ -732,9 +732,9 @@ class GeneralFunctions {
       // return content array
       if(is_array($pageContent)) {
         // UNESCPAE the SINGLE QUOTES '
-        if(is_array($pageContent['localization'])) {
-          foreach ($pageContent['localization'] as $key => $value)
-            $pageContent['localization'][$key]['content'] = str_replace("\'", "'", $value['content']);
+        if(is_array($pageContent['localized'])) {
+          foreach ($pageContent['localized'] as $key => $value)
+            $pageContent['localized'][$key]['content'] = str_replace("\'", "'", $value['content']);
         // legacy fallback
         } else
           $pageContent['content'] = str_replace("\'", "'", $pageContent['content']);
@@ -855,18 +855,18 @@ class GeneralFunctions {
     $fileContent .= "\$pageContent['styleClass']         = '".XssFilter::string($pageContent['styleClass'])."';\n\n";
 
     // save localized
-    if(is_array($pageContent['localization'])) {
-      foreach ($pageContent['localization'] as $langCode => $pageContentLocalized) {
+    if(is_array($pageContent['localized'])) {
+      foreach ($pageContent['localized'] as $langCode => $pageContentLocalized) {
 
         // remove the '' when its 0 (for non localized pages)
         $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
 
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['before'] = '".XssFilter::text($pageContentLocalized['pageDate']['before'])."';\n";
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['after']  = '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['tags']               = '".XssFilter::text($pageContentLocalized['tags'])."';\n";
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['title']              = '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['description']        = '".XssFilter::text($pageContentLocalized['description'])."';\n";
-        $fileContent .= "\$pageContent['localization'][".$langCode."]['content']            = '".trim(self::htmLawed($pageContentLocalized['content']))."';\n\n";
+        $fileContent .= "\$pageContent['localized'][".$langCode."]['pageDate']['before'] = '".XssFilter::text($pageContentLocalized['pageDate']['before'])."';\n";
+        $fileContent .= "\$pageContent['localized'][".$langCode."]['pageDate']['after']  = '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
+        $fileContent .= "\$pageContent['localized'][".$langCode."]['tags']               = '".XssFilter::text($pageContentLocalized['tags'])."';\n";
+        $fileContent .= "\$pageContent['localized'][".$langCode."]['title']              = '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
+        $fileContent .= "\$pageContent['localized'][".$langCode."]['description']        = '".XssFilter::text($pageContentLocalized['description'])."';\n";
+        $fileContent .= "\$pageContent['localized'][".$langCode."]['content']            = '".trim(self::htmLawed($pageContentLocalized['content']))."';\n\n";
       }
     }
     
@@ -1455,8 +1455,8 @@ class GeneralFunctions {
       // vars
       $feedsPages = self::loadPages($category,true);
       $channelTitle = ($category == 0)
-        ? self::getLocalized(self::$websiteConfig['localization'],'title',$langCode)
-        : self::getLocalized(self::$categoryConfig[$category]['localization'],'name',$langCode).' - '.self::getLocalized(self::$websiteConfig['localization'],'title',$langCode);
+        ? self::getLocalized(self::$websiteConfig['localized'],'title',$langCode)
+        : self::getLocalized(self::$categoryConfig[$category]['localized'],'name',$langCode).' - '.self::getLocalized(self::$websiteConfig['localized'],'title',$langCode);
       
       // ->> START feeds
       $atom = new FeedWriter(ATOM);
@@ -1467,17 +1467,17 @@ class GeneralFunctions {
     	$atom->setTitle($channelTitle);	
     	$atom->setLink(self::$adminConfig['url']);	
     	$atom->setChannelElement('updated', date(DATE_ATOM , time()));
-    	$atom->setChannelElement('author', array('name'=>self::getLocalized(self::$websiteConfig['localization'],'publisher',$langCode)));
-    	$atom->setChannelElement('rights', self::getLocalized(self::$websiteConfig['localization'],'copyright',$langCode));
+    	$atom->setChannelElement('author', array('name'=>self::getLocalized(self::$websiteConfig['localized'],'publisher',$langCode)));
+    	$atom->setChannelElement('rights', self::getLocalized(self::$websiteConfig['localized'],'copyright',$langCode));
     	$atom->setChannelElement('generator', 'feindura - flat file cms',array('uri'=>'http://feindura.org','version'=>VERSION));
     	
     	// -> RSS2
     	$rss2->setTitle($channelTitle);
     	$rss2->setLink(self::$adminConfig['url']);	
-    	$rss2->setDescription(self::getLocalized(self::$websiteConfig['localization'],'description',$langCode));
+    	$rss2->setDescription(self::getLocalized(self::$websiteConfig['localized'],'description',$langCode));
       //$rss2->setChannelElement('language', 'en-us');
       $rss2->setChannelElement('pubDate', date(DATE_RSS, time()));
-      $rss2->setChannelElement('copyright', self::getLocalized(self::$websiteConfig['localization'],'copyright',$langCode));	
+      $rss2->setChannelElement('copyright', self::getLocalized(self::$websiteConfig['localized'],'copyright',$langCode));	
       
       // ->> adds the feed ENTRIES/ITEMS
       foreach($feedsPages as $feedsPage) {
@@ -1485,11 +1485,11 @@ class GeneralFunctions {
         if($feedsPage['public']) {
           // shows the page link
           $link = self::createHref($feedsPage,false,$langCode,true);
-          $title = strip_tags(self::getLocalized($feedsPage['localization'],'title',$langCode));
-          $description = self::getLocalized($feedsPage['localization'],'description',$langCode);
+          $title = strip_tags(self::getLocalized($feedsPage['localized'],'title',$langCode));
+          $description = self::getLocalized($feedsPage['localized'],'description',$langCode);
           
           $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
-          $content = self::replaceLinks(self::getLocalized($feedsPage['localization'],'content',$langCode),false,$langCode,true);
+          $content = self::replaceLinks(self::getLocalized($feedsPage['localized'],'content',$langCode),false,$langCode,true);
           $content = strip_tags($content,'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><em><s><u><strong><small><span>');
           $content = preg_replace('#<h[0-6]>#','<strong>',$content);
           $content = preg_replace('#</h[0-6]>#','</strong><br>',$content);
@@ -1726,10 +1726,10 @@ class GeneralFunctions {
 
       // adds the CATEGORY NAME to the href attribute
       if($category != 0)
-        $href .= self::urlEncode(self::getLocalized(self::$categoryConfig[$category]['localization'],'name',$language)).'/';
+        $href .= self::urlEncode(self::getLocalized(self::$categoryConfig[$category]['localized'],'name',$language)).'/';
 
       // add PAGE NAME
-      $href .= self::urlEncode(self::getLocalized($pageContent['localization'],'title',$language));
+      $href .= self::urlEncode(self::getLocalized($pageContent['localized'],'title',$language));
       //$href .= '/'; //'.html';
       
       if($sessionId)

@@ -27,15 +27,15 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
 
     // gets the startPage var and put it in the POST var
     $_POST['startPage']    = $websiteConfig['startPage'];
-    $_POST['localization'] = $websiteConfig['localization'];
+    $_POST['localized'] = $websiteConfig['localized'];
 
     // STORE LOCALIZED CONTENT
-    $_POST['localization'][$_POST['websiteLanguage']]['title']       = $_POST['title'];
-    $_POST['localization'][$_POST['websiteLanguage']]['publisher']   = $_POST['publisher'];
-    $_POST['localization'][$_POST['websiteLanguage']]['copyright']   = $_POST['websiteConfig_copyright'];
+    $_POST['localized'][$_POST['websiteLanguage']]['title']       = $_POST['title'];
+    $_POST['localized'][$_POST['websiteLanguage']]['publisher']   = $_POST['publisher'];
+    $_POST['localized'][$_POST['websiteLanguage']]['copyright']   = $_POST['websiteConfig_copyright'];
     $_POST['keywords']                                               = str_replace(";", ',', $_POST['keywords']);
-    $_POST['localization'][$_POST['websiteLanguage']]['keywords']    = preg_replace("# +#", ' ', $_POST['keywords']);
-    $_POST['localization'][$_POST['websiteLanguage']]['description'] = $_POST['description'];
+    $_POST['localized'][$_POST['websiteLanguage']]['keywords']    = preg_replace("# +#", ' ', $_POST['keywords']);
+    $_POST['localized'][$_POST['websiteLanguage']]['description'] = $_POST['description'];
     
     // delete unnecessary variables
     unset($_POST['title'],$_POST['publisher'],$_POST['websiteConfig_copyright'],$_POST['keywords'],$_POST['description']);

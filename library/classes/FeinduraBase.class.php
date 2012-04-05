@@ -264,7 +264,7 @@ class FeinduraBase {
     if(is_string($_GET['language']) && strlen($_GET['language']) == 2) {
       $this->language = XssFilter::alphabetical($_GET['language']);
       // make sure the language exist
-      $this->language = (in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages'])) ? $this->language : $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
+      $this->language = (is_array($this->adminConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages'])) ? $this->language : $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
       $_SESSION['feinduraSession']['language'] = $this->language;
 
     // -> if NO LANGUAGE WAS GIVEN, it will try to get it automatically
@@ -274,7 +274,7 @@ class FeinduraBase {
          (!empty($_SESSION['feinduraSession']['language']) && strlen($_SESSION['feinduraSession']['language']) != 2)) {
         $this->language = GeneralFunctions::getBrowserLanguages($this->adminConfig['multiLanguageWebsite']['mainLanguage']);
         // make sure the language exist
-        $this->language = (in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages'])) ? $this->language : $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
+        $this->language = (is_array($this->adminConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages'])) ? $this->language : $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
         $_SESSION['feinduraSession']['language'] = $this->language;
       } else
         $this->language = $_SESSION['feinduraSession']['language'];
@@ -376,7 +376,7 @@ class FeinduraBase {
         foreach($pages as $page) {
 
           // goes trough each localization and check if its fit the $_GET['page'] title
-          foreach ($page['localization'] as $localizedPageContent) {
+          foreach ($page['localized'] as $localizedPageContent) {
             // RETURNs the right page Id
             if(GeneralFunctions::urlEncode($localizedPageContent['title']) == GeneralFunctions::urlEncode($_GET['page'])) {
               return $page['id'];
@@ -445,7 +445,7 @@ class FeinduraBase {
       
       foreach($this->categoryConfig as $category) {   
         // goes trough each localization and check if its fit the $_GET['category'] title
-        foreach($category['localization'] as $localizedCategory) {
+        foreach($category['localized'] as $localizedCategory) {
           // RETURNs the right category Id
           if(GeneralFunctions::urlEncode($localizedCategory['name']) == GeneralFunctions::urlEncode($_GET['category'])) {
             return $category['id'];
@@ -759,7 +759,7 @@ class FeinduraBase {
     if(StatisticFunctions::checkPageDate($pageContent)) {
     	$titleDateBefore = '';
     	$titleDateAfter = '';
-      $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localization'],'pageDate',$this->language);
+      $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate',$this->language);
     	// adds spaces on before and after
     	if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
     	if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
@@ -769,7 +769,7 @@ class FeinduraBase {
     // -> PAGE TITLE
     // *****************
     $title = '';
-    $localizedPageTitle = GeneralFunctions::getLocalized($pageContent['localization'],'title',$this->language);
+    $localizedPageTitle = GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language);
     if(!empty($localizedPageTitle))
       $title = $this->createTitle($pageContent,				                          
                                   $this->titleLength,
@@ -787,7 +787,7 @@ class FeinduraBase {
     
     // ->> MODIFING pageContent
     // ************************
-    $localizedPageContent = GeneralFunctions::getLocalized($pageContent['localization'],'content',$this->language);
+    $localizedPageContent = GeneralFunctions::getLocalized($pageContent['localized'],'content',$this->language);
     if(!empty($localizedPageContent)) {
       
       $htmlLawedConfig['safe'] = ($this->adminConfig['editor']['safeHtml']) ? 1 : 0;
@@ -817,10 +817,10 @@ class FeinduraBase {
     }
 
     // -> get description
-    $localizedPageDescription = GeneralFunctions::getLocalized($pageContent['localization'],'description',$this->language);
+    $localizedPageDescription = GeneralFunctions::getLocalized($pageContent['localized'],'description',$this->language);
 
     // -> get tags
-    $localizedPageTags = GeneralFunctions::getLocalized($pageContent['localization'],'tags',$this->language);
+    $localizedPageTags = GeneralFunctions::getLocalized($pageContent['localized'],'tags',$this->language);
     
     // -> SET UP the PAGE ELEMENTS
     // *******************
@@ -828,7 +828,7 @@ class FeinduraBase {
       $return['id']                                           = $pageContent['id'];
 
     if($pageContent['category'] && $pageContent['category'] != 0)
-      $return['category']                                     = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localization'],'name',$this->language);
+      $return['category']                                     = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language);
 
     if($pageDate)
       $return['pageDate']                                     = $pageDate;
@@ -909,13 +909,13 @@ class FeinduraBase {
       $titleAfter = '';
       
       // saves the long version of the title, for the title="" tag
-      //$fullTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title',$this->language));
+      //$fullTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language));
       
       // generate titleDate
       if($titleShowPageDate && StatisticFunctions::checkPageDate($pageContent)) {
         $titleDateBefore = '';
         $titleDateAfter = '';
-        $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localization'],'pageDate',$this->language);
+        $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate',$this->language);
         // adds spaces on before and after
         if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
         if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
@@ -928,14 +928,14 @@ class FeinduraBase {
       // show the category name
       if($titleShowCategory === true && $pageContent['category'] != 0) {
         $titleShowCategory = (is_string($titleCategorySeparator))
-          ? GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localization'],'name',$this->language).$titleCategorySeparator
-          : GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localization'],'name',$this->language);
+          ? GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language).$titleCategorySeparator
+          : GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language);
       } else
         $titleShowCategory = '';
         
       // generate titleBefore without tags
       //$titleBefore = $titleShowCategory.$titleDate;
-      $title = $titleShowCategory.$titleDate.GeneralFunctions::getLocalized($pageContent['localization'],'title',$this->language);
+      $title = $titleShowCategory.$titleDate.GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language);
       
       // generates the title for the title="" tag
       //$titleTagText = $titleBefore.$fullTitle;      
@@ -1017,7 +1017,7 @@ class FeinduraBase {
       if($this->thumbnailAfter !== true)
         $thumbnailAfter = $this->thumbnailAfter;
       
-      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title',$this->language))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       $pageThumbnail['thumbnailPath'] = $this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
       
       return $pageThumbnail;
@@ -1316,7 +1316,7 @@ class FeinduraBase {
   * @param array $tags           an array with tags to compare
   * 
   * 
-  * @return array|false the $pageContent array or FALSE if the $pageContent['localization'][...]['tags'] doesn't match with any of the given tags
+  * @return array|false the $pageContent array or FALSE if the $pageContent['localized'][...]['tags'] doesn't match with any of the given tags
   * 
   * @see Feindura::listPagesByTags()
   * @see Feindura::createMenuByTags()
@@ -1334,10 +1334,10 @@ class FeinduraBase {
   protected function compareTags($pageContent, $tags) {
     
     // var
-    // $pageTags = GeneralFunctions::getLocalized($pageContent['localization'],'tags',$this->language);
+    // $pageTags = GeneralFunctions::getLocalized($pageContent['localized'],'tags',$this->language);
 
     // ->> go through all the pages tags
-    foreach ($pageContent['localization'] as $langCode => $pageContentLocalized) {
+    foreach ($pageContent['localized'] as $langCode => $pageContentLocalized) {
       $pageTags = $pageContentLocalized['tags'];
 
       // CHECKS if the $tags are in an array,

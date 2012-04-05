@@ -40,7 +40,7 @@ if($_POST['asking']) {
   // load the page
   $pageContent = GeneralFunctions::readPage($page,$category);
 
-  unset($pageContent['localization'][$language]);
+  unset($pageContent['localized'][$language]);
 
   if(GeneralFunctions::savePage($pageContent)) {
     StatisticFunctions::saveTaskLog(array(32,$languageCodes[$language]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
@@ -51,7 +51,7 @@ if($_POST['asking']) {
     $question = '';
     echo 'DONTSHOW';        
     // create redirect
-    $redirect = '?category='.$category.'&page='.$page.'&status=reload'.rand(1,99).'&websiteLanguage='.key($pageContent['localization']).'#pageInformation';
+    $redirect = '?category='.$category.'&page='.$page.'&status=reload'.rand(1,99).'&websiteLanguage='.key($pageContent['localized']).'#pageInformation';
       
     // redirect
     echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php'.$redirect.'\');/* ]]> */</script>';

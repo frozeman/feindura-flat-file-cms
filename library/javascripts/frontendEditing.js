@@ -132,7 +132,7 @@
       // The request will most likely succeed, but just in case, we'll add an
       // onFailure method which will let the user know what happened.
       onFailure: function() { //-----------------------------------------------------
-
+        console.log('failure');
         // -> fade out the loading fill
         loadingFill.set('tween',{duration: 200});
         loadingFill.fade('out');
