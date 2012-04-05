@@ -102,6 +102,7 @@ function addField(containerId,inputName) {
   if(containerId && $(containerId) !== null) {
     var newInput  = new Element('input', {name: inputName});
     $(containerId).grab(newInput,'bottom');
+    layoutFix();
 		return true;
   } else
     return false;
@@ -280,7 +281,6 @@ function blockSlider(givenId) {
         //transition: Fx.Transitions.Pow.easeInOut, //Fx.Transitions.Back.easeInOut
         transition: Fx.Transitions.Quint.easeInOut,
         onComplete: function(el) {
-          layoutFix();
           if(!slideContent.getChildren('textarea.editFiles')[0]) { // necessary for CodeMirror to calculate the size of the Codemirror div
             if(!this.open) {
                 slideContent.setStyle('display','none'); // to allow sorting above the slided in box
@@ -291,6 +291,7 @@ function blockSlider(givenId) {
                 //this.open = true;
             }
           }
+          layoutFix();
         }
       });
 
@@ -345,7 +346,6 @@ function inBlockTableSlider() {
 
          // ON COMPLETE
          insideBlockTable.get('slide').addEvent('complete', function(el) {
-              layoutFix();
               // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
               if(this.open) {
                 this.wrapper.fade('show');
@@ -354,6 +354,7 @@ function inBlockTableSlider() {
                 this.wrapper.fade('hide');
                 this.wrapper.setStyle('height',insideBlockTable.getChildren('tbody').getSize().y);
               }
+              layoutFix();
           });
 
          // slides the hotky div in, on start
@@ -1378,27 +1379,43 @@ window.addEvent('domready', function() {
 
         var editorTweenTimeout;
 
-        $('cke_HTMLEditor').addEvent('mouseenter',function(e){
-          if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20)) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);}).delay(1000);
+        $$('div.editor').addEvent('mouseenter',function(e){
+          if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20))
+            editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);}).delay(1000);
 
+          // layout fix after fade
+          $('cke_contents_HTMLEditor').get('tween').chain(function(){
+            layoutFix();
+          });
         });
         $$('div.editor').addEvent('mouseleave',function(e){
           clearTimeout(editorTweenTimeout);
-          if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+5) && $('cke_contents_HTMLEditor').getHeight() >= (editorTweenToHeight-5)) $('cke_contents_HTMLEditor').tween('height',editorStartHeight);
-          //editorIsClicked = false;
+          if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+5) && $('cke_contents_HTMLEditor').getHeight() >= (editorTweenToHeight-5))
+            $('cke_contents_HTMLEditor').tween('height',editorStartHeight);
+            //editorIsClicked = false;
+
+          // layout fix after fade
+          $('cke_contents_HTMLEditor').get('tween').chain(function(){
+            layoutFix();
+          });
         });
 
         HTMLEditor.on('focus',function() {
           editorHasFocus = true;
           clearTimeout(editorTweenTimeout);
-          if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20)) $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
-          //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
+          if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20))
+            $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
+            //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
+
+          // layout fix after fade
+          $('cke_contents_HTMLEditor').get('tween').chain(function(){
+            layoutFix();
+          });
         });
 
         $('HTMLEditorSubmit').addEvent('mousedown',function(e) {
           editorSubmited = true;
         });
-
       });
     }
   }
