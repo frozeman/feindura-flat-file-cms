@@ -38,10 +38,11 @@ $sharedLangFile['DATE_TEXT_TOMORROW']                       = 'Domani';
 
 $sharedLangFile['SEARCH_TITLE']                             = 'Ricerca pagine';
 $sharedLangFile['SEARCH_TITLE_RESULTS']                     = 'Risultati della ricerca per';
-$sharedLangFile['SEARCH_TEXT_MATCH_CATEGORY']               = 'categoria';
-$sharedLangFile['SEARCH_TEXT_MATCH_SEARCHWORDS']            = 'ricerca parole';
+$sharedLangFile['SEARCH_TEXT_MATCH_ID']                     = 'Corrispondenza ID pagina';
+$sharedLangFile['SEARCH_TEXT_MATCH_CATEGORY']               = 'Categoria';
+$sharedLangFile['SEARCH_TEXT_MATCH_SEARCHWORDS']            = 'Ricerca parole';
 $sharedLangFile['SEARCH_TEXT_MATCH_TAGS']                   = 'Tags';
-$sharedLangFile['SEARCH_TEXT_RESULTS']                      = 'risultati';
+$sharedLangFile['SEARCH_TEXT_RESULTS']                      = 'Risultati';
 $sharedLangFile['SEARCH_TEXT_TIME_1']                       = 'in'; // 12 matches in 0.32 seconds
 $sharedLangFile['SEARCH_TEXT_TIME_2']                       = 'secondi';
 

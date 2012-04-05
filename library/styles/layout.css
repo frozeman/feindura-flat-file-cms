@@ -48,6 +48,11 @@ a.gray:hover, a.gray:focus {
     color: #DE7124 !important;
 }
 
+mark {
+    color: inherit;
+    background-color: #fef086;
+}
+
 /****************/	
 /* *** DIMM-CONTAINER */
 

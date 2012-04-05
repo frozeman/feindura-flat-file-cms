@@ -40,10 +40,11 @@ $sharedLangFile['DATE_TEXT_TOMORROW']                       = 'Завтра';
 
 $sharedLangFile['SEARCH_TITLE']                             = 'Поиск страниц';
 $sharedLangFile['SEARCH_TITLE_RESULTS']                     = 'Результаты поиска для';
-$sharedLangFile['SEARCH_TEXT_MATCH_CATEGORY']               = 'категория';
-$sharedLangFile['SEARCH_TEXT_MATCH_SEARCHWORDS']            = 'слова для поиска';
+$sharedLangFile['SEARCH_TEXT_MATCH_ID']                     = 'Соответствующие страницы ID';
+$sharedLangFile['SEARCH_TEXT_MATCH_CATEGORY']               = 'Категория';
+$sharedLangFile['SEARCH_TEXT_MATCH_SEARCHWORDS']            = 'Слова для поиска';
 $sharedLangFile['SEARCH_TEXT_MATCH_TAGS']                   = 'Таги';
-$sharedLangFile['SEARCH_TEXT_RESULTS']                      = 'результатов';
+$sharedLangFile['SEARCH_TEXT_RESULTS']                      = 'Результатов';
 $sharedLangFile['SEARCH_TEXT_TIME_1']                       = 'за'; // 12 matches in 0.32 seconds
 $sharedLangFile['SEARCH_TEXT_TIME_2']                       = 'секунд';
 

@@ -24,7 +24,6 @@
 // -> GENERAL <-
 
 $sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Logout::Klicke hier um dich auszuloggen.';
-
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'Diese Seite als Startseite festlegen';
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage_set'] = 'Diese Seite ist die Startseite';
 

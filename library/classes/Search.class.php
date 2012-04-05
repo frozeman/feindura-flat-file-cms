@@ -30,9 +30,10 @@
 * 
 * @package [Backend]
 * 
-* @version 1.0
+* @version 1.1
 * <br>
 * <b>ChangeLog</b><br>
+*    - 1.1 add localization and $language + $searchAllLanguages property
 *    - 1.0 initial release
 * 
 */
@@ -44,7 +45,24 @@ class Search {
  
  // PROTECTED
  // *********
- 
+
+ /**
+  * Contains the admin-settings config set in the CMS backend.
+  * 
+  * The file with the admin-settings config array is situated at <i>"feindura-CMS/config/admin.config.php"</i>.
+  *   
+  * This settings will be set to this property in the {@link __construct() search} constructor.
+  * 
+  * Example array:
+  * {@example backend/adminConfig.array.example.php}
+  * 
+  * @var array
+  * @access protected
+  * @see Search::__construct()
+  * 
+  */
+  protected $adminConfig;
+
  /**
   * Contains the categories-settings config set in the CMS backend.
   * 
@@ -61,12 +79,29 @@ class Search {
   * 
   */
   protected $categoryConfig;
+
+  /**
+  * Whether to search in all langauges or not. (Helper variable)
+  * 
+  * @var bool
+  * @access protected
+  */
+  protected $searchAllLanguages = null;
+
   
   // PUBLIC
   // *********
+
+  /**
+  * The language in which should be searched, if FALSE it searches in all languages
+  * 
+  * @var false|string
+  * @access public
+  */
+  public $language = false;
   
   /**
-  * If its an number it limits the found results to this number, so the search results are still displayable, when a lot of words were found.
+  * If its an number it limits the found results in a page to this number, so the search results are still displayable, when a lot of words were found.
   * If FALSE all results will be displayed.  
   * 
   * @var int|false
@@ -119,19 +154,25 @@ class Search {
   * <b>Used Global Variables</b><br>
   *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
   * 
+  * @param false|string $language The language in which should be searched, if FALSE it searches in all languages
+  * 
   * @return void
   * 
   * @see FeinduraBase::__construct()
   * 
   * @access public
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 add $adminConfig
   *    - 1.0 initial release
   * 
   */
-  public function __construct() {    
-    $this->categoryConfig = (isset($GLOBALS["categoryConfig"])) ? $GLOBALS["categoryConfig"] : $GLOBALS["feindura_categoryConfig"];    
+  public function __construct($language = false) { 
+    $this->adminConfig    = (isset($GLOBALS["adminConfig"])) ? $GLOBALS["adminConfig"] : $GLOBALS["feindura_adminConfig"];
+    $this->categoryConfig = (isset($GLOBALS["categoryConfig"])) ? $GLOBALS["categoryConfig"] : $GLOBALS["feindura_categoryConfig"];
+    $this->language       = $language;
+    $this->searchAllLanguages = (is_string($this->language) && strlen($this->language) == 2) ? false : true;
   } 
   
   // ****************************************************************************************************************
@@ -232,16 +273,18 @@ class Search {
       $searchwords = XssFilter::text($searchwords);
       $pattern = ($searchwords != '') ? '#'.$searchwords.'#i' : '#a^#';
 
-      // prepare the contents to search through
-     	$search['id'] = $pageContent['id'];      
-      $search['beforeDate'] = $pageContent['pageDate']['before'];
-      $search['date'] = StatisticFunctions::formatDate($pageContent['pageDate']['date']);
-      $search['afterDate'] = $pageContent['pageDate']['after'];
-      $search['title'] = strip_tags($pageContent['title']);
-      $search['tags'] = $pageContent['tags'];
-      $search['description'] = $pageContent['description'];
-      $search['categoryName'] = $this->categoryConfig[$pageContent['category']]['name'];
-      $search['content'] = strip_tags($pageContent['content']);
+
+
+      // ->> GET LANGUAGE ot SEARCH
+      // -> get ALL LANGUAGES
+      if($this->searchAllLanguages) {
+        $languages = array_keys($pageContent['localization']);
+
+      // -> get specified LANGUAGE
+      } else {
+        $languages = (array_key_exists($this->language, $pageContent['localization'])) ? $this->language : $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
+      }
+
       
       // create a string of the page searchwords
       $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
@@ -254,6 +297,11 @@ class Search {
         $search['searchwords'] = trim($pageSearchwords,'####');
       }
       
+      // ->> PREPARE the to SEARCH CONTENTS as an ARRAY
+      $search['id']           = $pageContent['id'];      
+      $search['date']         = StatisticFunctions::formatDate($pageContent['pageDate']['date']);
+
+
       // ->> SEARCH PROCESS      
 			
       // -> 1. ID
@@ -264,58 +312,83 @@ class Search {
       
       // -> IF NO MATCH in ID, SEARCH in OTHER PLACES
       } else {
-        // -> DATE
-        if(preg_match_all($pattern,$search['beforeDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $pageResults['beforeDate'] = $matches[0];
-          $priority += 15;
-          $priority *= count($matches[0]);
-        }
-        if(preg_match_all($pattern,$search['date'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $pageResults['date'] = $matches[0];
-          $priority += 15;
-          $priority *= count($matches[0]);
-        }
-        if(preg_match_all($pattern,$search['afterDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $pageResults['afterDate'] = $matches[0];
-          $priority += 15;
-          $priority *= count($matches[0]);
-        }
+
         // -> SEARCHWORDS
         if(preg_match_all($pattern,$search['searchwords'],$matches,PREG_OFFSET_CAPTURE) != 0) {
           $pageResults['searchwords'] = $matches[0];
           $priority += 20;
           $priority *= count($matches[0]);       
         }
-        // -> TAGS
-        if(preg_match_all($pattern,$search['tags'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $pageResults['tags'] = $matches[0];
-          $priority += 20;
-          $priority *= count($matches[0]);          
-        }
-        // -> CATEGORY
-        if(preg_match_all($pattern,$search['categoryName'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $pageResults['category'] = $matches[0];
-          $priority += 10;
-          $priority *= count($matches[0]);          
-        }
-        // -> TITLE
-        if(preg_match_all($pattern,$search['title'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $pageResults['title'] = $matches[0];
-          $priority += 12;
-          $priority *= count($matches[0]);          
-        }
-        // -> DESCRIPTION
-        if(preg_match_all($pattern,$search['description'],$matches,PREG_OFFSET_CAPTURE) != 0) {
 
-          $pageResults['description'] = $matches[0];
-          $priority += 9;
-          $priority *= count($matches[0]);          
+        // -> PAGE DATE
+        if(preg_match_all($pattern,$search['date'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+          $pageResults['date'] = $matches[0];
+          $priority += 15;
+          $priority *= count($matches[0]);
         }
-        // -> WORDS
-        if(preg_match_all($pattern,$search['content'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $pageResults['content'] = $matches[0];
-          $priority += 7;
-          $priority *= count($matches[0]);          
+
+        // ->> GO THROUGH every LANGUAGE and SEARCH
+        foreach ($languages as $langCode) {
+
+          // LOCALIZATION            
+          $search['categoryName'] = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localization'],'name',$langCode);
+          $search['title']        = strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title',$langCode));
+          $search['description']  = GeneralFunctions::getLocalized($pageContent['localization'],'description',$langCode);
+          $search['content']      = strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'content',$langCode));
+          $search['tags']         = GeneralFunctions::getLocalized($pageContent['localization'],'tags',$langCode);
+          $searchPageDate         = GeneralFunctions::getLocalized($pageContent['localization'],'pageDate',$langCode);
+          $search['beforeDate']   = $searchPageDate['before'];
+          $search['afterDate']    = $searchPageDate['after'];
+
+
+          // -> DATE BEFORE/AFTER
+          if(preg_match_all($pattern,$search['beforeDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+            $pageResults['beforeDate'][$langCode] = $matches[0];
+            $priority += 15;
+            $priority *= count($matches[0]);
+          }
+          if(preg_match_all($pattern,$search['afterDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+            $pageResults['afterDate'][$langCode] = $matches[0];
+            $priority += 15;
+            $priority *= count($matches[0]);
+          }
+
+
+          // -> TAGS
+          if(preg_match_all($pattern,$search['tags'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+            $pageResults['tags'][$langCode] = $matches[0];
+            $priority += 20;
+            $priority *= count($matches[0]);          
+          }
+
+          // -> CATEGORY
+          if(preg_match_all($pattern,$search['categoryName'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+            $pageResults['category'][$langCode] = $matches[0];
+            $priority += 10;
+            $priority *= count($matches[0]);          
+          }
+
+          // -> TITLE
+          if(preg_match_all($pattern,$search['title'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+            $pageResults['title'][$langCode] = $matches[0];
+            $priority += 12;
+            $priority *= count($matches[0]);          
+          }
+
+          // -> DESCRIPTION
+          if(preg_match_all($pattern,$search['description'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+
+            $pageResults['description'][$langCode] = $matches[0];
+            $priority += 9;
+            $priority *= count($matches[0]);          
+          }
+
+          // -> WORDS
+          if(preg_match_all($pattern,$search['content'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+            $pageResults['content'][$langCode] = $matches[0];
+            $priority += 7;
+            $priority *= count($matches[0]);          
+          }
         }
       }
       
@@ -374,7 +447,7 @@ class Search {
       
       $page = GeneralFunctions::readPage($result['pageId'],$result['categoryId']);
       $pageStats = GeneralFunctions::readPageStatistics($result['pageId']);
-    
+      
       // var
       $id = false;
       $date = false;
@@ -384,55 +457,97 @@ class Search {
       $tags = false;
       $description = false;
       $content = false;
+
+      // ->> GET LANGUAGE ot SEARCH
+      // -> get ALL LANGUAGES
+      if($this->searchAllLanguages) {
+        $languages = array_keys($page['localization']);
+
+      // -> get specified LANGUAGE
+      } else {
+        $languages = (array_key_exists($this->language, $page['localization'])) ? $this->language : $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
+      }
+
       
-      // SET ID
+      // MARK ID
       if(isset($result['id']))
-        $id = $result['id'];
+        $id = $this->markFindingInText($page['id'],$result['id']);
       
-      // GENERATE TITLE
-      if(isset($result['beforeDate']) ||
-         isset($result['date']) ||
-         isset($result['afterDate']) ||
-         isset($result['title'])) {
-      
-        // PREPARE DATE
-        if(isset($result['beforeDate']) || isset($result['date']) || isset($result['afterDate'])) {
-          // -> add before date
-          $date .= $this->markFindingInText($page['pageDate']['before'],$result['beforeDate']).' ';       
-          // -> add date
-          $date .= $this->markFindingInText(StatisticFunctions::formatDate($page['pageDate']['date']),$result['date']);        
-          // -> add after date
-          $date .= ' '.$this->markFindingInText($page['pageDate']['after'],$result['afterDate']);
-          $date .= ' - ';
-        }
-      
-        // ->> PREPARE the TITLE
-        $title = $this->markFindingInText(strip_tags($page['title']),$result['title']);
+      // ->> MARK the SEARCHWORDS
+      if(isset($result['searchwords']))
+        $searchwords = $this->markFindingInDataString($pageStats['searchWords'],$result['searchwords']);
+
+      // ->> GO THROUGH every LANGUAGE and MARK the FINDINGS
+      foreach ($languages as $langCode) {
+
+        // LOCALIZATION   
+        $page['categoryName'] = GeneralFunctions::getLocalized($this->categoryConfig[$page['category']]['localization'],'name',$langCode);
+        $page['title']        = strip_tags(GeneralFunctions::getLocalized($page['localization'],'title',$langCode));
+        $page['description']  = GeneralFunctions::getLocalized($page['localization'],'description',$langCode);
+        $page['content']      = strip_tags(GeneralFunctions::getLocalized($page['localization'],'content',$langCode));
+        $page['tags']         = GeneralFunctions::getLocalized($page['localization'],'tags',$langCode);
+        $localizedPageDate    = GeneralFunctions::getLocalized($page['localization'],'pageDate',$langCode);
+        $page['beforeDate']   = $localizedPageDate['before'];
+        $page['afterDate']    = $localizedPageDate['after'];
+
+
+        // GENERATE TITLE
+        if(isset($result['beforeDate'][$langCode]) ||
+           isset($result['date']) ||
+           isset($result['afterDate'][$langCode]) ||
+           isset($result['title'][$langCode])) {
         
-        $title = $date.$title;      
+          // MARK DATE
+          if(isset($result['beforeDate'][$langCode]) || isset($result['date']) || isset($result['afterDate'][$langCode])) {
+            $date = '';
+            // -> add before date
+            $date .= $this->markFindingInText($page['beforeDate'],$result['beforeDate'][$langCode]).' ';       
+            // -> add date
+            $date .= $this->markFindingInText(StatisticFunctions::formatDate($page['pageDate']['date']),$result['date']);        
+            // -> add after date
+            $date .= ' '.$this->markFindingInText($page['afterDate'],$result['afterDate'][$langCode]);
+            $date .= ' - ';
+          }
+          
+          // ->> PREPARE the TITLE
+          $rawTitle = $this->markFindingInText(strip_tags($page['title']),$result['title'][$langCode]);
+          
+          $title .= ($title) ? '<br>' : '';
+          $title .= ($this->searchAllLanguages && count($result['title']) > 1) ? $langCode.' &rArr; ': '';
+          $title .= $date.$rawTitle;
+
+          unset($date);     
+        }
+       
+        // ->> MARK the CATEGORY NAME
+        if($this->searchInCategoryNames && isset($result['category'][$langCode])) {
+          $category .= ($category) ? '<br>' : '';
+          $category .= ($this->searchAllLanguages && count($result['category']) > 1) ? $langCode.' &rArr; ': '';
+          $category .= $this->markFindingInText($page['categoryName'],$result['category'][$langCode]);
+       }
+        
+        // ->> MARK the TAGS
+        if(isset($result['tags'][$langCode])) {
+          $tags .= ($tags) ? '<br>' : '';
+          $tags .= ($this->searchAllLanguages && count($result['tags']) > 1) ? $langCode.' &rArr; ': '';
+          $tags .= $this->markFindingInText($page['tags'],$result['tags'][$langCode],$extractLength);
+       }
+        // ->> MARK the DESCRIPTION
+        if(isset($result['description'][$langCode])) {
+          $description .= ($description) ? '<br>' : '';
+          $description .= ($this->searchAllLanguages && count($result['description']) > 1) ? $langCode.' &rArr; ': '';
+          $description = $this->markFindingInText($page['description'],$result['description'][$langCode],$extractLength);
+        }
+        // ->> MARK the CONTENT
+        if(isset($result['content'][$langCode])) {
+          $content .= ($content) ? '<br>' : '';
+          $content .= ($this->searchAllLanguages && count($result['content']) > 1) ? $langCode.' &rArr; ': '';
+          $content .= $this->markFindingInText(strip_tags($page['content']),$result['content'][$langCode],$extractLength);
+        }
+
       }
      
-      // ->> PREPARE the CATEGORY NAME
-      if($this->searchInCategoryNames && isset($result['category']))
-        $category = $this->markFindingInText($this->categoryConfig[$page['category']]['name'],$result['category']);
-     
-      // ->> PREPARE the SEARCHWORDS
-      if(isset($result['searchwords']))
-        $searchwords .= $this->markFindingInDataString($pageStats['searchWords'],$result['searchwords']);
-      
-      // ->> PREPARE the TAGS
-      if(isset($result['tags']))
-        $tags .= $this->markFindingInText($page['tags'],$result['tags'],$extractLength);
-     
-      // ->> PREPARE the DESCRIPTION
-      if(isset($result['description']))
-        $description = $this->markFindingInText($page['description'],$result['description'],$extractLength);
-      
-      // ->> PREPARE the CONTENT
-      if(isset($result['content']))
-        $content = $this->markFindingInText(strip_tags($page['content']),$result['content'],$extractLength);
-     
-      // generate return
+      // GENERATE RETURN
       $createReturn['page']['id'] = $result['pageId'];
       $createReturn['page']['cateory'] = $result['categoryId'];
       $createReturn['id'] = $id;
@@ -475,6 +590,7 @@ class Search {
     // var
     $separator = ' ... ';
     $countResults = 1;
+    $text = (string)$text;
     
     // ->> show the parts with the searchwords marked
     if(is_array($results)) {

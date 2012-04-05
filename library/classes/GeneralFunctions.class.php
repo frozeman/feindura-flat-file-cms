@@ -638,7 +638,7 @@ class GeneralFunctions {
     $languageCode = (!is_bool($forceOrUseLanguage) && is_string($forceOrUseLanguage) && strlen($forceOrUseLanguage) == 2)
       ? $forceOrUseLanguage
       : $_SESSION['feinduraSession']['websiteLanguage'];
-    
+  
     // get the one matching $languageCode
     if((isset($localizationArray[$languageCode]) && !empty($localizationArray[$languageCode])) ||
        (is_bool($forceOrUseLanguage) && $forceOrUseLanguage === true))

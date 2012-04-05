@@ -122,7 +122,8 @@ if($adminConfig['multiLanguageWebsite']['active']) {
   // reset the websiteLanguage SESSION var
   $_SESSION['feinduraSession']['websiteLanguage'] = $websiteLanguage;
   unset($websiteLanguage);
-}
+} else
+  $_SESSION['feinduraSession']['websiteLanguage'] = 0;
 
 /**
  * SET the BACKEND LANGUAGE

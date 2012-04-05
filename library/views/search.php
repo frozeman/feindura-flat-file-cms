@@ -75,8 +75,9 @@ if(!empty($searchWords)) {
   // SEARCH RESULTS HEADLINE
   echo '<div class="block"><h1>'.$langFile['SEARCH_TITLE_RESULTS'].' &quot;'.htmlentities($searchWords,ENT_QUOTES,'UTF-8').'&quot;</h1><div class="bottom"></div></div>';
     
-  // START SEARCH
-  $search = new Search();
+  // ->> START SEARCH
+  // ****************
+  $search = new Search(); //$_SESSION['feinduraSession']['websiteLanguage']
   $search->checkIfPublic = false;
   $results = $search->find($searchWords);
   
