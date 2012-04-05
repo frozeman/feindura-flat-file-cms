@@ -138,9 +138,8 @@ if(isset($_SESSION['feinduraSession']['backendLanguage'])) $_SESSION['feinduraSe
 if(isset($_GET['backendLanguage'])) $_SESSION['feinduraSession']['backendLanguage'] = $_GET['backendLanguage'];
 
 // GET BROWSER LANGUAGE, if no language is given
-if(!empty($_SESSION['feinduraSession']['backendLanguage']))
+if(empty($_SESSION['feinduraSession']['backendLanguage']))
   $_SESSION['feinduraSession']['backendLanguage'] = GeneralFunctions::getBrowserLanguages('en',true);
-
 // LOAD LANG FILES
 $backendLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feinduraSession']['backendLanguage']);
 $sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feinduraSession']['backendLanguage']);

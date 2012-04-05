@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 855
+Build 856
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 856: fixed CKeditor language bug
   build 855: changed "localization" to "localized", fixed non multil lang page bugs
   build 854: localized Search class
   build 853: use getBrowserLanguage for backend

@@ -265,19 +265,19 @@ class FeinduraBase {
       $this->language = XssFilter::alphabetical($_GET['language']);
       // make sure the language exist
       $this->language = (is_array($this->adminConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages'])) ? $this->language : $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
-      $_SESSION['feinduraSession']['language'] = $this->language;
+      $_SESSION['feinduraSession']['websiteLanguage'] = $this->language;
 
     // -> if NO LANGUAGE WAS GIVEN, it will try to get it automatically
     } else {
       // if language is NOT stored IN the SESSION, try to GET the BROWSERLANGUAGE
-      if(empty($_SESSION['feinduraSession']['language']) ||
-         (!empty($_SESSION['feinduraSession']['language']) && strlen($_SESSION['feinduraSession']['language']) != 2)) {
+      if(empty($_SESSION['feinduraSession']['websiteLanguage']) ||
+         (!empty($_SESSION['feinduraSession']['websiteLanguage']) && strlen($_SESSION['feinduraSession']['websiteLanguage']) != 2)) {
         $this->language = GeneralFunctions::getBrowserLanguages($this->adminConfig['multiLanguageWebsite']['mainLanguage']);
         // make sure the language exist
         $this->language = (is_array($this->adminConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages'])) ? $this->language : $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
-        $_SESSION['feinduraSession']['language'] = $this->language;
+        $_SESSION['feinduraSession']['websiteLanguage'] = $this->language;
       } else
-        $this->language = $_SESSION['feinduraSession']['language'];
+        $this->language = $_SESSION['feinduraSession']['websiteLanguage'];
     }
     $this->loadFrontendLanguageFile($this->language);
    

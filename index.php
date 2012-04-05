@@ -176,7 +176,7 @@ if($_GET['site'] == 'addons') {
         url: 'library/controllers/filemanager.controller.php',
         assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
         documentRootPath: '<?php echo DOCUMENTROOT; ?>',
-        language: '<?php echo $_SESSION["feinduraSession"]["language"]; ?>',
+        language: '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>',
         destroy: true,
         upload: true,
         move_or_copy: true,

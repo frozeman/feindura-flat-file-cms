@@ -216,10 +216,20 @@ if(!$newPage)
 <div class="block open pageHead">
 <?php
 
+// LOAD PAGE as TEMPLATE
+if($newPage && isset($_GET['template']) && is_numeric($_GET['template']))
+  $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
+
+
 // shows ID and different header color if its a CATEGORY
 $headerColorClass = ($_GET['category'] != 0)
   ? 'blue' //" comes in the h1
   : 'brown'; //" comes in the h1
+
+// get Title
+$pageTitle = ($newPage)
+  ? $langFile['EDITOR_h1_createpage']
+  : strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title',true));
 
 // adds the page and category IDs for the MooRTE saving of the title
 $titleData = (!$newPage) // data-feindura format: "pageID categoryID"

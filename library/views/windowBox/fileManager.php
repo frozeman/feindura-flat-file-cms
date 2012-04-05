@@ -59,7 +59,7 @@ if(!$adminConfig['user']['fileManager'])
           url: '../../controllers/filemanager.controller.php',
           assetBasePath: '../../thirdparty/MooTools-FileManager/Assets',
           documentRootPath: '<?php echo DOCUMENTROOT ?>',
-          language: '<?php echo $_SESSION["feinduraSession"]["language"]; ?>',
+          language: '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>',
           uploadAuthData: {session: '<?php echo session_id(); ?>'},
           filter: '<?php echo $_GET["mimType"]; ?>',
           destroy: true,

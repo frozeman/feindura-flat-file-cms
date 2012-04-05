@@ -158,18 +158,10 @@ if($pageContent = GeneralFunctions::readPage($page,$category))
 else
   $newPage = true;
 
-// -> set Title
+// set to new page if i couldn't load the page
 if($newPage) {
-  $pageTitle = $langFile['EDITOR_h1_createpage'];
   $_GET['page'] = 'new';
   $page = 'new';
-  
-  // LOAD PAGE as TEMPLATE
-  if(isset($_GET['template']) && is_numeric($_GET['template']))
-    $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
-  
-} else {  
-  $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title',true));
 }
 
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file
