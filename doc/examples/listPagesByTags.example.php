@@ -11,7 +11,7 @@ for a detailed example see listPages()
 require('cms/feindura.include.php');
 
 // creates a new Feindura instance
-$myCms = new Feindura();
+$feindura = new Feindura();
 
 // the tags where the pages in the menu should have atleast one
 $tags = 'winter summer spring';
@@ -21,13 +21,13 @@ $tags = 'winter summer spring';
 
 // return the pages from the category with ID "1"
 // the page content will be shorten to "200" characters
-$pages = $myCms->listPagesByTags($tags,'category',1,200,true,true);
+$pages = $feindura->listPagesByTags($tags,'category',1,200,true,true);
 
 // displays the pages (the "\n" creates a line break for a better look)
 foreach($pages as $page) {
   echo $page['title'].'<br />
        Has the following Tags: '.$page['tags']."\n";
-  echo $page['content']."<br />-----------------------<br />\n";
+  echo $page['content']."\n<br />-----------------------<br />\n";
 }
 
 
@@ -42,6 +42,7 @@ Has the following Tags: Winter antum
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing dolores et ea rebum.
 Stet clita kasd gubergren, no sea takimata sanctus.</p>
 <a href="?category=1&amp;page=1">mehr</a>
+
 <br />-----------------------<br />
 
 Example Page 2<br />
@@ -52,6 +53,7 @@ Has the following Tags: winter spring summer
 <h2>And one more Example Headline</h2>
 <p>Stet clita kasd gubergren, no sea takimata sanctus est...</p>
 <a href="?category=1&amp;page=2">mehr</a>
+
 <br />-----------------------<br />
 
 Example Page 3<br />
@@ -61,6 +63,7 @@ Has the following Tags: spring antum
 invidunt ut labore et dolore magna aliquyam erat, ur sadipscing elitr,
 Stet clita kasd...</p>
 <a href="?category=1&amp;page=3">mehr</a>
+
 <br />-----------------------<br />
 
 ?>

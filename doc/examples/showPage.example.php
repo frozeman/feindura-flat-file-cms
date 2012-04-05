@@ -12,37 +12,38 @@ and it shows the current page given by the $_GET variable.
 require('cms/feindura.include.php');
 
 // creates a new Feindura instance
-$myCms = new Feindura();
+$feindura = new Feindura();
 
 // set properties
-$myCms->xHtml =                  true;
+$feindura->xHtml =                  true;
 
-$myCms->showErrors =              true;
-$myCms->errorTag =               'span';
-$myCms->errorId =                'errorId';
-$myCms->errorClass =             'errorClass';
-$myCms->errorAttributes =        'test="exampleAttribute1" onclick="exampleAttribute2"';
+$feindura->titleLength =            20;
+$feindura->titleAsLink =            true;
+$feindura->titleShowPageDate =      true;
+$feindura->titlePageDateSeparator = ' - ';
+$feindura->titleShowCategory =      false; // would have no effect, because page with ID "1" has no category
+$feindura->titleCategorySeparator = ' -> '; // would have no effect, because $titleShowCategory = FALSE
 
-$myCms->titleLength =            20;
-$myCms->titleAsLink =            true;
-$myCms->titleShowPageDate =      true;
-$myCms->titleShowCategory =      false; // has no effect, because page with ID "1" has no category
-$myCms->titleCategorySeparator = ' -> ';
+$feindura->thumbnailAlign =         'left';
+$feindura->thumbnailId =            'thumbId';
+$feindura->thumbnailClass =         'thumbCLass';
+$feindura->thumbnailAttributes =    'test="exampleAttribute1" onclick="exampleAttribute2"';
+$feindura->thumbnailBefore =        false;
+$feindura->thumbnailAfter =         false;
 
-$myCms->thumbnailAlign =         'left';
-$myCms->thumbnailId =            'thumbId';
-$myCms->thumbnailClass =         'thumbCLass';
-$myCms->thumbnailAttributes =    'test="exampleAttribute1" onclick="exampleAttribute2"';
-$myCms->thumbnailBefore =        false;
-$myCms->thumbnailAfter =         false;
+$feindura->showErrors =              true;
+$feindura->errorTag =               'span';
+$feindura->errorId =                'errorId';
+$feindura->errorClass =             'errorClass';
+$feindura->errorAttributes =        'test="exampleAttribute1" onclick="exampleAttribute2"';
 
 
 // finally, return the page, with ID "1", using the above set properties
-$page = $myCms->showPage(1,100,true,true);
+$page = $feindura->showPage(1);
 
 // displays the page (the "\n" creates a line break for a better look)
-echo $page['title']."\n";
-echo $page['thumbnail']."\n";
+echo $page['title'];
+echo $page['thumbnail'];
 echo $page['content'];
 
 
@@ -50,8 +51,8 @@ echo $page['content'];
 --------------------------------------------------------------------------------
 */
 
-<a href="?page=1" title="2010-12-31 Example Page">
-2010-12-31 Example...
+<a href="?page=1" title="2010-12-31 - Example Page">
+2010-12-31 - Example...
 </a>
 <img src="/path/thumb_page3.png" alt="Thumbnail" title="Example Page 1" id="thumbId"
 class="thumbCLass" test="exampleAttribute1" onclick="exampleAttribute2" style="float:left;" />
@@ -61,7 +62,6 @@ class="thumbCLass" test="exampleAttribute1" onclick="exampleAttribute2" style="f
 Stet clita kasd gubergren, no sea takimata sanctus.</p>
 <p>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam...</p>
-<a href="?page=1">mehr</a>
 
 
 /*                              *** RESULT with error *** 
@@ -69,7 +69,7 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam...</p>
 */
 
 <span id="errorId" class="errorClass" test="exampleAttribute1" onclick="exampleAttribute2">
-The requested page is currently not available.
+The requested page is deactivated.
 </span>
 
 ?>

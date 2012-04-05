@@ -12,18 +12,19 @@ and you have a simple link with the page title.
 require('cms/feindura.include.php');
 
 // creates a new Feindura instance
-$myCms = new Feindura();
+$feindura = new Feindura();
 
 // set title properties
-$myCms->titleLength =              10;
-$myCms->titleAsLink =              true;
-$myCms->titleShowPageDate =        true;
-$myCms->titleShowCategory =        true;
-$myCms->titleCategorySeparator =   ' -> ';
+$feindura->titleLength =              10;
+$feindura->titleAsLink =              true;
+$feindura->titleShowPageDate =        true;
+$feindura->titlePageDateSeparator =   ' - ';
+$feindura->titleShowCategory =        true;
+$feindura->titleCategorySeparator =   ' -> ';
 
 
 // finally create the title from the page with ID "1" using the above set title properties
-$title = $myCms->getPageTitle(1);
+$title = $feindura->getPageTitle(1);
 
 // displays the link
 echo $title;
@@ -33,8 +34,8 @@ echo $title;
 --------------------------------------------------------------------------------
 */
 
-<a href="?category=1&amp;page=3" title="Example Category 1 -> 31.12.2010 Example Page">
-Example Category -> 31.12.2010 Example...
+<a href="?category=1&amp;page=3" title="Example Category 1 -> 31.12.2010 - Example Page">
+Example Category -> 31.12.2010 - Example...
 </a>
 
 ?>

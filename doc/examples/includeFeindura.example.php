@@ -6,6 +6,6 @@
 require('cms/feindura.include.php');
 
 // creates a new Feindura instance
-$myCms = new Feindura();
+$feindura = new Feindura();
 
 ?>

@@ -12,7 +12,7 @@ and you have a simple array with links of the pages from this category.
 require('cms/feindura.include.php');
 
 // creates a new Feindura instance
-$myCms = new Feindura();
+$feindura = new Feindura();
 
 // create the sort function, which we use with the createMenuBySortFunction() method
 function sortByLastEditDate($a,$b) {
@@ -22,7 +22,7 @@ function sortByLastEditDate($a,$b) {
 }
 
 // now we create the menu from the category with ID "1"
-$menu = $myCms->createMenuBySortFunction('sortByLastEditDate','category',1,'table',true,2);
+$menu = $feindura->createMenuBySortFunction('sortByLastEditDate','category',1,'table',true,2);
 
 // displays the menu
 foreach($menu as $link) {

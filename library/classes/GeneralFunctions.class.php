@@ -1012,7 +1012,7 @@ class GeneralFunctions {
  /**
   * <b>Name</b> loadPageIds()<br>
   * 
-  * Goes through the flatfiles folder and looks in which category is which page, it then returns an array with all IDs.
+  * Goes through the flat file folders and looks in which category is which page, it then returns an array with all IDs.
   * 
   * Example of the returned array:
   * {@example loadPageIds.return.example.php}
@@ -1028,10 +1028,10 @@ class GeneralFunctions {
   * @return array|false an array with page IDs and the affiliated category IDs or empty array if the category had no pages
   * 
   * @static
-  * @version 1.01
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.01 add scandir() to scan category dirs
+  *    - 1.1 add scandir() to scan category dirs
   *    - 1.0 initial release
   * 
   */

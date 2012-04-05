@@ -96,7 +96,7 @@ class Search {
   * @var string
   * @access public
   */
-  public $markStartTag = '<b>';
+  public $markStartTag = '<mark>';
   
   /**
   * The end-tag to mark the finding in a text.
@@ -104,7 +104,7 @@ class Search {
   * @var string
   * @access public
   */
-  public $markEndTag = '</b>';
+  public $markEndTag = '</mark>';
 
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -387,7 +387,7 @@ class Search {
       
       // SET ID
       if(isset($result['id']))
-      $id = $result['id'];
+        $id = $result['id'];
       
       // GENERATE TITLE
       if(isset($result['beforeDate']) ||

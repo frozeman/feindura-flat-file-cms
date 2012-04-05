@@ -12,34 +12,35 @@ and you have a simple link with the page title.
 require('cms/feindura.include.php');
 
 // creates a new Feindura instance
-$myCms = new Feindura();
+$feindura = new Feindura();
 
 // set link properties
-$myCms->linkLength =                  50; // shortens the page title in the link
-$myCms->linkId =                      'exampleId';
-$myCms->linkClass   =                 'exampleClass';
-$myCms->linkAttributes =              'test="exampleAttribute1" onclick="exampleAttribute2"';
-$myCms->linkBefore =                  'text before link ';
-$myCms->linkAfter =                   ' text after link';
-$myCms->linkBeforeText =              'text before ';
-$myCms->linkAfterText =               ' text after';
-$myCms->linkShowThumbnail =           true;
-$myCms->linkShowThumbnailAfterText =  false;
-$myCms->linkShowPageDate =            true;
-$myCms->linkShowCategory =            true;
-$myCms->linkCategorySeparator =       ' -> ';
+$feindura->linkLength                 = 20; // shortens the page title in the link
+$feindura->linkId                     = 'exampleId';
+$feindura->linkClass                  = 'exampleClass';
+$feindura->linkAttributes             = 'test="exampleAttribute1" onclick="exampleAttribute2"';
+$feindura->linkBefore                 = 'text before link ';
+$feindura->linkAfter                  = ' text after link';
+$feindura->linkBeforeText             = 'text before ';
+$feindura->linkAfterText              = ' text after';
+$feindura->linkShowThumbnail          = true;
+$feindura->linkShowThumbnailAfterText = false;
+$feindura->linkShowPageDate           = true;
+$feindura->linkPageDateSeparator      = ' - ';
+$feindura->linkShowCategory           = true;
+$feindura->linkCategorySeparator      = ' -> ';
 
 // set thumbnail properties
-$myCms->thumbnailAlign =              'left';
-$myCms->thumbnailId =                 'thumbId';
-$myCms->thumbnailClass =              'thumbClass';
-$myCms->thumbnailAttributes =         'test="thumbnailAttr1" onclick="thumbnailAttr2"';
-$myCms->thumbnailBefore =             'text before thumbnail ';
-$myCms->thumbnailAfter =              ' text after thumbnail';
+$feindura->thumbnailAlign             = 'left';
+$feindura->thumbnailId                = 'thumbId';
+$feindura->thumbnailClass             = 'thumbClass';
+$feindura->thumbnailAttributes        = 'test="thumbnailAttr1" onclick="thumbnailAttr2"';
+$feindura->thumbnailBefore            = 'text before thumbnail ';
+$feindura->thumbnailAfter             = ' text after thumbnail';
 
 
 // finally create the link from the page with ID "1" using the above set link properties
-$link = $myCms->createLink(1);
+$link = $feindura->createLink(1);
 
 // displays the link
 echo $link;
@@ -49,12 +50,12 @@ echo $link;
 --------------------------------------------------------------------------------
 */
 
-text before link <a href="?category=1&amp;page=1" title="Example Category: 2010-12-31 Example Page"
+text before link <a href="?category=1&amp;page=1" title="Example Category -> 2010-12-31 - Example Page"
 id="exampleId" class="exampleClass" test="exampleAttribute1" onclick="exampleAttribute2">
 text before thumbnail <img src="/path/thumb_page1.png" alt="Thumbnail" title="Example Page"
 id="thumbId" class="thumbClass" test="thumbnailAttr1" onclick="thumbnailAttr2" style="float:left;" />
 text after thumbnail
-text before Example Category: 2010-12-31 Example.. text after
+text before Example Category -> 2010-12-31 - Example ... text after
 </a> text after link
 
 ?>

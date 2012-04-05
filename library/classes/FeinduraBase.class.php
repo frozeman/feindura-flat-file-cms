@@ -1322,9 +1322,10 @@ class FeinduraBase {
   * @see Feindura::createMenuByTags()
   * 
   * @access protected
-  * @version 1.1
+  * @version 1.1.1
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 1.1.1 go through all pages tags not only the english ones
   *    - 1.1 add localization
   *    - 1.0.1 fixed comparision, beacause i changed separarion of tags from whitespace to ,  
   *    - 1.0 initial release
@@ -1333,21 +1334,26 @@ class FeinduraBase {
   protected function compareTags($pageContent, $tags) {
     
     // var
-    $pageTags = GeneralFunctions::getLocalized($pageContent['localization'],'tags',$this->language);
+    // $pageTags = GeneralFunctions::getLocalized($pageContent['localization'],'tags',$this->language);
 
-    // CHECKS if the $tags are in an array,
-    // and the pageContent['tags'] var exists and is not empty
-    if(is_array($tags) && isset($pageTags) && !empty($pageTags)) {
-      // lowercase
-      $pageTags = strtolower($pageTags);
-      //$pageTags = str_replace(',',' ',$pageTags);
-      
-      // goes trough the given TAG Array, and look of one tga is in the pageContent['tags'} var
-      foreach($tags as $tag) {
+    // ->> go through all the pages tags
+    foreach ($pageContent['localization'] as $langCode => $pageContentLocalized) {
+      $pageTags = $pageContentLocalized['tags'];
+
+      // CHECKS if the $tags are in an array,
+      // and the pageContent['tags'] var exists and is not empty
+      if(is_array($tags) && isset($pageTags) && !empty($pageTags)) {
         // lowercase
-        $tag = strtolower($tag);
-        if(strpos(','.$pageTags.',',','.$tag.',') !== false) {
-          return $pageContent;
+        $pageTags = strtolower($pageTags);
+        //$pageTags = str_replace(',',' ',$pageTags);
+        
+        // goes trough the given TAG Array, and look of one tga is in the pageContent['tags'} var
+        foreach($tags as $tag) {
+          // lowercase
+          $tag = strtolower($tag);
+          if(strpos(','.$pageTags.',',','.$tag.',') !== false) {
+            return $pageContent;
+          }
         }
       }
     }
@@ -1437,21 +1443,7 @@ class FeinduraBase {
   * <b>Note</b>: When using "previous","next","first" or "last" it will jump over pages/categories which are not public and return the next one.
   *
   * Examples of possible <var>$ids</var> parameter.
-  * <code>
-  * <?php
-  * false                  // return the ids of the current $page property
-  * 2                      // would return an array with the associated category of that page: array(2,1)
-  * 'next'                 // would return the next page, after the current $page property in the current category
-  * array('next',false)    // the same as above
-  * array('next',45)       // the same as above (it would discard the wrong category ID)
-  * array('next','next')   // same as above (it would discard the wrong category ID)
-  * array(false,'next')    // would return the first page of the next category, in the $categoryConfig property 
-  * array('last','next')   // would return the last page of the next category, in the $categoryConfig property
-  * array('last','first')  // would return the last page of the first category, in the $categoryConfig property
-  * array('last','first')  // would return the last page of the first category, in the $categoryConfig property
-  * array('rand','rand')   // would return a random page of a random category, in the $categoryConfig property
-  * ?>
-  * </code>
+  * {@example ids.parameter.example.php}
   *
   * Example return value, where first value is the page ID and the second value is the category ID.
   * <samp>
@@ -1470,7 +1462,7 @@ class FeinduraBase {
   * @version 2.0
   * <br />
   * <b>ChangeLog</b><br />
-  *    - 2.0 change name from loadPrevNextPage() to getPropertyIdsByString(), and now handles also categories
+  *    - 2.0 change name from loadPrevNextPage() to getPropertyIdsByString(), now handles also categories
   *    - 1.0 initial release
   *   
   */ 

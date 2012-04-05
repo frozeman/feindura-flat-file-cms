@@ -12,13 +12,13 @@ array(
       ),
     
     1 => array(
-      "id" => 2,
-      "visitorCount" => 300,
-      "firstVisit" => 1003348800, // UNIX-Timestamp
-      "lastVisit" => 1122349800,
-      "visitTimeMin" =>  'a:2:{i:0;i:50;i:1;i:60;}', // serialized array
-      "visitTimeMax" =>  'a:1:{i:286;i:300;}',
-      "searchWords" =>    ''
+        "id" => 2,
+        "visitorCount" => 300,
+        "firstVisit" => 1003348800, // UNIX-Timestamp
+        "lastVisit" => 1122349800,
+        "visitTimeMin" =>  'a:2:{i:0;i:50;i:1;i:60;}', // serialized array
+        "visitTimeMax" =>  'a:1:{i:286;i:300;}',
+        "searchWords" =>    ''
       )
 
     ...

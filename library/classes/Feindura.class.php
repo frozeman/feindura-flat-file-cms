@@ -272,7 +272,7 @@ class Feindura extends FeinduraBase {
   public $linkAfterText = false;
   
  /**
-  * If TRUE and the page has a thumbnail it places the thumbnail <img> tag inside the <a></a> tag
+  * If TRUE and the page has a thumbnail, it places the thumbnail <img> tag inside the <a></a> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * @var bool Set it to FALSE to don't show the thumbnails in links
@@ -286,7 +286,7 @@ class Feindura extends FeinduraBase {
   public $linkShowThumbnail = false;
   
  /**
-  * If TRUE and thumbnail <img> tag will be placed after the link text but inside the <a></a> tag
+  * If TRUE and the page has a thumbnail, it places the thumbnail <img> tag after the link text but inside the <a></a> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * 
@@ -1039,7 +1039,7 @@ class Feindura extends FeinduraBase {
       }
 
       
-      $metaTags .= '  <meta name="generator" content="feindura - flat file cms '.VERSION.' build:'.BUILD.'"'.$tagEnding."\n";
+      $metaTags .= '  <meta name="generator" content="feindura - Flat File CMS '.VERSION.' build:'.BUILD.'"'.$tagEnding."\n";
       $metaTags .= "\n";
       
       // ->> add FEEDS
@@ -1057,16 +1057,15 @@ class Feindura extends FeinduraBase {
             ? $this->adminConfig['multiLanguageWebsite']['languages']
             : array(0 => 0);
 
+          // category path
+          $categoryPath = ($category['id'] != 0) ? $category['id'].'/' : '';
+
           foreach ($feedLanguages as $langCode) {
 
             // filenames
             $addLanguageToFilename = (!empty($langCode)) ? '.'.$langCode : '';
-            $atomLink = ($category == 0) 
-              ? $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/atom'.$addLanguageToFilename.'.xml'
-              : $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$category['id'].'/atom'.$addLanguageToFilename.'.xml';
-            $rss2Link = ($category == 0) 
-              ? $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/rss2'.$addLanguageToFilename.'.xml'
-              : $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$category['id'].'/rss2'.$addLanguageToFilename.'.xml';
+            $atomLink = $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$categoryPath.'atom'.$addLanguageToFilename.'.xml';
+            $rss2Link = $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$categoryPath.'rss2'.$addLanguageToFilename.'.xml';
 
             // title
             $websiteTitle = GeneralFunctions::getLocalized($this->websiteConfig['localization'],'title',$langCode);
@@ -1180,10 +1179,8 @@ class Feindura extends FeinduraBase {
   * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br />
   * If cookies are deactivated it attaches the {@link $sessionId} on the end.
   * 
-  * <b>Note</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
-  * Examples of the <var>$id</var> parameters:
-  * {@example ids.parameter.example.php}
   *
   * Examples of the returned href string:
   *
@@ -1198,7 +1195,7 @@ class Feindura extends FeinduraBase {
   * <samp>'/category/category_name/page_title.html'</samp>
   * 
   * 
-  * @param int|string|array|bool $id    a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples)
+  * @param int|string|array|bool $id  (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property.<br><i>See Additional -> $id parameter example</i>
   * 
   * @uses FeinduraBase::getPropertyIdsByString()	to load the right page and category IDs depending on the $ids parameter
   * @uses GeneralFunctions::createHref()          call the right createHref functions in the GeneralFunctions class
@@ -1206,6 +1203,8 @@ class Feindura extends FeinduraBase {
   * @uses FeinduraBase::language
   * 
   * @return string|false the generated href attribute, or FALSE if no page could be loaded
+  * 
+  * @example ids.parameter.example.php $id parameter example
   * 
   * @see GeneralFunctions::createHref()
   * 
@@ -1239,17 +1238,15 @@ class Feindura extends FeinduraBase {
   * it creates a link from the previous or the next page starting from the current page ID stored in the {@link $page} property.
   * If there is no current, next or previous page in it returns FALSE.
   * 
-  * <b>Note</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
-  * <b>Note</b>: It add the class name <i>"active"</i> to the link, when the current {@link $page} property matches the page ID of the link.
+  * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Note</b>: It adds the css class <i>"active"</i> to the link, when this page (<var>$page</var> parameter) is the current.
   * 
-  * Example <var>$ids</var> parameters:
-  * {@example ids.parameter.example.php}
   *
   * Example:
   * {@example createLink.example.php}
   * 
-  * @param int|string|array|bool $ids    a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
-  * @param string|bool                  $linkText  (optional) a string with a linktext which the link will use, if TRUE it uses the page title of the page, if FALSE no linktext will be used
+  * @param int|string|array|bool $id        (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property.<br><i>See Additional -> $id parameter example</i>
+  * @param string|bool           $linkText  (optional) a string with a linktext which the link will use, if TRUE it uses the page title of the page, if FALSE no linktext will be used
   * 
   * @uses Feindura::$linkLength
   * @uses Feindura::$linkId
@@ -1282,6 +1279,8 @@ class Feindura extends FeinduraBase {
   * 
   * @return string|false the created link, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
+  * @example ids.parameter.example.php $id parameter example
+  * 
   * @see createMenu()
   * @see createMenuByTags()
   * @see createMenuByDate()
@@ -1293,12 +1292,12 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function createLink($ids = false, $linkText = true) {    
+  public function createLink($id = false, $linkText = true) {    
         
-    //echo 'PAGE: '.$ids;
+    //echo 'PAGE: '.$id;
     
     // LOADS the right $pageContent array
-    if($ids = $this->getPropertyIdsByString($ids)) {
+    if($ids = $this->getPropertyIdsByString($id)) {
       
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
@@ -1397,7 +1396,7 @@ class Feindura extends FeinduraBase {
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
   * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br />
-  * <b>Note</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
+  * <b>Note</b>: It adds the css class <i>"active"</i> to the link, which is the current page (<var>$page</var> parameter).
   * 
   * Example:
   * {@example createMenu.example.php}
@@ -1907,15 +1906,13 @@ class Feindura extends FeinduraBase {
   * Returns the title of a page.
   * This page title will be generated using the title properties.
   * 
-  * <b>Note</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
-  * Example <var>$ids</var> parameters:
-  * {@example ids.parameter.example.php}
   *
   * Example:
   * {@example getPageTitle.example.php}
   * 
-  * @param int|string|bool $ids    a page ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
+  * @param int|string|array|bool $id    (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property.<br><i>See Additional -> $id parameter example</i>
   * 
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink
@@ -1931,6 +1928,8 @@ class Feindura extends FeinduraBase {
   * 
   * @return string the generated page title, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
+  * @example ids.parameter.example.php $id parameter example
+  * 
   * @see FeinduraBase::createTitle()  
   * 
   * @access public
@@ -1940,9 +1939,9 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function getPageTitle($ids = false) {    
+  public function getPageTitle($id = false) {    
    
-    if($ids = $this->getPropertyIdsByString($ids)) {
+    if($ids = $this->getPropertyIdsByString($id)) {
       
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
@@ -1972,9 +1971,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link getPageTitle()}
   * @ignore
   */
-  public function getTitle($ids = false) {
+  public function getTitle($id = false) {
     // call the right function
-    return $this->getPageTitle($ids);
+    return $this->getPageTitle($id);
   } 
   
   
@@ -1991,10 +1990,8 @@ class Feindura extends FeinduraBase {
   * an error will be placed in the ['content'] part of the returned array,
   * otherwiese it returns an empty array.<br />
   * 
-  * <b>Note</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
-  * Example <var>$ids</var> parameters:
-  * {@example ids.parameter.example.php}
   *
   * Example of the returned array:
   * {@example generatePage.return.example.php}
@@ -2002,7 +1999,7 @@ class Feindura extends FeinduraBase {
   * Example usage:
   * {@example showPage.example.php}
   * 
-  * @param int|string|bool $ids          a page ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
+  * @param int|string|array|bool $id           (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property.<br><i>See Additional -> $id parameter example</i>
   * @param int|array|bool        $shortenText  (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
   * @param bool|string           $useHtml      (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
   * 
@@ -2036,6 +2033,8 @@ class Feindura extends FeinduraBase {
   * 
   * @return array with the page elements, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
+  * @example ids.parameter.example.php $id parameter example
+  * 
   * @see getPageTitle()
   * @see FeinduraBase::generatePage()
   * 
@@ -2046,9 +2045,9 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function showPage($ids = false, $shortenText = false, $useHtml = true) {    
+  public function showPage($id = false, $shortenText = false, $useHtml = true) {    
 
-    if($ids = $this->getPropertyIdsByString($ids)) {
+    if($ids = $this->getPropertyIdsByString($id)) {
         
         $page = $ids[0];
         $category = $ids[1];
@@ -2084,9 +2083,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link showPage()}
   * @ignore
   */
-  public function showPages($ids = false, $shortenText = false, $useHtml = true) {
+  public function showPages($id = false, $shortenText = false, $useHtml = true) {
     // call the right function
-    return $this->showPage($ids, $shortenText, $useHtml);
+    return $this->showPage($id, $shortenText, $useHtml);
   }
 
   /**
@@ -2163,10 +2162,8 @@ class Feindura extends FeinduraBase {
   * It can return an array where each element contain the HTML of a plugin (only the activated ones),
   * or if the <var>$plugins</var> parameter is a string with a plugin name (the foldername of the plugin, inside "../feindura_folder/plugins/"), it returns only a string with the HTML of this plugin.   
   * 
-  * <b>Note</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
-  * Example <var>$ids</var> parameters:
-  * {@example ids.parameter.example.php}
   * 
   * Example of the returned array:
   * {@example showPlugins.array.example.php}
@@ -2175,7 +2172,7 @@ class Feindura extends FeinduraBase {
   * {@example showPlugins.example.php}
   * 
   * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
-  * @param int|string|bool  $ids          a page ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
+  * @param int|string|array|bool  $id           (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property.<br><i>See Additional -> $id parameter example</i>
   * @param bool									  $returnPlugin (optional) whether the plugin is returned, or only a boolean to check if the plugin is available for that page (used by {@link Feindura::hasPlugins()})
   * 
   * @uses Feindura::$page
@@ -2190,6 +2187,8 @@ class Feindura extends FeinduraBase {
   * @see getPageTitle()
   * @see FeinduraBase::generatePage()
   * 
+  * @example ids.parameter.example.php $id parameter example
+  * 
   * @access public
   * @version 1.0
   * <br />
@@ -2197,7 +2196,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
- public function showPlugins($plugins = true, $ids = false, $returnPlugin = true) {    
+ public function showPlugins($plugins = true, $id = false, $returnPlugin = true) {    
     
     // var
     $singlePlugin = (is_string($plugins) && $plugins != 'true' && $plugins != 'false') ? true : false;
@@ -2205,7 +2204,7 @@ class Feindura extends FeinduraBase {
     if(!is_array($plugins) && !is_bool($plugins))
       $plugins = array($plugins);
      
-    if($ids = $this->getPropertyIdsByString($ids)) {
+    if($ids = $this->getPropertyIdsByString($id)) {
 
       // LOAD the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
@@ -2256,9 +2255,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link showPlugins()}
   * @ignore
   */
-  public function showPlugin($plugins = true, $ids = false, $returnPlugin = true) {
+  public function showPlugin($plugins = true, $id = false, $returnPlugin = true) {
     // call the right function
-    return $this->showPlugins($plugins, $ids, $returnPlugin);
+    return $this->showPlugins($plugins, $id, $returnPlugin);
   }
 
  /**

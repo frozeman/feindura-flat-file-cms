@@ -11,7 +11,7 @@ for a detailed menu example see createMenu()
 require('cms/feindura.include.php');
 
 // creates a new Feindura instance
-$myCms = new Feindura();
+$feindura = new Feindura();
 
 // the tags where the pages in the menu should have atleast one
 $tags = 'winter summer spring';
@@ -19,13 +19,12 @@ $tags = 'winter summer spring';
 // $tags = array(0 => 'winter', 1 => 'summer', 2 => 'spring');
 
 // finally create the menu from the category with ID "1" using the above set tags
-$menu = $myCms->createMenuByTags($tags,'category',1,'table',true,2,true);
+$menu = $feindura->createMenuByTags($tags,'category',1,'table',true,2,true);
 
 // displays the menu
 foreach($menu as $link) {
   echo $link;
 }
-
 
 
 /*                              *** RESULT *** 

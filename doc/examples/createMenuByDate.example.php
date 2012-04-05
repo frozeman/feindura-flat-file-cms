@@ -11,15 +11,16 @@ for a detailed menu example see createMenu()
 require('cms/feindura.include.php');
 
 // creates a new Feindura instance
-$myCms = new Feindura();
+$feindura = new Feindura();
 
-// set this property to show the page date in the menu linktext
-// the "text before date" and "text after date:" was set in the page editor in the backend
-$myCms->linkShowPageDate = true;
+// set this property to show the page date in the links text
+// the "text before date" and "text after date" was set in the page editor in the backend
+$feindura->linkShowPageDate      = true;
+$feindura->linkPageDateSeparator = ': ';
 
 // create the menu from the category with ID "1" using the time period:
 // load all pages in the past until 8 months in the future starting from the date today: 31.05.2010
-$menu = $myCms->createMenuByDate('category',1,true,8,'table',true,2,true,true);
+$menu = $feindura->createMenuByDate('category',1,true,8,'table',true,2);
 
 // displays the menu
 foreach($menu as $link) {
