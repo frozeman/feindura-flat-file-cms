@@ -20,8 +20,8 @@
  * @uses Search::find() to search in the pages
  * 
  * @version 1.0
- * <br />
- * <b>ChangeLog</b><br />
+ * <br>
+ * <b>ChangeLog</b><br>
  *    - 1.0 initial release
  * 
  */ 
@@ -54,12 +54,12 @@ $searchWords = (isset($_GET['search'])) ? urldecode($_GET['search']) : $_POST['s
 $searchWords = GeneralFunctions::smartStripslashes($searchWords);
 ?>
 
-<form action="index.php?site=<?= $_GET['site']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<form action="index.php?site=<?php echo $_GET['site']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div class="block">
-  <h1><?= $langFile['BUTTON_SEARCH']; ?></h1>
+  <h1><?php echo $langFile['BUTTON_SEARCH']; ?></h1>
     <div class="content">
-      <input type="search" name="search" size="50" value="<?= htmlentities($searchWords,ENT_QUOTES,'UTF-8'); ?>" style="float:left; margin-top: 12px; margin-right:10px;" />
-      <input type="submit" value="" class="button search" />
+      <input type="search" name="search" size="50" value="<?php echo htmlentities($searchWords,ENT_QUOTES,'UTF-8'); ?>" style="float:left; margin-top: 12px; margin-right:10px;">
+      <input type="submit" value="" class="button search">
     </div>
     <div class="bottom"></div>
   </div>
@@ -135,21 +135,21 @@ if(!empty($searchWords)) {
         
         // CATEGORY
         if($result['category']) {
-          echo '<br /><span class="keywords category">';
+          echo '<br><span class="keywords category">';
           echo ' '.$langFile['SEARCH_TEXT_MATCH_CATEGORY'].': '.$result['category'];
           echo '</span>';
         }
         
         // SEARCHWORDS
         if($result['searchwords']) {
-          echo '<br /><span class="keywords blue">';
+          echo '<br><span class="keywords blue">';
           echo ' '.$langFile['SEARCH_TEXT_MATCH_SEARCHWORDS'].': '.$result['searchwords'];
           echo '</span>';
         }
         
         // TAGS
         if($result['tags']) {
-          echo '<br /><span class="keywords blue">';
+          echo '<br><span class="keywords blue">';
           echo ' '.$langFile['SEARCH_TEXT_MATCH_TAGS'].': '.$result['tags'];
           echo '</span>';
         }

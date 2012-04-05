@@ -101,12 +101,12 @@ else
 
 <div id="thumbInfo">
 <ul>
-  <li><?php echo $langFile['pagethumbnail_thumbinfo_formats']; ?><br /><b>JPG</b>, <b>JPEG</b>, <b>GIF</b>, <b>PNG</b></li>
+  <li><?php echo $langFile['pagethumbnail_thumbinfo_formats']; ?><br><b>JPG</b>, <b>JPEG</b>, <b>GIF</b>, <b>PNG</b></li>
   <li><?php echo $langFile['pagethumbnail_thumbinfo_filesize'].' <b>'.ini_get('upload_max_filesize').'B</b>'; ?></li>
-  <li><b><?php echo $langFile['pagethumbnail_thumbinfo_standardthumbsize']; ?></b><br />
+  <li><b><?php echo $langFile['pagethumbnail_thumbinfo_standardthumbsize']; ?></b><br>
   <?php 
   
-    if($thumbRatioY) echo $langFile['pagethumbnail_thumbsize_width'].' = <b>'.$thumbWidth.'</b> '.$langFile['THUMBNAIL_TEXT_UNIT'].'<br />';
+    if($thumbRatioY) echo $langFile['pagethumbnail_thumbsize_width'].' = <b>'.$thumbWidth.'</b> '.$langFile['THUMBNAIL_TEXT_UNIT'].'<br>';
     if($thumbRatioX) echo $langFile['pagethumbnail_thumbsize_height'].' = <b>'.$thumbHeight.'</b> '.$langFile['THUMBNAIL_TEXT_UNIT'];
   ?>
   </li>
@@ -115,19 +115,19 @@ else
 
 <div style="position: relative">
 <form action="library/controllers/thumbnailUpload.controller.php" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="startUploadAnimation();" target="uploadTargetFrame" accept-charset="UTF-8">
-	<input type="hidden" name="upload" value="true" />
-	<input type="hidden" name="category" value="<?php echo $category; ?>" />
-  <input type="hidden" name="id" value="<?php echo $page; ?>" />
-  <input type="hidden" name="thumbRatio" value="<?php echo $thumbRatio; ?>" />
+	<input type="hidden" name="upload" value="true">
+	<input type="hidden" name="category" value="<?php echo $category; ?>">
+  <input type="hidden" name="id" value="<?php echo $page; ?>">
+  <input type="hidden" name="thumbRatio" value="<?php echo $thumbRatio; ?>">
 
 	<!-- file selection -->
   <h2><?php echo $langFile['pagethumbnail_field1']; ?></h2>
   
-	<input type="file" name="thumbFile" />
-  <br />	
-	<br />
+	<input type="file" name="thumbFile">
+  <br>	
+	<br>
   
-	<a href="#" id="thumbSizeToogle" class="down"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?></a><br />
+	<a href="#" id="thumbSizeToogle" class="down"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?></a><br>
 	<br clear="all"/>
 	
   <table id="thumbSize">  
@@ -139,7 +139,7 @@ else
   <label for="windowBox_thumbWidth">
   <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></label>
   </td><td>
-  <input id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?> />
+  <input id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?>>
   <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
   </td></tr>
   
@@ -163,7 +163,7 @@ else
   <label for="windowBox_thumbHeight">
   <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></label>
   </td><td>
-  <input id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?> />
+  <input id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?>>
   <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
   </td></tr>
   
@@ -199,11 +199,11 @@ else
     $randomImage = '?'.md5(uniqid(rand(),1));
     
     echo '<div style="z-index:0; position:relative; width: 280px; margin-bottom: 10px; float:right; text-align: center;">';
-    echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::" />';
+    echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
     echo '</div>';
   }
   ?>
-	<input type="submit" value="" class="button thumbnailUpload" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>" />
+	<input type="submit" value="" class="button thumbnailUpload" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>">
 </form>
 </div>
 
@@ -219,7 +219,7 @@ if($site == 'pages')
 
 ?>
 <!-- ok button, after upload -->
-<a href="index.php<?= $redirect; ?>" onclick="closeWindowBox('index.php<?= $redirect; ?>');return false;" id="pageThumbnailOkButton" class="ok center">&nbsp;</a>
+<a href="index.php<?php echo $redirect; ?>" onclick="closeWindowBox('index.php<?php echo $redirect; ?>');return false;" id="pageThumbnailOkButton" class="ok center">&nbsp;</a>
 
 <!-- UPLOAD IFRAME -->
 <iframe id="uploadTargetFrame" name="uploadTargetFrame" src="library/controllers/thumbnailUpload.controller.php"></iframe>

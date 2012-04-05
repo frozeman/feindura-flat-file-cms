@@ -28,9 +28,9 @@ switch($_GET['site']) {
   case 'pages':
       echo '<div id="rightSidebarMessageBox">';
         echo '<div id="messageBox_input" class="content">';
-        echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" width="65" height="65" />'.$langFile['SORTABLEPAGELIST_info'];
+        echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" width="65" height="65">'.$langFile['SORTABLEPAGELIST_info'];
         // -> the javascript request of the sortable gets its error messages from this input
-        echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['SORTABLEPAGELIST_save'].'|'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'" />';
+        echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['SORTABLEPAGELIST_save'].'|'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'">';
         echo '</div>';
       echo '<div class="bottom"></div></div>';
     break;
@@ -40,7 +40,7 @@ switch($_GET['site']) {
     if($deletedStatistics) {
       echo '<div id="rightSidebarMessageBox">';
         echo '<div class="content">';
-        echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" width="65" height="65" />';
+        echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" width="65" height="65">';
         echo $deletedStatistics;
         echo '</div>';
       echo '<div class="bottom"></div></div>';
@@ -52,7 +52,7 @@ switch($_GET['site']) {
     if($adminConfig['multiLanguageWebsite']['languages'] != array_keys($websiteConfig['localization'])) {
       echo '<div id="rightSidebarMessageBox">';
         echo '<div class="content">';
-        echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50" />';
+        echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
         echo '<h1>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>';
         echo '<ul class="flags">';
         foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
@@ -79,7 +79,7 @@ switch($_GET['site']) {
     if($categoryHasMissingLanguages) {
       echo '<div id="rightSidebarMessageBox">';
         echo '<div class="content">';
-        echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50" />';
+        echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
         echo '<h1>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>';
         echo '<ul class="flags">';
         foreach ($categoryConfig as $category) {

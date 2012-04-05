@@ -28,7 +28,7 @@ $page	= $_POST['id'];
 $category = $_POST['category'];
 
 //print_r($_FILES);
-//echo '<br /><br />';
+//echo '<br><br>';
 //print_r($_POST);
 
 ?>
@@ -36,7 +36,7 @@ $category = $_POST['category'];
 <html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>">
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" type="text/css" href="../styles/windowBox.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../styles/windowBox.css" media="screen">
 </head>
 <body id="thumbnailUploadFrame">
 <?php
@@ -185,7 +185,7 @@ if($_POST['upload']) {
             if(GeneralFunctions::savePage($pageContent)) {
               // generates a random number to put on the end of the image, to prevent caching
               $randomImage = '?'.md5(uniqid(rand(),1));
-              $response[] = $langFile['PAGETHUMBNAIL_TEXT_finish'].'<br /><br /><img src="'.$uploadPath.$newFileName.$randomImage.'" />';
+              $response[] = $langFile['PAGETHUMBNAIL_TEXT_finish'].'<br><br><img src="'.$uploadPath.$newFileName.$randomImage.'">';
               StatisticFunctions::saveTaskLog(6,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
             }
             

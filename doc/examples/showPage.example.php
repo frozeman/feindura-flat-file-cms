@@ -55,7 +55,7 @@ echo $page['content'];
 2010-12-31 - Example...
 </a>
 <img src="/path/thumb_page3.png" alt="Thumbnail" title="Example Page 1" id="thumbId"
-class="thumbCLass" test="exampleAttribute1" onclick="exampleAttribute2" style="float:left;" />
+class="thumbCLass" test="exampleAttribute1" onclick="exampleAttribute2" style="float:left;">
 
 <h2>Example Headline</h2>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing dolores et ea rebum.

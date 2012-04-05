@@ -31,8 +31,8 @@
 * @package [Backend]
 * 
 * @version 1.0
-* <br />
-* <b>ChangeLog</b><br />
+* <br>
+* <b>ChangeLog</b><br>
 *    - 1.0 initial release
 * 
 */
@@ -112,7 +112,7 @@ class Search {
  /* **************************************************************************************************************************** */
   
  /**
-  * <b>Type</b> constructor<br />
+  * <b>Type</b> constructor<br>
   * 
   * The constructor of the class, sets the {@link $categoryConfig}.
   * 
@@ -125,8 +125,8 @@ class Search {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -139,7 +139,7 @@ class Search {
   // ****************************************************************************************************************
   
  /**
-  * <b>Name</b> find()<br />
+  * <b>Name</b> find()<br>
   * 
   * Starts a search.
   * 
@@ -153,8 +153,8 @@ class Search {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -169,7 +169,7 @@ class Search {
   }
   
  /**
-  * <b>Name</b> searchPages()<br />
+  * <b>Name</b> searchPages()<br>
   * 
   * Goes through pages and search for a matching of the searchwords.
   * Return the results sorted by priority.
@@ -188,8 +188,8 @@ class Search {
   * 
   * @access protected
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -336,7 +336,7 @@ class Search {
   }
   
  /**
-  * <b>Name</b> createResultsArray()<br />
+  * <b>Name</b> createResultsArray()<br>
   * 
   * Create an array with the page title and content, with marked findings, ready to display in a HTML page.
   * 
@@ -354,8 +354,8 @@ class Search {
   * 
   * @access protected
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -451,7 +451,7 @@ class Search {
   }
  
  /**
-  * <b>Name</b> markFindingInText()<br />
+  * <b>Name</b> markFindingInText()<br>
   * 
   * Marks the results from <var>preg_match_all()</var> in the given texts.
   * 
@@ -465,8 +465,8 @@ class Search {
   * 
   * @access private
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -557,7 +557,7 @@ class Search {
   }
   
  /**
-  * <b>Name</b> markFindingInDataString()<br />
+  * <b>Name</b> markFindingInDataString()<br>
   * 
   * Marks the results from <var>preg_match_all()</var> in a given serialized dataString.
   * 
@@ -572,8 +572,8 @@ class Search {
   * 
   * @access private
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */

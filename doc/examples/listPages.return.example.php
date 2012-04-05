@@ -46,7 +46,7 @@ array(
     'pageDate'          => false, // page has no page date
     'pageDateTimestamp' => false,
     'title'             => 'Title Example 3',
-    'thumbnail'         => '<img src="/path/thumb_page3.png" alt="Thumbnail" title="Title Example 3" />',
+    'thumbnail'         => '<img src="/path/thumb_page3.png" alt="Thumbnail" title="Title Example 3">',
     'thumbnailPath'     => '/path/thumb_page3.png',
     'content'           => "\n".'<p>Content Text</p>'."\n", // the content has line breaks before and after
     'description'       => 'Short description of the page',

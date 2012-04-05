@@ -27,7 +27,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 ?>
 <div class="editor">
 <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
-<?= htmlspecialchars(GeneralFunctions::getLocalized($pageContent['localization'],'content',true),ENT_NOQUOTES,'UTF-8'); ?>
+<?php echo htmlspecialchars(GeneralFunctions::getLocalized($pageContent['localization'],'content',true),ENT_NOQUOTES,'UTF-8'); ?>
 </textarea>
 <?php
 
@@ -64,9 +64,9 @@ window.addEvent('domready',function(){
 }
 if($adminConfig['user']['fileManager']) {
 ?>
-  CKEDITOR.config.filebrowserBrowseUrl      = '<?= $adminConfig['basePath']."library/views/windowBox/fileManager.php"; ?>';
-  CKEDITOR.config.filebrowserImageBrowseUrl = '<?= $adminConfig['basePath']."library/views/windowBox/fileManager.php?mimType=image"; ?>';
-  CKEDITOR.config.filebrowserFlashBrowseUrl = '<?= $adminConfig['basePath']."library/views/windowBox/fileManager.php?mimType=application"; ?>';
+  CKEDITOR.config.filebrowserBrowseUrl      = '<?php echo $adminConfig['basePath']."library/views/windowBox/fileManager.php"; ?>';
+  CKEDITOR.config.filebrowserImageBrowseUrl = '<?php echo $adminConfig['basePath']."library/views/windowBox/fileManager.php?mimType=image"; ?>';
+  CKEDITOR.config.filebrowserFlashBrowseUrl = '<?php echo $adminConfig['basePath']."library/views/windowBox/fileManager.php?mimType=application"; ?>';
   CKEDITOR.config.filebrowserWindowWidth    = 1024;
   CKEDITOR.config.filebrowserWindowHeight   = 700;
   CKEDITOR.config.filebrowserWindowFeatures = 'scrollbars=no,center=yes,status=no';
@@ -78,7 +78,7 @@ if($adminConfig['user']['fileManager']) {
     <div class="content">
       <a href="#" id="hotKeysToogle" class="down standardLink"><?php echo $langFile['EDITOR_htmleditor_hotkeys_h1']; ?></a>
       <div id="hotKeys">
-      <br />
+      <br>
       <table style="width:450px; padding: 8px; border-spacing: 0; border:1px solid #B3B3B4;">
         <tr>
           <td style="background-color:#EDECEC;">
@@ -134,5 +134,5 @@ if($adminConfig['user']['fileManager']) {
       </div>
     </div>
     
-    <input type="submit" value="" id="HTMLEditorSubmit" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" />
+    <input type="submit" value="" id="HTMLEditorSubmit" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
 </div>

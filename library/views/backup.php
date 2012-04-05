@@ -51,11 +51,11 @@ if($unwriteableList && checkBasePathAndURL()) {
 ?>
 <!-- BACKUP -->
 <div class="block">
-  <h1><?= $langFile['BACKUP_TITLE_BACKUP']; ?></h1>
+  <h1><?php echo $langFile['BACKUP_TITLE_BACKUP']; ?></h1>
   <div class="content">
-    <p><?= $langFile['BACKUP_TEXT_BACKUP']; ?></p><br />
+    <p><?php echo $langFile['BACKUP_TEXT_BACKUP']; ?></p><br>
     <div style="text-align: center;">
-    <a href="index.php?site=backup&amp;downloadBackup" class="downloadBackup"><?= $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a>
+    <a href="index.php?site=backup&amp;downloadBackup" class="downloadBackup"><?php echo $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a>
     </div>
   </div>
   <div class="bottom"></div>
@@ -66,32 +66,32 @@ if($unwriteableList && checkBasePathAndURL()) {
 // shows the block below if it is the ones which is saved before
 $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
 ?>
-<div class="block<?= $hidden ?>">
-  <h1><a href="#"><?= $langFile['BACKUP_TITLE_RESTORE']; ?></a></h1>
+<div class="block<?php echo $hidden ?>">
+  <h1><a href="#"><?php echo $langFile['BACKUP_TITLE_RESTORE']; ?></a></h1>
   <div class="content">  
-    <p><?= $langFile['BACKUP_TEXT_RESTORE']; ?></p><br />
+    <p><?php echo $langFile['BACKUP_TEXT_RESTORE']; ?></p><br>
   
     <form action="index.php?site=backup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="restoreForm">
       <div>
-      <input type="hidden" name="send" value="restore" />
+      <input type="hidden" name="send" value="restore">
       </div>
-      <br />
+      <br>
       <div style="text-align: center;">
-      <h3><?= $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD']; ?></h3>
+      <h3><?php echo $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD']; ?></h3>
       <div class="verticalSeparator"></div>
-      <img src="library/images/icons/backup_restore.png" width="70" height="78" /><input type="file" name="restoreBackupUpload" style="position: relative;top: -25px;" onclick="removeChecked('.restoreBackupFiles');" />
-      <br />
+      <img src="library/images/icons/backup_restore.png" width="70" height="78"><input type="file" name="restoreBackupUpload" style="position: relative;top: -25px;" onclick="removeChecked('.restoreBackupFiles');">
+      <br>
       <?php
       
       $backups = GeneralFunctions::readFolder($backupFolder);
       if(!empty($backups['files'])) {
         
         echo '<h3>'.$langFile['BACKUP_TITLE_RESTORE_FROMFILES'].'</h3>';
-        echo '<div class="verticalSeparator"></div><br />';
+        echo '<div class="verticalSeparator"></div><br>';
         echo '<table>
        
         <colgroup>
-        <col class="left" />
+        <col class="left">
         </colgroup>
     
         <tr><td class="leftTop"></td><td></td></tr>';
@@ -106,8 +106,8 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
           echo '<input type="radio" name="restoreBackupFile" class="restoreBackupFiles" id="backupFile'.$backupFile.'" value="'.$backupFile.'">';
           echo '</td><td class="right">';
           echo (strpos($backupFile,'restore') === false)
-            ? '<label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br />'.$backupTime."</label>\n"
-            : '<label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.$backupTime."</label>\n";
+            ? '<label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br>'.$backupTime."</label>\n"
+            : '<label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br>'.$backupTime."</label>\n";
           echo '</td></tr>';
         }
              
@@ -116,8 +116,8 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
       
       ?>
       </div>
-      <br />
-      <br />    
+      <br>
+      <br>    
       <input type="submit" value="" name="restoreBackup" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" />
     </form>
   </div>

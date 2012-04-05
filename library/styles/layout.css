@@ -194,12 +194,13 @@ a.gray:hover, a.gray:focus {
 
 #leftSidebar {
     z-index: 2;
-    position: absolute;
+    position: relative;
     top: 0px;
     left: 0px;
     width: 208px;
     padding: 0px 0px;
     padding-bottom: 20px;
+    float: left;
     }
 
 #rightSidebar {
@@ -227,11 +228,13 @@ a.gray:hover, a.gray:focus {
     z-index: 0;
     position: relative;
     top: 0px;
-    left: 220px;
+    left: 10px;/*220px;*/
     width: 770px;
     padding: 10px 20px;
     padding-bottom: 1px;
     background-color: #fff;
+    float: left;
+    overflow: hidden;
     }
 #content.hasSubMenu {
     padding-top: 60px;
@@ -260,7 +263,7 @@ a.gray:hover, a.gray:focus {
     }
 #copyright {
     position: absolute;
-    top: 122px;
+    top: 142px;
     left: 108px;
     width: 100%;
     font-size: 11px;

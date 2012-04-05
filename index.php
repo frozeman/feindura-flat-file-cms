@@ -16,7 +16,7 @@
  * 
  * index.php
  * 
- * @version 2.2
+ * @version 2.3
  */
 
 /**
@@ -40,41 +40,41 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
 ?>
 <!DOCTYPE html>
-<html lang="<?= $_SESSION['feinduraSession']['backendLanguage']; ?>">
+<html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   
-  <title>feindura: <?= GeneralFunctions::getLocalized($websiteConfig['localization'],'title'); ?></title>
+  <title>feindura: <?php echo GeneralFunctions::getLocalized($websiteConfig['localization'],'title'); ?></title>
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=0.5" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
   
-  <meta name="robots" content="no-index,nofollow" />
-  <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
-  <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
-  <meta http-equiv="accept-encoding" content="gzip, deflate" />
+  <meta name="robots" content="no-index,nofollow">
+  <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
+  <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
+  <meta http-equiv="accept-encoding" content="gzip, deflate">
   
-  <meta name="title" content="feindura: <?= GeneralFunctions::getLocalized($websiteConfig['localization'],'title'); ?>" />    
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]" />     
-  <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]" />
-  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]" />    
-  <meta name="description" content="A flat file based Content Management System, written in PHP" />    
-  <meta name="keywords" content="cms,flat,file,content,management,system" /> 
+  <meta name="title" content="feindura: <?php echo GeneralFunctions::getLocalized($websiteConfig['localization'],'title'); ?>">    
+  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">     
+  <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
+  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">    
+  <meta name="description" content="A flat file based Content Management System, written in PHP">    
+  <meta name="keywords" content="cms,flat,file,content,management,system"> 
    
-  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="shortcut icon" href="favicon.ico">
   
   <!-- ************************************************************************************************************ -->
   <!-- STYLESHEETS -->
   
   <!-- thirdparty/CodeMirror -->
-  <link rel="stylesheet" type="text/css" href="library/thirdparty/CodeMirror/codemirror-unified.css" />
+  <link rel="stylesheet" type="text/css" href="library/thirdparty/CodeMirror/codemirror-unified.css">
   
   <!-- feindura styles -->
-  <link rel="stylesheet" type="text/css" href="library/styles/reset.css<?= '?v='.BUILD; ?>" />
-  <link rel="stylesheet" type="text/css" href="library/styles/layout.css<?= '?v='.BUILD; ?>" />
-  <link rel="stylesheet" type="text/css" href="library/styles/content.css<?= '?v='.BUILD; ?>" />
-  <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css<?= '?v='.BUILD; ?>" />
-  <link rel="stylesheet" type="text/css" href="library/styles/shared.css<?= '?v='.BUILD; ?>" />
+  <link rel="stylesheet" type="text/css" href="library/styles/reset.css<?php echo '?v='.BUILD; ?>">
+  <link rel="stylesheet" type="text/css" href="library/styles/layout.css<?php echo '?v='.BUILD; ?>">
+  <link rel="stylesheet" type="text/css" href="library/styles/content.css<?php echo '?v='.BUILD; ?>">
+  <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css<?php echo '?v='.BUILD; ?>">
+  <link rel="stylesheet" type="text/css" href="library/styles/shared.css<?php echo '?v='.BUILD; ?>">
 <?php
 if($_GET['site'] == 'addons') {  
   if($addonStyles = GeneralFunctions::createStyleTags(dirname(__FILE__).'/addons/')) {
@@ -83,11 +83,11 @@ if($_GET['site'] == 'addons') {
   }
 }
 ?>  
-  <!--[if IE 6]><link rel="stylesheet" type="text/css" href="library/styles/ie6.css" /><![endif]-->
-  <!--[if IE 7]><link rel="stylesheet" type="text/css" href="library/styles/ie7.css" /><![endif]-->
+  <!--[if IE 6]><link rel="stylesheet" type="text/css" href="library/styles/ie6.css"><![endif]-->
+  <!--[if IE 7]><link rel="stylesheet" type="text/css" href="library/styles/ie7.css"><![endif]-->
   
   <noscript>
-  <link rel="stylesheet" type="text/css" href="library/styles/noJavascript.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="library/styles/noJavascript.css" media="screen">
   </noscript>
   
   <!-- ************************************************************************************************************ -->
@@ -121,39 +121,39 @@ if($_GET['site'] == 'addons') {
   if(!empty($_GET['page'])) { ?>
   
   <!-- thirdparty/CKEditor -->
-  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js<?= '?v='.BUILD; ?>"></script>
+  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js<?php echo '?v='.BUILD; ?>"></script>
   
   <!-- thirdparty/MooRTE -->
-  <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.min.js<?= '?v='.BUILD; ?>"></script>
+  <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.min.js<?php echo '?v='.BUILD; ?>"></script>
 <?php
   }
   if($adminConfig['user']['fileManager'] && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
   
   <!-- thirdparty/MooTools-FileManager -->
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js<?= '?v='.BUILD; ?>"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js<?php echo '?v='.BUILD; ?>"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['feinduraSession']['backendLanguage']; ?>.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>.js"></script>
 <?php } ?>
  
   <!-- javascripts -->
-  <script type="text/javascript" src="library/javascripts/shared.js<?= '?v='.BUILD; ?>"></script>
-  <script type="text/javascript" src="library/javascripts/loading.js<?= '?v='.BUILD; ?>"></script>
-  <script type="text/javascript" src="library/javascripts/windowBox.js<?= '?v='.BUILD; ?>"></script>
-  <script type="text/javascript" src="library/javascripts/content.js<?= '?v='.BUILD; ?>"></script>
+  <script type="text/javascript" src="library/javascripts/shared.js<?php echo '?v='.BUILD; ?>"></script>
+  <script type="text/javascript" src="library/javascripts/loading.js<?php echo '?v='.BUILD; ?>"></script>
+  <script type="text/javascript" src="library/javascripts/windowBox.js<?php echo '?v='.BUILD; ?>"></script>
+  <script type="text/javascript" src="library/javascripts/content.js<?php echo '?v='.BUILD; ?>"></script>
   
   <script type="text/javascript">
   /* <![CDATA[ */
   // transport feindura PHP vars to javascript
-  var feindura_basePath = '<?= $adminConfig['basePath']; ?>';
+  var feindura_basePath = '<?php echo $adminConfig['basePath']; ?>';
   var feindura_langFile = {
-    ERRORWINDOW_TITLE:                "<?= $langFile['errorWindow_h1']; ?>",
-    ERROR_SAVE:                       "<?= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']); ?>",
-    CKEDITOR_TITLE_LINKS:             "<?= (!empty($langFile['CKEDITOR_TITLE_LINKS'])) ? $langFile['CKEDITOR_TITLE_LINKS'] : 'feindura pages'; ?>"
+    ERRORWINDOW_TITLE:                "<?php echo $langFile['errorWindow_h1']; ?>",
+    ERROR_SAVE:                       "<?php echo sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']); ?>",
+    CKEDITOR_TITLE_LINKS:             "<?php echo (!empty($langFile['CKEDITOR_TITLE_LINKS'])) ? $langFile['CKEDITOR_TITLE_LINKS'] : 'feindura pages'; ?>"
   };
-  var currentSite = '<?= $_GET["site"]; ?>';
-  var currentPage = '<?= $_GET["page"]; ?>';
+  var currentSite = '<?php echo $_GET["site"]; ?>';
+  var currentPage = '<?php echo $_GET["page"]; ?>';
   
   /* transport pages for CKEditor feindura links */
   <?php
@@ -175,8 +175,8 @@ if($_GET['site'] == 'addons') {
     var fileManager = new FileManager({
         url: 'library/controllers/filemanager.controller.php',
         assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
-        documentRootPath: '<?= DOCUMENTROOT; ?>',
-        language: '<?= $_SESSION["feinduraSession"]["language"]; ?>',
+        documentRootPath: '<?php echo DOCUMENTROOT; ?>',
+        language: '<?php echo $_SESSION["feinduraSession"]["language"]; ?>',
         destroy: true,
         upload: true,
         move_or_copy: true,
@@ -222,7 +222,7 @@ if($_GET['site'] == 'addons') {
     var div = $('sessionTimer'),
     coundown = new CountDown({
       //initialized 30s from now
-      date: new Date(<?= $_SESSION['feinduraSession']['login']['end'].'000'; ?>),
+      date: new Date(<?php echo $_SESSION['feinduraSession']['login']['end'].'000'; ?>),
       //update every 100ms
       frequency: 1000,
       //update the div#counter
@@ -271,27 +271,27 @@ if($_GET['site'] == 'addons') {
   <!-- ***************************************************************************************** -->
   <!-- ** HEADER ******************************************************************************* -->
   <div id="header">
-    <div id="sessionTimer" class="toolTip blue" title="<?= $langFile['LOGIN_TIP_AUTOLOGOUT']; ?>::"></div>
+    <div id="sessionTimer" class="toolTip blue" title="<?php echo $langFile['LOGIN_TIP_AUTOLOGOUT']; ?>::"></div>
     <a id="top"></a>
     
     <div id="headerBlock">
       
-      <a href="index.php?logout"  tabindex="1" class="logout toolTip" title="<?= $langFile['HEADER_BUTTON_LOGOUT']; ?>"></a>
+      <a href="index.php?logout"  tabindex="1" class="logout toolTip" title="<?php echo $langFile['HEADER_BUTTON_LOGOUT']; ?>"></a>
       <?php if($adminConfig['user']['frontendEditing']) { ?>
-      <a href="<?= $adminConfig['url'].$adminConfig['websitePath']; ?>"  tabindex="2" class="toWebsite toolTip" title="<?= $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']; ?>"></a>
+      <a href="<?php echo $adminConfig['url'].$adminConfig['websitePath']; ?>"  tabindex="2" class="toWebsite toolTip" title="<?php echo $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']; ?>"></a>
       <?php } ?>
 
       <div id="languageSelection">        
-        <a href="<?= GeneralFunctions::addParameterToUrl('backendLanguage','de'); ?>" tabindex="20" class="de toolTip" title="Deutsch::"></a>
-        <a href="<?= GeneralFunctions::addParameterToUrl('backendLanguage','en'); ?>" tabindex="21" class="en toolTip" title="English::"></a>
-        <a href="<?= GeneralFunctions::addParameterToUrl('backendLanguage','fr'); ?>" tabindex="22" class="fr toolTip" title="français::"></a>
-        <a href="<?= GeneralFunctions::addParameterToUrl('backendLanguage','it'); ?>" tabindex="23" class="it toolTip" title="italiano::"></a>
-        <a href="<?= GeneralFunctions::addParameterToUrl('backendLanguage','ru'); ?>" tabindex="24" class="ru toolTip" title="русский::"></a>
+        <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','de'); ?>" tabindex="20" class="de toolTip" title="Deutsch::"></a>
+        <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','en'); ?>" tabindex="21" class="en toolTip" title="English::"></a>
+        <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','fr'); ?>" tabindex="22" class="fr toolTip" title="français::"></a>
+        <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','it'); ?>" tabindex="23" class="it toolTip" title="italiano::"></a>
+        <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','ru'); ?>" tabindex="24" class="ru toolTip" title="русский::"></a>
       </div>
       
       <h1 style="display:none;">feindura - flat file cms</h1><!-- just for the outline of the HTML page -->
       <div id="logo"></div>
-      <div id="version" class="toolTip" title="<?php echo $langFile['LOGO_TEXT'].' '.VERSION.' - Build '.BUILD; ?>::"><?= VERSION; ?></div>
+      <div id="version" class="toolTip" title="<?php echo $langFile['LOGO_TEXT'].' '.VERSION.' - Build '.BUILD; ?>::"><?php echo VERSION; ?></div>
       
       <div id="mainMenu"<?php if(!isAdmin()) echo ' style="width:830px"'; ?>>
         <table>
@@ -458,14 +458,14 @@ if($_GET['site'] == 'addons') {
 
             // FILE MANAGER
             if($adminConfig['user']['fileManager']) { ?>
-              <li><a href="?site=fileManager" tabindex="29" class="fileManager toolTip" title="<?= $langFile['BUTTON_FILEMANAGER'].'::'.$langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>">&nbsp;</a></li>
+              <li><a href="?site=fileManager" tabindex="29" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_FILEMANAGER'].'::'.$langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>">&nbsp;</a></li>
             <?php
             }
 
             // CREATE NEW PAGE
             if($showCreatePage) { ?>
               <li class="spacer">&nbsp;</li>
-              <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" tabindex="31" class="createPage toolTip" title="<?= $langFile['BUTTON_CREATEPAGE'].'::'.$langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>">&nbsp;</a></li>
+              <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" tabindex="31" class="createPage toolTip" title="<?php echo $langFile['BUTTON_CREATEPAGE'].'::'.$langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>">&nbsp;</a></li>
             <?php
             }
             
@@ -513,7 +513,7 @@ if($_GET['site'] == 'addons') {
                 ?>
                 <li class="spacer">&nbsp;</li>
                 <li>
-                  <img src="<?= getFlag($_SESSION['feinduraSession']['websiteLanguage']); ?>" class="flag" title="<?= $languageCodes[$_SESSION['feinduraSession']['websiteLanguage']]; ?>" />
+                  <img src="<?php echo getFlag($_SESSION['feinduraSession']['websiteLanguage']); ?>" class="flag" title="<?php echo $languageCodes[$_SESSION['feinduraSession']['websiteLanguage']]; ?>">
                   <select name="websiteLanguageSelection" id="websiteLanguageSelection" tabindex="37">
                   <?php
                     // create language selection

@@ -8,7 +8,7 @@
   </span>
   <hr>
   <span class="copyright">
-    <span class="feindura"><em>fein</em>dura</span> - Flat File Content Management System, Copyright &copy; 2009-<?= date('Y'); ?> Fabian Vogelsteller [<a href="http://frozeman.de">frozeman.de</a>]
+    <span class="feindura"><em>fein</em>dura</span> - Flat File Content Management System, Copyright &copy; 2009-<?php echo date('Y'); ?> Fabian Vogelsteller [<a href="http://frozeman.de">frozeman.de</a>]
   </span>
   </div>
 </div>

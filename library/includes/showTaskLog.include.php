@@ -47,7 +47,7 @@ foreach($logContent as $logRow) {
   $logDate = StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($logRow[0]));
   $logTime = StatisticFunctions::formatTime($logRow[0]);  
   $logUser = (!empty($logRow[1]))
-  ? '<br /><span>'.$langFile['DASHBOARD_TITLE_USER'].': <b>'.$logRow[1].'</b></span>'
+  ? '<br><span>'.$langFile['DASHBOARD_TITLE_USER'].': <b>'.$logRow[1].'</b></span>'
   : '';
   
   // LOGTEXT NUMBER can also be an array with: [logText,logTextValue]
@@ -188,7 +188,7 @@ foreach($logContent as $logRow) {
     
     // -> IF there is a TEXT BETWEEN page and category
     if(isset($logObject[2]) == 'moved') {
-      $taskObject .= '<br />'.$langFile['LOG_PAGE_MOVEDINCATEGORY_CATEGORY'].'<br />';
+      $taskObject .= '<br>'.$langFile['LOG_PAGE_MOVEDINCATEGORY_CATEGORY'].'<br>';
       
       $foundObject = true;
     }
@@ -220,8 +220,8 @@ foreach($logContent as $logRow) {
   
   // displays 2 or 3 rows
   echo ($taskObject)
-  ? '<li><span class="blue" style="font-weight:bold;">'.$logText.'</span><br /><span>'.$taskObject.'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span>'.$logUser.'</li>'."\n"
-  : '<li><span class="blue" style="font-weight:bold;">'.$logText.'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span>'.$logUser.'</li>'."\n";
+  ? '<li><span class="blue" style="font-weight:bold;">'.$logText.'</span><br><span>'.$taskObject.'</span><br><span class="brown">'.$logDate.' '.$logTime.'</span>'.$logUser.'</li>'."\n"
+  : '<li><span class="blue" style="font-weight:bold;">'.$logText.'</span><br><span class="brown">'.$logDate.' '.$logTime.'</span>'.$logUser.'</li>'."\n";
 }
 echo '</ul>';
 

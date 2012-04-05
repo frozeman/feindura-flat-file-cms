@@ -1206,8 +1206,8 @@ if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
             else
               $newMinVisitTimes = serialize(array(0));
             
-            //echo 'MAX -> '.$newMaxVisitTimes.'<br />';
-            //echo 'MIN -> '.$newMinVisitTimes.'<br />';
+            //echo 'MAX -> '.$newMaxVisitTimes.'<br>';
+            //echo 'MIN -> '.$newMinVisitTimes.'<br>';
                  
             // -> adds the new max times to the pageContent Array
             $lastPage['visitTimeMax'] = $newMaxVisitTimes;

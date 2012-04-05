@@ -25,7 +25,7 @@
  * $langFile['GROUP_TYPE_NAME'] = 'langfile example text';
  * </samp>
  * 
- * The TYPE's can be<br />
+ * The TYPE's can be<br>
  *    - INPUT
  *    - LINK
  *    - BUTTON
@@ -53,8 +53,8 @@ $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_MESSAGE']                          = 'Du 
 Dein Benutzername und dein neues Passwort lauten:';
 
 $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOEMAIL']                           = 'Der Benutzer hat keine E-Mail Adressse angegeben.';
-$langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSEND']                           = 'FEHLER<br />beim senden des neuen Passworts an die vom Benutzer angegebene E-Mail Adresse.';
-$langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSAVED']                          = 'FEHLER<br />Konnte das neu erzeugte Passwort nicht speichern.';
+$langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSEND']                           = 'FEHLER<br>beim senden des neuen Passworts an die vom Benutzer angegebene E-Mail Adresse.';
+$langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSAVED']                          = 'FEHLER<br>Konnte das neu erzeugte Passwort nicht speichern.';
 $langFile['LOGIN_ERROR_FORGOTPASSWORD_SUCCESS']                           = 'Es wurde ein neues Passwort and folgende E-Mail Adresse verschickt';
 
 $langFile['LOGIN_ERROR_WRONGUSER']                                        = 'Benutzer nicht vorhanden';
@@ -252,22 +252,22 @@ $langFile['BUTTON_UP']                                                    = 'Nac
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>Die Einstellungen konnten nicht gespeichert werden.</b>';
-$langFile['ERROR_SAVE_FILE']                                              = '<br /><br />Bitte überprüfe die Schreibrechte der Datei: ';
+$langFile['ERROR_SAVE_FILE']                                              = '<br><br>Bitte überprüfe die Schreibrechte der Datei: ';
 
-$langFile['ERROR_READ_FOLDER_PART1']                                      = '<br /><br />Bitte überprüfe die Leserechte des &quot;';
-$langFile['ERROR_SAVE_FOLDER_PART1']                                      = '<br /><br />Bitte überprüfe die Schreibrechte des &quot;';
+$langFile['ERROR_READ_FOLDER_PART1']                                      = '<br><br>Bitte überprüfe die Leserechte des &quot;';
+$langFile['ERROR_SAVE_FOLDER_PART1']                                      = '<br><br>Bitte überprüfe die Schreibrechte des &quot;';
 
 $langFile['ERROR_FOLDER_PART2']                                           = '&quot; Ordners dessen Unterordner und Dateien.';
 
 // -> WARNINGS
 $langFile['WARNING_TITLE_STARTPAGE']                                      = 'Die Startseite ist nicht festgelegt!';
-$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Bitte lege eine Seite als Startseite fest.<br />Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="startPageIcon"></span> Symbol';
+$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Bitte lege eine Seite als Startseite fest.<br>Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="startPageIcon"></span> Symbol';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Das Dokumenten-Wurzelverzeichnis konnte nicht automatisch bestimmt werden!';
 $langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Um das Dokumenten-Wurzelverzeichnis korrekt auflösen zu können, trage bitte den &quot;echten feindura Pfad&quot; deines <span class="logoname">fein<span>dura</span></span> CMS in den <a href="?site=adminSetup#adminSettings">Administrator-Einstellungen</a> ein.';
 
 $langFile['WARNING_TITLE_BASEPATH']                                       = '<span class="logoname">fein<span>dura</span></span> wurde noch nicht konfiguriert!';
-$langFile['WARNING_TEXT_BASEPATH']                                        = 'Der <i>Basispfad</i> stimmt nicht mit dem in den Administrator-Einstellungen angegebenen Pfad überein.<br />
+$langFile['WARNING_TEXT_BASEPATH']                                        = 'Der <i>Basispfad</i> stimmt nicht mit dem in den Administrator-Einstellungen angegebenen Pfad überein.<br>
 Bitte gehe in die <a href                                                 ="?site=adminSetup#adminSettings">Administrator-Einstellungen</a> und konfiguriere dein <span class="logoname">fein<span>dura</span></span> CMS';
 
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Bitte aktiviere Javascript';
@@ -276,7 +276,7 @@ $langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<st
 <h2>im Firefox</h2>
 <p>Klicke in der obersten Menüleiste auf &quot;Bearbeiten&quot; > &quot;Einstellungen&quot;. Unter Inhalt aktivierst du den Punkt "JavaScript aktivieren" und bestätigst dann mit OK.</p>
 <h2>im Internet Explorer</h2>
-<p>Klicke in der obersten Menüleiste auf "Extras" > "Internetoptionen".<br />
+<p>Klicke in der obersten Menüleiste auf "Extras" > "Internetoptionen".<br>
 Dort klickst du unter Sicherheit entweder auf "Standardstufe", oder wähle "Stufe anpassen" und aktiviere dann unter Scripting den Punkt "Active Scripting Aktivieren". Bestätige mit OK.</p>
 <h2>im Safari</h2>
 <p>Klicke in der obersten Menüleiste auf das Symbol ganz rechts, wähle "Einstellungen". Unter "Sicherheit" aktivierst du den Punkt "JavaScript aktivieren" und klicke zum bestätigen auf OK.</p>
@@ -286,7 +286,7 @@ Dort klickst du unter Sicherheit entweder auf "Standardstufe", oder wähle "Stuf
 <p>Klicke in der obersten Menüleiste auf "Extras" > "Einstellungen". Unter "Erweitert" > "Inhalte" setze ein Haken bei "JavaScript aktivieren" und klicke dann OK.';
 
 $langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="logoname">fein<span>dura</span></span> ist nicht für ältere Versionen des Internet Explorers ausgelegt';
-$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Um das <span class="logoname">fein<span>dura</span></span> CMS vollständig nutzen zu können ist mindestens der Internet Explorer 8 nötig.<br /><br />Bitte installiere eine neuere Version des Internet Explorers,<br /> oder installiere das <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> für den Internet Explorer,<br />oder lade dir den kostenlosen <a href="http://www.mozilla.org/firefox/">Firefox</a> oder <a href="http://www.google.com/chrome/">Chrome</a> Browser herunter.';
+$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Um das <span class="logoname">fein<span>dura</span></span> CMS vollständig nutzen zu können ist mindestens der Internet Explorer 8 nötig.<br><br>Bitte installiere eine neuere Version des Internet Explorers,<br> oder installiere das <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> für den Internet Explorer,<br>oder lade dir den kostenlosen <a href="http://www.mozilla.org/firefox/">Firefox</a> oder <a href="http://www.google.com/chrome/">Chrome</a> Browser herunter.';
 
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Seite wird gerade bearbeitet...';
 
@@ -306,8 +306,8 @@ $langFile['SIDEBARMENU_TITLE_PAGES']                                      = 'Sei
 // ---------- DASHBOARD
 $langFile['DASHBOARD_TITLE_USERINFO']                                     = 'Benutzer Information';
 
-$langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Willkommen in <span class="logoname">fein<span>dura</span></span>,<br />dem Content Management System deiner Webseite';
-$langFile['DASHBOARD_TEXT_WELCOME']                                       = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span class="toolTip" title="Flat-Files::Das sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird.">Flat-Files</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
+$langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Willkommen in <span class="logoname">fein<span>dura</span></span>,<br>dem Content Management System deiner Webseite';
+$langFile['DASHBOARD_TEXT_WELCOME']                                       = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span class="toolTip" title="Flat-Files::Das sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird.">Flat-Files</span> basierendes Content Management System.<br>Hier kannst du den Inhalt deiner Webseite verwalten.';
 
 $langFile['DASHBOARD_TITLE_STATISTICS']                                   = 'Webseiten-Statistik';
 
@@ -736,7 +736,7 @@ $langFile['EDITOR_pluginSettings_h1']                                     = 'Plu
 * unsavedPage.php
 */
 
-$langFile['unsavedPage_question_h1']                                      = '<span class="brown">Die Seite wurde verändert.</span><br />Willst du die Seite jetzt speichern?';
+$langFile['unsavedPage_question_h1']                                      = '<span class="brown">Die Seite wurde verändert.</span><br>Willst du die Seite jetzt speichern?';
 
 /*
 * deletePage.php
@@ -798,7 +798,7 @@ $langFile['pagethumbnail_h1_part1']                                       = 'Sei
 $langFile['pagethumbnail_h1_part2']                                       = 'hochladen';
 $langFile['pagethumbnail_field1']                                         = 'Bild auswählen';
 
-$langFile['pagethumbnail_thumbinfo_formats']                              = 'Nur folgende Dateiformate sind erlaubt'; //<br /><b>JPG</b>, <b>JPEG</b>, <b>GIF</b>, <b>PNG</b>
+$langFile['pagethumbnail_thumbinfo_formats']                              = 'Nur folgende Dateiformate sind erlaubt'; //<br><b>JPG</b>, <b>JPEG</b>, <b>GIF</b>, <b>PNG</b>
 $langFile['pagethumbnail_thumbinfo_filesize']                             = 'maximale Dateigröße';
 $langFile['pagethumbnail_thumbinfo_standardthumbsize']                    = 'Standardbildgröße';
 
@@ -810,7 +810,7 @@ $langFile['pagethumbnail_submit_tip']                                     = 'Bil
 
 $langFile['PAGETHUMBNAIL_ERROR_nofile']                                   = 'Du hast keine Datei ausgewählt.';
 $langFile['PAGETHUMBNAIL_ERROR_nouploadedfile']                           = 'Es wurde keine Datei hochgeladen.';
-$langFile['PAGETHUMBNAIL_ERROR_filesize']                                 = 'Wahrscheinlich ist die hochgeladene Datei zu groß.<br />Die maximal erlaubte Dateigröße beträgt';
+$langFile['PAGETHUMBNAIL_ERROR_filesize']                                 = 'Wahrscheinlich ist die hochgeladene Datei zu groß.<br>Die maximal erlaubte Dateigröße beträgt';
 $langFile['PAGETHUMBNAIL_ERROR_wrongformat']                              = 'Die ausgewählte Datei hat ein nicht unterstütztes Format';
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_START']                              = 'Das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_END']                                = 'existiert nicht.';
@@ -818,7 +818,7 @@ $langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END']                            = 'kon
 $langFile['PAGETHUMBNAIL_ERROR_COULDNTMOVEFILE']                          = 'Konnte die hochgeladene Datei nicht in das Thumbnail-Verzeichnis %s verschieben.';
 $langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE']                          = 'Die Bildgröße konnt nicht geändert werden.';
 $langFile['PAGETHUMBNAIL_ERROR_deleteoldfile']                            = 'Das alte Thumbnail-Bild konnte nicht gelöscht werden.';
-$langFile['PAGETHUMBNAIL_TEXT_fileexists']                                = 'Es existiert bereits eine Datei mit diesem Namen.<br />Die Hochgeladene Datei wurde umbenannt nach';
+$langFile['PAGETHUMBNAIL_TEXT_fileexists']                                = 'Es existiert bereits eine Datei mit diesem Namen.<br>Die Hochgeladene Datei wurde umbenannt nach';
 $langFile['PAGETHUMBNAIL_TEXT_finish']                                    = 'Das Bild wurde erfolgreich hochgeladen.';
 
 // -> BACKUP
@@ -832,8 +832,8 @@ $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD']                              = 'Bac
 $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE']                      = 'Backup vor der Wiederherstellung';
 
 $langFile['BACKUP_BUTTON_DOWNLOAD']                                       = 'aktuelles Backup erstellen';
-$langFile['BACKUP_TEXT_BACKUP']                                           = 'Ein Backup erstellt eine <code>.zip</code> Datei mit den <span class="blue">"pages","config"</span> und <span class="blue">"statistic"</span> Verzeichnissen.<br />Das Upload-Verzeichnis wird nicht gesichert.';
-$langFile['BACKUP_TEXT_RESTORE']                                          = 'Wähle hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei aus um einen alten Stand wieder herzustellen.<br /><span class="blue">Vor der Wiederherstellung wird ein Backup des aktuellen Standes erstellt.</span>';
+$langFile['BACKUP_TEXT_BACKUP']                                           = 'Ein Backup erstellt eine <code>.zip</code> Datei mit den <span class="blue">"pages","config"</span> und <span class="blue">"statistic"</span> Verzeichnissen.<br>Das Upload-Verzeichnis wird nicht gesichert.';
+$langFile['BACKUP_TEXT_RESTORE']                                          = 'Wähle hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei aus um einen alten Stand wieder herzustellen.<br><span class="blue">Vor der Wiederherstellung wird ein Backup des aktuellen Standes erstellt.</span>';
 $langFile['BACKUP_TOOLTIP_DELETE']                                        = 'Backup löschen';
 $langFile['BACKUP_TEXT_DELETE_QUESTION']                                  = '%s wirklich löschen?'; // backup 2010-11-05 15:03 wirklich löschen?
 

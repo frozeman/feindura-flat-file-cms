@@ -50,8 +50,8 @@ if($unwriteableList && checkBasePathAndURL()) {
 
 <form action="index.php?site=userSetup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="userForm">
   <div>
-  <input type="hidden" name="send" value="userSetup" />
-  <input type="hidden" name="savedUserId" id="savedUserId" value="" />
+  <input type="hidden" name="send" value="userSetup">
+  <input type="hidden" name="savedUserId" id="savedUserId" value="">
   </div>
 
 <div class="block">
@@ -60,15 +60,15 @@ if($unwriteableList && checkBasePathAndURL()) {
   
     <table>     
       <colgroup>
-      <col class="left" />
+      <col class="left">
       </colgroup>
   
       <tr><td class="leftTop"></td><td></td></tr>
 
       <tr><td class="left">
-        <a href="?site=userSetup&amp;status=createUser#userId<?= getNewUserId(); ?>" class="createUser toolTip" title="<?php echo $langFile['userSetup_createUser']; ?>::"></a>
+        <a href="?site=userSetup&amp;status=createUser#userId<?php echo getNewUserId(); ?>" class="createUser toolTip" title="<?php echo $langFile['userSetup_createUser']; ?>::"></a>
       </td><td class="right">
-      <br />
+      <br>
       <?php
       // user info          
       if($userInfo)
@@ -95,7 +95,7 @@ if($unwriteableList && checkBasePathAndURL()) {
           // basic user settings
           echo '<table>     
                 <colgroup>
-                <col class="left" />
+                <col class="left">
                 </colgroup>';
           
           // user anchor    
@@ -109,8 +109,8 @@ if($unwriteableList && checkBasePathAndURL()) {
             : $user['username'];
           
           echo '<tr><td class="left">';
-          echo '<span style="font-size:20px;font-weight:bold;">'.$userName.'</span><!--<br />ID '.$user['id'].'-->';
-          echo '<input type="hidden" name="users['.$user['id'].'][id]" value="'.$user['id'].'" />';
+          echo '<span style="font-size:20px;font-weight:bold;">'.$userName.'</span><!--<br>ID '.$user['id'].'-->';
+          echo '<input type="hidden" name="users['.$user['id'].'][id]" value="'.$user['id'].'">';
           echo '</td>'; 
           
                 // deleteUser
@@ -129,14 +129,14 @@ if($unwriteableList && checkBasePathAndURL()) {
           echo '<tr><td class="left">
                 <label for="users'.$user['id'].'username"'.$markUsername.'>'.$langFile['userSetup_username'].'</label>
                 </td><td class="right">
-                <input id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" required="required" autocomplete="off"'.$autofocus.' />
+                <input id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" required="required" autocomplete="off"'.$autofocus.'>
                 </td></tr>';
                 
                 // user email
           echo '<tr><td class="left">
                 <label for="users'.$user['id'].'email" class="toolTip" title="'.$langFile['userSetup_email'].'::'.$langFile['userSetup_email_tip'].'">'.$langFile['userSetup_email'].'</label>
                 </td><td class="right">
-                <input type="email" id="users'.$user['id'].'email" name="users['.$user['id'].'][email]" value="'.$user['email'].'" class="toolTip" title="'.$langFile['userSetup_email'].'::'.$langFile['userSetup_email_tip'].'" autocomplete="off" />
+                <input type="email" id="users'.$user['id'].'email" name="users['.$user['id'].'][email]" value="'.$user['email'].'" class="toolTip" title="'.$langFile['userSetup_email'].'::'.$langFile['userSetup_email_tip'].'" autocomplete="off">
                 </td></tr>';
                 
           echo '<tr><td class="left spacer"></td><td>';
@@ -153,13 +153,13 @@ if($unwriteableList && checkBasePathAndURL()) {
           echo '<tr><td class="left">
                 <label for="users'.$user['id'].'password"'.$markPassword.'>'.$passwordTitle.'</label>
                 </td><td class="right">
-                <input type="password" id="users'.$user['id'].'password" name="users['.$user['id'].'][password]" value="" autocomplete="off" />
+                <input type="password" id="users'.$user['id'].'password" name="users['.$user['id'].'][password]" value="" autocomplete="off">
                 </td></tr>';
                 // user password confirm
           echo '<tr><td class="left">
                 <label for="users'.$user['id'].'passwordConfirm"'.$markPassword.'>'.$langFile['userSetup_password_confirm'].'</label>
                 </td><td class="right">
-                <input type="password" id="users'.$user['id'].'passwordConfirm" name="users['.$user['id'].'][password_confirm]" value="" />
+                <input type="password" id="users'.$user['id'].'passwordConfirm" name="users['.$user['id'].'][password_confirm]" value="">
                 </td></tr>';
           
           echo '<tr><td class="leftBottom"></td><td>';
@@ -168,7 +168,7 @@ if($unwriteableList && checkBasePathAndURL()) {
                     
                 // USER SETTINGS
           echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="users'.$user['id'].'admin" name="users['.$user['id'].'][admin]" value="true" '.$checked[1].' class="toolTip" title="'.$langFile['userSetup_admin'].'::'.$langFile['userSetup_admin_tip'].'" /><br />
+                <input type="checkbox" id="users'.$user['id'].'admin" name="users['.$user['id'].'][admin]" value="true" '.$checked[1].' class="toolTip" title="'.$langFile['userSetup_admin'].'::'.$langFile['userSetup_admin_tip'].'"><br>
                 </td><td class="right checkboxes">
                 <label for="users'.$user['id'].'admin">';          
                 echo '<span class="toolTip" title="'.$langFile['userSetup_admin'].'::'.$langFile['userSetup_admin_tip'].'">'.$langFile['userSetup_admin'].'</span></label>
@@ -177,7 +177,7 @@ if($unwriteableList && checkBasePathAndURL()) {
           echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
           echo '</table>';
            
-          echo '<input type="submit" value="" name="saveUserSetup" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="$(\'savedUserId\').value = \''.$user['id'].'\'; submitAnchor(\'userForm\',\'userId'.$user['id'].'\');" />'; // end slide in box
+          echo '<input type="submit" value="" name="saveUserSetup" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="$(\'savedUserId\').value = \''.$user['id'].'\'; submitAnchor(\'userForm\',\'userId'.$user['id'].'\');">'; // end slide in box
           
         }
       }        

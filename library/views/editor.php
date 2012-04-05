@@ -34,12 +34,12 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // ->> SHOW the FORM
 echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'" method="post" accept-charset="UTF-8" id="editorForm" class="Page'.$_GET['page'].'">
       <div>
-      <input type="hidden" name="save" value="true" />
-      <input type="hidden" name="category" value="'.$_GET['category'].'" />
-      <input type="hidden" name="id" value="'.$_GET['page'].'" />
-      <input type="hidden" name="websiteLanguage" value="'.$_SESSION['feinduraSession']['websiteLanguage'].'" />
-      <input type="hidden" name="status" value="'.$_GET['status'].'" />
-      <input type="hidden" name="savedBlock" id="savedBlock" value="" />
+      <input type="hidden" name="save" value="true">
+      <input type="hidden" name="category" value="'.$_GET['category'].'">
+      <input type="hidden" name="id" value="'.$_GET['page'].'">
+      <input type="hidden" name="websiteLanguage" value="'.$_SESSION['feinduraSession']['websiteLanguage'].'">
+      <input type="hidden" name="status" value="'.$_GET['status'].'">
+      <input type="hidden" name="savedBlock" id="savedBlock" value="">
       </div>';
 
 
@@ -52,7 +52,7 @@ if(!$newPage) {
 $hidden = ' hidden';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27" /><?php echo $langFile['EDITOR_pagestatistics_h1']; ?></a></h1>
+  <h1><a href="#"><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27"><?php echo $langFile['EDITOR_pagestatistics_h1']; ?></a></h1>
   <div class="content">
   <?php
   $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
@@ -69,7 +69,7 @@ $hidden = ' hidden';
   <table>   
     
     <colgroup>
-    <col class="left" />
+    <col class="left">
     </colgroup>
     
     <tr><td class="leftTop"></td><td></td></tr>
@@ -123,10 +123,10 @@ $hidden = ' hidden';
           foreach($visitTimes_max as $visitTime_max) {
             if($visitTime_max_formated = StatisticFunctions::showVisitTime($visitTime_max,$langFile)) {
               if($showTimeHead)
-                echo '<span class="blue" id="visitTimeMax">'.$visitTime_max_formated.'</span><br />
+                echo '<span class="blue" id="visitTimeMax">'.$visitTime_max_formated.'</span><br>
                 <div id="visitTimeMaxContainer">';
               else            
-                echo '<span class="blue">'.$visitTime_max_formated.'</span><br />';
+                echo '<span class="blue">'.$visitTime_max_formated.'</span><br>';
               
               $showTimeHead = false;            
             }
@@ -148,10 +148,10 @@ $hidden = ' hidden';
           foreach($visitTimes_min as $visitTime_min) {          
             if($visitTime_min_formated = StatisticFunctions::showVisitTime($visitTime_min,$langFile)) {
               if($showTimeHead)
-                echo '<span class="blue" id="visitTimeMin">'.$visitTime_min_formated.'</span><br />
+                echo '<span class="blue" id="visitTimeMin">'.$visitTime_min_formated.'</span><br>
                 <div id="visitTimeMinContainer">';
               else            
-                echo '<span class="blue">'.$visitTime_min_formated.'</span><br />';
+                echo '<span class="blue">'.$visitTime_min_formated.'</span><br>';
             
               $showTimeHead = false;
             }          
@@ -232,20 +232,20 @@ $titleIsEditable = (!$newPage)
 
 // -> show NEWPAGE ICON
 if($newPage) {
-  $newPageIcon = '<img src="library/images/icons/newPageIcon_middle.png" width="33" height="30" />';  
+  $newPageIcon = '<img src="library/images/icons/newPageIcon_middle.png" width="33" height="30">';  
 }
 
 // -> checks for startpage, and show STARTPAGE ICON
 if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
-  $startPageIcon = '<img src="library/images/icons/startPageIcon_middle.png" width="33" height="30" />';
+  $startPageIcon = '<img src="library/images/icons/startPageIcon_middle.png" width="33" height="30">';
   $startPageTitle = ' toolTip" title="'.$langFile['SORTABLEPAGELIST_functions_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }
 
 // shows the text of the sorting of a CATEGORY
 if($categoryConfig[$_GET['category']]['sorting'] == 'byPageDate')
-  $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23" />';
+  $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23">';
 elseif($categoryConfig[$_GET['category']]['sorting'] == 'alphabetical')
-  $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="blockH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23" />';
+  $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="blockH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23">';
 else
   $sorting = '';
 
@@ -283,12 +283,12 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
       // generates a random number to put on the end of the image, to prevent caching
       $randomImage = '?'.md5(uniqid(rand(),1));
       
-      echo '<br /><div style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;">';
-      echo '<span class="thumbnailToolTip" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'">'.$langFile['THUMBNAIL_TEXT_NAME'].'</span><br />';
+      echo '<br><div style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;">';
+      echo '<span class="thumbnailToolTip" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'">'.$langFile['THUMBNAIL_TEXT_NAME'].'</span><br>';
       echo '<span class="deleteIcon">';
       echo '<a href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\',false);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"" class="deleteIcon toolTip"></a>';
       echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',false);return false;" class="image">';
-      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnailPreview thumbnailToolTip"'.$thumbnailWidth.' alt="thumbnail" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" />';
+      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnailPreview thumbnailToolTip"'.$thumbnailWidth.' alt="thumbnail" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'">';
       echo '</a>';
       echo '</span>';
       echo '</div>';
@@ -304,7 +304,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
     
     <table>     
       <colgroup>
-      <col class="left" />
+      <col class="left">
       </colgroup>
   
       <tr><td class="leftTop"></td><td></td></tr>      
@@ -399,14 +399,14 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
                 </td><td class="right">';
                 foreach ($pageContent['localization'] as $langCode => $values) {
                   echo '<a href="'.GeneralFunctions::addParameterToUrl(array('websiteLanguage','status'),array($langCode,'')).'" class="image" style="font-size:12px;"><img src="'.getFlag($langCode).'" class="flag"> '.$languageCodes[$langCode].'</a>';
-                  if($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) echo '<img src="library/images/icons/edited_small.png" style="position:absolute; margin-top:1px;" />';
+                  if($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) echo '<img src="library/images/icons/edited_small.png" style="position:absolute; margin-top:1px;">';
                   echo '<br>';
                 }
                 // list not yet existing languages of the page
                 if($missingLanguages) {
                   foreach ($missingLanguages as $langCode) {
                       echo '<a href="'.GeneralFunctions::addParameterToUrl(array('websiteLanguage','status'),array($langCode,'addLanguage')).'" class="image gray" style="font-size:12px;"><img src="'.getFlag($langCode).'" class="flag"> <s>'.$languageCodes[$langCode].'</s></a>';
-                      if($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) echo '<img src="library/images/icons/edited_small.png" style="position:absolute; margin-top:1px;" />';
+                      if($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) echo '<img src="library/images/icons/edited_small.png" style="position:absolute; margin-top:1px;">';
                       echo '<br>';
                   }
                 }
@@ -447,7 +447,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
     <table>
      
       <colgroup>
-      <col class="left" />
+      <col class="left">
       </colgroup>
   
       <tr><td class="leftTop"></td><td></td></tr>
@@ -462,7 +462,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <label for="edit_title"><span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">
       <?php echo $langFile['EDITOR_pageSettings_title'] ?></span></label>
       </td><td class="right">
-        <input id="edit_title" name="title" style="width:492px;" value="<?= str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent['localization'],'title',true)); ?>"<?= $autofocus; ?> class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>" />        
+        <input id="edit_title" name="title" style="width:492px;" value="<?php echo str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent['localization'],'title',true)); ?>"<?php echo $autofocus; ?> class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">        
       </td></tr>
       
       <!-- ***** PAGE DESCRIPTION -->      
@@ -470,7 +470,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <label for="edit_description"><span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_field1'].'::'.$langFile['EDITOR_pageSettings_field1_tip']; ?>">
       <?php echo $langFile['EDITOR_pageSettings_field1']; ?></span></label>
       </td><td class="right">
-      <textarea id="edit_description" name="description" cols="50" rows="2" style="white-space:normal;width:480px;" class="inputToolTip autogrow" title="<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?= GeneralFunctions::getLocalized($pageContent['localization'],'description',true); ?></textarea>
+      <textarea id="edit_description" name="description" cols="50" rows="2" style="white-space:normal;width:480px;" class="inputToolTip autogrow" title="<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($pageContent['localization'],'description',true); ?></textarea>
       </td></tr>
       <?php
       
@@ -519,7 +519,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         <?php
         $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localization'],'pageDate',true);
         ?>
-        <input name="pageDate[before]" value="<?= $pageDateBeforeAfter['before']; ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;" />
+        <input name="pageDate[before]" value="<?php echo $pageDateBeforeAfter['before']; ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;">
         
         <?php
         
@@ -564,7 +564,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         else
           $year = null;
           
-        $pageDateTags['year'] = '<input class="short toolTip" name="pageDate[year]" title="'.$langFile['EDITOR_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4" />'."\n";
+        $pageDateTags['year'] = '<input class="short toolTip" name="pageDate[year]" title="'.$langFile['EDITOR_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4">'."\n";
         
         // -> SHOWS the PAGE DATE INPUTS
         switch ($adminConfig['dateFormat']) {
@@ -585,7 +585,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         
         ?>
         
-        <input name="pageDate[after]" value="<?= $pageDateBeforeAfter['after']; ?>" class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_after_inputTip']; ?>" style="width:122px;" />
+        <input name="pageDate[after]" value="<?php echo $pageDateBeforeAfter['after']; ?>" class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_after_inputTip']; ?>" style="width:122px;">
       </td></tr>
       <?php }
       
@@ -598,7 +598,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <label for="edit_tags"><span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip'] ?>">
       <?php echo $langFile['EDITOR_pageSettings_field2'] ?></span></label>
       </td><td class="right">
-        <input id="edit_tags" name="tags" class="inputToolTip" style="width:492px;" value="<?= GeneralFunctions::getLocalized($pageContent['localization'],'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>" />        
+        <input id="edit_tags" name="tags" class="inputToolTip" style="width:492px;" value="<?php echo GeneralFunctions::getLocalized($pageContent['localization'],'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>">        
       </td></tr>
       <?php } ?>
       
@@ -609,7 +609,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <!-- ***** PUBLIC/UNPUBLIC -->
       
       <tr><td class="left checkboxes">    
-        <input type="checkbox" id="edit_public" name="public" value="true" <?php if($pageContent['public']) echo 'checked'; ?> />
+        <input type="checkbox" id="edit_public" name="public" value="true" <?php if($pageContent['public']) echo 'checked'; ?>>
       </td><td class="right checkboxes">
         <label for="edit_public">
         <?php          
@@ -617,9 +617,9 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         
         // shows the public or unpublic picture
         if($pageContent['public'])
-          echo '<img src="library/images/icons/page_public.png" class="toolTip" title="'.$langFile['STATUS_PAGE_PUBLIC'].'"'.$publicSignStyle.' alt="public" width="27" height="27" />';
+          echo '<img src="library/images/icons/page_public.png" class="toolTip" title="'.$langFile['STATUS_PAGE_PUBLIC'].'"'.$publicSignStyle.' alt="public" width="27" height="27">';
         else
-          echo '<img src="library/images/icons/page_nonpublic.png" class="toolTip" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'"'.$publicSignStyle.' alt="nonpublic" width="27" height="27" />';
+          echo '<img src="library/images/icons/page_nonpublic.png" class="toolTip" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'"'.$publicSignStyle.' alt="nonpublic" width="27" height="27">';
 
         ?>
         &nbsp;<span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_field4'].'::'.$langFile['EDITOR_pageSettings_field4_tip'] ?>">
@@ -629,7 +629,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <tr><td class="spacer checkboxes"></td><td></td></tr>      
     </table>
     <?php $setAnchor = ($newPage) ? 'pageInformation' : 'pageSettings';  ?>
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','<?= $setAnchor; ?>');" />
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','<?php echo $setAnchor; ?>');">
   </div>
   <div class="bottom"></div>
 </div>
@@ -654,10 +654,10 @@ if(is_array($activatedPlugins) && count($activatedPlugins) >= 1) { // && $plugin
 // shows the block below if it is the ones which is saved before
 $hidden = ($newPage || $savedForm == 'pluginSettings') ? '' : ' hidden';
 $blockContentEdited = (isset($pageContent['plugins']))
-  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['EDITOR_pluginSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" width="27" height="23" />'
+  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['EDITOR_pluginSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" width="27" height="23">'
   : '';
 ?>
-<div class="block<?= $hidden; ?>">
+<div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><?php echo $langFile['EDITOR_pluginSettings_h1'].$blockContentEdited; ?></a></h1>
   <div class="content">
       <?php
@@ -681,19 +681,19 @@ $blockContentEdited = (isset($pageContent['plugins']))
           ?>          
           <table>          
           <tr><td class="left checkboxes">
-          <input type="checkbox" class="inBlockSliderLink" id="feinduraPlugin_<?= $pluginFolderName; ?>" name="plugins[<?= $pluginFolderName; ?>][active]" value="true" <?= ($pageContent['plugins'][$pluginFolderName]['active']) ? 'checked' : ''; ?> />
+          <input type="checkbox" class="inBlockSliderLink" id="feinduraPlugin_<?php echo $pluginFolderName; ?>" name="plugins[<?php echo $pluginFolderName; ?>][active]" value="true" <?php echo ($pageContent['plugins'][$pluginFolderName]['active']) ? 'checked' : ''; ?>>
           </td><td class="right checkboxes">
-            <label for="feinduraPlugin_<?= $pluginFolderName; ?>"><b><?= $pluginName; ?></b></label>
-            <p><?= $pluginLangFile['feinduraPlugin_description']; ?></p>
+            <label for="feinduraPlugin_<?php echo $pluginFolderName; ?>"><b><?php echo $pluginName; ?></b></label>
+            <p><?php echo $pluginLangFile['feinduraPlugin_description']; ?></p>
           </td></tr>
           </table>                   
           <?php
           
           $hidden = ($pageContent['plugins'][$pluginFolderName]['active']) ? '' : ' hidden';
           ?>
-          <table class="inBlockSlider<?= $hidden; ?>">
+          <table class="inBlockSlider<?php echo $hidden; ?>">
           <colgroup>
-          <col class="left" />
+          <col class="left">
           </colgroup>          
           <?php          
           // var
@@ -716,8 +716,8 @@ $blockContentEdited = (isset($pageContent['plugins']))
                 
                 $checked = ($value) ? 'checked' : '';
                 echo '<tr><td class="left checkboxes">
-                      <input type="hidden" name="plugins['.$pluginFolderName.']['.$key.']" value="false" />
-                      <input type="checkbox" id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'" name="plugins['.$pluginFolderName.']['.$key.']" value="true"'.$keyTip.' '.$checked.' />
+                      <input type="hidden" name="plugins['.$pluginFolderName.']['.$key.']" value="false">
+                      <input type="checkbox" id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'" name="plugins['.$pluginFolderName.']['.$key.']" value="true"'.$keyTip.' '.$checked.'>
                       </td><td class="right checkboxes">
                         <label for="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>        
                       </td>';
@@ -730,7 +730,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
                 echo '<tr><td class="left">
                       <label for="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
                       </td><td class="right">
-                        <input id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$inputLength.' name="plugins['.$pluginFolderName.']['.$key.']" value="'.$value.'"'.$keyTip.' />        
+                        <input id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$inputLength.' name="plugins['.$pluginFolderName.']['.$key.']" value="'.$value.'"'.$keyTip.'>        
                       </td></tr>';
                       
                 $checkboxes = false;              
@@ -744,8 +744,8 @@ $blockContentEdited = (isset($pageContent['plugins']))
       }     
       ?>
     <p>&nbsp;</p>
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pluginSettings'; submitAnchor('editorForm','pluginSettings');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pluginSettings'; submitAnchor('editorForm','pluginSettings');">
   </div>
   <div class="bottom"></div>
 </div>
@@ -762,7 +762,7 @@ $hidden = ($savedForm == 'advancedPageSettings') ? '' : ' hidden';
 $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['styleFile'] != 'a:0:{}') ||
                        (!empty($pageContent['styleId']) &&  $pageContent['styleId'] != 'a:0:{}') ||
                        (!empty($pageContent['styleClass']) && $pageContent['styleClass'] != 'a:0:{}'))
-  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" width="27" height="23" />'
+  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" width="27" height="23">'
   : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
@@ -771,7 +771,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
     <table>
      
       <colgroup>
-      <col class="left" />
+      <col class="left">
       </colgroup>
   
       <tr><td class="leftTop"></td><td></td></tr>
@@ -793,21 +793,21 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_ID'].'::'.$langFile['STYLESHEETS_TOOLTIP_ID'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_ID']; ?></span>
       </td><td class="right">
-      <input name="styleId" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>" />
+      <input name="styleId" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
       </td></tr>
             
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_CLASS'].'::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
       </td><td class="right">
-      <input name="styleClass" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>" />
+      <input name="styleClass" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'advancedPageSettings'; submitAnchor('editorForm','advancedPageSettingsAnchor');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'advancedPageSettings'; submitAnchor('editorForm','advancedPageSettingsAnchor');">
   </div>
   <div class="bottom"></div>
 </div>

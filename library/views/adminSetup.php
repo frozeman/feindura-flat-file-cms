@@ -74,8 +74,8 @@ foreach ($tab as $buf) {
 
 <form action="index.php?site=adminSetup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="adminSettingsForm">
   <div>
-  <input type="hidden" name="send" value="adminSetup" />
-  <input type="hidden" name="savedBlock" id="savedBlock" value="" />
+  <input type="hidden" name="send" value="adminSetup">
+  <input type="hidden" name="savedBlock" id="savedBlock" value="">
   </div>
   
 <!-- BASIC SETTINGS -->
@@ -90,7 +90,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
     <table>
      
       <colgroup>
-      <col class="left" />
+      <col class="left">
       </colgroup>
   
       <tr><td class="leftTop"></td><td></td></tr>
@@ -103,7 +103,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$GLOBALS['adminConfig']['url']);
       $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$_SERVER["SERVER_NAME"]);
       ?>
-      <input id="cfg_url" name="cfg_url"<?php if($baseUrl != $checkUrl) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>" />
+      <input id="cfg_url" name="cfg_url"<?php if($baseUrl != $checkUrl) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>">
       </td></tr>
       
       <tr><td class="left">
@@ -113,7 +113,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       <?php
       $checkPath = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
       ?>
-      <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field2_inputTip']; ?>" />
+      <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field2_inputTip']; ?>">
       </td></tr>
       
       <?php if(checkBasePathAndURL() && documentrootWarning()) { ?>
@@ -121,7 +121,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       <label for="cfg_realBasePath"><span class="toolTip red" title="<?php echo $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH'].'::'.$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH'] ?>">
       <?php echo $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_realBasePath" name="cfg_realBasePath" value="<?php echo $adminConfig['realBasePath']; ?>" class="inputToolTip red" title="<?php echo $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH'].'::'.$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']; ?>" />
+      <input size="40" id="cfg_realBasePath" name="cfg_realBasePath" value="<?php echo $adminConfig['realBasePath']; ?>" class="inputToolTip red" title="<?php echo $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH'].'::'.$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']; ?>">
       <span class="hint"><?php echo $langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']; ?></span>
       </td></tr>
     
@@ -130,7 +130,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       <label for="cfg_websitePath"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field8'].'::'.$langFile['ADMINSETUP_GENERAL_field8_tip'] ?>">
       <?php echo $langFile['ADMINSETUP_GENERAL_field8'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_websitePath" name="cfg_websitePath" value="<?php echo $adminConfig['websitePath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::" />
+      <input size="40" id="cfg_websitePath" name="cfg_websitePath" value="<?php echo $adminConfig['websitePath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
       <span class="hint"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </td></tr>
       
@@ -140,7 +140,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       <label for="cfg_uploadPath"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field4'].'::'.$langFile['ADMINSETUP_GENERAL_field4_tip'] ?>">
       <?php echo $langFile['ADMINSETUP_GENERAL_field4'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_uploadPath" name="cfg_uploadPath" value="<?php echo $adminConfig['uploadPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::" />
+      <input size="40" id="cfg_uploadPath" name="cfg_uploadPath" value="<?php echo $adminConfig['uploadPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
       <span class="hint"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </td></tr>
       
@@ -148,7 +148,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       <label for="cfg_websiteFilesPath"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field5'].'::'.$langFile['ADMINSETUP_GENERAL_field5_tip'] ?>">
       <?php echo $langFile['ADMINSETUP_GENERAL_field5'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_websiteFilesPath" name="cfg_websiteFilesPath" value="<?php echo $adminConfig['websiteFilesPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::" />
+      <input size="40" id="cfg_websiteFilesPath" name="cfg_websiteFilesPath" value="<?php echo $adminConfig['websiteFilesPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
       <span class="hint"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </td></tr>
       
@@ -156,7 +156,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       <label for="cfg_stylesheetPath"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field6'].'::'.$langFile['ADMINSETUP_GENERAL_field6_tip'] ?>">
       <?php echo $langFile['ADMINSETUP_GENERAL_field6'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_stylesheetPath" name="cfg_stylesheetPath" value="<?php echo $adminConfig['stylesheetPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::" />
+      <input size="40" id="cfg_stylesheetPath" name="cfg_stylesheetPath" value="<?php echo $adminConfig['stylesheetPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
       <span class="hint"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </td></tr>      
       
@@ -164,7 +164,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       
       <tr><td class="left">
       <label for="cfg_permissions"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'].'::'.$langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS'] ?>">
-      <?= $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] ?></span></label>
+      <?php echo $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] ?></span></label>
       </td><td class="right">
       <select id="cfg_permissions" name="cfg_permissions">
         <!--
@@ -232,7 +232,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         ? apache_get_modules()
         : array('mod_rewrite');
       ?>
-      <select id="cfg_speakingUrl" name="cfg_speakingUrl" style="width:160px;" class="inputToolTip" title="<?= $langFile['ADMINSETUP_GENERAL_speakingUrl_warning'] ?>"<?php if(!in_array('mod_rewrite',$apacheModules)) echo ' disabled="disabled"'; ?>>
+      <select id="cfg_speakingUrl" name="cfg_speakingUrl" style="width:160px;" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_warning'] ?>"<?php if(!in_array('mod_rewrite',$apacheModules)) echo ' disabled="disabled"'; ?>>
         <option value="true"<?php if($adminConfig['speakingUrl'] == 'true') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_true'].' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> '.$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'];?></option>
         <option value=""<?php if($adminConfig['speakingUrl'] == '') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_false'].' &nbsp;&nbsp;&nbsp;-> '.sprintf($langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'],$adminConfig['varName']['category'],$adminConfig['varName']['page']);?></option>
       </select>
@@ -259,14 +259,14 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       <label for="cfg_varNamePage"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName1'].'::'.$langFile['ADMINSETUP_GENERAL_varName_tip'] ?>">
       <?php echo $langFile['ADMINSETUP_GENERAL_varName1'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_varNamePage" name="cfg_varNamePage" value=<?php echo '"'.$adminConfig['varName']['page'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName1'].'::'.$langFile['ADMINSETUP_GENERAL_varName1_inputTip']; ?>" />
+      <input size="40" id="cfg_varNamePage" name="cfg_varNamePage" value=<?php echo '"'.$adminConfig['varName']['page'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName1'].'::'.$langFile['ADMINSETUP_GENERAL_varName1_inputTip']; ?>">
       </td></tr>
       
       <tr><td class="left">
       <label for="cfg_varNameCategory"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName2'].'::'.$langFile['ADMINSETUP_GENERAL_varName_tip'] ?>">
       <?php echo $langFile['ADMINSETUP_GENERAL_varName2'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_varNameCategory" name="cfg_varNameCategory" value=<?php echo '"'.$adminConfig['varName']['category'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName2'].'::'.$langFile['ADMINSETUP_GENERAL_varName2_inputTip']; ?>" />
+      <input size="40" id="cfg_varNameCategory" name="cfg_varNameCategory" value=<?php echo '"'.$adminConfig['varName']['category'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName2'].'::'.$langFile['ADMINSETUP_GENERAL_varName2_inputTip']; ?>">
       </td></tr>
       
       <!--
@@ -274,7 +274,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       <label for="cfg_varNameModul"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName3'].'::'.$langFile['ADMINSETUP_GENERAL_varName_tip'] ?>">
       <?php echo $langFile['ADMINSETUP_GENERAL_varName3'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_varNameModul" name="cfg_varNameModul" value=<?php echo '"'.$adminConfig['varName']['modul'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName3'].'::'.$langFile['ADMINSETUP_GENERAL_varName3_inputTip']; ?>" />
+      <input size="40" id="cfg_varNameModul" name="cfg_varNameModul" value=<?php echo '"'.$adminConfig['varName']['modul'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName3'].'::'.$langFile['ADMINSETUP_GENERAL_varName3_inputTip']; ?>">
       </td></tr>
       -->
       
@@ -282,8 +282,8 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'adminSettings'; submitAnchor('adminSettingsForm','adminSettings');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'adminSettings'; submitAnchor('adminSettingsForm','adminSettings');">
   </div>
   <div class="bottom"></div>
 </div>
@@ -300,13 +300,13 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
     <table>
      
       <colgroup>
-      <col class="left" />
+      <col class="left">
       </colgroup>
       
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_userFrontendEditing" name="cfg_userFrontendEditing" value="true"<?php if(!isset($adminConfig['user']['frontendEditing']) || $adminConfig['user']['frontendEditing']) echo ' checked="checked"'; echo $fmDisabled; ?> /><br />
+      <input type="checkbox" id="cfg_userFrontendEditing" name="cfg_userFrontendEditing" value="true"<?php if(!isset($adminConfig['user']['frontendEditing']) || $adminConfig['user']['frontendEditing']) echo ' checked="checked"'; echo $fmDisabled; ?>><br>
       </td><td class="right checkboxes">
-      <label for="cfg_userFrontendEditing"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']; ?></label><br />
+      <label for="cfg_userFrontendEditing"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']; ?></label><br>
       </td></tr>
           
       <?php
@@ -315,19 +315,19 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
       
       ?>
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_userFileManager" name="cfg_userFileManager" value="true"<?php if($adminConfig['user']['fileManager']) echo ' checked="checked"'; echo $fmDisabled; ?> /><br />
+      <input type="checkbox" id="cfg_userFileManager" name="cfg_userFileManager" value="true"<?php if($adminConfig['user']['fileManager']) echo ' checked="checked"'; echo $fmDisabled; ?>><br>
       </td><td class="right checkboxes">
-      <label for="cfg_userFileManager"<?= ($fmDisabled) ? 'class="toolTip disabled" title="'.$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label><br />
+      <label for="cfg_userFileManager"<?php echo ($fmDisabled) ? 'class="toolTip disabled" title="'.$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label><br>
       </td></tr>
       
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_userWebsiteFiles" name="cfg_userWebsiteFiles" value="true"<?php if($adminConfig['user']['editWebsiteFiles']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_userWebsiteFiles" name="cfg_userWebsiteFiles" value="true"<?php if($adminConfig['user']['editWebsiteFiles']) echo ' checked="checked"'; ?>><br>
       </td><td class="right checkboxes">
-      <label for="cfg_userWebsiteFiles"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check1']; ?></label><br />
+      <label for="cfg_userWebsiteFiles"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check1']; ?></label><br>
       </td></tr>
       
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_userStylesheets" name="cfg_userStylesheets" value="true"<?php if($adminConfig['user']['editStyleSheets']) echo ' checked="checked"'; ?> />
+      <input type="checkbox" id="cfg_userStylesheets" name="cfg_userStylesheets" value="true"<?php if($adminConfig['user']['editStyleSheets']) echo ' checked="checked"'; ?>>
       </td><td class="right checkboxes">
       <label for="cfg_userStylesheets"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check2']; ?></label>
       </td></tr>
@@ -337,15 +337,15 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
       <tr><td class="left">
       <label for="cfg_userInfo"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip']; ?>"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_textarea1']; ?></span></label>
       </td><td class="right">
-      <textarea id="cfg_userInfo" name="cfg_userInfo" cols="50" rows="2" style="white-space:normal;width:500px;" class="inputToolTip autogrow" title="<?php echo $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip']; ?>"><?php echo str_replace(array('<br>','<br />','<br/>'),'',$adminConfig['user']['info']); ?></textarea>
+      <textarea id="cfg_userInfo" name="cfg_userInfo" cols="50" rows="2" style="white-space:normal;width:500px;" class="inputToolTip autogrow" title="<?php echo $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip']; ?>"><?php echo str_replace(array('<br>','<br>','<br/>'),'',$adminConfig['user']['info']); ?></textarea>
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'userSettings'; submitAnchor('adminSettingsForm','userSettings');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'userSettings'; submitAnchor('adminSettingsForm','userSettings');">
   </div>
   <div class="bottom"></div>
 </div>
@@ -362,19 +362,19 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
     <table>
      
       <colgroup>
-      <col class="left" />
+      <col class="left">
       </colgroup>
       
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_editorHtmlLawed" name="cfg_editorHtmlLawed" onclick="disableSafeHtml(this);" value="true"<?php if($adminConfig['editor']['htmlLawed']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_editorHtmlLawed" name="cfg_editorHtmlLawed" onclick="disableSafeHtml(this);" value="true"<?php if($adminConfig['editor']['htmlLawed']) echo ' checked="checked"'; ?>><br>
       </td><td class="right checkboxes">
-      <label for="cfg_editorHtmlLawed" class="toolTip" title="::<?= $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']; ?>"><?= $langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']; ?></label><br />
+      <label for="cfg_editorHtmlLawed" class="toolTip" title="::<?php echo $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']; ?></label><br>
       </td></tr>
 
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_editorSafeHtml" name="cfg_editorSafeHtml" value="true"<?php if(!$adminConfig['editor']['htmlLawed']) echo ' disabled="disabled"';if($adminConfig['editor']['safeHtml']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_editorSafeHtml" name="cfg_editorSafeHtml" value="true"<?php if(!$adminConfig['editor']['htmlLawed']) echo ' disabled="disabled"';if($adminConfig['editor']['safeHtml']) echo ' checked="checked"'; ?>><br>
       </td><td class="right checkboxes">
-      <label for="cfg_editorSafeHtml" class="toolTip" title="::<?= $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']; ?>"><?= $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']; ?></label><br />
+      <label for="cfg_editorSafeHtml" class="toolTip" title="::<?php echo $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']; ?></label><br>
       </td></tr>
       
       <tr><td class="leftTop"></td><td></td></tr>
@@ -409,22 +409,22 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
       <label for="cfg_editorStyleId"><span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_ID'].'::'.$langFile['STYLESHEETS_TOOLTIP_ID'] ?>">
       <?php echo $langFile['STYLESHEETS_TEXT_ID'] ?></span></label>
       </td><td class="right">
-      <input id="cfg_editorStyleId" name="cfg_editorStyleId" class="inputToolTip" value="<?php echo $adminConfig['editor']['styleId']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field3_inputTip']; ?>" />
+      <input id="cfg_editorStyleId" name="cfg_editorStyleId" class="inputToolTip" value="<?php echo $adminConfig['editor']['styleId']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field3_inputTip']; ?>">
       </td></tr>
       
       <tr><td class="left">
       <label for="cfg_editorStyleClass"><span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_CLASS'].'::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'] ?>">
       <?php echo $langFile['STYLESHEETS_TEXT_CLASS'] ?></span></label>
       </td><td class="right">
-      <input id="cfg_editorStyleClass" name="cfg_editorStyleClass" class="inputToolTip" value="<?php echo $adminConfig['editor']['styleClass']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field4_inputTip']; ?>" />
+      <input id="cfg_editorStyleClass" name="cfg_editorStyleClass" class="inputToolTip" value="<?php echo $adminConfig['editor']['styleClass']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field4_inputTip']; ?>">
       </td></tr>
       
       <tr><td class="leftBottom"></td><td></td></tr>
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'editorSettings'; submitAnchor('adminSettingsForm','editorSettings');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'editorSettings'; submitAnchor('adminSettingsForm','editorSettings');">
   </div>
   <div class="bottom"></div>
 </div>
@@ -445,7 +445,7 @@ editFiles($adminConfig['stylesheetPath'], "editCSSfile", $langFile['editFilesSet
 
 <!-- EDIT EDITOR-STYLES -->
 <form action="index.php?site=adminSetup#fckstyleFileAnchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<div><input type="hidden" name="saveFckStyleFile" value="true" /></div>
+<div><input type="hidden" name="saveFckStyleFile" value="true"></div>
 <?php
 
 $htmlEditorStyleFilePath = "config/htmlEditorStyles.js";
@@ -460,9 +460,9 @@ $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
   <h1><a href="#" id="fckstyleFileAnchor"><?php echo $langFile['adminSetup_styleFileSettings_h1']; ?></a></h1>
   <div class="content">
     <textarea name="fckStyleFile" cols="90" rows="30" class="editFiles js" id="fckStyleFile"><?php echo $htmlEditorStyleContent; ?></textarea>
-    <br /><br />
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
-    <input type="submit" value="" name="saveFckStyles" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" />
+    <br><br>
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
+    <input type="submit" value="" name="saveFckStyles" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
   </div>
   <div class="bottom"></div>
 </div>

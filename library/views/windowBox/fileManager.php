@@ -31,10 +31,10 @@ if(!$adminConfig['user']['fileManager'])
 <!DOCTYPE html>
 <html>
   <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="content-language" content="<?php echo $_GET['langCode']; ?>" />
+  <meta charset="UTF-8">
+  <meta http-equiv="content-language" content="<?php echo $_GET['langCode']; ?>">
   
-  <title>feindura <?= $langFile['BUTTON_FILEMANAGER']; ?></title>
+  <title>feindura <?php echo $langFile['BUTTON_FILEMANAGER']; ?></title>
   
   <!-- thirdparty/MooTools -->
   <script type="text/javascript" src="../../thirdparty/javascripts/mootools-core-1.3.2.js"></script>
@@ -45,23 +45,23 @@ if(!$adminConfig['user']['fileManager'])
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
-  <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['feinduraSession']['backendLanguage']; ?>.js"></script>
+  <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Language/Language.<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>.js"></script>
 
   <script type="text/javascript">
   /* <![CDATA[ */
     function openFilemanager(){
       var complete = function(path, file){
-        window.opener.CKEDITOR.tools.callFunction('<?= $_GET["CKEditorFuncNum"]; ?>', path);
+        window.opener.CKEDITOR.tools.callFunction('<?php echo $_GET["CKEditorFuncNum"]; ?>', path);
         window.close();
       };
 
       var fileManager = new FileManager({
           url: '../../controllers/filemanager.controller.php',
           assetBasePath: '../../thirdparty/MooTools-FileManager/Assets',
-          documentRootPath: '<?= DOCUMENTROOT ?>',
-          language: '<?= $_SESSION["feinduraSession"]["language"]; ?>',
-          uploadAuthData: {session: '<?= session_id(); ?>'},
-          filter: '<?= $_GET["mimType"]; ?>',
+          documentRootPath: '<?php echo DOCUMENTROOT ?>',
+          language: '<?php echo $_SESSION["feinduraSession"]["language"]; ?>',
+          uploadAuthData: {session: '<?php echo session_id(); ?>'},
+          filter: '<?php echo $_GET["mimType"]; ?>',
           destroy: true,
           upload: true,
           move_or_copy: true,

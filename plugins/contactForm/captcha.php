@@ -54,7 +54,7 @@
             $return .= ($cell === 1) ? '<span class="captcha_letters">&nbsp;</span>' : '<span class="captcha_background">&nbsp;</span>';
           $return .= '<span class="captcha_background">&nbsp;</span>';
         }
-        $return .= "<br />\n";
+        $return .= "<br>\n";
       }
       
       return $return;

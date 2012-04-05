@@ -29,7 +29,7 @@ $pages = $feindura->listPagesBySortFunction('sortByLastEditDate','category',arra
 foreach($pages as $page) {
   echo $page['title']."\n\n";
   echo $page['thumbnail']."\n";
-  echo $page['content']."\n<br />-----------------------<br />\n";
+  echo $page['content']."\n<br>-----------------------<br>\n";
 }
 
 
@@ -44,7 +44,7 @@ Example Page 2
 Stet clita kasd gubergren, no sea takimata sanctus.</p>
 <a href="?category=1&amp;page=2">mehr</a>
 
-<br />-----------------------<br />
+<br>-----------------------<br>
 
 Example Page 3
 
@@ -54,7 +54,7 @@ Example Page 3
 <p>Stet clita kasd gubergren, no sea takimata sanctus est...</p>
 <a href="?category=1&amp;page=3">mehr</a>
 
-<br />-----------------------<br />
+<br>-----------------------<br>
 
 Example Page 1
 
@@ -63,6 +63,6 @@ invidunt ut labore et dolore magna aliquyam erat, ur sadipscing elitr,
 Stet clita kasd...</p>
 <a href="?category=2&amp;page=1">mehr</a>
 
-<br />-----------------------<br />
+<br>-----------------------<br>
 
 ?>

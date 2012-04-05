@@ -116,9 +116,9 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
 
 /*
 // LOG
-echo session_name().'<br />';
-echo 'server host: '.HOST.'<br />';
-echo 'storedID: '.$_SESSION['feinduraSession']['login']['host'].'<br />';
+echo session_name().'<br>';
+echo 'server host: '.HOST.'<br>';
+echo 'storedID: '.$_SESSION['feinduraSession']['login']['host'].'<br>';
 echo '<pre>';
 print_r($_SESSION);
 echo '</pre>';
@@ -135,32 +135,32 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 
   ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
-  <meta http-equiv="content-language" content="en" />
+  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
+  <meta http-equiv="content-language" content="en">
   
   <title>feindura login</title>
   
-  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <meta name="robots" content="no-index,nofollow" />
-  <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
-  <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
-  <meta http-equiv="accept-encoding" content="gzip, deflate" />
+  <meta name="robots" content="no-index,nofollow">
+  <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
+  <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
+  <meta http-equiv="accept-encoding" content="gzip, deflate">
   
-  <meta name="title" content="feindura login" />    
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]" />     
-  <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]" />
-  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]" />    
-  <meta name="description" content="A flat file based Content Management System, written in PHP" />    
-  <meta name="keywords" content="cms,content,management,system,flat,file" /> 
+  <meta name="title" content="feindura login">    
+  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">     
+  <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
+  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">    
+  <meta name="description" content="A flat file based Content Management System, written in PHP">    
+  <meta name="keywords" content="cms,content,management,system,flat,file"> 
    
-  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="shortcut icon" href="favicon.ico">
   
-  <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/styles/login.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all">
+  <link rel="stylesheet" type="text/css" href="library/styles/login.css" media="all">
   
   <!-- thirdparty/MooTools -->
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.3.2.js"></script>
@@ -226,18 +226,18 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
       $currentURL = str_replace('logout','',$currentURL);
       
       ?>
-      <form action="<?= $currentURL; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="startLoadingCircle();">
+      <form action="<?php echo $currentURL; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="startLoadingCircle();">
         <div id="inputsDiv">
-          <input value="<?= $_POST['username'] ?>" name="username" id="username" placeholder="<?= $langFile['LOGIN_INPUT_USERNAME']; ?>" title="<?= $langFile['LOGIN_INPUT_USERNAME']; ?>" autofocus="autofocus" /><br />
+          <input value="<?php echo $_POST['username']; ?>" name="username" id="username" placeholder="<?php echo $langFile['LOGIN_INPUT_USERNAME']; ?>" title="<?php echo $langFile['LOGIN_INPUT_USERNAME']; ?>" autofocus="autofocus"><br>
         <?php if(!isset($_GET['resetpassword'])) { ?>
-          <input type="password" value="<?= $_POST['password'] ?>" name="password" id="password" placeholder="<?= $langFile['LOGIN_INPUT_PASSWORD']; ?>" title="<?= $langFile['LOGIN_INPUT_PASSWORD']; ?>" /><br />
+          <input type="password" value="<?php echo $_POST['password']; ?>" name="password" id="password" placeholder="<?php echo $langFile['LOGIN_INPUT_PASSWORD']; ?>" title="<?php echo $langFile['LOGIN_INPUT_PASSWORD']; ?>"><br>
         <?php } 
         if(!isset($_GET['resetpassword'])) {
-          echo '<input type="hidden" name="action" value="login" />';
-          echo '<input type="submit" id="submitButton" class="button" name="loginSubmit" value="'.$langFile['LOGIN_BUTTON_LOGIN'].'" />';
+          echo '<input type="hidden" name="action" value="login">';
+          echo '<input type="submit" id="submitButton" class="button" name="loginSubmit" value="'.$langFile['LOGIN_BUTTON_LOGIN'].'">';
         } else {
-          echo '<input type="hidden" name="action" value="resetPassword" />';
-          echo '<br /><br /><input type="submit" id="submitButton" class="button" name="resetPasswordSubmit" value="'.$langFile['LOGIN_BUTTON_SENDNEWPASSWORD'].'" />';
+          echo '<input type="hidden" name="action" value="resetPassword">';
+          echo '<br><br><input type="submit" id="submitButton" class="button" name="resetPasswordSubmit" value="'.$langFile['LOGIN_BUTTON_SENDNEWPASSWORD'].'">';
         } ?>
         </div>
       </form>
@@ -245,21 +245,25 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
   <?php if($loginError) { ?>
     <div id="loginErrorBox">
       <div class="top"></div>
-      <div class="middle"><?= $loginError ?></div>      
+      <div class="middle"><?php echo $loginError; ?></div>      
       <div class="bottom"></div>
     </div>
-  <?php } ?>
-  <div class="info">
-  <?php if(isset($_GET['resetpassword'])) {
-    echo '<a href="index.php">'.$langFile['LOGIN_LINK_BACKTOLOGIN'].'</a>';
-  } else {
-    echo '<a href="index.php?resetpassword">'.$langFile['LOGIN_LINK_FORGOTPASSWORD'].'</a>';
-  }?>
-    <br /><?= $langFile['LOGIN_TEXT_COOKIESNEEDED']; ?></div>
+    <?php } ?>
+    <div class="info">
+    <?php
+
+       echo (isset($_GET['resetpassword']))
+        ? '<a href="index.php">'.$langFile['LOGIN_LINK_BACKTOLOGIN'].'</a>'
+        : '<a href="index.php?resetpassword">'.$langFile['LOGIN_LINK_FORGOTPASSWORD'].'</a>';
+
+      echo '<br>'.$langFile['LOGIN_TEXT_COOKIESNEEDED'];
+
+    ?>
+    </div>
   </div>
 </body>
 </html>
-  <?php  
+<?php  
   die();
 }
 ?>

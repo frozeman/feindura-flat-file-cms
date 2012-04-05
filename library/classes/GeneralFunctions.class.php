@@ -338,7 +338,7 @@ class GeneralFunctions {
   }
 
   /**
-   * <b>Name</b> addParameterToUrl()<br />
+   * <b>Name</b> addParameterToUrl()<br>
    * 
    * Check if the current $_SERVER['REQUEST_URI'] variable end with ? or & and ads the <var>$parameterString</var> on the end.
    * 
@@ -350,8 +350,8 @@ class GeneralFunctions {
    * 
    * 
    * @version 2.0
-   * <br />
-   * <b>ChangeLog</b><br />
+   * <br>
+   * <b>ChangeLog</b><br>
    *    - 2.0 complete rewrite based on {@link http://stackoverflow.com/questions/909193/is-there-a-php-library-that-handles-url-parameters-adding-removing-or-replacin}
    *    - 1.0.1 moved to GeneralFunctions class
    *    - 1.0 initial release
@@ -406,7 +406,7 @@ class GeneralFunctions {
   }
   
 /**
-  * <b>Name</b> getDirname()<br />
+  * <b>Name</b> getDirname()<br>
   * 
   * Returns the dirname of a <var>$dir</var> parameter, by checking whether the last part of the path is a filename or a dir.
   * 
@@ -415,8 +415,8 @@ class GeneralFunctions {
   * @return string the changed path
   * 
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -609,12 +609,12 @@ class GeneralFunctions {
   }
   
   /**
-   * <b>Name</b> getLocalized()<br />
+   * <b>Name</b> getLocalized()<br>
    * 
    * Gets the localized version of given <var>$value</var> parameter, which matches the <var>$_SESSION['feinduraSession']['websiteLanguage']</var> variable.
    * If no matching localized version of this value exists, it returns the one matching the <var>$adminConfig['multiLanguageWebsite']['mainLanguage']</var> variable.
    * 
-   * <b>Used Global Variables</b><br />
+   * <b>Used Global Variables</b><br>
    *   - <var>$_GET['status']</var> if the value is "addLanguage", it forces to load the <var>$languageCode</var> parameter
    *  
    * @param array        $localizationArray   a localized array in the form of: array('de' => .. , 'en' => .. )
@@ -626,8 +626,8 @@ class GeneralFunctions {
    * 
    * @static
    * @version 1.1
-   * <br />
-   * <b>ChangeLog</b><br />
+   * <br>
+   * <b>ChangeLog</b><br>
    *    - 1.1 changed $forceLanguage to $forceOrUseLanguage
    *    - 1.0 initial release
    * 
@@ -685,7 +685,7 @@ class GeneralFunctions {
   * 
   */
   public static function readPage($page,$category = false) {
-    //echo 'PAGE: '.$page.' -> '.$category.'<br />';
+    //echo 'PAGE: '.$page.' -> '.$category.'<br>';
 
     // var
     $pageContent = false;
@@ -700,7 +700,7 @@ class GeneralFunctions {
     
     // ->> IF the page is already loaded
     if(isset($storedPages[$page])) {
-      //echo '<br />->USED STORED '.$page.'<br />';        
+      //echo '<br>->USED STORED '.$page.'<br>';        
       return $storedPages[$page];
       
     // ->> ELSE load the page and store it in the storePages PROPERTY
@@ -718,8 +718,8 @@ class GeneralFunctions {
       if($category === false || $category == 0)
         $category = '';
     
-      //echo '<br />LOAD PAGE: '.$page.'<br />';   
-      //echo 'CATEGORY: '.$category.'<br />';
+      //echo '<br>LOAD PAGE: '.$page.'<br>';   
+      //echo 'CATEGORY: '.$category.'<br>';
       
       // ->> INCLUDE
       if($fp = @fopen(dirname(__FILE__).'/../../pages/'.$category.$page,'r')) {
@@ -913,7 +913,7 @@ class GeneralFunctions {
   * 
   */
   public static function readPageStatistics($pageId) {
-    //echo 'PAGE: '.$pageId.'<br />';
+    //echo 'PAGE: '.$pageId.'<br>';
     // var
     $pageStatistics = false;
     
@@ -1178,7 +1178,7 @@ class GeneralFunctions {
           foreach(self::getStoredPageIds() as $pageIdAndCategory) {
             // use only pages from the right category
             if($pageIdAndCategory['category'] == $categoryId) {
-              //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br />';
+              //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br>';
               $newPageContentArrays[] = self::readPage($pageIdAndCategory['page'],$pageIdAndCategory['category']);            
             }
           }
@@ -1275,7 +1275,7 @@ class GeneralFunctions {
         foreach(self::getStoredPageIds() as $pageIdAndCategory) {
           // use only pages from the right category
           if($pageIdAndCategory['category'] == $categoryId) {
-            //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br />';
+            //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br>';
             if($pageStat = self::readPageStatistics($pageIdAndCategory['page']))
               $pageStatisticsArrays[] = $pageStat;
           }
@@ -1298,7 +1298,7 @@ class GeneralFunctions {
   }
 
  /**
-  * <b>Name</b> isPublicCategory()<br />
+  * <b>Name</b> isPublicCategory()<br>
   * 
   * Checks whether the given category(ies) are public and returns the ID or an array with IDs of the public ones.
   * 
@@ -1313,8 +1313,8 @@ class GeneralFunctions {
   * 
   * @access protected
   * @version 1.0.1
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0.1 add non category to be public
   *    - 1.0 initial release
   * 
@@ -1400,11 +1400,11 @@ class GeneralFunctions {
   }
   
  /**
-  * <b>Name</b> saveFeeds()<br />
+  * <b>Name</b> saveFeeds()<br>
   * 
   * Saves an Atom and RSS 2.0 Feed for the given category.
   * 
-  * <b>Used Global Variables</b><br />
+  * <b>Used Global Variables</b><br>
   *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
   *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
   *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
@@ -1415,8 +1415,8 @@ class GeneralFunctions {
   * 
   * 
   * @version 0.2
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 0.2 add multilanguage website, creating multiple feeds
   *    - 0.1 initial release
   * 
@@ -1538,11 +1538,11 @@ class GeneralFunctions {
   }
   
  /**
-  * <b>Name</b> saveSitemap()<br />
+  * <b>Name</b> saveSitemap()<br>
   * 
   * Saves a sitemap xml file (see http://www.sitemaps.org).
   * 
-  * <b>Used Global Variables</b><br />
+  * <b>Used Global Variables</b><br>
   *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
   *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
   *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
@@ -1552,8 +1552,8 @@ class GeneralFunctions {
   * 
   * @link http://www.sitemaps.org
   * @version 0.2
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 0.2 return false if the real website path, couldn't be resolved
   *    - 0.1 initial release
   * 
@@ -1632,7 +1632,7 @@ class GeneralFunctions {
   }
 
  /**
-  * <b>Name</b> replaceLinks()<br />
+  * <b>Name</b> replaceLinks()<br>
   * 
   * Replaces all feindura links (e.g. "?feinduraPageID=3") inside the given <var>$pageContentString</var> parameter, with real href links.
   *
@@ -1650,8 +1650,8 @@ class GeneralFunctions {
   * 
   * @access protected
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -1863,13 +1863,13 @@ class GeneralFunctions {
   }
 
   /**
-   * <b>Name</b> getStylesByPriority()<br />
+   * <b>Name</b> getStylesByPriority()<br>
    * 
    * Returns the right stylesheet-file path, ID or class-attribute.
    * If the <var>$givenStyle</var> parameter is empty,
    * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
    * 
-   * <b>Used Global Variables</b><br />
+   * <b>Used Global Variables</b><br>
    *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
    *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
    * 
@@ -1881,8 +1881,8 @@ class GeneralFunctions {
    * 
    * @static
    * @version 1.01
-   * <br />
-   * <b>ChangeLog</b><br />
+   * <br>
+   * <b>ChangeLog</b><br>
    *    - 1.01 moved to GeneralFunctions class   
    *    - 1.0 initial release
    * 
@@ -2004,12 +2004,12 @@ class GeneralFunctions {
   }
 
  /**
-  * <b>Name</b> getRealPath()<br />
+  * <b>Name</b> getRealPath()<br>
   * 
   * Try to get the real path from a given absolute or relative path.
   * 
   * 
-  * <b>Used Constants</b><br />
+  * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param string $path an absolute or relative path
@@ -2018,8 +2018,8 @@ class GeneralFunctions {
   * 
   * @static
   * @version 0.1
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 0.1 initial release
   * 
   */
@@ -2031,7 +2031,7 @@ class GeneralFunctions {
   }
 
  /**
-  * <b>Name</b> readFolder()<br />
+  * <b>Name</b> readFolder()<br>
   * 
   * Reads a folder and return it's subfolders and files.
   * 
@@ -2050,7 +2050,7 @@ class GeneralFunctions {
   *    )
   * </code>
   * 
-  * <b>Used Constants</b><br />
+  * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param string $folder an absolute or relative path of an folder to read
@@ -2059,8 +2059,8 @@ class GeneralFunctions {
   * 
   * @static
   * @version 1.01
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.01 changed to scandir()
   *    - 1.0 initial release
   * 
@@ -2092,7 +2092,7 @@ class GeneralFunctions {
   }
 
  /**
-  * <b>Name</b> readFolderRecursive()<br />
+  * <b>Name</b> readFolderRecursive()<br>
   * 
   * Reads a folder recursive and return it's subfolders and files, opens then also the subfolders and read them, etc.
   * 
@@ -2111,7 +2111,7 @@ class GeneralFunctions {
   *    )
   * </code>
   * 
-  * <b>Used Constants</b><br />
+  * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param string $folder an absolute or relative path of an folder to read
@@ -2120,8 +2120,8 @@ class GeneralFunctions {
   * 
   * @static
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -2144,7 +2144,7 @@ class GeneralFunctions {
   
       // ->> GOES TROUGH folders
       foreach($goTroughFolders['folders'] as $subFolder) {
-        //echo '<br /><br />'.$subFolder.'<br />';     
+        //echo '<br><br>'.$subFolder.'<br>';     
         $inDirObjects = self::readFolder($subFolder);
         
         // -> add all subfolders to an array
@@ -2177,11 +2177,11 @@ class GeneralFunctions {
   } 
 
  /**
-  * <b>Name</b> folderIsEmpty()<br />
+  * <b>Name</b> folderIsEmpty()<br>
   * 
   * Check if a folder is empty.
   * 
-  * <b>Used Constants</b><br />
+  * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param string $folder the absolute path of an folder to check
@@ -2190,8 +2190,8 @@ class GeneralFunctions {
   * 
   * @static
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -2205,11 +2205,11 @@ class GeneralFunctions {
   }
   
   /**
-   * <b>Name</b> createStyleTags()<br />
+   * <b>Name</b> createStyleTags()<br>
    * 
    * Goes through a folder recursive and creates a HTML <link> tag for every stylesheet-file found.
    * 
-   * <b>Used Global Variables</b><br />
+   * <b>Used Global Variables</b><br>
    *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
    * 
    * @param string $folder  the absolute path of the folder to look for stylesheet files
@@ -2221,8 +2221,8 @@ class GeneralFunctions {
    * 
    * @static 
    * @version 1.0
-   * <br />
-   * <b>ChangeLog</b><br />
+   * <br>
+   * <b>ChangeLog</b><br>
    *    - 1.0 initial release
    * 
    */
@@ -2240,7 +2240,7 @@ class GeneralFunctions {
           // -> removes the $adminConfig('realBasePath')
           if($backend) $file = str_replace(self::$adminConfig['realBasePath'],'',$file);
           // -> WRITES the HTML-Style-Tags
-          $return .= '  <link rel="stylesheet" type="text/css" href="'.$file.'" />'."\n";
+          $return .= '  <link rel="stylesheet" type="text/css" href="'.$file.'">'."\n";
         }
       }
     }
@@ -2249,7 +2249,7 @@ class GeneralFunctions {
   }
   
   /**
-   * <b>Name</b> smartStripslashes()<br />
+   * <b>Name</b> smartStripslashes()<br>
    * 
    * Uses stripslashes depending on "magic_quotes_gpc" and "magic_quotes_sybase"
    * 
@@ -2257,8 +2257,8 @@ class GeneralFunctions {
    * @return string the stripslashed string
    * 
    * @version 1.0
-   * <br />
-   * <b>ChangeLog</b><br />
+   * <br>
+   * <b>ChangeLog</b><br>
    *    - 1.0 initial release
    * 
    */
@@ -2302,7 +2302,7 @@ class GeneralFunctions {
       else
           echo round($mem_usage/1048576,2)." megabytes";
          
-      echo "<br />";
+      echo "<br>";
   }
 }
 ?>

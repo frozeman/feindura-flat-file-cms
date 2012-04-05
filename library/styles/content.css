@@ -666,6 +666,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     padding: 3px 5px; 
     }
 .listPages .content div.functions {
+    position: relative;
     float: right !important;
     width: 170px;
     padding: 5px 10px;

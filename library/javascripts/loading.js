@@ -14,18 +14,8 @@
     
 *
 * 
-* loading.php version 0.3 (require mootools-core AND mootools-more)  */
+* loading.php version 1.0 (require mootools-core AND mootools-more)  */
 
-// fix the layout height
-function layoutFix() {
-  if($('leftSidebar') !== null) {
-    if(($('leftSidebar').offsetHeight + 20) > $('content').offsetHeight) {
-      $('mainBody').tween('height',$('leftSidebar').offsetHeight);
-    } else if(($('leftSidebar').offsetHeight - 20) < $('content').offsetHeight) {
-      $('mainBody').tween('height',$('content').offsetHeight);
-    }
-  }
-}
 
 function showDocumentSaved() {
   // start tween
@@ -113,9 +103,6 @@ window.addEvent('domready', function() {
     $('loadingBox').setStyle('display','none');
     // $('loadingBox').setStyle('opacity','1');
   }
-  
-  // fix height of the sidebar
-	layoutFix();
   
   // IE HACK for dimContainer
 	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/) && $('dimContainer') !== null) {

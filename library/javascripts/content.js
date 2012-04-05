@@ -102,7 +102,6 @@ function addField(containerId,inputName) {
   if(containerId && $(containerId) !== null) {
     var newInput  = new Element('input', {name: inputName});
     $(containerId).grab(newInput,'bottom');
-    layoutFix();
 		return true;
   } else
     return false;
@@ -291,7 +290,6 @@ function blockSlider(givenId) {
                 //this.open = true;
             }
           }
-          layoutFix();
         }
       });
 
@@ -354,7 +352,6 @@ function inBlockTableSlider() {
                 this.wrapper.fade('hide');
                 this.wrapper.setStyle('height',insideBlockTable.getChildren('tbody').getSize().y);
               }
-              layoutFix();
           });
 
          // slides the hotky div in, on start
@@ -432,7 +429,6 @@ function sidebarMenu() {
     slideContent.get('slide').addEvent('complete', function(el) {
         if(!navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
           sideBarMenu.toggleClass('hidden');
-        layoutFix();
     });
 
     // -> sets the SLIDE EFFECT to the buttons
@@ -520,7 +516,6 @@ function requestLeftSidebar(site,page,category) {
       LeavingWithoutSavingWarning();
       sidebarMenu();
       setToolTips();
-      layoutFix();
 		},
 		//-----------------------------------------------------------------------------
 		//Our request will most likely succeed, but just in case, we'll add an
@@ -744,17 +739,17 @@ window.addEvent('domready', function() {
         li.addEvent('mouseover',function(e) {
           e.stop();
 
-          if(navigator.appVersion.match(/MSIE [0-8]/)) functionsDiv.tween('width','140px');
+          if(navigator.appVersion.match(/MSIE [0-8]/)) functionsDiv.tween('right','0px');
           else functionsDiv.tween('opacity','1');
         });
         li.addEvent('mouseout',function(e) {
           e.stop();
-          if(navigator.appVersion.match(/MSIE [0-8]/)) functionsDiv.tween('width','0px');
+          if(navigator.appVersion.match(/MSIE [0-8]/)) functionsDiv.tween('right','-150px');
           else functionsDiv.tween('opacity','0.2');
         });
 
         // HIDE the functions AT STARTUP
-        if(navigator.appVersion.match(/MSIE [0-8]/)) functionsDiv.setStyle('width','0px');
+        if(navigator.appVersion.match(/MSIE [0-8]/)) functionsDiv.setStyle('right','-150px');
         else functionsDiv.setStyle('opacity','0.2');
       }
 
@@ -818,7 +813,6 @@ window.addEvent('domready', function() {
             block.setStyle('display','block'); // to allow sorting above the slided in box (reset)
             block.slide('show');
             block.get('slide').wrapper.setStyle('height','auto');
-            layoutFix();
 
           // store the open blocks
           } else if(!storedOpenBlocks) {
@@ -839,7 +833,6 @@ window.addEvent('domready', function() {
             block.slide('hide');
             block.setStyle('display','none'); // to allow sorting above the slided in box (reset)
             block.get('slide').wrapper.setStyle('height',block.getSize().y);
-            layoutFix();
           }
         });
         // clean the stored blocks array
@@ -964,7 +957,7 @@ window.addEvent('domready', function() {
       // FINAL SORT MESSAGE
       //puts the right message which is get from the sortablePageList_status array (hidden input) in the messageBox
       //$('messageBox_input').set('html',sortablePageList_status[responseText.substr(6,1)]);
-      $('messageBox_input').set('html','<img src="library/images/icons/hintIcon.png" class="hintIcon" /><span style="color:#407287;font-weight:bold;">' + responseText + '</span>');
+      $('messageBox_input').set('html','<img src="library/images/icons/hintIcon.png" class="hintIcon"><span style="color:#407287;font-weight:bold;">' + responseText + '</span>');
 
 			// remove prevent clicking the link on sort
 			$$('.sortablePageList a').each(function(a) { a.removeEvent('click',preventLink); });
@@ -1385,22 +1378,12 @@ window.addEvent('domready', function() {
         $$('div.editor').addEvent('mouseenter',function(e){
           if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20))
             editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);}).delay(1000);
-
-          // layout fix after fade
-          $('cke_contents_HTMLEditor').get('tween').chain(function(){
-            layoutFix();
-          });
         });
         $$('div.editor').addEvent('mouseleave',function(e){
           clearTimeout(editorTweenTimeout);
           if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+5) && $('cke_contents_HTMLEditor').getHeight() >= (editorTweenToHeight-5))
             $('cke_contents_HTMLEditor').tween('height',editorStartHeight);
             //editorIsClicked = false;
-
-          // layout fix after fade
-          $('cke_contents_HTMLEditor').get('tween').chain(function(){
-            layoutFix();
-          });
         });
 
         HTMLEditor.on('focus',function() {
@@ -1409,11 +1392,6 @@ window.addEvent('domready', function() {
           if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20))
             $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
             //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
-
-          // layout fix after fade
-          $('cke_contents_HTMLEditor').get('tween').chain(function(){
-            layoutFix();
-          });
         });
 
         $('HTMLEditorSubmit').addEvent('mousedown',function(e) {
@@ -1652,6 +1630,4 @@ window.addEvent('domready', function() {
 
     LeavingWithoutSavingWarning();
   }
-
-  layoutFix();
 });

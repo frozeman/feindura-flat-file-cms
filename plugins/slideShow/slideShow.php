@@ -51,8 +51,8 @@ require_once(dirname(__FILE__).'/includes/Image.class.php');
 * @subpackage slideShow
 * 
 * @version 1.11
-* <br />
-* <b>ChangeLog</b><br />
+* <br>
+* <b>ChangeLog</b><br>
 *    - 1.11 add milkbox as lightbox
 *    - 1.1 removed resize() because it uses now the {@link Image} class
 *    - 1.02 fixed image texts
@@ -78,7 +78,7 @@ class slideShow {
  /**
   * TRUE when the pages content should be handled as XHTML
   *
-  * In XHTML standalone tags end with " />" instead of ">".<br />
+  * In XHTML standalone tags end with " />" instead of ">".<br>
   * Therefor when a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".
   * 
   * @var bool
@@ -185,7 +185,7 @@ class slideShow {
   
   
  /**
-  * <b>Type</b> constructor<br />
+  * <b>Type</b> constructor<br>
   * 
   * The constructor of the class, sets all basic properties.
   * 
@@ -205,8 +205,8 @@ class slideShow {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -279,7 +279,7 @@ class slideShow {
  /* **************************************************************************************************************************** */
  
   /**
-  * <b>Name</b> readFolder()<br />
+  * <b>Name</b> readFolder()<br>
   * 
   * Reads a folder and return it's files.
   * 
@@ -290,8 +290,8 @@ class slideShow {
   * 
   * @access private
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -336,7 +336,7 @@ class slideShow {
   }
  
  /**
-  * <b>Name</b> resizeImages()<br />
+  * <b>Name</b> resizeImages()<br>
   * 
   * Resize the images to the size set in the {@link slideShow::$imageWidth} and {@link slideShow::$imageHeight} property.
   * 
@@ -351,8 +351,8 @@ class slideShow {
   * 
   * @access protected
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -397,7 +397,7 @@ class slideShow {
   }
   
  /**
-  * <b>Name</b> getImages()<br />
+  * <b>Name</b> getImages()<br>
   * 
   * Generates the image links and return them in an array.
   * 
@@ -407,8 +407,8 @@ class slideShow {
   * 
   * @access protected
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -427,7 +427,7 @@ class slideShow {
   }
   
  /**
-  * <b>Name</b> show()<br />
+  * <b>Name</b> show()<br>
   * 
   * Generates the slide show for displaying in an HTML-page
   * 
@@ -442,8 +442,8 @@ class slideShow {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */

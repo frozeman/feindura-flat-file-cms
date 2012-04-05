@@ -46,6 +46,6 @@ if($_GET['status'] == 'deactivated')
 ?>
 <div>
 
-<a href="?site=<?= $site ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+<a href="?site=<?php echo $site ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 <a href="#" class="ok left" onclick="$('pageSettingsForm').submit();return false;">&nbsp;</a>
 </div>

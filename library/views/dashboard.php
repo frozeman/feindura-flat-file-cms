@@ -76,7 +76,7 @@ if(!empty($adminConfig['user']['info'])) {
 <!-- WEBSITE STATISTIC -->
 
 <div class="block">
-  <h1><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27" /><?php echo $langFile['DASHBOARD_TITLE_STATISTICS']; ?></h1>
+  <h1><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27"><?php echo $langFile['DASHBOARD_TITLE_STATISTICS']; ?></h1>
   <div class="content">
     <?php
     
@@ -94,9 +94,9 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<div class="innerBlockLeft">';
     echo '<h2>'.$langFile['STATISTICS_TEXT_VISITORCOUNT'].'</h2>';
       echo '<div style="width:100%; text-align:center;margin-top: -10px;">';
-      echo '<span class="visitCountNumber brown">'.StatisticFunctions::formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
+      echo '<span class="visitCountNumber brown">'.StatisticFunctions::formatHighNumber($websiteStatistic['userVisitCount']).'</span><br>';
       echo '<div style="line-height: 18px;">';
-        echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'].'">'.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.StatisticFunctions::formatHighNumber($websiteStatistic['robotVisitCount']).'</span><br />';
+        echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'].'">'.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.StatisticFunctions::formatHighNumber($websiteStatistic['robotVisitCount']).'</span><br>';
         // CURRENT VISITORS
         $currentVisitors = StatisticFunctions::getCurrentVisitors();
         $countVisitor = 0;
@@ -109,14 +109,14 @@ if(!empty($adminConfig['user']['info'])) {
         }
         echo '<span class="blue"><b>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</b> '.$countVisitor.' ('.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.$countRobots.')</span>';
       echo '</div>';  
-      echo '<hr class="small" />';
+      echo '<hr class="small">';
       echo '</div>';     
       
       
       if(!empty($websiteStatistic['firstVisit'])) {
         echo '<div style="width:100%; text-align:right;">';       
         // FIRST VISIT
-        echo '<span class="toolTip" title="'.StatisticFunctions::formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.StatisticFunctions::formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
+        echo '<span class="toolTip" title="'.StatisticFunctions::formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.StatisticFunctions::formatDate($websiteStatistic['firstVisit']).'</span></span><br>';
         // LADST VISIT
         echo '<span class="toolTip" title="'.StatisticFunctions::formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['STATISTICS_TEXT_LASTVISIT'].' <span class="blue"><b>'.StatisticFunctions::formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
         
@@ -137,10 +137,10 @@ if(!empty($adminConfig['user']['info'])) {
       echo '</div>';
     }
     
-    echo '<br style="clear:both;" /><br />';
+    echo '<br style="clear:both;"><br>';
     
     // -> inBlockSlider
-    echo '<div style="text-align:center;"><a href="#" tabindex="30" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></div><br />';
+    echo '<div style="text-align:center;"><a href="#" tabindex="30" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></div><br>';
     
     echo '<div class="verticalSeparator"></div>';
     
@@ -276,10 +276,10 @@ if(!empty($adminConfig['user']['info'])) {
     
     $pages = $orgPages;    
     
-    echo '<br style="clear:both;" /><br /><div class="verticalSeparator"></div>';
+    echo '<br style="clear:both;"><br><div class="verticalSeparator"></div>';
     echo '</div>'; // <- inBlockSlider End
     
-    echo '<br />';
+    echo '<br>';
     
     // ---------------------------------
     // ->> SEARCHWORD CLOUD    
@@ -297,7 +297,7 @@ if(!empty($adminConfig['user']['info'])) {
     if($tagCloud = createTagCloud($allSearchwords)) {
       echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h2>';
       echo '<div class="tagCloud">'.$tagCloud.'</div>';
-      echo '<br /><div class="verticalSeparator"></div><br />';
+      echo '<br><div class="verticalSeparator"></div><br>';
     }
      
     // ---------------------------------
@@ -306,7 +306,7 @@ if(!empty($adminConfig['user']['info'])) {
     if($browserChart = createBrowserChart($websiteStatistic['browser'])) {
       echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
       echo $browserChart;
-      echo '<br /><br /><div class="verticalSeparator"></div><br />';
+      echo '<br><br><div class="verticalSeparator"></div><br>';
     }
 
     // ---------------------------------

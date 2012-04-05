@@ -23,7 +23,7 @@
 /**
 * The class for implementing feindura - Flat File Content Management System in a website.
 * 
-* It's methods provide necessary functions for implementing the CMS in a website.<br />
+* It's methods provide necessary functions for implementing the CMS in a website.<br>
 * It contains, for example, methods for building a menu and get page contents, etc.
 * 
 * @author Fabian Vogelsteller <fabian@feindura.org>
@@ -33,8 +33,8 @@
 * @package [Implementation]
 * 
 * @version 1.0.1
-* <br />
-* <b>ChangeLog</b><br />
+* <br>
+* <b>ChangeLog</b><br>
 *    - 1.0.1 add setStartPage()
 *    - 1.0 initial release
 * 
@@ -50,7 +50,7 @@ class Feindura extends FeinduraBase {
  /**
   * TRUE when the pages content should be handled as XHTML.
   * 
-  * In XHTML standalone tags end with " />" instead of ">".<br />
+  * In XHTML standalone tags end with " />" instead of ">".<br>
   * Therefor when a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".
   * 
   * @var bool
@@ -112,7 +112,7 @@ class Feindura extends FeinduraBase {
  /**
   * Contains the startcategory ID
   * 
-  * Its fetched from the {@link $startPage} through the {@link GeneralFunctions::getPageCategory()} method.<br />
+  * Its fetched from the {@link $startPage} through the {@link GeneralFunctions::getPageCategory()} method.<br>
   * This property is set to the {@link $category} property when the <var>$_GET</var> category variable
   * and the {@link $category} property is empty and setting a startpage is activated in the {@link $adminConfig page-settings}.
   * 
@@ -304,7 +304,7 @@ class Feindura extends FeinduraBase {
   * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the link text
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * If the {@link $linkShowCategory} property is TRUE, the page date is placed between the category name + separator and the link text.<br />
+  * If the {@link $linkShowCategory} property is TRUE, the page date is placed between the category name + separator and the link text.<br>
   * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend
   *   
   * <b>Note</b>: The page date will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
@@ -382,7 +382,7 @@ class Feindura extends FeinduraBase {
  /**
   * Contains an id-Attribute which will be add to the menu tag.
   * 
-  * <b>Notice 1</b>: This id-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
+  * <b>Notice 1</b>: This id-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br>
   * <b>Notice 2</b>: You can only set one specific id-Attribute to elements in a HTML page.
   * 
   * @var string|false If no id-Attribute should be add, set it to FALSE.
@@ -397,7 +397,7 @@ class Feindura extends FeinduraBase {
  /**
   * Contains an class-Attribute which will be add to the menu tag.
   * 
-  * <b>Note</b>: This class-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
+  * <b>Note</b>: This class-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br>
   * 
   * @var string|false If no class-Attribute should be add, set it to FALSE.
   * @access public
@@ -411,7 +411,7 @@ class Feindura extends FeinduraBase {
  /**
   * Contains a string with attributes which will be add to the menu tag.
   * 
-  * <b>Note</b>: This string with attributes will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
+  * <b>Note</b>: This string with attributes will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br>
   * 
   * The string should have the following format
   * <samp>
@@ -465,7 +465,7 @@ class Feindura extends FeinduraBase {
  /**
   * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the page title.
   * 
-  * If the {@link $titleShowCategory} property is TRUE, the page date is placed between the category name + separator and the page title.<br />
+  * If the {@link $titleShowCategory} property is TRUE, the page date is placed between the category name + separator and the page title.<br>
   * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend.
   * 
   * Example:
@@ -657,7 +657,7 @@ class Feindura extends FeinduraBase {
  /**
   * The tag which should be used for the error message.
   * 
-  * <b>Note</b>: If this property is no string, the {@link $errorId}, {@link $errorClass} and {@link $errorAttributes} property will not be add.<br />
+  * <b>Note</b>: If this property is no string, the {@link $errorId}, {@link $errorClass} and {@link $errorAttributes} property will not be add.<br>
   * 
   * Example:
   * <samp>
@@ -677,7 +677,7 @@ class Feindura extends FeinduraBase {
  /**
   * Contains an id-Attribute which will be add to the error tag.
   * 
-  * <b>Notice 1</b>: This id-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br />
+  * <b>Notice 1</b>: This id-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br>
   * <b>Notice 2</b>: You can only set one specific id-Attribute to elements in a HTML page.
   * 
   * Example:
@@ -698,7 +698,7 @@ class Feindura extends FeinduraBase {
  /**
   * Contains an class-Attribute which will be add to the error tag.
   * 
-  * <b>Note</b>: This class-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br />
+  * <b>Note</b>: This class-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br>
   * 
   * Example:
   * <samp>
@@ -744,12 +744,12 @@ class Feindura extends FeinduraBase {
  /* **************************************************************************************************************************** */
   
  /**
-  * <b>Type</b> constructor<br /> 
+  * <b>Type</b> constructor<br> 
   * 
   * The constructor of the class, sets all basic properties.
   * 
   * Calls the {@link FeinduraBase::__construct()} class constructor to set all necessary properties
-  * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br />
+  * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
   * If there is no page and category ID it sets the start page ID from the {@link FeinduraBase::$websiteConfig website-settings config}.
   * 
   * 
@@ -768,8 +768,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -792,7 +792,7 @@ class Feindura extends FeinduraBase {
   // ****************************************************************************************************************
   
  /**
-  * <b>Name</b>     setStartPage()<br />
+  * <b>Name</b>     setStartPage()<br>
   * 
   * Set a page ID to the {@link $startPage} and {@link $page} property.
   * 
@@ -807,8 +807,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -822,7 +822,7 @@ class Feindura extends FeinduraBase {
   }
   
  /**
-  * <b>Name</b>     setLanguage()<br />
+  * <b>Name</b>     setLanguage()<br>
   * 
   * Set the {@link FeinduraBase::$language} property and reloads the frontend language file.
   * 
@@ -839,8 +839,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -857,7 +857,7 @@ class Feindura extends FeinduraBase {
   }  
 
  /**
-  * <b>Name</b>     getLanguage()<br />
+  * <b>Name</b>     getLanguage()<br>
   * 
   * Returns the {@link $language language country code} which was set in the {@link feinduraBase:__construct()}.
   * 
@@ -870,8 +870,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -880,7 +880,7 @@ class Feindura extends FeinduraBase {
   }
   
   /**
-  * <b>Name</b>     getLanguageFile()<br />
+  * <b>Name</b>     getLanguageFile()<br>
   * 
   * 
   * Check a specific directory for files which have a language code inside the filename (see <var>$filename</var> parameter). When a matching file is found it includes these and return it.
@@ -889,7 +889,7 @@ class Feindura extends FeinduraBase {
   * Example of a language file
   * {@example languageFile.array.example.php}
   * 
-  * <b>Used Constants</b><br />
+  * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param string|false $langPath         (optional) a absolut path to look for a language file which fit the $filename parameter or FALSE to use the "feindura-cms/library/languages" folder
@@ -906,8 +906,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -931,8 +931,8 @@ class Feindura extends FeinduraBase {
   }
   
  /**
-  * <b>Name</b>     createMetaTags()<br />
-  * <b>Alias</b>    createMetaTag()<br />
+  * <b>Name</b>     createMetaTags()<br>
+  * <b>Alias</b>    createMetaTag()<br>
   * 
   * Creates a string with basic HTML5 meta tags. See the example for a detailed list of the meta tags created.
   * 
@@ -957,8 +957,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0.2
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0.2 add {@link GeneralFunctions::setVisitorTimzone()} to set the local timezone
   *    - 1.0.1 changed readPage() from getCurrentPage() to use only the page property
   *    - 1.0 initial release
@@ -1099,10 +1099,10 @@ class Feindura extends FeinduraBase {
         
         $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
         // add frontend editing stylesheets
-        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/shared.css" />'."\n";
-        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/frontendEditing.css" />'."\n";    
-        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/Assets/moorte.css" />'."\n";
-        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/feinduraSkin/rteFeinduraSkin.css" />'."\n";
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/shared.css"'.$tagEnding."\n";
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/frontendEditing.css"'.$tagEnding."\n";    
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/Assets/moorte.css"'.$tagEnding."\n";
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/feinduraSkin/rteFeinduraSkin.css"'.$tagEnding."\n";
         
         // -> move body padding, if frontend edititng is not deactivated
         if(!$_SESSION['feinduraSession']['login']['deactivateFrontendEditing'])
@@ -1173,10 +1173,10 @@ class Feindura extends FeinduraBase {
   }
   
  /**
-  * <b>Name</b> createHref()<br />
+  * <b>Name</b> createHref()<br>
   * 
   * Generates a href attribute which links to a page.
-  * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br />
+  * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br>
   * If cookies are deactivated it attaches the {@link $sessionId} on the end.
   * 
   * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link $page} property.
@@ -1210,8 +1210,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -1227,7 +1227,7 @@ class Feindura extends FeinduraBase {
   }
   
  /**
-  * <b>Name</b> createLink()<br />
+  * <b>Name</b> createLink()<br>
   * 
   * <b>This method uses the {@link $linkLength $link...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
@@ -1287,8 +1287,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -1383,7 +1383,7 @@ class Feindura extends FeinduraBase {
   }
   
  /**
-  * <b>Name</b> createMenu()<br />
+  * <b>Name</b> createMenu()<br>
   * 
   * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
@@ -1395,7 +1395,7 @@ class Feindura extends FeinduraBase {
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
-  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br />
+  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It adds the css class <i>"active"</i> to the link, which is the current page (<var>$page</var> parameter).
   * 
   * Example:
@@ -1447,8 +1447,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -1534,7 +1534,7 @@ class Feindura extends FeinduraBase {
       // adds the break after BR
       if($breakAfter === true) {
         if($this->xHtml === true)
-          $link .= "<br />\n";
+          $link .= "<br>\n";
         else
           $link .= "<br>\n";
       */
@@ -1607,8 +1607,8 @@ class Feindura extends FeinduraBase {
   }
   
  /**
-  * <b>Name</b>     createMenuByTags()<br />
-  * <b>Alias</b>    createMenuByTag()<br />
+  * <b>Name</b>     createMenuByTags()<br>
+  * <b>Alias</b>    createMenuByTag()<br>
   * 
   * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
@@ -1674,8 +1674,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -1699,8 +1699,8 @@ class Feindura extends FeinduraBase {
   }
   
  /**
-  * <b>Name</b>     createMenuByDate()<br />
-  * <b>Alias</b>    createMenuByDates()<br />
+  * <b>Name</b>     createMenuByDate()<br>
+  * <b>Alias</b>    createMenuByDates()<br>
   * 
   * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
@@ -1767,8 +1767,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -1791,10 +1791,10 @@ class Feindura extends FeinduraBase {
   }
   
  /**
-  * <b>Name</b>     createMenuBySortFunction()<br />
-  * <b>Alias</b>    createMenuBySort()<br />
-  * <b>Alias</b>    createMenuBySortCallback()<br />
-  * <b>Alias</b>    createMenuByCallback()<br />
+  * <b>Name</b>     createMenuBySortFunction()<br>
+  * <b>Alias</b>    createMenuBySort()<br>
+  * <b>Alias</b>    createMenuBySortCallback()<br>
+  * <b>Alias</b>    createMenuByCallback()<br>
   * 
   * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
@@ -1857,8 +1857,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -1898,8 +1898,8 @@ class Feindura extends FeinduraBase {
   }
   
  /**
-  * <b>Name</b>     getPageTitle()<br />
-  * <b>Alias</b>    getTitle()<br />
+  * <b>Name</b>     getPageTitle()<br>
+  * <b>Alias</b>    getTitle()<br>
   * 
   * <b>This method uses the {@link $titleLength $title...} properties.</b>
   * 
@@ -1934,8 +1934,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -1978,8 +1978,8 @@ class Feindura extends FeinduraBase {
   
   
  /**
-  * <b>Name</b>  showPage()<br />
-  * <b>Alias</b> showPages()<br />  
+  * <b>Name</b>  showPage()<br>
+  * <b>Alias</b> showPages()<br>  
   * 
   * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
@@ -1988,7 +1988,7 @@ class Feindura extends FeinduraBase {
   * 
   * In case the page doesn't exists or is not public and the {@link $showErrors} property is TRUE, 
   * an error will be placed in the ['content'] part of the returned array,
-  * otherwiese it returns an empty array.<br />
+  * otherwiese it returns an empty array.<br>
   * 
   * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
@@ -2040,8 +2040,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -2089,10 +2089,10 @@ class Feindura extends FeinduraBase {
   }
 
   /**
-  * <b>Name</b>  hasPlugins()<br />
-  * <b>Alias</b> hasPlugin()<br />
-  * <b>Alias</b> isPlugins()<br />
-  * <b>Alias</b> isPlugin()<br />
+  * <b>Name</b>  hasPlugins()<br>
+  * <b>Alias</b> hasPlugin()<br>
+  * <b>Alias</b> isPlugins()<br>
+  * <b>Alias</b> isPlugin()<br>
   *
   * Check whether the given plugin(s) are activated for the given page.
   *
@@ -2120,8 +2120,8 @@ class Feindura extends FeinduraBase {
   *
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   *
   */
@@ -2155,8 +2155,8 @@ class Feindura extends FeinduraBase {
   }
  
  /**
-  * <b>Name</b>  showPlugins()<br />
-  * <b>Alias</b> showPlugin()<br />  
+  * <b>Name</b>  showPlugins()<br>
+  * <b>Alias</b> showPlugin()<br>  
   * 
   * Returns the plugin(s) of a page ready for displaying in a HTML page.
   * It can return an array where each element contain the HTML of a plugin (only the activated ones),
@@ -2191,8 +2191,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -2261,8 +2261,8 @@ class Feindura extends FeinduraBase {
   }
 
  /**
-  * <b>Name</b>     listPages()<br />
-  * <b>Alias</b>    listPage()<br />
+  * <b>Name</b>     listPages()<br>
+  * <b>Alias</b>    listPage()<br>
   * 
   * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
@@ -2321,8 +2321,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -2365,8 +2365,8 @@ class Feindura extends FeinduraBase {
   }
 
  /**
-  * <b>Name</b>     listPagesByTags()<br />
-  * <b>Alias</b>    listPagesByTag(), listPageByTags(), listPageByTag()<br />
+  * <b>Name</b>     listPagesByTags()<br>
+  * <b>Alias</b>    listPagesByTag(), listPageByTags(), listPageByTag()<br>
   * 
   * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
@@ -2423,8 +2423,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -2464,8 +2464,8 @@ class Feindura extends FeinduraBase {
   }  
   
  /**
-  * <b>Name</b>     listPagesByDate()<br />
-  * <b>Alias</b>    listPagesByDates(), listPageByDate(), listPageByDates()<br />
+  * <b>Name</b>     listPagesByDate()<br>
+  * <b>Alias</b>    listPagesByDates(), listPageByDate(), listPageByDates()<br>
   * 
   * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
@@ -2521,8 +2521,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -2561,10 +2561,10 @@ class Feindura extends FeinduraBase {
   }
   
  /**
-  * <b>Name</b>     listPagesBySortFunction()<br />
-  * <b>Alias</b>    listPagesBySort()<br />
-  * <b>Alias</b>    listPagesBySortCallback()<br />
-  * <b>Alias</b>    listPagesByCallback()<br />
+  * <b>Name</b>     listPagesBySortFunction()<br>
+  * <b>Alias</b>    listPagesBySort()<br>
+  * <b>Alias</b>    listPagesBySortCallback()<br>
+  * <b>Alias</b>    listPagesByCallback()<br>
   * 
   * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
@@ -2626,8 +2626,8 @@ class Feindura extends FeinduraBase {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */

@@ -102,13 +102,13 @@ var divScroller = new Class({
 
   	 /*
      $('output').set('html',
-      'elementScroll X: ' + this.elementScroll.x + '<br />',
-      'elementScroll Y: ' + this.elementScroll.y + '<br />',
-      'elementPos X: ' + this.elementPosX + '<br />',
-      'elementPos Y: ' + this.elementPosY + '<br />',
-      'mousePosX: ' + this.mousePosX + '<br />',
-      'mousePosY: ' + this.mousePosY + '<br />',
-      'add to Scroll: ' + this.scrollWidthBottomY + '<br />' );
+      'elementScroll X: ' + this.elementScroll.x + '<br>',
+      'elementScroll Y: ' + this.elementScroll.y + '<br>',
+      'elementPos X: ' + this.elementPosX + '<br>',
+      'elementPos Y: ' + this.elementPosY + '<br>',
+      'mousePosX: ' + this.mousePosX + '<br>',
+      'mousePosY: ' + this.mousePosY + '<br>',
+      'add to Scroll: ' + this.scrollWidthBottomY + '<br>' );
      */
    
     // SCROLL Y

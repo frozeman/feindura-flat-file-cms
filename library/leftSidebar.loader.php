@@ -37,7 +37,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
   else $hidden = ' hidden';
   
   echo '<div class="sidebarMenu fixed'.$hidden.'">
-  <div class="top brown"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35" /><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
+  <div class="top brown"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
   <div class="content brown">
     <ul class="verticalButtons">';
           
@@ -73,7 +73,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     else $hidden = '';
   
     echo '<div class="sidebarMenu free'.$hidden.'">
-    <div class="top blue"><img src="library/images/icons/categoryIcon_middle.png" class="icon" alt="icon" width="35" height="35" /><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
+    <div class="top blue"><img src="library/images/icons/categoryIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
     <div class="content blue">
       <ul class="verticalButtons">';      
         
@@ -98,7 +98,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     echo '<div class="spacer arrow"></div>';
     
     echo '<div class="sidebarMenu free">
-    <div class="top gray"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35" /><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localization'],'name').'</span><a href="#" class="toolTip" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localization'],'name').'::">&nbsp;</a></div>
+    <div class="top gray"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localization'],'name').'</span><a href="#" class="toolTip" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localization'],'name').'::">&nbsp;</a></div>
     <div class="content white">
       <ul class="verticalButtons">';      
       
@@ -140,21 +140,21 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
          $logContent = file(dirname(__FILE__).'/../statistic/activity.statistic.log')) {
          
          echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat;margin-bottom:-30px;"></div>';
-         echo '<div id="sidebarTaskLog"><br /><br />';
+         echo '<div id="sidebarTaskLog"><br><br>';
          
               // ->> LIST the tasks
               include(dirname(__FILE__).'/includes/showTaskLog.include.php');
               
-         echo '<br /><br /></div>';
+         echo '<br><br></div>';
          echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollDown.png) no-repeat;margin-top:-30px;"></div>';
       // no log
       } else
         echo $langFile['DASHBOARD_TEXT_ACTIVITY_NONE'];
       
-      echo '<hr />';
+      echo '<hr>';
       
       // -> SHOW USERs
-      echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" width="22" height="21" style="position:relative;top:5px;" /> '.$langFile['DASHBOARD_TITLE_USER'].'</h2><br />';
+      echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" width="22" height="21" style="position:relative;top:5px;"> '.$langFile['DASHBOARD_TITLE_USER'].'</h2><br>';
         if(!empty($userConfig)) {        
 
           // list user
@@ -195,10 +195,10 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       // FEINDURA INFO
       echo '<h2>'.$langFile['ADMINSETUP_TEXT_VERSION'].'</h2>
             <p>'.VERSION.' - Build '.BUILD.'</p>';
-      echo '<a href="README.md" class="standardLink">README</a><br />';
-      echo '<a href="CHANGELOG" class="standardLink">CHANGELOG</a><br />';
+      echo '<a href="README.md" class="standardLink">README</a><br>';
+      echo '<a href="CHANGELOG" class="standardLink">CHANGELOG</a><br>';
       echo '<a href="LICENSE" class="standardLink">LICENSE</a>';
-      echo '<hr />';
+      echo '<hr>';
       
       echo '<h3>'.$langFile['ADMINSETUP_TEXT_PHPVERSION'].'</h3>
       <p>'.PHP_VERSION.'</p>';
@@ -221,7 +221,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
         echo '<div class="sidebarInfo"><div class="content">';
         echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['BUTTON_UP'].'">'.$langFile['BUTTON_UP'].'</a>';
         if(is_array($categoryConfig)) {
-  	      echo '<hr />';
+  	      echo '<hr>';
             echo '<h2>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</h2>';
             echo '<ul>';      
           
@@ -247,7 +247,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
         echo '<div class="sidebarInfo"><div class="content">';
         echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['BUTTON_UP'].'">'.$langFile['BUTTON_UP'].'</a>';
         if(is_array($userConfig)) {
-  	      echo '<hr />';
+  	      echo '<hr>';
             echo '<h2>'.$langFile['userSetup_userSelection'].'</h2>';
             echo '<ul>';      
           
@@ -280,8 +280,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           $lastBackups .= '<span class="deleteIcon" style="width:100%;">';
           $lastBackups .= '<a href="?site=backup&amp;status=deleteBackup&amp;file='.$backupFile.'" onclick="openWindowBox(\'library/views/windowBox/deleteBackup.php?status=deleteBackup&amp;file='.$backupFile.'\',\''.$langFile['BACKUP_TITLE_BACKUP'].'\');return false;" class="deleteIcon toolTip" title="'.$langFile['BACKUP_TOOLTIP_DELETE'].'::" style="top:14px;"></a>';
           $lastBackups .= (strpos($backupFile,'restore') === false)
-            ? '<li class="backupLink"><a href="'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br />'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($backupTime)).' '.StatisticFunctions::formatTime($backupTime).'</a></li>'."\n"
-            : '<li class="backupLink"><a href="'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($backupTime)).' '.StatisticFunctions::formatTime($backupTime).'</a></li>'."\n";
+            ? '<li class="backupLink"><a href="'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br>'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($backupTime)).' '.StatisticFunctions::formatTime($backupTime).'</a></li>'."\n"
+            : '<li class="backupLink"><a href="'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br>'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($backupTime)).' '.StatisticFunctions::formatTime($backupTime).'</a></li>'."\n";
           
           $lastBackups .= '</span>';
         }

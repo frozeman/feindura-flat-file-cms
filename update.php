@@ -41,22 +41,22 @@ $newVersion = '1.1.6';
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
-  <meta http-equiv="content-language" content="en" />
+  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
+  <meta http-equiv="content-language" content="en">
   
   <title>      
     feindura Updater
   </title>
   
-  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
   
-  <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
-  <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
+  <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
+  <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
   
-  <meta name="title" content="feindura > Updater" />    
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]" />     
-  <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]" />
-  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]" />
+  <meta name="title" content="feindura > Updater">    
+  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">     
+  <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
+  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">
   
   <style type="text/css">
    body {
@@ -121,8 +121,8 @@ $newVersion = '1.1.6';
   ?>
   
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
-  <span style="font-size:25px;"><?= $oldVersion ?> &rArr; <?= $newVersion ?></span><br />
-  <br />
+  <span style="font-size:25px;"><?php echo $oldVersion ?> &rArr; <?php echo $newVersion ?></span><br>
+  <br>
   <?php
   
   $updatePossible = (VERSION == $newVersion) ? true : false;
@@ -131,14 +131,14 @@ $newVersion = '1.1.6';
   if(!$updatePossible) {
     
     echo 'hm... you current version is <b>'.VERSION.'</b> you cannot use this updater, :-(';
-    echo '<br /><span class="warning">it\'s only for updating to '.$newVersion.'!</span>';
+    echo '<br><span class="warning">it\'s only for updating to '.$newVersion.'!</span>';
   }
   //$basePath = dirname($_SERVER['PHP_SELF']).'/';
   //$basePath = preg_replace('#\/+#','/',$basePath);
   
   // WRONG PATH WARNING
   if($wrongDirectory) {
-    echo '<br /><span class="warning">You must place the "updater.php" file inside your <span class="feindura"><em>fein</em>dura</span> folder!</span>';
+    echo '<br><span class="warning">You must place the "updater.php" file inside your <span class="feindura"><em>fein</em>dura</span> folder!</span>';
     $updatePossible = false;
   }
   
@@ -146,12 +146,12 @@ $newVersion = '1.1.6';
   elseif($updatePossible && empty($_POST['asking'])) {
     ?>
 
-Good, your current version is <b><?= VERSION; ?></b>, but your content isn't updated yet?
+Good, your current version is <b><?php echo VERSION; ?></b>, but your content isn't updated yet?
 <div>
-<h2>Do you want to update all pages and configs, so that they work with feindura <?= $newVersion ?>?</h2>
-<form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<input type="hidden" name="asking" value="true" />
-<input type="submit" value="UPDATE" />
+<h2>Do you want to update all pages and configs, so that they work with feindura <?php echo $newVersion ?>?</h2>
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<input type="hidden" name="asking" value="true">
+<input type="submit" value="UPDATE">
 </div>
     <?php 
   
@@ -245,7 +245,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     // and start!
     // *********
     
-    echo '<br />';
+    echo '<br>';
     
     // set the DOCUMENTROOT right
     if(DOCUMENTROOT === false) {
@@ -262,11 +262,11 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       $didntCopy = true;
     if($copyError === false && $didntCopy === false) {
       delDir($adminConfig['savePath']);
-      echo 'pages <span class="succesfull">succesfully copied to "feindura_folder/pages/"</span><br />';
+      echo 'pages <span class="succesfull">succesfully copied to "feindura_folder/pages/"</span><br>';
     } elseif($didntCopy) {
-      echo 'old pages folder <span class="succesfull" style="color:#3A74AB;">already copied to "feindura_folder/pages/"? (<strong>You must copy the folder with your pages (set in the "save path" setting) to your feindura folder, e.g. "/pages/" -> "/feindura_folder/pages/"</strong>)</span><br />';
+      echo 'old pages folder <span class="succesfull" style="color:#3A74AB;">already copied to "feindura_folder/pages/"? (<strong>You must copy the folder with your pages (set in the "save path" setting) to your feindura folder, e.g. "/pages/" -> "/feindura_folder/pages/"</strong>)</span><br>';
     } else {
-      echo 'pages <span class="notSuccesfull">could not be copied! Please move the folder with your pages (1.php, 2.php, etc..) to "feindura_folder/pages/" manually and run this updater again.</span><br />';
+      echo 'pages <span class="notSuccesfull">could not be copied! Please move the folder with your pages (1.php, 2.php, etc..) to "feindura_folder/pages/" manually and run this updater again.</span><br>';
       $succesfullUpdate = false;
     }
     
@@ -297,9 +297,9 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     $adminConfig['websitePath'] = (isset($adminConfig['websitePath'])) ? $adminConfig['websitePath'] : '/';
     
     if(saveAdminConfig($adminConfig))
-      echo 'adminConfig <span class="succesfull">succesfully updated</span> (if you had SPEAKING URLS activated, you must delete the mod_rewrite code from your .htaccess file, in the root of your webserver and save the administrator settings to create a new one!)<br />';
+      echo 'adminConfig <span class="succesfull">succesfully updated</span> (if you had SPEAKING URLS activated, you must delete the mod_rewrite code from your .htaccess file, in the root of your webserver and save the administrator settings to create a new one!)<br>';
     else {
-      echo 'adminConfig <span class="notSuccesfull">could not be updated</span><br />';
+      echo 'adminConfig <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
     GeneralFunctions::$adminConfig = $adminConfig;
@@ -397,9 +397,9 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
         $pagesSuccesfullUpdated = false;
     }
     if($pagesSuccesfullUpdated)
-      echo 'pages <span class="succesfull">succesfully updated</span><br />';
+      echo 'pages <span class="succesfull">succesfully updated</span><br>';
     else {
-      echo 'pages <span class="notSuccesfull">could not be updated</span><br />';
+      echo 'pages <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
     
@@ -435,9 +435,9 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       $newCategoryConfig[$newKey] = $category;
     }
     if(saveCategories($newCategoryConfig))
-      echo 'categoryConfig <span class="succesfull">succesfully updated</span><br />';
+      echo 'categoryConfig <span class="succesfull">succesfully updated</span><br>';
     else {
-      echo 'categoryConfig <span class="notSuccesfull">could not be updated</span><br />';
+      echo 'categoryConfig <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
     
@@ -451,9 +451,9 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       $websiteConfig['localization'][0]['description'] = $websiteConfig['description'];
     }
     if(saveWebsiteConfig($websiteConfig))
-      echo 'websiteConfig <span class="succesfull">succesfully updated</span><br />';
+      echo 'websiteConfig <span class="succesfull">succesfully updated</span><br>';
     else {
-      echo 'websiteConfig <span class="notSuccesfull">could not be updated</span><br />';
+      echo 'websiteConfig <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
     
@@ -463,12 +463,12 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       
       // set documentSaved status
       $documentSaved = true;
-      $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'<br />';
+      $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'<br>';
       StatisticFunctions::saveTaskLog(24); // <- SAVE the task in a LOG FILE
       
-      echo 'activity log <span class="succesfull">reset</span><br />';
+      echo 'activity log <span class="succesfull">reset</span><br>';
     } else {
-      echo 'activity log <span class="notSuccesfull">could not be reseted</span><br />';
+      echo 'activity log <span class="notSuccesfull">could not be reseted</span><br>';
       $succesfullUpdate = false;
     }
     
@@ -511,9 +511,9 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       flock($statisticFile,LOCK_UN);
       fclose($statisticFile);
       
-      echo 'website statistic <span class="succesfull">succesfully updated</span><br />';      
+      echo 'website statistic <span class="succesfull">succesfully updated</span><br>';      
     } else {
-      echo 'website statistic <span class="notSuccesfull">could not be updated</span><br />';
+      echo 'website statistic <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
     
@@ -541,10 +541,10 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       flock($logFile,LOCK_UN);
       fclose($logFile);
       
-      echo 'referer <span class="succesfull">Succesfully updated</span><br />';
+      echo 'referer <span class="succesfull">Succesfully updated</span><br>';
       
     } else {
-      echo 'referer <span class="notSuccesfull">could not be updated</span><br />';
+      echo 'referer <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
     
@@ -707,12 +707,12 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     }
       
     if(empty($checkFiles))
-      echo 'removed <span class="succesfull">old files and folders</span><br />';
+      echo 'removed <span class="succesfull">old files and folders</span><br>';
     else {
-      echo 'could not remove <span class="notSuccesfull">old files and folders,<br />
-      please check these files and folders, and remove them manually:<br />';
+      echo 'could not remove <span class="notSuccesfull">old files and folders,<br>
+      please check these files and folders, and remove them manually:<br>';
       foreach($checkFiles as $checkFile) {
-          echo $checkFile.'<br />';
+          echo $checkFile.'<br>';
       }
       echo '</span>';
       $succesfullUpdate = false;
@@ -727,9 +727,9 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       }
       
       if(saveUserConfig($newUserConfig))
-        echo 'userConfig <span class="succesfull">succesfully updated</span><br />';
+        echo 'userConfig <span class="succesfull">succesfully updated</span><br>';
       else {
-        echo 'userConfig <span class="notSuccesfull">could not be updated</span><br />';
+        echo 'userConfig <span class="notSuccesfull">could not be updated</span><br>';
         $succesfullUpdate = false;
       }
     }    

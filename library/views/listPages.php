@@ -26,17 +26,17 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 ?>
 <div class="block open noBg">
-<h1><?= $langFile['SORTABLEPAGELIST_h1']; ?></h1>
+<h1><?php echo $langFile['SORTABLEPAGELIST_h1']; ?></h1>
 
 <div class="listPagesHead">
-  <div class="name"><?= $langFile['SORTABLEPAGELIST_headText1']; ?> <input type="text" value="" size="25" id="listPagesFilter" /><a href="#" id="listPagesFilterCancel"></a></div>
-  <div class="lastSaveDate"><?= $langFile['SORTABLEPAGELIST_headText2']; ?></div>
-  <div class="counter"><?= $langFile['SORTABLEPAGELIST_headText3']; ?></div>
-  <div class="status"><?= $langFile['SORTABLEPAGELIST_headText4']; ?></div>
-  <div class="functions"><?= $langFile['SORTABLEPAGELIST_headText5']; ?></div>
+  <div class="name"><?php echo $langFile['SORTABLEPAGELIST_headText1']; ?> <input type="text" value="" size="25" id="listPagesFilter"><a href="#" id="listPagesFilterCancel"></a></div>
+  <div class="lastSaveDate"><?php echo $langFile['SORTABLEPAGELIST_headText2']; ?></div>
+  <div class="counter"><?php echo $langFile['SORTABLEPAGELIST_headText3']; ?></div>
+  <div class="status"><?php echo $langFile['SORTABLEPAGELIST_headText4']; ?></div>
+  <div class="functions"><?php echo $langFile['SORTABLEPAGELIST_headText5']; ?></div>
 </div>
 
-<form action="<?= GeneralFunctions::getCurrentUrl(); ?>" method="post" accept-charset="UTF-8">
+<form action="<?php echo GeneralFunctions::getCurrentUrl(); ?>" method="post" accept-charset="UTF-8">
 <?php
 
 // shows the PAGES in NO CATEGORIES (the page/ folder),
@@ -63,10 +63,10 @@ foreach($allCategories as $category) {
   // shows the text of the sorting of a CATEGORY
   if(($category['id'] != 0 && $category['sorting'] == 'byPageDate') ||
      ($category['id'] == 0 && $adminConfig['pages']['sorting'] == 'byPageDate'))
-    $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="listPagesH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23" />';
+    $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="listPagesH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23">';
   elseif(($category['id'] != 0 && $category['sorting'] == 'alphabetical') ||
          ($category['id'] == 0 && $adminConfig['pages']['sorting'] == 'alphabetical'))
-    $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="listPagesH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23" />';
+    $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="listPagesH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23">';
   else
     $sorting = '';
   
@@ -97,7 +97,7 @@ foreach($allCategories as $category) {
   // -> CATEGORY HEADLINE
   echo "\n\n".'<div class="block listPages'.$hidden.'">';
   	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
-    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" width="35" height="35" /> '.$categoryName.'</span> '.$sorting.'</a></h1>
+    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" width="35" height="35"> '.$categoryName.'</span> '.$sorting.'</a></h1>
           <div class="category">';
       
       // CATEGORY STATUS
@@ -267,8 +267,8 @@ echo '</ul>
   </div>';
 
 echo "\n".'<!-- transport the sortOrder to the javascript -->
-      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories[$category['id']]['sortReverse'].'" /> <!-- reverse order yes/no -->
-      <input type="hidden" name="sort_order" id="sort_order'.$category['id'].'" value="'.@implode($sort_order,'|').'" /> <!-- the new page order -->';
+      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories[$category['id']]['sortReverse'].'"> <!-- reverse order yes/no -->
+      <input type="hidden" name="sort_order" id="sort_order'.$category['id'].'" value="'.@implode($sort_order,'|').'"> <!-- the new page order -->';
 }
 
 unset($pageContent);

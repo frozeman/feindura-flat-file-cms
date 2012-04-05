@@ -85,15 +85,15 @@ if(!$asking) {
 
 ?>
 <div>
-<form action="?site=deletePage" method="post" enctype="multipart/form-data" id="deletePageForm" onsubmit="requestSite('<?= $_SERVER['PHP_SELF']; ?>','','deletePageForm');return false;" accept-charset="UTF-8">
-<input type="hidden" name="category" value="<?= $category; ?>" />
-<input type="hidden" name="page" value="<?= $page; ?>" />
-<input type="hidden" name="id" value="<?php echo $page; ?>" />
-<input type="hidden" name="asking" value="true" />
+<form action="?site=deletePage" method="post" enctype="multipart/form-data" id="deletePageForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','deletePageForm');return false;" accept-charset="UTF-8">
+<input type="hidden" name="category" value="<?php echo $category; ?>">
+<input type="hidden" name="page" value="<?php echo $page; ?>">
+<input type="hidden" name="id" value="<?php echo $page; ?>">
+<input type="hidden" name="asking" value="true">
 
 
-<a href="?site=pages&amp;category=<?= $category; ?>&amp;page=<?php echo $page; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
-<input type="submit" value="" class="button submit" />
+<a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+<input type="submit" value="" class="button submit">
 </form>
 </div>
 <?php

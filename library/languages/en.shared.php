@@ -51,7 +51,7 @@ $sharedLangFile['SEARCH_TEXT_TIME_2']                       = 'seconds';
 $sharedLangFile['errorWindow_h1']                           = 'An error occured!';
 $sharedLangFile['SORTABLEPAGELIST_setStartPage_error_save'] = '<b>Could not set the start page.</b>';
 $sharedLangFile['EDITOR_savepage_error_save']               = '<b>The page could not be saved.</b>';
-$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'ERROR<br /><br /><span class="logoname">fein<span>dura</span></span> requires at least PHP version'; // PHP 5.2.3
+$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'ERROR<br><br><span class="logoname">fein<span>dura</span></span> requires at least PHP version'; // PHP 5.2.3
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

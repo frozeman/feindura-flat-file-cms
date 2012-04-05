@@ -46,7 +46,7 @@ $pages = $feindura->listPages('category',array(1,2),200,true,true);
 foreach($pages as $page) {
   echo $page['title']."\n\n";
   echo $page['thumbnail']."\n";
-  echo $page['content']."\n<br />-----------------------<br />\n";
+  echo $page['content']."\n<br>-----------------------<br>\n";
 }
 
 
@@ -62,7 +62,7 @@ foreach($pages as $page) {
 Stet clita kasd gubergren, no sea takimata sanctus.</p>
 <a href="?category=1&amp;page=2">mehr</a>
 
-<br />-----------------------<br />
+<br>-----------------------<br>
 
 <a href="?category=1&amp;page=3" title="2010-12-31 - Example Page 2">
 2010-12-31 - Example...
@@ -73,18 +73,18 @@ Stet clita kasd gubergren, no sea takimata sanctus.</p>
 <p>Stet clita kasd gubergren, no sea takimata sanctus est...</p>
 <a href="?category=1&amp;page=3">mehr</a>
 
-<br />-----------------------<br />
+<br>-----------------------<br>
 
 <a href="?category=2&amp;page=1" title="Example Page 1">
 Example Page 1
 </a>
 <img src="/path/thumb_page3.png" alt="Thumbnail" title="Example Page 1" id="thumbId"
-class="thumbCLass" test="exampleAttribute1" onclick="exampleAttribute2" style="float:left;" />
+class="thumbCLass" test="exampleAttribute1" onclick="exampleAttribute2" style="float:left;">
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 invidunt ut labore et dolore magna aliquyam erat, ur sadipscing elitr,
 Stet clita kasd...</p>
 <a href="?category=2&amp;page=1">mehr</a>
 
-<br />-----------------------<br />
+<br>-----------------------<br>
 
 ?>

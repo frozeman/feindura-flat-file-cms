@@ -85,13 +85,13 @@ if(!$asking) {
 ?>
 <div>
 <form action="?site=deletePage" method="post" enctype="multipart/form-data" id="deletePageForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','deletePageForm');return false;" accept-charset="UTF-8">
-<input type="hidden" name="category" value="<?php echo $category; ?>" />
-<input type="hidden" name="id" value="<?php echo $page; ?>" />
-<input type="hidden" name="site" value="<?php echo $site; ?>" />
-<input type="hidden" name="asking" value="true" />
+<input type="hidden" name="category" value="<?php echo $category; ?>">
+<input type="hidden" name="id" value="<?php echo $page; ?>">
+<input type="hidden" name="site" value="<?php echo $site; ?>">
+<input type="hidden" name="asking" value="true">
 
 <a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
-<input type="submit" value="" class=" button submit" />
+<input type="submit" value="" class=" button submit">
 </form>
 
 <!-- show a preview of the thumbnail -->
@@ -100,7 +100,7 @@ if(!$asking) {
   // generates a random number to put on the end of the image, to prevent caching
   $randomImage = '?'.md5(uniqid(rand(),1));
 ?>
-<img src="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.$randomImage; ?>" alt="thumbnail" title="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail; ?>" />
+<img src="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.$randomImage; ?>" alt="thumbnail" title="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail; ?>">
 </div>
 </div>
 <?php

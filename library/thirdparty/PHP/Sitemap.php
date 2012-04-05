@@ -170,7 +170,7 @@ class Sitemap {
         $http_response = fgets($fp, 128);
         fclose($fp);
         list($response, $code) = explode (' ', $http_response);
-        if ($this->showError && $code != 200) trigger_error ("{$host} ping was unsuccessful.<br />Code: {$code}<br />Response: {$response}");
+        if ($this->showError && $code != 200) trigger_error ("{$host} ping was unsuccessful.<br>Code: {$code}<br>Response: {$response}");
       }
     }
   }

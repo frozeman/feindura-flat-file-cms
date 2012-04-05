@@ -35,5 +35,5 @@ echo '<h1>'.$langFile['unsavedPage_question_h1'].'</h1>';
 ?>
 <div>
 <a href="#" class="ok left" onclick="$('editorForm').submit();return false;">&nbsp;</a>
-<a href="<?= $target; ?>" class="cancel" onclick="closeWindowBox('<?= $target; ?>');return false;">&nbsp;</a>
+<a href="<?php echo $target; ?>" class="cancel" onclick="closeWindowBox('<?php echo $target; ?>');return false;">&nbsp;</a>
 </div>

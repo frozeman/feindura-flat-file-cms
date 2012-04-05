@@ -47,7 +47,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['cre
      StatisticFunctions::saveTaskLog(25); // <- SAVE the task in a LOG FILE
   } else { // throw error
     $errorWindow .= ($errorWindow) // if there is already an warning
-      ? '<br /><br />'.sprintf($langFile['userSetup_error_create'],$adminConfig['realBasePath'])
+      ? '<br><br>'.sprintf($langFile['userSetup_error_create'],$adminConfig['realBasePath'])
       : sprintf($langFile['userSetup_error_create'],$adminConfig['realBasePath']); 
   }
      

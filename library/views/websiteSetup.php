@@ -52,8 +52,8 @@ if($unwriteableList && checkBasePathAndURL()) {
 ?>
 <form action="index.php?site=websiteSetup#websiteConfig" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div>
-  <input type="hidden" name="send" value="websiteSetup" />
-  <input type="hidden" name="websiteLanguage" value="<?= $_SESSION['feinduraSession']['websiteLanguage']; ?>" />
+  <input type="hidden" name="send" value="websiteSetup">
+  <input type="hidden" name="websiteLanguage" value="<?php echo $_SESSION['feinduraSession']['websiteLanguage']; ?>">
   </div>
   
 <!-- PAGE SETTINGS -->
@@ -68,7 +68,7 @@ $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
     <table>
      
       <colgroup>
-      <col class="left" />
+      <col class="left">
       </colgroup>
   
       <tr><td class="leftTop"></td><td></td></tr>
@@ -77,21 +77,21 @@ $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
       <label for="title"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field1'].'::'.$langFile['websiteSetup_websiteConfig_field1_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_field1']; ?></span></label>
       </td><td class="right">
-      <input id="title" name="title" value="<?= GeneralFunctions::getLocalized($websiteConfig['localization'],'title',true); ?>" />
+      <input id="title" name="title" value="<?php echo GeneralFunctions::getLocalized($websiteConfig['localization'],'title',true); ?>">
       </td></tr>
       
       <tr><td class="left">
       <label for="publisher"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field2'].'::'.$langFile['websiteSetup_websiteConfig_field2_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_field2']; ?></span></label>
       </td><td class="right">
-      <input id="publisher" name="publisher" value="<?= GeneralFunctions::getLocalized($websiteConfig['localization'],'publisher',true); ?>" />
+      <input id="publisher" name="publisher" value="<?php echo GeneralFunctions::getLocalized($websiteConfig['localization'],'publisher',true); ?>">
       </td></tr>
       
       <tr><td class="left">
       <label for="websiteConfig_copyright"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field3'].'::'.$langFile['websiteSetup_websiteConfig_field3_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_field3']; ?></span></label>
       </td><td class="right">
-      <input id="websiteConfig_copyright" name="websiteConfig_copyright" value="<?= GeneralFunctions::getLocalized($websiteConfig['localization'],'copyright',true); ?>" />
+      <input id="websiteConfig_copyright" name="websiteConfig_copyright" value="<?php echo GeneralFunctions::getLocalized($websiteConfig['localization'],'copyright',true); ?>">
       </td></tr>
       
       <tr><td class="spacer"></td><td></td></tr>
@@ -100,22 +100,22 @@ $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
       <label for="keywords"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field4'].'::'.$langFile['websiteSetup_websiteConfig_field4_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_field4']; ?></span></label>
       </td><td class="right">
-      <input id="keywords" name="keywords" value="<?= GeneralFunctions::getLocalized($websiteConfig['localization'],'keywords',true); ?>" class="inputToolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field4_inputTip']; ?>" />
+      <input id="keywords" name="keywords" value="<?php echo GeneralFunctions::getLocalized($websiteConfig['localization'],'keywords',true); ?>" class="inputToolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field4_inputTip']; ?>">
       </td></tr>
       
       <tr><td class="left">
       <label for="description"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field5'].'::'.$langFile['websiteSetup_websiteConfig_field5_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_field5']; ?></span></label>
       </td><td class="right">
-      <textarea id="description" name="description" cols="50" rows="4" style="white-space:normal;width:500px;height:70px;" class="inputToolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?= GeneralFunctions::getLocalized($websiteConfig['localization'],'description',true); ?></textarea>
+      <textarea id="description" name="description" cols="50" rows="4" style="white-space:normal;width:500px;height:70px;" class="inputToolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($websiteConfig['localization'],'description',true); ?></textarea>
       </td></tr>
       
       <tr><td class="leftBottom"></td><td></td></tr>
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
-    <input type="submit" value="" name="websiteConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
+    <input type="submit" value="" name="websiteConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
   </div>
   <div class="bottom"></div>
 </div>

@@ -38,7 +38,7 @@ echo '</head>
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> <!-- enable google chrome frame, if available -->
 
-  <meta name="author" content="Max Musterman" />
+  <meta name="author" content="Max Musterman">
   <meta name="publisher" content="Somebody From the Backend">
   <meta name="copyright" content="Somebody From the Backend">
   <meta name="generator" content="feindura - Flat File CMS 1.2 build:999">
@@ -48,9 +48,9 @@ echo '</head>
   <link rel="alternate" type="application/atom+xml" title="An Example Website (Atom, EN)" href="http://localhost/cms/pages/atom.en.xml">
   <link rel="alternate" type="application/rss+xml" title="An Example Website (RSS 2.0, EN)" href="http://localhost/cms/pages/rss2.en.xml">
 
-  <link rel="stylesheet" type="text/css" href="/cms/plugins/contactForm/css/style.css" />
-  <link rel="stylesheet" type="text/css" href="/cms/plugins/imageGallery/milkbox/css/milkbox.css" />
-  <link rel="stylesheet" type="text/css" href="/cms/plugins/imageGallery/milkbox copy/css/milkbox.css" />
+  <link rel="stylesheet" type="text/css" href="/cms/plugins/contactForm/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/cms/plugins/imageGallery/milkbox/css/milkbox.css">
+  <link rel="stylesheet" type="text/css" href="/cms/plugins/imageGallery/milkbox copy/css/milkbox.css">
 
 </head>
 <body>

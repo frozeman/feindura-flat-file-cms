@@ -6,7 +6,7 @@ array(
   'pageDate'          => '2000-12-31', // depending on the date format settings from the backend
   'pageDateTimestamp' => 1325393999,
   'title'             => 'Title Example',
-  'thumbnail'         => '<img src="/path/thumb_page1.png" alt="Thumbnail" title="Title Example" />',
+  'thumbnail'         => '<img src="/path/thumb_page1.png" alt="Thumbnail" title="Title Example">',
   'thumbnailPath'     => '/path/thumb_page1.png',
   'content'           => "\n".'<p>Content Text</p>'."\n", // the content has line breaks before and after
   'description'       => 'Short description of the page',

@@ -53,7 +53,7 @@ if(isset($_GET['downloadBackup'])) {
         
         header('Location: index.php?site=backup');
       } else
-        $errorWindow .= $langFile['BACKUP_ERROR_FILENOTFOUND'].'<br />'.$backupFile;      
+        $errorWindow .= $langFile['BACKUP_ERROR_FILENOTFOUND'].'<br>'.$backupFile;      
     }
   
   // -> throw folder error

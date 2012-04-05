@@ -53,7 +53,7 @@ echo $link;
 text before link <a href="?category=1&amp;page=1" title="Example Category -> 2010-12-31 - Example Page"
 id="exampleId" class="exampleClass" test="exampleAttribute1" onclick="exampleAttribute2">
 text before thumbnail <img src="/path/thumb_page1.png" alt="Thumbnail" title="Example Page"
-id="thumbId" class="thumbClass" test="thumbnailAttr1" onclick="thumbnailAttr2" style="float:left;" />
+id="thumbId" class="thumbClass" test="thumbnailAttr1" onclick="thumbnailAttr2" style="float:left;">
 text after thumbnail
 text before Example Category -> 2010-12-31 - Example ... text after
 </a> text after link

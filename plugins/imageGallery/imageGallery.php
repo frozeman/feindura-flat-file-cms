@@ -51,8 +51,8 @@ require_once(dirname(__FILE__).'/includes/Image.class.php');
 * @subpackage imageGallery
 * 
 * @version 1.11
-* <br />
-* <b>ChangeLog</b><br />
+* <br>
+* <b>ChangeLog</b><br>
 *    - 1.11 add milkbox as lightbox
 *    - 1.1 removed resize() because it uses now the {@link Image} class
 *    - 1.02 fixed image texts
@@ -78,7 +78,7 @@ class imageGallery {
  /**
   * TRUE when the pages content should be handled as XHTML
   *
-  * In XHTML standalone tags end with " />" instead of ">".<br />
+  * In XHTML standalone tags end with " />" instead of ">".<br>
   * Therefor when a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".
   * 
   * @var bool
@@ -247,7 +247,7 @@ class imageGallery {
   
   
  /**
-  * <b>Type</b> constructor<br />
+  * <b>Type</b> constructor<br>
   * 
   * The constructor of the class, sets all basic properties.
   * 
@@ -267,8 +267,8 @@ class imageGallery {
   * 
   * @access public
   * @version 1.02
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - changed thumbnail names to "thumb_filename_jpg.png"
   *    - 1.01 fixed image texts  
   *    - 1.0 initial release
@@ -346,7 +346,7 @@ class imageGallery {
  /* **************************************************************************************************************************** */
  
   /**
-  * <b>Name</b> readFolder()<br />
+  * <b>Name</b> readFolder()<br>
   * 
   * Reads a folder and return it's files.
   * 
@@ -357,8 +357,8 @@ class imageGallery {
   * 
   * @access private
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -403,7 +403,7 @@ class imageGallery {
   }
  
  /**
-  * <b>Name</b> resizeImages()<br />
+  * <b>Name</b> resizeImages()<br>
   * 
   * Resize the images to the size set in the {@link imageGallery::$imageWidth} and {@link imageGallery::$imageHeight} property.
   * 
@@ -418,8 +418,8 @@ class imageGallery {
   * 
   * @access protected
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -456,7 +456,7 @@ class imageGallery {
   }
   
  /**
-  * <b>Name</b> createThumbnails()<br />
+  * <b>Name</b> createThumbnails()<br>
   * 
   * Resize the images to the size set in the {@link imageGallery::$thumbnailWidth} and {@link imageGallery::$thumbnailHeight} property and copy them to a "thumbnails/" subfolder. 
   * 
@@ -470,8 +470,8 @@ class imageGallery {
   * 
   * @access protected
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -546,7 +546,7 @@ class imageGallery {
   }
   
  /**
-  * <b>Name</b> getImages()<br />
+  * <b>Name</b> getImages()<br>
   * 
   * Generates the image links and return them in an array.
   * 
@@ -556,8 +556,8 @@ class imageGallery {
   * 
   * @access protected
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -583,7 +583,7 @@ class imageGallery {
   }
 
  /**
-  * <b>Name</b> createLinkToGallery()<br />
+  * <b>Name</b> createLinkToGallery()<br>
   * 
   * Generates a link to the gallery which shows the {@link imageGallery::$previewImage preview image} and the {@link imageGallery::$title gallery title}.
   * 
@@ -594,8 +594,8 @@ class imageGallery {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
@@ -610,11 +610,11 @@ class imageGallery {
     $previewImage = (!empty($this->previewImage)) ? '<img src="'.$previewImagePath.'" alt="previewImage"'.$tagEnd : '';
     $linkUrl = (strpos($_SERVER['REQUEST_URI'],'?') === false) ? $_SERVER['REQUEST_URI'].'?gallery=' : $_SERVER['REQUEST_URI'].'&amp;gallery=';
     
-    return '<a href="'.$linkUrl.$this->galleryPath.'">'.$previewImage.'<br />'.$this->title.'</a>';    
+    return '<a href="'.$linkUrl.$this->galleryPath.'">'.$previewImage.'<br>'.$this->title.'</a>';    
   }
   
  /**
-  * <b>Name</b> showGallery()<br />
+  * <b>Name</b> showGallery()<br>
   * 
   * Generates the gallery for displaying in an HTML-page
   * 
@@ -631,8 +631,8 @@ class imageGallery {
   * 
   * @access public
   * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
+  * <br>
+  * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */
