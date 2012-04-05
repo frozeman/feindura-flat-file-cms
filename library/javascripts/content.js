@@ -950,12 +950,12 @@ window.addEvent('domready', function() {
 					//-------------------------------------
           onRequest: function() {
 
-
-            // put the save new order - text in the loadingBox AND show the loadingBox
+            // PUT the save new order - TEXT in the loadingBox AND SHOW the LOADINGBOX
             $('loadingBox').getChildren('.content').set('html','<span style="color:#D36100;font-weight:bold;font-size:18px;">'+sortablePageList_status[0]+'</span>');
+            // set tween
+            $('loadingBox').set('tween',{duration: 200});
             $('loadingBox').setStyle('display','block');
-            $('loadingBox').fade('hide');
-            $('loadingBox').fade('in');
+            $('loadingBox').setStyle('opacity','1');
 
 		},
 		//-------------------------------------
@@ -990,10 +990,13 @@ window.addEvent('domready', function() {
       // RELOADS the sidebarMenu
       requestLeftSidebar('pages','0',categoryNew);
 
-      // hide the loadingBox
-      //$('loadingBox').setStyle('visibility','hidden');
-      $('loadingBox').fade('show');
-      $('loadingBox').fade('out');
+      // HIDE the LOADINGBOX
+      $('loadingBox').tween('opacity','0');
+      $('loadingBox').get('tween').chain(function(){
+        $('loadingBox').getChildren('.content')[0].empty();
+        $('loadingBox').setStyle('display','none');
+      });
+
 		}
   }).send();
 

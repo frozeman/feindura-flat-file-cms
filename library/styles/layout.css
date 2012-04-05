@@ -284,7 +284,6 @@ a.gray:hover, a.gray:focus {
 /* *** LOADING -*/
 
 #loadingBox {
-    visibility: hidden;
     z-index: 16;
     position: fixed;
     top: 40%;
@@ -292,6 +291,7 @@ a.gray:hover, a.gray:focus {
     margin-left: auto;
     margin-right: auto;
     width: 330px;
+    display: none;
     }    
 #loadingBox .top {
     height: 30px;

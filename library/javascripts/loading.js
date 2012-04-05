@@ -44,12 +44,12 @@ function showDocumentSaved() {
 
 // create loading circle container
 var jsLoadingCircleContainer = new Element('div', {'style': 'position: relative;margin: auto;width: 100%;height: 100%;'});
-var removeLoadingCircle = false;
+var removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
 
 // ->> LOADING CIRCLE FUNCTIONS
 
 // -> show loading circle
-function showLoadingCircle() {
+function onStartLoadingCircle() {
 
   // -> add to the #content div
   $('loadingBox').getChildren('.content').grab(jsLoadingCircleContainer,'top');
@@ -57,39 +57,41 @@ function showLoadingCircle() {
   // set tween
   $('loadingBox').set('tween',{duration: 400});
   // show the loadingCircle
-  $('loadingBox').fade('show');
+  $('loadingBox').setStyle('display','block');
   
   // add the loading circle
-  removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
+  // if(!removeLoadingCircle)
+    // removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
   
   // blend out after page is loaded
   window.addEvent('load', function() {
-      $('loadingBox').tween('opacity','0');
-  });
-  
-  // disply none the documentsaved, after blending in and out
-  $('loadingBox').get('tween').chain(function() {
-      removeLoadingCircle();
-      removeLoadingCircle = false;
-      $('loadingBox').getChildren('.content').empty();
-      $('loadingBox').setStyle('display','none');
-      $('loadingBox').setStyle('opacity','1');
+    $('loadingBox').tween('opacity','0');
+
+    // disply none the documentsaved, after blending in and out
+    $('loadingBox').get('tween').chain(function() {
+        // removeLoadingCircle();
+        // removeLoadingCircle = false;
+        $('loadingBox').setStyle('display','none');
+        $('loadingBox').getChildren('.content')[0].empty();
+    });
   });
 }
 
 // -> hide loading circle
-function hideLoadingCircle() {
+function onEndLoadingCircle() {
 
+  // set tween
+  // $('loadingBox').set('tween',{duration: 200});
   var loadingBoxContent = $('loadingBox').getChildren('.content');
 
   // empties the loadingBox, and refill with the loadingCircle
   if(loadingBoxContent !== null) {
-    loadingBoxContent.empty();
+    $('loadingBox').getChildren('.content')[0].empty();
     loadingBoxContent.grab(jsLoadingCircleContainer,'top');
-    if(!removeLoadingCircle)
-      feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
-
+    // if(!removeLoadingCircle)
+    //   feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
     $('loadingBox').setStyle('display','block');
+    $('loadingBox').setStyle('opacity','1');
   }
 }
 
@@ -103,13 +105,13 @@ window.addEvent('domready', function() {
   if($('content') !== null && loadingBox !== null &&
      $('documentSaved') !== null && !$('documentSaved').hasClass('saved')) {
     
-    showLoadingCircle();
+    onStartLoadingCircle();
     
   // ->> hide loading circle, when it was not animated
   } else if(loadingBox !== null) {
-    $('loadingBox').getChildren('.content').empty();
+    $('loadingBox').getChildren('.content')[0].empty();
     $('loadingBox').setStyle('display','none');
-    $('loadingBox').setStyle('opacity','1');
+    // $('loadingBox').setStyle('opacity','1');
   }
   
   // fix height of the sidebar
@@ -131,6 +133,6 @@ window.addEvent('domready', function() {
 
 // LOADING-CIRCLE when the website will be left
 window.addEvent('beforeunload',  function() {
-  hideLoadingCircle();
+  onEndLoadingCircle();
 
 });

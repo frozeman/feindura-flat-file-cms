@@ -100,9 +100,6 @@ if($_GET['site'] == 'addons') {
   <!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
   
-  <!-- javascripts (only loading.js is up here, so the loading box appears soon) -->
-  <script type="text/javascript" src="library/javascripts/loading.js<?= '?v='.BUILD; ?>"></script>
-  
   <!-- thirdparty/AutoGrow [http://cpojer.net/PowerTools/] (need MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/powertools-1.0.1.js"></script>
   
@@ -142,6 +139,7 @@ if($_GET['site'] == 'addons') {
  
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascripts/shared.js<?= '?v='.BUILD; ?>"></script>
+  <script type="text/javascript" src="library/javascripts/loading.js<?= '?v='.BUILD; ?>"></script>
   <script type="text/javascript" src="library/javascripts/windowBox.js<?= '?v='.BUILD; ?>"></script>
   <script type="text/javascript" src="library/javascripts/content.js<?= '?v='.BUILD; ?>"></script>
   

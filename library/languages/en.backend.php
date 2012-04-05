@@ -356,7 +356,7 @@ $langFile['SORTABLEPAGELIST_changeStatusCategory_error_save']             = '<b>
 
 $langFile['SORTABLEPAGELIST_info']                                        = 'You can change the <b>sorting</b> of the pages and move pages between categories by <b>Drag and Drop</b>.';
 $langFile['SORTABLEPAGELIST_save']                                        = 'Save new sorting ...';
-$langFile['SORTABLEPAGELIST_save_finished']                               = 'New sorting successfully saved!';
+$langFile['SORTABLEPAGELIST_save_finished']                               = 'Successfully saved new sorting!';
 $langFile['SORTABLEPAGELIST_error_save']                                  = '<b>Could not save the page.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_error_read']                                  = '<b>The pages could not be read.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>Could not move the page into the new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
