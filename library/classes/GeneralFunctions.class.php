@@ -1489,7 +1489,7 @@ class GeneralFunctions {
           $description = self::getLocalized($feedsPage['localization'],'description',$langCode);
           
           $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
-          $content = self::replaceLinks(self::getLocalized($feedsPage['localization'],'content',$langCode),false,$langCode);
+          $content = self::replaceLinks(self::getLocalized($feedsPage['localization'],'content',$langCode),false,$langCode,true);
           $content = strip_tags($content,'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><em><s><u><strong><small><span>');
           $content = preg_replace('#<h[0-6]>#','<strong>',$content);
           $content = preg_replace('#</h[0-6]>#','</strong><br>',$content);
@@ -1636,9 +1636,10 @@ class GeneralFunctions {
   * 
   * Replaces all feindura links (e.g. "?feinduraPageID=3") inside the given <var>$pageContentString</var> parameter, with real href links.
   *
-  * @param string $pageContentString      the page content string, to replace all feindura links, with real hrefs
+  * @param string      $pageContentString the page content string, to replace all feindura links, with real hrefs
   * @param bool|string $sessionId         (optional) the session id which should be transported to the {@link GeneralFunctions::createHref()} method
   * @param bool|string $language          (optional) the language code id which should be transported to the {@link GeneralFunctions::createHref()} method
+  * @param bool        $fullUrl           (optional) if TRUE it replaces the links with full URLs (containing the domain)
   * 
   * @uses GeneralFunctions::readPage()    to load the page for createHref()
   * @uses GeneralFunctions::createHref()  to create the hreaf of the link
@@ -1655,11 +1656,11 @@ class GeneralFunctions {
   *    - 1.0 initial release
   * 
   */
-  public function replaceLinks($pageContentString,$sessionId = false,$language = false) {
+  public function replaceLinks($pageContentString,$sessionId = false,$language = false,$fullUrl = false) {
     if(preg_match_all ('#\?*feinduraPageID\=([0-9]+)#i', $pageContentString, $matches,PREG_SET_ORDER)) {
       // replace each link
       foreach($matches as $match) {
-        $pageContentString = str_replace($match[0],self::createHref(GeneralFunctions::readPage($match[1],self::getPageCategory($match[1])),$sessionId,$language),$pageContentString);
+        $pageContentString = str_replace($match[0],self::createHref(GeneralFunctions::readPage($match[1],self::getPageCategory($match[1])),$sessionId,$language,$fullUrl),$pageContentString);
       }
     }
     return $pageContentString;
