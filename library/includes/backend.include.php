@@ -129,14 +129,18 @@ if($adminConfig['multiLanguageWebsite']['active']) {
  * And loads the langauge files
  *
  */
-// -> check language
-//unset($_SESSION['feinduraSession']['backendLanguage']);
+// unset($_SESSION['feinduraSession']['backendLanguage']);
 //XSS Filter
 if(isset($_GET['backendLanguage'])) $_GET['backendLanguage'] = XssFilter::alphabetical($_GET['backendLanguage']);
 if(isset($_SESSION['feinduraSession']['backendLanguage'])) $_SESSION['feinduraSession']['backendLanguage'] = XssFilter::alphabetical($_SESSION['feinduraSession']['backendLanguage']);
 
 if(isset($_GET['backendLanguage'])) $_SESSION['feinduraSession']['backendLanguage'] = $_GET['backendLanguage'];
 
+// GET BROWSER LANGUAGE, if no language is given
+if(!empty($_SESSION['feinduraSession']['backendLanguage']))
+  $_SESSION['feinduraSession']['backendLanguage'] = GeneralFunctions::getBrowserLanguages('en',true);
+
+// LOAD LANG FILES
 $backendLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feinduraSession']['backendLanguage']);
 $sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feinduraSession']['backendLanguage']);
 
