@@ -209,7 +209,7 @@
       className: 'feindura_toolTipBox',
       offset: {'x': 10,'y': 15},
       fixed: false,
-      showDelay: 200,
+      showDelay: 400,
       hideDelay: 0 });
   }
 

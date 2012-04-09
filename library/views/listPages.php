@@ -160,6 +160,11 @@ foreach($allCategories as $category) {
       // -> show lastSaveDate
       $lastSaveDate = StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.StatisticFunctions::formatTime($pageContent['lastSaveDate']);
       
+      // -> show page ID
+      $pageId = (isAdmin())
+        ? '[br][b]ID:[/b] '.$pageContent['id']
+        : '';
+
       // -> generate pageDate for toolTip
       $toolTipPageDate = showPageDate($pageContent);
       
@@ -193,7 +198,7 @@ foreach($allCategories as $category) {
       // startpage icon before the name
       if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
         $activeStartPage = ' startPage';
-        $startPageText = $langFile['SORTABLEPAGELIST_functions_startPage_set'].'[br]';
+        $startPageText = $langFile['SORTABLEPAGELIST_functions_startPage_set'];
       } else {
         $activeStartPage = '';
         $startPageText = '';
@@ -202,7 +207,7 @@ foreach($allCategories as $category) {
       echo '<div class="name">
             <a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'"
             title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title'))).'::
-            '.$startPageText.'[b]ID:[/b] '.$pageContent['id'].$toolTipPageDate.$toolTipTags.$toolTipPageLanguages.'">
+            '.$startPageText.$pageId.$toolTipPageDate.$toolTipTags.$toolTipPageLanguages.'">
             <b>'.$title.'</b>
             </a></div>';
       echo (!empty($pageContent['lastSaveAuthor']))

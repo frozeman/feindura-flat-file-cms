@@ -57,7 +57,7 @@ function setToolTips() {
     //onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');
     offset: {'x': 10,'y': 15},
     fixed: false,
-    showDelay: 200,
+    showDelay: 500,
     hideDelay: 0 });
 
   /* thumbnailToolTip */
@@ -65,7 +65,7 @@ function setToolTips() {
     className: 'feindura_toolTipBox',
     offset: {'x': -320,'y': -20},
     fixed: true,
-    showDelay: 130,
+    showDelay: 330,
     hideDelay: 100 });
 
   // -> window is smaller 1255px
@@ -75,7 +75,7 @@ function setToolTips() {
       className: 'feindura_toolTipBox',
       offset: {'x': -275,'y': -20},
       fixed: true,
-      showDelay: 100,
+      showDelay: 300,
       hideDelay: 100 });
 
   // -> window is larger 1255px
@@ -85,7 +85,7 @@ function setToolTips() {
       className: 'feindura_toolTipBox',
       offset: {'x': 500,'y': -20},
       fixed: true,
-      showDelay: 100,
+      showDelay: 300,
       hideDelay: 100 });
 
   }

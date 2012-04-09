@@ -34,7 +34,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
   // slide the categories menu IN, when a category is open
   if(empty($_GET['category']))
     $hidden = '';
-  else $hidden = ' hidden';
+  else 
+    $hidden = ' hidden';
   
   echo '<div class="sidebarMenu fixed'.$hidden.'">
   <div class="top brown"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
@@ -42,14 +43,19 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     <ul class="verticalButtons">';
           
     if($pages = GeneralFunctions::loadPages(0,true)) {
-        
       foreach($pages as $page) {
+
+        // -> show page ID
+        $pageId = (isAdmin())
+          ? ' class="toolTip noMark" title="ID '.$page['id'].'"'
+          : '';
+
         if($_GET['page'] == $page['id'])
           $pageSelected = ' class="active"';
         else
           $pageSelected = '';
              
-        echo '<li><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span>'.strip_tags(GeneralFunctions::getLocalized($page['localized'],'title')).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+        echo '<li><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span'.$pageId.'>'.strip_tags(GeneralFunctions::getLocalized($page['localized'],'title')).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
         $tabIndex++;
       }
     } else {
@@ -78,11 +84,16 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       <ul class="verticalButtons">';      
         
       foreach($categoryConfig as $category) {
+        // -> show category ID
+        $categoryId = (isAdmin())
+          ? ' class="toolTip noMark" title="ID '.$category['id'].'"'
+          : '';
+
         if($_GET['category'] == $category['id'])
             $categorySelected = ' class="active"';
           else
             $categorySelected = '';                  
-        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="requestLeftSidebar(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span>'.GeneralFunctions::getLocalized($category['localized'],'name').'</span></a></li>';        
+        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="requestLeftSidebar(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span'.$categoryId.'>'.GeneralFunctions::getLocalized($category['localized'],'name').'</span></a></li>';        
         $tabIndex++;
       }        
     echo '</ul>          
@@ -105,12 +116,18 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       if($pages = GeneralFunctions::loadPages($_GET['category'],true)) { 
   
         foreach($pages as $page) {
+
+          // -> show page ID
+          $pageId = (isAdmin())
+            ? ' class="toolTip noMark" title="ID '.$page['id'].'"'
+            : '';
+
           if($_GET['page'] == $page['id'])
             $pageSelected = ' class="active"';
           else
             $pageSelected = '';
                
-          echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span>'.GeneralFunctions::getLocalized($page['localized'],'title').'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+          echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span'.$pageId.'>'.GeneralFunctions::getLocalized($page['localized'],'title').'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
           $tabIndex++;
         }       
       } else {

@@ -679,7 +679,7 @@ $langFile['EDITOR_pageinfo_linktothispage']                               = 'Col
 $langFile['EDITOR_pageinfo_id']                                           = 'ID Pagina';
 $langFile['EDITOR_pageinfo_id_tip']                                       = 'La pagina verrà salvata con questo ID sul server.';
 $langFile['EDITOR_pageinfo_category']                                     = 'Categoria';
-$langFile['EDITOR_pageinfo_category_noCategory']                          = 'nessuna categoria (ID 0)';
+$langFile['EDITOR_pageinfo_category_noCategory']                          = 'nessuna categoria';
 
 $langFile['EDITOR_TEXT_CHOOSETEMPLATE']                                   = 'Usa modello';
 

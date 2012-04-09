@@ -262,10 +262,20 @@ else
 // -> show the page PAGE HEADLINE
 echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColorClasses.'"'.$titleIsEditable.$titleData.'>'.$pageTitle.'</span>'.$sorting.'<span style="display:none;" class="toolTip noMark notSavedSignPage'.$pageContent['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></h1>';
 
+// shows the PUBLIC OR UNPUBLIC in headline
+if(!$newPage) {
+  echo '<div style="z-index: 2;position:absolute;top: -5px; right:15px;">';
+  if($pageContent['public'])
+    echo ' <a href="?category='.$pageContent['category'].'&page='.$pageContent['id'].'&status=changePageStatus&public=1&reload='.rand(0,999).'#pageInformation" class="toolTip noMark image" title="'.$langFile['STATUS_PAGE_PUBLIC'].'::"><img src="library/images/icons/page_public.png" '.$publicSignStyle.' alt="public" width="27" height="27"></a>';
+  else
+    echo ' <a href="?category='.$pageContent['category'].'&page='.$pageContent['id'].'&status=changePageStatus&reload='.rand(0,999).'#pageInformation" class="toolTip noMark image" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'::"><img src="library/images/icons/page_nonpublic.png"'.$publicSignStyle.' alt="nonpublic" width="27" height="27"></a>';
+  echo '</div>';
+}
+
 ?>
   <div class="content">   
     <?php
-    
+
     // -> show LAST SAVE DATE TIME
     $lastSaveDate =  StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile));
     $lastSaveTime =  StatisticFunctions::formatTime($pageContent['lastSaveDate']);
@@ -320,7 +330,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
       <tr><td class="leftTop"></td><td></td></tr>      
       <?php
       
-      if(!$newPage)
+      if(!$newPage && isAdmin())
         echo '<tr>
               <td class="left">      
               <span class="info toolTip" title="'.$langFile['EDITOR_pageinfo_id'].'::'.$langFile['EDITOR_pageinfo_id_tip'].'"><strong>'.$langFile['EDITOR_pageinfo_id'].'</strong></span>
@@ -329,10 +339,15 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
               </td>
               </tr>';
       
-      if($_GET['category'] == 0) // show only if categories exist
-        $categoryName = '<span style="color:#A6A6A6;">'.$langFile['EDITOR_pageinfo_category_noCategory'].'</span>';
-      else
-        $categoryName = '<span style="color:#A6A6A6;">'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localized'],'name').' (ID </span>'.$_GET['category'].'<span style="color:#A6A6A6;">)</span>';
+      if($_GET['category'] == 0) {// show only if categories exist
+        $categoryName = $langFile['EDITOR_pageinfo_category_noCategory'];
+        if(isAdmin())
+          $categoryName .= ' <span style="color:#A6A6A6;">(ID 0)</span>';
+      } else {
+        $categoryName = GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localized'],'name');
+        if(isAdmin())
+          $categoryName .= ' <span style="color:#A6A6A6;">(ID '.$_GET['category'].')</span>';
+      }
       
     
       // ->> if newPage

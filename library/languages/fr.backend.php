@@ -642,7 +642,7 @@ $langFile['EDITOR_pageinfo_linktothispage']                               = 'lie
 $langFile['EDITOR_pageinfo_id']                                           = 'ID de la page';
 $langFile['EDITOR_pageinfo_id_tip']                                       = 'Le site web sera sauvegardé sur le serveur sous cette ID.';
 $langFile['EDITOR_pageinfo_category']                                     = 'catégorie';
-$langFile['EDITOR_pageinfo_category_noCategory']                          = 'aucune catégorie (ID 0)';
+$langFile['EDITOR_pageinfo_category_noCategory']                          = 'aucune catégorie';
 
 $langFile['EDITOR_TEXT_CHOOSETEMPLATE']                                   = 'utiliser le modèle';
 

@@ -51,6 +51,9 @@ content.css version 0.3 */
     margin-top: -40px; /* balance out the height of the h1 */
     padding-bottom: 2px; /* 3px */
     }
+#content .block h1 > span {
+    max-width: 695px;
+}
 
 /* warning */
 #content .block.warning {
@@ -1163,6 +1166,7 @@ span.toolTip, label.toolTip {
 span.toolTip.noMark {
   background: none;
   padding-right: auto;
+  cursor: auto;
 }
 
 

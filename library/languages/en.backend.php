@@ -678,7 +678,7 @@ $langFile['EDITOR_pageinfo_linktothispage']                               = 'Lin
 $langFile['EDITOR_pageinfo_id']                                           = 'Page ID';
 $langFile['EDITOR_pageinfo_id_tip']                                       = 'The page will be saved under this ID on the server.';
 $langFile['EDITOR_pageinfo_category']                                     = 'Category';
-$langFile['EDITOR_pageinfo_category_noCategory']                          = 'no category (ID 0)';
+$langFile['EDITOR_pageinfo_category_noCategory']                          = 'no category';
 
 $langFile['EDITOR_TEXT_CHOOSETEMPLATE']                                   = 'Use template';
 

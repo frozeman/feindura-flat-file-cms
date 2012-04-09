@@ -672,7 +672,7 @@ $langFile['EDITOR_pageinfo_linktothispage']                               = 'С�
 $langFile['EDITOR_pageinfo_id']                                           = 'ID страницы';
 $langFile['EDITOR_pageinfo_id_tip']                                       = 'С этим ID страница хранится на сервере.';
 $langFile['EDITOR_pageinfo_category']                                     = 'Категории';
-$langFile['EDITOR_pageinfo_category_noCategory']                          = 'без категории (ID 0)';
+$langFile['EDITOR_pageinfo_category_noCategory']                          = 'без категории';
 
 $langFile['EDITOR_TEXT_CHOOSETEMPLATE']                                   = 'использование шаблонов';
 

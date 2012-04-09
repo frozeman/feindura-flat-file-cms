@@ -90,9 +90,10 @@ function showErrorsInWindow($errorCode, $errorText, $errorFile, $errorLine) {
  * @return bool TRUE if the current user is an admin, or no admins exist, otherwise FALSE
  * 
  * 
- * @version 1.1
+ * @version 1.2
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.2 returns now also TRUE when no user is admin
  *    - 1.1 changed user managament system, it now get the users from the user.config.php 
  *    - 1.01 add immediately return true if no remote_user exists
  *    - 1.0 initial release
@@ -100,24 +101,32 @@ function showErrorsInWindow($errorCode, $errorText, $errorFile, $errorLine) {
  */
 function isAdmin() {
   
+  // var
+  $otherUsers = false;
+
   if(!empty($GLOBALS['userConfig'])) {
     
     $username = $_SESSION['feinduraSession']['login']['username'];
     
     // check if the user exists
-    if(!empty($username)) {      
+    if(!empty($username)) {
       foreach($GLOBALS['userConfig'] as $user) {
         if($user['username'] == $username) {
           // check if the user is admin
-          return ($user['admin'])
-            ? true
-            : false;
-        }          
+          if($user['admin'])
+            return true;
+        } else {
+          if($user['admin'])
+            $otherUsers = true;
+        }  
       }
     }
   }
-  // if no user, all are Admins
-  return true;
+  // if no user is admin or no user exists, all are Admins
+  if(!$otherUsers)
+    return true;
+  else
+    return false;
 }
 
 /**

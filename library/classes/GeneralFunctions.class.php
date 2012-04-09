@@ -876,7 +876,7 @@ class GeneralFunctions {
     if(file_put_contents($filePath, $fileContent, LOCK_EX)) {
       
       @chmod($filePath,self::$adminConfig['permissions']);
-      
+
       // writes the new saved page to the $storedPages property      
       self::removeStoredPage($pageContent['id']); // remove the old one
       unset($pageContent);
