@@ -607,7 +607,9 @@ class FeinduraBase {
   * 
   * In case the page doesn't exists or is not public and the <var>$showErrors</var> parameter is TRUE, 
   * an error will be placed in the ['content'] part of the returned array,
-  * otherwiese it returns an empty array.<br>  
+  * otherwiese it returns an empty array.<br>
+  * 
+  * <b>Note:</b> Activates the frontend editing (adds a span tag with feindura data).
   * 
   * Example of the returned array:
   * {@example generatePage.return.example.php}
@@ -787,34 +789,45 @@ class FeinduraBase {
     
     // ->> MODIFING pageContent
     // ************************
-    $localizedPageContent = GeneralFunctions::getLocalized($pageContent['localized'],'content',$this->language);
-    if(!empty($localizedPageContent)) {
+    // -> adds the frontend editing container
+    if(!$shortenText && $useHtml && $this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) {
+      $langCode = ($this->adminConfig['multiLanguageWebsite']['active']) ? $this->language : 0;
+      $localizedPageContent = GeneralFunctions::getLocalized($pageContent['localized'],'content',$langCode);
       
-      $htmlLawedConfig['safe'] = ($this->adminConfig['editor']['safeHtml']) ? 1 : 0;
-      $htmlLawedConfig['valid_xhtml'] = ($this->xHtml) ? 1 : 0;
-      $pageContentEdited = GeneralFunctions::htmLawed($localizedPageContent,$htmlLawedConfig);
-      
-      // replace feindura links
-      $pageContentEdited = GeneralFunctions::replaceLinks($pageContentEdited,$this->sessionId,$this->language);
-      
-      // clear Html tags?
-      if($useHtml === false || is_string($useHtml))
-        $pageContentEdited = (is_string($useHtml)) ? strip_tags($pageContentEdited, $useHtml) : strip_tags($pageContentEdited);
-      
-      // -> SHORTEN CONTENT   
-      if($shortenText && !is_bool($shortenText))
-        $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent);
-      
-      // clear xHTML tags from the content
-      if($this->xHtml === false)
-        $pageContentEdited = str_replace(' />','>',$pageContentEdited);
+      $pageContentEdited = (!preg_match('#<script.*>#',$localizedPageContent))
+        ? "\n".'<div class="feindura_editPage" data-feindura="'.$page.' '.$category.' '.$langCode.'">'.$localizedPageContent.'</div>'."\n"
+        : "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.' '.$langCode.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$localizedPageContent.'</div>'."\n";
     
-    // -> show no content
+    // -> no frontend editing
     } else {
-      $contentStartTag = '';
-      $contentEndTag = '';
-      $pageContentEdited = '';
+
+      $localizedPageContent = GeneralFunctions::getLocalized($pageContent['localized'],'content',$this->language);
+      if(!empty($localizedPageContent)) {
+        
+        $htmlLawedConfig['safe'] = ($this->adminConfig['editor']['safeHtml']) ? 1 : 0;
+        $htmlLawedConfig['valid_xhtml'] = ($this->xHtml) ? 1 : 0;
+        $pageContentEdited = GeneralFunctions::htmLawed($localizedPageContent,$htmlLawedConfig);
+        
+        // replace feindura links
+        $pageContentEdited = GeneralFunctions::replaceLinks($pageContentEdited,$this->sessionId,$this->language);
+        
+        // clear Html tags?
+        if($useHtml === false || is_string($useHtml))
+          $pageContentEdited = (is_string($useHtml)) ? strip_tags($pageContentEdited, $useHtml) : strip_tags($pageContentEdited);
+        
+        // -> SHORTEN CONTENT   
+        if($shortenText && !is_bool($shortenText))
+          $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent);
+        
+        // clear xHTML tags from the content
+        if($this->xHtml === false)
+          $pageContentEdited = str_replace(' />','>',$pageContentEdited);
+      
+      // -> show no content
+      } else
+        $pageContentEdited = '';
     }
+
 
     // -> get description
     $localizedPageDescription = GeneralFunctions::getLocalized($pageContent['localized'],'description',$this->language);
@@ -845,7 +858,7 @@ class FeinduraBase {
     }
 
     if(!empty($localizedPageContent))
-      $return['content']                                      = "\n".$pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
+      $return['content']                                      = "\n".$pageContentEdited."\n";
 
     if(!empty($localizedPageDescription))
       $return['description']                                  = $localizedPageDescription;
@@ -875,12 +888,15 @@ class FeinduraBase {
   * 
   * Generates a page title from a given <var>$pageContent</var> array by using the given parameters.
   * 
+  * <b>Note:</b> Activates the frontend editing (adds a span tag with feindura data).
+  * 
   * @param array   $pageContent                 the $pageContent Array of a page
   * @param int	   $titleLength                 (optional) number of the maximal text length shown or FALSE to not shorten
   * @param bool    $titleAsLink                 (optional) if TRUE, it creates the title as link
   * @param bool	   $titleShowPageDate           (optional) if TRUE, it shows the page date before the title text
   * @param bool    $titleShowCategory           (optional) if TRUE, it shows the category name before the title text, and uses the $titleShowCategory parameter string between both
   * @param string  $titleCategorySeparator      (optional) string to seperate the category name and the title text, if the $titleShowCategory parameter is TRUE
+  * @param bool    $allowFrontendEditing        (optional) if TRUE it will allow frontendenditing, when it is activated and the user is logged in. If <var>$titleAsLink</var> is TRUE, frontend editing will be deactivated anyway.
   * 
   * @uses $categoryConfig			                        to check if showing the page date is allowed and for the category name
   * @uses $languageFile				                        for showing "yesterday", "today" or "tomorrow" instead of a page date
@@ -902,7 +918,7 @@ class FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  protected function createTitle($pageContent, $titleLength = false, $titleAsLink = false, $titleShowPageDate = false, $titleShowCategory = false, $titlePageDateSeparator = false, $titleCategorySeparator = false) {
+  protected function createTitle($pageContent, $titleLength = false, $titleAsLink = false, $titleShowPageDate = false, $titleShowCategory = false, $titlePageDateSeparator = false, $titleCategorySeparator = false, $allowFrontendEditing = true) {
       
       // vars 
       $titleBefore = '';
@@ -911,7 +927,7 @@ class FeinduraBase {
       // saves the long version of the title, for the title="" tag
       //$fullTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language));
       
-      // generate titleDate
+      // generate TITLEDATE
       if($titleShowPageDate && StatisticFunctions::checkPageDate($pageContent)) {
         $titleDateBefore = '';
         $titleDateAfter = '';
@@ -925,38 +941,42 @@ class FeinduraBase {
           : $titleDate;
       } else $titleDate = false;      
         
-      // show the category name
+      // show the CATEGORY NAME
       if($titleShowCategory === true && $pageContent['category'] != 0) {
         $titleShowCategory = (is_string($titleCategorySeparator))
           ? GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language).$titleCategorySeparator
           : GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language);
       } else
         $titleShowCategory = '';
-        
-      // generate titleBefore without tags
-      //$titleBefore = $titleShowCategory.$titleDate;
-      $title = $titleShowCategory.$titleDate.GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language);
       
-      // generates the title for the title="" tag
-      //$titleTagText = $titleBefore.$fullTitle;      
-      
+      // ACTIVATE FRONTEND EDITING
+      if($allowFrontendEditing && !$titleAsLink && $this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION)  {// data-feindura="pageID categoryID language"
+        $langCode = ($this->adminConfig['multiLanguageWebsite']['active']) ? $this->language : 0;
+        $titleText = '<span class="feindura_editTitle" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.GeneralFunctions::getLocalized($pageContent['localized'],'title',$langCode).'</span>';
+      } else
+        $titleText = GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language);
+
+
+      // GENERATE title
+      $title = $titleShowCategory.$titleDate.$titleText;    
+
         
-      // create a link for the title
+      // CREATE A LINK for the title
       if($titleAsLink) {
         $titleBefore = '<a href="'.$this->createHref($pageContent,$this->sessionId,$this->language).'" title="'.str_replace('"','&quot;',strip_tags($title)).'">'."\n"; //.$titleBefore;
         $titleAfter = "\n</a>";
       }
       
-      // shorten the title
+      // SHORTEN the title
       if(is_numeric($titleLength))
         $title = $this->shortenText($title, array($titleLength,false), false);
-        
+      
       // -> builds the title
       // *******************
       //$title = $titleStartTag.$titleBefore.$title.$titleAfter.$titleEndTag;
       $title = $titleBefore.$title.$titleAfter;
       
-      // returns the title
+      // RETURNS the title
       return $title;
   }
 
@@ -1443,7 +1463,7 @@ class FeinduraBase {
   * <b>Note</b>: When using "previous","next","first" or "last" it will jump over pages/categories which are not public and return the next one.
   *
   * Examples of possible <var>$ids</var> parameter.
-  * {@example ids.parameter.example.php}
+  * {@example id.parameter.example.php}
   *
   * Example return value, where first value is the page ID and the second value is the category ID.
   * <samp>

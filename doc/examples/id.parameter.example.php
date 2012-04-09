@@ -28,4 +28,7 @@
   array('rand','next')   // load a random page of the next category
   array('rand','rand')   // load a random page of a random category
   array('first','rand')  // load the first page of a random category
+
+  ...
+  
 ?>

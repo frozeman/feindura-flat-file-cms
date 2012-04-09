@@ -227,9 +227,10 @@
         pageToolbar.setStyle('display','none');
       });
       nonEditableBlocks.each(function(nonEditableBlock) {
-        nonEditableBlock.removeClass('feindura_editPageDisabled');
         nonEditableBlock.removeProperty('title');
-        toolTips.detach(nonEditableBlock);
+        nonEditableBlock.removeClass('feindura_editPageDisabled');
+        nonEditableBlock.removeEvents();
+        // toolTips.detach(nonEditableBlock);
       });
       editableBlocks.each(function(editableBlock) {
         editableBlock.removeClass('feindura_editPage');
@@ -288,6 +289,14 @@
       nonEditableBlock.addClass('feindura_editPageDisabled');
       nonEditableBlock.setProperty('title',nonEditableBlock.retrieve('title'));
       toolTips.attach(nonEditableBlock);
+      nonEditableBlock.addEvents({
+        mouseenter: function(e) {
+            editDisabledIcon.inject(this);
+      },
+        mouseleave: function(e) {
+            editDisabledIcon.dispose();
+      }
+      });
     });
     editableBlocks.each(function(editableBlock){
       editableBlock.addClass('feindura_editPage');
@@ -317,6 +326,28 @@
     document.body.morph({'padding-top':'60px','background-position-y':'60px'});
 
   }
+
+  /* ---------------------------------------------------------------------------------- */
+  // ->> disable frontend editing
+  function disableEditing(pageBlock) {
+      console.log(pageBlock);
+      if(pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editPageDisabled')) {
+
+        pageBlock.removeClass('feindura_editPage');
+        pageBlock.addClass('feindura_editPageDisabled');
+        nonEditableBlocks.push(pageBlock);
+        pageBlock.moorte('destroy');
+
+        pageBlock.addEvents({
+          mouseenter: function(e) {
+              editDisabledIcon.inject(this);
+        },
+          mouseleave: function(e) {
+              editDisabledIcon.dispose();
+        }
+        });
+      }
+    }
 
   /* ---------------------------------------------------------------------------------- */
   // ->> create TOP BAR
@@ -389,7 +420,18 @@
 
 
     // ->> GO TROUGH ALL EDITABLE BLOCK
-    $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
+    $$('div.feindura_editPage, span.feindura_editTitle, div.feindura_editPageDisabled').each(function(pageBlock) {
+
+      // pageBlock.addEventListener('DOMNodeInserted',function(ev){
+      //   ev.stopPropagation();
+      //   ev.preventDefault();
+      //   disableEditing(this);
+      // });
+      // pageBlock.addEventListener('DOMNodeRemoved',function(ev){
+      //   ev.stopPropagation();
+      //   ev.preventDefault();
+      //   disableEditing(this);
+      // });
 
       // store title
       pageBlock.store('title',pageBlock.getProperty('title'));
@@ -402,6 +444,12 @@
 
       // STORE page IDS in the elements storage
       feindura_setPageIds(pageBlock);
+
+      // DECATIVATE DISABLED pageblocks
+      if(pageBlock.hasClass('feindura_editPageDisabled')) {
+        disableEditing(pageBlock);
+        return;
+      }
 
       // save on blur
       pageBlock.addEvent('blur', function(e) {
@@ -420,22 +468,6 @@
           pageSaved = false;
       });
 
-    });
-    $$('div.feindura_editPageDisabled').each(function(pageBlock) {
-      feindura_setPageIds(pageBlock);
-      pageBlock.store('title',pageBlock.getProperty('title'));
-      nonEditableBlocks.push(pageBlock);
-
-      pageBlock.addEvents({
-        mouseenter: function(e) {
-          if(pageBlock.hasClass('feindura_editPageDisabled'))
-            editDisabledIcon.inject(pageBlock);
-      },
-        mouseleave: function(e) {
-          if(pageBlock.hasClass('feindura_editPageDisabled'))
-            editDisabledIcon.dispose();
-      }
-      });
     });
 
     // ->> add BAR to EACH PAGE BLOCK

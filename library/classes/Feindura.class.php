@@ -1204,7 +1204,7 @@ class Feindura extends FeinduraBase {
   * 
   * @return string|false the generated href attribute, or FALSE if no page could be loaded
   * 
-  * @example ids.parameter.example.php $id parameter example
+  * @example id.parameter.example.php $id parameter example
   * 
   * @see GeneralFunctions::createHref()
   * 
@@ -1279,7 +1279,7 @@ class Feindura extends FeinduraBase {
   * 
   * @return string|false the created link, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
-  * @example ids.parameter.example.php $id parameter example
+  * @example id.parameter.example.php $id parameter example
   * 
   * @see createMenu()
   * @see createMenuByTags()
@@ -1316,7 +1316,8 @@ class Feindura extends FeinduraBase {
                                          $this->linkShowPageDate,
                                          $this->linkShowCategory,
                                          $this->linkPageDateSeparator,                                      
-                                         $this->linkCategorySeparator);
+                                         $this->linkCategorySeparator,
+                                         false); // $allowFrontendEditing
           } elseif(is_string($linkText) &&
                    is_numeric($this->linkLength))   
             $linkText = $this->shortenText($linkText, $this->linkLength);
@@ -1898,7 +1899,8 @@ class Feindura extends FeinduraBase {
   }
   
  /**
-  * <b>Name</b>     getPageTitle()<br>
+  * <b>Name</b>     showTitle()<br>
+  * <b>Alias</b>    getPageTitle()<br>
   * <b>Alias</b>    getTitle()<br>
   * 
   * <b>This method uses the {@link $titleLength $title...} properties.</b>
@@ -1910,7 +1912,7 @@ class Feindura extends FeinduraBase {
   * 
   *
   * Example:
-  * {@example getPageTitle.example.php}
+  * {@example showTitle.example.php}
   * 
   * @param int|string|array|bool $id    (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property.<br><i>See Additional -> $id parameter example</i>
   * 
@@ -1928,7 +1930,7 @@ class Feindura extends FeinduraBase {
   * 
   * @return string the generated page title, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
-  * @example ids.parameter.example.php $id parameter example
+  * @example id.parameter.example.php $id parameter example
   * 
   * @see FeinduraBase::createTitle()  
   * 
@@ -1939,7 +1941,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function getPageTitle($id = false) {    
+  public function showTitle($id = false) {    
    
     if($ids = $this->getPropertyIdsByString($id)) {
       
@@ -1956,12 +1958,7 @@ class Feindura extends FeinduraBase {
                                       $this->titleShowPageDate,
                                       $this->titleShowCategory,
                                       $this->titlePageDateSeparator,
-                                      $this->titleCategorySeparator);                                      
-          
-          if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION)  {// data-feindura="pageID categoryID language"
-            $langCode = ($this->adminConfig['multiLanguageWebsite']['active']) ? $this->language : 0;
-            $title = '<span class="feindura_editTitle" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.$title.'</span>';
-          }
+                                      $this->titleCategorySeparator);
           
           return $title;
           
@@ -1970,12 +1967,20 @@ class Feindura extends FeinduraBase {
     } else return false;    
   }
  /**
-  * Alias of {@link getPageTitle()}
+  * Alias of {@link showTitle()}
   * @ignore
   */
   public function getTitle($id = false) {
     // call the right function
-    return $this->getPageTitle($id);
+    return $this->showTitle($id);
+  }
+  /**
+  * Alias of {@link showTitle()}
+  * @ignore
+  */
+  public function getPageTitle($id = false) {
+    // call the right function
+    return $this->showTitle($id);
   } 
   
   
@@ -2035,7 +2040,7 @@ class Feindura extends FeinduraBase {
   * 
   * @return array with the page elements, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
-  * @example ids.parameter.example.php $id parameter example
+  * @example id.parameter.example.php $id parameter example
   * 
   * @see getPageTitle()
   * @see FeinduraBase::generatePage()
@@ -2063,18 +2068,6 @@ class Feindura extends FeinduraBase {
           if(!$generatedPage['error'])
             StatisticFunctions::countAndSavePageStatistics($page);
           
-          // -> adds the frontend editing container
-          if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION && !$generatedPage['error']) {
-            $langCode = ($this->adminConfig['multiLanguageWebsite']['active']) ? $this->language : 0;
-            
-            // data-feindura="pageID categoryID language"
-            $generatedPage['title'] = '<span class="feindura_editTitle" data-feindura="'.$page.' '.$category.' '.$langCode.'">'.$generatedPage['title'].'</span>';
-                        
-            if(!preg_match('#<script.*>#',$generatedPage['content']))
-              $generatedPage['content'] = "\n".'<div class="feindura_editPage" data-feindura="'.$page.' '.$category.' '.$langCode.'">'.$generatedPage['content'].'</div>'."\n";
-            else
-              $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.' '.$langCode.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$generatedPage['content'].'</div>'."\n";
-          }
           unset($generatedPage['error']);
           
           // -> returns the generated page
@@ -2102,7 +2095,7 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
   * Example <var>$ids</var> parameters:
-  * {@example ids.parameter.example.php}
+  * {@example id.parameter.example.php}
   *
   *
   * @param string|array|true     $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
@@ -2190,7 +2183,7 @@ class Feindura extends FeinduraBase {
   * @see getPageTitle()
   * @see FeinduraBase::generatePage()
   * 
-  * @example ids.parameter.example.php $id parameter example
+  * @example id.parameter.example.php $id parameter example
   * 
   * @access public
   * @version 1.0
