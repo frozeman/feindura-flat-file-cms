@@ -98,7 +98,7 @@ window.addEvent('domready', function() {
     onStartLoadingCircle();
     
   // ->> hide loading circle, when it was not animated
-  } else if(loadingBox !== null) {
+  } else if($('loadingBox').getChildren('.content')[0] !== null) {
     $('loadingBox').getChildren('.content')[0].empty();
     $('loadingBox').setStyle('display','none');
     // $('loadingBox').setStyle('opacity','1');
