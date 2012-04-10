@@ -1059,6 +1059,19 @@ window.addEvent('domready', function() {
     });
   }
 
+  // -> DISABLE cache timeout
+  if($('cfg_cacheTimeout') !== null) {
+    $('cfg_cache').addEvent('change',function() {
+      // disable
+      if(this.checked) {
+        $('cfg_cacheTimeout').removeProperty(deactivateType);
+      // activate
+      } else {
+        $('cfg_cacheTimeout').setProperty(deactivateType,deactivateType);
+      }
+    });
+  }
+
   // ->> PAGE SETUP
   // ---------------
 

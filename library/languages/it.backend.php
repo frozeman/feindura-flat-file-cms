@@ -434,6 +434,12 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'ATT
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_save']                    = '<b>Speaking URLs</b> non può essere attivato'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>Speaking URLs</b> non può essere attivato, poiché Apache MOD_REWRITE modul non è stato trovato';
 
+// ---------- cache settings
+$langFile['ADMINSETUP_TEXT_CACHE']                                        = 'Attivare la cache';
+$langFile['ADMINSETUP_TIP_CACHE']                                         = 'Se attivo, tutte le pagine saranno memorizzate nella cache. Questo può sementi contenenti al massimo il sito web, ma porta anche a non così contenuto effettivo.[br][br][span class=hint]La cache verrà aggiornata, quando si modificano le pagine.[/span]';
+$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Caching timeout';
+$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Indica dopo quanto [b]ore[/b] la cache verrà aggiornata.';
+$langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'orario';
 
 // ---------- user Settings
 $langFile['ADMINSETUP_USERPERMISSIONS_TITLE']                             = 'Autorizzazioni-Utente';

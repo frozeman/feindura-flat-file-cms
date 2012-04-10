@@ -811,59 +811,62 @@ function saveAdminConfig($adminConfig) {
     $fileContent = '';
     $fileContent .= PHPSTARTTAG; // < ?php
 
-    $fileContent .= "\$adminConfig['url'] =              '".XssFilter::url($adminConfig['url'])."';\n";
-    $fileContent .= "\$adminConfig['basePath'] =         '".XssFilter::path($adminConfig['basePath'])."';\n";
-    $fileContent .= "\$adminConfig['realBasePath'] =     '".XssFilter::path($adminConfig['realBasePath'])."';\n";
-    $fileContent .= "\$adminConfig['websitePath'] =      '".XssFilter::path($adminConfig['websitePath'],false,'/')."';\n";
-    $fileContent .= "\$adminConfig['uploadPath'] =       '".XssFilter::path($adminConfig['uploadPath'])."';\n";
-    $fileContent .= "\$adminConfig['websiteFilesPath'] = '".XssFilter::path($adminConfig['websiteFilesPath'])."';\n";
-    $fileContent .= "\$adminConfig['stylesheetPath'] =   '".XssFilter::path($adminConfig['stylesheetPath'])."';\n\n";
+    $fileContent .= "\$adminConfig['url']               = '".XssFilter::url($adminConfig['url'])."';\n";
+    $fileContent .= "\$adminConfig['basePath']          = '".XssFilter::path($adminConfig['basePath'])."';\n";
+    $fileContent .= "\$adminConfig['realBasePath']      = '".XssFilter::path($adminConfig['realBasePath'])."';\n";
+    $fileContent .= "\$adminConfig['websitePath']       = '".XssFilter::path($adminConfig['websitePath'],false,'/')."';\n";
+    $fileContent .= "\$adminConfig['uploadPath']        = '".XssFilter::path($adminConfig['uploadPath'])."';\n";
+    $fileContent .= "\$adminConfig['websiteFilesPath']  = '".XssFilter::path($adminConfig['websiteFilesPath'])."';\n";
+    $fileContent .= "\$adminConfig['stylesheetPath']    = '".XssFilter::path($adminConfig['stylesheetPath'])."';\n\n";
     
-    $fileContent .= "\$adminConfig['permissions'] =      ".XssFilter::number($adminConfig['permissions']).";\n";
-    $fileContent .= "\$adminConfig['timezone'] =         '".XssFilter::string($adminConfig['timezone'],'\/','Europe/London')."';\n"; 
-    $fileContent .= "\$adminConfig['dateFormat'] =       '".XssFilter::alphabetical($adminConfig['dateFormat'])."';\n";
-    $fileContent .= "\$adminConfig['speakingUrl'] =      ".XssFilter::bool($adminConfig['speakingUrl'],true).";\n\n";
+    $fileContent .= "\$adminConfig['permissions']       = ".XssFilter::number($adminConfig['permissions']).";\n";
+    $fileContent .= "\$adminConfig['timezone']          = '".XssFilter::string($adminConfig['timezone'],'\/','Europe/London')."';\n"; 
+    $fileContent .= "\$adminConfig['dateFormat']        = '".XssFilter::alphabetical($adminConfig['dateFormat'])."';\n";
+    $fileContent .= "\$adminConfig['speakingUrl']       = ".XssFilter::bool($adminConfig['speakingUrl'],true).";\n\n";
     
-    $fileContent .= "\$adminConfig['varName']['page'] =     '".XssFilter::stringStrict($adminConfig['varName']['page'],'page')."';\n";  
-    $fileContent .= "\$adminConfig['varName']['category'] = '".XssFilter::stringStrict($adminConfig['varName']['category'],'category')."';\n";  
-    $fileContent .= "\$adminConfig['varName']['modul'] =    '".XssFilter::stringStrict($adminConfig['varName']['modul'],'modul')."';\n\n";
+    $fileContent .= "\$adminConfig['varName']['page']      = '".XssFilter::stringStrict($adminConfig['varName']['page'],'page')."';\n";  
+    $fileContent .= "\$adminConfig['varName']['category']  = '".XssFilter::stringStrict($adminConfig['varName']['category'],'category')."';\n";  
+    $fileContent .= "\$adminConfig['varName']['modul']     = '".XssFilter::stringStrict($adminConfig['varName']['modul'],'modul')."';\n\n";
+
+    $fileContent .= "\$adminConfig['cache']['active']      = '".XssFilter::bool($adminConfig['cache']['active'],false)."';\n";
+    $fileContent .= "\$adminConfig['cache']['timeout']     = '".XssFilter::number($adminConfig['cache']['timeout'],5)."';\n\n";
     
-    $fileContent .= "\$adminConfig['user']['frontendEditing'] =  ".XssFilter::bool($adminConfig['user']['frontendEditing'],true).";\n";
-    $fileContent .= "\$adminConfig['user']['fileManager'] =      ".XssFilter::bool($adminConfig['user']['fileManager'],true).";\n";
-    $fileContent .= "\$adminConfig['user']['editWebsiteFiles'] = ".XssFilter::bool($adminConfig['user']['editWebsiteFiles'],true).";\n";
-    $fileContent .= "\$adminConfig['user']['editStyleSheets'] =  ".XssFilter::bool($adminConfig['user']['editStyleSheets'],true).";\n";  
-    $fileContent .= "\$adminConfig['user']['info'] =             '".$adminConfig['user']['info']."';\n\n"; // htmLawed in adminSetup.controller.php
+    $fileContent .= "\$adminConfig['user']['frontendEditing']   = ".XssFilter::bool($adminConfig['user']['frontendEditing'],true).";\n";
+    $fileContent .= "\$adminConfig['user']['fileManager']       = ".XssFilter::bool($adminConfig['user']['fileManager'],true).";\n";
+    $fileContent .= "\$adminConfig['user']['editWebsiteFiles']  = ".XssFilter::bool($adminConfig['user']['editWebsiteFiles'],true).";\n";
+    $fileContent .= "\$adminConfig['user']['editStyleSheets']   = ".XssFilter::bool($adminConfig['user']['editStyleSheets'],true).";\n";  
+    $fileContent .= "\$adminConfig['user']['info']              = '".$adminConfig['user']['info']."';\n\n"; // htmLawed in adminSetup.controller.php
     
-    $fileContent .= "\$adminConfig['setStartPage'] =                        ".XssFilter::bool($adminConfig['setStartPage'],true).";\n";
-    $fileContent .= "\$adminConfig['multiLanguageWebsite']['active'] =        ".XssFilter::bool($adminConfig['multiLanguageWebsite']['active'],true).";\n";
+    $fileContent .= "\$adminConfig['setStartPage']                         = ".XssFilter::bool($adminConfig['setStartPage'],true).";\n";
+    $fileContent .= "\$adminConfig['multiLanguageWebsite']['active']       = ".XssFilter::bool($adminConfig['multiLanguageWebsite']['active'],true).";\n";
     if(is_array($adminConfig['multiLanguageWebsite']['languages'])) {
       foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langKey) {
-        $fileContent .= "\$adminConfig['multiLanguageWebsite']['languages'][] =   ".XssFilter::alphabetical($langKey,$_SESSION['feinduraSession']['backendLanguage']).";\n";
+        $fileContent .= "\$adminConfig['multiLanguageWebsite']['languages'][]    = ".XssFilter::alphabetical($langKey,$_SESSION['feinduraSession']['backendLanguage']).";\n";
       }
     }
-    $fileContent .= "\$adminConfig['multiLanguageWebsite']['mainLanguage'] =  ".XssFilter::alphabetical($adminConfig['multiLanguageWebsite']['mainLanguage'],0).";\n\n";
+    $fileContent .= "\$adminConfig['multiLanguageWebsite']['mainLanguage']   = ".XssFilter::alphabetical($adminConfig['multiLanguageWebsite']['mainLanguage'],0).";\n\n";
 
-    $fileContent .= "\$adminConfig['pages']['createDelete'] = ".XssFilter::bool($adminConfig['pages']['createDelete'],true).";\n";
-    $fileContent .= "\$adminConfig['pages']['thumbnails'] =   ".XssFilter::bool($adminConfig['pages']['thumbnails'],true).";\n";    
-    $fileContent .= "\$adminConfig['pages']['plugins'] =      '".$adminConfig['pages']['plugins']."';\n"; // no XssFilter, comes from a <select>
-    $fileContent .= "\$adminConfig['pages']['showTags'] =     ".XssFilter::bool($adminConfig['pages']['showTags'],true).";\n";
-    $fileContent .= "\$adminConfig['pages']['showPageDate'] = ".XssFilter::bool($adminConfig['pages']['showPageDate'],true).";\n";
-    $fileContent .= "\$adminConfig['pages']['feeds'] =        ".XssFilter::bool($adminConfig['pages']['feeds'],true).";\n\n";
+    $fileContent .= "\$adminConfig['pages']['createDelete']  = ".XssFilter::bool($adminConfig['pages']['createDelete'],true).";\n";
+    $fileContent .= "\$adminConfig['pages']['thumbnails']    = ".XssFilter::bool($adminConfig['pages']['thumbnails'],true).";\n";    
+    $fileContent .= "\$adminConfig['pages']['plugins']       = '".$adminConfig['pages']['plugins']."';\n"; // no XssFilter, comes from a <select>
+    $fileContent .= "\$adminConfig['pages']['showTags']      = ".XssFilter::bool($adminConfig['pages']['showTags'],true).";\n";
+    $fileContent .= "\$adminConfig['pages']['showPageDate']  = ".XssFilter::bool($adminConfig['pages']['showPageDate'],true).";\n";
+    $fileContent .= "\$adminConfig['pages']['feeds']         = ".XssFilter::bool($adminConfig['pages']['feeds'],true).";\n\n";
     
-    $fileContent .= "\$adminConfig['pages']['sorting'] =      '".XssFilter::alphabetical($adminConfig['pages']['sorting'],'manually')."';\n";
-    $fileContent .= "\$adminConfig['pages']['sortReverse'] =  ".XssFilter::bool($adminConfig['pages']['sortReverse'],true).";\n\n";
+    $fileContent .= "\$adminConfig['pages']['sorting']       = '".XssFilter::alphabetical($adminConfig['pages']['sorting'],'manually')."';\n";
+    $fileContent .= "\$adminConfig['pages']['sortReverse']   = ".XssFilter::bool($adminConfig['pages']['sortReverse'],true).";\n\n";
     
-    $fileContent .= "\$adminConfig['editor']['htmlLawed'] =  ".XssFilter::bool($adminConfig['editor']['htmlLawed'],true).";\n";
-    $fileContent .= "\$adminConfig['editor']['safeHtml'] =   ".XssFilter::bool($adminConfig['editor']['safeHtml'],true).";\n";
-    $fileContent .= "\$adminConfig['editor']['enterMode'] =  '".XssFilter::alphabetical($adminConfig['editor']['enterMode'])."';\n";
-    $fileContent .= "\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n"; // XssFilter is in prepareStyleFilePaths() function
-    $fileContent .= "\$adminConfig['editor']['styleId'] =    '".XssFilter::string($adminConfig['editor']['styleId'])."';\n";
-    $fileContent .= "\$adminConfig['editor']['styleClass'] = '".XssFilter::string($adminConfig['editor']['styleClass'])."';\n\n";  
+    $fileContent .= "\$adminConfig['editor']['htmlLawed']    = ".XssFilter::bool($adminConfig['editor']['htmlLawed'],true).";\n";
+    $fileContent .= "\$adminConfig['editor']['safeHtml']     = ".XssFilter::bool($adminConfig['editor']['safeHtml'],true).";\n";
+    $fileContent .= "\$adminConfig['editor']['enterMode']    = '".XssFilter::alphabetical($adminConfig['editor']['enterMode'])."';\n";
+    $fileContent .= "\$adminConfig['editor']['styleFile']    = '".$adminConfig['editor']['styleFile']."';\n"; // XssFilter is in prepareStyleFilePaths() function
+    $fileContent .= "\$adminConfig['editor']['styleId']      = '".XssFilter::string($adminConfig['editor']['styleId'])."';\n";
+    $fileContent .= "\$adminConfig['editor']['styleClass']   = '".XssFilter::string($adminConfig['editor']['styleClass'])."';\n\n";  
   
-    $fileContent .= "\$adminConfig['pageThumbnail']['width'] =  '".XssFilter::int($adminConfig['pageThumbnail']['width'])."';\n";
-    $fileContent .= "\$adminConfig['pageThumbnail']['height'] = '".XssFilter::int($adminConfig['pageThumbnail']['height'])."';\n";
-    $fileContent .= "\$adminConfig['pageThumbnail']['ratio'] =  '".XssFilter::alphabetical($adminConfig['pageThumbnail']['ratio'])."';\n";
-    $fileContent .= "\$adminConfig['pageThumbnail']['path'] =   '".XssFilter::path($adminConfig['pageThumbnail']['path'],false,(empty($adminConfig['uploadPath'])) ? '' : 'thumbnails/')."';\n\n";
+    $fileContent .= "\$adminConfig['pageThumbnail']['width']   = '".XssFilter::int($adminConfig['pageThumbnail']['width'])."';\n";
+    $fileContent .= "\$adminConfig['pageThumbnail']['height']  = '".XssFilter::int($adminConfig['pageThumbnail']['height'])."';\n";
+    $fileContent .= "\$adminConfig['pageThumbnail']['ratio']   = '".XssFilter::alphabetical($adminConfig['pageThumbnail']['ratio'])."';\n";
+    $fileContent .= "\$adminConfig['pageThumbnail']['path']    = '".XssFilter::path($adminConfig['pageThumbnail']['path'],false,(empty($adminConfig['uploadPath'])) ? '' : 'thumbnails/')."';\n\n";
     
     $fileContent .= "return \$adminConfig;";
     $fileContent .= PHPENDTAG; //? >

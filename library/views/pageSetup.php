@@ -277,32 +277,8 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       <label for="cfg_pagefeeds"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_TIP_FEEDS']; ?>"><?php echo $langFile['PAGESETUP_TEXT_FEEDS']; ?></span></label>
       </td></tr>
       
-      <?php if(!empty($plugins)) { ?>
-      <tr><td class="leftTop"></td><td>
-      
-      <tr><td class="left">
-      <label for="cfg_pagePlugins"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'::' ?>">
-      <?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] ?></span></label>
-      </td><td class="right">
-      <select id="cfg_pagePlugins" name="cfg_pagePlugins[]" multiple="multiple">
-        <?php
-        foreach($plugins as $pluginName) {
-          $selected = (in_array($pluginName,unserialize($adminConfig['pages']['plugins']))) ? ' selected="selected"' : '' ;
-          echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';    
-        }
-        ?>
-      </select>
-      &nbsp;
-      <span class="hint"><?php echo $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'] ?></span>
-      </td></tr>
-      
-      <tr><td class="leftBottom"></td><td>
-      <?php
-      } else {
-      ?>
       <tr><td class="spacer checkboxes"></td><td></td></tr>
-      <?php } ?>
-      
+
       <!-- SORTING -->
       <!-- manually -->
       <tr><td class="left checkboxes">
@@ -329,6 +305,28 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       </td><td class="right checkboxes">
       <label for="cfg_pageSortReverse"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTREVERSE'].'::'.$langFile['PAGESETUP_TIP_SORTREVERSE'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTREVERSE']; ?></span></label>          
       </td></tr>
+      
+      <?php if(!empty($plugins)) { ?>
+      <tr><td class="leftTop"></td><td>
+      
+      <tr><td class="left">
+      <label for="cfg_pagePlugins"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'::' ?>">
+      <?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] ?></span></label>
+      </td><td class="right">
+      <select id="cfg_pagePlugins" name="cfg_pagePlugins[]" multiple="multiple">
+        <?php
+        foreach($plugins as $pluginName) {
+          $selected = (in_array($pluginName,unserialize($adminConfig['pages']['plugins']))) ? ' selected="selected"' : '' ;
+          echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';    
+        }
+        ?>
+      </select>
+      &nbsp;
+      <span class="hint"><?php echo $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'] ?></span>
+      </td></tr>
+      
+      <tr><td class="leftBottom"></td><td>
+      <?php } ?>
       
     </table>
     
@@ -523,25 +521,6 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td><td class="right checkboxes">
                 <label for="categories'.$category['id'].'feeds"><span class="toolTip" title="'.$langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'].'">'.$langFile['PAGESETUP_TEXT_FEEDS'].'</span></label>
                 </td></tr>';
-          
-          if(!empty($plugins)) {
-            echo '<tr><td class="leftTop"></td><td>';
-  
-            echo '<tr><td class="left">';
-            echo '<label for="categories'.$category['id'].'plugins"><span class="toolTip" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">';
-            echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</span></label>';
-            echo '</td><td class="right">';
-            echo '<select id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins][]" multiple="multiple">';
-              foreach($plugins as $pluginName) {
-                $selected = (in_array($pluginName,unserialize($category['plugins']))) ? ' selected="selected"' : '' ;
-                echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';   
-              }            
-            echo '</select>';
-            echo '&nbsp;<span class="hint">'.$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'].'</span>';
-            echo '</td></tr>';
-            
-            echo '<tr><td class="leftBottom"></td><td>';                
-          } else
             echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';          
           
           // SORTING
@@ -571,11 +550,29 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <label for="categories'.$category['id'].'sortReverse"><span class="toolTip" title="'.$langFile['PAGESETUP_TEXT_SORTREVERSE'].'::'.$langFile['PAGESETUP_TIP_SORTREVERSE'].'">'.$langFile['PAGESETUP_TEXT_SORTREVERSE'].'</span></label>          
                 </td></tr>';
           
+          if(!empty($plugins)) {
+            echo '<tr><td class="leftTop"></td><td>';
+  
+            echo '<tr><td class="left">';
+            echo '<label for="categories'.$category['id'].'plugins"><span class="toolTip" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">';
+            echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</span></label>';
+            echo '</td><td class="right">';
+            echo '<select id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins][]" multiple="multiple">';
+              foreach($plugins as $pluginName) {
+                $selected = (in_array($pluginName,unserialize($category['plugins']))) ? ' selected="selected"' : '' ;
+                echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';   
+              }            
+            echo '</select>';
+            echo '&nbsp;<span class="hint">'.$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'].'</span>';
+            echo '</td></tr>';
+            
+            echo '<tr><td class="leftBottom"></td><td>';                
+          }
+          
           echo '<tr><td class="left checkboxes"></td>
                 <td><a href="#" class="down inBlockSliderLink" style="position:relative; left:-20px; bottom: -15px;">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].'</a>
                 </td></tr>';
-          
-          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
+            echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
           
           // end of the TABLE for one category
           echo '</table>';

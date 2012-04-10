@@ -206,12 +206,6 @@ div#contentBlocked {
     padding: 8px 5px;
     }
     
-/* leftTop */   
-.block table td.leftTop {
-    height: 30px;
-    padding: 0px;
-    background: url("../images/bg/content_block_table_left_top.png") no-repeat right top;    
-    }
     
 /* left */    
 .block table td.left {
@@ -232,6 +226,12 @@ div#contentBlocked {
     padding-right: 1px !important;
     background: #fff;
     vertical-align: top;
+    }
+
+/* leftTop */   
+.block table td.leftTop {
+    height: 30px;
+    background: url("../images/bg/content_block_table_left_top.png") no-repeat right top;    
     }
  
 /* leftBottom */   

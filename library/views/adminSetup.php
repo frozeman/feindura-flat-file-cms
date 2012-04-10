@@ -277,6 +277,24 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       <input size="40" id="cfg_varNameModul" name="cfg_varNameModul" value=<?php echo '"'.$adminConfig['varName']['modul'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName3'].'::'.$langFile['ADMINSETUP_GENERAL_varName3_inputTip']; ?>">
       </td></tr>
       -->
+
+      <tr><td class="leftBottom"></td><td></td></tr>
+      <tr><td class="spacer checkboxes"></td><td></td></tr>
+
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="cfg_cache" name="cfg_cache" value="true"<?php if($adminConfig['cache']['active']) echo ' checked="checked"'; ?> class="toolTip" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHE'].'::'.$langFile['ADMINSETUP_TIP_CACHE']; ?>"><br>
+      </td><td class="right checkboxes">
+      <label for="cfg_cache" class="toolTip" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHE'].'::'.$langFile['ADMINSETUP_TIP_CACHE']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_CACHE']; ?></label><br>
+      </td></tr>
+
+      <!-- <tr><td class="leftTop"></td><td></td></tr> -->
+
+      <tr><td class="left leftTop">
+      <label for="cfg_cacheTimeout"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'].'::'.$langFile['ADMINSETUP_TIP_CACHETIMEOUT'] ?>">
+      <?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'] ?></span></label>
+      </td><td class="right">
+      <input type="number" step="0.5" size="40" id="cfg_cacheTimeout" name="cfg_cacheTimeout" value=<?php echo '"'.$adminConfig['cache']['timeout'].'"'; ?> class="inputToolTip short" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'].'::'.$langFile['ADMINSETUP_TIP_CACHETIMEOUT']; ?>"<?php if(!$adminConfig['cache']['active']) echo ' disabled="disabled"'; ?>><span class="hint"><?php echo $langFile['ADMINSETUP_HINT_CACHETIMEOUT']; ?></span>
+      </td></tr>
       
       <tr><td class="leftBottom"></td><td></td></tr>
       
@@ -308,13 +326,9 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
       </td><td class="right checkboxes">
       <label for="cfg_userFrontendEditing"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']; ?></label><br>
       </td></tr>
-          
-      <?php
       
-      $fmDisabled = (empty($adminConfig['uploadPath'])) ? ' disabled="disabled"' : '';
-      
-      ?>
       <tr><td class="left checkboxes">
+      <?php $fmDisabled = (empty($adminConfig['uploadPath'])) ? ' disabled="disabled"' : ''; ?>
       <input type="checkbox" id="cfg_userFileManager" name="cfg_userFileManager" value="true"<?php if($adminConfig['user']['fileManager']) echo ' checked="checked"'; echo $fmDisabled; ?>><br>
       </td><td class="right checkboxes">
       <label for="cfg_userFileManager"<?php echo ($fmDisabled) ? 'class="toolTip disabled" title="'.$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label><br>

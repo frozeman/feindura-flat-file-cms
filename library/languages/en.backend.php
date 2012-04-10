@@ -433,6 +433,12 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'WAR
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_save']                    = '<b>Speaking URLs</b> could not be activated'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>Speaking URLs</b> could not be activated, because the Apache MOD_REWRITE modul could not be found';
 
+// ---------- cache settings
+$langFile['ADMINSETUP_TEXT_CACHE']                                        = 'Activate cache';
+$langFile['ADMINSETUP_TIP_CACHE']                                         = 'If active, all pages will be cached. This can seed up the website, but also leads to not so actual content.[br][br][span class=hint]The cached will be refreshed, when editing pages.[/span]';
+$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Caching timeout';
+$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Indicates after how much [b]hours[/b] the cache will be refreshed.';
+$langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'hours';
 
 // ---------- user Settings
 $langFile['ADMINSETUP_USERPERMISSIONS_TITLE']                             = 'User permissions';
@@ -448,9 +454,9 @@ $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip']                = 'If 
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1']                                 = 'HTML-Editor-Settings';
-$langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'filter HTML (uses <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/">htmlLawed</a>)';
+$langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'Filter HTML (uses <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/">htmlLawed</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']                              = 'Filters the HTML code before saving. This can cause problems in HTML code with a lot of Javascript.';
-$langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'safe HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6">details</a>)';
+$langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'Safe HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6">details</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'The HTML-Code will be filtered with the safest settings. That means that for example &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; and &lt;script&gt; tags are not allowed.';
 $langFile['adminSetup_editorSettings_field1']                             = 'ENTER-Key mode';
 $langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER always generates a &quot;&lt;br&gt;&quot;';

@@ -112,4 +112,8 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
 
 }
 
+// -> CLEAR CACHE ON SAVING
+if($documentSaved == true)
+  delDir(dirname(__FILE__).'/../pages/cache/');
+
 ?>

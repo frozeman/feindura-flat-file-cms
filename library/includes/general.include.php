@@ -22,9 +22,22 @@
 header('Content-Type:text/html; charset=UTF-8');
 error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
-// set mb_ functions encoding
+/**
+ * set mb_ functions encoding
+ */
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
+
+/**
+ * Fix the $_SERVER['REQUEST_URI'] for IIS Server
+ */
+if (!isset($_SERVER['REQUEST_URI'])) {
+  $_SERVER['REQUEST_URI'] = substr($_SERVER['PHP_SELF'],0);
+  if (isset($_SERVER['QUERY_STRING']) AND $_SERVER['QUERY_STRING'] != "") {
+    $_SERVER['REQUEST_URI'] .= '?'.$_SERVER['QUERY_STRING'];
+  }
+}
+
 
 // ->> get CONFIGS
 /**
@@ -38,6 +51,29 @@ if(!$adminConfig = @include(dirname(__FILE__)."/../../config/admin.config.php"))
   $adminConfig = array();
 if(empty($adminConfig['permissions'])) $adminConfig['permissions'] = 0755;
 $GLOBALS['adminConfig'] = $adminConfig;
+
+/**
+ * Set the Timezone
+ * needs the $adminConfig
+ */
+if(function_exists('date_default_timezone_set'))
+  date_default_timezone_set($adminConfig['timezone']);
+
+/**
+ * *** CACHE ****
+ * Build/Get cache
+ * needs the $adminConfig
+ */
+// $RECACHE = true;
+if($adminConfig['cache']['active'] && !$_SESSION['feinduraSession']['login']['loggedIn']) {
+  require_once(dirname(__FILE__)."/../thirdparty/PHP/ACcache.php");
+  // create cache folder
+  if(!is_dir(dirname(__FILE__).'/../../pages/cache/')) {
+    mkdir(dirname(__FILE__).'/../../pages/cache/');
+    chmod(dirname(__FILE__).'/../../pages/cache/', $adminConfig['permissions']);
+  }
+  new cache(dirname(__FILE__).'/../../pages/cache/', $_GET['language'], ($adminConfig['cache']['timeout']*60*60), "html" );
+}
 
 /**
  * The user-settings config
@@ -108,16 +144,6 @@ $GLOBALS['languageCodes'] = $languageCodes;
 
 
 /**
- * Fix the $_SERVER['REQUEST_URI'] for IIS Server
- */
-if (!isset($_SERVER['REQUEST_URI'])) {
-  $_SERVER['REQUEST_URI'] = substr($_SERVER['PHP_SELF'],0);
-  if (isset($_SERVER['QUERY_STRING']) AND $_SERVER['QUERY_STRING'] != "") {
-    $_SERVER['REQUEST_URI'] .= '?'.$_SERVER['QUERY_STRING'];
-  }
-}
-
-/**
  * The absolut path of the webserver, with fix for IIS Server
  */
 // ->> if no realBasePath exists, GENERATE the DOCUMENTROOT FROM the $_SERVER["SCRIPT_NAME"]
@@ -157,12 +183,6 @@ if(empty($adminConfig['realBasePath']) && !isset($_POST['cfg_basePath'])) {
 }
 
 define('DOCUMENTROOT', $docRoot); unset($docRoot,$basePath,$localpath,$absolutepath);
-
-/**
- * Set the Timezone
- */
-if(function_exists('date_default_timezone_set'))
-  date_default_timezone_set($adminConfig['timezone']);
 
 /**
  * The required PHP version

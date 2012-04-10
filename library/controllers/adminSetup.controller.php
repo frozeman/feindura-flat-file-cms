@@ -96,6 +96,9 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $adminConfig['dateFormat']               = $_POST['cfg_dateFormat'];
   $adminConfig['speakingUrl']              = $_POST['cfg_speakingUrl'];
   
+  $adminConfig['cache']['active']          = $_POST['cfg_cache'];
+  $adminConfig['cache']['timeout']         = $_POST['cfg_cacheTimeout'];
+  
   $adminConfig['varName']['page']          = $_POST['cfg_varNamePage'];  
   $adminConfig['varName']['category']      = $_POST['cfg_varNameCategory'];  
   $adminConfig['varName']['modul']         = $_POST['cfg_varNameModul'];

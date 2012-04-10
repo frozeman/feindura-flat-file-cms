@@ -617,11 +617,11 @@ class GeneralFunctions {
    * <b>Used Global Variables</b><br>
    *   - <var>$_GET['status']</var> if the value is "addLanguage", it forces to load the <var>$languageCode</var> parameter
    *  
-   * @param array        $localizationArray   a localized array in the form of: array('de' => .. , 'en' => .. )
+   * @param array        $localizedArray   a localized array in the form of: array('de' => .. , 'en' => .. )
    * @param string       $value               the anme of the value, which should be returned localized
    * @param bool|string  $forceOrUseLanguage  if TRUE the language will be forced to be loaded, even if it does not exist, if string it will use this as the testing language code, instead of the <var>$_SESSION['feinduraSession']['websiteLanguage']</var> var
    *   
-   * @return string the localized value of the given <var>$localizationArray</var> parameter
+   * @return string the localized value of the given <var>$localizedArray</var> parameter
    * 
    * 
    * @static
@@ -632,27 +632,30 @@ class GeneralFunctions {
    *    - 1.0 initial release
    * 
    */
-  public static function getLocalized($localizationArray, $value, $forceOrUseLanguage = false) {
+  public static function getLocalized($localizedArray, $value, $forceOrUseLanguage = false) {
 
     // var
     $languageCode = (!is_bool($forceOrUseLanguage) && is_string($forceOrUseLanguage) && strlen($forceOrUseLanguage) == 2)
       ? $forceOrUseLanguage
       : $_SESSION['feinduraSession']['websiteLanguage'];
-  
+
     // get the one matching $languageCode
-    if((isset($localizationArray[$languageCode]) && !empty($localizationArray[$languageCode])) ||
+    if((isset($localizedArray[$languageCode]) && !empty($localizedArray[$languageCode][$value])) ||
        (is_bool($forceOrUseLanguage) && $forceOrUseLanguage === true))
-      $localizedValues = $localizationArray[$languageCode];
+      $localizedValues = $localizedArray[$languageCode];
+
     // if not get the one matching the "Main Language"
-    elseif(isset($localizationArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']]) &&
-           !empty($localizationArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']]))
-      $localizedValues = $localizationArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']];
+    elseif(isset($localizedArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']]) &&
+           !empty($localizedArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']][$value]))
+      $localizedValues = $localizedArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']];
+
     // if not get the first one in the localization array
-    elseif(is_array($localizationArray))
-      $localizedValues = current($localizationArray);
+    elseif(is_array($localizedArray))
+      $localizedValues = current($localizedArray);
+    
     // legacy fallback
     else
-      return $localizationArray[$value];
+      return $localizedArray[$value];
 
     return $localizedValues[$value];
   }

@@ -41,7 +41,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // shows the PAGES in NO CATEGORIES (the page/ folder),
 // by adding a empty category to the $categoryConfig array
-$nonCategory[0] = array('id' => 0,'localization' => array( 0 => array( 'name' => $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'])));
+$nonCategory[0] = array('id' => 0,'localized' => array( 0 => array( 'name' => $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'])));
 $allCategories = $nonCategory + $categoryConfig;
 // -----------------------------------------------------------------------------------------------------------
 // ->> LIST CATEGORIES

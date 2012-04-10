@@ -16,7 +16,7 @@ array(
       "styleFile"    => '',
       "styleId"      => '',
       "styleClass"   => '',
-      "localization" => array(
+      "localized"    => array(
           "en" => array( 
             "title"       => 'Example Page 2',
             "description" => '',
@@ -55,7 +55,7 @@ array(
       "styleFile"    => '',
       "styleId"      => '',
       "styleClass"   => '',
-      "localization" => array(
+      "localized"    => array(
           "en" => array( 
             "title"       => 'Example Page 1',
             "description" => '',

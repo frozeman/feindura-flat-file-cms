@@ -427,6 +427,12 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'В�
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_save']                    = '<b>ЧПУ</b> не могут быть активированы '.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>ЧПУ</b> не могут быть активироываны, не найден модуль MOD_REWRITE';
 
+// ---------- cache settings
+$langFile['ADMINSETUP_TEXT_CACHE']                                        = 'Включить кэш';
+$langFile['ADMINSETUP_TIP_CACHE']                                         = 'Если активный, все страницы будут кэшироваться. Это может семян на веб-сайте, но и приводит к не очень реальное содержание.[br][br][span class=hint] кэшироваться будет обновлена​​, при редактировании страницы.[/span]';
+$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Кэширование тайм-аут';
+$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Указывает, после того, как много [b]часов[/b] кэш будет обновлен.';
+$langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'часов';
 
 // ---------- user Settings
 $langFile['ADMINSETUP_USERPERMISSIONS_TITLE']                             = 'Пользовательские настройки';
