@@ -267,9 +267,10 @@ foreach($allCategories as $category) {
   }
 
 echo '</ul>
-     </div>
-     <div class="bottom"></div>
-  </div>';
+     </div>';
+if(end($allCategories) == $category)
+  echo '<div class="bottom"></div>';
+echo '</div>';
 
 echo "\n".'<!-- transport the sortOrder to the javascript -->
       <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories[$category['id']]['sortReverse'].'"> <!-- reverse order yes/no -->
