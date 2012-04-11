@@ -7,6 +7,7 @@ $categoryConfig[1]['thumbnail'] =       true;
 $categoryConfig[1]['plugins'] =         'N;';
 $categoryConfig[1]['showTags'] =        true;
 $categoryConfig[1]['showPageDate'] =    true;
+$categoryConfig[1]['showSubCategory'] = true;
 $categoryConfig[1]['feeds'] =           true;
 
 $categoryConfig[1]['sorting'] =         'manually';
@@ -29,9 +30,10 @@ $categoryConfig[2]['name'] =            'Example Category 2';
 $categoryConfig[2]['public'] =          false;
 $categoryConfig[2]['createDelete'] =    false;
 $categoryConfig[2]['thumbnail'] =       false;
-$categoryConfig[2]['plugins'] =         false;
+$categoryConfig[2]['plugins'] =         'a:1:{i:0;s:12:"imageGallery";}';
 $categoryConfig[2]['showTags'] =        false;
 $categoryConfig[2]['showPageDate'] =    false;
+$categoryConfig[2]['showSubCategory'] = false;
 $categoryConfig[2]['feeds'] =           true;
 
 $categoryConfig[2]['sorting'] =         'manually';

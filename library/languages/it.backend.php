@@ -364,6 +364,9 @@ $langFile['SORTABLEPAGELIST_error_read']                                  = '<b>
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>Impossibile spostare la pagina nella nuova categoria.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'Non ci sono pagine disponibili';
 
+$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR']             = 'Sottocategoria della pagina:';
+$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL']               = 'Sottocategoria delle pagine:';
+
 // ---------- FORMULAR
 $langFile['FORM_BUTTON_SUBMIT']                                           = 'Salva Impostazioni';
 $langFile['FORM_BUTTON_CANCEL']                                           = 'Ripristina tutti gli input';
@@ -569,6 +572,9 @@ $langFile['PAGESETUP_TEXT_FEEDS']                                         = 'Att
 $langFile['PAGESETUP_TIP_FEEDS']                                          = 'Attiva RSS 2.0 e Atom Feed per le pagine senza categoria.';
 $langFile['PAGESETUP_CATEGORY_TIP_FEEDS']                                 = 'Attiva RSS 2.0 e Atom Feed per le pagine in questa categoria.';
 
+$langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'Attivare le sottocategorie';
+$langFile['PAGESETUP_TIP_SUBCATEGORY']                                    = 'Permette di scegliere una sottocategoria per ogni pagina.';
+
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'Ordinare Per Data';
 $langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Le pagine con una data più recente appariranno in [b]testa[/b] alla lista delle pagine.[br][br][span class=hint]Usa questa impostazione per inserire le pagine in ordine di creazione.[/span]';
 
@@ -716,6 +722,9 @@ $langFile['EDITOR_pageSettings_field4_tip']                               = '[b]
 
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'Il formato della data è sbagliato';
 $langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'Questo mese finalmente non è di 31 giorni.[br]La data dovrebbe avere il seguente formato:';
+
+$langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Sottocategoria';
+$langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Permette di creare un menù secondario per questa pagina nel sito.';
 
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'Impostazioni Avanzate';

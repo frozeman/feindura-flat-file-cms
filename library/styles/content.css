@@ -703,10 +703,10 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     z-index: 6; /* fixes the problem that it hides the functions div under the h1 */
     position: absolute;
     top: 0px;
-    left: 174px;  
-    width: 115px;
+    left: 103px;  
+    width: 100px;
     height: 27px;
-    text-align: left;
+    text-align: right;
     }
 
 /***************************/	
@@ -715,12 +715,17 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
 .listPages div.name a {
     display: inline-block;
     height: 27px;
-    background: url("../images/icons/pageIcon_small.png") no-repeat 0px 0px;
+    background: url("../images/icons/pageIcon_small.png") no-repeat;
     padding-left: 30px !important;
     }
-    
-.listPages div.name a.startPage {
-    background: url("../images/buttons/listPages_startPage.png") no-repeat;
+.listPages div.name.hasSubCategory a {
+    background: url("../images/icons/pageIcon_subCategory_small.png") no-repeat;
+    }
+.listPages div.name.isStartPage a {
+    background: url("../images/icons/pageIcon_startPage_small.png") no-repeat;
+    }
+.listPages div.name.hasSubCategory.isStartPage a {
+    background: url("../images/icons/pageIcon_startPage_subCategory_small.png") no-repeat;
     }
 
 .listPages .functions a {

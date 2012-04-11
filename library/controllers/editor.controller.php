@@ -52,7 +52,6 @@ if($_POST['save'] && isBlocked() === false) {
     $_GET['page'] = $page;
     
     // sets the selected category
-    $category = $_POST['categoryId'];
     $_GET['category'] = $category;
     $_POST['category'] = $category;
     $pageContent['category'] = $category;

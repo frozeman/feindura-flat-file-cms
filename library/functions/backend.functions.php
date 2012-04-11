@@ -523,25 +523,26 @@ function saveCategories($newCategories) {
       $category['styleClass'] = setStylesByPriority($category['styleClass'],'styleClass',true);        
       
       // WRITE
-      $fileContent .= "\$categoryConfig[".$category['id']."]['id'] =                 ".XssFilter::int($category['id'],0).";\n";      
-      $fileContent .= "\$categoryConfig[".$category['id']."]['public'] =             ".XssFilter::bool($category['public'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['createDelete'] =       ".XssFilter::bool($category['createDelete'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbnail'] =          ".XssFilter::bool($category['thumbnail'],true).";\n";        
-      $fileContent .= "\$categoryConfig[".$category['id']."]['plugins'] =            '".$category['plugins']."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['showTags'] =           ".XssFilter::bool($category['showTags'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['showPageDate'] =       ".XssFilter::bool($category['showPageDate'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['feeds'] =              ".XssFilter::bool($category['feeds'],true).";\n\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['id']                  = ".XssFilter::int($category['id'],0).";\n";      
+      $fileContent .= "\$categoryConfig[".$category['id']."]['public']              = ".XssFilter::bool($category['public'],true).";\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['createDelete']        = ".XssFilter::bool($category['createDelete'],true).";\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbnail']           = ".XssFilter::bool($category['thumbnail'],true).";\n";        
+      $fileContent .= "\$categoryConfig[".$category['id']."]['plugins']             = '".$category['plugins']."';\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['showTags']            = ".XssFilter::bool($category['showTags'],true).";\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['showPageDate']        = ".XssFilter::bool($category['showPageDate'],true).";\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['showSubCategory']     = ".XssFilter::bool($category['showSubCategory'],true).";\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['feeds']               = ".XssFilter::bool($category['feeds'],true).";\n\n";
       
-      $fileContent .= "\$categoryConfig[".$category['id']."]['sorting'] =            '".XssFilter::alphabetical($category['sorting'],'manually')."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['sortReverse'] =        ".XssFilter::bool($category['sortReverse'],true).";\n\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['sorting']             = '".XssFilter::alphabetical($category['sorting'],'manually')."';\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['sortReverse']         = ".XssFilter::bool($category['sortReverse'],true).";\n\n";
       
-      $fileContent .= "\$categoryConfig[".$category['id']."]['styleFile'] =          '".$category['styleFile']."';\n"; //XssFilter is in prepareStyleFilePaths() function
-      $fileContent .= "\$categoryConfig[".$category['id']."]['styleId'] =            '".XssFilter::string($category['styleId'])."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['styleClass'] =         '".XssFilter::string($category['styleClass'])."';\n\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['styleFile']           = '".$category['styleFile']."';\n"; //XssFilter is in prepareStyleFilePaths() function
+      $fileContent .= "\$categoryConfig[".$category['id']."]['styleId']             = '".XssFilter::string($category['styleId'])."';\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['styleClass']          = '".XssFilter::string($category['styleClass'])."';\n\n";
       
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbWidth'] =         '".XssFilter::int($category['thumbWidth'])."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbHeight'] =        '".XssFilter::int($category['thumbHeight'])."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbRatio'] =         '".XssFilter::alphabetical($category['thumbRatio'])."';\n\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbWidth']          = '".XssFilter::int($category['thumbWidth'])."';\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbHeight']         = '".XssFilter::int($category['thumbHeight'])."';\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbRatio']          = '".XssFilter::alphabetical($category['thumbRatio'])."';\n\n";
       
       // save localized
       if(is_array($category['localized'])) {
@@ -828,8 +829,8 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['varName']['category']  = '".XssFilter::stringStrict($adminConfig['varName']['category'],'category')."';\n";  
     $fileContent .= "\$adminConfig['varName']['modul']     = '".XssFilter::stringStrict($adminConfig['varName']['modul'],'modul')."';\n\n";
 
-    $fileContent .= "\$adminConfig['cache']['active']      = '".XssFilter::bool($adminConfig['cache']['active'],false)."';\n";
-    $fileContent .= "\$adminConfig['cache']['timeout']     = '".XssFilter::number($adminConfig['cache']['timeout'],5)."';\n\n";
+    $fileContent .= "\$adminConfig['cache']['active']      = ".XssFilter::bool($adminConfig['cache']['active'],true).";\n";
+    $fileContent .= "\$adminConfig['cache']['timeout']     = ".XssFilter::number($adminConfig['cache']['timeout'],5).";\n\n";
     
     $fileContent .= "\$adminConfig['user']['frontendEditing']   = ".XssFilter::bool($adminConfig['user']['frontendEditing'],true).";\n";
     $fileContent .= "\$adminConfig['user']['fileManager']       = ".XssFilter::bool($adminConfig['user']['fileManager'],true).";\n";
@@ -846,12 +847,13 @@ function saveAdminConfig($adminConfig) {
     }
     $fileContent .= "\$adminConfig['multiLanguageWebsite']['mainLanguage']   = ".XssFilter::alphabetical($adminConfig['multiLanguageWebsite']['mainLanguage'],0).";\n\n";
 
-    $fileContent .= "\$adminConfig['pages']['createDelete']  = ".XssFilter::bool($adminConfig['pages']['createDelete'],true).";\n";
-    $fileContent .= "\$adminConfig['pages']['thumbnails']    = ".XssFilter::bool($adminConfig['pages']['thumbnails'],true).";\n";    
-    $fileContent .= "\$adminConfig['pages']['plugins']       = '".$adminConfig['pages']['plugins']."';\n"; // no XssFilter, comes from a <select>
-    $fileContent .= "\$adminConfig['pages']['showTags']      = ".XssFilter::bool($adminConfig['pages']['showTags'],true).";\n";
-    $fileContent .= "\$adminConfig['pages']['showPageDate']  = ".XssFilter::bool($adminConfig['pages']['showPageDate'],true).";\n";
-    $fileContent .= "\$adminConfig['pages']['feeds']         = ".XssFilter::bool($adminConfig['pages']['feeds'],true).";\n\n";
+    $fileContent .= "\$adminConfig['pages']['createDelete']     = ".XssFilter::bool($adminConfig['pages']['createDelete'],true).";\n";
+    $fileContent .= "\$adminConfig['pages']['thumbnails']       = ".XssFilter::bool($adminConfig['pages']['thumbnails'],true).";\n";    
+    $fileContent .= "\$adminConfig['pages']['showTags']         = ".XssFilter::bool($adminConfig['pages']['showTags'],true).";\n";
+    $fileContent .= "\$adminConfig['pages']['showPageDate']     = ".XssFilter::bool($adminConfig['pages']['showPageDate'],true).";\n";
+    $fileContent .= "\$adminConfig['pages']['showSubCategory']  = ".XssFilter::bool($adminConfig['pages']['showSubCategory'],true).";\n";
+    $fileContent .= "\$adminConfig['pages']['feeds']            = ".XssFilter::bool($adminConfig['pages']['feeds'],true).";\n";
+    $fileContent .= "\$adminConfig['pages']['plugins']          = '".$adminConfig['pages']['plugins']."';\n\n"; // no XssFilter, comes from a <select>
     
     $fileContent .= "\$adminConfig['pages']['sorting']       = '".XssFilter::alphabetical($adminConfig['pages']['sorting'],'manually')."';\n";
     $fileContent .= "\$adminConfig['pages']['sortReverse']   = ".XssFilter::bool($adminConfig['pages']['sortReverse'],true).";\n\n";

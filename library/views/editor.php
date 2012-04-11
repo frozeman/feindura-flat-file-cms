@@ -266,9 +266,9 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
 if(!$newPage) {
   echo '<div style="z-index: 2;position:absolute;top: -5px; right:15px;">';
   if($pageContent['public'])
-    echo ' <a href="?category='.$pageContent['category'].'&page='.$pageContent['id'].'&status=changePageStatus&public=1&reload='.rand(0,999).'#pageInformation" class="toolTip noMark image" title="'.$langFile['STATUS_PAGE_PUBLIC'].'::"><img src="library/images/icons/page_public.png" '.$publicSignStyle.' alt="public" width="27" height="27"></a>';
+    echo ' <a href="?category='.$pageContent['category'].'&page='.$pageContent['id'].'&status=changePageStatus&public=1&reload='.rand(0,999).'#pageInformation" class="toolTip noMark image" title="'.$langFile['STATUS_PAGE_PUBLIC'].'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'"><img src="library/images/icons/page_public.png" '.$publicSignStyle.' alt="public" width="27" height="27"></a>';
   else
-    echo ' <a href="?category='.$pageContent['category'].'&page='.$pageContent['id'].'&status=changePageStatus&reload='.rand(0,999).'#pageInformation" class="toolTip noMark image" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'::"><img src="library/images/icons/page_nonpublic.png"'.$publicSignStyle.' alt="nonpublic" width="27" height="27"></a>';
+    echo ' <a href="?category='.$pageContent['category'].'&page='.$pageContent['id'].'&status=changePageStatus&reload='.rand(0,999).'#pageInformation" class="toolTip noMark image" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'"><img src="library/images/icons/page_nonpublic.png"'.$publicSignStyle.' alt="nonpublic" width="27" height="27"></a>';
   echo '</div>';
 }
 
@@ -356,9 +356,9 @@ if(!$newPage) {
         // -> show a CATEGORY SELECTION
         echo '<tr>
               <td class="left">
-              <span class="info"><strong>'.$langFile['EDITOR_pageinfo_category'].'</strong></span>
+              <label for="categorySelection" class="info"><strong>'.$langFile['EDITOR_pageinfo_category'].'</strong></label>
               </td><td class="right">
-              <select name="categoryId" id="categorySelection">';
+              <select name="categorySelection" id="categorySelection">';
               
               // -> shows non-category selection if create pages is allowed
               if($adminConfig['pages']['createDelete'])
@@ -367,10 +367,11 @@ if(!$newPage) {
               // ->> goes trough categories and list them
               foreach($categoryConfig as $listCategory) {
                 $selected = ($listCategory['id'] == $_GET['category']) ? ' selected="selected"' : $selected = '';
-                                
+                $categoryId = (isAdmin()) ? ' (ID '.$listCategory['id'].')' : '';
+
                 // -> shows category selection if create pages is allowed
                 if($listCategory['createDelete'])
-                  echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.GeneralFunctions::getLocalized($listCategory['localized'],'name').' (ID '.$listCategory['id'].')</option>'."\n";
+                  echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.GeneralFunctions::getLocalized($listCategory['localized'],'name').$categoryId.'</option>'."\n";
               }
               
         echo '</select>
@@ -380,9 +381,9 @@ if(!$newPage) {
         // -> SHOW TEMPLATE SELECTION
         echo '<tr>
               <td class="left">
-              <span class="info"><strong>'.$langFile['EDITOR_TEXT_CHOOSETEMPLATE'].'</strong></span>
+              <label for="templateSelection" class="info"><strong>'.$langFile['EDITOR_TEXT_CHOOSETEMPLATE'].'</strong></label>
               </td><td class="right">
-              <select id="templateSelection">
+              <select name="templateSelection" id="templateSelection">
               <option>-</option>'."\n";
               
               // -> loads all pages
@@ -526,25 +527,21 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       
       ?>      
       <tr><td class="left">
-      <label for="edit_pagedate">
       <?php
-      
-      // GET date format LANGUAGE TEXT
-      $dateFormat = $langFile['DATE_'.$adminConfig['dateFormat']];
-      
-      // CHECKs the DATE FORMAT
-      if(!empty($pageDate) && StatisticFunctions::validateDateFormat($pageDate) === false)
-        echo '<span class="toolTip red" title="'.$langFile['EDITOR_pageSettings_pagedate_error'].'::'.$langFile['EDITOR_pageSettings_pagedate_error_tip'].'[br][b]'.$dateFormat.'[/b]"><b>'.$langFile['EDITOR_pageSettings_pagedate_error'].'</b></span>'; 
-      else
-        echo '<span class="toolTip" title="'.$langFile['EDITOR_pageSettings_field3'].'::'.$langFile['EDITOR_pageSettings_field3_tip'].'">'.$langFile['EDITOR_pageSettings_field3'].'</span>';
-      ?>
-      </label>
-      
+        // GET date format LANGUAGE TEXT
+        $dateFormat = $langFile['DATE_'.$adminConfig['dateFormat']];
+        
+        // CHECKs the DATE FORMAT
+        if(!empty($pageDate) && StatisticFunctions::validateDateFormat($pageDate) === false)
+          echo '<label for="pageDate[before]" class="toolTip red" title="'.$langFile['EDITOR_pageSettings_pagedate_error'].'::'.$langFile['EDITOR_pageSettings_pagedate_error_tip'].'[br][strong]'.$dateFormat.'[/strong]"><strong>'.$langFile['EDITOR_pageSettings_pagedate_error'].'</strong></label>'; 
+        else
+          echo '<label for="pageDate[before]" class="toolTip" title="'.$langFile['EDITOR_pageSettings_field3'].'::'.$langFile['EDITOR_pageSettings_field3_tip'].'">'.$langFile['EDITOR_pageSettings_field3'].'</label>';
+      ?>      
       </td><td class="right">
         <?php
         $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate',true);
         ?>
-        <input name="pageDate[before]" value="<?php echo $pageDateBeforeAfter['before']; ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;">
+        <input name="pageDate[before]" id="pageDate[before]" value="<?php echo $pageDateBeforeAfter['before']; ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;">
         
         <?php
         
@@ -627,6 +624,32 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       </td></tr>
       <?php } ?>
       
+      <tr><td class="spacer"></td><td></td></tr>
+
+      <?php
+      if((($_GET['category'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
+         ($_GET['category'] == 0 && $adminConfig['pages']['showSubCategory']))) {
+      ?>
+      <!-- ***** Subcategory selection -->
+      <tr>
+      <td class="left">
+      <label for="subCategory" class="toolTip" title="<?php echo $langFile['EDITOR_TEXT_SUBCATEGORY'].'::'.$langFile['EDITOR_TIP_SUBCATEGORY']; ?>"><strong><?php echo $langFile['EDITOR_TEXT_SUBCATEGORY']; ?></strong></label>
+      </td><td class="right">
+      <select name="subCategory" id="subCategory" class="toolTip" title="<?php echo $langFile['EDITOR_TEXT_SUBCATEGORY'].'::'.$langFile['EDITOR_TIP_SUBCATEGORY']; ?>">';
+      <?php
+        echo '<option>-</option>';
+        // ->> goes trough categories and list them
+        foreach($categoryConfig as $listCategory) {
+          $selected = ($listCategory['id'] == $pageContent['subCategory']) ? ' selected="selected"' : $selected = '';
+          echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.GeneralFunctions::getLocalized($listCategory['localized'],'name').'</option>'."\n";
+        }
+
+      ?>  
+      </select>
+      </td>
+      </tr>
+      <?php } ?>
+
       <tr><td class="leftBottom"></td><td></td></tr>      
       
       <tr><td class="spacer checkboxes"></td><td></td></tr>

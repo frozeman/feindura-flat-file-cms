@@ -361,6 +361,10 @@ $langFile['SORTABLEPAGELIST_error_read']                                  = '<b>
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>Konnte die Seite nicht in die neue Kategorie verschieben.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'Keine Seiten vorhanden';
 
+$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR']             = 'Unterkategorie der Seite:';
+$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL']               = 'Unterkategorie der Seiten:';
+
+
 // ---------- FORMULAR
 $langFile['FORM_BUTTON_SUBMIT']                                           = 'Speichern';
 $langFile['FORM_BUTTON_CANCEL']                                           = 'Alle Eingaben zurücksetzen';
@@ -552,7 +556,7 @@ $langFile['PAGESETUP_CATEGORY_TIP_CATEGORYSTATUS']                        = 'Leg
 $langFile['PAGESETUP_CATEGORY_TEXT_CREATEPAGES']                          = 'Seiten erstellen/löschen';
 $langFile['PAGESETUP_CATEGORY_TIP_CREATEPAGES']                           = 'Legt fest ob der Benutzer kann in dieser Kategorie Seiten erstellen und löschen kann.';
 $langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS']                     = 'Thumbnails hochladen';
-$langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS']                      = 'Legt fest ob der Benutzer Thumbnails für jede Seite in dieser Kategorie hochzuladen kann.';
+$langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS']                      = 'Legt fest ob der Benutzer Thumbnails für jede Seite in dieser Kategorie hochladen kann.';
 $langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS']                             = 'Tags bearbeiten';
 $langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Es können Tags für die Seiten in dieser Kategorie festgelegt werden.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS']                      = 'Plugins aktivieren';
@@ -565,6 +569,9 @@ $langFile['PAGESETUP_TIP_EDITPAGEDATE']                                   = 'Das
 $langFile['PAGESETUP_TEXT_FEEDS']                                         = 'Feeds aktivieren';
 $langFile['PAGESETUP_TIP_FEEDS']                                          = 'RSS 2.0 und Atom Feed für diese Seiten aktivieren.';
 $langFile['PAGESETUP_CATEGORY_TIP_FEEDS']                                 = 'RSS 2.0 und Atom Feed für diese Kategorie aktivieren.';
+
+$langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'Unterkategorien aktivieren';
+$langFile['PAGESETUP_TIP_SUBCATEGORY']                                    = 'Eine Unterkategorie kann für jede Seite eingestellt werden.';
 
 $langFile['PAGESETUP_TEXT_SORTMANUALLY']                                  = 'Seiten manuell sortieren';
 $langFile['PAGESETUP_TIP_SORTMANUALLY']                                   = 'Neu erstellte Seiten erscheinen [b]oben[/b].';
@@ -713,6 +720,10 @@ $langFile['EDITOR_pageSettings_field4_tip']                               = '[b]
 
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'Fehlerhaftes Datumsformat';
 $langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'Dieser Monat hat eventuell keine 31 Tage.[br]Das Datum sollte folgendes Format haben:';
+
+$langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Unterkategorie';
+$langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Erlaubt, in der Webseite, das erstellen eines Untermenüs für diese Seite.';
+
 
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'Erweiterte Einstellungen';

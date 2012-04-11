@@ -1487,6 +1487,9 @@ class FeinduraBase {
   *   
   */ 
   protected function getPropertyIdsByString($ids) {
+
+    if($ids === null || $ids === '')
+      return false;
     
     // vars    
     // ??include the non-category??
@@ -1507,7 +1510,6 @@ class FeinduraBase {
     
     // ->> check for page/category ids (will not affect $page/$category, if they are strings)
     // ******
-    
     // GET page by PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     $page = ((is_bool($page) || empty($page)) && (!is_bool($category) && !empty($category) ))
       ? false
@@ -1725,14 +1727,6 @@ class FeinduraBase {
       elseif($shortIdType == 'cat')
         // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory(false);
-      /*
-      elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-        $ids = $this->getPropertyPages($ids);
-      elseif($idType == 'categories')
-        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
-        $ids = $this->getPropertyCategories($ids);
-      */
     }
     
     return $ids;

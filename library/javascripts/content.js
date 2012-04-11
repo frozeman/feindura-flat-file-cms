@@ -135,6 +135,7 @@ function setThumbScale(thumbWidth,thumbWidthScale,thumbHeight,thumbHeightScale) 
         'mouseup': scaleWidth
       });
   }
+
   // thumbheight
   if($(thumbHeight) !== null) {
       $(thumbHeight).addEvents({

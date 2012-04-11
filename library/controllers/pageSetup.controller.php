@@ -55,6 +55,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   $newAdminConfig['pages']['plugins']                     = serialize($_POST['cfg_pagePlugins']);
   $newAdminConfig['pages']['showTags']                    = $_POST['cfg_pageTags'];
   $newAdminConfig['pages']['showPageDate']                = $_POST['cfg_pagePageDate'];
+  $newAdminConfig['pages']['showSubCategory']             = $_POST['cfg_subCategory'];
   $newAdminConfig['pages']['feeds']                       = $_POST['cfg_pagefeeds'];
   $newAdminConfig['pages']['sorting']                     = $_POST['cfg_pageSorting'];
   $newAdminConfig['pages']['sortReverse']                 = $_POST['cfg_pageSortReverse'];
@@ -354,8 +355,9 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
   
   // serialize the plugins array
   foreach($_POST['categories'] as $key => $value) {
-    $_POST['categories'][$key]['plugins']      = serialize($value['plugins']);
-    $_POST['categories'][$key]['localized'] = $categoryConfig[$key]['localized'];
+    $_POST['categories'][$key]['showSubCategory'] = $value['showSubCategory'];
+    $_POST['categories'][$key]['plugins']         = serialize($value['plugins']);
+    $_POST['categories'][$key]['localized']       = $categoryConfig[$key]['localized'];
 
     // STORE LOCALIZED CONTENT
     if(!empty($value['name']))

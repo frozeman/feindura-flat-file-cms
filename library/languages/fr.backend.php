@@ -342,6 +342,9 @@ $langFile['SORTABLEPAGELIST_error_read']                                  = '<b>
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>la page ne pouvait pas être mise dans la nouvelle catégorie.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'Keine Seiten vorhanden';
 
+$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR']             = 'Sous-catégorie de la page:';
+$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL']               = 'Sous-catégorie des pages:';
+
 // ---------- FORMULAR
 $langFile['FORM_BUTTON_SUBMIT']                                           = 'sauvegarder';
 $langFile['FORM_BUTTON_CANCEL']                                           = 'réinitialiser les dossiers';
@@ -538,6 +541,9 @@ $langFile['PAGESETUP_TEXT_FEEDS']                                         = 'act
 $langFile['PAGESETUP_TIP_FEEDS']                                          = 'Activer RSS 2.0 et Atom Feed pour les pages sans catégorie.';
 $langFile['PAGESETUP_CATEGORY_TIP_FEEDS']                                 = 'Activer RSS 2.0 et Atom Feed pour les pages de cette catégorie.';
 
+$langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'activer les sous-catégories';
+$langFile['PAGESETUP_TIP_SUBCATEGORY']                                    = 'Permet de choisir une sous-catégorie pour chaque page.';
+
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'pages triée par date de pages';
 $langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Pages avec un plus jeune date apparaissent à la [b]top[/b].[br][br][span class=hint]Manuellement trier n\'est plus possible.[/span]';
 
@@ -678,6 +684,9 @@ $langFile['EDITOR_pageSettings_field4']                                   = 'sta
 $langFile['EDITOR_pageSettings_field4_tip']                               = '[b]Une page sera visible sur le site web seulement quand elle est publiée![/b]';
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'format de date incorrect';
 $langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'Ce mois n\'a peut être pas 31 jours.[br]La date devrait avoir le format suivant:';
+
+$langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Sous-catégorie';
+$langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Permet de créer un sous-menu pour cette page sur le site.';
 
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'paramètres avancés';

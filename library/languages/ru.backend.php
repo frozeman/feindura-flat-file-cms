@@ -356,6 +356,9 @@ $langFile['SORTABLEPAGELIST_error_read']                                  = '<b>
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>Не удается переместить страницу в новую категорию.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'Нет страниц';
 
+$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR']             = 'Подкатегория на странице:';
+$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL']               = 'Подкатегория из страниц:';
+
 // ---------- FORMULAR
 $langFile['FORM_BUTTON_SUBMIT']                                           = 'Сохранить';
 $langFile['FORM_BUTTON_CANCEL']                                           = 'Сбросить все поля';
@@ -562,6 +565,9 @@ $langFile['PAGESETUP_TEXT_FEEDS']                                         = 'В�
 $langFile['PAGESETUP_TIP_FEEDS']                                          = 'Включает выдачу xml-лент для категории в форматах: RSS 2.0 и Atom.';
 $langFile['PAGESETUP_CATEGORY_TIP_FEEDS']                                 = 'Включает выдачу xml-лент для категории в форматах: RSS 2.0 и Atom.';
 
+$langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'Активировать подкатегории';
+$langFile['PAGESETUP_TIP_SUBCATEGORY']                                    = 'Позволяет выбрать подкатегорию для каждой страницы.';
+
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'Сортировать страницы по дате';
 $langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Страницы созданные позже (более новые) будут выводится в списке [b]вверху[/b].[br][br][span class=hint]Деактивирует ручную сортировку.[/span]';
 
@@ -709,6 +715,9 @@ $langFile['EDITOR_pageSettings_field4_tip']                               = '[b]
 
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'Ошибочный формат даты';
 $langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'В этом месяце не 31 день.[br]Формат даты может быть следующим:';
+
+$langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'подкатегория';
+$langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Позволяет создавать подменю для этой страницы на сайте.';
 
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'Дополнительные настройки';

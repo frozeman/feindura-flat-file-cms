@@ -23,7 +23,7 @@ $menu = $feindura->createMenuByTags($tags,'category',1,'table',true,2,true);
 
 // displays the menu
 foreach($menu as $link) {
-  echo $link;
+  echo $link['menuItem'];
 }
 
 

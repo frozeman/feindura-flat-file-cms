@@ -3,6 +3,7 @@
 array(
     "id"             => 2,
     "category"       => 1,
+    "subCategory"    => false,
     "public"         => true,
     "sortOrder"      => 4,
     "lastSaveDate"   => 1282348800, // UNIX-Timestamp

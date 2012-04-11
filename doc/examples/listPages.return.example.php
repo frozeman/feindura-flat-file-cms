@@ -53,8 +53,8 @@ array(
     'tags'              => 'tag3 tag1',
     'plugins'           => array ()
     )
+
+    ...
   )
-  
-  ...
   
 ?>

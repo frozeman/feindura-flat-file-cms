@@ -48,7 +48,7 @@ $menu = $feindura->createMenu('category',1,'table',true,2);
 
 // displays the menu
 foreach($menu as $link) {
-  echo $link;
+  echo $link['menuItem'];
 }
 
 

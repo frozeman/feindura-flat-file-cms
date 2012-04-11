@@ -4,6 +4,7 @@ array(
     0 => array(
       "id"             => 2,
       "category"       => 1,
+      "subCategory"    => 3,
       "public"         => true,
       "sortOrder"      => 4,
       "lastSaveDate"   => 1282348800, // UNIX-Timestamp
@@ -43,6 +44,7 @@ array(
     1 => array(
       "id"             => 2,
       "category"       => 1,
+      "subCategory"    => false,
       "public"         => true,
       "sortOrder"      => 4,
       "lastSaveDate"   => 1282348855, // UNIX-Timestamp

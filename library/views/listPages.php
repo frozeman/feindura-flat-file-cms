@@ -39,6 +39,8 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 <form action="<?php echo GeneralFunctions::getCurrentUrl(); ?>" method="post" accept-charset="UTF-8">
 <?php
 
+
+
 // shows the PAGES in NO CATEGORIES (the page/ folder),
 // by adding a empty category to the $categoryConfig array
 $nonCategory[0] = array('id' => 0,'localized' => array( 0 => array( 'name' => $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'])));
@@ -48,11 +50,21 @@ $allCategories = $nonCategory + $categoryConfig;
 foreach($allCategories as $category) {
 
   // vars
+  $categoryTitle = '';
   $categoryName = GeneralFunctions::getLocalized($category['localized'],'name');
-  
-  // -> LOAD the PAGES FROM the CATEGORY
+
+  // -> LOAD PAGES of this CATEGORY
   $pages = GeneralFunctions::loadPages($category['id'],true);
-  //print_r($pages);
+
+  // -> GET PAGES WHICH HAVE THIS CATEGORY AS SUBCATEGORY
+  $allPages = GeneralFunctions::loadPages(true,true);
+  $pagesOfSubCategory = array();
+  foreach ($allPages as $pageContent) {
+    if($pageContent['subCategory'] == $category['id'] && 
+       (($pageContent['category'] != 0 && $category['showSubCategory']) ||
+        ($pageContent['category'] == 0 && $adminConfig['pages']['showSubCategory'])))
+      $pagesOfSubCategory[] = $pageContent;
+  }
 
   // shows after saving the right category open
   $hidden = (is_array($pages) && !empty($pages) &&                                         // -> slide in the category if EMPTY
@@ -81,15 +93,34 @@ foreach($allCategories as $category) {
   
   // shows ID and different header color if its a CATEGORY
   if($category['id'] != 0) {
-    //$categoryId = '<span style="font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
     $headerColor = ' class="blue"';
-    $headerIcon = 'library/images/icons/categoryIcon_middle.png';
+    $categoryIcon = (!empty($pagesOfSubCategory) &&
+                     ($category['showSubCategory'] ||
+                      $adminConfig['pages']['showSubCategory']))
+      ? 'library/images/icons/categoryIcon_subCategory_middle.png'
+      : 'library/images/icons/categoryIcon_middle.png';
   } else {
-    //$categoryId = '<span style="color: #999999; font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
     $headerColor = ' class="brown"';
-    $headerIcon = 'library/images/icons/pageIcon_middle.png';
+    $categoryIcon = 'library/images/icons/pageIcon_middle.png';
   }
-  
+
+  // show category id
+  $categoryTitle .= (isAdmin())
+    ? '[b]ID:[/b] '.$category['id']
+    : '';
+
+  // show pages which have this category as subcategory
+  if(!empty($pagesOfSubCategory) &&
+     ($category['showSubCategory'] ||
+      $adminConfig['pages']['showSubCategory'])) {
+    $categoryTitle .= (count($pagesOfSubCategory) ==  1)
+      ? '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR'].'[/b][br]'
+      : '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL'].'[/b][br]';
+    foreach ($pagesOfSubCategory as $pageOfSubCategory) {
+      $categoryTitle .= '[img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($pageOfSubCategory['localized'],'title').'[br]';
+    }
+  }
+
   // display ANCHOR
   echo '<!-- categoryAnchor'.$category['id'].' is here -->';
   echo '<a id="categoryAnchor'.$category['id'].'" class="anchorTarget"></a>';
@@ -97,7 +128,7 @@ foreach($allCategories as $category) {
   // -> CATEGORY HEADLINE
   echo "\n\n".'<div class="block listPages'.$hidden.'">';
   	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
-    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" width="35" height="35"> '.$categoryName.'</span> '.$sorting.'</a></h1>
+    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="'.$categoryName.'::'.$categoryClass.$categoryTitle.'"><img src="'.$categoryIcon.'" alt="category icon" width="35" height="35"> '.$categoryName.'</span> '.$sorting.'</a></h1>
           <div class="category">';
       
       // CATEGORY STATUS
@@ -125,7 +156,7 @@ foreach($allCategories as $category) {
   
   echo '<ul'.$listIsSortableClass.' id="category'.$category['id'].'">';
 
-  // list the pages of the categories
+  // list the pages of the category
   // ----------------------------------------------------------
   if(is_array($pages) && !empty($pages)) {
   
@@ -138,19 +169,21 @@ foreach($allCategories as $category) {
       $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
 
       // vars
-      $toolTipPageDate = '';
-      $toolTipTags = '';
-      $toolTipPageLanguages = '';
-      $missingLanguages = '';
-      $sort_order[] = $pageContent['sortOrder'];
+      $pageTitle_pageDate      = '';
+      $pageTitle_tags          = '';
+      $pageTitle_pageLanguages = '';
+      $missingLanguages        = '';
+      $startPageIcon           = '';
+      $pageTitle_startPageText = '';
+      $sort_order[]            = $pageContent['sortOrder'];
     
       // show whether the page is public or nonpublic
       if($pageContent['public']) {
         $publicClass = ' public';
-        $publicText = $langFile['STATUS_PAGE_PUBLIC'];
+        $publicText  = $langFile['STATUS_PAGE_PUBLIC'];
       } else {
         $publicClass = ' nonpublic';
-        $publicText = $langFile['STATUS_PAGE_NONPUBLIC'];
+        $publicText  = $langFile['STATUS_PAGE_NONPUBLIC'];
       }
       
       // shorten the title
@@ -161,30 +194,37 @@ foreach($allCategories as $category) {
       $lastSaveDate = StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.StatisticFunctions::formatTime($pageContent['lastSaveDate']);
       
       // -> show page ID
-      $pageId = (isAdmin())
+      $pageTitle_Id = (isAdmin())
         ? '[br][b]ID:[/b] '.$pageContent['id']
         : '';
 
+      // -> show sub category in toolTip
+      $pageTitle_subCategory = ($pageContent['subCategory'] &&
+                                (($category['id'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
+                                 ($category['id'] == 0 && $adminConfig['pages']['showSubCategory'])))
+        ? '[br][b]'.$langFile['EDITOR_TEXT_SUBCATEGORY'].':[/b] '.GeneralFunctions::getLocalized($categoryConfig[$pageContent['subCategory']]['localized'],'name')
+        : '';
+
       // -> generate pageDate for toolTip
-      $toolTipPageDate = showPageDate($pageContent);
+      $pageTitle_pageDate = showPageDate($pageContent);
       
       // -> generate tags for toolTip
       $localizedTags = GeneralFunctions::getLocalized($pageContent['localized'],'tags');
       if($category['showTags'] && !empty($localizedTags)) {
-        $toolTipTags = '[br]';
-        $toolTipTags .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].':[/b] '.$localizedTags;
+        $pageTitle_tags = '[br]';
+        $pageTitle_tags .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].':[/b] '.$localizedTags;
       }
 
       // -> generate page languages for toolTip
       if(!isset($pageContent['localized'][0])) {
-        $toolTipPageLanguages .= '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].':[/b]';
+        $pageTitle_pageLanguages .= '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].':[/b]';
         foreach ($pageContent['localized'] as $langCode => $values) {
-          $toolTipPageLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] '.$languageCodes[$langCode];
+          $pageTitle_pageLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] '.$languageCodes[$langCode];
         }
         // list not yet existing languages of the page
         foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
           if(!isset($pageContent['localized'][$langCode])) {
-            $toolTipPageLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] [span class=gray][s]'.$languageCodes[$langCode].'[/s][/span]';
+            $pageTitle_pageLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] [span class=gray][s]'.$languageCodes[$langCode].'[/s][/span]';
             $missingLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] '.$languageCodes[$langCode];
           }
         }
@@ -195,19 +235,23 @@ foreach($allCategories as $category) {
       // id'.$pageContent['id'].' sort'.$pageContent['sortOrder'].' cat: '.$pageContent['category'].' 
       echo '<li id="page'.$pageContent['id'].'">';
       
-      // startpage icon before the name
+      // -> display other icon for pages
+      $subCategoryIcon = ($pageContent['subCategory'] &&
+                          (($category['id'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
+                           ($category['id'] == 0 && $adminConfig['pages']['showSubCategory'])))
+        ? ' hasSubCategory'
+        : '';
+
+      // -> startpage icon before the name
       if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
-        $activeStartPage = ' startPage';
-        $startPageText = $langFile['SORTABLEPAGELIST_functions_startPage_set'];
-      } else {
-        $activeStartPage = '';
-        $startPageText = '';
+        $startPageIcon = ' isStartPage';
+        $pageTitle_startPageText = $langFile['SORTABLEPAGELIST_functions_startPage_set'];
       }
       
-      echo '<div class="name">
-            <a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'"
+      echo '<div class="name'.$subCategoryIcon.$startPageIcon.'">
+            <a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip"
             title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title'))).'::
-            '.$startPageText.$pageId.$toolTipPageDate.$toolTipTags.$toolTipPageLanguages.'">
+            '.$pageTitle_startPageText.$pageTitle_Id.$pageTitle_subCategory.$pageTitle_pageDate.$pageTitle_tags.$pageTitle_pageLanguages.'">
             <b>'.$title.'</b>
             </a></div>';
       echo (!empty($pageContent['lastSaveAuthor']))
@@ -221,6 +265,7 @@ foreach($allCategories as $category) {
       // show language status (is everything translated)
       if($adminConfig['multiLanguageWebsite']['active'] && !empty($missingLanguages))
         echo '<span class="toolTip missingLanguages" title="'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'] .'::'.$missingLanguages.'"></span>';
+      echo '<span class="toolTip missingLanguages" title="'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'] .'::'.$missingLanguages.'"></span>';
       echo '</div>';
 
       // PAGE FUCNTIONS

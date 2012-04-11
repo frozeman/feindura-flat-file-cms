@@ -362,6 +362,10 @@ $langFile['SORTABLEPAGELIST_error_read']                                  = '<b>
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>Could not move the page into the new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'No pages available';
 
+$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR']             = 'Subcategory of the page:';
+$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL']               = 'Subcategory of the pages:';
+
+
 // ---------- FORMULAR
 $langFile['FORM_BUTTON_SUBMIT']                                           = 'Save';
 $langFile['FORM_BUTTON_CANCEL']                                           = 'Reset all input';
@@ -568,6 +572,9 @@ $langFile['PAGESETUP_TEXT_FEEDS']                                         = 'Act
 $langFile['PAGESETUP_TIP_FEEDS']                                          = 'Activate RSS 2.0 and Atom Feed for the pages without category.';
 $langFile['PAGESETUP_CATEGORY_TIP_FEEDS']                                 = 'Activate RSS 2.0 and Atom Feed for the pages in this category.';
 
+$langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'Activate subcategories';
+$langFile['PAGESETUP_TIP_SUBCATEGORY']                                    = 'Allows to choose a subcategory for each page.';
+
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'Sort pages by page date';
 $langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Pages with a younger date appear at the [b]top[/b].[br][br][span class=hint]Deactivates manually sorting.[/span]';
 
@@ -715,6 +722,10 @@ $langFile['EDITOR_pageSettings_field4_tip']                               = '[b]
 
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'Wrong date format';
 $langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'This month has eventually no 31 days.[br]The date should have the follwing format:';
+
+$langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Subcategory';
+$langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Allows to create a sub menu for this page in the website.';
+
 
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'Advanced Settings';

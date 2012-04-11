@@ -121,5 +121,9 @@ window.addEvent('domready', function() {
 // LOADING-CIRCLE when the website will be left
 window.addEvent('beforeunload',  function() {
   onEndLoadingCircle();
-
+});
+// LOADING-CIRCLE when the website will is left
+window.addEvent('unload',  function() {
+  $('loadingBox').setStyle('display','none');
+  $('loadingBox').getChildren('.content')[0].empty();
 });

@@ -1390,8 +1390,7 @@ class Feindura extends FeinduraBase {
   * 
   * Creates a menu from category or page ID(s).
   * 
-  * 
-  * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
@@ -1399,7 +1398,10 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It adds the css class <i>"active"</i> to the link, which is the current page (<var>$page</var> parameter).
   * 
-  * Example:
+  * Example of the returned Array:
+  * {@example createMenu.return.example.php}
+  * 
+  * Example Usage:
   * {@example createMenu.example.php}
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
@@ -1434,11 +1436,11 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailBefore
   * @uses Feindura::$thumbnailAfter
   * 
-  * @uses createLink()                        to create a link from every $pageContent array  
+  * @uses createLink()                            to create a link from every $pageContent array  
   * @uses FeinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
   * @uses FeinduraBase::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
   * @uses FeinduraBase::createAttributes()        to create the attributes used in the menu tag
-  * @uses GeneralFunctions::sortPages()       to sort the $pageContent arrays by category
+  * @uses GeneralFunctions::sortPages()           to sort the $pageContent arrays by category
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
@@ -1447,9 +1449,10 @@ class Feindura extends FeinduraBase {
   * @see createMenuByDate()
   * 
   * @access public
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 changed returned array
   *    - 1.0 initial release
   * 
   */
@@ -1457,6 +1460,12 @@ class Feindura extends FeinduraBase {
     
     // vars
     $menu = array();
+    $menuItem['menuItem'] = '';
+    $menuItem['startTag'] = '';
+    $menuItem['endTag']   = '';
+    $menuItem['link']     = '';
+    $menuItem['pageId']   = null;
+    $menuItemCopy = $menuItem;
     
     $ids = $this->getPropertyIdsByType($idType,$ids);
     
@@ -1475,7 +1484,9 @@ class Feindura extends FeinduraBase {
         // creates the link
         if($pageLink = $this->createLink($page,$linkText)) {
           // adds the link to an array
-          $links[] = $pageLink;
+          $link['link'] = $pageLink;
+          $link['id']   = $page['id'];
+          $links[] = $link;
         }
       }
     } else 
@@ -1484,8 +1495,8 @@ class Feindura extends FeinduraBase {
     // -> sets the MENU attributes
     // ----------------------------    
     $menuStartTag = '';
-    $menuEndTag = '';        
-    $menuTagSet = false;
+    $menuEndTag   = '';        
+    $menuTagSet   = false;
     
     // -> CREATEs the MENU-TAG (START and END-TAG)
     if($menuTag) { // || !empty($menuAttributes) <- not used because there is no menuTag property, the tag is only set when a $menuTag parameter is given
@@ -1497,8 +1508,8 @@ class Feindura extends FeinduraBase {
       // or uses standard tag
       else $menuTagSet = 'div';
                 
-      $menuStartTag = '<'.$menuTagSet.$menuAttributes.'>'."\n";
-      $menuEndTag = '</'.$menuTagSet.'>'."\n";
+      $menuStartTag = "\n<".$menuTagSet.$menuAttributes.'>'."\n";
+      $menuEndTag   = "</".$menuTagSet.'>'."\n\n";
     } 
     
     // --------------------------------------
@@ -1507,73 +1518,71 @@ class Feindura extends FeinduraBase {
     if(empty($links))
       return array();
     
-    /*
-    // CHECK if the LINK BEFORE & AFTER is !== true
-    if($this->menuBefore !== true)
-      $menuBefore = $this->menuBefore;
-    if($this->menuAfter !== true)
-      $menuAfter = $this->menuAfter;    
-    
-    if(!is_bool($this->menuBetween))
-      $menuBetween = $this->menuBetween;    
-    */
-    
-    // creating the START TR tag
-    if($menuTagSet == 'table')
-      $menuStartTag .= '<tr>';
-    
     // SHOW START-TAG
     if($menuStartTag) {
-      //echo $menuBefore.$menuStartTag;
-      $menu[] = $menuStartTag; //$menuBefore.$menuStartTag;
+      $menuItemCopy['menuItem'] = $menuStartTag;
+      $menuItemCopy['startTag'] = $menuStartTag;
+      $menu[] = $menuItemCopy;
     }
+
+    // * reset $menuItemCopy
+    $menuItemCopy = $menuItem;
+
+    // creating the START TR tag
+    if($menuTagSet == 'table') {
+      $menuItemCopy['menuItem'] = "<tr>\n";
+      $menuItemCopy['startTag'] = "<tr>\n";
+      $menu[] = $menuItemCopy;
+    }
+
+    // * reset $menuItemCopy
+    $menuItemCopy = $menuItem;
     
     $count = 1;
     foreach($links as $link) {
-    
-      /*
-      // adds the break after BR
-      if($breakAfter === true) {
-        if($this->xHtml === true)
-          $link .= "<br>\n";
-        else
-          $link .= "<br>\n";
-      */
           
       // breaks the CELLs with TR after the given NUMBER of CELLS
       if($menuTagSet == 'table' &&
          is_numeric($breakAfter) &&
          ($breakAfter + 1) == $count) {
-        //echo "</tr><tr>\n";
-        $menu[] = "\n</tr><tr>\n";
+        $menuItemCopy['menuItem'] = "\n</tr><tr>\n";
+        $menuItemCopy['startTag'] = "<tr>\n";
+        $menuItemCopy['endTag']   = "\n</tr>";
+        $menu[] = $menuItemCopy;
         $count = 1;
       }
-      
-      /*
-      // clears the $menuBetween String if its the last tag
-      if($count == count($links))
-        $menuBetween = false;
-      */
+
+      // * reset $menuItemCopy
+      $menuItemCopy = $menuItem;
       
       // if menuTag is a LIST ------
       if($menuTagSet == 'menu' || $menuTagSet == 'ul' || $menuTagSet == 'ol') {
-        $link = '<li>'.$link."</li>\n"; //.$menuBetween;
+        $menuItemCopy['menuItem'] = '<li>'.$link['link']."</li>\n";
+        $menuItemCopy['startTag'] = '<li>';
+        $menuItemCopy['endTag']   = "</li>\n";
+        $menuItemCopy['link']     = $link['link'];
+        $menuItemCopy['pageId']   = $link['id'];
         
       // if menuTag is a TABLE -----
       } elseif($menuTagSet == 'table') {
-        $link = "<td>\n".$link."\n</td>"; //.$menuBetween;
-       
+        $menuItemCopy['menuItem'] = "<td>\n".$link['link']."\n</td>";
+        $menuItemCopy['startTag'] = "<td>\n";
+        $menuItemCopy['endTag']   = "\n</td>";
+        $menuItemCopy['link']     = $link['link'];
+        $menuItemCopy['pageId']   = $link['id'];
+
+      // if just a link
+      } else {
+        $menuItemCopy['menuItem'] = $link['link']."\n";
+        $menuItemCopy['link']     = $link['link']."\n";
+        $menuItemCopy['pageId']   = $link['id'];
       }
-      /* 
-      // if menuBetween -----
-      } elseif(isset($menuBetween)) {
-        $link = $link."\n".$menuBetween;
-      }
-      */
       
-      // SHOW the link
-      //echo $link;
-      $menu[] = $link;
+      // add link
+      $menu[] = $menuItemCopy;
+
+      // * reset $menuItemCopy
+      $menuItemCopy = $menuItem;
       
       // count the table cells
       $count++;
@@ -1583,25 +1592,32 @@ class Feindura extends FeinduraBase {
     while($menuTagSet == 'table' &&
           is_numeric($breakAfter) &&
           $breakAfter >= $count) {
-      //echo "<td></td>\n";
-      $menu[] = "<td></td>\n";
+      $menuItemCopy['menuItem'] = "\n<td></td>\n";
+      $menuItemCopy['startTag'] = "\n<td>";
+      $menuItemCopy['endTag']   = "</td>\n";
+      $menu[] = $menuItemCopy;
       $count++;
     }
+
+    // * reset $menuItemCopy
+    $menuItemCopy = $menuItem;
     
     // creating the END TR tag
-    if($menuTagSet == 'table')
-      $menuEndTag = "</tr>\n".$menuEndTag;
-    
+    if($menuTagSet == 'table') {
+      $menuItemCopy['menuItem'] = "</tr>\n";
+      $menuItemCopy['endTag']   = "</tr>\n";
+      $menu[] = $menuItemCopy;
+    }
+
+    // * reset $menuItemCopy
+    $menuItemCopy = $menuItem;
+
     // SHOW END-TAG
     if($menuEndTag) {
-      //echo $menuEndTag.$menuAfter;
-      $menu[] = $menuEndTag; //$menuEndTag.$menuAfter;
+      $menuItemCopy['menuItem'] = $menuEndTag;
+      $menuItemCopy['endTag']   = $menuEndTag;
+      $menu[] = $menuItemCopy;
     }
-    
-    // adds breaks before and after
-    //$menu = "\n".$menu."\n";
-    // removes double breaks
-    //$menu = preg_replace("/[\r\n]+/","\n",$menu);
     
     // returns the whole menu after finish
     return $menu;
@@ -1618,13 +1634,16 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: the tags will be compared case insensitive.
   * 
-  * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.
   * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
   * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * <b>Note</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
+  * 
+  * Example of the returned Array:
+  * {@example createMenu.return.example.php}
   * 
   * Example:
   * {@example createMenuByTags.example.php}
@@ -1711,13 +1730,16 @@ class Feindura extends FeinduraBase {
   * 
   * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   * 
-  * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.
   * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
   * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * <b>Note</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
+  * 
+  * Example of the returned Array:
+  * {@example createMenu.return.example.php}
   * 
   * Example:
   * {@example createMenuByDate.example.php}
@@ -1802,13 +1824,16 @@ class Feindura extends FeinduraBase {
   * Creates a menu from category or page ID(s) sorted by a custom sort function, passed in the first parameter <var>$sortCallback</var>.
   * 
   * 
-  * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.
   * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
   * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * <b>Note</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
+  * 
+  * Example of the returned Array:
+  * {@example createMenu.return.example.php}
   * 
   * Example:
   * {@example createMenuBySortFunction.example.php}
@@ -1898,6 +1923,94 @@ class Feindura extends FeinduraBase {
 	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$breakAfter,$reverseList);
   }
   
+ /**
+  * <b>Name</b> createSubMenu()<br>
+  * 
+  * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
+  * 
+  * Creates a sub menu out of the subcategory of a page.
+  * 
+  * 
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
+  * If its any other tag name it just enclose the links with this HTML-tag.
+  * 
+  * In case no page with the given page ID exist it returns an empty array.
+  * 
+  * <b>Note</b>: if the <var>$id</var> parameter is FALSE or empty it uses the {@link $page} property.<br>
+  * <b>Note</b>: It adds the css class <i>"active"</i> to the link, which is the current page (<var>$page</var> parameter).
+  *
+  * Example of the returned Array:
+  * {@example createMenu.return.example.php}
+  * 
+  * Example:
+  * {@example createSubMenu.example.php}
+  * 
+  * @param int|string|array|bool $id          (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property.<br><i>See Additional -> $id parameter example</i>
+  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
+  * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
+  * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * 
+  * @uses Feindura::$menuId
+  * @uses Feindura::$menuClass
+  * @uses Feindura::$menuAttributes
+  * 
+  * @uses Feindura::$linkLength
+  * @uses Feindura::$linkId
+  * @uses Feindura::$linkClass
+  * @uses Feindura::$linkAttributes
+  * @uses Feindura::$linkBefore
+  * @uses Feindura::$linkAfter
+  * @uses Feindura::$linkBeforeText
+  * @uses Feindura::$linkAfterText
+  * @uses Feindura::$linkShowThumbnail
+  * @uses Feindura::$linkShowThumbnailAfterText
+  * @uses Feindura::$linkShowPageDate
+  * @uses Feindura::$linkShowCategory
+  * @uses Feindura::$linkCategorySeparator
+  * 
+  * @uses Feindura::$thumbnailAlign
+  * @uses Feindura::$thumbnailId
+  * @uses Feindura::$thumbnailClass
+  * @uses Feindura::$thumbnailAttributes
+  * @uses Feindura::$thumbnailBefore
+  * @uses Feindura::$thumbnailAfter
+  * 
+  * @uses createLink()                            to create a link from every $pageContent array  
+  * @uses FeinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
+  * @uses FeinduraBase::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
+  * @uses FeinduraBase::createAttributes()        to create the attributes used in the menu tag
+  * @uses GeneralFunctions::sortPages()           to sort the $pageContent arrays by category
+  * 
+  * @return array the created sub menu in an array, ready to display in a HTML-page, or an empty array
+  * 
+  * @example id.parameter.example.php $id parameter example
+  * 
+  * @see createLink()
+  * @see createMenuByTags()
+  * @see createMenuByDate()
+  * 
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public function createSubMenu($id = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+
+    if($ids = $this->getPropertyIdsByString($id)) {
+      // loads the $pageContent array
+      if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
+        if(is_numeric($pageContent['subCategory']) &&
+           (($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['showSubCategory']) ||
+            ($pageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])))
+          return $this->createMenu('category', $pageContent['subCategory'], $menuTag, $linkText, $breakAfter, $sortByCategories);
+      }
+    }
+    return array();
+  }
+
  /**
   * <b>Name</b>     showTitle()<br>
   * <b>Alias</b>    getPageTitle()<br>

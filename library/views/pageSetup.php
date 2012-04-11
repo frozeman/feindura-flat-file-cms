@@ -276,6 +276,12 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       </td><td class="right checkboxes">
       <label for="cfg_pagefeeds"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_TIP_FEEDS']; ?>"><?php echo $langFile['PAGESETUP_TEXT_FEEDS']; ?></span></label>
       </td></tr>
+
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="cfg_subCategory" name="cfg_subCategory" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY'].'::'.$langFile['PAGESETUP_TIP_SUBCATEGORY']; ?>"<?php if($adminConfig['pages']['showSubCategory']) echo ' checked="checked"'; ?>>
+      </td><td class="right checkboxes">
+      <label for="cfg_subCategory"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY'].'::'.$langFile['PAGESETUP_TIP_SUBCATEGORY']; ?>"><?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY']; ?></span></label>
+      </td></tr>
       
       <tr><td class="spacer checkboxes"></td><td></td></tr>
 
@@ -386,21 +392,23 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           unset($checked);
           
           // checks the category settings
-          $checked[1] = ($category['public']) ? 'checked="checked"' : '';
-
-          $checked[2] = ($category['createDelete']) ? 'checked="checked"' : '';
-            
-          $checked[3] = ($category['thumbnail']) ? 'checked="checked"' : '';
-            
+          $checked[1]  = ($category['public']) ? 'checked="checked"' : '';
+          
+          $checked[2]  = ($category['createDelete']) ? 'checked="checked"' : '';
+          
+          $checked[3]  = ($category['thumbnail']) ? 'checked="checked"' : '';
+          
           $checked[11] = ($category['plugins']) ? 'checked="checked"' : '';
           
-          $checked[4] = ($category['showTags']) ? 'checked="checked"' : ''; 
+          $checked[4]  = ($category['showTags']) ? 'checked="checked"' : ''; 
           
-          $checked[5] = ($category['showPageDate']) ? 'checked="checked"' : '';
+          $checked[5]  = ($category['showPageDate']) ? 'checked="checked"' : '';
+          
+          $checked[13] = ($category['showSubCategory']) ? 'checked="checked"' : '';
           
           $checked[12] = ($category['feeds']) ? 'checked="checked"' : '';
           
-          $checked[6] = ($category['sortReverse']) ? 'checked="checked"' : '';
+          $checked[6]  = ($category['sortReverse']) ? 'checked="checked"' : '';
           
           $checked[71] = ($category['sorting'] == 'manually' || empty($category['sorting'])) ? 'checked="checked"' : '';
           $checked[72] = ($category['sorting'] == 'byPageDate') ? 'checked="checked"' : '';
@@ -521,7 +529,14 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td><td class="right checkboxes">
                 <label for="categories'.$category['id'].'feeds"><span class="toolTip" title="'.$langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'].'">'.$langFile['PAGESETUP_TEXT_FEEDS'].'</span></label>
                 </td></tr>';
-            echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';          
+
+          echo '<tr><td class="left checkboxes">
+                <input type="checkbox" id="categories'.$category['id'].'subCategory" name="categories['.$category['id'].'][showSubCategory]" value="true" '.$checked[13].' class="toolTip" title="'.$langFile['PAGESETUP_TEXT_SUBCATEGORY'].'::'.$langFile['PAGESETUP_TIP_SUBCATEGORY'].'">
+                </td><td class="right checkboxes">
+                <label for="categories'.$category['id'].'subCategory"><span class="toolTip" title="'.$langFile['PAGESETUP_TEXT_SUBCATEGORY'].'::'.$langFile['PAGESETUP_TIP_SUBCATEGORY'].'">'.$langFile['PAGESETUP_TEXT_SUBCATEGORY'].'</span></label>
+                </td></tr>';
+
+          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';          
           
           // SORTING
           // manually

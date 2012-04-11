@@ -24,7 +24,7 @@ $menu = $feindura->createMenuByDate('category',1,true,8,'table',true,2);
 
 // displays the menu
 foreach($menu as $link) {
-  echo $link;
+  echo $link['menuItem'];
 }
 
 
