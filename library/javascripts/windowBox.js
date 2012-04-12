@@ -23,30 +23,31 @@ var uploadAnimationElement = null;
 // dimms the background and calls: requestSite(site,siteTitle);
 function openWindowBox(site,siteTitle,fixed) {
     
-  $('dimContainer').fade('hide');
-  $('dimContainer').setStyle('display','block');
-  
-  $('dimContainer').set('fade', {duration: 150, transition: Fx.Transitions.Pow.easeOut});
-  $('dimContainer').fade('in');
-  
-  loadingText = $$('#windowBox .boxTop').get('html');
-  
   if(site) {
+    
     // if fixed is true, than the window positon is relative,
     // means its fixed in the document, and NOT scrolling with the user
     if(fixed || navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
       $('windowBox').setStyle('position','relative');
     else
       $('windowBox').setStyle('position','fixed');
+
+    loadingText = $$('#windowBox .boxTop').get('html');
+
+    // dim container
+    $('dimContainer').setStyle('display','block');
+    $('dimContainer').fade('hide');
+    // $('dimContainer').set('fade', {duration: 300, transition: Fx.Transitions.Pow.easeOut});
+    $('dimContainer').fade(1);
     
-    // set the display to block
-    $('windowBoxContainer').fade('show');
-    // $('windowBoxContainer').setStyle('visibility','visible');
-    
-    // set the fade
-    $('windowBox').set('opacity',0);
-    $('windowBox').tween('opacity',1);
+    // setting up the slidecontent
+    $('windowRequestBox').set('slide',{duration: 200, transition: Fx.Transitions.Pow.easeOut});
     $('windowRequestBox').slide('show');
+
+    // window box
+    $('windowBoxContainer').fade('hide');
+    $('windowBoxContainer').fade(1);
+    
 
     // IE HACK, wont bring the bottom div to the top
 		if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
@@ -65,9 +66,7 @@ function openWindowBox(site,siteTitle,fixed) {
 function closeWindowBox(redirectAfter) {
       
 	// resize the box by a slide
-	var SlideWindowBoxClose = new Fx.Slide('windowRequestBox', {duration: 250, transition: Fx.Transitions.Pow.easeIn});
-	$('windowBox').set('tween', {duration: 100, transition: Fx.Transitions.Pow.easeOut});
-	$('dimContainer').set('tween', {duration: 150, transition: Fx.Transitions.Pow.easeOut});
+	$('dimContainer').set('tween', {duration: 300, transition: Fx.Transitions.Pow.easeOut});
 	
 	// IE HACK, wont bring the bottom div to the top
 	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
@@ -75,21 +74,19 @@ function closeWindowBox(redirectAfter) {
 		$('windowBox').getChildren('.boxBottom').tween('top','0px');
 	}
 	
-	// slides the windowRequestBox out
-	SlideWindowBoxClose.slideOut().chain(function(){
+	// fades the windowBox
+  $('windowBoxContainer').fade('show');
+	$('windowBoxContainer').fade(0);
+
+	// fades the dimContainer
+  $('dimContainer').fade('show');
+  $('dimContainer').fade(0);
+
+  // slides the windowRequestBox out
+  $('windowBoxContainer').get('tween').chain(function() {
       // set the html inside the windowRequestBox div back.
-			$('windowRequestBox').empty();
-			$('windowRequestBox').setStyle('height', 'auto');
-			
-			// fades the windowBox
-			$('windowBox').fade('out');
-			// fades the dimContainer
-      $('dimContainer').fade('out');
-  });
-  
-  $('windowBox').get('tween').chain(function(e) {
-      // set the display of the windowBoxContainerto none;
-     $('windowBoxContainer').fade('hide');
+      $('windowRequestBox').empty();
+      $('windowRequestBox').setStyle('height', 'auto');
   });
   
   // last effect
@@ -109,9 +106,12 @@ function closeWindowBox(redirectAfter) {
 // send a HTML request and put the outcome in the windowRequestBox
 function requestSite(site,siteTitle,formId) {
 
+  // vars
   var formular = $(formId);
   var newWindow = true;
   var removeLoadingCircle;
+  var windowRequestBox = $('windowRequestBox');
+  var windowBox = $('windowBox');
   
   // creates the request Object
   new Request.HTML({url:site,
@@ -123,40 +123,39 @@ function requestSite(site,siteTitle,formId) {
           newWindow = false;
         
         // shows the LOADING
-        if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
-          $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer'}),'top');
-          removeLoadingCircle = feindura_loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#fff");
+        if(navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
+          windowRequestBox.grab(new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'}),'top');
         } else {
-          $('windowRequestBox').grab(new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'}),'top');
+          windowRequestBox.grab(new Element('div', {id: 'windowBoxDimmer'}),'top');
+          removeLoadingCircle = feindura_loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#fff");
         }
     },
     //-----------------------------------------------------------------------------
 		onSuccess: function(html,childs,rawText) { //-------------------------------------------------
 
-      if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
-        removeLoadingCircle();
-      
-      // animate the box by a slide; set the slide
-      var SlideWindowBox = new Fx.Slide('windowRequestBox', {duration: '400', transition: Fx.Transitions.Pow.easeOut});
-      
-      // ONLY slide out if, the text of the window is "DONTSHOW"
+      // slide the content out
+      windowRequestBox.slide('out');
+
+      //slide out and quit, if the text of the window is "DONTSHOW"
       if(rawText.substring(1,9) == 'DONTSHOW') {
-        SlideWindowBox.slideOut();
         return;
       }
       
-      SlideWindowBox.slideOut().chain(function() {
+      windowRequestBox.get('slide').chain(function() {
+      // (function() {
           
         // fill in the content
         if(site) {
+          if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
+            removeLoadingCircle();
           //Clear the text currently inside the results div.
-          $('windowRequestBox').set('html', '');
+          windowRequestBox.set('html', '');
           //Inject the new DOM elements into the results div.
-          $('windowRequestBox').adopt(html);
+          windowRequestBox.adopt(html);
         }
 
         // fire a event if the page is loaded
-        $('windowBox').fireEvent('loaded',$('windowRequestBox'));
+        $('windowBox').fireEvent('loaded',windowRequestBox);
 
         // only when the a new window is opend slide in ------------
         if(newWindow) {
@@ -172,30 +171,31 @@ function requestSite(site,siteTitle,formId) {
             
           // IE HACK, wont bring the bottom div to the bottom
           if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-            $('windowBox').getChildren('.boxBottom').setStyle('top','68px');
-            $('windowBox').getChildren('.boxBottom').set('tween',{duration: 500, transition: Fx.Transitions.Pow.easeOut});
-            $('windowBox').getChildren('.boxBottom').tween('top',$('windowRequestBox').getSize().y);
+            windowBox.getChildren('.boxBottom').setStyle('top','68px');
+            windowBox.getChildren('.boxBottom').set('tween',{duration: 500, transition: Fx.Transitions.Pow.easeOut});
+            windowBox.getChildren('.boxBottom').tween('top',windowRequestBox.getSize().y);
           }
 
         // else RESIZE ------------
         } else {
-            
           // IE HACK, wont bring the bottom div to the bottom
           if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
-            $('windowBox').getChildren('.boxBottom').setStyle('top',$('windowRequestBox').getSize().y);
+            windowBox.getChildren('.boxBottom').setStyle('top',windowRequestBox.getSize().y);
         }
-
-        // slides in again
-        this.slideIn();
 
         /* set toolTips to all objects with a toolTip class */
         setToolTips();
 
+        // slides in again
+        windowRequestBox.slide('in');
+
+
       }).chain(function(){
+      // })().chain(function(){
         // sets the height of the wrapper to auto after the slide,
         // so that the windowRequestBox, resizes automaticly when content is changing
-        if(SlideWindowBox.wrapper.offsetHeight !== 0 && !navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
-          SlideWindowBox.wrapper.setStyle('height','auto');
+        if(windowRequestBox.get('slide').wrapper.offsetHeight !== 0 && !navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
+          windowRequestBox.get('slide').wrapper.setStyle('height','auto');
       });
 
 		},

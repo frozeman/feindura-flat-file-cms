@@ -69,7 +69,7 @@ if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'
     
     $question = '';
     echo 'DONTSHOW';        
-    echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php?site=pages&category='.$category.'\');/* ]]> */</script>';
+    echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php?site=pages&category='.$category.'&status=reload'.rand(1,99).'#categoryAnchor'.$category.'\');/* ]]> */</script>';
 
   } else {
     // DELETING ERROR --------------

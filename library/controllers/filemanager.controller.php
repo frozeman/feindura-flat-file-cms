@@ -18,6 +18,9 @@
 * @version 0.2
 */
 
+// FORCE using the existing session, when request comes from FLASH
+if(isset($_POST['session'])) session_id($_POST['session']);
+
 /**
  * Includes the login.include.php and backend.include.php and filter the basic data
  */

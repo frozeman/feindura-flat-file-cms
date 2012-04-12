@@ -99,7 +99,7 @@ If Prototype is detected the frontend editing will be automatically blocked .
 If you want to use the MooTools framework in your website and you have activated the fronend editing mode,
 you should include the script at the end of your page (before the closing </body> tag) as follow.
 
-     <script>!window.MooTools && document.write(unescape('%3Cscript src="your/path/mootools-core-1.3.1.js"%3E%3C/script%3E'))</script>
+     <script>!window.MooTools && document.write(unescape('%3Cscript src="your/path/mootools-core-1.4.5.js"%3E%3C/script%3E'))</script>
      
 Otherwise you will have problems with the frontend editing.
 If don't care about that, you can deactivate the frontendediting mode inside the admin setup > user permissions.

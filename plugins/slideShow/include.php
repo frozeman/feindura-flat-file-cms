@@ -52,10 +52,10 @@ $uniqueId = rand(0,999);
 
 // set new size
 $resizeWidthBefore = ($pluginConfig['imageWidth'])
-  ? "$('slideShow".$uniqueId."').setStyle('width',".$pluginConfig['imageWidth'].");"
+  ? "document.id('slideShow".$uniqueId."').setStyle('width',".$pluginConfig['imageWidth'].");"
   : '';
 $resizeHeightBefore = ($pluginConfig['imageHeight'])
-  ? "$('slideShow".$uniqueId."').setStyle('height',".$pluginConfig['imageHeight'].");"
+  ? "document.id('slideShow".$uniqueId."').setStyle('height',".$pluginConfig['imageHeight'].");"
   : '';
   
 $resizeWidthAfter = ($pluginConfig['imageWidth'])
@@ -70,8 +70,8 @@ echo '<script type="text/javascript">
   /* <![CDATA[ */
   // add mootools if user is not logged into backend
   if(!window.MooTools) {
-    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.2.js"%3E%3C/script%3E\'));
-    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.3.2.1.js"%3E%3C/script%3E\'));
+    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"%3E%3C/script%3E\'));
+    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"%3E%3C/script%3E\'));
   }
   // add NivooSlider
   document.write(unescape(\'%3Cscript src="'.$filePath.'/NivooSlider/NivooSlider.js"%3E%3C/script%3E\')); 
@@ -80,13 +80,13 @@ echo '<script type="text/javascript">
   
 echo '<script type="text/javascript">  
   window.addEvent(\'domready\', function () {
-    if($(\'slideShow'.$uniqueId.'\') != null) {
+    if(document.id(\'slideShow'.$uniqueId.'\') != null) {
       // set size
       '.$resizeWidthBefore.'
       '.$resizeHeightBefore.'
     
       // initialize Nivoo-Slider
-      new NivooSlider($(\'slideShow'.$uniqueId.'\'), {
+      new NivooSlider(document.id(\'slideShow'.$uniqueId.'\'), {
       	effect: \'fade\',
       	interval: 5000,
       	orientation: \'horizontal\'

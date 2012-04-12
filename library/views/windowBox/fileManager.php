@@ -25,7 +25,7 @@
 require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
 if(!$adminConfig['user']['fileManager'])
-  die('MooTools FileManager deactivated');
+  die('MooTools FileManager is deactivated');
 
 ?>
 <!DOCTYPE html>
@@ -37,8 +37,8 @@ if(!$adminConfig['user']['fileManager'])
   <title>feindura <?php echo $langFile['BUTTON_FILEMANAGER']; ?></title>
   
   <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="../../thirdparty/javascripts/mootools-core-1.3.2.js"></script>
-  <script type="text/javascript" src="../../thirdparty/javascripts/mootools-more-1.3.2.1.js"></script>
+  <script type="text/javascript" src="../../thirdparty/javascripts/mootools-core-1.4.5.js"></script>
+  <script type="text/javascript" src="../../thirdparty/javascripts/mootools-more-1.4.0.1.js"></script>
   
   <!-- thirdparty/MooTools-FileManager -->
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/FileManager.js"></script>
@@ -60,7 +60,7 @@ if(!$adminConfig['user']['fileManager'])
           assetBasePath: '../../thirdparty/MooTools-FileManager/Assets',
           documentRootPath: '<?php echo DOCUMENTROOT ?>',
           language: '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>',
-          uploadAuthData: {session: '<?php echo session_id(); ?>'},
+          propagateData: {'<?php echo session_name(); ?>':'<?php echo session_id(); ?>'},
           filter: '<?php echo $_GET["mimType"]; ?>',
           destroy: true,
           upload: true,

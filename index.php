@@ -94,8 +94,8 @@ if($_GET['site'] == 'addons') {
   <!-- JAVASCRIPT -->
 
   <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.3.2.js"></script>
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.3.2.1.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.4.5.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.4.0.1.js"></script>
   
   <!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
@@ -177,6 +177,7 @@ if($_GET['site'] == 'addons') {
         assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
         documentRootPath: '<?php echo DOCUMENTROOT; ?>',
         language: '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>',
+        propagateData: {'<?php echo session_name(); ?>':'<?php echo session_id(); ?>'},
         destroy: true,
         upload: true,
         move_or_copy: true,

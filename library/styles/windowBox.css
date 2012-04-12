@@ -59,7 +59,7 @@ windowBox.css version 0.2 */
     min-height: 140px;
     padding: 20px 40px;
     background: url("../images/bg/windowBox_middle.png") repeat-y;
-    overflow: hidden;
+    /*overflow: hidden;*/
     }
 #windowBox .boxBottom {
     z-index: 2;

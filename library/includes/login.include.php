@@ -114,15 +114,6 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
   
 }
 
-/*
-// LOG
-echo session_name().'<br>';
-echo 'server host: '.HOST.'<br>';
-echo 'storedID: '.$_SESSION['feinduraSession']['login']['host'].'<br>';
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
-*/
 
 // ->> CHECK if user is logged in
 // *****************************************************
@@ -132,6 +123,14 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 
 // ->> SHOW LOGIN FORM
 } else {
+
+  // DEBUG
+  // echo 'server name: '.session_name().'->'.session_id().'<br>';
+  // echo 'server host: '.HOST.'<br>';
+  // echo 'stored host: '.$_SESSION['feinduraSession']['login']['host'].'<br>';
+  // echo '<pre>';
+  // print_r($_SESSION);
+  // echo '</pre>';
 
   ?>
 <!DOCTYPE html>
@@ -163,8 +162,8 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
   <link rel="stylesheet" type="text/css" href="library/styles/login.css" media="all">
   
   <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.3.2.js"></script>
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.3.2.1.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.4.5.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.4.0.1.js"></script>
   
   <!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>

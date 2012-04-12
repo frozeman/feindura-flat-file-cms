@@ -66,7 +66,7 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
           : '?site='.$site;
         
         if($site == 'pages')
-          $redirect .= '#categoryAnchor'.$category;
+          $redirect .= '&status=reload'.rand(1,99).'#categoryAnchor'.$category;
           
         // redirect
         echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php'.$redirect.'\');/* ]]> */</script>';

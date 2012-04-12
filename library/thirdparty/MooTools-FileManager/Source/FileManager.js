@@ -28,50 +28,50 @@ var FileManager = new Class({
 
 	options: {
 		/*
-		 * onComplete: function(           // Fired when the 'Select' button is clicked
-		 *                      path,      // URLencoded absolute URL path to selected file
-		 *                      file,      // the file specs object: .name, .path, .size, .date, .mime, .icon, .icon48, .thumb48, .thumb250
-		 *                      fmobj      // reference to the FileManager instance which fired the event
-		 *                     )
-		 *
-		 * onModify: function(             // Fired when either the 'Rename' or 'Delete' icons are clicked or when a file is drag&dropped.
-		 *                                 // Fired AFTER the action is executed.
-		 *                    file,        // a CLONE of the file specs object: .name, .path, .size, .date, .mime, .icon, .icon48, .thumb48, .thumb250
-		 *                    json,        // The JSON data as sent by the server for this 'destroy/rename/move/copy' request
-		 *                    mode,        // string specifying the action: 'destroy', 'rename', 'move', 'copy'
-		 *                    fmobj        // reference to the FileManager instance which fired the event
-		 *                   )
-		 *
-		 * onShow: function(               // Fired AFTER the file manager is rendered
-		 *                  fmobj          // reference to the FileManager instance which fired the event
-		 *                 )
-		 *
-		 * onHide: function(               // Fired AFTER the file manager is removed from the DOM
-		 *                  fmobj          // reference to the FileManager instance which fired the event
-		 *                 )
-		 *
-		 * onScroll: function(             // Cascade of the window scroll event
-		 *                    e,           // reference to the event object (argument passed from the window.scroll event)
-		 *                    fmobj        // reference to the FileManager instance which fired the event
-		 *                   )
-		 *
-		 * onPreview: function(            // Fired when the preview thumbnail image is clicked
-		 *                     src,        // this.get('src') ???
-		 *                     fmobj,      // reference to the FileManager instance which fired the event
-		 *                     el          // reference to the 'this' ~ the element which was clicked
-		 *                    )
-		 *
-		 * onDetails: function(            // Fired when an item is picked from the files list to be previewed
-		 *                                 // Fired AFTER the server request is completed and BEFORE the preview is rendered.
-		 *                     json,       // The JSON data as sent by the server for this 'detail' request
-		 *                     fmobj       // reference to the FileManager instance which fired the event
-		 *                    )
-		 *
-		 * onHidePreview: function(        // Fired when the preview is hidden (e.g. when uploading)
-		 *                                 // Fired BEFORE the preview is removed from the DOM.
-		 *                         fmobj   // reference to the FileManager instance which fired the event
-		 *                        )
-		 */
+		* onComplete: function(           // Fired when the 'Select' button is clicked
+		*                      path,      // URLencoded absolute URL path to selected file
+		*                      file,      // the file specs object: .name, .path, .size, .date, .mime, .icon, .icon48, .thumb48, .thumb250
+		*                      fmobj      // reference to the FileManager instance which fired the event
+		*                     )
+		*
+		* onModify: function(             // Fired when either the 'Rename' or 'Delete' icons are clicked or when a file is drag&dropped.
+		*                                 // Fired AFTER the action is executed.
+		*                    file,        // a CLONE of the file specs object: .name, .path, .size, .date, .mime, .icon, .icon48, .thumb48, .thumb250
+		*                    json,        // The JSON data as sent by the server for this 'destroy/rename/move/copy' request
+		*                    mode,        // string specifying the action: 'destroy', 'rename', 'move', 'copy'
+		*                    fmobj        // reference to the FileManager instance which fired the event
+		*                   )
+		*
+		* onShow: function(               // Fired AFTER the file manager is rendered
+		*                  fmobj          // reference to the FileManager instance which fired the event
+		*                 )
+		*
+		* onHide: function(               // Fired AFTER the file manager is removed from the DOM
+		*                  fmobj          // reference to the FileManager instance which fired the event
+		*                 )
+		*
+		* onScroll: function(             // Cascade of the window scroll event
+		*                    e,           // reference to the event object (argument passed from the window.scroll event)
+		*                    fmobj        // reference to the FileManager instance which fired the event
+		*                   )
+		*
+		* onPreview: function(            // Fired when the preview thumbnail image is clicked
+		*                     src,        // this.get('src') ???
+		*                     fmobj,      // reference to the FileManager instance which fired the event
+		*                     el          // reference to the 'this' ~ the element which was clicked
+		*                    )
+		*
+		* onDetails: function(            // Fired when an item is picked from the files list to be previewed
+		*                                 // Fired AFTER the server request is completed and BEFORE the preview is rendered.
+		*                     json,       // The JSON data as sent by the server for this 'detail' request
+		*                     fmobj       // reference to the FileManager instance which fired the event
+		*                    )
+		*
+		* onHidePreview: function(        // Fired when the preview is hidden (e.g. when uploading)
+		*                                 // Fired BEFORE the preview is removed from the DOM.
+		*                         fmobj   // reference to the FileManager instance which fired the event
+		*                        )
+		*/
 		directory: '',                    // (string) the directory (relative path) which should be loaded on startup (show).
 		url: null,
 		assetBasePath: null,
@@ -86,7 +86,7 @@ var FileManager = new Class({
     keyboardNavigation: true,         // set to false to turn off keyboard navigation (tab, up/dn/pageup/pagedn etc)
 		detailInfoMode: '',               // (string) whether you want to receive extra metadata on select/etc. and/or view this metadata in the preview pane (modes: '', '+metaHTML', '+metaJSON'. Modes may be combined)
     previewHandlers: {},              // [partial] mimetype: function, function is called with previewArea (DOM element, put preview in here), fileDetails
-                                      // eg { 'audio': function(previewArea,fileDetails){ previewArea.adopt(new Element('div', {text:'Hello World'});} }                            
+																			// eg { 'audio': function(previewArea,fileDetails){ previewArea.adopt(new Element('div', {text:'Hello World'});} }
 		deliverPathAsLegalURL: false,     // (boolean) TRUE: deliver 'legal URL' paths, i.e. 'directory'-rooted, FALSE: deliver absolute URI paths.
 		hideOnClick: false,
 		hideClose: false,
@@ -108,9 +108,9 @@ var FileManager = new Class({
 	},
 
 	/*
-	 * hook items are objects (kinda associative arrays, as they are used here), where each
-	 * key item is called when the hook is invoked.
-	 */
+	* hook items are objects (kinda associative arrays, as they are used here), where each
+	* key item is called when the hook is invoked.
+	*/
 	hooks: {
 		show: {},                         // invoked after the 'show' event
 		cleanup: {},                      // invoked before the 'hide' event
@@ -272,7 +272,7 @@ var FileManager = new Class({
 		this.pathTitle = new Element('a', {href:'#','class': 'filemanager-dir-title',text: this.language.dir}).addEvent('click',(function(e) {
 			this.diag.log('pathTitle-click event: ', e, ' @ ', e.target.outerHTML);
 			e.stop();
-			if (this.header.getElement('span.filemanager-dir') != null) {
+			if (this.header.getElement('span.filemanager-dir') !== null) {
 				this.selectablePath.setStyle('width',(this.header.getSize().x - this.pathTitle.getSize().x - 55));
 				this.selectablePath.replaces(this.clickablePath);
 			}
@@ -701,20 +701,20 @@ var FileManager = new Class({
 	},
 
 	/*
-	 * default method to produce a suitable request URL/POST; as several frameworks out there employ url rewriting, one way or another,
-	 * we now allow users to provide their own construction method to replace this one: simply provide your own method in
-	 *   options.mkServerRequestURL
-	 * Like this one, it MUST return an object, containing two properties:
-	 *
-	 *   url:  (string) contains the URL sent to the server for the given event/request (which is always transmitted as a POST request)
-	 *   data: (assoc. array): extra parameters added to this POST. (Mainly there in case a framework wants to have the 'event' parameter
-	 *         transmitted as a POST data element, rather than having it included in the request URL itself in some form.
-	 *
-	 * WARNING: 'this' in here is actually **NOT** pointing at the FM instance; use 'fm_obj' for that!
-	 *
-	 *          In fact, 'this' points at the 'fm_obj.options' object, but consider that an 'undocumented feature'
-	 *          as it may change in the future without notice!
-	 */
+	* default method to produce a suitable request URL/POST; as several frameworks out there employ url rewriting, one way or another,
+	* we now allow users to provide their own construction method to replace this one: simply provide your own method in
+	*   options.mkServerRequestURL
+	* Like this one, it MUST return an object, containing two properties:
+	*
+	*   url:  (string) contains the URL sent to the server for the given event/request (which is always transmitted as a POST request)
+	*   data: (assoc. array): extra parameters added to this POST. (Mainly there in case a framework wants to have the 'event' parameter
+	*         transmitted as a POST data element, rather than having it included in the request URL itself in some form.
+	*
+	* WARNING: 'this' in here is actually **NOT** pointing at the FM instance; use 'fm_obj' for that!
+	*
+	*          In fact, 'this' points at the 'fm_obj.options' object, but consider that an 'undocumented feature'
+	*          as it may change in the future without notice!
+	*/
 	mkServerRequestURL: function(fm_obj, request_code, post_data)
 	{
 		return {
@@ -733,7 +733,7 @@ var FileManager = new Class({
 		}
 		else
 		{
-			var parent = (this.options.parentContainer != null ? $(this.options.parentContainer) : this.container.getParent());
+			var parent = (this.options.parentContainer !== null ? $(this.options.parentContainer) : this.container.getParent());
 			if (parent)
 			{
 				parentSize = parent.getSize();
@@ -772,7 +772,7 @@ var FileManager = new Class({
 		//
 		// Theoretically only the first click originates from the same mouse event as the 'drop' event, so we
 		// COULD reset 'drop_pending' after processing that one.
-		if (this.drop_pending != 0)
+		if (this.drop_pending !== 0)
 		{
 			this.drop_pending = 0;
 		}
@@ -816,8 +816,8 @@ var FileManager = new Class({
 // Partikule
 
 	/**
-	 * Catches both single and double click on thumb list icon in the directory preview thumb/gallery list
-	 */
+	* Catches both single and double click on thumb list icon in the directory preview thumb/gallery list
+	*/
 	relayDblClick: function(e, self, dg_el, file, clicks)
 	{
 		if (e) e.stop();
@@ -881,16 +881,16 @@ var FileManager = new Class({
 	},
 
 	/*
-	 * Gets called from the jsGET listener.
-	 *
-	 * Is fired for two reasons:
-	 *
-	 * 1) the user clicked on a file or directory to view and that change was also pushed to the history through one or more jsGET.set() calls.
-	 *    (In this case, we've already done what needed doing, so we should not redo that effort in here!)
-	 *
-	 * 2) the user went back in browser history or manually edited the URI hash section.
-	 *    (This is an 'change from the outside' and exactly what this listener is for. This time around, we should follow up on those changes!)
-	 */
+	* Gets called from the jsGET listener.
+	*
+	* Is fired for two reasons:
+	*
+	* 1) the user clicked on a file or directory to view and that change was also pushed to the history through one or more jsGET.set() calls.
+	*    (In this case, we've already done what needed doing, so we should not redo that effort in here!)
+	*
+	* 2) the user went back in browser history or manually edited the URI hash section.
+	*    (This is an 'change from the outside' and exactly what this listener is for. This time around, we should follow up on those changes!)
+	*/
 	hashHistory: function(vars)
 	{
 		this.storeHistory = false;
@@ -911,7 +911,7 @@ var FileManager = new Class({
 
 			case 'fmFile':
 				var hot_item = (this.Current && this.Current.retrieve('file'));
-				if (hot_item == null || value !== hot_item.name)
+				if (hot_item === null || value !== hot_item.name)
 				{
 					this.browser.getElements('span.fi span').each((function(current)
 					{
@@ -945,14 +945,14 @@ var FileManager = new Class({
 		if (typeof preselect === 'undefined') preselect = null;
 		if (typeof loaddir === 'undefined') loaddir = null;
 
-		if (loaddir == null && typeof jsGET !== 'undefined')
+		if (loaddir === null && typeof jsGET !== 'undefined')
 		{
-			if (jsGET.get('fmPath') != null)
+			if (jsGET.get('fmPath') !== null)
 			{
 				loaddir = jsGET.get('fmPath');
 			}
 		}
-		if (loaddir == null)
+		if (loaddir === null)
 		{
 			if (this.CurrentDir)
 			{
@@ -969,7 +969,7 @@ var FileManager = new Class({
 			if (jsGET.get('fmFile')) {
 				this.diag.log('on show: set onShow on fmFile: ', jsGET.get('fmFile'));
 			}
-			if (jsGET.get('fmListType') != null) {
+			if (jsGET.get('fmListType') !== null) {
 				$$('.filemanager-browserheader a.listType').set('opacity',0.5);
 				this.listType = jsGET.get('fmListType');
 				if (this.listType === 'thumb')
@@ -1132,7 +1132,7 @@ var FileManager = new Class({
 				styles: {
 					display: 'none'
 				},
-			    events: {
+				events: {
 					load: function()
 					{
 						var iframe = this;
@@ -1556,10 +1556,10 @@ var FileManager = new Class({
 	},
 
 	browserSelection: function(direction) {
-		var csel;
+		var csel,current;
 
 		this.diag.log('browserSelection : direction = ', direction);
-		if (this.browser.getElement('li') == null) return;
+		if (this.browser.getElement('li') === null) return;
 
 		if (direction === 'go-bottom')
 		{
@@ -1568,7 +1568,7 @@ var FileManager = new Class({
 
 			// blow away any lingering 'selected' after a page switch like that
 			csel = this.browser.getElement('span.fi.selected');
-			if (csel != null)
+			if (csel !== null)
 				csel.removeClass('selected');
 		}
 		else if (direction === 'go-top')
@@ -1578,10 +1578,10 @@ var FileManager = new Class({
 
 			// blow away any lingering 'selected' after a page switch like that
 			csel = this.browser.getElement('span.fi.selected');
-			if (csel != null)
+			if (csel !== null)
 				csel.removeClass('selected');
 		}
-		else if (this.browser.getElement('span.fi.hover') == null && this.browser.getElement('span.fi.selected') == null)
+		else if (this.browser.getElement('span.fi.hover') === null && this.browser.getElement('span.fi.selected') === null)
 		{
 			// none is selected: select first item (folder/file)
 			current = this.browser.getFirst('li').getElement('span.fi');
@@ -1589,11 +1589,11 @@ var FileManager = new Class({
 		else
 		{
 			// select the current file/folder or the one with hover
-			var current = null;
-			if (this.browser.getElement('span.fi.hover') == null && this.browser.getElement('span.fi.selected') != null) {
+			current = null;
+			if (this.browser.getElement('span.fi.hover') === null && this.browser.getElement('span.fi.selected') !== null) {
 				current = this.browser.getElement('span.fi.selected');
 			}
-			else if (this.browser.getElement('span.fi.hover') != null) {
+			else if (this.browser.getElement('span.fi.hover') !== null) {
 				current = this.browser.getElement('span.fi.hover');
 			}
 		}
@@ -1627,7 +1627,7 @@ var FileManager = new Class({
 
 			// when we're at the bottom of the view and there are more pages, go to the next page:
 			next = current.getNext('li');
-			if (next == null)
+			if (next === null)
 			{
 				if (this.paging_goto_next(null, 'go-bottom'))
 					break;
@@ -1636,7 +1636,7 @@ var FileManager = new Class({
 			{
 				for ( ; stepsize > 0; stepsize--) {
 					next = current.getNext('li');
-					if (next == null)
+					if (next === null)
 						break;
 					current = next;
 				}
@@ -1667,7 +1667,7 @@ var FileManager = new Class({
 
 			// when we're at the top of the view and there are pages before us, go to the previous page:
 			var previous = current.getPrevious('li');
-			if (previous == null)
+			if (previous === null)
 			{
 				if (this.paging_goto_prev(null, 'go-top'))
 					break;
@@ -1676,7 +1676,7 @@ var FileManager = new Class({
 			{
 				for ( ; stepsize > 0; stepsize--) {
 					previous = current.getPrevious('li');
-					if (previous == null)
+					if (previous === null)
 						break;
 					current = previous;
 				}
@@ -1699,7 +1699,7 @@ var FileManager = new Class({
 			this.storeHistory = true;
 			this.Current = current;
 			csel = this.browser.getElement('span.fi.selected');
-			if (csel != null) // remove old selected one
+			if (csel !== null) // remove old selected one
 				csel.removeClass('selected');
 
 			current.addClass('selected');
@@ -1724,10 +1724,10 @@ var FileManager = new Class({
 			// and before we go and delete the entry, see if we pick the next one down or up as our next cursor position:
 			var parent = current.getParent('li');
 			next = parent.getNext('li');
-			if (next == null) {
+			if (next === null) {
 				next = parent.getPrevious('li');
 			}
-			if (next != null) {
+			if (next !== null) {
 				next = next.getElement('span.fi');
 				next.addClass('hover');
 			}
@@ -1960,22 +1960,22 @@ var FileManager = new Class({
 		var els = [[], []];
 
 		/*
-		 * For very large directories, where the number of directories in there and/or the number of files is HUGE (> 200),
-		 * we DISABLE drag&drop functionality.
-		 *
-		 * Yes, we could have opted for the alternative, which is splitting up the .makeDraggable() activity in multiple
-		 * setTimeout(callback, 0) initiated chunks in order to spare the user the hassle of a 'slow script' dialog,
-		 * but in reality drag&drop is ludicrous in such an environment; currently we do not (yet) support autoscrolling
-		 * the list to enable drag&dropping it to elements further away that the current viewport can hold at the same time,
-		 * but drag&drop in a 500+ image carrying directory is resulting in a significant load of the browser anyway;
-		 * alternative means to move/copy files should be provided in such cases instead.
-		 *
-		 * Hence we run through the list here and abort / limit the drag&drop assignment process when the hardcoded number of
-		 * directories or files have been reached (support_DnD_for_this_dir).
-		 *
-		 * TODO: make these numbers 'auto adaptive' based on timing measurements: how long does it take to initialize
-		 *       a view on YOUR machine? --> adjust limits accordingly.
-		 */
+		* For very large directories, where the number of directories in there and/or the number of files is HUGE (> 200),
+		* we DISABLE drag&drop functionality.
+		*
+		* Yes, we could have opted for the alternative, which is splitting up the .makeDraggable() activity in multiple
+		* setTimeout(callback, 0) initiated chunks in order to spare the user the hassle of a 'slow script' dialog,
+		* but in reality drag&drop is ludicrous in such an environment; currently we do not (yet) support autoscrolling
+		* the list to enable drag&dropping it to elements further away that the current viewport can hold at the same time,
+		* but drag&drop in a 500+ image carrying directory is resulting in a significant load of the browser anyway;
+		* alternative means to move/copy files should be provided in such cases instead.
+		*
+		* Hence we run through the list here and abort / limit the drag&drop assignment process when the hardcoded number of
+		* directories or files have been reached (support_DnD_for_this_dir).
+		*
+		* TODO: make these numbers 'auto adaptive' based on timing measurements: how long does it take to initialize
+		*       a view on YOUR machine? --> adjust limits accordingly.
+		*/
 		var support_DnD_for_this_dir = this.allow_DnD(j, pagesize);
 		var starttime = new Date().getTime();
 		this.diag.log('fill list size = ', j_item_count);
@@ -2157,14 +2157,14 @@ var FileManager = new Class({
 	},
 
 	/*
-	 * The old one-function-does-all fill() would take an awful long time when processing large directories. This function
-	 * contains the most costly code chunk of the old fill() and has adjusted the looping through the j.dirs[] and j.files[] lists
-	 * in such a way that we can 'chunk it up': we can measure the time consumed so far and when we have spent more than
-	 * X milliseconds in the loop, we stop and allow the loop to commence after a minimal delay.
-	 *
-	 * The delay is the way to relinquish control to the browser and as a thank-you NOT get the dreaded
-	 * 'slow script, continue or abort?' dialog in your face. Ahh, the joy of cooperative multitasking is back again! :-)
-	 */
+	* The old one-function-does-all fill() would take an awful long time when processing large directories. This function
+	* contains the most costly code chunk of the old fill() and has adjusted the looping through the j.dirs[] and j.files[] lists
+	* in such a way that we can 'chunk it up': we can measure the time consumed so far and when we have spent more than
+	* X milliseconds in the loop, we stop and allow the loop to commence after a minimal delay.
+	*
+	* The delay is the way to relinquish control to the browser and as a thank-you NOT get the dreaded
+	* 'slow script, continue or abort?' dialog in your face. Ahh, the joy of cooperative multitasking is back again! :-)
+	*/
 	fill_chunkwise_1: function(startindex, endindex, render_count, pagesize, support_DnD_for_this_dir, starttime, els, kbd_dir, preselect) {
 
 		var idx, file, loop_duration;
@@ -2177,13 +2177,13 @@ var FileManager = new Class({
 		//this.diag.log(' + time duration @ fill_chunkwise_1(', startindex, '): ', duration);
 
 		/*
-		 * Note that the '< j.dirs.length' / '< j.files.length' checks MUST be kept around: one of the fastest ways to abort/cancel
-		 * the render is emptying the dirs[] + files[] array, as that would abort the loop on the '< j.dirs.length' / '< j.files.length'
-		 * condition.
-		 *
-		 * This, together with killing our delay-timer, is done when anyone calls reset_view_fill_store() to
-		 * abort this render pronto.
-		 */
+		* Note that the '< j.dirs.length' / '< j.files.length' checks MUST be kept around: one of the fastest ways to abort/cancel
+		* the render is emptying the dirs[] + files[] array, as that would abort the loop on the '< j.dirs.length' / '< j.files.length'
+		* condition.
+		*
+		* This, together with killing our delay-timer, is done when anyone calls reset_view_fill_store() to
+		* abort this render pronto.
+		*/
 
 		// first loop: only render directories, when the indexes fit the range: 0 .. j.dirs.length-1
 		// Assume several directory aspects, such as no thumbnail hassle (it's one of two icons anyway, really!)
@@ -2193,18 +2193,18 @@ var FileManager = new Class({
 		{
 			file = j.dirs[idx];
 
-			if (idx % 10 == 0) {
+		if (idx % 10 === 0) {
 				// try not to spend more than 100 msecs per (UI blocking!) loop run!
 				loop_duration = new Date().getTime() - loop_starttime;
 				duration = new Date().getTime() - starttime;
 				//this.diag.log(' + time taken so far = ', duration, ' / ', loop_duration, ' @ elcnt = ', idx);
 
 				/*
-				 * Are we running in adaptive pagination mode? yes: calculate estimated new pagesize and adjust average (EMA) when needed.
-				 *
-				 * Do this here instead of at the very end so that pagesize will adapt, particularly when user does not want to wait for
-				 * this render to finish.
-				 */
+				* Are we running in adaptive pagination mode? yes: calculate estimated new pagesize and adjust average (EMA) when needed.
+				*
+				* Do this here instead of at the very end so that pagesize will adapt, particularly when user does not want to wait for
+				* this render to finish.
+				*/
 				this.adaptive_update_pagination_size(idx, endindex, render_count, pagesize, duration, 1.0 / 7.0, 1.1, 0.1 / 1000);
 
 				if (loop_duration >= 100)
@@ -2274,18 +2274,18 @@ var FileManager = new Class({
 			{
 				file = j.files[idx - dir_count];
 
-				if (idx % 10 == 0) {
+				if (idx % 10 === 0) {
 					// try not to spend more than 100 msecs per (UI blocking!) loop run!
 					loop_duration = new Date().getTime() - loop_starttime;
 					duration = new Date().getTime() - starttime;
 					//this.diag.log('time taken so far = ', duration, ' / ', loop_duration, ' @ elcnt = ', idx);
 
 					/*
-					 * Are we running in adaptive pagination mode? yes: calculate estimated new pagesize and adjust average (EMA) when needed.
-					 *
-					 * Do this here instead of at the very end so that pagesize will adapt, particularly when user does not want to wait for
-					 * this render to finish.
-					 */
+					* Are we running in adaptive pagination mode? yes: calculate estimated new pagesize and adjust average (EMA) when needed.
+					*
+					* Do this here instead of at the very end so that pagesize will adapt, particularly when user does not want to wait for
+					* this render to finish.
+					*/
 					this.adaptive_update_pagination_size(idx, endindex, render_count, pagesize, duration, 1.0 / 7.0, 1.1, 0.1 / 1000);
 
 					if (loop_duration >= 100)
@@ -2386,60 +2386,60 @@ var FileManager = new Class({
 				}
 
 				/*
-				 * WARNING: for some (to me) incomprehensible reason the old code which bound the event handlers to 'this==self' and which used the 'el' variable
-				 *          available here, does NOT WORK ANY MORE - tested in FF3.6. Turns out 'el' is pointing anywhere but where you want it by the time
-				 *          the event handler is executed.
-				 *
-				 *          The 'solution' which I found was to rely on the 'self' reference instead and bind to 'el'. If the one wouldn't work, the other shouldn't,
-				 *          but there you have it: this way around it works. FF3.6.14 :-(
-				 *
-				 * EDIT 2011/03/16: the problem started as soon as the old Array.each(function(...) {...}) by the chunked code which uses a for loop:
-				 *
-				 *              http://jibbering.com/faq/notes/closures/
-				 *
-				 *          as it says there:
-				 *
-				 *              A closure is formed when one of those inner functions is made accessible outside of the function in which it was
-				 *              contained, so that it may be executed after the outer function has returned. At which point it still has access to
-				 *              the local variables, parameters and inner function declarations of its outer function. Those local variables,
-				 *              parameter and function declarations (initially) >>>> have the values that they had when the outer function returned <<<<
-				 *              and may be interacted with by the inner function.
-				 *
-				 *          The >>>> <<<< emphasis is mine: in the .each() code, each el was a separate individual, while due to the for loop,
-				 *          the last 'el' to exist at all is the one created during the last round of the loop in that chunk. Which explains the
-				 *          observed behaviour before the fix: the file names associated with the 'el' element object were always pointing
-				 *          at some item further down the list, not necessarily the very last one, but always these references were 'grouped':
-				 *          multiple rows would produce the same filename.
-				 *
-				 * EXTRA: 2011/04/09: why you don't want to add this event for any draggable item!
-				 *
-				 *          It turns out that IE9 (IE6-8 untested as I write this) and Opera do NOT fire the 'click' event after the drag operation is
-				 *          'cancel'led, while other browsers fire both (Chrome/Safari/FF3).
-				 *          For the latter ones, the event handler sequence after a simple click on a draggable item is:
-				 *            - Drag::onBeforeStart
-				 *            - Drag::onCancel
-				 *            - 'click'
-				 *          while a tiny amount of dragging produces this sequence instead:
-				 *            - Drag::onBeforeStart
-				 *            - Drag::onStart
-				 *            - Drag::onDrop
-				 *            - 'click'
-				 *
-				 *          Meanwhile, Opera and IE9 do this:
-				 *            - Drag::onBeforeStart
-				 *            - Drag::onCancel
-				 *            - **NO** click event!
-				 *          while a tiny amount of dragging produces this sequence instead:
-				 *            - Drag::onBeforeStart
-				 *            - Drag::onStart
-				 *            - Drag::onDrop
-				 *            - **NO** click event!
-				 *
-				 *          which explains why the old implementation did not simply register this 'click' event handler and had 'revert' fake the 'click'
-				 *          event instead.
-				 *          HOWEVER, the old way, using revert() (now called revert_drag_n_drop()) was WAY too happy to hit the 'click' event handler. In
-				 *          fact, the only spot where such 'manually firing' was desirable is when the drag operation is CANCELLED. And only there!
-				 */
+				* WARNING: for some (to me) incomprehensible reason the old code which bound the event handlers to 'this==self' and which used the 'el' variable
+				*          available here, does NOT WORK ANY MORE - tested in FF3.6. Turns out 'el' is pointing anywhere but where you want it by the time
+				*          the event handler is executed.
+				*
+				*          The 'solution' which I found was to rely on the 'self' reference instead and bind to 'el'. If the one wouldn't work, the other shouldn't,
+				*          but there you have it: this way around it works. FF3.6.14 :-(
+				*
+				* EDIT 2011/03/16: the problem started as soon as the old Array.each(function(...) {...}) by the chunked code which uses a for loop:
+				*
+				*              http://jibbering.com/faq/notes/closures/
+				*
+				*          as it says there:
+				*
+				*              A closure is formed when one of those inner functions is made accessible outside of the function in which it was
+				*              contained, so that it may be executed after the outer function has returned. At which point it still has access to
+				*              the local variables, parameters and inner function declarations of its outer function. Those local variables,
+				*              parameter and function declarations (initially) >>>> have the values that they had when the outer function returned <<<<
+				*              and may be interacted with by the inner function.
+				*
+				*          The >>>> <<<< emphasis is mine: in the .each() code, each el was a separate individual, while due to the for loop,
+				*          the last 'el' to exist at all is the one created during the last round of the loop in that chunk. Which explains the
+				*          observed behaviour before the fix: the file names associated with the 'el' element object were always pointing
+				*          at some item further down the list, not necessarily the very last one, but always these references were 'grouped':
+				*          multiple rows would produce the same filename.
+				*
+				* EXTRA: 2011/04/09: why you don't want to add this event for any draggable item!
+				*
+				*          It turns out that IE9 (IE6-8 untested as I write this) and Opera do NOT fire the 'click' event after the drag operation is
+				*          'cancel'led, while other browsers fire both (Chrome/Safari/FF3).
+				*          For the latter ones, the event handler sequence after a simple click on a draggable item is:
+				*            - Drag::onBeforeStart
+				*            - Drag::onCancel
+				*            - 'click'
+				*          while a tiny amount of dragging produces this sequence instead:
+				*            - Drag::onBeforeStart
+				*            - Drag::onStart
+				*            - Drag::onDrop
+				*            - 'click'
+				*
+				*          Meanwhile, Opera and IE9 do this:
+				*            - Drag::onBeforeStart
+				*            - Drag::onCancel
+				*            - **NO** click event!
+				*          while a tiny amount of dragging produces this sequence instead:
+				*            - Drag::onBeforeStart
+				*            - Drag::onStart
+				*            - Drag::onDrop
+				*            - **NO** click event!
+				*
+				*          which explains why the old implementation did not simply register this 'click' event handler and had 'revert' fake the 'click'
+				*          event instead.
+				*          HOWEVER, the old way, using revert() (now called revert_drag_n_drop()) was WAY too happy to hit the 'click' event handler. In
+				*          fact, the only spot where such 'manually firing' was desirable is when the drag operation is CANCELLED. And only there!
+				*/
 
 				// 2011/04/09: only register the 'click' event when the element is NOT a draggable:
 				if (!support_DnD_for_this_dir)
@@ -2550,9 +2550,9 @@ var FileManager = new Class({
 	},
 
 	/*
-	 * See comment for fill_chunkwise_1(): the makeDraggable() is a loop in itself and taking some considerable time
-	 * as well, so make it happen in a 'fresh' run here...
-	 */
+	* See comment for fill_chunkwise_1(): the makeDraggable() is a loop in itself and taking some considerable time
+	* as well, so make it happen in a 'fresh' run here...
+	*/
 	fill_chunkwise_2: function(render_count, pagesize, support_DnD_for_this_dir, starttime, els, kbd_dir) {
 
 		var duration = new Date().getTime() - starttime;
@@ -2599,14 +2599,14 @@ var FileManager = new Class({
 					this.scroller.stop();
 					this.revert_drag_n_drop(el);
 					/*
-					 * Fixing the 'click' on FF+Opera (other browsers do get that event for any item which is made draggable):
-					 * a basic mouse'click' appears as the event sequence onBeforeStart + onCancel.
-					 *
-					 * NOTE that onStart is NOT invoked! When it is, it's a drag operation, no matter if it's successful as a drag&drop or not.
-					 *
-					 * So we then manually fire the 'click' event. See also the comment near the 'click' event handler registration in fill_chunkwise_1()
-					 * about the different behaviour in different browsers.
-					 */
+					* Fixing the 'click' on FF+Opera (other browsers do get that event for any item which is made draggable):
+					* a basic mouse'click' appears as the event sequence onBeforeStart + onCancel.
+					*
+					* NOTE that onStart is NOT invoked! When it is, it's a drag operation, no matter if it's successful as a drag&drop or not.
+					*
+					* So we then manually fire the 'click' event. See also the comment near the 'click' event handler registration in fill_chunkwise_1()
+					* about the different behaviour in different browsers.
+					*/
 					this.relayClick(null, el);
 				}).bind(this),
 
@@ -2620,11 +2620,11 @@ var FileManager = new Class({
 						y: position.y - e.page.y
 					};
 					/*
-					 * Use the element size (Y) for IE-fixing heuristics:
-					 * in IE the mouse is already quite some distance away before the onStart fires,
-					 * we need to restrict the vertical position of the dragged element in such a way
-					 * that it will reside 'under the mouse cursor'.
-					 */
+					* Use the element size (Y) for IE-fixing heuristics:
+					* in IE the mouse is already quite some distance away before the onStart fires,
+					* we need to restrict the vertical position of the dragged element in such a way
+					* that it will reside 'under the mouse cursor'.
+					*/
 					var elsize = el.getSize();
 					if (dpos.y > 0)
 						dpos.y = -Math.round(elsize.y / 2);
@@ -2811,9 +2811,9 @@ var FileManager = new Class({
 	},
 
 	/*
-	 * See comment for fill_chunkwise_1(): the tooltips need to be assigned with each icon (2..3 per list item)
-	 * and apparently that takes some considerable time as well for large directories and slightly slower machines.
-	 */
+	* See comment for fill_chunkwise_1(): the tooltips need to be assigned with each icon (2..3 per list item)
+	* and apparently that takes some considerable time as well for large directories and slightly slower machines.
+	*/
 	fill_chunkwise_3: function(render_count, pagesize, support_DnD_for_this_dir, starttime, kbd_dir) {
 
 		var duration = new Date().getTime() - starttime;
@@ -2859,9 +2859,9 @@ var FileManager = new Class({
 			if (done_so_far > 0.05)
 			{
 				/*
-				 * and it turns out our fudge factors are not telling the whole story: the total number of elements
-				 * to render are still a factor then.
-				 */
+				* and it turns out our fudge factors are not telling the whole story: the total number of elements
+				* to render are still a factor then.
+				*/
 				future_fudge_factor *= (1 + compensation * render_count);
 
 				var t_est = duration * future_fudge_factor / done_so_far;
@@ -2924,7 +2924,7 @@ var FileManager = new Class({
 			var dir = this.CurrentDir.path;
 
 			this.diag.log('fillInfo: request detail for file: ', Object.clone(file), ', dir: ', dir);
-      if(this.options.showDirGallery == false && file.mime === 'text/directory') return;
+      if(this.options.showDirGallery === false && file.mime === 'text/directory') return;
 			var tx_cfg = this.options.mkServerRequestURL(this, 'detail', {
 							directory: this.dirname(file.path),
 							// fixup for root directory detail requests:
@@ -2973,7 +2973,7 @@ var FileManager = new Class({
           }
           else
           {
-            prev.set('html', (j.content ? j.content.substitute(this.language, /\\?\$\{([^{}]+)\}/g) : '')).getElement('img.preview');           
+            prev.set('html', (j.content ? j.content.substitute(this.language, /\\?\$\{([^{}]+)\}/g) : '')).getElement('img.preview');
           }
           
 					if (file.mime === 'text/directory')
@@ -3149,12 +3149,12 @@ var FileManager = new Class({
                 .adopt(new Element('dd').set('text', fileDetails.bitrate))
               .inject(previewArea);
               
-    previewArea = new Element('div', {class: 'filemanager-preview-content'}).inject(previewArea);
+    previewArea = new Element('div', {'class': 'filemanager-preview-content'}).inject(previewArea);
     
     var dewplayer = this.assetBasePath + '/dewplayer.swf';
                   
     new Element('object', {
-        type:   'application/x-shockwave-flash', 
+        type:   'application/x-shockwave-flash',
         data:   dewplayer,
         width:  200,
         height: 20,
@@ -3162,8 +3162,8 @@ var FileManager = new Class({
       })
       .adopt(new Element('param', {name:'wmode',     value:'transparent'}))
       .adopt(new Element('param', {name:'movie',     value:dewplayer}))
-      .adopt(new Element('param', {name:'flashvars', value:'mp3='+fileDetails.url+'&volume=50&showtime=1'}))              
-      .inject(previewArea);           
+      .adopt(new Element('param', {name:'flashvars', value:'mp3='+fileDetails.url+'&volume=50&showtime=1'}))
+      .inject(previewArea);
       
     return previewArea.parentNode;
   },
@@ -3521,7 +3521,6 @@ FileManager.Request = new Class({
 
 	initialize: function(options, filebrowser) {
 		this.parent(options);
-
 		this.options.data = Object.merge({}, filebrowser.options.propagateData, this.options.data);
 
 		if (this.options.fmDisplayErrors)
@@ -3616,12 +3615,12 @@ FileManager.Dialog = new Class({
 
 	options: {
 		/*
-		 * onShow: function() {},
-		 * onOpen: function() {},
-		 * onConfirm: function() {},
-		 * onDecline: function() {},
-		 * onClose: function() {},
-		 */
+		* onShow: function() {},
+		* onOpen: function() {},
+		* onConfirm: function() {},
+		* onDecline: function() {},
+		* onClose: function() {},
+		*/
 		request: null,
 		buttons: ['confirm', 'decline'],
 		language: {},

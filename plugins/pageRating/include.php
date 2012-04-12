@@ -54,7 +54,7 @@ $plugin = '';
 echo '<script type="text/javascript">
   /* <![CDATA[ */
   if(!window.MooTools) {
-    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.2.js"%3E%3C/script%3E\'));
+    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"%3E%3C/script%3E\'));
   }
   /* ]]> */
 </script>';

@@ -224,8 +224,8 @@ Swiff.Uploader = new Class({
   },
 
   initializeSwiff: function() {
-    this.appendCookieData();          // looks like there's a bit of trouble with xSetOptions, so we circumvent it by passing it all in one go through xInitialize
-	//if (typeof console !== 'undefined' && console.log) console.log('initializeSwiff: data count = ' + this.options.data.length + ' : ' + this.options.data);
+    // this.appendCookieData();          // looks like there's a bit of trouble with xSetOptions, so we circumvent it by passing it all in one go through xInitialize
+	// if (typeof console !== 'undefined' && console.log) console.log('initializeSwiff: data count = ' + this.options.data.length + ' : ' + this.options.data);
 
     // extracted options for the swf
     this.remote('xInitialize', {
@@ -258,22 +258,20 @@ Swiff.Uploader = new Class({
 
   reposition: function(coords) {
     // update coordinates, manual or automatically
-    coords = coords || (this.target && this.target.offsetHeight)
-      ? this.target.getCoordinates(this.box.getOffsetParent())
-      : {top: window.getScrollTop(), left: 0, width: 40, height: 40};
+    coords = coords || (this.target && this.target.offsetHeight) ? this.target.getCoordinates(this.box.getOffsetParent()) : {top: window.getScrollTop(), left: 0, width: 40, height: 40};
     this.box.setStyles(coords);
     this.fireEvent('reposition', [coords, this.box, this.target]);
   },
 
   setOptions: function(options) {
-	//if (typeof console !== 'undefined' && console.log) console.log('Swiff.Uploader: BASE::setOptions');
+	// if (typeof console !== 'undefined' && console.log) console.log('Swiff.Uploader: BASE::setOptions');
     if (options) {
       if (options.url) options.url = Swiff.Uploader.qualifyPath(options.url);
       if (options.buttonImage) options.buttonImage = Swiff.Uploader.qualifyPath(options.buttonImage);
       this.parent(options);
       if (this.loaded) {
 		this.remote('xSetOptions', options);
-	  }
+    }
     }
     return this;
   },
@@ -315,14 +313,14 @@ Swiff.Uploader = new Class({
 
   appendCookieData: function() {
     var append = this.options.appendCookieData;
-	//if (typeof console !== 'undefined' && console.log) console.log('appendCookieData: ' + (1 * append) + ' / ' + append);
+	// if (typeof console !== 'undefined' && console.log) console.log('appendCookieData: ' + (1 * append) + ' / ' + append);
     if (!append) return;
 
     var hash = {};
     //if (typeof console !== 'undefined' && console.log) console.log('appendCookieData: ENTIRE cookie: "' + document.cookie + '"');
     document.cookie.split(/;\s*/).each(function(cookie) {
       cookie = cookie.split('=');
-	  //if (typeof console !== 'undefined' && console.log) console.log('appendCookieData: cookie: "' + cookie[0] + '"(' + cookie.length + ') = "' + (cookie.length > 1 ? cookie[1] : '???') + '"');
+      //if (typeof console !== 'undefined' && console.log) console.log('appendCookieData: cookie: "' + cookie[0] + '"(' + cookie.length + ') = "' + (cookie.length > 1 ? cookie[1] : '???') + '"');
       if (cookie.length == 2) {
         //hash['\"' + decodeURIComponent(cookie[0]) + '\"'] = decodeURIComponent(cookie[1]);    // allow session IDs such as the ASP.NET ones, which come with a dot, etc.
         hash[decodeURIComponent(cookie[0])] = decodeURIComponent(cookie[1]);
@@ -330,13 +328,11 @@ Swiff.Uploader = new Class({
     });
 
     var data = this.options.data || {};
-    if (typeOf(append) === 'string') {
-		data[append] = hash;
-	}
-    else {
-		Object.append(data, hash);
-	}
-
+    if (typeOf(append) == 'string') {
+      data[append] = hash;
+  } else {
+    Object.append(data, hash);
+  }
     this.setOptions({data: data});
   },
 
@@ -483,7 +479,7 @@ Swiff.Uploader.File = new Class({
     if (options) {
       if (options.url) {
 		options.url = Swiff.Uploader.qualifyPath(options.url);
-	  }
+    }
       this.base.remote('xFileSetOptions', this.id, options);
       this.options = Object.merge(this.base.options, options);
     }
