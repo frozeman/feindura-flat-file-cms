@@ -130,57 +130,59 @@ else
 	<a href="#" id="thumbSizeToogle" class="down"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?></a><br>
 	<br clear="all"/>
 	
-  <table id="thumbSize">  
-  <?php
-  // -> THUMB-WIDTH
-  if($thumbRatioY) {
-  ?>
-  <tr><td style="width: 80px">
-  <label for="windowBox_thumbWidth">
-  <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></label>
-  </td><td>
-  <input id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?>>
-  <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
-  </td></tr>
-  
-  <!-- shows the width in a scale -->
-  <?php
-  if($thumbWidth)
-    $styleThumbWidth = 'width:'.$thumbWidth.'px';
-  else
-    $styleThumbWidth = 'width:0px';
-  ?>
-  <tr><td>
-  </td><td style="height:40px;">
-  <div id="windowBox_thumbWidthScale" class="scale" style="<?php echo $styleThumbWidth; ?>"><div></div></div>
-  </td></tr>
-  <?php
-  }
-  // -> THUMB-HEIGHT
-  if($thumbRatioX) {
-  ?>  
-  <tr><td style="width: 80px">
-  <label for="windowBox_thumbHeight">
-  <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></label>
-  </td><td>
-  <input id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?>>
-  <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
-  </td></tr>
-  
-  <!-- shows the height in a scale -->
-  <?php
-  if($thumbHeight)
-    $styleThumbHeight = 'width:'.$thumbHeight.'px';
-  else
-    $styleThumbHeight = 'width:0px';
-  ?>
-  <tr><td>
-  </td><td style="height:40px;">
-  <div id="windowBox_thumbHeightScale" class="scale" style="<?php echo $styleThumbHeight; ?>"><div></div></div>
-  </td></tr>
-  <?php
-  }
-  ?>
+  <table id="thumbSize">
+  <tbody>
+    <?php
+    // -> THUMB-WIDTH
+    if($thumbRatioY) {
+    ?>
+    <tr><td style="width: 80px">
+    <label for="windowBox_thumbWidth">
+    <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></label>
+    </td><td>
+    <input id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?>>
+    <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
+    </td></tr>
+    
+    <!-- shows the width in a scale -->
+    <?php
+    if($thumbWidth)
+      $styleThumbWidth = 'width:'.$thumbWidth.'px';
+    else
+      $styleThumbWidth = 'width:0px';
+    ?>
+    <tr><td>
+    </td><td style="height:40px;">
+    <div id="windowBox_thumbWidthScale" class="scale" style="<?php echo $styleThumbWidth; ?>"><div></div></div>
+    </td></tr>
+    <?php
+    }
+    // -> THUMB-HEIGHT
+    if($thumbRatioX) {
+    ?>  
+    <tr><td style="width: 80px">
+    <label for="windowBox_thumbHeight">
+    <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></label>
+    </td><td>
+    <input id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?>>
+    <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
+    </td></tr>
+    
+    <!-- shows the height in a scale -->
+    <?php
+    if($thumbHeight)
+      $styleThumbHeight = 'width:'.$thumbHeight.'px';
+    else
+      $styleThumbHeight = 'width:0px';
+    ?>
+    <tr><td>
+    </td><td style="height:40px;">
+    <div id="windowBox_thumbHeightScale" class="scale" style="<?php echo $styleThumbHeight; ?>"><div></div></div>
+    </td></tr>
+    <?php
+    }
+    ?>
+  </tbody>
   </table>
   
   <!-- show a PREVIEW of the current THUMBNAIL -->

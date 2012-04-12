@@ -34,14 +34,15 @@ $pageContent = GeneralFunctions::readPage($page,$category);
 
 // LANGUAGE SELECTION
 $question = '<div class="block">
-             <table><tbody><tr>
+             <table><tbody>
+             <tr>
              <td class="left"><label for="addLanguageSelection">'.$langFile['WINDOWBOX_TEXT_ADDPAGE_SELECTLANGUAGE'].'</label></td>
              <td class="right">
              <select name="addLanguageSelection" id="addLanguageSelection">'."\n";
               // create language selection
               foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
                 if(!array_key_exists($langCode, $pageContent['localized'])) {
-                  $question .= '<option value="'.$langCode.'">'.$languageCodes[$langCode].'</option>';
+                  $question .= '<option value="'.$langCode.'">'.$languageNames[$langCode].'</option>';
                 }
               }
 $question .= '</select></td></tr>';
@@ -53,7 +54,7 @@ $question .= '<tr><td class="left"><label for="useLanguageSelection">'.$langFile
               <option value="none">-</option>'."\n";
               // -> goes trough categories and list them
               foreach(array_keys($pageContent['localized']) as $langCode) {
-                $question .= '<option value="'.$langCode.'">'.$languageCodes[$langCode].'</option>';
+                $question .= '<option value="'.$langCode.'">'.$languageNames[$langCode].'</option>';
               }
 $question .= '</select>
               </td></tr>
@@ -72,7 +73,7 @@ if($_POST['asking']) {
 
 
   // if(GeneralFunctions::savePage($pageContent)) {
-  //   StatisticFunctions::saveTaskLog(array(33,$languageCodes[$_POST['addLanguageSelection']]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
+  //   StatisticFunctions::saveTaskLog(array(33,$languageNames[$_POST['addLanguageSelection']]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
     
     $question = '';
     echo 'DONTSHOW';        

@@ -34,22 +34,24 @@ foreach($menu as $link) {
 */
 
 <table>
-<tr><td>
-<a href="?category=1&amp;page=1" title="text before date 2005-10-31 text after date: Oldest Page">
-text before date 2005-10-31 text after date: Oldest Page
-</a>
-</td><td>
-<a href="?category=1&amp;page=2" title="text before date 2010-11-31 text after date: Newer Page">
-text before date 2010-11-31 text after date: Newer Page
-</a>
-</td>
-</tr><tr>
-<td>
-<a href="?category=1&amp;page=3" title="text before date 2010-12-31 text after date: Newest Page">
-text before date 2010-12-31 text after date: Newest Page
-</a>
-</td><td></td>
-</tr>
+  <tbody>
+    <tr><td>
+      <a href="?category=1&amp;page=1" title="text before date 2005-10-31 text after date: Oldest Page">
+      text before date 2005-10-31 text after date: Oldest Page
+      </a>
+    </td><td>
+      <a href="?category=1&amp;page=2" title="text before date 2010-11-31 text after date: Newer Page">
+      text before date 2010-11-31 text after date: Newer Page
+      </a>
+    </td>
+    </tr><tr>
+    <td>
+      <a href="?category=1&amp;page=3" title="text before date 2010-12-31 text after date: Newest Page">
+      text before date 2010-12-31 text after date: Newest Page
+      </a>
+    </td><td></td>
+    </tr>
+  </tbody>
 </table>
 
 ?>

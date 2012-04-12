@@ -33,7 +33,7 @@ $language = (isset($_POST['language'])) ? $_POST['language'] : $_GET['language']
 $asking = $_POST['asking'];
 
 // QUESTION
-$question = '<h1 class="red">'.sprintf($langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION'],'<span style="color:#000000;">'.$languageCodes[$language].'</span>').'</h1>';
+$question = '<h1 class="red">'.sprintf($langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION'],'<span style="color:#000000;">'.$languageNames[$language].'</span>').'</h1>';
 
 // DELETING PROCESS
 if($_POST['asking']) {
@@ -43,7 +43,7 @@ if($_POST['asking']) {
   unset($pageContent['localized'][$language]);
 
   if(GeneralFunctions::savePage($pageContent)) {
-    StatisticFunctions::saveTaskLog(array(32,$languageCodes[$language]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
+    StatisticFunctions::saveTaskLog(array(32,$languageNames[$language]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
 
     // ->> save the FEEDS, if activated
     GeneralFunctions::saveFeeds($pageContent['category']);

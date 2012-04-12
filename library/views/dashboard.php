@@ -151,7 +151,7 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<div class="innerBlockLeft">';    
     echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'].'</h2>';    
       echo '<div class="innerBlockListPages">
-            <table class="coloredList">';      
+            <table class="coloredList"><tbody>';      
       // SORT the Pages by VISIT COUNT
       usort($pagesStats, 'sortByVisitCount');
       
@@ -173,7 +173,7 @@ if(!empty($adminConfig['user']['info'])) {
           else $count++;
         }
       }
-      echo '</table>
+      echo '</tbody></table>
             </div>';
     echo '</div>';
     
@@ -184,7 +184,7 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<div class="innerBlockRight">';    
     echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'].'</h2>';    
       echo '<div class="innerBlockListPages">
-            <table class="coloredList">';      
+            <table class="coloredList"><tbody>';      
       // SORT the Pages by VISIT SAVEDATE
       usort($pagesStats, 'sortByLastVisitDate');
       
@@ -207,7 +207,7 @@ if(!empty($adminConfig['user']['info'])) {
           else $count++;
         }
       }
-      echo '</table>
+      echo '</tbody></table>
             </div>';
     echo '</div>';
     
@@ -218,7 +218,7 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<div class="innerBlockLeft">';    
     echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'].'</h2>';    
       echo '<div class="innerBlockListPages">
-            <table class="coloredList">';      
+            <table class="coloredList"><tbody>';      
       // SORT the Pages by MAX VISIT TIME
       usort($pagesStats, 'sortByVisitTimeMax');
       
@@ -243,7 +243,7 @@ if(!empty($adminConfig['user']['info'])) {
         if($count == $statisticConfig['number']['longestVisitedPages']) break;
         else $count++;
       }
-      echo '</table>
+      echo '</tbody></table>
             </div>';                        
     echo '</div>';
     
@@ -254,7 +254,7 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<div class="innerBlockRight">';    
     echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'].'</h2>';    
       echo '<div class="innerBlockListPages">
-            <table class="coloredList">';      
+            <table class="coloredList"><tbody>';      
       // SORT the Pages by VISIT SAVEDATE
       usort($pages, 'sortByLastSaveDate');
       
@@ -270,7 +270,7 @@ if(!empty($adminConfig['user']['info'])) {
           else $count++;
         }
       }
-      echo '</table>
+      echo '</tbody></table>
             </div>';
     echo '</div>';
     

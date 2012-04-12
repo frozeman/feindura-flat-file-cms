@@ -62,22 +62,23 @@ if($unwriteableList && checkBasePathAndURL()) {
       <colgroup>
       <col class="left">
       </colgroup>
-  
-      <tr><td class="leftTop"></td><td></td></tr>
+      
+      <tbody>
+        <tr><td class="leftTop"></td><td></td></tr>
 
-      <tr><td class="left">
-        <a href="?site=userSetup&amp;status=createUser#userId<?php echo getNewUserId(); ?>" class="createUser toolTip" title="<?php echo $langFile['userSetup_createUser']; ?>::"></a>
-      </td><td class="right">
-      <br>
-      <?php
-      // user info          
-      if($userInfo)
-        echo '<span class="hint"><b>'.$userInfo.'</b></span>';
-      ?>
-      </td></tr>
-      
-      <tr><td class="leftBottom"></td><td></td></tr>
-      
+        <tr><td class="left">
+          <a href="?site=userSetup&amp;status=createUser#userId<?php echo getNewUserId(); ?>" class="createUser toolTip" title="<?php echo $langFile['userSetup_createUser']; ?>::"></a>
+        </td><td class="right">
+        <br>
+        <?php
+        // user info          
+        if($userInfo)
+          echo '<span class="hint"><b>'.$userInfo.'</b></span>';
+        ?>
+        </td></tr>
+        
+        <tr><td class="leftBottom"></td><td></td></tr>
+      </tbody>
     </table>
     <?php        
 
@@ -96,7 +97,8 @@ if($unwriteableList && checkBasePathAndURL()) {
           echo '<table>     
                 <colgroup>
                 <col class="left">
-                </colgroup>';
+                </colgroup>
+                <tbody>';
           
           // user anchor    
           echo '<tr><td class="leftTop">
@@ -175,7 +177,7 @@ if($unwriteableList && checkBasePathAndURL()) {
                 </td></tr>';
                           
           echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
-          echo '</table>';
+          echo '</tbody></table>';
            
           echo '<input type="submit" value="" name="saveUserSetup" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="$(\'savedUserId\').value = \''.$user['id'].'\'; submitAnchor(\'userForm\',\'userId'.$user['id'].'\');">'; // end slide in box
           

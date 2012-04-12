@@ -40,12 +40,13 @@ if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'
 require_once(dirname(__FILE__)."/library/includes/general.include.php");
 
 // -> rename the config var names
-$feindura_adminConfig = $adminConfig;
-$feindura_websiteConfig = $websiteConfig;
-$feindura_categoryConfig = $categoryConfig;
-$feindura_statisticConfig = $statisticConfig;
+$feindura_adminConfig      = $adminConfig;
+$feindura_websiteConfig    = $websiteConfig;
+$feindura_categoryConfig   = $categoryConfig;
+$feindura_statisticConfig  = $statisticConfig;
 $feindura_websiteStatistic = $websiteStatistic;
+$feindura_languageNames    = $languageNames;
 // -> delete old config vars
-unset($adminConfig,$websiteConfig,$categoryConfig,$statisticConfig,$websiteStatistic);
+unset($adminConfig,$websiteConfig,$categoryConfig,$statisticConfig,$websiteStatistic,$languageNames);
 
 ?>

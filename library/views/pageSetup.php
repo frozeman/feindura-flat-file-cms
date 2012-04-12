@@ -74,58 +74,59 @@ $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
       <colgroup>
       <col class="left">
       </colgroup>
-        
-      <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_setStartPage" name="cfg_setStartPage" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']; ?>"<?php if($adminConfig['setStartPage']) echo ' checked="checked"'; ?>>
-      </td><td class="right checkboxes">
-      <label for="cfg_setStartPage"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']; ?></span></label>
-      </td></tr>
-
-      <tr><td class="spacer checkboxes"></td><td>
-
-      <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_multiLanguageWebsite" name="cfg_multiLanguageWebsite" value="true" <?php if($adminConfig['multiLanguageWebsite']['active']) echo ' checked="checked"'; ?> class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE'] ; ?>">
-      </td><td class="right checkboxes">
-      <label for="cfg_multiLanguageWebsite" class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE'] ; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']; ?></label>
-      </td></tr>
-
-      <!-- Website Language Selection -->
-      <tr><td class="left checkboxes">
-      </td><td class="right checkboxes">
-      <select id="cfg_websiteLanguageChoices" name="cfg_websiteLanguageChoices[]" multiple="multiple"<?php if(!$adminConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?> class="toolTip" title="<?php echo '::'.$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE'] ; ?>">
-      <?php
-        foreach($languageCodes as $langKey => $langValue) {
-          if(!in_array($langKey, $adminConfig['multiLanguageWebsite']['languages']))
-            echo '<option value="'.$langKey.'">'.$langValue.'</option>';    
-        }
-      ?>
-      </select>
-      <select id="cfg_websiteLanguages" name="cfg_websiteLanguages[]" multiple="multiple"<?php if(!$adminConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?>>
-      <?php
-        if(!empty($adminConfig['multiLanguageWebsite']['languages'])) {
-          foreach($adminConfig['multiLanguageWebsite']['languages'] as $langKey) {
-            echo '<option value="'.$langKey.'" selected="selected">'.$languageCodes[$langKey].'</option>';  
-          }
-        }
-      ?>
-      </select>
-      </td></tr>
-
-      <!-- Websites Main Language -->
-      <tr id="websiteMainLanguageTr"<?php if(empty($adminConfig['multiLanguageWebsite']['languages'])) echo ' style="display:none;"'; ?>><td class="left checkboxes">
-      <label for="cfg_multiLanguageWebsite"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']; ?></span></label>
-      </td><td class="right checkboxes">
-      <select id="cfg_websiteMainLanguage" name="cfg_websiteMainLanguage"<?php if(!$adminConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?> class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']; ?>">
-      <?php
-        foreach($adminConfig['multiLanguageWebsite']['languages'] as $langKey) {
-          $selected = ($langKey == $adminConfig['multiLanguageWebsite']['mainLanguage']) ? ' selected="selected"' : '' ;
-          echo '<option value="'.$langKey.'"'.$selected.'>'.$languageCodes[$langKey].'</option>';    
-        }
-      ?></select>
-      </td></tr>
-
-      <tr><td class="spacer checkboxes"></td><td>
       
+      <tbody>
+        <tr><td class="left checkboxes">
+        <input type="checkbox" id="cfg_setStartPage" name="cfg_setStartPage" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']; ?>"<?php if($adminConfig['setStartPage']) echo ' checked="checked"'; ?>>
+        </td><td class="right checkboxes">
+        <label for="cfg_setStartPage"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']; ?></span></label>
+        </td></tr>
+
+        <tr><td class="spacer checkboxes"></td><td>
+
+        <tr><td class="left checkboxes">
+        <input type="checkbox" id="cfg_multiLanguageWebsite" name="cfg_multiLanguageWebsite" value="true" <?php if($adminConfig['multiLanguageWebsite']['active']) echo ' checked="checked"'; ?> class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE'] ; ?>">
+        </td><td class="right checkboxes">
+        <label for="cfg_multiLanguageWebsite" class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE'] ; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']; ?></label>
+        </td></tr>
+
+        <!-- Website Language Selection -->
+        <tr><td class="left checkboxes">
+        </td><td class="right checkboxes">
+        <select id="cfg_websiteLanguageChoices" name="cfg_websiteLanguageChoices[]" multiple="multiple"<?php if(!$adminConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?> class="toolTip" title="<?php echo '::'.$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE'] ; ?>">
+        <?php
+          foreach($languageNames as $langKey => $langValue) {
+            if(!in_array($langKey, $adminConfig['multiLanguageWebsite']['languages']))
+              echo '<option value="'.$langKey.'">'.$langValue.'</option>';    
+          }
+        ?>
+        </select>
+        <select id="cfg_websiteLanguages" name="cfg_websiteLanguages[]" multiple="multiple"<?php if(!$adminConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?>>
+        <?php
+          if(!empty($adminConfig['multiLanguageWebsite']['languages'])) {
+            foreach($adminConfig['multiLanguageWebsite']['languages'] as $langKey) {
+              echo '<option value="'.$langKey.'" selected="selected">'.$languageNames[$langKey].'</option>';  
+            }
+          }
+        ?>
+        </select>
+        </td></tr>
+
+        <!-- Websites Main Language -->
+        <tr id="websiteMainLanguageTr"<?php if(empty($adminConfig['multiLanguageWebsite']['languages'])) echo ' style="display:none;"'; ?>><td class="left checkboxes">
+        <label for="cfg_multiLanguageWebsite"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']; ?></span></label>
+        </td><td class="right checkboxes">
+        <select id="cfg_websiteMainLanguage" name="cfg_websiteMainLanguage"<?php if(!$adminConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?> class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']; ?>">
+        <?php
+          foreach($adminConfig['multiLanguageWebsite']['languages'] as $langKey) {
+            $selected = ($langKey == $adminConfig['multiLanguageWebsite']['mainLanguage']) ? ' selected="selected"' : '' ;
+            echo '<option value="'.$langKey.'"'.$selected.'>'.$languageNames[$langKey].'</option>';    
+          }
+        ?></select>
+        </td></tr>
+
+        <tr><td class="spacer checkboxes"></td><td>
+      </tbody>
     </table>
     
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
@@ -148,82 +149,83 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
       <colgroup>
       <col class="left">
       </colgroup>
-  
-      <tr><td class="leftTop"></td><td></td></tr>
-      
-      <!-- THUMB WIDTH -->
-      <tr><td class="left">
-      <label for="cfg_thumbWidth"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_WIDTH'] ?>">
-      <?php echo $langFile['THUMBNAIL_TEXT_WIDTH'] ?></span></label>
-      </td><td class="right">
-        <input type="number" step="1" min="0" id="cfg_thumbWidth" name="cfg_thumbWidth" class="short" value="<?php echo $adminConfig['pageThumbnail']['width']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' disabled="disabled"'; ?>>
-        <?php echo $langFile['THUMBNAIL_TEXT_UNIT']; ?>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="radio" id="ratioX" name="cfg_thumbRatio" value="x"<?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' checked="checked"'; ?>>
-        <label for="ratioX" class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></label>
-      </td></tr>
-      
-      <!-- shows the width in a scale -->
-      <?php
-      if(!empty($adminConfig['pageThumbnail']['width']))
-        $style_thumbWidth = 'width:'.$adminConfig['pageThumbnail']['width'].'px;';
-      else
-        $style_thumbWidth = 'width:0px;';
-      ?>
-      <tr><td class="left">
-      </td><td class="right">
-      <div id="thumbWidthScale" class="scale" style="<?php echo $style_thumbWidth; ?>max-width:520px;">
-        <div></div>
-      </div>
-      </td></tr>
-      
-      <!-- THUMB HEIGHT -->
-      <tr><td class="left">
-      <label for="cfg_thumbHeight"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_HEIGHT'] ?>">
-      <?php echo $langFile['THUMBNAIL_TEXT_HEIGHT'] ?></span></label>
-      </td><td class="right">
-        <input type="number" step="1" min="0" id="cfg_thumbHeight" name="cfg_thumbHeight" class="short" value="<?php echo $adminConfig['pageThumbnail']['height']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' disabled="disabled"'; ?>>
-        <?php echo $langFile['THUMBNAIL_TEXT_UNIT']; ?>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="radio" id="ratioY" name="cfg_thumbRatio" value="y"<?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' checked="checked"'; ?>>
-        <label for="ratioY" class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></label>
-      </td></tr>
-      
-      <!-- shows the height in a scale -->
-      <?php
-      if(!empty($adminConfig['pageThumbnail']['height']))
-        $style_thumbHeight = 'width:'.$adminConfig['pageThumbnail']['height'].'px;';
-      else
-        $style_thumbHeight = 'width:0px;';
-      ?>
-      <tr><td class="left leftBottom">
-      </td><td class="right">
-      <div id="thumbHeightScale" class="scale" style="<?php echo $style_thumbHeight; ?>max-width:520px;"><div></div></div>
-      </td></tr>
-      
-      <!-- NO THUMB RATIO -->
-      <tr><td class="left checkboxes">
-      <input type="radio" id="noRatio" name="cfg_thumbRatio" value=""<?php if($adminConfig['pageThumbnail']['ratio'] == '') echo ' checked="checked"'; ?>>
-      </td><td class="right checkboxes">
-      <label for="noRatio" class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_FIXEDRATIO']; ?></label>
-      </td></tr>
-      
-      <tr><td class="spacer checkboxes"></td><td>
-      
-      <tr><td class="leftTop"></td><td>
-      
-      <!-- THUMB PATH -->
-      <tr><td class="left">
-      <label for="cfg_thumbPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3'].'::'.$langFile['adminSetup_thumbnailSettings_field3_tip'] ?>">
-      <?php echo $langFile['adminSetup_thumbnailSettings_field3'] ?></span></label>
-      </td><td class="right">
-      <input style="width:auto;" readonly="readonly" size="<?php echo strlen($adminConfig['uploadPath'])+5; ?>" value="<?php echo $adminConfig['uploadPath']; ?>" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip1']; ?>">
-      <input id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo $adminConfig['pageThumbnail']['path']; ?>" class="toolTip" title="<?php echo sprintf($langFile['adminSetup_thumbnailSettings_field3_inputTip2'],$adminConfig['uploadPath']); ?>">
-      </td></tr>
-      
-            
-      <tr><td class="leftBottom"></td><td></td></tr>
-      
+    
+      <tbody>
+        <tr><td class="leftTop"></td><td></td></tr>
+        
+        <!-- THUMB WIDTH -->
+        <tr><td class="left">
+        <label for="cfg_thumbWidth"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_WIDTH'] ?>">
+        <?php echo $langFile['THUMBNAIL_TEXT_WIDTH'] ?></span></label>
+        </td><td class="right">
+          <input type="number" step="1" min="0" id="cfg_thumbWidth" name="cfg_thumbWidth" class="short" value="<?php echo $adminConfig['pageThumbnail']['width']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' disabled="disabled"'; ?>>
+          <?php echo $langFile['THUMBNAIL_TEXT_UNIT']; ?>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" id="ratioX" name="cfg_thumbRatio" value="x"<?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' checked="checked"'; ?>>
+          <label for="ratioX" class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></label>
+        </td></tr>
+        
+        <!-- shows the width in a scale -->
+        <?php
+        if(!empty($adminConfig['pageThumbnail']['width']))
+          $style_thumbWidth = 'width:'.$adminConfig['pageThumbnail']['width'].'px;';
+        else
+          $style_thumbWidth = 'width:0px;';
+        ?>
+        <tr><td class="left">
+        </td><td class="right">
+        <div id="thumbWidthScale" class="scale" style="<?php echo $style_thumbWidth; ?>max-width:520px;">
+          <div></div>
+        </div>
+        </td></tr>
+        
+        <!-- THUMB HEIGHT -->
+        <tr><td class="left">
+        <label for="cfg_thumbHeight"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_HEIGHT'] ?>">
+        <?php echo $langFile['THUMBNAIL_TEXT_HEIGHT'] ?></span></label>
+        </td><td class="right">
+          <input type="number" step="1" min="0" id="cfg_thumbHeight" name="cfg_thumbHeight" class="short" value="<?php echo $adminConfig['pageThumbnail']['height']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' disabled="disabled"'; ?>>
+          <?php echo $langFile['THUMBNAIL_TEXT_UNIT']; ?>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" id="ratioY" name="cfg_thumbRatio" value="y"<?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' checked="checked"'; ?>>
+          <label for="ratioY" class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></label>
+        </td></tr>
+        
+        <!-- shows the height in a scale -->
+        <?php
+        if(!empty($adminConfig['pageThumbnail']['height']))
+          $style_thumbHeight = 'width:'.$adminConfig['pageThumbnail']['height'].'px;';
+        else
+          $style_thumbHeight = 'width:0px;';
+        ?>
+        <tr><td class="left leftBottom">
+        </td><td class="right">
+        <div id="thumbHeightScale" class="scale" style="<?php echo $style_thumbHeight; ?>max-width:520px;"><div></div></div>
+        </td></tr>
+        
+        <!-- NO THUMB RATIO -->
+        <tr><td class="left checkboxes">
+        <input type="radio" id="noRatio" name="cfg_thumbRatio" value=""<?php if($adminConfig['pageThumbnail']['ratio'] == '') echo ' checked="checked"'; ?>>
+        </td><td class="right checkboxes">
+        <label for="noRatio" class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_FIXEDRATIO']; ?></label>
+        </td></tr>
+        
+        <tr><td class="spacer checkboxes"></td><td>
+        
+        <tr><td class="leftTop"></td><td>
+        
+        <!-- THUMB PATH -->
+        <tr><td class="left">
+        <label for="cfg_thumbPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3'].'::'.$langFile['adminSetup_thumbnailSettings_field3_tip'] ?>">
+        <?php echo $langFile['adminSetup_thumbnailSettings_field3'] ?></span></label>
+        </td><td class="right">
+        <input style="width:auto;" readonly="readonly" size="<?php echo strlen($adminConfig['uploadPath'])+5; ?>" value="<?php echo $adminConfig['uploadPath']; ?>" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip1']; ?>">
+        <input id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo $adminConfig['pageThumbnail']['path']; ?>" class="toolTip" title="<?php echo sprintf($langFile['adminSetup_thumbnailSettings_field3_inputTip2'],$adminConfig['uploadPath']); ?>">
+        </td></tr>
+        
+              
+        <tr><td class="leftBottom"></td><td></td></tr>
+      </tbody>
     </table>
     
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
@@ -247,93 +249,94 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       <col class="left">
       </colgroup>  
       
-      <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_pageCreatePages" name="cfg_pageCreatePages" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES'].'::'.$langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']; ?>"<?php if($adminConfig['pages']['createDelete']) echo ' checked="checked"'; ?>><br>
-      </td><td class="right checkboxes">
-      <label for="cfg_pageCreatePages"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES'].'::'.$langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']; ?></span></label><br>
-      </td></tr>
-      
-      <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_pageThumbnailUpload" name="cfg_pageThumbnailUpload" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS'].'::'.$langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']; ?>"<?php if($adminConfig['pages']['thumbnails']) echo ' checked="checked"'; ?>><br>
-      </td><td class="right checkboxes">
-      <label for="cfg_pageThumbnailUpload"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS'].'::'.$langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS']; ?></span></label><br>
-      </td></tr>
-      
-      <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_pageTags" name="cfg_pageTags" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS'].'::'.$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']; ?>"<?php if($adminConfig['pages']['showTags']) echo ' checked="checked"'; ?>>
-      </td><td class="right checkboxes">
-      <label for="cfg_pageTags"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS'].'::'.$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS']; ?></span></label>
-      </td></tr>
-      
-      <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_pagePageDate" name="cfg_pagePageDate" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"<?php if($adminConfig['pages']['showPageDate']) echo ' checked="checked"'; ?>>
-      </td><td class="right checkboxes">
-      <label for="cfg_pagePageDate"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"><?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE']; ?></span></label>
-      </td></tr>
-      
-      <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_pagefeeds" name="cfg_pagefeeds" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_TIP_FEEDS']; ?>"<?php if($adminConfig['pages']['feeds']) echo ' checked="checked"'; ?>>
-      </td><td class="right checkboxes">
-      <label for="cfg_pagefeeds"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_TIP_FEEDS']; ?>"><?php echo $langFile['PAGESETUP_TEXT_FEEDS']; ?></span></label>
-      </td></tr>
+      <tbody>
+        <tr><td class="left checkboxes">
+        <input type="checkbox" id="cfg_pageCreatePages" name="cfg_pageCreatePages" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES'].'::'.$langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']; ?>"<?php if($adminConfig['pages']['createDelete']) echo ' checked="checked"'; ?>><br>
+        </td><td class="right checkboxes">
+        <label for="cfg_pageCreatePages"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES'].'::'.$langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']; ?></span></label><br>
+        </td></tr>
+        
+        <tr><td class="left checkboxes">
+        <input type="checkbox" id="cfg_pageThumbnailUpload" name="cfg_pageThumbnailUpload" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS'].'::'.$langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']; ?>"<?php if($adminConfig['pages']['thumbnails']) echo ' checked="checked"'; ?>><br>
+        </td><td class="right checkboxes">
+        <label for="cfg_pageThumbnailUpload"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS'].'::'.$langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS']; ?></span></label><br>
+        </td></tr>
+        
+        <tr><td class="left checkboxes">
+        <input type="checkbox" id="cfg_pageTags" name="cfg_pageTags" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS'].'::'.$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']; ?>"<?php if($adminConfig['pages']['showTags']) echo ' checked="checked"'; ?>>
+        </td><td class="right checkboxes">
+        <label for="cfg_pageTags"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS'].'::'.$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS']; ?></span></label>
+        </td></tr>
+        
+        <tr><td class="left checkboxes">
+        <input type="checkbox" id="cfg_pagePageDate" name="cfg_pagePageDate" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"<?php if($adminConfig['pages']['showPageDate']) echo ' checked="checked"'; ?>>
+        </td><td class="right checkboxes">
+        <label for="cfg_pagePageDate"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"><?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE']; ?></span></label>
+        </td></tr>
+        
+        <tr><td class="left checkboxes">
+        <input type="checkbox" id="cfg_pagefeeds" name="cfg_pagefeeds" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_TIP_FEEDS']; ?>"<?php if($adminConfig['pages']['feeds']) echo ' checked="checked"'; ?>>
+        </td><td class="right checkboxes">
+        <label for="cfg_pagefeeds"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_TIP_FEEDS']; ?>"><?php echo $langFile['PAGESETUP_TEXT_FEEDS']; ?></span></label>
+        </td></tr>
 
-      <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_subCategory" name="cfg_subCategory" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY'].'::'.$langFile['PAGESETUP_TIP_SUBCATEGORY']; ?>"<?php if($adminConfig['pages']['showSubCategory']) echo ' checked="checked"'; ?>>
-      </td><td class="right checkboxes">
-      <label for="cfg_subCategory"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY'].'::'.$langFile['PAGESETUP_TIP_SUBCATEGORY']; ?>"><?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY']; ?></span></label>
-      </td></tr>
-      
-      <tr><td class="spacer checkboxes"></td><td></td></tr>
+        <tr><td class="left checkboxes">
+        <input type="checkbox" id="cfg_subCategory" name="cfg_subCategory" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY'].'::'.$langFile['PAGESETUP_TIP_SUBCATEGORY']; ?>"<?php if($adminConfig['pages']['showSubCategory']) echo ' checked="checked"'; ?>>
+        </td><td class="right checkboxes">
+        <label for="cfg_subCategory"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY'].'::'.$langFile['PAGESETUP_TIP_SUBCATEGORY']; ?>"><?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY']; ?></span></label>
+        </td></tr>
+        
+        <tr><td class="spacer checkboxes"></td><td></td></tr>
 
-      <!-- SORTING -->
-      <!-- manually -->
-      <tr><td class="left checkboxes">
-      <input type="radio" id="cfg_pageSortManually" name="cfg_pageSorting" value="manually" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTMANUALLY'].'::'.$langFile['PAGESETUP_TIP_SORTMANUALLY']; ?>"<?php if($adminConfig['pages']['sorting'] == 'manually' || empty($adminConfig['pages']['sorting'])) echo ' checked="checked"'; ?>>
-      </td><td class="right checkboxes">
-      <label for="cfg_pageSortManually"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTMANUALLY'].'::'.$langFile['PAGESETUP_TIP_SORTMANUALLY'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTMANUALLY']; ?></span></label>          
-      </td></tr>
-      <!-- sort by date    -->
-      <tr><td class="left checkboxes">
-      <input type="radio" id="cfg_pageSortByPageDate" name="cfg_pageSorting" value="byPageDate" class="toolTip" title="<?php echo $langFile['PAGESETUP_TIP_SORTBYPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_SORTBYDATE']; ?>"<?php if($adminConfig['pages']['sorting'] == 'byPageDate') echo ' checked="checked"'; ?>>
-      </td><td class="right checkboxes">
-      <label for="cfg_pageSortByPageDate"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TIP_SORTBYPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_SORTBYDATE'] ?>"><?php echo $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']; ?></span></label>          
-      </td></tr>
-      <!-- sort alphabetical -->
-      <tr><td class="left checkboxes">
-      <input type="radio" id="cfg_pageSortAlphabetical" name="cfg_pageSorting" value="alphabetical" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTALPHABETICAL'].'::'.$langFile['PAGESETUP_TIP_SORTALPHABETICAL']; ?>"<?php if($adminConfig['pages']['sorting'] == 'alphabetical') echo ' checked="checked"'; ?>>
-      </td><td class="right checkboxes">
-      <label for="cfg_pageSortAlphabetical"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTALPHABETICAL'].'::'.$langFile['PAGESETUP_TIP_SORTALPHABETICAL'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTALPHABETICAL']; ?></span></label>          
-      </td></tr>
+        <!-- SORTING -->
+        <!-- manually -->
+        <tr><td class="left checkboxes">
+        <input type="radio" id="cfg_pageSortManually" name="cfg_pageSorting" value="manually" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTMANUALLY'].'::'.$langFile['PAGESETUP_TIP_SORTMANUALLY']; ?>"<?php if($adminConfig['pages']['sorting'] == 'manually' || empty($adminConfig['pages']['sorting'])) echo ' checked="checked"'; ?>>
+        </td><td class="right checkboxes">
+        <label for="cfg_pageSortManually"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTMANUALLY'].'::'.$langFile['PAGESETUP_TIP_SORTMANUALLY'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTMANUALLY']; ?></span></label>          
+        </td></tr>
+        <!-- sort by date    -->
+        <tr><td class="left checkboxes">
+        <input type="radio" id="cfg_pageSortByPageDate" name="cfg_pageSorting" value="byPageDate" class="toolTip" title="<?php echo $langFile['PAGESETUP_TIP_SORTBYPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_SORTBYDATE']; ?>"<?php if($adminConfig['pages']['sorting'] == 'byPageDate') echo ' checked="checked"'; ?>>
+        </td><td class="right checkboxes">
+        <label for="cfg_pageSortByPageDate"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TIP_SORTBYPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_SORTBYDATE'] ?>"><?php echo $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']; ?></span></label>          
+        </td></tr>
+        <!-- sort alphabetical -->
+        <tr><td class="left checkboxes">
+        <input type="radio" id="cfg_pageSortAlphabetical" name="cfg_pageSorting" value="alphabetical" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTALPHABETICAL'].'::'.$langFile['PAGESETUP_TIP_SORTALPHABETICAL']; ?>"<?php if($adminConfig['pages']['sorting'] == 'alphabetical') echo ' checked="checked"'; ?>>
+        </td><td class="right checkboxes">
+        <label for="cfg_pageSortAlphabetical"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTALPHABETICAL'].'::'.$langFile['PAGESETUP_TIP_SORTALPHABETICAL'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTALPHABETICAL']; ?></span></label>          
+        </td></tr>
 
-      <!-- sortReverse -->
-      <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_pageSortReverse" name="cfg_pageSortReverse" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTREVERSE'].'::'.$langFile['PAGESETUP_TIP_SORTREVERSE']; ?>"<?php if($adminConfig['pages']['sortReverse']) echo ' checked="checked"'; ?>>
-      </td><td class="right checkboxes">
-      <label for="cfg_pageSortReverse"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTREVERSE'].'::'.$langFile['PAGESETUP_TIP_SORTREVERSE'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTREVERSE']; ?></span></label>          
-      </td></tr>
-      
-      <?php if(!empty($plugins)) { ?>
-      <tr><td class="leftTop"></td><td>
-      
-      <tr><td class="left">
-      <label for="cfg_pagePlugins"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'::' ?>">
-      <?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] ?></span></label>
-      </td><td class="right">
-      <select id="cfg_pagePlugins" name="cfg_pagePlugins[]" multiple="multiple">
-        <?php
-        foreach($plugins as $pluginName) {
-          $selected = (in_array($pluginName,unserialize($adminConfig['pages']['plugins']))) ? ' selected="selected"' : '' ;
-          echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';    
-        }
-        ?>
-      </select>
-      &nbsp;
-      <span class="hint"><?php echo $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'] ?></span>
-      </td></tr>
-      
-      <tr><td class="leftBottom"></td><td>
-      <?php } ?>
-      
+        <!-- sortReverse -->
+        <tr><td class="left checkboxes">
+        <input type="checkbox" id="cfg_pageSortReverse" name="cfg_pageSortReverse" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTREVERSE'].'::'.$langFile['PAGESETUP_TIP_SORTREVERSE']; ?>"<?php if($adminConfig['pages']['sortReverse']) echo ' checked="checked"'; ?>>
+        </td><td class="right checkboxes">
+        <label for="cfg_pageSortReverse"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SORTREVERSE'].'::'.$langFile['PAGESETUP_TIP_SORTREVERSE'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTREVERSE']; ?></span></label>          
+        </td></tr>
+        
+        <?php if(!empty($plugins)) { ?>
+        <tr><td class="leftTop"></td><td>
+        
+        <tr><td class="left">
+        <label for="cfg_pagePlugins"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'::' ?>">
+        <?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] ?></span></label>
+        </td><td class="right">
+        <select id="cfg_pagePlugins" name="cfg_pagePlugins[]" multiple="multiple">
+          <?php
+          foreach($plugins as $pluginName) {
+            $selected = (in_array($pluginName,unserialize($adminConfig['pages']['plugins']))) ? ' selected="selected"' : '' ;
+            echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';    
+          }
+          ?>
+        </select>
+        &nbsp;
+        <span class="hint"><?php echo $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'] ?></span>
+        </td></tr>
+        
+        <tr><td class="leftBottom"></td><td>
+        <?php } ?>
+      </tbody>
     </table>
     
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
@@ -361,22 +364,23 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       <colgroup>
       <col class="left">
       </colgroup>
-  
-      <tr><td class="leftTop"></td><td></td></tr>
+      
+      <tbody>
+        <tr><td class="leftTop"></td><td></td></tr>
 
-      <tr><td class="left">
-        <a href="?site=pageSetup&amp;status=createCategory#category<?php echo getNewCatgoryId(); ?>" class="createCategory toolTip" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY']; ?>::"></a>
-      </td><td class="right">
-      <br>
-      <?php
-      // user info          
-      if($categoryInfo)
-        echo '<span class="hint"><b>'.$categoryInfo.'</b></span>';
-      ?>
-      </td></tr>
-      
-      <tr><td class="leftBottom"></td><td></td></tr>
-      
+        <tr><td class="left">
+          <a href="?site=pageSetup&amp;status=createCategory#category<?php echo getNewCatgoryId(); ?>" class="createCategory toolTip" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY']; ?>::"></a>
+        </td><td class="right">
+        <br>
+        <?php
+        // user info          
+        if($categoryInfo)
+          echo '<span class="hint"><b>'.$categoryInfo.'</b></span>';
+        ?>
+        </td></tr>
+        
+        <tr><td class="leftBottom"></td><td></td></tr>
+      </tbody>
     </table>
     <?php        
 
@@ -434,7 +438,8 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           echo '<table>     
                 <colgroup>
                 <col class="left">
-                </colgroup>';
+                </colgroup>
+                <tbody>';
                 
           // category anchor
           echo '<tr><td class="leftTop">
@@ -590,7 +595,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
             echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
           
           // end of the TABLE for one category
-          echo '</table>';
+          echo '</tbody></table>';
           
           // -----------------------------------------------
           // second TABLE (advanced settings) (with slide in)
@@ -602,7 +607,6 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </colgroup>
                 
                 <tbody>
-
                 <tr><td class="leftTop"></td><td><span class="hint">'.$langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS'].'</span></td></tr>';
           
           echo '<tr><td class="left">

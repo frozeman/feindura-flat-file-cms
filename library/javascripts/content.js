@@ -1102,7 +1102,7 @@ window.addEvent('domready', function() {
         }
       });
 
-      // IF MULTI LANGAUGES were DEACTIVATED
+      // IF MULTI LANGUAGES were DEACTIVATED
       if(!$('cfg_multiLanguageWebsite').getProperty('checked')) {
         status = 'deactivated';
         websiteLanguages.each(function(lang){
@@ -1121,13 +1121,13 @@ window.addEvent('domready', function() {
       }
 
 
-      // -> show dialog if langauges will be deleted
+      // -> show dialog if languages will be deleted
       if(removedLangString !== '') {
         e.stop();
         openWindowBox('library/views/windowBox/deleteWebsiteLanguages.php?site=pageSetup&status='+status+'&mainLanguage='+$('cfg_websiteMainLanguage').get('value')+'&languages='+removedLangString,false);
       }
 
-      // reset the website Langauges variable
+      // reset the website Languages variable
       // websiteLanguages = Array.clone($('cfg_websiteLanguages').getChildren('option').get('value'));
     });
     

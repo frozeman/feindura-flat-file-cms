@@ -93,7 +93,8 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
         <colgroup>
         <col class="left">
         </colgroup>
-    
+        
+        <tbody>
         <tr><td class="leftTop"></td><td></td></tr>';
   
         natsort($backups['files']);
@@ -111,7 +112,7 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
           echo '</td></tr>';
         }
              
-        echo '</table>';
+        echo '</tbody></table>';
       }
       
       ?>

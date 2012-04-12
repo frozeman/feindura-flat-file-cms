@@ -32,22 +32,24 @@ foreach($menu as $link) {
 */
 
 <table>
-<tr><td>
-<a href="?category=1&amp;page=1" title="Summer Page">
-Summer Page
-</a>
-</td><td>
-<a href="?category=1&amp;page=2" title="Winter Page">
-Winter Page
-</a>
-</td>
-</tr><tr>
-<td>
-<a href="?category=1&amp;page=6" title="Spring Page">
-Spring Page
-</a>
-</td><td></td>
-</tr>
+  <tbody>
+    <tr><td>
+      <a href="?category=1&amp;page=1" title="Summer Page">
+      Summer Page
+      </a>
+    </td><td>
+      <a href="?category=1&amp;page=2" title="Winter Page">
+      Winter Page
+      </a>
+    </td>
+    </tr><tr>
+    <td>
+      <a href="?category=1&amp;page=6" title="Spring Page">
+      Spring Page
+      </a>
+    </td><td></td>
+    </tr>
+  </tbody>
 </table>
 
 

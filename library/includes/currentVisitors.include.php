@@ -43,7 +43,7 @@ if(!empty($currentVisitors) && $showVisitors) {
   
   // ->> write before the listing
   if($currentVisitorDashboard)
-    $return .= '<table class="coloredList">';
+    $return .= '<table class="coloredList"><tbody>';
   else {
     $return .= '<h1>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h1>';
     $return .= '<ul class="flags">';
@@ -78,7 +78,7 @@ if(!empty($currentVisitors) && $showVisitors) {
   
   // ->> write after the listing
   if($currentVisitorDashboard)
-    $return .= '</table>';
+    $return .= '</tbody></table>';
   else {
     $return .= '</ul>';
   }

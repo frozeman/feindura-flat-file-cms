@@ -81,7 +81,7 @@ class Search {
   protected $categoryConfig;
 
   /**
-  * Whether to search in all langauges or not. (Helper variable)
+  * Whether to search in all languages or not. (Helper variable)
   * 
   * @var bool
   * @access protected

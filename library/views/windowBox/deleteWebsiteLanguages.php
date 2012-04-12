@@ -32,7 +32,7 @@ $languages = explode(',',$_GET['languages']);
 $languageString = '';
 
 foreach ($languages as $langCode) {
-  $languageString .= $languageCodes[$langCode];
+  $languageString .= $languageNames[$langCode];
   if($langCode != $languages[count($languages)-1])
     $languageString .= ', ';
 }
@@ -41,7 +41,7 @@ foreach ($languages as $langCode) {
 echo '<h1 class="red">'.sprintf($langFile['WINDOWBOX_TITLE_DELETEWEBSITELANGUAGES_QUESTION'],'<span style="color:#000000;">'.$languageString.'</span>').'</h1>';
 
 if($_GET['status'] == 'deactivated')
-  echo '<p>'.sprintf($langFile['WINDOWBOX_TEXT_DELETEWEBSITELANGUAGES_QUESTION'],$languageCodes[$_GET['mainLanguage']]).'</p>';
+  echo '<p>'.sprintf($langFile['WINDOWBOX_TEXT_DELETEWEBSITELANGUAGES_QUESTION'],$languageNames[$_GET['mainLanguage']]).'</p>';
 
 ?>
 <div>

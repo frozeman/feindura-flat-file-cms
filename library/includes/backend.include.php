@@ -127,7 +127,7 @@ if($adminConfig['multiLanguageWebsite']['active']) {
 
 /**
  * SET the BACKEND LANGUAGE
- * And loads the langauge files
+ * And loads the language files
  *
  */
 // unset($_SESSION['feinduraSession']['backendLanguage']);

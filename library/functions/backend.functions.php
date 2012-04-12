@@ -2005,7 +2005,7 @@ function startPageWarning() {
  * <b>Used Global Variables</b><br>
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
- *    - <var>$languageCodes</var> an array with country codes and language names (included in the {@link general.include.php})
+ *    - <var>$languageNames</var> an array with country codes and language names (included in the {@link general.include.php})
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  *    - <var>$langFile</var> the language file of the backend (included in the {@link general.include.php})
  * 
@@ -2030,7 +2030,7 @@ function missingLanguageWarning() {
   if($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] != array_keys($GLOBALS['websiteConfig']['localized'])) {
     foreach ($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] as $langCode) {
       if(!isset($GLOBALS['websiteConfig']['localized'][$langCode])) {
-        $websiteConfig .= '<span><img src="'.getFlag($langCode).'" class="flag"> <a href="?site=websiteSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageCodes'][$langCode].'</a></span><br>';
+        $websiteConfig .= '<span><img src="'.getFlag($langCode).'" class="flag"> <a href="?site=websiteSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageNames'][$langCode].'</a></span><br>';
       }
     }
   }
@@ -2050,7 +2050,7 @@ function missingLanguageWarning() {
             if(!isset($category['localized'][$langCode])) {
               $categoryName = GeneralFunctions::getLocalized($category['localized'],'name');
               $categoryName = (!empty($categoryName)) ? ' &lArr; '.$categoryName : '';
-              $categoryConfig .= '<span><img src="'.getFlag($langCode).'" class="flag"> <a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageCodes'][$langCode].'</a>'.$categoryName.'</span><br>';
+              $categoryConfig .= '<span><img src="'.getFlag($langCode).'" class="flag"> <a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageNames'][$langCode].'</a>'.$categoryName.'</span><br>';
             }
           }
         }
@@ -2299,7 +2299,7 @@ function createBrowserChart($browserString) {
       // sort by number
       usort($listBrowser,'sortDataString');
       
-      $return = '<table class="tableChart"><tr>';        
+      $return = '<table class="tableChart"><tbody><tr>';        
       foreach($listBrowser as $displayBrowser) {
       
         // calculates the text width and the cell width
@@ -2349,7 +2349,7 @@ function createBrowserChart($browserString) {
                     
         unset($logoSize,$cellText);
       }
-      $return .= '</tr></table>';
+      $return .= '</tr></tbody></table>';
       
     }
   }    

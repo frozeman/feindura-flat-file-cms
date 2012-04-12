@@ -36,27 +36,29 @@ foreach($menu as $link) {
 */
 
 <table>
-<tr><td>
-<a href="?category=1&amp;page=2" title="Example Page 2">
-Example Page 2
-</a>
-</td>
-<td>
-<a href="?category=1&amp;page=1" title="Example Page 1">
-Example Page 1
-</a>
-</td>
-</tr><tr>
-<td>
-<a href="?category=1&amp;page=4" title="Example Page 4">
-Example Page 4
-</a>
-</td>
-<td>
-<a href="?category=1&amp;page=3" title="Example Page 3">
-Example Page 3
-</a>
-</td></tr>
+  <tbody>
+    <tr><td>
+      <a href="?category=1&amp;page=2" title="Example Page 2">
+      Example Page 2
+      </a>
+    </td>
+    <td>
+      <a href="?category=1&amp;page=1" title="Example Page 1">
+      Example Page 1
+      </a>
+    </td>
+    </tr><tr>
+    <td>
+      <a href="?category=1&amp;page=4" title="Example Page 4">
+      Example Page 4
+      </a>
+    </td>
+    <td>
+      <a href="?category=1&amp;page=3" title="Example Page 3">
+      Example Page 3
+      </a>
+    </td></tr>
+  </tbody>
 </table>
 
 ?>

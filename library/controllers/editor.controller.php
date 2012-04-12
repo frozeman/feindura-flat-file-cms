@@ -128,7 +128,7 @@ if($_POST['save'] && isBlocked() === false) {
       $documentSaved = true;
 
       if($_POST['status'] == 'addLanguage')
-        StatisticFunctions::saveTaskLog(array($logText,$languageCodes[$_POST['websiteLanguage']]),'page='.$page); // <- SAVE the task in a LOG FILE
+        StatisticFunctions::saveTaskLog(array($logText,$languageNames[$_POST['websiteLanguage']]),'page='.$page); // <- SAVE the task in a LOG FILE
       else
         StatisticFunctions::saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
       
@@ -172,7 +172,7 @@ if(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbn
 // if ADD LANGUAGE set the $newPage var to TRUE, and ADD TITLE TEXT
 if($_GET['status'] == 'addLanguage') {
   $newPage = true;
-  $pageTitle = $langFile['BUTTON_WEBSITELANGUAGE_ADD'].': '.$languageCodes[$_SESSION['feinduraSession']['websiteLanguage']];
+  $pageTitle = $langFile['BUTTON_WEBSITELANGUAGE_ADD'].': '.$languageNames[$_SESSION['feinduraSession']['websiteLanguage']];
 
   // LOAD LANGUAGE as template
   if(isset($_GET['template']) && is_string($_GET['template']) && strlen($_GET['template']) == 2)

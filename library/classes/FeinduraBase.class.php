@@ -156,6 +156,28 @@ class FeinduraBase {
   * 
   */  
   public $language = 'en';
+
+ /**
+  * An array with country codes and language names.
+  * 
+  * Example array
+  * <samp>
+  * array(
+  *  'ae' => 'Avestan',
+  *  'af' => 'Afrikaans',
+  *  'de' => 'German',
+  *  'en' => 'English',
+  *   ...
+  * </samp>
+  * 
+  *  
+  * @var array
+  * @access public
+  * @see Feindura::createLanguageMenu()
+  * @see FeinduraBase()
+  * 
+  */  
+  public $languageNames = array();
   
  /**
   * Contains the frontend language-file array
@@ -253,6 +275,9 @@ class FeinduraBase {
       $this->sessionId = htmlspecialchars(session_name().'='.session_id()); //SID
     }
     
+    // SETs the language names
+    $this->languageNames = $GLOBALS['feindura_languageNames'];
+
     // SETS the LANGUAGE PROPERTY from the $_GET['language']
     // **************************************************************************
 

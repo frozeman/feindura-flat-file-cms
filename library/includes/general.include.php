@@ -135,12 +135,12 @@ $GLOBALS['websiteStatistic'] = $websiteStatistic;
  * 
  * This languages <var>array</var> is included from: <i>"feindura-CMS/library/thirdparty/languages.array.php"</i>
  * 
- * @global array $GLOBALS['languageCodes']
+ * @global array $GLOBALS['languageNames']
  */
-if(!$languageCodes = @include(dirname(__FILE__)."/../../library/thirdparty/languages.array.php"))
-  $languageCodes = array();
-natsort($languageCodes);
-$GLOBALS['languageCodes'] = $languageCodes;
+if(!$languageNames = @include(dirname(__FILE__)."/../../library/thirdparty/languages.array.php"))
+  $languageNames = array();
+natsort($languageNames);
+$GLOBALS['languageNames'] = $languageNames;
 
 
 /**
