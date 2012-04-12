@@ -261,7 +261,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     } else
       $didntCopy = true;
     if($copyError === false && $didntCopy === false) {
-      delDir($adminConfig['savePath']);
+      GeneralFunctions::deleteFolder($adminConfig['savePath']);
       echo 'pages <span class="succesfull">succesfully copied to "feindura_folder/pages/"</span><br>';
     } elseif($didntCopy) {
       echo 'old pages folder <span class="succesfull" style="color:#3A74AB;">already copied to "feindura_folder/pages/"? (<strong>You must copy the folder with your pages (set in the "save path" setting) to your feindura folder, e.g. "/pages/" -> "/feindura_folder/pages/"</strong>)</span><br>';
@@ -554,43 +554,43 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     
     // folders
     $checkFiles = array();
-    if(!delDir(dirname(__FILE__).'/library/javascript/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/javascript/') && 
       is_dir(dirname(__FILE__).'/library/javascript/'))
       $checkFiles[] = dirname(__FILE__).'/library/javascript/';
-    if(!delDir(dirname(__FILE__).'/library/thirdparty/javascript/') &&
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/javascript/') &&
       is_dir(dirname(__FILE__).'/library/thirdparty/javascript/'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascript/';
-    if(!delDir(dirname(__FILE__).'/library/thirdparty/customformelements/') &&
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/customformelements/') &&
       is_dir(dirname(__FILE__).'/library/thirdparty/customformelements/'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/customformelements/';
-    if(!delDir(dirname(__FILE__).'/library/image/') &&
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/image/') &&
       is_dir(dirname(__FILE__).'/library/image/'))
       $checkFiles[] = dirname(__FILE__).'/library/image/';
-    if(!delDir(dirname(__FILE__).'/library/lang/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/lang/') && 
       is_dir(dirname(__FILE__).'/library/lang/'))
       $checkFiles[] = dirname(__FILE__).'/library/lang/';
-    if(!delDir(dirname(__FILE__).'/library/process/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/process/') && 
       is_dir(dirname(__FILE__).'/library/process/'))
       $checkFiles[] = dirname(__FILE__).'/library/process/';
-    if(!delDir(dirname(__FILE__).'/library/style/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/style/') && 
       is_dir(dirname(__FILE__).'/library/style/'))
       $checkFiles[] = dirname(__FILE__).'/library/style/';
-    if(!delDir(dirname(__FILE__).'/library/images/key/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/images/key/') && 
       is_dir(dirname(__FILE__).'/library/images/key/'))
       $checkFiles[] = dirname(__FILE__).'/library/images/key/';
-    if(!delDir(dirname(__FILE__).'/library/images/sign/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/images/sign/') && 
       is_dir(dirname(__FILE__).'/library/images/sign/'))
       $checkFiles[] = dirname(__FILE__).'/library/images/sign/';
-    if(!delDir(dirname(__FILE__).'/library/thirdparty/iepngfix_v2/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/iepngfix_v2/') && 
       is_dir(dirname(__FILE__).'/library/thirdparty/iepngfix_v2/'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/iepngfix_v2/';
-    if(!delDir(dirname(__FILE__).'/library/thirdparty/CountDown/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/CountDown/') && 
       is_dir(dirname(__FILE__).'/library/thirdparty/CountDown/'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/CountDown/';
-    if(!delDir(dirname(__FILE__).'/library/processes/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/processes/') && 
       is_dir(dirname(__FILE__).'/library/processes/'))
       $checkFiles[] = dirname(__FILE__).'/library/processes/';
-    if(!delDir(dirname(__FILE__).'/library/sites/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/sites/') && 
       is_dir(dirname(__FILE__).'/library/sites/'))
       $checkFiles[] = dirname(__FILE__).'/library/sites/';
     

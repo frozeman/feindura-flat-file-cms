@@ -31,9 +31,8 @@ foreach($pages as $page) {
 }
 
 
-/*                              *** RESULT with page *** 
+                               *** RESULT *** 
 --------------------------------------------------------------------------------
-*/
 
 Example Page 1<br>
 Has the following Tags: Winter antum

@@ -517,7 +517,7 @@ if($_GET['site'] == 'addons') {
                 ?>
                 <li class="spacer">&nbsp;</li>
                 <li>
-                  <img src="<?php echo getFlag($_SESSION['feinduraSession']['websiteLanguage']); ?>" class="flag" title="<?php echo $languageNames[$_SESSION['feinduraSession']['websiteLanguage']]; ?>">
+                  <img src="<?php echo GeneralFunctions::getFlagHref($_SESSION['feinduraSession']['websiteLanguage']); ?>" class="flag" title="<?php echo $languageNames[$_SESSION['feinduraSession']['websiteLanguage']]; ?>">
                   <select name="websiteLanguageSelection" id="websiteLanguageSelection" tabindex="37">
                   <?php
                     // create language selection

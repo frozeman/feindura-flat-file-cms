@@ -1254,7 +1254,7 @@ class Feindura extends FeinduraBase {
   * If there is no current, next or previous page in it returns FALSE.
   * 
   * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link $page} property.
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as css class to the link, which matching the current page (<var>$page</var> parameter).
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current page (<var>$page</var> parameter).
   * 
   *
   * Example:
@@ -1413,7 +1413,7 @@ class Feindura extends FeinduraBase {
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
   * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as css class to the link, which matching the current page (<var>$page</var> parameter).
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current page (<var>$page</var> parameter).
   *  
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
@@ -1483,7 +1483,7 @@ class Feindura extends FeinduraBase {
     $menuItem['startTag'] = '';
     $menuItem['endTag']   = '';
     $menuItem['link']     = '';
-    $menuItem['href']     = '';
+    $menuItem['href']     = false;
     $menuItem['pageId']   = null;
     $menuItemCopy = $menuItem;
     
@@ -1664,7 +1664,7 @@ class Feindura extends FeinduraBase {
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
   * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as css class to the link, which matching the current page (<var>$page</var> parameter).
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current page (<var>$page</var> parameter).
   * 
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
@@ -1761,7 +1761,7 @@ class Feindura extends FeinduraBase {
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
   * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as css class to the link, which matching the current page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current page.
   * 
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
@@ -1856,7 +1856,7 @@ class Feindura extends FeinduraBase {
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
   * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as css class to the link, which matching the current page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current page.
   * 
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
@@ -1964,7 +1964,7 @@ class Feindura extends FeinduraBase {
   * In case no page with the given page ID exist it returns an empty array.
   * 
   * <b>Note</b>: if the <var>$id</var> parameter is FALSE or empty it uses the {@link $page} property.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as css class to the link, which matching the current page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current page.
   *
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
@@ -2051,6 +2051,8 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag. 
   * 
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current language.
+  * 
   * Example of the returned Array:
   * {@example createLanguageMenu.return.example.php}
   * 
@@ -2068,6 +2070,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$linkLength
   * @uses Feindura::$linkId
   * @uses Feindura::$linkClass
+  * @uses Feindura::$linkActiveClass
   * @uses Feindura::$linkAttributes
   * @uses Feindura::$linkBefore
   * @uses Feindura::$linkAfter
@@ -2100,8 +2103,9 @@ class Feindura extends FeinduraBase {
     $menuItem['startTag'] = '';
     $menuItem['endTag']   = '';
     $menuItem['link']     = '';
-    $menuItem['href']     = '';
-    $menuItem['pageId']   = null;
+    $menuItem['flag']     = false;
+    $menuItem['href']     = false;
+    $menuItem['language'] = false;
     $menuItemCopy = $menuItem;
     
     // -> STOREs the LINKs in an Array
@@ -2115,15 +2119,17 @@ class Feindura extends FeinduraBase {
       //make sure createLink() doesn't add a thumbnail
       $this->linkShowThumbnail = false;
 
-      // remove the active class, so not all links will get it
-      $this->linkActiveClass = false;
-
       // create a link out of every language in the array
       foreach($this->adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
 
         // set language name as link text
         if($linkText === true)
           $modLinkText = $this->languageNames[$langCode];
+
+        // remove the active class, so not all links will get it
+        $this->linkActiveClass = ($orgLanguage == $langCode) 
+          ? $orgLinkActiveClass
+          : false;
 
         // the next functions will use this language
         $this->language = $langCode;
@@ -2134,6 +2140,7 @@ class Feindura extends FeinduraBase {
           $link['link']     = $languageLink;
           $link['href']     = $this->createHref(false);
           $link['language'] = $langCode;
+          $link['flag']     = GeneralFunctions::getFlagHref($langCode, false);
           $links[] = $link;
         }
       }
@@ -2215,6 +2222,7 @@ class Feindura extends FeinduraBase {
         $menuItemCopy['startTag'] = '<li>';
         $menuItemCopy['endTag']   = "</li>\n";
         $menuItemCopy['link']     = $link['link'];
+        $menuItemCopy['flag']     = $link['flag'];
         $menuItemCopy['href']     = $link['href'];
         $menuItemCopy['language'] = $link['language'];
         
@@ -2224,6 +2232,7 @@ class Feindura extends FeinduraBase {
         $menuItemCopy['startTag'] = "<td>\n";
         $menuItemCopy['endTag']   = "\n</td>";
         $menuItemCopy['link']     = $link['link'];
+        $menuItemCopy['flag']     = $link['flag'];
         $menuItemCopy['href']     = $link['href'];
         $menuItemCopy['language'] = $link['language'];
 
@@ -2231,6 +2240,7 @@ class Feindura extends FeinduraBase {
       } else {
         $menuItemCopy['menuItem'] = $link['link']."\n";
         $menuItemCopy['link']     = $link['link']."\n";
+        $menuItemCopy['flag']     = $link['flag'];
         $menuItemCopy['href']     = $link['href'];
         $menuItemCopy['language'] = $link['language'];
       }

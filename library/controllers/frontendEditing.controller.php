@@ -53,6 +53,9 @@ if($_POST['save'] == 'true') {
   if(GeneralFunctions::savePage($pageContent)) {
     StatisticFunctions::saveTaskLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
 
+    // clear cache
+    GeneralFunctions::deleteFolder(dirname(__FILE__).'/../../pages/cache/');
+
     // -> the data which will be returned, to inject into the element in the frontend
     $return = $tmpReturn;
     $return = str_replace("\'", "'", $return);

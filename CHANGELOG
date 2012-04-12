@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 864
+Build 865
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 865: add flag href to createLanguageMenu()
   build 864: add createLanguageMenu()
   build 863: add href to createMenu(); add subCategory to generatePage()
   build 862: add createSubMenu()

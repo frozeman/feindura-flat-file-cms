@@ -23,9 +23,8 @@ foreach($plugins as $plugin) {
 }
 
 
-/*                              *** RESULT with page *** 
+                               *** RESULT *** 
 --------------------------------------------------------------------------------
-*/
 
 <p>HTML created by the Plugin</p>
 <span>What it is depends on the plugin :-)</span>

@@ -50,9 +50,9 @@ foreach($pages as $page) {
 }
 
 
-/*                              *** RESULT with page *** 
+                               *** RESULT *** 
 --------------------------------------------------------------------------------
-*/
+
 
 <a href="?category=1&amp;page=2" title="2010-12-31 - Example Page 2">
 2010-12-31 - Example...

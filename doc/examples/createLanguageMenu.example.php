@@ -22,9 +22,8 @@ foreach($menu as $link) {
 }
 
 
-/*                              *** RESULT *** 
+                               *** RESULT *** 
 --------------------------------------------------------------------------------
-*/
 
 <ul>
   <li><a href="/en/page/english-title" title="English">

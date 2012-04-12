@@ -1602,6 +1602,37 @@ class GeneralFunctions {
     unset ($sitemap);
     return true;
   }
+
+ /**
+  * <b>Name</b> getFlagHref()<br>
+  * 
+  * Returns the right flag from the <var>library/images/icons/flags</var> folder.
+  * If no flag with the given <var>$countryCode</var> parameter exists, it returns a generic flag (<var>library/images/icons/flags/none.png</var>).
+  * 
+  * @param string $countryCode a country code like "en"
+  * @param bool   $backend     (optional) if true it removes the feindura basePath
+  * 
+  * @return string the URL of the flag, relative to the "feindura" folder
+  * 
+  * @version 1.1
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.1 moved to GeneralFunctions
+  *    - 1.0 initial release
+  * 
+  */
+  public static function getFlagHref($countryCode, $backend = true) {
+
+    // var
+    $countryCode = strtolower($countryCode);
+    $flagFilename = (file_exists(dirname(__FILE__).'/../images/icons/flags/'.$countryCode.'.png'))
+      ? $countryCode.'.png'
+      : 'none.png';
+
+    return ($backend)
+      ? 'library/images/icons/flags/'.$flagFilename
+      : self::$adminConfig['basePath'].'library/images/icons/flags/'.$flagFilename;
+  }
   
  /**
   * <b>Name</b> urlEncode()<br>
@@ -2207,6 +2238,64 @@ class GeneralFunctions {
     else
       return false;
   
+  }
+
+  /**
+   * <b>Name</b> deleteFolder()<br>
+   * 
+   * Deletes a directory and all files in it.
+   * 
+   * @param string $dir the absolute path to the directory which will be deleted 
+   * 
+   * @return bool TRUE if the directory was succesfull deleted, otherwise FALSE
+   * 
+   * @version 1.0
+   * <br>
+   * <b>ChangeLog</b><br>
+   *    - 1.0 initial release
+   * 
+   */
+  public static function deleteFolder($dir) {
+
+      // retrun false if no directory
+      if(!is_dir($dir))
+        return false;
+
+      $filesFolders = self::readFolderRecursive($dir);
+      
+      if(is_array($filesFolders)) {
+        $return = false;
+        $writeerror = false;
+        
+        if(is_array($filesFolders['files'])) {
+          foreach($filesFolders['files'] as $file) {
+            if(!is_writable(DOCUMENTROOT.$file))
+              $writeerror = true;
+            @unlink(DOCUMENTROOT.$file);
+          }
+        }
+        if(is_array($filesFolders['folders'])) {
+          foreach($filesFolders['folders'] as $folder) {
+            if(!is_writable(DOCUMENTROOT.$folder))
+              $writeerror = true;
+            @rmdir(DOCUMENTROOT.$folder);
+          }
+        }
+        
+        // recheck if everything is deleted
+        $checkFilesFolders = self::readFolderRecursive($dir);
+        
+        if(rmdir($dir))
+          return true;
+        elseif($writeerror === false && (!empty($checkFilesFolders['folders']) || !empty($checkFilesFolders['files'])))
+          GeneralFunctions::deleteFolder($dir);
+        else
+          return false;
+      
+      } elseif(@rmdir($dir))
+        return true;
+      else
+        return false;
   }
   
   /**

@@ -53,9 +53,8 @@ foreach($menu as $link) {
 
 
 
-/*                              *** RESULT *** 
+                               *** RESULT *** 
 --------------------------------------------------------------------------------
-*/
 
 <table id="menuId" class="menuClass" test="menuAttribute1" onclick="menuAttribute2">
   <tbody>

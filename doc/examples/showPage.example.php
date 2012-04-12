@@ -47,9 +47,8 @@ echo $page['thumbnail'];
 echo $page['content'];
 
 
-/*                              *** RESULT with page *** 
+                               *** RESULT *** 
 --------------------------------------------------------------------------------
-*/
 
 <a href="?page=1" title="2010-12-31 - Example Page">
 2010-12-31 - Example...
@@ -64,9 +63,9 @@ Stet clita kasd gubergren, no sea takimata sanctus.</p>
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam...</p>
 
 
-/*                              *** RESULT with error *** 
+                          *** RESULT with error *** 
 --------------------------------------------------------------------------------
-*/
+
 
 <span id="errorId" class="errorClass" test="exampleAttribute1" onclick="exampleAttribute2">
 The requested page is deactivated.

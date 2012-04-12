@@ -134,7 +134,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
       
       if($errorWindow === false) {
         // delete the old pages dir
-        delDir(dirname(__FILE__).'/../../pages/');
+        GeneralFunctions::deleteFolder(dirname(__FILE__).'/../../pages/');
         // -> extract PAGES
         if($archive->extract(PCLZIP_OPT_PATH, '', // extracts to the current folder (which should be the feindura folder)
                              PCLZIP_OPT_BY_PREG, '#\d+\.php$#',

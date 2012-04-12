@@ -46,9 +46,8 @@ $link = $feindura->createLink(1);
 echo $link;
 
 
-/*                              *** RESULT *** 
+                               *** RESULT *** 
 --------------------------------------------------------------------------------
-*/
 
 text before link <a href="?category=1&amp;page=1" title="Example Category -> 2010-12-31 - Example Page"
 id="exampleId" class="exampleClass" test="exampleAttribute1" onclick="exampleAttribute2">

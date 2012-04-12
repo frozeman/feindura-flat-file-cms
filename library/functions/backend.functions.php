@@ -1703,60 +1703,6 @@ function saveEditedFiles(&$savedForm) {
 }
 
 /**
- * <b>Name</b> delDir()<br>
- * 
- * Deletes a directory and all files in it.
- * 
- * @param string $dir the absolute path to the directory which will be deleted 
- * 
- * @return bool TRUE if the directory was succesfull deleted, otherwise FALSE
- * 
- * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
- *    - 1.0 initial release
- * 
- */
-function delDir($dir) {
-
-    $filesFolders = GeneralFunctions::readFolderRecursive($dir);
-    
-    if(is_array($filesFolders)) {
-      $return = false;
-      $writeerror = false;
-      
-      if(is_array($filesFolders['files'])) {
-        foreach($filesFolders['files'] as $file) {
-          if(!is_writable(DOCUMENTROOT.$file))
-            $writeerror = true;
-          @unlink(DOCUMENTROOT.$file);
-        }
-      }
-      if(is_array($filesFolders['folders'])) {
-        foreach($filesFolders['folders'] as $folder) {
-          if(!is_writable(DOCUMENTROOT.$folder))
-            $writeerror = true;
-          @rmdir(DOCUMENTROOT.$folder);
-        }
-      }
-      
-      // recheck if everything is deleted
-      $checkFilesFolders = GeneralFunctions::readFolderRecursive($dir);
-      
-      if(rmdir($dir))
-        return true;
-      elseif($writeerror === false && (!empty($checkFilesFolders['folders']) || !empty($checkFilesFolders['files'])))
-        delDir($dir);
-      else
-        return false;
-    
-    } elseif(@rmdir($dir))
-      return true;
-    else
-      return false;
-}
-
-/**
  * <b>Name</b> isFolderWarning()<br>
  * 
  * Check if the <var>$folder</var> parameter is a directory, otherwise it return a warning text.
@@ -2030,7 +1976,7 @@ function missingLanguageWarning() {
   if($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] != array_keys($GLOBALS['websiteConfig']['localized'])) {
     foreach ($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] as $langCode) {
       if(!isset($GLOBALS['websiteConfig']['localized'][$langCode])) {
-        $websiteConfig .= '<span><img src="'.getFlag($langCode).'" class="flag"> <a href="?site=websiteSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageNames'][$langCode].'</a></span><br>';
+        $websiteConfig .= '<span><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> <a href="?site=websiteSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageNames'][$langCode].'</a></span><br>';
       }
     }
   }
@@ -2050,7 +1996,7 @@ function missingLanguageWarning() {
             if(!isset($category['localized'][$langCode])) {
               $categoryName = GeneralFunctions::getLocalized($category['localized'],'name');
               $categoryName = (!empty($categoryName)) ? ' &lArr; '.$categoryName : '';
-              $categoryConfig .= '<span><img src="'.getFlag($langCode).'" class="flag"> <a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageNames'][$langCode].'</a>'.$categoryName.'</span><br>';
+              $categoryConfig .= '<span><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> <a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageNames'][$langCode].'</a>'.$categoryName.'</span><br>';
             }
           }
         }
@@ -2405,32 +2351,6 @@ function createTagCloud($serializedTags,$minFontSize = 10,$maxFontSize = 20) {
   
   // return the tag-cloud or false
   return $return;
-}
-
-/**
-* <b>Name</b> getFlag()<br>
-* 
-* Returns the right flag from the <var>library/images/icons/flags</var> folder.
-* If no flag with the given <var>$countryCode</var> parameter exists, it returns a generic flag (<var>library/images/icons/flags/none.png</var>).
-* 
-* @param string $countryCode a country code like "en"
-* 
-* @return string the URL of the flag, relative to the "feindura" folder
-* 
-* @version 1.0
-* <br>
-* <b>ChangeLog</b><br>
-*    - 1.0 initial release
-* 
-*/
-function getFlag($countryCode) {
-
-  // var
-  $countryCode = strtolower($countryCode);
-  return (file_exists(dirname(__FILE__).'/../images/icons/flags/'.$countryCode.'.png'))
-    ? 'library/images/icons/flags/'.$countryCode.'.png'
-    : 'library/images/icons/flags/none.png';
-
 }
 
 ?>

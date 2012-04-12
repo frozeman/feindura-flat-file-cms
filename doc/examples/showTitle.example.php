@@ -30,9 +30,8 @@ $title = $feindura->getPageTitle(1);
 echo $title;
 
 
-/*                              *** RESULT *** 
+                               *** RESULT *** 
 --------------------------------------------------------------------------------
-*/
 
 <a href="?category=1&amp;page=3" title="Example Category 1 -> 31.12.2010 - Example Page">
 Example Category -> 31.12.2010 - Example...
