@@ -157,7 +157,7 @@ class Feindura extends FeinduraBase {
   * Contains an id-Attribute which will be add to any <a ...> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Note</b>: You can only set one specific id-Attribute to elements in a HTML page,
+  * <b>Note</b>: You should set a unique id-Attribute only once to elements in a HTML page,
   * if you set this property and call {@link createMenu()} every link in the menu will get this id-Attribute.
   * 
   * @var string|false If no id-Attribute should be add, set it to FALSE.
@@ -951,7 +951,7 @@ class Feindura extends FeinduraBase {
   * 
   * Creates a string with basic HTML5 meta tags. See the example for a detailed list of the meta tags created.
   * 
-  * <b>Note</b>: You have to call this method in the <head> tags of your website, to enable the frontend editing feature.
+  * <b>Note</b>: You have to call this method in the <head> tags of your website, to enable the frontend editing feature.<br>
   * <b>Note</b>: This method also adds the Feed tags.  
   * 
   * Example:
@@ -1253,8 +1253,8 @@ class Feindura extends FeinduraBase {
   * it creates a link from the previous or the next page starting from the current page ID stored in the {@link $page} property.
   * If there is no current, next or previous page in it returns FALSE.
   * 
-  * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link $page} property.
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current page (<var>$page</var> parameter).
+  * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link $page} property.<br>
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
   *
   * Example:
@@ -1406,14 +1406,12 @@ class Feindura extends FeinduraBase {
   * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
   * Creates a menu from category or page ID(s).
-  * 
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
-  * If its any other tag name it just enclose the links with this HTML-tag.
-  * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
+  * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current page (<var>$page</var> parameter).
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   *  
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
@@ -1654,17 +1652,14 @@ class Feindura extends FeinduraBase {
   * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
   * Create a menu from category or page ID(s) with pages which have one or more of the tags from the given <var>$tags</var> parameter.
-  * 
-  * 
-  * <b>Note</b>: the tags will be compared case insensitive.
-  * 
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
-  * If its any other tag name it just enclose the links with this HTML-tag.
-  * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
-  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current page (<var>$page</var> parameter).
+  * 
+  * <b>Note</b>: the tags will be compared case insensitive.<br>
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
+  * If its any other tag name it just enclose the links with this HTML-tag.<br> 
+  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
@@ -1755,13 +1750,12 @@ class Feindura extends FeinduraBase {
   * 
   * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   * 
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
-  * If its any other tag name it just enclose the links with this HTML-tag.
-  * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
-  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current page.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
+  * If its any other tag name it just enclose the links with this HTML-tag.<br> 
+  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
@@ -1849,14 +1843,12 @@ class Feindura extends FeinduraBase {
   * 
   * Creates a menu from category or page ID(s) sorted by a custom sort function, passed in the first parameter <var>$sortCallback</var>.
   * 
-  * 
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
-  * If its any other tag name it just enclose the links with this HTML-tag.
-  * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
-  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current page.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
+  * If its any other tag name it just enclose the links with this HTML-tag.<br>
+  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
@@ -1957,14 +1949,12 @@ class Feindura extends FeinduraBase {
   * 
   * Creates a sub menu out of the subcategory of a page.
   * 
-  * 
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
-  * If its any other tag name it just enclose the links with this HTML-tag.
-  * 
   * In case no page with the given page ID exist it returns an empty array.
   * 
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
+  * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: if the <var>$id</var> parameter is FALSE or empty it uses the {@link $page} property.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   *
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
@@ -2049,9 +2039,8 @@ class Feindura extends FeinduraBase {
   * In case that the multi language website feature is deactivated it returns an empty array.
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
-  * If its any other tag name it just enclose the links with this HTML-tag. 
-  * 
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property (default: "active") as CSS class to the link, which is matching the current language.
+  * If its any other tag name it just enclose the links with this HTML-tag.<br>
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current language.
   * 
   * Example of the returned Array:
   * {@example createLanguageMenu.return.example.php}
@@ -2660,6 +2649,7 @@ class Feindura extends FeinduraBase {
   * Returns an array with multiple pages for displaying in a HTML-page.
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
+  * 
   * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * Example of the returned array:
@@ -2760,13 +2750,11 @@ class Feindura extends FeinduraBase {
   * 
   * List pages by given category or page ID(s), which have one or more of the tags from the given <var>$tags</var> parameter.
   * 
-  * 
-  * <b>Note</b>: the tags will be compared case insensitive.
-  * 
   * Returns an array with multiple pages for displaying in a HTML-page. 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
-  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Note</b>: The tags will be compared case insensitive.<br>
+  * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * Example usage:
   * {@example listPagesByTags.example.php}
@@ -2865,7 +2853,7 @@ class Feindura extends FeinduraBase {
   * Returns an array with multiple pages for displaying in a HTML-page. 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
-  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * Example usage:
   * {@example listPagesByTags.example.php}
@@ -2963,7 +2951,8 @@ class Feindura extends FeinduraBase {
   * Returns an array with multiple pages for displaying in a HTML-page.
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
-  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * 
+  * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * Example of the returned array:
   * {@example listPages.return.example.php}

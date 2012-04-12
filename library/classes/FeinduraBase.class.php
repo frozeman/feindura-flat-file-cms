@@ -1364,7 +1364,8 @@ class FeinduraBase {
   * Compares the given tags with the tags in the given <var>$pageContent</var> array.
   * 
   * If the given <var>$pageContent</var> array has one or more tags from the <var>$tags</var> parameter,
-  * it returns the <var>$pageContent</var> array otherwise it FALSE.<br>
+  * it returns the <var>$pageContent</var> array otherwise it FALSE.
+  * 
   * <b>Note</b>: the tags will be compared case insensitive.
   * 
   * @param array $pageContent    the <var>$pageContent</var> array of a page
@@ -1494,7 +1495,7 @@ class FeinduraBase {
   * If the given <var>$ids</var> parameter is a string/array with "first" or "last" it returns the first or last page ID in that category from the current {@link Feindura::$page} property/{@link Feindura::$category} property on.
   * If the string is "random" it returns a random page ID in the current category, if its an array like: array('random','random') it would return a random page ID from a random category.
   *
-  * <b>Note</b>: What is the first or last page/category depends on the sorting you have of the pages/categories in the feindura backend.
+  * <b>Note</b>: What is the first or last page/category depends on the sorting you have of the pages/categories in the feindura backend.<br>
   * <b>Note</b>: When using "previous","next","first" or "last" it will jump over pages/categories which are not public and return the next one.
   *
   * Examples of possible <var>$ids</var> parameter.
