@@ -1464,6 +1464,7 @@ class Feindura extends FeinduraBase {
     $menuItem['startTag'] = '';
     $menuItem['endTag']   = '';
     $menuItem['link']     = '';
+    $menuItem['href']     = '';
     $menuItem['pageId']   = null;
     $menuItemCopy = $menuItem;
     
@@ -1485,6 +1486,7 @@ class Feindura extends FeinduraBase {
         if($pageLink = $this->createLink($page,$linkText)) {
           // adds the link to an array
           $link['link'] = $pageLink;
+          $link['href'] = $this->createHref($page);
           $link['id']   = $page['id'];
           $links[] = $link;
         }
@@ -1561,6 +1563,7 @@ class Feindura extends FeinduraBase {
         $menuItemCopy['startTag'] = '<li>';
         $menuItemCopy['endTag']   = "</li>\n";
         $menuItemCopy['link']     = $link['link'];
+        $menuItemCopy['href']     = $link['href'];
         $menuItemCopy['pageId']   = $link['id'];
         
       // if menuTag is a TABLE -----
@@ -1569,12 +1572,14 @@ class Feindura extends FeinduraBase {
         $menuItemCopy['startTag'] = "<td>\n";
         $menuItemCopy['endTag']   = "\n</td>";
         $menuItemCopy['link']     = $link['link'];
+        $menuItemCopy['href']     = $link['href'];
         $menuItemCopy['pageId']   = $link['id'];
 
       // if just a link
       } else {
         $menuItemCopy['menuItem'] = $link['link']."\n";
         $menuItemCopy['link']     = $link['link']."\n";
+        $menuItemCopy['href']     = $link['href'];
         $menuItemCopy['pageId']   = $link['id'];
       }
       

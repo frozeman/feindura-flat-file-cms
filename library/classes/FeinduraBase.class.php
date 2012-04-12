@@ -680,6 +680,9 @@ class FeinduraBase {
     // vars
     $return['id'] = false;
     $return['category'] = false;
+    $return['categoryId'] = false;
+    $return['subCategory'] = false;
+    $return['subCategoryId'] = false;
     $return['pageDate'] = false;
     $return['pageDateTimestamp'] = false;
     $return['title'] = false;
@@ -839,33 +842,40 @@ class FeinduraBase {
     // *******************
     if(!empty($pageContent['id']))
       $return['id']                                           = $pageContent['id'];
-
-    if($pageContent['category'] && $pageContent['category'] != 0)
+    
+    if($pageContent['category'] && $pageContent['category'] != 0) {
       $return['category']                                     = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language);
-
+    }
+    $return['categoryId']                                     = $pageContent['category'];
+    
+    if($pageContent['subCategory']) {
+      $return['subCategory']                                  = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['subCategory']]['localized'],'name',$this->language);
+      $return['subCategoryId']                                = $pageContent['subCategory'];
+    }
+    
     if($pageDate)
       $return['pageDate']                                     = $pageDate;
-
+    
     if($pageDate)
       $return['pageDateTimestamp']                            = $pageContent['pageDate']['date'];
-
+    
     if(!empty($localizedPageTitle))
       $return['title']                                        = $title;
-
+    
     if($returnThumbnail) {
       $return['thumbnail']                                    = "\n".$returnThumbnail['thumbnail']."\n";
       $return['thumbnailPath']                                = $returnThumbnail['thumbnailPath'];
     }
-
+    
     if(!empty($localizedPageContent))
       $return['content']                                      = "\n".$pageContentEdited."\n";
-
+    
     if(!empty($localizedPageDescription))
       $return['description']                                  = $localizedPageDescription;
-
+    
     if(!empty($localizedPageTags))
       $return['tags']                                         = $localizedPageTags;
-
+    
     if(isset($pageContent['plugins']))  
       $return['plugins']                                      = $pageContent['plugins'];
       
