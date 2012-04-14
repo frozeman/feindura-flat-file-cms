@@ -106,17 +106,17 @@ function isAdmin() {
 
   if(!empty($GLOBALS['userConfig'])) {
     
-    $username = $_SESSION['feinduraSession']['login']['username'];
+    $user = $_SESSION['feinduraSession']['login']['user'];
     
     // check if the user exists
-    if(!empty($username)) {
-      foreach($GLOBALS['userConfig'] as $user) {
-        if($user['username'] == $username) {
+    if(!empty($user)) {
+      foreach($GLOBALS['userConfig'] as $configUser) {
+        if($configUser['id'] == $user) {
           // check if the user is admin
-          if($user['admin'])
+          if($configUser['admin'])
             return true;
         } else {
-          if($user['admin'])
+          if($configUser['admin'])
             $otherUsers = true;
         }  
       }
@@ -223,8 +223,8 @@ function userCache() {
         if($cachedLineArray[0] == IDENTITY) {
           $edit = ($free) ? '|#|edit' : false;
           
-          $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$_SESSION['feinduraSession']['login']['username'].'|#|'.$location.$edit;
-          $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $_SESSION['feinduraSession']['login']['username'], 'location' => $location);
+          $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'].'|#|'.$location.$edit;
+          $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'], 'location' => $location);
           
           if($free) $addArray['edit'] = true;
           $return[] = $addArray;
@@ -244,8 +244,8 @@ function userCache() {
   // STORE NEW CACHE LINE
   if($stored === false && !empty($location)) {
     $edit = ($free) ? '|#|edit' : false;
-    $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$_SESSION['feinduraSession']['login']['username'].'|#|'.$location.$edit;
-    $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $_SESSION['feinduraSession']['login']['username'], 'location' => $location);
+    $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'].'|#|'.$location.$edit;
+    $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'], 'location' => $location);
     if($free) $addArray['edit'] = true;
     $return[] = $addArray;
   }
@@ -1258,7 +1258,7 @@ function saveActivityLog($task, $object = false) {
   $object = ($object) ? '|#|'.$object : false;
   
   // -> create the new log string
-  $newLog = time().'|#|'.$_SESSION['feinduraSession']['login']['username'].'|#|'.serialize($task).$object;
+  $newLog = time().'|#|'.$_SESSION['feinduraSession']['login']['user'].'|#|'.serialize($task).$object;
   
   // CREATE file content
   $fileContent = '';

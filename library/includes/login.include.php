@@ -29,7 +29,7 @@ if(isset($_POST['password'])) $_POST['password'] = XssFilter::text($_POST['passw
 
 // -> if NO USER EXISTS
 if(empty($userConfig)) {
-  $_SESSION['feinduraSession']['login']['username'] = false;
+  $_SESSION['feinduraSession']['login']['user'] = false;
   $_SESSION['feinduraSession']['login']['loggedIn'] = true;
   $_SESSION['feinduraSession']['login']['host'] = HOST;
 }
@@ -42,13 +42,15 @@ if(isset($_POST) && $_POST['action'] == 'login') {
     
     $currentUser = false;
     foreach($userConfig as $user) {
-      if($user['username'] == $_POST['username'])
+      if($user['username'] == $_POST['username']) {
         $currentUser = $user;
+        $currentUserId = $user['id'];
+      }
     }
     
     if(!empty($_POST['username']) && $currentUser) {
       if(md5($_POST['password']) == $currentUser['password']) {
-        $_SESSION['feinduraSession']['login']['username'] = $_POST['username'];
+        $_SESSION['feinduraSession']['login']['user'] = $currentUserId;
         $_SESSION['feinduraSession']['login']['loggedIn'] = true;
         $_SESSION['feinduraSession']['login']['host'] = HOST;
         $_SESSION['feinduraSession']['login']['end'] = time() + $sessionLifeTime; // $sessionLifeTime is set in the backend.include.php

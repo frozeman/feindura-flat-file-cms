@@ -25,7 +25,7 @@
 *    - $logRow[2] = log text (can also be an serialized array with [logTextNumber,LogFormatStringValue])
 *    - $logRow[3] = log data
 * 
-* @version 0.1.1
+* @version 0.2
 */
 
 /**
@@ -46,9 +46,13 @@ foreach($logContent as $logRow) {
   $logRow = explode('|#|',$logRow);
   $logDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($logRow[0]));
   $logTime = formatTime($logRow[0]);  
-  $logUser = (!empty($logRow[1]))
-  ? '<br><span>'.$langFile['DASHBOARD_TITLE_USER'].': <b>'.$logRow[1].'</b></span>'
-  : '';
+  if(!empty($logRow[1])) {
+    if(is_numeric($logRow[1]))
+      $logUser = '<br><span>'.$langFile['DASHBOARD_TITLE_USER'].': <b>'.$userConfig[$logRow[1]]['username'].'</b></span>';
+    else
+      $logUser = '<br><span>'.$langFile['DASHBOARD_TITLE_USER'].': <b>'.$logRow[1].'</b></span>';
+  } else
+    $logUser = '';
   
   // LOGTEXT NUMBER can also be an array with: [logText,logTextValue]
   // legacy Fallback

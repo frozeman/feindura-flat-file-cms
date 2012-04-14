@@ -96,7 +96,7 @@ if($_POST['save'] && isBlocked() === false) {
   
     // STORE data right
     $_POST['lastSaveDate'] = time();
-    $_POST['lastSaveAuthor'] = $_SESSION['feinduraSession']['login']['username'];
+    $_POST['lastSaveAuthor'] = $_SESSION['feinduraSession']['login']['user'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     
     // generates pageDate

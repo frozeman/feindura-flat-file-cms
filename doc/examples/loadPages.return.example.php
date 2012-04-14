@@ -8,7 +8,7 @@ array(
       "public"         => true,
       "sortOrder"      => 4,
       "lastSaveDate"   => 1282348800, // UNIX-Timestamp
-      "lastSaveAuthor" => 'fooMan',
+      "lastSaveAuthor" => 1, // ID of the user
       "pageDate"       => array(
           "date"   => '2010-12-31',
         ),
@@ -48,7 +48,7 @@ array(
       "public"         => true,
       "sortOrder"      => 4,
       "lastSaveDate"   => 1282348855, // UNIX-Timestamp
-      "lastSaveAuthor" => 'fooBar',
+      "lastSaveAuthor" => 2, // ID of the user
       "pageDate"       => array(
           "date"   => '2010-12-15',
         ),

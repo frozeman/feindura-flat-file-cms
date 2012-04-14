@@ -763,7 +763,7 @@ class GeneralFunctions {
     $fileContent .= "\$pageContent['public']             = ".XssFilter::bool($pageContent['public'],true).";\n\n";
     
     $fileContent .= "\$pageContent['lastSaveDate']       = ".XssFilter::int($pageContent['lastSaveDate'],0).";\n";
-    $fileContent .= "\$pageContent['lastSaveAuthor']     = '".XssFilter::text($pageContent['lastSaveAuthor'])."';\n\n"; 
+    $fileContent .= "\$pageContent['lastSaveAuthor']     = ".XssFilter::int($pageContent['lastSaveAuthor'],false).";\n\n"; 
     
     $fileContent .= "\$pageContent['pageDate']['date']   = ".XssFilter::int($pageContent['pageDate']['date'],0).";\n\n";
 

@@ -19,9 +19,9 @@
  * @version 0.15
  */
 
-// BENCHMARK
-$timer = explode( ' ', microtime() );
-    $startTime = $timer[1] + $timer[0];
+// BENCHMARK start
+// $timer = explode( ' ', microtime() );
+// $startTime = $timer[1] + $timer[0];
 
 /**
  * Fix the $_SERVER['REQUEST_URI'] for IIS Server
@@ -231,7 +231,7 @@ define('HOST', $_SERVER['SERVER_NAME']);
  * The identity of the user
  */ 
 if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false) $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']));
+  define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']));
 
 
 // -> GET VERSION and BUILD nr
@@ -255,9 +255,8 @@ define('BUILD',trim($buildNr[1]));
 GeneralFunctions::init();
 StatisticFunctions::init();
 
-
-$timer = explode( ' ', microtime() );
-    $endTime = $timer[1] + $timer[0];
-    echo round($endTime - $startTime,4).'<br>';
-
+// BENCHMARK end
+// $timer = explode( ' ', microtime() );
+// $endTime = $timer[1] + $timer[0];
+// echo round($endTime - $startTime,4).'<br>';
 ?>

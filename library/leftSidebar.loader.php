@@ -180,7 +180,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             
             echo '<li';
             // your own user
-            if($_SESSION['feinduraSession']['login']['username'] == $user['username'])
+            if($_SESSION['feinduraSession']['login']['user'] == $user['id'])
               echo ' class="toolTip online brown" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
             // users who are online too
             else {

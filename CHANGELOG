@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 870
+Build 871
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 871: changed lastsaveauthor from username to user ID
   build 870: fixed validateDateString()
   build 869: removed $pagesMetaData from the FeinduraBase class, it was not used there
   build 868: moved a lot of functions around; made saveing of the stats available again even when caching!

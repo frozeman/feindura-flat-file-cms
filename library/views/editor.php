@@ -281,8 +281,8 @@ if(!$newPage) {
     $lastSaveDate =  GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile));
     $lastSaveTime =  formatTime($pageContent['lastSaveDate']);
     
-    $editedByUser = (!empty($pageContent['lastSaveAuthor']))
-      ? '</b> '.$langFile['EDITOR_pageinfo_lastsaveauthor'].' <b>'.$pageContent['lastSaveAuthor']
+    $editedByUser = ($pageContent['lastSaveAuthor'])
+      ? '</b> '.$langFile['EDITOR_pageinfo_lastsaveauthor'].' <b>'.$userConfig[$pageContent['lastSaveAuthor']]['username']
       : '';
     
     echo ($newPage)

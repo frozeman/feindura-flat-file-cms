@@ -254,8 +254,8 @@ foreach($allCategories as $category) {
             '.$pageTitle_startPageText.$pageTitle_Id.$pageTitle_subCategory.$pageTitle_pageDate.$pageTitle_tags.$pageTitle_pageLanguages.'">
             <b>'.$title.'</b>
             </a></div>';
-      echo (!empty($pageContent['lastSaveAuthor']))
-        ? '<div class="lastSaveDate toolTip" title="'.$langFile['EDITOR_h1_lastsaveauthor'].' '.$pageContent['lastSaveAuthor'].'::">'.$lastSaveDate.'</div>'
+      echo ($pageContent['lastSaveAuthor'])
+        ? '<div class="lastSaveDate toolTip" title="'.$langFile['EDITOR_h1_lastsaveauthor'].' '.$userConfig[$pageContent['lastSaveAuthor']]['username'].'::">'.$lastSaveDate.'</div>'
         : '<div class="lastSaveDate">'.$lastSaveDate.'</div>';
       echo '<div class="counter toolTip" title="'.formatHighNumber($pageStatistics['visitorCount']).'">'.$visitorCount.'</div>';
       

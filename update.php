@@ -314,6 +314,16 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       $pageContent['lastSaveAuthor'] = (isset($pageContent['lastsaveauthor'])) ? $pageContent['lastsaveauthor'] : $pageContent['lastSaveAuthor'];
       $pageContent['pageDate']['date'] = (isset($pageContent['pagedate']['date'])) ? $pageContent['pagedate']['date'] : $pageContent['pageDate']['date'];
 
+      // v1.2
+      if(!is_numeric($pageContent['lastSaveAuthor'])) {
+        foreach ($userConfig as $user) {
+          if($user['username'] == $pageContent['lastSaveAuthor']) {
+            $pageContent['lastSaveAuthor'] = $user['id'];
+            break;
+          }
+        }
+      }
+
       // v1.2 - localized
       if(!isset($pageContent['localized'])) {
 

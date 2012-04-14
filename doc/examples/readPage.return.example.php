@@ -7,7 +7,7 @@ array(
     "public"         => true,
     "sortOrder"      => 4,
     "lastSaveDate"   => 1282348800, // UNIX-Timestamp
-    "lastSaveAuthor" => 'fooBar',
+    "lastSaveAuthor" => 1, // ID of the user
     "pageDate"       => array(
         "date"   => '2010-12-15',
       ),
