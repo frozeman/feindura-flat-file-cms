@@ -120,20 +120,6 @@ class FeinduraBase {
   * 
   */
   public $categoryConfig;
-  
- /**
-  * Contains the pagesMetaData <var>array</var>
-  * 
-  * This <var>array</var> contains all pages IDs and their category ID, as well as the localized titles
-  * 
-  * Example array:
-  * {@example pagesMetaData.array.example.php}
-  * 
-  * @var array
-  * @see init()
-  * @see getCurrentPageId()
-  */ 
-  public $pagesMetaData;
 
  /**
   * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language-files
@@ -217,7 +203,6 @@ class FeinduraBase {
   * @uses $adminConfig                            the administrator-settings config array will set to this property
   * @uses $websiteConfig                          the website-settings config array will set to this property
   * @uses $categoryConfig                         the category-settings config array will set to this property
-  * @uses $pagesMetaData                          the pagesMetaData array, containing all page and category IDs
   * @uses $loggedIn                               to set whether the visitor is logged in or not  
   * @uses $varNames                               the variable names from the administrator-settings config will set to this property
   * @uses $sessionId                              the session ID string will set to this property, if cookies are deactivated
@@ -243,7 +228,6 @@ class FeinduraBase {
     $this->adminConfig = $GLOBALS["feindura_adminConfig"];
     $this->websiteConfig = $GLOBALS["feindura_websiteConfig"];
     $this->categoryConfig = $GLOBALS["feindura_categoryConfig"];
-    $this->pagesMetaData = $GLOBALS['feindura_pagesMetaData'];
     // SETs the language names
     $this->languageNames = $GLOBALS['feindura_languageNames'];
 
