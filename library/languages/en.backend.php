@@ -721,7 +721,7 @@ $langFile['EDITOR_pageSettings_field4']                                   = 'Sta
 $langFile['EDITOR_pageSettings_field4_tip']                               = '[b]Only if the page is public, it will be shown in the website![/b]';
 
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'Wrong date format';
-$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'This month has eventually no 31 days.[br]The date should have the follwing format:';
+$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'This month has perhaps no 31 days.[br]The date should have the follwing format:';
 
 $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Subcategory';
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Allows to create a sub menu for this page in the website.';

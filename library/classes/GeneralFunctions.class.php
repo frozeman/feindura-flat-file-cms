@@ -1297,9 +1297,9 @@ class GeneralFunctions {
     $pageDate = self::getLocalized($pageContent['localized'],'pageDate');
     $pageDateBefore = $pageDate['before'];
     $pageDateAfter = $pageDate['after'];
-    if((isset(self::$categoryConfig[$pageContent['category']]) && ($pageContent['category'] != 0 && self::$categoryConfig[$pageContent['category']]['showPageDate']) ||
+    if((($pageContent['category'] != 0 && self::$categoryConfig[$pageContent['category']]['showPageDate']) ||
        ($pageContent['category'] == 0 && self::$adminConfig['pages']['showPageDate'])) &&
-       (!empty($pageDateBefore) || !empty($pageContent['pageDate']['date']) || !empty($pageDateAfter)))
+       (!empty($pageDateBefore) || !empty($pageContent['pageDate']['date']) || $pageContent['pageDate']['date'] === 0 || !empty($pageDateAfter)))
        return true;
     else
        return false;

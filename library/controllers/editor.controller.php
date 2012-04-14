@@ -100,11 +100,12 @@ if($_POST['save'] && isBlocked() === false) {
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     
     // generates pageDate
+    $generatedPageDate = '';
     if(!empty($_POST['pageDate']['day']) && !empty($_POST['pageDate']['month']))
-    $generatedPageDate = $_POST['pageDate']['year'].'-'.$_POST['pageDate']['month'].'-'.$_POST['pageDate']['day'];
+      $generatedPageDate = $_POST['pageDate']['year'].'-'.$_POST['pageDate']['month'].'-'.$_POST['pageDate']['day'];
     
     // VALIDATE the SORT DATE
-    if(($pageDate = validateDateFormat($generatedPageDate)) === false)
+    if(($pageDate = validateDateString($generatedPageDate)) === false)
       $pageDate = $generatedPageDate;
     // if VALID set the validated date to the post var
     else {

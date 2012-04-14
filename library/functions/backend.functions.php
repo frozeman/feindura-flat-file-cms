@@ -1724,8 +1724,8 @@ function showPageDate($pageContent) {
   	if(!empty($pageDateAfter)) $titleDateAfter = ' '.$pageDateAfter;
 
     // CHECKs the DATE FORMAT
-    $return = (validateDateFormat(GeneralFunctions::formatDate($pageContent['pageDate']['date'])) === false)
-    ? '[br][b]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/b] '.$titleDateBefore.'[span style=color:#950300]'.$GLOBALS['langFile']['EDITOR_pageSettings_pagedate_error'].':[/span][br] '.$pageContent['pageDate']['date'].$titleDateAfter
+    $return = (GeneralFunctions::formatDate(validateDateString($pageContent['pageDate']['date'])) === false)
+    ? '[br][b]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/b] '.$titleDateBefore.'[span style=color:#950300]'.$GLOBALS['langFile']['EDITOR_pageSettings_pagedate_error'].'[/span]'.$titleDateAfter
     : '[br][b]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/b] '.$titleDateBefore.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$GLOBALS['langFile'])).$titleDateAfter;
   }    
   return $return;
@@ -1848,11 +1848,11 @@ function secToTime($sec) {
 }
 
 /**
- * <b>Name</b> validateDateFormat()<br>
+ * <b>Name</b> validateDateString()<br>
  * 
  * Check if a date is valid and returns the date as UNIX-Timestamp
  * 
- * @param string $dateString a UNIX-Timestamp or the date to validate, with the following format: "YYYY-MM-DD", "DD-MM-YYYY" or "YYYY-DD-MM" and the follwing separators ".", "-", "/", " ", '", "," or ";"
+ * @param string $dateString a UNIX-Timestamp or a date string to validate in the format: "YYYY-MM-DD"
  * 
  * @return int|false the timestamp of the date or FALSE if the date is not valid
  * 
@@ -1864,72 +1864,31 @@ function secToTime($sec) {
  *    - 1.0 initial release
  * 
  */
-function validateDateFormat($dateString) {
-  
+function validateDateString($dateString) {
+
   // if its a unix timestamp return immediately
-  if(preg_match('/^[0-9]{1,}$/',$dateString))
+  if($dateString !== 0 && preg_match('/^[0-9]{1,}$/',$dateString))
     return $dateString;
   
-  if(!is_string($dateString) && !is_numeric($dateString))
+  if((!is_string($dateString) && !is_numeric($dateString)) || $dateString === 0)
     return false;
-    
-  // get the date out of the $dateString
-  //$date = substr($dateString, -10);
-  //$beforeDate = substr($dateString,0, -10);
-  $date = str_replace(array('\'', ';', ' ', '-', '.', ','), '/', $dateString);
-  
-  $date = explode('/', $date);
 
-  // CHECK a date with no seperation signs -> has to have the format YYYYMMDD or DDMMYYYY
-  if(count($date) == 1)  {
-    $date[0] = substr($date[0],-8);
+  $date = explode('-', $dateString);
+
+  if(count($date) == 3 &&
+    is_numeric($date[0]) &&
+    is_numeric($date[1]) &&
+    is_numeric($date[2])) {
     
-    if(is_numeric($date[0])) {
-    
-      // YYYYMMDD
-      if(checkdate(substr($date[0], 4, 2),
-                   substr($date[0], 6, 2),
-                   substr($date[0], 0, 4)))
-        return mktime(23,59,59,substr($date[0], 4, 2),substr($date[0], 6, 2),substr($date[0], 0, 4));
-      // DDMMYYYY
-      elseif(checkdate(substr($date[0], 2, 2),
-                       substr($date[0], 0, 2),
-                       substr($date[0], 4, 4)))
-        return mktime(23,59,59,substr($date[0], 2, 2),substr($date[0], 0, 2),substr($date[0], 4, 4));
-      else
-        return false;
-    } else
-      return false;
-    
-  // -> CHECK the array with the date
-  } elseif(count($date) == 3 &&
-     is_numeric($date[0]) &&
-     is_numeric($date[1]) &&
-     is_numeric($date[2])) {
-    
-    // adds ZEROs before the number IF number is only one character
-    if(strlen($date[0]) == 1)
-      $date[0] = '0'.$date[0];
-    if(strlen($date[1]) == 1)
-      $date[1] = '0'.$date[1];
-    if(strlen($date[2]) == 1)
-      $date[2] = '0'.$date[2];
-    //echo 'dd:'.$date[0].'-'.$date[1].'-'.$date[2];
-    //ddmmyyyy
-    if(strlen($date[2]) == 4 && checkdate($date[1], $date[0], $date[2]))
-      return mktime(23,59,59,$date[1],$date[0],$date[2]);
     //yyyymmdd
-    elseif(strlen($date[0]) == 4 && checkdate($date[1], $date[2], $date[0]))
+    if(strlen($date[0]) == 4 && checkdate($date[1], $date[2], $date[0]))
       return mktime(23,59,59,$date[1],$date[2],$date[0]);
-    //mmddyyyy
-    elseif(strlen($date[2]) == 4 && checkdate($date[0], $date[1], $date[2]))
-      return mktime(23,59,59,$date[0],$date[1],$date[2]);
     else
       return false;
-  }
-  
+
   // if the this function doesn't return something, return false
-  return false;
+  } else
+    return false;
 }
 
 /**

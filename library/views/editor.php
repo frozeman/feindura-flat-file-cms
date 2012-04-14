@@ -536,7 +536,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
           $dateFormat = $langFile['DATE_'.$adminConfig['dateFormat']];
           
           // CHECKs the DATE FORMAT
-          if(!empty($pageDate) && validateDateFormat($pageDate) === false)
+          if(empty($pageDate) || validateDateString($pageDate) === false)
             echo '<label for="pageDate[before]" class="toolTip red" title="'.$langFile['EDITOR_pageSettings_pagedate_error'].'::'.$langFile['EDITOR_pageSettings_pagedate_error_tip'].'[br][strong]'.$dateFormat.'[/strong]"><strong>'.$langFile['EDITOR_pageSettings_pagedate_error'].'</strong></label>'; 
           else
             echo '<label for="pageDate[before]" class="toolTip" title="'.$langFile['EDITOR_pageSettings_field3'].'::'.$langFile['EDITOR_pageSettings_field3_tip'].'">'.$langFile['EDITOR_pageSettings_field3'].'</label>';
