@@ -793,13 +793,49 @@ class Feindura extends FeinduraBase {
     // RUN the FeinduraBase constructor
     parent::__construct($language);
     
+
     // saves the current GET vars in the PROPERTIES
     // ********************************************
     $this->setCurrentCategoryId(true);       // get $_GET['category']  -> first load category then the page, because getCurrentPageId need a category when retrieving the page id from speaking URLs
     $this->setCurrentPageId(true);           // get $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
-    
     // set category automatically, if it couldn't be retrieved 
     if($this->category == null) $this->category = GeneralFunctions::getPageCategory($this->page);
+
+    // save the website statistics
+    // ***************************
+    StatisticFunctions::saveWebsiteStats($this->page);
+
+    // ->> SETS the LANGUAGE PROPERTY from the $_GET['language']
+    // -> if the $language PARAMETER was given, it HAS PRIORITY
+    if(is_string($language) && strlen($language) == 2)
+      $_GET['language'] = $language;
+
+    // -> use the $_GET['language'] if available
+    if(is_string($_GET['language']) && strlen($_GET['language']) == 2) {
+      $this->language = XssFilter::alphabetical($_GET['language']);
+      // make sure the language exist
+      if(is_array($this->adminConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages']))
+        $this->language = $this->language;
+      else
+        $this->language = $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
+      $_SESSION['feinduraSession']['websiteLanguage'] = $this->language;
+
+    // -> if NO LANGUAGE WAS GIVEN, it will try to get it automatically
+    } else {
+      // if language is NOT stored IN the SESSION, try to GET the BROWSERLANGUAGE
+      if(empty($_SESSION['feinduraSession']['websiteLanguage']) ||
+         (!empty($_SESSION['feinduraSession']['websiteLanguage']) && strlen($_SESSION['feinduraSession']['websiteLanguage']) != 2)) {
+        $this->language = GeneralFunctions::getBrowserLanguages($this->adminConfig['multiLanguageWebsite']['mainLanguage']);
+        // make sure the language exist
+        if(is_array($this->adminConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages']))
+          $this->language = $this->language;
+        else
+          $this->language = $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
+        $_SESSION['feinduraSession']['websiteLanguage'] = $this->language;
+      } else
+        $this->language = $_SESSION['feinduraSession']['websiteLanguage'];
+    }
+    $this->loadFrontendLanguageFile($this->language);
   }
   
   // ****************************************************************************************************************
@@ -1068,27 +1104,38 @@ class Feindura extends FeinduraBase {
            ($category['id'] == 0 && $this->adminConfig['pages']['feeds'])) {
 
           // get languages
-          $feedLanguages = ($this->adminConfig['multiLanguageWebsite']['active'])
-            ? $this->adminConfig['multiLanguageWebsite']['languages']
-            : array(0 => 0);
+          if($this->adminConfig['multiLanguageWebsite']['active'])
+            $feedLanguages = $this->adminConfig['multiLanguageWebsite']['languages'];
+          else
+            $feedLanguages = array(0 => 0);
 
           // category path
-          $categoryPath = ($category['id'] != 0) ? $category['id'].'/' : '';
+          if($category['id'] != 0)
+            $categoryPath = $category['id'].'/';
+          else
+            $categoryPath = '';
 
           foreach ($feedLanguages as $langCode) {
 
             // filenames
-            $addLanguageToFilename = (!empty($langCode)) ? '.'.$langCode : '';
+            if(!empty($langCode))
+              $addLanguageToFilename = '.'.$langCode;
+            else
+              $addLanguageToFilename = '';
             $atomLink = $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$categoryPath.'atom'.$addLanguageToFilename.'.xml';
             $rss2Link = $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$categoryPath.'rss2'.$addLanguageToFilename.'.xml';
 
             // title
             $websiteTitle = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'title',$langCode);
-            $channelTitle = ($category['id'] == 0)
-              ? $websiteTitle
-              : GeneralFunctions::getLocalized($category['localized'],'name',$langCode).' - '.$websiteTitle;
+            if($category['id'] == 0)
+              $channelTitle = $websiteTitle;
+            else
+              $channelTitle = GeneralFunctions::getLocalized($category['localized'],'name',$langCode).' - '.$websiteTitle;
 
-            $channelTitleLang = (!empty($langCode)) ? ', '.strtoupper($langCode).')' : ')';
+            if(!empty($langCode))
+              $channelTitleLang = ', '.strtoupper($langCode).')';
+            else
+              $channelTitleLang = ')';
             
             $metaTags .= '  <link rel="alternate" type="application/atom+xml" title="'.$channelTitle.' (Atom'.$channelTitleLang.'" href="'.$atomLink.'"'.$tagEnding."\n";
             $metaTags .= '  <link rel="alternate" type="application/rss+xml" title="'.$channelTitle.' (RSS 2.0'.$channelTitleLang.'" href="'.$rss2Link.'"'.$tagEnding."\n";
@@ -1345,9 +1392,10 @@ class Feindura extends FeinduraBase {
           $linkAttributes = 'href="'.$this->createHref($pageContent,$this->sessionId,$this->language).'" title="'.str_replace('"','&quot;',strip_tags($linkText)).'"';
 
           // add link "active" class
-          $linkClass = (!empty($this->linkActiveClass) && $this->page == $pageContent['id'])
-          ? $this->linkClass.' '.$this->linkActiveClass
-          : $this->linkClass;
+          if(!empty($this->linkActiveClass) && $this->page == $pageContent['id'])
+            $linkClass = $this->linkClass.' '.$this->linkActiveClass;
+          else
+            $linkClass = $this->linkClass;
   	      
   	      $linkClass = trim($linkClass);
   	      
@@ -2116,9 +2164,10 @@ class Feindura extends FeinduraBase {
           $modLinkText = $this->languageNames[$langCode];
 
         // remove the active class, so not all links will get it
-        $this->linkActiveClass = ($orgLanguage == $langCode) 
-          ? $orgLinkActiveClass
-          : false;
+        if($orgLanguage == $langCode)
+          $this->linkActiveClass = $orgLinkActiveClass;
+        else
+          $this->linkActiveClass = false;
 
         // the next functions will use this language
         $this->language = $langCode;
@@ -2415,7 +2464,6 @@ class Feindura extends FeinduraBase {
   * 
   * @uses FeinduraBase::getPropertyIdsByString()	              to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                          to generate the array with the page elements
-  * @uses StatisticFunctions::countAndSavePageStatistics()      to save the statistic of the page
   * 
   * @uses GeneralFunctions::getPageCategory()      to get the category of the page
   * 
@@ -2442,15 +2490,8 @@ class Feindura extends FeinduraBase {
         
         // ->> load SINGLE PAGE
         // *******************
-        if($generatedPage = $this->generatePage($page,$this->showErrors,$shortenText,$useHtml)) {
-
-          // -> SAVE PAGE STATISTIC
-          // **********************
-          if(!$generatedPage['error'])
-            StatisticFunctions::countAndSavePageStatistics($page);
-          
-          unset($generatedPage['error']);
-          
+        if($generatedPage = $this->generatePage($page,$this->showErrors,$shortenText,$useHtml)) {          
+          unset($generatedPage['error']);          
           // -> returns the generated page
           return $generatedPage;
         }        
@@ -2576,8 +2617,14 @@ class Feindura extends FeinduraBase {
  public function showPlugins($plugins = true, $id = false, $returnPlugin = true) {    
     
     // var
-    $singlePlugin = (is_string($plugins) && $plugins != 'true' && $plugins != 'false') ? true : false;
-    $pluginsReturn = (is_string($plugins) && $plugins != 'true' && $plugins != 'false') ? false : array();
+    if(is_string($plugins) && $plugins != 'true' && $plugins != 'false')
+      $singlePlugin = true;
+    else
+      $singlePlugin = false;
+    if(is_string($plugins) && $plugins != 'true' && $plugins != 'false')
+      $pluginsReturn = false;
+    else
+      $pluginsReturn = array();
     if(!is_array($plugins) && !is_bool($plugins))
       $plugins = array($plugins);
      
@@ -2590,9 +2637,10 @@ class Feindura extends FeinduraBase {
         if(($pageContent['category'] == 0 || $this->categoryConfig[$pageContent['category']]['public']) && $pageContent['public']) {
           if(is_array($pageContent['plugins'])) {
             // get the activated plugins
-            $activatedPlugins = ($pageContent['category'] === 0)
-              ? unserialize($this->adminConfig['pages']['plugins'])
-              : unserialize($this->categoryConfig[$pageContent['category']]['plugins']);
+            if($pageContent['category'] === 0)
+              $activatedPlugins = unserialize($this->adminConfig['pages']['plugins']);
+            else
+              $activatedPlugins = unserialize($this->categoryConfig[$pageContent['category']]['plugins']);
           
             foreach($pageContent['plugins'] as $pluginName => $plugin) {
 
@@ -2625,8 +2673,12 @@ class Feindura extends FeinduraBase {
     
     if($returnPlugin)    
       return $pluginsReturn;
-    else
-     return ($pluginsReturn) ? true : false;
+    else {
+      if($pluginsReturn)
+        return true;
+      else
+        return false;
+    }
   }
   /**
   * Alias of {@link showPlugins()}

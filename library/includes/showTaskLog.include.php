@@ -44,8 +44,8 @@ foreach($logContent as $logRow) {
   $logUser = null;
   
   $logRow = explode('|#|',$logRow);
-  $logDate = StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($logRow[0]));
-  $logTime = StatisticFunctions::formatTime($logRow[0]);  
+  $logDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($logRow[0]));
+  $logTime = formatTime($logRow[0]);  
   $logUser = (!empty($logRow[1]))
   ? '<br><span>'.$langFile['DASHBOARD_TITLE_USER'].': <b>'.$logRow[1].'</b></span>'
   : '';

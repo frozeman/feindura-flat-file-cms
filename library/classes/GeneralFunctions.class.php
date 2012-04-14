@@ -78,22 +78,21 @@ class GeneralFunctions {
   * 
   */ 
   public static $websiteConfig;
-  
-   /**
-  * Contains all page and category IDs on the first loading of a page.
+
+ /**
+  * Contains the pagesMetaData <var>array</var>
   * 
-  * Run on the first loading of a page.
-  * Goes trough all category folders and look which pages are in which folders and saves the IDs in the this property,<br>
-  * to speed up the page loading process.
+  * This <var>array</var> contains all pages IDs and their category ID, as well as the localized titles
   * 
-  * Example of the returned array:
-  * {@example loadPageIds.return.example.php}
+  * Example array:
+  * {@example pagesMetaData.array.example.php}
   * 
   * @static
   * @var array
-  * 
-  */
-  public static $storedPageIds = null;
+  * @see init()
+  * @see getCurrentPageId()
+  */ 
+  public static $pagesMetaData;
   
  /**
   * Stores page-content <var>array's</var> in this property if a page is loaded
@@ -110,6 +109,17 @@ class GeneralFunctions {
   */
   public static $storedPages = null;
 
+
+ /**
+  * {@link GeneralFunctions::scriptBenchmark()} variables
+  * 
+  * 
+  * @static
+  * @var number
+  * 
+  */
+  private static $scriptBenchmarkTime = null;
+  private static $scriptBenchmarkPoint = 0;
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** CONSTRUCTOR *** */
@@ -143,18 +153,20 @@ class GeneralFunctions {
   * @return void
   * 
   * @static
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.2 add $pagesMetaData
   *    - 1.0 initial release
   * 
   */ 
   public static function init() {
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    self::$adminConfig = $GLOBALS["adminConfig"];
+    self::$adminConfig    = $GLOBALS["adminConfig"];
     self::$categoryConfig = $GLOBALS["categoryConfig"];
-    self::$websiteConfig = $GLOBALS["websiteConfig"];
+    self::$websiteConfig  = $GLOBALS["websiteConfig"];
+    self::$pagesMetaData  = $GLOBALS["pagesMetaData"];
 
     // set local for the url encode transliteration
     setlocale(LC_CTYPE, 'en_US.UTF-8');
@@ -428,41 +440,9 @@ class GeneralFunctions {
   }
 
  /**
-  * <b>Name</b> getStoredPageIds()<br>
-  * 
-  * Fetches the {@link $storedPageIds} property.
-  * 
-  * If the {@link $storedPageIds} property is empty, it loads all page IDs into this property.
-  * 
-  * Example of the returned {@link $storedPageIds} property:
-  * {@example loadPageIds.return.example.php}
-  * 
-  * @uses $storedPageIds the property to get
-  * 
-  * @return array the {@link $storedPageIds} property
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function getStoredPageIds() { // (false or Array)
-    
-    // load all page ids, if necessary
-    if(self::$storedPageIds === null)
-      self::$storedPageIds = self::loadPageIds(true);
-
-    return self::$storedPageIds;
-  }
-
- /**
   * <b>Name</b> getStoredPages()<br>
   * 
   * Fetches the {@link $storedPages} property.
-  * 
-  * Its also possible to fetch the {@link $storedPages} property from the <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
   * 
   * @uses $storedPages the property to get
   * 
@@ -471,29 +451,21 @@ class GeneralFunctions {
   * @example loadPages.return.example.php of the returned array
   * 
   * @static
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 removed the in session storage
   *    - 1.0 initial release
   * 
   */
   public static function getStoredPages() {
-    
-    unset($_SESSION['feinduraSession']['storedPages']);    
-    //echo 'STORED-PAGES -> '.count(self::$storedPages); 
-      
-    // -> checks if the SESSION storedPages Array exists
-    if(isset($_SESSION['feinduraSession']['storedPages']))
-      return $_SESSION['feinduraSession']['storedPages']; // if isset, get the storedPages from the SESSION
-    else
-      return self::$storedPages; // if not get the storedPages from the PROPERTY  
+      return self::$storedPages; 
   }
 
  /**
   * <b>Name</b> addStoredPage()<br>
   * 
   * Adds a <var>$pageContent</var> array to the {@link $storedPages} property.
-  * Its also possible to store the {@link $storedPages} property in a <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
   * 
   * @param int  $pageContent   a $pageContent array which should be add to the {@link $storedPages} property
   * 
@@ -502,26 +474,19 @@ class GeneralFunctions {
   * @return array passes through the given $pageContent array
   * 
   * @static
-  * @version 1.01
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.01 removed the $remove parameter  
+  *    - 1.1 removed the in session storage
+  *    - 1.0.1 removed the $remove parameter  
   *    - 1.0 initial release
   * 
   */
   public static function addStoredPage($pageContent) {
-   
-    unset($_SESSION['feinduraSession']['storedPages']);
     
     // stores the given parameter only if its a valid $pageContent array
     if(self::isPageContentArray($pageContent)) {
-      // -> checks if the SESSION storedPages Array exists
-      if(isset($_SESSION['feinduraSession']['storedPages']))
-        $_SESSION['feinduraSession']['storedPages'][$pageContent['id']] = $pageContent; // if isset, save the storedPages in the SESSION
-      else {
-        self::$storedPages[$pageContent['id']] = $pageContent; // if not save the storedPages in the PROPERTY
-        //$_SESSION['feinduraSession']['storedPages'][$pageContent['id']] = $pageContent;
-      }
+        self::$storedPages[$pageContent['id']] = $pageContent;
     }
     return $pageContent;
   }
@@ -530,7 +495,6 @@ class GeneralFunctions {
   * <b>Name</b> removeStoredPage()<br>
   * 
   * Removes a <var>$pageContent</var> array from the {@link $storedPages} property.
-  * Its also possible to remove the {@link $storedPages} property from the <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
   * 
   * @param int $id the ID of a page which should be removed from the {@link $storedPages} property
   * 
@@ -539,31 +503,23 @@ class GeneralFunctions {
   * @return bool TRUE if a page with this ID exists and could be removed, otherwise FALSE
   * 
   * @static
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 removed the in session storage
   *    - 1.0 initial release
   * 
   */
   public static function removeStoredPage($id) {
     
-    // var
-    $return = false; 
-    
     // ->> REMOVE
     if(is_numeric($id)) {
-    // -> checks if the SESSION storedPages Array exists
-      if(isset($_SESSION['feinduraSession']['storedPages']) && isset($_SESSION['feinduraSession']['storedPages'][$id])) {
-        unset($_SESSION['feinduraSession']['storedPages'][$id]); // if isset, remove from the storedPages in the SESSION
-        return true;
-      } elseif(isset(self::$storedPages[$id])) {
-        unset(self::$storedPages[$id]); // if not remove from the storedPages in the PROPERTY
-        unset($_SESSION['feinduraSession']['storedPages'][$id]);
+      if(isset(self::$storedPages[$id])) {
+        unset(self::$storedPages[$id]);
         return true;
       }
     }
-    
-    return $return;
+    return false;
   }
   
  /**
@@ -573,37 +529,21 @@ class GeneralFunctions {
   * 
   * @param int $page a page ID from which to get the category ID
   * 
-  * @uses getStoredPageIds() to get the {@link storedPageIds} property
+  * @uses $pagesMetaData to get the category of the page
   * 
   * @return int|false the right category ID or FALSE if the page ID doesn't exists
   * 
   * @static
-  * @version 1.0
+  * @version 2.0
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 2.0 uses now the $pagesMetaData array
   *    - 1.0 initial release
   * 
   */
   public static function getPageCategory($page) {
-
     if($page !== false && is_numeric($page)) {
-      // loads only the page IDs and category IDs in an array
-      // but only if it hasn't done this yet      
-      $allPageIds = self::getStoredPageIds();
-      
-      if($allPageIds) {
-        // gets the category id of the given page
-        foreach($allPageIds as $everyPage) {
-          // if its the right page, return the category of it        
-          if($page == $everyPage['page']) {
-             return $everyPage['category'];
-          }
-        }
-        // if it found nothing
-        return false;
-        
-      } else
-        return false;
+      return self::$pagesMetaData[$page]['category'];
     } else
       return false;
   }
@@ -703,7 +643,7 @@ class GeneralFunctions {
     
     // ->> IF the page is already loaded
     if(isset($storedPages[$page])) {
-      //echo '<br>->USED STORED '.$page.'<br>';        
+      // echo '<br>->USED STORED '.$page.'<br>';        
       return $storedPages[$page];
       
     // ->> ELSE load the page and store it in the storePages PROPERTY
@@ -764,8 +704,8 @@ class GeneralFunctions {
   * {@example readPage.return.example.php}
   * 
   * <b>Used Constants</b><br>
-  *    - <var>PHPSTARTTAG</var> the php start tag
-  *    - <var>PHPENDTAG</var> the php end tag
+  *    - <var>"<?php\n"</var> the php start tag
+  *    - <var>"\n?>"</var> the php end tag
   * 
   * @param array        $pageContent       the $pageContent array of the page to save
   *
@@ -814,7 +754,7 @@ class GeneralFunctions {
    
     // CREATE file content
     $fileContent = '';
-    $fileContent .= PHPSTARTTAG;
+    $fileContent .= "<?php\n";
     
     $fileContent .= "\$pageContent['id']                 = ".XssFilter::int($pageContent['id'],0).";\n";
     $fileContent .= "\$pageContent['category']           = ".XssFilter::int($pageContent['category'],0).";\n";
@@ -875,7 +815,7 @@ class GeneralFunctions {
     }
     
     $fileContent .= "return \$pageContent;";
-    $fileContent .= PHPENDTAG;
+    $fileContent .= "\n?>";
     
     if(file_put_contents($filePath, $fileContent, LOCK_EX)) {
       
@@ -886,8 +826,9 @@ class GeneralFunctions {
       unset($pageContent);
       $pageContent = include($filePath);
       self::addStoredPage($pageContent);
-      // reset the stored page ids
-      self::$storedPageIds = null;
+
+      // reload the $pagesMetaData array
+      self::savePagesMetaData();
       
       return true;
     } else
@@ -895,226 +836,81 @@ class GeneralFunctions {
   }
 
  /**
-  * <b>Name</b> readPageStatistics()<br>
+  * <b>Name</b> savePagesMetaData()<br>
   * 
-  * Loads the $pageContent array of a page.
+  * Save all pages meta data in an array, to faster access them.
+  * It also reloads them as propertiesin the GeneralFunctions and StatisticsFunctions classes.
+  *
   * 
-  * Includes the page statistics.
-  * 
-  * Example of the returned $pageStatistics array:
-  * {@example readPageStatistics.return.example.php}
-  * 
-  * @param int $pageId a page ID or a $pageStatistics array (will then returned immediately)
-  * 
-  * 
-  * @return array|FALSE|NULL the $pageStatistics array of the requested page or FALSE, if it couldn't open the file, or NULL when the file exists but couldnt be loaded properly
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function readPageStatistics($pageId) {
-    //echo 'PAGE: '.$pageId.'<br>';
-    // var
-    $pageStatistics = false;
-    
-    // if $page is a valid $pageStatistics array return it immediately
-    if(self::isPageStatisticsArray($pageId))
-      return $pageId;
-    elseif(!is_numeric($pageId))
-      return false;
-    
-    // adds .php to the end if its missing
-    if(substr($pageId,-4) != '.statistics.php')
-      $pageId .= '.statistics.php';
-    // ->> INCLUDE
-    if($fp = @fopen(dirname(__FILE__).'/../../statistic/pages/'.$pageId,'r')) {
-      flock($fp,LOCK_SH);
-      $pageStatistics = @include(dirname(__FILE__).'/../../statistic/pages/'.$pageId);
-      flock($fp,LOCK_UN);
-      fclose($fp);
-    }
-    
-    // return content array
-    if(is_array($pageStatistics)) {
-      return $pageStatistics;
-      
-    // return failure while loading the content (file exists but couldn't be loaded)
-    } elseif($pageStatistics === 1) {
-      return null;
-      
-    // returns false if it couldn't include the file (file doesnt exists)
-    } else
-      return false;
-  }
-
- /**
-  * <b>Name</b> savePageStatistics()<br>
-  * 
-  * Save a page statistics to it's flatfile.
-  * 
-  * Example of the saved $pageContent array:
-  * {@example readPageStatistics.return.example.php}
-  * 
-  * <b>Used Constants</b><br>
-  *    - <var>PHPSTARTTAG</var> the php start tag
-  *    - <var>PHPENDTAG</var> the php end tag
-  * 
-  * @param array $pageStatistics    the $pageStatistics array of the page to save
-  * 
-  * @uses $adminConfig      for the save path of the flatfiles
-  * 
-  * @return bool TRUE if the page was succesfull saved, otherwise FALSE
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function savePageStatistics($pageStatistics) {
-
-    // check if array is pageContent array
-    if(!self::isPageStatisticsArray($pageStatistics))
-      return false;
-
-    // check if statistics folder exists
-    if(!is_dir(dirname(__FILE__).'/../../statistic/pages/'))
-      @mkdir(dirname(__FILE__).'/../../statistic/pages/',self::$adminConfig['permissions'],true);
-
-    // escape \ and '
-    //$pageStatistics = XssFilter::escapeBasics($pageStatistics);
-   
-    // CREATE file content
-    $fileContent = '';
-    $fileContent .= PHPSTARTTAG;
-    
-    $fileContent .= "\$pageStatistics['id'] =             ".XssFilter::int($pageStatistics['id'],0).";\n";
-    $fileContent .= "\$pageStatistics['visitorCount'] =   ".XssFilter::int($pageStatistics['visitorCount'],0).";\n";
-    $fileContent .= "\$pageStatistics['firstVisit'] =     ".XssFilter::int($pageStatistics['firstVisit'],0).";\n";
-    $fileContent .= "\$pageStatistics['lastVisit'] =      ".XssFilter::int($pageStatistics['lastVisit'],0).";\n";
-    $fileContent .= "\$pageStatistics['visitTimeMin'] =   '".$pageStatistics['visitTimeMin']."';\n"; // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
-    $fileContent .= "\$pageStatistics['visitTimeMax'] =   '".$pageStatistics['visitTimeMax']."';\n"; // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
-    $fileContent .= "\$pageStatistics['searchWords'] =    '".$pageStatistics['searchWords']."';\n\n"; // XssFilter in the addDataToDataString() method in the StatisticFunctions.class.php
-    
-    $fileContent .= "return \$pageStatistics;";
-    
-    $fileContent .= PHPENDTAG;
-    
-    // -> write file
-    if(file_put_contents(dirname(__FILE__).'/../../statistic/pages/'.$pageStatistics['id'].'.statistics.php', $fileContent, LOCK_EX)) {
-      @chmod(dirname(__FILE__).'/../../statistic/pages/'.$pageStatistics['id'].'.statistics.php',self::$adminConfig['permissions']);
-      return true;
-    } else
-      return false; 
-  }
-  
- /**
-  * <b>Name</b> loadPageIds()<br>
-  * 
-  * Goes through the flat file folders and looks in which category is which page, it then returns an array with all IDs.
-  * 
-  * Example of the returned array:
-  * {@example loadPageIds.return.example.php}
+  * Example of the $pagesMetaData array:
+  * {@example pagesMetaData.array.example.php}
   * 
   *
-  * <b>Used Constants</b><br>
-  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  * @uses loadPages()  to get all pages content
   * 
-  * @param int|bool $category   (optional) the category ID to check the containing page IDs, if FALSE its checks the non-category, if TRUE it checks all categories including the non-category (can also be the {@link $categoryConfig} property)
-  * 
-  * @uses $adminConfig          for the save path of the flatfiles
-  * 
-  * @return array|false an array with page IDs and the affiliated category IDs or empty array if the category had no pages
+  * @return bool TRUE if the meta data was succesfull saved, otherwise FALSE
   * 
   * @static
-  * @version 1.1
+  * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.1 add scandir() to scan category dirs
   *    - 1.0 initial release
   * 
   */
-  public static function loadPageIds($category = false) {
-                    
-    // vars
-    $pagesArray = array();
-    $categoryDirs = array();
+  public static function savePagesMetaData() {
 
-    // if $category === true,
-    // load ALL CATEGORIES and the NON-CATEGORY
-    if($category === true) {
-      $nonCategory[0] = array('id' => 0);
-      $category = (is_array(self::$categoryConfig)) ? $nonCategory + self::$categoryConfig : $nonCategory;
-    }
-    
-    // COLLECT THE DIRS in an array
-    // if $category is an array, it stores all dirs from the pages folder in an array
-    if(is_array($category)) {
-      
-        foreach($category as $categoryArray) {
-          $dir = '';
-          
-          // *** if it is self::$categoryConfig settings array
-          if(is_array($categoryArray) &&
-             array_key_exists('id',$categoryArray)) {
-            // if category == 0, means that the files are saved directly in the pages folder
-            if($categoryArray['id'] == 0)
-              $dir = dirname(__FILE__).'/../../pages/';
-            elseif(is_numeric($categoryArray['id']))
-              $dir = dirname(__FILE__).'/../../pages/'.$categoryArray['id'];
-          
-          // *** if its just an array with the ids of the categories
-          } else {
-            // if category == 0, means that the files are directly saved in the pages folder
-            if(is_numeric($categoryArray) && $categoryArray == 0) //$categoryArray === false ||
-              $dir = dirname(__FILE__).'/../../pages/';
-            elseif(is_numeric($categoryArray))
-              $dir = dirname(__FILE__).'/../../pages/'.$categoryArray;
-          }
-          
-          // stores the paths in an array
-          $categoryDirs[] = $dir;
-        }
-    } else {
-      if($category === false || (is_numeric($category) && $category == 0))
-        $categoryDirs[0] = dirname(__FILE__).'/../../pages/';
-      elseif(is_numeric($category))
-        $categoryDirs[0] = dirname(__FILE__).'/../../pages/'.$category;
-    }
-    
-    // LOAD THE FILES out of the dirs
-    // goes trough all category dirs and put the page arrays into an array an retun it
-    foreach($categoryDirs as $dir) {  
-      // opens every category dir and stores the arrays of the pages in an array
-      if(is_dir($dir)) {
-        $pages = array();
-        
-        // checks if its a category or the non-category
-        if($category === false || $category == 0 || !is_numeric(basename($dir)))
-          $categoryId = false;
-        else
-          $categoryId = basename($dir);
-        
-        $readFolder = scandir($dir);      
-        foreach($readFolder as $inDirObject) {
-          if(preg_match('#^[0-9]+\.php$#',$inDirObject) && is_file($dir."/".$inDirObject)) {
-            $pages[] = ($categoryId === false)
-                ? array('page' => intval(substr($inDirObject,0,-4)), 'category' => 0) // load Pages, without a category                  
-                : array('page' => intval(substr($inDirObject,0,-4)), 'category' => intval($categoryId)); // load Pages, with a category
-          }
-        }
-        // adds the new sorted category to the return array
-        $pagesArray = array_merge($pagesArray,$pages);
+    // vars
+    // self::$storedPages = null;
+    self::$websiteConfig = $GLOBALS['websiteConfig'];
+    $pages = array();
+
+    // ->> GET ALL PAGES, which are inside the /pages/ folder
+    $files = self::readFolderRecursive(dirname(__FILE__).'/../../pages/');
+    foreach ($files['files'] as $file) {
+      // load category pages
+      if(preg_match('#^.*\/([0-9]+)/([0-9]+)\.php$#',$file,$match)) {
+        $pages[] = self::readPage($match[2],$match[1]);
+      // load non category pages
+      } elseif(preg_match('#^.*/([0-9]+)\.php$#',$file,$match)) {
+        $pages[] = self::readPage($match[1]);
       }
     }
 
-    // return the page and category ID(s)
-    return $pagesArray;
+    $fileContent = "<?php\n";
+   
+    foreach ($pages as $pageContent) {
+
+      // CREATE file content      
+      $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['id']       = ".XssFilter::int($pageContent['id'],0).";\n";
+      $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['category'] = ".XssFilter::int($pageContent['category'],0).";\n";
+      if(self::$websiteConfig['startPage'] == $pageContent['id'])
+        $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['startPage'] = true;\n";
+
+      // save localized titles
+      if(is_array($pageContent['localized'])) {
+        foreach ($pageContent['localized'] as $langCode => $pageContentLocalized) {
+          // remove the '' when its 0 (for non localized pages)
+          $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
+          $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['localized'][".$langCode."]['title'] = '".XssFilter::text($pageContentLocalized['title'])."';\n";
+        }
+      }
+       $fileContent .= "\n";
+      
+    }
+    $fileContent .= "return \$pagesMetaData;";
+    $fileContent .= "\n?>";
+
+    // save the array
+    if(file_put_contents(dirname(__FILE__).'/../../pages/pagesMetaData.array.php', $fileContent, LOCK_EX)) {
+      @chmod($filePath,self::$adminConfig['permissions']);
+      // reload the $pagesMetaData array
+      unset($GLOBALS['pagesMetaData']); $GLOBALS['pagesMetaData'] = include(dirname(__FILE__)."/../../pages/pagesMetaData.array.php");
+      self::$pagesMetaData               = $GLOBALS['pagesMetaData'];
+      StatisticFunctions::$pagesMetaData = $GLOBALS['pagesMetaData'];
+      return true;
+    } else
+      return false;
+
   }
   
  /**
@@ -1122,7 +918,7 @@ class GeneralFunctions {
   * 
   * Loads the $pageContent arrays from pages in a specific category(ies) or all categories.
   * 
-  * Loads all $pageContent arrays of a given category, by going through the {@link $storedPageIds} property.
+  * Loads all $pageContent arrays of a given category, by going through the {@link $pagesMetaData} array.
   * It check first whether the current $pageContent array was not already loaded and is contained in the {@link $storedPages} property.
   * If not the {@link GeneralFunctions::readPage()} public static function is called to include the $pagecontent array of the page
   * and store it in the {@link $storedPages} property.
@@ -1133,7 +929,7 @@ class GeneralFunctions {
   * {@example loadPages.return.example.php}
   * 
   * @param bool|int|array  $category           (optional) a category ID, or an array with category IDs. TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
-  * @param bool		         $loadPagesInArray   (optional) if TRUE it returns the $pageContent arrays of the pages in the categories, if FALSE it only returns the page IDs of the requested category(ies)
+  * @param bool		         $loadPagesInArray   (optional) if TRUE it returns the $pageContent arrays of the pages in the categories, if FALSE it only returns the page IDs of the requested category(ies). See the <var>$pagesMetaData</var> example below
   * 
   * @uses $categoryConfig     to get the sorting of the category
   * @uses getStoredPages()		for getting the {@link $storedPages} property
@@ -1141,10 +937,13 @@ class GeneralFunctions {
   * 
   * @return array an array with the $pageContent arrays of the requested pages
   * 
+  * @example pagesMetaData.array.example.php
+  * 
   * @static
-  * @version 1.0.1
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 removed getStroredPageIds and use $pagesMetaData now
   *    - 1.0.1 add a simpler way of createing array with non category id in it
   *    - 1.0 initial release
   * 
@@ -1172,18 +971,18 @@ class GeneralFunctions {
       // change category into array
       if(is_numeric($category))
         $category = array($category);
-        
+      
       // go trough all given CATEGORIES
       if(is_array($category)) {
         foreach($category as $categoryId) {
           
-          // go trough the storedPageIds and open the page in it
+          // go trough the $pagesMetaData and open the page in it
           $newPageContentArrays = array();
-          foreach(self::getStoredPageIds() as $pageIdAndCategory) {
+          foreach(self::$pagesMetaData as $pageMetaData) {
             // use only pages from the right category
-            if($pageIdAndCategory['category'] == $categoryId) {
+            if($pageMetaData['category'] == $categoryId) {
               //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br>';
-              $newPageContentArrays[] = self::readPage($pageIdAndCategory['page'],$pageIdAndCategory['category']);            
+              $newPageContentArrays[] = self::readPage($pageMetaData['id'],$pageMetaData['category']);            
             }
           }
           
@@ -1200,21 +999,17 @@ class GeneralFunctions {
       return $pagesArray;
       
     // ->> RETURN ONLY the page & category IDs
-    } else {
-      
-      // -> uses the self::$storedPageIds an filters out only the given category ID(s)
-      $pageIds = self::getStoredPageIds();
-      
-      if($category !== true) {
-      	 $newPageIds = false;
-      	 foreach($pageIds as $pageId) {
-        	  if((is_array($category) && in_array($pageId['category'],$category)) || 
-        	     $category == $pageId['category'])
-        	    $newPageIds[] = array('page' => $pageId['page'], 'category' => $pageId['category']);
-         }
-      } else
-	      $newPageIds = $pageIds;
-      
+    } else {      
+      $newPageIds = false;
+      if($category === true)
+        $newPageIds = $pageMetaData;
+      else {
+        foreach(self::$pagesMetaData as $pageMetaData) {
+          if($category == $pageMetaData['category'] ||
+             (is_array($category) && in_array($pageMetaData['category'],$category)))
+            $newPageIds[] = $pageMetaData;
+        }
+      }
       return $newPageIds;
     }
   }
@@ -1224,7 +1019,7 @@ class GeneralFunctions {
   * 
   * Loads the $pageStatistics arrays from pages in a specific category(ies) or all categories.
   * 
-  * Loads all $pageStatistics arrays of a given category, by going through the {@link $storedPageIds} property and load the right "[pageID].statistics.php".
+  * Loads all $pageStatistics arrays of a given category, by going through the {@link $pagesMetaData} property and load the right "[pageID].statistics.php".
   * 
   * <b>Note</b>: after loading all $pageStatistics arrays of a category, the array with the containing $pageStatistics arrays will be sorted.
   * 
@@ -1274,14 +1069,13 @@ class GeneralFunctions {
     if(is_array($category)) {
       foreach($category as $categoryId) {
         
-        // go trough the storedPageIds and open the page in it
+        // go trough the $pagesMetaData and open the page in it
         $pageStatisticsArrays = array();
-        foreach(self::getStoredPageIds() as $pageIdAndCategory) {
+        foreach(self::$pagesMetaData as $pageMetaData) {
           // use only pages from the right category
-          if($pageIdAndCategory['category'] == $categoryId) {
-            //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br>';
-            if($pageStat = self::readPageStatistics($pageIdAndCategory['page']))
-              $pageStatisticsArrays[] = $pageStat;
+          if($pageMetaData['category'] == $categoryId) {
+            if($pageStats = StatisticFunctions::readPageStatistics($pageMetaData['id']))
+              $pageStatisticsArrays[] = $pageStats;
           }
         }
         
@@ -1380,227 +1174,135 @@ class GeneralFunctions {
   * 
   */
   public static function isPageContentArray($page) {
-    return (is_array($page) && array_key_exists('id',$page) && array_key_exists('category',$page) && array_key_exists('sortOrder',$page)) ? true : false;
+    if(is_array($page) && array_key_exists('id',$page) && array_key_exists('category',$page) && array_key_exists('sortOrder',$page))
+      return true;
+    else
+      return false;
+  }
+
+ /**
+  * <b>Name</b> formatDate()<br>
+  * 
+  * Converst a given timestamp into the a specific format type.
+  * 
+  * @param int    $timeStamp a UNIX-Timestamp
+  * @param string $format    (optional) the format type can be "DMY" to format into: "DD-MM-YYYY", "YMD" to format into: "YYYYY-MM-DD" or "MDY" to format into: "MM-DD-YYYYY", if FALSE it uses the format set in the administrator-settings config
+  * 
+  * @uses $adminConfig  to get the right date format, if no format is given
+  * 
+  * @return string the formated date or the unchanged $timestamp parameter
+  * 
+  * @static
+  * @version 1.1
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.1 moved to GeneralFunctions
+  *    - 1.01 changed from date conversion to timestamp
+  *    - 1.0 initial release
+  * 
+  */
+  public static function formatDate($timeStamp, $format = false) {
+    
+    if(empty($timeStamp) || !preg_match('/^[0-9]{1,}$/',$timeStamp))
+      return $timeStamp;
+             
+    if($format === false)
+      $format = self::$adminConfig['dateFormat'];
+    
+    switch ($format) {
+      case 'YMD':
+        return date('Y-m-d',$timeStamp);
+        break;
+      case 'DMY':
+        return date('d.m.Y',$timeStamp);
+        break;
+      case 'MDY':
+        return date('m/d/Y',$timeStamp);
+        break;
+      default:
+        return $timeStamp;
+        break;
+    }
+  }
+
+ /**
+  * <b>Name</b> dateDayBeforeAfter()<br>
+  * 
+  * Replaces the given <var>$date</var> parameter with "yesterday", "today" or "tomorrow" if it is one day before or the same day or one day after today.
+  * 
+  * <b>Used Global Variables</b><br>
+  *    - <var>$langFile</var> the backend language-file array (included in the {@link backend.include.php})
+  * 
+  * @param int          $timestamp      the timestamp to check
+  * @param array|false  $langFile       the languageFile which contains the ['DATE_TEXT_YESTERDAY'], ['DATE_TEXT_TODAY'] and ['DATE_TEXT_TOMORROW'] texts, if FALSE it loads the backend language-file
+  * 
+  * @return string|int a string with "yesterday", "today" or "tomorrow" or the unchanged timestamp
+  * 
+  * @static
+  * @version 1.1
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.1 moved to GeneralFunctions
+  *    - 1.0 initial release
+  * 
+  */ 
+  public static function dateDayBeforeAfter($timestamp,$langFile = false) {
+    
+    if(empty($timestamp) || !preg_match('/^[0-9]{1,}$/',$timestamp))
+      return $timestamp;
+
+    //var
+    $date = date('Y-m-d',$timestamp);
+    
+    if($langFile === false)
+      $langFile = $GLOBALS['langFile'];
+    
+    // if the date is TODAY
+    if(substr($date,0,10) == date('Y-m-d'))
+      return $langFile['DATE_TEXT_TODAY'];
+    
+    // if the date is YESTERDAY
+    elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')-1)))
+      return $langFile['DATE_TEXT_YESTERDAY'];
+    
+    // if the date is TOMORROW
+    elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')+1)))
+      return $langFile['DATE_TEXT_TOMORROW'];
+  
+    else
+      return $timestamp;
   }
   
  /**
-  * <b>Name</b> isPageStatisticsArray()<br>
+  * <b>Name</b> checkPageDate()<br>
   * 
-  * Checks the given <var>$page</var> parameter is a valid <var>$pageStatistics</var> array.
+  * Returns TRUE if the page date exists and is activated in this category of the page.
   * 
-  * @param int|array $page   the variable to check 
+  * @param array $pageContent the $pageContent array of a page
+  * 
+  * @uses $categoryConfig to check if in the category the page date is activated
   * 
   * @return bool
   * 
   * @static
-  * @version 1.0
+  * @version 1.2
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.2 moved to GeneralFunctions
+  *    - 1.1 add pagedate for non-categories  
   *    - 1.0 initial release
   * 
   */
-  public static function isPageStatisticsArray($page) {
-    return (is_array($page) && array_key_exists('id',$page) && array_key_exists('visitorCount',$page)) ? true : false;
-  }
-  
- /**
-  * <b>Name</b> saveFeeds()<br>
-  * 
-  * Saves an Atom and RSS 2.0 Feed for the given category.
-  * 
-  * <b>Used Global Variables</b><br>
-  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
-  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
-  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
-  * 
-  * @param string $category the category of which feeds should be created
-  * 
-  * @return bool whether the saving of the feeds succeed or not
-  * 
-  * 
-  * @version 0.2
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 0.2 add multilanguage website, creating multiple feeds
-  *    - 0.1 initial release
-  * 
-  */
-  public static function saveFeeds($category) {
-    
-    // vars
-    $return = false;
-    $languages = (self::$adminConfig['multiLanguageWebsite']['active'])
-      ? self::$adminConfig['multiLanguageWebsite']['languages']
-      : array(0 => 0);
-
-    foreach ($languages as $langCode) {
-      
-      $addLanguageToFilename = (!empty($langCode)) ? '.'.$langCode : '';
-
-      // vars
-      $atomFileName = ($category == 0) 
-        ? dirname(__FILE__).'/../../pages/atom'.$addLanguageToFilename.'.xml'
-        : dirname(__FILE__).'/../../pages/'.$category.'/atom'.$addLanguageToFilename.'.xml';
-      $rss2FileName = ($category == 0) 
-        ? dirname(__FILE__).'/../../pages/rss2'.$addLanguageToFilename.'.xml'
-        : dirname(__FILE__).'/../../pages/'.$category.'/rss2'.$addLanguageToFilename.'.xml';
-      
-      // ->> DELETE the xml files, if category is deactivated, or rss feeds are activated for that category
-      if(($category != 0 && (!self::$categoryConfig[$category]['public'] || !self::$categoryConfig[$category]['feeds'])) ||
-         ($category == 0 && !self::$adminConfig['pages']['feeds'])) {
-        if(is_file($atomFileName)) unlink($atomFileName);
-        if(is_file($rss2FileName)) unlink($rss2FileName);
-        return false;
-      }
-      
-      // get the FeedWriter class
-      require_once(dirname(__FILE__).'/../thirdparty/FeedWriter/FeedWriter.php');
-      
-      // vars
-      $feedsPages = self::loadPages($category,true);
-      $channelTitle = ($category == 0)
-        ? self::getLocalized(self::$websiteConfig['localized'],'title',$langCode)
-        : self::getLocalized(self::$categoryConfig[$category]['localized'],'name',$langCode).' - '.self::getLocalized(self::$websiteConfig['localized'],'title',$langCode);
-      
-      // ->> START feeds
-      $atom = new FeedWriter(ATOM);
-      $rss2 = new FeedWriter(RSS2);
-    
-    	// ->> CHANNEL
-    	// -> ATOM
-    	$atom->setTitle($channelTitle);	
-    	$atom->setLink(self::$adminConfig['url']);	
-    	$atom->setChannelElement('updated', date(DATE_ATOM , time()));
-    	$atom->setChannelElement('author', array('name'=>self::getLocalized(self::$websiteConfig['localized'],'publisher',$langCode)));
-    	$atom->setChannelElement('rights', self::getLocalized(self::$websiteConfig['localized'],'copyright',$langCode));
-    	$atom->setChannelElement('generator', 'feindura - flat file cms',array('uri'=>'http://feindura.org','version'=>VERSION));
-    	
-    	// -> RSS2
-    	$rss2->setTitle($channelTitle);
-    	$rss2->setLink(self::$adminConfig['url']);	
-    	$rss2->setDescription(self::getLocalized(self::$websiteConfig['localized'],'description',$langCode));
-      //$rss2->setChannelElement('language', 'en-us');
-      $rss2->setChannelElement('pubDate', date(DATE_RSS, time()));
-      $rss2->setChannelElement('copyright', self::getLocalized(self::$websiteConfig['localized'],'copyright',$langCode));	
-      
-      // ->> adds the feed ENTRIES/ITEMS
-      foreach($feedsPages as $feedsPage) {
-        
-        if($feedsPage['public']) {
-          // shows the page link
-          $link = self::createHref($feedsPage,false,$langCode,true);
-          $title = strip_tags(self::getLocalized($feedsPage['localized'],'title',$langCode));
-          $description = self::getLocalized($feedsPage['localized'],'description',$langCode);
-          
-          $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
-          $content = self::replaceLinks(self::getLocalized($feedsPage['localized'],'content',$langCode),false,$langCode,true);
-          $content = strip_tags($content,'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><em><s><u><strong><small><span>');
-          $content = preg_replace('#<h[0-6]>#','<strong>',$content);
-          $content = preg_replace('#</h[0-6]>#','</strong><br>',$content);
-          
-          // ATOM
-        	$atomItem = $atom->createNewItem();  	
-        	$atomItem->setTitle($title);
-        	$atomItem->setLink($link);
-        	$atomItem->setDate($feedsPage['lastSaveDate']);
-          $atomItem->addElement('content',$thumbnail.$content,array('src'=>$link));
-        
-          // RSS2
-          $rssItem = $rss2->createNewItem();    
-          $rssItem->setTitle($title);
-          $rssItem->setLink($link);
-          $rssItem->setDate($feedsPage['lastSaveDate']);
-          $rssItem->addElement('guid', $link,array('isPermaLink'=>'true'));
-
-          // BOTH
-          if(empty($description)) {
-            //$atomItem->setDescription($thumbnail.self::shortenString(strip_tags($content),450)); // dont create Atom description when, there is already an content tag
-            $rssItem->setDescription($thumbnail.self::shortenString(strip_tags($content),450));
-          } else {
-            $atomItem->setDescription($thumbnail.$description);
-            $rssItem->setDescription($thumbnail.$description);
-          }
-          
-        	//Now add the feeds item	
-        	$atom->addItem($atomItem);
-        	//Now add the feeds item	
-        	$rss2->addItem($rssItem);
-      	}
-      }
-        
-      // -> SAVE
-      if(file_put_contents($atomFileName,$atom->generateFeed(),LOCK_EX) !== false &&
-              file_put_contents($rss2FileName,$rss2->generateFeed(),LOCK_EX) !== false) {
-        @chmod($atomFileName, self::$adminConfig['permissions']);
-        @chmod($rss2FileName, self::$adminConfig['permissions']);
-        $return = true; 
-      } else
-        $return = false;
-
-    }
-    return $return;
-  }
-  
- /**
-  * <b>Name</b> saveSitemap()<br>
-  * 
-  * Saves a sitemap xml file (see http://www.sitemaps.org).
-  * 
-  * <b>Used Global Variables</b><br>
-  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
-  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
-  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
-  * 
-  * 
-  * @return bool whether the saving of the sitemap was done or not
-  * 
-  * @link http://www.sitemaps.org
-  * @version 0.2
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 0.2 return false if the real website path, couldn't be resolved
-  *    - 0.1 initial release
-  * 
-  */
-  public static function saveSitemap() {
-    
-    // vars
-    $websitePath = self::getDirname(self::$adminConfig['websitePath']);
-    $realWebsitePath = self::getRealPath($websitePath).'/';
-    if($realWebsitePath == '/')
-      return false;
-    $baseUrl = self::$adminConfig['url'].$websitePath;
-    
-    // get the Sitemap class
-    require_once(dirname(__FILE__).'/../thirdparty/PHP/Sitemap.php');
-    
-    // vars
-    $sitemapPages = self::loadPages(true,true);
-    
-    // ->> START sitemap
-    $sitemap = new Sitemap($baseUrl,$realWebsitePath,true); // gzip encoded
-    $sitemap->showError =  false;
-    $sitemap->filePermissions =  self::$adminConfig['permissions'];
-    $sitemap->page('pages');
-    
-    // ->> adds the sitemap ENTRIES
-    foreach($sitemapPages as $sitemapPage) {
-      
-      // ->> if category is deactivated jump to the next item in the foreach loop
-      if($sitemapPage['category'] != 0 && !self::$categoryConfig[$sitemapPage['category']]['public'])
-        continue;
-      
-      if($sitemapPage['public']) {
-        // generate page link
-        $link = self::createHref($sitemapPage,false,self::$adminConfig['multiLanguageWebsite']['mainLanguage'],true);
-        // add page to sitemap
-        $sitemap->url($link, date('Y-m-d',$sitemapPage['lastSaveDate']), 'weekly'); 
-    	}
-    }
-    
-    $sitemap->close(); 
-    unset ($sitemap);
-    return true;
+  public static function checkPageDate($pageContent) {
+    $pageDate = self::getLocalized($pageContent['localized'],'pageDate');
+    $pageDateBefore = $pageDate['before'];
+    $pageDateAfter = $pageDate['after'];
+    if((isset(self::$categoryConfig[$pageContent['category']]) && ($pageContent['category'] != 0 && self::$categoryConfig[$pageContent['category']]['showPageDate']) ||
+       ($pageContent['category'] == 0 && self::$adminConfig['pages']['showPageDate'])) &&
+       (!empty($pageDateBefore) || !empty($pageContent['pageDate']['date']) || !empty($pageDateAfter)))
+       return true;
+    else
+       return false;
   }
 
  /**
@@ -1632,38 +1334,6 @@ class GeneralFunctions {
     return ($backend)
       ? 'library/images/icons/flags/'.$flagFilename
       : self::$adminConfig['basePath'].'library/images/icons/flags/'.$flagFilename;
-  }
-  
- /**
-  * <b>Name</b> urlEncode()<br>
-  * 
-  * Encodes a string to url, but before it removes all tags and htmlentitites.
-  * 
-  * @param string|false $string    the string to urlencode
-  * 
-  * 
-  * @return string the url encoded string
-  * 
-  * @see Feindura::createHref()
-  * 
-  * @static
-  * @version 2.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *   - 2.0 add transliteration from {@link http://php.vrana.cz/vytvoreni-pratelskeho-url.php}
-  *   - 1.0 initial release
-  * 
-  */
-  public static function urlEncode($string) {
-    $string = html_entity_decode($string,ENT_COMPAT,'UTF-8');
-    $string = strip_tags($string);
-
-    $string = preg_replace('#[^\\pL0-9_]+#u', '-', $string);
-    $string = trim($string, "-");
-    $string = iconv("UTF-8", "ASCII//TRANSLIT", $string);
-    $string = strtolower($string);
-    $string = preg_replace('#[^a-z0-9_-]+#', '', $string);
-    return urlencode($string);
   }
 
  /**
@@ -1761,10 +1431,10 @@ class GeneralFunctions {
 
       // adds the CATEGORY NAME to the href attribute
       if($category != 0)
-        $href .= self::urlEncode(self::getLocalized(self::$categoryConfig[$category]['localized'],'name',$language)).'/';
+        $href .= StatisticFunctions::urlEncode(self::getLocalized(self::$categoryConfig[$category]['localized'],'name',$language)).'/';
 
       // add PAGE NAME
-      $href .= self::urlEncode(self::getLocalized($pageContent['localized'],'title',$language));
+      $href .= StatisticFunctions::urlEncode(self::getLocalized($pageContent['localized'],'title',$language));
       //$href .= '/'; //'.html';
       
       if($sessionId)
@@ -2016,6 +1686,9 @@ class GeneralFunctions {
     
     if(!self::$adminConfig['editor']['htmlLawed'])
       return $string;
+
+    // get the html lawed function
+    require_once(dirname(__FILE__)."/../thirdparty/PHP/htmLawed.php");
     
     // default
     $htmlLawedConfig = array(
@@ -2038,6 +1711,7 @@ class GeneralFunctions {
     $string = htmLawed($string,$htmlLawedConfig);
     return str_replace("\x06", '&', $string); 
   }
+
 
  /**
   * <b>Name</b> getRealPath()<br>
@@ -2063,7 +1737,10 @@ class GeneralFunctions {
     $path = preg_replace("/[\\\]+/",'/',$path);
     $path = (substr($path,0,1) == '/' && strpos($path,DOCUMENTROOT) === false) ? DOCUMENTROOT.$path : $path;
     $path = preg_replace("/[\\\]+/", '/',realPath($path));
-    return ($path === '') ? false : preg_replace("/[\\\]+/", '/',$path);
+    if($path === '')
+      return false;
+    else
+      return preg_replace("/[\\\]+/", '/',$path);
   }
 
  /**
@@ -2371,11 +2048,12 @@ class GeneralFunctions {
   }
   
  /**
-  * <b>Name</b> showMemoryUsage()<br>
+  * <b>Name</b> scriptBenchmark()<br>
   * 
-  * Shows the memory usage at the point of the script where this public static function is called.
+  * Shows th time the scipt need between this call and the last call of this function.
+  * And shows the memory usage at the point of the script where this public static function is called.
   * 
-  * @return void
+  * @return string the time needed
   * 
   * @static
   * @version 1.0
@@ -2384,19 +2062,39 @@ class GeneralFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function showMemoryUsage() {
-      $mem_usage = memory_get_usage(true);
+  function scriptBenchmark() {
+    $return = '<br>*** BENCHMARK ***<br>Time: ';
+
+    // ->> time
+    $timer = explode( ' ', microtime() );
+    $timer = $timer[1] + $timer[0];
+
+    if(self::$scriptBenchmarkTime) {
+      ++self::$scriptBenchmarkPoint;
+      $return .= round($timer - self::$scriptBenchmarkTime,4).' seconds on point: '.self::$scriptBenchmarkPoint.'<br>';
+      // self::$debug_showTime = $timer;
+
+    // first run
+    } else {
+      self::$scriptBenchmarkPoint = 0;
+      self::$scriptBenchmarkTime = $timer;
+      $return .= round($timer,4).' start time<br>';
+    }
+
+    // ->> memory
+    $mem_usage = memory_get_usage(true);
       
-      echo $mem_usage.' -> ';
-      
-      if ($mem_usage < 1024)
-          echo $mem_usage." bytes";
-      elseif ($mem_usage < 1048576)
-          echo round($mem_usage/1024,2)." kilobytes";
-      else
-          echo round($mem_usage/1048576,2)." megabytes";
-         
-      echo "<br>";
+    $return .= 'Memory: ';//.$mem_usage.' -> ';
+    
+    if ($mem_usage < 1024)
+        $return .= $mem_usage." bytes";
+    elseif ($mem_usage < 1048576)
+        $return .= round($mem_usage/1024,2)." kilobytes";
+    else
+        $return .= round($mem_usage/1048576,2)." megabytes";
+       
+    $return .= '<br>';
+    return $return;
   }
 }
 ?>

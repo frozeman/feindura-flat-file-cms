@@ -218,7 +218,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   if(saveAdminConfig($newAdminConfig)) {
     // give documentSaved status
     $documentSaved = true;
-    StatisticFunctions::saveTaskLog(14); // <- SAVE the task in a LOG FILE
+    saveActivityLog(14); // <- SAVE the task in a LOG FILE
     
   } else
     $errorWindow .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['realBasePath']);
@@ -263,7 +263,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
       $categoryConfig[$newId] = array('id' => $newId); // gives the new category a id  
       if(saveCategories($categoryConfig)) {
          $categoryInfo = $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED'];
-         StatisticFunctions::saveTaskLog(15); // <- SAVE the task in a LOG FILE
+         saveActivityLog(15); // <- SAVE the task in a LOG FILE
       } else { // throw error
         $errorWindow .= ($errorWindow) // if there is allready an warning
           ? '<br><br>'.sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['realBasePath'])
@@ -295,7 +295,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
     // if there is a category dir, trys to delete it !important deletes all files in it
     if(is_dir(dirname(__FILE__).'/../../pages/'.$_GET['category'])) {
     
-      if($pageContents = GeneralFunctions::loadPages($_GET['category'],true)) {
+      if($pageContents = GeneralFunctions::loadPages($_GET['category'])) {
       
         // deletes possible thumbnails before deleting the category
         foreach($pageContents as $page) {
@@ -315,7 +315,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
       }    
     }
     
-    StatisticFunctions::saveTaskLog(16,$storedCategoryName); // <- SAVE the task in a LOG FILE
+    saveActivityLog(16,$storedCategoryName); // <- SAVE the task in a LOG FILE
   } else // throw error
     $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETECATEGORY'],$adminConfig['realBasePath']);
 
@@ -339,7 +339,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
     // save the categories array
     if(saveCategories($categoryConfig)) {
       $documentSaved = true; // set documentSaved status
-      StatisticFunctions::saveTaskLog(17,'category='.$_GET['category']); // <- SAVE the task in a LOG FILE
+      saveActivityLog(17,'category='.$_GET['category']); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_SAVE'],$adminConfig['realBasePath']);
     
@@ -369,7 +369,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
 
   if(saveCategories($_POST['categories'])) {
     $documentSaved = true; // set documentSaved status
-    StatisticFunctions::saveTaskLog(18); // <- SAVE the task in a LOG FILE
+    saveActivityLog(18); // <- SAVE the task in a LOG FILE
     
   } else
     $errorWindow .= $langFile['PAGESETUP_CATEGORY_ERROR_SAVE'];
@@ -383,13 +383,13 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
 if($savedSettings) {
   unset($adminConfig); $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
   unset($categoryConfig); $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
+  // reload the $pagesMetaData array
+  GeneralFunctions::savePagesMetaData();
   // RESET of the vars in the classes
-  GeneralFunctions::$storedPageIds = null;
   GeneralFunctions::$storedPages = null;
   GeneralFunctions::$adminConfig = $adminConfig;
   GeneralFunctions::$categoryConfig = $categoryConfig;
   StatisticFunctions::$adminConfig = $adminConfig;
-  StatisticFunctions::$categoryConfig = $categoryConfig;
   
   // DELETE old FEED FILES
   // non category
@@ -407,14 +407,14 @@ if($savedSettings) {
   }
   
   // ->> save the FEEDS for non-category pages, if activated
-  GeneralFunctions::saveFeeds(0);
+  saveFeeds(0);
   // ->> save the FEEDS for categories, if activated
   if(is_array($categoryConfig)) {
     foreach($categoryConfig as $category)
-      GeneralFunctions::saveFeeds($category['id']);
+      saveFeeds($category['id']);
   }
   
   // ->> save the SITEMAP
-  GeneralFunctions::saveSitemap();
+  saveSitemap();
 }
 ?>

@@ -55,7 +55,7 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
     // DELETING    
     $pageContent['thumbnail'] = '';
     if(unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && GeneralFunctions::savePage($pageContent)) {
-        StatisticFunctions::saveTaskLog(5,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
+        saveActivityLog(5,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
         
         $question = '';
         echo 'DONTSHOW';

@@ -17,7 +17,6 @@
 * controllers/frontendEditing.controller.php version 0.1
 */
 
-$frontendEditing = true; // to prevent that the backend.include.php will be included inside the secure.include.php
 /**
  * Includes the login.include.php and feindura.include.php and filter the basic data
  */
@@ -30,7 +29,7 @@ if($_POST['save'] == 'true') {
   // var
   $return = '';
   $tmpReturn = '';
-  $langCode = ($feindura_adminConfig['multiLanguageWebsite']['active']) ? $_POST['language'] : 0;
+  $langCode = ($adminConfig['multiLanguageWebsite']['active']) ? $_POST['language'] : 0;
 
   // read the page
   $pageContent = GeneralFunctions::readPage($_POST['page'],$_POST['category']);
@@ -51,7 +50,7 @@ if($_POST['save'] == 'true') {
 
   // ->> save the page
   if(GeneralFunctions::savePage($pageContent)) {
-    StatisticFunctions::saveTaskLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
+    saveActivityLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
 
     // clear cache
     GeneralFunctions::deleteFolder(dirname(__FILE__).'/../../pages/cache/');
@@ -62,9 +61,9 @@ if($_POST['save'] == 'true') {
     $return = str_replace('\"', '"', $return);
     
     // ->> save the FEEDS, if activated
-    GeneralFunctions::saveFeeds($pageContent['category']);
+    saveFeeds($pageContent['category']);
     // ->> save the SITEMAP
-    GeneralFunctions::saveSitemap();
+    saveSitemap();
     
   // ->> on failure, return the unsaved data
   } else {

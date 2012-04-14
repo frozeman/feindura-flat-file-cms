@@ -56,24 +56,6 @@ class FeinduraBase {
   * @access protected
   */
   protected $sessionId = null;
-  
- /**
-  * Contains the variable names used for the <var>$_GET</var> variables
-  * 
-  * This variable names are configured in the feindura adminstrator-settings and set in the {@link FeinduraBase()} constructor to the this property.<br>
-  * For standard value see above.
-  * 
-  * Example of a link using the standard variable names:
-  * <samp>
-  * http://www.examplepage.com/index.php?category=1&page=6
-  * </samp>
-  * 
-  * @var array
-  * @access protected
-  * @see FeinduraBase()
-  * 
-  */
-  protected $varNames = array('page' => 'page', 'category' => 'category', 'modul' => 'modul');
                                  
   // PUBLIC
   // *********
@@ -139,7 +121,20 @@ class FeinduraBase {
   */
   public $categoryConfig;
   
-  
+ /**
+  * Contains the pagesMetaData <var>array</var>
+  * 
+  * This <var>array</var> contains all pages IDs and their category ID, as well as the localized titles
+  * 
+  * Example array:
+  * {@example pagesMetaData.array.example.php}
+  * 
+  * @var array
+  * @see init()
+  * @see getCurrentPageId()
+  */ 
+  public $pagesMetaData;
+
  /**
   * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language-files
   * 
@@ -221,7 +216,8 @@ class FeinduraBase {
   * 
   * @uses $adminConfig                            the administrator-settings config array will set to this property
   * @uses $websiteConfig                          the website-settings config array will set to this property
-  * @uses $categoryConfig                         the category-settings config array will set to this property  * 
+  * @uses $categoryConfig                         the category-settings config array will set to this property
+  * @uses $pagesMetaData                          the pagesMetaData array, containing all page and category IDs
   * @uses $loggedIn                               to set whether the visitor is logged in or not  
   * @uses $varNames                               the variable names from the administrator-settings config will set to this property
   * @uses $sessionId                              the session ID string will set to this property, if cookies are deactivated
@@ -234,9 +230,10 @@ class FeinduraBase {
   * @example includeFeindura.example.php
   * 
   * @access protected
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 moved languages to the Feindura constructor
   *    - 1.0 initial release
   * 
   */
@@ -246,93 +243,24 @@ class FeinduraBase {
     $this->adminConfig = $GLOBALS["feindura_adminConfig"];
     $this->websiteConfig = $GLOBALS["feindura_websiteConfig"];
     $this->categoryConfig = $GLOBALS["feindura_categoryConfig"];
+    $this->pagesMetaData = $GLOBALS['feindura_pagesMetaData'];
+    // SETs the language names
+    $this->languageNames = $GLOBALS['feindura_languageNames'];
 
     // eventually LOGOUT
     if(isset($_GET['feindura_logout']))
       unset($_SESSION['feinduraSession']['login']);
     // CHECK if logged in
-    $this->loggedIn = ($_SESSION['feinduraSession']['login']['loggedIn'] === true && $_SESSION['feinduraSession']['login']['host'] === HOST) ? true : false;
-    
-    // set backend language if logged in
-    // if($this->loggedIn && $language === false)
-    //   $language = $_SESSION['feinduraSession']['backendLanguage'];
-    
-    // save the website statistics
-    // ***************************
-    StatisticFunctions::saveWebsiteStats();
-    
-    // sets the varNames['...'] from the adminConfig
-    // ****************************************
-    // page varName
-    if(isset($this->adminConfig['varName']['page']) && !empty($this->adminConfig['varName']['page']))
-      $this->varNames['page'] = $this->adminConfig['varName']['page'];
-    // category varName
-    if(isset($this->adminConfig['varName']['category']) && !empty($this->adminConfig['varName']['category']))
-      $this->varNames['category'] = $this->adminConfig['varName']['category'];
+    if($_SESSION['feinduraSession']['login']['loggedIn'] === true && $_SESSION['feinduraSession']['login']['host'] === HOST)
+      $this->loggedIn = true;
+    else
+      $this->loggedIn = false;
 
     // -> CHECKS if cookies the cookie in the feindura.include.php file was set
     if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'] != 'true') {
       $this->sessionId = htmlspecialchars(session_name().'='.session_id()); //SID
     }
-    
-    // SETs the language names
-    $this->languageNames = $GLOBALS['feindura_languageNames'];
-
-    // SETS the LANGUAGE PROPERTY from the $_GET['language']
-    // **************************************************************************
-
-    // -> if the $language PARAMETER was given, it HAS PRIORITY
-    if(is_string($language) && strlen($language) == 2)
-      $_GET['language'] = $language;
-
-    // -> use the $_GET['language'] if available
-    if(is_string($_GET['language']) && strlen($_GET['language']) == 2) {
-      $this->language = XssFilter::alphabetical($_GET['language']);
-      // make sure the language exist
-      $this->language = (is_array($this->adminConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages'])) ? $this->language : $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
-      $_SESSION['feinduraSession']['websiteLanguage'] = $this->language;
-
-    // -> if NO LANGUAGE WAS GIVEN, it will try to get it automatically
-    } else {
-      // if language is NOT stored IN the SESSION, try to GET the BROWSERLANGUAGE
-      if(empty($_SESSION['feinduraSession']['websiteLanguage']) ||
-         (!empty($_SESSION['feinduraSession']['websiteLanguage']) && strlen($_SESSION['feinduraSession']['websiteLanguage']) != 2)) {
-        $this->language = GeneralFunctions::getBrowserLanguages($this->adminConfig['multiLanguageWebsite']['mainLanguage']);
-        // make sure the language exist
-        $this->language = (is_array($this->adminConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages'])) ? $this->language : $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
-        $_SESSION['feinduraSession']['websiteLanguage'] = $this->language;
-      } else
-        $this->language = $_SESSION['feinduraSession']['websiteLanguage'];
-    }
-    $this->loadFrontendLanguageFile($this->language);
    
-  }
-
-
- /* ---------------------------------------------------------------------------------------------------------------------------- */
- /* *** DESTRUCTOR *** */
- /* **************************************************************************************************************************** */
-  
- /**
-  * <b>Type</b> destructor<br> 
-  * 
-  * The destructor of the class, will generate the cached site, if activated.
-  * 
-  * @uses FeinduraBase::cachePage() caches the page, if caching is activated
-  * 
-  * @return void
-  * 
-  * @see FeinduraBase::__construct()
-  * 
-  * @access public
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public function __destruct() {
-    
   }
 
 
@@ -354,66 +282,22 @@ class FeinduraBase {
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the page ID
   * 
-  * @uses $varNames                     for variable names which the $_GET will use for the page ID
-  * @uses $adminConfig                  to look if set startpage is allowed
-  * @uses Feindura::$startPage          if no $_GET variable exists it will try to get the {@link Feindura::$startPage} property
-  * @uses GeneralFunctions::loadPages() for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
+  * @uses StatisticFunctions::getCurrentPageId() to get the current page id
   * 
   * 
   * @return int|false the current page ID or FALSE
   * 
   * @access public
-  * @version 1.1
+  * @version 1.2
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.2 moved method to StatisticFunctions
   *    - 1.1 add localization
   *    - 1.0 initial release
   * 
   */
-  public function getCurrentPageId() {
-    
-    // ->> GET PAGE is an ID
-    // *********************
-    if(isset($_GET[$this->varNames['page']]) &&
-       !empty($_GET[$this->varNames['page']]) &&
-       is_numeric($_GET[$this->varNames['page']])) {
-       
-      // get PAGE GET var
-      return XssFilter::int($_GET[$this->varNames['page']],0); // get the page ID from the $_GET var
-    
-    // ->> GET PAGE is a feindura link
-    // **********************
-    } elseif(isset($_GET['feinduraLink']) &&
-             !empty($_GET['feinduraLink']) &&
-             is_numeric($_GET['feinduraLink'])) {
-      // get PAGE GET var
-      return XssFilter::int($_GET['feinduraLink'],0); // get the page ID from the $_GET var
-      
-    // ->> GET PAGE is a NAME
-    // **********************
-    } elseif(isset($_GET['page']) &&
-             !empty($_GET['page'])) {
-    
-      // load the pages of the category
-      $pages = GeneralFunctions::loadPages($this->category);
-      //print_r($this->storedPages);
-      if($pages) {
-        foreach($pages as $page) {
-
-          // goes trough each localization and check if its fit the $_GET['page'] title
-          foreach ($page['localized'] as $localizedPageContent) {
-            // RETURNs the right page Id
-            if(GeneralFunctions::urlEncode($localizedPageContent['title']) == GeneralFunctions::urlEncode($_GET['page'])) {
-              return $page['id'];
-            }
-          }
-        }
-      }
-      
-    } elseif($this->adminConfig['setStartPage'] && is_numeric($this->startPage)) {
-      return $this->startPage;
-    } else
-      return false;
+  public function getCurrentPageId() {    
+    return StatisticFunctions::getCurrentPageId($this->startPage);
   }
  /**
   * Alias of {@link getCurrentPageId()}
@@ -457,11 +341,11 @@ class FeinduraBase {
     
     // ->> GET CATEGORY is an ID
     // *************************
-    if(isset($_GET[$this->varNames['category']]) &&
-       !empty($_GET[$this->varNames['category']]) &&
-       is_numeric($_GET[$this->varNames['category']])) {
+    if(isset($_GET[$this->adminConfig['varName']['category']]) &&
+       !empty($_GET[$this->adminConfig['varName']['category']]) &&
+       is_numeric($_GET[$this->adminConfig['varName']['category']])) {
        
-      return XssFilter::int($_GET[$this->varNames['category']],0); // get the category ID from the $_GET var
+      return XssFilter::int($_GET[$this->adminConfig['varName']['category']],0); // get the category ID from the $_GET var
       
     // ->> GET CATEGORY is a NAME
     // **************************
@@ -472,7 +356,7 @@ class FeinduraBase {
         // goes trough each localization and check if its fit the $_GET['category'] title
         foreach($category['localized'] as $localizedCategory) {
           // RETURNs the right category Id
-          if(GeneralFunctions::urlEncode($localizedCategory['name']) == GeneralFunctions::urlEncode($_GET['category'])) {
+          if(StatisticFunctions::urlEncode($localizedCategory['name']) == StatisticFunctions::urlEncode($_GET['category'])) {
             return $category['id'];
           }
         }
@@ -677,8 +561,8 @@ class FeinduraBase {
   * @uses createAttributes()                       to create the attributes used in the error tag
   * @uses shortenHtmlText()                        to shorten the HTML page content
   * @uses shortenText()                            to shorten the non HTML page content, if the $useHtml parameter is FALSE
-  * @uses StatisticFunctions::formatDate()         to format the page date for output
-  * @uses StatisticFunctions::dateDayBeforeAfter() check if the page date is "yesterday" "today" or "tomorrow"
+  * @uses GeneralFunctions::formatDate()         to format the page date for output
+  * @uses GeneralFunctions::dateDayBeforeAfter() check if the page date is "yesterday" "today" or "tomorrow"
   * @uses GeneralFunctions::isPublicCategory()     to check whether the category is public
   * @uses GeneralFunctions::isPageContentArray()   to check if the given array is a $pageContent array
   * @uses GeneralFunctions::readPage()		         to load the page if the $page parameter is an ID
@@ -786,14 +670,14 @@ class FeinduraBase {
     // -> PAGE DATE
     // *****************
     $pageDate = false;
-    if(StatisticFunctions::checkPageDate($pageContent)) {
+    if(GeneralFunctions::checkPageDate($pageContent)) {
     	$titleDateBefore = '';
     	$titleDateAfter = '';
       $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate',$this->language);
     	// adds spaces on before and after
     	if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
     	if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
-    	$pageDate = $titleDateBefore.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter;
+    	$pageDate = $titleDateBefore.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter;
     }
       
     // -> PAGE TITLE
@@ -819,12 +703,16 @@ class FeinduraBase {
     // ************************
     // -> adds the frontend editing container
     if(!$shortenText && $useHtml && $this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) {
-      $langCode = ($this->adminConfig['multiLanguageWebsite']['active']) ? $this->language : 0;
+      if($this->adminConfig['multiLanguageWebsite']['active'])
+        $langCode = $this->language;
+      else
+        $langCode = 0;
       $localizedPageContent = GeneralFunctions::getLocalized($pageContent['localized'],'content',$langCode);
       
-      $pageContentEdited = (!preg_match('#<script.*>#',$localizedPageContent))
-        ? "\n".'<div class="feindura_editPage" data-feindura="'.$page.' '.$category.' '.$langCode.'">'.$localizedPageContent.'</div>'."\n"
-        : "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.' '.$langCode.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$localizedPageContent.'</div>'."\n";
+      if(!preg_match('#<script.*>#',$localizedPageContent))
+        $pageContentEdited = "\n".'<div class="feindura_editPage" data-feindura="'.$page.' '.$category.' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
+      else
+        $pageContentEdited = "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.' '.$langCode.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$localizedPageContent.'</div>'."\n";
     
     // -> no frontend editing
     } else {
@@ -832,16 +720,26 @@ class FeinduraBase {
       $localizedPageContent = GeneralFunctions::getLocalized($pageContent['localized'],'content',$this->language);
       if(!empty($localizedPageContent)) {
         
-        $htmlLawedConfig['safe'] = ($this->adminConfig['editor']['safeHtml']) ? 1 : 0;
-        $htmlLawedConfig['valid_xhtml'] = ($this->xHtml) ? 1 : 0;
+        if($this->adminConfig['editor']['safeHtml'])
+          $htmlLawedConfig['safe'] = 1;
+        else
+          $htmlLawedConfig['safe'] = 0;
+        if($this->xHtml)
+          $htmlLawedConfig['valid_xhtml'] = 1;
+        else
+          $htmlLawedConfig['valid_xhtml'] = 0;
         $pageContentEdited = GeneralFunctions::htmLawed($localizedPageContent,$htmlLawedConfig);
         
         // replace feindura links
         $pageContentEdited = GeneralFunctions::replaceLinks($pageContentEdited,$this->sessionId,$this->language);
         
         // clear Html tags?
-        if($useHtml === false || is_string($useHtml))
-          $pageContentEdited = (is_string($useHtml)) ? strip_tags($pageContentEdited, $useHtml) : strip_tags($pageContentEdited);
+        if($useHtml === false || is_string($useHtml)) {
+          if(is_string($useHtml))
+            $pageContentEdited = strip_tags($pageContentEdited, $useHtml);
+          else
+            $pageContentEdited = strip_tags($pageContentEdited);
+        }
         
         // -> SHORTEN CONTENT   
         if($shortenText && !is_bool($shortenText))
@@ -937,8 +835,8 @@ class FeinduraBase {
   * @uses $languageFile				                        for showing "yesterday", "today" or "tomorrow" instead of a page date
   * @uses shortenText()				                        to shorten the title text, if the $titleLength parameter is TRUE
   * @uses createHref()				                        to create the href if the $titleAsLink parameter is TRUE
-  * @uses StatisticFunctions::formatDate()            to format the title date for output
-  * @uses StatisticFunctions::dateDayBeforeAfter()    check if the title date is "yesterday" "today" or "tomorrow"
+  * @uses GeneralFunctions::formatDate()            to format the title date for output
+  * @uses GeneralFunctions::dateDayBeforeAfter()    check if the title date is "yesterday" "today" or "tomorrow"
   * 
   * @return string the generated title string ready to display in a HTML file
   * 
@@ -963,30 +861,35 @@ class FeinduraBase {
       //$fullTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language));
       
       // generate TITLEDATE
-      if($titleShowPageDate && StatisticFunctions::checkPageDate($pageContent)) {
+      if($titleShowPageDate && GeneralFunctions::checkPageDate($pageContent)) {
         $titleDateBefore = '';
         $titleDateAfter = '';
         $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate',$this->language);
         // adds spaces on before and after
         if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
         if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
-        $titleDate = $titleDateBefore.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter;
-        $titleDate = (is_string($titlePageDateSeparator))
-          ? $titleDate.$titlePageDateSeparator
-          : $titleDate;
+        $titleDate = $titleDateBefore.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter;
+        if(is_string($titlePageDateSeparator))
+          $titleDate = $titleDate.$titlePageDateSeparator;
+        else
+          $titleDate = $titleDate;
       } else $titleDate = false;      
         
       // show the CATEGORY NAME
       if($titleShowCategory === true && $pageContent['category'] != 0) {
-        $titleShowCategory = (is_string($titleCategorySeparator))
-          ? GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language).$titleCategorySeparator
-          : GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language);
+        if(is_string($titleCategorySeparator))
+          $titleShowCategory = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language).$titleCategorySeparator;
+        else
+          $titleShowCategory = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language);
       } else
         $titleShowCategory = '';
       
       // ACTIVATE FRONTEND EDITING
       if($allowFrontendEditing && !$titleAsLink && $this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION)  {// data-feindura="pageID categoryID language"
-        $langCode = ($this->adminConfig['multiLanguageWebsite']['active']) ? $this->language : 0;
+        if($this->adminConfig['multiLanguageWebsite']['active'])
+          $langCode = $this->language;
+        else
+          $langCode = 0;
         $titleText = '<span class="feindura_editTitle" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.GeneralFunctions::getLocalized($pageContent['localized'],'title',$langCode).'</span>';
       } else
         $titleText = GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language);
@@ -1547,15 +1450,17 @@ class FeinduraBase {
     // ->> check for page/category ids (will not affect $page/$category, if they are strings)
     // ******
     // GET page by PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    $page = ((is_bool($page) || empty($page)) && (!is_bool($category) && !empty($category) ))
-      ? false
-      : $this->getPropertyPage($page);
+    if((is_bool($page) || empty($page)) && (!is_bool($category) && !empty($category) ))
+      $page = false;
+    else
+      $page = $this->getPropertyPage($page);
      
     // GET the right category for this page
-    $category = (is_numeric($page))//&& !is_bool($category) && !is_string($category)
-      ? GeneralFunctions::getPageCategory($page)
+    if(is_numeric($page))//&& !is_bool($category) && !is_string($category)
+      $category = GeneralFunctions::getPageCategory($page);
+    else
       // GET category by PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
-      : $this->getPropertyCategory($category);
+      $category = $this->getPropertyCategory($category);
     // ******
     
     /*
@@ -1869,7 +1774,10 @@ class FeinduraBase {
       if(is_string($moreLink) && strpos($moreLink,'<a ') !== false) {
         $string .= " \n".$moreLink;
       } elseif($moreLink && GeneralFunctions::isPageContentArray($pageContent)) {
-        $text = (is_string($moreLink) && !is_bool($moreLink)) ? $moreLink : $this->languageFile['PAGE_TEXT_MORE'];
+        if(is_string($moreLink) && !is_bool($moreLink))
+          $text = $moreLink;
+        else
+          $text = $this->languageFile['PAGE_TEXT_MORE'];
         $string .= " \n".'<a href="'.$this->createHref($pageContent,$this->sessionId,$this->language).'">'.$text.'</a>';
       }
       
@@ -2014,7 +1922,10 @@ class FeinduraBase {
       if(is_string($moreLink) && strpos($moreLink,'<a ') !== false) {
         $moreLink = " \n".$moreLink;
       } elseif($moreLink && GeneralFunctions::isPageContentArray($pageContent)) {
-        $text = (is_string($moreLink) && !is_bool($moreLink)) ? $moreLink : $this->languageFile['PAGE_TEXT_MORE'];
+        if(is_string($moreLink) && !is_bool($moreLink))
+          $text = $moreLink;
+        else
+          $text = $this->languageFile['PAGE_TEXT_MORE'];
         $moreLink = " \n".'<a href="'.$this->createHref($pageContent,$this->sessionId,$this->language).'">'.$text.'</a>';
       }
       

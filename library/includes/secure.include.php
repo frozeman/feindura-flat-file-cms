@@ -26,10 +26,7 @@
 /**
  * first includes all necessary configs, functions and classes
  */
-if($frontendEditing)
-  require_once(dirname(__FILE__)."/../../feindura.include.php");
-else
-  require_once(dirname(__FILE__)."/backend.include.php");
+require_once(dirname(__FILE__)."/backend.include.php");
 
 // ->> Then check incoming data like category and page vars
 // *****************************

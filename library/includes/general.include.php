@@ -19,14 +19,9 @@
  * @version 0.15
  */
 
-header('Content-Type:text/html; charset=UTF-8');
-error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
-
-/**
- * set mb_ functions encoding
- */
-mb_internal_encoding('UTF-8');
-mb_http_output('UTF-8');
+// BENCHMARK
+$timer = explode( ' ', microtime() );
+    $startTime = $timer[1] + $timer[0];
 
 /**
  * Fix the $_SERVER['REQUEST_URI'] for IIS Server
@@ -37,6 +32,38 @@ if (!isset($_SERVER['REQUEST_URI'])) {
     $_SERVER['REQUEST_URI'] .= '?'.$_SERVER['QUERY_STRING'];
   }
 }
+
+// ->> autoload CLASSES
+/**
+ * Autoloads all classes
+ * 
+ */
+function __autoload($class_name) {
+  if($class_name == 'GeneralFunctions' ||
+     $class_name == 'StatisticFunctions' ||
+     $class_name == 'XssFilter' ||
+     $class_name == 'Search' ||
+     $class_name == 'FeinduraBase' ||
+     $class_name == 'Feindura')
+  require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
+  return true;
+}
+
+// ->> FUNCTIONS
+/**
+ * Includes the main functions
+ */ 
+require_once(dirname(__FILE__)."/../functions/sort.functions.php");
+
+// Send Header
+header('Content-Type:text/html; charset=UTF-8');
+error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
+
+/**
+ * set mb_ functions encoding
+ */
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
 
 
 // ->> get CONFIGS
@@ -51,62 +78,6 @@ if(!$adminConfig = @include(dirname(__FILE__)."/../../config/admin.config.php"))
   $adminConfig = array();
 if(empty($adminConfig['permissions'])) $adminConfig['permissions'] = 0755;
 $GLOBALS['adminConfig'] = $adminConfig;
-
-/**
- * Set the Timezone
- * needs the $adminConfig
- */
-if(function_exists('date_default_timezone_set'))
-  date_default_timezone_set($adminConfig['timezone']);
-
-/**
- * *** CACHE ****
- * Build/Get cache
- * needs the $adminConfig
- */
-// $RECACHE = true;
-if($adminConfig['cache']['active'] && !$_SESSION['feinduraSession']['login']['loggedIn']) {
-  require_once(dirname(__FILE__)."/../thirdparty/PHP/ACcache.php");
-  // create cache folder
-  if(!is_dir(dirname(__FILE__).'/../../pages/cache/')) {
-    mkdir(dirname(__FILE__).'/../../pages/cache/');
-    chmod(dirname(__FILE__).'/../../pages/cache/', $adminConfig['permissions']);
-  }
-  new cache(dirname(__FILE__).'/../../pages/cache/', $_GET['language'], ($adminConfig['cache']['timeout']*60*60), "html" );
-}
-
-/**
- * The user-settings config
- * 
- * This config <var>array</var> is included from: <i>"feindura-CMS/config/user.config.php"</i>
- * 
- * @global array $GLOBALS['userConfig']
- */
-if(!$userConfig = @include(dirname(__FILE__)."/../../config/user.config.php"))
-  $userConfig = array();
-$GLOBALS['userConfig'] = $userConfig;
-
-/**
- * The website-settings config
- * 
- * This config <var>array</var> is included from: <i>"feindura-CMS/config/website.config.php"</i>
- * 
- * @global array $GLOBALS['websiteConfig']
- */
-if(!$websiteConfig = @include(dirname(__FILE__)."/../../config/website.config.php"))
-  $websiteConfig = array();
-$GLOBALS['websiteConfig'] = $websiteConfig;
-
-/**
- * The categories-settings config
- * 
- * This config <var>array</var> is included from: <i>"feindura-CMS/config/category.config.php"</i>
- * 
- * @global array $GLOBALS['categoryConfig']
- */
-if(!$categoryConfig = @include(dirname(__FILE__)."/../../config/category.config.php"))
-  $categoryConfig = array();
-$GLOBALS['categoryConfig'] = $categoryConfig;
 
 /**
  * The statistic-settings config
@@ -131,6 +102,66 @@ if(!$websiteStatistic = @include(dirname(__FILE__)."/../../statistic/website.sta
 $GLOBALS['websiteStatistic'] = $websiteStatistic;
 
 /**
+ * The pagesMetaData array
+ * 
+ * This <var>array</var> is included from: <i>"feindura-CMS/pages/pagesMetaData.array.php"</i>
+ * 
+ * @global array $GLOBALS['pagesMetaData']
+ */
+if(!$pagesMetaData = @include(dirname(__FILE__)."/../../pages/pagesMetaData.array.php"))
+  $pagesMetaData = array();
+$GLOBALS['pagesMetaData'] = $pagesMetaData;
+
+/**
+ * Set the Timezone
+ * needs the $adminConfig
+ */
+if(function_exists('date_default_timezone_set'))
+  date_default_timezone_set($adminConfig['timezone']);
+
+
+/**
+ * *** CACHE ****
+ * Build/Get cache
+ * needs the $adminConfig
+ */
+// $RECACHE = true;
+if($adminConfig['cache']['active'] && !$_SESSION['feinduraSession']['login']['loggedIn']) {
+  require_once(dirname(__FILE__)."/../thirdparty/PHP/ACcache.php");
+  // create cache folder
+  if(!is_dir(dirname(__FILE__).'/../../pages/cache/')) {
+    mkdir(dirname(__FILE__).'/../../pages/cache/');
+    chmod(dirname(__FILE__).'/../../pages/cache/', $adminConfig['permissions']);
+  }
+  // unset($_SESSION);
+  StatisticFunctions::init();
+  StatisticFunctions::saveWebsiteStats();
+  new cache(dirname(__FILE__).'/../../pages/cache/', $_GET['language'], ($adminConfig['cache']['timeout']*60*60), "html" );
+}
+
+/**
+ * The website-settings config
+ * 
+ * This config <var>array</var> is included from: <i>"feindura-CMS/config/website.config.php"</i>
+ * 
+ * @global array $GLOBALS['websiteConfig']
+ */
+if(!$websiteConfig = @include(dirname(__FILE__)."/../../config/website.config.php"))
+  $websiteConfig = array();
+$GLOBALS['websiteConfig'] = $websiteConfig;
+
+/**
+ * The categories-settings config
+ * 
+ * This config <var>array</var> is included from: <i>"feindura-CMS/config/category.config.php"</i>
+ * 
+ * @global array $GLOBALS['categoryConfig']
+ */
+if(!$categoryConfig = @include(dirname(__FILE__)."/../../config/category.config.php"))
+  $categoryConfig = array();
+$GLOBALS['categoryConfig'] = $categoryConfig;
+
+/**
  * The languages array
  * 
  * This languages <var>array</var> is included from: <i>"feindura-CMS/library/thirdparty/languages.array.php"</i>
@@ -143,6 +174,7 @@ natsort($languageNames);
 $GLOBALS['languageNames'] = $languageNames;
 
 
+// ->> DOCUMENTROOT
 /**
  * The absolut path of the webserver, with fix for IIS Server
  */
@@ -181,7 +213,6 @@ if(empty($adminConfig['realBasePath']) && !isset($_POST['cfg_basePath'])) {
   $docRoot = str_replace($basePath.'library/includes/general.include.php','',str_replace("\\","/",__FILE__));
   $docRoot = (strpos($docRoot,'general.include.php') !== false || empty($docRoot)) ? false : $docRoot;
 }
-
 define('DOCUMENTROOT', $docRoot); unset($docRoot,$basePath,$localpath,$absolutepath);
 
 /**
@@ -203,17 +234,6 @@ if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false) $_SERVER['REMOTE_ADDR'] = '1
 define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']));
 
 
-$phpTags = file(dirname(__FILE__)."/../includes/phpTags.include.php");
-/**
- * The php start tag for us in saveing functions
- */ 
-define('PHPSTARTTAG',$phpTags[0]."\n");
-/**
- * The php end tag for us in saveing functions
- */ 
-define('PHPENDTAG',"\n".$phpTags[1]);
-
-
 // -> GET VERSION and BUILD nr
 $changelogFile = file(dirname(__FILE__)."/../../CHANGELOG");
 $version = trim($changelogFile[2]);
@@ -231,30 +251,13 @@ define('VERSION',$version);
 define('BUILD',trim($buildNr[1]));
 
 
-// ->> autoload CLASSES
-/**
- * Autoloads all classes
- * 
- */
-function __autoload($class_name) {
-  if($class_name == 'GeneralFunctions' ||
-     $class_name == 'StatisticFunctions' ||
-     $class_name == 'XssFilter' ||
-     $class_name == 'Search' ||
-     $class_name == 'FeinduraBase' ||
-     $class_name == 'Feindura')
-  require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
-  return true;
-}
-  
-// ->> FUNCTIONS
-/**
- * Includes the main functions
- */ 
-require_once(dirname(__FILE__)."/../functions/sort.functions.php");
-require_once(dirname(__FILE__)."/../thirdparty/PHP/htmLawed.php");
-
 // INIT STATIC CLASSES
 GeneralFunctions::init();
 StatisticFunctions::init();
+
+
+$timer = explode( ' ', microtime() );
+    $endTime = $timer[1] + $timer[0];
+    echo round($endTime - $startTime,4).'<br>';
+
 ?>

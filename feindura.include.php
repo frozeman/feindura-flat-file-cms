@@ -45,8 +45,9 @@ $feindura_websiteConfig    = $websiteConfig;
 $feindura_categoryConfig   = $categoryConfig;
 $feindura_statisticConfig  = $statisticConfig;
 $feindura_websiteStatistic = $websiteStatistic;
+$feindura_pagesMetaData    = $pagesMetaData;
 $feindura_languageNames    = $languageNames;
 // -> delete old config vars
-unset($adminConfig,$websiteConfig,$categoryConfig,$statisticConfig,$websiteStatistic,$languageNames);
+unset($adminConfig,$websiteConfig,$categoryConfig,$statisticConfig,$websiteStatistic,$pagesMetaData,$languageNames);
 
 ?>

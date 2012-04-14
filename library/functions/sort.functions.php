@@ -25,14 +25,13 @@
  * 
  * @package [Backend]
  * 
- * @version 0.1.2
+ * @version 0.2
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 0.2 removed: $feindura_categories = $categoryConfig;
  *    - 0.1.2 add this file comment
  * 
  */
-
-$feindura_categories = $categoryConfig;
 
 /**
  * <b>Name</b> sortCurrentVisitorsByTime()<br>
@@ -131,11 +130,15 @@ function sortByLastVisitDate($a, $b) {     // (Array) $a = current; $b = follwin
  * 
  */
 function sortByCategory($a, $b) {     // (Array) $a = current; $b = following value
-  global $feindura_categories;
   
+  // var
+  $categoryConfig = (isset($GLOBALS['feindura_categoryConfig']))
+    ? $GLOBALS['feindura_categoryConfig']
+    : $GLOBALS['categoryConfig'];
+
   // puts the categories order in a string for comparision
   $categoryIds = '0 ';
-  foreach($feindura_categories as $category) {
+  foreach($categoryConfig as $category) {
     $categoryIds .= $category['id'].' ';
   }
   

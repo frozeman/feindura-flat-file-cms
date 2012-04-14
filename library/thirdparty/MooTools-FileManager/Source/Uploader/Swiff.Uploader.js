@@ -224,7 +224,7 @@ Swiff.Uploader = new Class({
   },
 
   initializeSwiff: function() {
-    // this.appendCookieData();          // looks like there's a bit of trouble with xSetOptions, so we circumvent it by passing it all in one go through xInitialize
+    this.appendCookieData();          // looks like there's a bit of trouble with xSetOptions, so we circumvent it by passing it all in one go through xInitialize
 	// if (typeof console !== 'undefined' && console.log) console.log('initializeSwiff: data count = ' + this.options.data.length + ' : ' + this.options.data);
 
     // extracted options for the swf

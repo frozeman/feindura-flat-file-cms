@@ -381,7 +381,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
           $pageContent['log_searchWords'] = changeToSerializedDataString($data,' ');
         
       // save page stats
-      $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
+      $pageStatistics = StatisticFunctions::readPageStatistics($pageContent['id']);
       if(!$pageStatistics) {
         $pageStatistics['id'] = $pageContent['id'];
         $pageStatistics['visitorCount'] = $pageContent['log_visitorCount'];
@@ -390,7 +390,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
         $pageStatistics['visitTimeMin'] = $pageContent['log_visitTime_min'];
         $pageStatistics['visitTimeMax'] = $pageContent['log_visitTime_max'];
         $pageStatistics['searchWords'] = $pageContent['log_searchWords'];
-        GeneralFunctions::savePageStatistics($pageStatistics);
+        StatisticFunctions::savePageStatistics($pageStatistics);
       }
       
       if(!GeneralFunctions::savePage($pageContent))
@@ -464,7 +464,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       // set documentSaved status
       $documentSaved = true;
       $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'<br>';
-      StatisticFunctions::saveTaskLog(24); // <- SAVE the task in a LOG FILE
+      saveActivityLog(24); // <- SAVE the task in a LOG FILE
       
       echo 'activity log <span class="succesfull">reset</span><br>';
     } else {
@@ -495,7 +495,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     if($statisticFile = fopen(dirname(__FILE__)."/statistic/website.statistic.php","wb")) {
       
       flock($statisticFile,LOCK_EX);        
-      fwrite($statisticFile,PHPSTARTTAG);  
+      fwrite($statisticFile,"<?php\n");  
             
       fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    ".$websiteStatistic["userVisitCount"].";\n");
       fwrite($statisticFile,"\$websiteStatistic['robotVisitCount'] =  ".$websiteStatistic["robotVisitCount"].";\n\n");
@@ -507,7 +507,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       
       fwrite($statisticFile,"return \$websiteStatistic;");
             
-      fwrite($statisticFile,PHPENDTAG);        
+      fwrite($statisticFile,"\n?>");        
       flock($statisticFile,LOCK_UN);
       fclose($statisticFile);
       

@@ -62,8 +62,6 @@ if($_POST['save'] && isBlocked() === false) {
     if(is_file(dirname(__FILE__).'/../../statistic/pages/'.$page.'.statistics.php'))
       @unlink(dirname(__FILE__).'/../../statistic/pages/'.$page.'.statistics.php');
     
-    GeneralFunctions::$storedPageIds = null; // set storedPageIds to null so the page IDs will be reloaded next time
-    
   // *** SAVE PAGE ----------------------
   } else {
   
@@ -106,7 +104,7 @@ if($_POST['save'] && isBlocked() === false) {
     $generatedPageDate = $_POST['pageDate']['year'].'-'.$_POST['pageDate']['month'].'-'.$_POST['pageDate']['day'];
     
     // VALIDATE the SORT DATE
-    if(($pageDate = StatisticFunctions::validateDateFormat($generatedPageDate)) === false)
+    if(($pageDate = validateDateFormat($generatedPageDate)) === false)
       $pageDate = $generatedPageDate;
     // if VALID set the validated date to the post var
     else {
@@ -128,9 +126,9 @@ if($_POST['save'] && isBlocked() === false) {
       $documentSaved = true;
 
       if($_POST['status'] == 'addLanguage')
-        StatisticFunctions::saveTaskLog(array($logText,$languageNames[$_POST['websiteLanguage']]),'page='.$page); // <- SAVE the task in a LOG FILE
+        saveActivityLog(array($logText,$languageNames[$_POST['websiteLanguage']]),'page='.$page); // <- SAVE the task in a LOG FILE
       else
-        StatisticFunctions::saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
+        saveActivityLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
       
       // set PERMISSIONS of the page
       $filePath = ($pageContent['category'] == 0)
@@ -139,9 +137,9 @@ if($_POST['save'] && isBlocked() === false) {
       chmod($filePath, $adminConfig['permissions']);
 
       // ->> save the FEEDS, if activated
-      GeneralFunctions::saveFeeds($pageContent['category']);
+      saveFeeds($pageContent['category']);
       // ->> save the SITEMAP
-      GeneralFunctions::saveSitemap();
+      saveSitemap();
       
     } else
       $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);

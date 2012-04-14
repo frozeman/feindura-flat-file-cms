@@ -65,7 +65,10 @@ if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'
       @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
     
     GeneralFunctions::removeStoredPage($pageContent['id']); // REMOVES the $pageContent array from the $storedPages property
-    StatisticFunctions::saveTaskLog(2,strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title'))); // <- SAVE the task in a LOG FILE
+    saveActivityLog(2,strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title'))); // <- SAVE the task in a LOG FILE
+    
+    // reload the $pagesMetaData array
+    GeneralFunctions::savePagesMetaData();
     
     $question = '';
     echo 'DONTSHOW';        

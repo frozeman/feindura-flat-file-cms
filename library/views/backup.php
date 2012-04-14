@@ -101,7 +101,7 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
         $backups['files'] = array_reverse($backups['files']);
         foreach($backups['files'] as $backupFile) {
           $backupTime = filemtime(DOCUMENTROOT.$backupFile);
-          $backupTime = StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($backupTime)).' '.StatisticFunctions::formatTime($backupTime);
+          $backupTime = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($backupTime)).' '.formatTime($backupTime);
           
           echo '<tr><td class="left">';
           echo '<input type="radio" name="restoreBackupFile" class="restoreBackupFiles" id="backupFile'.$backupFile.'" value="'.$backupFile.'">';

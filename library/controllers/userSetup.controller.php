@@ -44,7 +44,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['cre
   $userConfig[$newId] = array('id' => $newId);
   if(saveUserConfig($userConfig)) {
      $userInfo = $langFile['userSetup_createUser_created'];
-     StatisticFunctions::saveTaskLog(25); // <- SAVE the task in a LOG FILE
+     saveActivityLog(25); // <- SAVE the task in a LOG FILE
   } else { // throw error
     $errorWindow .= ($errorWindow) // if there is already an warning
       ? '<br><br>'.sprintf($langFile['userSetup_error_create'],$adminConfig['realBasePath'])
@@ -73,7 +73,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['de
   if(saveUserConfig($newUserConfig)) {
     $userInfo = $langFile['userSetup_deleteUser_deleted'].': '.$storedUserName;
     $documentSaved = true; // set documentSaved status
-    StatisticFunctions::saveTaskLog(26,$storedUserName); // <- SAVE the task in a LOG FILE
+    saveActivityLog(26,$storedUserName); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow .= sprintf($langFile['userSetup_error_save'],$adminConfig['realBasePath']);
     
@@ -121,9 +121,9 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
   if(saveUserConfig($newUserConfig)) {
     $documentSaved = true; // set documentSaved status
     if($userPassChanged)
-      StatisticFunctions::saveTaskLog(27,$savedUsername); // <- SAVE the task in a LOG FILE
+      saveActivityLog(27,$savedUsername); // <- SAVE the task in a LOG FILE
     else
-      StatisticFunctions::saveTaskLog(28,$savedUsername); // <- SAVE the task in a LOG FILE
+      saveActivityLog(28,$savedUsername); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow .= sprintf($langFile['userSetup_error_save'],$adminConfig['realBasePath']);
     

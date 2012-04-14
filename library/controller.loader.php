@@ -35,9 +35,9 @@ if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
       if(GeneralFunctions::savePage($contentArray)) {
         $documentSaved = true;        
         // ->> save the FEEDS, if activated
-        GeneralFunctions::saveFeeds($_GET['category']);
+        saveFeeds($_GET['category']);
         // ->> save the SITEMAP
-        GeneralFunctions::saveSitemap();
+        saveSitemap();
         
       } else
         $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['realBasePath']);

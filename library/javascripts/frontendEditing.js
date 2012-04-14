@@ -330,7 +330,7 @@
   /* ---------------------------------------------------------------------------------- */
   // ->> disable frontend editing
   function disableEditing(pageBlock) {
-      console.log(pageBlock);
+
       if(pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editPageDisabled')) {
 
         pageBlock.removeClass('feindura_editPage');
@@ -357,7 +357,7 @@
     links[1] = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'class': 'feindura_toBackend feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
 
     // Hide button
-    links[2] = new Element('a',{ 'href': 'javascript:void(0)', 'class': 'feindura_topBarHide'});
+    links[2] = new Element('a',{ 'href': '#', 'onclick':'return false;', 'class': 'feindura_topBarHide'});
     links[2].addEvent('mouseup', function(e) {
         e.stop();
         if(topBarVisible) deactivate();

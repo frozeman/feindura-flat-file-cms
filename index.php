@@ -158,7 +158,7 @@ if($_GET['site'] == 'addons') {
   /* transport pages for CKEditor feindura links */
   <?php
   if(!empty($_GET['page'])) {
-    $getPages = GeneralFunctions::loadPages(true,true);
+    $getPages = GeneralFunctions::loadPages(true);
   ?>
   var feindura_pages = [
   ['-',''],

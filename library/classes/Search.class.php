@@ -244,7 +244,7 @@ class Search {
       $category = GeneralFunctions::isPublicCategory($category);
       
     // -> load the pages
-    $pages = GeneralFunctions::loadPages($category,true);
+    $pages = GeneralFunctions::loadPages($category);
     
     // -> check if the pages are public
     if($this->checkIfPublic) {
@@ -287,7 +287,7 @@ class Search {
 
       
       // create a string of the page searchwords
-      $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
+      $pageStatistics = StatisticFunctions::readPageStatistics($pageContent['id']);
       $search['searchwords'] = unserialize($pageStatistics['searchWords']);
       $pageSearchwords = '';
       if(is_array($search['searchwords'])) {
@@ -299,7 +299,7 @@ class Search {
       
       // ->> PREPARE the to SEARCH CONTENTS as an ARRAY
       $search['id']           = $pageContent['id'];      
-      $search['date']         = StatisticFunctions::formatDate($pageContent['pageDate']['date']);
+      $search['date']         = GeneralFunctions::formatDate($pageContent['pageDate']['date']);
 
 
       // ->> SEARCH PROCESS      
@@ -446,7 +446,7 @@ class Search {
     foreach($results as $result) {
       
       $page = GeneralFunctions::readPage($result['pageId'],$result['categoryId']);
-      $pageStats = GeneralFunctions::readPageStatistics($result['pageId']);
+      $pageStats = StatisticFunctions::readPageStatistics($result['pageId']);
       
       // var
       $id = false;
@@ -503,7 +503,7 @@ class Search {
             // -> add before date
             $date .= $this->markFindingInText($page['beforeDate'],$result['beforeDate'][$langCode]).' ';       
             // -> add date
-            $date .= $this->markFindingInText(StatisticFunctions::formatDate($page['pageDate']['date']),$result['date']);        
+            $date .= $this->markFindingInText(GeneralFunctions::formatDate($page['pageDate']['date']),$result['date']);        
             // -> add after date
             $date .= ' '.$this->markFindingInText($page['afterDate'],$result['afterDate'][$langCode]);
             $date .= ' - ';

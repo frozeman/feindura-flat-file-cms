@@ -37,7 +37,6 @@ function openWindowBox(site,siteTitle,fixed) {
     // dim container
     $('dimContainer').setStyle('display','block');
     $('dimContainer').fade('hide');
-    // $('dimContainer').set('fade', {duration: 300, transition: Fx.Transitions.Pow.easeOut});
     $('dimContainer').fade(1);
     
     // setting up the slidecontent
@@ -84,13 +83,10 @@ function closeWindowBox(redirectAfter) {
 
   // slides the windowRequestBox out
   $('windowBoxContainer').get('tween').chain(function() {
-      // set the html inside the windowRequestBox div back.
-      $('windowRequestBox').empty();
-      $('windowRequestBox').setStyle('height', 'auto');
-  });
-  
-  // last effect
-  $('dimContainer').get('tween').chain(function(e) {
+    // set the html inside the windowRequestBox div back.
+    $('windowRequestBox').empty();
+    $('windowRequestBox').setStyle('height', 'auto');
+
     $('dimContainer').setStyle('display','none');
     $$('#windowBox .boxTop').set('html',loadingText);
 

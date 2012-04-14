@@ -372,14 +372,14 @@ var FileManager = new Class({
 				'class':'listType',
 				'style' : 'margin-right: 10px;',
 				'title': this.language.toggle_side_boxes
-			}).set('opacity',0.5).addEvents({
+			}).setStyle('opacity',0.5).addEvents({
 				click: this.toggleList.bind(this)
 			});
 		this.browserMenu_list = new Element('a',{
 				'id':'toggle_side_list',
 				'class':'listType',
 				'title': this.language.toggle_side_list
-			}).set('opacity',1).addEvents({
+			}).setStyle('opacity',1).addEvents({
 				click: this.toggleList.bind(this)
 			});
 
@@ -426,25 +426,25 @@ var FileManager = new Class({
 			}); // .setStyle('visibility', 'hidden');
 		this.browser_paging = new Element('div',{
 				'id':'fm_view_paging'
-			}).set('opacity', 0); // .setStyle('visibility', 'hidden');
+			}).setStyle('opacity', 0); // .setStyle('visibility', 'hidden');
 		this.browser_paging_first = new Element('a',{
 				'id':'paging_goto_first'
-			}).set('opacity', 1).addEvents({
+			}).setStyle('opacity', 1).addEvents({
 				click: this.paging_goto_first.bind(this)
 			});
 		this.browser_paging_prev = new Element('a',{
 				'id':'paging_goto_previous'
-			}).set('opacity', 1).addEvents({
+			}).setStyle('opacity', 1).addEvents({
 				click: this.paging_goto_prev.bind(this)
 			});
 		this.browser_paging_next = new Element('a',{
 				'id':'paging_goto_next'
-			}).set('opacity', 1).addEvents({
+			}).setStyle('opacity', 1).addEvents({
 				click: this.paging_goto_next.bind(this)
 			});
 		this.browser_paging_last = new Element('a',{
 				'id':'paging_goto_last'
-			}).set('opacity', 1).addEvents({
+			}).setStyle('opacity', 1).addEvents({
 				click: this.paging_goto_last.bind(this)
 			});
 		this.browser_paging_info = new Element('span',{
@@ -562,7 +562,7 @@ var FileManager = new Class({
 			{
 				'z-index': this.options.zIndex + 1600
 			}
-		}).set('opacity', 0).set('tween', {duration: 'short'}).inject(this.container);
+		}).setStyle('opacity', 0).set('tween', {duration: 'short'}).inject(this.container);
 
 		if (!this.options.hideOverlay) {
 			this.overlay = new Overlay(Object.append((this.options.hideOnClick ? {
@@ -858,15 +858,15 @@ var FileManager = new Class({
 	toggleList: function(e) {
 		if (e) e.stop();
 
-		$$('.filemanager-browserheader a.listType').set('opacity',0.5);
+		$$('.filemanager-browserheader a.listType').setStyle('opacity',0.5);
 		if (!this.browserMenu_thumb.retrieve('set',false)) {
 			this.browserMenu_list.store('set',false);
-			this.browserMenu_thumb.store('set',true).set('opacity',1);
+			this.browserMenu_thumb.store('set',true).setStyle('opacity',1);
 			this.listType = 'thumb';
 			if (typeof jsGET !== 'undefined') jsGET.set('fmListType=thumb');
 		} else {
 			this.browserMenu_thumb.store('set',false);
-			this.browserMenu_list.store('set',true).set('opacity',1);
+			this.browserMenu_list.store('set',true).setStyle('opacity',1);
 			this.listType = 'list';
 			if (typeof jsGET !== 'undefined') jsGET.set('fmListType=list');
 		}
@@ -970,12 +970,12 @@ var FileManager = new Class({
 				this.diag.log('on show: set onShow on fmFile: ', jsGET.get('fmFile'));
 			}
 			if (jsGET.get('fmListType') !== null) {
-				$$('.filemanager-browserheader a.listType').set('opacity',0.5);
+				$$('.filemanager-browserheader a.listType').setStyle('opacity',0.5);
 				this.listType = jsGET.get('fmListType');
 				if (this.listType === 'thumb')
-					this.browserMenu_thumb.store('set',true).set('opacity',1);
+					this.browserMenu_thumb.store('set',true).setStyle('opacity',1);
 				else
-					this.browserMenu_list.store('set',true).set('opacity',1);
+					this.browserMenu_list.store('set',true).setStyle('opacity',1);
 			}
 			jsGET.set({
 				'fmID': this.ID,
@@ -2239,7 +2239,7 @@ var FileManager = new Class({
 
 			editButtons.each(function(v) {
 				//icons.push(
-				Asset.image(this.assetBasePath + 'Images/' + v + '.png', {title: this.language[v]}).addClass('browser-icon').set('opacity', 0).addEvent('mouseup', (function(e, target) {
+				Asset.image(this.assetBasePath + 'Images/' + v + '.png', {title: this.language[v]}).addClass('browser-icon').setStyle('opacity', 0).addEvent('mouseup', (function(e, target) {
 					// this = el, self = FM instance
 					e.preventDefault();
 					this.store('edit', true);
@@ -2460,7 +2460,7 @@ var FileManager = new Class({
 				if (this.options.destroy) editButtons.push('destroy');
 
 				editButtons.each(function(v) {
-					Asset.image(this.assetBasePath + 'Images/' + v + '.png', {title: this.language[v]}).addClass('browser-icon').set('opacity', 0).addEvent('mouseup', (function(e, target) {
+					Asset.image(this.assetBasePath + 'Images/' + v + '.png', {title: this.language[v]}).addClass('browser-icon').setStyle('opacity', 0).addEvent('mouseup', (function(e, target) {
 						// this = el, self = FM instance
 						e.preventDefault();
 						this.store('edit', true);
@@ -3176,10 +3176,10 @@ var FileManager = new Class({
 
 		$(appearOn).addEvents({
 			mouseenter: (function() {
-							this.set('opacity', opacity[0]);
+							this.setStyle('opacity', opacity[0]);
 						}).bind(icon),
 			mouseleave: (function() {
-							this.set('opacity', opacity[1]);
+							this.setStyle('opacity', opacity[1]);
 						}).bind(icon)
 		});
 		return icon;

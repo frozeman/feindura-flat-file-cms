@@ -30,15 +30,16 @@
 * 
 * @package [Implementation]-[Backend]
 * 
-* @version 0.6.4
+* @version 0.7
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 0.7 moved a lot of functions to and from GeneralFunctions and backend.functions.php; add $pagesMetaData array
 *    - 0.6.4 moved createBrowserChart() and createTagCloud() to backend.functions.php
 *    - 0.6.3 check if add searchwords and add data to dataString is not empty
 *    - 0.62 change to static class
 *    - 0.61 doesnt extend GeneralFunctions anymore, no creates an instance of it
 *    - 0.60 add hasVistiCache()
-*    - 0.59 countAndSavePageStatistics(): prevent save searchwords to be counted miltuple times
+*    - 0.59 refreshPageStatistics(): prevent save searchwords to be counted miltuple times
 *    - 0.58 fixed isRobot() and saveWebsiteStatistic()
 *    - 0.57 add new browsers to createBrowserChart() 
 *    - 0.56 started documentation
@@ -63,16 +64,6 @@ class StatisticFunctions {
   * 
   */ 
   public static $adminConfig;
-  
-  /**
-  * Contains the category-settings config <var>array</var>
-  * 
-  * @static
-  * @var array
-  * @see init()
-  * 
-  */ 
-  public static $categoryConfig;
  
  /**
   * Contains the website-statistic <var>array</var>
@@ -99,6 +90,21 @@ class StatisticFunctions {
   * @see init()
   */ 
   public static $statisticConfig = array();
+
+ /**
+  * Contains the pagesMetaData <var>array</var>
+  * 
+  * This <var>array</var> contains all pages IDs and their category ID, as well as the localized titles
+  * 
+  * Example array:
+  * {@example pagesMetaData.array.example.php}
+  * 
+  * @static
+  * @var array
+  * @see init()
+  * @see getCurrentPageId()
+  */ 
+  public static $pagesMetaData = array();
   
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -128,7 +134,6 @@ class StatisticFunctions {
   * 
   * <b>Used Global Variables</b><br>
   *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
-  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})  
   *    - <var>$websiteStatistic</var> the website-settings config (included in the {@link general.include.php})
   *    - <var>$statisticConfig</var> the statistic-settings config (included in the {@link general.include.php})
   * 
@@ -136,9 +141,11 @@ class StatisticFunctions {
   * @return void
   * 
   * @static
-  * @version 1.02
+  * @version 1.2
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.2 add $pagesMetaData
+  *    - 1.1 removed $categoryConfig
   *    - 1.02 removed instatiating of GeneralFunctions class, because GeneralFunctions is now static  
   *    - 1.01 add $adminConfig and $categoryConfig and creates an instance of the GeneralFunctions class
   *    - 1.0 initial release
@@ -147,10 +154,10 @@ class StatisticFunctions {
   public static function init() {
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    self::$adminConfig = $GLOBALS["adminConfig"];
-    self::$categoryConfig = $GLOBALS["categoryConfig"];
+    self::$adminConfig      = $GLOBALS["adminConfig"];
     self::$websiteStatistic = $GLOBALS["websiteStatistic"];
-    self::$statisticConfig = $GLOBALS["statisticConfig"];
+    self::$statisticConfig  = $GLOBALS["statisticConfig"];
+    self::$pagesMetaData    = $GLOBALS["pagesMetaData"];
   }
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -158,190 +165,117 @@ class StatisticFunctions {
  /* **************************************************************************************************************************** */
   
  /**
-  * <b>Name</b> secToTime()<br>
+  * <b>Name</b> urlEncode()<br>
   * 
-  * Converts seconds into a readable time
+  * Encodes a string to url, but before it removes all tags and htmlentitites.
   * 
-  * @return string the seconds in a readable time
+  * @param string|false $string    the string to urlencode
   * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
   * 
-  */
-  public static function secToTime($sec) {
-    $hours = floor($sec / 3600);
-    $mins = floor(($sec -= ($hours * 3600)) / 60);  
-    $seconds = floor($sec - ($mins * 60));
-    
-    // adds leading zeros
-    if($hours < 10)
-      $hours = '0'.$hours;
-    if($mins < 10)
-      $mins = '0'.$mins;
-    if($seconds < 10)
-      $seconds = '0'.$seconds;
-    
-    return $hours.':'.$mins.':'.$seconds;
-  }
-  
- /**
-  * <b>Name</b> formatDate()<br>
+  * @return string the url encoded string
   * 
-  * Converst a given timestamp into the a specific format type.
-  * 
-  * @param int    $timeStamp a UNIX-Timestamp
-  * @param string $format    (optional) the format type can be "DMY" to format into: "DD-MM-YYYY", "YMD" to format into: "YYYYY-MM-DD" or "MDY" to format into: "MM-DD-YYYYY", if FALSE it uses the format set in the administrator-settings config
-  * 
-  * @uses $adminConfig  to get the right date format, if no format is given
-  * 
-  * @return string the formated date or the unchanged $timestamp parameter
+  * @see Feindura::createHref()
   * 
   * @static
-  * @version 1.01
+  * @version 2.1
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.01 changed from date conversion to timestamp
-  *    - 1.0 initial release
+  *   - moved to StatisticFunctions
+  *   - 2.0 add transliteration from {@link http://php.vrana.cz/vytvoreni-pratelskeho-url.php}
+  *   - 1.0 initial release
   * 
   */
-  public static function formatDate($timeStamp, $format = false) {
-    
-    if(empty($timeStamp) || !preg_match('/^[0-9]{1,}$/',$timeStamp))
-      return $timeStamp;
-             
-    if($format === false)
-      $format = self::$adminConfig['dateFormat'];
-    
-    switch ($format) {
-      case 'YMD':
-        return date('Y-m-d',$timeStamp);
-        break;
-      case 'DMY':
-        return date('d.m.Y',$timeStamp);
-        break;
-      case 'MDY':
-        return date('m/d/Y',$timeStamp);
-        break;
-      default:
-        return $timeStamp;
-        break;
-    }
+  public static function urlEncode($string) {
+    $string = html_entity_decode($string,ENT_COMPAT,'UTF-8');
+    $string = strip_tags($string);
+
+    $string = preg_replace('#[^\\pL0-9_]+#u', '-', $string);
+    $string = trim($string, "-");
+    $string = iconv("UTF-8", "ASCII//TRANSLIT", $string);
+    $string = strtolower($string);
+    $string = preg_replace('#[^a-z0-9_-]+#', '', $string);
+    return urlencode($string);
   }
-  
+
  /**
-  * <b>Name</b> formatTime()<br>
+  * <b> Name</b> getCurrentPageId()<br>
   * 
-  * Converts a given timestamp into the following format "12:60" or "12:60:00", if the <var>$showSeconds</var> parameter is TRUE.
+  * Returns the current page ID from the <var>$_GET</var> variable.
   * 
-  * @param int    $timeStamp      the given date with following format: "YYYY-MM-DD HH:MM:SS" or "HH:MM:SS"
-  * @param bool   $showSeconds    (optional) whether seconds are shown in the time string
+  * Gets the current page ID from the <var>$_GET</var> variable.
+  * If <var>$_GET</var> is not a ID but a page name, it loads all pages in an array and look for the right page name and returns the ID.
+  * If no <var>$_GET</var> variable exists try to return the <var>$startPage</var> parameter.
   * 
-  * @return string the formated time with or without seconds or the $timestamp parameter
-  * 
-  * @static
-  * @version 1.01
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.01 changed from date conversion to timestamp  
-  *    - 1.0 initial release
-  * 
-  */
-  public static function formatTime($timeStamp,$showSeconds = false) {
-    
-    if(empty($timeStamp) || !preg_match('/^[0-9]{1,}$/',$timeStamp))
-      return $timeStamp;
-    
-    return ($showSeconds)
-      ? date('H:i:s',$timeStamp)
-      : date('H:i',$timeStamp);
-  }
-  
- /**
-  * <b>Name</b> formatHighNumber()<br>
-  * 
-  * Seperates the thouseds in a number with whitespaces.
-  * 
-  * Example
-  * <samp>
-  * 12 050 125
-  * </samp>
-  * 
-  * @param float $number          the number to convert
-  * @param int   $decimalsNumber  (optional) the number of decimal places, like "1 250,25"
-  * 
-  * @return float the converted number
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function formatHighNumber($number,$decimalsNumber = 0) {
-    $number = floatval($number);
-    return number_format($number, $decimalsNumber, ',', ' ');
-  }
-  
- /**
-  * <b>Name</b> dateDayBeforeAfter()<br>
-  * 
-  * Replaces the given <var>$date</var> parameter with "yesterday", "today" or "tomorrow" if it is one day before or the same day or one day after today.
   * 
   * <b>Used Global Variables</b><br>
-  *    - <var>$langFile</var> the backend language-file array (included in the {@link backend.include.php})
+  *    - <var>$_GET</var> to fetch the page ID
+  *    - <var>$varNames</var> the varNames generated in the {@link general.include.php})
   * 
-  * @param int          $timestamp      the timestamp to check
-  * @param array|false  $givenLangFile  the languageFile which contains the ['DATE_TEXT_YESTERDAY'], ['DATE_TEXT_TODAY'] and ['DATE_TEXT_TOMORROW'] texts, if FALSE it loads the backend language-file
+  * @param int $startPage the startPage, given when it comes from the {@link Feindura::__construct() Feindura class}
   * 
-  * @return string|int a string with "yesterday", "today" or "tomorrow" or the unchanged timestamp
+  * @uses $varNames                     for variable names which the $_GET will use for the page ID
+  * @uses $adminConfig                  to look if set startpage is allowed
+  * @uses Feindura::$startPage          if no $_GET variable exists it will try to get the {@link Feindura::$startPage} property
+  * @uses GeneralFunctions::loadPages() for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
   * 
-  * @static
-  * @version 1.0
+  * 
+  * @return int|false the current page ID or FALSE
+  * 
+  * @access public
+  * @version 1.2
   * <br>
   * <b>ChangeLog</b><br>
+  *    - moved to StatisticsFunctions; use now $pagesMetaData
+  *    - 1.1 add localization
   *    - 1.0 initial release
   * 
-  */ 
-  public static function dateDayBeforeAfter($timestamp,$givenLangFile = false) {
+  */
+  public static function getCurrentPageId($startPage = null) {
     
-    if(empty($timestamp) || !preg_match('/^[0-9]{1,}$/',$timestamp))
-      return $timestamp;
+    // ->> GET PAGE is an ID
+    // *********************
+    if(isset($_GET[self::$adminConfig['varName']['page']]) &&
+       !empty($_GET[self::$adminConfig['varName']['page']]) &&
+       is_numeric($_GET[self::$adminConfig['varName']['page']])) {
+       
+      // get PAGE GET var
+      return XssFilter::int($_GET[self::$adminConfig['varName']['page']],0); // get the page ID from the $_GET var
+    
+    // ->> GET PAGE is a feindura link
+    // **********************
+    } elseif(isset($_GET['feinduraLink']) &&
+             !empty($_GET['feinduraLink']) &&
+             is_numeric($_GET['feinduraLink'])) {
+      // get PAGE GET var
+      return XssFilter::int($_GET['feinduraLink'],0); // get the page ID from the $_GET var
+      
+    // ->> GET PAGE is a NAME
+    // **********************
+    } elseif(isset($_GET['page']) &&
+             !empty($_GET['page'])) {
 
-    //var
-    $date = date('Y-m-d',$timestamp);
-    
-    if($givenLangFile === false)
-      $givenLangFile = $GLOBALS['langFile'];
-    
-    // if the date is TODAY
-    if(substr($date,0,10) == date('Y-m-d'))
-      return $givenLangFile['DATE_TEXT_TODAY'];
-    
-    // if the date is YESTERDAY
-    elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')-1)))
-      return $givenLangFile['DATE_TEXT_YESTERDAY'];
-    
-    // if the date is TOMORROW
-    elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')+1)))
-      return $givenLangFile['DATE_TEXT_TOMORROW'];
-  
-    else
-      return $timestamp;
+      foreach(self::$pagesMetaData as $pageMetaData) {
+
+        // goes trough each localization and check if its fit the $_GET['page'] title
+        foreach ($pageMetaData['localized'] as $localizedPageContent) {
+          // RETURNs the right page Id
+          if(self::urlEncode($localizedPageContent['title']) == self::urlEncode($_GET['page'])) {
+            return $pageMetaData['id'];
+          }
+        }
+      }
+    } elseif(self::$adminConfig['setStartPage'] && is_numeric($startPage)) {
+      return $startPage;
+    } else
+      return false;
   }
-  
+
  /**
-  * <b>Name</b> checkPageDate()<br>
+  * <b>Name</b> isPageStatisticsArray()<br>
   * 
-  * Checks if the page date exists and is activated in the category-settings config.
-  * Returns TRUE if the page date exists and is activated for this category which contains the page.
+  * Checks the given <var>$page</var> parameter is a valid <var>$pageStatistics</var> array.
   * 
-  * @param array $pageContent the $pageContent array of a page
-  * 
-  * @uses $categoryConfig to check if in the category the page date is activated
+  * @param int|array $page   the variable to check 
   * 
   * @return bool
   * 
@@ -349,257 +283,135 @@ class StatisticFunctions {
   * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.1 add pagedate for non-categories  
+  *    - 1.1 moved to StatisticFunctions
   *    - 1.0 initial release
   * 
   */
-  public static function checkPageDate($pageContent) {
-    $pageDate = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate');
-    $pageDateBefore = $pageDate['before'];
-    $pageDateAfter = $pageDate['after'];
-    if((isset(self::$categoryConfig[$pageContent['category']]) && ($pageContent['category'] != 0 && self::$categoryConfig[$pageContent['category']]['showPageDate']) ||
-       ($pageContent['category'] == 0 && self::$adminConfig['pages']['showPageDate'])) &&
-       (!empty($pageDateBefore) || !empty($pageContent['pageDate']['date']) || !empty($pageDateAfter)))
-       return true;
-    else
-       return false;
-  }  
-
- /**
-  * <b>Name</b> validateDateFormat()<br>
-  * 
-  * Check if a date is valid and returns the date as UNIX-Timestamp
-  * 
-  * @param string $dateString a UNIX-Timestamp or the date to validate, with the following format: "YYYY-MM-DD", "DD-MM-YYYY" or "YYYY-DD-MM" and the follwing separators ".", "-", "/", " ", '", "," or ";"
-  * 
-  * @return int|false the timestamp of the date or FALSE if the date is not valid
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function validateDateFormat($dateString) {
-    
-    // if its a unix timestamp return immediately
-    if(preg_match('/^[0-9]{1,}$/',$dateString))
-      return $dateString;
-    
-    if(!is_string($dateString) && !is_numeric($dateString))
-      return false;
-      
-    // get the date out of the $dateString
-    //$date = substr($dateString, -10);
-    //$beforeDate = substr($dateString,0, -10);
-    $date = str_replace(array('\'', ';', ' ', '-', '.', ','), '/', $dateString);
-    
-    $date = explode('/', $date);
-  
-    // CHECK a date with no seperation signs -> has to have the format YYYYMMDD or DDMMYYYY
-    if(count($date) == 1)  {
-      $date[0] = substr($date[0],-8);
-      
-      if(is_numeric($date[0])) {
-      
-        // YYYYMMDD
-        if(checkdate(substr($date[0], 4, 2),
-                     substr($date[0], 6, 2),
-                     substr($date[0], 0, 4)))
-          return mktime(23,59,59,substr($date[0], 4, 2),substr($date[0], 6, 2),substr($date[0], 0, 4));
-        // DDMMYYYY
-        elseif(checkdate(substr($date[0], 2, 2),
-                         substr($date[0], 0, 2),
-                         substr($date[0], 4, 4)))
-          return mktime(23,59,59,substr($date[0], 2, 2),substr($date[0], 0, 2),substr($date[0], 4, 4));
-        else
-          return false;
-      } else
-        return false;
-      
-    // -> CHECK the array with the date
-    } elseif(count($date) == 3 &&
-       is_numeric($date[0]) &&
-       is_numeric($date[1]) &&
-       is_numeric($date[2])) {
-      
-      // adds ZEROs before the number IF number is only one character
-      if(strlen($date[0]) == 1)
-        $date[0] = '0'.$date[0];
-      if(strlen($date[1]) == 1)
-        $date[1] = '0'.$date[1];
-      if(strlen($date[2]) == 1)
-        $date[2] = '0'.$date[2];
-      //echo 'dd:'.$date[0].'-'.$date[1].'-'.$date[2];
-      //ddmmyyyy
-      if(strlen($date[2]) == 4 && checkdate($date[1], $date[0], $date[2]))
-        return mktime(23,59,59,$date[1],$date[0],$date[2]);
-      //yyyymmdd
-      elseif(strlen($date[0]) == 4 && checkdate($date[1], $date[2], $date[0]))
-        return mktime(23,59,59,$date[1],$date[2],$date[0]);
-      //mmddyyyy
-      elseif(strlen($date[2]) == 4 && checkdate($date[0], $date[1], $date[2]))
-        return mktime(23,59,59,$date[0],$date[1],$date[2]);
-      else
-        return false;
-    }
-    
-    // if the public static function doesn't return something, return false
-    return false;
-  }
-
- /**
-  * <b>Name</b> showVisitTime()<br>
-  * 
-  * Converts a given time into "12 Seconds", "01:15 Minutes" or "01:30:20 Hours".
-  * 
-  * @param string $time     the time in the following format: "HH:MM:SS"
-  * @param string $langFile the backend language-file
-  * 
-  * @return string the formated time
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function showVisitTime($time,$langFile) {
-    
-    // change seconds to the following format: hh:mm:ss
-    $time = self::secToTime($time);
-    
-    $hour = substr($time,0,2);
-    $minute = substr($time,3,2);
-    $second = substr($time,6,2);
-    
-    // adds the text for the HOURs
-    if($hour == 0)
-        $hour = false;
-    // adds the text for the MINUTEs
-    if($minute == 0)
-        $minute = false;  
-    // adds the text for the SECONDs
-    if($second == 0)
-        $second = false;
-    
-    // 01:01:01 Stunden
-    if($hour !== false && $minute !== false && $second !== false)
-        $printTime = $hour.':'.$minute.':'.$second;
-    // 01:01 Stunden
-    elseif($hour !== false && $minute !== false && $second === false)
-        $printTime = $hour.':'.$minute;
-    // 01:01 Minuten
-    elseif($hour === false && $minute !== false && $second !== false)
-        $printTime = $minute.':'.$second; 
-    
-    // 01 Stunden
-    elseif($hour !== false && $minute === false && $second === false)
-        $printTime = $hour;
-    // 01 Minuten
-    elseif($hour === false && $minute !== false && $second === false)
-        $printTime = $minute;
-    // 01 Sekunden
-    elseif($hour === false && $minute === false && $second !== false)
-        $printTime = $second;
-    
-    
-    // get the time together
-    if($hour) {
-      if($hour == 1)
-        $printTime = $printTime.' <b>'.$langFile['STATISTICS_TEXT_HOUR_SINGULAR'].'</b>';
-      else
-        $printTime = $printTime.' <b>'.$langFile['STATISTICS_TEXT_HOUR_PLURAL'].'</b>';
-    } elseif($minute) {
-      if($minute == 1)
-        $printTime = $printTime.' <b>'.$langFile['STATISTICS_TEXT_MINUTE_SINGULAR'].'</b>';
-      else
-        $printTime = $printTime.' <b>'.$langFile['STATISTICS_TEXT_MINUTE_PLURAL'].'</b>';
-    } elseif($second) {
-      if($second == 1)
-        $printTime = $printTime.' <b>'.$langFile['STATISTICS_TEXT_SECOND_SINGULAR'].'</b>';
-      else
-        $printTime = $printTime.' <b>'.$langFile['STATISTICS_TEXT_SECOND_PLURAL'].'</b>';
-    }
-    
-    // RETURN formated time
-    if($time != '00:00:00')
-      return $printTime;
-    else
-      return false;
-  }
-  
- /**
-  * <b>Name</b> saveTaskLog()<br>
-  * 
-  * Adds a entry to the task log-file with time and task which was performed.
-  * 
-  * Example entry:
-  * <samp>
-  * 2010-12-31 12:00:00|-|Username|-|Moved Page|-|page=5|#|category=1
-  * </samp>
-  * 
-  * @param string $task     a description of the task which was performed
-  * @param string $object   (optional) the page name or the name of the object on which the task was performed
-  * 
-  * @uses $statisticConfig to get the number of maxmial task log entries
-  * 
-  * @return bool
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function saveTaskLog($task, $object = false) {
-    
-    $maxEntries = self::$statisticConfig['number']['taskLog'];
-    $logFilePath = dirname(__FILE__).'/../../'.'statistic/activity.statistic.log';
-    $oldLog = false;
-    
-    if($logFile = @fopen($logFilePath,"r")) {
-      flock($logFile,LOCK_SH);
-      if(is_file($logFilePath))
-        $oldLog = @file($logFilePath);
-      flock($logFile,LOCK_UN);
-      fclose($logFile);
-    }
-      
-      
-    // adds the Object
-    $object = ($object) ? '|#|'.$object : false;
-    
-    // -> create the new log string
-    $newLog = time().'|#|'.$_SESSION['feinduraSession']['login']['username'].'|#|'.serialize($task).$object;
-    
-    // CREATE file content
-    $fileContent = '';
-    $fileContent .= $newLog."\n";
-    $count = 2;
-    if(is_array($oldLog)) {
-      foreach($oldLog as $oldLogRow) {
-        $fileContent .= $oldLogRow;
-        // stops the log after 120 entries
-        if($count == $maxEntries)
-          break;
-        $count++;
-      }
-    }
-    
-    // -> write file
-    if(file_put_contents($logFilePath, $fileContent, LOCK_EX)) {
-      // -> add permissions on the first creation
-      if(!$oldLog) @chmod($logFilePath, self::$adminConfig['permissions']);
-      
+  public static function isPageStatisticsArray($page) {
+    if(is_array($page) && array_key_exists('id',$page) && array_key_exists('visitorCount',$page))
       return true;
+    else
+      return false;
+  }
+
+ /**
+  * <b>Name</b> readPageStatistics()<br>
+  * 
+  * Loads the $pageContent array of a page.
+  * 
+  * Includes the page statistics.
+  * 
+  * Example of the returned $pageStatistics array:
+  * {@example readPageStatistics.return.example.php}
+  * 
+  * @param int $pageId a page ID or a $pageStatistics array (will then returned immediately)
+  * 
+  * 
+  * @return array|FALSE|NULL the $pageStatistics array of the requested page or FALSE, if it couldn't open the file, or NULL when the file exists but couldnt be loaded properly
+  * 
+  * @static
+  * @version 1.1
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.1 moved to StatisticFunctions
+  *    - 1.0 initial release
+  * 
+  */
+  public static function readPageStatistics($pageId) {
+    //echo 'PAGE: '.$pageId.'<br>';
+    // var
+    $pageStatistics = false;
+    
+    // if $page is a valid $pageStatistics array return it immediately
+    if(self::isPageStatisticsArray($pageId))
+      return $pageId;
+    elseif(!is_numeric($pageId))
+      return false;
+    
+    // adds .php to the end if its missing
+    if(substr($pageId,-4) != '.statistics.php')
+      $pageId .= '.statistics.php';
+    // ->> INCLUDE
+    if($fp = @fopen(dirname(__FILE__).'/../../statistic/pages/'.$pageId,'r')) {
+      flock($fp,LOCK_SH);
+      $pageStatistics = @include(dirname(__FILE__).'/../../statistic/pages/'.$pageId);
+      flock($fp,LOCK_UN);
+      fclose($fp);
+    }
+    
+    // return content array
+    if(is_array($pageStatistics)) {
+      return $pageStatistics;
+      
+    // return failure while loading the content (file exists but couldn't be loaded)
+    } elseif($pageStatistics === 1) {
+      return null;
+      
+    // returns false if it couldn't include the file (file doesnt exists)
     } else
       return false;
   }
-  
+
+ /**
+  * <b>Name</b> savePageStatistics()<br>
+  * 
+  * Save a page statistics to it's flatfile.
+  * 
+  * Example of the saved $pageContent array:
+  * {@example readPageStatistics.return.example.php}
+  * 
+  * 
+  * @param array $pageStatistics    the $pageStatistics array of the page to save
+  * 
+  * @uses $adminConfig      for the save path of the flatfiles
+  * 
+  * @return bool TRUE if the page was succesfull saved, otherwise FALSE
+  * 
+  * @static
+  * @version 1.1
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.1 moved to StatisticFunctions
+  *    - 1.0 initial release
+  * 
+  */
+  public static function savePageStatistics($pageStatistics) {
+
+    // check if array is pageContent array
+    if(!self::isPageStatisticsArray($pageStatistics))
+      return false;
+
+    // check if statistics folder exists
+    if(!is_dir(dirname(__FILE__).'/../../statistic/pages/'))
+      @mkdir(dirname(__FILE__).'/../../statistic/pages/',self::$adminConfig['permissions'],true);
+
+    // escape \ and '
+    //$pageStatistics = XssFilter::escapeBasics($pageStatistics);
+   
+    // CREATE file content
+    $fileContent = '';
+    $fileContent .= "<?php\n";
+    
+    $fileContent .= "\$pageStatistics['id'] =             ".XssFilter::int($pageStatistics['id'],0).";\n";
+    $fileContent .= "\$pageStatistics['visitorCount'] =   ".XssFilter::int($pageStatistics['visitorCount'],0).";\n";
+    $fileContent .= "\$pageStatistics['firstVisit'] =     ".XssFilter::int($pageStatistics['firstVisit'],0).";\n";
+    $fileContent .= "\$pageStatistics['lastVisit'] =      ".XssFilter::int($pageStatistics['lastVisit'],0).";\n";
+    $fileContent .= "\$pageStatistics['visitTimeMin'] =   '".$pageStatistics['visitTimeMin']."';\n"; // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
+    $fileContent .= "\$pageStatistics['visitTimeMax'] =   '".$pageStatistics['visitTimeMax']."';\n"; // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
+    $fileContent .= "\$pageStatistics['searchWords'] =    '".$pageStatistics['searchWords']."';\n\n"; // XssFilter in the addDataToDataString() method in the StatisticFunctions.class.php
+    
+    $fileContent .= "return \$pageStatistics;";
+    
+    $fileContent .= "\n?>";
+    
+    // -> write file
+    if(file_put_contents(dirname(__FILE__).'/../../statistic/pages/'.$pageStatistics['id'].'.statistics.php', $fileContent, LOCK_EX)) {
+      @chmod(dirname(__FILE__).'/../../statistic/pages/'.$pageStatistics['id'].'.statistics.php',self::$adminConfig['permissions']);
+      return true;
+    } else
+      return false; 
+  }
+
  /**
   * <b>Name</b> saveRefererLog()<br>
   * 
@@ -714,7 +526,6 @@ class StatisticFunctions {
   * @param string       $dataString           the data-string which the $dataToAdd parameter will be add to
   * @param string|array $dataToAdd            a string or an array with data to add, OR a unserialized data-string  
   * 
-  * @uses GeneralFunctions::cleanSpecialChars() to clean the data variable
   * 
   * @return string the modified data-string
   * 
@@ -767,9 +578,10 @@ class StatisticFunctions {
     } else {
     
       // var
-      $newdata = (!is_array($dataToAdd))
-        ? array($dataToAdd)
-        : $dataToAdd;
+      if(!is_array($dataToAdd))
+        $newdata = array($dataToAdd);
+      else
+        $newdata = $dataToAdd;
       if(($exisitingData = unserialize($dataString)) === false)
         $exisitingData = array();
       $newDataArray = $exisitingData;
@@ -825,8 +637,17 @@ class StatisticFunctions {
   */
   public static function isRobot() {
     
+    // pre check if isRobot is already stored somewhere
+    // session
     if(isset($_SESSION['feinduraSession']['log']['isRobot']))
       return $_SESSION['feinduraSession']['log']['isRobot'];
+    // cache
+    elseif(($currentVisitor = self::getCurrentVisitor()) !== false) {      
+        if($currentVisitor['type'] == 'robot')
+          return true;
+        else
+          return false;
+    }
     
     if(isset($_SERVER['HTTP_USER_AGENT'])) {
       
@@ -921,7 +742,10 @@ class StatisticFunctions {
       }
       // agent doesn't exist, create a new cache line
       if($add && $return === false) {
-        $type = (self::isRobot()) ? 'robot' : 'visitor';
+        if(self::isRobot())
+          $type = 'robot';
+        else
+          $type = 'visitor';
         $newLines[] = $timeStamp.'|#|'.$type.'|#|'.$userAgentMd5.'|#|'.$_SERVER['REMOTE_ADDR'];
       }
     
@@ -943,9 +767,46 @@ class StatisticFunctions {
   }
   
  /**
+  * <b>Name</b> getCurrentVisitor()<br>
+  * 
+  * Gets the current visitor (only the CURRENT) from the visitCache file (<var>statistic/visitor.statistic.cache</var>)
+  * 
+  * @return array the current visitor with $returnVisitors['ip'], $returnVisitors['time'] and $returnVisitors['type']
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function getCurrentVisitor() {
+    
+    //var
+    $returnVisitors = array();
+    $cacheFile = dirname(__FILE__)."/../../statistic/visitor.statistic.cache";
+    
+    if(!file_exists($cacheFile)) return $returnVisitors;
+    if($currentVisitors = @file($cacheFile)) {
+    
+      foreach($currentVisitors as $currentVisitor) {
+        $currentVisitor = explode('|#|',$currentVisitor);
+        if($currentVisitor[2] == md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'])) {
+          $returnVisitor['time'] = $currentVisitor[0];
+          $returnVisitor['type'] = $currentVisitor[1];
+          $returnVisitor['ip'] = $currentVisitor[3];
+          return $returnVisitor;
+        }
+      }
+    }
+    unset($currentVisitors);
+    return false;
+  }
+
+ /**
   * <b>Name</b> getCurrentVisitors()<br>
   * 
-  * Gets the current user from the visitCache file (<var>statistic/visitor.statistic.cache</var>)
+  * Gets the current visitors (ALL) from the visitCache file (<var>statistic/visitor.statistic.cache</var>)
   * 
   * @return array the current visitors with $returnVisitors['ip'], $returnVisitors['time'] and $returnVisitors['type']
   * 
@@ -970,12 +831,13 @@ class StatisticFunctions {
     
       foreach($currentVisitors as $currentVisitor) {
         $currentVisitor = explode('|#|',$currentVisitor);
-          $returnVisitor['time'] = $currentVisitor[0];
-          $returnVisitor['type'] = $currentVisitor[1];
-          $returnVisitor['ip'] = $currentVisitor[3];
-          $returnVisitors[] = $returnVisitor;
+        $returnVisitor['time'] = $currentVisitor[0];
+        $returnVisitor['type'] = $currentVisitor[1];
+        $returnVisitor['ip'] = $currentVisitor[3];
+        $returnVisitors[] = $returnVisitor;
       }
-    }    
+    }
+    unset($currentVisitors);
     return $returnVisitors;
   }
   
@@ -996,17 +858,16 @@ class StatisticFunctions {
   * <b>Used Global Variables</b>
   *    - <var>$_SESSION</var> to store whether the user visited the website already, to prevent double counting 
   * 
-  * <b>Used Constants</b>
-  *    - <var>PHPSTARTTAG</var> the php start tag
-  *    - <var>PHPENDTAG</var> the php end tag
+  * @param false|int $page a page ID, of the current page, where the page statistic should be saved
   * 
-  * @uses $websiteStatistic         for the old website-statistics
-  * @uses saveRefererLog()          to save the referer log-file
-  * @uses isRobot()                to check whether the user-agent is a robot or a human
-  * @uses addDataToDataString()     to add a browser to the browser data-string
-  * @uses GeneralFunctions::readPage()        to read the last page again, to save the time spend on the page
-  * @uses GeneralFunctions::getPageCategory() to get the category of the last page
-  * @uses GeneralFunctions::Statistics()        to save the current page statictics
+  * @uses $websiteStatistic            for the old website-statistics
+  * @uses saveRefererLog()             to save the referer log-file
+  * @uses isRobot()                    to check whether the user-agent is a robot or a human
+  * @uses addDataToDataString()        to add a browser to the browser data-string
+  * @uses readPageStatistics()         to read the last page again, to save the time spend on the page
+  * @uses savePageStatistics()         to save the current page statictics
+  * @uses refreshPageStatistics()      to save the current page statistics
+  * @uses getCurrentPageId()           to get the current page
   * 
   * @return bool TRUE if the website-statistics were saved, otherwise FALSE
   * 
@@ -1020,7 +881,7 @@ class StatisticFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function saveWebsiteStats() {
+  public static function saveWebsiteStats($page = false) {
     
     // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isRobot() public static function
     //unset($_SESSION);
@@ -1028,26 +889,26 @@ class StatisticFunctions {
     // doesnt save anything if visitor is a logged in user
     if($_SESSION['feinduraSession']['login']['loggedIn'])
       return false;
-    
+
     $hasCurrentVisitors = self::visitorCache(); // count and renew the current visitors
     
+   
     // #### DUMP ####
-    /*
-if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
-      $dump = (self::isRobot()) ? "Is BOT!\n" : "Is not a bot.\n";
-      $dump .= 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."\n";
-      $dump .= ($hasCurrentVisitors) ? 'got it in the visitor.statistic.cache!'."\n\n" : 'is not in the visitor.statistic.cache'."\n\n".
+    // if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
+    //   $dump = (self::isRobot()) ? "Is BOT!\n" : "Is not a bot.\n";
+    //   $dump .= 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."\n";
+    //   $dump .= ($hasCurrentVisitors) ? 'got it in the visitor.statistic.cache!'."\n\n" : 'is not in the visitor.statistic.cache'."\n\n".
       
-      $dump .= (is_file(dirname(__FILE__)."/../../statistic/website.statistic.php")) ? "website.statistic.php exist!"."\n" : "website.statistic.php is gone!!?"."\n";
-      $dump .= 'Include again the website.statistic.php: '.print_r(include(dirname(__FILE__)."/../../statistic/website.statistic.php"),true)."\n\n";
+    //   $dump .= (is_file(dirname(__FILE__)."/../../statistic/website.statistic.php")) ? "website.statistic.php exist!"."\n" : "website.statistic.php is gone!!?"."\n";
+    //   $dump .= 'Include again the website.statistic.php: '.print_r(include(dirname(__FILE__)."/../../statistic/website.statistic.php"),true)."\n\n";
       
-      $dump .= '$GLOBALS["websiteStatistic"): '.print_r($GLOBALS["websiteStatistic"],true)."\n";
-      $dump .= '$GLOBALS["feindura_websiteStatistic"]: '.print_r($GLOBALS["feindura_websiteStatistic"],true)."\n";
-      $dump .= 'self::$websiteStatistic: '.print_r(self::$websiteStatistic,true)."\n";
-      $dump .= '$_SESSION: '.print_r($_SESSION,true)."\n";  	
-      mail('fabian@feindura.org', self::$adminConfig['url'].' statistiken geloescht, dump output OUTSIDE', $dump); 	
-    }
-*/
+    //   $dump .= '$GLOBALS["websiteStatistic"): '.print_r($GLOBALS["websiteStatistic"],true)."\n";
+    //   $dump .= '$GLOBALS["feindura_websiteStatistic"]: '.print_r($GLOBALS["feindura_websiteStatistic"],true)."\n";
+    //   $dump .= 'self::$websiteStatistic: '.print_r(self::$websiteStatistic,true)."\n";
+    //   $dump .= '$_SESSION: '.print_r($_SESSION,true)."\n";  	
+    //   mail('fabian@feindura.org', self::$adminConfig['url'].' statistiken geloescht, dump output OUTSIDE', $dump); 	
+    // }
+
 
     // COUNT if the user/robot isn't already counted
     // **********************************************
@@ -1105,7 +966,7 @@ if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
       
       // ->> CREATE writing string
       $statisticFile = '';
-      $statisticFile .= PHPSTARTTAG;
+      $statisticFile .= "<?php\n";
       $statisticFile .= "\$websiteStatistic['userVisitCount'] =    ".XssFilter::int(self::$websiteStatistic["userVisitCount"],0).";\n";
       $statisticFile .= "\$websiteStatistic['robotVisitCount'] =   ".XssFilter::int(self::$websiteStatistic["robotVisitCount"],0).";\n\n";
       
@@ -1115,7 +976,7 @@ if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
       $statisticFile .= "\$websiteStatistic['browser'] =           '".self::$websiteStatistic["browser"]."';\n\n"; // XssFilter in the addDataToDataString() method
       
       $statisticFile .= "return \$websiteStatistic;";
-      $statisticFile .= PHPENDTAG;
+      $statisticFile .= "\n?>";
       
       // -> SAVE the flat file
       if(file_put_contents(dirname(__FILE__)."/../../statistic/website.statistic.php", $statisticFile, LOCK_EX))
@@ -1145,7 +1006,7 @@ if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
         foreach($_SESSION['feinduraSession']['log']['lastPages'] as $lastPageId) {
           
           // load the last page again
-          $lastPage = GeneralFunctions::readPageStatistics($lastPageId);
+          $lastPage = self::readPageStatistics($lastPageId);
           
           // prevent resetting page stats
           if($lastPage === null)
@@ -1213,7 +1074,7 @@ if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
             $lastPage['visitTimeMax'] = $newMaxVisitTimes;
             $lastPage['visitTimeMin'] = $newMinVisitTimes;
             
-            GeneralFunctions::savePageStatistics($lastPage);
+            self::savePageStatistics($lastPage);
           }
           
         } // <- end of foreach(lastPages)          
@@ -1226,31 +1087,33 @@ if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
     
     // -> store the visitime start
     $_SESSION['feinduraSession']['log']['lastTimestamp'] = time();
+
+    // SAVE CURRENTPAGE STATS
+    if($page === false)
+      self::getCurrentPageId();
+    self:: refreshPageStatistics($page);
   }
   
  /**
-  * <b>Name</b> countAndSavePageStatistics()<br>
+  * <b>Name</b> refreshPageStatistics()<br>
   * 
   * Saves the following values of the page-statistic:<br>
-  *   - number of user visits
+  *   - number of visitors
   *   - first visit date time
   *   - last visit date time
   *   - which searchwords and how often they occured
   * 
   * <b>Used Global Variables</b><br>
   *    - <var>$_SESSION</var> to store whether the user is a robots and save the time and ID of the last page to calculate the time viewed the pages
-  *     
-  * <b>Used Constants</b><br>
-  *    - <var>PHPSTARTTAG</var> the php start tag
-  *    - <var>PHPENDTAG</var> the php end tag  
+  * 
   * 
   * @param $pageContent     the $pageContent array of the page
   * 
   * @uses $adminConfig                            for the save path of the pages
   * @uses isRobot()                               to check whether the user-agent is a robot or a human
   * @uses addDataToDataString()                   to add the searchwords to the searchword data-string
-  * @uses GeneralFunctions::isPageContentArray()  check if the $pageContent parameter is a valid pageContent array    
-  * @uses GeneralFunctions::savePageStatistics()  to save the page statistics
+  * @uses readPageStatistics()                    to read the last page again, to save the time spend on the page
+  * @uses savePageStatistics()                    to save the current page statictics
   * 
   * @return bool TRUE if the page-statistic was saved succesfully or FALSE if the user agent is a robot, or the $pageContent parameter is not a valid $pageContent array
   * 
@@ -1264,13 +1127,13 @@ if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
   *    - 1.0 initial release
   * 
   */
-  public static function countAndSavePageStatistics($pageId) {
+  public static function refreshPageStatistics($pageId) {
 
     // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isRobot() public static function
     //unset($_SESSION);
     
     // doesnt save anything if visitor is a logged in user
-    if($_SESSION['feinduraSession']['login']['loggedIn'])
+    if($_SESSION['feinduraSession']['login']['loggedIn'] || !is_numeric($pageId))
       return false;
 
     // -------------------------------------------------------------------------------------
@@ -1279,7 +1142,7 @@ if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
     if(self::isRobot() === false) {
          
       // LOAD the $pageStatistics array
-      $pageStatistics = GeneralFunctions::readPageStatistics($pageId);
+      $pageStatistics = self::readPageStatistics($pageId);
       
       // prevent resetting page stats
       if($pageStatistics === null)
@@ -1346,7 +1209,9 @@ if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
           );
           
           preg_match('/('.implode('|', array_keys($search_engines)).')\./', $parts['host'], $matches);
-          $searchWords = (isset($matches[1]) && isset($query[$search_engines[$matches[1]]])) ? $query[$search_engines[$matches[1]]] : '';
+          $searchWords = '';
+          if(isset($matches[1]) && isset($query[$search_engines[$matches[1]]]))
+            $searchWords = $query[$search_engines[$matches[1]]];
 /*           echo '-> '.$searchWords; */
           $searchWords = explode(' ',$searchWords);
           
@@ -1367,7 +1232,7 @@ if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
       }
       
       // -> SAVE the PAGE STATISTICS
-      return GeneralFunctions::savePageStatistics($pageStatistics);
+      return self::savePageStatistics($pageStatistics);
       
     } else
       return false;

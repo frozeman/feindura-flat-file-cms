@@ -62,7 +62,7 @@ if(is_array($currentUser) && $currentUser['password'] == $_POST['password']) {
     $returnJSON['statistics']['searchWords'] = unserialize($allSearchwords);
     
     // pages
-    $pages = GeneralFunctions::loadPages(true,true);
+    $pages = GeneralFunctions::loadPages(true);
     $pagesArray = array();
     foreach($pagesStats as $key => $pageStats) {
       $tmpPage['data']['title'] = GeneralFunctions::getLocalized($pages[$key]['localized'],'title',$adminConfig['multiLanguageWebsite']['mainLanguage']);

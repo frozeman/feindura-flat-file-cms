@@ -81,17 +81,29 @@ if(PHP_VERSION < REQUIREDPHPVERSION) {
 // *************************
 
 
-// INCLUDE FUNCTIONS
+// ->> get CONFIGS
+/**
+ * The user-settings config
+ * 
+ * This config <var>array</var> is included from: <i>"feindura-CMS/config/user.config.php"</i>
+ * 
+ * @global array $GLOBALS['userConfig']
+ */
+if(!$userConfig = @include(dirname(__FILE__)."/../../config/user.config.php"))
+  $userConfig = array();
+$GLOBALS['userConfig'] = $userConfig;
+
+
+// -> INCLUDE FUNCTIONS
 require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 
 // -> SET ERROR HANDLER
 @set_error_handler("showErrorsInWindow",E_ALL ^ E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
-// create the config, pages and statistic folders if they dont exist
+// -> CREATE the CONFIG, PAGES and STATISTIC FOLDERS if they dont exist
 createBasicFolders();
 
-// *---* sets the basic VARIABLEs ---------------------------------------------------------
-$frontendEditing  = false; // used to include this backend.inlcude.php script into the secure.include.php, if true it only loads the feindura.include.php
+// -> SET the BASIC VARIABLEs
 $errorWindow      = false; // when string the errorWindow with this string is displayed
 $documentSaved    = false; // when true the document saved icon is displayed
 $savedForm        = false; // to tell wich part fo the form was saved
@@ -99,7 +111,7 @@ $savedSettings    = false; // to tell wich settings were saved, to re-include th
 $newPage          = false; // tells the editor whether a new page is created
 $userCache        = ((!isset($_GET['status']) && !isset($_POST['status']) ) || $_GET['status'] == 'updateUserCache') ? userCache() : array();
 
-// ->> send info to content.js, so when updated the user config and a page gets free, it can remove the "contentBlocked" DIV
+// ->> SEND INFO to CONTENT.JS, so when updated the user config and a page gets free, it can remove the "contentBlocked" DIV
 if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {
   echo 'releaseBlock';
 }

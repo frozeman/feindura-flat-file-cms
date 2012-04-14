@@ -101,6 +101,11 @@ class cache
     // @return void
     private function show_cache()
     {
+      // BENCHMARK
+          $timer = explode( ' ', microtime() );
+    $endTime = $timer[1] + $timer[0];
+    $time = round($endTime - $GLOBALS['startTime'],4).'<br>';
+    echo $time;
         exit($this->ch_buffer."<!-- Cached on ".date("d M Y (h:i:s)", $this->last_mod)." -->");
     }
     

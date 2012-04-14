@@ -84,7 +84,7 @@ if(!empty($adminConfig['user']['info'])) {
     $rowColor = 'dark'; // starting row color
     
     // ->> LOAD all PAGES
-    $orgPages = GeneralFunctions::loadPages(true,true);
+    $orgPages = GeneralFunctions::loadPages(true);
     $pages = $orgPages;
     $orgPagesStats = GeneralFunctions::loadPagesStatistics(true);
     $pagesStats = $orgPagesStats;
@@ -94,9 +94,9 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<div class="innerBlockLeft">';
     echo '<h2>'.$langFile['STATISTICS_TEXT_VISITORCOUNT'].'</h2>';
       echo '<div style="width:100%; text-align:center;margin-top: -10px;">';
-      echo '<span class="visitCountNumber brown">'.StatisticFunctions::formatHighNumber($websiteStatistic['userVisitCount']).'</span><br>';
+      echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br>';
       echo '<div style="line-height: 18px;">';
-        echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'].'">'.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.StatisticFunctions::formatHighNumber($websiteStatistic['robotVisitCount']).'</span><br>';
+        echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'].'">'.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.formatHighNumber($websiteStatistic['robotVisitCount']).'</span><br>';
         // CURRENT VISITORS
         $currentVisitors = StatisticFunctions::getCurrentVisitors();
         $countVisitor = 0;
@@ -116,9 +116,9 @@ if(!empty($adminConfig['user']['info'])) {
       if(!empty($websiteStatistic['firstVisit'])) {
         echo '<div style="width:100%; text-align:right;">';       
         // FIRST VISIT
-        echo '<span class="toolTip" title="'.StatisticFunctions::formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.StatisticFunctions::formatDate($websiteStatistic['firstVisit']).'</span></span><br>';
+        echo '<span class="toolTip" title="'.formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.GeneralFunctions::formatDate($websiteStatistic['firstVisit']).'</span></span><br>';
         // LADST VISIT
-        echo '<span class="toolTip" title="'.StatisticFunctions::formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['STATISTICS_TEXT_LASTVISIT'].' <span class="blue"><b>'.StatisticFunctions::formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
+        echo '<span class="toolTip" title="'.formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['STATISTICS_TEXT_LASTVISIT'].' <span class="blue"><b>'.GeneralFunctions::formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
         
         echo '</div>';
       }
@@ -199,7 +199,7 @@ if(!empty($adminConfig['user']['info'])) {
               $pageStats['category'] = $page['category'];
             }
           }
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageStats['lastVisit'])).'</b> '.StatisticFunctions::formatTime($pageStats['lastVisit']).'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';        
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageStats['lastVisit'])).'</b> '.formatTime($pageStats['lastVisit']).'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';        
           // change row color
           $rowColor = ($rowColor == 'light') ? 'dark' : 'light';    
           // count
@@ -235,7 +235,7 @@ if(!empty($adminConfig['user']['info'])) {
         // get highest time
         $highestTime = unserialize($pageStats['visitTimeMax']);
         
-        if($pageVisitTime = StatisticFunctions::showVisitTime($highestTime[0],$langFile))
+        if($pageVisitTime = showVisitTime($highestTime[0]))
           echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
         // change row color
         $rowColor = ($rowColor == 'light') ? 'dark' : 'light';         
@@ -262,7 +262,7 @@ if(!empty($adminConfig['user']['info'])) {
       $rowColor = 'dark'; // starting row color
       foreach($pages as $page) {
         if($page['lastSaveDate'] != 0) {
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</b> '.StatisticFunctions::formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags(GeneralFunctions::getLocalized($page['localized'],'title')).'</a></td></tr>';        
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</b> '.formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags(GeneralFunctions::getLocalized($page['localized'],'title')).'</a></td></tr>';        
           // change row color
           $rowColor = ($rowColor == 'light') ? 'dark' : 'light';    
           // count
@@ -320,8 +320,8 @@ if(!empty($adminConfig['user']['info'])) {
             <ul class="coloredList">';
       foreach($logContent as $logRow) {
         $logRow = explode('|#|',$logRow);
-        $logDate = StatisticFunctions::formatDate($logRow[0]);
-        $logTime = StatisticFunctions::formatTime($logRow[0]);
+        $logDate = GeneralFunctions::formatDate($logRow[0]);
+        $logTime = formatTime($logRow[0]);
         $logUrl = $logRow[1];
  
         echo '<li class="'.$rowColor.'"><span style="font-size:11px;">'.$logDate.' '.$logTime.'</span> <a href="'.$logUrl.'" class="blue">'.str_replace('http://','',$logUrl).'</a></li>';

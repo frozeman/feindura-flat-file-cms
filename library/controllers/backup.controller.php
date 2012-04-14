@@ -49,7 +49,7 @@ if(isset($_GET['downloadBackup'])) {
     } else {
       
       if(@file_exists($backupFile)) {
-        StatisticFunctions::saveTaskLog(29); // <- SAVE the task in a LOG FILE
+        saveActivityLog(29); // <- SAVE the task in a LOG FILE
         
         header('Location: index.php?site=backup');
       } else
@@ -64,7 +64,7 @@ if(isset($_GET['downloadBackup'])) {
 // ------------>> DELETE BACKUP
 if(isset($_GET['status']) && $_GET['status'] == 'deleteBackup') {
   if(!empty($_GET['file']) && unlink('..'.$_GET['file'])) {
-    StatisticFunctions::saveTaskLog(31); // <- SAVE the task in a LOG FILE
+    saveActivityLog(31); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow .= $langFile['BACKUP_ERROR_DELETE'];
 }
@@ -153,7 +153,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
     if($errorWindow === false) {
       // set documentSaved status
       $documentSaved = true;
-      StatisticFunctions::saveTaskLog(30); // <- SAVE the task in a LOG FILE
+      saveActivityLog(30); // <- SAVE the task in a LOG FILE
     }
   }
   

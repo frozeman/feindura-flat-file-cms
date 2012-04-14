@@ -186,7 +186,7 @@ if($_POST['upload']) {
               // generates a random number to put on the end of the image, to prevent caching
               $randomImage = '?'.md5(uniqid(rand(),1));
               $response[] = $langFile['PAGETHUMBNAIL_TEXT_finish'].'<br><br><img src="'.$uploadPath.$newFileName.$randomImage.'">';
-              StatisticFunctions::saveTaskLog(6,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
+              saveActivityLog(6,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
             }
             
             $thumbSize = @getimagesize(DOCUMENTROOT.$newFilePath);

@@ -272,35 +272,29 @@ function userCache() {
  * Returns a new page ID, which is the highest page ID + 1.
  * 
  * <b>Used Global Variables</b><br>
- *    - <var>$GeneralFunctions</var> for the {@link getStoredPagesIds} (included in the {@link general.include.php})
+ *    - <var>$pageMetaData</var> to get the highest id (included in the {@link general.include.php})
  * 
  * @return int a new page ID
  * 
  * 
- * @version 1.0
+ * @version 2.0
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 2.0 uses now $pagesMetaData
  *    - 1.0 initial release
  * 
  */
 function getNewPageId() {
-  
-  // loads the file list in an array
-  $pages = GeneralFunctions::getStoredPageIds();
-  
   $highestId = 0;
   
   // go trough the file list and look for the highest number
-  if(is_array($pages)) {
-    foreach($pages as $page) {
-      $pageId = $page['page'];
-          
-      if($pageId > $highestId)
-        $highestId = $pageId;
+  if(is_array($GLOBALS['pagesMetaData'])) {
+    foreach($GLOBALS['pagesMetaData'] as $pageMetaData) {          
+      if($pageMetaData['id'] > $highestId)
+        $highestId = $pageMetaData['id'];
     }
   }
   $highestId++;
-  
   return $highestId;
 }
 
@@ -466,8 +460,8 @@ function createBasicFolders() {
  * Saves the category-settings config array to the "config/category.config.php" file.
  * 
  * <b>Used Constants</b><br>
- *    - <var>PHPSTARTTAG</var> the php start tag
- *    - <var>PHPENDTAG</var> the php end tag
+ *    - <var>"<?php\n"</var> the php start tag
+ *    - <var>"\n?>"</var> the php end tag
  * 
  * <b>Used Global Variables</b><br>
  *    - <var>$GeneralFunctions</var> to reset the {@link getStoredPagesIds} (included in the {@link general.include.php})
@@ -495,7 +489,7 @@ function saveCategories($newCategories) {
     
     // CREATE file content
     $fileContent = '';
-    $fileContent .= PHPSTARTTAG; //< ?php
+    $fileContent .= "<?php\n"; //< ?php
     
     // ->> GO through EVERY catgory and write it
     foreach($newCategories as $category) {
@@ -558,12 +552,12 @@ function saveCategories($newCategories) {
 
     }    
     $fileContent .= 'return $categoryConfig;';
-    $fileContent .= PHPENDTAG; //? >
+    $fileContent .= "\n?>"; //? >
     
     // -> SAVE the flat file
     if(file_put_contents(dirname(__FILE__)."/../../config/category.config.php", $fileContent, LOCK_EX)) {
-      // reset the stored page ids
-      GeneralFunctions::$storedPageIds = null;
+      // reload the $pagesMetaData array
+      GeneralFunctions::savePagesMetaData();
       return true;
     } else
       return false;
@@ -750,7 +744,9 @@ function movePage($page, $fromCategory, $toCategory) {
     unlink(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.php')) {
     // reset the stored page ids
     GeneralFunctions::$storedPages = null;
-    GeneralFunctions::$storedPageIds = null;
+    
+    // reload the $pagesMetaData array
+    GeneralFunctions::savePagesMetaData();
     
     return true;
   } else
@@ -763,8 +759,8 @@ function movePage($page, $fromCategory, $toCategory) {
  * Saves the administrator-settings config array to the "config/admin.config.php" file.
  * 
  * <b>Used Constants</b><br>
- *    - <var>PHPSTARTTAG</var> the php start tag
- *    - <var>PHPENDTAG</var> the php end tag
+ *    - <var>"<?php\n"</var> the php start tag
+ *    - <var>"\n?>"</var> the php end tag
  * 
  * @param array $adminConfig a $adminConfig array to save
  * 
@@ -810,7 +806,7 @@ function saveAdminConfig($adminConfig) {
 
     // CREATE file content
     $fileContent = '';
-    $fileContent .= PHPSTARTTAG; // < ?php
+    $fileContent .= "<?php\n"; // < ?php
 
     $fileContent .= "\$adminConfig['url']               = '".XssFilter::url($adminConfig['url'])."';\n";
     $fileContent .= "\$adminConfig['basePath']          = '".XssFilter::path($adminConfig['basePath'])."';\n";
@@ -871,7 +867,7 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['pageThumbnail']['path']    = '".XssFilter::path($adminConfig['pageThumbnail']['path'],false,(empty($adminConfig['uploadPath'])) ? '' : 'thumbnails/')."';\n\n";
     
     $fileContent .= "return \$adminConfig;";
-    $fileContent .= PHPENDTAG; //? >
+    $fileContent .= "\n?>"; //? >
     
     // -> SAVE the flat file
     if(file_put_contents(dirname(__FILE__)."/../../config/admin.config.php", $fileContent, LOCK_EX))
@@ -888,8 +884,8 @@ function saveAdminConfig($adminConfig) {
  * Saves the user-settings config array to the "config/user.config.php" file.
  * 
  * <b>Used Constants</b><br>
- *    - <var>PHPSTARTTAG</var> the php start tag
- *    - <var>PHPENDTAG</var> the php end tag
+ *    - <var>"<?php\n"</var> the php start tag
+ *    - <var>"\n?>"</var> the php end tag
  * 
  * @param array $userConfig a $userConfig array to save
  * 
@@ -916,7 +912,7 @@ function saveUserConfig($userConfig) {
     
     // CREATE file content
     $fileContent = '';
-    $fileContent .= PHPSTARTTAG; //< ?php
+    $fileContent .= "<?php\n"; //< ?php
     foreach($userConfig as $user => $configs) {
 
       $fileContent .= "\$userConfig['".$user."']['id']       = ".XssFilter::int($configs['id'],0).";\n";
@@ -929,7 +925,7 @@ function saveUserConfig($userConfig) {
     }      
     $fileContent .= "return \$userConfig;";
   
-    $fileContent .= PHPENDTAG; //? >
+    $fileContent .= "\n?>"; //? >
 
     // -> SAVE the flat file
     if(file_put_contents(dirname(__FILE__)."/../../config/user.config.php", $fileContent, LOCK_EX))
@@ -946,8 +942,8 @@ function saveUserConfig($userConfig) {
  * Saves the website-settings config array to the "config/website.config.php" file.
  * 
  * <b>Used Constants</b><br>
- *    - <var>PHPSTARTTAG</var> the php start tag
- *    - <var>PHPENDTAG</var> the php end tag
+ *    - <var>"<?php\n"</var> the php start tag
+ *    - <var>"\n?>"</var> the php end tag
  * 
  * @param array $websiteConfig a $websiteConfig array to save
  * 
@@ -976,7 +972,7 @@ function saveWebsiteConfig($websiteConfig) {
     
     // CREATE file content
     $fileContent = '';
-    $fileContent .= PHPSTARTTAG; //< ?php
+    $fileContent .= "<?php\n"; //< ?php
 
     $fileContent .= "\$websiteConfig['startPage']      = ".XssFilter::int($websiteConfig['startPage'],0).";\n\n";
 
@@ -997,12 +993,15 @@ function saveWebsiteConfig($websiteConfig) {
     
     $fileContent .= "return \$websiteConfig;";
   
-    $fileContent .= PHPENDTAG; //? >
+    $fileContent .= "\n?>"; //? >
 
     // -> SAVE the flat file
-    if(file_put_contents(dirname(__FILE__)."/../../config/website.config.php", $fileContent, LOCK_EX))
+    if(file_put_contents(dirname(__FILE__).'/../../config/website.config.php', $fileContent, LOCK_EX)) {
+      unset($GLOBALS['websiteConfig']); $GLOBALS['websiteConfig'] = include(dirname(__FILE__).'/../../config/website.config.php'); 
+      // reload $pagesMetaData array, because of the startPage
+      GeneralFunctions::savePagesMetaData();
       return true;
-    else
+    } else
       return false;
   } else
     return false;
@@ -1015,8 +1014,8 @@ function saveWebsiteConfig($websiteConfig) {
  * Saves the statiostic-settings config array to the "config/statistic.config.php" file.
  * 
  * <b>Used Constants</b><br>
- *    - <var>PHPSTARTTAG</var> the php start tag
- *    - <var>PHPENDTAG</var> the php end tag
+ *    - <var>"<?php\n"</var> the php start tag
+ *    - <var>"\n?>"</var> the php end tag
  * 
  * @param array $statisticConfig a $statisticConfig array to save
  * 
@@ -1043,7 +1042,7 @@ function saveStatisticConfig($statisticConfig) {
     
     /// CREATE file content
     $fileContent = '';
-    $fileContent .= PHPSTARTTAG; //< ?php
+    $fileContent .= "<?php\n"; //< ?php
 
     $fileContent .= "\$statisticConfig['number']['mostVisitedPages']        = ".XssFilter::int($statisticConfig['number']['mostVisitedPages'],10).";\n";
     $fileContent .= "\$statisticConfig['number']['longestVisitedPages']     = ".XssFilter::int($statisticConfig['number']['longestVisitedPages'],10).";\n";
@@ -1055,7 +1054,7 @@ function saveStatisticConfig($statisticConfig) {
     
     $fileContent .= "return \$statisticConfig;";
   
-    $fileContent .= PHPENDTAG; //? >
+    $fileContent .= "\n?>"; //? >
 
     // -> SAVE the flat file
     if(file_put_contents(dirname(__FILE__)."/../../config/statistic.config.php", $fileContent, LOCK_EX))
@@ -1212,6 +1211,282 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
 }
 
 /**
+ * <b>Name</b> saveActivityLog()<br>
+ * 
+ * Adds a entry to the task log-file with time and task which was performed.
+ * 
+ * Example entry:
+ * <samp>
+ * 1334313735|#|frozeman|#|i:1;|#|page=3
+ * </samp>
+ * 
+ * <b>Used Global Variables</b><br>
+ *   - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+ *   - <var>$statisticConfig</var> the statistic config (included in the {@link general.include.php})
+ * 
+ * 
+ * @param string $task     a description of the task which was performed
+ * @param string $object   (optional) the page name or the name of the object on which the task was performed
+ * 
+ * 
+ * @return bool
+ * 
+ * @static
+ * @version 1.1
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.1 moved tobackend functions again
+ *    - 1.0 initial release
+ * 
+ */
+function saveActivityLog($task, $object = false) {
+  
+  $maxEntries = $GLOBALS['statisticConfig']['number']['taskLog'];
+  $logFilePath = dirname(__FILE__).'/../../'.'statistic/activity.statistic.log';
+  $oldLog = false;
+  
+  if($logFile = @fopen($logFilePath,"r")) {
+    flock($logFile,LOCK_SH);
+    if(is_file($logFilePath))
+      $oldLog = @file($logFilePath);
+    flock($logFile,LOCK_UN);
+    fclose($logFile);
+  }
+    
+    
+  // adds the Object
+  $object = ($object) ? '|#|'.$object : false;
+  
+  // -> create the new log string
+  $newLog = time().'|#|'.$_SESSION['feinduraSession']['login']['username'].'|#|'.serialize($task).$object;
+  
+  // CREATE file content
+  $fileContent = '';
+  $fileContent .= $newLog."\n";
+  $count = 2;
+  if(is_array($oldLog)) {
+    foreach($oldLog as $oldLogRow) {
+      $fileContent .= $oldLogRow;
+      // stops the log after 120 entries
+      if($count == $maxEntries)
+        break;
+      $count++;
+    }
+  }
+  
+  // -> write file
+  if(file_put_contents($logFilePath, $fileContent, LOCK_EX)) {
+    // -> add permissions on the first creation
+    if(!$oldLog) @chmod($logFilePath, $GLOBALS['adminConfig']['permissions']);
+    
+    return true;
+  } else
+    return false;
+}
+
+/**
+* <b>Name</b> saveSitemap()<br>
+* 
+* Saves a sitemap xml file (see http://www.sitemaps.org).
+* 
+* <b>Used Global Variables</b><br>
+*    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+*    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+*    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
+* 
+* 
+* @return bool whether the saving of the sitemap was done or not
+* 
+* @link http://www.sitemaps.org
+* @version 0.3
+* <br>
+* <b>ChangeLog</b><br>
+*    - 0.3 moved to backend.functions.php
+*    - 0.2 return false if the real website path, couldn't be resolved
+*    - 0.1 initial release
+* 
+*/
+function saveSitemap() {
+  
+  // vars
+  $websitePath = GeneralFunctions::getDirname($GLOBALS['adminConfig']['websitePath']);
+  $realWebsitePath = GeneralFunctions::getRealPath($websitePath).'/';
+  if($realWebsitePath == '/')
+    return false;
+  $baseUrl = $GLOBALS['adminConfig']['url'].$websitePath;
+  
+  // get the Sitemap class
+  require_once(dirname(__FILE__).'/../thirdparty/PHP/Sitemap.php');
+  
+  // vars
+  $sitemapPages = GeneralFunctions::loadPages(true);
+  
+  // ->> START sitemap
+  $sitemap = new Sitemap($baseUrl,$realWebsitePath,true); // gzip encoded
+  $sitemap->showError =  false;
+  $sitemap->filePermissions =  $GLOBALS['adminConfig']['permissions'];
+  $sitemap->page('pages');
+  
+  // ->> adds the sitemap ENTRIES
+  foreach($sitemapPages as $sitemapPage) {
+    
+    // ->> if category is deactivated jump to the next item in the foreach loop
+    if($sitemapPage['category'] != 0 && !$GLOBALS['categoryConfig'][$sitemapPage['category']]['public'])
+      continue;
+    
+    if($sitemapPage['public']) {
+      // generate page link
+      $link = GeneralFunctions::createHref($sitemapPage,false,$GLOBALS['adminConfig']['multiLanguageWebsite']['mainLanguage'],true);
+      // add page to sitemap
+      $sitemap->url($link, date('Y-m-d',$sitemapPage['lastSaveDate']), 'weekly'); 
+    }
+  }
+  
+  $sitemap->close(); 
+  unset ($sitemap);
+  return true;
+}
+
+/**
+ * <b>Name</b> saveFeeds()<br>
+ * 
+ * Saves an Atom and RSS 2.0 Feed for the given category.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+ *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+ *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
+ * 
+ * @param string $category the category of which feeds should be created
+ * 
+ *  @return bool whether the saving of the feeds succeed or not
+ * 
+ * 
+ * @version 0.3
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 0.3 moved to backend.functions.php
+ *    - 0.2 add multilanguage website, creating multiple feeds
+ *    - 0.1 initial release
+ * 
+ */
+function saveFeeds($category) {
+  
+  // vars
+  $return = false;
+  $languages = ($GLOBALS['adminConfig']['multiLanguageWebsite']['active'])
+    ? $GLOBALS['adminConfig']['multiLanguageWebsite']['languages']
+    : array(0 => 0);
+
+  foreach ($languages as $langCode) {
+    
+    $addLanguageToFilename = (!empty($langCode)) ? '.'.$langCode : '';
+
+    // vars
+    $atomFileName = ($category == 0) 
+      ? dirname(__FILE__).'/../../pages/atom'.$addLanguageToFilename.'.xml'
+      : dirname(__FILE__).'/../../pages/'.$category.'/atom'.$addLanguageToFilename.'.xml';
+    $rss2FileName = ($category == 0) 
+      ? dirname(__FILE__).'/../../pages/rss2'.$addLanguageToFilename.'.xml'
+      : dirname(__FILE__).'/../../pages/'.$category.'/rss2'.$addLanguageToFilename.'.xml';
+    
+    // ->> DELETE the xml files, if category is deactivated, or rss feeds are activated for that category
+    if(($category != 0 && (!$GLOBALS['categoryConfig'][$category]['public'] || !$GLOBALS['categoryConfig'][$category]['feeds'])) ||
+       ($category == 0 && !$GLOBALS['adminConfig']['pages']['feeds'])) {
+      if(is_file($atomFileName)) unlink($atomFileName);
+      if(is_file($rss2FileName)) unlink($rss2FileName);
+      return false;
+    }
+    
+    // get the FeedWriter class
+    require_once(dirname(__FILE__).'/../thirdparty/FeedWriter/FeedWriter.php');
+    
+    // vars
+    $feedsPages = GeneralFunctions::loadPages($category,true);
+    $channelTitle = ($category == 0)
+      ? GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'title',$langCode)
+      : GeneralFunctions::getLocalized($GLOBALS['categoryConfig'][$category]['localized'],'name',$langCode).' - '.GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'title',$langCode);
+    
+    // ->> START feeds
+    $atom = new FeedWriter(ATOM);
+    $rss2 = new FeedWriter(RSS2);
+  
+    // ->> CHANNEL
+    // -> ATOM
+    $atom->setTitle($channelTitle); 
+    $atom->setLink($GLOBALS['adminConfig']['url']);  
+    $atom->setChannelElement('updated', date(DATE_ATOM , time()));
+    $atom->setChannelElement('author', array('name'=>GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'publisher',$langCode)));
+    $atom->setChannelElement('rights', GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'copyright',$langCode));
+    $atom->setChannelElement('generator', 'feindura - flat file cms',array('uri'=>'http://feindura.org','version'=>VERSION));
+    
+    // -> RSS2
+    $rss2->setTitle($channelTitle);
+    $rss2->setLink($GLOBALS['adminConfig']['url']);  
+    $rss2->setDescription(GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'description',$langCode));
+    //$rss2->setChannelElement('language', 'en-us');
+    $rss2->setChannelElement('pubDate', date(DATE_RSS, time()));
+    $rss2->setChannelElement('copyright', GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'copyright',$langCode)); 
+    
+    // ->> adds the feed ENTRIES/ITEMS
+    foreach($feedsPages as $feedsPage) {
+      
+      if($feedsPage['public']) {
+        // shows the page link
+        $link = GeneralFunctions::createHref($feedsPage,false,$langCode,true);
+        $title = strip_tags(GeneralFunctions::getLocalized($feedsPage['localized'],'title',$langCode));
+        $description = GeneralFunctions::getLocalized($feedsPage['localized'],'description',$langCode);
+        
+        $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.$GLOBALS['adminConfig']['url'].$GLOBALS['adminConfig']['uploadPath'].$GLOBALS['adminConfig']['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
+        $content = GeneralFunctions::replaceLinks(GeneralFunctions::getLocalized($feedsPage['localized'],'content',$langCode),false,$langCode,true);
+        $content = strip_tags($content,'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><em><s><u><strong><small><span>');
+        $content = preg_replace('#<h[0-6]>#','<strong>',$content);
+        $content = preg_replace('#</h[0-6]>#','</strong><br>',$content);
+        
+        // ATOM
+        $atomItem = $atom->createNewItem();   
+        $atomItem->setTitle($title);
+        $atomItem->setLink($link);
+        $atomItem->setDate($feedsPage['lastSaveDate']);
+        $atomItem->addElement('content',$thumbnail.$content,array('src'=>$link));
+      
+        // RSS2
+        $rssItem = $rss2->createNewItem();    
+        $rssItem->setTitle($title);
+        $rssItem->setLink($link);
+        $rssItem->setDate($feedsPage['lastSaveDate']);
+        $rssItem->addElement('guid', $link,array('isPermaLink'=>'true'));
+
+        // BOTH
+        if(empty($description)) {
+          //$atomItem->setDescription($thumbnail.GeneralFunctions::shortenString(strip_tags($content),450)); // dont create Atom description when, there is already an content tag
+          $rssItem->setDescription($thumbnail.GeneralFunctions::shortenString(strip_tags($content),450));
+        } else {
+          $atomItem->setDescription($thumbnail.$description);
+          $rssItem->setDescription($thumbnail.$description);
+        }
+        
+        //Now add the feeds item  
+        $atom->addItem($atomItem);
+        //Now add the feeds item  
+        $rss2->addItem($rssItem);
+      }
+    }
+      
+    // -> SAVE
+    if(file_put_contents($atomFileName,$atom->generateFeed(),LOCK_EX) !== false &&
+            file_put_contents($rss2FileName,$rss2->generateFeed(),LOCK_EX) !== false) {
+      @chmod($atomFileName, $GLOBALS['adminConfig']['permissions']);
+      @chmod($rss2FileName, $GLOBALS['adminConfig']['permissions']);
+      $return = true; 
+    } else
+      $return = false;
+
+  }
+  return $return;
+}
+
+/**
  * <b>Name</b> generateBackupFileName()<br>
  * 
  * Generates the backup file name like:
@@ -1340,7 +1615,7 @@ function prepareStyleFilePaths($givenStyleFiles) {
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  * 
  * @param string   $givenStyle the string with the stylesheet-file path, id or class
- * @param string   $styleType  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass" 
+ * @param string   $styleType  the key for the $pageContent, $categoryConfig or $adminConfig array can be "styleFile", "styleId" or "styleClass" 
  * @param int|true $category   the ID of the category to bubble through or TRUE when the stylesheet-file path, id or class is from a category
  * 
  * @return string an empty string or the $givenStyle parameter if it was not found through while bubbleing up
@@ -1381,7 +1656,7 @@ function setStylesByPriority($givenStyle,$styleType,$category) {
  * 
  * 
  * @param string   $styleFiles the string with the stylesheet-file path, id or class
- * @param string   $inputNames  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass" 
+ * @param string   $inputNames  the key for the $pageContent, $categoryConfig or $adminConfig array can be "styleFile", "styleId" or "styleClass" 
  * 
  * @return string the style File inputs
  * 
@@ -1420,15 +1695,16 @@ function showStyleFileInputs($styleFiles,$inputNames) {
  * 
  * @param array        $pageContent  the $pageContent array of a page
  * 
- * @uses StatisticFunctions::checkPageDate()      to check if the page date is a valid date
- * @uses StatisticFunctions::dateDayBeforeAfter() to check if the date was yesterday or is tomorrow
- * @uses StatisticFunctions::formatDate()         to format the unix timstamp into the right date format
+ * @uses GeneralFunctions::checkPageDate()      to check if the page date is a valid date
+ * @uses GeneralFunctions::dateDayBeforeAfter() to check if the date was yesterday or is tomorrow
+ * @uses GeneralFunctions::formatDate()         to format the unix timstamp into the right date format
  * 
  * @return string the page date as text string, or an error text
  * 
- * @version 1.0
+ * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.1 moved to backend.functions.php
  *    - 1.0 initial release
  * 
  */
@@ -1439,7 +1715,7 @@ function showPageDate($pageContent) {
   $titleDateBefore = '';
   $titleDateAfter = '';
   
-  if(StatisticFunctions::checkPageDate($pageContent)) {
+  if(GeneralFunctions::checkPageDate($pageContent)) {
     $pageDate = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate');
     $pageDateBefore = $pageDate['before'];
     $pageDateAfter = $pageDate['after'];
@@ -1448,11 +1724,269 @@ function showPageDate($pageContent) {
   	if(!empty($pageDateAfter)) $titleDateAfter = ' '.$pageDateAfter;
 
     // CHECKs the DATE FORMAT
-    $return = (StatisticFunctions::validateDateFormat(StatisticFunctions::formatDate($pageContent['pageDate']['date'])) === false)
+    $return = (validateDateFormat(GeneralFunctions::formatDate($pageContent['pageDate']['date'])) === false)
     ? '[br][b]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/b] '.$titleDateBefore.'[span style=color:#950300]'.$GLOBALS['langFile']['EDITOR_pageSettings_pagedate_error'].':[/span][br] '.$pageContent['pageDate']['date'].$titleDateAfter
-    : '[br][b]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/b] '.$titleDateBefore.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$GLOBALS['langFile'])).$titleDateAfter;
+    : '[br][b]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/b] '.$titleDateBefore.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$GLOBALS['langFile'])).$titleDateAfter;
   }    
   return $return;
+}
+
+/**
+ * <b>Name</b> showVisitTime()<br>
+ * 
+ * Converts a given time into "12 Seconds", "01:15 Minutes" or "01:30:20 Hours".
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
+ * 
+ * @param string $time     the time in the following format: "HH:MM:SS"
+ * 
+ * @return string the formated time
+ * 
+ * @static
+ * @version 1.1
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.1 moved to backend.functions.php
+ *    - 1.0 initial release
+ * 
+ */
+function showVisitTime($time) {
+  
+  // change seconds to the following format: hh:mm:ss
+  $time = secToTime($time);
+  
+  $hour = substr($time,0,2);
+  $minute = substr($time,3,2);
+  $second = substr($time,6,2);
+  
+  // adds the text for the HOURs
+  if($hour == 0)
+      $hour = false;
+  // adds the text for the MINUTEs
+  if($minute == 0)
+      $minute = false;  
+  // adds the text for the SECONDs
+  if($second == 0)
+      $second = false;
+  
+  // 01:01:01 Stunden
+  if($hour !== false && $minute !== false && $second !== false)
+      $printTime = $hour.':'.$minute.':'.$second;
+  // 01:01 Stunden
+  elseif($hour !== false && $minute !== false && $second === false)
+      $printTime = $hour.':'.$minute;
+  // 01:01 Minuten
+  elseif($hour === false && $minute !== false && $second !== false)
+      $printTime = $minute.':'.$second; 
+  
+  // 01 Stunden
+  elseif($hour !== false && $minute === false && $second === false)
+      $printTime = $hour;
+  // 01 Minuten
+  elseif($hour === false && $minute !== false && $second === false)
+      $printTime = $minute;
+  // 01 Sekunden
+  elseif($hour === false && $minute === false && $second !== false)
+      $printTime = $second;
+  
+  
+  // get the time together
+  if($hour) {
+    if($hour == 1)
+      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_HOUR_SINGULAR'].'</b>';
+    else
+      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_HOUR_PLURAL'].'</b>';
+  } elseif($minute) {
+    if($minute == 1)
+      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_MINUTE_SINGULAR'].'</b>';
+    else
+      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_MINUTE_PLURAL'].'</b>';
+  } elseif($second) {
+    if($second == 1)
+      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_SECOND_SINGULAR'].'</b>';
+    else
+      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_SECOND_PLURAL'].'</b>';
+  }
+  
+  // RETURN formated time
+  if($time != '00:00:00')
+    return $printTime;
+  else
+    return false;
+}
+
+/**
+ * <b>Name</b> secToTime()<br>
+ * 
+ * Converts seconds into a readable time
+ * 
+ * @return string the seconds in a readable time
+ * 
+ * @static
+ * @version 1.1
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.1 moved to backend.functions.php
+ *    - 1.0 initial release
+ * 
+ */
+function secToTime($sec) {
+  $hours = floor($sec / 3600);
+  $mins = floor(($sec -= ($hours * 3600)) / 60);  
+  $seconds = floor($sec - ($mins * 60));
+  
+  // adds leading zeros
+  if($hours < 10)
+    $hours = '0'.$hours;
+  if($mins < 10)
+    $mins = '0'.$mins;
+  if($seconds < 10)
+    $seconds = '0'.$seconds;
+  
+  return $hours.':'.$mins.':'.$seconds;
+}
+
+/**
+ * <b>Name</b> validateDateFormat()<br>
+ * 
+ * Check if a date is valid and returns the date as UNIX-Timestamp
+ * 
+ * @param string $dateString a UNIX-Timestamp or the date to validate, with the following format: "YYYY-MM-DD", "DD-MM-YYYY" or "YYYY-DD-MM" and the follwing separators ".", "-", "/", " ", '", "," or ";"
+ * 
+ * @return int|false the timestamp of the date or FALSE if the date is not valid
+ * 
+ * @static
+ * @version 1.1
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.1 moved to backend.functions.php
+ *    - 1.0 initial release
+ * 
+ */
+function validateDateFormat($dateString) {
+  
+  // if its a unix timestamp return immediately
+  if(preg_match('/^[0-9]{1,}$/',$dateString))
+    return $dateString;
+  
+  if(!is_string($dateString) && !is_numeric($dateString))
+    return false;
+    
+  // get the date out of the $dateString
+  //$date = substr($dateString, -10);
+  //$beforeDate = substr($dateString,0, -10);
+  $date = str_replace(array('\'', ';', ' ', '-', '.', ','), '/', $dateString);
+  
+  $date = explode('/', $date);
+
+  // CHECK a date with no seperation signs -> has to have the format YYYYMMDD or DDMMYYYY
+  if(count($date) == 1)  {
+    $date[0] = substr($date[0],-8);
+    
+    if(is_numeric($date[0])) {
+    
+      // YYYYMMDD
+      if(checkdate(substr($date[0], 4, 2),
+                   substr($date[0], 6, 2),
+                   substr($date[0], 0, 4)))
+        return mktime(23,59,59,substr($date[0], 4, 2),substr($date[0], 6, 2),substr($date[0], 0, 4));
+      // DDMMYYYY
+      elseif(checkdate(substr($date[0], 2, 2),
+                       substr($date[0], 0, 2),
+                       substr($date[0], 4, 4)))
+        return mktime(23,59,59,substr($date[0], 2, 2),substr($date[0], 0, 2),substr($date[0], 4, 4));
+      else
+        return false;
+    } else
+      return false;
+    
+  // -> CHECK the array with the date
+  } elseif(count($date) == 3 &&
+     is_numeric($date[0]) &&
+     is_numeric($date[1]) &&
+     is_numeric($date[2])) {
+    
+    // adds ZEROs before the number IF number is only one character
+    if(strlen($date[0]) == 1)
+      $date[0] = '0'.$date[0];
+    if(strlen($date[1]) == 1)
+      $date[1] = '0'.$date[1];
+    if(strlen($date[2]) == 1)
+      $date[2] = '0'.$date[2];
+    //echo 'dd:'.$date[0].'-'.$date[1].'-'.$date[2];
+    //ddmmyyyy
+    if(strlen($date[2]) == 4 && checkdate($date[1], $date[0], $date[2]))
+      return mktime(23,59,59,$date[1],$date[0],$date[2]);
+    //yyyymmdd
+    elseif(strlen($date[0]) == 4 && checkdate($date[1], $date[2], $date[0]))
+      return mktime(23,59,59,$date[1],$date[2],$date[0]);
+    //mmddyyyy
+    elseif(strlen($date[2]) == 4 && checkdate($date[0], $date[1], $date[2]))
+      return mktime(23,59,59,$date[0],$date[1],$date[2]);
+    else
+      return false;
+  }
+  
+  // if the this function doesn't return something, return false
+  return false;
+}
+
+/**
+ * <b>Name</b> formatTime()<br>
+ * 
+ * Converts a given timestamp into the following format "12:60" or "12:60:00", if the <var>$showSeconds</var> parameter is TRUE.
+ * 
+ * @param int    $timeStamp      the given date with following format: "YYYY-MM-DD HH:MM:SS" or "HH:MM:SS"
+ * @param bool   $showSeconds    (optional) whether seconds are shown in the time string
+ * 
+ * @return string the formated time with or without seconds or the $timestamp parameter
+ * 
+ * @static
+ * @version 1.1
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.1 moved to backend.functions.php
+ *    - 1.01 changed from date conversion to timestamp  
+ *    - 1.0 initial release
+ * 
+ */
+function formatTime($timeStamp,$showSeconds = false) {
+  
+  if(empty($timeStamp) || !preg_match('/^[0-9]{1,}$/',$timeStamp))
+    return $timeStamp;
+  
+  return ($showSeconds)
+    ? date('H:i:s',$timeStamp)
+    : date('H:i',$timeStamp);
+}
+  
+/**
+ * <b>Name</b> formatHighNumber()<br>
+ * 
+ * Seperates the thouseds in a number with whitespaces.
+ * 
+ * Example
+ * <samp>
+ * 12 050 125
+ * </samp>
+ * 
+ * @param float $number          the number to convert
+ * @param int   $decimalsNumber  (optional) the number of decimal places, like "1 250,25"
+ * 
+ * @return float the converted number
+ * 
+ * @static
+ * @version 1.1
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.1 moved to backend.functions.php
+ *    - 1.0 initial release
+ * 
+ */
+function formatHighNumber($number,$decimalsNumber = 0) {
+  $number = floatval($number);
+  return number_format($number, $decimalsNumber, ',', ' ');
 }
 
 /**
@@ -1995,8 +2529,8 @@ function missingLanguageWarning() {
           foreach ($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] as $langCode) {
             if(!isset($category['localized'][$langCode])) {
               $categoryName = GeneralFunctions::getLocalized($category['localized'],'name');
-              $categoryName = (!empty($categoryName)) ? ' &lArr; '.$categoryName : '';
-              $categoryConfig .= '<span><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> <a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageNames'][$langCode].'</a>'.$categoryName.'</span><br>';
+              $categoryName = (!empty($categoryName)) ? $categoryName.' &rArr; ' : '';
+              $categoryConfig .= '<span><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> '.$categoryName.'<a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageNames'][$langCode].'</a></span><br>';
             }
           }
         }

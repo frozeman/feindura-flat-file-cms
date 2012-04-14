@@ -73,7 +73,7 @@ if($_POST['asking']) {
 
 
   // if(GeneralFunctions::savePage($pageContent)) {
-  //   StatisticFunctions::saveTaskLog(array(33,$languageNames[$_POST['addLanguageSelection']]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
+  //   saveActivityLog(array(33,$languageNames[$_POST['addLanguageSelection']]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
     
     $question = '';
     echo 'DONTSHOW';        

@@ -43,10 +43,10 @@ if($_POST['asking']) {
   unset($pageContent['localized'][$language]);
 
   if(GeneralFunctions::savePage($pageContent)) {
-    StatisticFunctions::saveTaskLog(array(32,$languageNames[$language]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
+    saveActivityLog(array(32,$languageNames[$language]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
 
     // ->> save the FEEDS, if activated
-    GeneralFunctions::saveFeeds($pageContent['category']);
+    saveFeeds($pageContent['category']);
     
     $question = '';
     echo 'DONTSHOW';        

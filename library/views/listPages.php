@@ -54,10 +54,10 @@ foreach($allCategories as $category) {
   $categoryName = GeneralFunctions::getLocalized($category['localized'],'name');
 
   // -> LOAD PAGES of this CATEGORY
-  $pages = GeneralFunctions::loadPages($category['id'],true);
+  $pages = GeneralFunctions::loadPages($category['id']);
 
   // -> GET PAGES WHICH HAVE THIS CATEGORY AS SUBCATEGORY
-  $allPages = GeneralFunctions::loadPages(true,true);
+  $allPages = GeneralFunctions::loadPages(true);
   $pagesOfSubCategory = array();
   foreach ($allPages as $pageContent) {
     if($pageContent['subCategory'] == $category['id'] && 
@@ -166,7 +166,7 @@ foreach($allCategories as $category) {
     // zählt die $pages durch
     foreach ($pages as $pageContent) {
     
-      $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
+      $pageStatistics = StatisticFunctions::readPageStatistics($pageContent['id']);
 
       // vars
       $pageTitle_pageDate      = '';
@@ -188,10 +188,10 @@ foreach($allCategories as $category) {
       
       // shorten the title
       $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title')),27);
-      $visitorCount = GeneralFunctions::shortenString(StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']),12);
+      $visitorCount = GeneralFunctions::shortenString(formatHighNumber($pageStatistics['visitorCount']),12);
       
       // -> show lastSaveDate
-      $lastSaveDate = StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.StatisticFunctions::formatTime($pageContent['lastSaveDate']);
+      $lastSaveDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.formatTime($pageContent['lastSaveDate']);
       
       // -> show page ID
       $pageTitle_Id = (isAdmin())
@@ -257,7 +257,7 @@ foreach($allCategories as $category) {
       echo (!empty($pageContent['lastSaveAuthor']))
         ? '<div class="lastSaveDate toolTip" title="'.$langFile['EDITOR_h1_lastsaveauthor'].' '.$pageContent['lastSaveAuthor'].'::">'.$lastSaveDate.'</div>'
         : '<div class="lastSaveDate">'.$lastSaveDate.'</div>';
-      echo '<div class="counter toolTip" title="'.StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']).'">'.$visitorCount.'</div>';
+      echo '<div class="counter toolTip" title="'.formatHighNumber($pageStatistics['visitorCount']).'">'.$visitorCount.'</div>';
       
       // PAGE and LANGUAGE STATUS
       echo '<div class="status'.$publicClass.'">';

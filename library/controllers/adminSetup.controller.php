@@ -133,7 +133,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   if(saveAdminConfig($adminConfig)) {
     // give documentSaved status
     $documentSaved = true;
-    StatisticFunctions::saveTaskLog(8); // <- SAVE the task in a LOG FILE
+    saveActivityLog(8); // <- SAVE the task in a LOG FILE
     
   } else
     $errorWindow .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['realBasePath']);
@@ -181,7 +181,7 @@ if(isset($_POST['saveFckStyleFile'])) {
     
     // give documentSaved status
     $documentSaved = true;
-    StatisticFunctions::saveTaskLog(9); // <- SAVE the task in a LOG FILE
+    saveActivityLog(9); // <- SAVE the task in a LOG FILE
   } else {
     $errorWindow .= $langFile['adminSetup_styleFileSettings_error_save'];
   }
@@ -200,8 +200,9 @@ if($savedSettings) {
     flock($fp,LOCK_UN);
     fclose($fp);
   }
+  // reload the $pagesMetaData array
+  GeneralFunctions::savePagesMetaData();
   // RESET of the vars in the classes
-  GeneralFunctions::$storedPageIds = null;
   GeneralFunctions::$storedPages = null;
   GeneralFunctions::$adminConfig = $adminConfig;
   StatisticFunctions::$adminConfig = $adminConfig;

@@ -55,13 +55,13 @@ $hidden = ' hidden';
   <h1><a href="#"><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27"><?php echo $langFile['EDITOR_pagestatistics_h1']; ?></a></h1>
   <div class="content">
   <?php
-  $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
+  $pageStatistics = StatisticFunctions::readPageStatistics($pageContent['id']);
   // -> statistic vars
   // --------------
-  $firstVisitDate = StatisticFunctions::formatDate($pageStatistics['firstVisit']);
-  $firstVisitTime = StatisticFunctions::formatTime($pageStatistics['firstVisit']);
-  $lastVisitDate = StatisticFunctions::formatDate($pageStatistics['lastVisit']);
-  $lastVisitTime = StatisticFunctions::formatTime($pageStatistics['lastVisit']);
+  $firstVisitDate = GeneralFunctions::formatDate($pageStatistics['firstVisit']);
+  $firstVisitTime = formatTime($pageStatistics['firstVisit']);
+  $lastVisitDate = GeneralFunctions::formatDate($pageStatistics['lastVisit']);
+  $lastVisitTime = formatTime($pageStatistics['lastVisit']);
   
   $visitTimes_max = unserialize($pageStatistics['visitTimeMax']);
   $visitTimes_min = unserialize($pageStatistics['visitTimeMin']);
@@ -85,7 +85,7 @@ $hidden = ' hidden';
         </td><td class="right" style="font-size:15px;">
           <?php
           // -> VISIT COUNT
-          echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']).'</span>';
+          echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.formatHighNumber($pageStatistics['visitorCount']).'</span>';
           ?>
         </td>      
       </tr>
@@ -122,7 +122,7 @@ $hidden = ' hidden';
           $showTimeHead = true;
           if(is_array($visitTimes_max)) {
             foreach($visitTimes_max as $visitTime_max) {
-              if($visitTime_max_formated = StatisticFunctions::showVisitTime($visitTime_max,$langFile)) {
+              if($visitTime_max_formated = showVisitTime($visitTime_max)) {
                 if($showTimeHead)
                   echo '<span class="blue" id="visitTimeMax">'.$visitTime_max_formated.'</span><br>
                   <div id="visitTimeMaxContainer">';
@@ -147,7 +147,7 @@ $hidden = ' hidden';
           if(is_array($visitTimes_max)) {
             $visitTimes_min = array_reverse($visitTimes_min);
             foreach($visitTimes_min as $visitTime_min) {          
-              if($visitTime_min_formated = StatisticFunctions::showVisitTime($visitTime_min,$langFile)) {
+              if($visitTime_min_formated = showVisitTime($visitTime_min)) {
                 if($showTimeHead)
                   echo '<span class="blue" id="visitTimeMin">'.$visitTime_min_formated.'</span><br>
                   <div id="visitTimeMinContainer">';
@@ -278,8 +278,8 @@ if(!$newPage) {
     <?php
 
     // -> show LAST SAVE DATE TIME
-    $lastSaveDate =  StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile));
-    $lastSaveTime =  StatisticFunctions::formatTime($pageContent['lastSaveDate']);
+    $lastSaveDate =  GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile));
+    $lastSaveTime =  formatTime($pageContent['lastSaveDate']);
     
     $editedByUser = (!empty($pageContent['lastSaveAuthor']))
       ? '</b> '.$langFile['EDITOR_pageinfo_lastsaveauthor'].' <b>'.$pageContent['lastSaveAuthor']
@@ -536,7 +536,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
           $dateFormat = $langFile['DATE_'.$adminConfig['dateFormat']];
           
           // CHECKs the DATE FORMAT
-          if(!empty($pageDate) && StatisticFunctions::validateDateFormat($pageDate) === false)
+          if(!empty($pageDate) && validateDateFormat($pageDate) === false)
             echo '<label for="pageDate[before]" class="toolTip red" title="'.$langFile['EDITOR_pageSettings_pagedate_error'].'::'.$langFile['EDITOR_pageSettings_pagedate_error_tip'].'[br][strong]'.$dateFormat.'[/strong]"><strong>'.$langFile['EDITOR_pageSettings_pagedate_error'].'</strong></label>'; 
           else
             echo '<label for="pageDate[before]" class="toolTip" title="'.$langFile['EDITOR_pageSettings_field3'].'::'.$langFile['EDITOR_pageSettings_field3_tip'].'">'.$langFile['EDITOR_pageSettings_field3'].'</label>';

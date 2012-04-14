@@ -25,7 +25,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 $opendCategory = false;
 
 // ->> CHANGE CATEGORY STATUS
-if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus') {    
+if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus') {
      
       // change the status
       $categoryConfig[$_GET['category']]['public'] = ($_GET['public']) ? false : true;
@@ -35,9 +35,9 @@ if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus') {
         $documentSaved = true;
         // ->> save the FEEDS, if activated
         GeneralFunctions::$categoryConfig = $categoryConfig;
-        GeneralFunctions::saveFeeds($_GET['category']);
+        saveFeeds($_GET['category']);
         // ->> save the SITEMAP
-        GeneralFunctions::saveSitemap();
+        saveSitemap();
         
       } else
         $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['realBasePath']);
