@@ -1,6 +1,6 @@
 <?php
 /**
- * GERMAN (DE) language-file for the contactForm plugin
+ * GERMAN (DE) plugin language file
  * 
  * NEEDS a RETURN $pluginLangFile; at the END
  * 

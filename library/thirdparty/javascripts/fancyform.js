@@ -219,9 +219,9 @@ var FancyForm = new Class ({
 	},
 	setDepency: function(element,depencies,checkElement,checkDepencies) {
 	  
-	  if(typeof(checkElement) == 'undefined')
+	  if(typeOf(checkElement) == 'null')
 	   checkElement = true;
-	  if(typeof(checkDepencies) == 'undefined')
+	  if(typeOf(checkDepencies) == 'null')
 	   checkDepencies = true;
 	  
 	  if(this.elements.contains($(element))) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * FRENCH (FR) language-file for the pageRating plugin
+ * FRENCH (FR) plugin language file
  * 
  * NEEDS a RETURN $pluginLangFile; at the END
  * 
@@ -25,8 +25,9 @@ $pluginLangFile['feinduraPlugin_description']  = 'Affiche une cote de 5 étoiles
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['valueNumber'] = 'cote';
-$pluginLangFile['votesNumber'] = 'nombre de cote';
+$pluginLangFile['valueNumber']     = 'cote';
+$pluginLangFile['valueNumber_tip'] = 'Valeur entre 1 (pire) et 5 (le meilleur)';
+$pluginLangFile['votesNumber']     = 'nombre de cote';
 
 
 // -----------------------------------------------------------------------------------------------

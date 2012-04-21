@@ -47,8 +47,8 @@ $feindura->thumbnailAfter             = ' text after thumbnail';
 $menu = $feindura->createMenu('category',1,'table',true,2);
 
 // displays the menu
-foreach($menu as $link) {
-  echo $link['menuItem'];
+foreach($menu as $item) {
+  echo $item['menuItem'];
 }
 
 

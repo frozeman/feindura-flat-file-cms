@@ -1,6 +1,6 @@
 <?php
 /**
- * ENGLISH (EN) language-file for the contactForm plugin
+ * ENGLISH (EN) plugin language file
  * 
  * NEEDS a RETURN $pluginLangFile; at the END
  * 

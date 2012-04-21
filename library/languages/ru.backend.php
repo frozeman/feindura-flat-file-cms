@@ -556,7 +556,7 @@ $langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS']                             = 'Р�
 $langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Дает пользователю возможность редактировать теги для страниц в этой категории.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS']                      = 'Активные расширения';
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS']                       = 'Дает пользователю возможность использовать выбранные расширения для страниц в этой категории.';
-$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Удерживайте клавишу CTRL для выбора нескольких расширений.';
+$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Удерживайте клавишу CTRL/CMD для выбора нескольких расширений.';
 
 $langFile['PAGESETUP_TEXT_EDITPAGEDATE']                                  = 'Редактировать дату';
 $langFile['PAGESETUP_TIP_EDITPAGEDATE']                                   = 'Дата страницы может быть использована для сортировки.';

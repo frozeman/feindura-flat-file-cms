@@ -1,7 +1,8 @@
 <?php
 /**
- * ITALIAN (IT) language-file for the pageRating plugin
+ * ITALIAN (IT) plugin language file
  * Traslated in Italian By Raffaele Panariello [Social Service] unuomoinblues@gmail.com
+ * 
  * NEEDS a RETURN $pluginLangFile; at the END
  * 
  * 
@@ -24,8 +25,9 @@ $pluginLangFile['feinduraPlugin_description']  = 'Visualizza una valutazione <i>
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['valueNumber'] = 'Valutazione';
-$pluginLangFile['votesNumber'] = 'Numero di voti';
+$pluginLangFile['valueNumber']     = 'Valutazione';
+$pluginLangFile['valueNumber_tip'] = 'Valore compreso tra 1 (peggiore) e 5 (migliore)';
+$pluginLangFile['votesNumber']     = 'Numero di voti';
 
 
 // -----------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 <?php
 /**
- * FRENCH (FR) language-file for the imageGallery plugin
+ * FRENCH (FR) plugin language file
  * 
  * NEEDS a RETURN $pluginLangFile; at the END
  * 
@@ -21,16 +21,18 @@
 /* PLUGIN ************************************************************************************ */
 
 $pluginLangFile['feinduraPlugin_title']        = 'diaporama';
-$pluginLangFile['feinduraPlugin_description']  = 'Crée un diaporama à partir d\'images dans un dossier. Les images seront automatiquement redimensionnées à la taille donnée. Voir <a href="http://www.johannes-fischer.de/labs/nivoo-slider/">Nivooslider</a>.';
+$pluginLangFile['feinduraPlugin_description']  = 'Crée un diaporama d\'images. Les images seront automatiquement redimensionnées à la taille donnée. Voir <a href="http://www.johannes-fischer.de/labs/nivoo-slider/">Nivooslider</a>.';
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['path']         = 'chemin pour les images';
-$pluginLangFile['path_tip']     = 'chemin absolue du dossier contenant les images:par ex. &quot;/upload/slideshow1&quot;';
-$pluginLangFile['imageWidth']          = 'largeur de limage';
-$pluginLangFile['imageWidth_tip']      = 'en pixel';
-$pluginLangFile['imageHeight']         = 'hauteur de limage';
-$pluginLangFile['imageHeight_tip']     = 'en pixel';
+$pluginLangFile['selectImagesJsFunction'] = 'sélectionnez les images';
+$pluginLangFile['widthNumber']            = 'largeur de diaporama';
+$pluginLangFile['widthNumber_tip']        = 'en pixel';
+$pluginLangFile['heightNumber']           = 'hauteur de diaporama';
+$pluginLangFile['heightNumber_tip']       = 'en pixel';
+$pluginLangFile['intervalNumber']         = 'intervalle';
+$pluginLangFile['intervalNumber_tip']     = 'en secondes';
+$pluginLangFile['effectSelection']        = 'effet';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

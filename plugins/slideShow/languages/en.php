@@ -1,6 +1,6 @@
 <?php
 /**
- * ENGLISH (EN) language-file for the imageGallery plugin
+ * ENGLISH (EN) plugin language file
  * 
  * NEEDS a RETURN $pluginLangFile; at the END
  * 
@@ -20,16 +20,18 @@
 /* PLUGIN ************************************************************************************ */
 
 $pluginLangFile['feinduraPlugin_title']        = 'Slide show';
-$pluginLangFile['feinduraPlugin_description']  = 'Creates a slide show from images in a folder. The images will be automatically resized to the given size. See <a href="http://www.johannes-fischer.de/labs/nivoo-slider/">Nivooslider</a>.';
+$pluginLangFile['feinduraPlugin_description']  = 'Creates a slide show of images. The images will be automatically resized to the given size. See <a href="http://www.johannes-fischer.de/labs/nivoo-slider/">Nivooslider</a>.';
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['path']         = 'path to the images';
-$pluginLangFile['path_tip']     = 'absolut path of the folderr, which contains the images::e.g &quot;/upload/slideshow1&quot;';
-$pluginLangFile['imageWidth']          = 'image width';
-$pluginLangFile['imageWidth_tip']      = 'in pixel';
-$pluginLangFile['imageHeight']         = 'image height';
-$pluginLangFile['imageHeight_tip']     = 'in pixel';
+$pluginLangFile['selectImagesJsFunction'] = 'Select images';
+$pluginLangFile['widthNumber']            = 'Slideshow width';
+$pluginLangFile['widthNumber_tip']        = 'in pixel';
+$pluginLangFile['heightNumber']           = 'Slideshow height';
+$pluginLangFile['heightNumber_tip']       = 'in pixel';
+$pluginLangFile['intervalNumber']         = 'Interval';
+$pluginLangFile['intervalNumber_tip']     = 'in seconds';
+$pluginLangFile['effectSelection']        = 'Effect';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

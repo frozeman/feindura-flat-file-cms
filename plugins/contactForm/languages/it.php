@@ -1,7 +1,8 @@
 <?php
 /**
- * ITALIAN (IT) language-file for the contactForm plugin
+ * ITALIAN (IT) plugin language file
  * Traslated in Italian By Raffaele Panariello [Social Service] unuomoinblues@gmail.com
+ * 
  * NEEDS a RETURN $pluginLangFile; at the END
  * 
  * 

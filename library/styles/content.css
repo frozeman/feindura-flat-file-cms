@@ -917,7 +917,7 @@ span#editablePageTitle:focus {
   width: 50px;
   height: 20px;
   margin-top: -15px;
-  margin-left: -25px;
+  margin-left: -15px;
 }
 
 /****************/	
@@ -976,14 +976,14 @@ li.backupLink {
   background: url("../images/buttons/backup_download_small.png") no-repeat left center;
 }
 
-a.downloadBackup {
+a.createBackup {
   display: inline-block;
   height: 48px; /* org: 78px */
   padding-left: 80px;
   padding-top: 30px;
   background: url("../images/buttons/backup_download.png") no-repeat;  
 }
-a.downloadBackup:hover, a.downloadBackup:focus {
+a.createBackup:hover, a.createBackup:focus {
   background-position: 0px -78px;
 }
 
@@ -1170,7 +1170,7 @@ span.toolTip, label.toolTip {
     
 span.toolTip.noMark {
   background: none;
-  padding-right: auto;
+  padding-right: 0;
   cursor: auto;
 }
 

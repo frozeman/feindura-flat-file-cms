@@ -24,7 +24,7 @@ Fabian Vogelsteller <http://frozeman.de>
 
 
 ### DESCRIPTION
-This plugin creates automatically a slide show from a folder containing images. On the first load of the plugin in the website,
+This plugin creates automatically a slide show from images selected in the backend. On the first load of the plugin in the website,
 the images will be resized to the size set in the plugin settings.
 
 ### USAGE
@@ -32,14 +32,6 @@ The slideShow plugin can be displayed in your website with the showPlugins('slid
 
 ### STYLING
 To style the slideShow with css use the ".feinduraPlugin_slideShow" class.
-
-### ADDITIONAL
-You can also add image captions by placing a "texts.txt" or "captions.txt" in the folder where the images are, with the following format:
-filename1.jpg###image text
-filename2.png###another image text
-...
-
-The imageGallery class can also be used without feindura as a slideShow in your websites!
 
 
 ### USES

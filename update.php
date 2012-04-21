@@ -16,10 +16,10 @@
  *
  * update.php
  * 
- * for updating from 
- * 1.0 rc -> 1.1.6
+ * for updating to 
+ * 1.2
  *
- * @version 0.1.6
+ * @version 1.2
  */
 
 /**
@@ -34,8 +34,11 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 // gets the version of the feindura CMS
 
-$oldVersion = '>= 1.0 rc';
-$newVersion = '1.1.6';
+if($lastVersionFile = file(dirname(__FILE__).'/VERSION'))
+  $oldVersion = trim($lastVersionFile[1]);
+else
+  $oldVersion = '1.0';
+$newVersion = '1.2';
     
 ?>
 <!DOCTYPE html>
@@ -121,10 +124,18 @@ $newVersion = '1.1.6';
   ?>
   
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
-  <span style="font-size:25px;"><?php echo $oldVersion ?> &rArr; <?php echo $newVersion ?></span><br>
+  <span style="font-size:25px;"><?php echo ($oldVersion == '1.0') ? $oldVersion.'>': $oldVersion; ?> &rArr; <?php echo $newVersion ?></span><br>
   <br>
   <?php
+
+  // check version
+  if($oldVersion == $newVersion)
+    die('<span class="succesfull">You content is already up to date.</span><br>
+      <small style="color:#999;">(If you don\'t think so, then delete the "VERSION" file in your "/cms/" folder and run this updater again.)</small>
+      <br><br>
+      <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a>');
   
+  // check if cms is already updated
   $updatePossible = (VERSION == $newVersion) ? true : false;
   
   // WARNING
@@ -342,8 +353,67 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       $pageContent['log_searchWords'] = (isset($pageContent['log_searchwords'])) ? $pageContent['log_searchwords'] : $pageContent['log_searchWords'];
       
       // activate the captcha in the contactForm plugins, when the contactForm is activated
-      if($pageContent['plugins']['contactForm']['active'] && $pageContent['plugins']['contactForm']['captcha'] !== false)
+      if(isset($pageContent['plugins']['contactForm']) && !isset($pageContent['plugins']['contactForm']['captcha']))
         $pageContent['plugins']['contactForm']['captcha'] = true;
+
+      // v1.2 changed key names of plugins
+      if(isset($pageContent['plugins']['imageGallery'])) {
+        $pageContent['plugins']['imageGallery']['imageWidthNumber'] = (isset($pageContent['plugins']['imageGallery']['imageWidth']))
+          ? $pageContent['plugins']['imageGallery']['imageWidth']
+          : $pageContent['plugins']['imageGallery']['imageWidthNumber'];
+        $pageContent['plugins']['imageGallery']['imageHeightNumber'] = (isset($pageContent['plugins']['imageGallery']['imageHeight']))
+          ? $pageContent['plugins']['imageGallery']['imageHeight']
+          : $pageContent['plugins']['imageGallery']['imageHeightNumber'];
+        $pageContent['plugins']['imageGallery']['thumbnailWidthNumber'] = (isset($pageContent['plugins']['imageGallery']['thumbnailWidth']))
+          ? $pageContent['plugins']['imageGallery']['thumbnailWidth']
+          : $pageContent['plugins']['imageGallery']['thumbnailWidthNumber'];
+        $pageContent['plugins']['imageGallery']['thumbnailHeightNumber'] = (isset($pageContent['plugins']['imageGallery']['thumbnailHeight']))
+          ? $pageContent['plugins']['imageGallery']['thumbnailHeight']
+          : $pageContent['plugins']['imageGallery']['thumbnailHeightNumber'];
+        $pageContent['plugins']['imageGallery']['breakAfterNumber'] = (isset($pageContent['plugins']['imageGallery']['breakAfter']))
+          ? $pageContent['plugins']['imageGallery']['breakAfter']
+          : $pageContent['plugins']['imageGallery']['breakAfterNumber'];
+
+        unset($pageContent['plugins']['imageGallery']['imageWidth'],$pageContent['plugins']['imageGallery']['imageHeight'],$pageContent['plugins']['imageGallery']['thumbnailWidth'],$pageContent['plugins']['imageGallery']['thumbnailHeight'],$pageContent['plugins']['imageGallery']['breakAfter']);
+      }
+      if(isset($pageContent['plugins']['slideShow'])) {
+         $pageContent['plugins']['slideShow']['intervalNumber'] = (isset($pageContent['plugins']['slideShow']['intervalNumber']))
+          ? $pageContent['plugins']['slideShow']['intervalNumber']
+          : 3;
+        $pageContent['plugins']['slideShow']['effectSelection'] = (isset($pageContent['plugins']['slideShow']['effectSelection']))
+          ? $pageContent['plugins']['slideShow']['effectSelection']
+          : 'fade';
+      }
+      if(isset($pageContent['plugins']['slideShowFromFolder'])) {
+         $pageContent['plugins']['slideShowFromFolder']['intervalNumber'] = (isset($pageContent['plugins']['slideShowFromFolder']['intervalNumber']))
+          ? $pageContent['plugins']['slideShowFromFolder']['intervalNumber']
+          : 3;
+        $pageContent['plugins']['slideShowFromFolder']['effectSelection'] = (isset($pageContent['plugins']['slideShowFromFolder']['effectSelection']))
+          ? $pageContent['plugins']['slideShowFromFolder']['effectSelection']
+          : 'fade';
+      }
+      if(isset($pageContent['plugins']['slideShow'])) {
+        $pageContent['plugins']['imageGallery']['imageWidthNumber'] = (isset($pageContent['plugins']['imageGallery']['imageWidth']))
+          ? $pageContent['plugins']['imageGallery']['imageWidth']
+          : $pageContent['plugins']['imageGallery']['imageWidthNumber'];
+        $pageContent['plugins']['imageGallery']['imageHeightNumber'] = (isset($pageContent['plugins']['imageGallery']['imageHeight']))
+          ? $pageContent['plugins']['imageGallery']['imageHeight']
+          : $pageContent['plugins']['imageGallery']['imageHeightNumber'];
+          
+        unset($pageContent['plugins']['imageGallery']['imageWidth'],$pageContent['plugins']['imageGallery']['imageHeight']);
+      }
+
+      // only if was below 1.1.6
+      if($oldVersion <= '1.1.6') {
+        if(isset($pageContent['plugins']['imageGallery'])) {
+          $pageContent['plugins']['imageGalleryFromFolder'] = $pageContent['plugins']['imageGallery'];
+          unset($pageContent['plugins']['imageGallery']);
+        }
+        if(isset($pageContent['plugins']['slideShow'])) {
+          $pageContent['plugins']['slideShowFromFolder'] = $pageContent['plugins']['slideShow'];
+          unset($pageContent['plugins']['slideShow']);
+        }
+      }
       
       // -> change such a date: 2010-03-20 17:50:27 to unix timestamp
       // mktime(hour,minute,seconds,month,day,year)
@@ -415,6 +485,18 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     
     // ->> SAVE NEW categoryConfig
     $newCategoryConfig = array();
+
+
+    foreach ($categoryConfig as $key => $categoryFromConfig) {
+      $pagesWithSubCategory = unserialize($categoryFromConfig['isSubCategoryOf']);
+      if(!is_array($pagesWithSubCategory))
+        $pagesWithSubCategory = array();
+      else
+        unset($pagesWithSubCategory[$page]);
+      if(empty($pagesWithSubCategory))
+        $newCategoryConfig[$key]['isSubCategory'] = false;
+     $newCategoryConfig[$key]['isSubCategoryOf'] = serialize($pagesWithSubCategory);
+    }
     foreach($categoryConfig as $key => $category) {
       
       // rename
@@ -437,6 +519,12 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       if(!isset($category['localized'])) {
         $category['localized'][0]['name'] = $category['name'];
       }
+
+      // v1.2 subCategory
+      if(!isset($category['isSubCategory']))
+        $category['isSubCategory'] = false;
+      if(!isset($category['isSubCategoryOf']))
+        $category['isSubCategoryOf'] = 'a:0:{}';
 
       // change old keys
       $newKey = str_replace('id_','',$key);
@@ -752,14 +840,16 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     
     
     // -> final success text or failure warning
-    if($succesfullUpdate)
+    if($succesfullUpdate) {
+      file_put_contents(dirname(__FILE__).'/VERSION', "This file is necessary for the next feindura update. Do not delete it!\n".$newVersion);
       echo '<h1>You can now delete the "update.php" file.</h1>';
-    else
+    } else
       echo '<h1>something went wrong :-( could not completely update feindura, check the errors and try again.</h1>';
     
   }
   
   ?>
+  <br>
   <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a>
 </body>
 </html>

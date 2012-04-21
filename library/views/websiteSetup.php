@@ -24,31 +24,6 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-// CHECKs if the ncessary FILEs are WRITEABLE, otherwise throw an error
-// ----------------------------------------------------------------------------------------
-$checkFolders = dirname(__FILE__).'/../../config/website.config.php';
-$unwriteableList = isWritableWarning($checkFolders);
-
-// check also website files if allowed
-if($adminConfig['user']['editWebsiteFiles'])
-  $unwriteableList .= isWritableWarningRecursive(array($adminConfig['websiteFilesPath']));
-// check also stylesheet files if allowed
-if($adminConfig['user']['editStyleSheets'])
-  $unwriteableList .= isWritableWarningRecursive(array($adminConfig['stylesheetPath']));
-
-// gives the error OUTPUT if one of these files in unwriteable
-if($unwriteableList && checkBasePathAndURL()) {
-  echo '<div class="block warning">
-    <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
-    <div class="content">
-      <p>'.$unwriteableList.'</p><!-- need <p> tags for margin-left:..-->
-    </div>
-    <div class="bottom"></div>  
-  </div>'; 
-  
-  echo '<div class="blockSpacer"></div>';
-}
-
 ?>
 <form action="index.php?site=websiteSetup#websiteConfig" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div>

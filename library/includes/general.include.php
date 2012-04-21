@@ -116,7 +116,7 @@ $GLOBALS['pagesMetaData'] = $pagesMetaData;
  * Set the Timezone
  * needs the $adminConfig
  */
-if(function_exists('date_default_timezone_set'))
+if(function_exists('date_default_timezone_set') && !empty($adminConfig['timezone']))
   date_default_timezone_set($adminConfig['timezone']);
 
 

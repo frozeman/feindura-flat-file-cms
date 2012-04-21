@@ -20,7 +20,6 @@
 
   // var
   var pageSaved = false;
-  var pageContent = null;
   var nonEditableBlocks = [];
   var editableBlocks = [];
   var editableTitles = [];
@@ -29,7 +28,7 @@
   var toolTips = null;
 
   var logo = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
-  var topBar = new Element('div',{id: 'feindura_topBar'});
+  var topBar = new Element('div',{id: 'feindura_topBar', 'class': 'feindura_toolTip','title': feindura_langFile.TOPBAR_TIP_FRONTENDEDITING });
   var topBarVisible = (feindura_deactivateFrontendEditing) ? false : true;
 
   var jsLoadingCircle = new Element('div',{'class': 'feindura_loadingCircleHolder'});
@@ -55,7 +54,7 @@
   /* ---------------------------------------------------------------------------------- */
   // ->> SAVE PAGE
   function savePage(pageBlock,type) {
-    if(pageSaved === false && pageContent != pageBlock.get('html')) {
+    if(pageSaved === false && (pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editTitle')) && pageBlock.retrieve('content') != pageBlock.get('html')) {
       pageBlock.getChildren('#rteMozFix').destroy();
       // url encodes the string
       var content = encodeURIComponent(pageBlock.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
@@ -71,6 +70,11 @@
 
     // vars
     if(!method) method = 'get';
+    var isUnloading = false;
+
+    window.addEvent('beforeunload',function(){
+      isUnloading = true;
+    });
 
     // creates the request Object
     new Request({
@@ -82,77 +86,66 @@
         // -> TWEEN jsLoadingCircleContainer
         if(!pageBlock.contains(loadingFill))
           pageBlock.grab(loadingFill,'top');
-        loadingFill.set('tween',{duration: 100});
-        loadingFill.setStyle('opacity',0);
-        loadingFill.tween('opacity',0.8);
+        loadingFill.set('tween',{duration: 200});
+        loadingFill.fade('hide').fade(0.5);
 
         // -> ADD the LOADING CIRCLE
         if(!pageBlock.contains(jsLoadingCircle))
           pageBlock.grab(jsLoadingCircle,'top');
         centerOnElement(jsLoadingCircle,pageBlock);
         removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");
-        jsLoadingCircle.fade('in');
+        jsLoadingCircle.set('tween',{duration: 200});
+        jsLoadingCircle.fade('hide').fade(1);
       },
-      onSuccess: function(html) { //-------------------------------------------------
-
+      onComplete: function() {
         // -> fade out the loading fill
-        loadingFill.set('tween',{duration: 200});
-        loadingFill.fade('out');
+        loadingFill.fade(0);
         loadingFill.get('tween').chain(function(){
           loadingFill.dispose();
         });
 
         // -> fade out the loadingCircle
-        jsLoadingCircle.set('tween',{duration: 200});
-        jsLoadingCircle.fade('out');
+        jsLoadingCircle.fade(0);
         jsLoadingCircle.get('tween').chain(function(){
           // -> REMOVE the LOADING CIRCLE
           removeLoadingCircle();
           jsLoadingCircle.dispose();
-
-          if(html.contains('####SAVING-ERROR####'))
-            document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
-          else {
-            // display finish picture
-            pageBlock.grab(finishPicture,'top');
-            centerOnElement(finishPicture,pageBlock);
-            finishPicture.set('tween',{duration: 400});
-            finishPicture.fade('in');
-            finishPicture.get('tween').chain(function(){
-              finishPicture.fade('out');
-            }).chain(function(){
-              finishPicture.dispose();
-              // -> UPDATE the pageBlock CONTENT
-              if(update)
-                pageBlock.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
-            });
-          }
         });
+
+        // store the actual content to make a dirtyCheck later
+        pageSaved = false;
+        pageBlock.store('content',pageBlock.get('html'));
+      },
+      onSuccess: function(html) { //-------------------------------------------------
+
+        if(html.contains('####SAVING-ERROR####'))
+          document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
+        else {
+          // display finish picture
+          pageBlock.grab(finishPicture,'top');
+          centerOnElement(finishPicture,pageBlock);
+          finishPicture.set('tween',{duration: 400});
+          finishPicture.fade('in');
+          finishPicture.get('tween').chain(function(){
+            finishPicture.fade('out');
+          }).chain(function(){
+            finishPicture.dispose();
+            // -> UPDATE the pageBlock CONTENT
+            // if(update)
+            //   pageBlock.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
+          });
+        }
       },
       // The request will most likely succeed, but just in case, we'll add an
       // onFailure method which will let the user know what happened.
       onFailure: function() { //-----------------------------------------------------
-        console.log('failure');
-        // -> fade out the loading fill
-        loadingFill.set('tween',{duration: 200});
-        loadingFill.fade('out');
-        loadingFill.get('tween').chain(function(){
-          loadingFill.dispose();
-        });
 
-        // -> fade out the loadingCircle
-        if(!pageBlock.contains(jsLoadingCircle))
-          pageBlock.grab(jsLoadingCircle,'top');
-        jsLoadingCircle.set('tween',{duration: 200});
-        jsLoadingCircle.fade('out');
-        jsLoadingCircle.get('tween').chain(function(){
-          // -> REMOVE the LOADING CIRCLE
-          removeLoadingCircle();
-          jsLoadingCircle.dispose();
-          // add errorWindow
-          document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
-        });
+        // prevent showing of the error message when leaving the page
+        if(isUnloading)
+          return;
 
+        // add errorWindow
+        document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
       }
     }).send(data);
   }
@@ -217,44 +210,18 @@
   // ->> deactivate frontend editing
   function deactivate(instant) {
 
-    // remove classes
-    function removeEditClasses() {
-      $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
-        pageBlock.moorte('destroy');
-      });
-
-      pageToolbars.each(function(pageToolbar) {
-        pageToolbar.setStyle('display','none');
-      });
-      nonEditableBlocks.each(function(nonEditableBlock) {
-        nonEditableBlock.removeProperty('title');
-        nonEditableBlock.removeClass('feindura_editPageDisabled');
-        nonEditableBlock.removeEvents();
-        // toolTips.detach(nonEditableBlock);
-      });
-      editableBlocks.each(function(editableBlock) {
-        editableBlock.removeClass('feindura_editPage');
-        editableBlock.removeProperty('title');
-      });
-      editableTitles.each(function(editableTitle) {
-        editableTitle.removeClass('feindura_editTitle');
-        editableTitle.removeProperty('title');
-      });
-    }
-
     topBarVisible = false;
 
     // INSTANT
     if(instant) {
       logo.setStyle('top', '-55px');
-      if(typeof($$('div.MooRTE.rtePageTop')[0]) !== 'undefined')
+      if(typeOf($$('div.MooRTE.rtePageTop')[0]) !== 'null')
         $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
       topBar.setStyle('top', '-55px');
 
       document.body.setStyle('padding-top',5);
       document.body.setStyle('background-position-y',5);
 
-      removeEditClasses();
 
     // BY TWEEN
     } else {
@@ -263,14 +230,38 @@
       new Request({ url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php' }).send('deactivateFrontendEditing=true');
 
       logo.tween('top', '-55px');
-      if($$('div.MooRTE.rtePageTop')[0] !== null)
+      if(typeOf($$('div.MooRTE.rtePageTop')[0]) !== 'null')
         $$('div.MooRTE.rtePageTop')[0].tween('top', '-25px');
       topBar.tween('top', '-55px');
 
       document.body.morph({'padding-top':'5px','background-position-y':'5px'});
 
-      removeEditClasses();
     }
+
+    // remove classes
+    $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
+      pageBlock.moorte('destroy');
+    });
+
+    pageToolbars.each(function(pageToolbar) {
+      pageToolbar.setStyle('display','none');
+    });
+    nonEditableBlocks.each(function(nonEditableBlock) {
+      nonEditableBlock.removeProperty('title');
+      nonEditableBlock.removeClass('feindura_editPageDisabled');
+      nonEditableBlock.removeEvents();
+      // toolTips.detach(nonEditableBlock);
+    });
+    editableBlocks.each(function(editableBlock) {
+      editableBlock.removeClass('feindura_editPage');
+      editableBlock.removeProperty('title');
+    });
+    editableTitles.each(function(editableTitle) {
+      editableTitle.removeClass('feindura_editTitle');
+      editableTitle.removeProperty('title');
+    });
+
+    // checkForChanges();
   }
 
   /* ---------------------------------------------------------------------------------- */
@@ -301,26 +292,29 @@
     editableBlocks.each(function(editableBlock){
       editableBlock.addClass('feindura_editPage');
       editableBlock.setProperty('title',editableBlock.retrieve('title'));
+
+      // bring the moorte back
+      editableBlock.moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
+      editableBlock.moorte('hide');
     });
     editableTitles.each(function(editableTitle){
       editableTitle.addClass('feindura_editTitle');
       editableTitle.setProperty('title',editableTitle.retrieve('title'));
+
+      // bring the moorte back
+      editableTitle.moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
+      editableTitle.moorte('hide');
     });
 
-    /*
-    $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
-      pageBlock.moorte('create');
-    });
-    */
-
-    if($$('div.feindura_editPage, span.feindura_editTitle')[0] !== null) {
-      //$$('div.feindura_editPage, span.feindura_editTitle').moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'})
-      feinduraMooRTE = new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
+    if(typeOf($$('div.feindura_editPage, span.feindura_editTitle')[0]) !== 'null') {
+      // $$('div.feindura_editPage, span.feindura_editTitle').moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
+      // READD MOORTE
+      // feinduraMooRTE = new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
       $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
     }
 
     logo.tween('top', '0px');
-    if($$('div.MooRTE.rtePageTop')[0] !== null)
+    if(typeOf($$('div.MooRTE.rtePageTop')[0]) !== 'null')
       $$('div.MooRTE.rtePageTop')[0].tween('top', '30px');
     topBar.tween('top', '0px');
     document.body.morph({'padding-top':'60px','background-position-y':'60px'});
@@ -331,23 +325,82 @@
   // ->> disable frontend editing
   function disableEditing(pageBlock) {
 
-      if(pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editPageDisabled')) {
+      if(pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editTitle') || pageBlock.hasClass('feindura_editPageDisabled')) {
 
-        pageBlock.removeClass('feindura_editPage');
-        pageBlock.addClass('feindura_editPageDisabled');
-        nonEditableBlocks.push(pageBlock);
+        // is already disabled, dont need to be check again later
+        pageBlock.store('firstSelection',false);
+
+        // is pageTITLE
+        if(pageBlock.hasClass('feindura_editPage')) {
+          // remove from the editable blocks array
+          editableBlocks.erase(pageBlock);
+
+          pageBlock.removeClass('feindura_editPage');
+          pageBlock.addClass('feindura_editPageDisabled');
+        }
+        // is pageBLOCK
+        if(pageBlock.hasClass('feindura_editTitle')) {
+          // remove from the editable blocks array
+          editableTitles.erase(pageBlock);
+
+          pageBlock.removeClass('feindura_editTitle');
+          pageBlock.addClass('feindura_editTitleDisabled');
+        }
+
+        // add tip
+        pageBlock.addClass('feindura_toolTip');
+        pageBlock.setProperty('title',feindura_langFile.EDITPAGE_TIP_DISABLED);
+        // store titles and text
+        feindura_storeTipTexts(pageBlock);
+        toolTips.attach(pageBlock);
+
         pageBlock.moorte('destroy');
+        nonEditableBlocks.push(pageBlock);
 
+        // remove old events
+        pageBlock.removeEvents('focus');
+        pageBlock.removeEvents('blur');
+        pageBlock.removeEvents('mouseover');
+
+        // add new events
         pageBlock.addEvents({
           mouseenter: function(e) {
+              editDisabledIcon.inject(this);
+        },
+          mouseover: function(e) {
               editDisabledIcon.inject(this);
         },
           mouseleave: function(e) {
               editDisabledIcon.dispose();
         }
         });
+
+        // READD MOORTE to all other elements
+        // if(!feindura_deactivateFrontendEditing && typeOf($$('div.feindura_editPage, span.feindura_editTitle')[0]) !== 'null')
+        //   feinduraMooRTE = new MooRTE({elements:$$('div.feindura_editPage, span.feindura_editTitle'),skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
       }
     }
+
+  function checkForChanges(pageBlock) {
+
+    // -> check the GIVEN PAGEBLOCK
+    if(pageBlock) {
+      if(pageBlock.retrieve('content') != pageBlock.get('html')) {
+        disableEditing(pageBlock);
+        return true;
+      } else
+        return false;
+
+    // -> otherwise check ALL EDITABLE BLOCKs and disable, if content has changed
+    } else {
+      $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
+        if(pageBlock.retrieve('content') != pageBlock.get('html')) {
+          disableEditing(pageBlock);
+          return;
+        }
+      });
+    }
+  }
 
   /* ---------------------------------------------------------------------------------- */
   // ->> create TOP BAR
@@ -357,7 +410,7 @@
     links[1] = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'class': 'feindura_toBackend feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
 
     // Hide button
-    links[2] = new Element('a',{ 'href': '#', 'onclick':'return false;', 'class': 'feindura_topBarHide'});
+    links[2] = new Element('a',{ 'href': '#', 'onclick':'return false;', 'class': 'feindura_topBarHide feindura_toolTip', 'title': '::'+feindura_langFile.TOPBAR_TIP_DEACTIVATEFRONTENDEDITING});
     links[2].addEvent('mouseup', function(e) {
         e.stop();
         if(topBarVisible) deactivate();
@@ -399,6 +452,13 @@
     return links;
   }
 
+window.addEvent('load',function(){
+
+    // -> GO TROUGH ALL EDITABLE BLOCKs and disable, if after load something has changed
+    checkForChanges();
+
+});
+
   /* ---------------------------------------------------------------------------------- */
   // ->> DOMREADY
   // ************
@@ -418,32 +478,23 @@
     }
     document.id('feindura_bodyStyle').destroy(); // removes the <style> tag where it set body padding before the domready event
 
+    // TOOLTIPS
+    addToolTips();
 
     // ->> GO TROUGH ALL EDITABLE BLOCK
     $$('div.feindura_editPage, span.feindura_editTitle, div.feindura_editPageDisabled').each(function(pageBlock) {
 
-      // pageBlock.addEventListener('DOMNodeInserted',function(ev){
-      //   ev.stopPropagation();
-      //   ev.preventDefault();
-      //   disableEditing(this);
-      // });
-      // pageBlock.addEventListener('DOMNodeRemoved',function(ev){
-      //   ev.stopPropagation();
-      //   ev.preventDefault();
-      //   disableEditing(this);
-      // });
-
       // store title
       pageBlock.store('title',pageBlock.getProperty('title'));
 
-      // store editable blocks in arrays
-      if(pageBlock.hasClass('feindura_editPage'))
-        editableBlocks.push(pageBlock);
-      if(pageBlock.hasClass('feindura_editTitle'))
-        editableTitles.push(pageBlock);
-
       // STORE page IDS in the elements storage
       feindura_setPageIds(pageBlock);
+
+      // -> DISABLE CHANGED BLOCKS
+      // disable editBlock if it was changed after loading
+      if(checkForChanges(pageBlock))
+        return;
+      pageBlock.store('firstSelection',true);
 
       // DECATIVATE DISABLED pageblocks
       if(pageBlock.hasClass('feindura_editPageDisabled')) {
@@ -451,10 +502,26 @@
         return;
       }
 
+      // store editable blocks in arrays
+      if(pageBlock.hasClass('feindura_editPage'))
+        editableBlocks.push(pageBlock);
+      if(pageBlock.hasClass('feindura_editTitle'))
+        editableTitles.push(pageBlock);
+
+      // ADD MOORTE to pageBlock
+      if(!feindura_deactivateFrontendEditing) {
+        pageBlock.moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
+        pageBlock.moorte('hide');
+      }
+
       // save on blur
       pageBlock.addEvent('blur', function(e) {
+
+        // deactivate the moorte toolbar
+        this.moorte('hide');
+
         //alert(MooRTE.Elements.linkPop.visible);
-        if((typeof(MooRTE.Elements.linkPop) == 'undefined' || (MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false))) {
+        if((typeOf(MooRTE.Elements.linkPop) === 'null' || (MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false))) {
           if(this.hasClass('feindura_editPage'))
             savePage(this,'content');
           else if(this.hasClass('feindura_editTitle'))
@@ -463,9 +530,29 @@
       });
       // on focus
       pageBlock.addEvent('focus', function() {
-        pageContent = pageBlock.get('html');
-        if(pageSaved)
-          pageSaved = false;
+
+        // disable editBlock if it was changed before first focus
+        if(this.retrieve('firstSelection') === true  && checkForChanges(this)) {
+          this.blur();
+          return;
+        }
+        this.store('firstSelection',false);
+
+        // store th current content
+        this.store('content',this.get('html'));
+        pageSaved = false;
+
+        // activate the moorte toolbar
+        this.moorte('show');
+      });
+
+      // on mouse over
+      pageBlock.addEvent('mouseover', function(event) {
+        // disable editBlock if it was changed before first focus
+        if(this.retrieve('firstSelection') === true  && checkForChanges(this)) {
+          this.removeEvent('mouseover',this);
+          return;
+        }
       });
 
     });
@@ -529,8 +616,6 @@
       pageBar.addEvent('mouseleave', function(e) { if(!pageBlockFocused) pageBar.fade('out'); });
     });
 
-    addToolTips();
-
     // ->> ADD EDITOR
     // **************
 
@@ -539,6 +624,7 @@
       save : { img:27, onClick: function() {
           $$('div.feindura_editPage, span.feindura_editTitle').each(function(page) {
               if(MooRTE.activeField == page) {
+                console.log('dddd');
                 pageSaved = false;
                 if(page.hasClass('feindura_editPage'))
                   savePage(page,'content');
@@ -549,10 +635,9 @@
         }}
     });
 
-    // -> create editor instance to edit all divs which have the class "feindura_editPage"
-    if(!feindura_deactivateFrontendEditing && $$('div.feindura_editPage, span.feindura_editTitle')[0] !== null)
-      //$$('div.feindura_editPage, span.feindura_editTitle').moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'})
-      feinduraMooRTE = new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
+    // -> ADD MOORTE editor instance to all divs which have the class "feindura_editPage or feindura_editTitle"
+    // if(!feindura_deactivateFrontendEditing && typeOf($$('div.feindura_editPage, span.feindura_editTitle')[0]) !== 'null')
+    //   feinduraMooRTE = new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
 
     if(feindura_deactivateFrontendEditing)
       deactivate(true);

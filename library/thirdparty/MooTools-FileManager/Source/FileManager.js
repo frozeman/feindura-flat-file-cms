@@ -3852,11 +3852,9 @@ this.Overlay = new Class({
 
 		this.resize();
 
-		this.el.setStyles({
-			opacity: 0,
-			display: 'block'
-		}).get('tween'). /* pause(). */ start('opacity', 0.5);
-
+		this.el.setStyle('display', 'block');
+		this.el.fade('hide').fade(0.5);
+		
 		window.addEvent('resize', this.resize.bind(this));
 
 		return this;
@@ -3897,7 +3895,7 @@ this.Overlay = new Class({
 	revertObjects: function() {
 		if (this.objects && this.objects.length) {
 			this.objects.each(function(el) {
-				el.style.visibility = 'visible';
+				el.styleStyle('visibility', 'visible');
 			});
 		}
 

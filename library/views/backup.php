@@ -32,8 +32,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 $backupFolder = 'backups/';
 
 // -> check if the folder is writeable
-$unwriteableList = false;
-$unwriteableList .= isWritableWarning($backupFolder);
+$unwriteableList = isWritableWarning($backupFolder);
 
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePathAndURL()) {
@@ -55,7 +54,7 @@ if($unwriteableList && checkBasePathAndURL()) {
   <div class="content">
     <p><?php echo $langFile['BACKUP_TEXT_BACKUP']; ?></p><br>
     <div style="text-align: center;">
-    <a href="index.php?site=backup&amp;downloadBackup" class="downloadBackup"><?php echo $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a>
+    <a href="index.php?site=backup&amp;createBackup" class="createBackup"><?php echo $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a>
     </div>
   </div>
   <div class="bottom"></div>

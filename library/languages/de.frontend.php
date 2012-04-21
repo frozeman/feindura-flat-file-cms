@@ -25,10 +25,13 @@
 // -> GENERAL <-
 */
 
-$frontendLangFile['HEADER_TIP_GOTOBACKEND']          = 'Feindura::Klick hier um zum Backend zu gelangen.';
-$frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND'] = 'Seite im Backend bearbeiten';
+$frontendLangFile['HEADER_TIP_GOTOBACKEND']               = 'Feindura::Klick hier um zum Backend zu gelangen.';
+$frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']      = 'Seite im Backend bearbeiten';
 
-$frontendLangFile['EDITPAGE_TIP_DISABLED']           = 'Bearbeiten der Seite nicht möglich::Die Seite enthält [i]<script>[/i] Tags und kann deshalb nur im Backend bearbeitet werden.';
+$frontendLangFile['EDITPAGE_TIP_DISABLED']                = 'Bearbeiten im frontend nicht möglich::Der Inhalt wurde durch Scripte verändert.';
+$frontendLangFile['TOPBAR_TIP_FRONTENDEDITING']           = 'Frontend-Bearbeitung::Wähle eine bearbeitbares Feld aus, um mit dem bearbeiten zu beginnen';
+$frontendLangFile['TOPBAR_TIP_DEACTIVATEFRONTENDEDITING'] = 'Frontend-Bearbeitung deaktivieren';
+
 
 // FRONTEND ERROR TEXTS
 

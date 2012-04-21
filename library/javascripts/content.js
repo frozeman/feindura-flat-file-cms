@@ -1506,14 +1506,14 @@ window.addEvent('domready', function() {
 
     // save on enter
     $('editablePageTitle').addEvent('keydown', function(e) {
-      if(e.key == 'enter' && (typeof(MooRTE.Elements.linkPop) == 'undefined' || (MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false))) {
+      if(e.key == 'enter' && (typeOf(MooRTE.Elements.linkPop) == 'null' || (MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false))) {
           e.stop();
           saveTitle(this,'title');
       }
     });
     // save on blur
     $('editablePageTitle').addEvent('blur', function(e) {
-      if((typeof(MooRTE.Elements.linkPop) == 'undefined' || (MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false))) {
+      if((typeOf(MooRTE.Elements.linkPop) == 'null' || (MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false))) {
           saveTitle(this,'title');
       }
     });

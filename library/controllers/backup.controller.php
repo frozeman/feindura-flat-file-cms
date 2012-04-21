@@ -22,12 +22,13 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-// ------------>> DOWNLOAD BACKUP
-if(isset($_GET['downloadBackup'])) {
+// ------------>> CREATE BACKUP
+if(isset($_GET['createBackup'])) {
 
   // -> check backup folder
   $unwriteableList = false;
-  $checkFolder = dirname(__FILE__).'/../../backups/';  
+  $checkFolder = dirname(__FILE__).'/../../backups/';
+   
   // try to create folder
   if(!is_dir($checkFolder))
     mkdir($checkFolder,$adminConfig['permissions']); 
@@ -35,6 +36,9 @@ if(isset($_GET['downloadBackup'])) {
   
   // ->> create archive
   if(!$unwriteableList) {    
+
+    // delete cache before
+    GeneralFunctions::deleteFolder(dirname(__FILE__).'/../pages/cache/');
     
     // generates the file name
     $backupFile = generateBackupFileName();    
@@ -45,7 +49,7 @@ if(isset($_GET['downloadBackup'])) {
     if($catchError !== true) {
       $errorWindow .= "BACKUP ERROR: ".$catchError;
          
-    // -> or download file
+    // -> or redirect
     } else {
       
       if(@file_exists($backupFile)) {

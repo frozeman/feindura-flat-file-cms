@@ -720,11 +720,13 @@ MooRTE.Elements = {
 								var t = MooRTE
 											.activeField
 											.retrieve('bar')
-											.getElement('.rtejustify' + (val == 'justify' ? 'full' : val))
-								  , pos = t.addClass('rteSelected').getStyle('background-position');
-								t.getParent()
-									.getParent()
-									.setStyle('background-position', pos);
+											.getElement('.rtejustify' + (val == 'justify' ? 'full' : val));
+								if(t !== null) {
+									var pos = t.addClass('rteSelected').getStyle('background-position');
+									t.getParent()
+										.getParent()
+										.setStyle('background-position', pos);
+								}
 							}
 						 }
    , justifyfull	:{ img:7, title:'Justify Full'  }

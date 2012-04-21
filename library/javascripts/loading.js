@@ -13,22 +13,21 @@
     if not,see <http://www.gnu.org/licenses/>.
     
 *
-* 
-* loading.php version 1.0 (require mootools-core AND mootools-more)  */
+*
+* loading.php version 2.0 (require mootools-core AND mootools-more)  */
 
 
 function showDocumentSaved() {
   // start tween
-  $('documentSaved').setStyle('display','block');
-  $('documentSaved').fade('hide');
-  $('documentSaved').tween('opacity','1');
+  $('documentSaved').setStyle('display','block').fade('hide').fade(1);
   
   // hide the documentsaved, after blending in and out
   $('documentSaved').get('tween').chain(function() {
-    $('documentSaved').tween('opacity','0');
-  }).chain(function(){
-    $('documentSaved').setStyle('display','none');
-    $('documentSaved').removeClass('saved');
+    $('documentSaved').fade(0);
+    $('documentSaved').get('tween').chain(function(){
+      $('documentSaved').setStyle('display','none');
+      $('documentSaved').removeClass('saved');
+    });
   });
 }
 
@@ -50,8 +49,8 @@ function onStartLoadingCircle() {
   $('loadingBox').setStyle('display','block');
   
   // add the loading circle
-  // if(!removeLoadingCircle)
-    // removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
+  if(!removeLoadingCircle)
+    removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
   
   // blend out after page is loaded
   window.addEvent('load', function() {
@@ -59,8 +58,8 @@ function onStartLoadingCircle() {
 
     // disply none the documentsaved, after blending in and out
     $('loadingBox').get('tween').chain(function() {
-        // removeLoadingCircle();
-        // removeLoadingCircle = false;
+        removeLoadingCircle();
+        removeLoadingCircle = false;
         $('loadingBox').setStyle('display','none');
         $('loadingBox').getChildren('.content')[0].empty();
     });
@@ -78,8 +77,8 @@ function onEndLoadingCircle() {
   if(loadingBoxContent !== null) {
     $('loadingBox').getChildren('.content')[0].empty();
     loadingBoxContent.grab(jsLoadingCircleContainer,'top');
-    // if(!removeLoadingCircle)
-    //   feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
+    if(!removeLoadingCircle)
+      feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
     $('loadingBox').setStyle('display','block');
     $('loadingBox').setStyle('opacity','1');
   }

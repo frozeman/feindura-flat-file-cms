@@ -34,7 +34,7 @@ session_start();
 
 // -> CHECKS if cookies are enabled
 if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'] != 'true')    
-    setcookie( "feindura_checkCookies", 'true'); // try to set a cookie, to check in the next webpage whether its set or not
+    @setcookie( "feindura_checkCookies", 'true'); // try to set a cookie, to check in the next webpage whether its set or not
 
 // -> INCLUDE ALL important FUNCTIONS, CLASSES and CONFIG vars
 require_once(dirname(__FILE__)."/library/includes/general.include.php");

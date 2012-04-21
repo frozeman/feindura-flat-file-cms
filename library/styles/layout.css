@@ -226,7 +226,7 @@ mark {
     width: 100%;
     min-width: 1255px;
     background: url("../images/bg/mainBody.png") repeat-y #d8d8d8;
-    overflow: hidden;
+    overflow: auto;
     }
   
 #content {
@@ -239,7 +239,7 @@ mark {
     padding-bottom: 1px;
     background-color: #fff;
     float: left;
-    overflow: hidden;
+    overflow: visible;
     }
 #content.hasSubMenu {
     padding-top: 60px;
@@ -320,7 +320,7 @@ mark {
 
 #documentSaved {
     z-index: 17;
-    visibility: hidden;
+    display: none;
     position: fixed; /* absolute */
     top: 50%; /*top: 100px; left: 270px;*/
     left: 480px;
@@ -513,6 +513,36 @@ ul.verticalButtons {
 #adminMenu .content a.backup:hover {
     background-position: -65px 0px;
     }
+
+a.button {
+    display: inline-block;
+    padding: 5px 8px !important;
+    border: 1px solid #ccc;
+    /*background-image: none !important;*/
+    background: #f6f8f9 !important; /* Old browsers */
+    background: -moz-linear-gradient(top,  #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%) !important; /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6f8f9), color-stop(50%,#e5ebee), color-stop(51%,#d7dee3), color-stop(100%,#f5f7f9)) !important; /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%) !important; /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%) !important; /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%) !important; /* IE10+ */
+    background: linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%) !important; /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', endColorstr='#f5f7f9',GradientType=0 ) !important; /* IE6-9 */
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+
+    -webkit-box-shadow:  0px 0px 8px 1px #ddd;
+    -moz-box-shadow:  0px 0px 8px 1px #ddd;
+    box-shadow:  0px 0px 8px 1px #ddd;
+        
+}
+a.button:hover {
+    -webkit-box-shadow: inset 0px 0px 8px 1px #999;
+    -moz-box-shadow: inset 0px 0px 8px 1px #999;
+    box-shadow: inset 0px 0px 8px 1px #999;
+    border: 1px solid #999;
+
+}
 
 /* --- SUBMENU ------------------------------------------------------------------------------------------------------------------- */
 

@@ -519,6 +519,8 @@ function saveCategories($newCategories) {
       // WRITE
       $fileContent .= "\$categoryConfig[".$category['id']."]['id']                  = ".XssFilter::int($category['id'],0).";\n";      
       $fileContent .= "\$categoryConfig[".$category['id']."]['public']              = ".XssFilter::bool($category['public'],true).";\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['isSubCategory']       = ".XssFilter::bool($category['isSubCategory'],true).";\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['isSubCategoryOf']     = '".$category['isSubCategoryOf']."';\n";
       $fileContent .= "\$categoryConfig[".$category['id']."]['createDelete']        = ".XssFilter::bool($category['createDelete'],true).";\n";
       $fileContent .= "\$categoryConfig[".$category['id']."]['thumbnail']           = ".XssFilter::bool($category['thumbnail'],true).";\n";        
       $fileContent .= "\$categoryConfig[".$category['id']."]['plugins']             = '".$category['plugins']."';\n";
@@ -986,7 +988,7 @@ function saveWebsiteConfig($websiteConfig) {
         $fileContent .= "\$websiteConfig['localized'][".$langCode."]['title']          = '".XssFilter::text($websiteConfigLocalized['title'])."';\n";
         $fileContent .= "\$websiteConfig['localized'][".$langCode."]['publisher']      = '".XssFilter::text($websiteConfigLocalized['publisher'])."';\n";
         $fileContent .= "\$websiteConfig['localized'][".$langCode."]['copyright']      = '".XssFilter::text($websiteConfigLocalized['copyright'])."';\n";
-        $fileContent .= "\$websiteConfig['localized'][".$langCode."]['keywords']       = '".XssFilter::text(trim(preg_replace("#[\; ,]+#", ',', $websiteConfigLocalized['keywords']),','))."';\n";
+        $fileContent .= "\$websiteConfig['localized'][".$langCode."]['keywords']       = '".XssFilter::text(trim(preg_replace("#[\;,]+#", ',', $websiteConfigLocalized['keywords']),','))."';\n";
         $fileContent .= "\$websiteConfig['localized'][".$langCode."]['description']    = '".XssFilter::text($websiteConfigLocalized['description'])."';\n\n";
       }
     }
@@ -1108,10 +1110,10 @@ function saveSpeakingUrl(&$errorWindow) {
   $newWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($_POST['cfg_websitePath'])),1);
   $oldWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($GLOBALS['adminConfig']['websitePath'])),1);
   
-  $newRewriteRule = 'RewriteRule ^'.$newWebsitePath.'(?:([a-z]{2})/{1})?category/([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
-  $newRewriteRule .= 'RewriteRule ^'.$newWebsitePath.'(?:([a-z]{2})/{1})?page/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?page=$2&language=$1 [QSA,L]';
-  $oldRewriteRule = 'RewriteRule ^'.$oldWebsitePath.'(?:([a-z]{2})/{1})?category/([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
-  $oldRewriteRule .= 'RewriteRule ^'.$oldWebsitePath.'(?:([a-z]{2})/{1})?page/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$2&language=$1 [QSA,L]';
+  $newRewriteRule = 'RewriteRule ^(?:([a-z]{2})/{1})?category/([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
+  $newRewriteRule .= 'RewriteRule ^(?:([a-z]{2})/{1})?page/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?page=$2&language=$1 [QSA,L]';
+  $oldRewriteRule = 'RewriteRule ^(?:([a-z]{2})/{1})?category/([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
+  $oldRewriteRule .= 'RewriteRule ^(?:([a-z]{2})/{1})?page/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$2&language=$1 [QSA,L]';
   
   $speakingUrlCode = '#
 # feindura -flat file cms - speakingURL activation
@@ -1119,7 +1121,7 @@ function saveSpeakingUrl(&$errorWindow) {
 <IfModule mod_rewrite.c>
 RewriteEngine on
 RewriteBase /
-# rewrite "/page/*.html" and "/category/*/*.html"
+# rewrite "/page/example-page" and "/category/example-category/example-page"
 # and also passes the session var
 RewriteCond %{REQUEST_URI} !\.(css|jpg|gif|png|js)$ [NC] #do the stuff that follows only if the request doesnt end in one of these file extensions.
 RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http://','https://'),'',$_SERVER["HTTP_HOST"]).'$
@@ -1323,8 +1325,8 @@ function saveSitemap() {
   
   // ->> START sitemap
   $sitemap = new Sitemap($baseUrl,$realWebsitePath,true); // gzip encoded
-  $sitemap->showError =  false;
-  $sitemap->filePermissions =  $GLOBALS['adminConfig']['permissions'];
+  $sitemap->showError = false;
+  $sitemap->filePermissions = $GLOBALS['adminConfig']['permissions'];
   $sitemap->page('pages');
   
   // ->> adds the sitemap ENTRIES

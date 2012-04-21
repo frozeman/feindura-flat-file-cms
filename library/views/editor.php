@@ -745,6 +745,15 @@ $blockContentEdited = (isset($pageContent['plugins']))
           <?php
           
           $hidden = ($pageContent['plugins'][$pluginFolderName]['active']) ? '' : ' hidden';
+
+          // show SCRIPT config, if available
+          if(!empty($pluginConfig) && is_array($pluginConfig)) {
+            foreach($pluginConfig as $key => $value) {
+              if(strpos(strtolower($key),'script') !== false)
+                echo '<script type="text/javascript">'.$value.'</script>';
+            }
+          }
+
           ?>
           <table class="inBlockSlider<?php echo $hidden; ?>">
           <colgroup>
@@ -757,36 +766,94 @@ $blockContentEdited = (isset($pageContent['plugins']))
           
           // ->> LIST PLUGIN SETTINGS          
           if(!empty($pluginConfig) && is_array($pluginConfig)) {
-            foreach($pluginConfig as $key => $value) {
+            foreach($pluginConfig as $key => $orgValue) {
               
               $value = (!isset($pageContent['plugins'][$pluginFolderName][$key]) && $pageContent['plugins'][$pluginFolderName][$key] !== false)
-                ? $value
+                ? $orgValue
                 : $pageContent['plugins'][$pluginFolderName][$key];
-              $inputLength = (is_numeric($value)) ? ' short' : '';
-              $keyName = (isset($pluginLangFile[$key])) ? $pluginLangFile[$key] : $key;
+              $keyName = (isset($pluginLangFile[$key]))
+                ? $pluginLangFile[$key]
+                : $key ;
+              $inputLength = (strpos(strtolower($key),'number') !== false || is_numeric($value)) ? ' short' : '';
               $keyTip = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTip'.$inputLength.'" title="'.$pluginLangFile[$key.'_tip'].'::"' : '';
               
               
+              // BOOL
               if(is_bool($value)) {
                 echo (!$checkboxes) ? '<tr><td class="leftBottom"></td><td></td></tr>' : '';
                 
-                $checked = ($value) ? 'checked' : '';
+                $checked = ($value) ? ' checked' : '';
                 echo '<tr><td class="left checkboxes">
                       <input type="hidden" name="plugins['.$pluginFolderName.']['.$key.']" value="false">
-                      <input type="checkbox" id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'" name="plugins['.$pluginFolderName.']['.$key.']" value="true"'.$keyTip.' '.$checked.'>
+                      <input type="checkbox" id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'" name="plugins['.$pluginFolderName.']['.$key.']" value="true"'.$keyTip.$checked.'>
                       </td><td class="right checkboxes">
                         <label for="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>        
-                      </td>';
+                      </td></tr>';
                       
                 $checkboxes = true;
-                          
+              
+              // SCRIPT
+              } elseif(strpos(strtolower($key),'script') !== false) {
+                // will show nothing, it was already displayed before the <table>
+
+              // HIDDEN
+              } elseif(strpos(strtolower($key),'hidden') !== false) {
+                echo '<tr><td class="left checkboxes" colspan="2"><input type="hidden" id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'" name="plugins['.$pluginFolderName.']['.$key.']" value="'.$value.'"></td></tr>';
+                $checkboxes = true;
+
+              // ECHO
+              } elseif(strpos(strtolower($key),'echo') !== false) {
+
+                echo $value;
+                $checkboxes = true;
+
+              // SELECTION
+              } elseif(strpos(strtolower($key),'selection') !== false) {
+                echo ($checkboxes) ? '<tr><td class="leftTop"></td><td></td></tr>' : '';
+                echo '<tr><td class="left">
+                      <label for="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
+                      </td><td class="right">
+                      <select id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'" name="plugins['.$pluginFolderName.']['.$key.']"'.$keyTip.'>';
+                      foreach ($orgValue as $optionkey => $option) {
+                        if($value == $option)
+                          echo '<option value="'.$option.'" selected="selected">'.$option.'</option>';
+                        else
+                          echo '<option value="'.$option.'">'.$option.'</option>';
+                      }
+
+                echo '</select>
+                      </td></tr>';
+                $checkboxes = false;
+
+              // JS FUNCTION
+              } elseif(strpos(strtolower($key),'jsfunction') !== false) {
+
+                echo '<tr><td class="left checkboxes">
+                      </td><td class="right checkboxes">
+                        <a href="#" class="button" onclick="'.$value.'();return false;"'.$keyTip.'>'.$keyName.'</label>        
+                      </td></tr>';
+                $checkboxes = true;
+
+              // JS NUMBER
+              } elseif(strpos(strtolower($key),'number') !== false || is_numeric($value)) {
+                echo ($checkboxes) ? '<tr><td class="leftTop"></td><td></td></tr>' : '';
+
+                echo '<tr><td class="left">
+                      <label for="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
+                      </td><td class="right">
+                        <input type="number" id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'" name="plugins['.$pluginFolderName.']['.$key.']" value="'.$value.'"'.$keyTip.'>        
+                      </td></tr>';
+
+                $checkboxes = false;
+
+              // XSSFILTER VALUE
               } else {
                 echo ($checkboxes) ? '<tr><td class="leftTop"></td><td></td></tr>' : '';
 
                 echo '<tr><td class="left">
                       <label for="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
                       </td><td class="right">
-                        <input id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$inputLength.' name="plugins['.$pluginFolderName.']['.$key.']" value="'.$value.'"'.$keyTip.'>        
+                        <input type="text" id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'" name="plugins['.$pluginFolderName.']['.$key.']" value="'.$value.'"'.$keyTip.'>        
                       </td></tr>';
                       
                 $checkboxes = false;              

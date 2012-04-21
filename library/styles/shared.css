@@ -58,7 +58,7 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 
 /* format of the toolTip box */
 .feindura_toolTipBox {
-  z-index: 1005;
+  z-index: 2005;
   font: 12px Verdana, Arial, Sans-serif, Serif;
 }
 
@@ -119,7 +119,7 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 /* --- ERRORWINDOW */
 
 #feindura_errorWindow {
-    z-index: 1100;
+    z-index: 2100;
     position: fixed;    
     top: 15%;
     left: 370px;

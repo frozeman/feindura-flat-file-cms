@@ -284,7 +284,7 @@ class contactForm {
           if($this->config['fax'] && !empty($_POST['fax'])) $fax = '<br><b>'.$this->langFile['field_fax'].':</b> '.$_POST['fax']."\n";
           else $fax = '';
           
-          // entfernt die \ aus dem text
+          // removes the \ from the text
           $message = (method_exists('GeneralFunctions','smartStripslashes'))
             ? GeneralFunctions::smartStripslashes($message)
             : stripslashes($message);
@@ -420,7 +420,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
   
   <table>
     <tbody>
-      <tr><td align="left" colspan="2">';
+      <tr><td colspan="2">';
           
           // APPELLATION
           if($this->config['appellation']) {
@@ -440,92 +440,106 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
           }
 
           $return .= '</td></tr>
-          <tr><td align="left" valign="top">';
+          <tr><td>';
           
           // FIRSTNAME
           if($this->config['firstname']) {
             if($this->config['firstname_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
             if(!empty($mandatoryFields['firstname'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
             
+            $value = (!empty($_SESSION['feinduraPlugin_contactForm']['firstname'])) ? ' value="'.$_SESSION['feinduraPlugin_contactForm']['firstname'].'"' : '';
             $return .= '<label for="contactForm_field_firstname"'.$notFilled.'><b>'.$this->langFile['field_firstname'].$mandatory.'</b></label><br>';
-            $return .= '<input type="text" size="25" id="contactForm_field_firstname" name="firstname" value="'.@$_SESSION['feinduraPlugin_contactForm']['firstname'].'"'.$required.' /><br>';
+            $return .= '<input type="text" size="25" id="contactForm_field_firstname" name="firstname"'.$value.$required.' /><br>';
         
           }
             
-          $return .= '</td><td align="left" valign="top">';
+          $return .= '</td><td>';
           
           // LASTNAME
           if($this->config['lastname']) {
             if($this->config['lastname_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
             if(!empty($mandatoryFields['lastname'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
             
+            $value = (!empty($_SESSION['feinduraPlugin_contactForm']['lastname'])) ? ' value="'.$_SESSION['feinduraPlugin_contactForm']['lastname'].'"' : '';
             $return .= '<label for="contactForm_field_lastname"'.$notFilled.'><b>'.$this->langFile['field_lastname'].$mandatory.'</b></label><br>';
-            $return .= '<input type="text" size="28" id="contactForm_field_lastname" name="lastname" value="'.@$_SESSION['feinduraPlugin_contactForm']['lastname'].'"'.$required.' /><br>';
+            $return .= '<input type="text" size="28" id="contactForm_field_lastname" name="lastname"'.$value.$required.' /><br>';
         
           }
             
-          $return .= '</td></tr><tr><td align="left" valign="top" colspan="2">';
+          $return .= '</td></tr><tr><td>';
           
           // COMPANY
           if($this->config['company']) {
             if($this->config['company_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
             if(!empty($mandatoryFields['company'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
             
+            $value = (!empty($_SESSION['feinduraPlugin_contactForm']['company'])) ? ' value="'.$_SESSION['feinduraPlugin_contactForm']['company'].'"' : '';
             $return .= '<label for="contactForm_field_company"'.$notFilled.'><b>'.$this->langFile['field_company'].$mandatory.'</b></label><br>';
-            $return .= '<input type="text" size="25" id="contactForm_field_company" name="company" value="'.@$_SESSION['feinduraPlugin_contactForm']['company'].'"'.$required.' /><br>';
-      
-          }    
-              
-          $return .= '</td></tr><tr><td align="left" valign="top">';
-          
-          // STREET, HOUSENUMBER
-            if($this->config['street_mandatory']){ $street_mandatory = $this->mandatoryStar; $street_required = ' required="required"'; } else { $street_mandatory = ''; $street_required = '';}
-            if(!empty($mandatoryFields['street'])) $street_notFilled = $this->mandatoryColor; else $street_notFilled = '';
-            
-            if($this->config['housenumber_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
-            if(!empty($mandatoryFields['housenumber'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
-          if($this->config['street']) $return .= '<label for="contactForm_field_street"'.$street_notFilled.'><b>'.$this->langFile['field_street'].$street_mandatory.'</b></label>';
-          if($this->config['housenumber'] && $this->config['street']) $return .= ', ';
-          if($this->config['housenumber']) $return .= '<label for="contactForm_field_housenumber"'.$notFilled.'><b>'.$this->langFile['field_housenumber'].$mandatory.'</b></label><br>';
-          if($this->config['street']) $return .= '<input type="text" size="16" id="contactForm_field_street" name="street" value="'.@$_SESSION['feinduraPlugin_contactForm']['street'].'"'.$street_required.' />';
-          if($this->config['housenumber']) $return .= '<input type="number" size="5" id="contactForm_field_housenumber" name="housenumber" value="'.@$_SESSION['feinduraPlugin_contactForm']['housenumber'].'"'.$required.' /><br>';
-      
-          // ZIPCODE, CITY, COUNTRY
-            if($this->config['zipcode_mandatory']){ $zip_mandatory = $this->mandatoryStar; $zip_required = ' required="required"'; } else { $zip_mandatory = ''; $zip_required = '';}
-            if(!empty($mandatoryFields['zipcode'])) $zip_notFilled = $this->mandatoryColor; else $zip_notFilled = '';    
-            if($this->config['city_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
-            if(!empty($mandatoryFields['city'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
-          if($this->config['zipcode']) $return .= '<label for="contactForm_field_zipcode"'.$zip_notFilled.'><b>'.$this->langFile['field_zipcode'].$zip_mandatory.'</b></label>';
-          if($this->config['zipcode'] && $this->config['city']) $return .= ', ';
-          if($this->config['city']) $return .= '<label for="contactForm_field_city"'.$notFilled.'><b>'.$this->langFile['field_city'].$mandatory.'</b></label><br>';
-          if($this->config['zipcode']) $return .= '<input type="number" size="5" id="contactForm_field_zipcode" name="zipcode" value="'.@$_SESSION['feinduraPlugin_contactForm']['zipcode'].'"'.$required.' />';
-          if($this->config['city']) $return .= '<input type="text" size="16" id="contactForm_field_city" name="city" value="'.@$_SESSION['feinduraPlugin_contactForm']['city'].'"'.$zip_required.' /><br>';
-          
-            if($this->config['country_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
-            if(!empty($mandatoryFields['country'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
-          if($this->config['country']) $return .= '<label for="contactForm_field_country"'.$notFilled.'><b>'.$this->langFile['field_country'].$mandatory.'</b></label><br>';
-          if($this->config['country']) $return .= '<input type="text" size="26"  id="contactForm_field_country" name="country" value="'.@$_SESSION['feinduraPlugin_contactForm']['country'].'"'.$required.' />';
-      
-        
-          $return .= '</td><td align="left" valign="top">';
-          
+            $return .= '<input type="text" size="25" id="contactForm_field_company" name="company"'.$value.$required.' /><br>';
+          }
+
+          $return .= '</td><td>';
+
           // WEBSITE
           if($this->config['website']) {
             if($this->config['website_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
             if(!empty($mandatoryFields['website'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
             
+            $value = (!empty($_SESSION['feinduraPlugin_contactForm']['website'])) ? ' value="'.$_SESSION['feinduraPlugin_contactForm']['website'].'"' : '';
             $return .= '<label for="contactForm_field_website"'.$notFilled.'><b>'.$this->langFile['field_website'].$mandatory.'</b></label><br>';
-            $return .= '<input type="url" size="28" id="contactForm_field_website" name="website" value="'.@$_SESSION['feinduraPlugin_contactForm']['website'].'"'.$required.' /><br>';
-      
+            $return .= '<input type="url" size="28" id="contactForm_field_website" name="website"'.$value.$required.' /><br>';
           }
+          
+          $return .= '</td></tr><tr><td>';
+          
+          // STREET, HOUSENUMBER
+          if($this->config['street_mandatory']){ $street_mandatory = $this->mandatoryStar; $street_required = ' required="required"'; } else { $street_mandatory = ''; $street_required = '';}
+          if(!empty($mandatoryFields['street'])) $street_notFilled = $this->mandatoryColor; else $street_notFilled = '';
+          
+          if($this->config['housenumber_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
+          if(!empty($mandatoryFields['housenumber'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
+          if($this->config['street']) $return .= '<label for="contactForm_field_street"'.$street_notFilled.'><b>'.$this->langFile['field_street'].$street_mandatory.'</b></label>';
+          if($this->config['housenumber'] && $this->config['street']) $return .= ', ';
+          if($this->config['housenumber']) $return .= '<label for="contactForm_field_housenumber"'.$notFilled.'><b>'.$this->langFile['field_housenumber'].$mandatory.'</b></label><br>';
+          
+          $value = (!empty($_SESSION['feinduraPlugin_contactForm']['street'])) ? ' value="'.$_SESSION['feinduraPlugin_contactForm']['street'].'"' : '';
+          if($this->config['street']) $return .= '<input type="text" size="16" id="contactForm_field_street" name="street"'.$value.$street_required.' />';
+          
+          $value = (!empty($_SESSION['feinduraPlugin_contactForm']['housenumber'])) ? ' value="'.$_SESSION['feinduraPlugin_contactForm']['housenumber'].'"' : '';
+          if($this->config['housenumber']) $return .= '<input type="number" id="contactForm_field_housenumber" name="housenumber"'.$value.$required.' /><br>';
+      
+          // ZIPCODE, CITY, COUNTRY
+          if($this->config['zipcode_mandatory']){ $zip_mandatory = $this->mandatoryStar; $zip_required = ' required="required"'; } else { $zip_mandatory = ''; $zip_required = '';}
+          if(!empty($mandatoryFields['zipcode'])) $zip_notFilled = $this->mandatoryColor; else $zip_notFilled = '';    
+          if($this->config['city_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
+          if(!empty($mandatoryFields['city'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
+          if($this->config['zipcode']) $return .= '<label for="contactForm_field_zipcode"'.$zip_notFilled.'><b>'.$this->langFile['field_zipcode'].$zip_mandatory.'</b></label>';
+          if($this->config['zipcode'] && $this->config['city']) $return .= ', ';
+          if($this->config['city']) $return .= '<label for="contactForm_field_city"'.$notFilled.'><b>'.$this->langFile['field_city'].$mandatory.'</b></label><br>';
+          
+          $value = (!empty($_SESSION['feinduraPlugin_contactForm']['zipcode'])) ? ' value="'.$_SESSION['feinduraPlugin_contactForm']['zipcode'].'"' : '';
+          if($this->config['zipcode']) $return .= '<input type="number" id="contactForm_field_zipcode" name="zipcode"'.$value.$required.' />';
+          
+          $value = (!empty($_SESSION['feinduraPlugin_contactForm']['city'])) ? ' value="'.$_SESSION['feinduraPlugin_contactForm']['city'].'"' : '';
+          if($this->config['city']) $return .= '<input type="text" size="16" id="contactForm_field_city" name="city"'.$value.$zip_required.' /><br>';
+          
+            if($this->config['country_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
+            if(!empty($mandatoryFields['country'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
+          if($this->config['country']) $return .= '<label for="contactForm_field_country"'.$notFilled.'><b>'.$this->langFile['field_country'].$mandatory.'</b></label><br>';
+          $value = (!empty($_SESSION['feinduraPlugin_contactForm']['country'])) ? ' value="'.$_SESSION['feinduraPlugin_contactForm']['country'].'"' : '';
+          if($this->config['country']) $return .= '<input type="text" size="26"  id="contactForm_field_country" name="country"'.$value.$required.' />';
+      
+        
+          $return .= '</td><td>';
           
           // EMAIL
           if($this->config['email']) {
             if($this->config['email_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
             if(!empty($mandatoryFields['email'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
             
+            $value = (!empty($_SESSION['feinduraPlugin_contactForm']['email'])) ? ' value="'.$_SESSION['feinduraPlugin_contactForm']['email'].'"' : '';
             $return .= '<label for="contactForm_field_email"'.$notFilled.'><b>'.$this->langFile['field_email'].$mandatory.'</b></label><br>';
-            $return .= '<input type="email" size="28" id="contactForm_field_email" name="email" value="'.@$_SESSION['feinduraPlugin_contactForm']['email'].'"'.$required.' /><br>';
+            $return .= '<input type="email" size="28" id="contactForm_field_email" name="email"'.$value.$required.' /><br>';
       
           }
             
@@ -534,8 +548,9 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
             if($this->config['phone_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
             if(!empty($mandatoryFields['phone'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
             
+            $value = (!empty($_SESSION['feinduraPlugin_contactForm']['phone'])) ? ' value="'.$_SESSION['feinduraPlugin_contactForm']['phone'].'"' : '';
             $return .= '<label for="contactForm_field_phone"'.$notFilled.'><b>'.$this->langFile['field_phone'].$mandatory.'</b></label><br>';
-            $return .= '<input type="telephone" size="28" id="contactForm_field_phone" name="phone" value="'.@$_SESSION['feinduraPlugin_contactForm']['phone'].'"'.$required.' /><br>';
+            $return .= '<input type="tel" size="28" id="contactForm_field_phone" name="phone"'.$value.$required.' /><br>';
       
           }
             
@@ -544,13 +559,14 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
             if($this->config['fax_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else { $mandatory = ''; $required = '';}
             if(!empty($mandatoryFields['fax'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
             
+            $value = (!empty($_SESSION['feinduraPlugin_contactForm']['fax'])) ? ' value="'.$_SESSION['feinduraPlugin_contactForm']['fax'].'"' : '';
             $return .= '<label for="contactForm_field_fax"'.$notFilled.'><b>'.$this->langFile['field_fax'].$mandatory.'</b></label><br>';
-            $return .= '<input type="telephone" size="28" id="contactForm_field_fax" name="fax" value="'.@$_SESSION['feinduraPlugin_contactForm']['fax'].'"'.$required.' /><br>';
+            $return .= '<input type="tel" size="28" id="contactForm_field_fax" name="fax"'.$value.$required.' /><br>';
       
           }
       
           $return .= '</td></tr>
-          <tr><td align="left" colspan="2">';
+          <tr><td colspan="2">';
         
           if(!empty($mandatoryFields['message'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
           $return .= '<label for="contactForm_field_message"'.$notFilled.'><b>'.$this->langFile['field_message'].$this->mandatoryStar.'</b></label><br>';
@@ -563,7 +579,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
           $captcha = new captcha(rand(1000,9999));      
           $_SESSION['feinduraPlugin_contactForm']['captchacheck'] = $captcha->getNum();
           $return .= '<div id="contactForm_captchaNumbers">'.$captcha->printNumber().'</div>';
-          $return .= '<input type="number" id="contactForm_field_captcha" name="captcha" size="4" min="1000" max="9999" step="1" autocomplete="off" maxlength="4" required="required" />';
+          $return .= '<div id="contactForm_field_captchaDiv"> = <input type="number" id="contactForm_field_captcha" name="captcha" min="1000" max="9999" step="1" autocomplete="off" maxlength="4" required="required" /></div>';
         }
         
         $return .= '<br><input type="submit" id="contactForm_button_send" value="'.$this->langFile['button_send'].'" />
@@ -572,8 +588,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
       </tbody>
     </table>
     
-    </form>
-    </center>';
+    </form>';
     
     // clear xHTML tags from the content
     if($this->xHtml === false)
@@ -611,7 +626,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
     $mandatoryfieldsOk = true;
     $mandatoryFields = array();
     
-    $return .= '<a id="feinduraPlugin_contactFormAnchor" name="feinduraPlugin_contactFormAnchor"></a>';
+    $return .= '<a id="feinduraPlugin_contactFormAnchor"></a>';
     $return .= '<h1>'.$this->langFile['form_title'].'</h1>'."\n";
     
     if(isset($_POST['contactFormSend']) && $_POST['contactFormSend'] == 'true')

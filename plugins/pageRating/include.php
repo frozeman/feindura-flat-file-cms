@@ -1,5 +1,4 @@
 <?php
-/* pageRating plugin */
 /*
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
@@ -15,37 +14,43 @@
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
  */
-/** 
- * The include file for the pageRating plugin
+/**
+ * The plugin include file
  * 
  * See the README.md for more.
  * 
  * The following variables are available in this script when it gets included by the {@link Feindura::showPlugins()} method:
- *     - $pluginConfig -> contains the changed settings from the "config.php" from this plugin
- *     - $pluginName -> the folder name of this plugin
- *     - $pageContent -> the pageContent array of the page which has this plugin activated
- *     - and all other variables which are available in the {@link feindura} class (use "$this->..")
+ *     - $this          -> the current {@link Feindura} class instance with all its methods (use "$this->..")
+ *     - $pluginConfig  -> contains the changed settings from the "config.php" from this plugin
+ *     - $pluginName    -> the folder name of this plugin
+ *     - $pageContent   -> the pageContent array of the page which has this plugin activated 
  * 
- * This file MUST RETURN the plugin ready to display in a HTML-page
- * 
- * For Example
+ * This file MUST RETURN the plugin ready to display in a HTML-page, like:
  * <code>
+ * <?php
+ * // Add the stylesheet files of this plugin to the current page
+ * echo $this->addPluginStylesheets(dirname(__FILE__));
+ * 
  * $plugin = '<p>Plugin HTML</p>';
  * 
  * return $plugin;
+ * ?>
  * </code>
  * 
  * @package [Plugins]
  * @subpackage pageRating
- * 
- * @version 0.1
  * 
  * @author Fabian Vogelsteller <fabian@feindura.org>
  * @copyright Fabian Vogelsteller
  * @license http://www.gnu.org/licenses GNU General Public License version 3
  * 
  */
-//unset($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated']);
+
+// Add the stylesheet files of this plugin to the current page
+echo $this->addPluginStylesheets(dirname(__FILE__));
+
+
+// unset($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated']);
 // var
 $_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] = ($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] === 'true') ? 'true' : 'false';
 $plugin = '';
@@ -61,10 +66,10 @@ echo '<script type="text/javascript">
 
 $alreadyRatedClass = ($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] === 'false') ? ' unrated': '';
 
-$plugin .= '<div class="feinduraPlugin_pageRating page'.$pageContent['id'].$alreadyRatedClass.'" data-pageRating="'.$pageContent['id'].' '.$pageContent['category'].'" title="'.$pageContent['plugins']['pageRating']['value'].'">';
+$plugin .= '<div class="feinduraPlugin_pageRating page'.$pageContent['id'].$alreadyRatedClass.'" data-pageRating="'.$pageContent['id'].' '.$pageContent['category'].'" title="'.$pageContent['plugins']['pageRating']['valueNumber'].'">';
 $plugin .= '<ul>';
 for($i = 1; $i <= 5; $i++) {
-  $filled = ($i <= $pageContent['plugins']['pageRating']['value']) ? ' filled' : '' ;
+  $filled = ($i <= $pageContent['plugins']['pageRating']['valueNumber']) ? ' filled' : '' ;
   $plugin .= '<li><a href="#" class="star'.$filled.'" data-pageRating="'.$i.'" onclick="return false;"></a></li>';
 }
 $plugin .= '</ul>';

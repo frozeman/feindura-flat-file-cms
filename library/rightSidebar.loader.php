@@ -49,7 +49,7 @@ switch($_GET['site']) {
 
   // ***** websiteSetup sideBar -------------------------------------------- *********
   case 'websiteSetup':
-    if($adminConfig['multiLanguageWebsite']['languages'] != array_keys($websiteConfig['localized'])) {
+    if($adminConfig['multiLanguageWebsite']['active'] && $adminConfig['multiLanguageWebsite']['languages'] != array_keys($websiteConfig['localized'])) {
       echo '<div id="rightSidebarMessageBox">';
         echo '<div class="content">';
         echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';

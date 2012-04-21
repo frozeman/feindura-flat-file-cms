@@ -563,7 +563,7 @@ $langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS']                             = 'Mod
 $langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Specifica se l\'utente può modificare i tag nella pagine in questa categoria.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS']                      = 'Attivare Plugin';
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS']                       = 'Specifica se l\'utente può utilizzare i plugin nelle pagine in questa categoria.';
-$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Tenere premuto il tasto CTRL per selezionare più di un plugin.';
+$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Tenere premuto il tasto CTRL/CMD per selezionare più di un plugin.';
 
 $langFile['PAGESETUP_TEXT_EDITPAGEDATE']                                  = 'Modificare Date';
 $langFile['PAGESETUP_TIP_EDITPAGEDATE']                                   = 'La data nelle pagina può essere utilizzata per ordinarle in base alla loro pubblicazione';

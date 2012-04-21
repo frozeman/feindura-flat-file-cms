@@ -19,7 +19,7 @@
  */
 
 
-define('IMAGE_PROCESSING_MEMORY_MAX_USAGE', 64); // memory_limit setting, in Megabytes; increase when Image class reports too often the images don't fit in memory.
+define('IMAGE_PROCESSING_MEMORY_MAX_USAGE', 160); // memory_limit setting, in Megabytes; increase when Image class reports too often the images don't fit in memory.
 
 class Image {
 	/**

@@ -11,7 +11,7 @@
 /*********************************************************************************************************/
 
 CKEDITOR.plugins.add('codemirror',   
-{    
+{
     init:function(editor)
 	{
 		var codemirror;
@@ -29,17 +29,18 @@ CKEDITOR.plugins.add('codemirror',
 				// приходится получать ноду, к которой будует прилеплен codemirror
 				var node = $$("."+class_editor+" textarea.cke_source");
 				node = node[0];
-				var hlLine;
+				var hlLine = false;
 				
 				codemirror = CodeMirror.fromTextArea(node, {
 					mode: "htmlmixed",
 					lineNumbers: false,
 					theme: 'feindura',
 					onCursorActivity: function() {
-					  codemirror.setLineClass(hlLine, null);
-		        hlLine = codemirror.setLineClass(codemirror.getCursor().line, "CodeMirrorActiveline");
-		        codemirror.save();
-		      }
+            if(hlLine)
+              codemirror.setLineClass(hlLine, null);
+            hlLine = codemirror.setLineClass(codemirror.getCursor().line, "CodeMirrorActiveline");
+            codemirror.save();
+          }
 				});
 			}
 		});

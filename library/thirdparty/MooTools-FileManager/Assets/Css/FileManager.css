@@ -939,6 +939,7 @@ div.filemanager-wrapper {
 }
 
 div.filemanager-wrapper div.img {
+	position: relative;
 	width: 260px;
 	height: 260px;
 	margin: 5px;

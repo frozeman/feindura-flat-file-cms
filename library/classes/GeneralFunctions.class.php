@@ -763,7 +763,7 @@ class GeneralFunctions {
     $fileContent .= "\$pageContent['public']             = ".XssFilter::bool($pageContent['public'],true).";\n\n";
     
     $fileContent .= "\$pageContent['lastSaveDate']       = ".XssFilter::int($pageContent['lastSaveDate'],0).";\n";
-    $fileContent .= "\$pageContent['lastSaveAuthor']     = ".XssFilter::int($pageContent['lastSaveAuthor'],false).";\n\n"; 
+    $fileContent .= "\$pageContent['lastSaveAuthor']     = ".XssFilter::int($pageContent['lastSaveAuthor'],'false').";\n\n"; 
     
     $fileContent .= "\$pageContent['pageDate']['date']   = ".XssFilter::int($pageContent['pageDate']['date'],0).";\n\n";
 
@@ -866,14 +866,22 @@ class GeneralFunctions {
 
     // ->> GET ALL PAGES, which are inside the /pages/ folder
     $files = self::readFolderRecursive(dirname(__FILE__).'/../../pages/');
-    foreach ($files['files'] as $file) {
-      // load category pages
-      if(preg_match('#^.*\/([0-9]+)/([0-9]+)\.php$#',$file,$match)) {
-        $pages[] = self::readPage($match[2],$match[1]);
-      // load non category pages
-      } elseif(preg_match('#^.*/([0-9]+)\.php$#',$file,$match)) {
-        $pages[] = self::readPage($match[1]);
+    if(is_array($files['files'])) {
+      foreach ($files['files'] as $file) {
+        // load category pages
+        if(preg_match('#^.*\/([0-9]+)/([0-9]+)\.php$#',$file,$match)) {
+          $pages[] = self::readPage($match[2],$match[1]);
+        // load non category pages
+        } elseif(preg_match('#^.*/([0-9]+)\.php$#',$file,$match)) {
+          $pages[] = self::readPage($match[1]);
+        }
       }
+    } 
+
+    // -> dont save the file, if there are no pages
+    if(empty($pages)) {
+      @unlink(dirname(__FILE__).'/../../pages/pagesMetaData.array.php');
+      return false;
     }
 
     $fileContent = "<?php\n";
@@ -1839,18 +1847,18 @@ class GeneralFunctions {
   * 
   */
   public static function readFolderRecursive($folder) {
-    
-    //vars
-    $folder = self::getRealPath($folder);
-    if(empty($folder)) return false;
-    
+
     //vars  
+    $folder = self::getRealPath($folder);
     $goTroughFolders['folders'][0] = $folder;
     $goTroughFolders['files'] = array();
     $subFolders = array();
     $files = array();
     $return['folders'] = false;
     $return['files'] = false;
+
+    if(empty($folder) || !is_dir($folder))
+      return $return;
       
     // ->> goes trough all SUB-FOLDERS  
     while(!empty($goTroughFolders['folders'][0])) {

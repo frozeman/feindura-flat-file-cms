@@ -22,8 +22,8 @@ $tags = 'winter summer spring';
 $menu = $feindura->createMenuByTags($tags,'category',1,'table',true,2,true);
 
 // displays the menu
-foreach($menu as $link) {
-  echo $link['menuItem'];
+foreach($menu as $item) {
+  echo $item['menuItem'];
 }
 
 

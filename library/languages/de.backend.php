@@ -561,7 +561,7 @@ $langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS']                             = 'Tag
 $langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Es können Tags für die Seiten in dieser Kategorie festgelegt werden.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS']                      = 'Plugins aktivieren';
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS']                       = 'Plugins für die Seiten in dieser Kategorie aktivieren';
-$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Halte die STRG-Taste gedrückt um mehrere Plugins auszuwählen.';
+$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Halte die STRG/CMD-Taste gedrückt um mehrere Plugins auszuwählen.';
 
 $langFile['PAGESETUP_TEXT_EDITPAGEDATE']                                  = 'Seitendatum bearbeiten';
 $langFile['PAGESETUP_TIP_EDITPAGEDATE']                                   = 'Das Seitendatum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';

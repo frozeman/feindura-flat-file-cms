@@ -2,7 +2,7 @@
 
 #mbox-overlay{
 	background-color: #000; /* set the Milkbox overlay color // opacity: see the js options */
-	z-index:9999;
+	z-index:50000;
 	cursor: pointer;
 }
 

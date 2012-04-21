@@ -1,5 +1,4 @@
 <?php
-/* imageGallery plugin */
 /*
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
@@ -15,24 +14,27 @@
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
  */
-/** 
- * The include file for the contactForm plugin
+/**
+ * The plugin include file
  * 
  * See the README.md for more.
  * 
  * The following variables are available in this script when it gets included by the {@link Feindura::showPlugins()} method:
- *     - $pluginConfig -> contains the changed settings from the "config.php" from this plugin
- *     - $pluginName -> the folder name of this plugin
- *     - $pageContent -> the pageContent array of the page which has this plugin activated 
- *     - and all other variables which are available in the {@link feindura} class (use "$this->..")
+ *     - $this          -> the current {@link Feindura} class instance with all its methods (use "$this->..")
+ *     - $pluginConfig  -> contains the changed settings from the "config.php" from this plugin
+ *     - $pluginName    -> the folder name of this plugin
+ *     - $pageContent   -> the pageContent array of the page which has this plugin activated 
  * 
- * This file MUST RETURN the plugin ready to display in a HTML-page
- * 
- * For Example
+ * This file MUST RETURN the plugin ready to display in a HTML-page, like:
  * <code>
+ * <?php
+ * // Add the stylesheet files of this plugin to the current page
+ * echo $this->addPluginStylesheets(dirname(__FILE__));
+ * 
  * $plugin = '<p>Plugin HTML</p>';
  * 
  * return $plugin;
+ * ?>
  * </code>
  * 
  * @package [Plugins]
@@ -43,6 +45,10 @@
  * @license http://www.gnu.org/licenses GNU General Public License version 3
  * 
  */
+
+// Add the stylesheet files of this plugin to the current page
+echo $this->addPluginStylesheets(dirname(__FILE__));
+
 
 // load the contactForm class
 require_once('contactForm.php');

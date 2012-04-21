@@ -1,6 +1,6 @@
 <?php
 /**
- * ENGLISH (EN) language-file for the pageRating plugin
+ * ENGLISH (EN) plugin language file
  * 
  * NEEDS a RETURN $pluginLangFile; at the END
  * 
@@ -24,8 +24,9 @@ $pluginLangFile['feinduraPlugin_description']  = 'Displays a 5 star rating.';
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['valueNumber'] = 'Rating';
-$pluginLangFile['votesNumber'] = 'Number of votes';
+$pluginLangFile['valueNumber']     = 'Rating';
+$pluginLangFile['valueNumber_tip'] = 'Value between 1 (worst) and 5 (best)';
+$pluginLangFile['votesNumber']     = 'Number of votes';
 
 
 // -----------------------------------------------------------------------------------------------

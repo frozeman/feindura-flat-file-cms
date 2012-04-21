@@ -72,7 +72,7 @@ FileManager.Gallery = new Class({
 					self.keepGalleryData = false;
 				}
 				self.hideClone();
-				self.wrapper.setStyle('display', 'none');
+				// self.wrapper.setStyle('display', 'none');
 			},
 
 			modify: function(file, json, mode, self) {
@@ -89,7 +89,7 @@ FileManager.Gallery = new Class({
 			'class': 'filemanager-gallery',
 			styles:
 			{
-				'z-index': this.options.zIndex + 10
+				'z-index': this.options.zIndex - 10
 			}
 		}).inject(this.container);
 		this.gallery = new Element('ul').inject(this.galleryContainer);
@@ -104,10 +104,11 @@ FileManager.Gallery = new Class({
 			'class': 'filemanager-wrapper',
 			styles:
 			{
-				'z-index': this.options.zIndex + 750
+				'z-index': this.options.zIndex + 750,
+				'opacity': 0,
+				'display': 'none'
 			},
 			tween: {duration: 'short'},
-			opacity: 0,
 			events: {
 				mouseenter: function() {
 					if (self.options.closeCaptionEditorOnMouseOut)
@@ -284,7 +285,7 @@ FileManager.Gallery = new Class({
 		});
 
 		this.hideClone();
-		this.wrapper.setStyle('display', 'none');
+		// this.wrapper.setStyle('display', 'none');
 	},
 
 	// override the parent's allow_DnD method: always allow drag and drop as otherwise we cannot construct our gallery!
@@ -328,15 +329,16 @@ FileManager.Gallery = new Class({
 		// now calculate the scaled image dimensions for this one:
 		var cw = this.captionImgContainerSize.x;
 		var ch = this.captionImgContainerSize.y;
+		var redux;
 		if (w > cw)
 		{
-			var redux = cw / w;
+			redux = cw / w;
 			w *= redux;
 			h *= redux;
 		}
 		if (h > ch)
 		{
-			var redux = ch / h;
+			redux = ch / h;
 			w *= redux;
 			h *= redux;
 		}
@@ -379,34 +381,32 @@ FileManager.Gallery = new Class({
 			self.files[name].caption = (this.value || '');
 		});
 
+		// clone image for caption container
 		//li_wrapper.set('opacity', 0);
 		this.clone = img_el.clone();
-		this.clone.store('file', file).store('parent', li_wrapper).addClass('filemanager-clone').setStyles(this.animation.from).set({
-			morph: {link: 'chain'},
+		this.clone.store('file', file).store('parent', li_wrapper).addClass('filemanager-clone').set({
 			styles: {
-				position: 'absolute',
+				position: 'relative',
+				width: w,
+				height: h,
+				top: ((260- h) / 2) - 2,
+				left: ((260- w) / 2) - 1,
 				'z-index': this.options.zIndex + 800
-			},
-			events: {
-				click: function(e) {
-					if (!self.files[name])
-						return;
-					self.fireEvent('galleryPreview', [file.path, self.files[name], li_wrapper, self]);
-				}
 			}
-		}).inject(document.body).morph(this.animation.to).get('morph').chain(function() {
-			if (!self.files[name])
-				return;
-			self.input.set('value', self.files[name].caption || '');
-			self.wrapper.setStyles({
-				opacity: 1,
-				display: 'block',
-				left: self.animation.to.left + self.captionDialogOffsets.x /* -12 */,
-				top: self.animation.to.top + self.captionDialogOffsets.y /* -53 */
-			}).fade(1).get('tween').chain(function() {
-				self.input.focus();
-			});
-		});
+		}).inject(self.wrapper.getChildren('div.img')[0]);
+
+		// blend in the caption container
+		if (!this.files[name])
+			return;
+		this.input.set('value', self.files[name].caption || '');
+		this.wrapper.setStyles({
+			'position':'fixed',
+			'display': 'block',
+			'left': this.animation.to.left /* -12 */,
+			'top': this.animation.to.top - this.captionDialogOffsets.y /* -53 */
+		}).fade('hide').fade(1).get('tween').chain((function() {
+			this.input.focus();
+		}).bind(this));
 	},
 
 	img_injector: function(file, imgcontainer, li_wrapper)
@@ -425,15 +425,16 @@ FileManager.Gallery = new Class({
 		// now calculate the scaled image dimensions for this one:
 		var cw = this.imgContainerSize.x;
 		var ch = this.imgContainerSize.y;
+		var redux;
 		if (w > cw)
 		{
-			var redux = cw / w;
+			redux = cw / w;
 			w *= redux;
 			h *= redux;
 		}
 		if (h > ch)
 		{
-			var redux = ch / h;
+			redux = ch / h;
 			w *= redux;
 			h *= redux;
 		}
@@ -460,7 +461,7 @@ FileManager.Gallery = new Class({
 				li_wrapper.setStyle('background', 'none').addEvent('click', function(e) {
 					if (e) e.stop();
 					if (!self.isSorting) {
-						 self.show_caption_editor(img_el, li_wrapper, file);
+						self.show_caption_editor(img_el, li_wrapper, file);
 					}
 					self.isSorting = false;
 				});
@@ -533,10 +534,10 @@ FileManager.Gallery = new Class({
 			}
 		});
 
-		/*
-		 * as 'imgcontainer.getSize() won't deliver the dimensions as set in the CSS, we turn it the other way around:
-		 * we set the w/h of the image container here explicitly; the CSS can be used for other bits of styling.
-		 */
+		/**
+		* as 'imgcontainer.getSize() won't deliver the dimensions as set in the CSS, we turn it the other way around:
+		* we set the w/h of the image container here explicitly; the CSS can be used for other bits of styling.
+		*/
 		var imgcontainer = new Element('div', {
 			'class': 'gallery-image',
 			'title': file.name,
@@ -670,13 +671,11 @@ FileManager.Gallery = new Class({
 
 		this.files[name].caption = (this.input.value || '');
 
-		this.clone.morph(this.animation.from).get('morph').clearChain().chain((function() {
-			//this.clone.retrieve('parent').set('opacity', 1);
-			this.clone.destroy();
-		}).bind(this));
+		self = this;
 
 		this.wrapper.fade(0).get('tween').chain(function() {
 			this.element.setStyle('display', 'none');
+			self.clone.destroy();
 		});
 	},
 
@@ -692,7 +691,7 @@ FileManager.Gallery = new Class({
 		this.clone.destroy();
 		this.wrapper.setStyles({
 			opacity: 0,
-			display: 'none'
+			'display': 'none'
 		});
 	},
 

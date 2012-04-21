@@ -1,7 +1,8 @@
 <?php
 /**
- * ITALIAN (IT) language-file for the imageGallery plugin
+ * ITALIAN (IT) plugin language file
  * Traslated in Italian By Raffaele Panariello [Social Service] unuomoinblues@gmail.com
+ * 
  * NEEDS a RETURN $pluginLangFile; at the END
  * 
  * 
@@ -20,16 +21,18 @@
 /* PLUGIN ************************************************************************************ */
 
 $pluginLangFile['feinduraPlugin_title']        = 'Proiezione Di Diapositive';
-$pluginLangFile['feinduraPlugin_description']  = 'Crea una proiezione di diapositive <i>slideshow</i> delle immagini di una cartella sul server. Le immagini verranno automaticamente ridimensionate alla dimensione data. Vedere <a href="http://www.johannes-fischer.de/labs/nivoo-slider/">Nivooslider</a>.';
+$pluginLangFile['feinduraPlugin_description']  = 'Crea una proiezione di diapositive <i>slideshow</i> delle immagini. Le immagini verranno automaticamente ridimensionate alla dimensione data. Vedere <a href="http://www.johannes-fischer.de/labs/nivoo-slider/">Nivooslider</a>.';
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['path']         = 'percorso delle immagini';
-$pluginLangFile['path_tip']     = 'percorso assoluto della cartella, che contiene le immagini::ad esempio &quot;/upload/slideshow1&quot;';
-$pluginLangFile['imageWidth']          = 'larghezza immagine';
-$pluginLangFile['imageWidth_tip']      = 'in pixel';
-$pluginLangFile['imageHeight']         = 'altezza immagine';
-$pluginLangFile['imageHeight_tip']     = 'in pixel';
+$pluginLangFile['selectImagesJsFunction'] = 'selezionare le immagini';
+$pluginLangFile['widthNumber']            = 'larghezza di proiezione di diapositive';
+$pluginLangFile['widthNumber_tip']        = 'in pixel';
+$pluginLangFile['heightNumber']           = 'altezza di proiezione di diapositive';
+$pluginLangFile['heightNumber_tip']       = 'in pixel';
+$pluginLangFile['intervalNumber']         = 'intervallo';
+$pluginLangFile['intervalNumber_tip']     = 'in secondo';
+$pluginLangFile['effectSelection']        = 'effetto';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

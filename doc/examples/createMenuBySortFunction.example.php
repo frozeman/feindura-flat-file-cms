@@ -25,8 +25,8 @@ function sortByLastEditDate($a,$b) {
 $menu = $feindura->createMenuBySortFunction('sortByLastEditDate','category',1,'table',true,2);
 
 // displays the menu
-foreach($menu as $link) {
-  echo $link['menuItem'];
+foreach($menu as $item) {
+  echo $item['menuItem'];
 }
 
 

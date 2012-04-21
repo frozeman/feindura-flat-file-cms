@@ -243,11 +243,11 @@ class StatisticFunctions {
     
     // ->> GET PAGE is a feindura link
     // **********************
-    } elseif(isset($_GET['feinduraLink']) &&
-             !empty($_GET['feinduraLink']) &&
-             is_numeric($_GET['feinduraLink'])) {
+    } elseif(isset($_GET['feinduraPageID']) &&
+             !empty($_GET['feinduraPageID']) &&
+             is_numeric($_GET['feinduraPageID'])) {
       // get PAGE GET var
-      return XssFilter::int($_GET['feinduraLink'],0); // get the page ID from the $_GET var
+      return XssFilter::int($_GET['feinduraPageID'],0); // get the page ID from the $_GET var
       
     // ->> GET PAGE is a NAME
     // **********************

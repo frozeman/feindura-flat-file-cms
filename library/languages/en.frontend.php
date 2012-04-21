@@ -25,11 +25,12 @@
 // -> GENERAL <-
 */
 
-$frontendLangFile['HEADER_TIP_GOTOBACKEND']          = 'Feindura::Click here to go to the backend.';
-$frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND'] = 'Edit this page in the backend';
+$frontendLangFile['HEADER_TIP_GOTOBACKEND']               = 'Feindura::Click here to go to the backend.';
+$frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']      = 'Edit this page in the backend';
 
-$frontendLangFile['EDITPAGE_TIP_DISABLED']           = 'It\'s not possible to edit this page::This page contains [i]<script>[/i] tags and can therefore only be edited in the Backend.';
-
+$frontendLangFile['EDITPAGE_TIP_DISABLED']                = 'Editing in frontend not possible::The content was changed by scripts.';
+$frontendLangFile['TOPBAR_TIP_FRONTENDEDITING']           = 'Frontend Editing::Select a editable area to start editing.';
+$frontendLangFile['TOPBAR_TIP_DEACTIVATEFRONTENDEDITING'] = 'Deactivate Frontend Editing';
 
 // FRONTEND ERROR TEXTS
 

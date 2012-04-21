@@ -24,38 +24,6 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-// CHECKs if the necessary FILEs are WRITEABLE, otherwise show an warnings
-// ----------------------------------------------------------------------------------------
-$checkFolders[] = dirname(__FILE__).'/../../config/';
-$checkFolders[] = dirname(__FILE__).'/../../statistic/';
-$checkFolders[] = dirname(__FILE__).'/../../pages/';
-$checkFolders[] = $adminConfig['websiteFilesPath'];
-$checkFolders[] = $adminConfig['stylesheetPath'];
-$checkFolders[] = $adminConfig['uploadPath'];
-
-// gives the error OUTPUT if one of these files in unwriteable
-if(DOCUMENTROOT !== false && $unwriteableList = isWritableWarningRecursive($checkFolders)) {
-  echo '<div class="block warning">
-    <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
-    <div class="content">
-      <p>'.$unwriteableList.'</p><!-- need <p> tags for margin-left:..-->
-    </div>
-    <div class="bottom"></div>  
-  </div>'; 
-  echo '<div class="blockSpacer"></div>';
-
-// show error if admin.config.php is not readable
-} elseif(DOCUMENTROOT === false && $unwriteableConfig = isWritableWarningRecursive(array($checkFolders[0]))) {
-  echo '<div class="block warning">
-    <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
-    <div class="content">
-      <p>'.$unwriteableConfig.'</p><!-- need <p> tags for margin-left:..-->
-    </div>
-    <div class="bottom"></div>  
-  </div>'; 
-  echo '<div class="blockSpacer"></div>';
-}
-
 // GET timezones
 $timezones = array();
 $tab = file(dirname(__FILE__).'/../thirdparty/timezones.tab');

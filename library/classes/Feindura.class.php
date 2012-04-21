@@ -48,6 +48,17 @@ class Feindura extends FeinduraBase {
  /* ->> GENERAL <<- */
  
  /**
+  * Contains metaData which can be used in the website.
+  * 
+  * Example of the array
+  * {@example metaData.array.example.php} 
+  *
+  * @var array
+  * @access public
+  */
+  public $metaData = array();
+
+ /**
   * TRUE when the pages content should be handled as XHTML.
   * 
   * In XHTML standalone tags end with " />" instead of ">".<br>
@@ -836,6 +847,13 @@ class Feindura extends FeinduraBase {
         $this->language = $_SESSION['feinduraSession']['websiteLanguage'];
     }
     $this->loadFrontendLanguageFile($this->language);
+
+    // -> SET the $metaData PROPERTY
+    $this->metaData['title']       = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'title',$this->language);
+    $this->metaData['publisher']   = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'publisher',$this->language);
+    $this->metaData['copyright']   = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'copyright',$this->language);
+    $this->metaData['keywords']    = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'keywords',$this->language);
+    $this->metaData['description'] = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'description',$this->language);
   }
   
   // ****************************************************************************************************************
@@ -883,6 +901,7 @@ class Feindura extends FeinduraBase {
   * @param string $language a language country code like "en", "de", ...
   * 
   * @uses FeinduraBase::$language	the language country code like "en", "de", ... which will be returned
+  * @uses FeinduraBase::$metaData to change it to the new language
   * 
   * @return string|false the {@link $language language country code} or FALSE if the given $language parameter is no country code
   * 
@@ -901,7 +920,14 @@ class Feindura extends FeinduraBase {
       
       $this->language = $language;
       $this->loadFrontendLanguageFile($this->language);
-      
+
+      // CHANGE the $metaData property
+      $this->metaData['title']       = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'title',$this->language);
+      $this->metaData['publisher']   = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'publisher',$this->language);
+      $this->metaData['copyright']   = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'copyright',$this->language);
+      $this->metaData['keywords']    = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'keywords',$this->language);
+      $this->metaData['description'] = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'description',$this->language);
+
       return $this->language;
     } else
       return false;
@@ -1076,7 +1102,10 @@ class Feindura extends FeinduraBase {
      
       // -> add keywords
       $websiteConfigKeywords =  GeneralFunctions::getLocalized($this->websiteConfig['localized'],'keywords',$this->language);
-      if(!empty($websiteConfigKeywords))
+      $pageTags          =  GeneralFunctions::getLocalized($currentPage['localized'],'tags',$this->language);
+      if(!empty($pageTags) && (($currentPage['category'] != 0 && $this->category['showTags']) || ($currentPage['category'] == 0 && $this->adminConfig['pages']['showTags'])))
+        $metaTags .= '  <meta name="keywords" content="'.$pageTags.'"'.$tagEnding."\n";
+      elseif(!empty($websiteConfigKeywords))
         $metaTags .= '  <meta name="keywords" content="'.$websiteConfigKeywords.'"'.$tagEnding."\n";
 
       // -> add description
@@ -1147,13 +1176,13 @@ class Feindura extends FeinduraBase {
       }
       
       // -> add plugin-stylesheets
-      $plugins = GeneralFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
-      if(is_array($plugins)) {
-        foreach($plugins['folders'] as $pluginFolder) {
-          $pluginName = basename($pluginFolder);
-          $metaTags .= GeneralFunctions::createStyleTags($pluginFolder,false);
-        }
-      }
+      // $plugins = GeneralFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
+      // if(is_array($plugins)) {
+      //   foreach($plugins['folders'] as $pluginFolder) {
+      //     $pluginName = basename($pluginFolder);
+      //     $metaTags .= GeneralFunctions::createStyleTags($pluginFolder,false);
+      //   }
+      // }
 
       // ->> ENABLE FRONTEND EDITING
       // if user is logged into the CMS, add javascripts for implementing ckeditor      
@@ -1203,14 +1232,17 @@ class Feindura extends FeinduraBase {
   var feindura_currentBackendLocation =    '".$_SESSION['feinduraSession']['login']['currentBackendLocation']."';
   var feindura_deactivateFrontendEditing = '".$_SESSION['feinduraSession']['login']['deactivateFrontendEditing']."';
   var feindura_langFile = {
-    ERRORWINDOW_TITLE:      \"".$this->languageFile['errorWindow_h1']."\",
-    ERROR_SAVE:             \"".$this->languageFile['EDITOR_savepage_error_save']."\",
-    ERROR_SETSTARTPAGE:     \"".$this->languageFile['SORTABLEPAGELIST_setStartPage_error_save']."\",
-    FUNCTIONS_STARTPAGE_SET:\"".$this->languageFile['SORTABLEPAGELIST_functions_startPage_set']."\",
-    FUNCTIONS_STARTPAGE:    \"".$this->languageFile['SORTABLEPAGELIST_functions_startPage']."\",
-    FUNCTIONS_EDITPAGE:     \"".$this->languageFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']."\",
-    BUTTON_LOGOUT:          \"".$this->languageFile['HEADER_BUTTON_LOGOUT']."\",
-    BUTTON_GOTOBACKEND:     \"".$this->languageFile['HEADER_TIP_GOTOBACKEND']."\"
+    ERRORWINDOW_TITLE:                    \"".$this->languageFile['errorWindow_h1']."\",
+    ERROR_SAVE:                           \"".$this->languageFile['EDITOR_savepage_error_save']."\",
+    ERROR_SETSTARTPAGE:                   \"".$this->languageFile['SORTABLEPAGELIST_setStartPage_error_save']."\",
+    FUNCTIONS_STARTPAGE_SET:              \"".$this->languageFile['SORTABLEPAGELIST_functions_startPage_set']."\",
+    FUNCTIONS_STARTPAGE:                  \"".$this->languageFile['SORTABLEPAGELIST_functions_startPage']."\",
+    FUNCTIONS_EDITPAGE:                   \"".$this->languageFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']."\",
+    BUTTON_LOGOUT:                        \"".$this->languageFile['HEADER_BUTTON_LOGOUT']."\",
+    BUTTON_GOTOBACKEND:                   \"".$this->languageFile['HEADER_TIP_GOTOBACKEND']."\",
+    EDITPAGE_TIP_DISABLED:                \"".$this->languageFile['EDITPAGE_TIP_DISABLED']."\",
+    TOPBAR_TIP_FRONTENDEDITING:           \"".$this->languageFile['TOPBAR_TIP_FRONTENDEDITING']."\",
+    TOPBAR_TIP_DEACTIVATEFRONTENDEDITING: \"".$this->languageFile['TOPBAR_TIP_DEACTIVATEFRONTENDEDITING']."\"
   };
   var feindura_logoutUrl =    '".GeneralFunctions::getCurrentUrl('feindura_logout')."';
   var feindura_setStartPage = '".$this->adminConfig['setStartPage']."';
@@ -1458,7 +1490,7 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
-  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
+  * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   *  
   * Example of the returned Array:
@@ -1530,6 +1562,7 @@ class Feindura extends FeinduraBase {
     $menuItem['endTag']   = '';
     $menuItem['link']     = '';
     $menuItem['href']     = false;
+    $menuItem['title']    = false;
     $menuItem['pageId']   = null;
     $menuItemCopy = $menuItem;
     
@@ -1550,9 +1583,24 @@ class Feindura extends FeinduraBase {
         // creates the link
         if($pageLink = $this->createLink($page,$linkText)) {
           // adds the link to an array
-          $link['link'] = $pageLink;
-          $link['href'] = $this->createHref($page);
-          $link['id']   = $page['id'];
+          $link['link']  = $pageLink;
+          $link['href']  = $this->createHref($page);
+          $link['id']    = $page['id'];
+
+          // create a title
+          if($linkText === true) {
+            $link['title'] = $this->createTitle($page,                         
+                                                $this->linkLength,
+                                                false, // $titleAsLink
+                                                $this->linkShowPageDate,
+                                                $this->linkShowCategory,
+                                                $this->linkPageDateSeparator,                                      
+                                                $this->linkCategorySeparator,
+                                                false); // $allowFrontendEditing
+          } elseif(is_string($linkText) &&
+                   is_numeric($this->linkLength))   
+            $link['title'] = $this->shortenText($linkText, $this->linkLength);
+
           $links[] = $link;
         }
       }
@@ -1629,6 +1677,7 @@ class Feindura extends FeinduraBase {
         $menuItemCopy['endTag']   = "</li>\n";
         $menuItemCopy['link']     = $link['link'];
         $menuItemCopy['href']     = $link['href'];
+        $menuItemCopy['title']    = $link['title'];
         $menuItemCopy['pageId']   = $link['id'];
         
       // if menuTag is a TABLE -----
@@ -1638,6 +1687,7 @@ class Feindura extends FeinduraBase {
         $menuItemCopy['endTag']   = "\n</td>";
         $menuItemCopy['link']     = $link['link'];
         $menuItemCopy['href']     = $link['href'];
+        $menuItemCopy['title']    = $link['title'];
         $menuItemCopy['pageId']   = $link['id'];
 
       // if just a link
@@ -1645,6 +1695,7 @@ class Feindura extends FeinduraBase {
         $menuItemCopy['menuItem'] = $link['link']."\n";
         $menuItemCopy['link']     = $link['link']."\n";
         $menuItemCopy['href']     = $link['href'];
+        $menuItemCopy['title']    = $link['title'];
         $menuItemCopy['pageId']   = $link['id'];
       }
       
@@ -1706,7 +1757,7 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: the tags will be compared case insensitive.<br>
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br> 
-  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
+  * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
   * Example of the returned Array:
@@ -1802,7 +1853,7 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br> 
-  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
+  * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
   * Example of the returned Array:
@@ -1895,7 +1946,7 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
-  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
+  * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
   * Example of the returned Array:
@@ -1989,19 +2040,88 @@ class Feindura extends FeinduraBase {
       // call the right function             
 	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$breakAfter,$reverseList);
   }
+
+/**
+  * <b>Name</b> isSubCategory()<br>
+  * 
+  * Check if the given <var>$category</var> ID is a subcategory.
+  * 
+  * <b>Note</b>: If the <var>$category</var> parameter is FALSE or empty, it uses the current category (means the {@link $category} property).<br>
+  * 
+  * @param int|bool       $category  (optional) a category ID, or FALSE to check the current category using the {@link Feindura::$category} property
+  * 
+  * @uses Feindura::$category
+  * @uses Feindura::$categoryConfig
+  * 
+  * 
+  * @return bool whether or not the checked category is a subcategory
+  * 
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public function isSubCategory($category = false) {
+    $category = $this->getPropertyCategory($category);
+    
+    if($this->categoryConfig[$category]['isSubCategory'])
+      return true;
+    else
+      return false;
+  }
+
+
+/**
+  * <b>Name</b> isSubCategoryOf()<br>
+  * 
+  * Check if the given <var>$page</var> ID has the <var>$category</var> as a subcategory.<br>
+  * 
+  * <b>Note</b>: If the <var>$page</var> parameter is FALSE or empty, it uses the current page (means the {@link $page} property).<br>
+  * <b>Note</b>: If the <var>$category</var> parameter is FALSE or empty, it uses the current page (means the {@link $page} property).<br>
+  *
+  * @param int|bool $page      (optional) a page ID, or FALSE to check the current page, using the {@link Feindura::$category} property 
+  * @param int|bool $category  (optional) a category ID, or FALSE to check the current category, using the {@link Feindura::$category} property
+  * 
+  * @uses Feindura::$category
+  * @uses Feindura::$categoryConfig
+  * 
+  * 
+  * @return bool whether or not the given page has the given category as subcategory
+  * 
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public function isSubCategoryOf($page = false, $category = false) {
+
+    // var
+    $page = $this->getPropertyPage($page);
+    $category = $this->getPropertyCategory($category);
+    $subCategoryPages = unserialize($this->categoryConfig[$category]['isSubCategoryOf']);
+
+    if(is_array($subCategoryPages) && in_array($page, $subCategoryPages))
+      return true;
+    else
+      return false;
+  }
   
  /**
   * <b>Name</b> createSubMenu()<br>
   * 
   * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
   * 
-  * Creates a sub menu out of the subcategory of a page.
+  * Creates a sub menu out of the subcategory of a page.<br>
+  * In case no page with the given page ID exist, or it has no subcategory it returns an empty array.<br>
   * 
-  * In case no page with the given page ID exist it returns an empty array.
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
-  * <b>Note</b>: if the <var>$id</var> parameter is FALSE or empty it uses the {@link $page} property.<br>
+  * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current page (means the {@link $page} property).<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   *
   * Example of the returned Array:
@@ -2042,19 +2162,15 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailBefore
   * @uses Feindura::$thumbnailAfter
   * 
-  * @uses createLink()                            to create a link from every $pageContent array  
-  * @uses FeinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
-  * @uses FeinduraBase::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
-  * @uses FeinduraBase::createAttributes()        to create the attributes used in the menu tag
-  * @uses GeneralFunctions::sortPages()           to sort the $pageContent arrays by category
+  * @uses Feindura::createMenu()    to create the menu
   * 
   * @return array the created sub menu in an array, ready to display in a HTML-page, or an empty array
   * 
   * @example id.parameter.example.php $id parameter example
   * 
+  * @see createMenuFromCategory()
   * @see createLink()
-  * @see createMenuByTags()
-  * @see createMenuByDate()
+  * @see createMenu()
   * 
   * @access public
   * @version 1.0
@@ -2068,15 +2184,117 @@ class Feindura extends FeinduraBase {
     if($ids = $this->getPropertyIdsByString($id)) {
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
+        // return subcategory
         if(is_numeric($pageContent['subCategory']) &&
-           (($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['showSubCategory']) ||
+           (($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['subCategory']]['showSubCategory']) ||
             ($pageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])))
           return $this->createMenu('category', $pageContent['subCategory'], $menuTag, $linkText, $breakAfter, $sortByCategories);
       }
     }
+  
     return array();
   }
 
+ /**
+  * <b>Name</b> createSubMenuFromCategory()<br>
+  * 
+  * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
+  * 
+  * Creates a sub menu out of a subcategory.<br>
+  * In case no category with the given page ID exist, or it is not a subcategory it returns an empty array.<br>
+  * <br>
+  * You can use this function in conjunction with {@link Feindura::createSubMenu()} to display the submenu,
+  * even if you're in a sub page of the subcategory.
+  * <code>
+  * <?php
+  * 
+  * // we use "false", because we use the current page and category.
+  * // NOTE: we need the double (), otherwise it would use the assignment of the $subMenu variable as condition!
+  * if(($subMenu = $feindura->createSubMenu(false,'ul')) || // will create the menu when inside the page which has a subcategory
+  *    ($subMenu = $feindura->createSubMenuFromCategory(false,'ul'))) { // will create the menu when inside a page within a subcategory
+  *
+  *   foreach($subMenu as $item)
+  *     echo $item['menuItem'];
+  * }
+  * 
+  * ?>
+  * </code>
+  * 
+  * 
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
+  * If its any other tag name it just enclose the links with this HTML-tag.<br>
+  * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current category (means the {@link $category} property).<br>
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
+  *
+  * Example of the returned Array:
+  * {@example createMenu.return.example.php}
+  * 
+  * 
+  * @param int|string|array|bool $id          (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link $category} property.
+  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
+  * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
+  * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * 
+  * @uses Feindura::$menuId
+  * @uses Feindura::$menuClass
+  * @uses Feindura::$menuAttributes
+  * 
+  * @uses Feindura::$linkLength
+  * @uses Feindura::$linkId
+  * @uses Feindura::$linkClass
+  * @uses Feindura::$linkActiveClass
+  * @uses Feindura::$linkAttributes
+  * @uses Feindura::$linkBefore
+  * @uses Feindura::$linkAfter
+  * @uses Feindura::$linkBeforeText
+  * @uses Feindura::$linkAfterText
+  * @uses Feindura::$linkShowThumbnail
+  * @uses Feindura::$linkShowThumbnailAfterText
+  * @uses Feindura::$linkShowPageDate
+  * @uses Feindura::$linkShowCategory
+  * @uses Feindura::$linkCategorySeparator
+  * 
+  * @uses Feindura::$thumbnailAlign
+  * @uses Feindura::$thumbnailId
+  * @uses Feindura::$thumbnailClass
+  * @uses Feindura::$thumbnailAttributes
+  * @uses Feindura::$thumbnailBefore
+  * @uses Feindura::$thumbnailAfter
+  * 
+  * @uses Feindura::createMenu()    to create the menu
+  * 
+  * @return array the created sub menu in an array, ready to display in a HTML-page, or an empty array
+  * 
+  * @example id.parameter.example.php $id parameter example
+  * @example createSubMenu.example.php See the example of the createSubMenu() method
+  * 
+  * @see createSubMenu()
+  * @see createLink()
+  * @see createMenu()
+  * 
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public function createSubMenuFromCategory($id = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+
+    if($ids = $this->getPropertyIdsByString(array(false,$id))) {
+      if($this->isSubCategory($ids[1])) {
+        $subCategory = $ids[1];
+        // create subcategory
+        if($subCategory && is_numeric($subCategory) &&
+           (($pageContent['category'] != 0 && $this->categoryConfig[$subCategory]['showSubCategory']) ||
+            ($pageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])))
+          return $this->createMenu('category', $subCategory, $menuTag, $linkText, $breakAfter, $sortByCategories);
+      }
+    }
+  
+    return array();
+  }
   
  /**
   * <b>Name</b> createLanguageMenu()<br>
@@ -2702,7 +2920,7 @@ class Feindura extends FeinduraBase {
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
-  * <b>Note</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * Example of the returned array:
   * {@example listPages.return.example.php}
@@ -3092,6 +3310,54 @@ class Feindura extends FeinduraBase {
   public function listPagesByCallback($sortCallback, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $reverseList = false) {
       // call the right function             
 	    return $this->listPagesBySortFunction($sortCallback,$idType,$ids,$shortenText,$useHtml,$reverseList);
+  }
+
+ /**
+  * <b>Name</b> addPluginStylesheets()<br>
+  * 
+  * Goes through a folder recursive and gets the css files. 
+  * It then tries to add these as <link..> tags inside the <head> tag, using javascript.
+  * If no javascript is activated it will just place the <link...> tags to the current position.
+  * 
+  * 
+  * @param string $folder the absolute path of the plugin folder to look for stylesheet files
+  * 
+  * @uses GeneralFunctions::createStyleTags() to get the stylesheet <link..> tags
+  * 
+  * @return string|false the HTML <link> tags plus corresponding javascript or FALSE if no stylesheet-file was found
+  * 
+  * @static 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public function addPluginStylesheets($folder) {
+    
+    //var
+    $return = false;
+
+    // ->> goes trough all folder and subfolders and gets the stylesheets
+    $stylesheets = trim(GeneralFunctions::createStyleTags($folder,false));
+
+    // js adding to the head
+    $return .= '<!-- Add the plugin stylesheets to the <head> tag -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var head = document.getElementsByTagName(\'head\')[0];
+head.innerHTML = head.innerHTML + \''.str_replace("\n", '', $stylesheets).'\';
+/* ]]> */
+</script>';
+
+    // non js adding
+    $return .= '
+<noscript>
+  '.$stylesheets.'
+</noscript>
+
+';
+    return $return;
   }
 }
 ?>

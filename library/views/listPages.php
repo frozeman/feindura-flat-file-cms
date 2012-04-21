@@ -198,7 +198,7 @@ foreach($allCategories as $category) {
         ? '[br][b]ID:[/b] '.$pageContent['id']
         : '';
 
-      // -> show sub category in toolTip
+      // -> show subcategory in toolTip
       $pageTitle_subCategory = ($pageContent['subCategory'] &&
                                 (($category['id'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
                                  ($category['id'] == 0 && $adminConfig['pages']['showSubCategory'])))
@@ -210,7 +210,7 @@ foreach($allCategories as $category) {
       
       // -> generate tags for toolTip
       $localizedTags = GeneralFunctions::getLocalized($pageContent['localized'],'tags');
-      if($category['showTags'] && !empty($localizedTags)) {
+      if(!empty($localizedTags) && (($pageContent['category'] != 0 && $category['showTags']) || ($pageContent['category'] == 0 && $adminConfig['pages']['showTags']))) {
         $pageTitle_tags = '[br]';
         $pageTitle_tags .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].':[/b] '.$localizedTags;
       }
@@ -265,10 +265,9 @@ foreach($allCategories as $category) {
       // show language status (is everything translated)
       if($adminConfig['multiLanguageWebsite']['active'] && !empty($missingLanguages))
         echo '<span class="toolTip missingLanguages" title="'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'] .'::'.$missingLanguages.'"></span>';
-      echo '<span class="toolTip missingLanguages" title="'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'] .'::'.$missingLanguages.'"></span>';
       echo '</div>';
 
-      // PAGE FUCNTIONS
+      // PAGE FUNCTIONS
       echo '<div class="functions">';      
  
       // thumbnail upload

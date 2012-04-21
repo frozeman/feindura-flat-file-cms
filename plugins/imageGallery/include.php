@@ -1,5 +1,4 @@
 <?php
-/* imageGallery plugin */
 /*
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
@@ -15,24 +14,27 @@
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
  */
-/** 
- * The include file for the imageGallery plugin  
+/**
+ * The plugin include file
  * 
  * See the README.md for more.
  * 
  * The following variables are available in this script when it gets included by the {@link Feindura::showPlugins()} method:
- *     - $pluginConfig -> contains the changed settings from the "config.php" from this plugin
- *     - $pluginName -> the folder name of this plugin
- *     - $pageContent -> the pageContent array of the page which has this plugin activated 
- *     - and all other variables which are available in the {@link feindura} class (use "$this->..")
+ *     - $this          -> the current {@link Feindura} class instance with all its methods (use "$this->..")
+ *     - $pluginConfig  -> contains the changed settings from the "config.php" from this plugin
+ *     - $pluginName    -> the folder name of this plugin
+ *     - $pageContent   -> the pageContent array of the page which has this plugin activated 
  * 
- * This file MUST RETURN the plugin ready to display in a HTML-page
- * 
- * For Example
+ * This file MUST RETURN the plugin ready to display in a HTML-page, like:
  * <code>
+ * <?php
+ * // Add the stylesheet files of this plugin to the current page
+ * echo $this->addPluginStylesheets(dirname(__FILE__));
+ * 
  * $plugin = '<p>Plugin HTML</p>';
  * 
  * return $plugin;
+ * ?>
  * </code>
  * 
  * @package [Plugins]
@@ -44,6 +46,9 @@
  * 
  */
 
+// Add the stylesheet files of this plugin to the current page
+echo $this->addPluginStylesheets(dirname(__FILE__));
+
 // vars
 $filePath = str_replace('\\','/',dirname(__FILE__)); // replace this on windows servers
 $filePath = str_replace(DOCUMENTROOT,'',$filePath);
@@ -54,11 +59,11 @@ echo '<script type="text/javascript">
   /* <![CDATA[ */
   // add mootools if user is not logged into backend
   if(!window.MooTools) {
-    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"%3E%3C/script%3E\'));
-    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"%3E%3C/script%3E\'));
+    document.write(unescape(\'<script src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"><\/script>\'));
+    document.write(unescape(\'<script src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"><\/script>\'));
   }
   // add milkbox
-  document.write(unescape(\'%3Cscript src="'.$filePath.'/milkbox/milkbox.js"%3E%3C/script%3E\')); 
+  (window.MilkBox || document.write(unescape(\'<script src="'.$filePath.'/milkbox/milkbox.js"><\/script>\'))); 
   /* ]]> */
 </script>';
 
@@ -66,17 +71,18 @@ echo '<script type="text/javascript">
 require_once('imageGallery.php');
 
 // create an instance of the imageGallery class
-$gallery = new imageGallery($pluginConfig['galleryPath'],DOCUMENTROOT);
+$jsonImages =  str_replace(array('&#34;','&#58;'), array('"',':'), $pluginConfig['imagesHidden']);
+$gallery = new imageGallery($jsonImages,DOCUMENTROOT);
 
 // set configs
 $gallery->xHtml = $this->xHtml; // set the xHtml property rom the feindura class
-$gallery->imageWidth = $pluginConfig['imageWidth'];
-$gallery->imageHeight = $pluginConfig['imageHeight'];
-$gallery->thumbnailWidth = $pluginConfig['thumbnailWidth'];
-$gallery->thumbnailHeight = $pluginConfig['thumbnailHeight'];
+$gallery->imageWidth = $pluginConfig['imageWidthNumber'];
+$gallery->imageHeight = $pluginConfig['imageHeightNumber'];
+$gallery->thumbnailWidth = $pluginConfig['thumbnailWidthNumber'];
+$gallery->thumbnailHeight = $pluginConfig['thumbnailHeightNumber'];
 $gallery->filenameCaptions = $pluginConfig['filenameCaptions'];
 
-$plugin .= $gallery->showGallery($pluginConfig['tag'],$pluginConfig['breakAfter'],$pageContent);
+$plugin .= $gallery->showGallery($pluginConfig['tag'],$pluginConfig['breakAfterNumber']);
 
 // RETURN the plugin
 // *****************

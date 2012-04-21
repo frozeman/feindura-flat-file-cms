@@ -132,7 +132,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
       foreach ($categoryConfig as $key => $category) {
         $newCategoryConfig[$key] = $category;
 
-          // get the either the already existing mainLanguage, or use the next following language as the mainLanguage
+        // get the either the already existing mainLanguage, or use the next following language as the mainLanguage
         $useLocalization = (isset($category['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
           ? $category['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
           : current($category['localized']);
@@ -353,10 +353,12 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 // ****** ---------- SAVE CATEGORIES
 if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['saveCategories'])) {
   
-  // serialize the plugins array
+  // transfer data from the categoryConfig
   foreach($_POST['categories'] as $key => $value) {
     $_POST['categories'][$key]['showSubCategory'] = $value['showSubCategory'];
     $_POST['categories'][$key]['plugins']         = serialize($value['plugins']);
+    $_POST['categories'][$key]['isSubCategory']   = $categoryConfig[$key]['isSubCategory'];
+    $_POST['categories'][$key]['isSubCategoryOf'] = $categoryConfig[$key]['isSubCategoryOf'];
     $_POST['categories'][$key]['localized']       = $categoryConfig[$key]['localized'];
 
     // STORE LOCALIZED CONTENT

@@ -24,28 +24,7 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-// CHECKs THE IF THE NECESSARY FILEs ARE WRITEABLE, otherwise throw an error
-// ----------------------------------------------------------------------------------------
-
-// check config files
-$unwriteableList .= isWritableWarning(dirname(__FILE__).'/../../config/user.config.php');
-
-// gives the error OUTPUT if one of these files in unwriteable
-if($unwriteableList && checkBasePathAndURL()) {
-  echo '<div class="block warning">
-    <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
-    <div class="content">
-      <p>'.$unwriteableList.'</p><!-- need <p> tags for margin-left:..-->
-    </div>
-    <div class="bottom"></div>  
-  </div>'; 
-  
-  echo '<div class="blockSpacer"></div>';
-}
-// ------------------------------------------------------------------------------------------- end WRITEABLE CHECK
-
 ?>
-
 <!-- USER SETTINGS -->
 
 <form action="index.php?site=userSetup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="userForm">

@@ -36,9 +36,9 @@ if(isset($_POST['rating'])) {
   // read the page
   $pageContent = GeneralFunctions::readPage($_POST['page'],$_POST['category']);
 
-  $currentSum = $pageContent['plugins']['pageRating']['value'] * $pageContent['plugins']['pageRating']['votes'];
-  $pageContent['plugins']['pageRating']['value'] = ($currentSum + $_POST['rating']) / ++$pageContent['plugins']['pageRating']['votes'];
-  $pageContent['plugins']['pageRating']['value'] = round($pageContent['plugins']['pageRating']['value'],3);
+  $currentSum = $pageContent['plugins']['pageRating']['valueNumber'] * $pageContent['plugins']['pageRating']['votesNumber'];
+  $pageContent['plugins']['pageRating']['valueNumber'] = ($currentSum + $_POST['rating']) / ++$pageContent['plugins']['pageRating']['votesNumber'];
+  $pageContent['plugins']['pageRating']['valueNumber'] = round($pageContent['plugins']['pageRating']['valueNumber'],3);
 
   // ->> save the page
   if(GeneralFunctions::savePage($pageContent)) {
@@ -49,7 +49,7 @@ if(isset($_POST['rating'])) {
   }
   
   // return the new rating
-  echo $pageContent['plugins']['pageRating']['value'];
+  echo $pageContent['plugins']['pageRating']['valueNumber'];
 }
 
 ?>

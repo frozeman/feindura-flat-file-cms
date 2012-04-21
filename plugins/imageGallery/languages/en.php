@@ -1,6 +1,6 @@
 <?php
 /**
- * ENGLISH (EN) language-file for the imageGallery plugin
+ * ENGLISH (EN) plugin language file
  * 
  * NEEDS a RETURN $pluginLangFile; at the END
  * 
@@ -20,28 +20,27 @@
 /* PLUGIN ************************************************************************************ */
 
 $pluginLangFile['feinduraPlugin_title']        = 'Image Gallery';
-$pluginLangFile['feinduraPlugin_description']  = 'Lists images from a folder. A thumbnail will be created automatically for every image. When you click on a image, it will be shown in full size in a <a href="http://reghellin.com/milkbox/">lightbox</a>.';
+$pluginLangFile['feinduraPlugin_description']  = 'Lists images as gallery. It automatically creates a thumbnail for every image. When you click on a image, it will be shown in full size in a <a href="http://reghellin.com/milkbox/">lightbox</a>.';
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['galleryPath']         = 'path to the gallery';
-$pluginLangFile['galleryPath_tip']     = 'absolut path of the folder, which contains the images::e.g &quot;/upload/Imagegallery1&quot;';
-$pluginLangFile['galleryTitle']        = 'title of the gallery';
-$pluginLangFile['previewImage']        = 'filename of the gallery preview picture';
-$pluginLangFile['imageWidth']          = 'image width';
-$pluginLangFile['imageWidth_tip']      = 'in pixel';
-$pluginLangFile['imageHeight']         = 'image height';
-$pluginLangFile['imageHeight_tip']     = 'in pixel';
-$pluginLangFile['thumbnailWidth']      = 'thumbnail width';
-$pluginLangFile['thumbnailWidth_tip']  = 'in pixel';
-$pluginLangFile['thumbnailHeight']     = 'thumbnail height';
-$pluginLangFile['thumbnailHeight_tip'] = 'in pixel';
-$pluginLangFile['filenameCaptions']    = 'filename as caption';
-$pluginLangFile['filenameCaptions_tip'] = 'Uses the filename (without extension) as caption, if no line in a captions.txt exist for this file.';
-$pluginLangFile['tag']                 = 'list HTML-Tag';
-$pluginLangFile['tag_tip']             = 'The HTML-Tag which will be used to list the pictures::The Following HTML-Tags are allowed: &quot;table&quot;, &quot;ul&quot; oder nothing.';
-$pluginLangFile['breakAfter']          = 'break after';
-$pluginLangFile['breakAfter_tip']      = 'Does only work if the list HTML-Tag is &quot;table&quot;:: Tells after how many images a new row starts.';
+$pluginLangFile['selectImagesJsFunction'] = 'Select images';
+$pluginLangFile['galleryTitle']           = 'title of the gallery';
+$pluginLangFile['previewImage']           = 'filename of the gallery preview picture';
+$pluginLangFile['imageWidthNumber']             = 'image width';
+$pluginLangFile['imageWidthNumber_tip']         = 'in pixel';
+$pluginLangFile['imageHeightNumber']            = 'image height';
+$pluginLangFile['imageHeightNumber_tip']        = 'in pixel';
+$pluginLangFile['thumbnailWidthNumber']         = 'thumbnail width';
+$pluginLangFile['thumbnailWidthNumber_tip']     = 'in pixel';
+$pluginLangFile['thumbnailHeightNumber']        = 'thumbnail height';
+$pluginLangFile['thumbnailHeightNumber_tip']    = 'in pixel';
+$pluginLangFile['filenameCaptions']       = 'filename as caption';
+$pluginLangFile['filenameCaptions_tip']   = 'Uses the filename (without extension) as caption, if no line in a captions.txt exist for this file.';
+$pluginLangFile['tag']                    = 'list HTML-Tag';
+$pluginLangFile['tag_tip']                = 'The HTML-Tag which will be used to list the pictures::The Following HTML-Tags are allowed: &quot;table&quot;, &quot;ul&quot; oder nothing.';
+$pluginLangFile['breakAfterNumber']             = 'break after';
+$pluginLangFile['breakAfterNumber_tip']         = 'Does only work if the list HTML-Tag is &quot;table&quot;:: Tells after how many images a new row starts.';
 
 
 // -----------------------------------------------------------------------------------------------

@@ -693,10 +693,11 @@ class FeinduraBase {
         $langCode = 0;
       $localizedPageContent = GeneralFunctions::getLocalized($pageContent['localized'],'content',$langCode);
       
-      if(!preg_match('#<script.*>#',$localizedPageContent))
-        $pageContentEdited = "\n".'<div class="feindura_editPage" data-feindura="'.$page.' '.$category.' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
-      else
-        $pageContentEdited = "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.' '.$langCode.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$localizedPageContent.'</div>'."\n";
+      // if(!preg_match('#<script.*>#',$localizedPageContent)) {
+        $pageContentEdited = "\n".'<div class="feindura_editPage" id="feindura_editPage'.$page.'" data-feindura="'.$page.' '.$category.' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
+        $pageContentEdited .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editPage'.$page.'").store("content",$("feindura_editPage'.$page.'").get("html")); /* ]]> */</script>'."\n";
+      // } else
+      //   $pageContentEdited = "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.' '.$langCode.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$localizedPageContent.'</div>'."\n";
     
     // -> no frontend editing
     } else {
@@ -874,7 +875,9 @@ class FeinduraBase {
           $langCode = $this->language;
         else
           $langCode = 0;
-        $titleText = '<span class="feindura_editTitle" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.GeneralFunctions::getLocalized($pageContent['localized'],'title',$langCode).'</span>';
+        $titleText = '<span class="feindura_editTitle" id="feindura_editTitle'.$pageContent['id'].'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.GeneralFunctions::getLocalized($pageContent['localized'],'title',$langCode).'</span>';
+        $titleText .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editTitle'.$pageContent['id'].'").store("content",$("feindura_editTitle'.$pageContent['id'].'").get("html")); /* ]]> */</script>'."\n";
+
       } else
         $titleText = GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language);
 

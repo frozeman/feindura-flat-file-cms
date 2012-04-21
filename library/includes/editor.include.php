@@ -67,8 +67,8 @@ if($adminConfig['user']['fileManager']) {
   CKEDITOR.config.filebrowserBrowseUrl      = '<?php echo $adminConfig['basePath']."library/views/windowBox/fileManager.php"; ?>';
   CKEDITOR.config.filebrowserImageBrowseUrl = '<?php echo $adminConfig['basePath']."library/views/windowBox/fileManager.php?mimType=image"; ?>';
   CKEDITOR.config.filebrowserFlashBrowseUrl = '<?php echo $adminConfig['basePath']."library/views/windowBox/fileManager.php?mimType=application"; ?>';
-  CKEDITOR.config.filebrowserWindowWidth    = 1024;
-  CKEDITOR.config.filebrowserWindowHeight   = 700;
+  CKEDITOR.config.filebrowserWindowWidth    = 960;
+  CKEDITOR.config.filebrowserWindowHeight   = 600;
   CKEDITOR.config.filebrowserWindowFeatures = 'scrollbars=no,center=yes,status=no';
 <?php } ?>
 });

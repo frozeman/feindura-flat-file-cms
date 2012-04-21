@@ -35,7 +35,7 @@ if($_POST['save'] && isBlocked() === false) {
   $page	= $_POST['id'];
   $category = $_POST['category'];
   $_GET['page'] = $page;
-  $_GET['category'] = $category;  
+  $_GET['category'] = $category;
   
   // removes double whitespaces and slashes
   $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );
@@ -93,7 +93,7 @@ if($_POST['save'] && isBlocked() === false) {
     
     // delete unnecessary variables
     unset($_POST['pageDate']['before'],$_POST['pageDate']['after'],$_POST['tags'],$_POST['title'],$_POST['description'],$_POST['HTMLEditor']);
-  
+    
     // STORE data right
     $_POST['lastSaveDate'] = time();
     $_POST['lastSaveAuthor'] = $_SESSION['feinduraSession']['login']['user'];
@@ -115,6 +115,29 @@ if($_POST['save'] && isBlocked() === false) {
     
     if(empty($_POST['sortOrder']))  $_POST['sortOrder'] = $pageContent['sortOrder'];
     
+    // ->> add page and subcategory bool to the categoryConfig array
+    $newCategoryConfig = $categoryConfig;
+    // first clear this page put of every other categoryConfig
+    foreach ($categoryConfig as $key => $config) {
+      $pagesWithSubCategory = unserialize($config['isSubCategoryOf']);
+      if(!is_array($pagesWithSubCategory))
+        $pagesWithSubCategory = array();
+      else
+        unset($pagesWithSubCategory[$page]);
+      if(empty($pagesWithSubCategory))
+        $newCategoryConfig[$key]['isSubCategory'] = false;
+     $newCategoryConfig[$key]['isSubCategoryOf'] = serialize($pagesWithSubCategory);
+    }
+    // store it in a new category config, if is the subCategory
+    if(!empty($_POST['subCategory']) && is_numeric($_POST['subCategory'])) {
+      $pagesWithSubCategory = unserialize($newCategoryConfig[$_POST['subCategory']]['isSubCategoryOf']);
+      $pagesWithSubCategory[$page] = $page;
+      $newCategoryConfig[$_POST['subCategory']]['isSubCategory'] = true;
+      $newCategoryConfig[$_POST['subCategory']]['isSubCategoryOf'] = serialize($pagesWithSubCategory);
+    }
+    saveCategories($newCategoryConfig);
+    GeneralFunctions::$categoryConfig = $newCategoryConfig;
+
     // adds absolute path slash on the beginning and implode the stylefiles
     $_POST['styleFile'] = prepareStyleFilePaths($_POST['styleFile']);
     
@@ -132,13 +155,13 @@ if($_POST['save'] && isBlocked() === false) {
         saveActivityLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
       
       // set PERMISSIONS of the page
-      $filePath = ($pageContent['category'] == 0)
-        ? dirname(__FILE__).'/../../pages/'.$pageContent['id'].'.php'
-        : dirname(__FILE__).'/../../pages/'.$pageContent['category'].'/'.$pageContent['id'].'.php';
+      $filePath = ($category == 0)
+        ? dirname(__FILE__).'/../../pages/'.$page.'.php'
+        : dirname(__FILE__).'/../../pages/'.$category.'/'.$page.'.php';
       chmod($filePath, $adminConfig['permissions']);
 
       // ->> save the FEEDS, if activated
-      saveFeeds($pageContent['category']);
+      saveFeeds($category);
       // ->> save the SITEMAP
       saveSitemap();
       

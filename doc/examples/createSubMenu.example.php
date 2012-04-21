@@ -17,14 +17,14 @@ $feindura = new Feindura();
 $menu = $feindura->createMenu('category',0,'ul');
 
 // displays the menu
-foreach($menu as $link) {
-  echo $link['startTag'].$link['link'];
+foreach($menu as $item) {
+  echo $item['startTag'].$item['link'];
   // when a page has a submenu it will create a <ul> menu inside this <li></li>,
   // which can be used as a CSS dropdown menu. e.g. see http://www.cssnewbie.com/easy-css-dropdown-menus/
-  foreach($feindura->createSubMenu($link['pageId'],'ul') as $subLink) {
-    echo $subLink['menuItem'];
+  foreach($feindura->createSubMenu($item['pageId'],'ul') as $subItem) {
+    echo $subItem['menuItem'];
   }
-  echo $link['endTag'];
+  echo $item['endTag'];
 }
 
 

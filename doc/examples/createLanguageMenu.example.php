@@ -17,8 +17,8 @@ $feindura = new Feindura();
 $menu = $feindura->createLanguageMenu('ul');
 
 // displays the menu
-foreach($menu as $link) {
-  echo $link['menuItem'];
+foreach($menu as $item) {
+  echo $item['menuItem'];
 }
 
 
