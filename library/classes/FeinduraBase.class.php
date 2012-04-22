@@ -488,6 +488,186 @@ class FeinduraBase {
   }
 
  /**
+  * <b>Name</b> generateMenu()<br>
+  * 
+  * Generates a menu from a given <var>$links</var> array.
+  * 
+  * 
+  * @param array        $links      an array with links in the format
+  * @param string|false $menuTag    (optional) the menu tag or FALSE to just return links
+  * @param int|false    $breakAfter (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
+  * 
+  * @uses Feindura::$menuId
+  * @uses Feindura::$menuClass
+  * @uses Feindura::$menuAttributes
+  * 
+  * 
+  * @return array the generated menu array, ready to display in a HTML file
+  * 
+  * @see Feindura::createMenu()
+  * @see Feindura::createSubMenu()
+  * 
+  * @access protected
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  protected function generateMenu($links, $menuTag = false,$breakAfter = false) {
+
+    // vars
+    $menu = array();
+    $menuItem['menuItem'] = '';
+    $menuItem['startTag'] = '';
+    $menuItem['endTag']   = '';
+    $menuItem['link']     = '';
+    $menuItem['flag']     = false;
+    $menuItem['href']     = false;
+    $menuItem['language'] = false;
+    $menuItemCopy = $menuItem;
+
+    // -> sets the MENU attributes
+    // ----------------------------    
+    $menuStartTag = '';
+    $menuEndTag   = '';        
+    $menuTagSet   = false;
+    
+    // -> CREATEs the MENU-TAG (START and END-TAG)
+    if($menuTag) { // || !empty($menuAttributes) <- not used because there is no menuTag property, the tag is only set when a $menuTag parameter is given
+      
+      $menuAttributes = $this->createAttributes($this->menuId, $this->menuClass, $this->menuAttributes);
+      
+      // set tag
+      if(is_string($menuTag)) $menuTagSet = strtolower($menuTag);
+      // or uses standard tag
+      else $menuTagSet = 'div';
+                
+      $menuStartTag = "\n<".$menuTagSet.$menuAttributes.'>'."\n";
+      $menuEndTag   = "</".$menuTagSet.'>'."\n\n";
+    } 
+
+    // --------------------------------------
+    // -> builds the final MENU
+    // ************************
+    if(empty($links))
+      return array();
+    
+    // SHOW START-TAG
+    if($menuStartTag) {
+      $menuItemCopy['menuItem'] = $menuStartTag;
+      $menuItemCopy['startTag'] = $menuStartTag;
+      $menu[] = $menuItemCopy;
+    }
+
+    // * reset $menuItemCopy
+    $menuItemCopy = $menuItem;
+
+    // creating the START TR tag
+    if($menuTagSet == 'table') {
+      $menuItemCopy['menuItem'] = "<tbody><tr>\n";
+      $menuItemCopy['startTag'] = "<tbody><tr>\n";
+      $menu[] = $menuItemCopy;
+    }
+
+    // * reset $menuItemCopy
+    $menuItemCopy = $menuItem;
+    
+    $count = 1;
+    foreach($links as $link) {
+          
+      // breaks the CELLs with TR after the given NUMBER of CELLS
+      if($menuTagSet == 'table' &&
+         is_numeric($breakAfter) &&
+         ($breakAfter + 1) == $count) {
+        $menuItemCopy['menuItem'] = "\n</tr><tr>\n";
+        $menuItemCopy['startTag'] = "<tr>\n";
+        $menuItemCopy['endTag']   = "\n</tr>";
+        $menu[] = $menuItemCopy;
+        $count = 1;
+      }
+
+      // * reset $menuItemCopy
+      $menuItemCopy = $menuItem;
+      
+      // if menuTag is a LIST ------
+      if($menuTagSet == 'menu' || $menuTagSet == 'ul' || $menuTagSet == 'ol') {
+        $menuItemCopy['menuItem'] = '<li>'.$link['link']."</li>\n";
+        $menuItemCopy['startTag'] = '<li>';
+        $menuItemCopy['endTag']   = "</li>\n";
+
+      // if menuTag is a TABLE -----
+      } elseif($menuTagSet == 'table') {
+        $menuItemCopy['menuItem'] = "<td>\n".$link['link']."\n</td>";
+        $menuItemCopy['startTag'] = "<td>\n";
+        $menuItemCopy['endTag']   = "\n</td>";
+
+      // if just a link
+      } else {
+        $menuItemCopy['menuItem'] = $link['link']."\n";
+      }
+
+      // add the rest of the menu item
+      $menuItemCopy['link']       = $link['link'];
+      $menuItemCopy['href']       = $link['href'];
+      if($link['title'])
+        $menuItemCopy['title']      = $link['title'];
+      if($link['id'])
+        $menuItemCopy['pageId']     = $link['id'];
+      if($link['category'])
+        $menuItemCopy['categoryId'] = $link['category'];
+      if($link['flag'])
+        $menuItemCopy['flag']       = $link['flag'];
+      if($link['language'])
+        $menuItemCopy['language']   = $link['language'];
+
+      
+      // add link
+      $menu[] = $menuItemCopy;
+
+      // * reset $menuItemCopy
+      $menuItemCopy = $menuItem;
+      
+      // count the table cells
+      $count++;
+    }
+    
+    // fills in the missing TABLE CELLs
+    while($menuTagSet == 'table' &&
+          is_numeric($breakAfter) &&
+          $breakAfter >= $count) {
+      $menuItemCopy['menuItem'] = "\n<td></td>\n";
+      $menuItemCopy['startTag'] = "\n<td>";
+      $menuItemCopy['endTag']   = "</td>\n";
+      $menu[] = $menuItemCopy;
+      $count++;
+    }
+
+    // * reset $menuItemCopy
+    $menuItemCopy = $menuItem;
+    
+    // creating the END TR tag
+    if($menuTagSet == 'table') {
+      $menuItemCopy['menuItem'] = "</tr></tbody>\n";
+      $menuItemCopy['endTag']   = "</tr></tbody>\n";
+      $menu[] = $menuItemCopy;
+    }
+
+    // * reset $menuItemCopy
+    $menuItemCopy = $menuItem;
+
+    // SHOW END-TAG
+    if($menuEndTag) {
+      $menuItemCopy['menuItem'] = $menuEndTag;
+      $menuItemCopy['endTag']   = $menuEndTag;
+      $menu[] = $menuItemCopy;
+    }
+    
+    // returns the whole menu after finish
+    return $menu;
+  }
+
+ /**
   * <b>Name</b> generatePage()<br>
   * 
   * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link $thumbnailAlign $thumbnail...} properties.</b>   
@@ -692,10 +872,12 @@ class FeinduraBase {
       else
         $langCode = 0;
       $localizedPageContent = GeneralFunctions::getLocalized($pageContent['localized'],'content',$langCode);
+
+      $uniqueId = md5(rand(0,9999));
       
       // if(!preg_match('#<script.*>#',$localizedPageContent)) {
-        $pageContentEdited = "\n".'<div class="feindura_editPage" id="feindura_editPage'.$page.'" data-feindura="'.$page.' '.$category.' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
-        $pageContentEdited .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editPage'.$page.'").store("content",$("feindura_editPage'.$page.'").get("html")); /* ]]> */</script>'."\n";
+        $pageContentEdited = "\n".'<div class="feindura_editPage" id="feindura_editPage'.$page.'_'.$uniqueId.'" data-feindura="'.$page.' '.$category.' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
+        $pageContentEdited .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editPage'.$page.'_'.$uniqueId.'").store("content",$("feindura_editPage'.$page.'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
       // } else
       //   $pageContentEdited = "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.' '.$langCode.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$localizedPageContent.'</div>'."\n";
     
@@ -875,8 +1057,11 @@ class FeinduraBase {
           $langCode = $this->language;
         else
           $langCode = 0;
-        $titleText = '<span class="feindura_editTitle" id="feindura_editTitle'.$pageContent['id'].'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.GeneralFunctions::getLocalized($pageContent['localized'],'title',$langCode).'</span>';
-        $titleText .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editTitle'.$pageContent['id'].'").store("content",$("feindura_editTitle'.$pageContent['id'].'").get("html")); /* ]]> */</script>'."\n";
+
+        $uniqueId = md5(rand(0,9999));
+
+        $titleText = '<span class="feindura_editTitle" id="feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.GeneralFunctions::getLocalized($pageContent['localized'],'title',$langCode).'</span>';
+        $titleText .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'").store("content",$("feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
 
       } else
         $titleText = GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language);

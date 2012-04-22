@@ -484,19 +484,6 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     }
     
     // ->> SAVE NEW categoryConfig
-    $newCategoryConfig = array();
-
-
-    foreach ($categoryConfig as $key => $categoryFromConfig) {
-      $pagesWithSubCategory = unserialize($categoryFromConfig['isSubCategoryOf']);
-      if(!is_array($pagesWithSubCategory))
-        $pagesWithSubCategory = array();
-      else
-        unset($pagesWithSubCategory[$page]);
-      if(empty($pagesWithSubCategory))
-        $newCategoryConfig[$key]['isSubCategory'] = false;
-     $newCategoryConfig[$key]['isSubCategoryOf'] = serialize($pagesWithSubCategory);
-    }
     foreach($categoryConfig as $key => $category) {
       
       // rename

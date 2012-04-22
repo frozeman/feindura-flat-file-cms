@@ -1154,7 +1154,7 @@ class StatisticFunctions {
       }
       
       // STORE last visited page IDs in a session array and the time
-      $_SESSION['feinduraSession']['log']['lastPages'][] = $pageStatistics['id'];      
+      $_SESSION['feinduraSession']['log']['lastPages'][] = $pageStatistics['id'];
       
       // -> saves the FIRST PAGE VISIT
       // -----------------------------
@@ -1175,9 +1175,13 @@ class StatisticFunctions {
       if(in_array($pageStatistics['id'],$_SESSION['feinduraSession']['log']['visitedPages']) === false) {
         //echo $pageContent['id'].' -> '.$pageContent['visitorCount'];
         $pageStatistics['visitorCount']++;
-        // add to the array of already visited pages
-        $_SESSION['feinduraSession']['log']['visitedPages'][] = $pageStatistics['id'];
       }
+      // reset the last visted pages array, if its grown to much
+      if(count($_SESSION['feinduraSession']['log']['visitedPages']) > 20)
+        $_SESSION['feinduraSession']['log']['visitedPages'] = array_unique($_SESSION['feinduraSession']['log']['visitedPages']);
+      // STORES all LAST VISITED PAGES in array, in the order they are visited (will perhaps double count pages)
+      $_SESSION['feinduraSession']['log']['visitedPages'][] = $pageStatistics['id'];
+
       
       // ->> SAVE THE SEARCHWORDs from GOOGLE, YAHOO, MSN (Bing)
       // -------------------------------------------------------

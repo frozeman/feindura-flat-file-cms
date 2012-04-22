@@ -61,10 +61,11 @@ foreach($allCategories as $category) {
   $pagesOfSubCategory = array();
   foreach ($allPages as $pageContent) {
     if($pageContent['subCategory'] == $category['id'] && 
-       (($pageContent['category'] != 0 && $category['showSubCategory']) ||
+       (($pageContent['category'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
         ($pageContent['category'] == 0 && $adminConfig['pages']['showSubCategory'])))
       $pagesOfSubCategory[] = $pageContent;
   }
+  unset($pageContent);
 
   // shows after saving the right category open
   $hidden = (is_array($pages) && !empty($pages) &&                                         // -> slide in the category if EMPTY
@@ -94,9 +95,7 @@ foreach($allCategories as $category) {
   // shows ID and different header color if its a CATEGORY
   if($category['id'] != 0) {
     $headerColor = ' class="blue"';
-    $categoryIcon = (!empty($pagesOfSubCategory) &&
-                     ($category['showSubCategory'] ||
-                      $adminConfig['pages']['showSubCategory']))
+    $categoryIcon = (!empty($pagesOfSubCategory))
       ? 'library/images/icons/categoryIcon_subCategory_middle.png'
       : 'library/images/icons/categoryIcon_middle.png';
   } else {
@@ -110,14 +109,14 @@ foreach($allCategories as $category) {
     : '';
 
   // show pages which have this category as subcategory
-  if(!empty($pagesOfSubCategory) &&
-     ($category['showSubCategory'] ||
-      $adminConfig['pages']['showSubCategory'])) {
+  if(!empty($pagesOfSubCategory)) {
     $categoryTitle .= (count($pagesOfSubCategory) ==  1)
       ? '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR'].'[/b][br]'
       : '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL'].'[/b][br]';
     foreach ($pagesOfSubCategory as $pageOfSubCategory) {
-      $categoryTitle .= '[img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($pageOfSubCategory['localized'],'title').'[br]';
+      if((($pageOfSubCategory['category'] != 0 && $categoryConfig[$pageOfSubCategory['category']]['showSubCategory']) ||
+          ($pageOfSubCategory['category'] == 0 && $adminConfig['pages']['showSubCategory'])))
+        $categoryTitle .= '[img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($categoryConfig[$pageOfSubCategory['category']]['localized'],'name').' &rArr; '.GeneralFunctions::getLocalized($pageOfSubCategory['localized'],'title').'[br]';
     }
   }
 

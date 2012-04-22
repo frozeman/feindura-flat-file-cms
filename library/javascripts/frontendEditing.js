@@ -111,10 +111,6 @@
           removeLoadingCircle();
           jsLoadingCircle.dispose();
         });
-
-        // store the actual content to make a dirtyCheck later
-        pageSaved = false;
-        pageBlock.store('content',pageBlock.get('html'));
       },
       onSuccess: function(html) { //-------------------------------------------------
 
@@ -130,6 +126,11 @@
             finishPicture.fade('out');
           }).chain(function(){
             finishPicture.dispose();
+
+            // store the actual content to make a dirtyCheck later
+            pageSaved = false;
+            pageBlock.store('content',pageBlock.get('html'));
+
             // -> UPDATE the pageBlock CONTENT
             // if(update)
             //   pageBlock.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
@@ -386,6 +387,8 @@
     // -> check the GIVEN PAGEBLOCK
     if(pageBlock) {
       if(pageBlock.retrieve('content') != pageBlock.get('html')) {
+        console.log(pageBlock.retrieve('content'));
+        console.log(pageBlock.get('html'));
         disableEditing(pageBlock);
         return true;
       } else
@@ -540,7 +543,6 @@ window.addEvent('load',function(){
 
         // store th current content
         this.store('content',this.get('html'));
-        pageSaved = false;
 
         // activate the moorte toolbar
         this.moorte('show');
@@ -624,8 +626,6 @@ window.addEvent('load',function(){
       save : { img:27, onClick: function() {
           $$('div.feindura_editPage, span.feindura_editTitle').each(function(page) {
               if(MooRTE.activeField == page) {
-                console.log('dddd');
-                pageSaved = false;
                 if(page.hasClass('feindura_editPage'))
                   savePage(page,'content');
                 else if(page.hasClass('feindura_editTitle'))

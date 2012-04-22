@@ -131,7 +131,7 @@ if($_POST['save'] && isBlocked() === false) {
     // store it in a new category config, if is the subCategory
     if(!empty($_POST['subCategory']) && is_numeric($_POST['subCategory'])) {
       $pagesWithSubCategory = unserialize($newCategoryConfig[$_POST['subCategory']]['isSubCategoryOf']);
-      $pagesWithSubCategory[$page] = $page;
+      $pagesWithSubCategory[$page] = $category;
       $newCategoryConfig[$_POST['subCategory']]['isSubCategory'] = true;
       $newCategoryConfig[$_POST['subCategory']]['isSubCategoryOf'] = serialize($pagesWithSubCategory);
     }

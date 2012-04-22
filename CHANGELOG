@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.2
-Build 871
+Build 873
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 1.2
   
+  build 873: add createBreadCrumbsMenu() to Feindura class
   build 872: create 1.2 release
   build 871: changed lastsaveauthor from username to user ID
   build 870: fixed validateDateString()

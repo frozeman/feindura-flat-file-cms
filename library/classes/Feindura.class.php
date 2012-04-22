@@ -961,7 +961,7 @@ class Feindura extends FeinduraBase {
   * 
   * 
   * Check a specific directory for files which have a language code inside the filename (see <var>$filename</var> parameter). When a matching file is found it includes these and return it.
-  * If no match could be found it try to find a file with the browser language code, if this didnt work either it uses the <var>$standardLang</var> parameter.
+  * If no match could be found it try to find a file with the browser language code, if the <var>$currentLangCode</var> is empty it uses the {@link Feindura::$language} property.
   * 
   * Example of a language file
   * {@example languageFile.array.example.php}
@@ -971,11 +971,12 @@ class Feindura extends FeinduraBase {
   * 
   * @param string|false $langPath         (optional) a absolut path to look for a language file which fit the $filename parameter or FALSE to use the "feindura-cms/library/languages" folder
   * @param string       $filename         (optional) the structure of the filename, which should be loaded. the "%lang%" will be replaced with the country code like "%lang%.backend.php" -> "en.backend.php"
-  * @param string@false &$currentLangCode (optional) (Note: this variable will also be changed outside of this method) a variable with the current language code, if this is set it will be first try to load this language file, when it couldn't find a language file which fits the browsers language code.  
+  * @param string|false &$currentLangCode (optional) (Note: this variable will also be changed outside of this method) a variable with the current language code, if this is set it will be first try to load this language file, when it couldn't find a language file which fits the browsers language code.  
   * @param bool         $standardLang     (optional) a standard language for use if no match was found
   * 
   * 
-  * @uses GeneralFunctions::loadLanguageFile() to load the right language file 
+  * @uses GeneralFunctions::loadLanguageFile() to load the right language file
+  * @uses Feindura::$language                  to be loaded if no <var>$currentLangCode</var> parameter is given
   * 
   * @return array the loaded language file array or an empty array
   * 
@@ -1433,8 +1434,8 @@ class Feindura extends FeinduraBase {
   	      
   	      $linkAttributes .= $this->createAttributes($this->linkId, $linkClass, $this->linkAttributes);
           
-          $linkStartTag = '<a '.$linkAttributes.">\n";
-          $linkEndTag = "\n</a>";        
+          $linkStartTag = '<a '.$linkAttributes.">";
+          $linkEndTag = "</a>";
           
           // -> LINK THUMBNAIL
           // *****************
@@ -1522,6 +1523,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$linkShowThumbnail
   * @uses Feindura::$linkShowThumbnailAfterText
   * @uses Feindura::$linkShowPageDate
+  * @uses Feindura::$linkPageDateSeparator
   * @uses Feindura::$linkShowCategory
   * @uses Feindura::$linkCategorySeparator
   * 
@@ -1555,17 +1557,6 @@ class Feindura extends FeinduraBase {
   */
   public function createMenu($idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
     
-    // vars
-    $menu = array();
-    $menuItem['menuItem'] = '';
-    $menuItem['startTag'] = '';
-    $menuItem['endTag']   = '';
-    $menuItem['link']     = '';
-    $menuItem['href']     = false;
-    $menuItem['title']    = false;
-    $menuItem['pageId']   = null;
-    $menuItemCopy = $menuItem;
-    
     $ids = $this->getPropertyIdsByType($idType,$ids);
     
     // -> LOADS the PAGES BY TYPE
@@ -1583,9 +1574,10 @@ class Feindura extends FeinduraBase {
         // creates the link
         if($pageLink = $this->createLink($page,$linkText)) {
           // adds the link to an array
-          $link['link']  = $pageLink;
-          $link['href']  = $this->createHref($page);
-          $link['id']    = $page['id'];
+          $link['link']     = $pageLink;
+          $link['href']     = $this->createHref($page);
+          $link['id']       = $page['id'];
+          $link['category'] = $page['category'];
 
           // create a title
           if($linkText === true) {
@@ -1606,142 +1598,8 @@ class Feindura extends FeinduraBase {
       }
     } else 
       return array(false);
- 
-    // -> sets the MENU attributes
-    // ----------------------------    
-    $menuStartTag = '';
-    $menuEndTag   = '';        
-    $menuTagSet   = false;
-    
-    // -> CREATEs the MENU-TAG (START and END-TAG)
-    if($menuTag) { // || !empty($menuAttributes) <- not used because there is no menuTag property, the tag is only set when a $menuTag parameter is given
-      
-      $menuAttributes = $this->createAttributes($this->menuId, $this->menuClass, $this->menuAttributes);
-      
-      // set tag
-      if(is_string($menuTag)) $menuTagSet = strtolower($menuTag);
-      // or uses standard tag
-      else $menuTagSet = 'div';
-                
-      $menuStartTag = "\n<".$menuTagSet.$menuAttributes.'>'."\n";
-      $menuEndTag   = "</".$menuTagSet.'>'."\n\n";
-    } 
-    
-    // --------------------------------------
-    // -> builds the final MENU
-    // ************************
-    if(empty($links))
-      return array();
-    
-    // SHOW START-TAG
-    if($menuStartTag) {
-      $menuItemCopy['menuItem'] = $menuStartTag;
-      $menuItemCopy['startTag'] = $menuStartTag;
-      $menu[] = $menuItemCopy;
-    }
 
-    // * reset $menuItemCopy
-    $menuItemCopy = $menuItem;
-
-    // creating the START TR tag
-    if($menuTagSet == 'table') {
-      $menuItemCopy['menuItem'] = "<tbody><tr>\n";
-      $menuItemCopy['startTag'] = "<tbody><tr>\n";
-      $menu[] = $menuItemCopy;
-    }
-
-    // * reset $menuItemCopy
-    $menuItemCopy = $menuItem;
-    
-    $count = 1;
-    foreach($links as $link) {
-          
-      // breaks the CELLs with TR after the given NUMBER of CELLS
-      if($menuTagSet == 'table' &&
-         is_numeric($breakAfter) &&
-         ($breakAfter + 1) == $count) {
-        $menuItemCopy['menuItem'] = "\n</tr><tr>\n";
-        $menuItemCopy['startTag'] = "<tr>\n";
-        $menuItemCopy['endTag']   = "\n</tr>";
-        $menu[] = $menuItemCopy;
-        $count = 1;
-      }
-
-      // * reset $menuItemCopy
-      $menuItemCopy = $menuItem;
-      
-      // if menuTag is a LIST ------
-      if($menuTagSet == 'menu' || $menuTagSet == 'ul' || $menuTagSet == 'ol') {
-        $menuItemCopy['menuItem'] = '<li>'.$link['link']."</li>\n";
-        $menuItemCopy['startTag'] = '<li>';
-        $menuItemCopy['endTag']   = "</li>\n";
-        $menuItemCopy['link']     = $link['link'];
-        $menuItemCopy['href']     = $link['href'];
-        $menuItemCopy['title']    = $link['title'];
-        $menuItemCopy['pageId']   = $link['id'];
-        
-      // if menuTag is a TABLE -----
-      } elseif($menuTagSet == 'table') {
-        $menuItemCopy['menuItem'] = "<td>\n".$link['link']."\n</td>";
-        $menuItemCopy['startTag'] = "<td>\n";
-        $menuItemCopy['endTag']   = "\n</td>";
-        $menuItemCopy['link']     = $link['link'];
-        $menuItemCopy['href']     = $link['href'];
-        $menuItemCopy['title']    = $link['title'];
-        $menuItemCopy['pageId']   = $link['id'];
-
-      // if just a link
-      } else {
-        $menuItemCopy['menuItem'] = $link['link']."\n";
-        $menuItemCopy['link']     = $link['link']."\n";
-        $menuItemCopy['href']     = $link['href'];
-        $menuItemCopy['title']    = $link['title'];
-        $menuItemCopy['pageId']   = $link['id'];
-      }
-      
-      // add link
-      $menu[] = $menuItemCopy;
-
-      // * reset $menuItemCopy
-      $menuItemCopy = $menuItem;
-      
-      // count the table cells
-      $count++;
-    }
-    
-    // fills in the missing TABLE CELLs
-    while($menuTagSet == 'table' &&
-          is_numeric($breakAfter) &&
-          $breakAfter >= $count) {
-      $menuItemCopy['menuItem'] = "\n<td></td>\n";
-      $menuItemCopy['startTag'] = "\n<td>";
-      $menuItemCopy['endTag']   = "</td>\n";
-      $menu[] = $menuItemCopy;
-      $count++;
-    }
-
-    // * reset $menuItemCopy
-    $menuItemCopy = $menuItem;
-    
-    // creating the END TR tag
-    if($menuTagSet == 'table') {
-      $menuItemCopy['menuItem'] = "</tr></tbody>\n";
-      $menuItemCopy['endTag']   = "</tr></tbody>\n";
-      $menu[] = $menuItemCopy;
-    }
-
-    // * reset $menuItemCopy
-    $menuItemCopy = $menuItem;
-
-    // SHOW END-TAG
-    if($menuEndTag) {
-      $menuItemCopy['menuItem'] = $menuEndTag;
-      $menuItemCopy['endTag']   = $menuEndTag;
-      $menu[] = $menuItemCopy;
-    }
-    
-    // returns the whole menu after finish
-    return $menu;
+    return $this->generateMenu($links,$menuTag,$breakAfter);
   }
   
  /**
@@ -1790,6 +1648,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$linkShowThumbnail
   * @uses Feindura::$linkShowThumbnailAfterText
   * @uses Feindura::$linkShowPageDate
+  * @uses Feindura::$linkPageDateSeparator
   * @uses Feindura::$linkShowCategory
   * @uses Feindura::$linkCategorySeparator
   * 
@@ -1888,6 +1747,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$linkShowThumbnail
   * @uses Feindura::$linkShowThumbnailAfterText
   * @uses Feindura::$linkShowPageDate
+  * @uses Feindura::$linkPageDateSeparator
   * @uses Feindura::$linkShowCategory
   * @uses Feindura::$linkCategorySeparator
   * 
@@ -1979,6 +1839,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$linkShowThumbnail
   * @uses Feindura::$linkShowThumbnailAfterText
   * @uses Feindura::$linkShowPageDate
+  * @uses Feindura::$linkPageDateSeparator
   * @uses Feindura::$linkShowCategory
   * @uses Feindura::$linkCategorySeparator
   * 
@@ -2104,7 +1965,7 @@ class Feindura extends FeinduraBase {
     $category = $this->getPropertyCategory($category);
     $subCategoryPages = unserialize($this->categoryConfig[$category]['isSubCategoryOf']);
 
-    if(is_array($subCategoryPages) && in_array($page, $subCategoryPages))
+    if(is_array($subCategoryPages) && array_key_exists($page, $subCategoryPages))
       return true;
     else
       return false;
@@ -2152,6 +2013,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$linkShowThumbnail
   * @uses Feindura::$linkShowThumbnailAfterText
   * @uses Feindura::$linkShowPageDate
+  * @uses Feindura::$linkPageDateSeparator
   * @uses Feindura::$linkShowCategory
   * @uses Feindura::$linkCategorySeparator
   * 
@@ -2186,7 +2048,7 @@ class Feindura extends FeinduraBase {
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
         // return subcategory
         if(is_numeric($pageContent['subCategory']) &&
-           (($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['subCategory']]['showSubCategory']) ||
+           (($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['showSubCategory']) ||
             ($pageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])))
           return $this->createMenu('category', $pageContent['subCategory'], $menuTag, $linkText, $breakAfter, $sortByCategories);
       }
@@ -2252,6 +2114,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$linkShowThumbnail
   * @uses Feindura::$linkShowThumbnailAfterText
   * @uses Feindura::$linkShowPageDate
+  * @uses Feindura::$linkPageDateSeparator
   * @uses Feindura::$linkShowCategory
   * @uses Feindura::$linkCategorySeparator
   * 
@@ -2335,6 +2198,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$adminConfig
   * 
   * @uses FeinduraBase::createAttributes()        to create the attributes used in the menu tag
+  * @USES FeinduraBase::generateMenu()            to generate the final menu
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
@@ -2351,17 +2215,6 @@ class Feindura extends FeinduraBase {
     // quit if multilanguage website is deactivated
     if(!$this->adminConfig['multiLanguageWebsite']['active'])
       return array();
-
-    // vars
-    $menu = array();
-    $menuItem['menuItem'] = '';
-    $menuItem['startTag'] = '';
-    $menuItem['endTag']   = '';
-    $menuItem['link']     = '';
-    $menuItem['flag']     = false;
-    $menuItem['href']     = false;
-    $menuItem['language'] = false;
-    $menuItemCopy = $menuItem;
     
     // -> STOREs the LINKs in an Array
     $links = array();
@@ -2380,6 +2233,8 @@ class Feindura extends FeinduraBase {
         // set language name as link text
         if($linkText === true)
           $modLinkText = $this->languageNames[$langCode];
+        else
+          $modLinkText = $linkText;
 
         // remove the active class, so not all links will get it
         if($orgLanguage == $langCode)
@@ -2408,142 +2263,223 @@ class Feindura extends FeinduraBase {
 
     } else 
       return array(false);
- 
-    // -> sets the MENU attributes
-    // ----------------------------    
-    $menuStartTag = '';
-    $menuEndTag   = '';        
-    $menuTagSet   = false;
-    
-    // -> CREATEs the MENU-TAG (START and END-TAG)
-    if($menuTag) { // || !empty($menuAttributes) <- not used because there is no menuTag property, the tag is only set when a $menuTag parameter is given
-      
-      $menuAttributes = $this->createAttributes($this->menuId, $this->menuClass, $this->menuAttributes);
-      
-      // set tag
-      if(is_string($menuTag)) $menuTagSet = strtolower($menuTag);
-      // or uses standard tag
-      else $menuTagSet = 'div';
-                
-      $menuStartTag = "\n<".$menuTagSet.$menuAttributes.'>'."\n";
-      $menuEndTag   = "</".$menuTagSet.'>'."\n\n";
-    } 
-    
-    // --------------------------------------
-    // -> builds the final MENU
-    // ************************
-    if(empty($links))
-      return array();
-    
-    // SHOW START-TAG
-    if($menuStartTag) {
-      $menuItemCopy['menuItem'] = $menuStartTag;
-      $menuItemCopy['startTag'] = $menuStartTag;
-      $menu[] = $menuItemCopy;
-    }
 
-    // * reset $menuItemCopy
-    $menuItemCopy = $menuItem;
+    return $this->generateMenu($links,$menuTag,$breakAfter);
+  }
 
-    // creating the START TR tag
-    if($menuTagSet == 'table') {
-      $menuItemCopy['menuItem'] = "<tbody><tr>\n";
-      $menuItemCopy['startTag'] = "<tbody><tr>\n";
-      $menu[] = $menuItemCopy;
-    }
-
-    // * reset $menuItemCopy
-    $menuItemCopy = $menuItem;
+ /**
+  * <b>Name</b> createBreadCrumbsMenu()<br>
+  * <b>Alias</b> createBreadCrumbMenu()<br> 
+  * <b>Alias</b> createBreadCrumbs()<br> 
+  * <b>Alias</b> createBreadCrumb()<br> 
+  * 
+  * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} properties.</b>
+  * 
+  * Creates a breadcrumb navigation for the given page <var>$id</var> parameter.
+  * In case no page with the given category or page ID(s) exist it returns an empty array.
+  * 
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
+  * If its any other tag name it just enclose the links with this HTML-tag.<br>
+  * 
+  * Example of the returned Array:
+  * {@example createMenu.return.example.php}
+  * 
+  * @param int|string|array|bool $id            (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property.<br><i>See Additional -> $id parameter example</i>
+  * @param string|false          $separator     (optional) a string which will be used as separator or FALSE to dont use a separator string
+  * @param int|bool              $menuTag       (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param int|false             $breakAfter    (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
+  * 
+  * @uses Feindura::$menuId
+  * @uses Feindura::$menuClass
+  * @uses Feindura::$menuAttributes
+  * 
+  * @uses Feindura::$linkLength
+  * @uses Feindura::$linkId
+  * @uses Feindura::$linkClass
+  * @uses Feindura::$linkActiveClass
+  * @uses Feindura::$linkAttributes
+  * @uses Feindura::$linkBefore
+  * @uses Feindura::$linkAfter
+  * @uses Feindura::$linkBeforeText
+  * @uses Feindura::$linkAfterText
+  * @uses Feindura::$linkShowThumbnail
+  * @uses Feindura::$linkShowThumbnailAfterText
+  * @uses Feindura::$linkShowPageDate
+  * @uses Feindura::$linkPageDateSeparator
+  * @uses Feindura::$linkShowCategory               This is set to TRUE for all links, which are not in a sub category. You can change the separator between the category and the page name by setting the {@link Feindura::$linkCategorySeparator}
+  * @uses Feindura::$linkCategorySeparator
+  * 
+  * @uses FeinduraBase::getPropertyIdsByString()       to load the right page and category IDs depending on the $ids parameter
+  * @uses Feindura::readPage()
+  * 
+  * @return array the created breadcrumb navigation, or an empty array
+  * 
+  * 
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public function createBreadCrumbsMenu($id = false, $separator = ' > ', $menuTag = false, $breakAfter = false) {
     
-    $count = 1;
-    foreach($links as $link) {
-          
-      // breaks the CELLs with TR after the given NUMBER of CELLS
-      if($menuTagSet == 'table' &&
-         is_numeric($breakAfter) &&
-         ($breakAfter + 1) == $count) {
-        $menuItemCopy['menuItem'] = "\n</tr><tr>\n";
-        $menuItemCopy['startTag'] = "<tr>\n";
-        $menuItemCopy['endTag']   = "\n</tr>";
-        $menu[] = $menuItemCopy;
-        $count = 1;
-      }
+    // var
+    $links = array();
+    $orgLinkActiveClass = $this->linkActiveClass;
+    $this->linkActiveClass = false;
 
-      // * reset $menuItemCopy
-      $menuItemCopy = $menuItem;
-      
-      // if menuTag is a LIST ------
-      if($menuTagSet == 'menu' || $menuTagSet == 'ul' || $menuTagSet == 'ol') {
-        $menuItemCopy['menuItem'] = '<li>'.$link['link']."</li>\n";
-        $menuItemCopy['startTag'] = '<li>';
-        $menuItemCopy['endTag']   = "</li>\n";
-        $menuItemCopy['link']     = $link['link'];
-        $menuItemCopy['flag']     = $link['flag'];
-        $menuItemCopy['href']     = $link['href'];
-        $menuItemCopy['language'] = $link['language'];
+    if($ids = $this->getPropertyIdsByString($id)) {
+      // unset($_SESSION['feinduraSession']['log']['visitedPages']);
+      // print_r($_SESSION['feinduraSession']['log']['visitedPages']);
+
+      // loads the $pageContent array
+      if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
+
+        // add pagelink
+        $getLinkCategory = $this->linkShowCategory;
+        // only show the category in the link, if the category is not a sub category
+        if(!$this->categoryConfig[$pageContent['category']]['isSubCategory'])
+          $this->linkShowCategory = true;
+
+        $link['link']     = $this->createLink($pageContent);
+        $link['href']     = $this->createHref($pageContent);
+        $link['id']       = $pageContent['id'];
+        $link['category'] = $pageContent['category'];   
+        $link['title']    = $this->createTitle($pageContent,                         
+                                              $this->linkLength,
+                                              false, // $titleAsLink
+                                              $this->linkShowPageDate,
+                                              $this->linkShowCategory,
+                                              $this->linkPageDateSeparator,                                      
+                                              $this->linkCategorySeparator,
+                                              false); // $allowFrontendEditing
+        $this->linkShowCategory = $getLinkCategory;
+
+        $links[] = $link;
+        unset($link);
+
+        // sub categories
+        if($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['isSubCategory']) {
         
-      // if menuTag is a TABLE -----
-      } elseif($menuTagSet == 'table') {
-        $menuItemCopy['menuItem'] = "<td>\n".$link['link']."\n</td>";
-        $menuItemCopy['startTag'] = "<td>\n";
-        $menuItemCopy['endTag']   = "\n</td>";
-        $menuItemCopy['link']     = $link['link'];
-        $menuItemCopy['flag']     = $link['flag'];
-        $menuItemCopy['href']     = $link['href'];
-        $menuItemCopy['language'] = $link['language'];
+          $hasSubCategory = $pageContent['category'];
+          while($hasSubCategory) {
 
-      // if just a link
-      } else {
-        $menuItemCopy['menuItem'] = $link['link']."\n";
-        $menuItemCopy['link']     = $link['link']."\n";
-        $menuItemCopy['flag']     = $link['flag'];
-        $menuItemCopy['href']     = $link['href'];
-        $menuItemCopy['language'] = $link['language'];
+            if(($hasSubCategory != 0 && $this->categoryConfig[$hasSubCategory]['isSubCategory'])) {
+
+              $parentPageId = unserialize($this->categoryConfig[$hasSubCategory]['isSubCategoryOf']);
+              
+              // -> determines which page was visited the last. therefor is assumed to be the parent page of the sub category
+              if(is_array($_SESSION['feinduraSession']['log']['visitedPages']) && count($parentPageId) > 1) {
+                $vistedPagesReversed = array_reverse($_SESSION['feinduraSession']['log']['visitedPages']);
+                foreach ($vistedPagesReversed as $pageId) {
+                  if(array_key_exists($pageId, $parentPageId)) {
+                    $parentPageId = $pageId;
+                    break;
+                  }
+                }
+              }
+              // if page wasn't set, use the top in the array
+              if(is_array($parentPageId))
+                $parentPageId = key($parentPageId);
+
+              if(($parentPageContent = GeneralFunctions::readPage($parentPageId,GeneralFunctions::getPageCategory($parentPageId))) !== false) {
+                // check if the parent pages category is a sub category
+                if(($parentPageContent['category'] != 0 && $this->categoryConfig[$parentPageContent['category']]['showSubCategory']) ||
+                   ($parentPageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])) {
+
+                  $getLinkCategory = $this->linkShowCategory;
+                  // only show the category in the link, if the category is not a sub category
+                  if(!$this->categoryConfig[$parentPageContent['category']]['isSubCategory'])
+                    $this->linkShowCategory = true;
+
+                  $link['link']  = $this->createLink($parentPageContent).$separator;
+                  $link['href']  = $this->createHref($parentPageContent);
+                  $link['id']    = $parentPageContent['id'];
+                  $link['title'] = $this->createTitle($parentPageContent,               
+                                                      $this->linkLength,
+                                                      false, // $titleAsLink
+                                                      $this->linkShowPageDate,
+                                                      $this->linkShowCategory,
+                                                      $this->linkPageDateSeparator,                                      
+                                                      $this->linkCategorySeparator,
+                                                      false); // $allowFrontendEditing
+                  $this->linkShowCategory = $getLinkCategory;
+
+                  $links[] = $link;
+                  unset($link);
+
+                  // set the next (sub) category
+                  $hasSubCategory = $parentPageContent['category'];
+
+                } elseif($parentPageContent['category'] != 0)
+                  $hasSubCategory = false;
+                else
+                  $hasSubCategory = false;
+              } else
+                $hasSubCategory = false;
+
+              unset($parentPageContent);
+
+            } else {
+              $hasSubCategory = false;
+            }
+
+          }
+        }
+
+        // start page
+        if($this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']) && $this->websiteConfig['startPage'] != $pageContent['id'] && ($startPage = GeneralFunctions::readPage($this->websiteConfig['startPage'],GeneralFunctions::getPageCategory($this->websiteConfig['startPage'])))) {
+          $link['link']  = $this->createLink($startPage).$separator;
+          $link['href']  = $this->createHref($startPage);
+          $link['id']    = $startPage['id'];    
+          $link['title'] = $this->createTitle($startPage,                        
+                                              $this->linkLength,
+                                              false, // $titleAsLink
+                                              $this->linkShowPageDate,
+                                              $this->linkShowCategory,
+                                              $this->linkPageDateSeparator,                                      
+                                              $this->linkCategorySeparator,
+                                              false); // $allowFrontendEditing
+
+          $links[] = $link;
+          unset($link,$startPage);
+        }
+
+        // REVERSE the BREADCRUMB CHAIN, so it appears in the right order
+        $links = array_reverse($links);
       }
-      
-      // add link
-      $menu[] = $menuItemCopy;
-
-      // * reset $menuItemCopy
-      $menuItemCopy = $menuItem;
-      
-      // count the table cells
-      $count++;
-    }
-    
-    // fills in the missing TABLE CELLs
-    while($menuTagSet == 'table' &&
-          is_numeric($breakAfter) &&
-          $breakAfter >= $count) {
-      $menuItemCopy['menuItem'] = "\n<td></td>\n";
-      $menuItemCopy['startTag'] = "\n<td>";
-      $menuItemCopy['endTag']   = "</td>\n";
-      $menu[] = $menuItemCopy;
-      $count++;
     }
 
-    // * reset $menuItemCopy
-    $menuItemCopy = $menuItem;
-    
-    // creating the END TR tag
-    if($menuTagSet == 'table') {
-      $menuItemCopy['menuItem'] = "</tr></tbody>\n";
-      $menuItemCopy['endTag']   = "</tr></tbody>\n";
-      $menu[] = $menuItemCopy;
-    }
+    // reset the linkActiveClass
+    $this->linkActiveClass = $orgLinkActiveClass;
 
-    // * reset $menuItemCopy
-    $menuItemCopy = $menuItem;
-
-    // SHOW END-TAG
-    if($menuEndTag) {
-      $menuItemCopy['menuItem'] = $menuEndTag;
-      $menuItemCopy['endTag']   = $menuEndTag;
-      $menu[] = $menuItemCopy;
-    }
-    
-    // returns the whole menu after finish
-    return $menu;
+    // return the menu
+    return $this->generateMenu($links,$menuTag,$breakAfter);
+  }
+  /**
+  * Alias of {@link createBreadCrumbsMenu()}
+  * @ignore
+  */
+  public function createBreadCrumbMenu($id = false, $separator = ' > ', $menuTag = false, $breakAfter = false) {
+    // call the right function
+    return $this->createBreadCrumbsMenu($id, $separator, $menuTag, $breakAfter);
+  }
+  /**
+  * Alias of {@link createBreadCrumbsMenu()}
+  * @ignore
+  */
+  public function createBreadCrumbs($id = false, $separator = ' > ', $menuTag = false, $breakAfter = false) {
+    // call the right function
+    return $this->createBreadCrumbsMenu($id, $separator, $menuTag, $breakAfter);
+  }
+  /**
+  * Alias of {@link createBreadCrumbsMenu()}
+  * @ignore
+  */
+  public function createBreadCrumb($id = false, $separator = ' > ', $menuTag = false, $breakAfter = false) {
+    // call the right function
+    return $this->createBreadCrumbsMenu($id, $separator, $menuTag, $breakAfter);
   }
 
  /**

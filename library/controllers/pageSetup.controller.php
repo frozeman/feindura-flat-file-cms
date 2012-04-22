@@ -214,6 +214,29 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   }
   // ------------------------------------------------------------------
   
+  // ->> REMOVE the SUB CATEGORY from PAGES, WITH DEACTIVATED SUB CATEGORIES
+  if(empty($newAdminConfig['showSubCategory'])) {
+    $cateoryPages = GeneralFunctions::loadPages(0);
+
+    foreach($cateoryPages as $pageContent) {
+      if(is_numeric($pageContent['subCategory'])) {
+        // remove the page from the subcategory
+        $subCategoryPages = unserialize($categoryConfig[$pageContent['subCategory']]['isSubCategoryOf']);
+        unset($subCategoryPages[$pageContent['id']]);
+        $categoryConfig[$pageContent['subCategory']]['isSubCategoryOf'] = serialize($subCategoryPages);
+        // set isSubCategory to false if isSubCategoryOf is empty
+        if(empty($subCategoryPages))
+          $categoryConfig[$pageContent['subCategory']]['isSubCategory'] = false;
+
+        // set subcategory to false
+        $pageContent['subCategory'] = false;
+        GeneralFunctions::savePage($pageContent);
+      }
+    }
+    saveCategories($categoryConfig);
+    unset($pageContent);
+  }
+
   // -> save ADMIN SETTINGS
   if(saveAdminConfig($newAdminConfig)) {
     // give documentSaved status
@@ -231,7 +254,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
 // ****** ---------- SAVE CATEGORY CONFIG in config/category.config.php
 
 // ****** ---------- CREATE NEW CATEGORY
-if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['createCategory'])) ||
+if((isset($_POST['send']) && $_POST['send'] == 'categorySetup' && isset($_POST['createCategory'])) ||
    $_GET['status'] == 'createCategory') {
    
   // var
@@ -353,20 +376,47 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 // ****** ---------- SAVE CATEGORIES
 if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['saveCategories'])) {
   
+  
+
   // transfer data from the categoryConfig
-  foreach($_POST['categories'] as $key => $value) {
-    $_POST['categories'][$key]['showSubCategory'] = $value['showSubCategory'];
-    $_POST['categories'][$key]['plugins']         = serialize($value['plugins']);
-    $_POST['categories'][$key]['isSubCategory']   = $categoryConfig[$key]['isSubCategory'];
-    $_POST['categories'][$key]['isSubCategoryOf'] = $categoryConfig[$key]['isSubCategoryOf'];
-    $_POST['categories'][$key]['localized']       = $categoryConfig[$key]['localized'];
+  foreach($_POST['categories'] as $categoryId => $value) {
+    $_POST['categories'][$categoryId]['plugins']         = serialize($value['plugins']);
+    $_POST['categories'][$categoryId]['isSubCategory']   = $categoryConfig[$categoryId]['isSubCategory'];
+    $_POST['categories'][$categoryId]['isSubCategoryOf'] = $categoryConfig[$categoryId]['isSubCategoryOf'];
+    $_POST['categories'][$categoryId]['localized']       = $categoryConfig[$categoryId]['localized'];
 
     // STORE LOCALIZED CONTENT
     if(!empty($value['name']))
-      $_POST['categories'][$key]['localized'][$_POST['websiteLanguage']]['name'] = $value['name'];
+      $_POST['categories'][$categoryId]['localized'][$_POST['websiteLanguage']]['name'] = $value['name'];
     
     // delete unnecessary variables
-    unset($_POST['categories'][$key]['name']);
+    unset($_POST['categories'][$categoryId]['name']);
+  }
+
+  // go trough the categories again and change the isSubCategoryOf
+  foreach($_POST['categories'] as $categoryId => $value) {
+
+    // ->> remove the sub category from pages, with deactivated sub categories
+    if(empty($value['showSubCategory'])) {
+      $cateoryPages = GeneralFunctions::loadPages($categoryId);
+
+      foreach($cateoryPages as $pageContent) {
+        if(is_numeric($pageContent['subCategory'])) {
+          // remove the page from the subcategory
+          $subCategoryPages = unserialize($_POST['categories'][$pageContent['subCategory']]['isSubCategoryOf']);
+          unset($subCategoryPages[$pageContent['id']]);
+          $_POST['categories'][$pageContent['subCategory']]['isSubCategoryOf'] = serialize($subCategoryPages);
+          // set isSubCategory to false if isSubCategoryOf is empty
+          if(empty($subCategoryPages))
+            $_POST['categories'][$pageContent['subCategory']]['isSubCategory'] = false;
+
+          // set subcategory to false
+          $pageContent['subCategory'] = false;
+          GeneralFunctions::savePage($pageContent);
+        }
+      }
+      unset($pageContent);
+    }
   }
 
   if(saveCategories($_POST['categories'])) {
