@@ -2160,6 +2160,61 @@ class GeneralFunctions {
     }
     return $str;
   }
+
+  /**
+   * <b>Name</b> jsonDecode()<br>
+   * 
+   * Decodes a JSON object in php, without using json_decode() so its PHP 5.1 compatible.
+   * 
+   * @param string $json a json encoded string
+   * 
+   * @return array the decoded JSON data
+   * 
+   * @link http://de2.php.net/manual/de/function.json-decode.php#105259 Created by Dragos.U
+   * 
+   * @version 1.0
+   * <br>
+   * <b>ChangeLog</b><br>
+   *    - 1.0 initial release
+   * 
+   */
+  public static function jsonDecode($json) { 
+      $json = str_replace(array("\\\\", "\\\""), array("&#92;", "&#34;"), $json); 
+      $parts = preg_split("@(\"[^\"]*\")|([\[\]\{\},:])|\s@is", $json, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE); 
+      foreach ($parts as $index => $part) 
+      { 
+          if (strlen($part) == 1) 
+          { 
+              switch ($part) 
+              { 
+                  case "[": 
+                  case "{": 
+                      $parts[$index] = "array("; 
+                      break; 
+                  case "]": 
+                  case "}": 
+                      $parts[$index] = ")"; 
+                      break; 
+                  case ":": 
+                    $parts[$index] = "=>"; 
+                    break;    
+                  case ",": 
+                    break; 
+                  default: 
+                      return null; 
+              } 
+          } 
+          else 
+          { 
+              if ((substr($part, 0, 1) != "\"") || (substr($part, -1, 1) != "\"")) 
+              { 
+                  return null; 
+              } 
+          } 
+      } 
+      $json = str_replace(array("&#92;", "&#34;", "$"), array("\\\\", "\\\"", "\\$"), implode("", $parts)); 
+      return eval("return $json;"); 
+  } 
   
  /**
   * <b>Name</b> scriptBenchmark()<br>

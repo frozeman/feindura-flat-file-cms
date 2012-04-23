@@ -468,7 +468,7 @@ if(!$newPage) {
 <!-- ***** PAGE SETTINGS -->
 <?php
 // shows the block below if it is the ones which is saved before
-$hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
+$hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hidden';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><?php echo $langFile['EDITOR_pageSettings_h1']; ?></a></h1>

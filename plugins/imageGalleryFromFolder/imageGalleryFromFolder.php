@@ -320,7 +320,7 @@ class imageGalleryFromFolder {
           
           $this->images[$count]['filename'] = basename($file);
           $this->images[$count]['text'] = (is_array($imageTexts) && array_key_exists($this->images[$count]['filename'],$imageTexts))
-            ? $imageTexts[$this->images[$count]['filename']]
+            ? XssFilter::text($imageTexts[$this->images[$count]['filename']])
             : '' ;
           
           // get the latest modification

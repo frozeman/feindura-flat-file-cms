@@ -204,8 +204,8 @@ class slideShow {
     // clerars the cache from other operations
     clearstatcache();
     
-    //needs php 5.2
-    $images = json_decode($jsonImages,true);
+    // JSON decode
+    $images = GeneralFunctions::jsonDecode($jsonImages);
 
     $count = 0;
     if(is_array($images) && count($images) > 0) {
@@ -220,7 +220,7 @@ class slideShow {
         // $image = urldecode($image);
         $this->images[$count]['filename'] = basename($image);
         $this->images[$count]['path'] = dirname($image).'/';
-        $this->images[$count]['text'] = $text;
+        $this->images[$count]['text'] = XssFilter::text($text);
 
         $count++;
       }

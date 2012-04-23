@@ -257,7 +257,7 @@ class slideShowFromFolder {
               $text = trim($imageText[1]);
               $newImageTexts[$filename] = $text;
             }         
-            $imageTexts = $newImageTexts;
+            $imageTexts = XssFilter::text($newImageTexts);
           }
         }
       }

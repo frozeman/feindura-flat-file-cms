@@ -215,7 +215,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   // ------------------------------------------------------------------
   
   // ->> REMOVE the SUB CATEGORY from PAGES, WITH DEACTIVATED SUB CATEGORIES
-  if(empty($newAdminConfig['showSubCategory'])) {
+  if(empty($newAdminConfig['pages']['showSubCategory'])) {
     $cateoryPages = GeneralFunctions::loadPages(0);
 
     foreach($cateoryPages as $pageContent) {

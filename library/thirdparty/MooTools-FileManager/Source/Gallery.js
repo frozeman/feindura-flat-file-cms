@@ -108,25 +108,7 @@ FileManager.Gallery = new Class({
 				'opacity': 0,
 				'display': 'none'
 			},
-			tween: {duration: 'short'},
-			events: {
-				mouseenter: function() {
-					if (self.options.closeCaptionEditorOnMouseOut)
-					{
-						clearTimeout(timer);
-					}
-				},
-				mouseleave: function(e) {
-					var target = this;
-
-					if (self.options.closeCaptionEditorOnMouseOut)
-					{
-						timer = (function() {
-							self.removeClone(e, target);
-						}).delay(500);
-					}
-				}
-			}
+			tween: {duration: 'short'}
 		}).adopt(
 			new Element('span', {text: this.language.gallery.text}),
 			this.input,

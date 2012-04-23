@@ -253,8 +253,8 @@ class imageGallery {
     // get unique id
     $this->uniqueId = md5(uniqid(rand(),1));
     
-    //needs php 5.2
-    $images = json_decode($jsonImages,true);
+    // JSON decode
+    $images = GeneralFunctions::jsonDecode($jsonImages);
 
     $count = 0;
     if(is_array($images) && count($images) > 0) {
@@ -269,7 +269,7 @@ class imageGallery {
         // $image = urldecode($image);
         $this->images[$count]['filename'] = basename($image);
         $this->images[$count]['path'] = dirname($image).'/';
-        $this->images[$count]['text'] = $text;
+        $this->images[$count]['text'] = XssFilter::text($text);
           
         $count++;
       }
