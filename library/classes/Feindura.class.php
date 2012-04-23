@@ -1489,7 +1489,7 @@ class Feindura extends FeinduraBase {
   * Creates a menu from category or page ID(s).
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
@@ -1613,7 +1613,7 @@ class Feindura extends FeinduraBase {
   * 
   * 
   * <b>Note</b>: the tags will be compared case insensitive.<br>
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br> 
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
@@ -1710,7 +1710,7 @@ class Feindura extends FeinduraBase {
   * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br> 
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
@@ -1804,7 +1804,7 @@ class Feindura extends FeinduraBase {
   * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
@@ -1984,7 +1984,7 @@ class Feindura extends FeinduraBase {
   * In case no page with the given page ID exist, or it has no subcategory it returns an empty array.<br>
   * 
   * 
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current page (means the {@link $page} property).<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
@@ -2087,7 +2087,7 @@ class Feindura extends FeinduraBase {
   * </code>
   * 
   * 
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current category (means the {@link $category} property).<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
@@ -2171,7 +2171,7 @@ class Feindura extends FeinduraBase {
   * Creates a menu as language selection for the multi language website feature.
   * In case that the multi language website feature is deactivated it returns an empty array.
   * 
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current language.
   * 
@@ -2282,7 +2282,7 @@ class Feindura extends FeinduraBase {
   * Creates a breadcrumb navigation for the given page <var>$id</var> parameter.
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
-  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * 
   * Example of the returned Array:

@@ -256,7 +256,7 @@ samp, div.src-code {
   }
 
 .docBlock div.src-code {
-  margin-top: -15px;
+  /*margin-top: -15px;*/
   }
 
 /* Syntax highlighting - code block */

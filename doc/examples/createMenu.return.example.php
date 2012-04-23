@@ -6,8 +6,8 @@ array(
     'startTag' => '<ul>'
     ),
   array(
-    'menuItem'   => '<li><a href="?page=5&category=1">Example Page 1</a></li>',
-    'startTag'   => '<li>',
+    'menuItem'   => '<li class="first"><a href="?page=5&category=1">Example Page 1</a></li>',
+    'startTag'   => '<li class="first">',
     'link'       => '<a href="?page=5&category=1">Example Page 1</a>',
     'endTag'     => '</li>',
     'title'      => 'Example Page 1',
@@ -16,8 +16,8 @@ array(
     'categoryId' => 1
     ),
   array(
-    'menuItem'   => '<li><a href="?page=8&category=1">Example Page 2</a></li>',
-    'startTag'   => '<li>',
+    'menuItem'   => '<li class="last"><a href="?page=8&category=1">Example Page 2</a></li>',
+    'startTag'   => '<li class="last">',
     'link'       => '<a href="?page=8&category=1">Example Page 2</a>',
     'endTag'     => '</li>',
     'title'      => 'Example Page 2',

@@ -6,8 +6,8 @@ array(
     'startTag' => '<ul>'
     ),
   array(
-    'menuItem' => '<li><a href="/en/page/english-page">English</a></li>',
-    'startTag' => '<li>',
+    'menuItem' => '<li class="first"><a href="/en/page/english-page">English</a></li>',
+    'startTag' => '<li class="first">',
     'link'     => '<a href="/en/page/english-page">English</a>',
     'endTag'   => '</li>',
     'href'     => '/en/page/english-page',
@@ -15,8 +15,8 @@ array(
     'language' => 'en'
     ),
   array(
-    'menuItem' => '<li><a href="/de/page/deutsche-seite">German</a></li>',
-    'startTag' => '<li>',
+    'menuItem' => '<li class="last"><a href="/de/page/deutsche-seite">German</a></li>',
+    'startTag' => '<li class="last">',
     'link'     => '<a href="/de/page/deutsche-seite">German</a>',
     'endTag'   => '</li>',
     'href'     => '/de/page/deutsche-seite',
