@@ -469,7 +469,7 @@ window.addEvent('load',function(){
 
     if(!window.MooTools || window.Prototype) // CHECK js libraries - 2 (first one on the beginning of the script)
       return;
-
+    
     // ->> add TOP BAR
     // ***************
     var topBar = topBarTemplate();

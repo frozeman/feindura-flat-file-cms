@@ -548,6 +548,82 @@ class GeneralFunctions {
       return false;
   }
   
+
+ /**
+  * <b> Name</b> getParentPages()<br>
+  * 
+  * Returns an array with the parent pages of given subcategory.
+  * If the given category ID is not a sub category of any page, it will return an empty array.
+  * 
+  * @param int $categoryId a category ID
+  * 
+  * @return array|false an array with the parent pages in the order from the current category on, or FALSE if this category is not a subcategory
+  * 
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function getParentPages($categoryId) {
+
+    // var
+    $return = false;
+   
+    if($categoryId != 0 && self::$categoryConfig[$categoryId]['isSubCategory']) {
+
+      while($categoryId) {
+
+        if(($categoryId != 0 && self::$categoryConfig[$categoryId]['isSubCategory'])) {
+
+          $parentPageId = unserialize(self::$categoryConfig[$categoryId]['isSubCategoryOf']);
+          
+          // -> determines which page was visited the last. therefor is assumed to be the parent page of the sub category
+          if(is_array($_SESSION['feinduraSession']['log']['visitedPagesOrder']) && count($parentPageId) > 1) {
+            $vistedPagesReversed = array_reverse($_SESSION['feinduraSession']['log']['visitedPagesOrder']);
+            foreach ($vistedPagesReversed as $pageId) {
+              if(is_numeric($pageId) && array_key_exists($pageId, $parentPageId)) {
+                $parentPageId = $pageId;
+                break;
+              }
+            }
+          }
+          // if page wasn't set, use the top in the array
+          if(is_array($parentPageId))
+            $parentPageId = key($parentPageId);
+
+          if(($parentPageContent = self::readPage($parentPageId,self::getPageCategory($parentPageId))) !== false) {
+            // check if the parent pages category is a sub category
+            if(($parentPageContent['category'] != 0 && self::$categoryConfig[$parentPageContent['category']]['showSubCategory']) ||
+               ($parentPageContent['category'] == 0 && self::$adminConfig['pages']['showSubCategory'])) {
+
+              $return[] = $parentPageContent;
+
+              // set the next (sub) category
+              $categoryId = $parentPageContent['category'];
+
+            } elseif($parentPageContent['category'] != 0)
+              $categoryId = false;
+            else
+              $categoryId = false;
+          } else
+            $categoryId = false;
+
+          unset($parentPageContent);
+
+        } else {
+          $categoryId = false;
+        }
+
+      }
+    }
+    if(is_array($return))
+      $return = array_reverse($return);
+
+    return $return;
+  }
+
   /**
    * <b>Name</b> getLocalized()<br>
    * 
@@ -1398,9 +1474,10 @@ class GeneralFunctions {
   * @see Feindura::createHref()
   * 
   * @static
-  * @version 1.0.1
+  * @version 2.0
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 2.0 add parent pages
   *    - 1.0.1 changed websitepath; getting dirname now  
   *    - 1.0 initial release
   * 
@@ -1431,17 +1508,30 @@ class GeneralFunctions {
         $href .= $language.'/';
       }
 
-      // adds the CATEGORY to the href attribute
-      if($category != 0)
-        $href .= 'category/';
+      // -> add PARENT PAGES
+      $parentPagesString = false;
+      $categoryNameString = false;
+      if($category != 0 && ($parentPages = self::getParentPages($category))) {
+        foreach ($parentPages as $parentPageContent) {
+
+          // only show the category, if the parents page category is not a sub category
+          if($parentPageContent['category'] != 0 && !self::$categoryConfig[$parentPageContent['category']]['isSubCategory'])
+            $categoryNameString .= StatisticFunctions::urlEncode(self::getLocalized(self::$categoryConfig[$parentPageContent['category']]['localized'],'name',$language)).'/';
+
+          $parentPagesString .= StatisticFunctions::urlEncode(self::getLocalized($parentPageContent['localized'],'title',$language)).'/';
+        }
+
+      // -> add the CATEGORY NAME
+      } elseif($category != 0)
+        $categoryNameString .= StatisticFunctions::urlEncode(self::getLocalized(self::$categoryConfig[$category]['localized'],'name',$language)).'/';
+      
+      // -> add the CATEGORY or PAGE word
+      if($categoryNameString && $category != 0)
+        $href .= 'category/'.$categoryNameString.$parentPagesString;
       else
-        $href .= 'page/';
+        $href .= 'page/'.$parentPagesString;
 
-      // adds the CATEGORY NAME to the href attribute
-      if($category != 0)
-        $href .= StatisticFunctions::urlEncode(self::getLocalized(self::$categoryConfig[$category]['localized'],'name',$language)).'/';
-
-      // add PAGE NAME
+      // -> add PAGE NAME
       $href .= StatisticFunctions::urlEncode(self::getLocalized($pageContent['localized'],'title',$language));
       //$href .= '/'; //'.html';
       
@@ -1455,13 +1545,29 @@ class GeneralFunctions {
     } else {
       
       $href .= self::$adminConfig['websitePath'];
-      
-      // adds the category to the href attribute
+      $href .= '?';
+
+      // -> add PARENT PAGES
+      $parentPagesString = '';
+      if($category != 0 && ($parentPages = self::getParentPages($category))) {
+        $parentPagesString .= '&amp;parentPages=';
+
+        $parentPages = array_reverse($parentPages);
+        foreach ($parentPages as $parentPageContent) {
+          $parentPagesString .= $parentPageContent['id'].',';
+        }
+        $parentPagesString = trim($parentPagesString,',');
+      } 
+
+      // -> add the CATEGORY
       if($category != 0)
-        $categoryLink = self::$adminConfig['varName']['category'].'='.$category.'&amp;';
-      else $categoryLink = '';
+        $href .= self::$adminConfig['varName']['category'].'='.$category.'&amp;';
       
-      $href .= '?'.$categoryLink.self::$adminConfig['varName']['page'].'='.$page;
+      // -> add PAGE
+      $href .= self::$adminConfig['varName']['page'].'='.$page;
+
+      // -> add PARENT PAGES
+      $href .= $parentPagesString;
 
       // add the LANGUAGE if multilanguage page
       if(self::$adminConfig['multiLanguageWebsite']['active'])

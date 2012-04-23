@@ -281,7 +281,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       $succesfullUpdate = false;
     }
     
-    // ->> FIX PAGES
+    // ->> LOAD PAGES
     $pages = GeneralFunctions::loadPages(true);
     
     // ->> SAVE NEW adminConfig
@@ -312,6 +312,11 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     else {
       echo 'adminConfig <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
+
+    // only if was below 1.1.6
+    if($oldVersion <= '1.1.6') {
+      $adminConfig['speakingUrl'] = false; // changed speaking url reg ex and createHref generation
+
     }
     GeneralFunctions::$adminConfig = $adminConfig;
     

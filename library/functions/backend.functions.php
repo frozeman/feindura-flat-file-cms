@@ -1110,10 +1110,14 @@ function saveSpeakingUrl(&$errorWindow) {
   $newWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($_POST['cfg_websitePath'])),1);
   $oldWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($GLOBALS['adminConfig']['websitePath'])),1);
   
-  $newRewriteRule = 'RewriteRule ^(?:([a-z]{2})/{1})?category/([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
-  $newRewriteRule .= 'RewriteRule ^(?:([a-z]{2})/{1})?page/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?page=$2&language=$1 [QSA,L]';
-  $oldRewriteRule = 'RewriteRule ^(?:([a-z]{2})/{1})?category/([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
-  $oldRewriteRule .= 'RewriteRule ^(?:([a-z]{2})/{1})?page/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$2&language=$1 [QSA,L]';
+  // (?:[\/a-z0-9_-]*/{1})?  <- is only to add parent pages
+  $categoryRegEx = 'RewriteRule ^(?:([a-z]{2})/{1})?category/([a-z0-9_-]+)/(?:[\/a-z0-9_-]*/{1})?([a-z0-9_-]+).*?$ ';
+  $pageRegEx     = 'RewriteRule ^(?:([a-z]{2})/{1})?page/(?:[\/a-z0-9_-]*/{1})?([a-z0-9_-]+).*?$ ';
+
+  $newRewriteRule = $categoryRegEx.XssFilter::path($_POST['cfg_websitePath']).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
+  $newRewriteRule .= $pageRegEx.XssFilter::path($_POST['cfg_websitePath']).'?page=$2&language=$1 [QSA,L]';
+  $oldRewriteRule = $categoryRegEx.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
+  $oldRewriteRule .= $pageRegEx.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$2&language=$1 [QSA,L]';
   
   $speakingUrlCode = '#
 # feindura -flat file cms - speakingURL activation

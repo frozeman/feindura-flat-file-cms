@@ -253,6 +253,36 @@ class FeinduraBase {
  /* **************************************************************************************************************************** */
 
  /**
+  * <b> Name</b> getParentPages()<br>
+  * 
+  * Returns an array with the parent pages of given subcategory.
+  * If the given category ID is not a sub category of any page, it will return an empty array.
+  * 
+  * <b>Note</b>: If the <var>$categoryId</var> parameter is FALSE or empty, it uses the current page (means the {@link Feindura::$page} property).<br>
+  * 
+  * @param int|string|bool $categoryId (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
+  * 
+  * @return array|false an array with the parent pages in the order from the current category on, or FALSE if this category is not a subcategory
+  * 
+  * @see GeneralFunctions::getParentPages
+  * 
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public function getParentPages($categoryId = false) {
+
+    if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
+      $categoryId = $ids[1];
+      return GeneralFunctions::getParentPages($categoryId);
+    }
+    return false;
+  }
+
+ /**
   * <b> Name</b>      getCurrentPageId()<br>
   * <b> Alias</b>     getPageId()<br>
   * 
@@ -287,7 +317,7 @@ class FeinduraBase {
   * Alias of {@link getCurrentPageId()}
   * @ignore
   */
-  function getPageId() {
+  public function getPageId() {
     // call the right function
     return $this->getCurrentPageId();
   }
@@ -335,13 +365,20 @@ class FeinduraBase {
     // **************************
     } elseif(isset($_GET['category']) &&
              !empty($_GET['category'])) {
-      
-      foreach($this->categoryConfig as $category) {   
-        // goes trough each localization and check if its fit the $_GET['category'] title
-        foreach($category['localized'] as $localizedCategory) {
-          // RETURNs the right category Id
-          if(StatisticFunctions::urlEncode($localizedCategory['name']) == StatisticFunctions::urlEncode($_GET['category'])) {
-            return $category['id'];
+
+      // if the page is set, get its category
+      if(is_numeric($this->page)) {
+        return GeneralFunctions::getPageCategory($this->page);
+
+      // if not try to get the category from the url
+      } else {
+        foreach($this->categoryConfig as $category) {   
+          // goes trough each localization and check if its fit the $_GET['category'] title
+          foreach($category['localized'] as $localizedCategory) {
+            // RETURNs the right category Id
+            if(StatisticFunctions::urlEncode($localizedCategory['name']) == StatisticFunctions::urlEncode($_GET['category'])) {
+              return $category['id'];
+            }
           }
         }
       }
@@ -354,11 +391,14 @@ class FeinduraBase {
   * Alias of {@link getCurrentCategoryId()}
   * @ignore
   */
-  function getCategoryId() {
+  public function getCategoryId() {
     // call the right function
     return $this->getCurrentCategoryId();
   }
-  
+ 
+
+ /* PROTECTED METHODS */
+
  /**
   * <b>Name</b>     setCurrentPageId()<br>
   * <b>Alias</b>    setPageId()<br>

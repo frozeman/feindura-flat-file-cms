@@ -807,8 +807,8 @@ class Feindura extends FeinduraBase {
 
     // saves the current GET vars in the PROPERTIES
     // ********************************************
-    $this->setCurrentCategoryId(true);       // get $_GET['category']  -> first load category then the page, because getCurrentPageId need a category when retrieving the page id from speaking URLs
     $this->setCurrentPageId(true);           // get $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
+    $this->setCurrentCategoryId(true);       // get $_GET['category']
     // set category automatically, if it couldn't be retrieved 
     if($this->category == null) $this->category = GeneralFunctions::getPageCategory($this->page);
 
@@ -1909,7 +1909,7 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: If the <var>$category</var> parameter is FALSE or empty, it uses the current category (means the {@link $category} property).<br>
   * 
-  * @param int|bool       $category  (optional) a category ID, or FALSE to check the current category using the {@link Feindura::$category} property
+  * @param int|string|bool $categoryId (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
   * 
   * @uses Feindura::$category
   * @uses Feindura::$categoryConfig
@@ -1924,13 +1924,14 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function isSubCategory($category = false) {
-    $category = $this->getPropertyCategory($category);
-    
-    if($this->categoryConfig[$category]['isSubCategory'])
-      return true;
-    else
-      return false;
+  public function isSubCategory($categoryId = false) {
+    if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
+      $categoryId = $ids[1];    
+      if($this->categoryConfig[$categoryId]['isSubCategory'])
+        return true;     
+    }
+
+    return false;
   }
 
 
@@ -1939,11 +1940,11 @@ class Feindura extends FeinduraBase {
   * 
   * Check if the given <var>$page</var> ID has the <var>$category</var> as a subcategory.<br>
   * 
-  * <b>Note</b>: If the <var>$page</var> parameter is FALSE or empty, it uses the current page (means the {@link $page} property).<br>
-  * <b>Note</b>: If the <var>$category</var> parameter is FALSE or empty, it uses the current page (means the {@link $page} property).<br>
+  * <b>Note</b>: If the <var>$pageID</var> parameter is FALSE or empty, it uses the current page (means the {@link $page} property).<br>
+  * <b>Note</b>: If the <var>$categoryId</var> parameter is FALSE or empty, it uses the current page (means the {@link $page} property).<br>
   *
-  * @param int|bool $page      (optional) a page ID, or FALSE to check the current page, using the {@link Feindura::$category} property 
-  * @param int|bool $category  (optional) a category ID, or FALSE to check the current category, using the {@link Feindura::$category} property
+  * @param int|string|bool $pageId      (optional) a page ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.
+  * @param int|string|bool $categoryId  (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
   * 
   * @uses Feindura::$category
   * @uses Feindura::$categoryConfig
@@ -1958,17 +1959,20 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function isSubCategoryOf($page = false, $category = false) {
+  public function isSubCategoryOf($pageId = false,$categoryId = false) {
 
-    // var
-    $page = $this->getPropertyPage($page);
-    $category = $this->getPropertyCategory($category);
-    $subCategoryPages = unserialize($this->categoryConfig[$category]['isSubCategoryOf']);
+    if($ids = $this->getPropertyIdsByString(array($pageId,false)))
+      $pageId = $ids[0];
 
-    if(is_array($subCategoryPages) && array_key_exists($page, $subCategoryPages))
+    if($ids = $this->getPropertyIdsByString(array(false,$categoryId)))
+      $categoryId = $ids[1];
+
+    $subCategoryPages = unserialize($this->categoryConfig[$categoryId]['isSubCategoryOf']);
+
+    if(is_array($subCategoryPages) && array_key_exists($pageId, $subCategoryPages))
       return true;
-    else
-      return false;
+
+    return false;
   }
   
  /**
@@ -2092,11 +2096,11 @@ class Feindura extends FeinduraBase {
   * {@example createMenu.return.example.php}
   * 
   * 
-  * @param int|string|array|bool $id          (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link $category} property.
-  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
-  * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
-  * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * @param int|string|bool $categoryId         (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link $category} property.
+  * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param string|bool     $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
+  * @param int|false       $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
+  * @param bool            $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -2143,16 +2147,16 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function createSubMenuFromCategory($id = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  public function createSubMenuFromCategory($categoryId = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
 
-    if($ids = $this->getPropertyIdsByString(array(false,$id))) {
-      if($this->isSubCategory($ids[1])) {
-        $subCategory = $ids[1];
+    if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
+      $categoryId = $ids[1];
+      if($this->isSubCategory($categoryId)) {
         // create subcategory
-        if($subCategory && is_numeric($subCategory) &&
-           (($pageContent['category'] != 0 && $this->categoryConfig[$subCategory]['showSubCategory']) ||
+        if($categoryId && is_numeric($categoryId) &&
+           (($pageContent['category'] != 0 && $this->categoryConfig[$categoryId]['showSubCategory']) ||
             ($pageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])))
-          return $this->createMenu('category', $subCategory, $menuTag, $linkText, $breakAfter, $sortByCategories);
+          return $this->createMenu('category', $categoryId, $menuTag, $linkText, $breakAfter, $sortByCategories);
       }
     }
   
@@ -2311,6 +2315,7 @@ class Feindura extends FeinduraBase {
   * 
   * @uses FeinduraBase::getPropertyIdsByString()       to load the right page and category IDs depending on the $ids parameter
   * @uses Feindura::readPage()
+  * @uses GeneralFunctions::getParentPages()           to get the parent pages in an array
   * 
   * @return array the created breadcrumb navigation, or an empty array
   * 
@@ -2330,11 +2335,56 @@ class Feindura extends FeinduraBase {
     $this->linkActiveClass = false;
 
     if($ids = $this->getPropertyIdsByString($id)) {
-      // unset($_SESSION['feinduraSession']['log']['visitedPages']);
-      // print_r($_SESSION['feinduraSession']['log']['visitedPages']);
+      // unset($_SESSION['feinduraSession']['log']['visitedPagesOrder']);
+      // print_r($_SESSION['feinduraSession']['log']['visitedPagesOrder']);
 
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
+
+        // start page
+        if($this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']) && $this->websiteConfig['startPage'] != $pageContent['id'] && ($startPage = GeneralFunctions::readPage($this->websiteConfig['startPage'],GeneralFunctions::getPageCategory($this->websiteConfig['startPage'])))) {
+          $link['link']  = $this->createLink($startPage).$separator;
+          $link['href']  = $this->createHref($startPage);
+          $link['id']    = $startPage['id'];    
+          $link['title'] = $this->createTitle($startPage,                        
+                                              $this->linkLength,
+                                              false, // $titleAsLink
+                                              $this->linkShowPageDate,
+                                              $this->linkShowCategory,
+                                              $this->linkPageDateSeparator,                                      
+                                              $this->linkCategorySeparator,
+                                              false); // $allowFrontendEditing
+
+          $links[] = $link;
+          unset($link,$startPage);
+        }
+
+        // parent pages
+        if($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['isSubCategory'] && ($parentPages = GeneralFunctions::getParentPages($pageContent['category']))) {
+          foreach ($parentPages as $parentPageContent) {
+            $getLinkCategory = $this->linkShowCategory;
+
+            // only show the category, if the parents page category is not a sub category
+            if(!$this->categoryConfig[$parentPageContent['category']]['isSubCategory'])
+              $this->linkShowCategory = true;
+
+            $link['link']  = $this->createLink($parentPageContent).$separator;
+            $link['href']  = $this->createHref($parentPageContent);
+            $link['id']    = $parentPageContent['id'];
+            $link['title'] = $this->createTitle($parentPageContent,               
+                                                $this->linkLength,
+                                                false, // $titleAsLink
+                                                $this->linkShowPageDate,
+                                                $this->linkShowCategory,
+                                                $this->linkPageDateSeparator,                                      
+                                                $this->linkCategorySeparator,
+                                                false); // $allowFrontendEditing
+            $this->linkShowCategory = $getLinkCategory;
+
+            $links[] = $link;
+            unset($link);
+          }
+        }
 
         // add pagelink
         $getLinkCategory = $this->linkShowCategory;
@@ -2359,95 +2409,6 @@ class Feindura extends FeinduraBase {
         $links[] = $link;
         unset($link);
 
-        // sub categories
-        if($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['isSubCategory']) {
-        
-          $hasSubCategory = $pageContent['category'];
-          while($hasSubCategory) {
-
-            if(($hasSubCategory != 0 && $this->categoryConfig[$hasSubCategory]['isSubCategory'])) {
-
-              $parentPageId = unserialize($this->categoryConfig[$hasSubCategory]['isSubCategoryOf']);
-              
-              // -> determines which page was visited the last. therefor is assumed to be the parent page of the sub category
-              if(is_array($_SESSION['feinduraSession']['log']['visitedPages']) && count($parentPageId) > 1) {
-                $vistedPagesReversed = array_reverse($_SESSION['feinduraSession']['log']['visitedPages']);
-                foreach ($vistedPagesReversed as $pageId) {
-                  if(array_key_exists($pageId, $parentPageId)) {
-                    $parentPageId = $pageId;
-                    break;
-                  }
-                }
-              }
-              // if page wasn't set, use the top in the array
-              if(is_array($parentPageId))
-                $parentPageId = key($parentPageId);
-
-              if(($parentPageContent = GeneralFunctions::readPage($parentPageId,GeneralFunctions::getPageCategory($parentPageId))) !== false) {
-                // check if the parent pages category is a sub category
-                if(($parentPageContent['category'] != 0 && $this->categoryConfig[$parentPageContent['category']]['showSubCategory']) ||
-                   ($parentPageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])) {
-
-                  $getLinkCategory = $this->linkShowCategory;
-                  // only show the category in the link, if the category is not a sub category
-                  if(!$this->categoryConfig[$parentPageContent['category']]['isSubCategory'])
-                    $this->linkShowCategory = true;
-
-                  $link['link']  = $this->createLink($parentPageContent).$separator;
-                  $link['href']  = $this->createHref($parentPageContent);
-                  $link['id']    = $parentPageContent['id'];
-                  $link['title'] = $this->createTitle($parentPageContent,               
-                                                      $this->linkLength,
-                                                      false, // $titleAsLink
-                                                      $this->linkShowPageDate,
-                                                      $this->linkShowCategory,
-                                                      $this->linkPageDateSeparator,                                      
-                                                      $this->linkCategorySeparator,
-                                                      false); // $allowFrontendEditing
-                  $this->linkShowCategory = $getLinkCategory;
-
-                  $links[] = $link;
-                  unset($link);
-
-                  // set the next (sub) category
-                  $hasSubCategory = $parentPageContent['category'];
-
-                } elseif($parentPageContent['category'] != 0)
-                  $hasSubCategory = false;
-                else
-                  $hasSubCategory = false;
-              } else
-                $hasSubCategory = false;
-
-              unset($parentPageContent);
-
-            } else {
-              $hasSubCategory = false;
-            }
-
-          }
-        }
-
-        // start page
-        if($this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']) && $this->websiteConfig['startPage'] != $pageContent['id'] && ($startPage = GeneralFunctions::readPage($this->websiteConfig['startPage'],GeneralFunctions::getPageCategory($this->websiteConfig['startPage'])))) {
-          $link['link']  = $this->createLink($startPage).$separator;
-          $link['href']  = $this->createHref($startPage);
-          $link['id']    = $startPage['id'];    
-          $link['title'] = $this->createTitle($startPage,                        
-                                              $this->linkLength,
-                                              false, // $titleAsLink
-                                              $this->linkShowPageDate,
-                                              $this->linkShowCategory,
-                                              $this->linkPageDateSeparator,                                      
-                                              $this->linkCategorySeparator,
-                                              false); // $allowFrontendEditing
-
-          $links[] = $link;
-          unset($link,$startPage);
-        }
-
-        // REVERSE the BREADCRUMB CHAIN, so it appears in the right order
-        $links = array_reverse($links);
       }
     }
 

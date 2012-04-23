@@ -239,7 +239,7 @@ class StatisticFunctions {
        is_numeric($_GET[self::$adminConfig['varName']['page']])) {
        
       // get PAGE GET var
-      return XssFilter::int($_GET[self::$adminConfig['varName']['page']],0); // get the page ID from the $_GET var
+      return XssFilter::int($_GET[self::$adminConfig['varName']['page']],false); // get the page ID from the $_GET var
     
     // ->> GET PAGE is a feindura link
     // **********************
@@ -264,6 +264,13 @@ class StatisticFunctions {
           }
         }
       }
+    // if only a category is given, return flase, so it loads the first page of that category
+    } elseif(isset($_GET[self::$adminConfig['varName']['category']]) &&
+       !empty($_GET[self::$adminConfig['varName']['category']]) &&
+       is_numeric($_GET[self::$adminConfig['varName']['category']])) {
+      return false;
+
+    // otherwise set the startpage
     } elseif(self::$adminConfig['setStartPage'] && is_numeric($startPage)) {
       return $startPage;
     } else
@@ -885,8 +892,17 @@ class StatisticFunctions {
     
     // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isRobot() public static function
     //unset($_SESSION);
+
+    // var
+    if($page === false)
+      $page = self::getCurrentPageId();
+
+    // STORES all LAST VISITED PAGES in array, in the order they are visited (will also double count pages)
+    $_SESSION['feinduraSession']['log']['visitedPagesOrder'][] = $page;
+    if(count($_SESSION['feinduraSession']['log']['visitedPagesOrder']) > 20)
+      array_shift($_SESSION['feinduraSession']['log']['visitedPagesOrder']);
     
-    // doesnt save anything if visitor is a logged in user
+    // QUIT if LOGGED IN
     if($_SESSION['feinduraSession']['login']['loggedIn'])
       return false;
 
@@ -1088,9 +1104,7 @@ class StatisticFunctions {
     // -> store the visitime start
     $_SESSION['feinduraSession']['log']['lastTimestamp'] = time();
 
-    // SAVE CURRENTPAGE STATS
-    if($page === false)
-      self::getCurrentPageId();
+    // SAVE CURRENT PAGE STATS
     self:: refreshPageStatistics($page);
   }
   
@@ -1132,7 +1146,7 @@ class StatisticFunctions {
     // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isRobot() public static function
     //unset($_SESSION);
     
-    // doesnt save anything if visitor is a logged in user
+    // QUIT if LOGGED IN
     if($_SESSION['feinduraSession']['login']['loggedIn'] || !is_numeric($pageId))
       return false;
 
@@ -1175,14 +1189,10 @@ class StatisticFunctions {
       if(in_array($pageStatistics['id'],$_SESSION['feinduraSession']['log']['visitedPages']) === false) {
         //echo $pageContent['id'].' -> '.$pageContent['visitorCount'];
         $pageStatistics['visitorCount']++;
+        $_SESSION['feinduraSession']['log']['visitedPages'][] = $pageStatistics['id'];
       }
-      // reset the last visted pages array, if its grown to much
-      if(count($_SESSION['feinduraSession']['log']['visitedPages']) > 20)
-        $_SESSION['feinduraSession']['log']['visitedPages'] = array_unique($_SESSION['feinduraSession']['log']['visitedPages']);
-      // STORES all LAST VISITED PAGES in array, in the order they are visited (will perhaps double count pages)
-      $_SESSION['feinduraSession']['log']['visitedPages'][] = $pageStatistics['id'];
-
       
+
       // ->> SAVE THE SEARCHWORDs from GOOGLE, YAHOO, MSN (Bing)
       // -------------------------------------------------------
       if(!isset($_SESSION['feinduraSession']['log']['searchwords']))
