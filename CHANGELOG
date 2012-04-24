@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.2
-Build 875
+Build 876
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 1.2
   
+  build 876: fixed centerOnElement()
   build 875: fixed mootools filemanager
   build 874: add breadcumbs to the spekaing url url
   build 873: add createBreadCrumbsMenu() to Feindura class

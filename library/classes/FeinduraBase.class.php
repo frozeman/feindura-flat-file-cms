@@ -122,23 +122,6 @@ class FeinduraBase {
   public $categoryConfig;
 
  /**
-  * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language-files
-  * 
-  * This country code is used to include the right frontend language-file.
-  * The frontend language-file is used when displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
-  * This property will be set in the {@link feindura} constructor.
-  * 
-  * The standard value is <i>"en"</i> (english).
-  *  
-  * @var string
-  * @access public
-  * @see $languageFile
-  * @see FeinduraBase()
-  * 
-  */  
-  public $language = 'en';
-
- /**
   * An array with country codes and language names.
   * 
   * Example array
@@ -189,7 +172,7 @@ class FeinduraBase {
   * Then Check if the visitor is a logged in user of the feindura backend and set the {@link FeinduraBase::$loggedIn} property.  
   * Then set the <var>$_GET</var> variable names from the {@link FeinduraBase::$adminConfig administrator-settings config} to the {@link $varNames} property.<br>
   * Check if cookies are activated, otherwise store the session ID in the {@link $sessionId} property for use in links.<br>
-  * Get the the given <var>$language</var> parameter or try to find the browser language and load the frontend language-file and set it to the {@link $languageFile} property.
+  * Get the the given <var>$language</var> parameter or try to find the browser language and load the frontend language-file and set it to the {@link Feindura::$languageFile} property.
   * 
   * 
   * <b>Used Global Variables</b><br>
@@ -198,7 +181,7 @@ class FeinduraBase {
   *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
   * 
   * 
-  * @param string $language (optional) A language code "de", "en", ... to load the right frontend language-file and it will be set to the {@link $language} property 
+  * @param string $language (optional) A language code "de", "en", ... to load the right frontend language-file and it will be set to the {@link Feindura::$language} property 
   * 
   * @uses $adminConfig                            the administrator-settings config array will set to this property
   * @uses $websiteConfig                          the website-settings config array will set to this property
@@ -403,9 +386,9 @@ class FeinduraBase {
   * <b>Name</b>     setCurrentPageId()<br>
   * <b>Alias</b>    setPageId()<br>
   * 
-  * Sets the current page ID from the <var>$_GET</var> variable to the {@link $page} property.
+  * Sets the current page ID from the <var>$_GET</var> variable to the {@link Feindura::$page} property.
   * 
-  * Gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPageId}) and set it to the {@link $page} property.
+  * Gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPageId}) and set it to the {@link Feindura::$page} property.
   * If the <var>$setStartPage</var> parameter is TRUE and the {@link Feindura::$category} is empty, the {@link Feindura::$startPage} property will also be set with the start page ID from the {@link $websiteConfig}.
   * 
   * 
@@ -498,7 +481,7 @@ class FeinduraBase {
  /**
   * <b> Name</b>      loadFrontendLanguageFile()<br>
   * 
-  * Loads the frontend language file into the {@link $languageFile} property.
+  * Loads the frontend language file into the {@link Feindura::$languageFile} property.
   * 
   * 
   * @param string $language       (optional) a given country code which will be used to try to load the language file
@@ -615,7 +598,14 @@ class FeinduraBase {
     
     $count = 1;
     foreach($links as $link) {
-          
+      
+      $addClass = '';
+
+      if($link == reset($links))
+        $addClass = ' class="first"';
+      if($link == end($links))
+        $addClass = ' class="last"';
+
       // breaks the CELLs with TR after the given NUMBER of CELLS
       if($menuTagSet == 'table' &&
          is_numeric($breakAfter) &&
@@ -632,14 +622,14 @@ class FeinduraBase {
       
       // if menuTag is a LIST ------
       if($menuTagSet == 'menu' || $menuTagSet == 'ul' || $menuTagSet == 'ol') {
-        $menuItemCopy['menuItem'] = '<li>'.$link['link']."</li>\n";
-        $menuItemCopy['startTag'] = '<li>';
+        $menuItemCopy['menuItem'] = '<li'.$addClass.'>'.$link['link']."</li>\n";
+        $menuItemCopy['startTag'] = '<li'.$addClass.'>';
         $menuItemCopy['endTag']   = "</li>\n";
 
       // if menuTag is a TABLE -----
       } elseif($menuTagSet == 'table') {
-        $menuItemCopy['menuItem'] = "<td>\n".$link['link']."\n</td>";
-        $menuItemCopy['startTag'] = "<td>\n";
+        $menuItemCopy['menuItem'] = "<td'.$addClass.'>\n".$link['link']."\n</td>";
+        $menuItemCopy['startTag'] = "<td'.$addClass.'>\n";
         $menuItemCopy['endTag']   = "\n</td>";
 
       // if just a link

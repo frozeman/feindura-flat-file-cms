@@ -156,39 +156,25 @@
   function centerOnElement(icon,element) {
 
     // vars
-    var elementXtop = element.getPosition().x - window.getScroll().x;
-    var elementYtop = element.getPosition().y - window.getScroll().y;
-    var elementXbottom = (window.getScroll().x + window.getSize().x) - (element.getPosition().x + element.getSize().x);
-    var elementYbottom = (window.getScroll().y + window.getSize().y) - (element.getPosition().y + element.getSize().y);
+    var elementXtop = (element.getPosition().x < window.getScroll().x) ? element.getPosition().x - window.getScroll().x : 0;
+    var elementYtop = (element.getPosition().y < window.getScroll().y) ? element.getPosition().y - window.getScroll().y : 0;
+    var elementXbottom = ((element.getPosition().x + element.getSize().x) > (window.getScroll().x + window.getSize().x)) ? window.getSize().x - element.getPosition().x : element.getSize().x;
+    var elementYbottom = ((element.getPosition().y + element.getSize().y) > (window.getScroll().y + window.getSize().y)) ? window.getSize().y - element.getPosition().y : element.getSize().y;
     var iconX = 0;
     var iconY = 0;
 
     // X
-    if(element.getPosition().x + element.getSize().x > window.getSize().x) {
-      if(elementXtop > 0)
-        iconX = (window.getSize().x - elementXtop) / 2;
-      else if(elementXtop < 0 && elementXbottom < 0)
-        iconX = window.getScroll().x - element.getPosition().x + (window.getSize().x / 2);
-      else if(elementXbottom > 0)
-        iconX = window.getScroll().x - element.getPosition().x + ((window.getSize().x - elementXbottom) / 2);
-    } else
-      iconX = '50%';
+    iconX = ((elementXbottom - elementXtop) / 2) ;
 
     // Y
-    if(element.getPosition().y + element.getSize().y > window.getSize().y) {
-      if(elementYtop > 0)
-        iconY = (window.getSize().y - elementYtop) / 2;
-      else if(elementYtop < 0 && elementYbottom < 0)
-        iconY = window.getScroll().y - element.getPosition().y + (window.getSize().y / 2);
-      else if(elementYbottom > 0)
-        iconY = window.getScroll().y - element.getPosition().y + ((window.getSize().y - elementYbottom) / 2);
-    } else
-      iconY = '50%';
+    iconY = ((elementYbottom - elementYtop) / 2);
 
     // set the position
+    element.setStyle('position','relative');
 		icon.setStyles({
-      left: iconX,
-      top: iconY
+      'position':'absolute',
+      'left': iconX,
+      'top': iconY
     });
   }
 

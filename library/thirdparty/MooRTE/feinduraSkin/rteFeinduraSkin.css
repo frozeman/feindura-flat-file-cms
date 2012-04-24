@@ -9,9 +9,9 @@ div.MooRTE div.rteFeinduraSkin   input{ height:20px; width:100px; }
 div.MooRTE div.rteFeinduraSkin   div.rteTop{ border-bottom:1px #bbb solid; height:18px; overflow:hidden; vertical-align:bottom; text-align:left; }
 div.MooRTE div.rteFeinduraSkin   .saveBtn{ background-image:url('Save.png'); position:absolute; top:1px; right:15px; width:75px;}
 div.MooRTE div.rteFeinduraSkin   div.rteToolbar{ position:relative; width:100%; }
-div.MooRTE div.rteFeinduraSkin   div.rteToolbar a{ border: 1px solid transparent; border-bottom: none; height:20px; width:20px; margin:2px 4px; display:inline-block; text-decoration:none; vertical-align:bottom; background-image:url('rteFeinduraSkin_buttons.png')}
-div.MooRTE div.rteFeinduraSkin   div.rteToolbar a:hover{ margin:2px 4px; border: 1px solid #b0b0b0; border-bottom: none; }
-div.MooRTE div.rteFeinduraSkin   .rteSelected{ background-color: #fff }
+div.MooRTE div.rteFeinduraSkin   div.rteToolbar a { -moz-border-radius: 3px; -webkit-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; border: 1px solid transparent; padding: 0px;  height: 19px; width: 20px; margin: 2px 4px; display:inline-block; text-decoration:none; vertical-align:bottom; background-image:url('rteFeinduraSkin_buttons.png')}
+div.MooRTE div.rteFeinduraSkin   div.rteToolbar a:hover { background-position-x: 20px !important; margin: 2px 4px; border: 1px solid #b5b5b5; background-color: #c9cac9; }
+div.MooRTE div.rteFeinduraSkin   .rteSelected{ background-color: #efefef; margin: 2px 4px; border: 1px solid #ddd !important; }
 div.MooRTE div.rteFeinduraSkin   a.rteText{ height:16px; min-width:38px; margin:2px; display:inline-block; text-align:center; text-decoration:none; border:1px solid grey; -moz-corner-radius:2px }
 div.MooRTE div.rteFeinduraSkin   a.rteText:hover{ margin:2px; background-color:#eee}
 div.MooRTE div.rteFeinduraSkin   div.rteFlyout{ position:absolute; border:0; top:20px; left:-2px; width:24px; background-color:#ddd }
