@@ -735,6 +735,7 @@ class StatisticFunctions {
       if(is_array($cachedLines)) {
         foreach($cachedLines as $cachedLine) {
           $cachedLineArray = explode('|#|', $cachedLine);
+          // print_r($timeStamp - $cachedLineArray[0] ." < ". $maxTime.'<br>');
           
           // stores the agent AGAIN with new timestamp, if the visitor was less than $maxTime on the page,
           // otherwise remove the agent form the cache (dont save his line)
@@ -768,7 +769,7 @@ class StatisticFunctions {
       // -> add permissions on the first creation
       if(!$cachedLines) @chmod($cacheFile, self::$adminConfig['permissions']); 
     }
-    
+
     // return the right value
     return $return;
   }
