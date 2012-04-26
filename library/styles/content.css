@@ -203,6 +203,7 @@ div#contentBlocked {
     margin: 10px 0px;
     }
 .block table td {
+    position: relative;
     padding: 8px 5px;
     }
     
@@ -562,7 +563,7 @@ h1 img.listPagesH1Icon {
     height: 34px; /* org: 40px*/
     padding: 3px 7px;
     list-style: none;
-    background: url("../images/bg/sortPages_liBg.png") no-repeat;
+    background: url("../images/bg/listPages_liBg.png") no-repeat;
     white-space: nowrap;
     overflow: visible;
     }
@@ -573,6 +574,10 @@ h1 img.listPagesH1Icon {
 .listPages ul.sortablePageList li {
     cursor: move;
     }
+
+.listPages li.hasSubCategory {
+    background: url("../images/bg/listPages_liBg_hasSubCategory.png") no-repeat;
+}
 
 /****************/	
 /* *** listPages HEADER */
@@ -586,7 +591,7 @@ div.listPagesHead {
     border-top: 1px solid #DB9E39;
     font-size:15px;
     line-height:30px;
-    background: url("../images/bg/sortPages_headBg.png") repeat-x;
+    background: url("../images/bg/listPages_headBg.png") repeat-x;
     }
 
 .listPagesHead div {
@@ -820,7 +825,109 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     background: url("../images/icons/page_nonpublic.png") no-repeat !important;
     }
 
-    
+/* SUB CATEGORY ARROWS */
+div.subCategoryArrowLine {
+    display: none;
+    z-index: 99;
+    position: absolute;
+    border: 1px solid #ccc;
+    border-left: none;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -moz-border-radius-bottomleft: 0px;
+    -webkit-border-radius: 0px 4px 4px 0px;
+    border-radius: 0px 4px 4px 0px;
+    left: 799px;
+    width: 0;
+    height: 0;
+    top: 0
+}
+div.subCategoryArrowLine:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border: 1px solid #ccc;
+    border-left: none;
+    top: 1px;
+    bottom: 1px;
+    left: 1px;
+    right: 1px;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomright: 3px;
+    -moz-border-radius-bottomleft: 0px;
+    -webkit-border-radius: 0px 3px 3px 0px;
+    border-radius: 0px 3px 3px 0px;
+        
+}
+div.subCategoryArrowLine.nonCategory {
+    border-color: #EAC78C;
+}
+div.subCategoryArrowLine.nonCategory:before {
+    border-color: #EAC78C;
+}
+div.subCategoryArrowLine.categories {
+    border-color: #AAC9E1;
+}
+div.subCategoryArrowLine.categories:before {
+    border-color: #AAC9E1;
+}
+
+
+div.subCategoryArrowStart {
+    position: absolute;
+    width: 5px;
+    height: 9px;
+    left: 0px;
+}
+.nonCategory div.subCategoryArrowStart {
+    background-image: url("../images/bg/listPages_parentPage_inLineArrow_brown_start.png");
+}
+.categories div.subCategoryArrowStart {
+    background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_start.png");
+}
+div.subCategoryArrowStart.arrowBottom {
+    bottom: -4px;
+}
+div.subCategoryArrowStart.arrowTop {
+    top: -4px;
+}
+
+div.subCategoryArrowEnd {
+    position: absolute;
+    width: 5px;
+    height: 9px;
+    left: 0px;
+}
+.nonCategory div.subCategoryArrowEnd {
+    background-image: url("../images/bg/listPages_parentPage_inLineArrow_brown_end.png");
+}
+.categories div.subCategoryArrowEnd {
+    background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_end.png");
+}
+div.subCategoryArrowEnd.arrowTop {
+    bottom: -4px;
+}
+div.subCategoryArrowEnd.arrowBottom {
+    top: -4px;
+}
+
+div.subCategoryInLineArrow {
+    position: absolute;
+    width: 9px;
+    height: 6px;
+    top: 49%;
+    right: -4px;
+    background-image: url("../images/bg/listPages_parentPage_inLineArrow_brown_down.png");
+}
+.categories div.subCategoryInLineArrow.arrowUp {
+    background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_up.png");
+}
+.categories div.subCategoryInLineArrow.arrowDown {
+    background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_down.png");
+}
+
 /* --- EDITOR ------------------------------------------------------------------------------------------------------------------- */
     
 /****************/	
@@ -1238,10 +1345,10 @@ a.createCategory:hover, a.createCategory:focus {
     
 /* deleteCategory */
 a.deleteCategory {
-    position: relative;
+    position: absolute;
     display: block;
     top: -8px; /* -28px */
-    right: 20px;
+    right: 30px;
     width: 75px;
     height: 54px;
     padding: 0px !important; /* overwrites the #mainBody a*/

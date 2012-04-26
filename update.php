@@ -779,6 +779,14 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     if(!unlink(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.2.1.js') &&
       is_file(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.2.1.js'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.2.1.js';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/sortPages_headBg.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/sortPages_headBg.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/sortPages_headBg.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/sortPages_liBg.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/sortPages_liBg.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/sortPages_liBg.png';
+
+    
     
     // delete lowercase class names
     if(strpos(strtolower(PHP_OS),'win') === false) {

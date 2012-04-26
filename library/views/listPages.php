@@ -25,7 +25,7 @@
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 ?>
-<div class="block open noBg">
+<div class="block open noBg" id="listPagesBlock">
 <h1><?php echo $langFile['SORTABLEPAGELIST_h1']; ?></h1>
 
 <div class="listPagesHead">
@@ -39,12 +39,20 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 <form action="<?php echo GeneralFunctions::getCurrentUrl(); ?>" method="post" accept-charset="UTF-8">
 <?php
 
-
+// vars
 
 // shows the PAGES in NO CATEGORIES (the page/ folder),
 // by adding a empty category to the $categoryConfig array
 $nonCategory[0] = array('id' => 0,'localized' => array( 0 => array( 'name' => $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'])));
 $allCategories = $nonCategory + $categoryConfig;
+
+// for checking if is parent pages
+$allPages = GeneralFunctions::loadPages(true);
+
+// used to add the sub category arrows
+$pagesWithSubCategories  = array();
+
+
 // -----------------------------------------------------------------------------------------------------------
 // ->> LIST CATEGORIES
 foreach($allCategories as $category) {
@@ -57,15 +65,16 @@ foreach($allCategories as $category) {
   $pages = GeneralFunctions::loadPages($category['id']);
 
   // -> GET PAGES WHICH HAVE THIS CATEGORY AS SUBCATEGORY
-  $allPages = GeneralFunctions::loadPages(true);
-  $pagesOfSubCategory = array();
-  foreach ($allPages as $pageContent) {
-    if($pageContent['subCategory'] == $category['id'] && 
-       (($pageContent['category'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
-        ($pageContent['category'] == 0 && $adminConfig['pages']['showSubCategory'])))
-      $pagesOfSubCategory[] = $pageContent;
+  if($category['id'] != 0) {
+    $parentPages = array();
+    foreach ($allPages as $pageContent) {
+      if($pageContent['subCategory'] == $category['id'] && 
+         (($pageContent['category'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
+          ($pageContent['category'] == 0 && $adminConfig['pages']['showSubCategory'])))
+        $parentPages[] = $pageContent;
+    }
+    unset($pageContent);
   }
-  unset($pageContent);
 
   // shows after saving the right category open
   $hidden = (is_array($pages) && !empty($pages) &&                                         // -> slide in the category if EMPTY
@@ -95,7 +104,7 @@ foreach($allCategories as $category) {
   // shows ID and different header color if its a CATEGORY
   if($category['id'] != 0) {
     $headerColor = ' class="blue"';
-    $categoryIcon = (!empty($pagesOfSubCategory))
+    $categoryIcon = (!empty($parentPages))
       ? 'library/images/icons/categoryIcon_subCategory_middle.png'
       : 'library/images/icons/categoryIcon_middle.png';
   } else {
@@ -109,14 +118,16 @@ foreach($allCategories as $category) {
     : '';
 
   // show pages which have this category as subcategory
-  if(!empty($pagesOfSubCategory)) {
-    $categoryTitle .= (count($pagesOfSubCategory) ==  1)
+  if(!empty($parentPages)) {
+    $categoryTitle .= (count($parentPages) ==  1)
       ? '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR'].'[/b][br]'
       : '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL'].'[/b][br]';
-    foreach ($pagesOfSubCategory as $pageOfSubCategory) {
-      if((($pageOfSubCategory['category'] != 0 && $categoryConfig[$pageOfSubCategory['category']]['showSubCategory']) ||
-          ($pageOfSubCategory['category'] == 0 && $adminConfig['pages']['showSubCategory'])))
-        $categoryTitle .= '[img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($categoryConfig[$pageOfSubCategory['category']]['localized'],'name').' &rArr; '.GeneralFunctions::getLocalized($pageOfSubCategory['localized'],'title').'[br]';
+    foreach($parentPages as $parentPage) {
+      if((($parentPage['category'] != 0 && $categoryConfig[$parentPage['category']]['showSubCategory']) ||
+          ($parentPage['category'] == 0 && $adminConfig['pages']['showSubCategory']))) {
+        $parentPageCategory = ($parentPage['category'] != 0 ) ? GeneralFunctions::getLocalized($categoryConfig[$pageOfSubCategory['category']]['localized'],'name').' &rArr; ' : '';
+        $categoryTitle .= '[img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.$parentPageCategory.GeneralFunctions::getLocalized($parentPage['localized'],'title').'[br]';
+      }
     }
   }
 
@@ -175,6 +186,10 @@ foreach($allCategories as $category) {
       $startPageIcon           = '';
       $pageTitle_startPageText = '';
       $sort_order[]            = $pageContent['sortOrder'];
+
+      // add pageContent to this array to create later the arrows to the sub categories
+      if(is_numeric($pageContent['subCategory']))
+        $pagesWithSubCategories[] = $pageContent;
     
       // show whether the page is public or nonpublic
       if($pageContent['public']) {
@@ -201,7 +216,7 @@ foreach($allCategories as $category) {
       $pageTitle_subCategory = ($pageContent['subCategory'] &&
                                 (($category['id'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
                                  ($category['id'] == 0 && $adminConfig['pages']['showSubCategory'])))
-        ? '[br][b]'.$langFile['EDITOR_TEXT_SUBCATEGORY'].':[/b] '.GeneralFunctions::getLocalized($categoryConfig[$pageContent['subCategory']]['localized'],'name')
+        ? '[br][b]'.$langFile['EDITOR_TEXT_SUBCATEGORY'].':[/b] [img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($categoryConfig[$pageContent['subCategory']]['localized'],'name')
         : '';
 
       // -> generate pageDate for toolTip
@@ -229,10 +244,12 @@ foreach($allCategories as $category) {
         }
       }
 
+      $hasSubCategoryClass = (is_numeric($pageContent['subCategory'])) ? ' class="hasSubCategory"' : '';
+
       // -----------------------  ********  ---------------------- 
       // LIST PAGES
       // id'.$pageContent['id'].' sort'.$pageContent['sortOrder'].' cat: '.$pageContent['category'].' 
-      echo '<li id="page'.$pageContent['id'].'">';
+      echo '<li id="page'.$pageContent['id'].'"'.$hasSubCategoryClass.'>';
       
       // -> display other icon for pages
       $subCategoryIcon = ($pageContent['subCategory'] &&
@@ -301,26 +318,42 @@ foreach($allCategories as $category) {
             
       echo '</div>
       </li>'."\n";
+
+      unset($pageContent);
       // LIST PAGES END
-      // -----------------------   ********  ----------------------      
+      // -----------------------   ********  ---------------------- 
     } 
    
   } else {
     echo '<li><div class="emptyList">'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'</div></li>';
   }
 
-echo '</ul>
-     </div>';
-if(end($allCategories) == $category)
-  echo '<div class="bottom"></div>';
-echo '</div>';
+  echo '</ul>';
+  echo '</div>';
+  if(end($allCategories) == $category)
+    echo '<div class="bottom"></div>';
 
-echo "\n".'<!-- transport the sortOrder to the javascript -->
-      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories[$category['id']]['sortReverse'].'"> <!-- reverse order yes/no -->
-      <input type="hidden" name="sort_order" id="sort_order'.$category['id'].'" value="'.@implode($sort_order,'|').'"> <!-- the new page order -->';
+  echo '</div>';
+
+  echo "\n".'<!-- transport the sortOrder to the javascript -->
+        <!-- reverse order yes/no -->
+        <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories[$category['id']]['sortReverse'].'">
+        <!-- the new page order -->
+        <input type="hidden" name="sort_order" id="sort_order'.$category['id'].'" value="'.@implode($sort_order,'|').'">';
+
 }
 
-unset($pageContent);
+
+// arrows to the sub categories
+foreach ($pagesWithSubCategories as $pageWithSubCategory) {
+  $categoryClass = ($pageWithSubCategory['category'] != 0) ? ' categories' : ' nonCategory';
+  echo '<div class="subCategoryArrowLine'.$categoryClass.'" data-parentPage="page'.$pageWithSubCategory['id'].'" data-category="category'.$pageWithSubCategory['category'].'" data-subCategory="category'.$pageWithSubCategory['subCategory'].'">
+  <div class="subCategoryInLineArrow"></div>
+  <div class="subCategoryArrowStart"></div>
+  <div class="subCategoryArrowEnd"></div>
+  </div>';
+}
+unset($pagesWithSubCategories);
 
 ?>
 </form>

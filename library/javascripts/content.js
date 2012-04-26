@@ -22,6 +22,8 @@ var deactivateType = 'disabled'; // disabled/readonly
 var myCfe;
 var pageContentChanged = false; // used to give a warning, if a page in the editor.php has been changed and not saved
 var HTMLEditor;
+var subCategoryArrows;
+var countSubCategoryArrows = 1;
 
 /* GENERAL FUNCTIONS */
 
@@ -290,6 +292,10 @@ function blockSlider(givenId) {
                 this.wrapper.setStyle('height','auto'); // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
                 //this.open = true;
             }
+
+            // move the listPages
+            if($('listPagesBlock') !== null)
+              subCategoryArrows();
           }
         }
       });
@@ -759,6 +765,7 @@ window.addEvent('domready', function() {
 
   // -------------------------------------------------------------------------------------------
   // FILTER LIST PAGES -------------------------------------------------------------------------
+
   if($('listPagesFilter') !== null) {
     var cancelListPagesFilter = function() {$('listPagesFilter').set('value',''); $('listPagesFilter').fireEvent('keyup');};
     var openBlocks = [];
@@ -844,6 +851,80 @@ window.addEvent('domready', function() {
       }
     });
   }
+
+  // -------------------------------------------------------------------------------------------
+  // SHOW SUBCATEGORY ARROW PAGES ---------------------------------------------------------------
+  subCategoryArrows = function() {
+      $$('div.subCategoryArrowLine').each(function(arrow){
+      countSubCategoryArrows++;
+
+      // vars
+      arrow.set('tween', {duration:'short',transition: Fx.Transitions.Quint.easeOut});
+      var listPagesBlock        = $('listPagesBlock');
+      var parentPage            = $(arrow.get('data-parentPage'));
+      var category              = $(arrow.get('data-category')).getParent('div.block');
+      var subCategory           = $(arrow.get('data-subCategory')).getParent('div.block');
+      var inLineArrow           = arrow.getChildren('.subCategoryInLineArrow')[0];
+      // var parentPageArrowStart  = arrow.getChildren('.parentPageArrowStart')[0];
+      var arrowStart = arrow.getChildren('.subCategoryArrowStart')[0];
+      var arrowEnd              = arrow.getChildren('.subCategoryArrowEnd')[0];
+      var top,height = 0;
+
+      // if the subCategory is under the category with the parent page
+      if(subCategory.getPosition(listPagesBlock).y > category.getPosition(listPagesBlock).y) {
+        top = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y + 22): (parentPage.getPosition(listPagesBlock).y + 19);
+        height = subCategory.getPosition(listPagesBlock).y - top + 4;
+
+        arrowEnd.removeClass('arrowBottom');
+        arrowEnd.addClass('arrowTop');
+
+        arrowStart.removeClass('arrowBottom');
+        arrowStart.addClass('arrowTop');
+
+        inLineArrow.removeClass('arrowUp');
+        inLineArrow.addClass('arrowDown');
+
+      // if the category with the parent page is under the subCategory
+      } else {
+        top = subCategory.getPosition(listPagesBlock).y + 13;
+        height = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y - subCategory.getPosition(listPagesBlock).y ): (parentPage.getPosition(listPagesBlock).y  - subCategory.getPosition(listPagesBlock).y + 6);
+
+        arrowEnd.removeClass('arrowTop');
+        arrowEnd.addClass('arrowBottom');
+
+        arrowStart.removeClass('arrowTop');
+        arrowStart.addClass('arrowBottom');
+
+        inLineArrow.removeClass('arrowDown');
+        inLineArrow.addClass('arrowUp');
+      }
+
+      // if category is slided in
+      if((parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0)) {
+        // subCategoryArrowStart.setStyle('display','block');
+      } else {
+        // subCategoryArrowStart.setStyle('display','none');
+      }
+
+      // arrow.fade(0);
+      // arrow.get('tween').chain(function(){
+        arrow.setStyles({
+          'display': 'block',
+          'top': top,
+          'height': height
+        });
+        // arrow.fade(1);
+      // });
+
+      // arrow.morph({'top': top, 'height': subCategory.getPosition(listPagesBlock).y - top + 10});
+      
+      if(arrow.getStyle('width') === '0px')
+        arrow.setStyle('width',(countSubCategoryArrows * 10));
+
+    });
+  };
+  subCategoryArrows();
+  // window.addEvent('scroll',moveArrow);
 
   // -------------------------------------------------------------------------------------------
   // LIST PAGES SORTABLE -----------------------------------------------------------------------

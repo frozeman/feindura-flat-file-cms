@@ -63,6 +63,16 @@ switch($_GET['site']) {
         echo '</ul>';
         echo '</div>';
       echo '<div class="bottom"></div></div>';
+    } else {
+      $currentVisitorFullDetail = false;
+      $currentVisitors = include('library/includes/currentVisitors.include.php');
+      if($currentVisitors) {
+          echo '<div id="rightSidebarMessageBox">';
+          echo '<div class="content">';
+          echo $currentVisitors;
+          echo '</div>';
+          echo '<div class="bottom"></div></div>';
+      }
     }
     break;
 
@@ -94,6 +104,16 @@ switch($_GET['site']) {
         echo '</ul>';
         echo '</div>';
       echo '<div class="bottom"></div></div>';
+    } else {
+      $currentVisitorFullDetail = false;
+      $currentVisitors = include('library/includes/currentVisitors.include.php');
+      if($currentVisitors) {
+          echo '<div id="rightSidebarMessageBox">';
+          echo '<div class="content">';
+          echo $currentVisitors;
+          echo '</div>';
+          echo '<div class="bottom"></div></div>';
+      }
     }
     break; 
     

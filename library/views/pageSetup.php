@@ -358,9 +358,15 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
         </td></tr>
         
         <tr><td class="leftBottom"></td><td></td></tr>
+
       </tbody>
     </table>
-    <?php        
+    <?php
+
+
+      // draw separator line
+      if(count($categoryConfig) > 0)
+        echo '<div class="verticalSeparator"></div><br>';      
 
       // lists the categories
       if(is_array($categoryConfig)) {
@@ -437,13 +443,13 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           }
           
           echo '<tr><td class="left">';
-          echo '<span style="font-size:20px;font-weight:bold;">'.$categoryName.'</span><br>ID '.$category['id'];
+          echo '<span style="font-size:20px;font-weight:bold;">'.$categoryName.'</span>';
           echo '<input type="hidden" name="categories['.$category['id'].'][id]" value="'.$category['id'].'">';
           echo '</td>'; 
           
                 // deleteCategory
           echo '<td class="right" style="width:525px;">
-                <div style="border-bottom: 1px dotted #cccccc;width:400px;height:15px;float:left !important;"></div>
+                <span style="font-size:20px;font-weight:bold;" class="gray">ID '.$category['id'].'</span>
                 <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTip" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.GeneralFunctions::getLocalized($category['localized'],'name',true).'[br][br][span style=color:#990000;]'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'[/span]"></a>';          
           echo '</td></tr>';
                 // category name
@@ -671,10 +677,12 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </tbody>
                 </table>';
           
-          // SUBMIT: IF advancedConfigTable has not Class "hidden" it stores the categoryId in the savedCategory input
+          // SUBMIT: If advancedConfigTable has not Class "hidden" it stores the categoryId in the savedCategory input
           // and gives the submit anchor to the FORM      
-          echo '<input type="submit" value="" name="saveCategories" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="if(!$(\'advancedConfigTable'.$category['id'].'\').hasClass(\'hidden\')) $(\'savedCategory\').value = \''.$category['id'].'\'; submitAnchor(\'categoriesForm\',\'categoryAnchor'.$category['id'].'\');">
-                </div>'; // end slide in box
+          echo '<input type="submit" value="" name="saveCategories" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="if(!$(\'advancedConfigTable'.$category['id'].'\').hasClass(\'hidden\')) $(\'savedCategory\').value = \''.$category['id'].'\'; submitAnchor(\'categoriesForm\',\'categoryAnchor'.$category['id'].'\');">';
+          if($category != end($categoryConfig))
+            echo '<br><br><div class="verticalSeparator"></div><br>';
+          echo '</div>'; // end slide in box
           
         }
       }        
