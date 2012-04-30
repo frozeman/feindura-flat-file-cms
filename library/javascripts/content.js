@@ -776,6 +776,7 @@ window.addEvent('domready', function() {
 
   if($('listPagesFilter') !== null) {
     var cancelListPagesFilter = function() {$('listPagesFilter').set('value',''); $('listPagesFilter').fireEvent('keyup');};
+    $('listPagesFilterCancel').addEvent('click',cancelListPagesFilter);
     var openBlocks = [];
     var storedOpenBlocks = false;
     $('listPagesFilter').addEvent('keyup',function(e){
@@ -819,8 +820,7 @@ window.addEvent('domready', function() {
 
       // ->> WHEN filter is started
       // ->> SLIDE all blocks IN
-      if(filter.length == 1) {
-        $('listPagesFilterCancel').addEvent('click',cancelListPagesFilter);
+      if(filter.length > 0) {
         $('listPagesFilterCancel').setStyle('display','block');
 
         $$('div.block.listPages div.content').each(function(block){
@@ -840,7 +840,6 @@ window.addEvent('domready', function() {
       // ->> WHEN filter is cleared
       // ->> SLIDE the blocks OUT again, besides the one which was in at the beginning
       } else if(filter === '' && storedOpenBlocks) {
-        $('listPagesFilterCancel').removeEvent('click',cancelListPagesFilter);
         $('listPagesFilterCancel').setStyle('display','none');
 
         $$('div.block.listPages div.content').each(function(block){

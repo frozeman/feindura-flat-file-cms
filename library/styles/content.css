@@ -622,7 +622,7 @@ a#listPagesFilterCancel {
   background: url("../images/buttons/listPages_filterCancel.png") no-repeat;
 }
 a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
-  background-position: 0px -18px;
+  background-position: 1px -17px;
 }
     
 .listPagesHead div.lastSaveDate {
