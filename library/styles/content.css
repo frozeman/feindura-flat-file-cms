@@ -859,7 +859,23 @@ div.subCategoryArrowLine:before {
     -moz-border-radius-bottomleft: 0px;
     -webkit-border-radius: 0px 3px 3px 0px;
     border-radius: 0px 3px 3px 0px;
-        
+}
+div.subCategoryArrowLine:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border: 1px solid #ccc;
+    border-left: none;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomright: 3px;
+    -moz-border-radius-bottomleft: 0px;
+    -webkit-border-radius: 0px 3px 3px 0px;
+    border-radius: 0px 3px 3px 0px;
 }
 div.subCategoryArrowLine.nonCategory {
     border-color: #EAC78C;
@@ -867,10 +883,16 @@ div.subCategoryArrowLine.nonCategory {
 div.subCategoryArrowLine.nonCategory:before {
     border-color: #EAC78C;
 }
+div.subCategoryArrowLine.nonCategory:after {
+    border-color: #EAC78C;
+}
 div.subCategoryArrowLine.categories {
     border-color: #AAC9E1;
 }
 div.subCategoryArrowLine.categories:before {
+    border-color: #AAC9E1;
+}
+div.subCategoryArrowLine.categories:after {
     border-color: #AAC9E1;
 }
 
@@ -917,7 +939,8 @@ div.subCategoryInLineArrow {
     position: absolute;
     width: 9px;
     height: 6px;
-    top: 49%;
+    top: 50%;
+    margin-top: -3px;
     right: -4px;
     background-image: url("../images/bg/listPages_parentPage_inLineArrow_brown_down.png");
 }

@@ -44,8 +44,11 @@ if(is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.php')) {
 // NOT EXISTING
 } else {
   $question = '<h1>'.$langFile['deletePage_notexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['realBasePath'].'pages/'.$categoryPath.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h1>
-  <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>';
+  <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox(\'index.php?site=pages&category='.$category.'&status=reload'.rand(1,99).'#categoryAnchor'.$category.'\');return false;">&nbsp;</a>';
   
+  // reload the $pagesMetaData array
+  GeneralFunctions::savePagesMetaData();
+
   // show only the ok button
   $asking = true;
 }

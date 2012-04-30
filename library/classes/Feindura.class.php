@@ -2085,7 +2085,9 @@ class Feindura extends FeinduraBase {
   }
 
  /**
-  * <b>Name</b> createSubMenuFromCategory()<br>
+  * <b>Name</b> createMenuOfSubCategory()<br>
+  * <b>Alias</b> createMenuFromSubCategory()<br>
+  * <b>Alias</b> createSubMenuFromCategory()<br>
   * 
   * <b>This method uses the {@link Feindura::$linkLength $link...}, {@link Feindura::$menuId $menu...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   * 
@@ -2108,7 +2110,7 @@ class Feindura extends FeinduraBase {
   * // we use "false", because we use the current page and category.
   * // NOTE: we need the double (), otherwise it would use the assignment of the $subMenu variable as condition!
   * if(($subMenu = $feindura->createSubMenu(false,'ul')) || // will create the menu when inside the page which has a subcategory
-  *    ($subMenu = $feindura->createSubMenuFromCategory(false,'ul'))) { // will create the menu when inside a page within a subcategory
+  *    ($subMenu = $feindura->createMenuOfSubCategory(false,'ul'))) { // will create the menu when inside a page within a subcategory
   *
   *   foreach($subMenu as $item)
   *     echo $item['menuItem'];
@@ -2172,7 +2174,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function createSubMenuFromCategory($categoryId = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  public function createMenuOfSubCategory($categoryId = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
 
     if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
       $categoryId = $ids[1];
@@ -2186,6 +2188,22 @@ class Feindura extends FeinduraBase {
     }
   
     return array();
+  }
+  /**
+  * Alias of {@link createMenuOfSubCategory()}
+  * @ignore
+  */
+  public function createMenuFromSubCategory($categoryId = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+    // call the right function
+    return $this->createMenuOfSubCategory($categoryId, $linkText, $breakAfter, $sortByCategories);
+  }
+  /**
+  * Alias of {@link createMenuOfSubCategory()}
+  * @ignore
+  */
+  public function createSubMenuFromCategory($categoryId = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+    // call the right function
+    return $this->createMenuOfSubCategory($categoryId, $linkText, $breakAfter, $sortByCategories);
   }
   
  /**

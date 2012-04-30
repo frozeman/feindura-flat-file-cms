@@ -62,7 +62,8 @@ if(!empty($currentVisitors) && $showVisitors) {
   
   foreach($currentVisitors as $currentVisitor) {
     $ip = trim($currentVisitor['ip']);
-    if(empty($currentVisitor) || $currentVisitor['type'] == 'robot') continue;
+    if(empty($currentVisitor) || $currentVisitor['type'] == 'robot' || trim($currentVisitor['ip']) == '::1') continue;
+
     $geoIPCode = geoip_country_code_by_addr($geoIP, $ip);
     $geoIPFlag = (empty($geoIPCode))
       ? '<img src="'.GeneralFunctions::getFlagHref($geoIPCode).'" width="18" height="12">'

@@ -294,8 +294,11 @@ function blockSlider(givenId) {
             }
 
             // move the listPages
-            if($('listPagesBlock') !== null)
+            if($('listPagesBlock') !== null) {
               subCategoryArrows();
+              // show sub category arrows
+              $$('div.subCategoryArrowLine').fade(1);
+            }
           }
         }
       });
@@ -309,13 +312,18 @@ function blockSlider(givenId) {
       // -> set click Event for the SLIDE EFFECT to the buttons
       h1SlideButton.addEvent('click', function(e) {
         e.stop();
-          if(!slideContent.get('slide').open) {
-            scrollToElement.start(window.getPosition().x,block.getPosition().y - 30);
-          slideContent.setStyle('display','block'); // to allow sorting above the slided in box (reset)
-          block.removeClass('hidden'); // change the arrow
-          } else
-            block.addClass('hidden'); // change the arrow
-          slideContent.slide('toggle');
+
+        // hide sub category arrows
+        if($('listPagesBlock') !== null)
+          $$('div.subCategoryArrowLine').fade(0);
+
+        if(!slideContent.get('slide').open) {
+          scrollToElement.start(window.getPosition().x,block.getPosition().y - 30);
+        slideContent.setStyle('display','block'); // to allow sorting above the slided in box (reset)
+        block.removeClass('hidden'); // change the arrow
+        } else
+          block.addClass('hidden'); // change the arrow
+        slideContent.slide('toggle');
       });
 
       // -> hide the block at start, if it has class "hidden"

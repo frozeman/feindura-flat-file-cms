@@ -631,7 +631,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
         <tr><td class="spacer"></td><td></td></tr>
 
         <?php
-        if((($_GET['category'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
+        if((($_GET['category'] != 0 && $categoryConfig[$_GET['category']]['showSubCategory']) ||
            ($_GET['category'] == 0 && $adminConfig['pages']['showSubCategory']))) {
         ?>
         <!-- ***** Subcategory selection -->

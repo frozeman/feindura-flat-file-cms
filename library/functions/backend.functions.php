@@ -707,13 +707,82 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
 }
 
 /**
+ * <b>Name</b> checkSubCategories()<br>
+ * 
+ * Goes through all pages and recheckes the <var>$categoryConfig['isSubCategoryOf']</var> and <var>$pageContent['subCategory']</var> values.
+ * In Case a category was deleted it will erase this subcategory from the pages. In case a page is deleted it will erase the page from the isSubCategoryOf array.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+ *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+ * 
+ * @return bool TRUE if the cateogires were succesfull checked, otherwise FALSE
+ * 
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function checkSubCategories() {
+
+  // vars
+  $allPages = GeneralFunctions::loadPages(true);
+  $pageContents = array();
+
+  // -> CHECK in PAGES, if the sub category still exists and if the pages have subCategories activated
+  foreach($allPages as $pageContent) {
+    if(is_numeric($pageContent['subCategory']) &&
+       (!isset($GLOBALS['categoryConfig'][$pageContent['subCategory']]) ||
+        ($pageContent['category'] != 0 && !$GLOBALS['categoryConfig'][$pageContent['subCategory']]['showSubCategory']) ||
+        ($pageContent['category'] == 0 && !$GLOBALS['adminConfig']['pages']['showSubCategory']))) {
+      $pageContent['subCategory'] = false;
+      GeneralFunctions::savePage($pageContent);
+    }
+
+    $pageContents[$pageContent['id']] = $pageContent;
+  }
+  unset($pageContent);
+
+  // -> CHECK in SUB CATEGORY if the pages still exists
+  $newCategoryConfig = $GLOBALS['categoryConfig'];
+  foreach ($GLOBALS['categoryConfig'] as $categoryId => $categoryConfig) {
+    $subCategoryPages = unserialize($categoryConfig['isSubCategoryOf']);
+
+    // check if the page still exists and has this category as subcategory
+    $newSubCategoryPages = array();
+    if(is_array($subCategoryPages)) {
+      foreach ($subCategoryPages as $pageId => $pageCatId) {
+        if(isset($pageContents[$pageId]) && $pageContents[$pageId]['subCategory'] == $categoryId)
+          $newSubCategoryPages[$pageId] = $pageCatId;
+      }
+    }
+
+    // serialize the checked isSubCategoryOf array
+    $newCategoryConfig[$categoryId]['isSubCategoryOf'] = serialize($newSubCategoryPages);
+    // set isSubCategory to false if isSubCategoryOf is empty
+    if(empty($newSubCategoryPages))
+      $newCategoryConfig[$categoryId]['isSubCategory'] = false;
+
+    unset($newSubCategoryPages,$subCategoryPages);
+  }
+
+
+  if(saveCategories($newCategoryConfig))
+    return true;
+  else
+    return false;
+
+}
+
+/**
  * <b>Name</b> movePage()<br>
  * 
  * Moves a file into a new category directory.
  * 
  * <b>Used Global Variables</b><br>
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
- *    - <var>$GeneralFunctions</var> to reset the {@link getStoredPagesIds} (included in the {@link general.include.php})
  * 
  * @param int $page         the page ID
  * @param int $fromCategory the ID of the category where the page is situated

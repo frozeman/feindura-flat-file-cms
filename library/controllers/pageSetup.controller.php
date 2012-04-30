@@ -213,29 +213,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     unset($_SESSION['feinduraSession']['websiteLanguage']);
   }
   // ------------------------------------------------------------------
-  
-  // ->> REMOVE the SUB CATEGORY from PAGES, WITH DEACTIVATED SUB CATEGORIES
-  if(empty($newAdminConfig['pages']['showSubCategory'])) {
-    $cateoryPages = GeneralFunctions::loadPages(0);
-
-    foreach($cateoryPages as $pageContent) {
-      if(is_numeric($pageContent['subCategory'])) {
-        // remove the page from the subcategory
-        $subCategoryPages = unserialize($categoryConfig[$pageContent['subCategory']]['isSubCategoryOf']);
-        unset($subCategoryPages[$pageContent['id']]);
-        $categoryConfig[$pageContent['subCategory']]['isSubCategoryOf'] = serialize($subCategoryPages);
-        // set isSubCategory to false if isSubCategoryOf is empty
-        if(empty($subCategoryPages))
-          $categoryConfig[$pageContent['subCategory']]['isSubCategory'] = false;
-
-        // set subcategory to false
-        $pageContent['subCategory'] = false;
-        GeneralFunctions::savePage($pageContent);
-      }
-    }
-    saveCategories($categoryConfig);
-    unset($pageContent);
-  }
 
   // -> save ADMIN SETTINGS
   if(saveAdminConfig($newAdminConfig)) {
@@ -307,9 +284,9 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
   
   // save the name, to put it in the info
   $storedCategoryName = GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localized'],'name');
-  
+
   // deletes the category with the given id from the array and saves the categoriesSettings.php
-  unset($categoryConfig[$_GET['category']]);  
+  unset($categoryConfig[$_GET['category']],$pageContent);  
   if(saveCategories($categoryConfig)) {
   
     // Hinweis für den Benutzer welche Gruppe gelöscht wurde
@@ -393,32 +370,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
     unset($_POST['categories'][$categoryId]['name']);
   }
 
-  // go trough the categories again and change the isSubCategoryOf
-  foreach($_POST['categories'] as $categoryId => $value) {
-
-    // ->> remove the sub category from pages, with deactivated sub categories
-    if(empty($value['showSubCategory'])) {
-      $cateoryPages = GeneralFunctions::loadPages($categoryId);
-
-      foreach($cateoryPages as $pageContent) {
-        if(is_numeric($pageContent['subCategory'])) {
-          // remove the page from the subcategory
-          $subCategoryPages = unserialize($_POST['categories'][$pageContent['subCategory']]['isSubCategoryOf']);
-          unset($subCategoryPages[$pageContent['id']]);
-          $_POST['categories'][$pageContent['subCategory']]['isSubCategoryOf'] = serialize($subCategoryPages);
-          // set isSubCategory to false if isSubCategoryOf is empty
-          if(empty($subCategoryPages))
-            $_POST['categories'][$pageContent['subCategory']]['isSubCategory'] = false;
-
-          // set subcategory to false
-          $pageContent['subCategory'] = false;
-          GeneralFunctions::savePage($pageContent);
-        }
-      }
-      unset($pageContent);
-    }
-  }
-
   if(saveCategories($_POST['categories'])) {
     $documentSaved = true; // set documentSaved status
     saveActivityLog(18); // <- SAVE the task in a LOG FILE
@@ -457,6 +408,9 @@ if($savedSettings) {
       }
     }
   }
+
+  // -> check isSubCategoryOf in categories and subCategory in pages
+  checkSubCategories();
   
   // ->> save the FEEDS for non-category pages, if activated
   saveFeeds(0);

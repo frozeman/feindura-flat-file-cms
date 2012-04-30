@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.2
-Build 878
+Build 879
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 1.2
   
+  build 879: add checkSubCategories() to backend.functions.php
   build 878: small fix in user cache
   build 877: add arrows to the sub categories in listpages
   build 876: fixed centerOnElement()
