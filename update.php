@@ -271,6 +271,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       copyDir($DOCUMENTROOT.$adminConfig['savePath'],dirname(__FILE__).'/pages/',$copyError);
     } else
       $didntCopy = true;
+
     if($copyError === false && $didntCopy === false) {
       GeneralFunctions::deleteFolder($adminConfig['savePath']);
       echo 'pages <span class="succesfull">succesfully copied to "feindura_folder/pages/"</span><br>';
@@ -298,27 +299,27 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       $adminConfig['pages']['plugins'] = activateAllPluginsSerialized();
     
     $data = $adminConfig['editor']['styleFile'];
-      if(strpos($data,'|#|') !== false)
-        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|#|');
-      elseif(strpos($data,'|') !== false)
-        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|');
-      elseif(!empty($data) && substr($data,0,2) != 'a:')
-        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,' ');
+    if(strpos($data,'|#|') !== false)
+      $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|#|');
+    elseif(strpos($data,'|') !== false)
+      $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|');
+    elseif(!empty($data) && substr($data,0,2) != 'a:')
+      $adminConfig['editor']['styleFile'] = changeToSerializedData($data,' ');
     
     $adminConfig['websitePath'] = (isset($adminConfig['websitePath'])) ? $adminConfig['websitePath'] : '/';
     
+    // only if was below 1.1.6
+    if($oldVersion <= '1.1.6')
+      $adminConfig['speakingUrl'] = false; // changed speaking url reg ex and createHref generation
+
     if(saveAdminConfig($adminConfig))
       echo 'adminConfig <span class="succesfull">succesfully updated</span> (if you had SPEAKING URLS activated, you must delete the mod_rewrite code from your .htaccess file, in the root of your webserver and save the administrator settings to create a new one!)<br>';
     else {
       echo 'adminConfig <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
-
-    // only if was below 1.1.6
-    if($oldVersion <= '1.1.6') {
-      $adminConfig['speakingUrl'] = false; // changed speaking url reg ex and createHref generation
-
     }
     GeneralFunctions::$adminConfig = $adminConfig;
+
     
     //print_r($pages);
     $pagesSuccesfullUpdated = true;
@@ -847,6 +848,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       echo '<h1>something went wrong :-( could not completely update feindura, check the errors and try again.</h1>';
     
   }
+
   
   ?>
   <br>
