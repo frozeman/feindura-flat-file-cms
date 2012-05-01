@@ -16,10 +16,8 @@
  *
  * update.php
  * 
- * for updating to 
- * 1.2
  *
- * @version 1.2
+ * @version 2.0
  */
 
 /**
@@ -38,7 +36,7 @@ if($lastVersionFile = file(dirname(__FILE__).'/VERSION'))
   $oldVersion = trim($lastVersionFile[1]);
 else
   $oldVersion = '1.0';
-$newVersion = '1.2';
+$newVersion = '2.0';
     
 ?>
 <!DOCTYPE html>
@@ -331,7 +329,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       $pageContent['lastSaveAuthor'] = (isset($pageContent['lastsaveauthor'])) ? $pageContent['lastsaveauthor'] : $pageContent['lastSaveAuthor'];
       $pageContent['pageDate']['date'] = (isset($pageContent['pagedate']['date'])) ? $pageContent['pagedate']['date'] : $pageContent['pageDate']['date'];
 
-      // v1.2
+      // v2.0
       if(!is_numeric($pageContent['lastSaveAuthor'])) {
         foreach ($userConfig as $user) {
           if($user['username'] == $pageContent['lastSaveAuthor']) {
@@ -341,7 +339,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
         }
       }
 
-      // v1.2 - localized
+      // v2.0 - localized
       if(!isset($pageContent['localized'])) {
 
         $pageContent['localized'][0]['title'] = $pageContent['title'];
@@ -362,7 +360,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       if(isset($pageContent['plugins']['contactForm']) && !isset($pageContent['plugins']['contactForm']['captcha']))
         $pageContent['plugins']['contactForm']['captcha'] = true;
 
-      // v1.2 changed key names of plugins
+      // v2.0 changed key names of plugins
       if(isset($pageContent['plugins']['imageGallery'])) {
         $pageContent['plugins']['imageGallery']['imageWidthNumber'] = (isset($pageContent['plugins']['imageGallery']['imageWidth']))
           ? $pageContent['plugins']['imageGallery']['imageWidth']
@@ -508,12 +506,12 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
         elseif(strpos($data,'|') !== false)
           $category['styleFile'] = changeToSerializedData($data,'|');
       
-      // v1.2 - localized
+      // v2.0 - localized
       if(!isset($category['localized'])) {
         $category['localized'][0]['name'] = $category['name'];
       }
 
-      // v1.2 subCategory
+      // v2.0 subCategory
       if(!isset($category['isSubCategory']))
         $category['isSubCategory'] = false;
       if(!isset($category['isSubCategoryOf']))
@@ -533,7 +531,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     }
     
     // ->> SAVE NEW websiteConfig
-    // v1.2 - localized
+    // v2.0 - localized
     if(!isset($websiteConfig['localized'])) {
       $websiteConfig['localized'][0]['title']       = $websiteConfig['title'];
       $websiteConfig['localized'][0]['publisher']   = $websiteConfig['publisher'];
@@ -746,7 +744,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     if(!unlink(dirname(__FILE__).'/library/thirdparty/spiders.xml') &&
       is_file(dirname(__FILE__).'/library/thirdparty/spiders.xml'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/spiders.xml';
-    // since 1.2
+    // since 2.0
     if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_createPage.png') &&
       is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_createPage.png'))
       $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_createPage.png';
