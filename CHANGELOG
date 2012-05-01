@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 887
+Build 888
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 2.0
 
+  build 888: hide always windowBox when clicking on the dimContainer
   build 887: add autofocus for listpages filter input
   build 886: tag string in hasTags() can't have whitespaces a separator
   build 885: and again the update.php

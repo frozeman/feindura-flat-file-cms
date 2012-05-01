@@ -272,9 +272,9 @@ function finishUpload(frameHeight) {
 // *---------------------------------------------------------------------------------------------------*
 window.addEvent('domready', function() {
 
-  // -> CLOSE WINDOW BOX by clicking the windowBoxContainer
-  $('windowBoxContainer').addEvent('click',function(e) {
-    if(e.target.getProperty('id') == 'windowBoxContainer')
+    // -> CLOSE WINDOW BOX by clicking the dimContainer or windowBoxContainer
+  $$('#dimContainer, #windowBoxContainer').addEvent('click',function(e) {
+    if(e.target.getProperty('id') == 'dimContainer' || e.target.getProperty('id') == 'windowBoxContainer')
     closeWindowBox();
   });
     
