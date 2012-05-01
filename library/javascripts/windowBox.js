@@ -18,6 +18,7 @@
 // vars
 var loadingText;
 var uploadAnimationElement = null;
+var windowBoxIsVisible = false;
 
 /* ---------------------------------------------------------------------------------- */
 // dimms the background and calls: requestSite(site,siteTitle);
@@ -53,6 +54,8 @@ function openWindowBox(site,siteTitle,fixed) {
       $('windowBox').getChildren('.boxBottom').setStyle('top','68px');
 		}
     
+    windowBoxIsVisible = true;
+
 		// send HTML request
     requestSite(site,siteTitle);
 	}
@@ -63,6 +66,9 @@ function openWindowBox(site,siteTitle,fixed) {
 // fades all windows out and set windowBoxContainer to display:none;
 // and remove alle Events from dimContainer, windowBox, windowRequestBox
 function closeWindowBox(redirectAfter) {
+
+  if(!windowBoxIsVisible)
+    return;
       
 	// resize the box by a slide
 	$('dimContainer').set('tween', {duration: 300, transition: Fx.Transitions.Pow.easeOut});
@@ -89,6 +95,8 @@ function closeWindowBox(redirectAfter) {
 
     $('dimContainer').setStyle('display','none');
     $$('#windowBox .boxTop').set('html',loadingText);
+
+    windowBoxIsVisible = false;
 
     if(redirectAfter)
       document.location.href = redirectAfter;
