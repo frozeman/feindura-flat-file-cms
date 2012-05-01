@@ -1533,7 +1533,7 @@ class FeinduraBase {
   * 
   * @param string         $idType    the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids       the category or page ID(s), can be a number or an array with numbers, if TRUE it checks all pages tags
-  * @param string|array   $tags      an string (seperated by "," or ";" or " ") or an array with tags to compare
+  * @param string|array   $tags      an string (seperated by "," or ";") or an array with tags to compare
   * 
   * @uses loadPagesByType()	to load pages by the given ID(s) for comparision
   * @uses compareTags()		to compare each tags between two strings
@@ -1565,8 +1565,6 @@ class FeinduraBase {
         $tags = explode(',',$tags);
       elseif(strstr($tags,';'))
         $tags = explode(';',$tags);
-      elseif(strstr($tags,' '))
-        $tags = explode(' ',$tags);
       else
         $tags = array($tags);
 
