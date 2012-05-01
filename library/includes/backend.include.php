@@ -26,6 +26,10 @@ ini_set('session.gc_maxlifetime', $sessionLifeTime); // saves the session for 3 
 session_name('session');
 session_start();
 
+// RESET the SESSION TIME as always when reloading the page
+$_SESSION['feinduraSession']['login']['end'] = time() + $sessionLifeTime;
+
+
 // INCLUDE GENERAL
 require_once(dirname(__FILE__)."/general.include.php");
 

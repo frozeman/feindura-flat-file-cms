@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-1.2
-Build 881
+2.0
+Build 882
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,9 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+2.0
+
+  build 882: automatic logout, will now always be reseted when reloading the page.
   build 881: fixed update.php
 
 1.2

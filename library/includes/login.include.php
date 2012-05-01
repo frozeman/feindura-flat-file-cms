@@ -63,7 +63,7 @@ if(isset($_POST) && $_POST['action'] == 'login') {
 }
 
 // -> LOGOUT
-if(isset($_GET['logout']) || (isset($_SESSION['feinduraSession']['login']['end']) && $_SESSION['feinduraSession']['login']['end'] <= time())) { // automatically logout after 5 hours
+if(isset($_GET['logout']) || (isset($_SESSION['feinduraSession']['login']['end']) && $_SESSION['feinduraSession']['login']['end'] <= time())) { // automatically logout after 3 hours
   $_SESSION['feinduraSession']['login'] = array();
   unset($_SESSION['feinduraSession']['login']);
   $loggedOut = true;
