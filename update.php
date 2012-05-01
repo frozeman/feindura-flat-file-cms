@@ -408,12 +408,12 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       }
 
       // only if was below 1.1.6
+      // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
       if($oldVersion <= '1.1.6') {
         if(isset($pageContent['plugins']['imageGallery'])) {
           $pageContent['plugins']['imageGalleryFromFolder'] = $pageContent['plugins']['imageGallery'];
           unset($pageContent['plugins']['imageGallery']);
-        }
-        if(isset($pageContent['plugins']['slideShow'])) {
+        } elseif(isset($pageContent['plugins']['slideShow'])) {
           $pageContent['plugins']['slideShowFromFolder'] = $pageContent['plugins']['slideShow'];
           unset($pageContent['plugins']['slideShow']);
         }
@@ -516,6 +516,30 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
         $category['isSubCategory'] = false;
       if(!isset($category['isSubCategoryOf']))
         $category['isSubCategoryOf'] = 'a:0:{}';
+
+      // v2.0 - localized
+      if(!isset($category['localized'])) {
+        $category['localized'][0]['name'] = $category['name'];
+      }
+
+      // only if was below 1.1.6
+      // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
+      if($oldVersion <= '1.1.6') {
+        $categoryPlugins = unserialize($category['plugins']);
+        $newCategoryPlugins = array();
+
+        foreach($categoryPlugins as $categoryPlugin) {
+          if($categoryPlugin == 'imageGallery') {
+            $categoryPlugin = 'imageGalleryFromFolder';
+          } elseif($categoryPlugin == 'slideShow') {
+            $categoryPlugin = 'slideShowFromFolder';
+          }
+          $newCategoryPlugins[] = $categoryPlugin;
+        }
+        
+        // serialize the plugins again
+        $category['plugins'] = serialize($newCategoryPlugins);
+      }
 
       // change old keys
       $newKey = str_replace('id_','',$key);
