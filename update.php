@@ -280,6 +280,9 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       $succesfullUpdate = false;
     }
     
+    // save the $pagesMetaData array
+    GeneralFunctions::savePagesMetaData();
+
     // ->> LOAD PAGES
     $pages = GeneralFunctions::loadPages(true);
     

@@ -200,12 +200,12 @@ if($savedSettings) {
     flock($fp,LOCK_UN);
     fclose($fp);
   }
-  // reload the $pagesMetaData array
-  GeneralFunctions::savePagesMetaData();
   // RESET of the vars in the classes
   GeneralFunctions::$storedPages = null;
   GeneralFunctions::$adminConfig = $adminConfig;
   StatisticFunctions::$adminConfig = $adminConfig;
+  // reload the $pagesMetaData array
+  GeneralFunctions::savePagesMetaData();
 }
 
 // ->> SET PERMISSIONS
