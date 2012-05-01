@@ -29,7 +29,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 <h1><?php echo $langFile['SORTABLEPAGELIST_h1']; ?></h1>
 
 <div class="listPagesHead">
-  <div class="name"><?php echo $langFile['SORTABLEPAGELIST_headText1']; ?> <input type="text" value="" size="25" id="listPagesFilter"><a href="#" id="listPagesFilterCancel"></a></div>
+  <div class="name"><?php echo $langFile['SORTABLEPAGELIST_headText1']; ?> <input type="text" value="" size="25" id="listPagesFilter" autofocus="autofocus"><a href="#" id="listPagesFilterCancel"></a></div>
   <div class="lastSaveDate"><?php echo $langFile['SORTABLEPAGELIST_headText2']; ?></div>
   <div class="counter"><?php echo $langFile['SORTABLEPAGELIST_headText3']; ?></div>
   <div class="status"><?php echo $langFile['SORTABLEPAGELIST_headText4']; ?></div>
