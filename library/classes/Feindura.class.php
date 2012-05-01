@@ -32,9 +32,10 @@
 * 
 * @package [Implementation]
 * 
-* @version 1.0.1
+* @version 2.0
 * <br>
 * <b>ChangeLog</b><br>
+*    - 2.0 add {@link Feindura::createSubMenu()}, {@link Feindura::isSubCategory()}, {@link Feindura::isSubCategoryOf()}, {@link Feindura::createMenuOfSubCategory()}, {@link Feindura::createLanguageMenu()}, {@link Feindura::createBreadCrumbsMenu}
 *    - 1.0.1 add setStartPage()
 *    - 1.0 initial release
 * 

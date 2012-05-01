@@ -31,9 +31,10 @@
 * 
 * @package [Implementation]
 * 
-* @version 1.59
+* @version 1.6
 * <br>
 * <b>ChangeLog</b><br>
+*    - 1.6 add createMenu()
 *    - 1.59 changed it to a PHP5 class, add visibilities (public, protected, private)
 *    - 1.58 add phpDocumentor documentation
 *    - 1.57 startet documentation
