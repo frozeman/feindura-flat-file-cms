@@ -572,7 +572,7 @@ $langFile['PAGESETUP_TEXT_FEEDS']                                         = 'Act
 $langFile['PAGESETUP_TIP_FEEDS']                                          = 'Activate RSS 2.0 and Atom Feed for the pages without category.';
 $langFile['PAGESETUP_CATEGORY_TIP_FEEDS']                                 = 'Activate RSS 2.0 and Atom Feed for the pages in this category.';
 
-$langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'Activate subcategories';
+$langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'Edit subcategories';
 $langFile['PAGESETUP_TIP_SUBCATEGORY']                                    = 'Allows to choose a subcategory for each page.';
 
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'Sort pages by page date';

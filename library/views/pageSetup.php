@@ -251,17 +251,17 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
         </td><td class="right checkboxes">
         <label for="cfg_pagePageDate"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"><?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE']; ?></span></label>
         </td></tr>
-        
-        <tr><td class="left checkboxes">
-        <input type="checkbox" id="cfg_pagefeeds" name="cfg_pagefeeds" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_TIP_FEEDS']; ?>"<?php if($adminConfig['pages']['feeds']) echo ' checked="checked"'; ?>>
-        </td><td class="right checkboxes">
-        <label for="cfg_pagefeeds"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_TIP_FEEDS']; ?>"><?php echo $langFile['PAGESETUP_TEXT_FEEDS']; ?></span></label>
-        </td></tr>
 
         <tr><td class="left checkboxes">
         <input type="checkbox" id="cfg_subCategory" name="cfg_subCategory" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY'].'::'.$langFile['PAGESETUP_TIP_SUBCATEGORY']; ?>"<?php if($adminConfig['pages']['showSubCategory']) echo ' checked="checked"'; ?>>
         </td><td class="right checkboxes">
         <label for="cfg_subCategory"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY'].'::'.$langFile['PAGESETUP_TIP_SUBCATEGORY']; ?>"><?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY']; ?></span></label>
+        </td></tr>
+        
+        <tr><td class="left checkboxes">
+        <input type="checkbox" id="cfg_pagefeeds" name="cfg_pagefeeds" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_TIP_FEEDS']; ?>"<?php if($adminConfig['pages']['feeds']) echo ' checked="checked"'; ?>>
+        </td><td class="right checkboxes">
+        <label for="cfg_pagefeeds"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_TIP_FEEDS']; ?>"><?php echo $langFile['PAGESETUP_TEXT_FEEDS']; ?></span></label>
         </td></tr>
         
         <tr><td class="spacer checkboxes"></td><td></td></tr>
@@ -512,17 +512,17 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td><td class="right checkboxes">
                 <label for="categories'.$category['id'].'showPageDate"><span class="toolTip" title="'.$langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE'].'">'.$langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'</span></label>
                 </td></tr>';
-          
-          echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="categories'.$category['id'].'feeds" name="categories['.$category['id'].'][feeds]" value="true" '.$checked[12].' class="toolTip" title="'.$langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'].'"><br>
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'feeds"><span class="toolTip" title="'.$langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'].'">'.$langFile['PAGESETUP_TEXT_FEEDS'].'</span></label>
-                </td></tr>';
 
           echo '<tr><td class="left checkboxes">
                 <input type="checkbox" id="categories'.$category['id'].'subCategory" name="categories['.$category['id'].'][showSubCategory]" value="true" '.$checked[13].' class="toolTip" title="'.$langFile['PAGESETUP_TEXT_SUBCATEGORY'].'::'.$langFile['PAGESETUP_TIP_SUBCATEGORY'].'">
                 </td><td class="right checkboxes">
                 <label for="categories'.$category['id'].'subCategory"><span class="toolTip" title="'.$langFile['PAGESETUP_TEXT_SUBCATEGORY'].'::'.$langFile['PAGESETUP_TIP_SUBCATEGORY'].'">'.$langFile['PAGESETUP_TEXT_SUBCATEGORY'].'</span></label>
+                </td></tr>';
+          
+          echo '<tr><td class="left checkboxes">
+                <input type="checkbox" id="categories'.$category['id'].'feeds" name="categories['.$category['id'].'][feeds]" value="true" '.$checked[12].' class="toolTip" title="'.$langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'].'"><br>
+                </td><td class="right checkboxes">
+                <label for="categories'.$category['id'].'feeds"><span class="toolTip" title="'.$langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'].'">'.$langFile['PAGESETUP_TEXT_FEEDS'].'</span></label>
                 </td></tr>';
 
           echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';          

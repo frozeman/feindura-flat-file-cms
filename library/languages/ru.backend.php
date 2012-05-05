@@ -565,7 +565,7 @@ $langFile['PAGESETUP_TEXT_FEEDS']                                         = 'В�
 $langFile['PAGESETUP_TIP_FEEDS']                                          = 'Включает выдачу xml-лент для категории в форматах: RSS 2.0 и Atom.';
 $langFile['PAGESETUP_CATEGORY_TIP_FEEDS']                                 = 'Включает выдачу xml-лент для категории в форматах: RSS 2.0 и Atom.';
 
-$langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'Активировать подкатегории';
+$langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'Редактировать подкатегории';
 $langFile['PAGESETUP_TIP_SUBCATEGORY']                                    = 'Позволяет выбрать подкатегорию для каждой страницы.';
 
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'Сортировать страницы по дате';

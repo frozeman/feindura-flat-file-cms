@@ -570,7 +570,7 @@ $langFile['PAGESETUP_TEXT_FEEDS']                                         = 'Fee
 $langFile['PAGESETUP_TIP_FEEDS']                                          = 'RSS 2.0 und Atom Feed für diese Seiten aktivieren.';
 $langFile['PAGESETUP_CATEGORY_TIP_FEEDS']                                 = 'RSS 2.0 und Atom Feed für diese Kategorie aktivieren.';
 
-$langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'Unterkategorien aktivieren';
+$langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'Unterkategorien bearbeiten';
 $langFile['PAGESETUP_TIP_SUBCATEGORY']                                    = 'Eine Unterkategorie kann für jede Seite eingestellt werden.';
 
 $langFile['PAGESETUP_TEXT_SORTMANUALLY']                                  = 'Seiten manuell sortieren';
