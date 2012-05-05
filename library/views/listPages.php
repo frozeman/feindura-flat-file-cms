@@ -249,7 +249,7 @@ foreach($allCategories as $category) {
       // -----------------------  ********  ---------------------- 
       // LIST PAGES
       // id'.$pageContent['id'].' sort'.$pageContent['sortOrder'].' cat: '.$pageContent['category'].' 
-      echo '<li id="page'.$pageContent['id'].'"'.$hasSubCategoryClass.'>';
+      echo '<li id="page'.$pageContent['id'].'"'.$hasSubCategoryClass.' data-pageId="'.$pageContent['id'].'" data-categoryId="'.$pageContent['category'].'">';
       
       // -> display other icon for pages
       $subCategoryIcon = ($pageContent['subCategory'] &&

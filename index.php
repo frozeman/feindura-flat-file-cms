@@ -298,15 +298,15 @@ if($_GET['site'] == 'addons') {
         <table>
           <tbody>
             <tr>
-            <td><a href="?site=dashboard" tabindex="3" class="dashboard<?php if($_GET['site'] == 'dashboard') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_DASHBOARD']; ?>"><span><?php echo $langFile['BUTTON_DASHBOARD']; ?></span></a></td>
-            <td><a href="?site=pages" tabindex="4" class="pages<?php if($_GET['site'] == 'pages' || !empty($_GET['page'])) echo ' active'; ?>" title="<?php echo $langFile['BUTTON_PAGES']; ?>"><span><?php echo $langFile['BUTTON_PAGES']; ?></span></a></td>
+            <td><a href="?site=dashboard" tabindex="3" accesskey="d" class="dashboard<?php if($_GET['site'] == 'dashboard') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_DASHBOARD']; ?> (D)"><span><?php echo $langFile['BUTTON_DASHBOARD']; ?></span></a></td>
+            <td><a href="?site=pages" tabindex="4" accesskey="p" class="pages<?php if($_GET['site'] == 'pages' || !empty($_GET['page'])) echo ' active'; ?>" title="<?php echo $langFile['BUTTON_PAGES']; ?> (P)"><span><?php echo $langFile['BUTTON_PAGES']; ?></span></a></td>
             <?php
             // CHECKS if the addons/ folder is empty
             if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/addons/')) { ?>
-            <td><a href="?site=addons" tabindex="5" class="addons<?php if($_GET['site'] == 'addons') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_ADDONS']; ?>"><span><?php echo $langFile['BUTTON_ADDONS']; ?></span></a></td>
+            <td><a href="?site=addons" tabindex="5" accesskey="a" class="addons<?php if($_GET['site'] == 'addons') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_ADDONS']; ?> (A)"><span><?php echo $langFile['BUTTON_ADDONS']; ?></span></a></td>
             <?php } ?>
-            <td><a href="?site=websiteSetup" tabindex="4" class="websiteSetup<?php if($_GET['site'] == 'websiteSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?>"><span><?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?></span></a></td>
-            <td><a href="?site=search" tabindex="6" class="search<?php if($_GET['site'] == 'search') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_SEARCH']; ?>"><span><?php echo $langFile['BUTTON_SEARCH']; ?></span></a></td>
+            <td><a href="?site=websiteSetup" tabindex="6" accesskey="w" class="websiteSetup<?php if($_GET['site'] == 'websiteSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?> (W)"><span><?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?></span></a></td>
+            <td><a href="?site=search" tabindex="7" accesskey="s" class="search<?php if($_GET['site'] == 'search') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_SEARCH']; ?> (S)"><span><?php echo $langFile['BUTTON_SEARCH']; ?></span></a></td>
             </tr>
           </tbody>
         </table>
@@ -326,11 +326,11 @@ if($_GET['site'] == 'addons') {
             <td><a href="?site=adminSetup" tabindex="10" class="adminSetup<?php if($_GET['site'] == 'adminSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_ADMINSETUP']; ?>"><span><?php echo $langFile['BUTTON_ADMINSETUP']; ?></span></a></td>
             <td><a href="?site=pageSetup" tabindex="11" class="pageSetup<?php if($_GET['site'] == 'pageSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PAGESETUP']; ?>"><span><?php echo $langFile['BUTTON_PAGESETUP']; ?></span></a></td>
             </tr><tr>
-            <td><a href="?site=statisticSetup" tabindex="14" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_STATISTICSETUP']; ?>"><span><?php echo $langFile['BUTTON_STATISTICSETUP']; ?></span></a></td>
+            <td><a href="?site=statisticSetup" tabindex="12" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_STATISTICSETUP']; ?>"><span><?php echo $langFile['BUTTON_STATISTICSETUP']; ?></span></a></td>
             <td><a href="?site=backup" tabindex="13" class="backup<?php if($_GET['site'] == 'backup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_BACKUP']; ?>"><span><?php echo $langFile['BUTTON_BACKUP']; ?></span></a></td>
             </tr>
             <tr>
-            <td><a href="?site=userSetup" tabindex="12" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_USERSETUP']; ?>"><span><?php echo $langFile['BUTTON_USERSETUP']; ?></span></a></td>
+            <td><a href="?site=userSetup" tabindex="14" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_USERSETUP']; ?>"><span><?php echo $langFile['BUTTON_USERSETUP']; ?></span></a></td>
             <?php //}
             // CHECKS if the modlues/ folder is empty
             if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>

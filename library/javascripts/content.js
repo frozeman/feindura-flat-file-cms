@@ -24,6 +24,7 @@ var pageContentChanged = false; // used to give a warning, if a page in the edit
 var HTMLEditor;
 var subCategoryArrows;
 var countSubCategoryArrows = 1;
+var inputBlurFade = 0.6;
 
 /* GENERAL FUNCTIONS */
 
@@ -778,27 +779,50 @@ window.addEvent('domready', function() {
     var cancelListPagesFilter = function() {$('listPagesFilter').set('value',''); $('listPagesFilter').fireEvent('keyup');};
     $('listPagesFilterCancel').addEvent('click',cancelListPagesFilter);
     var openBlocks = [];
+    var selectedPage = null;
     var storedOpenBlocks = false;
+
+    // -> stop moving the cursor on up and down
+    $('listPagesFilter').addEvent('keydown',function(e){
+      if(e.key == 'up' || e.key == 'down')
+        e.preventDefault();
+    });
+
+    // ->> filter on input
     $('listPagesFilter').addEvent('keyup',function(e){
+      // e.preventDefault();
+
+      // clear on ESC
+      if(e.key == 'esc')
+        this.set('value','');
 
       // vars
       var filter = this.get('value');
+      var filteredPages = [];
+
+      // reset the background of the last selected page
+      if(selectedPage !== null && typeOf(selectedPage) !== 'null') {
+        selectedPage.removeProperty('style');
+      }
 
       // ->> FILTER the PAGES
       if(filter) {
+
         $$('div.block.listPages li').each(function(page) {
           if(page.getChildren('div.name a')[0] !== null && !page.getChildren('div.name a')[0].get('text').toLowerCase().contains(filter.toLowerCase()))
             page.setStyle('display','none');
-          else
+          else {
             page.setStyle('display','block');
+            filteredPages.push(page);
+          }
         });
 
         // hide empty blocks
         $$('div.block.listPages').each(function(block) {
           var isEmpty = true;
 
-          block.getElements('li').getStyle('display').each(function(display){
-            if(display == 'block')
+          block.getElements('li').each(function(li){
+            if(li.getStyle('display') == 'block')
               isEmpty = false;
           });
 
@@ -807,6 +831,46 @@ window.addEvent('domready', function() {
           else
             block.setStyle('display','none');
         });
+
+
+        // move the cursor to select pages
+        if(e.key == 'up' || e.key == 'down') {
+          var pageBefore = null;
+          var pageAfter = null;
+
+          // select the first if now page was selected
+          if(selectedPage === null)
+            selectedPage = filteredPages[0];
+
+          // move the selection up or down
+          else {
+            filteredPages.each(function(curPage,index) {
+              if(curPage === selectedPage) {
+                pageBefore = filteredPages[index-1];
+                pageAfter = filteredPages[index+1];
+              }
+            });
+            // move the cursor
+            if(e.key == 'up' && typeOf(pageBefore) !== 'null')
+              selectedPage = pageBefore;
+            else if(e.key == 'down' && typeOf(pageAfter) !== 'null')
+              selectedPage = pageAfter;
+          }
+        }
+
+        // check if its only one page left, make this page selectable by enter
+        if(filteredPages.length === 1) {
+          selectedPage = filteredPages[0];
+        } else if(filteredPages.length === 0)
+          selectedPage = null;
+
+        // mark teh selcted page
+        if(selectedPage !== null && typeOf(selectedPage) !== 'null')
+          selectedPage.setStyle('background-position','0 -41px');
+
+        if(e.key == 'enter' && selectedPage !== null) {
+          window.location.href = 'index.php?category='+selectedPage.get('data-categoryId')+'&page='+selectedPage.get('data-pageId');
+        }
 
       // SHOW the category and pages again, when filter is empty
       } else {
@@ -821,6 +885,10 @@ window.addEvent('domready', function() {
       // ->> WHEN filter is started
       // ->> SLIDE all blocks IN
       if(filter.length > 0) {
+
+        // fade in the input
+        this.fade(1);
+
         $('listPagesFilterCancel').setStyle('display','block');
 
         $$('div.block.listPages div.content').each(function(block){
@@ -840,6 +908,10 @@ window.addEvent('domready', function() {
       // ->> WHEN filter is cleared
       // ->> SLIDE the blocks OUT again, besides the one which was in at the beginning
       } else if(filter === '' && storedOpenBlocks) {
+
+        // fade out the input
+        this.fade(inputBlurFade);
+
         $('listPagesFilterCancel').setStyle('display','none');
 
         $$('div.block.listPages div.content').each(function(block){
@@ -854,6 +926,7 @@ window.addEvent('domready', function() {
         if(storedOpenBlocks) {
           openBlocks.empty();
           storedOpenBlocks = false;
+          selectedPage = null;
         }
       }
     });
@@ -1347,7 +1420,6 @@ window.addEvent('domready', function() {
   // makes inputs who are empty transparent, and fade in on mouseover
   if($$('.right input') !== null) {
         //var smallSize = 50;
-        var fade = 0.6;
 
         $$('.right input, .listPagesHead input').each(function(input) {
             // looks for empty inputs
@@ -1357,7 +1429,7 @@ window.addEvent('domready', function() {
                 var hasContent = false;
 
                 var inputWidthBefore = input.getStyle('opacity');
-                input.setStyle('opacity', fade); //makes the input small
+                input.setStyle('opacity', inputBlurFade); //makes the input small
 
                 input.set('tween',{duration: '500', transition: Fx.Transitions.Sine.easeOut}); //Bounce.easeOut
 
@@ -1372,11 +1444,11 @@ window.addEvent('domready', function() {
                   'blur' : function() { // if onblur set hasFocus = false and tween to small if the input has still no content
                       hasFocus = false;
                       if(input.get('value') === '')
-                        input.tween('opacity',fade);
+                        input.tween('opacity',inputBlurFade);
                   },
                   'mouseout' : function() { // onmouseout, if has not focus tween to small
                       if(!hasFocus && input.get('value') === '')
-                        input.tween('opacity',fade);
+                        input.tween('opacity',inputBlurFade);
                   }
                 });
             }
