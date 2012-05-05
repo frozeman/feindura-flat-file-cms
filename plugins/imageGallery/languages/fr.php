@@ -24,23 +24,23 @@ $pluginLangFile['feinduraPlugin_description']  = 'Etablit une liste des images d
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['selectImagesJsFunction'] = 'sélectionnez les images';
-$pluginLangFile['galleryTitle']           = 'titre de la gal&eacute;rie';
-$pluginLangFile['previewImage']           = 'nom du fichier en miniature';
-$pluginLangFile['imageWidthNumber']             = 'largeur de limage';
-$pluginLangFile['imageWidthNumber_tip']         = 'en pixel';
-$pluginLangFile['imageHeightNumber']            = 'hauteur de limage';
-$pluginLangFile['imageHeightNumber_tip']        = 'en pixel';
-$pluginLangFile['thumbnailWidthNumber']         = 'largeur de limage en miniature';
-$pluginLangFile['thumbnailWidthNumber_tip']     = 'en pixel';
-$pluginLangFile['thumbnailHeightNumber']        = 'hauteur de limage en miniature';
-$pluginLangFile['thumbnailHeightNumber_tip']    = 'en pixel';
-$pluginLangFile['filenameCaptions']       = 'nom de fichier comme légende';
-$pluginLangFile['filenameCaptions_tip']   = 'Utilise le nom de fichier (sans extensions) comme légende, si aucune ligne dans un captions.txt existent pour ce fichier.';
-$pluginLangFile['tag']                    = 'liste des tags HTML';
-$pluginLangFile['tag_tip']                = 'Le tag HTML pour la liste des images::le tags HTML suivants sont possible: &quot;table&quot;, &quot;ul&quot; o&ugrave; rien.';
-$pluginLangFile['breakAfterNumber']             = 'mise en page apr&egrave;s';
-$pluginLangFile['breakAfterNumber_tip']         = 'Sera seulement &eacute;ffectu&eacute; si la liste contient le tag HTML &quot;table&quot; :: Le nombre dimages indique la cr&eacute;ation dune nouvelle linie.';
+$pluginLangFile['selectImagesJsFunction']    = 'sélectionnez les images';
+$pluginLangFile['galleryTitle']              = 'titre de la gal&eacute;rie';
+$pluginLangFile['previewImage']              = 'nom du fichier en miniature';
+$pluginLangFile['imageWidthNumber']          = 'largeur de limage';
+$pluginLangFile['imageWidthNumber_tip']      = 'en pixel';
+$pluginLangFile['imageHeightNumber']         = 'hauteur de limage';
+$pluginLangFile['imageHeightNumber_tip']     = 'en pixel';
+$pluginLangFile['thumbnailWidthNumber']      = 'largeur de limage en miniature';
+$pluginLangFile['thumbnailWidthNumber_tip']  = 'en pixel';
+$pluginLangFile['thumbnailHeightNumber']     = 'hauteur de limage en miniature';
+$pluginLangFile['thumbnailHeightNumber_tip'] = 'en pixel';
+$pluginLangFile['filenameCaptions']          = 'nom de fichier comme légende';
+$pluginLangFile['filenameCaptions_tip']      = 'Utilise le nom de fichier (sans extensions) comme légende, si aucun sous-titres a été fixé.';
+$pluginLangFile['tagSelection']              = 'HTML-Tag';
+$pluginLangFile['tagSelection_tip']          = 'Le code HTML-Tag qui sera utilisé pour créer la galerie::';
+$pluginLangFile['breakAfterNumber']          = 'mise en page apr&egrave;s';
+$pluginLangFile['breakAfterNumber_tip']      = 'Sera seulement &eacute;ffectu&eacute; si la liste contient le tag HTML &quot;table&quot; :: Le nombre dimages indique la cr&eacute;ation dune nouvelle linie.';
 
 
 // -----------------------------------------------------------------------------------------------

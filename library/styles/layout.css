@@ -517,7 +517,7 @@ ul.verticalButtons {
 a.button {
     display: inline-block;
     padding: 5px 8px !important;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     /*background-image: none !important;*/
     background: #f6f8f9 !important; /* Old browsers */
     background: -moz-linear-gradient(top,  #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%) !important; /* FF3.6+ */
@@ -531,17 +531,18 @@ a.button {
     -moz-border-radius: 4px;
     border-radius: 4px;
 
-    -webkit-box-shadow:  0px 0px 8px 1px #ddd;
-    -moz-box-shadow:  0px 0px 8px 1px #ddd;
-    box-shadow:  0px 0px 8px 1px #ddd;
-        
+    -webkit-box-shadow:  0px 0px 4px 0px #ddd;
+    -moz-box-shadow:  0px 0px 4px 0px #ddd;
+    box-shadow:  0px 0px 4px 0px #ddd;
 }
-a.button:hover {
+a.button:hover, a.button:focus {
+    border: 1px solid #ccc;
+}
+a.button:active {
     -webkit-box-shadow: inset 0px 0px 8px 1px #999;
     -moz-box-shadow: inset 0px 0px 8px 1px #999;
     box-shadow: inset 0px 0px 8px 1px #999;
-    border: 1px solid #999;
-
+    border: 1px solid #ccc;
 }
 
 /* --- SUBMENU ------------------------------------------------------------------------------------------------------------------- */

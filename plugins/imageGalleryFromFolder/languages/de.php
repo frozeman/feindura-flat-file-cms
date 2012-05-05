@@ -38,8 +38,8 @@ $pluginLangFile['thumbnailHeightNumber']     = 'Vorschaubildh&ouml;he';
 $pluginLangFile['thumbnailHeightNumber_tip'] = 'in Pixel';
 $pluginLangFile['filenameCaptions']    = 'Dateiname als Bildunterschriften';
 $pluginLangFile['filenameCaptions_tip'] = 'Verwendet den Dateinamen (ohne Endung) als Bildunterschriften, wenn keine Zeile für diese Datei in einer captions.txt existiert.';
-$pluginLangFile['tag']                 = 'Auflistungs HTML-Tag';
-$pluginLangFile['tag_tip']             = 'Der HTML-Tag f&uuml;r die Auflistung der Bilder::Folgende HTML-Tags sind erlaubt: &quot;table&quot;, &quot;ul&quot; oder nichts.';
+$pluginLangFile['tagSelection']                 = 'HTML-Tag';
+$pluginLangFile['tagSelection_tip']             = 'Der HTML-Tag f&uuml;r die Auflistung der Bilder::Folgende HTML-Tags sind erlaubt: &quot;table&quot;, &quot;ul&quot; oder nichts.';
 $pluginLangFile['breakAfterNumber']          = 'Umbruch nach';
 $pluginLangFile['breakAfterNumber_tip']      = 'Ist nur wirksam wenn bei Auflistungs HTML-Tag &quot;table&quot; angegeben wurde:: Gibt dann an nach wieviel Bildern eine neue Zeile erzeugt wird.';
 

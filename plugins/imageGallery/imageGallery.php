@@ -44,9 +44,10 @@
 * @package [Plugins]
 * @subpackage imageGallery
 * 
-* @version 2.0
+* @version 2.1
 * <br>
 * <b>ChangeLog</b><br>
+*    - 2.1 add fixed thumbnails by adding image as background url, if width and height of the thumbnail is given
 *    - 2.0 changed to JSON data images
 *    - 1.11 add milkbox as lightbox
 *    - 1.1 removed resize() because it uses now the {@link Image} class
@@ -374,6 +375,7 @@ class imageGallery {
       $thumbnailPath = $image['path'].$thumbnailName;
       $imagePath = $image['path'].$image['filename'];
       $thumbnailSize = (file_exists($this->documentRoot.$thumbnailPath)) ? getimagesize($this->documentRoot.$thumbnailPath) : array(0,0);
+      $imageSize = (file_exists($this->documentRoot.$imagePath)) ? getimagesize($this->documentRoot.$imagePath) : array(0,0);
       $sizeDifference = ((empty($this->thumbnailHeight) && $this->thumbnailWidth == $thumbnailSize[0]) || (empty($this->thumbnailWidth) && $this->thumbnailHeight == $thumbnailSize[1]) || ($this->thumbnailWidth  == $thumbnailSize[0] && $this->thumbnailHeight == $thumbnailSize[1]))
         ? false
         : true;
@@ -385,8 +387,20 @@ class imageGallery {
         // get the Image class
         require_once(dirname(__FILE__).'/includes/Image.class.php');
 
+        // vars
+        $width = $this->thumbnailWidth;
+        $height = $this->thumbnailHeight;
+        
+        // resize either the height or the width, depending whats bigger, when width/height for the thumbnail was given
+        if(!empty($this->thumbnailWidth) && !empty($this->thumbnailHeight) && is_numeric($this->thumbnailWidth) && is_numeric($this->thumbnailHeight)) {
+          if($imageSize[0] > $imageSize[1])
+            $width = false;
+          else
+            $height = false;
+        }
+
         $resize = new Image($imagePath);
-        $resize->resize($this->thumbnailWidth,$this->thumbnailHeight,$this->keepRatio,$this->resizeWhenSmaller);
+        $resize->resize($width,$height,$this->keepRatio,$this->resizeWhenSmaller); // dont resize height
         $resize->process('png',$this->documentRoot.$thumbnailPath);
         unset($resize);
         
@@ -402,15 +416,18 @@ class imageGallery {
   * <b>Name</b> getImages()<br>
   * 
   * Generates the image links and return them in an array.
+  * When both the thumbnail width and height are set, then it will add the image as background to the <a> tag.
+  * This ensures that all images have the same size.
   * 
   * @return array an array with image links
   * 
   * @uses imageGallery::$galleryPath  
   * 
   * @access protected
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 add image as background when having a fixed size of the thumbnails
   *    - 1.0 initial release
   * 
   */
@@ -429,7 +446,10 @@ class imageGallery {
       else
         $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : '';
       
-      $return[] = '<a href="'.$image['path'].$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.'><img src="'.$image['path'].$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
+      if(!empty($this->thumbnailWidth) && !empty($this->thumbnailHeight) && is_numeric($this->thumbnailWidth) && is_numeric($this->thumbnailHeight))
+        $return[] = '<a href="'.$image['path'].$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block; width:'.$this->thumbnailWidth.'px; height:'.$this->thumbnailHeight.'px; background: url(\''.$image['path'].$thumbnailName.'\') no-repeat center center;"></a>';
+      else
+        $return[] = '<a href="'.$image['path'].$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.'><img src="'.$image['path'].$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
     }
     
     return $return;    
@@ -442,7 +462,7 @@ class imageGallery {
   * 
   * <b>Note</b>: The image gallery is surrounded by an '<div class="feinduraPlugin_imageGallery">' tag to help to style the image gallery.  
   * 
-  * @param string       $tag         the tag used to create the gallery, can be "ul", "table" or FALSE to return just images
+  * @param string       $tag         the tag used to create the gallery, can be "ul","menu", "table" or FALSE to return just images
   * @param int          $breakAfter  (optional) if the $tag parameter is "table" then it defines the number after which the table makes a new row
   * 
   * @return string the generated gallery
@@ -463,7 +483,7 @@ class imageGallery {
     $this->createThumbnails();
     
     // vars
-    if(is_string($tag) && !empty($tag)) {
+    if(is_string($tag) && !empty($tag) && $tag != '-') {
       $startTag = '<'.$tag.'>';
       $endTag = '</'.$tag.'>';
     }
@@ -489,7 +509,7 @@ class imageGallery {
       }
       
       // if menuTag is a LIST ------
-      if($tag == 'ul' || $tag == 'ol') {
+      if($tag == 'ul' || $tag == 'ol' || $tag == 'menu') {
         $image = '<li>'.$image."</li>\n";        
       // if menuTag is a TABLE -----
       } elseif($tag == 'table')

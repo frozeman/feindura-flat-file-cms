@@ -24,23 +24,23 @@ $pluginLangFile['feinduraPlugin_description']  = 'Listet Bilder als Galerie auf.
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['selectImagesJsFunction'] = 'Bilder auswählen';
-$pluginLangFile['galleryTitle']           = 'Galerietitel';
-$pluginLangFile['previewImage']           = 'Dateiname des Vorschaubildes';
-$pluginLangFile['imageWidthNumber']             = 'Bilderbreite';
-$pluginLangFile['imageWidthNumber_tip']         = 'in Pixel';
-$pluginLangFile['imageHeightNumber']            = 'Bilderh&ouml;he';
-$pluginLangFile['imageHeightNumber_tip']        = 'in Pixel';
-$pluginLangFile['thumbnailWidthNumber']         = 'Vorschaubildbreite';
-$pluginLangFile['thumbnailWidthNumber_tip']     = 'in Pixel';
-$pluginLangFile['thumbnailHeightNumber']        = 'Vorschaubildh&ouml;he';
-$pluginLangFile['thumbnailHeightNumber_tip']    = 'in Pixel';
-$pluginLangFile['filenameCaptions']       = 'Dateiname als Bildunterschriften';
-$pluginLangFile['filenameCaptions_tip']   = 'Verwendet den Dateinamen (ohne Endung) als Bildunterschriften, wenn keine Zeile für diese Datei in einer captions.txt existiert.';
-$pluginLangFile['tag']                    = 'Auflistungs HTML-Tag';
-$pluginLangFile['tag_tip']                = 'Der HTML-Tag f&uuml;r die Auflistung der Bilder::Folgende HTML-Tags sind erlaubt: &quot;table&quot;, &quot;ul&quot; oder nichts.';
-$pluginLangFile['breakAfterNumber']             = 'Umbruch nach';
-$pluginLangFile['breakAfterNumber_tip']         = 'Ist nur wirksam wenn bei Auflistungs HTML-Tag &quot;table&quot; angegeben wurde:: Gibt dann an nach wieviel Bildern eine neue Zeile erzeugt wird.';
+$pluginLangFile['selectImagesJsFunction']    = 'Bilder auswählen';
+$pluginLangFile['galleryTitle']              = 'Galerietitel';
+$pluginLangFile['previewImage']              = 'Dateiname des Vorschaubildes';
+$pluginLangFile['imageWidthNumber']          = 'Bilderbreite';
+$pluginLangFile['imageWidthNumber_tip']      = 'in Pixel';
+$pluginLangFile['imageHeightNumber']         = 'Bilderh&ouml;he';
+$pluginLangFile['imageHeightNumber_tip']     = 'in Pixel';
+$pluginLangFile['thumbnailWidthNumber']      = 'Vorschaubildbreite';
+$pluginLangFile['thumbnailWidthNumber_tip']  = 'in Pixel';
+$pluginLangFile['thumbnailHeightNumber']     = 'Vorschaubildh&ouml;he';
+$pluginLangFile['thumbnailHeightNumber_tip'] = 'in Pixel';
+$pluginLangFile['filenameCaptions']          = 'Dateiname als Bildunterschriften';
+$pluginLangFile['filenameCaptions_tip']      = 'Verwendet die Dateinamen (ohne Endung) als Bildunterschriften, wenn keine Bildunterschrift angegeben wurde.';
+$pluginLangFile['tagSelection']              = 'HTML-Tag';
+$pluginLangFile['tagSelection_tip']          = 'Der HTML-Tag f&uuml;r die Erstellung der Gallerie::';
+$pluginLangFile['breakAfterNumber']          = 'Umbruch nach';
+$pluginLangFile['breakAfterNumber_tip']      = 'Ist nur wirksam wenn bei Auflistungs HTML-Tag &quot;table&quot; angegeben wurde:: Gibt dann an nach wieviel Bildern eine neue Zeile erzeugt wird.';
 
 
 // -----------------------------------------------------------------------------------------------

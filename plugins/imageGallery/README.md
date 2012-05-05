@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not,see <http://www.gnu.org/licenses/>.
 _____________________________________________
 
-### VERSION 2.0
+### VERSION 2.1
 
 ### AUTHOR
 Fabian Vogelsteller <http://frozeman.de>
@@ -26,6 +26,12 @@ Fabian Vogelsteller <http://frozeman.de>
 ### DESCRIPTION
 This plugin creates automatically an gallery from seletced images. On the first load of the plugin in the website,
 the images will be resized to the size set in the plugin settings and thumbnails will be created.
+
+NOTE
+It will put the image thumbnails in <a..><img></a> tags,
+but when both height and width for the thumbnail are set
+it will only create a <a..></a> and set the image as style="background:url(..)",
+to ensures that the image thumbnails have a fixed size.
 
 ### USAGE
 The imageGallery plugin can be displayed in your website with the showPlugins('imageGallery',$pageId) method from the feindura class (when activated in the page with the $pageId).

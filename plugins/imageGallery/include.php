@@ -82,7 +82,7 @@ $gallery->thumbnailWidth = $pluginConfig['thumbnailWidthNumber'];
 $gallery->thumbnailHeight = $pluginConfig['thumbnailHeightNumber'];
 $gallery->filenameCaptions = $pluginConfig['filenameCaptions'];
 
-$plugin .= $gallery->showGallery($pluginConfig['tag'],$pluginConfig['breakAfterNumber']);
+$plugin .= $gallery->showGallery($pluginConfig['tagSelection'],$pluginConfig['breakAfterNumber']);
 
 // RETURN the plugin
 // *****************

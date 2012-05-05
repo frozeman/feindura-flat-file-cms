@@ -25,23 +25,23 @@ $pluginLangFile['feinduraPlugin_description']  = 'Lista immagini in una galleria
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['selectImagesJsFunction'] = 'selezionare le immagini';
-$pluginLangFile['galleryTitle']           = 'titolo della galleria';
-$pluginLangFile['previewImage']           = 'nome del file immagine di anteprima della galleria';
-$pluginLangFile['imageWidthNumber']             = 'larghezza immagine';
-$pluginLangFile['imageWidthNumber_tip']         = 'in pixel';
-$pluginLangFile['imageHeightNumber']            = 'altezza immagine';
-$pluginLangFile['imageHeightNumber_tip']        = 'in pixel';
-$pluginLangFile['thumbnailWidthNumber']         = 'larghezza anteprima';
-$pluginLangFile['thumbnailWidthNumber_tip']     = 'in pixel';
-$pluginLangFile['thumbnailHeightNumber']        = 'altezza anteprima';
-$pluginLangFile['thumbnailHeightNumber_tip']    = 'in pixel';
-$pluginLangFile['filenameCaptions']       = 'nome del file come didascalia';
-$pluginLangFile['filenameCaptions_tip']   = 'Utilizza il nome del file (senza estensione), come didascalia, se nessuna linea in un captions.txt esiste per questo file.';
-$pluginLangFile['tag']                    = 'lista HTML-Tag';
-$pluginLangFile['tag_tip']                = 'Il codice HTML-Tag che sar&#224; utilizzato per elencare le immagini::Il seguente codice HTML-tag sono consentiti: &quot;table&quot;, &quot;ul&quot; oder nothing.';
-$pluginLangFile['breakAfterNumber']             = 'break after';
-$pluginLangFile['breakAfterNumber_tip']         = 'Non funziona solo se la lista HTML-Tag è &quot;table&quot;:: Indica dopo quante immagini una nuova riga inizia.';
+$pluginLangFile['selectImagesJsFunction']    = 'selezionare le immagini';
+$pluginLangFile['galleryTitle']              = 'titolo della galleria';
+$pluginLangFile['previewImage']              = 'nome del file immagine di anteprima della galleria';
+$pluginLangFile['imageWidthNumber']          = 'larghezza immagine';
+$pluginLangFile['imageWidthNumber_tip']      = 'in pixel';
+$pluginLangFile['imageHeightNumber']         = 'altezza immagine';
+$pluginLangFile['imageHeightNumber_tip']     = 'in pixel';
+$pluginLangFile['thumbnailWidthNumber']      = 'larghezza anteprima';
+$pluginLangFile['thumbnailWidthNumber_tip']  = 'in pixel';
+$pluginLangFile['thumbnailHeightNumber']     = 'altezza anteprima';
+$pluginLangFile['thumbnailHeightNumber_tip'] = 'in pixel';
+$pluginLangFile['filenameCaptions']          = 'nome del file come didascalia';
+$pluginLangFile['filenameCaptions_tip']      = 'Utilizza il nome del file (senza estensione), come didascalia, se non le didascalie è stato impostato.';
+$pluginLangFile['tagSelection']              = 'HTML-Tag';
+$pluginLangFile['tagSelection_tip']          = 'Il HTML-Tag che sarà utilizzato per creare la galleria::';
+$pluginLangFile['breakAfterNumber']          = 'break after';
+$pluginLangFile['breakAfterNumber_tip']      = 'Non funziona solo se la lista HTML-Tag è &quot;table&quot;:: Indica dopo quante immagini una nuova riga inizia.';
 
 
 // -----------------------------------------------------------------------------------------------

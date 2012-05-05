@@ -363,7 +363,21 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       if(isset($pageContent['plugins']['contactForm']) && !isset($pageContent['plugins']['contactForm']['captcha']))
         $pageContent['plugins']['contactForm']['captcha'] = true;
 
+
+      // only if was below 1.1.6
+      // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
+      if($oldVersion <= '1.1.6') {
+        if(isset($pageContent['plugins']['imageGallery']) && !isset($pageContent['plugins']['imageGalleryFromFolder'])) {
+          $pageContent['plugins']['imageGalleryFromFolder'] = $pageContent['plugins']['imageGallery'];
+          unset($pageContent['plugins']['imageGallery']);
+        } elseif(isset($pageContent['plugins']['slideShow']) && !isset($pageContent['plugins']['slideShowFromFolder'])) {
+          $pageContent['plugins']['slideShowFromFolder'] = $pageContent['plugins']['slideShow'];
+          unset($pageContent['plugins']['slideShow']);
+        }
+      }
+
       // v2.0 changed key names of plugins
+      // imageGallery
       if(isset($pageContent['plugins']['imageGallery'])) {
         $pageContent['plugins']['imageGallery']['imageWidthNumber'] = (isset($pageContent['plugins']['imageGallery']['imageWidth']))
           ? $pageContent['plugins']['imageGallery']['imageWidth']
@@ -380,9 +394,36 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
         $pageContent['plugins']['imageGallery']['breakAfterNumber'] = (isset($pageContent['plugins']['imageGallery']['breakAfter']))
           ? $pageContent['plugins']['imageGallery']['breakAfter']
           : $pageContent['plugins']['imageGallery']['breakAfterNumber'];
+        $pageContent['plugins']['imageGallery']['tagSelection'] = (isset($pageContent['plugins']['imageGallery']['tag']))
+          ? $pageContent['plugins']['imageGallery']['tag']
+          : $pageContent['plugins']['imageGallery']['tagSelection'];
 
-        unset($pageContent['plugins']['imageGallery']['imageWidth'],$pageContent['plugins']['imageGallery']['imageHeight'],$pageContent['plugins']['imageGallery']['thumbnailWidth'],$pageContent['plugins']['imageGallery']['thumbnailHeight'],$pageContent['plugins']['imageGallery']['breakAfter']);
+        unset($pageContent['plugins']['imageGallery']['imageWidth'],$pageContent['plugins']['imageGallery']['imageHeight'],$pageContent['plugins']['imageGallery']['thumbnailWidth'],$pageContent['plugins']['imageGallery']['thumbnailHeight'],$pageContent['plugins']['imageGallery']['breakAfter'],$pageContent['plugins']['imageGallery']['tag']);
       }
+      // imageGalleryFromFolder
+      if(isset($pageContent['plugins']['imageGalleryFromFolder'])) {
+        $pageContent['plugins']['imageGalleryFromFolder']['imageWidthNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['imageWidth']))
+          ? $pageContent['plugins']['imageGalleryFromFolder']['imageWidth']
+          : $pageContent['plugins']['imageGalleryFromFolder']['imageWidthNumber'];
+        $pageContent['plugins']['imageGalleryFromFolder']['imageHeightNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['imageHeight']))
+          ? $pageContent['plugins']['imageGalleryFromFolder']['imageHeight']
+          : $pageContent['plugins']['imageGalleryFromFolder']['imageHeightNumber'];
+        $pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidthNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidth']))
+          ? $pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidth']
+          : $pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidthNumber'];
+        $pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeightNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeight']))
+          ? $pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeight']
+          : $pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeightNumber'];
+        $pageContent['plugins']['imageGalleryFromFolder']['breakAfterNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['breakAfter']))
+          ? $pageContent['plugins']['imageGalleryFromFolder']['breakAfter']
+          : $pageContent['plugins']['imageGalleryFromFolder']['breakAfterNumber'];
+        $pageContent['plugins']['imageGalleryFromFolder']['tagSelection'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['tag']))
+          ? $pageContent['plugins']['imageGalleryFromFolder']['tag']
+          : $pageContent['plugins']['imageGalleryFromFolder']['tagSelection'];
+
+        unset($pageContent['plugins']['imageGalleryFromFolder']['imageWidth'],$pageContent['plugins']['imageGalleryFromFolder']['imageHeight'],$pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidth'],$pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeight'],$pageContent['plugins']['imageGalleryFromFolder']['breakAfter'],$pageContent['plugins']['imageGalleryFromFolder']['tag']);
+      }
+      // slideShow
       if(isset($pageContent['plugins']['slideShow'])) {
          $pageContent['plugins']['slideShow']['intervalNumber'] = (isset($pageContent['plugins']['slideShow']['intervalNumber']))
           ? $pageContent['plugins']['slideShow']['intervalNumber']
@@ -391,6 +432,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
           ? $pageContent['plugins']['slideShow']['effectSelection']
           : 'fade';
       }
+      // slideShowFromFolder
       if(isset($pageContent['plugins']['slideShowFromFolder'])) {
          $pageContent['plugins']['slideShowFromFolder']['intervalNumber'] = (isset($pageContent['plugins']['slideShowFromFolder']['intervalNumber']))
           ? $pageContent['plugins']['slideShowFromFolder']['intervalNumber']
@@ -398,28 +440,6 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
         $pageContent['plugins']['slideShowFromFolder']['effectSelection'] = (isset($pageContent['plugins']['slideShowFromFolder']['effectSelection']))
           ? $pageContent['plugins']['slideShowFromFolder']['effectSelection']
           : 'fade';
-      }
-      if(isset($pageContent['plugins']['slideShow'])) {
-        $pageContent['plugins']['imageGallery']['imageWidthNumber'] = (isset($pageContent['plugins']['imageGallery']['imageWidth']))
-          ? $pageContent['plugins']['imageGallery']['imageWidth']
-          : $pageContent['plugins']['imageGallery']['imageWidthNumber'];
-        $pageContent['plugins']['imageGallery']['imageHeightNumber'] = (isset($pageContent['plugins']['imageGallery']['imageHeight']))
-          ? $pageContent['plugins']['imageGallery']['imageHeight']
-          : $pageContent['plugins']['imageGallery']['imageHeightNumber'];
-          
-        unset($pageContent['plugins']['imageGallery']['imageWidth'],$pageContent['plugins']['imageGallery']['imageHeight']);
-      }
-
-      // only if was below 1.1.6
-      // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
-      if($oldVersion <= '1.1.6') {
-        if(isset($pageContent['plugins']['imageGallery'])) {
-          $pageContent['plugins']['imageGalleryFromFolder'] = $pageContent['plugins']['imageGallery'];
-          unset($pageContent['plugins']['imageGallery']);
-        } elseif(isset($pageContent['plugins']['slideShow'])) {
-          $pageContent['plugins']['slideShowFromFolder'] = $pageContent['plugins']['slideShow'];
-          unset($pageContent['plugins']['slideShow']);
-        }
       }
       
       // -> change such a date: 2010-03-20 17:50:27 to unix timestamp

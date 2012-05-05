@@ -39,8 +39,8 @@ $pluginLangFile['thumbnailHeightNumber']     = 'hauteur de limage en miniature';
 $pluginLangFile['thumbnailHeightNumber_tip'] = 'en pixel';
 $pluginLangFile['filenameCaptions']    = 'nom de fichier comme légende';
 $pluginLangFile['filenameCaptions_tip'] = 'Utilise le nom de fichier (sans extensions) comme légende, si aucune ligne dans un captions.txt existent pour ce fichier.';
-$pluginLangFile['tag']                 = 'liste des tags HTML';
-$pluginLangFile['tag_tip']             = 'Le tag HTML pour la liste des images::le tags HTML suivants sont possible: &quot;table&quot;, &quot;ul&quot; o&ugrave; rien.';
+$pluginLangFile['tagSelection']                 = 'tag HTML';
+$pluginLangFile['tagSelection_tip']             = 'Le tag HTML pour la liste des images::le tags HTML suivants sont possible: &quot;table&quot;, &quot;ul&quot; o&ugrave; rien.';
 $pluginLangFile['breakAfterNumber']          = 'mise en page apr&egrave;s';
 $pluginLangFile['breakAfterNumber_tip']      = 'Sera seulement &eacute;ffectu&eacute; si la liste contient le tag HTML &quot;table&quot; :: Le nombre dimages indique la cr&eacute;ation dune nouvelle linie.';
 

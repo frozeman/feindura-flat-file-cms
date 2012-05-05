@@ -38,8 +38,8 @@ $pluginLangFile['thumbnailHeightNumber']      = 'высота миниатюр';
 $pluginLangFile['thumbnailHeightNumber_tip']  = 'в пикселях';
 $pluginLangFile['filenameCaptions']     = 'имя файла в качестве заголовка';
 $pluginLangFile['filenameCaptions_tip'] = 'Использует имя файла (без расширения), а заголовок, если ни одна строка в captions.txt существуют для этого файла.';
-$pluginLangFile['tag']                  = 'Список HTML-тегов';
-$pluginLangFile['tag_tip']              = 'HTML-тег, который будет использоваться для вывода списка фотографий :: После HTML-теги разрешены: &quot;table&quot;, &quot;ul&quot; Одер ничего.';
+$pluginLangFile['tagSelection']                  = 'HTML-тег';
+$pluginLangFile['tagSelection_tip']              = 'HTML-тег, который будет использоваться для вывода списка фотографий :: После HTML-теги разрешены: &quot;table&quot;, &quot;ul&quot; Одер ничего.';
 $pluginLangFile['breakAfterNumber']           = 'break after';
 $pluginLangFile['breakAfterNumber_tip']       = 'Разве только если список HTML-тегов является &quot;table&quot;:: Говорит после того, как много изображений новая строка начинается.';
 

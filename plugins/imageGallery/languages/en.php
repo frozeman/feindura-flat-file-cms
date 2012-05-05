@@ -24,23 +24,23 @@ $pluginLangFile['feinduraPlugin_description']  = 'Lists images as gallery. It au
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['selectImagesJsFunction'] = 'Select images';
-$pluginLangFile['galleryTitle']           = 'title of the gallery';
-$pluginLangFile['previewImage']           = 'filename of the gallery preview picture';
-$pluginLangFile['imageWidthNumber']             = 'image width';
-$pluginLangFile['imageWidthNumber_tip']         = 'in pixel';
-$pluginLangFile['imageHeightNumber']            = 'image height';
-$pluginLangFile['imageHeightNumber_tip']        = 'in pixel';
-$pluginLangFile['thumbnailWidthNumber']         = 'thumbnail width';
-$pluginLangFile['thumbnailWidthNumber_tip']     = 'in pixel';
-$pluginLangFile['thumbnailHeightNumber']        = 'thumbnail height';
-$pluginLangFile['thumbnailHeightNumber_tip']    = 'in pixel';
-$pluginLangFile['filenameCaptions']       = 'filename as caption';
-$pluginLangFile['filenameCaptions_tip']   = 'Uses the filename (without extension) as caption, if no line in a captions.txt exist for this file.';
-$pluginLangFile['tag']                    = 'list HTML-Tag';
-$pluginLangFile['tag_tip']                = 'The HTML-Tag which will be used to list the pictures::The Following HTML-Tags are allowed: &quot;table&quot;, &quot;ul&quot; oder nothing.';
-$pluginLangFile['breakAfterNumber']             = 'break after';
-$pluginLangFile['breakAfterNumber_tip']         = 'Does only work if the list HTML-Tag is &quot;table&quot;:: Tells after how many images a new row starts.';
+$pluginLangFile['selectImagesJsFunction']    = 'Select images';
+$pluginLangFile['galleryTitle']              = 'title of the gallery';
+$pluginLangFile['previewImage']              = 'filename of the gallery preview picture';
+$pluginLangFile['imageWidthNumber']          = 'image width';
+$pluginLangFile['imageWidthNumber_tip']      = 'in pixel';
+$pluginLangFile['imageHeightNumber']         = 'image height';
+$pluginLangFile['imageHeightNumber_tip']     = 'in pixel';
+$pluginLangFile['thumbnailWidthNumber']      = 'thumbnail width';
+$pluginLangFile['thumbnailWidthNumber_tip']  = 'in pixel';
+$pluginLangFile['thumbnailHeightNumber']     = 'thumbnail height';
+$pluginLangFile['thumbnailHeightNumber_tip'] = 'in pixel';
+$pluginLangFile['filenameCaptions']          = 'filename as caption';
+$pluginLangFile['filenameCaptions_tip']      = 'Uses the filename (without extension) as caption, if no captions was set.';
+$pluginLangFile['tagSelection']              = 'HTML-Tag';
+$pluginLangFile['tagSelection_tip']          = 'The HTML-Tag which will be used to create the gallery::';
+$pluginLangFile['breakAfterNumber']          = 'break after';
+$pluginLangFile['breakAfterNumber_tip']      = 'Does only work if the list HTML-Tag is &quot;table&quot;:: Tells after how many images a new row starts.';
 
 
 // -----------------------------------------------------------------------------------------------

@@ -37,7 +37,10 @@ $pluginConfig['imageHeightNumber']      = null;
 $pluginConfig['thumbnailWidthNumber']   = 160;
 $pluginConfig['thumbnailHeightNumber']  = null;
 $pluginConfig['filenameCaptions']       = false;
-$pluginConfig['tag']                    = 'table';
+$pluginConfig['tagSelection'][]         = '-';
+$pluginConfig['tagSelection'][]         = 'table';
+$pluginConfig['tagSelection'][]         = 'menu';
+$pluginConfig['tagSelection'][]         = 'ul';
 $pluginConfig['breakAfterNumber']       = 3;
 $pluginConfig['loadGalleryScript']      = ' /* <![CDATA[ */document.write(unescape(\'<script src="library/thirdparty/MooTools-FileManager/Source/Gallery.js"><\/script>\'))/* ]]> */';
 $pluginConfig['selectImagesScript']     = '
