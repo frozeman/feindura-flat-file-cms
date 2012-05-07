@@ -44,7 +44,13 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 <head>
   <meta charset="UTF-8">
   
-  <title>feindura: <?php echo GeneralFunctions::getLocalized($websiteConfig['localized'],'title'); ?></title>
+  <title>feindura: <?php
+  echo GeneralFunctions::getLocalized($websiteConfig['localized'],'title');
+  if(isset($_GET['page']) && is_numeric($_GET['page']) && ($pageTitle = GeneralFunctions::readPage($_GET['page'],GeneralFunctions::getPageCategory($_GET['page']))) != false) {
+    echo ' - '.GeneralFunctions::getLocalized($pageTitle['localized'],'title');
+  }
+  unset($pageTitle);
+  ?></title>
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=0.5">
