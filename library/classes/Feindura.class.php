@@ -1510,7 +1510,6 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
-  * <b>Note</b>: When the <var>$menuTag</var> parameter is "menu", "ul", "ol" or "table" it add the CSS class "first" and "last" to the first and last element. E.g. <li class="first">...</li><br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   *  
@@ -1635,7 +1634,6 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: the tags will be compared case insensitive.<br>
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
-  * <b>Note</b>: When the <var>$menuTag</var> parameter is "menu", "ul", "ol" or "table" it add the CSS class "first" and "last" to the first and last element. E.g. <li class="first">...</li><br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
@@ -1733,7 +1731,6 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
-  * <b>Note</b>: When the <var>$menuTag</var> parameter is "menu", "ul", "ol" or "table" it add the CSS class "first" and "last" to the first and last element. E.g. <li class="first">...</li><br> 
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
@@ -1828,7 +1825,6 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
-  * <b>Note</b>: When the <var>$menuTag</var> parameter is "menu", "ul", "ol" or "table" it add the CSS class "first" and "last" to the first and last element. E.g. <li class="first">...</li><br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
@@ -2009,7 +2005,6 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
-  * <b>Note</b>: When the <var>$menuTag</var> parameter is "menu", "ul", "ol" or "table" it add the CSS class "first" and "last" to the first and last element. E.g. <li class="first">...</li><br>
   * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current page (means the {@link Feindura::$page} property).<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   *
@@ -2098,7 +2093,6 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
-  * <b>Note</b>: When the <var>$menuTag</var> parameter is "menu", "ul", "ol" or "table" it add the CSS class "first" and "last" to the first and last element. E.g. <li class="first">...</li><br>
   * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current category (means the {@link Feindura::$category} property).<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   *
@@ -2217,7 +2211,6 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
-  * <b>Note</b>: When the <var>$menuTag</var> parameter is "menu", "ul", "ol" or "table" it add the CSS class "first" and "last" to the first and last element. E.g. <li class="first">...</li><br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current language.
   * 
   * Example of the returned Array:
@@ -2329,7 +2322,6 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
-  * <b>Note</b>: When the <var>$menuTag</var> parameter is "menu", "ul", "ol" or "table" it add the CSS class "first" and "last" to the first and last element. E.g. <li class="first">...</li><br>
   * 
   * Example of the returned Array:
   * {@example createMenu.return.example.php}

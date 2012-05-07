@@ -599,13 +599,6 @@ class FeinduraBase {
     
     $count = 1;
     foreach($links as $link) {
-      
-      $addClass = '';
-
-      if($link == reset($links))
-        $addClass = ' class="first"';
-      if($link == end($links))
-        $addClass = ' class="last"';
 
       // breaks the CELLs with TR after the given NUMBER of CELLS
       if($menuTagSet == 'table' &&
@@ -623,14 +616,14 @@ class FeinduraBase {
       
       // if menuTag is a LIST ------
       if($menuTagSet == 'menu' || $menuTagSet == 'ul' || $menuTagSet == 'ol') {
-        $menuItemCopy['menuItem'] = '<li'.$addClass.'>'.$link['link']."</li>\n";
-        $menuItemCopy['startTag'] = '<li'.$addClass.'>';
+        $menuItemCopy['menuItem'] = '<li>'.$link['link']."</li>\n";
+        $menuItemCopy['startTag'] = '<li>';
         $menuItemCopy['endTag']   = "</li>\n";
 
       // if menuTag is a TABLE -----
       } elseif($menuTagSet == 'table') {
-        $menuItemCopy['menuItem'] = "<td'.$addClass.'>\n".$link['link']."\n</td>";
-        $menuItemCopy['startTag'] = "<td'.$addClass.'>\n";
+        $menuItemCopy['menuItem'] = "<td>\n".$link['link']."\n</td>";
+        $menuItemCopy['startTag'] = "<td>\n";
         $menuItemCopy['endTag']   = "\n</td>";
 
       // if just a link
