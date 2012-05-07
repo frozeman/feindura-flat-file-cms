@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 892
+Build 893
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 2.0
 
+  build 893: removed tag separation by ; which has problems with signs like " in utf-8
   build 892: fixed create new page
   build 891: fixed listPages filter; add enter mode and selection with up/down
   build 890: changed subcategory position in pagesetup

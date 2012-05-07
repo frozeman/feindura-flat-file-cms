@@ -1526,7 +1526,7 @@ class FeinduraBase {
   * 
   * @param string         $idType    the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids       the category or page ID(s), can be a number or an array with numbers, if TRUE it checks all pages tags
-  * @param string|array   $tags      an string (seperated by "," or ";") or an array with tags to compare
+  * @param string|array   $tags      an string (seperated by ",") or an array with tags to compare
   * 
   * @uses loadPagesByType()	to load pages by the given ID(s) for comparision
   * @uses compareTags()		to compare each tags between two strings
@@ -1537,9 +1537,10 @@ class FeinduraBase {
   * @see Feindura::createMenuByTags()
   * 
   * @access protected
-  * @version 1.0.1
+  * @version 1.0.2
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.0.2 removed separation by ; which has problems with signs like " in utf-8
   *    - 1.0.1 fixed issue when get a single tag as string
   *    - 1.0 initial release
   * 
@@ -1556,8 +1557,6 @@ class FeinduraBase {
       // look for the right seperation character
       if(strstr($tags,','))
         $tags = explode(',',$tags);
-      elseif(strstr($tags,';'))
-        $tags = explode(';',$tags);
       else
         $tags = array($tags);
 
