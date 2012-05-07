@@ -793,7 +793,7 @@ window.addEvent('domready', function() {
       // e.preventDefault();
 
       // clear on ESC
-      if(e.key == 'esc')
+      if(typeOf(e) != 'null' && e.key == 'esc')
         this.set('value','');
 
       // vars
@@ -834,7 +834,7 @@ window.addEvent('domready', function() {
 
 
         // move the cursor to select pages
-        if(e.key == 'up' || e.key == 'down') {
+        if(typeOf(e.key) != 'null' && (e.key == 'up' || e.key == 'down')) {
           var pageBefore = null;
           var pageAfter = null;
 
@@ -851,9 +851,9 @@ window.addEvent('domready', function() {
               }
             });
             // move the cursor
-            if(e.key == 'up' && typeOf(pageBefore) !== 'null')
+            if(typeOf(e) != 'null' && e.key == 'up' && typeOf(pageBefore) !== 'null')
               selectedPage = pageBefore;
-            else if(e.key == 'down' && typeOf(pageAfter) !== 'null')
+            else if(typeOf(e) != 'null' && e.key == 'down' && typeOf(pageAfter) !== 'null')
               selectedPage = pageAfter;
           }
         }
@@ -868,7 +868,7 @@ window.addEvent('domready', function() {
         if(selectedPage !== null && typeOf(selectedPage) !== 'null')
           selectedPage.setStyle('background-position','0 -41px');
 
-        if(e.key == 'enter' && selectedPage !== null) {
+        if(typeOf(e) != 'null' && e.key == 'enter' && selectedPage !== null) {
           window.location.href = 'index.php?category='+selectedPage.get('data-categoryId')+'&page='+selectedPage.get('data-pageId');
         }
 
