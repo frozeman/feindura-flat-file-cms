@@ -1007,6 +1007,18 @@ div.filemanager-filelist {
 	padding: 5px;
 	border-top: 1px solid #bebebe;
 }
+div.filemanager-filelist ul {
+	background: none;
+	padding: 0;
+	margin: 0;
+	width: auto;
+	height: auto;
+	border: none;
+}
+div.filemanager-filelist li {
+	display: inline-block;
+}
+
 div.filemanager-filelist .fi, div.gallery-image {
 	position: relative;
 	display: inline-block;

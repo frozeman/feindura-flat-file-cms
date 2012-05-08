@@ -8,8 +8,8 @@ authors: Christoph Pojer (@cpojer), Fabian Vogelsteller (@frozeman)
 license: MIT-style license
 
 requires:
-  core/1.3.2: '*'
-  more/1.3.2.1: [Request.Queue, Array.Extras, String.QueryString, Hash, Element.Delegation, Element.Measure, Fx.Scroll, Fx.SmoothScroll, Drag, Drag.Move, Assets, Tips, Scroller ]
+  core/1.4.5: '*'
+  more/1.4.0.1: [Request.Queue, Array.Extras, String.QueryString, Hash, Element.Delegation, Element.Measure, Fx.Scroll, Fx.SmoothScroll, Drag, Drag.Move, Assets, Tips, Scroller ]
 
 provides: Filemanager
 
@@ -521,6 +521,9 @@ var FileManager = new Class({
 
 		// Thumbs list container (in preview panel)
 		this.dir_filelist = new Element('div', {'class': 'filemanager-filelist'});
+		// creates a list, HELPS to make the thumblist DRAGABLE
+		this.dir_filelist_thumbUl = new Element('ul');
+		this.dir_filelist_thumbUl.inject(this.dir_filelist);
 
 // /Partikule
 
@@ -552,9 +555,15 @@ var FileManager = new Class({
 				});
 			}
 		});
+
+		// add toolTips
 		if (!this.options.hideClose) {
 			this.tips.attach(this.closeIcon);
 		}
+		this.tips.attach(this.browserMenu_thumb);
+		this.tips.attach(this.browserMenu_list);
+		this.tips.attach(this.browserMenu_thumbList);
+
 
 		this.imageadd = Asset.image(this.assetBasePath + 'Images/add.png', {
 			'class': 'browser-add',
@@ -1420,7 +1429,7 @@ var FileManager = new Class({
 				this.deselect(file.element);
 
 				var rerendering_list = false;
-				if (this.view_fill_json)
+				if(this.view_fill_json)
 				{
 					this.delete_from_dircache(file);  /* do NOT use j.name, as that one can be 'cleaned up' as part of the 'move' operation! */
 
@@ -1436,10 +1445,14 @@ var FileManager = new Class({
 						clearTimeout(this.view_fill_timer);
 						this.view_fill_timer = null;
 
-						rerendering_list = true;
-						this.fill(null, this.get_view_fill_startindex(), this.listPaginationLastSize);
+						// was here before
 					}
 				}
+
+				// -> move this here, so it always reloads the thumbnail pane in the preview window
+				rerendering_list = true;
+				this.fill(null, this.get_view_fill_startindex(), this.listPaginationLastSize);
+				
 				// make sure fade does not clash with parallel directory (re)load:
 				if (!rerendering_list)
 				{
@@ -1451,6 +1464,10 @@ var FileManager = new Class({
 					}
 				}
 				this.browserLoader.fade(0);
+
+				// clear preview pane thumbnails
+				// this.dir_filelist.empty();
+
 			}).bind(this),
 			onComplete: function() {},
 			onError: (function(text, error) {
@@ -1842,6 +1859,7 @@ var FileManager = new Class({
 
 	fill: function(j, startindex, pagesize, kbd_dir, preselect)
 	{
+
 		var j_item_count;
 
 		if (typeof preselect === 'undefined') preselect = null;
@@ -1895,7 +1913,7 @@ var FileManager = new Class({
 		this.browser.empty();
 
 		// Adding the thumbnail list in the preview panel: blow away any pre-existing list now, as we'll generate a new one now:
-		this.dir_filelist.empty();
+		this.dir_filelist_thumbUl.empty();
 
 		// set history
 		if (typeof jsGET !== 'undefined' && this.storeHistory)
@@ -2166,7 +2184,6 @@ var FileManager = new Class({
 	* 'slow script, continue or abort?' dialog in your face. Ahh, the joy of cooperative multitasking is back again! :-)
 	*/
 	fill_chunkwise_1: function(startindex, endindex, render_count, pagesize, support_DnD_for_this_dir, starttime, els, kbd_dir, preselect) {
-
 		var idx, file, loop_duration;
 		var self = this;
 		var j = this.view_fill_json;
@@ -2509,11 +2526,15 @@ var FileManager = new Class({
 
 // Partikule
 // Thumbs list
+// edit: Fabian Vogelsteller: made thumblist DRAGGABLE
+
 
 				// use a closure to keep a reference to the current dg_el, otherwise dg_el, file, etc. will carry the values they got at the end of the loop!
 				(function(dg_el, el, file)
 				{
-					dg_el.store('el_ref', el).addEvents({
+					var thumbLi = new Element('li');
+
+					dg_el.store('el_ref', el).store('file',file).store('parent',thumbLi).addEvents({
 						'click': function(e)
 						{
 							clearTimeout(self.dir_gallery_click_timer);
@@ -2526,7 +2547,9 @@ var FileManager = new Class({
 						}
 					});
 
-					dg_el.inject(this.dir_filelist);
+					thumbLi.inject(this.dir_filelist_thumbUl);
+					dg_el.inject(thumbLi);
+						
 				}).bind(this)(dg_el, el, file);
 
 // / Partikule
@@ -2562,6 +2585,13 @@ var FileManager = new Class({
 		duration = new Date().getTime() - starttime;
 		//this.diag.log(' + time taken in array traversal + revert = ', duration);
 
+		// -> made preview thumblist DRAGGABLE
+		// add the thumbnail pane in preview window to the dropable elements
+		this.dir_filelist.getChildren('ul li div.fi').each((function(thumb){
+			els[0].push(thumb);
+		}).bind(this));
+
+		// make draggable
 		if (support_DnD_for_this_dir) {
 			// -> make draggable
 			$$(els[0]).makeDraggable({
@@ -2749,10 +2779,13 @@ var FileManager = new Class({
 										clearTimeout(this.view_fill_timer);
 										this.view_fill_timer = null;
 
-										rerendering_list = true;
-										this.fill(null, this.get_view_fill_startindex(), this.listPaginationLastSize);
+										// was here
 									}
 								}
+
+								// -> moves this here so it always reloads the thumbnail pane in the preview window
+								rerendering_list = true;
+								this.fill(null, this.get_view_fill_startindex(), this.listPaginationLastSize);
 
 								// make sure fade does not clash with parallel directory (re)load:
 								if (!rerendering_list)
@@ -2793,6 +2826,10 @@ var FileManager = new Class({
 			this.browser_dragndrop_info.setStyle('background-position', '0px 0px');
 			this.browser_dragndrop_info.set('title', this.language.drag_n_drop);
 		}
+
+		// add tooltip for drag n drop icon
+		this.tips.attach(this.browser_dragndrop_info);
+
 
 		// check how much we've consumed so far:
 		duration = new Date().getTime() - starttime;
@@ -3895,7 +3932,7 @@ this.Overlay = new Class({
 	revertObjects: function() {
 		if (this.objects && this.objects.length) {
 			this.objects.each(function(el) {
-				el.styleStyle('visibility', 'visible');
+					el.setStyle('visibility', 'visible');
 			});
 		}
 

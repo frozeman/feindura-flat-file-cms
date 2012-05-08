@@ -8,8 +8,8 @@ authors: Christoph Pojer (@cpojer)
 license: MIT-style license.
 
 requires:
-  core/1.3.1: '*'
-  more/1.3.1.1: [Sortables]
+  core/1.4.5: '*'
+  more/1.4.0.1: [Sortables]
 
 provides: FileManager.Gallery
 
@@ -160,7 +160,6 @@ FileManager.Gallery = new Class({
 			h: wrapper_pos.height,
 			w: wrapper_pos.width
 		};
-
 		this.droppables.push(this.gallery);
 
 		this.keepGalleryData = false;
@@ -364,7 +363,7 @@ FileManager.Gallery = new Class({
 		});
 
 		// clone image for caption container
-		//li_wrapper.set('opacity', 0);
+		//li_wrapper.setStyle('opacity', 0);
 		this.clone = img_el.clone();
 		this.clone.store('file', file).store('parent', li_wrapper).addClass('filemanager-clone').set({
 			styles: {
@@ -509,12 +508,13 @@ FileManager.Gallery = new Class({
 			title: this.language.gallery.remove,
 			events: {
 				click: function(e) {
-					if (e) e.stop();
-
+					if(e) e.stop();
 					self.erasePicture(name);
 				}
 			}
 		});
+		// hide on start
+		destroyIcon.setStyle('opacity',0);
 
 		/**
 		* as 'imgcontainer.getSize() won't deliver the dimensions as set in the CSS, we turn it the other way around:
@@ -668,7 +668,7 @@ FileManager.Gallery = new Class({
 		this.clone.get('morph').cancel();
 		var parent = this.clone.retrieve('parent');
 		if (parent) {
-			//parent.set('opacity', 1);
+			//parent.setStyle('opacity', 1);
 		}
 		this.clone.destroy();
 		this.wrapper.setStyles({
