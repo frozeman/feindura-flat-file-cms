@@ -412,6 +412,8 @@ if($savedSettings) {
   // -> check isSubCategoryOf in categories and subCategory in pages
   checkSubCategories();
   
+  // -> delete old feeds
+  clearFeeds();
   // ->> save the FEEDS for non-category pages, if activated
   saveFeeds(0);
   // ->> save the FEEDS for categories, if activated

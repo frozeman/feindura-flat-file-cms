@@ -652,6 +652,17 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       echo 'website statistic <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
+
+    // ->> refresh the Feeds
+    // -> delete old feeds
+    clearFeeds();
+    // -> save the FEEDS for non-category pages, if activated
+    saveFeeds(0);
+    // -> save the FEEDS for categories, if activated
+    if(is_array($categoryConfig)) {
+      foreach($categoryConfig as $category)
+        saveFeeds($category['id']);
+    }
     
     // ->> SAVE referer log
     $oldLog = file(dirname(__FILE__)."/statistic/referer.statistic.log");

@@ -1423,6 +1423,56 @@ function saveSitemap() {
 }
 
 /**
+ * <b>Name</b> clearFeeds()<br>
+ * 
+ * Deletes all the Atom and RSS 2.0 Feeds for all category.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+ *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+ *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
+ * 
+ * 
+ * @version 0.1
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 0.1 initial release
+ * 
+ */
+function clearFeeds() {
+
+    // ->> DELETE ALL OLD Feeds
+    if(is_array($category) || $category === true) {
+      if($category === true) {
+        $category = array_keys($GLOBALS['categoryConfig']);
+        array_push($category,0); // add non-category
+      }
+      foreach ($category as $catId) {
+        $atomFileName = ($catId == 0) 
+          ? dirname(__FILE__).'/../../pages/atom*.xml'
+          : dirname(__FILE__).'/../../pages/'.$catId.'/atom*.xml';
+        $rss2FileName = ($catId == 0) 
+          ? dirname(__FILE__).'/../../pages/rss2*.xml'
+          : dirname(__FILE__).'/../../pages/'.$catId.'/rss2*.xml';
+
+        if(is_file($atomFileName)) unlink($atomFileName);
+        if(is_file($rss2FileName)) unlink($rss2FileName);
+      }
+    } elseif($category === false) {
+      $atomFileName = ($catId == 0) 
+        ? dirname(__FILE__).'/../../pages/atom*.xml'
+        : dirname(__FILE__).'/../../pages/'.$catId.'/atom*.xml';
+      $rss2FileName = ($catId == 0) 
+        ? dirname(__FILE__).'/../../pages/rss2*.xml'
+        : dirname(__FILE__).'/../../pages/'.$catId.'/rss2*.xml';
+
+      if(is_file($atomFileName)) unlink($atomFileName);
+      if(is_file($rss2FileName)) unlink($rss2FileName);
+    }
+
+}
+
+/**
  * <b>Name</b> saveFeeds()<br>
  * 
  * Saves an Atom and RSS 2.0 Feed for the given category.
@@ -1432,20 +1482,27 @@ function saveSitemap() {
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
  * 
- * @param string $category the category of which feeds should be created
+ * @param string $category the category of which feeds should be created, must be an ID number
  * 
  *  @return bool whether the saving of the feeds succeed or not
  * 
  * 
- * @version 0.3
+ * @version 0.4
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 0.4 removes all feed files before saving the new ones
  *    - 0.3 moved to backend.functions.php
  *    - 0.2 add multilanguage website, creating multiple feeds
  *    - 0.1 initial release
  * 
  */
 function saveFeeds($category) {
+
+  // quit if feeds are deactivated for that category
+  if(!is_numeric($category) ||
+     ($category == 0 && !$GLOBALS['adminConfig']['pages']['feeds']) ||
+     ($category != 0 && !$GLOBALS['categoryConfig'][$category]['feeds']))
+    return false;
   
   // vars
   $return = false;
@@ -1454,6 +1511,9 @@ function saveFeeds($category) {
     : array(0 => 0);
 
   foreach ($languages as $langCode) {
+    
+    // get the FeedWriter class
+    require_once(dirname(__FILE__).'/../thirdparty/FeedWriter/FeedWriter.php');
     
     $addLanguageToFilename = (!empty($langCode)) ? '.'.$langCode : '';
 
@@ -1464,19 +1524,11 @@ function saveFeeds($category) {
     $rss2FileName = ($category == 0) 
       ? dirname(__FILE__).'/../../pages/rss2'.$addLanguageToFilename.'.xml'
       : dirname(__FILE__).'/../../pages/'.$category.'/rss2'.$addLanguageToFilename.'.xml';
+
+    // delete old files
+    if(is_file($atomFileName)) unlink($atomFileName);
+    if(is_file($rss2FileName)) unlink($rss2FileName);
     
-    // ->> DELETE the xml files, if category is deactivated, or rss feeds are activated for that category
-    if(($category != 0 && (!$GLOBALS['categoryConfig'][$category]['public'] || !$GLOBALS['categoryConfig'][$category]['feeds'])) ||
-       ($category == 0 && !$GLOBALS['adminConfig']['pages']['feeds'])) {
-      if(is_file($atomFileName)) unlink($atomFileName);
-      if(is_file($rss2FileName)) unlink($rss2FileName);
-      return false;
-    }
-    
-    // get the FeedWriter class
-    require_once(dirname(__FILE__).'/../thirdparty/FeedWriter/FeedWriter.php');
-    
-    // vars
     $feedsPages = GeneralFunctions::loadPages($category,true);
     $channelTitle = ($category == 0)
       ? GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'title',$langCode)
