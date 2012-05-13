@@ -1180,8 +1180,8 @@ function saveSpeakingUrl(&$errorWindow) {
   $oldWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($GLOBALS['adminConfig']['websitePath'])),1);
   
   // (?:[\/a-z0-9_-]*/{1})?  <- is only to add parent pages
-  $categoryRegEx = 'RewriteRule ^(?:([a-z]{2})/{1})?category/([a-z0-9_-]+)/(?:[\/a-z0-9_-]*/{1})?([a-z0-9_-]+).*?$ ';
-  $pageRegEx     = 'RewriteRule ^(?:([a-z]{2})/{1})?page/(?:[\/a-z0-9_-]*/{1})?([a-z0-9_-]+).*?$ ';
+  $categoryRegEx = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?category/([a-zA-Z0-9_-]+)/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
+  $pageRegEx     = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?page/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
 
   $newRewriteRule = $categoryRegEx.XssFilter::path($_POST['cfg_websitePath']).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
   $newRewriteRule .= $pageRegEx.XssFilter::path($_POST['cfg_websitePath']).'?page=$2&language=$1 [QSA,L]';

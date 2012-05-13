@@ -787,6 +787,9 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     if(!unlink(dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php') &&
       is_file(dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php';
+    if(!unlink(dirname(__FILE__).'/library/processes.loader.php') &&
+      is_file(dirname(__FILE__).'/library/processes.loader.php'))
+      $checkFiles[] = dirname(__FILE__).'/library/processes.loader.php';
     // since 1.1.2
     if(!unlink(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool.controller.php') &&
       is_file(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool.controller.php'))
