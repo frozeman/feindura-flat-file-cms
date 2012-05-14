@@ -14,7 +14,7 @@
     
 *
 *
-* loading.php version 2.0 (require mootools-core AND mootools-more)  */
+* loading.php version 2.0.1 (require mootools-core AND mootools-more)  */
 
 
 function showDocumentSaved() {
@@ -71,14 +71,14 @@ function onEndLoadingCircle() {
 
   // set tween
   // $('loadingBox').set('tween',{duration: 200});
-  var loadingBoxContent = $('loadingBox').getChildren('.content');
+  var loadingBoxContent = $('loadingBox').getChildren('.content')[0];
 
   // empties the loadingBox, and refill with the loadingCircle
   if(loadingBoxContent !== null) {
-    $('loadingBox').getChildren('.content')[0].empty();
+    loadingBoxContent.empty();
     loadingBoxContent.grab(jsLoadingCircleContainer,'top');
     if(!removeLoadingCircle)
-      feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
+      removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
     $('loadingBox').setStyle('display','block');
     $('loadingBox').setStyle('opacity','1');
   }

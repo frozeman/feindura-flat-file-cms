@@ -1337,6 +1337,101 @@ class FeinduraBase {
     // -> returns an array with the pageContent Arrays
     return $return;
   }
+
+ /**
+  * <b>Name</b> loadPagesMetaDataByType()<br>
+  * 
+  * Filters the {@link GeneralFunctions::$pagesMetaData} by ID-type and ID(s).
+  * 
+  * If the <var>$idType</var> parameter start with "cat" it takes the given <var>$ids</var> parameter as category IDs.<br>
+  * If the <var>$idType</var> parameter start with "pag" it takes the given <var>$ids</var> parameter as page IDs.<br>
+  * While it is not important that whether the <var>$idType</var> parameter is written in plural or singular.
+  * The <var>$ids</var> parameter is automaticly checked whether its an array with IDs or a single ID.
+  *
+  * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
+  * 
+  * @uses GeneralFunctions::isPublicCategory()     to check if the category(ies) or page(s) category(ies) are public
+  * @uses GeneralFunctions::getPageCategory()      to get the category of the page
+  * @uses GeneralFunctions::$pagesMetaData
+  * 
+  * @return array|false the filtered $pagesMetaData array, or FALSE
+  * 
+  * @access protected
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  protected function loadPagesMetaDataByType($idType, $ids) {
+    
+    // vars
+    $return = false;
+    $idType = strtolower($idType);
+    $shortIdType = substr($idType,0,3);
+    
+    // -> category ID(s)
+    // ***************
+    if($shortIdType == 'cat') {
+      if($ids === true || is_array($ids) || is_numeric($ids)) {
+
+          // checks if the categories are public         
+          if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false) {
+
+            if(is_numeric($ids))
+              $ids = array($ids);
+            
+            // returns all pagesMetaData fo public categories
+            foreach(GeneralFunctions::$pagesMetaData as $pageMetaData) {
+              if(in_array($pageMetaData['category'], $ids))
+                $return[] = $pageMetaData;
+            }
+
+          } else return false;
+      } else return false;
+      
+    // ->> if PAGE ID(s)
+    // **************************
+    } elseif($shortIdType == 'pag') {
+      
+      // -----------------------------------------     
+      // ->> load all pages
+      // *************** 
+      if($ids === true) {
+  
+        // checks if the categories are public         
+        if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false) {
+          // returns all pagesMetaData fo public categories
+          foreach(GeneralFunctions::$pagesMetaData as $pageMetaData) {
+            if(in_array($pageMetaData['category'], $ids))
+              $return[] = $pageMetaData;
+          }
+        }
+      
+      // -----------------------------------------    
+      // ->> pages IDs
+      // ***************
+      } elseif($ids && is_array($ids)) {
+   
+        // loads all pagesMetaData with given ids
+        foreach($ids as $pageId) {
+          $return[] = GeneralFunctions::$pagesMetaData[$pageId];
+        }
+
+      // -----------------------------------------     
+      // ->> single page ID
+      // *************** 
+      } elseif($ids && is_numeric($ids)) {
+        // loads the single pageMetaData in an array
+        $return[] = GeneralFunctions::$pagesMetaData[$ids];
+
+      } else return false;
+    }
+    
+    // -> returns an array with the pageContent Arrays
+    return $return;
+  }
   
  /**
   * <b>Name</b> loadPagesByDate()<br>
@@ -1467,7 +1562,7 @@ class FeinduraBase {
   * 
   * <b>Note</b>: the tags will be compared case insensitive.
   * 
-  * @param array $pageContent    the <var>$pageContent</var> array of a page
+  * @param array $pageContent    the <var>$pageContent</var> or <var>$pageMetaData</var> array of a page
   * @param array $tags           an array with tags to compare
   * 
   * 
@@ -1518,34 +1613,36 @@ class FeinduraBase {
   }
 
  /**
-  * <b>Name</b> hasTags()<br>
+  * <b>Name</b> checkPagesForTags()<br>
   * 
-  * Load pages by ID-type and ID(s), but only if the page(s) have one or more tags from the given <var>$tags</var> parameter.
+  * Load the <var>$pageContent</var> array of pages, only if the page(s) have one or more tags from the given <var>$tags</var> parameter.
   * 
   * <b>Note</b>: the tags will be compared case insensitive.
   * 
-  * @param string         $idType    the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array|bool $ids       the category or page ID(s), can be a number or an array with numbers, if TRUE it checks all pages tags
-  * @param string|array   $tags      an string (seperated by ",") or an array with tags to compare
+  * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it checks all pages tags
+  * @param string|array   $tags             an string (seperated by ",") or an array with tags to compare
+  * @param bool           $loadPageContent  whether or not to return <var>pageContent</var arrays or just the <var>$pagesMetaData</var> arrays
   * 
   * @uses loadPagesByType()	to load pages by the given ID(s) for comparision
   * @uses compareTags()		to compare each tags between two strings
   * 
-  * @return array|false the $pageContent array of $pageContent arrays or FALSE if no $pageContent array have the any of the given tags
+  * @return array|false an array of $pageContent arrays or FALSE if no $pageContent array has any of the given tags
   * 
   * @see Feindura::listPagesByTags()
   * @see Feindura::createMenuByTags()
   * 
   * @access protected
-  * @version 1.0.2
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 add $pagesMetaData array to get the tags of the page, speeds up the comparision
   *    - 1.0.2 removed separation by ; which has problems with signs like " in utf-8
   *    - 1.0.1 fixed issue when get a single tag as string
   *    - 1.0 initial release
   * 
   */   
-  protected function hasTags($idType, $ids, $tags) {
+  protected function checkPagesForTags($idType, $ids, $tags, $loadPageContent = true) {
     
     // var
     $return = false;
@@ -1570,11 +1667,16 @@ class FeinduraBase {
       return false;
     
     // get the pages and compare them if they have the tags
-    if($pages = $this->loadPagesByType($idType,$ids)) {
+    // if($pages = $this->loadPagesByType($idType,$ids)) {
+    if($pagesMetaData = $this->loadPagesMetaDataByType($idType,$ids)) {
+
       // goes trough every page and compares the tags
-      foreach($pages as $page) {
-        if($this->compareTags($page, $tags)) {
-          $return[] = $page;
+      foreach($pagesMetaData as $pageMetaData) {
+        if($this->compareTags($pageMetaData, $tags)) {
+          if(!$loadPageContent)
+            $return[] = $pageMetaData;
+          elseif($pageContent = GeneralFunctions::readPage($pageMetaData['id'],$pageMetaData['category']))
+            $return[] = $pageContent;
         }
       }
     }

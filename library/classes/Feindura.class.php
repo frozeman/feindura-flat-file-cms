@@ -35,7 +35,7 @@
 * @version 2.0
 * <br>
 * <b>ChangeLog</b><br>
-*    - 2.0 add {@link Feindura::createSubMenu()}, {@link Feindura::isSubCategory()}, {@link Feindura::isSubCategoryOf()}, {@link Feindura::createMenuOfSubCategory()}, {@link Feindura::createLanguageMenu()}, {@link Feindura::createBreadCrumbsMenu}
+*    - 2.0 add {@link Feindura::createSubMenu()}, {@link Feindura::isSubCategory()}, {@link Feindura::isSubCategoryOf()}, {@link Feindura::createMenuOfSubCategory()}, {@link Feindura::createLanguageMenu()}, {@link Feindura::createBreadCrumbsMenu()}, {@link Feindura::hasTags()}
 *    - 1.0.1 add setStartPage()
 *    - 1.0 initial release
 * 
@@ -1679,8 +1679,8 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailAfter
   * 
   * @uses FeinduraBase::getPropertyIdsByType()  if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
-  * @uses FeinduraBase::hasTags()               to get only the pages which have one or more tags from the given $tags parameter
-  * @uses createMenu()                      to create the menu from the pages load by {@link FeinduraBase::hasTags()}
+  * @uses FeinduraBase::checkPagesForTags()     to get only the pages which have one or more tags from the given $tags parameter
+  * @uses Feindura::createMenu()                to create the menu from the pages load by {@link FeinduraBase::checkPagesForTags()}
   * 
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
@@ -1701,7 +1701,7 @@ class Feindura extends FeinduraBase {
     $ids = $this->getPropertyIdsByType($idType,$ids);
     
     // check for the tags and CREATE A MENU
-    if($ids = $this->hasTags($idType,$ids,$tags)) {
+    if($ids = $this->checkPagesForTags($idType,$ids,$tags)) {
       return $this->createMenu($idType,$ids,$menuTag,$linkText,$breakAfter,$sortByCategories); 
     } else
       return array();
@@ -1777,8 +1777,8 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailBefore
   * @uses Feindura::$thumbnailAfter
   * 
-  * @uses FeinduraBase::loadPagesByDate()       to load the pages which fit in the given time period parameters, sorted by the page date
-  * @uses createMenu()                      to create the menu from the pages load by {@link FeinduraBase::hasTags()}
+  * @uses FeinduraBase::loadPagesByDate()   to load the pages which fit in the given time period parameters, sorted by the page date
+  * @uses Feindura::createMenu()            to create the menu from the pages
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
@@ -1870,7 +1870,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailAfter
   * 
   * @uses FeinduraBase::loadPagesByType()   to load the pages which fit in the given time period parameters, sorted by the page date
-  * @uses createMenu()                      to create the menu from the pages load by {@link FeinduraBase::hasTags()}
+  * @uses Feindura::createMenu()            to create the menu from the pages
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
@@ -2849,6 +2849,55 @@ class Feindura extends FeinduraBase {
     return $this->showPlugins($plugins, $id, $returnPlugin);
   }
 
+   /**
+  * <b>Name</b> hasTags()<br>
+  * 
+  * Load the <var>$pagesMetaData</var> array of pages which have one or more tags from the given <var>$tags</var> parameter.<br>
+  * Can be used to count pages with specific tags, like in the following example.
+  * <code>
+  * <?php
+  * 
+  * include('cms/feindura.include.php');
+  * $feindura = new Feindura();
+  * 
+  * echo $feindura->hasTags('example tag', 'category', 1);
+  * 
+  * // RESULT
+  * 3 (means 3 pages in category 1 have this tag)
+  * 
+  * ?>
+  * </code>
+  * 
+  * 
+  * <b>Note</b>: the tags will be compared case insensitive.
+  * 
+  * @param string|array   $tags             an string (seperated by ",") or an array with tags to compare
+  * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it checks all pages tags
+  * 
+  * @uses FeinduraBase::checkPagesForTags() to check pages for tags
+  * 
+  * @return array|false an array of $pageContent arrays or FALSE if no $pageContent array has any of the given tags
+  * 
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */   
+  public function hasTags($tags, $idType, $ids) {
+    return $this->checkPagesForTags($idType, $ids, $tags, false);
+  }
+  /**
+  * Alias of {@link hasTags()}
+  * @ignore
+  */
+  public function hasTag($tags, $idType, $ids) {
+    // call the right function
+    return $this->hasTags($tags, $idType, $ids);
+  }
+
  /**
   * <b>Name</b>     listPages()<br>
   * <b>Alias</b>    listPage()<br>
@@ -3000,7 +3049,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailAfter
   *   
   * @uses FeinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
-  * @uses FeinduraBase::hasTags()                 to get only the pages which have one or more tags from the given $tags parameter
+  * @uses FeinduraBase::checkPagesForTags()       to get only the pages which have one or more tags from the given $tags parameter
   * @uses listPages()                         to list the pages  
   * 
   * @return array array with page arrays,containing content and title etc., ready to display in a HTML-page, or an empty array
@@ -3021,7 +3070,7 @@ class Feindura extends FeinduraBase {
     $ids = $this->getPropertyIdsByType($idType,$ids);
     
     // check for the tags and LIST the PAGES
-    if($ids = $this->hasTags($idType,$ids,$tags)) {      
+    if($ids = $this->checkPagesForTags($idType,$ids,$tags)) {      
       return $this->listPages($idType,$ids,$shortenText,$useHtml,$sortByCategories);
     } else
       return array();

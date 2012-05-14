@@ -1189,7 +1189,7 @@ function saveSpeakingUrl(&$errorWindow) {
   $oldRewriteRule .= $pageRegEx.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$2&language=$1 [QSA,L]';
   
   $speakingUrlCode = '#
-# feindura -flat file cms - speakingURL activation
+# feindura - Flat File CMS -> speakingURL activation
 #
 <IfModule mod_rewrite.c>
 RewriteEngine on
@@ -1389,7 +1389,7 @@ function saveSitemap() {
   if($realWebsitePath == '/')
     return false;
   $baseUrl = $GLOBALS['adminConfig']['url'].$websitePath;
-  
+
   // get the Sitemap class
   require_once(dirname(__FILE__).'/../thirdparty/PHP/Sitemap.php');
   

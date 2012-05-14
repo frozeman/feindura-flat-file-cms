@@ -426,17 +426,22 @@ class GeneralFunctions {
   * 
   * @return string the changed path
   * 
-  * @version 1.0
+  * @version 1.0.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.0.1 add always adding of a slash on the end
   *    - 1.0 initial release
   * 
   */
   public static function getDirname($dir) {
-    if(!empty($dir) && strpos($dir,'.') !== false && (strlen($dir) - strpos($dir,'.')) <= 5 && substr($dir,-1) != '/')
-      return preg_replace('#/+#','/',str_replace('\\','/',dirname($dir)).'/');
+    $return = false;
+
+    if(!empty($dir) && strpos(basename($dir),'.') !== false && (strlen(basename($dir)) - strpos(basename($dir),'.')) <= 4 && substr(basename($dir),-1) != '/')
+      $return = preg_replace('#/+#','/',str_replace('\\','/',dirname($dir)));
     else
-      return $dir;
+      $return = $dir;
+
+    return (substr($return, -1) == '/') ? $return : $return.'/';
   }
 
  /**
@@ -927,9 +932,10 @@ class GeneralFunctions {
   * @return bool TRUE if the meta data was succesfull saved, otherwise FALSE
   * 
   * @static
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 add tags to the meta data, to speed up tag comparision
   *    - 1.0 initial release
   * 
   */
@@ -976,6 +982,7 @@ class GeneralFunctions {
           // remove the '' when its 0 (for non localized pages)
           $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
           $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['localized'][".$langCode."]['title'] = '".XssFilter::text($pageContentLocalized['title'])."';\n";
+          $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['localized'][".$langCode."]['tags']  = '".XssFilter::text($pageContentLocalized['tags'])."';\n";
         }
       }
        $fileContent .= "\n";
@@ -1191,7 +1198,7 @@ class GeneralFunctions {
   * 
   * @uses $categoryConfig      to check if a category is public
   * 
-  * @return array|false an array with ID(s) of the public category(ies)
+  * @return array|int|false an array with ID(s) or the ID of the public category(ies)
   * 
   * @access protected
   * @version 1.0.1
@@ -1533,7 +1540,7 @@ class GeneralFunctions {
 
       // -> add PAGE NAME
       $href .= StatisticFunctions::urlEncode(self::getLocalized($pageContent['localized'],'title',$language));
-      //$href .= '/'; //'.html';
+      $href .= '/'; //'.html';
       
       if($sessionId)
         $href .= '?'.$sessionId;
