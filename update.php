@@ -23,6 +23,7 @@
 /**
  * Includes all necessary configs, functions and classes
  */
+define('UPDATE',true); // used to prevent caching
 $wrongDirectory = (include("library/includes/backend.include.php"))
   ? false : true;
 
@@ -845,6 +846,12 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     if(!unlink(dirname(__FILE__).'/library/images/bg/sortPages_liBg.png') &&
       is_file(dirname(__FILE__).'/library/images/bg/sortPages_liBg.png'))
       $checkFiles[] = dirname(__FILE__).'/library/images/bg/sortPages_liBg.png';
+    if(!unlink(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-index.xml.gz') &&
+      is_file(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-index.xml.gz'))
+      $checkFiles[] = GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-index.xml.gz';
+    if(!unlink(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-pages-1.xml.gz') &&
+      is_file(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-pages-1.xml.gz'))
+      $checkFiles[] = GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-pages-1.xml.gz';
 
     
     
@@ -902,6 +909,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     // -> final success text or failure warning
     if($succesfullUpdate) {
       file_put_contents(dirname(__FILE__).'/VERSION', "This file is necessary for the next feindura update. Do not delete it!\n".$newVersion);
+      echo 'NOTE: If you had Speaking URL activated, you have to activate it again in the admin settings. But before delete the speaking URL code from you .htaccess file manually!<br>';
       echo '<h1>You can now delete the "update.php" file.</h1>';
     } else
       echo '<h1>something went wrong :-( could not completely update feindura, check the errors and try again.</h1>';

@@ -1373,9 +1373,10 @@ function saveActivityLog($task, $object = false) {
 * @return bool whether the saving of the sitemap was done or not
 * 
 * @link http://www.sitemaps.org
-* @version 0.3
+* @version 0.4
 * <br>
 * <b>ChangeLog</b><br>
+*    - 0.4 changed modification time to "daily"
 *    - 0.3 moved to backend.functions.php
 *    - 0.2 return false if the real website path, couldn't be resolved
 *    - 0.1 initial release
@@ -1397,7 +1398,7 @@ function saveSitemap() {
   $sitemapPages = GeneralFunctions::loadPages(true);
   
   // ->> START sitemap
-  $sitemap = new Sitemap($baseUrl,$realWebsitePath,true); // gzip encoded
+  $sitemap = new Sitemap($baseUrl,$realWebsitePath,false); // not compressed
   $sitemap->showError = false;
   $sitemap->filePermissions = $GLOBALS['adminConfig']['permissions'];
   $sitemap->page('pages');
@@ -1413,7 +1414,7 @@ function saveSitemap() {
       // generate page link
       $link = GeneralFunctions::createHref($sitemapPage,false,$GLOBALS['adminConfig']['multiLanguageWebsite']['mainLanguage'],true);
       // add page to sitemap
-      $sitemap->url($link, date('Y-m-d',$sitemapPage['lastSaveDate']), 'weekly'); 
+      $sitemap->url($link, date('Y-m-d',$sitemapPage['lastSaveDate']), 'daily'); 
     }
   }
   

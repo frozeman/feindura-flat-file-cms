@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 899
+Build 900
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 2.0
 
+  build 900: changed sitemap xml to uncompressed, and visitor timezones to current timezone offsets
   build 899: add hasTags to Feindura class, add tags to pagesMetaData, to speed up comparision
   build 898: fixed speaking url by allowing also uppercase
   build 897: saveFeeds() removes all feed files before saving the new ones
