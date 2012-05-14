@@ -23,7 +23,7 @@
 /**
  * Includes all necessary configs, functions and classes
  */
-define('UPDATE',true); // used to prevent caching
+define('FEINDURA_UPDATE',true); // used to prevent caching
 $wrongDirectory = (include("library/includes/backend.include.php"))
   ? false : true;
 
