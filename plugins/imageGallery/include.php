@@ -72,7 +72,7 @@ require_once('imageGallery.php');
 
 // create an instance of the imageGallery class
 $jsonImages =  str_replace(array('&#34;','&#58;'), array('"',':'), $pluginConfig['imagesHidden']);
-$gallery = new imageGallery($jsonImages,DOCUMENTROOT);
+$gallery = new imageGallery($jsonImages,$this->adminConfig['uploadPath'],DOCUMENTROOT);
 
 // set configs
 $gallery->xHtml = $this->xHtml; // set the xHtml property rom the feindura class

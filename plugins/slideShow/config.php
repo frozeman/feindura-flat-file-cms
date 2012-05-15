@@ -75,7 +75,7 @@ var fileManagerSlideShow = new FileManager.Gallery({
     language: "'.$_SESSION["feinduraSession"]["backendLanguage"].'",
     propagateData: {"'.session_name().'":"'.session_id().'"},
     filter: "image",
-    deliverPathAsLegalURL: false,
+    deliverPathAsLegalURL: true,
     destroy: true,
     upload: true,
     move_or_copy: true,

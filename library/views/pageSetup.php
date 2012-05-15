@@ -597,7 +597,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <span class="toolTip" title="'.$langFile['STYLESHEETS_TEXT_STYLEFILE'].'::'.$langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
                 '.$langFile['STYLESHEETS_TEXT_STYLEFILE'].'</span>
                 </td><td class="right">
-                <div id="categoryStyleFilesInputs'.$category['id'].'" class="inputToolTip" title="'.$langFile['PATHS_TOOLTIP_ABSOLUTE'].'::[span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
+                <div id="categoryStyleFilesInputs'.$category['id'].'" class="inputToolTip" title="'.$langFile['PATHS_TOOLTIP_ABSOLUTE'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
                 <span class="hint" style="float:right;width:190px;">'.$langFile['STYLESHEETS_EXAMPLE_STYLEFILE'].'</span>';
                 
           echo showStyleFileInputs(GeneralFunctions::getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']),'categories['.$category['id'].'][styleFile]');

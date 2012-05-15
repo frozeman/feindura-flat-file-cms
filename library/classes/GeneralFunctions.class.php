@@ -432,20 +432,29 @@ class GeneralFunctions {
   * 
   * @return string the changed path
   * 
-  * @version 1.0.1
+  * @version 2.0
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 2.0 changed checking if ends with file, by using is_file()
   *    - 1.0.1 add always adding of a slash on the end
   *    - 1.0 initial release
   * 
   */
   public static function getDirname($dir) {
+    
+    // vars
     $return = false;
+    $realPath = self::getRealPath($dir).'/'.basename($dir);
 
-    if(!empty($dir) && strpos(basename($dir),'.') !== false && (strlen(basename($dir)) - strpos(basename($dir),'.')) <= 4 && substr(basename($dir),-1) != '/')
+    if(is_file($realPath))
       $return = preg_replace('#/+#','/',str_replace('\\','/',dirname($dir)));
     else
       $return = $dir;
+
+    // if(!empty($dir) && strpos(basename($dir),'.') !== false && (strlen(basename($dir)) - strpos(basename($dir),'.')) <= 4 && substr(basename($dir),-1) != '/')
+    //   $return = preg_replace('#/+#','/',str_replace('\\','/',dirname($dir)));
+    // else
+    //   $return = $dir;
 
     return (substr($return, -1) == '/') ? $return : $return.'/';
   }
@@ -1844,6 +1853,7 @@ class GeneralFunctions {
   * <b>Name</b> getRealPath()<br>
   * 
   * Try to get the real path from a given absolute or relative path.
+  * If the path contains a filename it will ony return the folders in the path (strapping the filename).
   * 
   * 
   * <b>Used Constants</b><br>
@@ -1854,20 +1864,22 @@ class GeneralFunctions {
   * @return string|false the real path, including the DOCUMENTROOT or, FALSE
   * 
   * @static
-  * @version 0.1
+  * @version 0.2
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 0.2 add is_file check, to strap the filename
   *    - 0.1 initial release
   * 
   */
   public static function getRealPath($path) {
-    $path = preg_replace("/[\\\]+/",'/',$path);
+    $path = preg_replace("#[\\\]+#",'/',$path);
     $path = (substr($path,0,1) == '/' && strpos($path,DOCUMENTROOT) === false) ? DOCUMENTROOT.$path : $path;
-    $path = preg_replace("/[\\\]+/", '/',realPath($path));
-    if($path === '')
+    $path = (is_file($path)) ? dirname($path) : $path;
+    $realpath = preg_replace("#[\\\]+#", '/',@realPath($path));
+    if(empty($realpath))
       return false;
     else
-      return preg_replace("/[\\\]+/", '/',$path);
+      return preg_replace("#[\\\]+#", '/',$realpath);
   }
 
  /**

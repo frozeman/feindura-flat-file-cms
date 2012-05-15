@@ -1508,7 +1508,7 @@ window.addEvent('domready', function() {
     CKEDITOR.config.resize_maxWidth               = 1400;
     CKEDITOR.config.resize_minHeight              = (editorStartHeight+136);
     CKEDITOR.config.resize_maxHeight              = 900;
-    CKEDITOR.config.forcePasteAsPlainText         = true;
+    CKEDITOR.config.forcePasteAsPlainText         = false; // was true
     CKEDITOR.config.scayt_autoStartup             = false;
     CKEDITOR.config.colorButton_enableMore        = true;
     CKEDITOR.config.entities                      = false;
@@ -1520,7 +1520,7 @@ window.addEvent('domready', function() {
     CKEDITOR.config.toolbar = [
                               ['Save','-','Maximize','-','Source'],
                               ['Undo','Redo','-','RemoveFormat','SelectAll'],
-                              ['Paste','PasteText','PasteFromWord'],
+                              ['PasteText','PasteFromWord'], // 'Paste',
                               ['Print'],
                               ['Find','Replace','-','SpellChecker', 'Scayt'],
                                '/',
@@ -1549,11 +1549,18 @@ window.addEvent('domready', function() {
 
         var editorTweenTimeout;
 
-        $$('div.editor').addEvent('mouseenter',function(e){
+        $$('div.editor #cke_HTMLEditor').addEvent('click',function(e){
+          editorHasFocus = true;
+          clearTimeout(editorTweenTimeout);
+          if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20))
+            $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
+            //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
+        });
+        $$('div.editor #cke_HTMLEditor').addEvent('mouseenter',function(e){
           if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20))
             editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);}).delay(1000);
         });
-        $$('div.editor').addEvent('mouseleave',function(e){
+        $$('div.editor #cke_HTMLEditor').addEvent('mouseleave',function(e){
           clearTimeout(editorTweenTimeout);
           if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+5) && $('cke_contents_HTMLEditor').getHeight() >= (editorTweenToHeight-5))
             $('cke_contents_HTMLEditor').tween('height',editorStartHeight);

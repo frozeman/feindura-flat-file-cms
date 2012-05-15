@@ -426,17 +426,21 @@
 
     var links = [];
 
-    // setStartPage
-    if(feindura_setStartPage == '1') {
-      links[0] = new Element('a',{ 'href': '#', 'class': 'feindura_startPage' + values.startPageActive + ' feindura_toolTip', 'title': values.startPageText + '::'});
-      links[0].addEvent('click',function(e) {
-        e.stop();
-        pageSaved = true;
-        request(e.target.getParent('div').getNext('div'),feindura_url + feindura_basePath + 'library/controllers/listPages.controller.php','status=setStartPage&category=' + values.categoryId + '&page=' + values.pageId,{'title': feindura_langFile.ERRORWINDOW_TITLE,'text': feindura_langFile.ERROR_SETSTARTPAGE});
-      });
-    }
+    // setStartPage (deactivated)
+    // if(feindura_setStartPage == '1') {
+    //   links[0] = new Element('a',{ 'href': '#', 'class': 'feindura_startPage' + values.startPageActive + ' feindura_toolTip', 'title': values.startPageText + '::'});
+    //   links[0].addEvent('click',function(e) {
+    //     e.stop();
+    //     pageSaved = true;
+    //     request(e.target.getParent('div').getNext('div'),feindura_url + feindura_basePath + 'library/controllers/listPages.controller.php','status=setStartPage&category=' + values.categoryId + '&page=' + values.pageId,{'title': feindura_langFile.ERRORWINDOW_TITLE,'text': feindura_langFile.ERROR_SETSTARTPAGE});
+    //   });
+    // }
     // editPage
-    links[1] = new Element('a',{ 'href': feindura_url + feindura_basePath + 'index.php?category=' + values.categoryId + '&page=' + values.pageId + '', 'class': 'feindura_editPage feindura_toolTip', 'title': feindura_langFile.FUNCTIONS_EDITPAGE + '::' });
+    links[0] = new Element('a',{ 'href': feindura_url + feindura_basePath + 'index.php?category=' + values.categoryId + '&page=' + values.pageId + '', 'class': 'feindura_editPage feindura_toolTip', 'title': feindura_langFile.FUNCTIONS_EDITPAGE + '::' });
+
+    // add tooltips
+    feindura_storeTipTexts(links);
+    toolTips.attach(links);
 
     return links;
   }

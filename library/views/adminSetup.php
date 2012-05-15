@@ -99,8 +99,8 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <label for="cfg_websitePath"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field8'].'::'.$langFile['ADMINSETUP_GENERAL_field8_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field8'] ?></span></label>
         </td><td class="right">
-        <input size="40" id="cfg_websitePath" name="cfg_websitePath" value="<?php echo $adminConfig['websitePath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
-        <span class="hint"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        <input size="40" id="cfg_websitePath" name="cfg_websitePath" value="<?php echo $adminConfig['websitePath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
+        <span class="hint toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
         </td></tr>
         
         <tr><td class="spacer"></td><td></td></tr>
@@ -110,23 +110,23 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php echo $langFile['ADMINSETUP_GENERAL_field4'] ?></span></label>
         </td><td class="right">
         <input size="40" id="cfg_uploadPath" name="cfg_uploadPath" value="<?php echo $adminConfig['uploadPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
-        <span class="hint"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        <span class="hint toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
         </td></tr>
         
         <tr><td class="left">
         <label for="cfg_websiteFilesPath"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field5'].'::'.$langFile['ADMINSETUP_GENERAL_field5_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field5'] ?></span></label>
         </td><td class="right">
-        <input size="40" id="cfg_websiteFilesPath" name="cfg_websiteFilesPath" value="<?php echo $adminConfig['websiteFilesPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
-        <span class="hint"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        <input size="40" id="cfg_websiteFilesPath" name="cfg_websiteFilesPath" value="<?php echo $adminConfig['websiteFilesPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
+        <span class="hint toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
         </td></tr>
         
         <tr><td class="left">
         <label for="cfg_stylesheetPath"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field6'].'::'.$langFile['ADMINSETUP_GENERAL_field6_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field6'] ?></span></label>
         </td><td class="right">
-        <input size="40" id="cfg_stylesheetPath" name="cfg_stylesheetPath" value="<?php echo $adminConfig['stylesheetPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
-        <span class="hint"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        <input size="40" id="cfg_stylesheetPath" name="cfg_stylesheetPath" value="<?php echo $adminConfig['stylesheetPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
+        <span class="hint toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
         </td></tr>      
         
         <tr><td class="spacer"></td><td></td></tr>
@@ -379,7 +379,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE'].'::'.$langFile['STYLESHEETS_TOOLTIP_STYLEFILE'] ?>">
         <?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE'] ?></span>
         </td><td class="right">
-        <div id="adminStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
+        <div id="adminStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
         <span class="hint" style="float:right;width:190px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
         <?php      
         

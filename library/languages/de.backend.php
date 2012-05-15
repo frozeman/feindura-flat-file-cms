@@ -109,7 +109,7 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'Absoluter Pfad';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'Relativer Pfad';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absoluter Pfad::Absoluter URI Pfad, bedeuted relativ zum Dokumenten-Wurzelverzeichnis.';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absoluter Pfad::Absoluter URI Pfad, bedeuted relativ zum Dokumenten-Wurzelverzeichnis.[br][br][span class=hint]http://meineseite.de[b]/pfad/[/b][/span]';
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Relativer Pfad::Relativer URI Pfad, bedeuted relativ zum aktuellen Dokument.';
 
 // STATISTICS
@@ -401,12 +401,12 @@ $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH']                         = 'Ech
 $langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']                      = 'Der echte dateisystem-basierte Pfad deines [span class=logoname]fein[span]dura[/span][/span] cms, relativ zum Dokumenten-Wurzelverzeichnis.';
 $langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']                      = '<b>Beispiel</b> &quot;/cms/&quot;';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Webseitenpfad';
-$langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Der [b]absolute Pfad[/b], unter dem sich die Webseite befindet.';
+$langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Der [b]absolute Pfad[/b], unter dem sich die Webseite befindet.[br][br][span class=hint]Kann kann auch einen Dateinamen enthalten z.b &quot;/webseite/index.php&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Daten-Uploadpfad';
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br][br][span class=hint]Dateien werden im HTML-Editor unter Link-einfügen > Upload hochgeladen oder im Dateimanager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Diese Dateien können dann weiter unten oder in den Webseiten-Einstellungen bearbeitet werden (sollte dies in den Benutzer-Einstellungen aktiviert sein).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Pfad für Webseitendateien';
-$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Ein Verzeichnispfad mit Dateien. Diese Dateien können z.B. verwendet werden um eine Webseite mehrsprachig zu gestalten.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Ein Verzeichnispfad mit Dateien.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'Pfad für Stylesheetdateien';
 $langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Ein [b]absoluter Pfad[/b] in dem sich Stylesheet-Dateien befinden, die z.B. vom Benutzer bearbeitet werden können.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'Schreibrechte für Dateien und Verzeichnisse';
@@ -437,9 +437,9 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>
 
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'Cache aktivieren';
-$langFile['ADMINSETUP_TIP_CACHE']                                         = 'Wenn aktiv, werden die Seiten zwischengespeichert. Das kann die Website beschleunigen, aber auch dazu führen dass Inhalte nicht aktuell angezeigt werden.[br][br][span class=hint]Beim bearbeiten der Seiten wird der Cache automatisch neu erzeugt.[/span]';
+$langFile['ADMINSETUP_TIP_CACHE']                                         = 'Wenn aktiv, werden die Seiten zwischengespeichert. Das kann die Website beschleunigen, aber auch dazu führen dass Inhalte nicht aktuell angezeigt werden.[br][br][span class=hint]Beim speichern der Seiten wird der Cache automatisch neu erzeugt.[/span]';
 $langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Caching-Dauer';
-$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Gibt an nach wieviel [b]Stunden[/b] der Cache autmatisch erneuert wird.';
+$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Gibt an nach wieviel [b]Stunden[/b] der Cache automatisch erneuert wird.';
 $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'Stunden';
 
 // ---------- user Settings

@@ -109,7 +109,7 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'absolute path';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'relative path';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absolute Path::Absolute URI Path, means relative to the DocumentRoot.';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absolute Path::Absolute URI Path, means relative to the DocumentRoot.[br][br][span class=hint]http://mysite.com[b]/path/[/b][/span]';
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Relative Path::Relative URI Path, means relative to the current document.';
 
 // STATISTICS
@@ -403,12 +403,12 @@ $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH']                         = 'Rea
 $langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']                      = 'The real file path of your [span class=logoname]fein[span]dura[/span][/span] cms, relative to the Document Root.';
 $langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']                      = '<b>Example</b> &quot;/cms/&quot;';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Website path';
-$langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'The [b]absolute path[/b] where the website is situated.';
+$langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'The [b]absolute path[/b] where the website is situated.[br][br][span class=hint]Can also contain filenames e.g &quot;/website/index.php&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Upload path';
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br][br][span class=hint]The files can be uploaded on the Link button > Upload in the HTML-Editor or in the file manager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]This files can be edited further down, or in the website-settings (if it\'s activated in the user-settings).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Path for website files';
-$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'A folder path with files which are used by your website. E.g to make a website multi-language.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'A folder path with files which are used by your website.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'Path for stylesheets';
 $langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'A [b]absolute path[/b] where stylesheet files are. E.g. which can be edited by the user.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'Permissions for files and folders';
@@ -439,7 +439,7 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>
 
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'Activate cache';
-$langFile['ADMINSETUP_TIP_CACHE']                                         = 'If active, all pages will be cached. This can seed up the website, but also leads to not so actual content.[br][br][span class=hint]The cached will be refreshed, when editing pages.[/span]';
+$langFile['ADMINSETUP_TIP_CACHE']                                         = 'If active, all pages will be cached. This can seed up the website, but also leads to not so actual content.[br][br][span class=hint]The cached will be refreshed, when saving pages.[/span]';
 $langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Caching timeout';
 $langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Indicates after how much [b]hours[/b] the cache will be refreshed.';
 $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'hours';

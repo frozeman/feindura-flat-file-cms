@@ -65,8 +65,8 @@ class imageGallery {
 /**
   * You can set the document root manually.
   * 
-  * @var int
-  * @access protected
+  * @var string
+  * @access public
   * 
   */
   public $documentRoot = null;
@@ -242,12 +242,12 @@ class imageGallery {
   *    - 1.0 initial release
   * 
   */
-  public function __construct($jsonImages, $documentRoot = false) {
+  public function __construct($jsonImages, $baseFolder = false, $documentRoot = false) {
     @ini_set('memory_limit', '160M');   //  handle large images
     
     // vars
     $this->documentRoot = ($documentRoot === False) ? $_SERVER['DOCUMENT_ROOT'] : $documentRoot;
-    
+
     // clerars the cache from other operations
     clearstatcache();
     
@@ -263,13 +263,13 @@ class imageGallery {
       // get image texts
       foreach($images as $image => $text) {
 
-        if(!file_exists($this->documentRoot.$image))
+        if(!file_exists($this->documentRoot.$baseFolder.$image))
           continue;
 
         // set images
         // $image = urldecode($image);
         $this->images[$count]['filename'] = basename($image);
-        $this->images[$count]['path'] = dirname($image).'/';
+        $this->images[$count]['path'] = preg_replace('#\/+|\\\\#', '/', $baseFolder.dirname($image).'/');
         $this->images[$count]['text'] = XssFilter::text($text);
           
         $count++;

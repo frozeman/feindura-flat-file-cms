@@ -66,7 +66,6 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
   z-index: 2;
   position: relative;
   margin: 0px 30px;
-  font-weight: bold;
   font-size: 12px; 
   color:#947342;
   text-align: center;
@@ -114,6 +113,10 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
   width: 272px;
   height: 25px; /* org  35px; */
 }
+
+.feindura_toolTipBox span.hint {
+    background-position: 0px 4px !important;
+    }
 
     
 /* --- ERRORWINDOW */

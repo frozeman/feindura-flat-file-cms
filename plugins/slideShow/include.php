@@ -119,7 +119,7 @@ require_once('slideShow.php');
 
 // create an instance of the slideShow class
 $jsonImages =  str_replace(array('&#34;','&#58;'), array('"',':'), $pluginConfig['imagesHidden']);
-$slideShow = new slideShow($jsonImages,DOCUMENTROOT);
+$slideShow = new slideShow($jsonImages,$this->adminConfig['uploadPath'],DOCUMENTROOT);
 
 // set configs
 $slideShow->xHtml = $this->xHtml; // set the xHtml property rom the feindura class

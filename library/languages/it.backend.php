@@ -109,7 +109,7 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'percorso assoluto';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'percorso relativo';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Percorso Assoluto::Percorso URI assoluto, significa che rispetto al documento root.';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Percorso Assoluto::Percorso URI assoluto, significa che rispetto al documento root.[br][br][span class=hint]http://mysite.it[b]/percorso/[/b][/span]';
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Percorso Relativo::Percorso URI relativo, significa che rispetto al documento corrente.';
 
 // STATISTICS
@@ -403,12 +403,12 @@ $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH']                         = 'Per
 $langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']                      = 'Il percorso del file reale del tuo [span class=logoname]fein[span]dura[/span][/span] cms, relativo alla radice dei documenti.';
 $langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']                      = '<b>Esempio</b> &quot;/cms/&quot;';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Percorso Sito Web';
-$langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Il [b]percorso assoluto[/b] in cui il sito si trova.';
+$langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Il [b]percorso assoluto[/b] in cui il sito si trova.[br][br][span class=hint]Può anche contenere i nomi di file, ad esempio &quot;/website/index.php&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Percorso Upload';
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'File come foto caricate, Animazioni-Flash e altri tipi di documenti verranno salvati qui.[br][br][span class=hint]I file possono essere caricati sul pulsante Link > Carica in Editor-HTML o nel file manager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Questi file possono essere modificati più in basso, o nelle impostazioni-website (se è attivato dalle impostazioni-utente).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Percorso Per I File';
-$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Crea un percorso per la cartella con i file che vengono utilizzati dal tuo sito web. Esempio: per fare un sito web multi-language.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Crea un percorso per la cartella con i file che vengono utilizzati dal tuo sito web.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'Percorso Per I Fogli Di Stile';
 $langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Un [b]percorso assoluto[/b] in cui i file sono fogli di stile. Esempio: che può essere modificato dall\'utente.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'Autoriz.ni File E Cartelle';

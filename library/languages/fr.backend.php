@@ -106,7 +106,7 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'chemin absolue';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'chemin relative';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'chemin absolue::Chemin de l\'URI absolu, signifie par rapport à la Document Root.';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'chemin absolue::Chemin de l\'URI absolu, signifie par rapport à la Document Root.[br][br][span class=hint]http://mysite.fr[b]/chemin/[/b][/span]';
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'chemin relative::Chemin de l\'URI relative, signifie par rapport au document courant.';
 
 // STATISTICS
@@ -379,12 +379,12 @@ $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH']                         = 'che
 $langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']                      = 'Le chemin réel du fichier de votre [span class=logoname]fein[span]dura[/span][/span] cms, relatif du Document Root.';
 $langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']                      = '<b>par exemple</b> &quot;/cms/&quot;';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'chemin du site web';
-$langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Le [b]chemin absolue[/b], contenant les site web.';
+$langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Le [b]chemin absolue[/b], contenant les site web.[br][br][span class=hint]Peut également contenir des noms de fichiers, par exemple &quot;/siteweb/index.php&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'chemin upload';
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Ici des fichiers comme des images, animations flashs ou documents vont être téléchargés.[br][br][span class=hint]pour insérer des fichiers, cliquez dans le HTML-Editor insérer lien > upload transféré ou dans le gestionnaire de fichiers.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]ces fichiers peuvent être rédigés plus bas ou dans le paramètrages du site web (si cette option est activé pour le site web).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'chemin d\'un dossier des fichiers';
-$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Un dossier contenant des fichiers. Ces fichiers peuvent par ex. être utilisés pour avoir une version multilinguale du site web.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Un dossier contenant des fichiers'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'chemin des feuilles de style';
 $langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Une chemin absolue [b]chemin absolue[/b] contenat les feuilles de style qui peuvent être rédigés par ex. par les utilisateurs.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'autorisations des fichiers et des répertoires';
@@ -438,8 +438,8 @@ $langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'fil
 $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']                              = 'Filtres du code HTML avant d\'enregistrer. Cela peut causer des problèmes dans le code HTML avec beaucoup de Javascript.';
 $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'secure HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6">détails</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'Le code HTML sera filtrée avec la plus sûre paramètres. Cela signifie par exemple &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; et &lt;script&gt; tags ne sont pas autorisés.';
-$langFile['adminSetup_editorSettings_field1']                             = 'modus touche-entrée';
-$langFile['adminSetup_editorSettings_field1_hint']                        = 'shift + entrée va créer un &quot;&lt;br&gt;&quot;';
+$langFile['adminSetup_editorSettings_field1']                             = 'modus ENTER-touche';
+$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER va créer un &quot;&lt;br&gt;&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Va définir le HTML-tag en touchant la touche entrée[br]wird.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip']                    = 'Si la case reste vide, aucune Id sera utilisé.';
 $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Si la case reste vide, aucune classe sera utilisé.';

@@ -1086,7 +1086,7 @@ class Feindura extends FeinduraBase {
 
       // -> get PAGE TITLE
       if($currentPage = GeneralFunctions::readPage($this->page,GeneralFunctions::getPageCategory($this->page)))
-        $pageNameInTitle = strip_tags(GeneralFunctions::getLocalized($currentPage['localized'],'title',$this->language)).' - ';
+        $pageNameInTitle = strip_tags(GeneralFunctions::getLocalized($currentPage['localized'],'title',$this->language)).' | ';
       
       // -> add TITLE
       $metaTags .= '  <title>'.$pageNameInTitle.GeneralFunctions::getLocalized($this->websiteConfig['localized'],'title',$this->language).'</title>'."\n\n";

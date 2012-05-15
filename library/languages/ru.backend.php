@@ -111,7 +111,7 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'абсолютный путь';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'относительный путь';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Абсолютный путь::Абсолютного пути URI, значит, относительно к Document Root.';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Абсолютный путь::Абсолютного пути URI, значит, относительно к Document Root.[br][br][span class=hint]http://mysite.ru[b]/path/[/b][/span]';
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Относительный путь::Относительный путь URI, значит, по отношению к текущему документу.';
 
 // STATISTICS
@@ -396,12 +396,12 @@ $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH']                         = 'Р�
 $langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']                      = 'Реальный путь к CMS [span class=logoname]fein[span]dura[/span][/span] относительно Document Root.';
 $langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']                      = '<b>Пример</b> &quot;/cms/&quot;';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Путь к сайту';
-$langFile['ADMINSETUP_GENERAL_field8_tip']                                = '[b]Абсолютный путь[/b] расположения файлов сайта.';
+$langFile['ADMINSETUP_GENERAL_field8_tip']                                = '[b]Абсолютный путь[/b] расположения файлов сайта.[br][br][span class=hint]также могут содержать имена, например &quot;/website/index.php&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Путь для загрузи файлов';
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Файлы вроде иллюстраций, изображений, флеш-анимациии другие будут закачиваться по этому адресу.';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Файлы могут редактироваться в сеции Настройки сайта, (если выбраны соответсвующие Пользовательские настроки).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Путь к файлам сайта';
-$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Путь к файлам сайта. Для использования многоязычности.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Путь к папке с файлами, которые используются вашем сайте.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'Путь к файлам стилей';
 $langFile['ADMINSETUP_GENERAL_field6_tip']                                = '[b]Абсолютный путь[/b] расположения файлов каскадных стилей. Они так же могут создаваться пользователями.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'Права для файлов и директорий';

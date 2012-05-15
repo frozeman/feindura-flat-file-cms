@@ -27,12 +27,15 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   $checkBasePathAndURL = checkBasePathAndURL();
   
+  // *part 1* ensure that the website path with a filename, doesnt have a slashs on the end -> generate the full path
+  $realWebsitePathPath = GeneralFunctions::getRealPath($_POST['cfg_websitePath']).'/'.basename($_POST['cfg_websitePath']);
+  
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
   $_POST = addSlashesToPaths($_POST);
   $_POST = removeDocumentRootFromPaths($_POST);
   
-  // ** ensure that the website path with a filename, doesnt have aslahs on the end
-  if(!empty($_POST['cfg_websitePath']) && strpos($_POST['cfg_websitePath'],'.') !== false)
+  // *part 2* ensure that the website path with a filename, doesnt have a slashs on the end -> check if is file
+  if(is_file($realWebsitePathPath))
     $_POST['cfg_websitePath'] = substr($_POST['cfg_websitePath'],0,-1);
 
   // ->> add SPEAKING URL to .htaccess
@@ -210,15 +213,15 @@ if($savedSettings) {
 
 // ->> SET PERMISSIONS
 if(!empty($adminConfig['permissions']) && !is_string($adminConfig['permissions'])) {
-  if(is_file(dirname(__FILE__)."/../../statistic/activity.statistic.log")) chmod(dirname(__FILE__)."/../../statistic/activity.statistic.log", $adminConfig['permissions']);
-  if(is_file(dirname(__FILE__)."/../../statistic/referer.statistic.log")) chmod(dirname(__FILE__)."/../../statistic/referer.statistic.log", $adminConfig['permissions']);
-  if(is_file(dirname(__FILE__)."/../../statistic/website.statistic.php")) chmod(dirname(__FILE__)."/../../statistic/website.statistic.php", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../statistic/activity.statistic.log")) @chmod(dirname(__FILE__)."/../../statistic/activity.statistic.log", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../statistic/referer.statistic.log")) @chmod(dirname(__FILE__)."/../../statistic/referer.statistic.log", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../statistic/website.statistic.php")) @chmod(dirname(__FILE__)."/../../statistic/website.statistic.php", $adminConfig['permissions']);
   
-  if(is_file(dirname(__FILE__)."/../../config/admin.config.php")) chmod(dirname(__FILE__)."/../../config/admin.config.php", $adminConfig['permissions']);
-  if(is_file(dirname(__FILE__)."/../../config/category.config.php")) chmod(dirname(__FILE__)."/../../config/category.config.php", $adminConfig['permissions']);
-  if(is_file(dirname(__FILE__)."/../../config/statistic.config.php")) chmod(dirname(__FILE__)."/../../config/statistic.config.php", $adminConfig['permissions']);
-  if(is_file(dirname(__FILE__)."/../../config/user.config.php")) chmod(dirname(__FILE__)."/../../config/user.config.php", $adminConfig['permissions']);
-  if(is_file(dirname(__FILE__)."/../../config/website.config.php")) chmod(dirname(__FILE__)."/../../config/website.config.php", $adminConfig['permissions']);
-  if(is_file(dirname(__FILE__)."/../../config/htmlEditorStyles.js")) chmod(dirname(__FILE__)."/../../config/htmlEditorStyles.js", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../config/admin.config.php")) @chmod(dirname(__FILE__)."/../../config/admin.config.php", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../config/category.config.php")) @chmod(dirname(__FILE__)."/../../config/category.config.php", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../config/statistic.config.php")) @chmod(dirname(__FILE__)."/../../config/statistic.config.php", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../config/user.config.php")) @chmod(dirname(__FILE__)."/../../config/user.config.php", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../config/website.config.php")) @chmod(dirname(__FILE__)."/../../config/website.config.php", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../config/htmlEditorStyles.js")) @chmod(dirname(__FILE__)."/../../config/htmlEditorStyles.js", $adminConfig['permissions']);
 }
 ?>

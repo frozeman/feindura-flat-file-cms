@@ -30,7 +30,7 @@ session_start();
 $_SESSION['feinduraSession']['login']['end'] = time() + $sessionLifeTime;
 
 // set the execution time limit higher
-set_time_limit(50);
+@set_time_limit(50);
 
 // INCLUDE GENERAL
 require_once(dirname(__FILE__)."/general.include.php");

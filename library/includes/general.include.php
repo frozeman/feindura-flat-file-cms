@@ -132,7 +132,7 @@ if(!defined('FEINDURA_UPDATE') && $adminConfig['cache']['active'] && !$_SESSION[
   // create cache folder
   if(!is_dir(dirname(__FILE__).'/../../pages/cache/')) {
     mkdir(dirname(__FILE__).'/../../pages/cache/');
-    chmod(dirname(__FILE__).'/../../pages/cache/', $adminConfig['permissions']);
+    @chmod(dirname(__FILE__).'/../../pages/cache/', $adminConfig['permissions']);
   }
   // unset($_SESSION);
   StatisticFunctions::init();

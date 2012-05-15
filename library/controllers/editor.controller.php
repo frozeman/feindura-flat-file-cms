@@ -159,7 +159,7 @@ if($_POST['save'] && isBlocked() === false) {
       $filePath = ($category == 0)
         ? dirname(__FILE__).'/../../pages/'.$page.'.php'
         : dirname(__FILE__).'/../../pages/'.$category.'/'.$page.'.php';
-      chmod($filePath, $adminConfig['permissions']);
+      @chmod($filePath, $adminConfig['permissions']);
 
       // ->> save the FEEDS, if activated
       saveFeeds($category);

@@ -1155,9 +1155,10 @@ function saveStatisticConfig($statisticConfig) {
  * @return void
  * 
  * 
- * @version 1.0.2
+ * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.1 fixed changing from old website url to a new one
  *    - 1.0.2 add "(?:[a-z]{2}/{1})?" to allow "en/" etc.
  *    - 1.0.1 small fix with website path; add GeneralFunctions::getRealPath()
  *    - 1.0 initial release
@@ -1215,37 +1216,26 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
   if(file_exists($htaccessFile)) {
     
     // vars
-    $currrentContent = file_get_contents($htaccessFile);
+    $currrentContent = trim(file_get_contents($htaccessFile));
     
     // ->> create or change the .htaccess file
     if($_POST['cfg_speakingUrl'] == 'true') {
       
-      // -> if no speakingUrl code exists, add new one
-      if(strpos($currrentContent,$speakingUrlCode) === false && strpos($currrentContent,$oldSpeakingUrlCode) === false) {
+      // -> if no speakingUrl code exists, add new one (or update the old one)
+      if(strpos($currrentContent,$speakingUrlCode) === false) {
          
         $save = true;
+        $currrentContent = str_replace($oldSpeakingUrlCode,'', $currrentContent); // removes perhaps existing old one
         $data = $currrentContent."\n".$speakingUrlCode;
         
-      // -> if speakingUrl code exists, change the old one
-      } elseif($newWebsitePath != $oldWebsitePath &&
-               strpos($currrentContent,$speakingUrlCode) === false) {
-        
-        $currrentContent = str_replace($oldSpeakingUrlCode,'',$currrentContent);        
-        
-        $save = true;
-        $data = $currrentContent."\n".$speakingUrlCode;
       }
     
     // ->> delete the .htaccess file or remove the speakingUrl code
     } else {
       
-      // -> if ONLY the SPEAKING URL code is in the .htaccess then DELTE the .htaccess file
+      // -> ONLY if the SPEAKING URL code is in the .htaccess then DELTE the .htaccess file
       if($currrentContent == $speakingUrlCode ||
-         $currrentContent == "\n".$speakingUrlCode ||
-         $currrentContent == "\n\n".$speakingUrlCode ||
-         $currrentContent == $oldSpeakingUrlCode ||
-         $currrentContent == "\n".$oldSpeakingUrlCode ||
-         $currrentContent == "\n\n".$oldSpeakingUrlCode) {
+         $currrentContent == $oldSpeakingUrlCode) {
         @unlink($htaccessFile);
            
       // -> looks if SPEAKING URL code EXISTs in the .htaccess file and remove it
