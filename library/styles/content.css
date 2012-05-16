@@ -1058,6 +1058,11 @@ span#editablePageTitle:focus {
     }
 */
 
+#content .block.pageHead .content td.right {
+    max-width: 350px;
+    word-wrap: break-word;
+}
+
 /********************/	
 /* - PAGE-THUMBNAIL */  
 

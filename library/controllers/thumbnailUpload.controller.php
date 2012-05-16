@@ -113,6 +113,9 @@ if($_POST['upload']) {
     // if no error occured until here, change the thumbnail
     if($error === false) {
       
+      // vars
+      $fileExtension = 'jpg'; // set thumbnail file extension to png!
+
       // the loop is used to rename the uploaded file if the same name already exists
       // it counts it higher
       $changeFileName = true;

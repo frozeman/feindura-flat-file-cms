@@ -343,6 +343,19 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
         }
       }
 
+      // v2.0 change thumbnail filename extension (convert to .jpg)
+      $thumbnailExtension = substr($pageContent['thumbnail'], (strrpos($pageContent['thumbnail'], '.') + 1 ));
+      $thumbnailExtension = strtolower( $thumbnailExtension );
+      $thumbnailPath = DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
+      if(!empty($pageContent['thumbnail']) && !empty($thumbnailExtension) && $thumbnailExtension != 'jpg' && is_file($thumbnailPath)) {
+        require_once(dirname(__FILE__).'/library/thirdparty/PHP/Image.class.php');
+        $newThumbnail = new Image($thumbnailPath);
+        $newThumbnail->process('jpg',str_replace('.'.$thumbnailExtension, '.jpg', $thumbnailPath));
+        $pageContent['thumbnail'] = str_replace('.'.$thumbnailExtension, '.jpg', $pageContent['thumbnail']);
+        unlink($thumbnailPath);
+        unset($newThumbnail);
+      }
+
       // v2.0 - localized
       if(!isset($pageContent['localized'])) {
 

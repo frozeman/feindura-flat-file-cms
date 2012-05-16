@@ -54,7 +54,7 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
     
     // DELETING    
     $pageContent['thumbnail'] = '';
-    if(unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && GeneralFunctions::savePage($pageContent)) {
+    if(@unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && GeneralFunctions::savePage($pageContent)) {
         saveActivityLog(5,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
         
         $question = '';
@@ -76,7 +76,10 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
       $question = '<h1>'.$langFile['PAGETHUMBNAIL_ERROR_DELETE'].'</h1>
       <a href="?category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>'."\n";
     }
-}
+} elseif(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
+  $pageContent['thumbnail'] = '';
+  GeneralFunctions::savePage($pageContent);
+} 
 
 echo $question;
 

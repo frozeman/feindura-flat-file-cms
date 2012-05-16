@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 906
+Build 907
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 2.0
 
+  build 907: page thumbnails will be only saved as jpg
   build 906: small fix in plugin settings in editor.php
   build 905: small fix in pageRating plugin
   build 904: add image resize method also to the slideShow plugin
