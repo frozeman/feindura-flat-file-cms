@@ -157,7 +157,16 @@ class slideShow {
   * 
   */
   public $imageHeight = 350;
-  
+   
+/**
+  * If This timestamp is newer than the images modification timestamp, it will resize the images again.
+  * 
+  * @var int
+  * @access protected
+  * 
+  */
+  public $resetTimestamp = null;
+ 
  /**
   * An array which contains all image filenames and paths
   * 
@@ -245,9 +254,10 @@ class slideShow {
   * @uses slideShow::resize()
   * 
   * @access protected
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 changed method to resize images, new calculation 
   *    - 1.0 initial release
   * 
   */
@@ -263,10 +273,14 @@ class slideShow {
       // vars
       $imagePath = $image['path'].$image['filename'];      
       $imageSize = getimagesize($this->documentRoot.$imagePath);
-      $sizeDifference = ((empty($this->imageHeight) && $this->imageWidth >= $imageSize[0]) || (empty($this->imageWidth) && $this->imageHeight >= $imageSize[1]) || ($this->imageWidth  == $imageSize[0] && $this->imageHeight == $imageSize[1]))
+      $sizeDifference = ((!empty($this->imageWidth) && $this->imageWidth >= $imageSize[0]) || (!empty($this->imageHeight) && $this->imageHeight >= $imageSize[1]))
         ? false
         : true;
      
+      // check if reset timestamp is newer than the thumbnail timestamp
+      if(!empty($this->resetTimestamp) && $this->resetTimestamp > filemtime($this->documentRoot.$imagePath))
+        $sizeDifference = true;
+
       // resize every image      
       if($sizeDifference) {
         // echo "RESIZE";
@@ -274,9 +288,29 @@ class slideShow {
         // get the Image class
         require_once(dirname(__FILE__).'/includes/Image.class.php');
 
+        // vars
+        $width = $this->imageWidth;
+        $height = $this->imageHeight;
+        
+        // resize either the height or the width, depending whats bigger, when width/height for the thumbnail was given
+        if(!empty($this->imageWidth) && !empty($this->imageHeight) && is_numeric($this->imageWidth) && is_numeric($this->imageHeight)) {
+          
+          $imageRatio = $imageSize[0] / $imageSize[1];
+          $slideRatio = $this->width / $this->height;
+
+          if($imageRatio >= 1 && $slideRatio <= 1)
+            $width = false;
+          elseif($imageRatio <= 1 && $slideRatio >= 1)
+            $height = false;
+          elseif($imageRatio >= 1 && $slideRatio >= 1 && $imageRatio > $slideRatio)
+            $width = false;
+          elseif($imageRatio >= 1 && $slideRatio >= 1 && $imageRatio < $slideRatio)
+            $height = false;
+        }
+
         // wont resize the height so it overflows the slideshow, looks better
         $resize = new Image($imagePath);
-        $resize->resize($this->imageWidth,$this->imageHeight,$this->keepRatio,$this->resizeWhenSmaller);
+        $resize->resize($width,$height,$this->keepRatio,$this->resizeWhenSmaller);
         $resize->process();
         unset($resize);
         

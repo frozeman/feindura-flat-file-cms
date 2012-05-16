@@ -123,15 +123,15 @@ $slideShow = new slideShow($jsonImages,$this->adminConfig['uploadPath'],DOCUMENT
 
 // set configs
 $slideShow->xHtml = $this->xHtml; // set the xHtml property rom the feindura class
+$slideShow->resetTimestamp = $pageContent['lastSaveDate'];
 if(!empty($pluginConfig['widthNumber'])) {
-  $slideShow->imageWidth = $pluginConfig['widthNumber'];
   $slideShow->width = $pluginConfig['widthNumber'];
+  $slideShow->imageWidth = $pluginConfig['widthNumber'];
 }
-if(!empty($pluginConfig['heightNumber']))
+if(!empty($pluginConfig['heightNumber'])) {
   $slideShow->height = $pluginConfig['heightNumber'];
-//   $slideShow->imageHeight = $pluginConfig['heightNumber'];
-// wont resize the height, to let the picture fit in the slideshow
-$slideShow->imageHeight = false;
+  $slideShow->imageHeight = $pluginConfig['heightNumber'];
+}
 
 $plugin .= $slideShow->show('slideShow'.$uniqueId);
 

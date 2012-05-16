@@ -397,7 +397,7 @@ class imageGallery {
         $height = $this->thumbnailHeight;
         
         // resize either the height or the width, depending whats bigger, when width/height for the thumbnail was given
-        if($imageRatio != 1 && !empty($this->thumbnailWidth) && !empty($this->thumbnailHeight) && is_numeric($this->thumbnailWidth) && is_numeric($this->thumbnailHeight)) {
+        if(!empty($this->thumbnailWidth) && !empty($this->thumbnailHeight) && is_numeric($this->thumbnailWidth) && is_numeric($this->thumbnailHeight)) {
           
           $imageRatio = $imageSize[0] / $imageSize[1];
           $thumbRatio = $this->thumbnailWidth / $this->thumbnailHeight;
