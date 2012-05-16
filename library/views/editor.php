@@ -839,6 +839,9 @@ $blockContentEdited = (isset($pageContent['plugins']))
               } elseif(strpos(strtolower($key),'number') !== false || is_numeric($value)) {
                 echo ($checkboxes) ? '<tr><td class="leftTop"></td><td></td></tr>' : '';
 
+                if($keyTip == '')
+                  $keyTip = ' class="short"';
+                
                 echo '<tr><td class="left">
                       <label for="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
                       </td><td class="right">
