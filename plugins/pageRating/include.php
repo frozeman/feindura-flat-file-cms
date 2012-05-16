@@ -84,14 +84,14 @@ $plugin .= '<script type="text/javascript">
   
   // set already rated to opacity -> opacLevel
   if('.$_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'].') {
-    $$("div.feinduraPlugin_pageRating.page'.$pageContent['id'].' a").set("opacity",opacLevel).removeClass("unrated");
+    $$("div.feinduraPlugin_pageRating.page'.$pageContent['id'].' a").setStyle("opacity",opacLevel).removeClass("unrated");
   }
   
   $$("div.feinduraPlugin_pageRating.unrated.page'.$pageContent['id'].' a").addEvent("click",function(e){
     e.stop();
+
     // var
     var feinduraPlugin_pageRating = this.getParent("div.feinduraPlugin_pageRating");
-    feinduraPlugin_pageRating.set("tween",{duration:300});
     var pageIds = feinduraPlugin_pageRating.getProperty("data-pageRating").split(" ");
     if(!feinduraPlugin_pageRating.hasClass("unrated"))
       return;
@@ -100,6 +100,9 @@ $plugin .= '<script type="text/javascript">
     new Request({
       url: "'.$this->adminConfig['basePath'].'plugins/pageRating/saveRating.php",
       data: "page=" + pageIds[0] + "&category=" + pageIds[1] + "&rating="+this.getProperty("data-pageRating"),
+      onRequest: function() {
+        feinduraPlugin_pageRating.set("tween",{duration:300});
+      },
       onSuccess: function(rating) {
         if(rating && !isNaN(rating)) {
           feinduraPlugin_pageRating.fade(0).get("tween").chain(function(){
@@ -121,7 +124,7 @@ $plugin .= '<script type="text/javascript">
           });
         // display notice, when rate twice
         } else {
-          feinduraPlugin_pageRating.set("opacity",opacLevel).removeClass("unrated");
+          feinduraPlugin_pageRating.setStyle("opacity",opacLevel).removeClass("unrated");
         }
       }
     }).send();
