@@ -165,4 +165,9 @@ $sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$
 $langFile = array_merge($sharedLangFile,$backendLangFile);
 unset($backendLangFile,$sharedLangFile);
 
+
+// -> SEND BACKEND HEADER
+header('Content-Type:text/html; charset=UTF-8');
+header('Content-Language:'.$_SESSION['feinduraSession']['backendLanguage']);
+
 ?>

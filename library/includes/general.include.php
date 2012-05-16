@@ -23,6 +23,15 @@
 // $timer = explode( ' ', microtime() );
 // $startTime = $timer[1] + $timer[0];
 
+// set error reporting
+error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
+
+/**
+ * set mb_ functions encoding
+ */
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
+
 /**
  * Fix the $_SERVER['REQUEST_URI'] for IIS Server
  */
@@ -55,15 +64,6 @@ function __autoload($class_name) {
  */ 
 require_once(dirname(__FILE__)."/../functions/sort.functions.php");
 
-// Send Header
-header('Content-Type:text/html; charset=UTF-8');
-error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
-
-/**
- * set mb_ functions encoding
- */
-mb_internal_encoding('UTF-8');
-mb_http_output('UTF-8');
 
 
 // ->> get CONFIGS

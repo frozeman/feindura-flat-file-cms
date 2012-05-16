@@ -44,9 +44,10 @@
 * @package [Plugins]
 * @subpackage imageGalleryFromFolder
 * 
-* @version 1.2
+* @version 1.3
 * <br>
 * <b>ChangeLog</b><br>
+*    - 1.3 fixed image resizing when havein both the height and the width of the thumbnail given
 *    - 1.2 add fixed thumbnails by adding image as background url, if width and height of the thumbnail is given
 *    - 1.11 add milkbox as lightbox
 *    - 1.1 removed resize() because it uses now the {@link Image} class
@@ -531,10 +532,18 @@ class imageGalleryFromFolder {
         $height = $this->thumbnailHeight;
         
         // resize either the height or the width, depending whats bigger, when width/height for the thumbnail was given
-        if(!empty($this->thumbnailWidth) && !empty($this->thumbnailHeight) && is_numeric($this->thumbnailWidth) && is_numeric($this->thumbnailHeight)) {
-          if($imageSize[0] > $imageSize[1])
+        if($imageRatio != 1 && !empty($this->thumbnailWidth) && !empty($this->thumbnailHeight) && is_numeric($this->thumbnailWidth) && is_numeric($this->thumbnailHeight)) {
+          
+          $imageRatio = $imageSize[0] / $imageSize[1];
+          $thumbRatio = $this->thumbnailWidth / $this->thumbnailHeight;
+
+          if($imageRatio >= 1 && $thumbRatio <= 1)
             $width = false;
-          else
+          elseif($imageRatio <= 1 && $thumbRatio >= 1)
+            $height = false;
+          elseif($imageRatio >= 1 && $thumbRatio >= 1 && $imageRatio > $thumbRatio)
+            $width = false;
+          elseif($imageRatio >= 1 && $thumbRatio >= 1 && $imageRatio < $thumbRatio)
             $height = false;
         }
 

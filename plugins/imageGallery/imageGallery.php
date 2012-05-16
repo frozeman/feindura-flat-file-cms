@@ -44,9 +44,10 @@
 * @package [Plugins]
 * @subpackage imageGallery
 * 
-* @version 2.1
+* @version 2.2
 * <br>
 * <b>ChangeLog</b><br>
+*    - 2.2 fixed image resizing when havein both the height and the width of the thumbnail given
 *    - 2.1 add fixed thumbnails by adding image as background url, if width and height of the thumbnail is given
 *    - 2.0 changed to JSON data images
 *    - 1.11 add milkbox as lightbox
@@ -184,6 +185,15 @@ class imageGallery {
   */
   public $filenameCaptions = false;
   
+/**
+  * If This timestamp is newer than the thumbnails modification timestamp, it will resize the thumbnails again.
+  * 
+  * @var int
+  * @access protected
+  * 
+  */
+  public $resetTimestamp = null;
+
  /**
   * An array which contains all image filenames and paths
   * 
@@ -195,15 +205,6 @@ class imageGallery {
   * 
   */
   protected $images = array();
-  
-/**
-  * the timestamp of the latest modification of the files
-  * 
-  * @var int
-  * @access protected
-  * 
-  */
-  protected $lastModification = 0;
   
 /**
   * A unique ID which each imageGallery gets to separate them.
@@ -376,10 +377,14 @@ class imageGallery {
       $imagePath = $image['path'].$image['filename'];
       $thumbnailSize = (file_exists($this->documentRoot.$thumbnailPath)) ? getimagesize($this->documentRoot.$thumbnailPath) : array(0,0);
       $imageSize = (file_exists($this->documentRoot.$imagePath)) ? getimagesize($this->documentRoot.$imagePath) : array(0,0);
-      $sizeDifference = ((empty($this->thumbnailHeight) && $this->thumbnailWidth == $thumbnailSize[0]) || (empty($this->thumbnailWidth) && $this->thumbnailHeight == $thumbnailSize[1]) || ($this->thumbnailWidth  == $thumbnailSize[0] && $this->thumbnailHeight == $thumbnailSize[1]))
+      $sizeDifference = ((!empty($this->thumbnailWidth) && $this->thumbnailWidth >= $thumbnailSize[0]) || (!empty($this->thumbnailHeight) && $this->thumbnailHeight >= $thumbnailSize[1]))
         ? false
         : true;
       
+      // check if reset timestamp is newer than the thumbnail timestamp
+      if(!empty($this->resetTimestamp) && $this->resetTimestamp > filemtime($this->documentRoot.$thumbnailPath))
+        $sizeDifference = true;
+
       // resize every thumbnail      
       if(!file_exists($this->documentRoot.$thumbnailPath) || $sizeDifference) {
         // echo "THUMBNAIL";
@@ -392,10 +397,18 @@ class imageGallery {
         $height = $this->thumbnailHeight;
         
         // resize either the height or the width, depending whats bigger, when width/height for the thumbnail was given
-        if(!empty($this->thumbnailWidth) && !empty($this->thumbnailHeight) && is_numeric($this->thumbnailWidth) && is_numeric($this->thumbnailHeight)) {
-          if($imageSize[0] > $imageSize[1])
+        if($imageRatio != 1 && !empty($this->thumbnailWidth) && !empty($this->thumbnailHeight) && is_numeric($this->thumbnailWidth) && is_numeric($this->thumbnailHeight)) {
+          
+          $imageRatio = $imageSize[0] / $imageSize[1];
+          $thumbRatio = $this->thumbnailWidth / $this->thumbnailHeight;
+
+          if($imageRatio >= 1 && $thumbRatio <= 1)
             $width = false;
-          else
+          elseif($imageRatio <= 1 && $thumbRatio >= 1)
+            $height = false;
+          elseif($imageRatio >= 1 && $thumbRatio >= 1 && $imageRatio > $thumbRatio)
+            $width = false;
+          elseif($imageRatio >= 1 && $thumbRatio >= 1 && $imageRatio < $thumbRatio)
             $height = false;
         }
 

@@ -76,6 +76,7 @@ $gallery = new imageGallery($jsonImages,$this->adminConfig['uploadPath'],DOCUMEN
 
 // set configs
 $gallery->xHtml = $this->xHtml; // set the xHtml property rom the feindura class
+$gallery->resetTimestamp = $pageContent['lastSaveDate'];
 $gallery->imageWidth = $pluginConfig['imageWidthNumber'];
 $gallery->imageHeight = $pluginConfig['imageHeightNumber'];
 $gallery->thumbnailWidth = $pluginConfig['thumbnailWidthNumber'];

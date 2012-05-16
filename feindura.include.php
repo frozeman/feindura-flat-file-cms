@@ -39,6 +39,11 @@ if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'
 // -> INCLUDE ALL important FUNCTIONS, CLASSES and CONFIG vars
 require_once(dirname(__FILE__)."/library/includes/general.include.php");
 
+// -> SEND FRONTEND HEADER
+header('Content-Type:text/html; charset=UTF-8');
+if($adminConfig['multiLanguageWebsite']['active'] && strlen($_SESSION['feinduraSession']['websiteLanguage']) === 2)
+  header('Content-Language:'.$_SESSION['feinduraSession']['websiteLanguage']);
+
 // -> rename the config var names
 $feindura_adminConfig      = $adminConfig;
 $feindura_websiteConfig    = $websiteConfig;
