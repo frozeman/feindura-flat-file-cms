@@ -1286,6 +1286,38 @@ class GeneralFunctions {
       return false;
   }
 
+ /** 
+  * <b>Name</b> getDateTimeValue()<br>
+  * 
+  * formats the date passed into format required by 'datetime' attribute of <time> tag.
+  * If no intDate supplied, uses current date.
+  * 
+  * @param int  intDate  integer optional
+  * @param bool onlyDate whether or not the datetime attribute should contain only the date or add the time also
+  * 
+  * @return string time value in the format: 2009-09-04T16:31:24+02:00
+  * 
+  * @link http://petewilliams.info/blog/2010/09/generate-html5-time-tags-datetime-attribute-in-php/
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function getDateTimeValue($intDate = null, $onlyDate = true) {
+
+
+      if($onlyDate)
+        $strFormat = 'Y-m-d';
+      else
+        $strFormat = 'Y-m-d\TH:i:sP';
+      $strDate = $intDate ? date( $strFormat, $intDate ) : date( $strFormat ) ; 
+      
+      return $strDate;
+  }
+
  /**
   * <b>Name</b> formatDate()<br>
   * 

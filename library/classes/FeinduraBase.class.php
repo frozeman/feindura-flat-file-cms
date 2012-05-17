@@ -765,9 +765,10 @@ class FeinduraBase {
   * @see Feindura::listPages()
   * 
   * @access protected
-  * @version 1.0.1
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 add <time> tag to the pageDate
   *    - 1.0.1 fixed description return
   *    - 1.0 initial release
   * 
@@ -861,11 +862,20 @@ class FeinduraBase {
     if(GeneralFunctions::checkPageDate($pageContent)) {
     	$titleDateBefore = '';
     	$titleDateAfter = '';
+
+      // format pageDate
+      $pageDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile));
+
+      // add <time> tag
+      if(!empty($pageContent['pageDate']['date']))
+        $pageDate = '<time datetime="'.GeneralFunctions::getDateTimeValue($pageContent['pageDate']['date']).'">'.$pageDate.'</time>';
+      
       $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate',$this->language);
-    	// adds spaces on before and after
-    	if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
-    	if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
-    	$pageDate = $titleDateBefore.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter;
+      // adds spaces on before and after
+      if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
+      if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
+      $pageDate = $titleDateBefore.$pageDate.$titleDateAfter;
+      
     }
       
     // -> PAGE TITLE
@@ -1036,9 +1046,10 @@ class FeinduraBase {
   * @example getPageTitle.example.php the {@link getPageTitle()} method in this example calls this method with the title properties as parameters
   * 
   * @access protected
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 add <time> tag to the pageDate
   *    - 1.0 initial release
   * 
   */
@@ -1056,14 +1067,23 @@ class FeinduraBase {
         $titleDateBefore = '';
         $titleDateAfter = '';
         $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate',$this->language);
+        
+        // format pageDate
+        $titleDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile));
+
+        // add <time> tag to the pageDate
+        if(!empty($pageContent['pageDate']['date']))
+          $titleDate = '<time datetime="'.GeneralFunctions::getDateTimeValue($pageContent['pageDate']['date']).'">'.$titleDate.'</time>';
+        
         // adds spaces on before and after
         if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
-        if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
-        $titleDate = $titleDateBefore.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter;
+        if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter   = ' '.$pageDateBeforeAfter['after'];
+        $titleDate = $titleDateBefore.$titleDate.$titleDateAfter;
+        
+        // add pageDate separator
         if(is_string($titlePageDateSeparator))
           $titleDate = $titleDate.$titlePageDateSeparator;
-        else
-          $titleDate = $titleDate;
+    
       } else $titleDate = false;      
         
       // show the CATEGORY NAME
