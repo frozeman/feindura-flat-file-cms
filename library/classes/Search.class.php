@@ -331,12 +331,12 @@ class Search {
         foreach ($languages as $langCode) {
 
           // LOCALIZATION            
-          $search['categoryName'] = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$langCode);
-          $search['title']        = strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title',$langCode));
-          $search['description']  = GeneralFunctions::getLocalized($pageContent['localized'],'description',$langCode);
-          $search['content']      = strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'content',$langCode));
-          $search['tags']         = GeneralFunctions::getLocalized($pageContent['localized'],'tags',$langCode);
-          $searchPageDate         = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate',$langCode);
+          $search['categoryName'] = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']],'name',$langCode);
+          $search['title']        = strip_tags(GeneralFunctions::getLocalized($pageContent,'title',$langCode));
+          $search['description']  = GeneralFunctions::getLocalized($pageContent,'description',$langCode);
+          $search['content']      = strip_tags(GeneralFunctions::getLocalized($pageContent,'content',$langCode));
+          $search['tags']         = GeneralFunctions::getLocalized($pageContent,'tags',$langCode);
+          $searchPageDate         = GeneralFunctions::getLocalized($pageContent,'pageDate',$langCode);
           $search['beforeDate']   = $searchPageDate['before'];
           $search['afterDate']    = $searchPageDate['after'];
 
@@ -481,12 +481,12 @@ class Search {
       foreach ($languages as $langCode) {
 
         // LOCALIZATION   
-        $page['categoryName'] = GeneralFunctions::getLocalized($this->categoryConfig[$page['category']]['localized'],'name',$langCode);
-        $page['title']        = strip_tags(GeneralFunctions::getLocalized($page['localized'],'title',$langCode));
-        $page['description']  = GeneralFunctions::getLocalized($page['localized'],'description',$langCode);
-        $page['content']      = strip_tags(GeneralFunctions::getLocalized($page['localized'],'content',$langCode));
-        $page['tags']         = GeneralFunctions::getLocalized($page['localized'],'tags',$langCode);
-        $localizedPageDate    = GeneralFunctions::getLocalized($page['localized'],'pageDate',$langCode);
+        $page['categoryName'] = GeneralFunctions::getLocalized($this->categoryConfig[$page['category']],'name',$langCode);
+        $page['title']        = strip_tags(GeneralFunctions::getLocalized($page,'title',$langCode));
+        $page['description']  = GeneralFunctions::getLocalized($page,'description',$langCode);
+        $page['content']      = strip_tags(GeneralFunctions::getLocalized($page,'content',$langCode));
+        $page['tags']         = GeneralFunctions::getLocalized($page,'tags',$langCode);
+        $localizedPageDate    = GeneralFunctions::getLocalized($page,'pageDate',$langCode);
         $page['beforeDate']   = $localizedPageDate['before'];
         $page['afterDate']    = $localizedPageDate['after'];
 

@@ -27,7 +27,7 @@ require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
 // QUESTION
-echo '<h1 class="red">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_QUESTION_START'].' <span style="color:#000000;">'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localized'],'name').'</span> '.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_QUESTION_END'].'</h1>';
+echo '<h1 class="red">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_QUESTION_START'].' <span style="color:#000000;">'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</span> '.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_QUESTION_END'].'</h1>';
 echo '<h2 style="color:#A02F00; text-align:center;">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'</h2>';
 
 ?>

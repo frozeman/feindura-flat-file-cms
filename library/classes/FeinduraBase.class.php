@@ -870,7 +870,7 @@ class FeinduraBase {
       if(!empty($pageContent['pageDate']['date']))
         $pageDate = '<time datetime="'.GeneralFunctions::getDateTimeValue($pageContent['pageDate']['date']).'">'.$pageDate.'</time>';
       
-      $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate',$this->language);
+      $pageDateBeforeAfter = $this->getLocalized($pageContent,'pageDate');
       // adds spaces on before and after
       if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
       if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
@@ -881,7 +881,7 @@ class FeinduraBase {
     // -> PAGE TITLE
     // *****************
     $title = '';
-    $localizedPageTitle = GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language);
+    $localizedPageTitle = $this->getLocalized($pageContent,'title');
     if(!empty($localizedPageTitle))
       $title = $this->createTitle($pageContent,				                          
                                   $this->titleLength,
@@ -905,7 +905,7 @@ class FeinduraBase {
         $langCode = $this->language;
       else
         $langCode = 0;
-      $localizedPageContent = GeneralFunctions::getLocalized($pageContent['localized'],'content',$langCode);
+      $localizedPageContent = $this->getLocalized($pageContent,'content',$langCode);
 
       $uniqueId = md5(rand(0,9999));
       
@@ -918,7 +918,7 @@ class FeinduraBase {
     // -> no frontend editing
     } else {
 
-      $localizedPageContent = GeneralFunctions::getLocalized($pageContent['localized'],'content',$this->language);
+      $localizedPageContent = $this->getLocalized($pageContent,'content');
       if(!empty($localizedPageContent)) {
         
         if($this->adminConfig['editor']['safeHtml'])
@@ -957,10 +957,10 @@ class FeinduraBase {
 
 
     // -> get description
-    $localizedPageDescription = GeneralFunctions::getLocalized($pageContent['localized'],'description',$this->language);
+    $localizedPageDescription = $this->getLocalized($pageContent,'description');
 
     // -> get tags
-    $localizedPageTags = GeneralFunctions::getLocalized($pageContent['localized'],'tags',$this->language);
+    $localizedPageTags = $this->getLocalized($pageContent,'tags');
     
     // -> SET UP the PAGE ELEMENTS
     // *******************
@@ -968,12 +968,12 @@ class FeinduraBase {
       $return['id']                                           = $pageContent['id'];
     
     if($pageContent['category'] && $pageContent['category'] != 0) {
-      $return['category']                                     = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language);
+      $return['category']                                     = $this->getLocalized($this->categoryConfig[$pageContent['category']],'name');
     }
     $return['categoryId']                                     = $pageContent['category'];
     
     if($pageContent['subCategory']) {
-      $return['subCategory']                                  = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['subCategory']]['localized'],'name',$this->language);
+      $return['subCategory']                                  = $this->getLocalized($this->categoryConfig[$pageContent['subCategory']],'name');
       $return['subCategoryId']                                = $pageContent['subCategory'];
     }
     
@@ -1060,13 +1060,13 @@ class FeinduraBase {
       $titleAfter = '';
       
       // saves the long version of the title, for the title="" tag
-      //$fullTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language));
+      //$fullTitle = strip_tags($this->getLocalized($pageContent,'title'));
       
       // generate TITLEDATE
       if($titleShowPageDate && GeneralFunctions::checkPageDate($pageContent)) {
         $titleDateBefore = '';
         $titleDateAfter = '';
-        $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate',$this->language);
+        $pageDateBeforeAfter = $this->getLocalized($pageContent,'pageDate');
         
         // format pageDate
         $titleDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile));
@@ -1089,9 +1089,9 @@ class FeinduraBase {
       // show the CATEGORY NAME
       if($titleShowCategory === true && $pageContent['category'] != 0) {
         if(is_string($titleCategorySeparator))
-          $titleShowCategory = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language).$titleCategorySeparator;
+          $titleShowCategory = $this->getLocalized($this->categoryConfig[$pageContent['category']],'name').$titleCategorySeparator;
         else
-          $titleShowCategory = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']]['localized'],'name',$this->language);
+          $titleShowCategory = $this->getLocalized($this->categoryConfig[$pageContent['category']],'name');
       } else
         $titleShowCategory = '';
       
@@ -1104,11 +1104,11 @@ class FeinduraBase {
 
         $uniqueId = md5(rand(0,9999));
 
-        $titleText = '<span class="feindura_editTitle" id="feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.GeneralFunctions::getLocalized($pageContent['localized'],'title',$langCode).'</span>';
+        $titleText = '<span class="feindura_editTitle" id="feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.$this->getLocalized($pageContent,'title',$langCode).'</span>';
         $titleText .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'").store("content",$("feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
 
       } else
-        $titleText = GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language);
+        $titleText = $this->getLocalized($pageContent,'title');
 
 
       // GENERATE title
@@ -1191,7 +1191,7 @@ class FeinduraBase {
       if($this->thumbnailAfter !== true)
         $thumbnailAfter = $this->thumbnailAfter;
       
-      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title',$this->language))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       $pageThumbnail['thumbnailPath'] = $this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
       
       return $pageThumbnail;
@@ -1604,7 +1604,7 @@ class FeinduraBase {
   protected function compareTags($pageContent, $tags) {
     
     // var
-    // $pageTags = GeneralFunctions::getLocalized($pageContent['localized'],'tags',$this->language);
+    // $pageTags = $this->getLocalized($pageContent,'tags');
 
     // ->> go through all the pages tags
     foreach ($pageContent['localized'] as $langCode => $pageContentLocalized) {

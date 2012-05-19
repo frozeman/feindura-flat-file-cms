@@ -1522,8 +1522,8 @@ function saveFeeds($category) {
     
     $feedsPages = GeneralFunctions::loadPages($category,true);
     $channelTitle = ($category == 0)
-      ? GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'title',$langCode)
-      : GeneralFunctions::getLocalized($GLOBALS['categoryConfig'][$category]['localized'],'name',$langCode).' - '.GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'title',$langCode);
+      ? GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'title',$langCode)
+      : GeneralFunctions::getLocalized($GLOBALS['categoryConfig'][$category],'name',$langCode).' - '.GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'title',$langCode);
     
     // ->> START feeds
     $atom = new FeedWriter(ATOM);
@@ -1534,17 +1534,17 @@ function saveFeeds($category) {
     $atom->setTitle($channelTitle); 
     $atom->setLink($GLOBALS['adminConfig']['url']);  
     $atom->setChannelElement('updated', date(DATE_ATOM , time()));
-    $atom->setChannelElement('author', array('name'=>GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'publisher',$langCode)));
-    $atom->setChannelElement('rights', GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'copyright',$langCode));
+    $atom->setChannelElement('author', array('name'=>GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'publisher',$langCode)));
+    $atom->setChannelElement('rights', GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'copyright',$langCode));
     $atom->setChannelElement('generator', 'feindura - flat file cms',array('uri'=>'http://feindura.org','version'=>VERSION));
     
     // -> RSS2
     $rss2->setTitle($channelTitle);
     $rss2->setLink($GLOBALS['adminConfig']['url']);  
-    $rss2->setDescription(GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'description',$langCode));
+    $rss2->setDescription(GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'description',$langCode));
     //$rss2->setChannelElement('language', 'en-us');
     $rss2->setChannelElement('pubDate', date(DATE_RSS, time()));
-    $rss2->setChannelElement('copyright', GeneralFunctions::getLocalized($GLOBALS['websiteConfig']['localized'],'copyright',$langCode)); 
+    $rss2->setChannelElement('copyright', GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'copyright',$langCode)); 
     
     // ->> adds the feed ENTRIES/ITEMS
     foreach($feedsPages as $feedsPage) {
@@ -1552,11 +1552,11 @@ function saveFeeds($category) {
       if($feedsPage['public']) {
         // shows the page link
         $link = GeneralFunctions::createHref($feedsPage,false,$langCode,true);
-        $title = strip_tags(GeneralFunctions::getLocalized($feedsPage['localized'],'title',$langCode));
-        $description = GeneralFunctions::getLocalized($feedsPage['localized'],'description',$langCode);
+        $title = strip_tags(GeneralFunctions::getLocalized($feedsPage,'title',$langCode));
+        $description = GeneralFunctions::getLocalized($feedsPage,'description',$langCode);
         
         $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.$GLOBALS['adminConfig']['url'].$GLOBALS['adminConfig']['uploadPath'].$GLOBALS['adminConfig']['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
-        $content = GeneralFunctions::replaceLinks(GeneralFunctions::getLocalized($feedsPage['localized'],'content',$langCode),false,$langCode,true);
+        $content = GeneralFunctions::replaceLinks(GeneralFunctions::getLocalized($feedsPage,'content',$langCode),false,$langCode,true);
         $content = strip_tags($content,'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><em><s><u><strong><small><span>');
         $content = preg_replace('#<h[0-6]>#','<strong>',$content);
         $content = preg_replace('#</h[0-6]>#','</strong><br>',$content);
@@ -1834,7 +1834,7 @@ function showPageDate($pageContent) {
   $titleDateAfter = '';
   
   if(GeneralFunctions::checkPageDate($pageContent)) {
-    $pageDate = GeneralFunctions::getLocalized($pageContent['localized'],'pageDate');
+    $pageDate = GeneralFunctions::getLocalized($pageContent,'pageDate');
     $pageDateBefore = $pageDate['before'];
     $pageDateAfter = $pageDate['after'];
   	// adds spaces on before and after
@@ -2605,7 +2605,7 @@ function missingLanguageWarning() {
         foreach ($GLOBALS['categoryConfig'] as $category) {
           foreach ($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] as $langCode) {
             if(!isset($category['localized'][$langCode])) {
-              $categoryName = GeneralFunctions::getLocalized($category['localized'],'name');
+              $categoryName = GeneralFunctions::getLocalized($category,'name');
               $categoryName = (!empty($categoryName)) ? $categoryName.' &rArr; ' : '';
               $categoryConfig .= '<span><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> '.$categoryName.'<a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageNames'][$langCode].'</a></span><br>';
             }

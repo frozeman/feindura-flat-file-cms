@@ -35,7 +35,7 @@
 * @version 2.0
 * <br>
 * <b>ChangeLog</b><br>
-*    - 2.0 add {@link Feindura::createSubMenu()}, {@link Feindura::isSubCategory()}, {@link Feindura::isSubCategoryOf()}, {@link Feindura::createMenuOfSubCategory()}, {@link Feindura::createLanguageMenu()}, {@link Feindura::createBreadCrumbsMenu()}, {@link Feindura::hasTags()}
+*    - 2.0 add {@link Feindura::createSubMenu()}, {@link Feindura::isSubCategory()}, {@link Feindura::isSubCategoryOf()}, {@link Feindura::createMenuOfSubCategory()}, {@link Feindura::createLanguageMenu()}, {@link Feindura::createBreadCrumbsMenu()}, {@link Feindura::hasTags()}, {@link Feindura::getLocalized()}
 *    - 1.0.1 add setStartPage()
 *    - 1.0 initial release
 * 
@@ -868,11 +868,11 @@ class Feindura extends FeinduraBase {
     $this->loadFrontendLanguageFile($this->language);
 
     // -> SET the $metaData PROPERTY
-    $this->metaData['title']       = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'title',$this->language);
-    $this->metaData['publisher']   = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'publisher',$this->language);
-    $this->metaData['copyright']   = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'copyright',$this->language);
-    $this->metaData['keywords']    = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'keywords',$this->language);
-    $this->metaData['description'] = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'description',$this->language);
+    $this->metaData['title']       = $this->getLocalized($this->websiteConfig,'title');
+    $this->metaData['publisher']   = $this->getLocalized($this->websiteConfig,'publisher');
+    $this->metaData['copyright']   = $this->getLocalized($this->websiteConfig,'copyright');
+    $this->metaData['keywords']    = $this->getLocalized($this->websiteConfig,'keywords');
+    $this->metaData['description'] = $this->getLocalized($this->websiteConfig,'description');
   }
   
   // ****************************************************************************************************************
@@ -941,11 +941,11 @@ class Feindura extends FeinduraBase {
       $this->loadFrontendLanguageFile($this->language);
 
       // CHANGE the $metaData property
-      $this->metaData['title']       = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'title',$this->language);
-      $this->metaData['publisher']   = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'publisher',$this->language);
-      $this->metaData['copyright']   = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'copyright',$this->language);
-      $this->metaData['keywords']    = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'keywords',$this->language);
-      $this->metaData['description'] = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'description',$this->language);
+      $this->metaData['title']       = $this->getLocalized($this->websiteConfig,'title');
+      $this->metaData['publisher']   = $this->getLocalized($this->websiteConfig,'publisher');
+      $this->metaData['copyright']   = $this->getLocalized($this->websiteConfig,'copyright');
+      $this->metaData['keywords']    = $this->getLocalized($this->websiteConfig,'keywords');
+      $this->metaData['description'] = $this->getLocalized($this->websiteConfig,'description');
 
       return $this->language;
     } else
@@ -1026,6 +1026,64 @@ class Feindura extends FeinduraBase {
     
     return $langFile;
   }
+
+  /**
+  * <b>Name</b>     getLocalized()<br>
+  * <b>Alias</b>    getLocalization()<br>
+  * 
+  * Gets the localized version of given <var>$value</var> parameter from the <var>$localizedArray</var>, which matches the {@link Feindura::$language} property.<br>
+  * If no matching localized version for this language exists, it returns the "mainLanguage" or the first one in the localization array.
+  * 
+  * Example usage:
+  * <code>
+  * <?php
+  * 
+  * require_once('cms/feindura.include.php');
+  * $feindura = new Feindura();
+  * 
+  * // For example, you can use this function to get the name of a category (for the current language) 
+  * echo $feindura->getLocalized($feindura->categoryConfig[1],'name');
+  * 
+  * // RESULT
+  * // Name of the Category with ID 1
+  * 
+  * ?>
+  * </code>
+  *  
+  * @param array        $localizedArray      an array with an ['localized'] array in the form of: array('de' => .. , 'en' => .. )
+  * @param string       $value               the name of the value, which should be returned localized
+  * @param string|false $language            (optional) a language to use for loading the localized version of the given <var>$value</var> paramter
+  * 
+  * 
+  * @uses GeneralFunctions::getLocalized() to get the right localization
+  * @uses Feindura::$language              the language used to get the localized version
+  * 
+  * @return string the localized version of the <var>$value</var> parameter
+  * 
+  * @see FeinduraBase::$websiteConfig
+  * @see FeinduraBase::$categoryConfig
+  * 
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public function getLocalized($localizedArray, $value, $language = false) {
+
+    $language = (is_string($language) && strlen($language) == 2) ? $language : $this->language;
+
+    return GeneralFunctions::getLocalized($localizedArray,$value,$language);
+  }
+ /**
+  * Alias of {@link getLocalized()}
+  * @ignore
+  */
+  public function getLocalization($localizedArray, $value) {
+    // call the right function
+    return $this->getLocalized($localizedArray, $value);
+  }
   
  /**
   * <b>Name</b>     createMetaTags()<br>
@@ -1086,10 +1144,10 @@ class Feindura extends FeinduraBase {
 
       // -> get PAGE TITLE
       if($currentPage = GeneralFunctions::readPage($this->page,GeneralFunctions::getPageCategory($this->page)))
-        $pageNameInTitle = strip_tags(GeneralFunctions::getLocalized($currentPage['localized'],'title',$this->language)).' | ';
+        $pageNameInTitle = strip_tags($this->getLocalized($currentPage,'title')).' | ';
       
       // -> add TITLE
-      $metaTags .= '  <title>'.$pageNameInTitle.GeneralFunctions::getLocalized($this->websiteConfig['localized'],'title',$this->language).'</title>'."\n\n";
+      $metaTags .= '  <title>'.$pageNameInTitle.$this->getLocalized($this->websiteConfig,'title').'</title>'."\n\n";
       
       // -> add BASE PATH if SPEAKING URLS are ON
       if($this->adminConfig['speakingUrl'])
@@ -1104,7 +1162,7 @@ class Feindura extends FeinduraBase {
         
       // -> add puplisher
       if($publisher) {
-        $websiteConfigPublisher = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'publisher',$this->language);
+        $websiteConfigPublisher = $this->getLocalized($this->websiteConfig,'publisher');
         if(is_string($publisher) && !is_bool($publisher))
           $metaTags .= '  <meta name="publisher" content="'.$publisher.'"'.$tagEnding."\n";
         elseif(!empty($websiteConfigPublisher))
@@ -1113,7 +1171,7 @@ class Feindura extends FeinduraBase {
 
       // -> add copyright
       if($copyright) {
-        $websiteConfigCopyright = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'copyright',$this->language);
+        $websiteConfigCopyright = $this->getLocalized($this->websiteConfig,'copyright');
         if(is_string($copyright) && !is_bool($copyright))
           $metaTags .= '  <meta name="copyright" content="'.$copyright.'"'.$tagEnding."\n";
         elseif(!empty($websiteConfigCopyright))
@@ -1121,8 +1179,8 @@ class Feindura extends FeinduraBase {
       }
      
       // -> add keywords
-      $websiteConfigKeywords =  GeneralFunctions::getLocalized($this->websiteConfig['localized'],'keywords',$this->language);
-      $pageTags          =  GeneralFunctions::getLocalized($currentPage['localized'],'tags',$this->language);
+      $websiteConfigKeywords =  $this->getLocalized($this->websiteConfig,'keywords');
+      $pageTags          =  $this->getLocalized($currentPage,'tags');
       if(!empty($pageTags) && (($currentPage['category'] != 0 && $this->category['showTags']) || ($currentPage['category'] == 0 && $this->adminConfig['pages']['showTags'])))
         $metaTags .= '  <meta name="keywords" content="'.$pageTags.'"'.$tagEnding."\n";
       elseif(!empty($websiteConfigKeywords))
@@ -1130,8 +1188,8 @@ class Feindura extends FeinduraBase {
 
       // -> add description
       if(isset($currentPage)) {
-        $websiteConfigDescription = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'description',$this->language);
-        $pageDescription = GeneralFunctions::getLocalized($currentPage['localized'],'description',$this->language);
+        $websiteConfigDescription = $this->getLocalized($this->websiteConfig,'description');
+        $pageDescription = $this->getLocalized($currentPage,'description');
         if($pageDescription)
           $metaTags .= '  <meta name="description" content="'.$pageDescription.'"'.$tagEnding."\n";
         elseif(!empty($websiteConfigDescription))
@@ -1175,11 +1233,11 @@ class Feindura extends FeinduraBase {
             $rss2Link = $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$categoryPath.'rss2'.$addLanguageToFilename.'.xml';
 
             // title
-            $websiteTitle = GeneralFunctions::getLocalized($this->websiteConfig['localized'],'title',$langCode);
+            $websiteTitle = $this->getLocalized($this->websiteConfig,'title',$langCode);
             if($category['id'] == 0)
               $channelTitle = $websiteTitle;
             else
-              $channelTitle = GeneralFunctions::getLocalized($category['localized'],'name',$langCode).' - '.$websiteTitle;
+              $channelTitle = $this->getLocalized($category,'name',$langCode).' - '.$websiteTitle;
 
             if(!empty($langCode))
               $channelTitleLang = ', '.strtoupper($langCode).')';

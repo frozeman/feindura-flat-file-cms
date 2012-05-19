@@ -105,10 +105,10 @@ if(!empty($searchWords)) {
       
       // -> generate toolTip information
       $pageDate = showPageDate($page);
-      $localizedTags = GeneralFunctions::getLocalized($page['localized'],'tags');
+      $localizedTags = GeneralFunctions::getLocalized($page,'tags');
       if($categoryConfig[$page['category']]['showTags'] && !empty($localizedTags)) {
         $pageTags = '[br][br]';
-        $pageTags .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].'[/b][br]'.GeneralFunctions::getLocalized($page['localized'],'tags');
+        $pageTags .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].'[/b][br]'.GeneralFunctions::getLocalized($page,'tags');
       }      
       $startPageText = ($adminConfig['setStartPage'] && $page['id'] == $websiteConfig['startPage'])
         ? $langFile['SORTABLEPAGELIST_functions_startPage_set'].'[br][br]'
@@ -126,7 +126,7 @@ if(!empty($searchWords)) {
       // first TITLE
       echo '<span class="resultHeadline">';
       echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),strip_tags(GeneralFunctions::getLocalized($page,'title'))).'::'.$startPageText.'[b]ID[/b] '.$page['id'].$pageDate.$pageTags.'">';
-      echo ($result['title']) ? $result['title'] : strip_tags(GeneralFunctions::getLocalized($page['localized'],'title'));
+      echo ($result['title']) ? $result['title'] : strip_tags(GeneralFunctions::getLocalized($page,'title'));
       echo '</a>';
       echo '</span>';
       
@@ -167,11 +167,11 @@ if(!empty($searchWords)) {
           }
           
         // if nothing in the content or description is found its shows the description
-        $localizedDescription = GeneralFunctions::getLocalized($page['localized'],'description');
+        $localizedDescription = GeneralFunctions::getLocalized($page,'description');
         } elseif(!empty($localizedDescription))
-          echo '<span class="description">'.GeneralFunctions::getLocalized($page['localized'],'description').'</span>';
+          echo '<span class="description">'.GeneralFunctions::getLocalized($page,'description').'</span>';
         else
-          echo substr(strip_tags(GeneralFunctions::getLocalized($page['localized'],'content')),0,200);
+          echo substr(strip_tags(GeneralFunctions::getLocalized($page,'content')),0,200);
           
         echo '</p>';
         echo '  </div>';

@@ -309,7 +309,12 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       $adminConfig['editor']['styleFile'] = changeToSerializedData($data,' ');
     
     $adminConfig['websitePath'] = (isset($adminConfig['websitePath'])) ? $adminConfig['websitePath'] : '/';
-    
+
+    if($adminConfig['dateFormat'] == 'eu')
+      $adminConfig['dateFormat'] = 'DMY';
+    if($adminConfig['dateFormat'] == 'int')
+      $adminConfig['dateFormat'] = 'YMD';
+
     // only if was below 1.1.6
     if($oldVersion <= '1.1.6')
       $adminConfig['speakingUrl'] = false; // changed speaking url reg ex and createHref generation

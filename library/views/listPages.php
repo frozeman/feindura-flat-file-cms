@@ -59,7 +59,7 @@ foreach($allCategories as $category) {
 
   // vars
   $categoryTitle = '';
-  $categoryName = GeneralFunctions::getLocalized($category['localized'],'name');
+  $categoryName = GeneralFunctions::getLocalized($category,'name');
 
   // -> LOAD PAGES of this CATEGORY
   $pages = GeneralFunctions::loadPages($category['id']);
@@ -125,8 +125,8 @@ foreach($allCategories as $category) {
     foreach($parentPages as $parentPage) {
       if((($parentPage['category'] != 0 && $categoryConfig[$parentPage['category']]['showSubCategory']) ||
           ($parentPage['category'] == 0 && $adminConfig['pages']['showSubCategory']))) {
-        $parentPageCategory = ($parentPage['category'] != 0 ) ? GeneralFunctions::getLocalized($categoryConfig[$pageOfSubCategory['category']]['localized'],'name').' &rArr; ' : '';
-        $categoryTitle .= '[img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.$parentPageCategory.GeneralFunctions::getLocalized($parentPage['localized'],'title').'[br]';
+        $parentPageCategory = ($parentPage['category'] != 0 ) ? GeneralFunctions::getLocalized($categoryConfig[$pageOfSubCategory['category']],'name').' &rArr; ' : '';
+        $categoryTitle .= '[img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.$parentPageCategory.GeneralFunctions::getLocalized($parentPage,'title').'[br]';
       }
     }
   }
@@ -201,7 +201,7 @@ foreach($allCategories as $category) {
       }
       
       // shorten the title
-      $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title')),27);
+      $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent,'title')),27);
       $visitorCount = GeneralFunctions::shortenString(formatHighNumber($pageStatistics['visitorCount']),12);
       
       // -> show lastSaveDate
@@ -216,14 +216,14 @@ foreach($allCategories as $category) {
       $pageTitle_subCategory = ($pageContent['subCategory'] &&
                                 (($category['id'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
                                  ($category['id'] == 0 && $adminConfig['pages']['showSubCategory'])))
-        ? '[br][b]'.$langFile['EDITOR_TEXT_SUBCATEGORY'].':[/b] [img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($categoryConfig[$pageContent['subCategory']]['localized'],'name')
+        ? '[br][b]'.$langFile['EDITOR_TEXT_SUBCATEGORY'].':[/b] [img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($categoryConfig[$pageContent['subCategory']],'name')
         : '';
 
       // -> generate pageDate for toolTip
       $pageTitle_pageDate = showPageDate($pageContent);
       
       // -> generate tags for toolTip
-      $localizedTags = GeneralFunctions::getLocalized($pageContent['localized'],'tags');
+      $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
       if(!empty($localizedTags) && (($pageContent['category'] != 0 && $category['showTags']) || ($pageContent['category'] == 0 && $adminConfig['pages']['showTags']))) {
         $pageTitle_tags = '[br]';
         $pageTitle_tags .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].':[/b] '.$localizedTags;
@@ -266,7 +266,7 @@ foreach($allCategories as $category) {
       
       echo '<div class="name'.$subCategoryIcon.$startPageIcon.'">
             <a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip"
-            title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent['localized'],'title'))).'::
+            title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))).'::
             '.$pageTitle_startPageText.$pageTitle_Id.$pageTitle_subCategory.$pageTitle_pageDate.$pageTitle_tags.$pageTitle_pageLanguages.'">
             <b>'.$title.'</b>
             </a></div>';

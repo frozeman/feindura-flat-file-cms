@@ -69,10 +69,10 @@ function sortBySortOrder($a, $b) {     // (Array) $a = current; $b = follwing va
 function sortAlphabetical($a, $b) {     // (Array) $a = current; $b = follwing value
 
   // make comparinssion multibyte save
-  $a = iconv("UTF-8", "ASCII//TRANSLIT", GeneralFunctions::getLocalized($a['localized'],'title'));//GeneralFunctions::getLocalized($a['localized'],'title');//
+  $a = iconv("UTF-8", "ASCII//TRANSLIT", GeneralFunctions::getLocalized($a,'title'));//GeneralFunctions::getLocalized($a,'title');//
   $a = strtolower($a);
   $a = preg_replace('#[^-a-z0-9_ ]+#', '', $a);
-  $b = iconv("UTF-8", "ASCII//TRANSLIT", GeneralFunctions::getLocalized($b['localized'],'title'));//GeneralFunctions::getLocalized($b['localized'],'title');//
+  $b = iconv("UTF-8", "ASCII//TRANSLIT", GeneralFunctions::getLocalized($b,'title'));//GeneralFunctions::getLocalized($b,'title');//
   $b = strtolower($b);
   $b = preg_replace('#[^-a-z0-9_ ]+#', '', $b);
 

@@ -45,9 +45,9 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <meta charset="UTF-8">
   
   <title>feindura: <?php
-  echo GeneralFunctions::getLocalized($websiteConfig['localized'],'title');
+  echo GeneralFunctions::getLocalized($websiteConfig,'title');
   if(isset($_GET['page']) && is_numeric($_GET['page']) && ($pageTitle = GeneralFunctions::readPage($_GET['page'],GeneralFunctions::getPageCategory($_GET['page']))) != false) {
-    echo ' - '.GeneralFunctions::getLocalized($pageTitle['localized'],'title');
+    echo ' - '.GeneralFunctions::getLocalized($pageTitle,'title');
   }
   unset($pageTitle);
   ?></title>
@@ -60,7 +60,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate">
   
-  <meta name="title" content="feindura: <?php echo GeneralFunctions::getLocalized($websiteConfig['localized'],'title'); ?>">    
+  <meta name="title" content="feindura: <?php echo GeneralFunctions::getLocalized($websiteConfig,'title'); ?>">    
   <meta name="author" content="Fabian Vogelsteller [frozeman.de]">     
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
   <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">    
@@ -169,8 +169,8 @@ if($_GET['site'] == 'addons') {
   var feindura_pages = [
   ['-',''],
   <?php foreach($getPages as $getPage) {
-    $categoryText = ($getPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$getPage['category']]['localized'],'name').' » ' : '';
-    echo "['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($getPage['localized'],'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
+    $categoryText = ($getPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$getPage['category']],'name').' » ' : '';
+    echo "['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($getPage,'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
     } ?>  ];
   <?php } ?>
   

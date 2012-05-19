@@ -650,20 +650,19 @@ class GeneralFunctions {
    * Gets the localized version of given <var>$value</var> parameter, which matches the <var>$_SESSION['feinduraSession']['websiteLanguage']</var> variable.
    * If no matching localized version of this value exists, it returns the one matching the <var>$adminConfig['multiLanguageWebsite']['mainLanguage']</var> variable.
    * 
-   * <b>Used Global Variables</b><br>
-   *   - <var>$_GET['status']</var> if the value is "addLanguage", it forces to load the <var>$languageCode</var> parameter
    *  
-   * @param array        $localizedArray   a localized array in the form of: array('de' => .. , 'en' => .. )
-   * @param string       $value               the anme of the value, which should be returned localized
-   * @param bool|string  $forceOrUseLanguage  if TRUE the language will be forced to be loaded, even if it does not exist, if string it will use this as the testing language code, instead of the <var>$_SESSION['feinduraSession']['websiteLanguage']</var> var
+   * @param array        $localizedArray      an array with an ['localized'] array in the form of: array('de' => .. , 'en' => .. )
+   * @param string       $value               the name of the value, which should be returned localized
+   * @param bool|string  $forceOrUseLanguage  if TRUE the language will be forced to be loaded, even if it does not exist, if string it will be try this as the testing language code, instead of the <var>$_SESSION['feinduraSession']['websiteLanguage']</var> var
    *   
-   * @return string the localized value of the given <var>$localizedArray</var> parameter
+  * @return string the localized version of the <var>$value</var> parameter
    * 
    * 
    * @static
-   * @version 1.1
+   * @version 1.2
    * <br>
    * <b>ChangeLog</b><br>
+   *    - 1.2 the $localizedArray is now an array with an localized array, e.g. to give the $categoryConfig directly
    *    - 1.1 changed $forceLanguage to $forceOrUseLanguage
    *    - 1.0 initial release
    * 
@@ -671,6 +670,7 @@ class GeneralFunctions {
   public static function getLocalized($localizedArray, $value, $forceOrUseLanguage = false) {
 
     // var
+    $localizedArray = (isset($localizedArray['localized'])) ? $localizedArray['localized'] : $localizedArray; // LEGACY - in case its forgotten somewhere to reomve the 'localized'
     $languageCode = (!is_bool($forceOrUseLanguage) && is_string($forceOrUseLanguage) && strlen($forceOrUseLanguage) == 2)
       ? $forceOrUseLanguage
       : $_SESSION['feinduraSession']['websiteLanguage'];
@@ -1432,7 +1432,7 @@ class GeneralFunctions {
   * 
   */
   public static function checkPageDate($pageContent) {
-    $pageDate = self::getLocalized($pageContent['localized'],'pageDate');
+    $pageDate = self::getLocalized($pageContent,'pageDate');
     $pageDateBefore = $pageDate['before'];
     $pageDateAfter = $pageDate['after'];
     if((($pageContent['category'] != 0 && self::$categoryConfig[$pageContent['category']]['showPageDate']) ||
@@ -1570,14 +1570,14 @@ class GeneralFunctions {
 
           // only show the category, if the parents page category is not a sub category
           if($parentPageContent['category'] != 0 && !self::$categoryConfig[$parentPageContent['category']]['isSubCategory'])
-            $categoryNameString .= StatisticFunctions::urlEncode(self::getLocalized(self::$categoryConfig[$parentPageContent['category']]['localized'],'name',$language)).'/';
+            $categoryNameString .= StatisticFunctions::urlEncode(self::getLocalized(self::$categoryConfig[$parentPageContent['category']],'name',$language)).'/';
 
-          $parentPagesString .= StatisticFunctions::urlEncode(self::getLocalized($parentPageContent['localized'],'title',$language)).'/';
+          $parentPagesString .= StatisticFunctions::urlEncode(self::getLocalized($parentPageContent,'title',$language)).'/';
         }
 
       // -> add the CATEGORY NAME
       } elseif($category != 0)
-        $categoryNameString .= StatisticFunctions::urlEncode(self::getLocalized(self::$categoryConfig[$category]['localized'],'name',$language)).'/';
+        $categoryNameString .= StatisticFunctions::urlEncode(self::getLocalized(self::$categoryConfig[$category],'name',$language)).'/';
       
       // -> add the CATEGORY or PAGE word
       if($categoryNameString && $category != 0)
@@ -1586,7 +1586,7 @@ class GeneralFunctions {
         $href .= 'page/'.$parentPagesString;
 
       // -> add PAGE NAME
-      $href .= StatisticFunctions::urlEncode(self::getLocalized($pageContent['localized'],'title',$language));
+      $href .= StatisticFunctions::urlEncode(self::getLocalized($pageContent,'title',$language));
       $href .= '/'; //'.html';
       
       if($sessionId)

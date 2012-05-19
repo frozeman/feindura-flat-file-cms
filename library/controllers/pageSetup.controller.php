@@ -283,7 +283,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
    $_GET['status'] == 'deleteCategory') && isset($categoryConfig[$_GET['category']])) {  
   
   // save the name, to put it in the info
-  $storedCategoryName = GeneralFunctions::getLocalized($categoryConfig[$_GET['category']]['localized'],'name');
+  $storedCategoryName = GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name');
 
   // deletes the category with the given id from the array and saves the categoriesSettings.php
   unset($categoryConfig[$_GET['category']],$pageContent);  

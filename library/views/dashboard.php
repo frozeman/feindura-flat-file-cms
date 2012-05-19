@@ -161,7 +161,7 @@ if(!empty($adminConfig['user']['info'])) {
           // get page category and title
           foreach($pages as $page) {
             if($pageStats['id'] == $page['id']) {
-              $pageStats['title'] = GeneralFunctions::getLocalized($page['localized'],'title');
+              $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
               $pageStats['category'] = $page['category'];
             }
           }
@@ -195,7 +195,7 @@ if(!empty($adminConfig['user']['info'])) {
           // get page category and title
           foreach($pages as $page) {
             if($pageStats['id'] == $page['id']) {
-              $pageStats['title'] = GeneralFunctions::getLocalized($page['localized'],'title');
+              $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
               $pageStats['category'] = $page['category'];
             }
           }
@@ -227,7 +227,7 @@ if(!empty($adminConfig['user']['info'])) {
         // get page category and title
         foreach($pages as $page) {
           if($pageStats['id'] == $page['id']) {
-            $pageStats['title'] = GeneralFunctions::getLocalized($page['localized'],'title');
+            $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
             $pageStats['category'] = $page['category'];
           }
         }
@@ -262,7 +262,7 @@ if(!empty($adminConfig['user']['info'])) {
       $rowColor = 'dark'; // starting row color
       foreach($pages as $page) {
         if($page['lastSaveDate'] != 0) {
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</b> '.formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags(GeneralFunctions::getLocalized($page['localized'],'title')).'</a></td></tr>';        
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</b> '.formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'</a></td></tr>';        
           // change row color
           $rowColor = ($rowColor == 'light') ? 'dark' : 'light';    
           // count
