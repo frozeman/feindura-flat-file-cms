@@ -1486,8 +1486,8 @@ window.addEvent('domready', function() {
   if($('HTMLEditor') !== null) {
 
     // vars
-    var editorStartHeight = window.getSize().y * 0.25;
-    var editorTweenToHeight = (window.getSize().y * 0.42 > 380) ? window.getSize().y * 0.42 : 380;
+    var editorStartHeight = window.getSize().y * 0.30;
+    var editorTweenToHeight = (window.getSize().y * 0.52 > 420) ? window.getSize().y * 0.52 : 420;
     var editorHasFocus = false;
     var editorIsClicked = false;
     var editorSubmited = false;
@@ -1498,6 +1498,7 @@ window.addEvent('domready', function() {
     // ------------------------------
     // CONFIG the HTMlEditor
     CKEDITOR.config.dialog_backgroundCoverColor   = '#333333';
+    CKEDITOR.config.toolbarStartupExpanded        = false;
     CKEDITOR.config.uiColor                       = '#cccccc';
     CKEDITOR.config.width                         = 792;
     if($('documentSaved') !== null && $('documentSaved').hasClass('saved'))
@@ -1545,34 +1546,56 @@ window.addEvent('domready', function() {
     // -> adds the EDITOR SLIDE IN/OUT tweens
     if($('documentSaved') !== null && !$('documentSaved').hasClass('saved')) {
       HTMLEditor.on('instanceReady',function() {
-        $('cke_contents_HTMLEditor').set('tween',{duration:300, transition: Fx.Transitions.Pow.easeOut});
+        var ckeditorContent = $('cke_contents_HTMLEditor');
+
+        ckeditorContent.set('tween',{duration:300, transition: Fx.Transitions.Pow.easeOut});
 
         var editorTweenTimeout;
 
         $$('div.editor #cke_HTMLEditor').addEvent('click',function(e){
           editorHasFocus = true;
           clearTimeout(editorTweenTimeout);
-          if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20))
-            $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
+          if(!editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20))
+            ckeditorContent.tween('height',editorTweenToHeight);
             //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
+
+            // show toolbar
+            if(!e.target.hasClass('cke_toolbox_collapser') && $$("#cke_top_HTMLEditor .cke_toolbox")[0] !== null && $$("#cke_top_HTMLEditor .cke_toolbox")[0].getStyle('display') == 'none') {
+              HTMLEditor.execCommand('toolbarCollapse'); //toggles
+            }
+    
         });
         $$('div.editor #cke_HTMLEditor').addEvent('mouseenter',function(e){
-          if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20))
-            editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);}).delay(1000);
+          if(!editorIsClicked && !editorSubmited && !editorHasFocus && ckeditorContent.getHeight() <= (editorStartHeight+20))
+            editorTweenTimeout = (function(){ckeditorContent.tween('height',editorTweenToHeight);}).delay(1000);
         });
         $$('div.editor #cke_HTMLEditor').addEvent('mouseleave',function(e){
           clearTimeout(editorTweenTimeout);
-          if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+5) && $('cke_contents_HTMLEditor').getHeight() >= (editorTweenToHeight-5))
-            $('cke_contents_HTMLEditor').tween('height',editorStartHeight);
+          if(!editorIsClicked && !editorSubmited && !editorHasFocus && ckeditorContent.getHeight() <= (editorTweenToHeight+5) && ckeditorContent.getHeight() >= (editorTweenToHeight-5))
+            ckeditorContent.tween('height',editorStartHeight);
             //editorIsClicked = false;
         });
 
         HTMLEditor.on('focus',function() {
           editorHasFocus = true;
           clearTimeout(editorTweenTimeout);
-          if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20))
-            $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
+          if(!editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20)) {
+            ckeditorContent.tween('height',editorTweenToHeight);
             //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
+
+            // show toolbar
+            ckeditorContent.get('tween').chain(function(){
+              if($$("#cke_top_HTMLEditor .cke_toolbox")[0] !== null && $$("#cke_top_HTMLEditor .cke_toolbox")[0].getStyle('display') == 'none') {
+                HTMLEditor.execCommand('toolbarCollapse'); //toggles
+              }
+            });
+          // }
+          } else {
+            // show toolbar directly
+            if($$("#cke_top_HTMLEditor .cke_toolbox")[0] !== null && $$("#cke_top_HTMLEditor .cke_toolbox")[0].getStyle('display') == 'none') {
+              HTMLEditor.execCommand('toolbarCollapse'); //toggles
+            }
+          }
         });
 
         $('HTMLEditorSubmit').addEvent('mousedown',function(e) {
