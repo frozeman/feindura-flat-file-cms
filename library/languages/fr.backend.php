@@ -398,7 +398,7 @@ $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'mod
 $langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'Le nom des variables [b]$_GET Variable[/b] utilisé pour le référencement du site web.';
 $langFile['ADMINSETUP_GENERAL_field7']                                    = 'format de date';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Sera [span class=logoname]fein[span]dura[/span][/span] et le site web.';
+$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Sera en la [span class=logoname]fein[span]dura[/span][/span] backend et le site web.';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'heure locale';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Ne seront utilisées que par les [span class=logoname]fein[span]dura[/span][/span] backend.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'format URL';
@@ -482,7 +482,7 @@ $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'par
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'la page d\'acceuil peut être définie';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'La page d\'acceuil peut être définie par l\'utilisateur.[br][br]La page d\'acceuil définie sera publié, si aucune variable du site web sera transmise ou bien la page ne sera pas éxecutée.';
 $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'site web multi-langues';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = 'Utilisez [b]double clic[/b] pour sélectionner les langues.';
+$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = '[b]double clic[/b] pour sélectionner les langues.';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'La langue principale';
 $langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'La langue principale sera choisi, si aucune langue correspondante pourrait être déterminé automatiquement.';
 

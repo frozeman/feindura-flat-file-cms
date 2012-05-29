@@ -51,12 +51,21 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 .feindura_toolTipBox {
   z-index: 2005;
   font: 12px Verdana, Arial, Sans-serif, Serif;
+  border: 1px solid #F7F7F7;
+  border-radius: 10px;
+  background-color: #F7F7F7;
+  -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 20px rgba(0,0,0,0.15);
+  -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 20px rgba(0,0,0,0.15);
+  min-width: 250px;
+  max-width: 350px;
+  padding: 20px 10px;
 }
 
 .feindura_toolTipBox .tip-title {
   position: relative;
   z-index: 2;
-  margin: 0px 30px; 
+  margin: 0px 0px; 
   color:#947342;
   text-align: center;
   word-wrap: break-word;
@@ -68,25 +77,18 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 .feindura_toolTipBox .tip-text  {
   position: relative;
   z-index: 2;
-  padding: 2px 35px;
+  padding: 2px 15px;
   padding-bottom: 0px;
   color: #666666;
   word-wrap: break-word;
   font-size: 11px;
 }
-.feindura_toolTipBox .tip-top {
-  position: relative;
-  z-index: 0;
-  width:272px;
-  height:30px; /* org  40px; */
-  background: url("../images/bg/toolTip_top.png") top left no-repeat;
-}
+
 .feindura_toolTipBox .tip {
   position: relative;
   z-index: 1;
   width:272px;
   border: none;
-  background: url("../images/bg/toolTip_middle.png") left top repeat-y;
   line-height: 20px;
 }
 .feindura_toolTipBox .tip ul {
@@ -99,15 +101,11 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
   margin: 0px;
   padding: 2px 0px;
 }
-.feindura_toolTipBox .tip-bottom  {
-  width: 272px;
-  height: 25px; /* org  35px; */
-  background: url("../images/bg/toolTip_bottom.png") left bottom no-repeat;
-}
+
 
 .feindura_toolTipBox span.hint {
-    background-position: 0px 4px !important;
-    }
+  background-position: 0px 4px !important;
+}
 
     
 /* --- ERRORWINDOW */

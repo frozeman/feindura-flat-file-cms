@@ -422,7 +422,7 @@ $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'Nom
 $langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modulo[/b]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'Il nome della variabile [b]$_GET[/b] che verrà utilizzato per collegare le pagine del sito web.';
 $langFile['ADMINSETUP_GENERAL_field7']                                    = 'Formato Data';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Sarà utilizzato da [span class=logoname]fein[span]dura[/span][/span] per le date del sito web.';
+$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Utilizzato dal [span class=logoname]fein[span]dura[/span][/span] Backend e il sito web.';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Time Zone';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Utilizzato da [span class=logoname]fein[span]dura[/span][/span] solo per il Backend.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'Formato URL';
@@ -509,7 +509,7 @@ $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Imp
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Imposta Pagina Iniziale';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'L\'utente può impostare una pagina come pagina iniziale.[br][br]Se selezionata questa impostazione l\'utente può decidere la pagina da visualizzare all\'entrata nel sito. Quando nessuna variabile [i]$_GET[/i] di altre pagine vengono passate nel sito o in qualunque pagina che è stata già visualizzata, sarà quella selezionata la Home Page.';
 $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'Sito web multi lingua';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = 'Usare [b]doppio click[/b] per selezionare le lingue.';
+$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = '[b]doppio click[/b] per selezionare le lingue.';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'lingua principale';
 $langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'La lingua principale sarà selezionato, se non la lingua di corrispondenza è stato possibile determinare automaticamente.';
 

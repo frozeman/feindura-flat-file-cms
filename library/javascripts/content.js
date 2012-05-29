@@ -1291,7 +1291,7 @@ window.addEvent('domready', function() {
       // -> show dialog if languages will be deleted
       if(removedLangString !== '') {
         e.stop();
-        openWindowBox('library/views/windowBox/deleteWebsiteLanguages.php?site=pageSetup&status='+status+'&mainLanguage='+$('cfg_websiteMainLanguage').get('value')+'&languages='+removedLangString,false);
+        openWindowBox('library/views/windowBox/deleteWebsiteLanguages.php?site=pageSetup&status='+status+'&mainLanguage='+$('cfg_websiteMainLanguage').get('value')+'&languages='+removedLangString,'',false);
       }
 
       // reset the website Languages variable

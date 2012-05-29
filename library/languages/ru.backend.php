@@ -502,7 +502,7 @@ $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'н�
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Установка главной страницы';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Дает возможность установить любую страницу в качестве главной (стартовой).[br][br]Стартовая страница выводится если запрос в [i]$_GET[/i] пуст.';
 $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'Мульти язык сайта';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = 'Используйте [b]двойной клик[/b] для выбора языка.';
+$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = '[b]двойной клик[/b] для выбора языка.';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Основной язык';
 $langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'Основной язык будет выбран, если нет соответствующего языка может быть определен автоматически.';
 

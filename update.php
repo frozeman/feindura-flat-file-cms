@@ -915,6 +915,24 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_h1.png') &&
       is_file(dirname(__FILE__).'/library/images/bg/windowBox_h1.png'))
       $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_h1.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_bottom.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/toolTip_bottom.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_bottom.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_bottom.gif') &&
+      is_file(dirname(__FILE__).'/library/images/bg/toolTip_bottom.gif'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_bottom.gif';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_middle.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/toolTip_middle.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_middle.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_middle.gif') &&
+      is_file(dirname(__FILE__).'/library/images/bg/toolTip_middle.gif'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_middle.gif';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_top.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/toolTip_top.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_top.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_top.gif') &&
+      is_file(dirname(__FILE__).'/library/images/bg/toolTip_top.gif'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_top.gif';
     
     
     // delete lowercase class names

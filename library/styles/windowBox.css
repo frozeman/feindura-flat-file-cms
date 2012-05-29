@@ -33,9 +33,9 @@
     border: 1px solid #fff;
     border-radius: 20px;
     background-color: #fff;
-    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.05);
-    -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.05);
-    box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.05);
+    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 40px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 40px rgba(0,0,0,0.15);
     }
 #windowBox > h1 {
     position: absolute;
@@ -119,15 +119,15 @@
 #windowBox > a.close {
     z-index: 2;
     position: absolute;
-    top: 6px;
+    top: 7px;
     right: 6px;
     padding: 0px !important;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     background: url("../images/buttons/windowBox_close.png") no-repeat;
     }
 #windowBox > a.close:hover {
-    background-position: -35px 0px;
+    background-position: -30px 0px;
     }
     
 /****************/  

@@ -422,7 +422,7 @@ $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'Mod
 $langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'The name of the [b]$_GET Variable[/b] which will be used to link the pages.';
 $langFile['ADMINSETUP_GENERAL_field7']                                    = 'Date format';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Will be used in [span class=logoname]fein[span]dura[/span][/span] and the website.';
+$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Will be used in the [span class=logoname]fein[span]dura[/span][/span] Backend and the Website.';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Time zone';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Will only be used by the [span class=logoname]fein[span]dura[/span][/span] Backend.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'URL format';
@@ -509,7 +509,7 @@ $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Web
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Set start page';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'The user can set a page as the start page.[br][br]The start page will be used if no page variable is given through the [i]$_GET[/i] variable in the website.';
 $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'Multi language Website';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = 'Use [b]double click[/b] to select languages.';
+$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = '[b]double click[/b] to select languages.';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Main language';
 $langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'The main language will be selected, if no matching language could be determined automatically.';
 
