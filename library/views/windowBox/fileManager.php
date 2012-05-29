@@ -71,6 +71,7 @@ if(!$adminConfig['user']['fileManager'])
           selectable: true,
           hideClose: true,
           hideOverlay: true,
+          listType: 'thumb',
           listPaginationSize: 100,
           onComplete: complete
       });

@@ -193,6 +193,7 @@ if($_GET['site'] == 'addons') {
         hideOnClick: true,
         hideOverlay: true,
         hideOnDelete: false,
+        listType: 'thumb',
         listPaginationSize: 100,
         onShow: function() {
             window.location.hash = '#none';

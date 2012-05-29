@@ -83,6 +83,7 @@ var FileManager = new Class({
 		download: false,
 		createFolders: false,
 		filter: '',
+		listType: 'thumb',								// the standard list type can be 'list' or 'thumb'
     keyboardNavigation: true,         // set to false to turn off keyboard navigation (tab, up/dn/pageup/pagedn etc)
 		detailInfoMode: '',               // (string) whether you want to receive extra metadata on select/etc. and/or view this metadata in the preview pane (modes: '', '+metaHTML', '+metaJSON'. Modes may be combined)
     previewHandlers: {},              // [partial] mimetype: function, function is called with previewArea (DOM element, put preview in here), fileDetails
@@ -134,7 +135,7 @@ var FileManager = new Class({
 		this.assetBasePath = this.options.assetBasePath.replace(/(\/|\\)*$/, '/');
 		this.root = null;
 		this.CurrentDir = null;
-		this.listType = 'list';
+		this.listType = this.options.listType;
 		this.dialogOpen = false;
 		this.storeHistory = false;
 		this.fmShown = false;
@@ -383,10 +384,18 @@ var FileManager = new Class({
 				click: this.toggleList.bind(this)
 			});
 
+		if(this.listType == 'thumb') {
+			this.browserMenu_thumb.setStyle('opacity',1);
+			this.browserMenu_list.setStyle('opacity',0.5);
+		}
+
+		// set startup list type
+		if(this.options.thumbnailList === true)
+			console.log(this.toggleList.bind(this));
+
 		// Add a scroller to scroll the browser list when dragging a file
 		this.scroller = new Scroller(this.browserScroll, {
-			onChange: function(x, y)
-			{
+			onChange: function(x, y) {
 				// restrict scrolling to Y direction only!
 				//this.element.scrollTo(x, y);
 				var scroll = this.element.getScroll();
@@ -563,7 +572,6 @@ var FileManager = new Class({
 		this.tips.attach(this.browserMenu_thumb);
 		this.tips.attach(this.browserMenu_list);
 		this.tips.attach(this.browserMenu_thumbList);
-
 
 		this.imageadd = Asset.image(this.assetBasePath + 'Images/add.png', {
 			'class': 'browser-add',
