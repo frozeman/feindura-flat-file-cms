@@ -1,8 +1,7 @@
-/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+﻿/*
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
-
 /* add feindura link plugin */
 
 CKEDITOR.dialog.add( 'link', function( editor )
@@ -198,7 +197,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					var featureMatch;
 					while ( ( featureMatch = popupFeaturesRegex.exec( onclickMatch[2] ) ) )
 					{
-					  // Some values should remain numbers (#7300)
+						// Some values should remain numbers (#7300)
 						if ( ( featureMatch[2] == 'yes' || featureMatch[2] == '1' ) && !( featureMatch[1] in { height:1, width:1, top:1, left:1 } ) )
 							retval.target[ featureMatch[1] ] = true;
 						else if ( isFinite( featureMatch[2] ) )
@@ -247,7 +246,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 		// Find out whether we have any anchors in the editor.
 		var anchors = retval.anchors = [],
-			item;
+			i, count, item;
 
 		// For some browsers we set contenteditable="false" on anchors, making document.anchors not to include them, so we must traverse the links manually (#7893).
 		if ( CKEDITOR.plugins.link.emptyAnchorFix )
@@ -263,7 +262,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		else
 		{
 			var anchorList = new CKEDITOR.dom.nodeList( editor.document.$.anchors );
-			for ( var i = 0, count = anchorList.count(); i < count; i++ )
+			for ( i = 0, count = anchorList.count(); i < count; i++ )
 			{
 				item = anchorList.getItem( i );
 				anchors[ i ] = { name : item.getAttribute( 'name' ), id : item.getAttribute( 'id' ) };
@@ -384,7 +383,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		}
 		return 'String.fromCharCode(' + encodedChars.join( ',' ) + ')';
 	}
-	
+
 	function getLinkClass( ele )
 	{
 		var className = ele.getAttribute( 'class' );
@@ -540,25 +539,25 @@ CKEDITOR.dialog.add( 'link', function( editor )
 								}
 							},
 							// ->> feindura link plugin *** start ***
-							{
+              {
                 id : 'feindura_link',
-								type : 'select',
-								label : feindura_langFile['CKEDITOR_TITLE_LINKS'],
-								'default' : '',
-								items: feindura_pages,
-								onShow: function(){
-								  feindura_pages.each(function(page){
-								    var pageHref = page[1].substring(page[1].indexOf('?')).toLowerCase();
-								    var inputHref = this.getDialog().getContentElement( 'info', 'url' ).getValue().substring(this.getDialog().getContentElement( 'info', 'url' ).getValue().indexOf('?')).toLowerCase();
+               type : 'select',
+               label : feindura_langFile['CKEDITOR_TITLE_LINKS'],
+               'default' : '',
+               items: feindura_pages,
+               onShow: function(){
+                 feindura_pages.each(function(page){
+                   var pageHref = page[1].substring(page[1].indexOf('?')).toLowerCase();
+                   var inputHref = this.getDialog().getContentElement( 'info', 'url' ).getValue().substring(this.getDialog().getContentElement( 'info', 'url' ).getValue().indexOf('?')).toLowerCase();
                     if(pageHref == inputHref) {
                      this.setValue(page[1]);
                     }
                   },this);
                 },
-								onChange : function()	{
-								  var	urlCmb = this.getDialog().getContentElement( 'info', 'url' );
-									urlCmb.setValue( this.getValue() );
-								}
+               onChange : function() {
+                 var urlCmb = this.getDialog().getContentElement( 'info', 'url' );
+                 urlCmb.setValue( this.getValue() );
+               }
               },
               // ->> feindura link plugin *** end ***
 							{
@@ -677,7 +676,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 								type : 'html',
 								id : 'noAnchors',
 								style : 'text-align: center;',
-								html : '<div role="label" tabIndex="-1">' + CKEDITOR.tools.htmlEncode( linkLang.noAnchors ) + '</div>',
+								html : '<div role="note" tabIndex="-1">' + CKEDITOR.tools.htmlEncode( linkLang.noAnchors ) + '</div>',
 								// Focus the first element defined in above html.
 								focus : true,
 								setup : function( data )
@@ -1183,6 +1182,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 										label : linkLang.styles,
 										'default' : '',
 										id : 'advStyles',
+										validate : CKEDITOR.dialog.validate.inlineStyle( editor.lang.common.invalidInlineStyle ),
 										setup : setupAdvParams,
 										commit : commitAdvParams
 									}
@@ -1351,14 +1351,15 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			}
 
 
+			var selection = editor.getSelection();
+
 			// Browser need the "href" fro copy/paste link to work. (#6641)
 			attributes.href = attributes[ 'data-cke-saved-href' ];
 
 			if ( !this._.selectedElement )
 			{
 				// Create element if current selection is collapsed.
-				var selection = editor.getSelection(),
-					ranges = selection.getRanges( true );
+				var ranges = selection.getRanges( true );
 				if ( ranges.length == 1 && ranges[0].collapsed )
 				{
 					// Short mailto link text view (#5736).
@@ -1381,7 +1382,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					href = element.data( 'cke-saved-href' ),
 					textView = element.getHtml();
 
-			element.setAttributes( attributes );
+				element.setAttributes( attributes );
 				element.removeAttributes( removeAttributes );
 
 				if ( data.adv && data.adv.advName && CKEDITOR.plugins.link.synAnchorSelector )
@@ -1395,6 +1396,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						data.email.address : attributes[ 'data-cke-saved-href' ] );
 				}
 
+				selection.selectElement( element );
 				delete this._.selectedElement;
 			}
 		},
@@ -1446,4 +1448,3 @@ CKEDITOR.dialog.add( 'link', function( editor )
  * // href="javascript:mt('tester','ckeditor.com','subject','body')"
  * config.emailProtection = 'mt(NAME,DOMAIN,SUBJECT,BODY)';
  */
-

@@ -1557,7 +1557,9 @@ window.addEvent('domready', function() {
     HTMLEditor = CKEDITOR.replace('HTMLEditor');
 
     // -> adds the EDITOR SLIDE IN/OUT tweens
-    if($('documentSaved') !== null && !$('documentSaved').hasClass('saved')) {
+    if($('documentSaved') !== null && $('documentSaved').hasClass('saved'))
+      editorIsClicked = true;
+
       HTMLEditor.on('instanceReady',function() {
         var ckeditorContent = $('cke_contents_HTMLEditor');
 
@@ -1570,7 +1572,6 @@ window.addEvent('domready', function() {
           clearTimeout(editorTweenTimeout);
           if(!editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20))
             ckeditorContent.tween('height',editorTweenToHeight);
-            //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
 
             // show toolbar
             if(!e.target.hasClass('cke_toolbox_collapser') && $$("#cke_top_HTMLEditor .cke_toolbox")[0] !== null && $$("#cke_top_HTMLEditor .cke_toolbox")[0].getStyle('display') == 'none') {
@@ -1590,6 +1591,7 @@ window.addEvent('domready', function() {
         });
 
         HTMLEditor.on('focus',function() {
+          
           editorHasFocus = true;
           clearTimeout(editorTweenTimeout);
           if(!editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20)) {
@@ -1616,7 +1618,6 @@ window.addEvent('domready', function() {
         });
       });
     }
-  }
   // ->> make PAGE TITLE EDITABLE
 
   // -> SAVE TITLE
