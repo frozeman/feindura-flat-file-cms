@@ -31,7 +31,7 @@ $frontendLangFile['HEADER_TIP_GOTOBACKEND']               = 'Панель упр
 $frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']      = 'Редактировать страницу в панели управления.';
 
 $frontendLangFile['EDITPAGE_TIP_DISABLED']                = 'Редактирование в интерфейс не представляется возможным::содержание было изменено с помощью сценариев.';
-$frontendLangFile['TOPBAR_TIP_FRONTENDEDITING']           = 'Внешнего интерфейса Редактирование::Выбор редактируемой области, чтобы начать редактирование.';
+$frontendLangFile['TOPBAR_TIP_FRONTENDEDITING']           = 'Выбор редактируемой области, чтобы начать редактирование.';
 $frontendLangFile['TOPBAR_TIP_DEACTIVATEFRONTENDEDITING'] = 'Отключить Внешнего интерфейса Редактирование';
 
 // FRONTEND ERROR TEXTS

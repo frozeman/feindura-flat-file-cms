@@ -29,7 +29,7 @@ $frontendLangFile['HEADER_TIP_GOTOBACKEND']               = 'Feindura::Clicca qu
 $frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']      = 'Modifica questa pagina nel lato backend';
 
 $frontendLangFile['EDITPAGE_TIP_DISABLED']                = 'Modifica in frontend non è possibile::Il contenuto è stato modificato dagli script.';
-$frontendLangFile['TOPBAR_TIP_FRONTENDEDITING']           = 'Frontend Editing::Selezionare un\'area modificabile per avviare la modifica.';
+$frontendLangFile['TOPBAR_TIP_FRONTENDEDITING']           = 'Selezionare un\'area modificabile per avviare la modifica.';
 $frontendLangFile['TOPBAR_TIP_DEACTIVATEFRONTENDEDITING'] = 'Disattivare la modifica del frontend';
 
 // FRONTEND ERROR TEXTS

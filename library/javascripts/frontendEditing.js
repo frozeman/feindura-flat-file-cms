@@ -28,7 +28,8 @@
   var toolTips = null;
 
   var logo = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
-  var topBar = new Element('div',{id: 'feindura_topBar', 'class': 'feindura_toolTip','title': feindura_langFile.TOPBAR_TIP_FRONTENDEDITING });
+  var topBar = new Element('div',{id: 'feindura_topBar' });
+  var topBarText = new Element('p',{'html': feindura_langFile.TOPBAR_TIP_FRONTENDEDITING});
   var topBarVisible = (feindura_deactivateFrontendEditing) ? false : true;
 
   var jsLoadingCircle = new Element('div',{'class': 'feindura_loadingCircleHolder'});
@@ -399,7 +400,7 @@
     links[1] = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'class': 'feindura_toBackend feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
 
     // Hide button
-    links[2] = new Element('a',{ 'href': '#', 'onclick':'return false;', 'class': 'feindura_topBarHide feindura_toolTip', 'title': '::'+feindura_langFile.TOPBAR_TIP_DEACTIVATEFRONTENDEDITING});
+    links[2] = new Element('a',{ 'href': '#', 'onclick':'return false;', 'class': 'feindura_topBarHide feindura_toolTip', 'title': feindura_langFile.TOPBAR_TIP_DEACTIVATEFRONTENDEDITING+'::'});
     links[2].addEvent('mouseup', function(e) {
         e.stop();
         if(topBarVisible) deactivate();
@@ -409,6 +410,8 @@
     links.each(function(link){
       topBar.grab(link,'bottom');
     });
+
+    topBarText.inject(topBar);
 
     return topBar;
   }
@@ -513,6 +516,9 @@ window.addEvent('load',function(){
         // deactivate the moorte toolbar
         this.moorte('hide');
 
+        // show topBarText
+        topBarText.setStyle('display','block');
+
         //alert(MooRTE.Elements.linkPop.visible);
         if((typeOf(MooRTE.Elements.linkPop) === 'null' || (MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false))) {
           if(this.hasClass('feindura_editPage'))
@@ -536,6 +542,9 @@ window.addEvent('load',function(){
 
         // activate the moorte toolbar
         this.moorte('show');
+
+        // hide topBarText
+        topBarText.setStyle('display','none');
       });
 
       // on mouse over

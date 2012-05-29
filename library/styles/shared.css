@@ -13,7 +13,7 @@
 /* --- LOGOUT */
 
 a.logout, a.feindura_logout {
-    position: absolute; */ */ */ */
+    position: absolute;
     top: 0px;
     left: 0px;
     z-index: 2;
@@ -50,16 +50,16 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 /* format of the toolTip box */
 .feindura_toolTipBox {
   z-index: 2005;
-  font: 12px Verdana, Arial, Sans-serif, Serif;
+  padding: 20px 10px;
+  max-width: 350px;
+  min-width: 250px;
   border: 1px solid #F7F7F7;
   border-radius: 10px;
   background-color: #F7F7F7;
   -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 20px rgba(0,0,0,0.15);
   -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 20px rgba(0,0,0,0.15);
   box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 20px rgba(0,0,0,0.15);
-  min-width: 250px;
-  max-width: 350px;
-  padding: 20px 10px;
+  font: 12px Verdana, Arial, Sans-serif, Serif;
 }
 
 .feindura_toolTipBox .tip-title {

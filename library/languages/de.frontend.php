@@ -29,7 +29,7 @@ $frontendLangFile['HEADER_TIP_GOTOBACKEND']               = 'Feindura::Klick hie
 $frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']      = 'Seite im Backend bearbeiten';
 
 $frontendLangFile['EDITPAGE_TIP_DISABLED']                = 'Bearbeiten im frontend nicht möglich::Der Inhalt wurde durch Scripte verändert.';
-$frontendLangFile['TOPBAR_TIP_FRONTENDEDITING']           = 'Frontend-Bearbeitung::Wähle eine bearbeitbares Feld aus, um mit dem bearbeiten zu beginnen';
+$frontendLangFile['TOPBAR_TIP_FRONTENDEDITING']           = 'Wähle eine bearbeitbares Feld aus, um mit dem bearbeiten zu beginnen';
 $frontendLangFile['TOPBAR_TIP_DEACTIVATEFRONTENDEDITING'] = 'Frontend-Bearbeitung deaktivieren';
 
 

@@ -54,13 +54,13 @@ a.logout:hover, a.toWebsite:hover {
 }
 #feindura_topBar p {
   position: absolute;
-  top: -10px;
-  left: 40px;
- /* width : 100%;
-  text-align: center;*/
-  color: #888;
-  text-shadow: 1px 1px 1px #ffffff;
-  filter: dropshadow(color=#ffffff, offx=1, offy=1);
+  display: block;
+  top: 12px;
+  left: -30px;
+  width : 100%;
+  text-align: center;
+  color: #929292;
+  text-shadow: 0px 1px 1px #ffffff;
   overflow: visible;
 }
 
@@ -138,22 +138,22 @@ div.feindura_editPage, div.feindura_editPageDisabled, span.feindura_editTitle, s
   display: inline-block;
 }
 div.feindura_editPage:hover, div.feindura_editPageDisabled:hover, span.feindura_editTitle:hover, span.feindura_editTitleDisabled:hover {
-  border: 1px solid #666;
+  border: 1px solid #c7c7c7;
   margin: -7px;
   padding: 6px;
-  -webkit-box-shadow: 0px 0px 10px #ccc;
-  -moz-box-shadow: 0px 0px 10px #ccc;
-  -o-box-shadow: 0px 0px 10px #ccc;
-  box-shadow: 0px 0px 10px #ccc;
+  -webkit-box-shadow: 0px 0px 10px #c7c7c7;
+  -moz-box-shadow: 0px 0px 10px #c7c7c7;
+  -o-box-shadow: 0px 0px 10px #c7c7c7;
+  box-shadow: 0px 0px 10px #c7c7c7;
 }
 div.feindura_editPage:focus, span.feindura_editTitle:focus {
-  border: 1px solid #777;
+  border: 1px solid #afafaf;
   margin: -7px;
   padding: 6px;
-  -webkit-box-shadow: 0px 0px 10px #ccc;
-  -moz-box-shadow: 0px 0px 10px #ccc;
-  -o-box-shadow: 0px 0px 10px #ccc;
-  box-shadow: 0px 0px 10px #ccc;
+  -webkit-box-shadow: 0px 0px 10px #c7c7c7;
+  -moz-box-shadow: 0px 0px 10px #c7c7c7;
+  -o-box-shadow: 0px 0px 10px #c7c7c7;
+  box-shadow: 0px 0px 10px #c7c7c7;
 }
 div.feindura_editPageDisabled:hover, span.feindura_editTitleDisabled:hover {
   background-color: #fff;
