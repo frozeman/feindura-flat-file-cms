@@ -1,32 +1,23 @@
-/*
-    feindura - Flat File Content Management System
+/* feindura - Flat File Content Management System
     Copyright (C) Fabian Vogelsteller [frozeman.de]
 
-    This program is free software;
-    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+    This program is free software;/* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation;/* either version 3 of the License, or (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;/* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
     See the GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License along with this program;
-    if not,see <http://www.gnu.org/licenses/>.
-
-* general.css version 0.1
-* 
-* is shared by the frontand (editing) and backend
-*/
 
 /****************/
 /* --- LOGOUT */
 
 a.logout, a.feindura_logout {
-    z-index: 2;
-    display: block;
-    position: absolute;
+    position: absolute; */ */ */ */
     top: 0px;
     left: 0px;
+    z-index: 2;
+    display: block;
     width: 28px;
     height: 26px;
     background: url("../images/buttons/header_out.png") no-repeat;
@@ -36,11 +27,11 @@ a.logout:hover, a.feindura_logout:hover, a.logout:focus, a.feindura_logout:focus
 }
 
 a.toWebsite, a.feindura_toBackend {
-    z-index: 2;
-    display: block;
     position: absolute;
     top: 0px;
     left: 28px;
+    z-index: 2;
+    display: block;
     width: 28px;
     height: 26px;
 }
@@ -62,56 +53,56 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
   font: 12px Verdana, Arial, Sans-serif, Serif;
 }
 
-.feindura_toolTipBox .tip-title	{
-  z-index: 2;
+.feindura_toolTipBox .tip-title {
   position: relative;
-  margin: 0px 30px;
-  font-size: 12px; 
+  z-index: 2;
+  margin: 0px 30px; 
   color:#947342;
   text-align: center;
   word-wrap: break-word;
+  font-size: 12px;
 }
-.feindura_toolTipBox .tip-title span	{
+.feindura_toolTipBox .tip-title span  {
   color: #666666;
 }
-.feindura_toolTipBox .tip-text	{
-  z-index: 2;
+.feindura_toolTipBox .tip-text  {
   position: relative;
-  color: #666666;
+  z-index: 2;
   padding: 2px 35px;
   padding-bottom: 0px;
+  color: #666666;
   word-wrap: break-word;
   font-size: 11px;
 }
 .feindura_toolTipBox .tip-top {
-  z-index: 0;
   position: relative;
-  background: url("../images/bg/toolTip_top.png") top left no-repeat;
+  z-index: 0;
   width:272px;
   height:30px; /* org  40px; */
+  background: url("../images/bg/toolTip_top.png") top left no-repeat;
 }
 .feindura_toolTipBox .tip {
-  z-index: 1;
   position: relative;
+  z-index: 1;
   width:272px;
+  border: none;
   background: url("../images/bg/toolTip_middle.png") left top repeat-y;
   line-height: 20px;
-  border: none;
 }
 .feindura_toolTipBox .tip ul {
-  padding: 0px;
   margin: 0px;
   margin-left: 15px;
+  padding: 0px;
   list-style: disc;
 }
 .feindura_toolTipBox .tip ul li {
-  padding: 2px 0px;
   margin: 0px;
+  padding: 2px 0px;
 }
-.feindura_toolTipBox .tip-bottom	{
-  background: url("../images/bg/toolTip_bottom.png") left bottom no-repeat;
+.feindura_toolTipBox .tip-bottom  {
   width: 272px;
   height: 25px; /* org  35px; */
+  background: url("../images/bg/toolTip_bottom.png") left bottom no-repeat;
 }
 
 .feindura_toolTipBox span.hint {
@@ -122,51 +113,51 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 /* --- ERRORWINDOW */
 
 #feindura_errorWindow {
-    z-index: 2100;
     position: fixed;    
     top: 15%;
     left: 370px;
+    z-index: 2100;
+    padding: 30px 40px;
     width: 447px;
-    padding: 0px 40px;
-    background: url("../images/bg/errorWindow_middle.png") repeat-y;
+    border: 1px solid #fef9f3;
+    border-radius: 20px;
+
+    background-color: #fff1e6;
+    background-image: -webkit-gradient(linear, center top, center bottom, from(#fff7f5), to(#fff1e6));
+    background-image: -webkit-linear-gradient(top, #fff7f5, #fff1e6);
+    background-image: -moz-linear-gradient(top, #fff7f5, #fff1e6);
+    background-image: -o-linear-gradient(top, #fff7f5, #fff1e6);
+    background-image: -ms-linear-gradient(top, #fff7f5, #fff1e6);
+    background-image: linear-gradient(to bottom, #fff7f5, #fff1e6);
+    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4);
+    box-shadow: 0 1px 10px rgba(0,0,0,0.4);
     font: 12px Verdana, Arial, Sans-serif, Serif;
+
     }
 
-#feindura_errorWindow .feindura_top {
-    z-index: 3;
+#feindura_errorWindow h1 {
     position: relative;
-    top: -40px;
-    left: -40px;
-    width: 527px;
-    height: 10px; /*org: 40px */
+    z-index: 3;
+    margin-bottom: 20px;
     padding: 0px;
-    padding-top: 30px;
-    background: url("../images/bg/errorWindow_top.png") no-repeat;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
+    width: 100%;
     color: #A30000;
-    overflow: visible;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
     }
 #feindura_errorWindow .feindura_content {
     z-index: 0;
-    width: 377px;
-    padding-left: 70px;    
+    padding-left: 70px;
+    width: 377px;    
     }
 #feindura_errorWindow .feindura_content div.scroll {
     display: block;
-    max-height: 500px;
     overflow: auto;
+    max-height: 500px;
     color: #A30000;
 }
-#feindura_errorWindow .feindura_bottom {
-    position: relative;
-    bottom: -40px;
-    left: -40px;
-    width: 527px;
-    height: 40px;
-    background: url("../images/bg/errorWindow_bottom.png") no-repeat;
-    }
     
 #feindura_errorWindow .feindura_content.feindura_warning {
     min-height: 48px;
@@ -175,9 +166,9 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 
 #feindura_errorWindow .rawError {
     display: block;
-    width: 345px;
     margin-bottom: 20px;
     padding: 10px;
+    width: 345px;
     border: 1px dotted #999999;
     color: #444;
     word-wrap: break-word;
@@ -186,15 +177,15 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 /* ok button */
 
 #feindura_errorWindow .feindura_content a.feindura_ok {
-    display: block;
     position: relative;
-    top: 20px;
+    top: 10px;
     left: 130px;
+    display: block;
+    padding: 0px;
     width: 75px;
     height: 65px;
-    padding: 0px;
-    background: url("../images/buttons/errorWindow_ok.png") no-repeat;
+    background: url("../images/buttons/errorWindow_ok.png") no-repeat 0px -64px;
     }
 #feindura_errorWindow .feindura_content a.feindura_ok:hover, #feindura_errorWindow .feindura_content a.feindura_ok:focus {
-    background-position: 0px -65px;
+    background-position: 0 0;
     }

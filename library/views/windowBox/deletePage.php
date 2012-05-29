@@ -39,11 +39,11 @@ $categoryPath = ($category == 0) ? '' : $category.'/';
 
 // QUESTION
 if(is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.php')) {
-  $question = '<h1 class="red">'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.strip_tags(GeneralFunctions::getLocalized($pageContent,'title')).'</span>&quot; '.$langFile['deletePage_question_part2'].'</h1>';
+  $question = '<h2 class="red">'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.strip_tags(GeneralFunctions::getLocalized($pageContent,'title')).'</span>&quot; '.$langFile['deletePage_question_part2'].'</h2>';
 
 // NOT EXISTING
 } else {
-  $question = '<h1>'.$langFile['deletePage_notexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['realBasePath'].'pages/'.$categoryPath.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h1>
+  $question = '<h2>'.$langFile['deletePage_notexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['realBasePath'].'pages/'.$categoryPath.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h2>
   <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox(\'index.php?site=pages&category='.$category.'&status=reload'.rand(1,99).'#categoryAnchor'.$category.'\');return false;">&nbsp;</a>';
   
   // reload the $pagesMetaData array
@@ -79,7 +79,7 @@ if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'
 
   } else {
     // DELETING ERROR --------------
-    $question = '<h1>'.$langFile['deletePage_finish_error'].'</h1>
+    $question = '<h2>'.$langFile['deletePage_finish_error'].'</h2>
     <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>'."\n";
   }
 }

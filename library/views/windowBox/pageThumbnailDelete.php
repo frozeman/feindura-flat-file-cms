@@ -46,7 +46,7 @@ $pageContent = GeneralFunctions::readPage($page,$category);
 $thumbnail = $pageContent['thumbnail'];
 
 // QUESTION
-$question = '<h1 class="red">'.$langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_START'].' &quot;<span style="color:#000000;">'.strip_tags(GeneralFunctions::getLocalized($pageContent,'title')).'</span>&quot; '.$langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_END'].'</h1>';
+$question = '<h2 class="red">'.$langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_START'].' &quot;<span style="color:#000000;">'.strip_tags(GeneralFunctions::getLocalized($pageContent,'title')).'</span>&quot; '.$langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_END'].'</h2>';
 
 // DELETING PROCESS
 if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
@@ -63,7 +63,7 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
         // create redirect
         $redirect = (empty($site))
           ? '?category='.$category.'&page='.$page.'&status=reload'.rand(1,99).'#pageInformation'
-          : '?site='.$site;
+          : '?site='.$site.'&category='.$category;
         
         if($site == 'pages')
           $redirect .= '&status=reload'.rand(1,99).'#categoryAnchor'.$category;
@@ -73,7 +73,7 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
         
     } else {
       // DELETING ERROR --------------
-      $question = '<h1>'.$langFile['PAGETHUMBNAIL_ERROR_DELETE'].'</h1>
+      $question = '<h2>'.$langFile['PAGETHUMBNAIL_ERROR_DELETE'].'</h2>
       <a href="?category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>'."\n";
     }
 } elseif(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {

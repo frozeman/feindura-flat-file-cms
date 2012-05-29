@@ -67,7 +67,8 @@ if(isset($_GET['createBackup'])) {
 
 // ------------>> DELETE BACKUP
 if(isset($_GET['status']) && $_GET['status'] == 'deleteBackup') {
-  if(!empty($_GET['file']) && unlink('..'.$_GET['file'])) {
+  $_GET['file'] = XssFilter::path($_GET['file']);
+  if(!empty($_GET['file']) && unlink(DOCUMENTROOT.$adminConfig['realBasePath'].'/backups/'.$_GET['file'])) {
     saveActivityLog(31); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow .= $langFile['BACKUP_ERROR_DELETE'];

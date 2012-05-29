@@ -27,7 +27,7 @@ require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
 // QUESTION
-echo '<h1 class="red">'.$langFile['statisticSetup_clearStatistics_question_h1'].'</h1>';
+echo '<h2 class="red">'.$langFile['statisticSetup_clearStatistics_question_h1'].'</h2>';
 
 ?>
 <div>

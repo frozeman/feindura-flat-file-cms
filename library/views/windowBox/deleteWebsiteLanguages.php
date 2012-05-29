@@ -38,7 +38,7 @@ foreach ($languages as $langCode) {
 }
 
 // QUESTION
-echo '<h1 class="red">'.sprintf($langFile['WINDOWBOX_TITLE_DELETEWEBSITELANGUAGES_QUESTION'],'<span style="color:#000000;">'.$languageString.'</span>').'</h1>';
+echo '<h2 class="red">'.sprintf($langFile['WINDOWBOX_TITLE_DELETEWEBSITELANGUAGES_QUESTION'],'<span style="color:#000000;">'.$languageString.'</span>').'</h2>';
 
 if($_GET['status'] == 'deactivated')
   echo '<p>'.sprintf($langFile['WINDOWBOX_TEXT_DELETEWEBSITELANGUAGES_QUESTION'],$languageNames[$_GET['mainLanguage']]).'</p>';

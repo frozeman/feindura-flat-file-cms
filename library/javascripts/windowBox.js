@@ -33,7 +33,7 @@ function openWindowBox(site,siteTitle,fixed) {
     else
       $('windowBox').setStyle('position','fixed');
 
-    loadingText = $$('#windowBox .boxTop').get('html');
+    loadingText = $$('#windowBox > h1').get('html');
 
     // dim container
     $('dimContainer').setStyle('display','block');
@@ -47,12 +47,6 @@ function openWindowBox(site,siteTitle,fixed) {
     // window box
     $('windowBoxContainer').fade('hide');
     $('windowBoxContainer').fade(1);
-    
-
-    // IE HACK, wont bring the bottom div to the top
-		if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-      $('windowBox').getChildren('.boxBottom').setStyle('top','68px');
-		}
     
     windowBoxIsVisible = true;
 
@@ -73,12 +67,6 @@ function closeWindowBox(redirectAfter) {
 	// resize the box by a slide
 	$('dimContainer').set('tween', {duration: 300, transition: Fx.Transitions.Pow.easeOut});
 	
-	// IE HACK, wont bring the bottom div to the top
-	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-		$('windowBox').getChildren('.boxBottom').set('tween',{duration: 250, transition: Fx.Transitions.Pow.easeIn});
-		$('windowBox').getChildren('.boxBottom').tween('top','0px');
-	}
-	
 	// fades the windowBox
   $('windowBoxContainer').fade('show');
 	$('windowBoxContainer').fade(0);
@@ -94,7 +82,7 @@ function closeWindowBox(redirectAfter) {
     $('windowRequestBox').setStyle('height', 'auto');
 
     $('dimContainer').setStyle('display','none');
-    $$('#windowBox .boxTop').set('html',loadingText);
+    $$('#windowBox > h1').set('html',loadingText);
 
     windowBoxIsVisible = false;
 
@@ -131,7 +119,7 @@ function requestSite(site,siteTitle,formId) {
           windowRequestBox.grab(new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'}),'top');
         } else {
           windowRequestBox.grab(new Element('div', {id: 'windowBoxDimmer'}),'top');
-          removeLoadingCircle = feindura_loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#fff");
+          removeLoadingCircle = feindura_loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#000");
         }
     },
     //-----------------------------------------------------------------------------
@@ -159,32 +147,19 @@ function requestSite(site,siteTitle,formId) {
         }
 
         // fire a event if the page is loaded
-        $('windowBox').fireEvent('loaded',windowRequestBox);
+        windowBox.fireEvent('loaded',windowRequestBox);
 
         // only when the a new window is opend slide in ------------
         if(newWindow) {
 
           // first fill in the title
           if(siteTitle) {
-            //Inject the new DOM elements into the boxTop div.
-            $$('#windowBox .boxTop').set('html',siteTitle + '<a href="#" onclick="closeWindowBox();return false;"></a>');
+            // Inject the new DOM elements into the h1.
+            $$('#windowBox > h1').set('html',siteTitle);
           } else {
-            //Clear the boxTop <div>
-            $$('#windowBox .boxTop').set('html', '<a href="#" onclick="closeWindowBox(false);return false;"></a>');
+            // Clear the title <div>
+            $$('#windowBox > h1').set('html');
           }
-            
-          // IE HACK, wont bring the bottom div to the bottom
-          if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-            windowBox.getChildren('.boxBottom').setStyle('top','68px');
-            windowBox.getChildren('.boxBottom').set('tween',{duration: 500, transition: Fx.Transitions.Pow.easeOut});
-            windowBox.getChildren('.boxBottom').tween('top',windowRequestBox.getSize().y);
-          }
-
-        // else RESIZE ------------
-        } else {
-          // IE HACK, wont bring the bottom div to the bottom
-          if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
-            windowBox.getChildren('.boxBottom').setStyle('top',windowRequestBox.getSize().y);
         }
 
         /* set toolTips to all objects with a toolTip class */
@@ -222,7 +197,7 @@ function startUploadAnimation() {
   if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
     $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer', style: 'padding-top: 100px;'}),'top');
     $('windowBoxDimmer').setStyle('display','block');
-    uploadAnimationElement = feindura_loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#fff");
+    uploadAnimationElement = feindura_loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#000");
   } else {
     uploadAnimationElement = new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'});
     $('windowRequestBox').grab(uploadAnimationElement,'top');

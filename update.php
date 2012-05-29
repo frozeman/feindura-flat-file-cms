@@ -870,7 +870,51 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     if(!unlink(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-pages-1.xml.gz') &&
       is_file(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-pages-1.xml.gz'))
       $checkFiles[] = GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-pages-1.xml.gz';
-
+    if(!unlink(dirname(__FILE__).'/library/images/bg/errorWindow_bottom.gif') &&
+      is_file(dirname(__FILE__).'/library/images/bg/errorWindow_bottom.gif'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/errorWindow_bottom.gif';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/errorWindow_bottom.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/errorWindow_bottom.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/errorWindow_bottom.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/errorWindow_middle.gif') &&
+      is_file(dirname(__FILE__).'/library/images/bg/errorWindow_middle.gif'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/errorWindow_middle.gif';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/errorWindow_middle.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/errorWindow_middle.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/errorWindow_middle.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/errorWindow_top.gif') &&
+      is_file(dirname(__FILE__).'/library/images/bg/errorWindow_top.gif'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/errorWindow_top.gif';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/errorWindow_top.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/errorWindow_top.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/errorWindow_top.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/loadingBox_bottom.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/loadingBox_bottom.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/loadingBox_bottom.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/loadingBox_middle.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/loadingBox_middle.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/loadingBox_middle.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_bottom.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/windowBox_bottom.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_bottom.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_bottom.gif') &&
+      is_file(dirname(__FILE__).'/library/images/bg/windowBox_bottom.gif'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_bottom.gif';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_middle.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/windowBox_middle.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_middle.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_middle.gif') &&
+      is_file(dirname(__FILE__).'/library/images/bg/windowBox_middle.gif'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_middle.gif';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_top.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/windowBox_top.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_top.png';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_top.gif') &&
+      is_file(dirname(__FILE__).'/library/images/bg/windowBox_top.gif'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_top.gif';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_h1.png') &&
+      is_file(dirname(__FILE__).'/library/images/bg/windowBox_h1.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_h1.png';
     
     
     // delete lowercase class names

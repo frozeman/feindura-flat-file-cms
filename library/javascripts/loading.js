@@ -18,15 +18,18 @@
 
 
 function showDocumentSaved() {
+
+  var documentSaved = $('documentSaved');
+
   // start tween
-  $('documentSaved').setStyle('display','block').fade('hide').fade(1);
+  documentSaved.setStyle('display','block').fade('hide').fade(1);
   
   // hide the documentsaved, after blending in and out
-  $('documentSaved').get('tween').chain(function() {
-    $('documentSaved').fade(0);
-    $('documentSaved').get('tween').chain(function(){
-      $('documentSaved').setStyle('display','none');
-      $('documentSaved').removeClass('saved');
+  documentSaved.get('tween').chain(function() {
+    documentSaved.fade(0);
+    documentSaved.get('tween').chain(function(){
+      documentSaved.setStyle('display','none');
+      documentSaved.removeClass('saved');
     });
   });
 }
@@ -40,13 +43,15 @@ var removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 3
 // -> show loading circle
 function onStartLoadingCircle() {
 
+  var loadingBox = $('loadingBox');
+
   // -> add to the #content div
-  $('loadingBox').getChildren('.content').grab(jsLoadingCircleContainer,'top');
+  loadingBox.grab(jsLoadingCircleContainer,'top');
   
   // set tween
-  $('loadingBox').set('tween',{duration: 400});
+ loadingBox.set('tween',{duration: 400});
   // show the loadingCircle
-  $('loadingBox').setStyle('display','block');
+  loadingBox.setStyle('display','block');
   
   // add the loading circle
   if(!removeLoadingCircle)
@@ -54,14 +59,14 @@ function onStartLoadingCircle() {
   
   // blend out after page is loaded
   window.addEvent('load', function() {
-    $('loadingBox').tween('opacity','0');
+    loadingBox.tween('opacity','0');
 
     // disply none the documentsaved, after blending in and out
-    $('loadingBox').get('tween').chain(function() {
+    loadingBox.get('tween').chain(function() {
         removeLoadingCircle();
         removeLoadingCircle = false;
-        $('loadingBox').setStyle('display','none');
-        $('loadingBox').getChildren('.content')[0].empty();
+        loadingBox.setStyle('display','none');
+        loadingBox.empty();
     });
   });
 }
@@ -71,16 +76,16 @@ function onEndLoadingCircle() {
 
   // set tween
   // $('loadingBox').set('tween',{duration: 200});
-  var loadingBoxContent = $('loadingBox').getChildren('.content')[0];
+  var loadingBox = $('loadingBox');
 
   // empties the loadingBox, and refill with the loadingCircle
-  if(loadingBoxContent !== null) {
-    loadingBoxContent.empty();
-    loadingBoxContent.grab(jsLoadingCircleContainer,'top');
+  if(loadingBox !== null) {
+    loadingBox.empty();
+    loadingBox.grab(jsLoadingCircleContainer,'top');
     if(!removeLoadingCircle)
       removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
-    $('loadingBox').setStyle('display','block');
-    $('loadingBox').setStyle('opacity','1');
+    loadingBox.setStyle('display','block');
+    loadingBox.setStyle('opacity','1');
   }
 }
 
@@ -90,17 +95,19 @@ function onEndLoadingCircle() {
 */
 window.addEvent('domready', function() {
 
+  var loadingBox = $('loadingBox');
+
   // ->> SHOW the loading circle
-  if($('content') !== null && $('loadingBox').getChildren('.content')[0] !== null &&
+  if(loadingBox !== null &&
      $('documentSaved') !== null && !$('documentSaved').hasClass('saved')) {
     
     onStartLoadingCircle();
     
   // ->> hide loading circle, when it was not animated
-  } else if($('loadingBox').getChildren('.content')[0] !== null) {
-    $('loadingBox').getChildren('.content')[0].empty();
-    $('loadingBox').setStyle('display','none');
-    // $('loadingBox').setStyle('opacity','1');
+  } else if(loadingBox !== null) {
+    loadingBox.empty();
+    loadingBox.setStyle('display','none');
+    // loadingBox.setStyle('opacity','1');
   }
   
   // IE HACK for dimContainer
@@ -124,5 +131,5 @@ window.addEvent('beforeunload',  function() {
 // LOADING-CIRCLE when the website will is left
 window.addEvent('unload',  function() {
   $('loadingBox').setStyle('display','none');
-  $('loadingBox').getChildren('.content')[0].empty();
+  $('loadingBox').empty();
 });

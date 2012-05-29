@@ -33,7 +33,7 @@ $language = (isset($_POST['language'])) ? $_POST['language'] : $_GET['language']
 $asking = $_POST['asking'];
 
 // QUESTION
-$question = '<h1 class="red">'.sprintf($langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION'],'<span style="color:#000000;">'.$languageNames[$language].'</span>').'</h1>';
+$question = '<h2 class="red">'.sprintf($langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION'],'<span style="color:#000000;">'.$languageNames[$language].'</span>').'</h2>';
 
 // DELETING PROCESS
 if($_POST['asking']) {

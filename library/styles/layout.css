@@ -1,35 +1,29 @@
-/*
-    feindura - Flat File Content Management System
+/* feindura - Flat File Content Management System
     Copyright (C) Fabian Vogelsteller [frozeman.de]
 
-    This program is free software;
-    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+    This program is free software;/* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation;/* either version 3 of the License, or (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;/* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
     See the GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License along with this program;
-    if not,see <http://www.gnu.org/licenses/>.
-
-layout.css version 0.58 */
 
 
-/****************/	
+/****************/  
 /* *** BODY */
 
 html,body {
-  	margin: 0px;
-  	padding: 0px;
-  	font: 12px Verdana, Arial, Sans-serif, Serif;
-  	background-color: #5b5b5b !important;
-  	color: #000000;
-  	height: 100%; /* makes the #leftSidebar box also in IE 100% */
+    margin: 0px;
+    padding: 0px;
+    height: 100%; /* makes the #leftSidebar box also in IE 100% */
     background: url("../images/bg/body.png") repeat;
-  	}
+    background-color: #5b5b5b !important;
+    color: #000000;
+    font: 12px Verdana, Arial, Sans-serif, Serif;
+    }
 
-/****************/	
+/****************/  
 /* *** GENERAL ELEMENTs FORMAT  */
 
 span.blue, label.blue, h1.blue, div.blue, li.blue {
@@ -38,7 +32,7 @@ span.blue, label.blue, h1.blue, div.blue, li.blue {
 span.brown, label.brown, h1.brown, li.brown {
     color: #D7943C !important;
     }
-span.red, label.red, h1.red, ul.red, div.red, input.red {
+.red {
     color: #A02F00 !important;
     }
 span.gray, a.gray {
@@ -49,21 +43,21 @@ a.gray:hover, a.gray:focus {
 }
 
 mark {
-    color: inherit;
     background-color: #fef086;
+    color: inherit;
 }
 
-/****************/	
+/****************/  
 /* *** DIMM-CONTAINER */
 
 #dimContainer {
-    z-index: 5;
     position: fixed;
+    z-index: 5;
+    display: none;
     width: 100%;
     height: 100%;
-    /*background-color: #222222;*/
     background: url("../images/bg/dimContainer.png") repeat;
-    display: none;
+    /* background-color: #222222; */
     } 
 
 .cke_dialog_background_cover {
@@ -74,77 +68,77 @@ mark {
 /****************/
 /* --- HEADER */    
 #header {
-    z-index: 3;
     position: relative;
     top: 0px;
+    z-index: 3;
     width: 100%;
-    min-width: 1255px;
     height: 150px;
+    min-width: 1255px;
     background: url("../images/bg/header.png") repeat-x;
     }
 #headerBlock {
-    z-index: 2;
     position: relative;
     top: 0px;
     left: 0px;
+    z-index: 2;
     width: 850px;
     height: 141px;
     background: url("../images/bg/headerBlock.png") no-repeat; 
     }
 
 #sessionTimer {
-  z-index: 3;
   position: absolute;
   top: 8px;
   left: 140px;
+  z-index: 3;
   font-size: 11px;
 }
     
 #adminMenu {
-    z-index: 1;
     position: absolute;
     top: 0px;
     left: 849px;
+    z-index: 1;
+    overflow: auto; /* will be overwriten by javascript */
     width: 190px; /* will be overwriten by javascript with 172px*/
     height: 140px;
+    border-bottom: 1px solid #BBB9B7;
     background: url("../images/bg/adminMenu.png") no-repeat;
     text-align: center;
-    border-bottom: 1px solid #BBB9B7;
-    overflow: auto; /* will be overwriten by javascript */
     }
 #adminMenu h2 {
     display: inline-block;
-    width: 120px;
+    margin-bottom: 3px;
     padding-top: 10px;
     padding-bottom: 5px;
-    margin-bottom: 3px;
-    font-size: 12px;
-    font-weight: bold;
+    width: 120px;
     border-bottom: 1px solid #cccccc;
     color: #999999;
+    font-weight: bold;
+    font-size: 12px;
     }
 
 /****************/
 /* --- LOGO */ 
 #logo {
-    z-index: 1;
-    display: block;
     position: absolute;
     top: 0px;
     left: 0px;
+    z-index: 1;
+    display: block;
     width: 205px;
     height: 140px;
     background: url("../images/icons/logo.png") no-repeat;
     }
 #version {
-    z-index: 2;
     position: absolute;
     top: 45px;
     left: 134px;
+    z-index: 2;
     width: 60px;
-    font-size: 11px;
     color: #3979A5;
     text-align: right;
+    font-size: 11px;
     }
 .logoname {
     color: #DD6C1D !important;
@@ -157,10 +151,10 @@ mark {
 /* --- LANGUAGE SELECTION */
 
 #languageSelection {
-    z-index: 2;
     position: absolute;
     bottom: 21px;
     left: 15px;
+    z-index: 2;
     }
 #languageSelection a {
     position: absolute;
@@ -198,48 +192,48 @@ mark {
 /* --- SIDEBARS */
 
 #leftSidebar {
-    z-index: 2;
     position: relative;
     top: 0px;
     left: 0px;
-    width: 208px;
+    z-index: 2;
+    float: left;
     padding: 0px 0px;
     padding-bottom: 20px;
-    float: left;
+    width: 208px;
     }
 
 #rightSidebar {
-    z-index: 2;
     position: absolute;
     top: 0px;
     left: 1035px;
-    width: 210px;
+    z-index: 2;
     padding: 0px;
+    width: 210px;
     }
 
 /****************/
 /* --- MAINBODY */
 #mainBody {
-    z-index: 0;
     position: relative;
     top: -5px;
+    z-index: 0;
+    overflow: auto;
     width: 100%;
     min-width: 1255px;
     background: url("../images/bg/mainBody.png") repeat-y #d8d8d8;
-    overflow: auto;
     }
   
 #content {
-    z-index: 0;
     position: relative;
     top: 0px;
     left: 10px;/*220px;*/
-    width: 770px;
-    padding: 10px 20px;
-    padding-bottom: 1px;
-    background-color: #fff;
+    z-index: 0;
     float: left;
     overflow: visible;
+    padding: 10px 20px;
+    padding-bottom: 1px;
+    width: 770px;
+    background-color: #fff;
     }
 #content.hasSubMenu {
     padding-top: 60px;
@@ -248,20 +242,20 @@ mark {
 /****************/
 /* --- FOOTER */
 #footer {
-    z-index: 1;
     position: relative;
     top: -38px;
-    width: 100%;
-    min-width: 1255px;
-    height: 176px;
+    z-index: 1;
     clear: both;
+    width: 100%;
+    height: 176px;
+    min-width: 1255px;
     background: url("../images/bg/footer.png") repeat-x;
     }
 #footerBlock {
-    z-index: 1;
     position: relative;
     top: 0px;
     left: 0px;
+    z-index: 1;
     width: 1024px;
     height: 168px;
     background: url("../images/bg/footerBlock.png") no-repeat;
@@ -271,9 +265,9 @@ mark {
     top: 142px;
     left: 108px;
     width: 100%;
-    font-size: 11px;
     color: #979797;
     text-align: center;
+    font-size: 11px;
     }
     
 /* - footer links */  
@@ -292,41 +286,36 @@ mark {
 /* *** LOADING -*/
 
 #loadingBox {
-    z-index: 16;
     position: fixed;
     top: 40%;
     left: 470px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 330px;
+    z-index: 16;
     display: none;
-    }    
-#loadingBox .top {
-    height: 30px;
-    background: url("../images/bg/loadingBox_top.png") no-repeat;
-    }
-#loadingBox .content {
-    padding: 0px 20px;
-    background: url("../images/bg/loadingBox_middle.png") repeat-y;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 30px 20px;
+    width: 330px;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 40px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 40px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 40px rgba(0,0,0,0.05);
     text-align: center;
-    }
-#loadingBox .bottom {
-    height: 30px;
-    background: url("../images/bg/loadingBox_bottom.png") no-repeat;
-    }
+}
 
 /****************/
 /* *** documentSaved -*/
 
 #documentSaved {
+    position: fixed; /* absolute */
+    top: 50%; /* top: 100px; */ /* left: 270px; */
+    left: 480px;
     z-index: 17;
     display: none;
-    position: fixed; /* absolute */
-    top: 50%; /*top: 100px; left: 270px;*/
-    left: 480px;
     margin-top: -132px;
-    margin-left: auto;
     margin-right: auto;
+    margin-left: auto;
     width: 246px;
     height: 264px;
     background: url("../images/icons/documentSaved.png") no-repeat;
@@ -336,34 +325,34 @@ mark {
 /* --- BUTTON LISTE */
 
 ul.horizontalButtons {
-    position: relative;    
+    position: relative;
+    margin: 0px auto;    
     padding: 0px;
-    margin: 0px auto;
     }
 .horizontalButtons li {
-    /*display: -moz-inline-stack;*/
-    display: block;
     position: relative;
-    list-style: none;
     float: left;
+    /* display: -moz-inline-stack; */
+    display: block;
+    margin: 0px auto;
     padding: 0px;
-    margin: 0px auto;    
+    list-style: none;    
     vertical-align: top;
     }
     
 ul.verticalButtons {
-    padding: 0px;
     margin: 0px;
+    padding: 0px;
     }
 .verticalButtons li {
     position: relative;
-    height: 35px;
-    width: 100%;
-    white-space: nowrap;
     overflow: hidden;
-    list-style: none;
-    padding: 0px;
     margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 35px;
+    list-style: none;
+    white-space: nowrap;
     }
 
 /* --- MAINMENU ------------------------------------------------------------------------------------------------------------------- */
@@ -372,10 +361,10 @@ ul.verticalButtons {
 /* --- mainMenu */
 
 #mainMenu {
-    z-index: 1;
     position: absolute;
-    top: 0px;
-    left: 208px; /* right: 250px; */
+    top: 0px; /* right: 250px; */
+    left: 208px;
+    z-index: 1;
     width: 640px;
     }
 
@@ -385,8 +374,8 @@ ul.verticalButtons {
     border-collapse: collapse;    
     }
 #mainMenu td {
-    text-align: center;
     vertical-align: top;
+    text-align: center;
     }
 
 /* --- button ul list defined in layout.css */
@@ -396,15 +385,15 @@ ul.verticalButtons {
 
 #mainMenu a {
     position: relative;
-    display: inline-block;
     top: 0px;
+    display: inline-block;
+    margin: 0px 5px;
+    padding-top: 97px;
     width: 106px;
     height: 44px; /* org: 141px */
-    padding-top: 97px;
-    margin: 0px 5px;
+    color: #666666;
     text-align: center;
     text-decoration: none;
-    color: #666666;
     line-height: 15px;
     }
 #mainMenu a:hover {
@@ -415,8 +404,8 @@ ul.verticalButtons {
     }
 /* this hack, position the text in the bottom of the button, but its vertical-align in the span is middle */
 #mainMenu a span{
-    display: table-cell;
     position: relative;
+    display: table-cell;
     width: 106px;
     height: 40px;
     vertical-align: middle;
@@ -450,10 +439,10 @@ ul.verticalButtons {
 /* --- adminMenu */
 
 #adminMenu .content {
-    z-index: 1;
     position: absolute;
     top: 37px;
     left: 8px;
+    z-index: 1;
     }
 
 /****************/
@@ -462,20 +451,20 @@ ul.verticalButtons {
 #adminMenu .content a {
     position: relative;
     display: block;
+    margin: 0px 5px;
+    padding-top: 70px;
     width: 65px;
     height: 30px; /* org-image-size: 65px */
-    padding-top: 70px;
-    margin: 0px 5px;
+    color: #666666;
     text-align: center;
     text-decoration: none;
     font-size: 9px;
-    color: #666666;
     line-height: 11px;
 
     }
 #adminMenu .content a:hover, #adminMenu .content a:focus, #adminMenu .content a.active {
-    color: #CF7F52;
     background-position: -65px 0px !important;
+    color: #CF7F52;
     }
 
 /* advancedSetup */
@@ -518,7 +507,9 @@ a.button {
     display: inline-block;
     padding: 5px 8px !important;
     border: 1px solid #ddd;
-    /*background-image: none !important;*/
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
     background: #f6f8f9 !important; /* Old browsers */
     background: -moz-linear-gradient(top,  #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%) !important; /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6f8f9), color-stop(50%,#e5ebee), color-stop(51%,#d7dee3), color-stop(100%,#f5f7f9)) !important; /* Chrome,Safari4+ */
@@ -526,23 +517,21 @@ a.button {
     background: -o-linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%) !important; /* Opera 11.10+ */
     background: -ms-linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%) !important; /* IE10+ */
     background: linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%) !important; /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', endColorstr='#f5f7f9',GradientType=0 ) !important; /* IE6-9 */
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+    /* background-image: none !important; */
 
     -webkit-box-shadow:  0px 0px 4px 0px #ddd;
     -moz-box-shadow:  0px 0px 4px 0px #ddd;
     box-shadow:  0px 0px 4px 0px #ddd;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', endColorstr='#f5f7f9',GradientType=0 ) !important; /* IE6-9 */
 }
 a.button:hover, a.button:focus {
     border: 1px solid #ccc;
 }
 a.button:active {
+    border: 1px solid #ccc;
     -webkit-box-shadow: inset 0px 0px 8px 1px #999;
     -moz-box-shadow: inset 0px 0px 8px 1px #999;
     box-shadow: inset 0px 0px 8px 1px #999;
-    border: 1px solid #ccc;
 }
 
 /* --- SUBMENU ------------------------------------------------------------------------------------------------------------------- */
@@ -551,13 +540,13 @@ a.button:active {
 /* --- subMenu */
 
 .subMenu {
-    z-index: 7;
     position: absolute;
-    top: -3px;
-    left: 22px; /* right: 250px; */
+    top: -3px; /* right: 250px; */
+    left: 22px;
+    z-index: 7;
+    overflow: visible;
     width: auto;
     height: 56px; /* org height 64px */
-    overflow: visible;
     background: url("../images/bg/subMenu_middle.png") repeat-x;
     }
     
@@ -611,9 +600,9 @@ a.button:active {
 
 .subMenu li a {
     display: block;
+    margin: 0px 5px;
     width: 50px;
     height: 48px;
-    margin: 0px 5px;
     text-decoration: none;
     }
 .subMenu a:hover, .subMenu a:focus {
@@ -660,10 +649,10 @@ a.button:active {
 /* --- footerMenu */
 
 #footerMenu {
-    z-index: 0;
     position: absolute;
     top: 24px;
     left: 200px;
+    z-index: 0;
     }
 
 /****************/
@@ -681,22 +670,22 @@ a.button:active {
 #footerMenu a {
     position: relative;
     display: block;
+    margin: 0px 5px;
+    padding-top: 97px;
     width: 100px;
     height: 45px; /* org: 100px */
-    padding-top: 97px;
-    margin: 0px 5px;
+    color: #dfdfdf;
     text-align: center;
     text-decoration: none;
-    color: #dfdfdf;
     }
 #footerMenu a:hover {
-    color: #dfdfdf;
     background-position: -100px 0px !important;
+    color: #dfdfdf;
     }
 /* this hack, position the text in the bottom of the button, but its vertical-align in the span is middle */
 #footerMenu a span{
-    display: table-cell;
     position: relative;
+    display: table-cell;
     width: 100px;
     height: 40px;
     vertical-align: middle;
@@ -733,19 +722,19 @@ a.button:active {
 /****************/
 /* --- leftSidebar Loading Circle */
 div.leftSidebarLoadingCircle {
-    z-index: 0;
     position: absolute;
     top: 60px;
     left: 60px;
+    z-index: 0;
     }    
 
 /****************/
 /* --- SIDEBAR LINKS */
 #leftSidebar a {
-    text-decoration: none;
+    /* padding-left: 17px; */
+    /* background: url("../images/icons/link.gif") no-repeat 0px 0px; */
     color: #3A7AA5;
-    /* padding-left: 17px;
-    background: url("../images/icons/link.gif") no-repeat 0px 0px; */
+    text-decoration: none;
     }
 #leftSidebar a:hover, #leftSidebar a:focus {
     color: #666666;
@@ -756,23 +745,23 @@ div.leftSidebarLoadingCircle {
 /* ---  SIDEBAR MENU */
 
 #leftSidebar .sidebarMenu {
-    z-index: 0;
     position: relative;
+    z-index: 0;
+    overflow: hidden;
     width: 210px;
     max-width: 1260px;
-    overflow: hidden;
-    /*border: 1px solid #000000;*/    
+    /* border: 1px solid #000000; */    
     }
 
 /* top */
 #leftSidebar .sidebarMenu .top {
     position: relative;
-    height: 35px;
     overflow: hidden;
+    height: 35px;
+    text-decoration: none;
     white-space: nowrap;
     font-weight: bold;
-    font-size: 13px;
-    text-decoration: none;    
+    font-size: 13px;    
     }
         
 #leftSidebar .sidebarMenu .top span {
@@ -851,13 +840,13 @@ div.leftSidebarLoadingCircle {
 /* - buttons */
 #leftSidebar .sidebarMenu .content a {
     display: block;
-    height: 15px; /* original 35px */
     padding: 10px 0px;
     padding-left: 18px;
-    font-weight: bold;
-    font-size: 11px;    
+    height: 15px; /* original 35px */
+    color: #FBC279;    
     text-decoration: none;
-    color: #FBC279;
+    font-weight: bold;
+    font-size: 11px;
     }
 
 /* dark */
@@ -934,10 +923,10 @@ div.leftSidebarLoadingCircle {
 /* - Pull up/down link */
 
 #leftSidebar .sidebarMenu .top a {
-    display: inline-block;
     position: absolute;
     top: 0px;
     right: 0px;
+    display: inline-block;
     width: 208px; /* 208px */
     height: 35px;
     text-decoration: none;    
@@ -961,9 +950,9 @@ div.leftSidebarLoadingCircle {
 #leftSidebar .sidebarMenu .bottom a {
     display: block;
     width: 100%;
-    height: 13px; /* original 13px */ 
+    height: 13px; /* original 13px */
+    background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top; 
     text-decoration: none;
-    background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top;
     }
 #leftSidebar .sidebarMenu .bottom a:hover, #leftSidebar .sidebarMenu .bottom a:focus {
     background-position: right -14px;
@@ -988,42 +977,42 @@ div.leftSidebarLoadingCircle {
   position: relative;
   top: 2px;
   left: 1px;
+  padding: 0px;
   width: 198px;
   min-height: 260px;
-  padding: 0px;
-  background: url("../images/bg/leftSidebarInfo_bg.png") no-repeat;
   border-top: 1px solid #ffffff;
+  background: url("../images/bg/leftSidebarInfo_bg.png") no-repeat;
 }
 #leftSidebar .sidebarInfo div.content {
   position: relative;
-  width: 165px;
+  overflow: hidden;
   margin: 20px 20px;
   margin-right: 13px;
-  font-size: 10px;
-  overflow: hidden;
+  width: 165px;
   word-wrap: break-word;
+  font-size: 10px;
 }
   
 #leftSidebar .sidebarInfo h2, #leftSidebar .sidebarInfo h3 {
-  padding: 0px;
   margin: 0px;
   margin-top: 4px;
-  margin-bottom: 8px;    
+  margin-bottom: 8px;
+  padding: 0px;
+  color: #666666;    
   font-weight: bold;
   font-size: 11px;
-  color: #666666;
 }
 #leftSidebar .sidebarInfo h3 {
   font-size: 10px;
 }
 #leftSidebar .sidebarInfo p {
-  color: #C57F3D;
   margin: 2px 0px;
   margin-bottom: 12px;
+  color: #C57F3D;
 }
-#leftSidebar .sidebarInfo hr {    
+#leftSidebar .sidebarInfo hr {
+  margin: 15px 0px;    
   height: 0px;
-  margin: 15px 0px;
   border: none;
   border-top: 1px solid #E2E3E3;
 }
@@ -1034,8 +1023,8 @@ div.leftSidebarLoadingCircle {
 }
 #leftSidebar .sidebarInfo ul li {    
   margin: 3px 0px;
-  margin-left: 7px;
   margin-bottom: 20px;
+  margin-left: 7px;
   color: #888888;
   list-style: circle;
 }
@@ -1046,14 +1035,14 @@ div.leftSidebarLoadingCircle {
 /* --------------------- */
 /* -------> TASK LOKG */
 #sidebarTaskLog {
-  z-index: 1;
   position: relative;
-  height: 450px;
-  width: 200px; /* hides the scrollbar */
-  border-bottom: 1px solid #ffffff;
+  z-index: 1;
   overflow: auto;
-  font-size: 9px;
   margin: 0px -10px;
+  width: 200px; /* hides the scrollbar */
+  height: 450px;
+  border-bottom: 1px solid #ffffff;
+  font-size: 9px;
 }
 
 #sidebarTaskLog ul li {
@@ -1063,10 +1052,10 @@ div.leftSidebarLoadingCircle {
 }
     
 #leftSidebar .scrollUpDown {
-  z-index: 2;
   position: absolute;
-  height: 30px;
+  z-index: 2;
   width: 165px;
+  height: 30px;
 }
 
 /* --------------------- */
@@ -1078,9 +1067,9 @@ div.leftSidebarLoadingCircle {
 }
 
 #sidebarListUsers li {
-  list-style-image: url("../images/icons/user_offline.png") !important;
   margin: 0px !important;
   padding: 4px 0px !important;
+  list-style-image: url("../images/icons/user_offline.png") !important;
   font-weight:bold;
 }
 
@@ -1092,9 +1081,9 @@ div.leftSidebarLoadingCircle {
 /* -------> SIDEBAR SELECTION */
 
 #sidebarSelection li {
-  list-style: none !important;
   margin: 0px !important;
   padding: 8px 0px;
+  list-style: none !important;
 }
     
 /* --- RIGHT SIDEBAR ------------------------------------------------------------------------------------------------------------------- */
@@ -1102,42 +1091,42 @@ div.leftSidebarLoadingCircle {
 /* --- sortPagesMessageBox */
 
 #rightSidebarMessageBox .content {
-    z-index: 2;
     position: relative;
     top: 0px;
     left: 0px;
-    width: 170px;
+    z-index: 2;
     padding: 20px;
     padding-bottom: 5px;
+    width: 170px;
     background: url("../images/bg/rightSidebar_bg.png") repeat-y;
     color: #666666;
     line-height: 18px;
     }
 #rightSidebarMessageBox .bottom {
-    z-index: 2;
     position: absolute;
     bottom: -25px;
     left: 0px;
+    z-index: 2;
     width: 210px;
     height: 25px;
     background: url("../images/bg/rightSidebar_bgBottom.png") no-repeat;
     }
 
 #rightSidebarMessageBox ul {
-  list-style: circle;
-  padding-left: 20px;
-  margin-left: 0px;
-  margin-right: -15px;
-  max-height: 400px;
   overflow: auto;
+  margin-right: -15px;
+  margin-left: 0px;
+  padding-left: 20px;
+  max-height: 400px;
+  list-style: circle;
 }
 #rightSidebarMessageBox ul li {
   margin-right: 15px;
 }
 #rightSidebarMessageBox ul.flags {
-  list-style: none;
   margin-left: -5px;
   padding-left: 10px;
+  list-style: none;
 }
 #rightSidebarMessageBox ul.flags li {
   position: relative;
@@ -1145,28 +1134,28 @@ div.leftSidebarLoadingCircle {
 }
 #rightSidebarMessageBox ul.flags img {
   position: absolute;
-  margin-top: 2px;
   left: 0px;
+  margin-top: 2px;
 }
 
 #rightSidebarMessageBox ul.flags a.standardLink {
-  background: none;
   padding-left: 0px;
+  background: none;
 }
 
 #rightSidebarMessageBox h1 {
-  text-align: center;
-  border-bottom: 1px dotted #ccc;
   margin: -5px -13px;
   margin-bottom: 15px;
   padding-bottom: 10px;
+  border-bottom: 1px dotted #ccc;
+  text-align: center;
 }
 
 /* --- hintIcon */
 
 #rightSidebarMessageBox .hintIcon {
     position: relative;
-    display: block;
     left: 50px;
+    display: block;
     margin-bottom: 13px;
 }

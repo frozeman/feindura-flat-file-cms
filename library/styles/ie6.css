@@ -101,38 +101,17 @@
     left: auto !important;
     right: auto !important;  
     }
-#windowBox .boxBottom {
-    position: absolute !important;
-    bottom: 1px;
-    }
-/* windoxBox gif backgrounds */
-#windowBox .boxTop {
-    background: url("../images/bg/windowBox_top.gif") no-repeat;
-    }
-#windowRequestBox {
-    background: url("../images/bg/windowBox_middle.gif") repeat-y;
-    }
-#windowBox .boxBottom {
-    background: url("../images/bg/windowBox_bottom.gif") no-repeat;
-    }
     
 /* errorWindow gif backgrounds */
 #errorWindow {
     position: absolute;    
     top: 200px;
     left: 350px;
-    background: url("../images/bg/errorWindow_middle.gif") repeat-y; 
-    }
-
-#errorWindow .top {
-    background: url("../images/bg/errorWindow_top.gif") no-repeat;
     }
 #errorWindow .content {
     height: 48px;
     }
-#errorWindow .bottom {
-    background: url("../images/bg/errorWindow_bottom.gif") no-repeat;
-    }
+
 
 /* .block submit buttom */    
 .block input.submit {

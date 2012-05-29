@@ -1,29 +1,23 @@
-/*
-    feindura - Flat File Content Management System
+/* feindura - Flat File Content Management System
     Copyright (C) Fabian Vogelsteller [frozeman.de]
 
-    This program is free software;
-    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+    This program is free software;/* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation;/* either version 3 of the License, or (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;/* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
     See the GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License along with this program;
-    if not,see <http://www.gnu.org/licenses/>.
-
-windowBox.css version 0.2 */
 
 /* --- WINDOWBOX ------------------------------------------------------------------------------------------------------------------- */
 
-/****************/	
+/****************/  
 /* *** windowBox */
 
 #windowBoxContainer {
-    z-index: 10;
-    visibility: hidden; /* display: none; */
     position: absolute;
+    z-index: 10; /* display: none; */
+    visibility: hidden;
     width: 100%;
     height: 100%;
     }
@@ -31,106 +25,112 @@ windowBox.css version 0.2 */
 #windowBox {
     position: fixed;
     top: 20%;
-    width: 780px;
-    /*margin-left: auto;
-    margin-right: auto;*/
     left: 50%;
     margin-left: -390px;
-    padding-bottom: 50px;
+    padding: 40px 40px;
+    padding-bottom: 30px;
+    width: 700px;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.05);
     }
-#windowBox .boxTop {
-    z-index: 2;
+#windowBox > h1 {
     position: absolute;
-    top: -60px;
-    left: 0px;
-    width: 780px;
-    height: 2px; /*org: 60px */
-    padding: 29px 0px;
-    background: url("../images/bg/windowBox_top.png") no-repeat;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    padding: 0px 5px;
+    padding-bottom: 12px;
+    width: 750px;
+    height: 25px;
+    border-bottom: 1px dashed #ddd;
+    color: #a3b9d2;
     text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: #666666;
+
+    text-shadow: 0px 1px 2px #ccc;
+    font-weight: normal !important;
+    font-size: 20px;
+        
     }
+#windowBox > h1:before {
+    position: absolute;
+    left: -0;
+    width: 760px;
+    height: 38px;  
+    border-bottom: 1px dashed #f3f3f3;
+    content: '';  
+} 
+
 #windowRequestBox {
-    z-index: 1;
     position: relative;
+    z-index: 1;
+    margin-top: 30px;
     width: 705px;
     min-height: 140px;
-    padding: 20px 40px;
-    background: url("../images/bg/windowBox_middle.png") repeat-y;
-    /*overflow: hidden;*/
-    }
-#windowBox .boxBottom {
-    z-index: 2;
-    position: relative;
-    bottom: 0px; /* before -55px */
-    width: 780px;
-    height: 60px; /* org: 60px */
-    background: url("../images/bg/windowBox_bottom.png") no-repeat;
     }
 
 #windowBoxDimmer {
-    z-index: 3;
     position: absolute;
-    width: 735px;    
-    height: 100%;
-    margin: 0px -16px;
-    margin-top: -21px;
-    /*margin-bottom: -80px;*/
+    z-index: 3;
+    margin-top: -30px;
     padding: 50px 0px;
+    width: 100%;    
+    height: 100%;
     text-align: center;
-    background: url("../images/bg/dimContainer.png") repeat;
+    opacity:.70;
+    -moz-opacity:.70;
+    filter:alpha(opacity=70);
     }
 
-/****************/	
+/****************/  
 /* *** HEADLINES */
-
-#windowBox h1 {
-    width: 685px; /* 705px */
-    margin: 0px;
-    margin-bottom: 10px;
-    padding: 0px 10px;
-    padding-bottom: 18px;
-    background: url("../images/bg/windowBox_h1.png") no-repeat bottom left;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: #668CA6;
-    }
 
 #windowBox h2 {
     margin-bottom: 10px;
-    font-size: 15px;
-    font-weight: bold;
-    color: #888888;
+    padding-bottom: 18px;
+    width: 685px;
+    color: #668CA6;
+    text-align: center;
+    font-weight: normal;
+    font-size: 18px;
     }
+
+#windowBox h3 {
+    margin-bottom: 10px;
+    color: #888888;
+    font-weight: normal;
+    font-size: 15px;
+    } 
 
 /****************/  
 /* *** ELEMENTS */
 
 #windowBox p {
-    font-size: 14px;
     margin: 5px 10px;
+    font-size: 14px;
 }
 
-/****************/	
+/****************/  
 /* *** CLOSE */
 
-#windowBox .boxTop a {
+#windowBox > a.close {
+    z-index: 2;
     position: absolute;
-    top: 23px;
-    right: 25px;
+    top: 6px;
+    right: 6px;
+    padding: 0px !important;
     width: 35px;
     height: 35px;
-    padding: 0px;
     background: url("../images/buttons/windowBox_close.png") no-repeat;
     }
-#windowBox .boxTop a:hover {
+#windowBox > a.close:hover {
     background-position: -35px 0px;
     }
     
-/****************/	
+/****************/  
 /* *** SUBMIT/CANCEL */
 
 #windowRequestBox .cancel { /* link on the left */
@@ -145,39 +145,39 @@ windowBox.css version 0.2 */
     margin: 10px 0px;
     }
 #windowRequestBox a.submit { /* link on the center */
-    left: 315px;
     bottom: 0px;
+    left: 315px;
     }
 
 #windowRequestBox a.ok { /* link on the right, example: ok */
-    float: right;
     right: 10px;
+    float: right;
     margin: 10px 0px;
     }    
 #windowRequestBox a.ok.center { /* link on the right, example: ok */
-    float: left !important;
     right: auto !important;
     left: 315px;
+    float: left !important;
     margin: 10px auto;
     }
 #windowRequestBox a.ok.left { /* link on the right, example: ok */
-    float: left !important;
     left: 10px;
+    float: left !important;
     margin: 10px 0px;
     }
     
     
 /* --- THUMBNAIL UPLOAD ------------------------------------------------------------------------------------------------------------------- */
 
-/****************/	
+/****************/  
 /* *** thumbInfo */
 
 #thumbInfo {
     position: absolute;
-    right: 50px;
-    width: 300px;
-    padding: 5px;
+    right: 5px;
     float: right;
+    padding: 5px;
+    width: 300px;
     border: 1px solid #cccccc;
     background-color: #EDF1E1;
     }
@@ -191,7 +191,7 @@ windowBox.css version 0.2 */
     list-style-type: circle;
     }
 
-/****************/	
+/****************/  
 /* *** THUMB PREVIEW */
     
 img.thumbnailPreview {
@@ -199,7 +199,7 @@ img.thumbnailPreview {
     border: 5px solid #cccccc;
     }
 
-/****************/	
+/****************/  
 /* *** pageThumbnailUploadForm */
     
 #pageThumbnailUploadForm {
@@ -219,26 +219,26 @@ input.thumbnailUpload:hover {
     background-position: 0px -90px !important;
     }
 
-/****************/	
+/****************/  
 /* *** UPLOAD IFRAME */
 
 iframe#uploadTargetFrame {
+    overflow: hidden;
     width: 100%;
     height: 300px;
-    background-color: transparent;
     border: none !important;
-    overflow: hidden;
+    background-color: transparent;
     }
 
 
-/****************/	
+/****************/  
 /* *** UPLOAD IFRAME INNERHTML */
 
 body#thumbnailUploadFrame {
-    font: bold 15px Verdana, Arial, Sans-serif, Serif;
-    text-align: center;
-    vertical-align: middle;
     color: #666666;
+    vertical-align: middle;
+    text-align: center;
+    font: bold 15px Verdana, Arial, Sans-serif, Serif;
     }
     
 #thumbnailUploadFrame ul {
@@ -267,11 +267,11 @@ body#thumbnailUploadFrame {
     
 /* --- FILEMANAGER ------------------------------------------------------------------------------------------------------------------- */
   
-/****************/	
+/****************/  
 /* *** fileManagerFrame */
 
 iframe#fileManagerFrame {
+    margin: -20px -14px;
     width: 732px;
     height: 470px;
-    margin: -20px -14px;
     }

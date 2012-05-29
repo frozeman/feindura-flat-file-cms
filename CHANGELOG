@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 910
+Build 911
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 2.0
 
+  build 911: replaced box bg images with css2.0 boxes
   build 910: hide toolbar of ckeditor on page load, shows when focused
   build 909: add new method getLocalized() in Feindura class
   build 908: add <time> tag to all pageDate strings in the frontend (means in the generatePage() and createTitle() methods)

@@ -650,23 +650,27 @@ window.addEvent('domready', function() {
       $('sidebarTaskLog').tween('height',minHeight);
     });
 
-    // TWEEN OUT sidebarScrollUp
-    $('sidbarTaskLogScrollUp').addEvent('mouseenter', function() {
-      $('sidebarTaskLog').tween('height',maxHeight);
-    });
-    // TWEEN IN sidebarScrollUp
-    $('sidbarTaskLogScrollUp').addEvent('mouseleave', function() {
-      $('sidebarTaskLog').tween('height',minHeight);
-    });
+    if($('sidbarTaskLogScrollUp') !== null) {
+      // TWEEN OUT sidebarScrollUp
+      $('sidbarTaskLogScrollUp').addEvent('mouseenter', function() {
+        $('sidebarTaskLog').tween('height',maxHeight);
+      });
+      // TWEEN IN sidebarScrollUp
+      $('sidbarTaskLogScrollUp').addEvent('mouseleave', function() {
+        $('sidebarTaskLog').tween('height',minHeight);
+      });
+    }
 
-    // TWEEN OUT sidebarScrollDown
-    $('sidbarTaskLogScrollDown').addEvent('mouseenter', function() {
-      $('sidebarTaskLog').tween('height',maxHeight);
-    });
-    // TWEEN IN sidebarScrollDown
-    $('sidbarTaskLogScrollDown').addEvent('mouseleave', function() {
-      $('sidebarTaskLog').tween('height',minHeight);
-    });
+    if($('sidbarTaskLogScrollDown') !== null) {
+      // TWEEN OUT sidebarScrollDown
+      $('sidbarTaskLogScrollDown').addEvent('mouseenter', function() {
+        $('sidebarTaskLog').tween('height',maxHeight);
+      });
+      // TWEEN IN sidebarScrollDown
+      $('sidbarTaskLogScrollDown').addEvent('mouseleave', function() {
+        $('sidebarTaskLog').tween('height',minHeight);
+      });
+    }
    }
 
   // ->> SIDEBAR SCROLLES LIKE FIXED
@@ -1045,6 +1049,8 @@ window.addEvent('domready', function() {
 		/* --> when a drag is complete */
 		onComplete: function(el) {
 
+      subCategoryArrows();
+
 			// --> SAVE SORT ----------------------
 			/* nur wenn sortiert wurde wird werden die seiten neu gespeichert */
 			if(clicked) {
@@ -1106,7 +1112,7 @@ window.addEvent('domready', function() {
           onRequest: function() {
 
             // PUT the save new order - TEXT in the loadingBox AND SHOW the LOADINGBOX
-            $('loadingBox').getChildren('.content').set('html','<span style="color:#D36100;font-weight:bold;font-size:18px;">'+sortablePageList_status[0]+'</span>');
+            $('loadingBox').set('html','<span style="color:#D36100;font-weight:bold;font-size:16px;">'+sortablePageList_status[0]+'</span>');
             // set tween
             $('loadingBox').set('tween',{duration: 200});
             $('loadingBox').setStyle('display','block');
@@ -1148,7 +1154,7 @@ window.addEvent('domready', function() {
       // HIDE the LOADINGBOX
       $('loadingBox').tween('opacity','0');
       $('loadingBox').get('tween').chain(function(){
-        $('loadingBox').getChildren('.content')[0].empty();
+        $('loadingBox').empty();
         $('loadingBox').setStyle('display','none');
       });
 
@@ -1247,8 +1253,8 @@ window.addEvent('domready', function() {
     var selectedMainLanguage = $('cfg_websiteMainLanguage').getSelected();
     selectedMainLanguage = selectedMainLanguage[0];
 
-    // -> CHECK if languages were changed
-    $('pageSettingsForm').addEvent('submit',function(e){
+    // -> change language function
+    var changeWebsiteLanguage = function(e){
 
       // vars
       var newLangs = $('cfg_websiteLanguages').getChildren('option').get('value');
@@ -1290,7 +1296,13 @@ window.addEvent('domready', function() {
 
       // reset the website Languages variable
       // websiteLanguages = Array.clone($('cfg_websiteLanguages').getChildren('option').get('value'));
-    });
+    };
+
+    // -> CHECK if languages were changed
+    if(navigator.appVersion.match(/MSIE ([0-8]\.\d)/))
+      $$('#pageSettingsForm input.submit').addEvent('click',changeWebsiteLanguage);
+    else
+      $('pageSettingsForm').addEvent('submit',changeWebsiteLanguage);
     
 
     // -> disables the multiple language fields if "multiple languages" checkbox is deactivated
@@ -1316,12 +1328,13 @@ window.addEvent('domready', function() {
     $('cfg_websiteLanguageChoices').addEvent('dblclick',function(e){
       // get selected languages
       var option = this.getSelected();
+ 
       // -> move the selected ones to the cfg_websiteLanguages <select>
       // option.removeProperty('selected');
       option.inject($('cfg_websiteLanguages'));
 
       // create a copy of the <option> tag to be injected into the mainLanguage <select>
-      var newOption = new Option(option.get("html"), option.get("value"));
+      var newOption = $(new Option(option.get("html"), option.get("value")));
       // -> add the selection to the mainLanguage <select>
       newOption.inject($('cfg_websiteMainLanguage'));
 

@@ -34,9 +34,9 @@ $category = $_GET['category'];
 
 // ->> CHECK if the upload folder exists and is writeable
 if(empty($adminConfig['uploadPath']) || !is_dir(DOCUMENTROOT.$adminConfig['uploadPath']))
-  die('<h1>'.$langFile['PAGETHUMBNAIL_ERROR_NODIR_START'].' &quot;<b>'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].'</b>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_NODIR_END'].'</h1>');
+  die('<h2>'.$langFile['PAGETHUMBNAIL_ERROR_NODIR_START'].' &quot;<b>'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].'</b>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_NODIR_END'].'</h2>');
 if($warning = isWritableWarning(DOCUMENTROOT.$adminConfig['uploadPath']))
-  die('<h1>'.$warning.'</h1>');
+  die('<h2>'.$warning.'</h2>');
 
 $pageContent = GeneralFunctions::readPage($page,$category);
 
@@ -97,7 +97,7 @@ else
   $thumbRatio = $adminConfig['pageThumbnail']['ratio'];
 
 ?>
-<h1><?php echo $langFile['pagethumbnail_h1_part1'].' &quot;<span style="color:#000000;">'.strip_tags(GeneralFunctions::getLocalized($pageContent,'title')).'</span>&quot; '.$langFile['pagethumbnail_h1_part2']; ?></h1>
+<h2><?php echo $langFile['pagethumbnail_h1_part1'].' &quot;<span style="color:#000000;">'.strip_tags(GeneralFunctions::getLocalized($pageContent,'title')).'</span>&quot; '.$langFile['pagethumbnail_h1_part2']; ?></h2>
 
 <div id="thumbInfo">
 <ul>
@@ -121,7 +121,7 @@ else
   <input type="hidden" name="thumbRatio" value="<?php echo $thumbRatio; ?>">
 
 	<!-- file selection -->
-  <h2><?php echo $langFile['pagethumbnail_field1']; ?></h2>
+  <h3><?php echo $langFile['pagethumbnail_field1']; ?></h3>
   
 	<input type="file" name="thumbFile">
   <br>	
@@ -214,7 +214,7 @@ else
 // create redirect
 $redirect = (empty($site))
   ? '?category='.$category.'&page='.$page.'&status=reload'.rand(1,99).'#pageInformation'
-  : '?site='.$site;
+  : '?site='.$site.'&category='.$category;
 
 if($site == 'pages')
   $redirect .= '&status=reload'.rand(1,99).'#categoryAnchor'.$category;

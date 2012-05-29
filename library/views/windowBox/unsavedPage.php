@@ -30,7 +30,7 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 $target = urldecode($_GET['target']);
 
 // QUESTION
-echo '<h1>'.$langFile['unsavedPage_question_h1'].'</h1>';
+echo '<h2>'.$langFile['unsavedPage_question_h1'].'</h2>';
 
 ?>
 <div>

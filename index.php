@@ -260,18 +260,13 @@ if($_GET['site'] == 'addons') {
   </div>
 
   <!-- loadingBox -->
-  <div id="loadingBox">
-    <div class="top"></div>
-    <div class="content">
-    </div>
-    <div class="bottom"></div>
-  </div>
+  <div id="loadingBox"></div>
   
   <div id="windowBoxContainer">
     <div id="windowBox">
-      <div class="boxTop"><?php echo $langFile['LOADING_TEXT_LOAD']; ?><a href="#" onclick="closeWindowBox(false);return false;"></a></div>
+      <h1><?php echo $langFile['LOADING_TEXT_LOAD']; ?></h1>
+      <a href="#" class="close" onclick="closeWindowBox(false);return false;"></a>
       <div id="windowRequestBox"></div>
-      <div class="boxBottom"></div>
     </div>
   </div>
 
@@ -358,12 +353,11 @@ if($_GET['site'] == 'addons') {
   <!-- ************************************************************************* -->
   <!-- ** ERROR WINDOW ********************************************************* -->    
   <div id="feindura_errorWindow">
-    <div class="feindura_top"><?php echo $langFile['errorWindow_h1'];?></div>
+    <h1><?php echo $langFile['errorWindow_h1'];?></h1>
     <div class="feindura_content feindura_warning">
       <div class="scroll"><?php echo $errorWindow; ?></div>
       <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('feindura_errorWindow').fade('out');return false;" class="feindura_ok"></a>
     </div>
-    <div class="feindura_bottom"></div>
   </div>  
   <?php } ?>
   
