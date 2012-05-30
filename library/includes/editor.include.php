@@ -50,7 +50,7 @@ $editorStyleClass = GeneralFunctions::getStylesByPriority($pageContent['styleCla
 window.addEvent('domready',function(){
 
   // set the CONFIGs of the editor with PHP vars (more configs are set in the content.js)
-  CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['basePath']."library/thirdparty/ckeditor/"; ?>';
+  CKEDITOR.config.baseHref                  = '<?php echo GeneralFunctions::getDirname($adminConfig['websitePath']); ?>'; //$adminConfig['basePath']."library/thirdparty/ckeditor/"
   CKEDITOR.config.language                  = '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>';
 <?php if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false && !empty($editorStyleFiles)) { ?>
   CKEDITOR.config.contentsCss               = ['<?php $echoStyleFile = ''; foreach($editorStyleFiles as $editorStyleFile) {$uniqueStyleId = (strpos($editorStyleFile,"?") === false) ? "?=".md5(uniqid(rand(),1)) : ''; $echoStyleFile .= $editorStyleFile.$uniqueStyleId."','";} echo substr($echoStyleFile,0,-3); ?>'];

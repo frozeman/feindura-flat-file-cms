@@ -51,6 +51,8 @@ if(!$adminConfig['user']['fileManager'])
   /* <![CDATA[ */
     function openFilemanager(){
       var complete = function(path, file){
+        // remove the websitePath from the absolute path, to generate one relative to the websitePath
+        path = path.replace('<?php echo $adminConfig['websitePath']; ?>','');
         window.opener.CKEDITOR.tools.callFunction('<?php echo $_GET["CKEditorFuncNum"]; ?>', path);
         window.close();
       };
@@ -62,6 +64,7 @@ if(!$adminConfig['user']['fileManager'])
           language: '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>',
           propagateData: {'<?php echo session_name(); ?>':'<?php echo session_id(); ?>'},
           filter: '<?php echo $_GET["mimType"]; ?>',
+          deliverPathAsLegalURL: false,
           destroy: true,
           upload: true,
           move_or_copy: true,

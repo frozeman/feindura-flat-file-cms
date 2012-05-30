@@ -391,7 +391,7 @@ var FileManager = new Class({
 
 		// set startup list type
 		if(this.options.thumbnailList === true)
-			console.log(this.toggleList.bind(this));
+			this.toggleList.bind(this);
 
 		// Add a scroller to scroll the browser list when dragging a file
 		this.scroller = new Scroller(this.browserScroll, {
@@ -785,6 +785,10 @@ var FileManager = new Class({
 	relayClick: function(e, el) {
 		if (e) e.stop();
 
+		// if the clicked elelement is from the preview gallery, get the corresponding element
+		if(el.retrieve('el_ref'))
+				el = el.retrieve('el_ref');
+
 		// ignore mouse clicks while drag&drop + resulting copy/move is pending.
 		//
 		// Theoretically only the first click originates from the same mouse event as the 'drop' event, so we
@@ -827,47 +831,32 @@ var FileManager = new Class({
 			this.fillInfo(file);
 
 			this.switchButton4Current();
+
+			// // // now make sure we can see the selected item in the left pane: scroll there:
+			this.browserSelection('current');
 		}
 	},
 
 // Partikule
 
 	/**
-	* Catches both single and double click on thumb list icon in the directory preview thumb/gallery list
-	*/
-	relayDblClick: function(e, self, dg_el, file, clicks)
+	* Catches double clicks and open the file if selectable is true */
+	relayDblClick: function(e, el)
 	{
+		if(this.options.selectable === false)
+			return;
+
+
 		if (e) e.stop();
 
-		this.diag.log('on relayDblClick file = ', file, ', current dir: ', this.CurrentDir, ', # clicks: ', clicks);
+		this.diag.log('on relayDblClick file = ', el.retrieve('file'), ', current dir: ', this.CurrentDir);
 
 		this.tips.hide();
 
-		var el_ref = dg_el.retrieve('el_ref');
+		this.CurrentFile = el.retrieve('file');
 
-		if (this.Current)
-		{
-			this.Current.removeClass('selected');
-		}
-
-		this.Current = el_ref.addClass('selected');
-		file = el_ref.retrieve('file');
-
-		this.CurrentFile = file;
-
-		// now make sure we can see the selected item in the left pane: scroll there:
-		this.browserSelection('none');
-
-		// only simulate the 'select' button click by doubleclick on thumbnail in directory preview, when 'select' is actually allowed.
-		if (clicks === 2 && this.options.selectable)
-		{
+		if (this.CurrentFile.mime !== 'text/directory')
 			this.open_on_click(null);
-		}
-		else
-		{
-			// the single-click action is to simulate a click on the corresponding line in the directory view (left pane)
-			this.relayClick(e, el_ref);
-		}
 	},
 
 // /Partikule
@@ -1611,6 +1600,9 @@ var FileManager = new Class({
 			// none is selected: select first item (folder/file)
 			current = this.browser.getFirst('li').getElement('span.fi');
 		}
+		else if(direction === 'current') {
+			current = this.Current;
+		}
 		else
 		{
 			// select the current file/folder or the one with hover
@@ -1731,7 +1723,7 @@ var FileManager = new Class({
 			currentFile = current.retrieve('file');
 			this.diag.log('on key ENTER file = ', currentFile);
 			if (currentFile.mime === 'text/directory') {
-				this.load(currentFile.dir + currentFile.name /*.replace(this.root,'')*/);
+				this.load(currentFile.path /*.replace(this.root,'')*/);
 			}
 			else {
 				this.fillInfo(currentFile);
@@ -2248,10 +2240,10 @@ var FileManager = new Class({
 
 			//this.diag.log('add DIRECTORY click event to ', file);
 			el.addEvent('click', (function(e) {
-				self.diag.log('is_dir:CLICK: ', e);
-				var node = this;
-				self.relayClick.apply(self, [e, node]);
-			}).bind(el));
+					self.diag.log('is_dir:CLICK: ', e);
+					var node = this;
+					self.relayClick.apply(self, [e, node]);
+				}).bind(el));
 
 			editButtons = [];
 
@@ -2467,13 +2459,21 @@ var FileManager = new Class({
 				*/
 
 				// 2011/04/09: only register the 'click' event when the element is NOT a draggable:
-				if (!support_DnD_for_this_dir)
-				{
+				if (!support_DnD_for_this_dir) {
 					self.diag.log('add FILE click event to ', file);
 					el.addEvent('click', (function(e) {
 						self.diag.log('is_file:CLICK: ', e);
 						var node = this;
 						self.relayClick.apply(self, [e, node]);
+					}).bind(el));
+				}
+
+				// add double click functionality to the list elements
+				if(this.options.selectable === true) {
+					el.addEvent('dblclick', (function(e) {
+						self.diag.log('is_file:DBLCLICK: ', e);
+						var node = this;
+						self.relayDblClick.apply(self, [e, node]);
 					}).bind(el));
 				}
 
@@ -2542,18 +2542,7 @@ var FileManager = new Class({
 				{
 					var thumbLi = new Element('li');
 
-					dg_el.store('el_ref', el).store('file',file).store('parent',thumbLi).addEvents({
-						'click': function(e)
-						{
-							clearTimeout(self.dir_gallery_click_timer);
-							self.dir_gallery_click_timer = self.relayDblClick.delay(700, self, [e, this, dg_el, file, 1]);
-						},
-						'dblclick': function(e)
-						{
-							clearTimeout(self.dir_gallery_click_timer);
-							self.dir_gallery_click_timer = self.relayDblClick.delay(0, self, [e, this, dg_el, file, 2]);
-						}
-					});
+					dg_el.store('el_ref', el).store('file',file).store('parent',thumbLi);
 
 					thumbLi.inject(this.dir_filelist_thumbUl);
 					dg_el.inject(thumbLi);

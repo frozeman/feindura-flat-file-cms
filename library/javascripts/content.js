@@ -1557,6 +1557,7 @@ window.addEvent('domready', function() {
 
       HTMLEditor.on('instanceReady',function() {
         var ckeditorContent = $('cke_contents_HTMLEditor');
+        var windowScroll = new Fx.Scroll(window.document);
 
         ckeditorContent.set('tween',{duration:300, transition: Fx.Transitions.Pow.easeOut});
 
@@ -1572,6 +1573,9 @@ window.addEvent('domready', function() {
             if(!e.target.hasClass('cke_toolbox_collapser') && $$("#cke_top_HTMLEditor .cke_toolbox")[0] !== null && $$("#cke_top_HTMLEditor .cke_toolbox")[0].getStyle('display') == 'none') {
               HTMLEditor.execCommand('toolbarCollapse'); //toggles
             }
+
+            // scroll to editor
+            windowScroll.toElement($$('div.editor')[0]);
     
         });
         $$('div.editor #cke_HTMLEditor').addEvent('mouseenter',function(e){
@@ -1606,6 +1610,9 @@ window.addEvent('domready', function() {
               HTMLEditor.execCommand('toolbarCollapse'); //toggles
             }
           }
+
+          // scroll to editor
+          windowScroll.toElement($$('div.editor')[0]);
         });
 
         $('HTMLEditorSubmit').addEvent('mousedown',function(e) {
