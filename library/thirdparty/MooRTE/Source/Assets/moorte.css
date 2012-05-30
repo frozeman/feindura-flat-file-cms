@@ -82,6 +82,62 @@ div.MooRTE div.Sheva 		a:hover{ xborder:2px solid black; xmargin:0; }
 div.MooRTE div.Sheva 		.rteSelected{ background-color:#bbb }
 /* End Tango */
 
+/* Begin Word10 skin */
+	/* Replaced the blue to white BG with a transparent BG: div.MooRTE div.Word10	{ 
+	 * background-color:#B9D2F8;background-image:-moz-linear-gradient(top, #c4e2fa 0, #fcfdfe 45px); background-image:-webkit-linear-gradient(top, #c4e2fa 0, #fcfdfe 45px);
+	 * background-image:-ms-linear-gradient(top, #c4e2fa 0, #fcfdfe 45px);  background-image:linear-gradient(top, #c4e2fa 0, #fcfdfe 45px); }*/
+div.MooRTE div.Word10	{ left:0; bottom:0; width:100%; }
+div.MooRTE div.Word10	span { height:20px; margin:1px; display:inline-block; }
+div.MooRTE div.Word10	input{ height:20px; width:100px; }
+div.MooRTE div.Word10	a    { display:inline-block;}
+div.MooRTE div.Word10	>div.rteTop{ background-color:#fefefe; background-color:rgba(254,254,254,0.8); }
+div.MooRTE div.Word10	>div.rteTop>a{ margin:2px; }
+
+div.MooRTE>div.Word10	>div.rteTabs { overflow:hidden; position:relative; background-image:linear-gradient(top, rgba(255,255,255,0.8), #FFF);
+									background-image:-ms-linear-gradient(top, rgba(255,255,255,0.8), #FFF); background-image:-moz-linear-gradient(top, rgba(255,255,255,0.8), #FFF);
+									background-image:-webkit-linear-gradient(top, rgba(255,255,255,0.8), #FFF);}
+div.MooRTE div.Word10	>div.rteTabs:before { position:absolute; content:' '; width:100%; bottom:0; left:0; border-bottom:1px solid #AAA; z-index:1; }
+div.MooRTE div.Word10	>div.rteTabs>a{padding:0 12px; margin:0 2px; vertical-align:top; font: 12px/24px 'MS Sans Serif', Geneva, sans-serif; color:black;}
+div.MooRTE div.Word10	>div.rteTabs>a:hover,
+div.MooRTE div.Word10	>div.rteTabs>a.rteSelected,
+div.MooRTE div.Word10	>div.rteTabs>a.rteFileTab{ border:1px solid #aaa; border-bottom:0; border-radius:4px 4px 0 0; padding:0 11px;}
+div.MooRTE div.Word10	>div.rteTabs>a.rteFileTab{ box-shadow:none; color:white; background-image:linear-gradient(top,#418add,#2862ad 40%,#3e87d8); background-image:-moz-linear-gradient(top,#418add,#2862ad 40%,#3e87d8);
+									background-image:-ms-linear-gradient(top,#418add,#2862ad 40%,#3e87d8); background-image:-webkit-linear-gradient(top,#418add,#2862ad 40%,#3e87d8); }
+div.MooRTE>div.Word10	>div.rteTabs>a.rteSelected:not(.rteFileTab){ position:relative; background:#FFF; z-index:2; box-shadow:0 3px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 #FFF; }
+div.MooRTE>div.Word10	>div.rteTabs>a.rteSelected:not(.rteFileTab):before, 
+div.MooRTE>div.Word10	>div.rteTabs>a.rteSelected:not(.rteFileTab):after { border:1px solid #AAA; position:absolute; bottom:-1px; width:5px; height:5px; content:' '; }
+div.MooRTE>div.Word10	>div.rteTabs>a.rteSelected:not(.rteFileTab):before{ left:-6px; border-bottom-right-radius:6px; border-width:0 1px 1px 0; box-shadow: 2px 2px 0 #FFF; }
+div.MooRTE>div.Word10	>div.rteTabs>a.rteSelected:not(.rteFileTab):after { right:-6px; border-bottom-left-radius:6px; border-width:0 0 1px 1px; box-shadow:-2px 2px 0 #FFF; XOR:#D1D1D1;}
+
+div.MooRTE div.Word10	>div.rteRibbons{ background-color:white; border:1px solid #8B9096; border-top:0;
+									background-image:linear-gradient(bottom,#E5E9ED 0,#FFF 50px);background-image:-webkit-linear-gradient(bottom,#E5E9ED 0,#FFF 50px);
+									background-image:-moz-linear-gradient(bottom,#E5E9ED 0,#FFF 50px);background-image:-ms-linear-gradient(bottom,#E5E9ED 0,#FFF 50px); }
+div.MooRTE>div.Word10	>div.rteRibbons>div>div{ padding-top:1px; display:table-cell; border-right:3px solid #d1d1d1; -moz-border-right-colors: #fff #1d1d1 #fff; }
+div.MooRTE div.Word10	>div.rteTop>a,
+div.MooRTE div.Word10	>div.rteRibbons>div a{ height:21px; width:22px; margin:4px 1px; text-decoration:none; vertical-align:top; background-image:url(images/Word03.gif); border-radius:3px; 
+									-moz-box-sizing: border-box; -webkit-moz-box-sizing: border-box; box-sizing: border-box;}
+div.MooRTE div.Word10	>div.rteTop>a:hover, 
+div.MooRTE div.Word10	>div.rteTop>a.rteSelected:hover,
+div.MooRTE div.Word10	>div.rteRibbons>div a.rteSelected:hover,
+div.MooRTE div.Word10	>div.rteRibbons>div a:hover{ border:1px solid black;background-color:#FFB874; 
+									/*background-image:-moz-linear-gradient(top,#ffe387,#fff292); background-image:-ms-linear-gradient(top,#ffe387,#fff292);
+									background-image:-webkit-linear-gradient(top,#ffe387,#fff292); background-image:linear-gradient(top,#ffe387,#fff292) */}
+div.MooRTE div.Word10	>div.rteTop>a.rteSelected,
+div.MooRTE div.Word10	>div.rteRibbons>div a.rteSelected{ border:1px solid black; background-color:#FFB874 }
+div.MooRTE div.Word10	>div.rteRibbons>div>div:after{ height:25px; text-align:center; color:rgb(155,155,155); font:14px/25px Times New Roman; display:block; }
+div.MooRTE div.Word10	>div.rteRibbons>div>div.rteFontGroup:after{content:'Font'}
+div.MooRTE div.Word10	>div.rteRibbons>div>div.rteParaGroup:after{content:'Paragraph'}
+div.MooRTE div.Word10	>div.rteRibbons>div>div.rteFileGroup:after{content:'File'}
+div.MooRTE div.Word10	span.rtestart{background-image:url(images/start.gif); height:21px; width:7px; margin:0}
+div.MooRTE div.Word10	>div.rteTabs>a,
+div.MooRTE div.Word10	a.rteText{background-image:url(); min-width:38px; text-align:center; text-decoration:none; color:#000; }
+div.MooRTE div.Word10	a.rteText:hover{ }
+div.MooRTE div.Word10	div.rteFlyout{position:absolute; border:0; top:20px; left:-1px; xwidth:22px; background-color:#ddd}
+div.MooRTE div.Word10	a.Flyout{ position:relative; overflow:hidden;}
+div.MooRTE div.Word10	a.Flyout:hover{overflow:visible;}
+div.MooRTE div.Word10	.displayHtml{position:absolute; border:1px solid grey; left:0; top:0 }
+/* End Word10 */
+
 /* Begin Plugins */
 .rtefuUpload, .rtefuClear { cursor:pointer }
 .popup .popMid .popContent>span{ display:inline-block; width:90px; }

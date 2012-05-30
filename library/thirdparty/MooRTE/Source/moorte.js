@@ -158,7 +158,7 @@ var MooRTE = new Class({
 MooRTE.Range = {
 	create: function(range){
 		var sel = window.document.selection || window.getSelection();
-		if (!sel) return null;
+		if (!sel || sel.getRangeAt && !sel.rangeCount) return null; console.log(1);
 		return MooRTE.ranges[range || 'a1'] = sel.getRangeAt ? sel.getRangeAt(0) : sel.createRange();
 	}
 	, get: function(type, range){
@@ -340,7 +340,7 @@ MooRTE.Utilities = {
 		}
 		if (!options) options = {};
 
-		if (typeOf(elements) == 'string'){
+		if (Type.isString(elements)){
 			elements = elements.replace(/'([^']*)'|"([^"]*)"|([^{}:,\][\s]+)/gm, "'$1$2$3'");
 			elements = elements.replace(/((?:[,[:]|^)\s*)('[^']+'\s*:\s*'[^']+'\s*(?=[\],}]))/gm, "$1{$2}");
 			elements = elements.replace(/((?:[,[:]|^)\s*)('[^']+'\s*:\s*{[^{}]+})/gm, "$1{$2}");
@@ -387,7 +387,7 @@ MooRTE.Utilities = {
 				  , val = MooRTE.Elements[btn]
 				  , textarea = (val.element && val.element.toLowerCase() == 'textarea')
 				  , input = 'text,password,submit,button,checkbox,file,hidden,image,radio,reset'.contains(val.type)
-				  , state = 'bold,italic,underline,strikethrough,subscript,superscript,unlink,insertorderedlist,insertunorderedlist'.contains(btn.toLowerCase(), ',');  //Note1
+				  , state = /bold|italic|underline|strikethrough|unlink|(sub|super)script|insert(un)?orderedlist|justify(left|full|right|center)/i.test(btn);  //Note1
 
 				var properties = Object.append({
 					href:'javascript:void(0)',
@@ -425,8 +425,8 @@ MooRTE.Utilities = {
 				
 				if (val.onUpdate || state)
 					bar.retrieve('update', {'value':[], 'state':[], 'custom':[] })[ 
-						'fontname,fontsize,backcolor,forecolor,hilitecolor,justifyleft,justifyright,justifycenter'
-							.contains(btn.toLowerCase(),',') ? 'value' : (state ? 'state' : 'custom')
+						/font(name|size)|(back|fore|hilite)color/i
+							.test(btn) ? 'value' : (state ? 'state' : 'custom')
 					].push([btn, e, val.onUpdate]);
 				if (val.shortcut) bar.retrieve('shortcuts',{})[val.shortcut] = btn;//.set(val.shortcut,btn);
 				MooRTE.Utilities.eventHandler('onLoad', e, btn);
@@ -442,25 +442,41 @@ MooRTE.Utilities = {
 		
 		return collection[1] ? collection : collection[0];	
 	}
-	, tabs: function(elements, tabGroup, place, name){
-		// ToDo: temporarily hard set. Should be passed in args or set as default.
-		if (!tabGroup) tabGroup = 'tabs1';
+	, tabs: function(tabGroup){ //[, elements][, options], name, event 
 		
-		MooRTE.btnVals.combine(['onExpand','onHide','onShow','onUpdate']);
-		
-		Object.each(MooRTE.Tabs[tabGroup], function(els, title){
-			els[0].removeClass('rteSelected');
-			els[1].addClass('rteHide');
-			MooRTE.Utilities.eventHandler('onHide', this, name);
-		}, this);
-		
+		//MooRTE.btnVals.combine(['onExpand','onHide','onShow','onUpdate']);
+
+		var args = Array.from(arguments)
+		  , name = args.splice(-2).shift()
+		  , options = args[2] || {}
+		  , entry = MooRTE.Tabs[tabGroup];
+
+		if (!entry) MooRTE.Tabs[tabGroup] = {};
+		else Object.each(entry, function(els, title){
+			if (els[0]) els[0].removeClass('rteSelected');
+			if (els[1]) els[1].addClass('rteHide');
+			if (options.onHide) MooRTE.Utilities.eventHandler(options.onHide, this, name);
+			}, this);
+
 		this.addClass('rteSelected').addClass('rteGroupBtn_'+name);
-		var group = MooRTE.Utilities.addElements(elements, place, {className:'rteGroup_'+name, ifExists:'stop'});
-		MooRTE.Utilities.eventHandler('onShow', this, name);
-		
+		if (entry = MooRTE.Tabs[tabGroup][name]){
+			if (!entry[0]) entry[0] = this;
+			return entry[1].removeClass('rteHide');
+			}
+
+		if (!args[1]) return; // No group;
+		if (Type.isString(options.place)) 
+			options.place = this.getParent('.MooRTE').getElement('.rte'+options.place);
+
+		var group = MooRTE.Utilities.addElements(args[1], options.place, {className:'rteGroup_'+name});
+		MooRTE.Tabs[tabGroup][name] = [this, group];
+		MooRTE.Utilities.eventHandler(options.onShow, this, name);
+		}
+	, addTab: function(tabGroup, tabName){
 		if (!MooRTE.Tabs[tabGroup]) MooRTE.Tabs[tabGroup] = {};
-		if (!MooRTE.Tabs[tabGroup][name]) MooRTE.Tabs[tabGroup][name] = [this, group]//Object.set(name, );
-	}
+		if (!MooRTE.Tabs[tabGroup][tabName]) MooRTE.Tabs[tabGroup][tabName] = [];
+		MooRTE.Tabs[tabGroup][tabName][+(tabName != Array.from(arguments).splice(-2,1))] = this;
+		}
 	, clipStickyWin: function(caller){
 		if (Browser.firefox || (Browser.webkit && caller=='paste')) 
 			if (window.AssetLoader) AssetLoader.javascript(['mootools-more.js','StickyWinModalUI.js'], {
@@ -684,51 +700,58 @@ MooRTE.extensions = function(){
 	return editables;
 }
 
+if (false) Object.extend(MooRTE.Utilities, 
+	{	update: function(group){
+	 		Object.each(MooRTE.tabs[group], function(els){
+	 			els[0].removeClass('rteSelected');
+	 			});
+	 		pos = styles.getStyle('background-position');
+			head.setStyle('background-position', pos);
+			}
+	});
+
+
 Element.implement({moorte:MooRTE.extensions});
 Elements.implement({moorte:MooRTE.extensions});
 
-MooRTE.Groups = 
-	// Sample Groups. Stored for cleanliness; could be integrated directly into MooRTE.Elements.
+MooRTE.Groups = 	// Default Word03/Tango Groups. Could be integrated into MooRTE.Elements, but neater seperate.
 	{ Main : 'Toolbar:[start,bold,italic,underline,strikethrough,Justify,Lists,Indents,subscript,superscript]'
    	, File : {Toolbar:['start','save','cut','copy','paste','redo','undo','selectall','removeformat','viewSource']}
    	, Font : {Toolbar:['start','fontsize','decreasefontsize','increasefontsize','backcolor','forecolor']}
  	, Sert : {Toolbar:['start','inserthorizontalrule', 'blockquote','hyperlink']}
+	, RibbonOpts	:{ place:'Ribbons'}
 	}
 	
-MooRTE.Elements = {
+MooRTE.Elements =
 	// TabGroup Triggers. Samples, these can be created dynamically or manually.
-     Main			:{text:'Main'  , 'class':'rteText', onLoad :{tabs: [MooRTE.Groups.Main, 'tabs1', null]} ,onClick:'onLoad'}
-   , File			:{text:'File'  , 'class':'rteText', onClick:{tabs: [MooRTE.Groups.File, 'tabs1', null]} }
+   { Main			:{text:'Main'  , 'class':'rteText', onLoad :{tabs: [MooRTE.Groups.Main, 'tabs1', null]} ,onClick:'onLoad'}
+   , File			:{text:'File'  , 'class':'rteText rteFile', onClick:{tabs: [MooRTE.Groups.File, 'tabs1', null]} }
    , Font			:{text:'Font'  , 'class':'rteText', onClick:{tabs: [MooRTE.Groups.Font, 'tabs1', null]} }
    , Insert			:{text:'Insert', 'class':'rteText', onClick:{tabs: [MooRTE.Groups.Sert, 'tabs1', null]} } //'Upload Photo'
    , View			:{text:'Views' , 'class':'rteText', onClick:{tabs: {Toolbar:['start','Html/Text']}} }
-     
+	// Word 10 Groups.
+	, Ribbons    	:{ element:'div', title:'', contains:'HomeRibbon' }
+	, HomeTab		:{ text:'Home', 'class':'rteSelected', onLoad: {addTab:['RibbonTabs']}
+   						, onClick:{tabs: ['RibbonTabs', 'HomeRibbon', MooRTE.Groups.RibbonOpts]}
+   						}
+   , HomeRibbon	:{ element:'div', onLoad:{addTab:['RibbonTabs', 'HomeTab']}//superscript,
+   						, contains: 'div.FontGroup:[bold,italic,underline,strikethrough,subscript]\
+			 					,div.ParaGroup:[Lists,Indents,justifyleft,justifycenter,justifyright,justifyfull]'
+							}
+	, FileTab		:{ text:'File', onClick:{tabs: ['RibbonTabs', 'FileRibbon', MooRTE.Groups.RibbonOpts]} }
+	, FileRibbon	:{ element:'div', contains:'div.FileGroup:[superscript]' }
+						    
    // Groups (Flyouts)
    , Justify		:{img:06, 'class':'Flyout rteSelected', contains:'div.Flyout:[justifyleft,justifycenter,justifyright,justifyfull]' }
    , Lists			:{img:14, 'class':'Flyout', contains:'div.Flyout:[insertorderedlist,insertunorderedlist]' }
    , Indents		:{img:11, 'class':'Flyout', contains:'div.Flyout:[indent,outdent]' }
 	                
    // Buttons
-   , div				:{ element:'div' }
    , bold		 	:{ img:1, shortcut:'b', source:'<b>' }
    , italic		 	:{ img:2, shortcut:'i', source:'<i>' }
    , underline	 	:{ img:3, shortcut:'u', source:'<u>' }
    , strikethrough:{ img:4 }
-   , justifyleft	:{ img:6
-						 , title:'Justify Left'
-						 , onUpdate:function(cmd,val){
-								var t = MooRTE
-											.activeField
-											.retrieve('bar')
-											.getElement('.rtejustify' + (val == 'justify' ? 'full' : val));
-								if(t !== null) {
-									var pos = t.addClass('rteSelected').getStyle('background-position');
-									t.getParent()
-										.getParent()
-										.setStyle('background-position', pos);
-								}
-							}
-						 }
+   , justifyleft	:{ img:6, title:'Justify Left'  }
    , justifyfull	:{ img:7, title:'Justify Full'  }
    , justifycenter:{ img:8, title:'Justify Center'}
    , justifyright	:{ img:9, title:'Justify Right' }
@@ -834,19 +857,15 @@ MooRTE.Elements = {
 								}
 							})
 						}}  // Ah, but its a shame this ain't LISP ;) ))))))))))!
-   , mooupload     :{ img: 49
-   					, id: 'imgUploader'
-   					, title:'Upload Images'
+   , mooupload    :{ img: 15
 					, onLoad: function(){
-						new Asset.javascript(MooRTE.Path + 'mooupload/Source/MooUpload.js', {
+						new Asset.javascript(MooRTE.Path + 'mooupload/Source/mooupload.js', {
 							onComplete:function(){
 								var uploader = new MooUpload(this,
-									{ action: MooRTE.Path + 'filemanager/upload.php'//'mooupload/Demo/upload.php'	// Path to upload script
+									{ action: MooRTE.Path + 'mooupload/Demo/upload.php'	// Path to upload script
 									, flash: { movie: MooRTE.Path + 'mooupload/Source/Moo.Uploader.swf' }
   									, autostart: true
   									, accept: 'image/*'
-  									, verbose: true
-  									, texts:{ selectfile:'&nbsp;' }
   									, onButtonDown :function(){ MooRTE.Range.set() }
 									, onButtonEnter :function(){ MooRTE.Range.create() }
 									, onFileUpload: function(args, data){
@@ -860,9 +879,9 @@ MooRTE.Elements = {
 							})
 					  }
 					}
-   , blockquote		:{ img:59, onClick:function(){	MooRTE.Range.wrap('blockquote'); } }
+   , blockquote	:{ img:59, onClick:function(){	MooRTE.Range.wrap('blockquote'); } }
    , start			:{ element:'span' }
-   , viewSource		:{ img:35, onClick:'source', source:function(btn){
+   , viewSource	:{ img:35, onClick:'source', source:function(btn){
 						var bar = MooRTE.activeBar, el = bar.retrieve('fields')[0], ta = bar.getElement('textarea.rtesource');
 						if(this.hasClass('rteSelected')){
 							bar.eliminate('source');
@@ -958,8 +977,9 @@ MooRTE.Elements = {
 						}
 					}
 					
-   // Deprecated
-   , 'Toolbar'      :{element:'div'} //div.Toolbar would create the same div (with a class of rteToolbar).  But since it is the default, I dont wish to confuse people...
+	// Generic
+	, div				:{ element:'div', title:'' }
+	, Toolbar    	:{ element:'div', title:'' } // Could use div.Toolbar, defined seperately for clarity.
 };
 
 

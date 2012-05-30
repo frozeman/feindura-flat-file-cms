@@ -271,6 +271,7 @@ class Search {
       $searchwords = str_replace($changeChars,'|',$searchwords);
       $searchwords = trim($searchwords,'|');
       $searchwords = XssFilter::text($searchwords);
+      $searchwords = preg_quote($searchwords); // escape regex pattern
       $pattern = ($searchwords != '') ? '#'.$searchwords.'#i' : '#a^#';
 
 
