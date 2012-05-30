@@ -152,7 +152,7 @@ function isBlocked($returnBool = false) {
        $cachedUser['edit'] &&
        $location != 'new' && // dont block when createing a new page (multiple user can do that)
        ($location == $_GET['page'] || $location == $_GET['site'])) {
-      $return = ($returnBool) ? true : '<div id="contentBlocked">'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'];
+      $return = ($returnBool) ? true : '<div id="contentBlocked"><br><br><br><br><br><br>'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'];
       if(!empty($cachedUser['username'])) $return .= '<br><span style="font-size:15px;">'.$GLOBALS['langFile']['DASHBOARD_TITLE_USER'].': <span class="blue">'.$cachedUser['username'].'</span></span>';
       $return .= '</div>';
       return $return;

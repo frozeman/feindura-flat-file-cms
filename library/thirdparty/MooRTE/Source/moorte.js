@@ -158,7 +158,7 @@ var MooRTE = new Class({
 MooRTE.Range = {
 	create: function(range){
 		var sel = window.document.selection || window.getSelection();
-		if (!sel || sel.getRangeAt && !sel.rangeCount) return null; console.log(1);
+		if (!sel || sel.getRangeAt && !sel.rangeCount) return null;
 		return MooRTE.ranges[range || 'a1'] = sel.getRangeAt ? sel.getRangeAt(0) : sel.createRange();
 	}
 	, get: function(type, range){
@@ -276,6 +276,9 @@ MooRTE.Utilities = {
 		var val
 		  , update = MooRTE.activeBar.retrieve('update');
 
+		if(update === null)
+			return;
+
 		update.state.each(function(vals){
 			if (vals[2])
 				vals[2].call(vals[1], vals[0]);
@@ -354,7 +357,7 @@ MooRTE.Utilities = {
 			if (els.length) elements = els, els = [];
 			Array.from(elements).each(function(item){
 				switch(typeOf(item)){
-					case 'string':
+					case 'string': case 'element':
 						els.push(item); break;
 					case 'object':
 						Object.each(item, function(val,key){
@@ -375,19 +378,20 @@ MooRTE.Utilities = {
 				var btnVals = Object.values(btn)[0];
 				btn = Object.keys(btn)[0];
 			}
-
-			var btnClass = '.rte' + btn.replace('.','.rte') + (options.className ? '.'+options.className.replace(' ','.') : '')
-			  , loc = {before:'Previous', after:'Next', top:'First'}[relative] || 'Last'
-			  , e = place['get' + loc](btnClass)
-			  , btn = btn.split('.')[0];
 			// console.log('addElements called. elements:',elements,', btn is:',btn,', e is:',e,', func args are:',arguments);
 		
-			if (!e || !options.ifExists) {
-				var val = MooRTE.Elements[btn]
-				  , bgPos = 0
-					, state = /bold|italic|underline|strikethrough|unlink|(sub|super)script|insert(un)?orderedlist|justify(left|full|right|center)/i.test(btn)  //Note1
-					, textarea = (typeOf(val) !== 'null' && val.element && val.element.toLowerCase() == 'textarea')
+			if (Type.isElement(btn))       var newEl = btn;
+			else if(!MooRTE.Elements[btn]) var newEl = new Element(btn);
+			else var loc = {before:'Previous', after:'Next', top:'First'}[relative] || 'Last'
+				    , e = place['get' + loc]('.rte' + btn);
+				 
+			if (newEl) var e = newEl.inject(place, relative);
+			else if (!e || !options.ifExists){
+				var bgPos = 0
+				  , val = MooRTE.Elements[btn]
+				  , textarea = (val.element && val.element.toLowerCase() == 'textarea')
 				  , input = 'text,password,submit,button,checkbox,file,hidden,image,radio,reset'.contains(val.type)
+				  , state = /bold|italic|underline|strikethrough|unlink|(sub|super)script|insert(un)?orderedlist|justify(left|full|right|center)/i.test(btn);  //Note1
 
 				var properties = Object.append({
 					href:'javascript:void(0)',
@@ -420,7 +424,7 @@ MooRTE.Utilities = {
 						delete properties[key];
 					});
 
-				e = new Element((input && !val.element ? 'input' : val.element || 'a') + btnClass, properties)
+				e = new Element((input && !val.element ? 'input' : val.element || 'a') + '.rte' + btn, properties)
 					.inject(place, relative);
 				
 				if (val.onUpdate || state)
@@ -727,20 +731,19 @@ MooRTE.Elements =
    { Main			:{text:'Main'  , 'class':'rteText', onLoad :{tabs: [MooRTE.Groups.Main, 'tabs1', null]} ,onClick:'onLoad'}
    , File			:{text:'File'  , 'class':'rteText rteFile', onClick:{tabs: [MooRTE.Groups.File, 'tabs1', null]} }
    , Font			:{text:'Font'  , 'class':'rteText', onClick:{tabs: [MooRTE.Groups.Font, 'tabs1', null]} }
-   , Insert		:{text:'Insert', 'class':'rteText', onClick:{tabs: [MooRTE.Groups.Sert, 'tabs1', null]} } //'Upload Photo'
+   , Insert			:{text:'Insert', 'class':'rteText', onClick:{tabs: [MooRTE.Groups.Sert, 'tabs1', null]} } //'Upload Photo'
    , View			:{text:'Views' , 'class':'rteText', onClick:{tabs: {Toolbar:['start','Html/Text']}} }
-   , tabs1 		:{}
 	// Word 10 Groups.
-	, Ribbons    	:{ element:'div', title:'', contains:'HomeRibbon' }
 	, HomeTab		:{ text:'Home', 'class':'rteSelected', onLoad: {addTab:['RibbonTabs']}
    						, onClick:{tabs: ['RibbonTabs', 'HomeRibbon', MooRTE.Groups.RibbonOpts]}
    						}
-   , HomeRibbon	:{ element:'div', onLoad:{addTab:['RibbonTabs', 'HomeTab']}//superscript,
-   						, contains: 'div.FontGroup:[bold,italic,underline,strikethrough,subscript]\
-			 					,div.ParaGroup:[Lists,Indents,justifyleft,justifycenter,justifyright,justifyfull]'
-							}
+   , HomeRibbon	:{ element:'div', onLoad:{addTab:['RibbonTabs', 'HomeTab']}, contains: 
+   							'div.rteFontGroup:[div:[bold,italic,underline,strikethrough,subscript]]\
+			 					,div.rteParaGroup:[div:[Lists,indent,outdent,justifyleft,justifycenter,justifyright,justifyfull]]\
+			 					,div.rteStylGroup:[div:[div.defaultStyle:[div]]]'
+							}//superscript,
 	, FileTab		:{ text:'File', onClick:{tabs: ['RibbonTabs', 'FileRibbon', MooRTE.Groups.RibbonOpts]} }
-	, FileRibbon	:{ element:'div', contains:'div.FileGroup:[superscript]' }
+	, FileRibbon	:{ element:'div', contains:'div.rteFileGroup:[div:[superscript]]' }
 						    
    // Groups (Flyouts)
    , Justify		:{img:06, 'class':'Flyout rteSelected', contains:'div.Flyout:[justifyleft,justifycenter,justifyright,justifyfull]' }
@@ -979,7 +982,6 @@ MooRTE.Elements =
 					}
 					
 	// Generic
-	, div				:{ element:'div', title:'' }
 	, Toolbar    	:{ element:'div', title:'' } // Could use div.Toolbar, defined seperately for clarity.
 };
 

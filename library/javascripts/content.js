@@ -1495,7 +1495,7 @@ window.addEvent('domready', function() {
 
     // vars
     var editorStartHeight = window.getSize().y * 0.30;
-    var editorTweenToHeight = (window.getSize().y * 0.52 > 420) ? window.getSize().y * 0.52 : 420;
+    var editorTweenToHeight = (window.getSize().y * 0.75 > 420) ? window.getSize().y * 0.75 : 420;
     var editorHasFocus = false;
     var editorIsClicked = false;
     var editorSubmited = false;
@@ -1575,7 +1575,8 @@ window.addEvent('domready', function() {
             }
 
             // scroll to editor
-            windowScroll.toElement($$('div.editor')[0]);
+            if(typeOf($$('div.editor')[0]) !== 'null')
+              windowScroll.toElement($$('div.editor')[0]);
     
         });
         $$('div.editor #cke_HTMLEditor').addEvent('mouseenter',function(e){
@@ -1612,7 +1613,8 @@ window.addEvent('domready', function() {
           }
 
           // scroll to editor
-          windowScroll.toElement($$('div.editor')[0]);
+          if(typeOf($$('div.editor')[0]) !== 'null')
+            windowScroll.toElement($$('div.editor')[0]);
         });
 
         $('HTMLEditorSubmit').addEvent('mousedown',function(e) {

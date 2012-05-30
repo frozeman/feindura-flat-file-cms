@@ -110,7 +110,6 @@ function requestSite(site,siteTitle,formId) {
     onRequest: function() { //-----------------------------------------------------
         
         // Clear the title <div>
-        console.log($$('#windowBox > h1'));
         if(typeOf($$('#windowBox > h1')[0]) !== 'null')
           $$('#windowBox > h1')[0].destroy();
 

@@ -374,8 +374,6 @@
     // -> check the GIVEN PAGEBLOCK
     if(pageBlock) {
       if(pageBlock.retrieve('content') != pageBlock.get('html')) {
-        console.log(pageBlock.retrieve('content'));
-        console.log(pageBlock.get('html'));
         disableEditing(pageBlock);
         return true;
       } else
