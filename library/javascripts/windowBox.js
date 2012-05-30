@@ -100,7 +100,6 @@ function requestSite(site,siteTitle,formId) {
 
   // vars
   var formular = $(formId);
-  var newWindow = true;
   var removeLoadingCircle;
   var windowRequestBox = $('windowRequestBox');
   var windowBox = $('windowBox');
@@ -110,10 +109,11 @@ function requestSite(site,siteTitle,formId) {
     //-----------------------------------------------------------------------------
     onRequest: function() { //-----------------------------------------------------
         
-        // checks if the windowRequestBox is empty, means that an new window is opend
-        if($('windowRequestBox').get('text') !== '')
-          newWindow = false;
-        
+        // Clear the title <div>
+        console.log($$('#windowBox > h1'));
+        if(typeOf($$('#windowBox > h1')[0]) !== 'null')
+          $$('#windowBox > h1')[0].destroy();
+
         // shows the LOADING
         if(navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
           windowRequestBox.grab(new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'}),'top');
@@ -149,17 +149,10 @@ function requestSite(site,siteTitle,formId) {
         // fire a event if the page is loaded
         windowBox.fireEvent('loaded',windowRequestBox);
 
-        // only when the a new window is opend slide in ------------
-        if(newWindow) {
-
-          // first fill in the title
-          if(siteTitle) {
-            // Inject the new DOM elements into the h1.
-            $$('#windowBox > h1').set('html',siteTitle);
-          } else {
-            // Clear the title <div>
-            $$('#windowBox > h1').set('html');
-          }
+        // first fill in the title
+        if(siteTitle) {
+          // Inject the new DOM elements into the h1.
+          windowBox.grab(new Element('h1',{'text':siteTitle}),'top');
         }
 
         /* set toolTips to all objects with a toolTip class */

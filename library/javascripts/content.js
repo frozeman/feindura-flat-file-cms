@@ -566,16 +566,11 @@ function LeavingWithoutSavingWarning() {
         href !== null &&
         href.toString().indexOf('#') == -1) {
 
-      // prevent that the link get clicked before pageContentChanged was checked
-      link.setProperty('onclick','return false;');
-
-      link.addEvent('mouseup',function(e) {
+      link.addEvent('click',function(e) {
         if(pageContentChanged) {
           e.stop();
           openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(href),false,false);
-        // let the link get clicked
-        } else
-          link.removeProperty('onclick');
+        }
       });
     }
   });
@@ -1845,7 +1840,26 @@ window.addEvent('domready', function() {
         pageContentChanged = true;
       }
     });
-
+    // on typing
+    HTMLEditor.on("instanceReady", function() {
+        this.document.on("keyup", function(){
+          pageContentChangedSign();
+          pageContentChanged = true;
+        });
+        this.document.on("paste", function(){
+          pageContentChangedSign();
+          pageContentChanged = true;
+        });
+      }
+    );
+    // on mode changeing
+    HTMLEditor.on('mode', function(e) {
+      if(e.editor.mode === 'source' && HTMLEditor.checkDirty()) {
+        pageContentChangedSign();
+        pageContentChanged = true;
+      }
+      }
+    );
     LeavingWithoutSavingWarning();
   }
 });

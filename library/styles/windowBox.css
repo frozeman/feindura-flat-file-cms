@@ -38,9 +38,9 @@
     box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 40px rgba(0,0,0,0.15);
     }
 #windowBox > h1 {
-    position: absolute;
-    top: 10px;
-    left: 10px;
+    position: relative;
+    top: -30px;
+    left: -30px;
     z-index: 2;
     padding: 0px 5px;
     padding-bottom: 12px;
@@ -67,7 +67,6 @@
 #windowRequestBox {
     position: relative;
     z-index: 1;
-    margin-top: 30px;
     width: 705px;
     min-height: 140px;
     }

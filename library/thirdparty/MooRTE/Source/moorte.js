@@ -382,12 +382,12 @@ MooRTE.Utilities = {
 			  , btn = btn.split('.')[0];
 			// console.log('addElements called. elements:',elements,', btn is:',btn,', e is:',e,', func args are:',arguments);
 		
-			if (!e || !options.ifExists){
-				var bgPos = 0
-				  , val = MooRTE.Elements[btn]
-				  , textarea = (val.element && val.element.toLowerCase() == 'textarea')
+			if (!e || !options.ifExists) {
+				var val = MooRTE.Elements[btn]
+				  , bgPos = 0
+					, state = /bold|italic|underline|strikethrough|unlink|(sub|super)script|insert(un)?orderedlist|justify(left|full|right|center)/i.test(btn)  //Note1
+					, textarea = (typeOf(val) !== 'null' && val.element && val.element.toLowerCase() == 'textarea')
 				  , input = 'text,password,submit,button,checkbox,file,hidden,image,radio,reset'.contains(val.type)
-				  , state = /bold|italic|underline|strikethrough|unlink|(sub|super)script|insert(un)?orderedlist|justify(left|full|right|center)/i.test(btn);  //Note1
 
 				var properties = Object.append({
 					href:'javascript:void(0)',
@@ -727,8 +727,9 @@ MooRTE.Elements =
    { Main			:{text:'Main'  , 'class':'rteText', onLoad :{tabs: [MooRTE.Groups.Main, 'tabs1', null]} ,onClick:'onLoad'}
    , File			:{text:'File'  , 'class':'rteText rteFile', onClick:{tabs: [MooRTE.Groups.File, 'tabs1', null]} }
    , Font			:{text:'Font'  , 'class':'rteText', onClick:{tabs: [MooRTE.Groups.Font, 'tabs1', null]} }
-   , Insert			:{text:'Insert', 'class':'rteText', onClick:{tabs: [MooRTE.Groups.Sert, 'tabs1', null]} } //'Upload Photo'
+   , Insert		:{text:'Insert', 'class':'rteText', onClick:{tabs: [MooRTE.Groups.Sert, 'tabs1', null]} } //'Upload Photo'
    , View			:{text:'Views' , 'class':'rteText', onClick:{tabs: {Toolbar:['start','Html/Text']}} }
+   , tabs1 		:{}
 	// Word 10 Groups.
 	, Ribbons    	:{ element:'div', title:'', contains:'HomeRibbon' }
 	, HomeTab		:{ text:'Home', 'class':'rteSelected', onLoad: {addTab:['RibbonTabs']}
