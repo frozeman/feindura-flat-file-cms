@@ -1329,7 +1329,7 @@ window.addEvent('domready', function() {
       option.inject($('cfg_websiteLanguages'));
 
       // create a copy of the <option> tag to be injected into the mainLanguage <select>
-      var newOption = $(new Option(option.get("html"), option.get("value")));
+      var newOption = new Element('option',{ 'html': option.get("html"), 'value': option.get("value")});
       // -> add the selection to the mainLanguage <select>
       newOption.inject($('cfg_websiteMainLanguage'));
 
@@ -1338,15 +1338,12 @@ window.addEvent('domready', function() {
     });
 
     // -> REMOVE selected languages from the main Language and page language selection
-    $('cfg_websiteLanguages').addEvent('click',function(e){
-      // prevent self destruction
-      if(e.target === $('cfg_websiteLanguages'))
-        return;
+    $('cfg_websiteLanguages').addEvent('click',function(e) {
 
       var allLanguages = $('cfg_websiteLanguageChoices').getChildren();
       $('cfg_websiteLanguageChoices').empty();
       // get selected languages
-      var option = e.target;
+      var option = this.getSelected();
       // -> move the selected ones to the cfg_websiteLanguageChoices <select>
       option.removeProperty('selected');
       option.inject($('cfg_websiteLanguageChoices','top'));
@@ -1361,8 +1358,15 @@ window.addEvent('domready', function() {
       // select all languages again
       $('cfg_websiteLanguages').getChildren().setProperty('selected','selected');
 
-      // hide the mainLanguage <select> if its empty
-      if($('cfg_websiteMainLanguage').getChildren().length === 0) $('websiteMainLanguageTr').setStyle('display','none');
+      // hide the mainLanguage <select> if its empty and deactivate the multi language pages
+      if($('cfg_websiteMainLanguage').getChildren().length === 0) {
+        $('websiteMainLanguageTr').setStyle('display','none');
+        $('cfg_websiteLanguages').setProperty(deactivateType,deactivateType);
+        $('cfg_websiteMainLanguage').setProperty(deactivateType,deactivateType);
+        $('cfg_websiteLanguageChoices').setProperty(deactivateType,deactivateType);
+        $('cfg_multiLanguageWebsite').checked = false;
+        $('cfg_multiLanguageWebsite').retrieve('fancyform_replacment').removeClass('fancyform_checked').addClass('fancyform_unchecked');
+      }
     });
   }
 
@@ -1495,7 +1499,7 @@ window.addEvent('domready', function() {
 
     // vars
     var editorStartHeight = window.getSize().y * 0.30;
-    var editorTweenToHeight = (window.getSize().y * 0.75 > 420) ? window.getSize().y * 0.75 : 420;
+    var editorTweenToHeight = (window.getSize().y * 0.60 > 420) ? window.getSize().y * 0.60 : 420;
     var editorHasFocus = false;
     var editorIsClicked = false;
     var editorSubmited = false;
@@ -1557,7 +1561,8 @@ window.addEvent('domready', function() {
 
       HTMLEditor.on('instanceReady',function() {
         var ckeditorContent = $('cke_contents_HTMLEditor');
-        var windowScroll = new Fx.Scroll(window.document);
+        var windowScroll = new Fx.Scroll(window.document,{duration:'normal'});
+        var ckeditorToolBar = $$("#cke_top_HTMLEditor .cke_toolbox")[0];
 
         ckeditorContent.set('tween',{duration:300, transition: Fx.Transitions.Pow.easeOut});
 
@@ -1569,9 +1574,10 @@ window.addEvent('domready', function() {
           if(!editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20))
             ckeditorContent.tween('height',editorTweenToHeight);
 
-            // show toolbar
-            if(!e.target.hasClass('cke_toolbox_collapser') && $$("#cke_top_HTMLEditor .cke_toolbox")[0] !== null && $$("#cke_top_HTMLEditor .cke_toolbox")[0].getStyle('display') == 'none') {
+            // show toolbar !e.target.hasClass('cke_toolbox_collapser') &&
+            if(typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') === 'none') {
               HTMLEditor.execCommand('toolbarCollapse'); //toggles
+              ckeditorToolBar.slide('hide').slide('in');
             }
 
             // scroll to editor
@@ -1597,19 +1603,12 @@ window.addEvent('domready', function() {
           if(!editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20)) {
             ckeditorContent.tween('height',editorTweenToHeight);
             //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
+          }
 
-            // show toolbar
-            ckeditorContent.get('tween').chain(function(){
-              if($$("#cke_top_HTMLEditor .cke_toolbox")[0] !== null && $$("#cke_top_HTMLEditor .cke_toolbox")[0].getStyle('display') == 'none') {
-                HTMLEditor.execCommand('toolbarCollapse'); //toggles
-              }
-            });
-          // }
-          } else {
-            // show toolbar directly
-            if($$("#cke_top_HTMLEditor .cke_toolbox")[0] !== null && $$("#cke_top_HTMLEditor .cke_toolbox")[0].getStyle('display') == 'none') {
-              HTMLEditor.execCommand('toolbarCollapse'); //toggles
-            }
+          // show toolbar directly
+          if(typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') == 'none') {
+            HTMLEditor.execCommand('toolbarCollapse'); //toggles
+            ckeditorToolBar.slide('hide').slide('in');
           }
 
           // scroll to editor

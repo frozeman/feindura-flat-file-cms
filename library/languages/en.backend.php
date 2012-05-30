@@ -272,22 +272,10 @@ $langFile['WARNING_TEXT_BASEPATH']                                        = 'The
 Please go to the <a href                                                  ="?site=adminSetup#adminSettings">administrator-settings</a> and configure your <span class="logoname">fein<span>dura</span></span> CMS.';
 
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Please activate Javascript';
-// no <p> tag on the start and the end, its already in the dashboard.php
-$langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>To fully use <span class="logoname">fein<span>dura</span></span>, you need to activate  Javascript!</strong></p>
-<h2>in Firefox</h2>
-<p>Click on "Edit" > "Preferences" and under content chedck the box "activate JavaScript" and finish with OK.</p>
-<h2>in Internet Explorer</h2>
-<p>Click on "Extras" > "Internetoptionens".<br>
-There you set under &quote;Security&quote; > &quote;Standardlevel&quote; choose "adjust Level" and activate under &quote;Scripting&quote; the piont "activate Active Scripting".</p>
-<h2>in Safari</h2>
-<p>Click in the top menu bar on the icon on the right, choose "Preferences". Activate under "Security" the point "activate JavaScript" and click OK to finish.</p>
-<h2>in Mozilla</h2>
-<p>Click on "Edit" > "Preferences". Under the point "Advanced" > "Scripts & Plugins" check "Navigator" and finish with OK.</p>
-<h2>in Opera</h2>
-<p>Click on "Extras" > "Preferences". Under "Advanced" > "Content" check "activate JavaScript" and click OK to finish.';
+$langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>To fully use <span class="logoname">fein<span>dura</span></span>, you need to activate  Javascript!</strong>';
 
 $langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="logoname">fein<span>dura</span></span> is not made for older versions of the Internet Explorers';
-$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'To completely use  <span class="logoname">fein<span>dura</span></span> CMS you need at leats Internet Explorer 8.<br><br>Please install a newer version of the Internet Explorer,<br> or install the <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> for Internet Explorer,<br>or download and install the free <a href="http://www.mozilla.org/firefox/">Firefox</a> or <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
+$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'To completely use  <span class="logoname">fein<span>dura</span></span> CMS you need at leats Internet Explorer 9.<br><br>Please install a newer version of the Internet Explorer,<br> or install the <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> for Internet Explorer,<br>or download and install the free <a href="http://www.mozilla.org/firefox/">Firefox</a> or <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
 
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Page is currently being edited...';
 

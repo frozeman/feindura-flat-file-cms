@@ -273,22 +273,10 @@ $langFile['WARNING_TEXT_BASEPATH']                                        = 'Il 
 Si prega di andare su <a href                                             ="?site=adminSetup#adminSettings">impostazioni-amministratore</a> per configurare il tuo <span class="logoname">fein<span>dura</span></span> CMS.';
 
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Si prega di attivare Javascript';
-// no <p> tag on the start and the end, its already in the dashboard.php
-$langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>Per utilizzare appieno <span class="logoname">fein<span>dura</span></span>, è necessario attivare il  Javascript!</strong></p>
-<h2>in Firefox</h2>
-<p>Fare clic su "Opzioni" > "Contenuti" e nella scheda contenuto selezionare con una spunta la casella "activa JavaScript" e finire con un click su OK.</p>
-<h2>in Internet Explorer</h2>
-<p>Fare clic su "Strumenti" > "Opzioni Internet".<br>
-Si imposta in &quote;Protezione&quote; > &quote;Livello Standard&quote; scegliere "regolare il livello" e attivare la voce "Quote Scripting, in quel punto attivare "Active Scripting".</p>
-<h2>in Safari</h2>
-<p>Fare clic nella barra dei menu in alto sull\'icona a destra, scegliere "Preferenze". Attiva sotto "sicurezza" il punto "Attiva JavaScript" e fare clic su OK per terminare.</p>
-<h2>in Mozilla</h2>
-<p>Fare clic su "Opzioni" > "Preferenze". Sotto il punto "Advanced" > "Scripts & Plugins" controlla "Navigator" e fare clic su OK per terminare.</p>
-<h2>in Opera</h2>
-<p>Fare clic su "Extra" > "Preferenze". sotto "Avanzate" > Controlla "Contenuto" "Attiva JavaScript" e fare clic su OK per terminare.';
+$langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>Per utilizzare appieno <span class="logoname">fein<span>dura</span></span>, è necessario attivare il  Javascript!</strong>';
 
 $langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="logoname">fein<span>dura</span></span> non è fatto per le versioni di browser obsoleti e precedenti di <br>Internet Explorers';
-$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Per utilizzare completamente  <span class="logoname">fein<span>dura</span></span> CMS è necessario almeno Internet Explorer 8.<br><br>Si prega di installare una versione più recente di Internet Explorer,<br> o installare <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> per Internet Explorer,<br>o scaricare e installare il programma gratuito <a href="http://www.mozilla.org/firefox/">Firefox</a> o <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
+$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Per utilizzare completamente  <span class="logoname">fein<span>dura</span></span> CMS è necessario almeno Internet Explorer 9.<br><br>Si prega di installare una versione più recente di Internet Explorer,<br> o installare <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> per Internet Explorer,<br>o scaricare e installare il programma gratuito <a href="http://www.mozilla.org/firefox/">Firefox</a> o <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
 
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Attendi pagina in corso di modifica...';
 

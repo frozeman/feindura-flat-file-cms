@@ -271,22 +271,10 @@ $langFile['WARNING_TEXT_BASEPATH']                                        = 'Der
 Bitte gehe in die <a href                                                 ="?site=adminSetup#adminSettings">Administrator-Einstellungen</a> und konfiguriere dein <span class="logoname">fein<span>dura</span></span> CMS';
 
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Bitte aktiviere Javascript';
-// no <p> tag on the start and the end, its already in the dashboard.php
-$langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>Um <span class="logoname">fein<span>dura</span></span> voll nutzen zu können, muss Javascript aktiviert sein!</strong></p>
-<h2>im Firefox</h2>
-<p>Klicke in der obersten Menüleiste auf &quot;Bearbeiten&quot; > &quot;Einstellungen&quot;. Unter Inhalt aktivierst du den Punkt "JavaScript aktivieren" und bestätigst dann mit OK.</p>
-<h2>im Internet Explorer</h2>
-<p>Klicke in der obersten Menüleiste auf "Extras" > "Internetoptionen".<br>
-Dort klickst du unter Sicherheit entweder auf "Standardstufe", oder wähle "Stufe anpassen" und aktiviere dann unter Scripting den Punkt "Active Scripting Aktivieren". Bestätige mit OK.</p>
-<h2>im Safari</h2>
-<p>Klicke in der obersten Menüleiste auf das Symbol ganz rechts, wähle "Einstellungen". Unter "Sicherheit" aktivierst du den Punkt "JavaScript aktivieren" und klicke zum bestätigen auf OK.</p>
-<h2>im Mozilla</h2>
-<p>Klicke in der obersten Menüleiste auf "Edit" > "Preferences". Unter dem Punkt "Advanced" > "Scripts & Plugins" kreuze "Navigator" an. Bestätige mit OK.</p>
-<h2>im Opera</h2>
-<p>Klicke in der obersten Menüleiste auf "Extras" > "Einstellungen". Unter "Erweitert" > "Inhalte" setze ein Haken bei "JavaScript aktivieren" und klicke dann OK.';
+$langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>Um <span class="logoname">fein<span>dura</span></span> voll nutzen zu können, muss Javascript aktiviert sein!</strong>';
 
 $langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="logoname">fein<span>dura</span></span> ist nicht für ältere Versionen des Internet Explorers ausgelegt';
-$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Um das <span class="logoname">fein<span>dura</span></span> CMS vollständig nutzen zu können ist mindestens der Internet Explorer 8 nötig.<br><br>Bitte installiere eine neuere Version des Internet Explorers,<br> oder installiere das <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> für den Internet Explorer,<br>oder lade dir den kostenlosen <a href="http://www.mozilla.org/firefox/">Firefox</a> oder <a href="http://www.google.com/chrome/">Chrome</a> Browser herunter.';
+$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Um das <span class="logoname">fein<span>dura</span></span> CMS vollständig nutzen zu können ist mindestens der Internet Explorer 9 nötig.<br><br>Bitte installiere eine neuere Version des Internet Explorers,<br> oder installiere das <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> für den Internet Explorer,<br>oder lade dir den kostenlosen <a href="http://www.mozilla.org/firefox/">Firefox</a> oder <a href="http://www.google.com/chrome/">Chrome</a> Browser herunter.';
 
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Seite wird gerade bearbeitet...';
 

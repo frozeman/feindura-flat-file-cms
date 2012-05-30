@@ -313,6 +313,10 @@ MooRTE.Utilities = {
 		if (destroy) el.eliminate('rteEvents');
 	}
 	, eventHandler: function(onEvent, caller, name){
+
+		if(typeOf(onEvent) == 'null')
+			return;
+
 		// Must check if orig func or string is modified now that $unlink is gone. Should be OK.
 		var event = MooRTE.Elements[name][onEvent];
 		switch(typeOf(event)){

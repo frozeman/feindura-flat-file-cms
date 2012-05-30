@@ -36,12 +36,16 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   // ** removes a "/" on the beginning of all relative paths
   if(!empty($_POST['cfg_thumbPath']) && substr($_POST['cfg_thumbPath'],0,1) == '/')
         $_POST['cfg_thumbPath'] = substr($_POST['cfg_thumbPath'],1);
+
+  // -> check if languages exist, otherwise deactivate multilanguage pages
+  if(empty($_POST['cfg_websiteLanguages']))
+    $_POST['cfg_multiLanguageWebsite'] = false;
   
   // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
   if(!isset($_POST['cfg_thumbWidth']))
     $_POST['cfg_thumbWidth'] = $adminConfig['pageThumbnail']['width'];
   if(!isset($_POST['cfg_thumbHeight']))
-    $_POST['cfg_thumbHeight'] = $adminConfig['pageThumbnail']['height'];   
+    $_POST['cfg_thumbHeight'] = $adminConfig['pageThumbnail']['height'];
 
   // -> PREPARE CONFIG VARs
   $newAdminConfig                                         = $adminConfig; // transfer the rest if the adminConfig

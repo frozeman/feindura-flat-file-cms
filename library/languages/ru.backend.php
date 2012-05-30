@@ -274,11 +274,10 @@ $langFile['WARNING_TITLE_BASEPATH']                                       = '<sp
 $langFile['WARNING_TEXT_BASEPATH']                                        = '<i>Базовый путь</i> неверный, установите базовый путь на странице Основные настройки - Базовые настройки.';
 
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Включите Javascript!';
-// no <p> tag on the start and the end, its already in the dashboard.php
-$langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>Для полноценного использования <span class="logoname">fein<span>dura</span></span> необходимо включить Javascript!</strong></p>';
+$langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>Для полноценного использования <span class="logoname">fein<span>dura</span></span> необходимо включить Javascript!</strong>';
 
 $langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="logoname">fein<span>dura</span></span> не предназначена для устаревших версий Internet Explorers';
-$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Для нормального использования <span class="logoname">fein<span>dura</span></span> CMS вам необходимо использовать хотя бы Internet Explorer 8.<br><br>Пожалуйста установите новую версию Internet Explorer,<br> или <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> для Internet Explorer,<br>или установите альтернативный браузер - <a href="http://www.mozilla.org/firefox/">Firefox</a> либо <a href="http://www.google.com/chrome/">Chrome</a>.';
+$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Для нормального использования <span class="logoname">fein<span>dura</span></span> CMS вам необходимо использовать хотя бы Internet Explorer 9.<br><br>Пожалуйста установите новую версию Internet Explorer,<br> или <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> для Internet Explorer,<br>или установите альтернативный браузер - <a href="http://www.mozilla.org/firefox/">Firefox</a> либо <a href="http://www.google.com/chrome/">Chrome</a>.';
 
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Страница в данный момент редактируется...';
 

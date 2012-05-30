@@ -25,14 +25,6 @@
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 ?>
-<div class="block">
-  <h1><?php echo $langFile['DASHBOARD_TITLE_WELCOME']; ?></h1>
-  <div class="content">
-    <p><?php echo $langFile['DASHBOARD_TEXT_WELCOME']; ?></p>
-    
-  </div>
-  <div class="bottom"></div>
-</div>
 
 <!-- gives a warning if javascript is not activated -->
 <noscript>
@@ -45,10 +37,19 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 </div>
 </noscript>
 
+<div class="block">
+  <h1><?php echo $langFile['DASHBOARD_TITLE_WELCOME']; ?></h1>
+  <div class="content">
+    <p><?php echo $langFile['DASHBOARD_TEXT_WELCOME']; ?></p>
+    
+  </div>
+  <div class="bottom"></div>
+</div>
+
 <?php
 
 // SHOW the BROWSER HINT
-if(preg_match("/MSIE [0-7]/", $_SERVER['HTTP_USER_AGENT']) &&
+if(preg_match("/MSIE [0-8]/", $_SERVER['HTTP_USER_AGENT']) &&
    !preg_match("/chromeframe/", $_SERVER['HTTP_USER_AGENT'])) {
 ?>  
 <div class="block warning">
