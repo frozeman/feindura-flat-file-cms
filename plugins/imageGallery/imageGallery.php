@@ -382,7 +382,7 @@ class imageGallery {
         : true;
       
       // check if reset timestamp is newer than the thumbnail timestamp
-      if(!empty($this->resetTimestamp) && $this->resetTimestamp > filemtime($this->documentRoot.$thumbnailPath))
+      if(!empty($this->resetTimestamp) && file_exists($this->documentRoot.$thumbnailPath) && $this->resetTimestamp > filemtime($this->documentRoot.$thumbnailPath))
         $sizeDifference = true;
 
       // resize every thumbnail      

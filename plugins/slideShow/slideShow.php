@@ -278,7 +278,7 @@ class slideShow {
         : true;
      
       // check if reset timestamp is newer than the thumbnail timestamp
-      if(!empty($this->resetTimestamp) && $this->resetTimestamp > filemtime($this->documentRoot.$imagePath))
+      if(!empty($this->resetTimestamp) && file_exists($this->documentRoot.$imagePath) && $this->resetTimestamp > filemtime($this->documentRoot.$imagePath))
         $sizeDifference = true;
 
       // resize every image      

@@ -44,20 +44,20 @@ $pages = $feindura->listPages('category',array(1,2),200,true,true);
 
 // displays the pages (the "\n" creates a line break for a better look)
 foreach($pages as $page) {
-  echo $page['title']."\n\n";
-  echo $page['thumbnail']."\n";
+  echo $page['title'];
+  echo $page['thumbnail'];
   echo $page['content']."\n<br>-----------------------<br>\n";
 }
 
 
-                               *** RESULT *** 
+                               *** RESULT ***
 --------------------------------------------------------------------------------
 
 
 <a href="?category=1&amp;page=2" title="2010-12-31 - Example Page 2">
 2010-12-31 - Example...
 </a>
-<h2>Example Headline</h2>
+<h2>Example Headline 2</h2>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing dolores et ea rebum.
 Stet clita kasd gubergren, no sea takimata sanctus.</p>
 <a href="?category=1&amp;page=2">mehr</a>

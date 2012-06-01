@@ -35,7 +35,7 @@
 * @version 2.0
 * <br>
 * <b>ChangeLog</b><br>
-*    - 2.0 add {@link Feindura::createSubMenu()}, {@link Feindura::isSubCategory()}, {@link Feindura::isSubCategoryOf()}, {@link Feindura::createMenuOfSubCategory()}, {@link Feindura::createLanguageMenu()}, {@link Feindura::createBreadCrumbsMenu()}, {@link Feindura::hasTags()}, {@link Feindura::getLocalized()}
+*    - 2.0 add {@link Feindura::createSubMenu()}, {@link Feindura::isSubCategory()}, {@link Feindura::isSubCategoryOf()}, {@link Feindura::createMenuOfSubCategory()}, {@link Feindura::createLanguageMenu()}, {@link Feindura::createBreadCrumbsMenu()}, {@link Feindura::hasTags()}, {@link Feindura::getLocalized()}, {@link Feindura::lisSubPages()}, {@link Feindura::listPagesOfSubCategory()}
 *    - 1.0.1 add setStartPage()
 *    - 1.0 initial release
 * 
@@ -1403,11 +1403,11 @@ class Feindura extends FeinduraBase {
   * 
   * <b>This method uses the {@link Feindura::$linkLength $link...} and {@link $thumbnailAlign Feindura::$thumbnail...} properties.</b>
   * 
-  * Creates a link from a page ID.
+  * Creates a link of a page.
   * 
   * 
   * If the given <var>$page</var> parameter is a string with "previous" or "next",
-  * it creates a link from the previous or the next page starting from the current page ID stored in the {@link Feindura::$page} property.
+  * it creates a link for the previous or the next page, starting from the current page ID stored in the {@link Feindura::$page} property.
   * If there is no current, next or previous page in it returns FALSE.
   * 
   * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link Feindura::$page} property.<br>
@@ -1563,19 +1563,20 @@ class Feindura extends FeinduraBase {
   * 
   * <b>This method uses the {@link Feindura::$linkLength $link...}, {@link Feindura::$menuId $menu...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   * 
-  * Creates a menu from category or page ID(s).
+  * Creates a menu from a category(ies) or page(s).<br>
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
+  * 
+  * Example Usage:
+  * {@example createMenu.example.php}
   *  
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
   * 
-  * Example Usage:
-  * {@example createMenu.example.php}
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
@@ -1685,7 +1686,7 @@ class Feindura extends FeinduraBase {
   * 
   * <b>This method uses the {@link Feindura::$linkLength $link...}, {@link Feindura::$menuId $menu...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   * 
-  * Create a menu from category or page ID(s) with pages which have one or more of the tags from the given <var>$tags</var> parameter.
+  * Create a menu from category(ies) or page(s), with pages which have one or more of the tags from the given <var>$tags</var> parameter.<br>
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
   * 
@@ -1695,11 +1696,12 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
+  * Example:
+  * {@example createMenuByTags.example.php}
+  * 
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
   * 
-  * Example:
-  * {@example createMenuByTags.example.php}
   * 
   * @param string|array   $tags               a string with tags seperated by "," or ";" or an array with tags 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
@@ -1779,9 +1781,8 @@ class Feindura extends FeinduraBase {
   * 
   * <b>This method uses the {@link Feindura::$linkLength $link...}, {@link Feindura::$menuId $menu...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   * 
-  * Creates a menu from category or page ID(s) sorted by the page date,
-  * with pages which have a page date and the page date fit in the time period
-  * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter starting from the date today.
+  * Creates a menu from category(ies) or page(s), sorted by the page date.
+  * Applies for pages which have a page date and it fit in the time period from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter (starting from the current today).
   * 
   * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   * 
@@ -1792,16 +1793,17 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
-  * Example of the returned Array:
-  * {@example createMenu.return.example.php}
-  * 
   * Example:
   * {@example createMenuByDate.example.php}
   * 
+  * Example of the returned Array:
+  * {@example createMenu.return.example.php}
+  * 
+  * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|bool|string $monthsInThePast       (optional) number of months before today, if TRUE it show all pages in the past, if FALSE it loads only pages starting from today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
-  * @param int|bool|string $monthsInTheFuture     (optional) number of months after today, if TRUE it show all pages in the future, if FALSE it loads only pages until today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param int|bool|string $monthsInThePast   (optional) number of months before today, if TRUE it show all pages in the past, if FALSE it loads only pages starting from today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param int|bool|string $monthsInTheFuture (optional) number of months after today, if TRUE it show all pages in the future, if FALSE it loads only pages until today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
   * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
@@ -1877,7 +1879,7 @@ class Feindura extends FeinduraBase {
   * 
   * <b>This method uses the {@link Feindura::$linkLength $link...}, {@link Feindura::$menuId $menu...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   * 
-  * Creates a menu from category or page ID(s) sorted by a custom sort function, passed in the first parameter <var>$sortCallback</var>.
+  * Creates a menu from category(ies) or page(s), sorted by a custom sort function passed in the first parameter <var>$sortCallback</var>.
   * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
@@ -1886,11 +1888,13 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   * 
-  * Example of the returned Array:
-  * {@example createMenu.return.example.php}
   * 
   * Example:
   * {@example createMenuBySortFunction.example.php}
+  * 
+  * Example of the returned Array:
+  * {@example createMenu.return.example.php}
+  * 
   * 
   * @param string         $sortCallback        the name of the callback function to sort the menu (the callback function is a function which can be passed to usort())
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
@@ -2066,11 +2070,13 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current page (means the {@link Feindura::$page} property).<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
   *
-  * Example of the returned Array:
-  * {@example createMenu.return.example.php}
   * 
   * Example:
   * {@example createSubMenu.example.php}
+  * 
+  * Example of the returned Array:
+  * {@example createMenu.return.example.php}
+  * 
   * 
   * @param int|string|array|bool  $id                 (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param int|bool               $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
@@ -2271,11 +2277,13 @@ class Feindura extends FeinduraBase {
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current language.
   * 
-  * Example of the returned Array:
-  * {@example createLanguageMenu.return.example.php}
   * 
   * Example Usage:
   * {@example createLanguageMenu.example.php}
+  * 
+  * Example of the returned Array:
+  * {@example createLanguageMenu.return.example.php}
+  * 
   * 
   * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
@@ -2383,14 +2391,16 @@ class Feindura extends FeinduraBase {
   * 
   * <b>This method uses the {@link Feindura::$linkLength $link...}, {@link Feindura::$menuId $menu...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   * 
-  * Creates a breadcrumb navigation for the given page <var>$id</var> parameter.
+  * Creates a breadcrumb navigation for the given page.
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
+  * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current page (means the {@link Feindura::$page} property).<br>
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * 
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
+  * 
   * 
   * @param int|string|array|bool $id            (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param string|false          $separator     (optional) a string which will be used as separator or FALSE to dont use a separator string
@@ -2656,12 +2666,12 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link Feindura::$page} property.
   * 
+  * Example usage:
+  * {@example showPage.example.php}
   *
   * Example of the returned array:
   * {@example generatePage.return.example.php}
   * 
-  * Example usage:
-  * {@example showPage.example.php}
   * 
   * @param int|string|array|bool $id           (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param int|array|bool        $shortenText  (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
@@ -2748,7 +2758,7 @@ class Feindura extends FeinduraBase {
   *
   *
   * @param string|array|true     $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
-  * @param int|string|bool $ids          a page ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property. (See examples) (can also be a $pageContent array)
+  * @param int|string|bool       $ids          a page ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property. (See examples) (can also be a $pageContent array)
   *
   * @uses Feindura::$page
   * @uses Feindura::showPlugins()											 to check for the activated plugins
@@ -2810,11 +2820,12 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link Feindura::$page} property.
   * 
   * 
+  * Example usage:
+  * {@example showPlugins.example.php}
+  * 
   * Example of the returned array:
   * {@example showPlugins.array.example.php}
   * 
-  * Example usage:
-  * {@example showPlugins.example.php}
   * 
   * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
   * @param int|string|array|bool  $id           (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
@@ -2971,7 +2982,7 @@ class Feindura extends FeinduraBase {
   * 
   * <b>This method uses the {@link Feindura::$showErrors $error...}, {@link Feindura::$titleLength $title...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   * 
-  * List pages by given category or page ID(s).
+  * List pages by given category(ies) or page(s).
   * 
   * 
   * Returns an array with multiple pages for displaying in a HTML-page.
@@ -2980,11 +2991,13 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.
   * 
-  * Example of the returned array:
-  * {@example listPages.return.example.php}
   * 
   * Example usage:
   * {@example listPages.example.php}
+  * 
+  * Example of the returned array:
+  * {@example listPages.return.example.php}
+  * 
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
@@ -3021,9 +3034,10 @@ class Feindura extends FeinduraBase {
   * 
   * @return array array with page arrays,containing content and title etc., ready to display in a HTML-page, or an empty array
   * 
-  * @see showPage()
-  * @see listPagesByTags()
-  * @see listPagesByDate() 
+  * @see Feindura::showPage()
+  * @see Feindura::listSubPages()
+  * @see Feindura::listPagesByTags()
+  * @see Feindura::listPagesByDate() 
   * 
   * @access public
   * @version 1.0
@@ -3070,13 +3084,204 @@ class Feindura extends FeinduraBase {
     return $this->listPages($idType, $id, $shortenText, $useHtml, $sortByCategories);
   }
 
+/**
+  * <b>Name</b> listSubPages()<br>
+  * <b>Alias</b> listSubPage()<br>
+  * 
+  * <b>This method uses the {@link Feindura::$showErrors $error...}, {@link Feindura::$titleLength $title...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
+  * 
+  * List pages of the subcategory of a given page.
+  * 
+  * Returns an array with multiple pages for displaying in a HTML-page.<br> 
+  * In case no page with the given category or page ID(s) exist it returns an empty array.
+  * 
+  * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current page (means the {@link Feindura::$page} property).<br>
+  * b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
+  *
+  * Example:
+  * {@example listSubPages.example.php}
+  * 
+  * Example of the returned Array:
+  * {@example listPages.return.example.php}
+  * 
+  * 
+  * @param int|string|array|bool  $id                 (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
+  * @param int|array|bool         $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
+  * @param bool|string            $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
+  * @param bool                   $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * 
+  * 
+  * @uses Feindura::$xHtml
+  * @uses Feindura::$showErrors
+  * @uses Feindura::$errorTag
+  * @uses Feindura::$errorId
+  * @uses Feindura::$errorClass
+  * @uses Feindura::$errorAttributes
+  * 
+  * @uses Feindura::$titleLength
+  * @uses Feindura::$titleAsLink
+  * @uses Feindura::$titleShowPageDate
+  * @uses Feindura::$titleShowCategory
+  * @uses Feindura::$titleCategorySeparator
+  * 
+  * @uses Feindura::$thumbnailAlign
+  * @uses Feindura::$thumbnailId
+  * @uses Feindura::$thumbnailClass
+  * @uses Feindura::$thumbnailAttributes
+  * @uses Feindura::$thumbnailBefore
+  * @uses Feindura::$thumbnailAfter
+  * 
+  * @uses Feindura::listPages()    to get the pages
+  * 
+  * @return array array with page arrays of the subcategory,containing content and title etc., ready to display in a HTML-page, or an empty array
+  * 
+  * @example id.parameter.example.php $id parameter example
+  * 
+  * @see createMenuFromCategory()
+  * @see createLink()
+  * @see createMenu()
+  * 
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public function listSubPages($id = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+
+    if($ids = $this->getPropertyIdsByString($id)) {
+      // loads the $pageContent array
+      if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
+        // return subcategory
+        if(is_numeric($pageContent['subCategory']) &&
+           (($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['showSubCategory']) ||
+            ($pageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])))
+          return $this->listPages('category', $pageContent['subCategory'], $shortenText, $useHtml, $sortByCategories);
+      }
+    }
+  
+    return array();
+  }
+ /**
+  * Alias of {@link listSubPages()}
+  * @ignore
+  */
+  public function listSubPage($id = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+    // call the right function
+    return $this->listSubPages($id, $shortenText, $useHtml, $sortByCategories);
+  }
+
+/**
+  * <b>Name</b> listPagesOfSubCategory()<br>
+  * <b>Alias</b> listPagesFromSubCategory()<br>
+  * 
+  * <b>This method uses the {@link Feindura::$showErrors $error...}, {@link Feindura::$titleLength $title...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
+  * 
+  * List the pages of a subcategory.<br>
+  * In case no category with the given page ID exist, or it is not a subcategory it returns an empty array.<br>
+  * 
+  * 
+  * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current category (means the {@link Feindura::$category} property).<br>
+  *
+  * 
+  * You can use this function in conjunction with {@link Feindura::listSubPages()} to list subpages,
+  * even if you're in a page of the subcategory.
+  * <code>
+  * <?php
+  * 
+  * // we use "false", because we use the current page and category. The 200 is the number of maximum characters we want to display.
+  * // NOTE: we need the double (), otherwise it would use the assignment of the $subMenu variable as condition!
+  * if(($subPages = $feindura->listSubPages(false,200)) || // will list the subpages when inside the page which has a subcategory
+  *    ($subPages = $feindura->listPagesOfSubCategory(false,200))) { // will list the subpages when inside a page within a subcategory
+  *
+  *   foreach($subPages as $subPage) {
+  *     echo '<h1>'.$subPage['title'].'</h1>';
+  *     echo $subPage['content'];
+  *   }
+  * }
+  * 
+  * ?>
+  * </code>
+  * 
+  * Example of the returned Array:
+  * {@example listPages.return.example.php}
+  * 
+  * 
+  * @param int|string|bool $categoryId         (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
+  * @param int|array|bool  $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
+  * @param bool|string     $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
+  * @param bool            $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * 
+  * 
+  * @uses Feindura::$xHtml
+  * @uses Feindura::$showErrors
+  * @uses Feindura::$errorTag
+  * @uses Feindura::$errorId
+  * @uses Feindura::$errorClass
+  * @uses Feindura::$errorAttributes
+  * 
+  * @uses Feindura::$titleLength
+  * @uses Feindura::$titleAsLink
+  * @uses Feindura::$titleShowPageDate
+  * @uses Feindura::$titleShowCategory
+  * @uses Feindura::$titleCategorySeparator
+  * 
+  * @uses Feindura::$thumbnailAlign
+  * @uses Feindura::$thumbnailId
+  * @uses Feindura::$thumbnailClass
+  * @uses Feindura::$thumbnailAttributes
+  * @uses Feindura::$thumbnailBefore
+  * @uses Feindura::$thumbnailAfter
+  * 
+  * @uses Feindura::listPages()    to get the pages
+  * 
+  * @return array array with page arrays of the subcategory,containing content and title etc., ready to display in a HTML-page, or an empty array
+  * 
+  * @example id.parameter.example.php $id parameter example
+  * 
+  * @see createMenuFromCategory()
+  * @see createLink()
+  * @see createMenu()
+  * 
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public function listPagesOfSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+
+    if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
+      $categoryId = $ids[1];
+      if($this->isSubCategory($categoryId)) {
+        // create subcategory
+        if($categoryId && is_numeric($categoryId) &&
+           (($pageContent['category'] != 0 && $this->categoryConfig[$categoryId]['showSubCategory']) ||
+            ($pageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])))
+          return $this->listPages('category', $categoryId, $shortenText, $useHtml, $sortByCategories);
+      }
+    }
+  
+    return array();
+  }
+  /**
+  * Alias of {@link listPagesOfSubCategory()}
+  * @ignore
+  */
+  public function listPagesFromSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+    // call the right function
+    return $this->listPagesOfSubCategory($categoryId, $shortenText, $useHtml, $sortByCategories);
+  }
+
  /**
   * <b>Name</b>     listPagesByTags()<br>
   * <b>Alias</b>    listPagesByTag(), listPageByTags(), listPageByTag()<br>
   * 
   * <b>This method uses the {@link Feindura::$showErrors $error...}, {@link Feindura::$titleLength $title...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   * 
-  * List pages by given category or page ID(s), which have one or more of the tags from the given <var>$tags</var> parameter.
+  * List pages by given category(ies) or page(s), which have one or more of the tags from the given <var>$tags</var> parameter.
   * 
   * Returns an array with multiple pages for displaying in a HTML-page. 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
@@ -3173,8 +3378,8 @@ class Feindura extends FeinduraBase {
   * 
   * <b>This method uses the {@link Feindura::$showErrors $error...}, {@link Feindura::$titleLength $title...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   * 
-  * List pages by given category or page ID(s) sorted by the page date which have a page date and it fit in the time period
-  * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter starting from the date today.
+  * List pages by given category(ies) or page(s), sorted by the page date. Applies for pages which have a page date and it fit in the time period
+  * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter (starting from the current today).
   * 
   * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   * 
@@ -3272,7 +3477,7 @@ class Feindura extends FeinduraBase {
   * 
   * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   * 
-  * List pages from category or page ID(s) sorted by a custom sort function, passed in the first parameter <var>$sortCallback</var>.
+  * List pages from category(ies) or page(s), sorted by a custom sort function, passed in the first parameter <var>$sortCallback</var>.
   * The custom sort function will be executed on the plain <var>$pageContent</var> array returned by the {@link FeinduraBase::loadPagesByType()} method.
   * 
   * 
@@ -3282,11 +3487,13 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.
   * 
-  * Example of the returned array:
-  * {@example listPages.return.example.php}
   * 
   * Example usage:
   * {@example listPagesBySortFunction.example.php}
+  * 
+  * Example of the returned array:
+  * {@example listPages.return.example.php}
+  * 
   * 
   * @param string         $sortCallback       the name of the callback function to sort the pages (the callback function is a function which can be passed to usort())
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
