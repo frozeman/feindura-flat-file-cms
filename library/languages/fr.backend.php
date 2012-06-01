@@ -422,10 +422,12 @@ $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip']                = 'N\'
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1']                                 = 'paramètres de l\'éditeur HTML';
-$langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'filtre HTML (utilise <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/">htmlLawed</a>)';
+$langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'filtre HTML (utilise <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/" target="_blank">htmlLawed</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']                              = 'Filtres du code HTML avant d\'enregistrer. Cela peut causer des problèmes dans le code HTML avec beaucoup de Javascript.';
-$langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'secure HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6">détails</a>)';
+$langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'secure HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6" target="_blank">détails</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'Le code HTML sera filtrée avec la plus sûre paramètres. Cela signifie par exemple &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; et &lt;script&gt; tags ne sont pas autorisés.';
+$langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']                          = 'activer style-sélection';
+$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Le styles-sélection vous permet d\'utiliser personnalisé des éléments HTML dans l\'éditeur HTML.[br][br]Si cette option est activée, vous pouvez éditer/créer des éléments HTML plus bas.';
 $langFile['adminSetup_editorSettings_field1']                             = 'modus ENTER-touche';
 $langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER va créer un &quot;&lt;br&gt;&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Va définir le HTML-tag en touchant la touche entrée[br]wird.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
@@ -441,7 +443,7 @@ $langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'che
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
-$langFile['adminSetup_styleFileSettings_h1']                              = 'adapter le choix du &quot;styles&quot; dans l\'éditeur HTML';
+$langFile['adminSetup_styleFileSettings_h1']                              = 'Modifier les styles-sélection de l\'éditeur HTML';
 $langFile['adminSetup_styleFileSettings_error_save']                      = '<b>le fichier &quot;htmlEditorStyles.js&quot; ne pouvait pas être sauvegardé.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings

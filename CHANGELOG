@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 920
+Build 921
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 2.0
 
+  build 921: add option to deactivate the editor style-selection
   build 920: IE 8 is not supported anymore, there are some small but too complicated issues, please users get yourself a browser!
   build 919: fixed contentBlocked container, was to large
   build 918: fixed filemanager selection, you can now double click on images to select them

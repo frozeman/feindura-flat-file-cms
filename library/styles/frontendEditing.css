@@ -1,20 +1,13 @@
-/*
-    feindura - Flat File Content Management System
+/* feindura - Flat File Content Management System
     Copyright (C) Fabian Vogelsteller [frozeman.de]
 
-    This program is free software;
-    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+    This program is free software;/* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation;/* either version 3 of the License, or (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;/* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
     See the GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License along with this program;
-    if not,see <http://www.gnu.org/licenses/>.
-
-* frontendEditing.css version 0.1
-*/
 
 /* RESET styles from GENERAL.CSS */
 
@@ -23,53 +16,54 @@
 }
 
 a.logout, a.toWebsite {
-  display: inline;
   position: static;
   top: auto;
   left: auto;
-  width: auto;
-  height: auto;
+  display: inline-block;
   background: none;
 }
 a.logout:hover, a.toWebsite:hover {
-  background-position: top left;
+  background-position: left top;
 }
 
 
 /* TOP BAR */
 
 #feindura_topBar {
-  z-index: 2000;
   position: fixed;
-  left: 0px;
   top: 0px;
-  height: 50px; /* org: 60px */
-  width: 100%;
+  left: 0px;
+  z-index: 2000;
   padding: 5px;
+  width: 100%;
+  height: 50px; /* org: 60px */
   background: url('../images/bg/frontendEditing_topBar.png') repeat-x;
   -webkit-box-shadow: 0px 0px 5px #ccc;
   -moz-box-shadow: 0px 0px 5px #ccc;
-  -o-box-shadow: 0px 0px 5px #ccc;
   box-shadow: 0px 0px 5px #ccc;
+  -o-box-shadow: 0px 0px 5px #ccc;
 }
 #feindura_topBar p {
-  position: absolute;
-  display: block;
-  top: 12px;
-  left: -30px;
-  width : 100%;
-  text-align: center;
-  color: #929292;
-  text-shadow: 0px 1px 1px #ffffff;
+  position: absolute !important;
+  top: 30px !important;
+  left: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
   overflow: visible;
+  color: #929292;
+  text-align: center !important;
+  text-shadow: 0px 1px 1px #ffffff;
+  font: 18px Arial, Verdana, sans-serif !important;
+  width : 100% !important;
 }
 
 #feindura_logo {
-  z-index: 2002;
   position: fixed;
-  display: block;
   top: 0px;
   right: 3px;
+  z-index: 2002;
+  display: block;
   width: 112px;
   height: 54px;
   background: url('../images/icons/frontend_header_logo.png');
@@ -78,13 +72,13 @@ a.logout:hover, a.toWebsite:hover {
 /* hide button */
 
 a.feindura_topBarHide {
-  display: block;
   position: absolute;
-  width: 80px;
-  height: 25px;
   top:60px;
   left: 50%;
+  display: block;
   margin-left: -45px;
+  width: 80px;
+  height: 25px;
   background: url('../images/buttons/header_frontendtopBarHide.png') no-repeat;
 }
 a.feindura_topBarHide:hover {
@@ -93,10 +87,10 @@ a.feindura_topBarHide:hover {
 
 /* PAGE BAR */
 div.feindura_pageBar {
-  z-index: 2005;
   position: absolute;
-  height: 26px;
+  z-index: 2005;
   width: 100px;
+  height: 26px;
   text-align: right;
 }
 
@@ -133,42 +127,42 @@ div.feindura_pageBar {
 
 div.feindura_editPage, div.feindura_editPageDisabled, span.feindura_editTitle, span.feindura_editTitleDisabled {
   position: relative;
+  display: inline-block;
   outline: none;
   resize: none;
-  display: inline-block;
 }
 div.feindura_editPage:hover, div.feindura_editPageDisabled:hover, span.feindura_editTitle:hover, span.feindura_editTitleDisabled:hover {
-  border: 1px solid #c7c7c7;
   margin: -7px;
   padding: 6px;
+  border: 1px solid #c7c7c7;
   -webkit-box-shadow: 0px 0px 10px #c7c7c7;
   -moz-box-shadow: 0px 0px 10px #c7c7c7;
-  -o-box-shadow: 0px 0px 10px #c7c7c7;
   box-shadow: 0px 0px 10px #c7c7c7;
+  -o-box-shadow: 0px 0px 10px #c7c7c7;
 }
 div.feindura_editPage:focus, span.feindura_editTitle:focus {
-  border: 1px solid #afafaf;
   margin: -7px;
   padding: 6px;
+  border: 1px solid #afafaf;
   -webkit-box-shadow: 0px 0px 10px #c7c7c7;
   -moz-box-shadow: 0px 0px 10px #c7c7c7;
-  -o-box-shadow: 0px 0px 10px #c7c7c7;
   box-shadow: 0px 0px 10px #c7c7c7;
+  -o-box-shadow: 0px 0px 10px #c7c7c7;
 }
 div.feindura_editPageDisabled:hover, span.feindura_editTitleDisabled:hover {
   background-color: #fff;
+  opacity: 0.6;
   filter: alpha(opacity=60);
-	-khtml-opacity: 0.6;
-	-moz-opacity: 0.6;
-	opacity: 0.6;
+  -khtml-opacity: 0.6;
+  -moz-opacity: 0.6;
 }
 
 /* REQUESTS */
 
 /* LOADING CIRCLE */
 .feindura_loadingFill {
-  z-index: 10;
   position: absolute;
+  z-index: 10;
  
   width: 100%;
   height: 100%;
@@ -188,24 +182,24 @@ div.feindura_editPage:hover .feindura_loadingFill, span.feindura_editTitle:hover
 
 .feindura_loadingCircleHolder {
   z-index: 11;
+  margin-top: -53px;
+  margin-left: -50px;
   width: 100px;
   height: 107px;
-  margin-left: -50px;
-  margin-top: -53px;
 }
 
-.feindura_editFinishIcon {  
+.feindura_editFinishIcon {
+  margin-top: -53px;
+  margin-left: -50px;  
   width: 100px;
   height: 107px;
-  margin-left: -50px;
-  margin-top: -53px;
   background: url("../images/icons/documentSaved_small.png") no-repeat;
 }
 
 .feindura_editDisabledIcon {
+  margin-top: -52px;
+  margin-left: -50px;
   width: 100px;
   height: 107px;
-  margin-left: -50px;
-  margin-top: -52px;
   background: url("../images/icons/editDisabledIcon.png") no-repeat; /* editDisabledIcon */
 }

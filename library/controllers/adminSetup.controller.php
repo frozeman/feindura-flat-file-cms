@@ -88,7 +88,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
     $_POST['cfg_realBasePath'] = $adminConfig['realBasePath'];
   
   $adminConfig['realBasePath']             = $_POST['cfg_realBasePath'];
-  $adminConfig['websitePath']              =  $_POST['cfg_websitePath'];
+  $adminConfig['websitePath']              = $_POST['cfg_websitePath'];
   
   $adminConfig['uploadPath']               = $_POST['cfg_uploadPath'];  
   $adminConfig['websiteFilesPath']         = $_POST['cfg_websiteFilesPath'];
@@ -119,12 +119,13 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   //$adminConfig['pages']['plugins'] = $_POST['cfg_pagePlugins'];
   //$adminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];
   
-  $adminConfig['editor']['htmlLawed'] = $_POST['cfg_editorHtmlLawed'];
-  $adminConfig['editor']['safeHtml'] = $_POST['cfg_editorSafeHtml'];
-  $adminConfig['editor']['enterMode'] = $_POST['cfg_editorEnterMode'];
-  $adminConfig['editor']['styleFile'] = prepareStyleFilePaths($_POST['cfg_editorStyleFile']);
-  $adminConfig['editor']['styleId'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleId']);  
-  $adminConfig['editor']['styleClass'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass']);  
+  $adminConfig['editor']['htmlLawed']    = $_POST['cfg_editorHtmlLawed'];
+  $adminConfig['editor']['safeHtml']     = $_POST['cfg_editorSafeHtml'];
+  $adminConfig['editor']['editorStyles'] = $_POST['cfg_editorStyles'];
+  $adminConfig['editor']['enterMode']    = $_POST['cfg_editorEnterMode'];
+  $adminConfig['editor']['styleFile']    = prepareStyleFilePaths($_POST['cfg_editorStyleFile']);
+  $adminConfig['editor']['styleId']      = str_replace(array('#','.'),'',$_POST['cfg_editorStyleId']);  
+  $adminConfig['editor']['styleClass']   = str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass']);  
   
   // -> saved in pageSetup.php
   //$adminConfig['pageThumbnail']['width'] =  $_POST['cfg_thumbWidth'];
@@ -145,7 +146,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $savedSettings = true;
 }
 
-// ---------- Speichern in fckstyles.xml
+// ---------- Speichern in htmlEditorStyles.js
 if(isset($_POST['saveFckStyleFile'])) {
 
   $fckstylewrite = $_POST['fckStyleFile'];
@@ -158,6 +159,8 @@ if(isset($_POST['saveFckStyleFile'])) {
     // give documentSaved status
     $documentSaved = true;
     saveActivityLog(9); // <- SAVE the task in a LOG FILE
+  } elseif(empty($fckstylewrite)) {
+    @unlink(dirname(__FILE__)."/../../config/htmlEditorStyles.js");
   } else {
     $errorWindow .= $langFile['adminSetup_styleFileSettings_error_save'];
   }

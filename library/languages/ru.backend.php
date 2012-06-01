@@ -450,10 +450,12 @@ $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip']                = 'Е�
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1']                                 = 'Настройки визуального редактора';
-$langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'фильтровать HTML (использует <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/">htmlLawed</a>)';
+$langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'фильтровать HTML (использует <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/" target="_blank">htmlLawed</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']                              = 'Фильтровать HTML код перед сохранением (решает проблему если в коде имеется много вставок javascript).';
-$langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'безопасный HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6">подробней</a>)';
+$langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'безопасный HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6" target="_blank">подробней</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'HTML-код будет фильтроваться на максимально безопасном уровне. Это означает что, например теги &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object&gt; и &lt;script&gt; будут вырезаны.';
+$langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']                          = 'активировать редактор стилей-Selection';
+$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Стили-Selection позволяет использовать пользовательские HTML-элементов в HTML-редактор.[br][br]Если эта опция включена, вы можете редактировать/создавать HTML-элементов ниже.';
 $langFile['adminSetup_editorSettings_field1']                             = 'Режим клавиши ENTER';
 $langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER всегда вставляет &quot;&lt;br&gt;&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Вставляет при нажатии ENTER выбранный тег.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
@@ -469,7 +471,7 @@ $langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'О�
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
-$langFile['adminSetup_styleFileSettings_h1']                              = 'Редактирование секции &quot;Стилей&quot; для визуального редактора';
+$langFile['adminSetup_styleFileSettings_h1']                              = 'Редактирование секции Стили-Selection для визуального редактора';
 $langFile['adminSetup_styleFileSettings_error_save']                      = '<b>Файл &quot;htmlEditorStyles.js&quot; не удается сохранить.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings

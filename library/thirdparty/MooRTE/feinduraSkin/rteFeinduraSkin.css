@@ -3,7 +3,7 @@ div.MooRTE.rtePageTop{ z-index: 2001; position: fixed; top: 30px; /*text-align: 
 /* End General*/
 
 /* Begin rteFeinduraSkin skin*/
-div.MooRTE div.rteFeinduraSkin { height: 30px; left:0; bottom:0; width:100%; color:#222; font: 12px Arial; }
+div.MooRTE div.rteFeinduraSkin { height: 30px; left:0; bottom:0; width:100%; color:#222; font: 12px Arial !important; }
 div.MooRTE div.rteFeinduraSkin   span{ height:20px; margin:1px; display:inline-block; }
 div.MooRTE div.rteFeinduraSkin   input{ height:20px; width:100px; }
 div.MooRTE div.rteFeinduraSkin   div.rteTop{ border-bottom:1px #bbb solid; height:18px; overflow:hidden; vertical-align:bottom; text-align:left; }

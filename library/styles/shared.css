@@ -13,27 +13,27 @@
 /* --- LOGOUT */
 
 a.logout, a.feindura_logout {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: 2;
-    display: block;
-    width: 28px;
-    height: 26px;
-    background: url("../images/buttons/header_out.png") no-repeat;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+  display: block;
+  width: 28px;
+  height: 26px;
+  background: url("../images/buttons/header_out.png") no-repeat;
 }
 a.logout:hover, a.feindura_logout:hover, a.logout:focus, a.feindura_logout:focus {
-    background-position: 0px -26px;
+  background-position: 0px -26px;
 }
 
 a.toWebsite, a.feindura_toBackend {
-    position: absolute;
-    top: 0px;
-    left: 28px;
-    z-index: 2;
-    display: block;
-    width: 28px;
-    height: 26px;
+  position: absolute;
+  top: 0px;
+  left: 28px;
+  z-index: 2;
+  display: block;
+  width: 28px;
+  height: 26px;
 }
 a.toWebsite {
   background: url("../images/buttons/header_toWebsite.png") no-repeat;
@@ -50,26 +50,29 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 /* format of the toolTip box */
 .feindura_toolTipBox {
   z-index: 2005;
-  padding: 20px 10px;
+  padding: 15px 20px;
   max-width: 350px;
-  min-width: 250px;
+  min-width: 100px;
   border: 1px solid #F7F7F7;
-  border-radius: 10px;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
   background-color: #F7F7F7;
   -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 20px rgba(0,0,0,0.15);
   -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 20px rgba(0,0,0,0.15);
   box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 20px rgba(0,0,0,0.15);
-  font: 12px Verdana, Arial, Sans-serif, Serif;
+  font: 12px Verdana, Arial, Sans-serif, Serif !important;
 }
 
 .feindura_toolTipBox .tip-title {
   position: relative;
   z-index: 2;
-  margin: 0px 0px; 
+  margin: 0px 0px;
+  margin-bottom: 2px;
   color:#947342;
   text-align: center;
   word-wrap: break-word;
-  font-size: 12px;
+  font-size: 12px !important;
 }
 .feindura_toolTipBox .tip-title span  {
   color: #666666;
@@ -77,17 +80,14 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 .feindura_toolTipBox .tip-text  {
   position: relative;
   z-index: 2;
-  padding: 2px 15px;
-  padding-bottom: 0px;
   color: #666666;
   word-wrap: break-word;
-  font-size: 11px;
+  font-size: 11px !important;
 }
 
 .feindura_toolTipBox .tip {
   position: relative;
   z-index: 1;
-  width:272px;
   border: none;
   line-height: 20px;
 }
@@ -102,7 +102,6 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
   padding: 2px 0px;
 }
 
-
 .feindura_toolTipBox span.hint {
   background-position: 0px 4px !important;
 }
@@ -111,79 +110,81 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 /* --- ERRORWINDOW */
 
 #feindura_errorWindow {
-    position: fixed;    
-    top: 15%;
-    left: 370px;
-    z-index: 2100;
-    padding: 30px 40px;
-    width: 447px;
-    border: 1px solid #fef9f3;
-    border-radius: 20px;
+  position: fixed;    
+  top: 15%;
+  left: 370px;
+  z-index: 2100;
+  padding: 30px 40px;
+  width: 447px;
+  border: 1px solid #fef9f3;
+  -webkit-border-radius:20px;
+  -moz-border-radius:20px;
+  border-radius:20px;
 
-    background-color: #fff1e6;
-    background-image: -webkit-gradient(linear, center top, center bottom, from(#fff7f5), to(#fff1e6));
-    background-image: -webkit-linear-gradient(top, #fff7f5, #fff1e6);
-    background-image: -moz-linear-gradient(top, #fff7f5, #fff1e6);
-    background-image: -o-linear-gradient(top, #fff7f5, #fff1e6);
-    background-image: -ms-linear-gradient(top, #fff7f5, #fff1e6);
-    background-image: linear-gradient(to bottom, #fff7f5, #fff1e6);
-    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4);
-    -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4);
-    box-shadow: 0 1px 10px rgba(0,0,0,0.4);
-    font: 12px Verdana, Arial, Sans-serif, Serif;
+  background-color: #fff1e6;
+  background-image: -webkit-gradient(linear, center top, center bottom, from(#fff7f5), to(#fff1e6));
+  background-image: -webkit-linear-gradient(top, #fff7f5, #fff1e6);
+  background-image: -moz-linear-gradient(top, #fff7f5, #fff1e6);
+  background-image: -o-linear-gradient(top, #fff7f5, #fff1e6);
+  background-image: -ms-linear-gradient(top, #fff7f5, #fff1e6);
+  background-image: linear-gradient(to bottom, #fff7f5, #fff1e6);
+  -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4);
+  box-shadow: 0 1px 10px rgba(0,0,0,0.4);
+  font: 12px Verdana, Arial, Sans-serif, Serif !important;
 
-    }
+}
 
 #feindura_errorWindow h1 {
-    position: relative;
-    z-index: 3;
-    margin-bottom: 20px;
-    padding: 0px;
-    width: 100%;
-    color: #A30000;
-    text-align: center;
-    font-weight: bold;
-    font-size: 18px;
-    }
+  position: relative;
+  z-index: 3;
+  margin-bottom: 20px;
+  padding: 0px;
+  width: 100%;
+  color: #A30000;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px !important;
+}
 #feindura_errorWindow .feindura_content {
-    z-index: 0;
-    padding-left: 70px;
-    width: 377px;    
-    }
+  z-index: 0;
+  padding-left: 70px;
+  width: 377px;    
+}
 #feindura_errorWindow .feindura_content div.scroll {
-    display: block;
-    overflow: auto;
-    max-height: 500px;
-    color: #A30000;
+  display: block;
+  overflow: auto;
+  max-height: 500px;
+  color: #A30000;
 }
     
 #feindura_errorWindow .feindura_content.feindura_warning {
-    min-height: 48px;
-    background: url("../images/icons/warning.png") no-repeat center left;
-    }
+  min-height: 48px;
+  background: url("../images/icons/warning.png") no-repeat center left;
+}
 
 #feindura_errorWindow .rawError {
-    display: block;
-    margin-bottom: 20px;
-    padding: 10px;
-    width: 345px;
-    border: 1px dotted #999999;
-    color: #444;
-    word-wrap: break-word;
-    }
+  display: block;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 345px;
+  border: 1px dotted #999999;
+  color: #444;
+  word-wrap: break-word;
+}
     
 /* ok button */
 
 #feindura_errorWindow .feindura_content a.feindura_ok {
-    position: relative;
-    top: 10px;
-    left: 130px;
-    display: block;
-    padding: 0px;
-    width: 75px;
-    height: 65px;
-    background: url("../images/buttons/errorWindow_ok.png") no-repeat 0px -64px;
-    }
+  position: relative;
+  top: 10px;
+  left: 130px;
+  display: block;
+  padding: 0px;
+  width: 75px;
+  height: 65px;
+  background: url("../images/buttons/errorWindow_ok.png") no-repeat 0px -64px;
+}
 #feindura_errorWindow .feindura_content a.feindura_ok:hover, #feindura_errorWindow .feindura_content a.feindura_ok:focus {
-    background-position: 0 0;
-    }
+  background-position: 0 0;
+}

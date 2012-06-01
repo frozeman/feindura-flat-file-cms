@@ -164,7 +164,7 @@ $langFile['LOG_USER_PASSWORD_CHANGED']                                    = 'Ben
 $langFile['LOG_USER_SAVED']                                               = 'Benutzer gespeichert';
 
 $langFile['LOG_ADMINSETUP_SAVED']                                         = 'Administrator-Einstellungen gespeichert';
-$langFile['LOG_ADMINSETUP_CKSTYLES']                                      = '&quot;Stil-Auswahl&quot; des HTML-Editors gespeichert';
+$langFile['LOG_ADMINSETUP_CKSTYLES']                                      = '&quot;Stil&quot;-Auswahl des HTML-Editors gespeichert';
 
 $langFile['LOG_WEBSITESETUP_SAVED']                                       = 'Webseiten-Einstellungen gespeichert';
 
@@ -444,10 +444,12 @@ $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip']                = 'Wen
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1']                                 = 'HTML-Editor-Einstellungen';
-$langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'HTML filtern (verwendet <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/">htmlLawed</a>)';
+$langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'HTML filtern (verwendet <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/" target="_blank">htmlLawed</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']                              = 'Filtert den HTML-Code bevor er gespeichert wird, das kann jedoch bei HTML-Code mit viel Javascript zu Problemen führen.';
-$langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'sicheres HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6">Details</a>)';
+$langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'sicheres HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6" target="_blank">Details</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'Dadurch wird der HTML-Code mit den sichersten Einstellungen gefiltert, d.h. zum Beispiel dass keine &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; und &lt;script&gt; Tags erlaubt sind.';
+$langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']                          = 'Stil-Auswahl aktivieren';
+$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Die Stil-Auswahl erlaubt es benutzerdefinierte HTML-Elemente in dem HTML-Editor zu verwenden.[br][br]Wenn diese Option aktiviert ist, können diese HTML-Elemente weiter unten bearbeitet bzw. angelegt werden.';
 $langFile['adminSetup_editorSettings_field1']                             = 'ENTER-Taste Modus';
 $langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER erzeugt immer ein &quot;&lt;br&gt;&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Legt fest welcher HTML-Tag beim drücken der ENTER-Taste gesetzt wird.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';

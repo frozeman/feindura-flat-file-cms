@@ -1510,7 +1510,6 @@ window.addEvent('domready', function() {
     // ------------------------------
     // CONFIG the HTMlEditor
     CKEDITOR.config.dialog_backgroundCoverColor   = '#333333';
-    CKEDITOR.config.toolbarStartupExpanded        = false;
     CKEDITOR.config.uiColor                       = '#cccccc';
     CKEDITOR.config.width                         = 792;
     if($('documentSaved') !== null && $('documentSaved').hasClass('saved'))
@@ -1527,8 +1526,10 @@ window.addEvent('domready', function() {
     CKEDITOR.config.entities                      = false;
     CKEDITOR.config.extraPlugins                  = 'Media,codemirror'; //stylesheetparser
     CKEDITOR.config.protectedSource.push( /<\?[\s\S]*?\?>/g ); // protect php code
-
     //CKEDITOR.config.disableNativeSpellChecker = false;
+    if($('documentSaved') === null || !$('documentSaved').hasClass('saved'))
+      CKEDITOR.config.toolbarStartupExpanded        = false;
+
 
     CKEDITOR.config.toolbar = [
                               ['Save','-','Maximize','-','Source'],
@@ -1555,16 +1556,38 @@ window.addEvent('domready', function() {
     // -> CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
     HTMLEditor = CKEDITOR.replace('HTMLEditor');
 
+    // -> add TOOLTIPS to ckeditor
+    HTMLEditor.on('instanceReady',function() {
+      $$('.cke_button').each(function(button) {
+        var link = button.getChildren('a');
+        if(link !== null) {
+          // store tip text
+          link.store('tip:text', link.get('title'));
+          toolTips.attach(link);
+        }
+      });
+    });
+
     // -> adds the EDITOR SLIDE IN/OUT tweens
     if($('documentSaved') !== null && $('documentSaved').hasClass('saved'))
       editorIsClicked = true;
 
       HTMLEditor.on('instanceReady',function() {
-        var ckeditorContent = $('cke_contents_HTMLEditor');
         var windowScroll = new Fx.Scroll(window.document,{duration:'normal'});
+        var ckeditorContent = $('cke_contents_HTMLEditor');
+        ckeditorContent.set('tween',{duration:400, transition: Fx.Transitions.Pow.easeOut});
         var ckeditorToolBar = $$("#cke_top_HTMLEditor .cke_toolbox")[0];
-
-        ckeditorContent.set('tween',{duration:300, transition: Fx.Transitions.Pow.easeOut});
+        // fixes the ckeditor to use slide ins
+        $$('.cke_top').setStyles({
+          'position':'relative',
+          'padding':'6px 0'
+        });
+        $$('.cke_toolbox_collapser').setStyles({
+          'position':'absolute',
+          'right':5,
+          'top':-2
+        });
+        
 
         var editorTweenTimeout;
 
@@ -1577,6 +1600,8 @@ window.addEvent('domready', function() {
             // show toolbar !e.target.hasClass('cke_toolbox_collapser') &&
             if(typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') === 'none') {
               HTMLEditor.execCommand('toolbarCollapse'); //toggles
+              // slide in
+              ckeditorToolBar.set('slide',{duration:400, transition: Fx.Transitions.Pow.easeOut});
               ckeditorToolBar.slide('hide').slide('in');
             }
 
@@ -1608,6 +1633,8 @@ window.addEvent('domready', function() {
           // show toolbar directly
           if(typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') == 'none') {
             HTMLEditor.execCommand('toolbarCollapse'); //toggles
+            // slide in
+            ckeditorToolBar.set('slide',{duration:400, transition: Fx.Transitions.Pow.easeOut});
             ckeditorToolBar.slide('hide').slide('in');
           }
 

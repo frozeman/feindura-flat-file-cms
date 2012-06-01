@@ -446,10 +446,12 @@ $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip']                = 'If 
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1']                                 = 'HTML-Editor-Settings';
-$langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'Filter HTML (uses <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/">htmlLawed</a>)';
+$langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'Filter HTML (uses <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/" target="_blank">htmlLawed</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']                              = 'Filters the HTML code before saving. This can cause problems in HTML code with a lot of Javascript.';
-$langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'Safe HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6">details</a>)';
+$langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'Safe HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6" target="_blank">details</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'The HTML-Code will be filtered with the safest settings. That means that for example &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; and &lt;script&gt; tags are not allowed.';
+$langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']                          = 'activate Style-Selection';
+$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'The Styles-Selection allows you to use custom HTML-Elements in the HTML-Editor.[br][br]If this option is activated, you can edit/create HTML-Elements further down.';
 $langFile['adminSetup_editorSettings_field1']                             = 'ENTER-Key mode';
 $langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER always generates a &quot;&lt;br&gt;&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Sets which HTML-Tag will be add when pressing the ENTER-Key in the HTML-Editor.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
@@ -465,7 +467,7 @@ $langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Rel
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
-$langFile['adminSetup_styleFileSettings_h1']                              = 'Edit the &quot;Styles&quot; selection of the HTML-Editors';
+$langFile['adminSetup_styleFileSettings_h1']                              = 'Edit the Styles-Selection of the HTML-Editor';
 $langFile['adminSetup_styleFileSettings_error_save']                      = '<b>The &quot;htmlEditorStyles.js&quot; file could no be saved.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings

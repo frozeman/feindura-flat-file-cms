@@ -335,7 +335,7 @@ if(!$newPage) {
         if(!$newPage && isAdmin())
           echo '<tr>
                 <td class="left">      
-                <span class="info toolTip" title="'.$langFile['EDITOR_pageinfo_id'].'::'.$langFile['EDITOR_pageinfo_id_tip'].'"><strong>'.$langFile['EDITOR_pageinfo_id'].'</strong></span>
+                <span class="info toolTip" title="::'.$langFile['EDITOR_pageinfo_id_tip'].'"><strong>'.$langFile['EDITOR_pageinfo_id'].'</strong></span>
                 </td><td class="right">
                 <span class="info">'.$_GET['page'].'</span>
                 </td>
@@ -489,7 +489,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
             : '';
         ?>
         <tr><td class="left">
-        <label for="edit_title"><span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">
+        <label for="edit_title"><span class="toolTip" title="::<?php echo $langFile['EDITOR_pageSettings_title_tip'] ?>">
         <?php echo $langFile['EDITOR_pageSettings_title'] ?></span></label>
         </td><td class="right">
           <input id="edit_title" name="title" style="width:492px;" value="<?php echo str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent,'title',true)); ?>"<?php echo $autofocus; ?> class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">        
@@ -497,7 +497,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
         
         <!-- ***** PAGE DESCRIPTION -->      
         <tr><td class="left">
-        <label for="edit_description"><span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_field1'].'::'.$langFile['EDITOR_pageSettings_field1_tip']; ?>">
+        <label for="edit_description"><span class="toolTip" title="::<?php echo $langFile['EDITOR_pageSettings_field1_tip']; ?>">
         <?php echo $langFile['EDITOR_pageSettings_field1']; ?></span></label>
         </td><td class="right">
         <textarea id="edit_description" name="description" cols="50" rows="2" style="white-space:normal;width:480px;" class="inputToolTip autogrow" title="<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($pageContent,'description',true); ?></textarea>
@@ -621,7 +621,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
         <!-- ***** TAGS -->
         
         <tr><td class="left">
-        <label for="edit_tags"><span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip'] ?>">
+        <label for="edit_tags"><span class="toolTip" title="::<?php echo $langFile['EDITOR_pageSettings_field2_tip'] ?>">
         <?php echo $langFile['EDITOR_pageSettings_field2'] ?></span></label>
         </td><td class="right">
           <input id="edit_tags" name="tags" class="inputToolTip" style="width:492px;" value="<?php echo GeneralFunctions::getLocalized($pageContent,'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>">        
@@ -637,7 +637,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
         <!-- ***** Subcategory selection -->
         <tr>
         <td class="left">
-        <label for="subCategory" class="toolTip" title="<?php echo $langFile['EDITOR_TEXT_SUBCATEGORY'].'::'.$langFile['EDITOR_TIP_SUBCATEGORY']; ?>"><strong><?php echo $langFile['EDITOR_TEXT_SUBCATEGORY']; ?></strong></label>
+        <label for="subCategory" class="toolTip" title="::<?php echo $langFile['EDITOR_TIP_SUBCATEGORY']; ?>"><strong><?php echo $langFile['EDITOR_TEXT_SUBCATEGORY']; ?></strong></label>
         </td><td class="right">
         <img src="library/images/icons/categoryIcon_subCategory_middle.png" style="position:absolute; top: 2px;">
         <select name="subCategory" id="subCategory" class="toolTip" style="margin-left: 45px;" title="<?php echo $langFile['EDITOR_TEXT_SUBCATEGORY'].'::'.$langFile['EDITOR_TIP_SUBCATEGORY']; ?>">';
@@ -675,7 +675,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
             echo '<img src="library/images/icons/page_nonpublic.png" class="toolTip" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'"'.$publicSignStyle.' alt="nonpublic" width="27" height="27">';
 
           ?>
-          &nbsp;<span class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_field4'].'::'.$langFile['EDITOR_pageSettings_field4_tip'] ?>">
+          &nbsp;<span class="toolTip" title="::<?php echo $langFile['EDITOR_pageSettings_field4_tip'] ?>">
           <?php echo $langFile['EDITOR_pageSettings_field4']; ?></span></label>        
         </td></tr>
         
@@ -905,7 +905,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
         <tr><td class="leftTop"></td><td></td></tr>
         
         <tr><td class="left">
-        <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE'].'::'.$langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE']; ?></span>
+        <span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE']; ?></span>
         </td><td class="right">
         <div id="pageStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>">
         <span class="hint" style="float:right;width:190px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
@@ -919,13 +919,13 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
         </td></tr>
                     
         <tr><td class="left">
-        <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_ID'].'::'.$langFile['STYLESHEETS_TOOLTIP_ID'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_ID']; ?></span>
+        <span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_ID'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_ID']; ?></span>
         </td><td class="right">
         <input name="styleId" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
         </td></tr>
               
         <tr><td class="left">
-        <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_CLASS'].'::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
+        <span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
         </td><td class="right">
         <input name="styleClass" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
         </td></tr>

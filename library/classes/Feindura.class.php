@@ -2072,11 +2072,11 @@ class Feindura extends FeinduraBase {
   * Example:
   * {@example createSubMenu.example.php}
   * 
-  * @param int|string|array|bool $id          (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
-  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
-  * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
-  * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * @param int|string|array|bool  $id                 (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
+  * @param int|bool               $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param string|bool            $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
+  * @param int|false              $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
+  * @param bool                   $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -2213,7 +2213,6 @@ class Feindura extends FeinduraBase {
   * 
   * @return array the created sub menu in an array, ready to display in a HTML-page, or an empty array
   * 
-  * @example id.parameter.example.php $id parameter example
   * @example createSubMenu.example.php See the example of the createSubMenu() method
   * 
   * @see createSubMenu()
@@ -2261,6 +2260,7 @@ class Feindura extends FeinduraBase {
   
  /**
   * <b>Name</b> createLanguageMenu()<br>
+  * <b>Alias</b> createLanguagesMenu()<br>
   * 
   * <b>This method uses the {@link Feindura::$linkLength $link...}, {@link Feindura::$menuId $menu...} properties.</b>
   * 
@@ -2366,6 +2366,14 @@ class Feindura extends FeinduraBase {
 
     return $this->generateMenu($links,$menuTag,$breakAfter);
   }
+  /**
+  * Alias of {@link createLanguageMenu()}
+  * @ignore
+  */
+  public function createLanguagesMenu($menuTag = false, $linkText = true, $breakAfter = false) {
+    // call the right function
+    return $this->createLanguageMenu($menuTag, $linkText, $breakAfter);
+  }
 
  /**
   * <b>Name</b> createBreadCrumbsMenu()<br>
@@ -2422,6 +2430,7 @@ class Feindura extends FeinduraBase {
   * 
   * @return array the created breadcrumb navigation, or an empty array
   * 
+  * @example id.parameter.example.php $id parameter example
   * 
   * @access public
   * @version 1.0

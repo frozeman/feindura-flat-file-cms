@@ -58,8 +58,11 @@ window.addEvent('domready',function(){
   CKEDITOR.config.bodyId                    = '<?php echo $editorStyleId; ?>';
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
   CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
-<?php if(file_exists("config/htmlEditorStyles.js")) { ?>
-  CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/htmlEditorStyles.js';
+<?php if(!$adminConfig['editor']['editorStyles']) { ?>
+  CKEDITOR.config.removePlugins = 'stylescombo';
+<?php }
+if($adminConfig['editor']['editorStyles'] && file_exists(dirname(__FILE__)."/../../config/htmlEditorStyles.js")) { ?>
+  CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/htmlEditorStyles.js?=<?php echo md5(uniqid(rand(),1)); ?>';
 <?php
 }
 if($adminConfig['user']['fileManager']) {

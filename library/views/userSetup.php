@@ -115,7 +115,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
                 
                 // user email
           echo '<tr><td class="left">
-                <label for="users'.$user['id'].'email" class="toolTip" title="'.$langFile['userSetup_email'].'::'.$langFile['userSetup_email_tip'].'">'.$langFile['userSetup_email'].'</label>
+                <label for="users'.$user['id'].'email" class="toolTip" title="::'.$langFile['userSetup_email_tip'].'">'.$langFile['userSetup_email'].'</label>
                 </td><td class="right">
                 <input type="email" id="users'.$user['id'].'email" name="users['.$user['id'].'][email]" value="'.$user['email'].'" class="toolTip" title="'.$langFile['userSetup_email'].'::'.$langFile['userSetup_email_tip'].'" autocomplete="off">
                 </td></tr>';
@@ -152,7 +152,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
                 <input type="checkbox" id="users'.$user['id'].'admin" name="users['.$user['id'].'][admin]" value="true" '.$checked[1].' class="toolTip" title="'.$langFile['userSetup_admin'].'::'.$langFile['userSetup_admin_tip'].'"><br>
                 </td><td class="right checkboxes">
                 <label for="users'.$user['id'].'admin">';          
-                echo '<span class="toolTip" title="'.$langFile['userSetup_admin'].'::'.$langFile['userSetup_admin_tip'].'">'.$langFile['userSetup_admin'].'</span></label>
+                echo '<span class="toolTip" title="::'.$langFile['userSetup_admin_tip'].'">'.$langFile['userSetup_admin'].'</span></label>
                 </td></tr>';
                           
           echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';

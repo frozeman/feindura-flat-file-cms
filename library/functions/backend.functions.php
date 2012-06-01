@@ -927,6 +927,7 @@ function saveAdminConfig($adminConfig) {
     
     $fileContent .= "\$adminConfig['editor']['htmlLawed']    = ".XssFilter::bool($adminConfig['editor']['htmlLawed'],true).";\n";
     $fileContent .= "\$adminConfig['editor']['safeHtml']     = ".XssFilter::bool($adminConfig['editor']['safeHtml'],true).";\n";
+    $fileContent .= "\$adminConfig['editor']['editorStyles'] = ".XssFilter::bool($adminConfig['editor']['editorStyles'],true).";\n";
     $fileContent .= "\$adminConfig['editor']['enterMode']    = '".XssFilter::alphabetical($adminConfig['editor']['enterMode'])."';\n";
     $fileContent .= "\$adminConfig['editor']['styleFile']    = '".$adminConfig['editor']['styleFile']."';\n"; // XssFilter is in prepareStyleFilePaths() function
     $fileContent .= "\$adminConfig['editor']['styleId']      = '".XssFilter::string($adminConfig['editor']['styleId'])."';\n";
