@@ -444,7 +444,7 @@ $langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>
 
 // ---------- styleFile Settings
 $langFile['adminSetup_styleFileSettings_h1']                              = 'Modifier les styles-sélection de l\'éditeur HTML';
-$langFile['adminSetup_styleFileSettings_error_save']                      = '<b>le fichier &quot;htmlEditorStyles.js&quot; ne pouvait pas être sauvegardé.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['adminSetup_styleFileSettings_error_save']                      = '<b>le fichier &quot;EditorStyles.js&quot; ne pouvait pas être sauvegardé.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings
 $langFile['editFilesSettings_error_save']                                 = '<b>le fichier ne pouvait pas être sauvegardé.</b>'.$langFile['ERROR_SAVE_FILE'];

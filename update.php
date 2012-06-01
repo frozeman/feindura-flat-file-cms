@@ -933,6 +933,9 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_top.gif') &&
       is_file(dirname(__FILE__).'/library/images/bg/toolTip_top.gif'))
       $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_top.gif';
+    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_top.gif') &&
+      is_file(dirname(__FILE__).'/library/images/bg/toolTip_top.gif'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_top.gif';
     
     
     // delete lowercase class names
@@ -952,9 +955,10 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       if(!unlink(dirname(__FILE__).'/library/classes/statisticFunctions.class.php') &&
         is_file(dirname(__FILE__).'/library/classes/statisticFunctions.class.php'))
         $checkFiles[] = dirname(__FILE__).'/library/classes/statisticFunctions.class.php';
-      if(!unlink(dirname(__FILE__).'/library/classes/xssFilter.class.php') &&
-        is_file(dirname(__FILE__).'/library/classes/xssFilter.class.php'))
-        $checkFiles[] = dirname(__FILE__).'/library/classes/xssFilter.class.php';
+      // rename editor styles
+      if(!rename(dirname(__FILE__).'/config/htmlEditorStyles.js',dirname(__FILE__).'/config/EditorStyles.js') &&
+        is_file(dirname(__FILE__).'/config/htmlEditorStyles.js'))
+        $checkFiles[] = dirname(__FILE__).'/config/htmlEditorStyles.js';
     }
       
     if(empty($checkFiles))

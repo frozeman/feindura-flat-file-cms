@@ -442,7 +442,7 @@ if(!empty($adminConfig['stylesheetPath']))
 <div><input type="hidden" name="saveFckStyleFile" value="true"></div>
 <?php
 
-$htmlEditorStyleFilePath = "config/htmlEditorStyles.js";
+$htmlEditorStyleFilePath = "config/EditorStyles.js";
 $htmlEditorStyleFile = fopen($htmlEditorStyleFilePath,"r");
 $htmlEditorStyleContent = fread($htmlEditorStyleFile,filesize($htmlEditorStyleFilePath));
 fclose($htmlEditorStyleFile);

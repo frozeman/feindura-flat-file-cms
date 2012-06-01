@@ -146,7 +146,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $savedSettings = true;
 }
 
-// ---------- Speichern in htmlEditorStyles.js
+// ---------- Speichern in EditorStyles.js
 if(isset($_POST['saveFckStyleFile'])) {
 
   $fckstylewrite = $_POST['fckStyleFile'];
@@ -154,13 +154,13 @@ if(isset($_POST['saveFckStyleFile'])) {
   $fckstylewrite 	= GeneralFunctions::smartStripslashes($fckstylewrite);
     
   // -> write file
-  if(file_put_contents(dirname(__FILE__)."/../../config/htmlEditorStyles.js", $fckstylewrite, LOCK_EX)) {
+  if(file_put_contents(dirname(__FILE__)."/../../config/EditorStyles.js", $fckstylewrite, LOCK_EX)) {
     
     // give documentSaved status
     $documentSaved = true;
     saveActivityLog(9); // <- SAVE the task in a LOG FILE
   } elseif(empty($fckstylewrite)) {
-    @unlink(dirname(__FILE__)."/../../config/htmlEditorStyles.js");
+    @unlink(dirname(__FILE__)."/../../config/EditorStyles.js");
   } else {
     $errorWindow .= $langFile['adminSetup_styleFileSettings_error_save'];
   }
@@ -198,6 +198,6 @@ if(!empty($adminConfig['permissions']) && !is_string($adminConfig['permissions']
   if(is_file(dirname(__FILE__)."/../../config/statistic.config.php")) @chmod(dirname(__FILE__)."/../../config/statistic.config.php", $adminConfig['permissions']);
   if(is_file(dirname(__FILE__)."/../../config/user.config.php")) @chmod(dirname(__FILE__)."/../../config/user.config.php", $adminConfig['permissions']);
   if(is_file(dirname(__FILE__)."/../../config/website.config.php")) @chmod(dirname(__FILE__)."/../../config/website.config.php", $adminConfig['permissions']);
-  if(is_file(dirname(__FILE__)."/../../config/htmlEditorStyles.js")) @chmod(dirname(__FILE__)."/../../config/htmlEditorStyles.js", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../config/EditorStyles.js")) @chmod(dirname(__FILE__)."/../../config/EditorStyles.js", $adminConfig['permissions']);
 }
 ?>

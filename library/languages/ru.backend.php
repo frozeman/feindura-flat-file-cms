@@ -472,7 +472,7 @@ $langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>
 
 // ---------- styleFile Settings
 $langFile['adminSetup_styleFileSettings_h1']                              = 'Редактирование секции Стили-Selection для визуального редактора';
-$langFile['adminSetup_styleFileSettings_error_save']                      = '<b>Файл &quot;htmlEditorStyles.js&quot; не удается сохранить.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['adminSetup_styleFileSettings_error_save']                      = '<b>Файл &quot;EditorStyles.js&quot; не удается сохранить.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings
 $langFile['editFilesSettings_error_save']                                 = '<b>Не удается сохранить файл.</b>'.$langFile['ERROR_SAVE_FILE'];
