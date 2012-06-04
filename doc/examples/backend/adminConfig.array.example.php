@@ -24,6 +24,7 @@ $adminConfig['user']['frontendEditing']   = true;
 $adminConfig['user']['fileManager']       = true;
 $adminConfig['user']['editWebsiteFiles']  = false;
 $adminConfig['user']['editStyleSheets']   = false;
+$adminConfig['user']['editSnippets']      = false;
 $adminConfig['user']['info']              = '';
 
 $adminConfig['setStartPage']                         = true;
@@ -46,6 +47,8 @@ $adminConfig['pages']['sortReverse']   = false;
 $adminConfig['editor']['htmlLawed']    = true;
 $adminConfig['editor']['safeHtml']     = false;
 $adminConfig['editor']['enterMode']    = 'p';
+$adminConfig['editor']['editorStyles'] = true;
+$adminConfig['editor']['snippets']     = false;
 $adminConfig['editor']['styleFile']    = 'a:0:{}';
 $adminConfig['editor']['styleId']      = '';
 $adminConfig['editor']['styleClass']   = '';

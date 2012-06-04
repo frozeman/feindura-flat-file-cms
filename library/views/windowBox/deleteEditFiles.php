@@ -27,7 +27,7 @@ require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
 // QUESTION
-echo '<h2 class="red">'.$langFile['editFilesSettings_deleteFile_question_part1'].' <span style="color:#000000;">'.basename($_GET['file']).'</span> '.$langFile['editFilesSettings_deleteFile_question_part2'].'</h2>';
+echo '<h2 class="red">'.sprintf($langFile['EDITFILESSETTINGS_TEXT_DELETEFILE_QUESTION'],'<span style="color:#000000;">'.$_GET['file'].'</span>').'</h2>';
 
 ?>
 <div>

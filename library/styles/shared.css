@@ -51,7 +51,7 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 .feindura_toolTipBox {
   z-index: 2005;
   padding: 15px 20px;
-  max-width: 350px;
+  max-width: 250px;
   min-width: 100px;
   border: 1px solid #F7F7F7;
   -webkit-border-radius:10px;

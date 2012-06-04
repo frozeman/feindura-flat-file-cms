@@ -1184,6 +1184,17 @@ window.addEvent('domready', function() {
   // -> adds THUMBRATIO deactivation
   setThumbRatio('cfg_thumbWidth','ratioX','cfg_thumbHeight','ratioY','noRatio');
 
+  // change enterMode opposite text
+  if($('cfg_editorEnterMode') !== null) {
+    $('cfg_editorEnterMode').addEvent('change',function() {
+      var opposite = $('enterModeOpposite');
+      if(opposite.get('html') == '&lt;br&gt;')
+        opposite.set('html','&lt;p&gt;');
+      else
+        opposite.set('html','&lt;br&gt;');
+    });
+  }
+
   // -> adds Fields to styleSheetsFilePaths
   $$('.addStyleFilePath').each(function(addButton){
     if(addButton !== null) {
@@ -1524,7 +1535,6 @@ window.addEvent('domready', function() {
     CKEDITOR.config.scayt_autoStartup             = false;
     CKEDITOR.config.colorButton_enableMore        = true;
     CKEDITOR.config.entities                      = false;
-    CKEDITOR.config.extraPlugins                  = 'Media,codemirror'; //stylesheetparser
     CKEDITOR.config.protectedSource.push( /<\?[\s\S]*?\?>/g ); // protect php code
     //CKEDITOR.config.disableNativeSpellChecker = false;
     if($('documentSaved') === null || !$('documentSaved').hasClass('saved'))
@@ -1545,7 +1555,8 @@ window.addEvent('domready', function() {
                               ['NumberedList','BulletedList'],
                               ['Blockquote','HorizontalRule','Table'],
                               ['Link','Unlink','Anchor'],
-                              ['Image','Flash','Media'],
+                              ['Image','Flash'], // ,'Media'
+                              ['Snippets'],
                               ['SpecialChar'],
                                '/',
                               ['Styles','Format','FontSize'], // 'Font','FontName',

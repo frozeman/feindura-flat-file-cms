@@ -43,7 +43,7 @@
 $langFile['LOGIN_INPUT_USERNAME']                                         = 'Nome Utente';
 $langFile['LOGIN_INPUT_PASSWORD']                                         = 'Password';
 $langFile['LOGIN_BUTTON_LOGIN']                                           = 'ACCESSO';
-$langFile['LOGIN_TEXT_COOKIESNEEDED']                                     = 'I cookies devono essere attivati';
+$langFile['LOGIN_TEXT_COOKIESNEEDED']                                     = 'I cookies devono essere attivati!';
 
 $langFile['LOGIN_LINK_FORGOTPASSWORD']                                    = 'Hai dimenticato la tua password?';
 $langFile['LOGIN_LINK_BACKTOLOGIN']                                       = 'Torna all\'accesso';
@@ -210,7 +210,12 @@ $langFile['txt_logo_gotowebsite']                                         = 'Cli
 $langFile['LOADING_TEXT_LOAD']                                            = 'Attendi che la pagina venga caricata..';
 
 // CKEDITOR transport
-$langFile['CKEDITOR_TITLE_LINKS']                                         = 'pagine feindura';
+$langFile['CKEDITOR_TITLE_LINKS']                                         = 'Pagine feindura';
+$langFile['CKEDITOR_TITLE_SNIPPETS']                                      = 'Frammenti di codice';
+$langFile['CKEDITOR_TEXT_SNIPPETS']                                       = 'Scegli un frammento di codice per inserirlo nella pagina.';
+$langFile['CKEDITOR_BUTTON_EDITSNIPPET']                                  = 'Modifica frammento di codice';
+$langFile['CKEDITOR_TITLE_PLUGINS']                                       = 'Plugins';
+$langFile['CKEDITOR_TEXT_PLUGINS']                                        = 'Scegli un plugin per inserirlo nella pagina.';
 
 
 // -> BUTTON TEXTS
@@ -434,8 +439,9 @@ $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'ora
 
 // ---------- user Settings
 $langFile['ADMINSETUP_USERPERMISSIONS_TITLE']                             = 'Autorizzazioni-Utente';
-$langFile['ADMINSETUP_USERPERMISSIONS_check1']                            = 'Modificare i files dalle Impostazioni-SitoWeb';
-$langFile['ADMINSETUP_USERPERMISSIONS_check2']                            = 'Modificare i files fogli di stile in Impostazioni-SitoWeb';
+$langFile['ADMINSETUP_USERPERMISSIONS_check1']                            = 'Modificare i files dalle <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
+$langFile['ADMINSETUP_USERPERMISSIONS_check2']                            = 'Modificare i files fogli di stile in <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
+$langFile['ADMINSETUP_TEXT_USEREDITSNIPPETS']                             = 'Modifica frammenti di codice nel <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
 $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                  = 'Attivare il file manager';
 $langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER']           = 'File manager disattivato::È necessario impostare il percorso di upload in Impostazioni-Di-Base, prima di poter attivare il file manager.';
 $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']              = 'Attivare la modifica frontale';
@@ -451,9 +457,11 @@ $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']                              = 'Fil
 $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'safe HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6" target="_blank">dettagli</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'Questo è il codice HTML con le impostazioni più sicure che viene filtrato, vale a dire per esempio che nessun tag del tipo &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; e &lt;script&gt; sono ammessi.';
 $langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']                          = 'attivare Stili-Selezione';
-$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Il Stili-Selezione consente di utilizzare personalizzati elementi HTML nel codice HTML-Editor.[br][br]Se questa opzione è attivata, è possibile modificare/creare elementi HTML più in basso.';
+$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Il Stili-Selezione consente di utilizzare personalizzati elementi HTML nel codice Editor-HTML.[br][br][span class=hint]Se questa opzione è attivata, è possibile modificare/creare elementi HTML più in basso.[/span]';
+$langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']                              = 'attivare frammenti di codice';
+$langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Permette di inserire frammenti di codice nelle pagine.[br]Fare clic sull\'icona nella editor Editor-HTML: [img src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png][br][br][span class=hint]Se questa opzione è attivata, è possibile modificare/creare frammenti di codice più in basso.[/span]';
 $langFile['adminSetup_editorSettings_field1']                             = 'ENTER-Key mode';
-$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER genera sempre un &quot;&lt;br&gt;&quot;';
+$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER genera un &quot;&lt;br&gt;&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Specifica quali tag HTML quando si preme il tasto ENTER verranno impostati.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip']                    = 'Se il campo è vuoto, non viene utilizzato l\'ID.';
 $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Se il campo è vuoto, nessuna classe verrà utilizza.';
@@ -471,21 +479,20 @@ $langFile['adminSetup_styleFileSettings_h1']                              = 'Mod
 $langFile['adminSetup_styleFileSettings_error_save']                      = '<b>il file &quot;EditorHTMLStyles.js&quot; non può essere salvato.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings
-$langFile['editFilesSettings_error_save']                                 = '<b>Il file non può essere salvato.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS']                          = 'Modificare i file di fogli di stile';
+$langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES']                         = 'Modificare i file del sito web';
+$langFile['EDITFILESSETTINGS_TITLE_SNIPPETS']                             = 'Modifica frammenti di codice';
+$langFile['EDITFILESSETTINGS_TEXT_NODIR']                                 = 'non è una directory valida!';
+$langFile['EDITFILESSETTINGS_TEXT_CHOOSEFILE']                            = 'selezionare il file';
+$langFile['EDITFILESSETTINGS_TEXT_CREATEFILE']                            = 'Creare Un Nuovo File';
+$langFile['EDITFILESSETTINGS_TIP_CREATEFILE']                             = 'Qui, puoi immette un nome di file, quindi un nuovo file verrà creato. [br][b]I nuovi files creati non verrnno salvati nei backups![/b]';
+$langFile['EDITFILESSETTINGS_TEXT_NOFILE']                                = 'Non ci sono file disponibili';
 
-$langFile['editFilesSettings_h1_style']                                   = 'Pagina-Fogli-Di-Stile';
-$langFile['editFilesSettings_h1_websitefiles']                            = 'Pagine-Web-Da-Modificare';
-$langFile['editFilesSettings_noDir']                                      = 'non è una directory valida!';
-$langFile['editFilesSettings_chooseFile']                                 = 'selezionare il file';
-$langFile['editFilesSettings_createFile']                                 = 'Creare Un Nuovo File';
-$langFile['editFilesSettings_createFile_inputTip']                        = 'Qui, puoi immette un nome di file, quindi un nuovo file verrà creato. [br][b]I nuovi files creati non verrnno salvati nei backups![/b]';
-$langFile['editFilesSettings_noFile']                                     = 'Non ci sono file disponibili';
+$langFile['EDITFILESSETTINGS_TEXT_DELETEFILE']                            = 'Cancella il file';
+$langFile['EDITFILESSETTINGS_TEXT_DELETEFILE_QUESTION']                   = 'Sei sicuro di voler cancellare il file %s?';
 
-$langFile['editFilesSettings_deleteFile']                                 = 'Cancella il file';
-$langFile['editFilesSettings_deleteFile_question_part1']                  = 'Sei sicuro di voler cancellare il file'; // Kategorie "test" löschen?
-$langFile['editFilesSettings_deleteFile_question_part2']                  = '?';
-
-$langFile['editFilesSettings_deleteFile_error_delete']                    = '<b>Impossibile eliminare il file.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['EDITFILESSETTINGS_ERROR_SAVEFILE']                             = '<b>Il file non può essere salvato.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['EDITFILESSETTINGS_ERROR_DELETEFILE']                           = '<b>Impossibile eliminare il file.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 /*
 * pageSetup.php
@@ -744,7 +751,7 @@ $langFile['EDITOR_pluginSettings_h1']                                     = 'Imp
 * unsavedPage.php
 */
 
-$langFile['unsavedPage_question_h1']                                      = '<span class="brown">La pagina è stata modificata.</span><br>Vuoi salvare la pagina ora?';
+$langFile['UNSAVEDPAGE_QUESTION_CONTINUE']                                = 'La pagina è stata modificata!<br><span class="brown">Vuoi continuare?</span>';
 
 /*
 * deletePage.php

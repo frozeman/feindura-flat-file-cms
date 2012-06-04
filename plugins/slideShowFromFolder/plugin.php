@@ -15,30 +15,29 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * The plugin include file
+ * The plugin file
  * 
  * See the README.md for more.
  * 
  * The following variables are available in this script when it gets included by the {@link Feindura::showPlugins()} method:
- *     - $this          -> the current {@link Feindura} class instance with all its methods (use "$this->..")
+ *     - $feindura      -> the current {@link Feindura} class instance with all its methods (use "$feindura->..")
  *     - $pluginConfig  -> contains the changed settings from the "config.php" from this plugin
  *     - $pluginName    -> the folder name of this plugin
  *     - $pageContent   -> the pageContent array of the page which has this plugin activated 
  * 
- * This file MUST RETURN the plugin ready to display in a HTML-page, like:
+ * Example plugin:
  * <code>
  * <?php
  * // Add the stylesheet files of this plugin to the current page
- * echo $this->addPluginStylesheets(dirname(__FILE__));
+ * echo $feindura->addPluginStylesheets(dirname(__FILE__));
  * 
- * $plugin = '<p>Plugin HTML</p>';
+ * echo '<p>Plugin HTML</p>';
  * 
- * return $plugin;
  * ?>
  * </code>
  * 
  * @package [Plugins]
- * @subpackage slideShow
+ * @subpackage slideShowFromFolder
  * 
  * @author Fabian Vogelsteller <fabian@feindura.org>
  * @copyright Fabian Vogelsteller
@@ -47,10 +46,9 @@
  */
 
 // Add the stylesheet files of this plugin to the current page
-echo $this->addPluginStylesheets(dirname(__FILE__));
+echo $feindura->addPluginStylesheets(dirname(__FILE__));
 
 // vars
-$plugin = '';
 $filePath = str_replace('\\','/',dirname(__FILE__)); // replace this on windows servers
 $filePath = str_replace(DOCUMENTROOT,'',$filePath);
 $uniqueId = rand(0,999);
@@ -68,21 +66,20 @@ else
   $effectsDirection = 'vertical';
 
 // set new sizes of the slider holder  
-$resizeWidthAfter = (!empty($pluginConfig['widthNumber']))
-  ? "$$('#slideShow".$uniqueId." div.nivoo-slider-holder')[0].setStyle('width',".$pluginConfig['widthNumber'].");"
+$resizeWidthAfter = (!empty($pluginConfig['imageWidthNumber']))
+  ? "$$('#slideShowFromFolder".$uniqueId." div.nivoo-slider-holder')[0].setStyle('width',".$pluginConfig['imageWidthNumber'].");"
   : '';
-$resizeHeightAfter = (!empty($pluginConfig['heightNumber']))
-  ? "$$('#slideShow".$uniqueId." div.nivoo-slider-holder')[0].setStyle('height',".$pluginConfig['heightNumber'].");"
+$resizeHeightAfter = (!empty($pluginConfig['imageHeightNumber']))
+  ? "$$('#slideShowFromFolder".$uniqueId." div.nivoo-slider-holder')[0].setStyle('height',".$pluginConfig['imageHeightNumber'].");"
   : '';
 
 // ->> add MooTools and NivooSlider
 echo '<script type="text/javascript">
   /* <![CDATA[ */
-
   // add mootools if user is not logged into backend
   if(!window.MooTools) {
-    document.write(unescape(\'<script src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"><\/script>\'));
-    document.write(unescape(\'<script src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"><\/script>\'));
+    document.write(unescape(\'<script src="'.$feindura->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"><\/script>\'));
+    document.write(unescape(\'<script src="'.$feindura->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"><\/script>\'));
   }
   // add NivooSlider
   (window.NivooSlider || document.write(unescape(\'<script src="'.$filePath.'/NivooSlider/NivooSlider.min.js"><\/script>\'))); 
@@ -91,18 +88,17 @@ echo '<script type="text/javascript">
 
 echo '<script type="text/javascript">
   /* <![CDATA[ */
-
-  window.addEvent(\'domready\', function() {
-    if(document.id(\'slideShow'.$uniqueId.'\') != null) {
+  window.addEvent(\'domready\', function () {
+    if(document.id(\'slideShowFromFolder'.$uniqueId.'\') != null) {
     
       // initialize Nivoo-Slider
-      var slideShow = new NivooSlider(document.id(\'slideShow'.$uniqueId.'\'), {
-      	effect: \''.$pluginConfig['effectSelection'].'\',
-      	interval: '.$pluginConfig['intervalNumber'].'000,
-      	orientation: \''.$effectsDirection.'\',
+      var slideShow = new NivooSlider(document.id(\'slideShowFromFolder'.$uniqueId.'\'), {
+        effect: \''.$pluginConfig['effectSelection'].'\',
+        interval: '.$pluginConfig['intervalNumber'].'000,
+        orientation: \''.$effectsDirection.'\',
         directionNavHide: true
       });
-      
+
       // set size for the div.nivoo-slider-holder
       // NivooSlider fixes:
       // line 346 in NivooSlider.js: this.containerSize = this.holder.getParent(\'.nivoo-slider\').getSize();
@@ -115,28 +111,25 @@ echo '<script type="text/javascript">
 </script>';
 
 // load the slideShow class
-require_once('slideShow.php');
+require_once('slideShowFromFolder.php');
 
 // create an instance of the slideShow class
-$jsonImages =  str_replace(array('&#34;','&#58;'), array('"',':'), $pluginConfig['imagesHidden']);
-$slideShow = new slideShow($jsonImages,$this->adminConfig['uploadPath'],DOCUMENTROOT);
+$slideShow = new slideShowFromFolder($pluginConfig['path'],DOCUMENTROOT);
 
 // set configs
-$slideShow->xHtml = $this->xHtml; // set the xHtml property rom the feindura class
-$slideShow->resetTimestamp = $pageContent['lastSaveDate'];
-if(!empty($pluginConfig['widthNumber'])) {
-  $slideShow->width = $pluginConfig['widthNumber'];
-  $slideShow->imageWidth = $pluginConfig['widthNumber'];
+$slideShow->xHtml = $feindura->xHtml; // set the xHtml property rom the feindura class
+if(!empty($pluginConfig['imageWidthNumber'])) {
+  $slideShow->imageWidth = $pluginConfig['imageWidthNumber'];
+  $slideShow->width = $pluginConfig['imageWidthNumber'];
 }
-if(!empty($pluginConfig['heightNumber'])) {
-  $slideShow->height = $pluginConfig['heightNumber'];
-  $slideShow->imageHeight = $pluginConfig['heightNumber'];
-}
+if(!empty($pluginConfig['imageHeightNumber']))
+  $slideShow->height = $pluginConfig['imageHeightNumber'];
+//   $slideShow->imageHeight = $pluginConfig['imageHeightNumber'];
+// wont resize the height, to let the picture fit in the slideshow
+$slideShow->imageHeight = false;
 
-$plugin .= $slideShow->show('slideShow'.$uniqueId);
+// SHOW SLIDESHOW
+echo $slideShow->show('slideShowFromFolder'.$uniqueId,$pageContent);
 
-// RETURN the plugin
-// *****************
-return $plugin;
 
 ?>

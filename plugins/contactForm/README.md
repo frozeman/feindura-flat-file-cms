@@ -27,10 +27,10 @@ Fabian Vogelsteller <http://frozeman.de>
 This plugin creates an contactform to send an email, it uses also a simple captcha protection
 
 ### USAGE
-The contactForm plugin can be displayed in your website with the showPlugins('contactForm',$pageId) method from the feindura class (when activated in the page with the $pageId).
+A plugin can be displayed in your website with the showPlugins('contactForm',$pageId) method from the Feindura class (when the this plugin is activated in that page). See http://feindura.org/api/[Implementation]/Feindura.html#showPlugins for more.
 
 ### STYLING
-To style the contactForm with css use the ".feinduraPlugin_contactForm" class.
+This plugin will be wraped with a <div class="feinduraPlugins feinduraPlugin_contactForm" id="feinduraPlugin_contactForm_<currentPageID>"> to make it easy to style. 
 
 ### ADDITIONAL
 The contactForm class can also be used without feindura in your websites!

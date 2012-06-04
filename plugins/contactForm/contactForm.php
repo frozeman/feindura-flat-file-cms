@@ -638,7 +638,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
        $mandatoryfieldsOk === false)
       $return .= $this->createForm($mandatoryFields);
     
-    return '<div class="feinduraPlugin_contactForm">'.$return.'</div>';
+    return $return;
   }
 }
 ?>

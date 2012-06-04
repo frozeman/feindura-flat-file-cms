@@ -22,7 +22,7 @@
 /**
  * Includes the login.include.php and backend.include.php and filter the basic data
  */
-require_once(dirname(__FILE__)."/../includes/secure.include.php");
+require_once(dirname(__FILE__).'/../includes/secure.include.php');
 
 ?>
 <form action="index.php?site=websiteSetup#websiteConfig" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
@@ -99,14 +99,20 @@ $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
 </form>
 <?php
 
-if($adminConfig['user']['editWebsiteFiles']) {  
-  // BEARBEITUNG DER ERWEITERTEN WEBSEITEN-EINSTELLUNGEN 
-  editFiles($adminConfig['websiteFilesPath'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
+// EDIT stylesheets
+if($adminConfig['user']['editStyleSheets']) {
+  editFiles($adminConfig['stylesheetPath'], 'cssFiles', $langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS'], 'cssFilesAnchor', 'css');
 }
 
-if($adminConfig['user']['editStyleSheets']) {
-  // BEARBEITUNG DER STYLESHEETDATEI
-  editFiles($adminConfig['stylesheetPath'], "editCSSfile", $langFile['editFilesSettings_h1_style'], "cssFilesAnchor", "css");
+// EDIT snippets
+if($adminConfig['user']['editSnippets']) {
+  if(!is_dir(dirname(__FILE__).'/../../snippets/')) mkdir(dirname(__FILE__).'/../../snippets/');
+  editFiles(dirname(__FILE__).'/../../snippets/', 'snippetFiles', $langFile['EDITFILESSETTINGS_TITLE_SNIPPETS'], 'snippetsFilesAnchor', 'php');
+}
+
+// EDIT websitefiles
+if($adminConfig['user']['editWebsiteFiles']) {  
+  editFiles($adminConfig['websiteFilesPath'], 'websiteFiles',  $langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES'], 'websiteFilesAnchor');
 }
 
 ?>

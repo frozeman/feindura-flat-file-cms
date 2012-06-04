@@ -43,7 +43,7 @@
 $langFile['LOGIN_INPUT_USERNAME']                                         = 'Benutzername';
 $langFile['LOGIN_INPUT_PASSWORD']                                         = 'Passwort';
 $langFile['LOGIN_BUTTON_LOGIN']                                           = 'LOGIN';
-$langFile['LOGIN_TEXT_COOKIESNEEDED']                                     = 'Cookies müssen aktivert sein';
+$langFile['LOGIN_TEXT_COOKIESNEEDED']                                     = 'Cookies müssen aktivert sein!';
 
 $langFile['LOGIN_LINK_FORGOTPASSWORD']                                    = 'Passwort vergessen?';
 $langFile['LOGIN_LINK_BACKTOLOGIN']                                       = 'zurück zum Login';
@@ -210,6 +210,10 @@ $langFile['LOADING_TEXT_LOAD']                                            = 'Sei
 
 // CKEDITOR transport
 $langFile['CKEDITOR_TITLE_LINKS']                                         = 'feindura Seiten';
+$langFile['CKEDITOR_TITLE_SNIPPETS']                                      = 'Codeschnipsel';
+$langFile['CKEDITOR_TEXT_SNIPPETS']                                       = 'Wähle ein Codeschnipsel aus um ihn in der Seite zu platzieren.';
+$langFile['CKEDITOR_BUTTON_EDITSNIPPET']                                  = 'Codeschnipsel bearbeiten';
+$langFile['CKEDITOR_TITLE_PLUGINS']                                       = 'Plugins';
 
 // -> BUTTON TEXTS
 
@@ -432,8 +436,9 @@ $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'Stu
 
 // ---------- user Settings
 $langFile['ADMINSETUP_USERPERMISSIONS_TITLE']                             = 'Benutzerrechte';
-$langFile['ADMINSETUP_USERPERMISSIONS_check1']                            = 'Webseitendateien in den Webseiten-Einstellungen bearbeiten';
-$langFile['ADMINSETUP_USERPERMISSIONS_check2']                            = 'Stylesheetdateien in den Webseiten-Einstellungen bearbeiten';
+$langFile['ADMINSETUP_USERPERMISSIONS_check1']                            = 'Webseitendateien in den <a href="index.php?site=websiteSetup">Webseiten-Einstellungen</a> bearbeiten';
+$langFile['ADMINSETUP_USERPERMISSIONS_check2']                            = 'Stylesheetdateien in den <a href="index.php?site=websiteSetup">Webseiten-Einstellungen</a> bearbeiten';
+$langFile['ADMINSETUP_TEXT_USEREDITSNIPPETS']                             = 'Codeschnipsel in den <a href="index.php?site=websiteSetup">Webseiten-Einstellungen</a> bearbeiten';
 $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                  = 'Dateimanager aktivieren';
 $langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER']           = 'Dateimanager deaktiviert::Du musst erst den Daten-Uploadpfad in den Grund-Einstellungen einstellen, bevor du den Dateimanager aktivieren kannst.';
 $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']              = 'Frontend-Bearbeitung aktivieren';
@@ -449,9 +454,11 @@ $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']                              = 'Fil
 $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'sicheres HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6" target="_blank">Details</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'Dadurch wird der HTML-Code mit den sichersten Einstellungen gefiltert, d.h. zum Beispiel dass keine &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; und &lt;script&gt; Tags erlaubt sind.';
 $langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']                          = 'Stil-Auswahl aktivieren';
-$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Die Stil-Auswahl erlaubt es benutzerdefinierte HTML-Elemente in dem HTML-Editor zu verwenden.[br][br]Wenn diese Option aktiviert ist, können diese HTML-Elemente weiter unten bearbeitet bzw. angelegt werden.';
+$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Die Stil-Auswahl erlaubt es benutzerdefinierte HTML-Elemente in dem HTML-Editor zu verwenden.[br][br][span class=hint]Wenn diese Option aktiviert ist, können diese HTML-Elemente weiter unten bearbeitet bzw. angelegt werden.[/span]';
+$langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']                              = 'Codeschnipsel aktivieren';
+$langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Erlaubt das einfügen von Codeschnipseln in die einzelnen Seiten.[br]Klicke im Editor auf folgendes Icon: [img src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png][br][br][span class=hint]Wenn diese Option aktiviert ist, können die Codeschnipsel weiter unten bearbeitet bzw. angelegt werden.[/span]';
 $langFile['adminSetup_editorSettings_field1']                             = 'ENTER-Taste Modus';
-$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER erzeugt immer ein &quot;&lt;br&gt;&quot;';
+$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER erzeugt ein &quot;%s&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Legt fest welcher HTML-Tag beim drücken der ENTER-Taste gesetzt wird.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip']                    = 'Wenn das Feld leer ist, wird keine Id verwendet.';
 $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Wenn das Feld leer ist, wird keine Klasse verwendet.';
@@ -469,21 +476,20 @@ $langFile['adminSetup_styleFileSettings_h1']                              = '&qu
 $langFile['adminSetup_styleFileSettings_error_save']                      = '<b>Die Datei &quot;EditorStyles.js&quot; konnte nicht gespeichert werden.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings
-$langFile['editFilesSettings_error_save']                                 = '<b>Die Datei konnte nicht gespeichert werden.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS']                          = 'Stylesheetdateien bearbeiten';
+$langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES']                         = 'Webseitendateien bearbeiten';
+$langFile['EDITFILESSETTINGS_TITLE_SNIPPETS']                             = 'Codeschnipsel bearbeiten';
+$langFile['EDITFILESSETTINGS_TEXT_NODIR']                                 = 'ist kein gültiges Verzeichnis!';
+$langFile['EDITFILESSETTINGS_TEXT_CHOOSEFILE']                            = 'Datei auswählen';
+$langFile['EDITFILESSETTINGS_TEXT_CREATEFILE']                            = 'Neue Datei anlegen';
+$langFile['EDITFILESSETTINGS_TIP_CREATEFILE']                             = 'Wenn hier ein Dateiname eingetragen wird, dann wird eine Neue Datei erstellt, und [b]die derzeit ausgewählte Datei wird nicht gespeichert![/b]';
+$langFile['EDITFILESSETTINGS_TEXT_NOFILE']                                = 'Es sind noch keine Dateien vorhanden.';
 
-$langFile['editFilesSettings_h1_style']                                   = 'Stylesheetdateien bearbeiten';
-$langFile['editFilesSettings_h1_websitefiles']                            = 'Webseitendateien bearbeiten';
-$langFile['editFilesSettings_noDir']                                      = 'ist kein gültiges Verzeichnis!';
-$langFile['editFilesSettings_chooseFile']                                 = 'Datei auswählen';
-$langFile['editFilesSettings_createFile']                                 = 'Neue Datei anlegen';
-$langFile['editFilesSettings_createFile_inputTip']                        = 'Wenn hier ein Dateiname eingetragen wird, dann wird eine Neue Datei erstellt,[br]und [b]die derzeit ausgewählte Datei wird nicht gespeichert![/b]';
-$langFile['editFilesSettings_noFile']                                     = 'Es sind noch keine Dateien vorhanden';
+$langFile['EDITFILESSETTINGS_TEXT_DELETEFILE']                            = 'Datei löschen';
+$langFile['EDITFILESSETTINGS_TEXT_DELETEFILE_QUESTION']                   = 'Datei %s wirklich löschen?';
 
-$langFile['editFilesSettings_deleteFile']                                 = 'Datei löschen';
-$langFile['editFilesSettings_deleteFile_question_part1']                  = 'Datei'; // Kategorie "test" löschen?
-$langFile['editFilesSettings_deleteFile_question_part2']                  = 'wirklich löschen?';
-
-$langFile['editFilesSettings_deleteFile_error_delete']                    = '<b>Die Datei konnte nicht gelöscht werden.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['EDITFILESSETTINGS_ERROR_SAVEFILE']                             = '<b>Die Datei konnte nicht gespeichert werden.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['EDITFILESSETTINGS_ERROR_DELETEFILE']                           = '<b>Die Datei konnte nicht gelöscht werden.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 /*
 * pageSetup.php
@@ -743,7 +749,7 @@ $langFile['EDITOR_pluginSettings_h1']                                     = 'Plu
 * unsavedPage.php
 */
 
-$langFile['unsavedPage_question_h1']                                      = '<span class="brown">Die Seite wurde verändert.</span><br>Willst du die Seite jetzt speichern?';
+$langFile['UNSAVEDPAGE_QUESTION_CONTINUE']                                = 'Die Seite wurde verändert!<br><span class="brown">Willst du fortfahren?</span>';
 
 /*
 * deletePage.php

@@ -812,9 +812,10 @@ class Feindura extends FeinduraBase {
   * @see FeinduraBase::__construct()
   * 
   * @access public
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 fixed language detection
   *    - 1.0 initial release
   * 
   */
@@ -835,36 +836,35 @@ class Feindura extends FeinduraBase {
     // ***************************
     StatisticFunctions::saveWebsiteStats($this->page);
 
-    // ->> SETS the LANGUAGE PROPERTY from the $_GET['language']
-    // -> if the $language PARAMETER was given, it HAS PRIORITY
-    if(is_string($language) && strlen($language) == 2)
+    // ->> SET LANGUAGE
+
+    // -> first $language PARAMETER
+    if(is_string($language) && strlen($language) == 2) {
       $_GET['language'] = $language;
-
-    // -> use the $_GET['language'] if available
-    if(is_string($_GET['language']) && strlen($_GET['language']) == 2) {
+    // -> second $_GET['language'] var if available
+    } elseif(is_string($_GET['language']) && strlen($_GET['language']) == 2) {
       $this->language = XssFilter::alphabetical($_GET['language']);
-      // make sure the language exist
-      if(is_array($this->adminConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages']))
-        $this->language = $this->language;
-      else
-        $this->language = $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
-      $_SESSION['feinduraSession']['websiteLanguage'] = $this->language;
+    // -> third SESSION language
+    } elseif(!empty($_SESSION['feinduraSession']['websiteLanguage']) && strlen($_SESSION['feinduraSession']['websiteLanguage']) == 2) {
+      $this->language = $_SESSION['feinduraSession']['websiteLanguage'];
+    // -> last get BROWSER LANGUAGE
+    } else
+      $this->language = GeneralFunctions::getBrowserLanguages($this->adminConfig['multiLanguageWebsite']['mainLanguage']);
 
-    // -> if NO LANGUAGE WAS GIVEN, it will try to get it automatically
-    } else {
-      // if language is NOT stored IN the SESSION, try to GET the BROWSERLANGUAGE
-      if(empty($_SESSION['feinduraSession']['websiteLanguage']) ||
-         (!empty($_SESSION['feinduraSession']['websiteLanguage']) && strlen($_SESSION['feinduraSession']['websiteLanguage']) != 2)) {
-        $this->language = GeneralFunctions::getBrowserLanguages($this->adminConfig['multiLanguageWebsite']['mainLanguage']);
-        // make sure the language exist
-        if(is_array($this->adminConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages']))
-          $this->language = $this->language;
-        else
-          $this->language = $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
-        $_SESSION['feinduraSession']['websiteLanguage'] = $this->language;
-      } else
-        $this->language = $_SESSION['feinduraSession']['websiteLanguage'];
-    }
+    // ->> CHECK LANGUAGE
+
+    // MULTILANGUAGE WEBSITE -> make sure the language exist
+    if($this->adminConfig['multiLanguageWebsite']['active'] && is_array($this->adminConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages']))
+      $this->language = $this->language;
+    // MULTILANGUAGE WEBSITE -> if not use the MAIN LANGUAGE
+    elseif($this->adminConfig['multiLanguageWebsite']['active'])
+      $this->language = $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
+    // SINGLE LANGUAGE -> LOGGED IN use the backend language
+    elseif($this->loggedIn && !empty($_SESSION['feinduraSession']['backendLanguage']))
+      $this->language = $_SESSION['feinduraSession']['backendLanguage'];
+
+    $_SESSION['feinduraSession']['websiteLanguage'] = $this->language;
+
     $this->loadFrontendLanguageFile($this->language);
 
     // -> SET the $metaData PROPERTY
@@ -1656,6 +1656,27 @@ class Feindura extends FeinduraBase {
           $link['href']     = $this->createHref($page);
           $link['id']       = $page['id'];
           $link['category'] = $page['category'];
+
+          // -> add PAGE DATE
+          $pageDate = false;
+          if(GeneralFunctions::checkPageDate($page)) {
+            $titleDateBefore = '';
+            $titleDateAfter = '';
+            // format pageDate
+            $pageDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($page['pageDate']['date'],$this->languageFile));
+            // add <time> tag
+            if(!empty($page['pageDate']['date']))
+              $pageDate = '<time datetime="'.GeneralFunctions::getDateTimeValue($page['pageDate']['date']).'">'.$pageDate.'</time>';
+            $pageDateBeforeAfter = $this->getLocalized($page,'pageDate');
+            // adds spaces on before and after
+            if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
+            if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
+            $pageDate = $titleDateBefore.$pageDate.$titleDateAfter;
+            
+            // add page date
+            $link['pageDate']          = $pageDate;
+            $link['pageDateTimestamp'] = $page['pageDate']['date'];
+          }
 
           // create a title
           if($linkText === true) {
@@ -2829,6 +2850,7 @@ class Feindura extends FeinduraBase {
   * 
   * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
   * @param int|string|array|bool  $id           (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
+  * @param string|false           $divStyles    (optional) a string with styles, which will be add to the warapping div of the plugin. In the format: "witdh: 200px; height: 100px;"
   * @param bool									  $returnPlugin (optional) whether the plugin is returned, or only a boolean to check if the plugin is available for that page (used by {@link Feindura::hasPlugins()})
   * 
   * @uses Feindura::$page
@@ -2852,7 +2874,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
- public function showPlugins($plugins = true, $id = false, $returnPlugin = true) {    
+ public function showPlugins($plugins = true, $id = false, $divStyles = false, $returnPlugin = true) {    
     
     // var
     if(is_string($plugins) && $plugins != 'true' && $plugins != 'false')
@@ -2880,28 +2902,41 @@ class Feindura extends FeinduraBase {
             else
               $activatedPlugins = unserialize($this->categoryConfig[$pageContent['category']]['plugins']);
           
-            foreach($pageContent['plugins'] as $pluginName => $plugin) {
+            foreach($pageContent['plugins'] as $pluginName => $pluginContent) {
 
               // go through all plugins and load the required ones
-              if((is_bool($plugins) || in_array($pluginName,$plugins)) && // is in the requested plugins array
-                 is_array($activatedPlugins) && in_array($pluginName,$activatedPlugins) && // activated in the adminConfig or categoryConfig
-                 $plugin['active'] // activated in the page                 
-                 ) {
-                
+              if($pluginContent['active'] && // check if activated in the page
+                 (is_bool($plugins) || in_array($pluginName,$plugins)) && // is in the requested plugins array
+                 is_array($activatedPlugins) && in_array($pluginName,$activatedPlugins)) { // activated in the adminConfig or categoryConfig
+
                 if($returnPlugin) {
                 
-                  // create plugin config
-                  $pluginConfig = $plugin;
-                  unset($pluginConfig['active']); // remove the active value from the plugin config
-  
+                  // -> PROVIDE VARS for INSIDE the PLUGIN
+                  $pluginConfig = $pluginContent;
+                  unset($pluginConfig['active'],$pluginContent,$plugin); // remove the active value from the plugin config
+                  $feindura = $this;
+                  echo $plugin;
                   // -> include the plugin
-            		  if($singlePlugin)
-            		    return include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/include.php');
-            		  else  
-                    $pluginsReturn[$pluginName] = include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/include.php');
+                  ob_start();
+            		    include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/plugin.php');
+                    $pluginReturn = ob_get_contents();
+                  ob_end_clean();
+
+                  // FALLBACK to support DEPRECATED plugins which use: return $plugin
+                  if(isset($plugin))
+                    $pluginReturn .= $plugin;
+
+                  // -> add div around the plugin
+                  $divStyles = (is_string($divStyles)) ? ' style="'.$divStyles.'"' : ''; 
+                  $pluginReturn = '<div class="feinduraPlugins feinduraPlugin_'.$pluginName.'" id="feinduraPlugin_'.$pluginName.'_'.$pageContent['id'].'"'.$divStyles.'>'.$pluginReturn.'</div>';
+
+                  if($singlePlugin) {
+                    return $pluginReturn;
+            		  } else
+                    $pluginsReturn[$pluginName] = $pluginReturn;
                 
                 } else
-                $pluginsReturn = true;
+                  $pluginsReturn = true;
               }
             }
           }         

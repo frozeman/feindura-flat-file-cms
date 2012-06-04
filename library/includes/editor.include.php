@@ -47,24 +47,68 @@ $editorStyleClass = GeneralFunctions::getStylesByPriority($pageContent['styleCla
 <script type="text/javascript">
 /* <![CDATA[ */  
 
-window.addEvent('domready',function(){
+  // -> TRANSPORT Snippets to CKEditor feinduraSnippets plugin
+  var feindura_plugins = [
+    <?php
+      // check if plugins are activated
+      if(is_array($pageContent['plugins']) && is_array($activatedPlugins) && count($activatedPlugins) >= 1) {
+        $hasPlugins = false;
+        foreach ($pageContent['plugins'] as $pluginName => $pluginValues) {
+          if(in_array($pluginName,$activatedPlugins)) {
+            $pluginFolder = $adminConfig['basePath'].'plugins/'.$pluginName;
+            $pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['feinduraSession']['backendLanguage'].'.php'))
+              ? $_SESSION['feinduraSession']['backendLanguage']
+              : 'en';
+            $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/languages/'.$pluginCountryCode.'.php');
+            $hasPlugins = true;
+            echo '["'.str_replace('"','',$pluginLangFile['feinduraPlugin_title']).'","'.$pluginName.'"],';
+          }
+        }
+      }
+      unset($pluginLangFile);
+    ?>
+  ];
 
-  // set the CONFIGs of the editor with PHP vars (more configs are set in the content.js)
+window.addEvent('domready',function() {
+
+  // -> set the CONFIGs of the editor with PHP vars (more configs are set in the content.js)
+
+// BASE
   CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['url'].GeneralFunctions::getDirname($adminConfig['websitePath']); ?>'; //$adminConfig['basePath']."library/thirdparty/ckeditor/"
   CKEDITOR.config.language                  = '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>';
-<?php if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false && !empty($editorStyleFiles)) { ?>
-  CKEDITOR.config.contentsCss               = ['<?php $echoStyleFile = ''; foreach($editorStyleFiles as $editorStyleFile) {$uniqueStyleId = (strpos($editorStyleFile,"?") === false) ? "?=".md5(uniqid(rand(),1)) : ''; $echoStyleFile .= $editorStyleFile.$uniqueStyleId."','";} echo substr($echoStyleFile,0,-3); ?>'];
+  CKEDITOR.config.extraPlugins              = 'Media,codemirror'; //stylesheetparser
+
+<?php 
+// SNIPPETS
+if($adminConfig['editor']['snippets'] || $hasPlugins) { ?>
+  CKEDITOR.config.extraPlugins              += ',feinduraSnippets';
+  CKEDITOR.config.menu_groups               += ',feinduraSnippetsGroup';
+<?php }
+
+// CSS
+if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false && !empty($editorStyleFiles)) { ?>
+  CKEDITOR.config.contentsCss               = ['<?php $echoStyleFile = ''; foreach($editorStyleFiles as $editorStyleFile) {$uniqueStyleId = (strpos($editorStyleFile,"?") === false) ? "?=".md5(uniqid(rand(),1)) : ''; $echoStyleFile .= $editorStyleFile.$uniqueStyleId."','";} echo substr($echoStyleFile,0,-3); ?>','<?php echo $adminConfig['basePath']; ?>library/thirdparty/ckeditor/plugins/feinduraSnippets/styles.css'];
 <?php } ?>
   CKEDITOR.config.bodyId                    = '<?php echo $editorStyleId; ?>';
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
-  CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
-<?php if(!$adminConfig['editor']['editorStyles']) { ?>
+
+<?php 
+// ENTER MODE
+if($adminConfig['editor']['enterMode'] == 'br') { ?>
+  CKEDITOR.config.enterMode                 = 'CKEDITOR.ENTER_BR';
+  CKEDITOR.config.shiftEnterMode            = 'CKEDITOR.ENTER_P';
+<?php } else { ?>
+  CKEDITOR.config.enterMode                 = 'CKEDITOR.ENTER_P';
+  CKEDITOR.config.shiftEnterMode            = 'CKEDITOR.ENTER_BR';
+
+// CUSTOM STYLES
+<? } if(!$adminConfig['editor']['editorStyles']) { ?>
   CKEDITOR.config.removePlugins = 'stylescombo';
-<?php }
-if($adminConfig['editor']['editorStyles'] && file_exists(dirname(__FILE__)."/../../config/EditorStyles.js")) { ?>
+<?php } if($adminConfig['editor']['editorStyles'] && file_exists(dirname(__FILE__)."/../../config/EditorStyles.js")) { ?>
   CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/EditorStyles.js?=<?php echo md5(uniqid(rand(),1)); ?>';
-<?php
-}
+<?php }
+
+// FILEMANAGER
 if($adminConfig['user']['fileManager']) {
 ?>
   CKEDITOR.config.filebrowserBrowseUrl      = '<?php echo $adminConfig['basePath']."library/views/windowBox/fileManager.php"; ?>';

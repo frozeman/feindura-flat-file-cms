@@ -553,7 +553,7 @@ class imageGallery {
     }
     
     // RETURN
-    return '<div class="feinduraPlugin_imageGallery">'.$gallery.'</div>';
+    return $gallery;
   }  
 }
 ?>

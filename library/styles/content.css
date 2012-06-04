@@ -1585,6 +1585,31 @@ input.cke_dialog_ui_input_text {
   padding: 2px !important;
   margin: 0 !important;
 }
+label.cke_dialog_ui_labeled_label {
+  display: inline-block;
+  margin-bottom: 8px !important;
+}
+
+/* CKEditor browser button fix */
+.cke_dialog_ui_vbox_child a.cke_dialog_ui_button {
+  margin-top: 20px !important;
+}
+
+/* CKEDitor DIALOG */
+.cke_dialog_background_cover {
+  z-index: 8 !important;
+}
+.cke_dialog {
+  z-index: 9 !important;
+  -moz-box-shadow: 0px 1px 15px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0px 1px 15px rgba(0,0,0,0.3);
+  box-shadow: 0px 1px 15px rgba(0,0,0,0.3);
+}
+.cke_dialog_tab,.cke_dialog {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
 
 /* CKEditor HACKS for CodeMirror */
 .cke_skin_kama textarea.cke_source { /* Hack to be able to fullscreen the CKEditor when in CodeMirror */

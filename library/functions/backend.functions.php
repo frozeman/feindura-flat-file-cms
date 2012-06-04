@@ -903,6 +903,7 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['user']['fileManager']       = ".XssFilter::bool($adminConfig['user']['fileManager'],true).";\n";
     $fileContent .= "\$adminConfig['user']['editWebsiteFiles']  = ".XssFilter::bool($adminConfig['user']['editWebsiteFiles'],true).";\n";
     $fileContent .= "\$adminConfig['user']['editStyleSheets']   = ".XssFilter::bool($adminConfig['user']['editStyleSheets'],true).";\n";  
+    $fileContent .= "\$adminConfig['user']['editSnippets']      = ".XssFilter::bool($adminConfig['user']['editSnippets'],true).";\n";  
     $fileContent .= "\$adminConfig['user']['info']              = '".$adminConfig['user']['info']."';\n\n"; // htmLawed in adminSetup.controller.php
     
     $fileContent .= "\$adminConfig['setStartPage']                         = ".XssFilter::bool($adminConfig['setStartPage'],true).";\n";
@@ -928,6 +929,7 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['editor']['htmlLawed']    = ".XssFilter::bool($adminConfig['editor']['htmlLawed'],true).";\n";
     $fileContent .= "\$adminConfig['editor']['safeHtml']     = ".XssFilter::bool($adminConfig['editor']['safeHtml'],true).";\n";
     $fileContent .= "\$adminConfig['editor']['editorStyles'] = ".XssFilter::bool($adminConfig['editor']['editorStyles'],true).";\n";
+    $fileContent .= "\$adminConfig['editor']['snippets']     = ".XssFilter::bool($adminConfig['editor']['snippets'],true).";\n";
     $fileContent .= "\$adminConfig['editor']['enterMode']    = '".XssFilter::alphabetical($adminConfig['editor']['enterMode'])."';\n";
     $fileContent .= "\$adminConfig['editor']['styleFile']    = '".$adminConfig['editor']['styleFile']."';\n"; // XssFilter is in prepareStyleFilePaths() function
     $fileContent .= "\$adminConfig['editor']['styleId']      = '".XssFilter::string($adminConfig['editor']['styleId'])."';\n";
@@ -1557,10 +1559,18 @@ function saveFeeds($category) {
         $description = GeneralFunctions::getLocalized($feedsPage,'description',$langCode);
         
         $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.$GLOBALS['adminConfig']['url'].$GLOBALS['adminConfig']['uploadPath'].$GLOBALS['adminConfig']['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
+        
         $content = GeneralFunctions::replaceLinks(GeneralFunctions::getLocalized($feedsPage,'content',$langCode),false,$langCode,true);
-        $content = strip_tags($content,'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><em><s><u><strong><small><span>');
-        $content = preg_replace('#<h[0-6]>#','<strong>',$content);
-        $content = preg_replace('#</h[0-6]>#','</strong><br>',$content);
+        $content = GeneralFunctions::replaceCodeSnippets($content,$feedsPage['id']); // Has to create a new Feindura class instance inside
+        $content = preg_replace('#<script\b[^>]*>[\s\S]*?<\/script>#i', '', $content); // remove script tags
+        $content = GeneralFunctions::htmLawed($content,array(
+          'comment'=> 1,
+          'cdata'=> 1,
+          'safe'=> 1
+        ));
+        $content = strip_tags($content,'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><em><s><u><strong><small><span><img><table><tr><td><thead><tbody><object>');
+        // $content = preg_replace('#<h[0-6]>#','<strong>',$content);
+        // $content = preg_replace('#</h[0-6]>#','</strong><br>',$content);
         
         // ATOM
         $atomItem = $atom->createNewItem();   
@@ -2091,19 +2101,45 @@ function formatHighNumber($number,$decimalsNumber = 0) {
  * 
  * @return void displayes the file edit textfield
  * 
- * @version 1.01
+ * @version 2.0
  * <br>
  * <b>ChangeLog</b><br>
- *    - 1.01 put fileType to the classe instead of the id of the textarea
+ *    - 2.0 moved delete files in here; deletes now also empty folders of files which were deleted
+ *    - 1.0.1 put fileType to the classe instead of the id of the textarea
  *    - 1.0 initial release
  * 
  */
 function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = false, $excluded = false) {
   
   // var
-  $fileTypeText = null;
+  $fileTypeText = '';
+  $fileType = str_replace('.', '', $fileType); // remove . from the given extension
   $isFiles = false;
   $_GET['file'] = XssFilter::path($_GET['file']);
+  $filesPath = GeneralFunctions::getRealPath($filesPath);
+  $filesPath = str_replace(DOCUMENTROOT,'',$filesPath);
+
+  // GET current FILE
+  if($_GET['status'] == $status)
+    $editFile = $_GET['file'];
+  else
+    $editFile = false;
+
+  // ->> DELETE FILE if delete status is given
+  if($_GET['status'] == 'deleteEditFiles' && !empty($_GET['file'])) {
+    if(@unlink(DOCUMENTROOT.$filesPath.$_GET['file'])) {
+
+      // check if file was in a sub dir
+      $editFileDir = dirname($_GET['file']);
+      if(!empty($editFileDir) && $editFileDir !== '/' && $editFileDir !== '\\' && GeneralFunctions::readFolder(DOCUMENTROOT.$filesPath.$editFileDir) === false)
+        // if empty delete it
+        GeneralFunctions::deleteFolder(DOCUMENTROOT.$filesPath.$editFileDir);
+
+      saveActivityLog(13,$filesPath.$_GET['file']); // <- SAVE the task in a LOG FILE
+    } else
+      $errorWindow .= $langFile['EDITFILESSETTINGS_ERROR_DELETEFILE'].' '.$filesPath.$_GET['file'];
+  }
+
   
   // shows the block below if it is the ones which is saved before
   $hidden = ($_GET['status'] == $status || $GLOBALS['savedForm'] === $status) ? '' : ' hidden';
@@ -2124,25 +2160,40 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
   //echo $filesPath.'<br>';      
   // gets the files out of the directory --------------
   // adds the DOCUMENTROOT  
-  $filesPath = str_replace(DOCUMENTROOT,'',$filesPath);  
   $dir = DOCUMENTROOT.$filesPath;
   if(!empty($filesPath) && is_dir($dir)) {
     $files = GeneralFunctions::readFolderRecursive($filesPath);
     $files = $files['files'];
 
+    // FILTER by EXTENSION
+    if($files && $fileType) {
+      $newFiles = array();
+
+      foreach ($files as $file) {
+        $ext = pathinfo($file, PATHINFO_EXTENSION);
+        if($ext == $fileType)
+          $newFiles[] = $file;
+      }
+
+      // set new files array to the old one
+      $files = $newFiles;
+    }
+
   	// ->> EXLUDES files or folders
-  	if($excluded !== false) {
+  	if($files && $excluded !== false) {
   	  
   	  // -> is string convert to array
   	  if(is_string($excluded))
   	    $excluded = explode(',',$excluded);
   	  
-  	  if(is_array($excluded)) {  	    
+  	  if(is_array($excluded)) { 
+        $newFiles = array();
+
   	    foreach($files as $file) {  	      
   	      $foundToExclud = false;  	      
   	      // looks if any of a excluded file is found
   	      foreach($excluded as $excl) {
-  	        if(strstr($file,$excl))
+  	        if(strpos($file,$excl) !== false)
   		        $foundToExclud = true;
   	      }
   
@@ -2164,64 +2215,68 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
   	}
   // dont show files but show directory error       
   } else {
-    echo '<code>"'.$filesPath.'"</code> <b>'.$GLOBALS['langFile']['editFilesSettings_noDir'].'</b>';
+    echo '<code>"'.$filesPath.'"</code> <b>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_NODIR'].'</b>';
     $isDir = false;
   }
-  
-  
-  // GETS ACTUAL FILE ----------------------------------
-  if($_GET['status'] == $status)
-    $editFile = $_GET['file'];
-  
-  // wenn noch nicht per Dateiauswahl $editfile kreiert wurde
+
+  // if no files was given, set the first one ine the list
   if(empty($editFile) && isset($files)) {
-    $editFile = $files[0];
+    $editFile = str_replace($filesPath,'',$files[0]);
   }
   
+  // ->> CHECK DIR
   if($isDir) {
 
     // FILE SELECTION ------------------------------------
     if($isFiles && isset($files)) {
       echo '<div class="editFiles left">
-            <h2>'.$GLOBALS['langFile']['editFilesSettings_chooseFile'].'</h2>
+            <h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CHOOSEFILE'].'</h2>
             <input value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'">'."\n";
       echo '<select onchange="changeEditFile(\''.$_GET['site'].'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
  
             // listet die Dateien aus dem Ordner als Mehrfachauswahl auf
             foreach($files as $cFile) {
               $onlyFile = str_replace($filesPath,'',$cFile);
-              if($editFile == $cFile)
-                echo '<option value="'.$cFile.'" selected="selected">'.$onlyFile.'</option>'."\n";
+              if($editFile == $onlyFile)
+                echo '<option value="'.$onlyFile.'" selected="selected">'.$onlyFile.'</option>'."\n";
               else
-                echo '<option value="'.$cFile.'">'.$onlyFile.'</option>'."\n";    
+                echo '<option value="'.$onlyFile.'">'.$onlyFile.'</option>'."\n";    
             }
       echo '</select></div>'."\n\n";
-    } // -------------------------------------------------
+
+    // NO FILES
+    } else {
+      echo '<div class="editFiles left">';
+      echo '<h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_NOFILE'].'</h2>';
+      echo '</div>';
+    }
     
     // create a NEW FILE ---------------------------------
     if($fileType)
       $fileTypeText = '<b>.'.$fileType.'</b>';
     echo '<div class="editFiles right">
-          <h2>'.$GLOBALS['langFile']['editFilesSettings_createFile'].'</h2>
-          <input name="newFile" style="width:200px;" class="thumbnailToolTip" title="'.$GLOBALS['langFile']['editFilesSettings_createFile'].'::'.$GLOBALS['langFile']['editFilesSettings_createFile_inputTip'].'"> '.$fileTypeText.'
+          <h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'</h2>
+          <input name="newFile" style="width:200px;" class="thumbnailToolTip" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'::'.$GLOBALS['langFile']['EDITFILESSETTINGS_TIP_CREATEFILE'].'"> '.$fileTypeText.'
           </div>';
   }
-  
+
   // OPEN THE FILE -------------------------------------
-  if(@is_file(DOCUMENTROOT.$editFile)) {
-    $editFileOpen = fopen(DOCUMENTROOT.$editFile,"r");  
-    $file = @fread($editFileOpen,filesize(DOCUMENTROOT.$editFile));
+  if(@is_file(DOCUMENTROOT.$filesPath.$editFile)) {
+    $editFileOpen = fopen(DOCUMENTROOT.$filesPath.$editFile,"r");  
+    $file = @fread($editFileOpen,filesize(DOCUMENTROOT.$filesPath.$editFile));
     fclose($editFileOpen);
     $file = str_replace(array('<','>'),array('&lt;','&gt;'),$file);
     
     echo '<input type="hidden" name="file" value="'.$editFile.'">'."\n";
-    echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles '.substr($editFile, strrpos($editFile, '.') + 1).'" id="editFiles'.uniqid().'">'.$file.'</textarea>';
+    echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles '.substr($filesPath.$editFile, strrpos($filesPath.$editFile, '.') + 1).'" id="editFiles'.uniqid().'">'.$file.'</textarea>';
   }  
   
   
   if($isDir) {
     if($isFiles)
-      echo '<a href="?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/views/windowBox/deleteEditFiles.php?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'::" style="float:left;"></a>';
+      echo '<a href="?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/views/windowBox/deleteEditFiles.php?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_DELETEFILE'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_DELETEFILE'].'::" style="float:left;"></a>';
+    else
+      echo '<br><br><br><br>';
     echo '<br><br><input type="submit" value="" name="saveEditedFiles" class="button submit right" title="'.$GLOBALS['langFile']['FORM_BUTTON_SUBMIT'].'">';
   }
   echo '</div>
@@ -2254,13 +2309,10 @@ function saveEditedFiles(&$savedForm) {
 
   // var
   $_POST['filesPath'] = DOCUMENTROOT.str_replace(DOCUMENTROOT,'',$_POST['filesPath']);
-  // add DOCUMENTROOT
   $_POST['file'] = XssFilter::path($_POST['file']);
-  $_POST['file'] = str_replace(DOCUMENTROOT,'',$_POST['file']);  
-  $_POST['file'] = DOCUMENTROOT.$_POST['file'];
   
   // ->> SAVE FILE
-  if(@is_file($_POST['file']) && empty($_POST['newFile'])) {
+  if(@is_file($_POST['filesPath'].$_POST['file']) && empty($_POST['newFile'])) {
     
     // encode when ISO-8859-1
     if(mb_detect_encoding($_POST['fileContent']) == 'ISO-8859-1') $_POST['fileContent'] = utf8_encode($_POST['fileContent']);
@@ -2268,46 +2320,50 @@ function saveEditedFiles(&$savedForm) {
     $_POST['fileContent'] = preg_replace("#\\n#","",$_POST['fileContent']); // prevent double line breaks
     
     // -> SAVE
-    if(file_put_contents($_POST['file'],$_POST['fileContent'],LOCK_EX) !== false) {
+    if(file_put_contents($_POST['filesPath'].$_POST['file'],$_POST['fileContent'],LOCK_EX) !== false) {
       
-      @chmod($_POST['file'], $GLOBALS['adminConfig']['permissions']);
-      $_GET['file'] = str_replace(DOCUMENTROOT,'',$_POST['file']);
+      @chmod($_POST['filesPath'].$_POST['file'], $GLOBALS['adminConfig']['permissions']);
+      $_GET['file'] = $_POST['file'];
       $_GET['status'] = $_POST['status'];
       $savedForm = $_POST['status'];
     
+      saveActivityLog(12,$_GET['file']); // <- SAVE the task in a LOG FILE
       return true;      
     } else
       return false;
     
   // ->> NEW FILE
   } elseif(!empty($_POST['newFile'])) { // creates a new file if a filename was input in the field
-        
-    //$_POST['newFile'] = str_replace( array(" ","%","+","&","#","!","?","$","§",'"',"'","(",")"), '_', $_POST['newFile']);
-    $_POST['newFile'] = XssFilter::path($_POST['newFile'],false,'noname.txt');
+    
+    // get extension, to add when filename is wrong to save and unnamed files
+    $ext = (empty($_POST['fileType'])) ? '.'.pathinfo($_POST['newFile'], PATHINFO_EXTENSION) : $_POST['fileType'];
+
+    $_POST['newFile'] = XssFilter::path($_POST['newFile'],false,'unnamed'.$ext);
     
     // check if a path is included
     if(strpos($_POST['newFile'],'/') !== false) {
-      $directory = substr($_POST['newFile'],0,strrpos($_POST['newFile'],'/'));
-      $directory = preg_replace("/\/+/", '/', $_POST['filesPath'].'/'.$directory);
+      $directory = dirname($_POST['newFile']);
+      $directory = preg_replace("/\/+/", '/', $_POST['filesPath'].'/'.dirname($_POST['newFile']));
       if(!is_dir($directory))
-        mkdir($directory,$GLOBALS['admimConfig']['permissions'],true);
-      $_POST['filesPath'] = $directory;
-      $_POST['newFile'] = substr($_POST['newFile'],strrpos($_POST['newFile'],'/')+1);
+        mkdir($directory,$GLOBALS['adminConfig']['permissions'],true);
+      $_POST['newFile'] = dirname($_POST['newFile']).'/'.GeneralFunctions::cleanSpecialChars(basename($_POST['newFile']),'-');
+    } else {
+      $_POST['newFile'] = GeneralFunctions::cleanSpecialChars($_POST['newFile'],'-');
     }
     
-    $_POST['newFile'] = GeneralFunctions::cleanSpecialChars($_POST['newFile'],'_');
     $_POST['newFile'] = str_replace($_POST['fileType'],'',$_POST['newFile']);
-    
     $fullFilePath = $_POST['filesPath'].'/'.$_POST['newFile'].$_POST['fileType'];
     $fullFilePath = preg_replace("/\/+/", '/', $fullFilePath);
     
     if($file = fopen($fullFilePath,"wb")) {
-    
-      @chmod($fullFilePath, $GLOBALS['adminConfig']['permissions']);  
-      $_GET['file'] = str_replace(DOCUMENTROOT,'',$fullFilePath);       
+
+      @chmod($fullFilePath, $GLOBALS['adminConfig']['permissions']);
+      $_GET['file'] = '/'.$_POST['newFile'].$_POST['fileType'];       
       $_GET['status'] = $_POST['status'];
       $savedForm = $_POST['status'];
-      
+     
+      fclose($file);
+      saveActivityLog(12,$_GET['file']); // <- SAVE the task in a LOG FILE
       return true;
     } else
       return false;

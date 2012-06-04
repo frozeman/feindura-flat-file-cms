@@ -15,25 +15,24 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * The plugin include file
+ * The plugin file
  * 
  * See the README.md for more.
  * 
  * The following variables are available in this script when it gets included by the {@link Feindura::showPlugins()} method:
- *     - $this          -> the current {@link Feindura} class instance with all its methods (use "$this->..")
+ *     - $feindura      -> the current {@link Feindura} class instance with all its methods (use "$feindura->..")
  *     - $pluginConfig  -> contains the changed settings from the "config.php" from this plugin
  *     - $pluginName    -> the folder name of this plugin
  *     - $pageContent   -> the pageContent array of the page which has this plugin activated 
  * 
- * This file MUST RETURN the plugin ready to display in a HTML-page, like:
+ * Example plugin:
  * <code>
  * <?php
  * // Add the stylesheet files of this plugin to the current page
- * echo $this->addPluginStylesheets(dirname(__FILE__));
+ * echo $feindura->addPluginStylesheets(dirname(__FILE__));
  * 
- * $plugin = '<p>Plugin HTML</p>';
+ * echo '<p>Plugin HTML</p>';
  * 
- * return $plugin;
  * ?>
  * </code>
  * 
@@ -47,20 +46,19 @@
  */
 
 // Add the stylesheet files of this plugin to the current page
-echo $this->addPluginStylesheets(dirname(__FILE__));
+echo $feindura->addPluginStylesheets(dirname(__FILE__));
 
 // vars
 $filePath = str_replace('\\','/',dirname(__FILE__)); // replace this on windows servers
 $filePath = str_replace(DOCUMENTROOT,'',$filePath);
-$plugin = '';
 
 // ->> add MooTools and MilkBox
 echo '<script type="text/javascript">
   /* <![CDATA[ */
   // add mootools if user is not logged into backend
   if(!window.MooTools) {
-    document.write(unescape(\'<script src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"><\/script>\'));
-    document.write(unescape(\'<script src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"><\/script>\'));
+    document.write(unescape(\'<script src="'.$feindura->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"><\/script>\'));
+    document.write(unescape(\'<script src="'.$feindura->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"><\/script>\'));
   }
   // add milkbox
   (window.MilkBox || document.write(unescape(\'<script src="'.$filePath.'/milkbox/milkbox.js"><\/script>\'))); 
@@ -74,17 +72,15 @@ require_once('imageGalleryFromFolder.php');
 $gallery = new imageGalleryFromFolder($pluginConfig['galleryPath'],DOCUMENTROOT);
 
 // set configs
-$gallery->xHtml = $this->xHtml; // set the xHtml property rom the feindura class
+$gallery->xHtml = $feindura->xHtml; // set the xHtml property rom the feindura class
 $gallery->imageWidth = $pluginConfig['imageWidthNumber'];
 $gallery->imageHeight = $pluginConfig['imageHeightNumber'];
 $gallery->thumbnailWidth = $pluginConfig['thumbnailWidthNumber'];
 $gallery->thumbnailHeight = $pluginConfig['thumbnailHeightNumber'];
 $gallery->filenameCaptions = $pluginConfig['filenameCaptions'];
 
-$plugin .= $gallery->showGallery($pluginConfig['tagSelection'],$pluginConfig['breakAfterNumber'],$pageContent);
+// SHOW IMAGE GALLERY
+echo $gallery->showGallery($pluginConfig['tagSelection'],$pluginConfig['breakAfterNumber'],$pageContent);
 
-// RETURN the plugin
-// *****************
-return $plugin;
 
 ?>

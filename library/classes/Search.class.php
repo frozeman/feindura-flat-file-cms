@@ -268,11 +268,11 @@ class Search {
     	$priority = 0;
       
       // generate search pattern
-      $searchwords = str_replace($changeChars,'|',$searchwords);
-      $searchwords = trim($searchwords,'|');
-      $searchwords = XssFilter::text($searchwords);
-      $searchwords = preg_quote($searchwords); // escape regex pattern
-      $pattern = ($searchwords != '') ? '#'.$searchwords.'#i' : '#a^#';
+      $pattern = str_replace($changeChars,'|',$searchwords);
+      $pattern = trim($searchwords,'|');
+      $pattern = XssFilter::text($searchwords);
+      $pattern = preg_quote($searchwords); // escape regex pattern
+      $pattern = ($pattern != '') ? '#'.$pattern.'#i' : '#a^#';
 
 
 

@@ -1,0 +1,14 @@
+img.feinduraSnippet, img.feinduraPlugin {
+  width: 100%;
+  height: 200px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  border: 1px dotted grey;
+}
+
+img.feinduraSnippet {
+  background-image: url('feinduraSnippetPlaceholder.png');
+}
+img.feinduraPlugin {
+  background-image: url('feinduraPluginPlaceholder.png');
+}

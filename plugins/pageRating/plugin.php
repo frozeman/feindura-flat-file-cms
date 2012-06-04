@@ -15,25 +15,24 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * The plugin include file
+ * The plugin file
  * 
  * See the README.md for more.
  * 
  * The following variables are available in this script when it gets included by the {@link Feindura::showPlugins()} method:
- *     - $this          -> the current {@link Feindura} class instance with all its methods (use "$this->..")
+ *     - $feindura      -> the current {@link Feindura} class instance with all its methods (use "$feindura->..")
  *     - $pluginConfig  -> contains the changed settings from the "config.php" from this plugin
  *     - $pluginName    -> the folder name of this plugin
  *     - $pageContent   -> the pageContent array of the page which has this plugin activated 
  * 
- * This file MUST RETURN the plugin ready to display in a HTML-page, like:
+ * Example plugin:
  * <code>
  * <?php
  * // Add the stylesheet files of this plugin to the current page
- * echo $this->addPluginStylesheets(dirname(__FILE__));
+ * echo $feindura->addPluginStylesheets(dirname(__FILE__));
  * 
- * $plugin = '<p>Plugin HTML</p>';
+ * echo '<p>Plugin HTML</p>';
  * 
- * return $plugin;
  * ?>
  * </code>
  * 
@@ -47,58 +46,56 @@
  */
 
 // Add the stylesheet files of this plugin to the current page
-echo $this->addPluginStylesheets(dirname(__FILE__));
-
+echo $feindura->addPluginStylesheets(dirname(__FILE__));
 
 // unset($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated']);
-// var
+
+// vars
+$uniqueId = rand(0,999);
 $_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] = ($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] === 'true') ? 'true' : 'false';
-$plugin = '';
 
 // -> add mootools if user is not logged into backend
 echo '<script type="text/javascript">
   /* <![CDATA[ */
   if(!window.MooTools) {
-    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"%3E%3C/script%3E\'));
+    document.write(unescape(\'%3Cscript src="'.$feindura->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"%3E%3C/script%3E\'));
   }
   /* ]]> */
 </script>';
 
 $alreadyRatedClass = ($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] === 'false') ? ' unrated': '';
 
-$plugin .= '<div class="feinduraPlugin_pageRating page'.$pageContent['id'].$alreadyRatedClass.'" data-pageRating="'.$pageContent['id'].' '.$pageContent['category'].'" title="'.$pageContent['plugins']['pageRating']['valueNumber'].'">';
-$plugin .= '<ul>';
+echo '  <ul id="pageRating'.$uniqueId.'" class="'.$alreadyRatedClass.'" data-pageRating="'.$pageContent['id'].' '.$pageContent['category'].'" title="'.$pageContent['plugins']['pageRating']['valueNumber'].'">';
 for($i = 1; $i <= 5; $i++) {
   $filled = ($i <= $pageContent['plugins']['pageRating']['valueNumber']) ? ' filled' : '' ;
-  $plugin .= '<li><a href="#" class="star'.$filled.'" data-pageRating="'.$i.'" onclick="return false;"></a></li>';
+  echo '    <li><a href="#" class="star'.$filled.'" data-pageRating="'.$i.'" onclick="return false;"></a></li>';
 }
-$plugin .= '</ul>';
-$plugin .= '</div>';
+echo '  </ul>';
 
 // ->> add script for the pageRating, ONLY when not a robot
 if(StatisticFunctions::isRobot() === false) {
-$plugin .= '<script type="text/javascript">
+echo '<script type="text/javascript">
   /* <![CDATA[ */
   
   var opacLevel = 0.7;
   
   // set already rated to opacity -> opacLevel
   if('.$_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'].') {
-    $$("div.feinduraPlugin_pageRating.page'.$pageContent['id'].' a").setStyle("opacity",opacLevel).removeClass("unrated");
+    $$("#pageRating'.$uniqueId.' a").setStyle("opacity",opacLevel).removeClass("unrated");
   }
   
-  $$("div.feinduraPlugin_pageRating.unrated.page'.$pageContent['id'].' a").addEvent("click",function(e){
+  $$("#pageRating'.$uniqueId.' a").addEvent("click",function(e){
     e.stop();
 
     // var
-    var feinduraPlugin_pageRating = this.getParent("div.feinduraPlugin_pageRating");
+    var feinduraPlugin_pageRating = $("pageRating'.$uniqueId.'");
     var pageIds = feinduraPlugin_pageRating.getProperty("data-pageRating").split(" ");
     if(!feinduraPlugin_pageRating.hasClass("unrated"))
       return;
     
     // save the rating
     new Request({
-      url: "'.$this->adminConfig['basePath'].'plugins/pageRating/saveRating.php",
+      url: "'.$feindura->adminConfig['basePath'].'plugins/pageRating/saveRating.php",
       data: "page=" + pageIds[0] + "&category=" + pageIds[1] + "&rating="+this.getProperty("data-pageRating"),
       onRequest: function() {
         feinduraPlugin_pageRating.set("tween",{duration:300});
@@ -108,7 +105,7 @@ $plugin .= '<script type="text/javascript">
           feinduraPlugin_pageRating.fade(0).get("tween").chain(function(){
              var count = 1;
             // change the stars
-            $$("div.feinduraPlugin_pageRating a").each(function(link){
+            $$("#pageRating'.$uniqueId.' a").each(function(link){
               if(count <= rating)
                 link.addClass("filled");
               else
@@ -135,8 +132,5 @@ $plugin .= '<script type="text/javascript">
   </script>';
 }
 
-// RETURN the plugin
-// *****************
-return $plugin;
 
 ?>

@@ -29,6 +29,7 @@
 
 // -> starts a SESSION; needed to prevent multiple counting of the visitor in the statistics
 ini_set('session.gc_maxlifetime', 3600); // saves the session for 60 minutes
+ini_set('session.cookie_lifetime', 3600); // saves the session for 3 hours minutes
 session_name('session');
 session_start();
 

@@ -15,30 +15,30 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * The plugin include file
+ * The plugin file
  * 
  * See the README.md for more.
  * 
  * The following variables are available in this script when it gets included by the {@link Feindura::showPlugins()} method:
- *     - $this          -> the current {@link Feindura} class instance with all its methods (use "$this->..")
+ *     - $feindura      -> the current {@link Feindura} class instance with all its methods (use "$feindura->..")
  *     - $pluginConfig  -> contains the changed settings from the "config.php" from this plugin
  *     - $pluginName    -> the folder name of this plugin
  *     - $pageContent   -> the pageContent array of the page which has this plugin activated 
  * 
- * This file MUST RETURN the plugin ready to display in a HTML-page, like:
+ * 
+ * Example plugin:
  * <code>
  * <?php
  * // Add the stylesheet files of this plugin to the current page
- * echo $this->addPluginStylesheets(dirname(__FILE__));
+ * echo $feindura->addPluginStylesheets(dirname(__FILE__));
  * 
- * $plugin = '<p>Plugin HTML</p>';
+ * echo '<p>Plugin HTML</p>';
  * 
- * return $plugin;
  * ?>
  * </code>
  * 
  * @package [Plugins]
- * @subpackage examplePlugin
+ * @subpackage contactForm
  * 
  * @author Fabian Vogelsteller <fabian@feindura.org>
  * @copyright Fabian Vogelsteller
@@ -46,20 +46,30 @@
  * 
  */
 
-// Add the stylesheet files of this plugin to the current page (these CSS files can be anywhere in this plugin folder)
-echo $this->addPluginStylesheets(dirname(__FILE__));
+// Add the stylesheet files of this plugin to the current page
+echo $feindura->addPluginStylesheets(dirname(__FILE__));
 
-// vars
-$plugin = '';
 
-// because this is just and example pluign we will do nothing but display the plugin config for the current page:
-$plugin .= '<div class="feinduraPlugin_examplePlugin">'; // we use that DIV, so the web designer can later style this plugin more easy
-  $plugin .= '<p class="myPluginText">'.$pluginConfig['textToDisplay'].'</p>';
-  $plugin .= '<span class="myPluginNumber">'.$pluginConfig['numberToDisplay'].'</span>';
-$plugin .= '</div>';
+// load the contactForm class
+require_once('contactForm.php');
 
-// RETURN the plugin
-// *****************
-return $plugin;
+// create an instance of the imageGallery class
+$contactForm = new contactForm($pluginConfig['recipient']);
+
+// set configs
+$contactForm->xHtml = $feindura->xHtml; // set the xHtml property from the feindura class
+$contactForm->websiteTitle = GeneralFunctions::getLocalized($feindura->websiteConfig,'title',$feindura->language);
+$contactForm->websiteUrl = $feindura->adminConfig['url'];
+$contactForm->config = $pluginConfig;
+// include the $pluginLangFile
+$pluginCountryCode = (file_exists(dirname(__FILE__).'/languages/'.$feindura->language.'.php'))
+	  ? $feindura->language
+	  : 'en';
+if($pluginLangFile = @include('languages/'.$pluginCountryCode.'.php'))
+  $contactForm->langFile = $pluginLangFile;
+
+// SHOW CONTACT FORM
+echo $contactForm->showContactForm();
+
 
 ?>

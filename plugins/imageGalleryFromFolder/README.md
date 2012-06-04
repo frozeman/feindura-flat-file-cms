@@ -34,10 +34,10 @@ it will only create a <a..></a> and set the image as style="background:url(..)",
 to ensures that the image thumbnails have a fixed size.
 
 ### USAGE
-The imageGalleryFromFolder plugin can be displayed in your website with the showPlugins('imageGalleryFromFolder',$pageId) method from the feindura class (when activated in the page with the $pageId).
+A plugin can be displayed in your website with the showPlugins('contactForm',$pageId) method from the Feindura class (when the this plugin is activated in that page). See http://feindura.org/api/[Implementation]/Feindura.html#showPlugins for more.
 
 ### STYLING
-To style the imageGalleryFromFolder with css use the ".feinduraPlugin_imageGalleryFromFolder" class.
+This plugin will be wraped with a <div class="feinduraPlugins feinduraPlugin_imageGalleryFromFolder" id="feinduraPlugin_imageGalleryFromFolder_<currentPageID>"> to make it easy to style. 
 
 ### ADDITIONAL
 You can also add image captions by placing a "texts.txt" or "captions.txt" in the folder where the images are, with the following format:

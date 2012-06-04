@@ -304,17 +304,29 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
         <label for="cfg_userFileManager"<?php echo ($fmDisabled) ? 'class="toolTip disabled" title="'.$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label><br>
         </td></tr>
         
+        <?php if(!empty($adminConfig['websiteFilesPath'])) { ?>
         <tr><td class="left checkboxes">
         <input type="checkbox" id="cfg_userWebsiteFiles" name="cfg_userWebsiteFiles" value="true"<?php if($adminConfig['user']['editWebsiteFiles']) echo ' checked="checked"'; ?>><br>
         </td><td class="right checkboxes">
         <label for="cfg_userWebsiteFiles"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check1']; ?></label><br>
         </td></tr>
+        <?php } ?>
         
+        <?php if(!empty($adminConfig['stylesheetPath'])) { ?>
         <tr><td class="left checkboxes">
         <input type="checkbox" id="cfg_userStylesheets" name="cfg_userStylesheets" value="true"<?php if($adminConfig['user']['editStyleSheets']) echo ' checked="checked"'; ?>>
         </td><td class="right checkboxes">
         <label for="cfg_userStylesheets"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check2']; ?></label>
         </td></tr>
+        <?php } ?>
+
+        <?php if(!empty($adminConfig['editor']['snippets'])) { ?>
+        <tr><td class="left checkboxes">
+        <input type="checkbox" id="cfg_userSnippets" name="cfg_userSnippets" value="true"<?php if($adminConfig['user']['editSnippets']) echo ' checked="checked"'; ?>><br>
+        </td><td class="right checkboxes">
+        <label for="cfg_userSnippets"><?php echo $langFile['ADMINSETUP_TEXT_USEREDITSNIPPETS']; ?></label><br>
+        </td></tr>
+        <?php } ?>
         
         <tr><td class="leftTop"></td><td></td></tr>
         
@@ -367,6 +379,12 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         </td><td class="right checkboxes">
         <label for="cfg_editorStyles" class="toolTip" title="::<?php echo $langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']; ?></label><br>
         </td></tr>
+
+        <tr><td class="left checkboxes">
+        <input type="checkbox" id="cfg_snippets" name="cfg_snippets" value="true"<?php if($adminConfig['editor']['snippets']) echo ' checked="checked"'; ?>><br>
+        </td><td class="right checkboxes">
+        <label for="cfg_snippets" class="toolTip" title="::<?php echo $langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']; ?></label><br>
+        </td></tr>
         
         <tr><td class="leftTop"></td><td></td></tr>
         
@@ -378,7 +396,10 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
           <option value="p" <?php if($adminConfig['editor']['enterMode'] == 'p') echo 'selected="selected"'; ?>>&lt;p&gt;</option>
           <option value="br" <?php if($adminConfig['editor']['enterMode'] == 'br') echo 'selected="selected"'; ?>>&lt;br&gt;</option>
         </select>
-        &nbsp;<span class="hint"><?php echo $langFile['adminSetup_editorSettings_field1_hint']; ?></span>
+        <?php
+        $enterMode = ($adminConfig['editor']['enterMode'] == 'p') ? '&lt;br&gt;': '&lt;p&gt;';
+        ?>
+        &nbsp;<span class="hint"><?php echo sprintf($langFile['adminSetup_editorSettings_field1_hint'],'<span id="enterModeOpposite" style="font-weight:bold;">'.$enterMode.'</span>'); ?></span>
         </td></tr>
         
         <tr><td class="left">
@@ -426,13 +447,20 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 <div class="blockSpacer"></div>
 <?php }
 
-// EDIT websitefiles
-if(!empty($adminConfig['websiteFilesPath']))
-  editFiles($adminConfig['websiteFilesPath'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
 
 // EDIT stylesheets
 if(!empty($adminConfig['stylesheetPath']))
-  editFiles($adminConfig['stylesheetPath'], "editCSSfile", $langFile['editFilesSettings_h1_style'], "cssFilesAnchor", "css");
+  editFiles($adminConfig['stylesheetPath'], 'cssFiles', $langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS'], 'cssFilesAnchor', 'css');
+
+// EDIT snippets
+if($adminConfig['editor']['snippets']) {
+  if(!is_dir(dirname(__FILE__).'/../../snippets/')) mkdir(dirname(__FILE__).'/../../snippets/');
+  editFiles(dirname(__FILE__).'/../../snippets/', 'snippetFiles', $langFile['EDITFILESSETTINGS_TITLE_SNIPPETS'], 'snippetsFilesAnchor', 'php');
+}
+
+// EDIT websitefiles
+if(!empty($adminConfig['websiteFilesPath']))
+  editFiles($adminConfig['websiteFilesPath'], 'websiteFiles',  $langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES'], 'websiteFilesAnchor');
 
 ?>
 

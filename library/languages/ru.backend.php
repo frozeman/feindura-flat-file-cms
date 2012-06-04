@@ -45,7 +45,7 @@
 $langFile['LOGIN_INPUT_USERNAME']                                         = 'Логин';
 $langFile['LOGIN_INPUT_PASSWORD']                                         = 'Пароль';
 $langFile['LOGIN_BUTTON_LOGIN']                                           = 'ВОЙТИ';
-$langFile['LOGIN_TEXT_COOKIESNEEDED']                                     = 'Cookie должны быть включены';
+$langFile['LOGIN_TEXT_COOKIESNEEDED']                                     = 'Cookie должны быть включены!';
 
 $langFile['LOGIN_LINK_FORGOTPASSWORD']                                    = 'Забыли пароль?';
 $langFile['LOGIN_LINK_BACKTOLOGIN']                                       = 'к форме входа';
@@ -213,6 +213,11 @@ $langFile['LOADING_TEXT_LOAD']                                            = 'З�
 
 // CKEDITOR transport
 $langFile['CKEDITOR_TITLE_LINKS']                                         = 'feindura страницы';
+$langFile['CKEDITOR_TITLE_SNIPPETS']                                      = 'Фрагменты кода';
+$langFile['CKEDITOR_TEXT_SNIPPETS']                                       = 'Выберите фрагмент кода, чтобы поместить его на страницу.';
+$langFile['CKEDITOR_BUTTON_EDITSNIPPET']                                  = 'Редактировать фрагмент кода';
+$langFile['CKEDITOR_TITLE_PLUGINS']                                       = 'Плагины';
+$langFile['CKEDITOR_TEXT_PLUGINS']                                        = 'Выберите плагин, чтобы поместить его на страницу.';
 
 
 // -> BUTTON TEXTS
@@ -440,6 +445,7 @@ $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'ч�
 $langFile['ADMINSETUP_USERPERMISSIONS_TITLE']                             = 'Пользовательские настройки';
 $langFile['ADMINSETUP_USERPERMISSIONS_check1']                            = 'Редактирование файлов сайта в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
 $langFile['ADMINSETUP_USERPERMISSIONS_check2']                            = 'Редактирование файлов стилей в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
+$langFile['ADMINSETUP_TEXT_USEREDITSNIPPETS']                             = 'Редактировать фрагменты кода в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
 $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                  = 'Включить файл-менеджер';
 $langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER']           = 'Файл-менеджер выключен::Вы должны указать путь для загрузки файлов в секции "Базовых настроек" перед тем как активировать файл-менеджер.';
 $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']              = 'Включить редактирование непосредственно на сайте';
@@ -455,9 +461,11 @@ $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']                              = 'Ф�
 $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'безопасный HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6" target="_blank">подробней</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'HTML-код будет фильтроваться на максимально безопасном уровне. Это означает что, например теги &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object&gt; и &lt;script&gt; будут вырезаны.';
 $langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']                          = 'активировать редактор стилей-Selection';
-$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Стили-Selection позволяет использовать пользовательские HTML-элементов в HTML-редактор.[br][br]Если эта опция включена, вы можете редактировать/создавать HTML-элементов ниже.';
+$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Стили-Selection позволяет использовать пользовательские HTML-элементов в HTML-редактор.[br][br][span class=hint]Если эта опция включена, вы можете редактировать/создавать HTML-элементов ниже.[/span]';
+$langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']                              = 'Фрагменты кода активации';
+$langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Разрешите поставить фрагменты кода на страницах.[br]Нажмите на иконку в HTML-редактор: [img src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png][br][br][span class=hint]If this option is activated, you can edit/create code snippets further down.Если эта опция включена, вы можете редактировать/создавать фрагменты кода ниже.[/span]';
 $langFile['adminSetup_editorSettings_field1']                             = 'Режим клавиши ENTER';
-$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER всегда вставляет &quot;&lt;br&gt;&quot;';
+$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER вставляет &quot;&lt;br&gt;&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Вставляет при нажатии ENTER выбранный тег.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip']                    = 'Если не задано - атрибут ID не будет присвоен.';
 $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Если не задано - атрибут class не будет присвоен.';
@@ -475,21 +483,21 @@ $langFile['adminSetup_styleFileSettings_h1']                              = 'Р�
 $langFile['adminSetup_styleFileSettings_error_save']                      = '<b>Файл &quot;EditorStyles.js&quot; не удается сохранить.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings
-$langFile['editFilesSettings_error_save']                                 = '<b>Не удается сохранить файл.</b>'.$langFile['ERROR_SAVE_FILE'];
 
-$langFile['editFilesSettings_h1_style']                                   = 'Редактировать файлы каскадных стилей';
-$langFile['editFilesSettings_h1_websitefiles']                            = 'Редактировать файлы сайта';
-$langFile['editFilesSettings_noDir']                                      = 'Не корректная директория!';
-$langFile['editFilesSettings_chooseFile']                                 = 'Выберите файл';
-$langFile['editFilesSettings_createFile']                                 = 'Создать новый файл';
-$langFile['editFilesSettings_createFile_inputTip']                        = 'Если ввести название файла здесь - будет создан новый файл. [b]Текущий файл не будет сохранен![/b]';
-$langFile['editFilesSettings_noFile']                                     = 'Нет файлов';
+$langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS']                          = 'Редактировать файлы каскадных стилей';
+$langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES']                         = 'Редактировать файлы сайта';
+$langFile['EDITFILESSETTINGS_TITLE_SNIPPETS']                             = 'Редактировать фрагменты кода';
+$langFile['EDITFILESSETTINGS_TEXT_NODIR']                                 = 'Не корректная директория!';
+$langFile['EDITFILESSETTINGS_TEXT_CHOOSEFILE']                            = 'Выберите файл';
+$langFile['EDITFILESSETTINGS_TEXT_CREATEFILE']                            = 'Создать новый файл';
+$langFile['EDITFILESSETTINGS_TIP_CREATEFILE']                             = 'Если ввести название файла здесь - будет создан новый файл. [b]Текущий файл не будет сохранен![/b]';
+$langFile['EDITFILESSETTINGS_TEXT_NOFILE']                                = 'Нет файлов';
 
-$langFile['editFilesSettings_deleteFile']                                 = 'Удалить этот файл';
-$langFile['editFilesSettings_deleteFile_question_part1']                  = 'Подтвердите удаление файла'; // Kategorie "test" löschen?
-$langFile['editFilesSettings_deleteFile_question_part2']                  = '?';
+$langFile['EDITFILESSETTINGS_TEXT_DELETEFILE']                            = 'Удалить этот файл';
+$langFile['EDITFILESSETTINGS_TEXT_DELETEFILE_QUESTION']                   = 'Подтвердите удаление файла %s?'; // Kategorie "test" löschen?
 
-$langFile['editFilesSettings_deleteFile_error_delete']                    = '<b>Не удается сохранить файл.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['EDITFILESSETTINGS_ERROR_SAVEFILE']                             = '<b>Файл не может быть сохранен.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['EDITFILESSETTINGS_ERROR_DELETEFILE']                           = '<b>Не удается сохранить файл.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 /*
 * pageSetup.php
@@ -748,7 +756,7 @@ $langFile['EDITOR_pluginSettings_h1']                                     = 'Н�
 * unsavedPage.php
 */
 
-$langFile['unsavedPage_question_h1']                                      = '<span class="brown">Страница отредактирована.</span><br>Сохранить изменения?';
+$langFile['UNSAVEDPAGE_QUESTION_CONTINUE']                                = 'Страница отредактирована!<br><span class="brown">Будете ли вы продолжать?</span>';
 
 /*
 * deletePage.php

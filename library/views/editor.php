@@ -30,6 +30,12 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // -> available VARs from index.php -> subMenu
 // array    $missingLanguages
 
+// VARS
+// get the activated plugins
+$activatedPlugins = ($_GET['category'] === 0)
+  ? unserialize($adminConfig['pages']['plugins'])
+  : unserialize($categoryConfig[$_GET['category']]['plugins']);
+
 
 // ->> SHOW the FORM
 echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'" method="post" accept-charset="UTF-8" id="editorForm" class="Page'.$_GET['page'].'">
@@ -695,12 +701,9 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
 if($newPage)
   include_once(dirname(__FILE__).'/../includes/editor.include.php');
 
-// get the activated plugins
-$activatedPlugins = ($_GET['category'] === 0)
-  ? unserialize($adminConfig['pages']['plugins'])
-  : unserialize($categoryConfig[$_GET['category']]['plugins']);
+// $activatedPlugins is on the top of the page
 
-if(is_array($activatedPlugins) && count($activatedPlugins) >= 1) { // && $pluginsActive
+if(is_array($activatedPlugins) && count($activatedPlugins) >= 1) {
 ?>
 <!-- ***** PLUGIN SETTINGS -->
 <a id="pluginSettings" class="anchorTarget"></a>

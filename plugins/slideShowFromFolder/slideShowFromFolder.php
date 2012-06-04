@@ -482,7 +482,7 @@ class slideShowFromFolder {
     }
     
     // RETURN
-    return '<div id="'.$containerId.'" class="feinduraPlugin_slideShowFromFolder nivoo-slider" style="width:'.$this->width.'px; height:'.$this->height.'px;">'.$slideShowFromFolder.'</div>';
+    return '<div id="'.$containerId.'" class="nivoo-slider" style="width:'.$this->width.'px; height:'.$this->height.'px;">'.$slideShowFromFolder.'</div>';
   }  
 }
 ?>

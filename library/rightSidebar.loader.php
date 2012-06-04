@@ -79,11 +79,13 @@ switch($_GET['site']) {
   // ***** pageSetup sideBar -------------------------------------------- *********
   case 'pageSetup':
     $categoryHasMissingLanguages = false;
-    foreach ($categoryConfig as $category) {
-      $arrayDifferences = array_diff($adminConfig['multiLanguageWebsite']['languages'],array_keys($category['localized']));
-      if(!empty($arrayDifferences)) {
-        $categoryHasMissingLanguages = true;
-        break;
+    if(is_array($adminConfig['multiLanguageWebsite']['languages'])) {
+      foreach ($categoryConfig as $category) {
+        $arrayDifferences = array_diff($adminConfig['multiLanguageWebsite']['languages'],array_keys($category['localized']));
+        if(!empty($arrayDifferences)) {
+          $categoryHasMissingLanguages = true;
+          break;
+        }
       }
     }
     if($categoryHasMissingLanguages) {

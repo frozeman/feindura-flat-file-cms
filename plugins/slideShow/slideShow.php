@@ -384,7 +384,7 @@ class slideShow {
     }
 
     // RETURN
-    return '<div id="'.$containerId.'" class="feinduraPlugin_slideShow nivoo-slider" style="width:'.$this->width.'px; height:'.$this->height.'px;">'.$slideshow.'</div>';
+    return '<div id="'.$containerId.'" class="nivoo-slider" style="width:'.$this->width.'px; height:'.$this->height.'px;">'.$slideshow.'</div>';
   }  
 }
 ?>

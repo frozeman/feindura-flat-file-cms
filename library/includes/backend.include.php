@@ -23,11 +23,9 @@ $sessionLifeTime = (60 * 60 * 3); // 3 hours
 
 // -> START SESSION (for the login, language and storedPages [currently deactivated])
 ini_set('session.gc_maxlifetime', $sessionLifeTime); // saves the session for 3 hours minutes
+ini_set('session.cookie_lifetime', $sessionLifeTime); // saves the session for 3 hours minutes
 session_name('session');
 session_start();
-
-// RESET the SESSION TIME as always when reloading the page
-$_SESSION['feinduraSession']['login']['end'] = time() + $sessionLifeTime;
 
 // set the execution time limit higher
 @set_time_limit(50);

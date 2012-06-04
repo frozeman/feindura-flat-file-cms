@@ -29,9 +29,10 @@
 * 
 * @package [Implementation]-[Backend]
 * 
-* @version 1.3.1
+* @version 1.4
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 1.4 add {@link GeneralFunctions::replaceCodeSnippets()}
 *    - 1.3.1 add schemes to htmlLawed
 *    - 1.3 rewrite of checkLanguageFiles(), now loadLanguageFile()
 *    - 1.2 changed class to static class
@@ -108,6 +109,19 @@ class GeneralFunctions {
   * 
   */
   public static $storedPages = null;
+
+  
+ /**
+  * Keeps an instance of the Feindura class to be used in the {@link GeneralFunctions::replaceCodeSnippets()} method.
+  * 
+  * 
+  * @see GeneralFunctions::replaceCodeSnippets()
+  * 
+  * @static
+  * @var array
+  * 
+  */
+  public static $FeinduraCLass = null;
 
 
  /**
@@ -906,7 +920,9 @@ class GeneralFunctions {
         $fileContent .= "\$pageContent['localized'][".$langCode."]['tags']               = '".XssFilter::text($pageContentLocalized['tags'])."';\n";
         $fileContent .= "\$pageContent['localized'][".$langCode."]['title']              = '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
         $fileContent .= "\$pageContent['localized'][".$langCode."]['description']        = '".XssFilter::text($pageContentLocalized['description'])."';\n";
-        $fileContent .= "\$pageContent['localized'][".$langCode."]['content']            = '".trim(self::htmLawed($pageContentLocalized['content']))."';\n\n";
+
+        $content = (self::$adminConfig['editor']['htmlLawed']) ? self::htmLawed($pageContentLocalized['content']) : $pageContentLocalized['content'];
+        $fileContent .= "\$pageContent['localized'][".$langCode."]['content']            = '".trim($content)."';\n\n";
       }
     }
     
@@ -1488,7 +1504,7 @@ class GeneralFunctions {
   * @uses GeneralFunctions::createHref()  to create the hreaf of the link
   * @uses FeinduraBase::language
   * 
-  * @return string the $pageContentString woth replaced feindura links
+  * @return string the $pageContentString with replaced feindura links
   * 
   * @see FeinduraBase::generatePage()
   * 
@@ -1507,6 +1523,98 @@ class GeneralFunctions {
       }
     }
     return $pageContentString;
+  }
+
+/**
+  * <b>Name</b> replaceCodeSnippets()<br>
+  * 
+  * Replaces all feindura code snippets (e.g. "<img class="feinduraSnippet"...>) inside the given <var>$pageContentString</var> parameter, with either a code snippet or a plugin.
+  *
+  * @param string      $pageContentString the page content string, to replace all feindura links, with real hrefs
+  * @param int         $pageId            the current page ID to load the right plugins.
+  * @param bool        $removeSnippets    (optional) will only remove the snippets placeholder from the <var>$pageContentString</var>
+  * 
+  * @uses GeneralFunctions::$FeinduraCLass
+  * 
+  * @return string the $pageContentString with replaced code snippets
+  * 
+  * @see FeinduraBase::generatePage()
+  * @see saveFeeds()
+  * 
+  * @access protected
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public function replaceCodeSnippets($pageContentString, $pageId, $removeSnippets = false) {
+
+    // get the Feindura class to be used inside the snippets/plugins
+    if(!$removeSnippets) {
+      if($this instanceof Feindura) {
+        $feindura = $this;
+      } else {
+        if(!(self::$FeinduraCLass instanceof Feindura))
+          self::$FeinduraCLass = new Feindura();
+        $feindura = self::$FeinduraCLass;
+      }
+    }
+
+    // vars (change varnames so it doesnt get overwritten)
+    $feindura_pageContentString = $pageContentString;
+
+
+    if(preg_match_all ('#<img.*class\=\"(feinduraSnippet|feinduraPlugin)\"[^>]*style\=\"((?:(?:width|height)\:\s?(?:[0-9]*(?:%|px))\;\s?){0,2})\"[^>]*title\="([^\"]+)"[^>]*>#i', $feindura_pageContentString, $matches,PREG_SET_ORDER)) {
+      // replace each link
+      foreach($matches as $feindura_match) {
+
+        // -> REMOVE snippets
+        if($removeSnippets) {
+          $feindura_pageContentString = str_replace($feindura_match[0],'',$feindura_pageContentString);
+
+
+        // -> REPLACE snippets
+        } else {
+
+          // unset unneccessary vars
+          unset($removeSnippets,$pageContentString);
+
+          // -> SNIPPET
+          if($feindura_match[1] === 'feinduraSnippet') {
+
+            // available vars in the snippet
+            $feindura;
+            $pageId;
+            $categoryId = self::getPageCategory($pageId);
+
+            // Store the content of the snippet in a variable
+            ob_start();
+              @include(dirname(__FILE__).'/../../snippets/'.$feindura_match[2]);
+              $snippet = ob_get_contents();
+            ob_end_clean();
+
+            // replace snippet placeholder
+            $feindura_pageContentString = str_replace($feindura_match[0],$snippet,$feindura_pageContentString);
+
+          // -> PLUGIN
+          } elseif($feindura_match[1] === 'feinduraPlugin') {
+
+            // CHECK if inside FEINDURA class
+            if($feindura instanceof Feindura && is_numeric($pageId)) {
+
+              // replace snippet placeholder
+              $feindura_pageContentString = str_replace($feindura_match[0],$feindura->showPlugins($feindura_match[3],$pageId,$feindura_match[2]),$feindura_pageContentString);
+
+            // if not Feindura class, remove the plugins snippet
+            } else
+              $feindura_pageContentString = str_replace($feindura_match[0],'',$feindura_pageContentString);
+
+          }
+        }
+      }
+    }
+    return $feindura_pageContentString;
   }
 
  /**
@@ -1844,16 +1952,14 @@ class GeneralFunctions {
   * @return string the checked html
   * 
   * @static
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 moved the admin settings check if htmlLawed is allow to were the method is called (removed it from here)
   *    - 1.0 initial release
   * 
   */
   public static function htmLawed($string, $config = false) {
-    
-    if(!self::$adminConfig['editor']['htmlLawed'])
-      return $string;
 
     // get the html lawed function
     require_once(dirname(__FILE__)."/../thirdparty/PHP/htmLawed.php");
@@ -1875,7 +1981,7 @@ class GeneralFunctions {
     $htmlLawedConfig['safe'] = (self::$adminConfig['editor']['safeHtml']) ? 1 : 0;
     // add custom config
     if($config) $htmlLawedConfig = array_merge($htmlLawedConfig,$config);
-    
+
     $string = htmLawed($string,$htmlLawedConfig);
     return str_replace("\x06", '&', $string); 
   }

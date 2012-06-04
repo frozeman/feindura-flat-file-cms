@@ -209,15 +209,16 @@ class FeinduraBase {
   protected function __construct($language = false) {
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    $this->adminConfig = $GLOBALS["feindura_adminConfig"];
-    $this->websiteConfig = $GLOBALS["feindura_websiteConfig"];
-    $this->categoryConfig = $GLOBALS["feindura_categoryConfig"];
+    $this->adminConfig = (isset($GLOBALS['feindura_adminConfig'])) ? $GLOBALS['feindura_adminConfig'] : $GLOBALS['adminConfig'];
+    $this->websiteConfig = (isset($GLOBALS['feindura_websiteConfig'])) ? $GLOBALS['feindura_websiteConfig'] : $GLOBALS['websiteConfig'];
+    $this->categoryConfig = (isset($GLOBALS['feindura_categoryConfig'])) ? $GLOBALS['feindura_categoryConfig'] : $GLOBALS['categoryConfig'];
     // SETs the language names
     $this->languageNames = $GLOBALS['feindura_languageNames'];
 
-    // eventually LOGOUT
+    // get LOGOUT?
     if(isset($_GET['feindura_logout']))
       unset($_SESSION['feinduraSession']['login']);
+
     // CHECK if logged in
     if($_SESSION['feinduraSession']['login']['loggedIn'] === true && $_SESSION['feinduraSession']['login']['host'] === HOST)
       $this->loggedIn = true;
@@ -542,13 +543,16 @@ class FeinduraBase {
 
     // vars
     $menu = array();
-    $menuItem['menuItem'] = '';
-    $menuItem['startTag'] = '';
-    $menuItem['endTag']   = '';
-    $menuItem['link']     = '';
-    $menuItem['flag']     = false;
-    $menuItem['href']     = false;
-    $menuItem['language'] = false;
+    $menuItem['menuItem']          = '';
+    $menuItem['item']              = '';
+    $menuItem['startTag']          = '';
+    $menuItem['endTag']            = '';
+    $menuItem['link']              = '';
+    $menuItem['flag']              = false;
+    $menuItem['href']              = false;
+    $menuItem['pageDate']          = false;
+    $menuItem['pageDateTimestamp'] = false;
+    $menuItem['language']          = false;
     $menuItemCopy = $menuItem;
 
     // -> sets the MENU attributes
@@ -580,6 +584,7 @@ class FeinduraBase {
     // SHOW START-TAG
     if($menuStartTag) {
       $menuItemCopy['menuItem'] = $menuStartTag;
+      $menuItemCopy['item']     = $menuStartTag;
       $menuItemCopy['startTag'] = $menuStartTag;
       $menu[] = $menuItemCopy;
     }
@@ -590,6 +595,7 @@ class FeinduraBase {
     // creating the START TR tag
     if($menuTagSet == 'table') {
       $menuItemCopy['menuItem'] = "<tbody><tr>\n";
+      $menuItemCopy['item']     = "<tbody><tr>\n";
       $menuItemCopy['startTag'] = "<tbody><tr>\n";
       $menu[] = $menuItemCopy;
     }
@@ -605,6 +611,7 @@ class FeinduraBase {
          is_numeric($breakAfter) &&
          ($breakAfter + 1) == $count) {
         $menuItemCopy['menuItem'] = "\n</tr><tr>\n";
+        $menuItemCopy['item']     = "\n</tr><tr>\n";
         $menuItemCopy['startTag'] = "<tr>\n";
         $menuItemCopy['endTag']   = "\n</tr>";
         $menu[] = $menuItemCopy;
@@ -617,33 +624,40 @@ class FeinduraBase {
       // if menuTag is a LIST ------
       if($menuTagSet == 'menu' || $menuTagSet == 'ul' || $menuTagSet == 'ol') {
         $menuItemCopy['menuItem'] = '<li>'.$link['link']."</li>\n";
+        $menuItemCopy['item']     = '<li>'.$link['link']."</li>\n";
         $menuItemCopy['startTag'] = '<li>';
         $menuItemCopy['endTag']   = "</li>\n";
 
       // if menuTag is a TABLE -----
       } elseif($menuTagSet == 'table') {
         $menuItemCopy['menuItem'] = "<td>\n".$link['link']."\n</td>";
+        $menuItemCopy['item']     = "<td>\n".$link['link']."\n</td>";
         $menuItemCopy['startTag'] = "<td>\n";
         $menuItemCopy['endTag']   = "\n</td>";
 
       // if just a link
       } else {
         $menuItemCopy['menuItem'] = $link['link']."\n";
+        $menuItemCopy['item']     = $link['link']."\n";
       }
 
       // add the rest of the menu item
       $menuItemCopy['link']       = $link['link'];
       $menuItemCopy['href']       = $link['href'];
       if($link['title'])
-        $menuItemCopy['title']      = $link['title'];
+        $menuItemCopy['title']               = $link['title'];
       if($link['id'])
-        $menuItemCopy['pageId']     = $link['id'];
+        $menuItemCopy['pageId']              = $link['id'];
       if($link['category'])
-        $menuItemCopy['categoryId'] = $link['category'];
+        $menuItemCopy['categoryId']          = $link['category'];
       if($link['flag'])
-        $menuItemCopy['flag']       = $link['flag'];
+        $menuItemCopy['flag']                = $link['flag'];
+      if($link['pageDate'])
+        $menuItemCopy['pageDate']            = $link['pageDate'];
+      if($link['pageDateTimestamp'])
+        $menuItemCopy['pageDateTimestamp']   = $link['pageDateTimestamp'];
       if($link['language'])
-        $menuItemCopy['language']   = $link['language'];
+        $menuItemCopy['language']            = $link['language'];
 
       
       // add link
@@ -661,6 +675,7 @@ class FeinduraBase {
           is_numeric($breakAfter) &&
           $breakAfter >= $count) {
       $menuItemCopy['menuItem'] = "\n<td></td>\n";
+      $menuItemCopy['item']     = "\n<td></td>\n";
       $menuItemCopy['startTag'] = "\n<td>";
       $menuItemCopy['endTag']   = "</td>\n";
       $menu[] = $menuItemCopy;
@@ -673,6 +688,7 @@ class FeinduraBase {
     // creating the END TR tag
     if($menuTagSet == 'table') {
       $menuItemCopy['menuItem'] = "</tr></tbody>\n";
+      $menuItemCopy['item']     = "</tr></tbody>\n";
       $menuItemCopy['endTag']   = "</tr></tbody>\n";
       $menu[] = $menuItemCopy;
     }
@@ -683,6 +699,7 @@ class FeinduraBase {
     // SHOW END-TAG
     if($menuEndTag) {
       $menuItemCopy['menuItem'] = $menuEndTag;
+      $menuItemCopy['item']     = $menuEndTag;
       $menuItemCopy['endTag']   = $menuEndTag;
       $menu[] = $menuItemCopy;
     }
@@ -929,10 +946,11 @@ class FeinduraBase {
           $htmlLawedConfig['valid_xhtml'] = 1;
         else
           $htmlLawedConfig['valid_xhtml'] = 0;
-        $pageContentEdited = GeneralFunctions::htmLawed($localizedPageContent,$htmlLawedConfig);
+        $pageContentEdited = ($this->adminConfig['editor']['htmlLawed']) ? GeneralFunctions::htmLawed($localizedPageContent,$htmlLawedConfig) : $localizedPageContent;
         
         // replace feindura links
         $pageContentEdited = GeneralFunctions::replaceLinks($pageContentEdited,$this->sessionId,$this->language);
+        $pageContentEdited = GeneralFunctions::replaceCodeSnippets($pageContentEdited,$pageContent['id']);
         
         // clear Html tags?
         if($useHtml === false || is_string($useHtml)) {
@@ -1466,8 +1484,8 @@ class FeinduraBase {
   * 
   * @param string          $idType                the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool  $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
-  * @param int|bool|string $monthsInThePast       (optional) number of months before today, if TRUE it show all pages in the past, if FALSE it loads only pages starting from today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
-  * @param int|bool|string $monthsInTheFuture     (optional) number of months after today, if TRUE it show all pages in the future, if FALSE it loads only pages until today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param int|bool|string $monthsInThePast       (optional) number of months before today, if TRUE it show all pages in the past, if FALSE it loads only pages starting from today. it can also be a string with a date format, for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
+  * @param int|bool|string $monthsInTheFuture     (optional) number of months after today, if TRUE it show all pages in the future, if FALSE it loads only pages until today. it can also be a string with a date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
   * @param bool            $sortByCategories      (optional) determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
   * @param bool	           $reverseList           (optional) if TRUE the pages sorting will be reversed
   * 
@@ -1510,12 +1528,15 @@ class FeinduraBase {
       $futureDate = false;
        
       // creates the PAST DATE
+      $defaultTimezone = date_default_timezone_get();
+      date_default_timezone_set('UTC'); // to be able to get the right date
       if(is_string($monthsInThePast) && !is_numeric($monthsInThePast))
         $pastDate = strtotime($monthsInThePast,$currentDate);
       elseif(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
         $pastDate = strtotime('-'.$monthsInThePast.' month',$currentDate);
       elseif($monthsInThePast === false)
         $pastDate = $currentDate;
+      date_default_timezone_set($defaultTimezone); // set the timezone back to where it was
                       
       // creates the FUTURE DATE
       if(is_string($monthsInTheFuture) && !is_numeric($monthsInTheFuture))

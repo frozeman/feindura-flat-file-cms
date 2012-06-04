@@ -151,32 +151,54 @@ if($_GET['site'] == 'addons') {
   
   <script type="text/javascript">
   /* <![CDATA[ */
-  // transport feindura PHP vars to javascript
+
+  // -> TRANSPORT feindura PHP VARS to JAVASCRIPT
   var feindura_basePath = '<?php echo $adminConfig['basePath']; ?>';
   var feindura_langFile = {
-    ERRORWINDOW_TITLE:                "<?php echo $langFile['errorWindow_h1']; ?>",
-    ERROR_SAVE:                       "<?php echo sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']); ?>",
-    CKEDITOR_TITLE_LINKS:             "<?php echo (!empty($langFile['CKEDITOR_TITLE_LINKS'])) ? $langFile['CKEDITOR_TITLE_LINKS'] : 'feindura pages'; ?>"
+    ERRORWINDOW_TITLE:              "<?php echo $langFile['errorWindow_h1']; ?>",
+    ERROR_SAVE:                     "<?php echo sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']); ?>",
+    CKEDITOR_TITLE_LINKS:           "<?php echo (!empty($langFile['CKEDITOR_TITLE_LINKS'])) ? $langFile['CKEDITOR_TITLE_LINKS'] : 'feindura pages'; ?>",
+    CKEDITOR_TITLE_SNIPPETS:        "<?php echo (!empty($langFile['CKEDITOR_TITLE_SNIPPETS'])) ? $langFile['CKEDITOR_TITLE_SNIPPETS'] : 'Snippets'; ?>",
+    CKEDITOR_TEXT_SNIPPETS:         "<?php echo (!empty($langFile['CKEDITOR_TEXT_SNIPPETS'])) ? $langFile['CKEDITOR_TEXT_SNIPPETS'] : ''; ?>",
+    CKEDITOR_BUTTON_EDITSNIPPET:    "<?php echo (!empty($langFile['CKEDITOR_BUTTON_EDITSNIPPET'])) ? $langFile['CKEDITOR_BUTTON_EDITSNIPPET'] : 'edit snippet'; ?>",
+    CKEDITOR_TITLE_PLUGINS:         "<?php echo (!empty($langFile['CKEDITOR_TITLE_PLUGINS'])) ? $langFile['CKEDITOR_TITLE_PLUGINS'] : 'Plugins'; ?>",
+    CKEDITOR_TEXT_PLUGINS:          "<?php echo (!empty($langFile['CKEDITOR_TEXT_PLUGINS'])) ? $langFile['CKEDITOR_TEXT_PLUGINS'] : ''; ?>"
   };
   var currentSite = '<?php echo $_GET["site"]; ?>';
   var currentPage = '<?php echo $_GET["page"]; ?>';
   
-  /* transport pages for CKEditor feindura links */
+  // -> TRANSPORT pages for CKEditor FEINDURA LINKS
   <?php
   if(!empty($_GET['page'])) {
     $getPages = GeneralFunctions::loadPages(true);
   ?>
   var feindura_pages = [
-  ['-',''],
-  <?php foreach($getPages as $getPage) {
+    ['-',''],
+    <?php foreach($getPages as $getPage) {
     $categoryText = ($getPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$getPage['category']],'name').' » ' : '';
     echo "['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($getPage,'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
     } ?>  ];
   <?php } ?>
-  
+
+  // -> TRANSPORT Snippets to CKEditor feinduraSnippets plugin
+  var feindura_snippets = [
+    <?php if($adminConfig['editor']['snippets'] && !empty($_GET['page'])) {
+      $snippets = GeneralFunctions::readFolderRecursive(dirname(__FILE__).'/snippets/');
+      foreach($snippets['files'] as $snippet) {
+        $snippetShort = str_replace($adminConfig['basePath'].'snippets/', '', $snippet);
+        echo '["'.$snippetShort.'","'.$snippetShort.'"],';
+      }
+      unset($snippets,$snippet,$snippetShort);
+    } ?>
+  ];
+  var feindura_snippets_editInWebsiteSettings = <?php echo ($adminConfig['user']['editSnippets']) ? 'true' : 'false' ?>;
+  var feindura_snippets_isAdmin               = <?php echo (isAdmin()) ? 'true' : 'false' ?>;
+  var feindura_basePath                       = '<?php echo $adminConfig['basePath']; ?>';
+
   window.addEvent('domready', function () {
+    
+    // ->> include FILEMANAGER
     <?php if($adminConfig['user']['fileManager'] && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
-    // ->> include filemanager
     var hideFileManager = function(){this.hide();}
     var fileManager = new FileManager({
         url: 'library/controllers/filemanager.controller.php',
@@ -215,7 +237,7 @@ if($_GET['site'] == 'addons') {
     fileManager.filemanager.setStyle('width','75%');
     fileManager.filemanager.setStyle('height','70%');
 
-    // -> open filemanager when button get clicked
+    // -> OPEN FILEMANAGER when button get clicked
     $$('a.fileManager').each(function(fileManagerButton){
       fileManagerButton.addEvent('click',function(e){
         e.stop();
@@ -224,9 +246,9 @@ if($_GET['site'] == 'addons') {
     });
     <?php }
     
+    // ->> STARTS the session COUNTER
     if(!empty($userConfig) && isset($_SESSION['feinduraSession']['login']['end'])) {
     ?>
-    // ->> starts the session counter
     var div = $('sessionTimer'),
     coundown = new CountDown({
       //initialized 30s from now
@@ -349,18 +371,6 @@ if($_GET['site'] == 'addons') {
   <!-- ************************************************************************* -->
   <!-- ** DOCUMENT SAVED ******************************************************* -->
   <div id="documentSaved"<?php if($documentSaved === true) echo ' class="saved"'; ?>></div>
-  
-  <?php if($errorWindow !== false) { ?>
-  <!-- ************************************************************************* -->
-  <!-- ** ERROR WINDOW ********************************************************* -->    
-  <div id="feindura_errorWindow">
-    <h1><?php echo $langFile['errorWindow_h1'];?></h1>
-    <div class="feindura_content feindura_warning">
-      <div class="scroll"><?php echo $errorWindow; ?></div>
-      <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('feindura_errorWindow').fade('out');return false;" class="feindura_ok"></a>
-    </div>
-  </div>  
-  <?php } ?>
   
   <!-- ***************************************************************************************** -->
   <!-- ** MAINBODY ***************************************************************************** -->
@@ -588,5 +598,18 @@ if($_GET['site'] == 'addons') {
       </div>
     </div>
   </div>
+
+  <?php if($errorWindow !== false) { ?>
+  <!-- ************************************************************************* -->
+  <!-- ** ERROR WINDOW ********************************************************* -->    
+  <div id="feindura_errorWindow">
+    <h1><?php echo $langFile['errorWindow_h1'];?></h1>
+    <div class="feindura_content feindura_warning">
+      <div class="scroll"><?php echo $errorWindow; ?></div>
+      <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('feindura_errorWindow').fade('out');return false;" class="feindura_ok"></a>
+    </div>
+  </div>  
+  <?php } ?>
+
 </body>
 </html>

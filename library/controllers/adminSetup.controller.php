@@ -71,6 +71,10 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
     'safe'=> 1
   ));
   
+  // deactivate the editing of the snippets in the website config, if snippets is deactivated
+  if(empty($_POST['cfg_snippets']))
+    $_POST['cfg_userSnippets'] = false;
+
   // -> CLEAN all " out of the strings
   foreach($_POST as $postKey => $post)
     $_POST[$postKey] = str_replace(array('\"',"\'"),'',$post);
@@ -109,7 +113,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $adminConfig['user']['frontendEditing']  = $_POST['cfg_userFrontendEditing'];
   $adminConfig['user']['fileManager']      = (empty($adminConfig['uploadPath'])) ? false : $_POST['cfg_userFileManager'];
   $adminConfig['user']['editWebsiteFiles'] = $_POST['cfg_userWebsiteFiles'];
-  $adminConfig['user']['editStyleSheets']  = $_POST['cfg_userStylesheets'];  
+  $adminConfig['user']['editStyleSheets']  = $_POST['cfg_userStylesheets'];
+  $adminConfig['user']['editSnippets']     = $_POST['cfg_userSnippets'];
   $adminConfig['user']['info']             = $_POST['cfg_userInfo'];
     
   // -> saved in pageSetup.php
@@ -122,6 +127,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $adminConfig['editor']['htmlLawed']    = $_POST['cfg_editorHtmlLawed'];
   $adminConfig['editor']['safeHtml']     = $_POST['cfg_editorSafeHtml'];
   $adminConfig['editor']['editorStyles'] = $_POST['cfg_editorStyles'];
+  $adminConfig['editor']['snippets']     = $_POST['cfg_snippets'];
+
   $adminConfig['editor']['enterMode']    = $_POST['cfg_editorEnterMode'];
   $adminConfig['editor']['styleFile']    = prepareStyleFilePaths($_POST['cfg_editorStyleFile']);
   $adminConfig['editor']['styleId']      = str_replace(array('#','.'),'',$_POST['cfg_editorStyleId']);  

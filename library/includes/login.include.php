@@ -27,6 +27,17 @@ if(isset($_POST['username'])) $_POST['username'] = XssFilter::text($_POST['usern
 if(isset($_POST['password'])) $_POST['password'] = XssFilter::text($_POST['password']);
 //unset($_SESSION);
 
+// -> LOGOUT
+if(isset($_GET['logout']) || (isset($_SESSION['feinduraSession']['login']['end']) && $_SESSION['feinduraSession']['login']['end'] <= time())) { // automatically logout after 3 hours
+  $_SESSION['feinduraSession']['login'] = array();
+  unset($_SESSION['feinduraSession']['login']);
+  session_regenerate_id(true);
+  $loggedOut = true;
+} else {
+  // RESET the SESSION TIME as always when reloading the page
+  $_SESSION['feinduraSession']['login']['end'] = time() + $sessionLifeTime;
+}
+
 // -> if NO USER EXISTS
 if(empty($userConfig)) {
   $_SESSION['feinduraSession']['login']['user'] = false;
@@ -47,7 +58,8 @@ if(isset($_POST) && $_POST['action'] == 'login') {
         $currentUserId = $user['id'];
       }
     }
-    
+
+    // -> check password
     if(!empty($_POST['username']) && $currentUser) {
       if(md5($_POST['password']) == $currentUser['password']) {
         $_SESSION['feinduraSession']['login']['user'] = $currentUserId;
@@ -60,13 +72,6 @@ if(isset($_POST) && $_POST['action'] == 'login') {
       $loginError = $langFile['LOGIN_ERROR_WRONGUSER'];
   } else
     $loginError = $langFile['LOGIN_ERROR_WRONGUSER'];
-}
-
-// -> LOGOUT
-if(isset($_GET['logout']) || (isset($_SESSION['feinduraSession']['login']['end']) && $_SESSION['feinduraSession']['login']['end'] <= time())) { // automatically logout after 3 hours
-  $_SESSION['feinduraSession']['login'] = array();
-  unset($_SESSION['feinduraSession']['login']);
-  $loggedOut = true;
 }
 
 // ->> RESET PASSWORD
@@ -252,13 +257,11 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
     <?php } ?>
     <div class="info">
     <?php
+      echo $langFile['LOGIN_TEXT_COOKIESNEEDED'].'<br>';
 
        echo (isset($_GET['resetpassword']))
         ? '<a href="index.php">'.$langFile['LOGIN_LINK_BACKTOLOGIN'].'</a>'
         : '<a href="index.php?resetpassword">'.$langFile['LOGIN_LINK_FORGOTPASSWORD'].'</a>';
-
-      echo '<br>'.$langFile['LOGIN_TEXT_COOKIESNEEDED'];
-
     ?>
     </div>
   </div>

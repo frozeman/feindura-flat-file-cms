@@ -27,7 +27,7 @@ Fabian Vogelsteller <http://frozeman.de>
 This plugin allows you to create a rating for each page.
 
 ### USAGE
-Just add the plugin to a page (with the showPlugins() method of the feindura class), and your visitors can rate this page.
+A plugin can be displayed in your website with the showPlugins('contactForm',$pageId) method from the Feindura class (when the this plugin is activated in that page). See http://feindura.org/api/[Implementation]/Feindura.html#showPlugins for more.
 
 ### EVENTS
 Event 'rated' will be fired on the "div.feinduraPlugin_pageRating" element, and the passed parameter is the new rating value.
@@ -39,20 +39,19 @@ Example to catch a rating event:
     
 
 ### STYLING
-To generally style the rating with css use the ".feinduraPlugin_pageRating" class.
+This plugin will be wraped with a <div class="feinduraPlugins feinduraPlugin_pageRating" id="feinduraPlugin_PageRating_<currentPageID>"> to make it easy to style. 
+
 You can use your own stars by just overwriting the "a.star" class, and set your own background-image and size.
 When a star is selected it gets the ".filled" class too.
 You should apply only hover/focus effects to a "a.star" link when the ratings div has the class "unrated" like here:
-".feinduraPlugin_pageRating.unrated a.star:hover" (so the hover effect get disabled when the user rated already, because then the unrated class will be removed).
+".feinduraPlugin_pageRating ul.unrated a.star:hover" (so the hover effect get disabled when the user has already rated, because the unrated class will be removed).
 
 The HTML structure goes like that:
 
-    <div class="feinduraPlugin_pageRating unrated">
-      <ul>
-        <li><a href="#" class="star filled"></a></li>
-        <li><a href="#" class="star filled"></a></li>
-        <li><a href="#" class="star filled"></a></li>
-        <li><a href="#" class="star"></a></li>
-        <li><a href="#" class="star"></a></li>
-      </ul>
-    </div>
+    <ul class="unrated" ...>
+      <li><a href="#" class="star filled"></a></li>
+      <li><a href="#" class="star filled"></a></li>
+      <li><a href="#" class="star filled"></a></li>
+      <li><a href="#" class="star"></a></li>
+      <li><a href="#" class="star"></a></li>
+    </ul>

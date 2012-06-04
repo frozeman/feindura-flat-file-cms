@@ -28,10 +28,10 @@ This plugin creates automatically a slide show from images selected in the backe
 the images will be resized to the size set in the plugin settings.
 
 ### USAGE
-The slideShow plugin can be displayed in your website with the showPlugins('slideShow',$pageId) method from the feindura class (when activated in the page with the $pageId).
+A plugin can be displayed in your website with the showPlugins('contactForm',$pageId) method from the Feindura class (when the this plugin is activated in that page). See http://feindura.org/api/[Implementation]/Feindura.html#showPlugins for more.
 
 ### STYLING
-To style the slideShow with css use the ".feinduraPlugin_slideShow" class.
+This plugin will be wraped with a <div class="feinduraPlugins feinduraPlugin_slideShow" id="feinduraPlugin_slideShow_<currentPageID>"> to make it easy to style. 
 
 
 ### USES

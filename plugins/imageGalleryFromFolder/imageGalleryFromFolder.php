@@ -734,7 +734,7 @@ class imageGalleryFromFolder {
     }
     
     // RETURN
-    return '<div class="feinduraPlugin_imageGalleryFromFolder">'.$gallery.'</div>';
+    return $gallery;
   }  
 }
 ?>

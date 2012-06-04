@@ -26,25 +26,21 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 if(isset($_POST['send']) && $_POST['send'] == 'saveEditedFiles') {
   
   //var
-  $fileType = (!empty($post['fileType'])) ? '.'.$post['fileType'] : '';
-  $file = (!empty($_POST['newFile'])) ? $_POST['newFile'].$fileType : $_POST['file'];
+  $file = (!empty($_POST['newFile'])) ? $_POST['newFile'].$_POST['fileType'] : $_POST['file'];
   
   if(saveEditedFiles($savedForm)) {
     $documentSaved = true; // give documentSaved status
-    saveActivityLog(12,$file); // <- SAVE the task in a LOG FILE
+    // -> tasklog is saved in the saveEditFiles() function
   } else {     
-    $errorWindow .= $langFile['editFilesSettings_error_save'].' '.$file;
+    $errorWindow .= $langFile['EDITFILESSETTINGS_ERROR_SAVEFILE'].' '.$file;
   }
 }
 
 // ->> DELETE editFiles File
 if($_GET['status'] == 'deleteEditFiles' && !empty($_GET['file'])) {
 
-  if(@unlink(DOCUMENTROOT.$_GET['file'])) {
-    saveActivityLog(13,$_GET['file']); // <- SAVE the task in a LOG FILE
-  } else
-    $errorWindow .= $langFile['editFilesSettings_deleteFile_error_delete'].' '.$_GET['file'];
-  
+  // -> will be deleted in the editFiles() function
+
   $savedForm = $_GET['editFilesStatus'];
 }
 

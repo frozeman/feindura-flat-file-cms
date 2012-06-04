@@ -26,6 +26,6 @@
 .ie6 .feinduraPlugin_pageRating a.star.filled {
   background-position: -23px 0 !important;
 }
-.feinduraPlugin_pageRating.unrated a.star:hover, .feinduraPlugin_pageRating.unrated a.star:focus {
+.feinduraPlugin_pageRating ul.unrated a.star:hover, .feinduraPlugin_pageRating ul.unrated a.star:focus {
   background-position: -46px 0;
 }

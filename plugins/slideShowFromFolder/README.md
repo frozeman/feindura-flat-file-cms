@@ -28,10 +28,10 @@ This plugin creates automatically a slide show from a folder containing images. 
 the images will be resized to the size set in the plugin settings.
 
 ### USAGE
-The slideShowFromFolder plugin can be displayed in your website with the showPlugins('slideShowFromFolder',$pageId) method from the feindura class (when activated in the page with the $pageId).
+A plugin can be displayed in your website with the showPlugins('contactForm',$pageId) method from the Feindura class (when the this plugin is activated in that page). See http://feindura.org/api/[Implementation]/Feindura.html#showPlugins for more.
 
 ### STYLING
-To style the slideShowFromFolder with css use the ".feinduraPlugin_slideShowFromFolder" class.
+This plugin will be wraped with a <div class="feinduraPlugins feinduraPlugin_slideShowFromFolder" id="feinduraPlugin_slideShowFromFolder_<currentPageID>"> to make it easy to style. 
 
 ### ADDITIONAL
 You can also add image captions by placing a "texts.txt" or "captions.txt" in the folder where the images are, with the following format:
