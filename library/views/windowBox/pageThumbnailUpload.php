@@ -219,9 +219,34 @@ $redirect = (empty($site))
 if($site == 'pages')
   $redirect .= '&status=reload'.rand(1,99).'#categoryAnchor'.$category;
 
+// when in the editor, clear the redirect
+else
+  $redirect = '';
+
+
 ?>
+<!-- Update the image -->
+<script type="text/javascript">
+/* <![CDATA[ */
+  function refreshThumbnailImage(newImage,imageWidth) {
+    if($('thumbnailPreviewImage') != null) {
+      $$('img.thumbnailPreview').setProperty('src','<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path']; ?>'+newImage);
+      $('thumbnailPreviewImage').setProperty('data-width',imageWidth);
+      if(imageWidth >= 200)
+        $('thumbnailPreviewImage').setStyle('width',200);
+    
+    }
+
+    if($('thumbnailUploadButtonInPreviewArea') != null) {
+      $('thumbnailUploadButtonInPreviewArea').setStyle('display','none');
+      $('thumbnailPreviewContainer').setStyle('display','block');
+    }
+  }
+/* ]]> */
+</script>
+
 <!-- ok button, after upload -->
-<a href="index.php<?php echo $redirect; ?>" onclick="closeWindowBox('index.php<?php echo $redirect; ?>');return false;" id="pageThumbnailOkButton" class="ok center">&nbsp;</a>
+<a href="index.php<?php echo $redirect; ?>" onclick="closeWindowBox(<?php echo $redirect; ?>);return false;" id="pageThumbnailOkButton" class="ok center">&nbsp;</a>
 
 <!-- UPLOAD IFRAME -->
 <iframe id="uploadTargetFrame" name="uploadTargetFrame" src="library/controllers/thumbnailUpload.controller.php"></iframe>

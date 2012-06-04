@@ -65,12 +65,24 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
           ? '?category='.$category.'&page='.$page.'&status=reload'.rand(1,99).'#pageInformation'
           : '?site='.$site.'&category='.$category;
         
-        if($site == 'pages')
+        // redirect, when on listPages
+        if($site == 'pages') {
           $redirect .= '&status=reload'.rand(1,99).'#categoryAnchor'.$category;
-          
-        // redirect
-        echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php'.$redirect.'\');/* ]]> */</script>';
+          echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php'.$redirect.'\');/* ]]> */</script>';
         
+        // remove the thumbnail preview
+        } else { ?>
+          <script type="text/javascript">
+          /* <![CDATA[ */
+            if($('thumbnailUploadButtonInPreviewArea') != null) {
+              $('thumbnailUploadButtonInPreviewArea').setStyle('display','block');
+              $('thumbnailPreviewContainer').setStyle('display','none');
+              closeWindowBox();
+            }
+          /* ]]> */
+          </script>';
+ <?php  }
+            
     } else {
       // DELETING ERROR --------------
       $question = '<h2>'.$langFile['PAGETHUMBNAIL_ERROR_DELETE'].'</h2>

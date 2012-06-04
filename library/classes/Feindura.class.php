@@ -140,7 +140,7 @@ class Feindura extends FeinduraBase {
   public $startPage = null;
   
  /**
-  * Contains the startcategory ID
+  * Contains the start category ID
   * 
   * Its fetched from the {@link Feindura::$startPage} through the {@link GeneralFunctions::getPageCategory()} method.<br>
   * This property is set to the {@link Feindura::$category} property when the <var>$_GET</var> category variable
@@ -1268,6 +1268,7 @@ class Feindura extends FeinduraBase {
         
         $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
         // add frontend editing stylesheets
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/ckeditor/plugins/feinduraSnippets/styles.css"'.$tagEnding."\n";
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/shared.css"'.$tagEnding."\n";
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/frontendEditing.css"'.$tagEnding."\n";    
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/Assets/moorte.css"'.$tagEnding."\n";

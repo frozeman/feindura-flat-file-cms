@@ -295,38 +295,51 @@ if(!$newPage) {
       ? ''
       : '<div style="font-size:11px; text-align:right;">'.$langFile['EDITOR_pageinfo_lastsavedate'].': <b>'.$lastSaveDate.' '.$lastSaveTime.$editedByUser.'</b></div>';
       
+
     // -> show THUMBNAIL if the page has one
+    $displayThumbnailContainer = ' display:none;';
     if(!$newPage && !empty($pageContent['thumbnail'])) {
-      
+
+      $displayThumbnailContainer = '';
+
+      // vars
       $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
       $thumbnailWidth = $thumbnailWidth[0];
       
-      
       if($thumbnailWidth >= 200)        
-        $thumbnailWidth = ' width="200"';
-      //else
-        //$thumbnailWidth = ' width="'.$thumbnailWidth.'"';
-      
-      // generates a random number to put on the end of the image, to prevent caching
-      $randomImage = '?'.md5(uniqid(rand(),1));
-      
-      echo '<br><div style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;">';
-      echo '<span class="thumbnailToolTip" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'">'.$langFile['THUMBNAIL_TEXT_NAME'].'</span><br>';
-      echo '<span class="deleteIcon">';
+        $thumbnailWidthStyle = ' style="width:200px;"';
+
+    }
+
+    // generates a random number to put on the end of the image, to prevent caching
+    // $randomImage = '?'.md5(uniqid(rand(),1));
+
+    // thumbnailPreviewContainer
+    echo '<br><div id="thumbnailPreviewContainer" style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;'.$displayThumbnailContainer.'">';
+    echo '<span class="thumbnailToolTip" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'">'.$langFile['THUMBNAIL_TEXT_NAME'].'</span><br>';
+    echo '<span class="deleteIcon">';
+
+    // see if the thumbnails are activated, add upload/delete buttons
+    if(($pageContent['category'] == 0 && $adminConfig['pages']['thumbnails']) || ($pageContent['category'] != 0 && $categoryConfig[$pageContent['category']]['thumbnails'])) {
       echo '<a href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\',false);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"" class="deleteIcon toolTip"></a>';
       echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',false);return false;" class="image">';
-      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnailPreview thumbnailToolTip"'.$thumbnailWidth.' alt="thumbnail" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'">';
+      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" id="thumbnailPreviewImage" class="thumbnailPreview thumbnailToolTip"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'">';
       echo '</a>';
-      echo '</span>';
-      echo '</div>';
+    // if not only show the thumbnailPreviewImage
+    } else
+      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" id="thumbnailPreviewImage" class="thumbnailPreview thumbnailToolTip"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'">';
+    
+    echo '</span>';
+    echo '</div>';
     
     // -> show the thumbnail upload button if there is no thumbnail yet
-    } elseif(!$newPage &&
-             (($_GET['category'] == 0 && $adminConfig['pages']['thumbnails']) ||
-             $categoryConfig[$_GET['category']]['thumbnail'])) {  
-      
-        echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',false);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
-    }
+    $displayThumbnailUploadButton = (!$newPage &&
+       (($_GET['category'] == 0 && $adminConfig['pages']['thumbnails']) ||
+       $categoryConfig[$_GET['category']]['thumbnails']))
+       ? '' : ' style="display:none;"';
+
+    // thumbnailUploadButtonInPreviewArea
+    echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" id="thumbnailUploadButtonInPreviewArea" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',false);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="pageThumbnailUpload toolTip"'.$displayThumbnailUploadButton.'>&nbsp;</a>';
     ?>
     
     <table>     

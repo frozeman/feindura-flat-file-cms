@@ -522,7 +522,7 @@ function saveCategories($newCategories) {
       $fileContent .= "\$categoryConfig[".$category['id']."]['isSubCategory']       = ".XssFilter::bool($category['isSubCategory'],true).";\n";
       $fileContent .= "\$categoryConfig[".$category['id']."]['isSubCategoryOf']     = '".$category['isSubCategoryOf']."';\n";
       $fileContent .= "\$categoryConfig[".$category['id']."]['createDelete']        = ".XssFilter::bool($category['createDelete'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbnail']           = ".XssFilter::bool($category['thumbnail'],true).";\n";        
+      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbnails']           = ".XssFilter::bool($category['thumbnails'],true).";\n";        
       $fileContent .= "\$categoryConfig[".$category['id']."]['plugins']             = '".$category['plugins']."';\n";
       $fileContent .= "\$categoryConfig[".$category['id']."]['showTags']            = ".XssFilter::bool($category['showTags'],true).";\n";
       $fileContent .= "\$categoryConfig[".$category['id']."]['showPageDate']        = ".XssFilter::bool($category['showPageDate'],true).";\n";

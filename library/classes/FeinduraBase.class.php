@@ -1158,6 +1158,8 @@ class FeinduraBase {
   * Generates a thumbnail <img> tag from the given <var>$pageContent</var> array and
   * returns an array with the ready to display tag and the plain thumbnail path.
   * 
+  * <b>Note:</b>: It will add the class "feinduraThumbnail" to the image.
+  * 
   * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
@@ -1185,14 +1187,13 @@ class FeinduraBase {
     if(!empty($pageContent['thumbnail']) &&
       @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) { //&&
       //(($pageContent['category'] == 0 && $this->adminConfig['pages']['thumbnails']) ||
-      //($pageContent['category'] && $this->categoryConfig[$pageContent['category']]['thumbnail']))) {
+      //($pageContent['category'] && $this->categoryConfig[$pageContent['category']]['thumbnails']))) {
       
       // set TAG ENDING (xHTML or HTML) 
       if($this->xHtml === true) $tagEnding = ' />';
       else $tagEnding = '>';
       
       // adds ATTRIBUTES and/or FLOAT
-
       $thumbnailAttributes = $this->createAttributes($this->thumbnailId, $this->thumbnailClass, $this->thumbnailAttributes);
       
       // thumbnail FLOAT
@@ -1209,7 +1210,15 @@ class FeinduraBase {
       if($this->thumbnailAfter !== true)
         $thumbnailAfter = $this->thumbnailAfter;
       
-      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+      // get the setting thumbnail sizes
+      $configThumbWidth = ($pageContent['category'] == 0) ? $this->adminConfig['pageThumbnail']['width'] : $this->categoryConfig[$pageContent['category']]['thumbWidth'];
+      $configThumbHeight = ($pageContent['category'] == 0) ? $this->adminConfig['pageThumbnail']['height'] : $this->categoryConfig[$pageContent['category']]['thumbHeight'];
+      
+      if(!empty($configThumbWidth) && !empty($configThumbHeight) && is_numeric($configThumbWidth) && is_numeric($configThumbHeight)) {
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['basePath'].'library/images/icons/emptyImage.gif" style="display:inline-block; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'\') no-repeat center center;" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+      } else
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+      
       $pageThumbnail['thumbnailPath'] = $this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
       
       return $pageThumbnail;
@@ -1503,9 +1512,10 @@ class FeinduraBase {
   * @see Feindura::createMenuByDate()
   * 
   * @access protected
-  * @version 1.0
+  * @version 1.0.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.0.1 fixed timezone when using strtotime
   *    - 1.0 initial release
   * 
   */     
@@ -1529,14 +1539,14 @@ class FeinduraBase {
        
       // creates the PAST DATE
       $defaultTimezone = date_default_timezone_get();
-      date_default_timezone_set('UTC'); // to be able to get the right date
+      date_default_timezone_set($this->adminConfig['timezone']); // so the date can be compared to the page dates, which are set in the backend timezone
+
       if(is_string($monthsInThePast) && !is_numeric($monthsInThePast))
         $pastDate = strtotime($monthsInThePast,$currentDate);
       elseif(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
         $pastDate = strtotime('-'.$monthsInThePast.' month',$currentDate);
       elseif($monthsInThePast === false)
         $pastDate = $currentDate;
-      date_default_timezone_set($defaultTimezone); // set the timezone back to where it was
                       
       // creates the FUTURE DATE
       if(is_string($monthsInTheFuture) && !is_numeric($monthsInTheFuture))
@@ -1545,6 +1555,8 @@ class FeinduraBase {
         $futureDate = strtotime('+'.$monthsInTheFuture.' month',$currentDate);
       elseif($monthsInTheFuture === false)
         $futureDate = $currentDate;
+
+      date_default_timezone_set($defaultTimezone); // set the timezone back to where it was
       
       //echo 'currentDate: '.$currentDate.'<br>';
       //echo 'pastDate: '.$pastDate.'<br>';

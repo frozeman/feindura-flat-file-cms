@@ -387,7 +387,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           
           $checked[2]  = ($category['createDelete']) ? 'checked="checked"' : '';
           
-          $checked[3]  = ($category['thumbnail']) ? 'checked="checked"' : '';
+          $checked[3]  = ($category['thumbnails']) ? 'checked="checked"' : '';
           
           $checked[11] = ($category['plugins']) ? 'checked="checked"' : '';
           
@@ -499,9 +499,9 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td></tr>';          
           
           echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="categories'.$category['id'].'thumbnail" name="categories['.$category['id'].'][thumbnail]" value="true" '.$checked[3].' class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS'].'"><br>                
+                <input type="checkbox" id="categories'.$category['id'].'thumbnails" name="categories['.$category['id'].'][thumbnails]" value="true" '.$checked[3].' class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS'].'"><br>                
                 </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'thumbnail"><span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS'].'</span></label>             
+                <label for="categories'.$category['id'].'thumbnails"><span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS'].'</span></label>             
                 </td></tr>';
           
           echo '<tr><td class="left checkboxes">

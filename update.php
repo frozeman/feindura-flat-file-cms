@@ -538,7 +538,9 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       if(!isset($category['sorting'])) $category['sorting'] = ($category['sortbypagedate'] || $category['sortByPageDate']) ? 'byPageDate' : 'manually';
       $category['sortReverse'] = ($category['sortascending'] || $category['sortAscending']) ? 'true' : $category['sortReverse'];
       $category['createDelete'] = (isset($category['createdelete'])) ? $category['createdelete'] : $category['createDelete'];
+      $category['thumbnails'] = (isset($category['thumbnail'])) ? $category['thumbnail'] : $category['thumbnails'];
       
+
       if($category['plugins'] === true || $category['plugins'] === 'true')
       $category['plugins'] = activateAllPluginsSerialized();
       
@@ -571,9 +573,9 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
         $newCategoryPlugins = array();
 
         foreach($categoryPlugins as $categoryPlugin) {
-          if($categoryPlugin == 'imageGallery') {
+          if($categoryPlugin == 'imageGallery' && !isset($categoryPlugins['imageGalleryFromFolder'])) {
             $categoryPlugin = 'imageGalleryFromFolder';
-          } elseif($categoryPlugin == 'slideShow') {
+          } elseif($categoryPlugin == 'slideShow' && !isset($categoryPlugins['slideShowFromFolder'])) {
             $categoryPlugin = 'slideShowFromFolder';
           }
           $newCategoryPlugins[] = $categoryPlugin;

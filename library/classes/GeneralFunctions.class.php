@@ -1565,7 +1565,7 @@ class GeneralFunctions {
     $feindura_pageContentString = $pageContentString;
 
 
-    if(preg_match_all ('#<img.*class\=\"(feinduraSnippet|feinduraPlugin)\"[^>]*style\=\"((?:(?:width|height)\:\s?(?:[0-9]*(?:%|px))\;\s?){0,2})\"[^>]*title\="([^\"]+)"[^>]*>#i', $feindura_pageContentString, $matches,PREG_SET_ORDER)) {
+    if(preg_match_all ('#<img.*class\=\"(feinduraSnippet|feinduraPlugin)\"[^>]*(?:style\=\"((?:(?:width|height)\:\s?(?:[0-9]*(?:%|px))\;\s?){0,2})\")?[^>]*title\="([^\"]+)"[^>]*>#i', $feindura_pageContentString, $matches,PREG_SET_ORDER)) {
       // replace each link
       foreach($matches as $feindura_match) {
 

@@ -155,8 +155,34 @@ if($_POST['upload']) {
           $newFilePath = $uploadPath.$newFileName;
           
           require_once(dirname(__FILE__).'/../thirdparty/PHP/Image.class.php');
+
+  
+          // When both sizes are given resize only the small part which is bigger than the thumbnail with/height
+          // (the rest will be "cut" to prevent squeezing, by adding it as background image to the <img>)
+          if(!empty($thumbWidth) && !empty($thumbHeight) && is_numeric($thumbWidth) && is_numeric($thumbHeight)) {
+
+            $imageSize = (file_exists(DOCUMENTROOT.$filePath)) ? getimagesize(DOCUMENTROOT.$filePath) : array(0,0);
+
+            $imageRatio = $imageSize[0] / $imageSize[1];
+            $thumbRatio = $thumbWidth / $thumbHeight;
+
+            if($imageRatio >= 1 && $thumbRatio <= 1)
+              $thumbWidth = false;
+            elseif($imageRatio <= 1 && $thumbRatio >= 1)
+              $thumbHeight = false;
+            elseif($imageRatio >= 1 && $thumbRatio >= 1 && $imageRatio > $thumbRatio)
+              $thumbWidth = false;
+            elseif($imageRatio >= 1 && $thumbRatio >= 1 && $imageRatio < $thumbRatio)
+              $thumbHeight = false;
+
+            // set keepRatio manually
+            $keepRatio = true;
+
+          // Otherwise keep ratio and only resize one side
+          } else
+            $keepRatio = (empty($_POST['thumbRatio'])) ? false : true;
+
           
-          $keepRatio = (empty($_POST['thumbRatio'])) ? false : true;
           $resize = new Image(DOCUMENTROOT.$filePath);
           if(!$resize->resize($thumbWidth,$thumbHeight,$keepRatio,true))
             $error[] = $langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE'];
@@ -198,7 +224,7 @@ if($_POST['upload']) {
             // call this javascript, on the succesfull finish of the upload
             echo '<script type="text/javascript">
                   /* <![CDATA[ */
-                  window.top.window.finishUpload('.$frameHeight.');
+                    window.top.window.finishThumbnailUpload('.$frameHeight.',"'.$newFileName.'",'.$thumbSize[0].');
                   /* ]]> */
                   </script>';
           	}

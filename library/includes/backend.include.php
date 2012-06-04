@@ -19,11 +19,11 @@
  * @version 0.3
  */
 
-$sessionLifeTime = (60 * 60 * 3); // 3 hours
+$sessionLifeTime = (60 * 60 * 3); // logout after 3 hours of inactivity
 
 // -> START SESSION (for the login, language and storedPages [currently deactivated])
-ini_set('session.gc_maxlifetime', $sessionLifeTime); // saves the session for 3 hours minutes
-ini_set('session.cookie_lifetime', $sessionLifeTime); // saves the session for 3 hours minutes
+ini_set('session.gc_maxlifetime', $sessionLifeTime * 10); // saves the session for a long time, so it doesnt expire (feindura handles this)
+ini_set('session.cookie_lifetime', $sessionLifeTime * 10); // saves the session for a long time, so it doesnt expire (feindura handles this)
 session_name('session');
 session_start();
 

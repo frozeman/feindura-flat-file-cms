@@ -411,7 +411,7 @@ if($_GET['site'] == 'addons') {
     // -> CHECK for pageThumbnailUpload
     $showPageThumbnailUpload = (!$newPage &&
                                 empty($_GET['site']) && !empty($_GET['page']) &&
-                                (($_GET['category'] === 0 && $adminConfig['pages']['thumbnails']) || $categoryConfig[$_GET['category']]['thumbnail'])) ? true : false;
+                                (($_GET['category'] === 0 && $adminConfig['pages']['thumbnails']) || $categoryConfig[$_GET['category']]['thumbnails'])) ? true : false;
 
     
     // -> CHECK for pageThumbnailDelete

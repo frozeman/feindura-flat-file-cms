@@ -122,6 +122,10 @@ CKEDITOR.plugins.add('feinduraSnippets',
                   this.selectPage('snippets');
                 }
 
+                // make the width/height inputs smaller
+                this.getContentElement('plugins','feinduraPluginWidth').getElement().setStyle('width','60px');
+                this.getContentElement('plugins','feinduraPluginHeight').getElement().setStyle('width','60px');
+
                 // update the selections
                 if(this.snippet && (this.snippet.hasClass('feinduraPlugin') || this.snippet.hasClass('feinduraSnippet')))
                   this.setupContent(this.snippet);
@@ -158,7 +162,6 @@ CKEDITOR.plugins.add('feinduraSnippets',
                     size: 40,
                     'default' : '100',
                     setup: function(element){
-                        this.getElement().setStyle('width','60px');
                         if(element !== null && element.hasClass('feinduraPlugin') && this.getDialog().tabs == 'plugins')
                           this.setValue(element.getStyle('width').match(/[0-9]*/g)[0]);
                       },
@@ -189,9 +192,8 @@ CKEDITOR.plugins.add('feinduraSnippets',
                     id : 'feinduraPluginHeight',
                     label : editor.lang[editor.config.language].common.height,
                     size: 40,
-                    'default' : '50',
+                    'default' : '',
                     setup: function(element){
-                        this.getElement().setStyle('width','60px');
                         if(element !== null && element.hasClass('feinduraPlugin') && this.getDialog().tabs == 'plugins')
                           this.setValue(element.getStyle('height').match(/[0-9]*/g)[0]);
                       },

@@ -33,8 +33,9 @@ if(isset($_GET['logout']) || (isset($_SESSION['feinduraSession']['login']['end']
   unset($_SESSION['feinduraSession']['login']);
   session_regenerate_id(true);
   $loggedOut = true;
+
+// -> else RESET the SESSION TIME as always when reloading the page
 } else {
-  // RESET the SESSION TIME as always when reloading the page
   $_SESSION['feinduraSession']['login']['end'] = time() + $sessionLifeTime;
 }
 

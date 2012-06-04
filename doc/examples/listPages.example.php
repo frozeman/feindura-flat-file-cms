@@ -78,7 +78,7 @@ Stet clita kasd gubergren, no sea takimata sanctus.</p>
 <a href="?category=2&amp;page=1" title="Example Page 1">
 Example Page 1
 </a>
-<img src="/path/thumb_page3.png" alt="Thumbnail" title="Example Page 1" id="thumbId"
+<img src="/path/thumb_page3.png" class="feinduraThumbnail" alt="Thumbnail" title="Example Page 1" id="thumbId"
 class="thumbCLass" test="exampleAttribute1" onclick="exampleAttribute2" style="float:left;">
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 invidunt ut labore et dolore magna aliquyam erat, ur sadipscing elitr,

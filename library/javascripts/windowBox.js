@@ -229,13 +229,15 @@ function stopUploadAnimation() {
 }
 //--------------------------------------------------
 // called on the SUCCESFULL end of the upload
-function finishUpload(frameHeight) {
+function finishThumbnailUpload(frameHeight,newImage,ImageWidth) {
 
   // shows the iframe content
   if($('uploadTargetFrame').tween('height',frameHeight))
   
   // show the ok button
   $('pageThumbnailOkButton').setStyle('display','block');
+
+  refreshThumbnailImage(newImage,ImageWidth);
   
   // hides the from and the thumbInfo
   $('pageThumbnailUploadForm').setStyle('display','none');

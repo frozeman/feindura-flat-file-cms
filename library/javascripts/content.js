@@ -217,36 +217,25 @@ function removeChecked(selector) {
 // -------------------------------------------------
 // auto resize of the THUMBNAIL-PREVIEW
 function autoResizeThumbnailPreview() {
-  $$('.thumbnailPreview').each(function(thumbnail) {
+  var thumbnail = $('thumbnailPreviewImage');
+  if(thumbnail !== null) {
 
-      // only set tween if the img tag has a width attribute,
-      // prevent double addEvent and double set of vars
-      if(thumbnail.getProperty('width')) {
+    // set tween
+    thumbnail.set('tween',{duration: 500, transition: Fx.Transitions.Pow.easeOut});
 
-        var oldWidth = thumbnail.getSize().x;
-
-        // remove the width property to get the real width
-        thumbnail.removeProperty('width');
-        var orgWidth = thumbnail.getSize().x;
-
-        // add the width property again
-        thumbnail.setStyle('width',oldWidth);
-
-        // set tween
-        thumbnail.set('tween',{duration: '500', transition: Fx.Transitions.Pow.easeOut});
-
-        //mouseover
-        thumbnail.addEvent('mouseenter',function() {
-          thumbnail.tween('width',orgWidth);
-        });
-
-        // mouseout
-        thumbnail.addEvent('mouseleave',function() {
-        thumbnail.tween('width',oldWidth);
-        });
-
-      }
+    //mouseover
+    thumbnail.addEvent('mouseenter',function() {
+      if(thumbnail.getProperty('data-width') >= 200)
+        thumbnail.tween('width',thumbnail.getProperty('data-width'));
     });
+
+    // mouseout
+    thumbnail.addEvent('mouseleave',function() {
+      if(thumbnail.getProperty('data-width') >= 200)
+        thumbnail.tween('width',200);
+    });
+
+  }
 }
 
 // -------------------------------------------------
