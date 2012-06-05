@@ -730,6 +730,8 @@ $blockContentEdited = (isset($pageContent['plugins']))
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><?php echo $langFile['EDITOR_pluginSettings_h1'].$blockContentEdited; ?></a></h1>
   <div class="content">
+    <p><?php echo sprintf($langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR'],' <a href="#editorAnchor" class="image"><img src="library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png" style="margin-bottom: -4px;"></a>'); ?></p>
+    <!-- <div class="verticalSeparator"></div> --><br><br>
       <?php
       
       // ->> LOAD PLUGINS      

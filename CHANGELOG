@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 925
+Build 926
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 2.0
   
+  build 926: add text to the plugins, how to add it in the editor
   build 925: made thumbnail upload ajax based, when updating the image in the editor page
   build 924: add feindura Snippet system, allows to place plugins and code snippets inside pages
   build 923: add listSubPages(), listPagesOfSubCategory()

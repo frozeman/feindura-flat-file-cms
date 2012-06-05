@@ -200,7 +200,7 @@ else
     // generates a random number to put on the end of the image, to prevent caching
     $randomImage = '?'.md5(uniqid(rand(),1));
     
-    echo '<div style="z-index:0; position:relative; width: 280px; margin-bottom: 10px; float:right; text-align: center;">';
+    echo '<div style="z-index:0; position:relative; width: 280px; margin-bottom: 10px; margin-top: 20px; float:right; text-align: center;">';
     echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
     echo '</div>';
   }

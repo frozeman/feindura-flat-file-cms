@@ -1596,7 +1596,7 @@ window.addEvent('domready', function() {
           clearTimeout(editorTweenTimeout);
           if(!editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20))
             ckeditorContent.tween('height',editorTweenToHeight);
-
+          
             // show toolbar !e.target.hasClass('cke_toolbox_collapser') &&
             if(typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') === 'none') {
               HTMLEditor.execCommand('toolbarCollapse'); //toggles

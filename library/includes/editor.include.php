@@ -25,6 +25,7 @@
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 ?>
+<a id="editorAnchor" class="anchorTarget"></a>
 <div class="editor">
 <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
 <?php echo htmlspecialchars(GeneralFunctions::getLocalized($pageContent,'content',true),ENT_NOQUOTES,'UTF-8'); ?>

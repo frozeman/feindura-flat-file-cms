@@ -751,6 +751,7 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'Настройки расширений';
+$langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'После активации плагина, вы можете разместить его непосредственно в страницу, в редакторе при помощи значка %s.';
 
 /*
 * unsavedPage.php

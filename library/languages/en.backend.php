@@ -746,6 +746,7 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'Plugin Settings';
+$langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'After activation of an plugin, you can place it directly inside the page, in the editor, using the %s icon.';
 
 /*
 * unsavedPage.php
