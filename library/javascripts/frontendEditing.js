@@ -38,6 +38,11 @@
   var editDisabledIcon = new Element('div',{'class':'feindura_editDisabledIcon'});
   var removeLoadingCircle = function(){};
 
+  var isUnloading = false;
+  window.addEvent('beforeunload',function(){
+    isUnloading = true;
+  });
+
   var feinduraMooRTE;
 
   // -> set up toolbar
@@ -55,27 +60,22 @@
   /* ---------------------------------------------------------------------------------- */
   // ->> SAVE PAGE
   function savePage(pageBlock,type) {
-    if(pageSaved === false && (pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editTitle')) && pageBlock.retrieve('content') != pageBlock.get('html')) {
+    if(pageSaved === false && (pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editTitle')) && pageBlock.retrieve('editContent') != pageBlock.get('html')) {
       pageBlock.getChildren('#rteMozFix').destroy();
       // url encodes the string
       var content = encodeURIComponent(pageBlock.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
       // save the page
-      request(pageBlock,feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php','save=true&type='+type+'&language='+pageBlock.retrieve('language')+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
+      request(pageBlock,feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php','save=true&type='+type+'&language='+pageBlock.retrieve('language')+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post');
       pageSaved = true;
     }
   }
 
   /* ---------------------------------------------------------------------------------- */
   // FRONTEND EDITING AJAX REQUEST
-  function request(pageBlock,url,data,errorTexts,method,update) {
+  function request(pageBlock, url, data, errorTexts, method) {
 
     // vars
     if(!method) method = 'get';
-    var isUnloading = false;
-
-    window.addEvent('beforeunload',function(){
-      isUnloading = true;
-    });
 
     // creates the request Object
     new Request({
@@ -130,11 +130,8 @@
 
             // store the actual content to make a dirtyCheck later
             pageSaved = false;
-            pageBlock.store('content',pageBlock.get('html'));
+            pageBlock.store('editContent',pageBlock.get('html'));
 
-            // -> UPDATE the pageBlock CONTENT
-            // if(update)
-            //   pageBlock.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
           });
         }
       },
@@ -153,29 +150,60 @@
   }
 
   /* ---------------------------------------------------------------------------------- */
+  // REPLACE CONTENT EDIT CONTENT <-> REAL CONTENT
+  function replaceContent(block, mode) {
+
+    if(isUnloading)
+      return;
+    
+    new Request.HTML({
+      url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php',
+      method: 'post',
+      link: 'cancel',
+      update: block,
+      evalScripts: false,
+      // onSuccess: function(responseTree, responseElements, responseHTML, responseJavaScript) {
+        // block.set('html',responseHTML);
+        // Browser.exec(responseJavaScript);
+
+        // if(mode == 'activate') {
+        //   // bring the moorte back
+        //   block.moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
+        //   block.moorte('hide');
+        // }
+      // }
+    }).send('replaceContent=true&mode='+ mode +'&page='+ block.retrieve('page') +'&category='+ block.retrieve('category') +'&language'+ block.retrieve('language') +'&xHtml='+ feindura_xHtml);
+
+  }
+
+  /* ---------------------------------------------------------------------------------- */
   // ->> Center Icon in Element, but moves the center up when the element is scrolled away
   function centerOnElement(icon,element) {
 
     // vars
-    var elementXtop = (element.getPosition().x < window.getScroll().x) ? element.getPosition().x - window.getScroll().x : 0;
-    var elementYtop = (element.getPosition().y < window.getScroll().y) ? element.getPosition().y - window.getScroll().y : 0;
-    var elementXbottom = ((element.getPosition().x + element.getSize().x) > (window.getScroll().x + window.getSize().x)) ? window.getSize().x - element.getPosition().x : element.getSize().x;
-    var elementYbottom = ((element.getPosition().y + element.getSize().y) > (window.getScroll().y + window.getSize().y)) ? window.getSize().y - element.getPosition().y : element.getSize().y;
-    var iconX = 0;
-    var iconY = 0;
+    // var iconX = 0;
+    // var iconY = 0;
+    // var elementXtop = (window.getScroll().x < element.getPosition().x) ? element.getPosition().x - window.getScroll().x : 0;
+    // var elementYtop = (window.getScroll().y < element.getPosition().y) ? element.getPosition().y - window.getScroll().y : 0;
+    // var elementXbottom = ((element.getPosition().x + element.getSize().x) > (window.getScroll().x + window.getSize().x)) ? element.getSize().x - elementXtop : element.getSize().x - elementXtop;
+    // var elementYbottom = ((element.getPosition().y + element.getSize().y) > (window.getScroll().y + window.getSize().y)) ? window.getSize().y - elementYtop : element.getSize().y - elementYtop;
 
-    // X
-    iconX = ((elementXbottom - elementXtop) / 2) ;
+    // console.log('scrollY: '+window.getScroll().y,element.getPosition().y);
 
-    // Y
-    iconY = ((elementYbottom - elementYtop) / 2);
+    // // X
+    // iconX = ((elementXbottom - elementXtop) / 2) ;
+    // // console.log('elementXbottom: '+elementXbottom,'elementXtop: '+elementXtop,'result: '+iconX);
+
+    // // Y
+    // iconY = ((elementYbottom - elementYtop) / 2);
+    // console.log('elementYbottom: '+elementYbottom,'elementYtop: '+elementYtop,'result: '+iconY);
 
     // set the position
-    element.setStyle('position','relative');
+    // element.setStyle('position','relative');
 		icon.setStyles({
-      'position':'absolute',
-      'left': iconX,
-      'top': iconY
+      'position':'fixed',
+      'left': (window.getSize().x / 2), //- (icon.getSize().x / 2),
+      'top': (window.getSize().y / 2) //- (icon.getSize().y / 2)
     });
   }
 
@@ -226,28 +254,35 @@
 
     }
 
-    // remove classes
-    $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
-      pageBlock.moorte('destroy');
-    });
+    // document.body.get('morph').chain(function(){
 
-    pageToolbars.each(function(pageToolbar) {
-      pageToolbar.setStyle('display','none');
-    });
-    nonEditableBlocks.each(function(nonEditableBlock) {
-      nonEditableBlock.removeProperty('title');
-      nonEditableBlock.removeClass('feindura_editPageDisabled');
-      nonEditableBlock.removeEvents();
-      // toolTips.detach(nonEditableBlock);
-    });
-    editableBlocks.each(function(editableBlock) {
-      editableBlock.removeClass('feindura_editPage');
-      editableBlock.removeProperty('title');
-    });
-    editableTitles.each(function(editableTitle) {
-      editableTitle.removeClass('feindura_editTitle');
-      editableTitle.removeProperty('title');
-    });
+      // remove classes
+      $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
+        pageBlock.moorte('destroy');
+      });
+
+      pageToolbars.each(function(pageToolbar) {
+        pageToolbar.setStyle('display','none');
+      });
+      nonEditableBlocks.each(function(nonEditableBlock) {
+        nonEditableBlock.removeProperty('title');
+        nonEditableBlock.removeClass('feindura_editPageDisabled');
+        nonEditableBlock.removeEvents();
+        // toolTips.detach(nonEditableBlock);
+      });
+      editableBlocks.each(function(editableBlock) {
+        editableBlock.removeClass('feindura_editPage');
+        editableBlock.removeProperty('title');
+
+        // replace editable content with real one
+        replaceContent(editableBlock,'deactivate');
+      });
+      editableTitles.each(function(editableTitle) {
+        editableTitle.removeClass('feindura_editTitle');
+        editableTitle.removeProperty('title');
+      });
+
+    // });
 
     // checkForChanges();
   }
@@ -281,6 +316,9 @@
       editableBlock.addClass('feindura_editPage');
       editableBlock.setProperty('title',editableBlock.retrieve('title'));
 
+      // replace real content with editable one
+      replaceContent(editableBlock,'activate'); // also activates moorte
+
       // bring the moorte back
       editableBlock.moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
       editableBlock.moorte('hide');
@@ -306,6 +344,13 @@
       $$('div.MooRTE.rtePageTop')[0].tween('top', '30px');
     topBar.tween('top', '0px');
     document.body.morph({'padding-top':'60px','background-position-y':'60px'});
+
+    // document.body.get('morph').chain(function(){
+    //   editableBlocks.each(function(editableBlock){
+    //     // replace real content with editable one
+    //     replaceContent(editableBlock,'activate'); // also activates moorte
+    //   });
+    // });
 
   }
 
@@ -363,7 +408,7 @@
         }
         });
 
-        // READD MOORTE to all other elements
+        // RE-ADD MOORTE to all other elements
         // if(!feindura_deactivateFrontendEditing && typeOf($$('div.feindura_editPage, span.feindura_editTitle')[0]) !== 'null')
         //   feinduraMooRTE = new MooRTE({elements:$$('div.feindura_editPage, span.feindura_editTitle'),skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
       }
@@ -373,7 +418,7 @@
 
     // -> check the GIVEN PAGEBLOCK
     if(pageBlock) {
-      if(pageBlock.retrieve('content') != pageBlock.get('html')) {
+      if(pageBlock.retrieve('editContent') != pageBlock.get('html')) {
         disableEditing(pageBlock);
         return true;
       } else
@@ -382,7 +427,7 @@
     // -> otherwise check ALL EDITABLE BLOCKs and disable, if content has changed
     } else {
       $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
-        if(pageBlock.retrieve('content') != pageBlock.get('html')) {
+        if(pageBlock.retrieve('editContent') != pageBlock.get('html')) {
           disableEditing(pageBlock);
           return;
         }
@@ -520,7 +565,7 @@ window.addEvent('load',function(){
         //alert(MooRTE.Elements.linkPop.visible);
         if((typeOf(MooRTE.Elements.linkPop) === 'null' || (MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false))) {
           if(this.hasClass('feindura_editPage'))
-            savePage(this,'content');
+            savePage(this,'editContent');
           else if(this.hasClass('feindura_editTitle'))
             savePage(this,'title');
         }
@@ -536,7 +581,7 @@ window.addEvent('load',function(){
         this.store('firstSelection',false);
 
         // store th current content
-        this.store('content',this.get('html'));
+        this.store('editContent',this.get('html'));
 
         // activate the moorte toolbar
         this.moorte('show');
@@ -624,7 +669,7 @@ window.addEvent('load',function(){
           $$('div.feindura_editPage, span.feindura_editTitle').each(function(page) {
               if(MooRTE.activeField == page) {
                 if(page.hasClass('feindura_editPage'))
-                  savePage(page,'content');
+                  savePage(page,'editContent');
                 else if(page.hasClass('feindura_editTitle'))
                   savePage(page,'title');
               }

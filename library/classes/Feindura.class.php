@@ -1326,6 +1326,7 @@ class Feindura extends FeinduraBase {
   var feindura_logoutUrl =    '".GeneralFunctions::getCurrentUrl('feindura_logout')."';
   var feindura_setStartPage = '".$this->adminConfig['setStartPage']."';
   var feindura_startPage =    '".$this->startPage."';
+  var feindura_xHtml =        '".$this->xHtml."';
   /* ]]> */
   </script>\n";
 

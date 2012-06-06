@@ -78,6 +78,9 @@ window.addEvent('domready',function() {
   CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['url'].GeneralFunctions::getDirname($adminConfig['websitePath']); ?>'; //$adminConfig['basePath']."library/thirdparty/ckeditor/"
   CKEDITOR.config.language                  = '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>';
   CKEDITOR.config.extraPlugins              = 'Media,codemirror'; //stylesheetparser
+  CKEDITOR.config.blockedKeystrokes.push(CKEDITOR.CTRL + 83);
+  CKEDITOR.config.docType                   = '<!doctype html">';
+  CKEDITOR.config.entities                  = false;
 
 <?php 
 // SNIPPETS
@@ -96,11 +99,11 @@ if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false && !empty($edi
 <?php 
 // ENTER MODE
 if($adminConfig['editor']['enterMode'] == 'br') { ?>
-  CKEDITOR.config.enterMode                 = 'CKEDITOR.ENTER_BR';
-  CKEDITOR.config.shiftEnterMode            = 'CKEDITOR.ENTER_P';
+  CKEDITOR.config.enterMode                 = CKEDITOR.ENTER_BR;
+  CKEDITOR.config.shiftEnterMode            = CKEDITOR.ENTER_P;
 <?php } else { ?>
-  CKEDITOR.config.enterMode                 = 'CKEDITOR.ENTER_P';
-  CKEDITOR.config.shiftEnterMode            = 'CKEDITOR.ENTER_BR';
+  CKEDITOR.config.enterMode                 = CKEDITOR.ENTER_P;
+  CKEDITOR.config.shiftEnterMode            = CKEDITOR.ENTER_BR;
 
 // CUSTOM STYLES
 <? } if(!$adminConfig['editor']['editorStyles']) { ?>

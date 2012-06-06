@@ -1590,7 +1590,7 @@ class GeneralFunctions {
 
             // Store the content of the snippet in a variable
             ob_start();
-              @include(dirname(__FILE__).'/../../snippets/'.$feindura_match[2]);
+              @include(dirname(__FILE__).'/../../snippets/'.$feindura_match[3]);
               $snippet = ob_get_contents();
             ob_end_clean();
 
@@ -1742,6 +1742,67 @@ class GeneralFunctions {
     }  
   }
   
+ /**
+  * <b>Name</b> generateContent()<br>
+  * 
+  * Generates the page content and adds the frontend editing when activated and logged in. 
+  * 
+  * 
+  * <b>Note:</b> Activates the frontend editing (adds a div tag with feindura data).
+  * 
+  * 
+  * @param string         $pageContentString  the localized page content string of a page
+  * @param int|array      $pageId             page ID
+  * @param string|false   $sessionId          to transport to {@link GeneralFunctions::replacelinks()}
+  * @param string|false   $language           to transport to {@link GeneralFunctions::replacelinks()}
+  * 
+  * @uses GeneralFunctions::$adminConfig       to check for frontend editing
+  * @uses $xHtml
+  *   
+  * 
+  * @uses GeneralFunctions::htmLawed()
+  * @uses GeneralFunctions::replaceLinks()
+  * @uses GeneralFunctions::replaceCodeSnippets()
+  * @uses GeneralFunctions::shortenHtmlText()
+  * 
+  * 
+  * @return string the generated page content
+  * 
+  * @see FeinduraBase::generatePage()
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function generateContent($pageContentString, $pageId, $sessionId, $language) {
+
+    // -> when content is not empty
+    if(!empty($pageContentString)) {
+      
+      if(self::$adminConfig['editor']['safeHtml'])
+        $htmlLawedConfig['safe'] = 1;
+      else
+        $htmlLawedConfig['safe'] = 0;
+      if($xHtml)
+        $htmlLawedConfig['valid_xhtml'] = 1;
+      else
+        $htmlLawedConfig['valid_xhtml'] = 0;
+      $pageContentEdited = (self::$adminConfig['editor']['htmlLawed']) ? self::htmLawed($pageContentString,$htmlLawedConfig) : $pageContentString;
+      
+      // replace feindura links
+      $pageContentEdited = self::replaceLinks($pageContentEdited,$sessionId,$language);
+      $pageContentEdited = self::replaceCodeSnippets($pageContentEdited,$pageId);
+    
+    // -> show no content
+    } else
+      $pageContentEdited = '';
+
+    return $pageContentEdited;
+  }
+
  /**
   * <b>Name</b> sortPages()<br>
   * 

@@ -225,7 +225,7 @@ class FeinduraBase {
     else
       $this->loggedIn = false;
 
-    // -> CHECKS if cookies the cookie in the feindura.include.php file was set
+    // -> CHECKS if cookies, means the cookie in the feindura.include.php file was set
     if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'] != 'true') {
       $this->sessionId = htmlspecialchars(session_name().'='.session_id()); //SID
     }
@@ -766,11 +766,12 @@ class FeinduraBase {
   * @uses createAttributes()                       to create the attributes used in the error tag
   * @uses shortenHtmlText()                        to shorten the HTML page content
   * @uses shortenText()                            to shorten the non HTML page content, if the $useHtml parameter is FALSE
-  * @uses GeneralFunctions::formatDate()         to format the page date for output
-  * @uses GeneralFunctions::dateDayBeforeAfter() check if the page date is "yesterday" "today" or "tomorrow"
+  * @uses generateContent()                        to modify the pageContent (and add frontend editing container)
+  * @uses GeneralFunctions::formatDate()           to format the page date for output
+  * @uses GeneralFunctions::dateDayBeforeAfter()   check if the page date is "yesterday" "today" or "tomorrow"
   * @uses GeneralFunctions::isPublicCategory()     to check whether the category is public
   * @uses GeneralFunctions::isPageContentArray()   to check if the given array is a $pageContent array
-  * @uses GeneralFunctions::readPage()		         to load the page if the $page parameter is an ID
+  * @uses GeneralFunctions::readPage()             to load the page if the $page parameter is an ID
   * @uses GeneralFunctions::getPageCategory()      to get the category of the page
   * 
   * 
@@ -870,9 +871,9 @@ class FeinduraBase {
         return array();
     }
     
-    // ->> BEGINNING TO BUILD THE PAGE
-    // -------------------
-    
+    // -> START to BUILD THE PAGE CONTENT
+    // ----------------------------------
+
     // -> PAGE DATE
     // *****************
     $pageDate = false;
@@ -916,61 +917,39 @@ class FeinduraBase {
     
     // ->> MODIFING pageContent
     // ************************
-    // -> adds the frontend editing container
+    if($this->adminConfig['multiLanguageWebsite']['active'])
+      $langCode = $this->language;
+    else
+      $langCode = 0;
+    $localizedPageContent = $this->getLocalized($pageContent,'content',$langCode);
+
+    // -> ADD the FRONTEND EDITING CONTAINER
     if(!$shortenText && $useHtml && $this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) {
-      if($this->adminConfig['multiLanguageWebsite']['active'])
-        $langCode = $this->language;
-      else
-        $langCode = 0;
-      $localizedPageContent = $this->getLocalized($pageContent,'content',$langCode);
 
       $uniqueId = md5(rand(0,9999));
       
-      // if(!preg_match('#<script.*>#',$localizedPageContent)) {
-        $pageContentEdited = "\n".'<div class="feindura_editPage" id="feindura_editPage'.$page.'_'.$uniqueId.'" data-feindura="'.$page.' '.$category.' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
-        $pageContentEdited .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editPage'.$page.'_'.$uniqueId.'").store("content",$("feindura_editPage'.$page.'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
-      // } else
-      //   $pageContentEdited = "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.' '.$langCode.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$localizedPageContent.'</div>'."\n";
+      $pageContentEdited = "\n".'<div class="feindura_editPage" id="feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
+      $pageContentEdited .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").store("editContent",$("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
     
-    // -> no frontend editing
+    // ->> ADD modified CONTENT (replaceLinks,replaceCodeSnippets,..)
     } else {
-
-      $localizedPageContent = $this->getLocalized($pageContent,'content');
-      if(!empty($localizedPageContent)) {
-        
-        if($this->adminConfig['editor']['safeHtml'])
-          $htmlLawedConfig['safe'] = 1;
-        else
-          $htmlLawedConfig['safe'] = 0;
-        if($this->xHtml)
-          $htmlLawedConfig['valid_xhtml'] = 1;
-        else
-          $htmlLawedConfig['valid_xhtml'] = 0;
-        $pageContentEdited = ($this->adminConfig['editor']['htmlLawed']) ? GeneralFunctions::htmLawed($localizedPageContent,$htmlLawedConfig) : $localizedPageContent;
-        
-        // replace feindura links
-        $pageContentEdited = GeneralFunctions::replaceLinks($pageContentEdited,$this->sessionId,$this->language);
-        $pageContentEdited = GeneralFunctions::replaceCodeSnippets($pageContentEdited,$pageContent['id']);
-        
-        // clear Html tags?
-        if($useHtml === false || is_string($useHtml)) {
-          if(is_string($useHtml))
-            $pageContentEdited = strip_tags($pageContentEdited, $useHtml);
-          else
-            $pageContentEdited = strip_tags($pageContentEdited);
-        }
-        
-        // -> SHORTEN CONTENT   
-        if($shortenText && !is_bool($shortenText))
-          $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent);
-        
-        // clear xHTML tags from the content
-        if($this->xHtml === false)
-          $pageContentEdited = str_replace(' />','>',$pageContentEdited);
+      $pageContentEdited = GeneralFunctions::generateContent($localizedPageContent, $pageContent['id'], $this->sessionId, $this->language);
       
-      // -> show no content
-      } else
-        $pageContentEdited = '';
+      // clear Html tags?
+      if($useHtml === false || is_string($useHtml)) {
+        if(is_string($useHtml))
+          $pageContentEdited = strip_tags($pageContentEdited, $useHtml);
+        else
+          $pageContentEdited = strip_tags($pageContentEdited);
+      }
+      
+      // -> SHORTEN CONTENT   
+      if($shortenText && !is_bool($shortenText))
+        $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent);
+      
+      // clear xHTML tag endings from the content
+      if($this->xHtml === false)
+        $pageContentEdited = str_replace(' />','>',$pageContentEdited);
     }
 
 

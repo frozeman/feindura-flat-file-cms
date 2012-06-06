@@ -1568,6 +1568,7 @@ window.addEvent('domready', function() {
       });
     });
 
+
     // -> adds the EDITOR SLIDE IN/OUT tweens
     if($('documentSaved') !== null && $('documentSaved').hasClass('saved'))
       editorIsClicked = true;
@@ -1579,36 +1580,36 @@ window.addEvent('domready', function() {
         var ckeditorToolBar = $$("#cke_top_HTMLEditor .cke_toolbox")[0];
         // fixes the ckeditor to use slide ins
         $$('.cke_top').setStyles({
-          'position':'relative',
+          // 'position':'relative',
           'padding':'6px 0'
         });
         $$('.cke_toolbox_collapser').setStyles({
           'position':'absolute',
-          'right':5,
-          'top':-2
+          'right': 25,
+          'top': 17
         });
-        
 
         var editorTweenTimeout;
 
         $$('div.editor #cke_HTMLEditor').addEvent('click',function(e){
-          editorHasFocus = true;
           clearTimeout(editorTweenTimeout);
-          if(!editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20))
-            ckeditorContent.tween('height',editorTweenToHeight);
-          
-            // show toolbar !e.target.hasClass('cke_toolbox_collapser') &&
-            if(typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') === 'none') {
-              HTMLEditor.execCommand('toolbarCollapse'); //toggles
-              // slide in
-              ckeditorToolBar.set('slide',{duration:400, transition: Fx.Transitions.Pow.easeOut});
-              ckeditorToolBar.slide('hide').slide('in');
-            }
 
-            // scroll to editor
-            if(typeOf($$('div.editor')[0]) !== 'null')
-              windowScroll.toElement($$('div.editor')[0]);
-    
+          if(!editorHasFocus && !editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20))
+            ckeditorContent.tween('height',editorTweenToHeight);
+
+          if(!editorHasFocus && typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') === 'none') {
+            editorHasFocus = true;
+            HTMLEditor.execCommand('toolbarCollapse'); //toggles
+            // slide in
+            ckeditorToolBar.set('slide',{duration:400, transition: Fx.Transitions.Pow.easeOut});
+            ckeditorToolBar.slide('hide').slide('in');
+          }
+
+          // scroll to editor
+          if(typeOf($$('div.editor')[0]) !== 'null')
+            windowScroll.toElement($$('div.editor')[0]);
+      
+          editorHasFocus = true;
         });
         $$('div.editor #cke_HTMLEditor').addEvent('mouseenter',function(e){
           if(!editorIsClicked && !editorSubmited && !editorHasFocus && ckeditorContent.getHeight() <= (editorStartHeight+20))
@@ -1622,16 +1623,15 @@ window.addEvent('domready', function() {
         });
 
         HTMLEditor.on('focus',function() {
-          
-          editorHasFocus = true;
           clearTimeout(editorTweenTimeout);
-          if(!editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20)) {
+
+          if(!editorHasFocus && !editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20)) {
             ckeditorContent.tween('height',editorTweenToHeight);
             //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
           }
 
           // show toolbar directly
-          if(typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') == 'none') {
+          if(!editorHasFocus && typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') == 'none') {
             HTMLEditor.execCommand('toolbarCollapse'); //toggles
             // slide in
             ckeditorToolBar.set('slide',{duration:400, transition: Fx.Transitions.Pow.easeOut});
@@ -1641,6 +1641,8 @@ window.addEvent('domready', function() {
           // scroll to editor
           if(typeOf($$('div.editor')[0]) !== 'null')
             windowScroll.toElement($$('div.editor')[0]);
+
+          editorHasFocus = true;
         });
 
         $('HTMLEditorSubmit').addEvent('mousedown',function(e) {

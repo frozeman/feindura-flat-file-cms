@@ -37,15 +37,15 @@ if($_POST['save'] == 'true') {
   // -> replace the existing data with the new one
   if(is_array($pageContent['localized'])) {
     $pageContent['localized'][$langCode]['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['localized'][$langCode]['title'];
-    $pageContent['localized'][$langCode]['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['localized'][$langCode]['content'];
+    $pageContent['localized'][$langCode]['content'] = ($_POST['type'] == 'editContent') ? $_POST['data'] : $pageContent['localized'][$langCode]['content'];
     $tmpReturn = ($_POST['type'] == 'title') ? $pageContent['localized'][$langCode]['title'] : $tmpReturn;
-    $tmpReturn = ($_POST['type'] == 'content') ? $pageContent['localized'][$langCode]['content'] : $tmpReturn;
+    $tmpReturn = ($_POST['type'] == 'editContent') ? $pageContent['localized'][$langCode]['content'] : $tmpReturn;
   // legacy fallback
   } else {
     $pageContent['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['title'];
-    $pageContent['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'];
+    $pageContent['content'] = ($_POST['type'] == 'editContent') ? $_POST['data'] : $pageContent['content'];
     $tmpReturn = ($_POST['type'] == 'title') ? $pageContent['title'] : $tmpReturn;
-    $tmpReturn = ($_POST['type'] == 'content') ? $pageContent['content'] : $tmpReturn;
+    $tmpReturn = ($_POST['type'] == 'editContent') ? $pageContent['content'] : $tmpReturn;
   }
 
   // ->> save the page
@@ -69,7 +69,8 @@ if($_POST['save'] == 'true') {
   } else {
     $return = '####SAVING-ERROR####';
   }
-  echo $return;
+  
+  // echo $return;
 }
 
 // ACTIVATE/DEACTIVATE frontend editing
@@ -79,6 +80,37 @@ if($_POST['deactivateFrontendEditing']) {
     $_SESSION['feinduraSession']['login']['deactivateFrontendEditing'] = true;
   if($_POST['deactivateFrontendEditing'] == 'false')
     unset($_SESSION['feinduraSession']['login']['deactivateFrontendEditing']);
+}
+
+// REPLACE EDITO CONTENT with REAL CONTENT
+if($_POST['replaceContent']) {
+  
+  // vars
+  $return = '';
+  $sessionId = htmlspecialchars(session_name().'='.session_id()); //SID;
+  $langCode = ($adminConfig['multiLanguageWebsite']['active']) ? $_POST['language'] : 0;
+  $pageContent = GeneralFunctions::readPage($_POST['page'],$_POST['category']);
+
+  if(is_array($pageContent['localized']))
+    $localizedContent = $pageContent['localized'][$langCode]['content'];
+  // legacy fallback
+  else
+    $localizedContent = $pageContent['content'];
+
+  // -> add edit content
+  if($_POST['mode'] == 'deactivate') {
+    $return = GeneralFunctions::generateContent($localizedContent, $pageContent['id'], $sessionId, $langCode);
+    
+    // clear xHTML tag endings from the content
+    if(empty($_POST['xHtml']))
+      $return = str_replace(' />','>',$return);
+
+  // -> add generated content  
+  } elseif($_POST['mode'] == 'activate') {
+    $return = $localizedContent;
+  }
+
+  echo $return;
 }
 
 ?>

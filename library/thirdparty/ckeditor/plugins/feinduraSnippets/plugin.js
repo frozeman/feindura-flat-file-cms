@@ -70,7 +70,7 @@ CKEDITOR.plugins.add('feinduraSnippets',
             return {
               title : 'feindura ' + feindura_langFile['CKEDITOR_TITLE_SNIPPETS'],
               minWidth : 100,
-              minHeight : 50,
+              minHeight : '100%',
               onOk: function() {
 
                 // var attributes = {},

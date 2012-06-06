@@ -49,7 +49,7 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 
 /* format of the toolTip box */
 .feindura_toolTipBox {
-  z-index: 2005;
+  z-index: 20020;
   padding: 15px 20px;
   max-width: 250px;
   min-width: 100px;
@@ -113,7 +113,7 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
   position: fixed;    
   top: 15%;
   left: 370px;
-  z-index: 2100;
+  z-index: 20010;
   padding: 30px 40px;
   width: 447px;
   border: 1px solid #fef9f3;
