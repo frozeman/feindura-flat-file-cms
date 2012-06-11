@@ -155,13 +155,13 @@
 
     if(isUnloading)
       return;
-    
+
     new Request.HTML({
       url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php',
       method: 'post',
       link: 'cancel',
       update: block,
-      evalScripts: false,
+      evalScripts: false
       // onSuccess: function(responseTree, responseElements, responseHTML, responseJavaScript) {
         // block.set('html',responseHTML);
         // Browser.exec(responseJavaScript);
@@ -243,7 +243,7 @@
     } else {
 
       // set the session var
-      new Request({ url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php' }).send('deactivateFrontendEditing=true');
+      new Request({ url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php', link: 'chain' }).send('deactivateFrontendEditing=true');
 
       logo.tween('top', '-55px');
       if(typeOf($$('div.MooRTE.rtePageTop')[0]) !== 'null')
@@ -292,7 +292,7 @@
   function activate() {
 
     // set the session var
-    new Request({ url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php' }).send('deactivateFrontendEditing=false');
+    new Request({ url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php', link: 'chain' }).send('deactivateFrontendEditing=false');
 
     topBarVisible = true;
 

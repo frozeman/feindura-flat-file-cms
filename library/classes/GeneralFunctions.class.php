@@ -1590,7 +1590,7 @@ class GeneralFunctions {
 
             // Store the content of the snippet in a variable
             ob_start();
-              @include(dirname(__FILE__).'/../../snippets/'.$feindura_match[3]);
+              include(dirname(__FILE__).'/../../snippets/'.$feindura_match[3]);
               $snippet = ob_get_contents();
             ob_end_clean();
 

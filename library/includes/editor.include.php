@@ -96,6 +96,9 @@ if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false && !empty($edi
   CKEDITOR.config.bodyId                    = '<?php echo $editorStyleId; ?>';
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
 
+  CKEDITOR.config.forceEnterMode            = true; // forces p inside a div
+
+
 <?php 
 // ENTER MODE
 if($adminConfig['editor']['enterMode'] == 'br') { ?>

@@ -1102,7 +1102,7 @@ class FeinduraBase {
         $uniqueId = md5(rand(0,9999));
 
         $titleText = '<span class="feindura_editTitle" id="feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.$this->getLocalized($pageContent,'title',$langCode).'</span>';
-        $titleText .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'").store("content",$("feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
+        $titleText .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'").store("editContent",$("feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
 
       } else
         $titleText = $this->getLocalized($pageContent,'title');

@@ -201,7 +201,7 @@ foreach($allCategories as $category) {
       }
       
       // shorten the title
-      $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent,'title')),27);
+      $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent,'title')),25);
       $visitorCount = GeneralFunctions::shortenString(formatHighNumber($pageStatistics['visitorCount']),12);
       
       // -> show lastSaveDate

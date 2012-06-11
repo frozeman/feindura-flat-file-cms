@@ -52,7 +52,7 @@ if(!$adminConfig['user']['fileManager'])
     function openFilemanager(){
       var complete = function(path, file){
         // remove the websitePath from the absolute path, to generate one relative to the websitePath
-        path = path.replace('<?php echo $adminConfig['websitePath']; ?>','');
+        path = path.replace('<?php echo GeneralFunctions::getDirname($adminConfig['websitePath']); ?>','');
         window.opener.CKEDITOR.tools.callFunction('<?php echo $_GET["CKEditorFuncNum"]; ?>', path);
         window.close();
       };

@@ -70,7 +70,7 @@ if($_POST['save'] == 'true') {
     $return = '####SAVING-ERROR####';
   }
   
-  // echo $return;
+  echo $return; // needed for editor.php title edit
 }
 
 // ACTIVATE/DEACTIVATE frontend editing

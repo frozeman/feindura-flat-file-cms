@@ -1509,21 +1509,22 @@ window.addEvent('domready', function() {
 
     // ------------------------------
     // CONFIG the HTMlEditor
-    CKEDITOR.config.dialog_backgroundCoverColor   = '#333333';
-    CKEDITOR.config.uiColor                       = '#cccccc';
-    CKEDITOR.config.width                         = 792;
-    if($('documentSaved') !== null && $('documentSaved').hasClass('saved'))
-      CKEDITOR.config.height                      = editorTweenToHeight;
+    CKEDITOR.config.dialog_backgroundCoverColor        = '#333333';
+    CKEDITOR.config.uiColor                            = '#cccccc';
+    CKEDITOR.config.width                              = 792;
+    if($('documentSaved')                              !== null && $('documentSaved').hasClass('saved'))
+    CKEDITOR.config.height                             = editorTweenToHeight;
     else
-      CKEDITOR.config.height                      = editorStartHeight;
-    CKEDITOR.config.resize_minWidth               = 792;
-    CKEDITOR.config.resize_maxWidth               = 1400;
-    CKEDITOR.config.resize_minHeight              = (editorStartHeight+136);
-    CKEDITOR.config.resize_maxHeight              = 900;
-    CKEDITOR.config.forcePasteAsPlainText         = false; // was true
-    CKEDITOR.config.scayt_autoStartup             = false;
-    CKEDITOR.config.colorButton_enableMore        = true;
-    CKEDITOR.config.entities                      = false;
+    CKEDITOR.config.height                             = editorStartHeight;
+    CKEDITOR.config.resize_minWidth                    = 792;
+    CKEDITOR.config.resize_maxWidth                    = 1400;
+    CKEDITOR.config.resize_minHeight                   = (editorStartHeight+136);
+    CKEDITOR.config.resize_maxHeight                   = 900;
+    CKEDITOR.config.forcePasteAsPlainText              = false; // was true
+    CKEDITOR.config.pasteFromWordNumberedHeadingToList = true;
+    CKEDITOR.config.scayt_autoStartup                  = false;
+    CKEDITOR.config.colorButton_enableMore             = true;
+    CKEDITOR.config.entities                           = false;
     CKEDITOR.config.protectedSource.push( /<\?[\s\S]*?\?>/g ); // protect php code
     //CKEDITOR.config.disableNativeSpellChecker = false;
     if($('documentSaved') === null || !$('documentSaved').hasClass('saved'))
