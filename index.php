@@ -44,7 +44,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 <head>
   <meta charset="UTF-8">
   
-  <title>feindura: <?php
+  <title>feindura > <?php
   echo GeneralFunctions::getLocalized($websiteConfig,'title');
   if(isset($_GET['page']) && is_numeric($_GET['page']) && ($pageTitle = GeneralFunctions::readPage($_GET['page'],GeneralFunctions::getPageCategory($_GET['page']))) != false) {
     echo ' - '.GeneralFunctions::getLocalized($pageTitle,'title');
@@ -387,9 +387,11 @@ if($_GET['site'] == 'addons') {
       $generallyCreatePages = true;
     // if not check if one category can create pages
     else {
-      foreach($categoryConfig as $category) {
-        if($category['createDelete'])
-          $generallyCreatePages = true;
+      if(!empty($categoryConfig)) {
+        foreach($categoryConfig as $category) {
+          if($category['createDelete'])
+            $generallyCreatePages = true;
+        }
       }
     }
     

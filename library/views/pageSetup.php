@@ -75,7 +75,7 @@ $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
         <select id="cfg_websiteLanguageChoices" name="cfg_websiteLanguageChoices[]" multiple="multiple"<?php if(!$adminConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?> class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE'] ; ?>">
         <?php
           foreach($languageNames as $langKey => $langValue) {
-            if(is_array($adminConfig['multiLanguageWebsite']['languages']) && !in_array($langKey, $adminConfig['multiLanguageWebsite']['languages']))
+            if((is_array($adminConfig['multiLanguageWebsite']['languages']) && !in_array($langKey, $adminConfig['multiLanguageWebsite']['languages'])) || empty($adminConfig['multiLanguageWebsite']['languages']))
               echo '<option value="'.$langKey.'">'.$langValue.'</option>';    
           }
         ?>
@@ -306,7 +306,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
         <select id="cfg_pagePlugins" name="cfg_pagePlugins[]" multiple="multiple">
           <?php
           foreach($plugins as $pluginName) {
-            $selected = (in_array($pluginName,unserialize($adminConfig['pages']['plugins']))) ? ' selected="selected"' : '' ;
+            $selected = (is_array(unserialize($adminConfig['pages']['plugins'])) && in_array($pluginName,unserialize($adminConfig['pages']['plugins']))) ? ' selected="selected"' : '' ;
             echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';    
           }
           ?>

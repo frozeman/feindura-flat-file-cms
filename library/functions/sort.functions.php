@@ -137,9 +137,11 @@ function sortByCategory($a, $b) {     // (Array) $a = current; $b = following va
     : $GLOBALS['categoryConfig'];
 
   // puts the categories order in a string for comparision
-  $categoryIds = '0 ';
-  foreach($categoryConfig as $category) {
-    $categoryIds .= $category['id'].' ';
+  $categoryIds = '0-';
+  if(is_array($categoryConfig)) {
+    foreach($categoryConfig as $category) {
+      $categoryIds .= $category['id'].'-';
+    }
   }
   
   if($a['category'] == $b['category']) {
@@ -151,7 +153,7 @@ function sortByCategory($a, $b) {     // (Array) $a = current; $b = following va
   }
 
   // sorts the array like the categories array order is
-  return (strpos($categoryIds,$a['category']) < strpos($categoryIds,$b['category'])) ? -1 : 1;
+  return (strpos($categoryIds,$a['category'].'-') < strpos($categoryIds,$b['category'].'-')) ? -1 : 1;
 }
 
 /**

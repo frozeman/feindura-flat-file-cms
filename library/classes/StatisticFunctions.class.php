@@ -765,7 +765,7 @@ class StatisticFunctions {
     }
     
     // -> write file
-    if(file_put_contents($cacheFile, $fileContent, LOCK_EX)) {
+    if(@file_put_contents($cacheFile, $fileContent, LOCK_EX)) {
       // -> add permissions on the first creation
       if(!$cachedLines) @chmod($cacheFile, self::$adminConfig['permissions']); 
     }

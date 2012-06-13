@@ -745,6 +745,10 @@ function checkSubCategories() {
   }
   unset($pageContent);
 
+  // return here if no categories exist
+  if(empty($GLOBALS['categoryConfig']))
+    return true;
+
   // -> CHECK in SUB CATEGORY if the pages still exists
   $newCategoryConfig = $GLOBALS['categoryConfig'];
   foreach ($GLOBALS['categoryConfig'] as $categoryId => $categoryConfig) {

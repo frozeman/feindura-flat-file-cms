@@ -14,14 +14,18 @@
 /* *** BODY */
 
 html,body {
-    margin: 0px;
-    padding: 0px;
-    height: 100%; /* makes the #leftSidebar box also in IE 100% */
-    background: url("../images/bg/body.png") repeat;
-    background-color: #5b5b5b !important;
-    color: #000000;
-    font: 12px Verdana, Arial, Sans-serif, Serif;
-    }
+  margin: 0px;
+  padding: 0px;
+  height: 100%; /* makes the #leftSidebar box also in IE 100% */
+  background: url("../images/bg/body.png") repeat;
+  background-color: #5b5b5b !important;
+  color: #000000;
+  font: 12px Verdana, Arial, Sans-serif, Serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
 
 /****************/  
 /* *** GENERAL ELEMENTs FORMAT  */

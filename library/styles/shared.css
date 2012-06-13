@@ -154,7 +154,7 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 #feindura_errorWindow .feindura_content div.scroll {
   display: block;
   overflow: auto;
-  max-height: 500px;
+  max-height: 400px;
   color: #A30000;
 }
     

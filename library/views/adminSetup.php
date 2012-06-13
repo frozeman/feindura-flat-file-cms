@@ -471,9 +471,11 @@ if(!empty($adminConfig['websiteFilesPath']))
 <?php
 
 $htmlEditorStyleFilePath = "config/EditorStyles.js";
-$htmlEditorStyleFile = fopen($htmlEditorStyleFilePath,"r");
-$htmlEditorStyleContent = fread($htmlEditorStyleFile,filesize($htmlEditorStyleFilePath));
-fclose($htmlEditorStyleFile);
+if($htmlEditorStyleFile = @fopen($htmlEditorStyleFilePath,"r")) {
+  $htmlEditorStyleContent = fread($htmlEditorStyleFile,filesize($htmlEditorStyleFilePath));
+  fclose($htmlEditorStyleFile);
+} else
+  $htmlEditorStyleContent = '';
 
 // -> fill when with standard styles when its empty
 if(strpos($htmlEditorStyleContent,'CKEDITOR.addStylesSet') === false)
