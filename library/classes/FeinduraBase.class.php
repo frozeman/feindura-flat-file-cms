@@ -1472,8 +1472,8 @@ class FeinduraBase {
   * 
   * @param string          $idType                the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool  $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
-  * @param int|bool|string $monthsInThePast       (optional) number of months before today, if TRUE it show all pages in the past, if FALSE it loads only pages starting from today. it can also be a string with a date format, for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
-  * @param int|bool|string $monthsInTheFuture     (optional) number of months after today, if TRUE it show all pages in the future, if FALSE it loads only pages until today. it can also be a string with a date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param int|bool|string $monthsInThePast       (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
+  * @param int|bool|string $monthsInTheFuture     (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
   * @param bool            $sortByCategories      (optional) determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
   * @param bool	           $reverseList           (optional) if TRUE the pages sorting will be reversed
   * 
@@ -1529,7 +1529,7 @@ class FeinduraBase {
                       
       // creates the FUTURE DATE
       if(is_string($monthsInTheFuture) && !is_numeric($monthsInTheFuture))
-        $pastDate = strtotime($monthsInTheFuture,$currentDate);
+        $futureDate = strtotime($monthsInTheFuture,$currentDate);
       if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
         $futureDate = strtotime('+'.$monthsInTheFuture.' month',$currentDate);
       elseif($monthsInTheFuture === false)
@@ -1537,9 +1537,13 @@ class FeinduraBase {
 
       date_default_timezone_set($defaultTimezone); // set the timezone back to where it was
       
-      //echo 'currentDate: '.$currentDate.'<br>';
-      //echo 'pastDate: '.$pastDate.'<br>';
-      //echo 'futureDate: '.$futureDate.'<br><br>';
+      // echo 'currentDate: '.date('d-m-Y',$currentDate).'<br>';
+      // echo 'pastDate: '.date('d-m-Y',$pastDate).'<br>';
+      // echo 'futureDate: '.date('d-m-Y',$futureDate).'<br><br>';
+
+      // convert to number date e.g. 20010911
+      $pastDate = date('Ymd',$pastDate);
+      $futureDate = date('Ymd',$futureDate);
       
       // -> list a category(ies)
       // ------------------------------  
@@ -1549,14 +1553,17 @@ class FeinduraBase {
         if(!empty($page['pageDate']['date']) &&
            (($page['category'] != 0 && $this->categoryConfig[$page['category']]['showPageDate']) || ($page['category'] == 0 && $this->adminConfig['pages']['showPageDate']))) {         
            
-           // echo $page['pageDate']['date'].' >= '.$pastDate.'<br>';
+          // echo 'pageDate: '.date('d-m-Y',$page['pageDate']['date']).'<br>';
+
+          // convert to number date e.g. 20010911
+          $pageDate = date('Ymd',$page['pageDate']['date']);
            
-           // adds the page to the array, if:
-           // -> the currentdate ist between the minus and the plus month or
-           // -> mins or plus month are true (means there is no time limit)
-           if(($monthsInThePast === true || $page['pageDate']['date'] >= $pastDate) &&
-              ($monthsInTheFuture === true || $page['pageDate']['date'] <= $futureDate))
-             $selectedPages[] = $page;
+          // adds the page to the array, if:
+          // -> the currentdate ist between the minus and the plus month or
+          // -> mins or plus month are true (means there is no time limit)
+          if(($monthsInThePast === true || $pageDate >= $pastDate) &&
+             ($monthsInTheFuture === true || $pageDate <= $futureDate))
+            $selectedPages[] = $page;
         }
       }      
       
