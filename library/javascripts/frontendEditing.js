@@ -161,8 +161,12 @@
       method: 'post',
       link: 'cancel',
       update: block,
-      evalScripts: false
-      // onSuccess: function(responseTree, responseElements, responseHTML, responseJavaScript) {
+      evalScripts: false,
+      onSuccess: function(responseTree, responseElements, responseHTML, responseJavaScript) {
+
+        // if(mode == 'deactivate')
+          // window.fireEvent('domready');
+
         // block.set('html',responseHTML);
         // Browser.exec(responseJavaScript);
 
@@ -171,7 +175,7 @@
         //   block.moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
         //   block.moorte('hide');
         // }
-      // }
+      }
     }).send('replaceContent=true&mode='+ mode +'&page='+ block.retrieve('page') +'&category='+ block.retrieve('category') +'&language='+ block.retrieve('language') +'&xHtml='+ feindura_xHtml);
 
   }
@@ -515,7 +519,8 @@ window.addEvent('load',function(){
       document.body.setStyle('padding-top','60px');
       document.body.setStyle('background-position-y','60px');
     }
-    document.id('feindura_bodyStyle').destroy(); // removes the <style> tag where it set body padding before the domready event
+    if(document.id('feindura_bodyStyle') !== null)
+      document.id('feindura_bodyStyle').destroy(); // removes the <style> tag where it set body padding before the domready event
 
     // TOOLTIPS
     addToolTips();

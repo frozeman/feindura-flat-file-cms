@@ -1584,6 +1584,7 @@ class GeneralFunctions {
           if($feindura_match[1] === 'feinduraSnippet') {
 
             // available vars in the snippet
+            $GLOBALS['ISSNIPPET'] = 'dsdas';
             $feindura;
             $pageId;
             $categoryId = self::getPageCategory($pageId);
@@ -1596,6 +1597,8 @@ class GeneralFunctions {
 
             // replace snippet placeholder
             $feindura_pageContentString = str_replace($feindura_match[0],$snippet,$feindura_pageContentString);
+
+            unset($GLOBALS['ISSNIPPET']);
 
           // -> PLUGIN
           } elseif($feindura_match[1] === 'feinduraPlugin') {

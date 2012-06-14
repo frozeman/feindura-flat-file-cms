@@ -924,7 +924,7 @@ class FeinduraBase {
     $localizedPageContent = $this->getLocalized($pageContent,'content',$langCode);
 
     // -> ADD the FRONTEND EDITING CONTAINER
-    if(!$shortenText && $useHtml && $this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) {
+    if(!$shortenText && !$GLOBALS['ISSNIPPET'] && $useHtml && $this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) {
 
       $uniqueId = md5(rand(0,9999));
       
@@ -1094,7 +1094,7 @@ class FeinduraBase {
         $titleShowCategory = '';
       
       // ACTIVATE FRONTEND EDITING
-      if($allowFrontendEditing && !$titleAsLink && $this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION)  {// data-feindura="pageID categoryID language"
+      if($allowFrontendEditing && !$GLOBALS['ISSNIPPET'] && !$titleAsLink && $this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION)  {// data-feindura="pageID categoryID language"
         if($this->adminConfig['multiLanguageWebsite']['active'])
           $langCode = $this->language;
         else
