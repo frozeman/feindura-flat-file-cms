@@ -75,15 +75,15 @@ if($_POST['save'] == 'true') {
 
 // ACTIVATE/DEACTIVATE frontend editing
 // -----------------------------------------------------------------------------
-if($_POST['deactivateFrontendEditing']) {
-  if($_POST['deactivateFrontendEditing'] == 'true')
+if($_POST['changeFrontendEditing'] == 'true') {
+  if($_POST['mode'] == 'deactivate')
     $_SESSION['feinduraSession']['login']['deactivateFrontendEditing'] = true;
-  if($_POST['deactivateFrontendEditing'] == 'false')
+  elseif($_POST['mode'] == 'activate')
     unset($_SESSION['feinduraSession']['login']['deactivateFrontendEditing']);
 }
 
 // REPLACE EDITO CONTENT with REAL CONTENT
-if($_POST['replaceContent']) {
+if($_POST['replaceContent'] == 'true') {
   
   // vars
   $return = '';
@@ -92,7 +92,7 @@ if($_POST['replaceContent']) {
   $pageContent = GeneralFunctions::readPage($_POST['page'],$_POST['category']);
 
   if(is_array($pageContent['localized']))
-    $localizedContent = $pageContent['localized'][$langCode]['content'];
+    $localizedContent = GeneralFunctions::getLocalized($pageContent,'content',$langCode);
   // legacy fallback
   else
     $localizedContent = $pageContent['content'];

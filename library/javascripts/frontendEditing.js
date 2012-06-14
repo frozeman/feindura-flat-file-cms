@@ -27,7 +27,7 @@
 
   var toolTips = null;
 
-  var logo = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
+  var logo = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'class': 'feindura_logo feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
   var topBar = new Element('div',{id: 'feindura_topBar' });
   var topBarText = new Element('p',{'html': feindura_langFile.TOPBAR_TIP_FRONTENDEDITING});
   var topBarVisible = (feindura_deactivateFrontendEditing) ? false : true;
@@ -172,7 +172,7 @@
         //   block.moorte('hide');
         // }
       // }
-    }).send('replaceContent=true&mode='+ mode +'&page='+ block.retrieve('page') +'&category='+ block.retrieve('category') +'&language'+ block.retrieve('language') +'&xHtml='+ feindura_xHtml);
+    }).send('replaceContent=true&mode='+ mode +'&page='+ block.retrieve('page') +'&category='+ block.retrieve('category') +'&language='+ block.retrieve('language') +'&xHtml='+ feindura_xHtml);
 
   }
 
@@ -230,7 +230,7 @@
 
     // INSTANT
     if(instant) {
-      logo.setStyle('top', '-55px');
+      // logo.setStyle('top', '-55px');
       if(typeOf($$('div.MooRTE.rtePageTop')[0]) !== 'null')
         $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
       topBar.setStyle('top', '-55px');
@@ -243,9 +243,9 @@
     } else {
 
       // set the session var
-      new Request({ url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php', link: 'chain' }).send('deactivateFrontendEditing=true');
+      new Request({ url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php', link: 'chain' }).send('changeFrontendEditing=true&mode=deactivate');
 
-      logo.tween('top', '-55px');
+      // logo.tween('top', '-55px');
       if(typeOf($$('div.MooRTE.rtePageTop')[0]) !== 'null')
         $$('div.MooRTE.rtePageTop')[0].tween('top', '-25px');
       topBar.tween('top', '-55px');
@@ -292,7 +292,7 @@
   function activate() {
 
     // set the session var
-    new Request({ url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php', link: 'chain' }).send('deactivateFrontendEditing=false');
+    new Request({ url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php', link: 'chain' }).send('changeFrontendEditing=true&mode=activate');
 
     topBarVisible = true;
 
@@ -339,7 +339,7 @@
       $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
     }
 
-    logo.tween('top', '0px');
+    // logo.tween('top', '0px');
     if(typeOf($$('div.MooRTE.rtePageTop')[0]) !== 'null')
       $$('div.MooRTE.rtePageTop')[0].tween('top', '30px');
     topBar.tween('top', '0px');
@@ -455,6 +455,7 @@
     });
 
     topBarText.inject(topBar);
+    logo.inject(topBar);
 
     return topBar;
   }
@@ -510,7 +511,6 @@ window.addEvent('load',function(){
     // ***************
     var topBar = topBarTemplate();
     topBar.inject(document.body,'top');
-    logo.inject(document.body,'top');
     if(!feindura_deactivateFrontendEditing) {
       document.body.setStyle('padding-top','60px');
       document.body.setStyle('background-position-y','60px');

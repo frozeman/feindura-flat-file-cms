@@ -8,11 +8,14 @@
     See the GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License along with this program;
-
-/* RESET styles from GENERAL.CSS */
+*/
 
 #feindura_topBar a {
   outline: none;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
 }
 
 a.logout, a.toWebsite {
@@ -25,7 +28,6 @@ a.logout, a.toWebsite {
 a.logout:hover, a.toWebsite:hover {
   background-position: left top;
 }
-
 
 /* TOP BAR */
 
@@ -58,10 +60,10 @@ a.logout:hover, a.toWebsite:hover {
   width : 100% !important;
 }
 
-#feindura_logo {
-  position: fixed;
+a.feindura_logo {
+  position: absolute;
   top: 0px;
-  right: 3px;
+  right: 13px;
   z-index: 20010;
   display: block;
   width: 112px;
@@ -101,6 +103,10 @@ div.feindura_pageBar {
   width: 27px;
   height: 26px;
   outline: none;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
 }
 
 .feindura_pageBar a.feindura_startPage {
