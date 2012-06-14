@@ -797,11 +797,11 @@ window.addEvent('domready', function() {
       if(filter) {
 
         $$('div.block.listPages li').each(function(page) {
-          if(page.getChildren('div.name a')[0] !== null && !page.getChildren('div.name a')[0].get('text').toLowerCase().contains(filter.toLowerCase()))
-            page.setStyle('display','none');
-          else {
+          if(typeOf(page.getChildren('div.name a')[0]) !== 'null' && page.getChildren('div.name a')[0].get('text').toLowerCase().contains(filter.toLowerCase())) {
             page.setStyle('display','block');
             filteredPages.push(page);
+          } else {
+            page.setStyle('display','none');
           }
         });
 
@@ -810,7 +810,7 @@ window.addEvent('domready', function() {
           var isEmpty = true;
 
           block.getElements('li').each(function(li){
-            if(li.getStyle('display') == 'block')
+            if(li.getStyle('display') == 'block' && typeOf(li.getChildren('div.emptyList')[0]) == 'null')
               isEmpty = false;
           });
 

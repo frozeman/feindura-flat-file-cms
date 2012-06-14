@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 930
+Build 931
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 2.0
   
+  build 930: fixed listPages filter
   build 930: fixed frontendEditing styles and frontendEditing replaceContent function
   build 929: small fix when no configs exist
   build 928: fixes and add new CKEditor version

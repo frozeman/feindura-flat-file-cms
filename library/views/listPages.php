@@ -220,7 +220,7 @@ foreach($allCategories as $category) {
         : '';
 
       // -> generate pageDate for toolTip
-      $pageTitle_pageDate = showPageDate($pageContent);
+      $pageTitle_pageDate = showPageDate($pageContent).'[br]';
       
       // -> generate tags for toolTip
       $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
