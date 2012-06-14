@@ -1081,7 +1081,8 @@ class FeinduraBase {
         if(is_string($titlePageDateSeparator))
           $titleDate = $titleDate.$titlePageDateSeparator;
     
-      } else $titleDate = false;      
+      } else
+        $titleDate = false;
         
       // show the CATEGORY NAME
       if($titleShowCategory === true && $pageContent['category'] != 0) {
@@ -2254,7 +2255,7 @@ class FeinduraBase {
       
       // add the MORE LINK
       if(is_string($moreLink) && strpos($moreLink,'<a ') !== false) {
-        $moreLink = " \n".$moreLink;
+        $moreLink = " \n".str_replace('%href%',$this->createHref($pageContent['id']),$moreLink);
       } elseif($moreLink && GeneralFunctions::isPageContentArray($pageContent)) {
         if(is_string($moreLink) && !is_bool($moreLink))
           $text = $moreLink;

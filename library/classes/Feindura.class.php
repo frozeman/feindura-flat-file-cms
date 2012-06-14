@@ -2697,7 +2697,7 @@ class Feindura extends FeinduraBase {
   * 
   * 
   * @param int|string|array|bool $id           (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
-  * @param int|array|bool        $shortenText  (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
+  * @param int|array|bool        $shortenText  (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string           $useHtml      (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
   * 
   * @uses Feindura::$page
@@ -3038,7 +3038,7 @@ class Feindura extends FeinduraBase {
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
+  * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string    $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
@@ -3143,7 +3143,7 @@ class Feindura extends FeinduraBase {
   * 
   * 
   * @param int|string|array|bool  $id                 (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
-  * @param int|array|bool         $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
+  * @param int|array|bool         $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string            $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
   * @param bool                   $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
@@ -3246,7 +3246,7 @@ class Feindura extends FeinduraBase {
   * 
   * 
   * @param int|string|bool $categoryId         (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
-  * @param int|array|bool  $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
+  * @param int|array|bool  $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string     $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
   * @param bool            $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
@@ -3332,7 +3332,7 @@ class Feindura extends FeinduraBase {
   * @param string|array   $tags               a string with tags seperated by "," or ";" or an array with tags    
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
+  * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string    $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
@@ -3432,7 +3432,7 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool  $ids                   (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|bool|string $monthsInThePast       (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
   * @param int|bool|string $monthsInTheFuture     (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
-  * @param int|array|bool  $shortenText           (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
+  * @param int|array|bool  $shortenText           (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string     $useHtml               (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
   * @param bool            $sortByCategories      (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
@@ -3535,7 +3535,7 @@ class Feindura extends FeinduraBase {
   * @param string         $sortCallback       the name of the callback function to sort the pages (the callback function is a function which can be passed to usort())
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
+  * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string    $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
   * @param bool           $reverseList        (optional) reverse the menu listing  
   * 
