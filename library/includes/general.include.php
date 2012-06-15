@@ -24,7 +24,7 @@
 // $startTime = $timer[1] + $timer[0];
 
 // set error reporting
-error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
+error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING // ~E_NOTICE
 
 /**
  * set mb_ functions encoding
@@ -54,7 +54,11 @@ function __autoload($class_name) {
      $class_name == 'Search' ||
      $class_name == 'FeinduraBase' ||
      $class_name == 'Feindura')
-  require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
+    require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
+
+  if($class_name == 'ZenPHP')
+    require_once(dirname(__FILE__)."/../thirdparty/ZenPHP/".$class_name.".php");
+
   return true;
 }
 

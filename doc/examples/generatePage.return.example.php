@@ -31,7 +31,7 @@ array(
               'votes'  => 0
           )
       ),
-  'error'             => false
+  'error'             => false // will be set to TRUE when the page doesn't exist or is deactivated
   )
 
 ?>

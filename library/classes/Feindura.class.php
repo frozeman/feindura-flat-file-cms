@@ -201,8 +201,15 @@ class Feindura extends FeinduraBase {
   public $linkId = false;
   
  /**
-  * Contains an class-Attribute which will be add to any <a ...> tag
+  * Contains a class, which will be add to any <a ...> tag
   * of any link created by {@link Feindura::createLink()} or {@link Feindura::createMenu()}.
+  * 
+  * 
+  * You can also add multiple classes, just separate the classes with spaces.
+  * <samp>
+  * 'class1 class2'
+  * </samp>
+  * 
   * 
   * <b>Note</b>: If you set this property and call {@link Feindura::createMenu()} every link in the menu will get this class-Attribute.
   * 
@@ -425,10 +432,11 @@ class Feindura extends FeinduraBase {
   /* ->> MENU <<- */
   
  /**
-  * Contains an id-Attribute which will be add to the menu tag.
+  * Contains an id-Attribute which will be add to the menu tag created by any {@link Feindura::createMenu()} method.
   * 
-  * <b>Notice 1</b>: This id-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link Feindura::createMenu()} method is not FALSE.<br>
-  * <b>Notice 2</b>: You can only set one specific id-Attribute to elements in a HTML page.
+  * <b>Notice</b>: You can also add the ID, classes and attributes directly to a specific menu using the <var>$menuTag</var> parameter. See the <var>$menuTag</var> parameter of the {@link Feindura::createMenu()} method for details.
+  * <b>Notice</b>: This id-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link Feindura::createMenu()} method is not FALSE.<br>
+  * <b>Notice</b>: You can only set one specific id-Attribute to elements in a HTML page.
   * 
   * @var string|false If no id-Attribute should be add, set it to FALSE.
   * @access public
@@ -440,8 +448,14 @@ class Feindura extends FeinduraBase {
   public $menuId = false;
   
  /**
-  * Contains an class-Attribute which will be add to the menu tag.
+  * Contains a class which will be add to the menu tag created by any {@link Feindura::createMenu()} method.
   * 
+  * You can also add multiple classes, just separate the classes with spaces.
+  * <samp>
+  * 'class1 class2'
+  * </samp>
+  * 
+  * <b>Notice</b>: You can also add the ID, classes and attributes directly to a specific menu using the <var>$menuTag</var> parameter. See the <var>$menuTag</var> parameter of the {@link Feindura::createMenu()} method for details.
   * <b>Note</b>: This class-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link Feindura::createMenu()} method is not FALSE.<br>
   * 
   * @var string|false If no class-Attribute should be add, set it to FALSE.
@@ -454,8 +468,10 @@ class Feindura extends FeinduraBase {
   public $menuClass = false;
   
  /**
-  * Contains a string with attributes which will be add to the menu tag.
+  * Contains string with attributes which will be add to the menu tag created by any {@link Feindura::createMenu()} method.
   * 
+  * 
+  * <b>Notice</b>: You can also add the ID, classes and attributes directly to a specific menu using the <var>$menuTag</var> parameter. See the <var>$menuTag</var> parameter of the {@link Feindura::createMenu()} method for details.
   * <b>Note</b>: This string with attributes will only be add, if the <var>$menuTag</var> parameter in the {@link Feindura::createMenu()} method is not FALSE.<br>
   * 
   * The string should have the following format
@@ -615,7 +631,13 @@ class Feindura extends FeinduraBase {
   public $thumbnailId = false;
   
  /**
-  * Contains an class-Attribute which will be add the thumbnail <img> tag.
+  * Contains a class which will be add the thumbnail <img> tag.
+  * 
+  * 
+  * You can also add multiple classes, just separate the classes with spaces.
+  * <samp>
+  * 'class1 class2'
+  * </samp>
   * 
   * @var string|false If no class-Attribute should be add, set it to FALSE.
   * @access public
@@ -700,14 +722,24 @@ class Feindura extends FeinduraBase {
   public $showErrors = true;
   
  /**
-  * The tag which should be used for the error message.
+  * The tag which will be used to wrap the error message. E.g. if a pages is deactivated or doesnt exist.
   * 
-  * <b>Note</b>: If this property is no string, the {@link Feindura::$errorId}, {@link Feindura::$errorClass} and {@link Feindura::$errorAttributes} property will not be add.<br>
+  * <b>Note</b>: You can add simple Zen Code selectors to this string to add id, classes and attributes. E.g. "div#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <div id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
   * 
   * Example:
-  * <samp>
-  * <span>The requested page is currently not available.</span>
-  * </samp>
+  * <code>
+  * <?php
+  * 
+  * // assume we have already created an instance of feindura
+  * $feindura->errorTag = 'div.errorMessage';
+  * 
+  * ?>
+  * 
+  * <!-- Will look like this if an error occours -->
+  * 
+  * <div class="errorMessage">The requested page is currently not available.</div>
+  * 
+  * </code>
   * 
   * @var string|false If no tag should be add, set it to FALSE.
   * @access public
@@ -717,72 +749,8 @@ class Feindura extends FeinduraBase {
   * @example showPage.example.php
   * 
   */
-  public $errorTag = 'span';                // [False or String]      -> the message TAG which is used when creating a message (STANDARD Tag: SPAN; if there is a class and/or id and no TAG is set)
+  public $errorTag = '';                // [False or String]      -> the message TAG which is used when creating a message (STANDARD Tag: SPAN; if there is a class and/or id and no TAG is set)
  
- /**
-  * Contains an id-Attribute which will be add to the error tag.
-  * 
-  * <b>Notice 1</b>: This id-Attribute will only be add, if the {@link Feindura::$errorTag} property is a string and not FALSE.<br>
-  * <b>Notice 2</b>: You can only set one specific id-Attribute to elements in a HTML page.
-  * 
-  * Example:
-  * <samp>
-  * <span id="exampleId">The requested page is currently not available.</span>
-  * </samp>
-  * 
-  * @var string|false If no id-Attribute should be add, set it to FALSE.
-  * @access public
-  * 
-  * @see Feindura::showPage()
-  * @see FeinduraBase::generatePage()
-  * @example showPage.example.php
-  * 
-  */
-  public $errorId = false;
-  
- /**
-  * Contains an class-Attribute which will be add to the error tag.
-  * 
-  * <b>Note</b>: This class-Attribute will only be add, if the {@link Feindura::$errorTag} property is a string and not FALSE.<br>
-  * 
-  * Example:
-  * <samp>
-  * <span class="exampleId">The requested page is currently not available.</span>
-  * </samp>
-  * 
-  * @var string|false If no class-Attribute should be add, set it to FALSE.
-  * @access public
-  * 
-  * @see Feindura::showPage()
-  * @see FeinduraBase::generatePage()
-  * @example showPage.example.php
-  * 
-  */
-  public $errorClass = false;
-  
- /**
-  * Contains a string with attributes which will be add the error tag.
-  * 
-  * 
-  * The string should have the following format
-  * <samp>
-  * 'key1="value" key2="value"'
-  * </samp>
-  * 
-  * Example:
-  * <samp>
-  * <span key1="value" key2="value">The requested page is currently not available.</span>
-  * </samp>
-  * 
-  * @var string|false If no additional attributes should be add, set it to FALSE.
-  * @access public
-  * 
-  * @see Feindura::showPage()
-  * @see FeinduraBase::generatePage()
-  * @example showPage.example.php
-  * 
-  */
-  public $errorAttributes = false;
 
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** CONSTRUCTOR *** */
@@ -1582,7 +1550,7 @@ class Feindura extends FeinduraBase {
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes specifically to this menu tag. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
@@ -1618,7 +1586,6 @@ class Feindura extends FeinduraBase {
   * @uses createLink()                            to create a link from every $pageContent array  
   * @uses FeinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
   * @uses FeinduraBase::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
-  * @uses FeinduraBase::createAttributes()        to create the attributes used in the menu tag
   * @uses GeneralFunctions::sortPages()           to sort the $pageContent arrays by category
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
@@ -1729,7 +1696,7 @@ class Feindura extends FeinduraBase {
   * @param string|array   $tags               a string with tags seperated by "," or ";" or an array with tags 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div"
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
@@ -1827,7 +1794,7 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool  $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|bool|string $monthsInThePast    (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
   * @param int|bool|string $monthsInTheFuture  (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
-  * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div"
   * @param string|bool     $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false       $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
   * @param bool            $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
@@ -1922,7 +1889,7 @@ class Feindura extends FeinduraBase {
   * @param string         $sortCallback        the name of the callback function to sort the menu (the callback function is a function which can be passed to usort())
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes specifically to this menu tag. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
   * @param bool           $reverseList        (optional) reverse the menu listing
@@ -2102,7 +2069,7 @@ class Feindura extends FeinduraBase {
   * 
   * 
   * @param int|string|array|bool  $id                 (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
-  * @param int|bool               $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param int|bool               $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes specifically to this menu tag. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
   * @param string|bool            $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false              $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
   * @param bool                   $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
@@ -2206,7 +2173,7 @@ class Feindura extends FeinduraBase {
   * 
   * 
   * @param int|string|bool $categoryId         (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
-  * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes specifically to this menu tag. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
   * @param string|bool     $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false       $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
   * @param bool            $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
@@ -2308,7 +2275,7 @@ class Feindura extends FeinduraBase {
   * {@example createLanguageMenu.return.example.php}
   * 
   * 
-  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes specifically to this menu tag. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
   * 
@@ -2328,7 +2295,6 @@ class Feindura extends FeinduraBase {
   * 
   * @uses Feindura::$adminConfig
   * 
-  * @uses FeinduraBase::createAttributes()        to create the attributes used in the menu tag
   * @USES FeinduraBase::generateMenu()            to generate the final menu
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
@@ -2427,7 +2393,7 @@ class Feindura extends FeinduraBase {
   * 
   * @param int|string|array|bool $id            (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param string|false          $separator     (optional) a string which will be used as separator or FALSE to dont use a separator string
-  * @param int|bool              $menuTag       (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param int|bool              $menuTag       (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div"
   * @param int|false             $breakAfter    (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
   * 
   * @uses Feindura::$menuId
@@ -2735,27 +2701,26 @@ class Feindura extends FeinduraBase {
   * @see FeinduraBase::generatePage()
   * 
   * @access public
-  * @version 1.0
+  * @version 1.0.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.0.1 fixed display of error, was not working anymore
   *    - 1.0 initial release
   * 
   */
-  public function showPage($id = false, $shortenText = false, $useHtml = true) {    
+  public function showPage($id = false, $shortenText = false, $useHtml = true) {  
 
-    if($ids = $this->getPropertyIdsByString($id)) {
-        
-        $page = $ids[0];
-        $category = $ids[1];
-        
-        // ->> load SINGLE PAGE
-        // *******************
-        if($generatedPage = $this->generatePage($page,$this->showErrors,$shortenText,$useHtml)) {          
-          unset($generatedPage['error']);          
-          // -> returns the generated page
-          return $generatedPage;
-        }        
-    } else return false;
+    $ids = $this->getPropertyIdsByString($id);
+    $page = $ids[0];
+    $category = $ids[1];
+    
+    // ->> load SINGLE PAGE
+    // *******************
+    if($generatedPage = $this->generatePage($page,$this->showErrors,$shortenText,$useHtml)) {
+      // -> returns the generated page
+      return $generatedPage;
+    } else
+      return false;
   }
  /**
   * Alias of {@link showPage()}
@@ -3065,7 +3030,6 @@ class Feindura extends FeinduraBase {
   * 
   * @uses FeinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
   * @uses FeinduraBase::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
-  * @uses FeinduraBase::createAttributes()        to create the attributes used in the menu tag
   * @uses FeinduraBase::generatePage()            to generate every page which will be listed
   * @uses GeneralFunctions::sortPages()       to sort the $pageContent arrays by category
   * 
@@ -3115,7 +3079,8 @@ class Feindura extends FeinduraBase {
             $page['position']            = $countPages;
 
           // add generated Pages to array
-          $return[] = $page;
+          if($page['error'] === false)
+            $return[] = $page;
 
           $countPages++;
         }
@@ -3575,9 +3540,8 @@ class Feindura extends FeinduraBase {
   * 
   * @uses FeinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
   * @uses FeinduraBase::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
-  * @uses FeinduraBase::createAttributes()        to create the attributes used in the menu tag
   * @uses FeinduraBase::generatePage()            to generate every page which will be listed
-  * @uses GeneralFunctions::sortPages()       to sort the $pageContent arrays by category
+  * @uses GeneralFunctions::sortPages()           to sort the $pageContent arrays by category
   * 
   * @return array array with page arrays,containing content and title etc., ready to display in a HTML-page, or an empty array
   * 

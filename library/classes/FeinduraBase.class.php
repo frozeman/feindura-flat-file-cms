@@ -563,20 +563,44 @@ class FeinduraBase {
     // ----------------------------    
     $menuStartTag = '';
     $menuEndTag   = '';        
-    $menuTagSet   = false;
+    $pureTag   = false;
     
     // -> CREATEs the MENU-TAG (START and END-TAG)
     if($menuTag) { // || !empty($menuAttributes) <- not used because there is no menuTag property, the tag is only set when a $menuTag parameter is given
       
-      $menuAttributes = $this->createAttributes($this->menuId, $this->menuClass, $this->menuAttributes);
+      // $menuAttributes = $this->createAttributes($this->menuId, $this->menuClass, $this->menuAttributes);
       
-      // set tag
-      if(is_string($menuTag)) $menuTagSet = strtolower($menuTag);
+      // get the pure tag
+      if(is_string($menuTag)) {
+
+        // remove "
+        $menuTag = str_replace('"', '', $menuTag);
+        $pureTag = strtolower(preg_replace('#([\.|\#|\>|\[|\{|\+|\<].*)#i', '', $menuTag));
+      
       // or uses standard tag
-      else $menuTagSet = 'div';
-                
-      $menuStartTag = "\n<".$menuTagSet.$menuAttributes.'>'."\n";
-      $menuEndTag   = "</".$menuTagSet.'>'."\n\n";
+      } else {
+        $pureTag = 'div';
+        $menuTag = 'div';
+      }
+
+      // add menuClass property to the zencode string
+      if(is_string($this->menuClass))
+        $menuTag = substr_replace($menuTag, '.'.$this->menuClass, strpos($menuTag, '.'), 0);
+      // add menuId property to the zencode string
+      if(strpos($menuTag, '#') === false && is_string($this->menuId))
+        $menuTag = str_replace($pureTag, $pureTag.'#'.$this->menuId, $menuTag);
+      // add Attributes
+      if(is_string($this->menuAttributes))
+        $menuTag .= '['.str_replace(array('"',' '), array('',']['), $this->menuAttributes).']';
+
+      // generate tag with id, classes and attributes
+      $menuTag = ZenPHP::expand($menuTag);
+
+      // remove end tag
+      $menuTag = str_replace('</'.$pureTag.'>', '', $menuTag);
+
+      $menuStartTag = "\n".$menuTag;
+      $menuEndTag   = "</".$pureTag.'>'."\n\n";
     } 
 
     // --------------------------------------
@@ -597,7 +621,7 @@ class FeinduraBase {
     $menuItemCopy = $menuItem;
 
     // creating the START TR tag
-    if($menuTagSet == 'table') {
+    if($pureTag == 'table') {
       $menuItemCopy['menuItem'] = "<tbody><tr>\n";
       $menuItemCopy['item']     = "<tbody><tr>\n";
       $menuItemCopy['startTag'] = "<tbody><tr>\n";
@@ -612,7 +636,7 @@ class FeinduraBase {
     foreach($links as $link) {
 
       // breaks the CELLs with TR after the given NUMBER of CELLS
-      if($menuTagSet == 'table' &&
+      if($pureTag == 'table' &&
          is_numeric($breakAfter) &&
          ($breakAfter + 1) == $countCells) {
         $menuItemCopy['menuItem'] = "\n</tr><tr>\n";
@@ -627,14 +651,14 @@ class FeinduraBase {
       $menuItemCopy = $menuItem;
       
       // if menuTag is a LIST ------
-      if($menuTagSet == 'menu' || $menuTagSet == 'ul' || $menuTagSet == 'ol') {
+      if($pureTag == 'menu' || $pureTag == 'ul' || $pureTag == 'ol') {
         $menuItemCopy['menuItem'] = '<li>'.$link['link']."</li>\n";
         $menuItemCopy['item']     = '<li>'.$link['link']."</li>\n";
         $menuItemCopy['startTag'] = '<li>';
         $menuItemCopy['endTag']   = "</li>\n";
 
       // if menuTag is a TABLE -----
-      } elseif($menuTagSet == 'table') {
+      } elseif($pureTag == 'table') {
         $menuItemCopy['menuItem'] = "<td>\n".$link['link']."\n</td>";
         $menuItemCopy['item']     = "<td>\n".$link['link']."\n</td>";
         $menuItemCopy['startTag'] = "<td>\n";
@@ -688,7 +712,7 @@ class FeinduraBase {
     }
     
     // fills in the missing TABLE CELLs
-    while($menuTagSet == 'table' &&
+    while($pureTag == 'table' &&
           is_numeric($breakAfter) &&
           $breakAfter >= $countCells) {
       $menuItemCopy['menuItem'] = "\n<td></td>\n";
@@ -703,7 +727,7 @@ class FeinduraBase {
     $menuItemCopy = $menuItem;
     
     // creating the END TR tag
-    if($menuTagSet == 'table') {
+    if($pureTag == 'table') {
       $menuItemCopy['menuItem'] = "</tr></tbody>\n";
       $menuItemCopy['item']     = "</tr></tbody>\n";
       $menuItemCopy['endTag']   = "</tr></tbody>\n";
@@ -836,10 +860,6 @@ class FeinduraBase {
       $return['content'] = '<span style="font-size:15px;">'.$this->languageFile['ADMINSETUP_ERROR_PHPVERSION'].' '.REQUIREDPHPVERSION.'</span>'; // if not throw error and and the method
       return $return;
     }
-    
-    // LOOKS FOR A GIVEN PAGE, IF NOT STOP THE METHOD
-    if(!is_numeric($page) && !is_array($page))
-      return array();
 
     // -> sets the ERROR SETTINGS
     // ----------------------------
@@ -847,16 +867,22 @@ class FeinduraBase {
       // adds ATTRIBUTES  
       $errorStartTag = '';
       $errorEndTag = '';
-      $errorAttributes = $this->createAttributes($this->errorId, $this->errorClass, $this->errorAttributes);
+      // $errorAttributes = $this->createAttributes($this->errorId, $this->errorClass, $this->errorAttributes);
       
-      if(is_string($this->errorTag)) { //|| !empty($errorAttributes)
-        // set tag
-        $errorTag = $this->errorTag;
-        // or uses standard tag
-        //else $errorTag = 'span';
+      if(is_string($this->errorTag)) {
+
+        // remove "
+        $errorTag = str_replace('"', '', $this->errorTag);
+        $pureErrorTag = strtolower(preg_replace('#([\.|\#|\>|\[|\{|\+|\<].*)#i', '', $errorTag));
+
+        // generate tag with id, classes and attributes
+        $errorTag = ZenPHP::expand($errorTag);
+
+        // remove end tag
+        $errorTag = str_replace('</'.$pureErrorTag.'>', '', $errorTag);
                   
-        $errorStartTag = '<'.$errorTag.$errorAttributes.'>';
-        $errorEndTag = '</'.$errorTag.'>';
+        $errorStartTag = $errorTag;
+        $errorEndTag = '</'.$pureErrorTag.'>';
       }
     }
 
@@ -874,19 +900,19 @@ class FeinduraBase {
         // if could not load throw ERROR
         if($showErrors) {
 	        $return['content'] = $errorStartTag.$this->languageFile['PAGE_ERROR_NOPAGE'].$errorEndTag; // if not throw error and and the method
-          return $return;
-        } else
-          return array();
+        }
+
+        return $return;
       }
     }
-    
+
     // -> PAGE is PUBLIC? if not throw ERROR
     if(!$pageContent['public'] || GeneralFunctions::isPublicCategory($pageContent['category']) === false) {
       if($showErrors) {
         $return['content'] = $errorStartTag.$this->languageFile['PAGE_ERROR_PAGENOTPUBLIC'].$errorEndTag; // if not throw error and and the method
-        return $return; 
-      } else
-        return array();
+      }
+     
+      return $return;
     }
     
     // -> START to BUILD THE PAGE CONTENT

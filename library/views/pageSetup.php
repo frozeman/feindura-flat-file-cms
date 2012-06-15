@@ -578,7 +578,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           }
           
           echo '<tr><td class="left checkboxes"></td>
-                <td><a href="#" class="down inBlockSliderLink" style="position:relative; left:-20px; bottom: -15px;">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].'</a>
+                <td><a href="#" class="down inBlockSliderLink" style="position:relative; left:-20px; bottom: -10px;">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].'</a>
                 </td></tr>';
             echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
           

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 935
+Build 936
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 2.0
   
+  build 936: add ZenCoding to the $errorTag property and the $menuTag parameter (of the createMenu..() methods); removed $errorId, $errorClass, $errorAttribute
   build 935: add 'position' to the returned listPages and createMenu array! helps to style the menus...
   build 934: fixed snippets; dont allow to add frontend editing divs..
   build 933: add possibility to use %href% in the shortenText parameter array(), to be replaced with the pages href
