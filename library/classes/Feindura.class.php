@@ -3101,10 +3101,23 @@ class Feindura extends FeinduraBase {
       
       // -> list a category(ies)
       // ------------------------------
+      $countPages = 1;
       foreach($pages as $pageContent) {
         // show the pages
         if($page = $this->generatePage($pageContent,false,$shortenText,$useHtml)) {
+
+          // adds the position
+          if($countPages == 1)
+            $page['position']            = 'first';
+          elseif($countPages == count($pages))
+            $page['position']            = 'last';
+          else
+            $page['position']            = $countPages;
+
+          // add generated Pages to array
           $return[] = $page;
+
+          $countPages++;
         }
       }
     } else // IF there are NO PAGES

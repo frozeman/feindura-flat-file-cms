@@ -1,14 +1,38 @@
 <?php
-/*                               *** CODE *** 
+/*                               *** SIMPLE EXAMPLE *** 
+-------------------------------------------------------------------------------- */
+
+// add before any HTML Tag. (eg. before the <!doctype html>)
+require('cms/feindura.include.php');
+
+// creates a new Feindura instance
+$feindura = new Feindura();
+
+// create a menu from the category with ID "1"
+$menu = $feindura->createMenu('category',1,'ul');
+
+// displays the menu
+foreach($menu as $item) {
+  echo $item['menuItem'];
+}
+
+                               *** RESULT *** 
+--------------------------------------------------------------------------------
+
+<ul>
+  <li><a href="?category=1&amp;page=1" title="Example Page 1">Example Page 1</a></li>
+  <li><a href="?category=1&amp;page=2" title="Example Page 2">Example Page 2</a></li>
+</ul>
+
+
+/*                               *** EXTENDED EXAMPLE *** 
 --------------------------------------------------------------------------------
 This example uses all possible properties.
 It's also works much more simple: just call createMenu('category',1)
 and you have a simple array with links of the pages from this category.
 */
 
-// a session will be started in the "feindura.include.php",
-// therefor you have to include this file before the header of the HTML page is sent,
-// which means before any HTML Tag.
+// add before any HTML Tag. (eg. before the <!doctype html>)
 require('cms/feindura.include.php');
 
 // creates a new Feindura instance

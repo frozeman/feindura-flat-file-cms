@@ -2,12 +2,13 @@
 
 array(
   array(
-    'menuItem' => '<ul>',
-    'startTag' => '<ul>'
+    'menuItem' or 'item' => '<ul>',
+    'startTag'           => '<ul>'
     ),
   array(
-    'menuItem' or 'item' => '<li class="first"><a href="/en/page/english-page">English</a></li>',
-    'startTag'           => '<li class="first">',
+    'position'           => 'first',
+    'menuItem' or 'item' => '<li><a href="/en/page/english-page">English</a></li>',
+    'startTag'           => '<li>',
     'link'               => '<a href="/en/page/english-page">English</a>',
     'endTag'             => '</li>',
     'href'               => '/en/page/english-page',
@@ -15,8 +16,9 @@ array(
     'language'           => 'en'
     ),
   array(
-    'menuItem' or 'item' => '<li class="last"><a href="/de/page/deutsche-seite">German</a></li>',
-    'startTag'           => '<li class="last">',
+    'position'           => 2,
+    'menuItem' or 'item' => '<li><a href="/de/page/deutsche-seite">German</a></li>',
+    'startTag'           => '<li>',
     'link'               => '<a href="/de/page/deutsche-seite">German</a>',
     'endTag'             => '</li>',
     'href'               => '/de/page/deutsche-seite',
@@ -24,8 +26,18 @@ array(
     'language'           => 'de'
     ),
   array(
-    'menuItem' => '</ul>',
-    'endTag'   => '</ul>'
+    'position'           => 'last',
+    'menuItem' or 'item' => '<li><a href="/fr/page/french-site">French</a></li>',
+    'startTag'           => '<li>',
+    'link'               => '<a href="/fr/page/french-site">French</a>',
+    'endTag'             => '</li>',
+    'href'               => '/fr/page/french-site',
+    'flag'               => '/cms/library/images/icons/flags/fr.png',
+    'language'           => 'fr'
+    ),
+  array(
+    'menuItem' or 'item' => '</ul>',
+    'endTag'             => '</ul>'
     )
   )
   

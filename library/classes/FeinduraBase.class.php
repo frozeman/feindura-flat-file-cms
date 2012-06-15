@@ -544,15 +544,19 @@ class FeinduraBase {
     // vars
     $menu = array();
     $menuItem['menuItem']          = '';
-    $menuItem['item']              = '';
+    $menuItem['item']              = ''; // same as 'menuItem'
     $menuItem['startTag']          = '';
     $menuItem['endTag']            = '';
     $menuItem['link']              = '';
+    $menuItem['position']          = '';
     $menuItem['flag']              = false;
     $menuItem['href']              = false;
     $menuItem['pageDate']          = false;
     $menuItem['pageDateTimestamp'] = false;
     $menuItem['language']          = false;
+    $menuItem['id']                = false;
+    $menuItem['pageId']            = false; // same as 'id'
+    $menuItem['categoryId']        = false;
     $menuItemCopy = $menuItem;
 
     // -> sets the MENU attributes
@@ -603,19 +607,20 @@ class FeinduraBase {
     // * reset $menuItemCopy
     $menuItemCopy = $menuItem;
     
-    $count = 1;
+    $countCells = 1;
+    $countLinks = 1;
     foreach($links as $link) {
 
       // breaks the CELLs with TR after the given NUMBER of CELLS
       if($menuTagSet == 'table' &&
          is_numeric($breakAfter) &&
-         ($breakAfter + 1) == $count) {
+         ($breakAfter + 1) == $countCells) {
         $menuItemCopy['menuItem'] = "\n</tr><tr>\n";
         $menuItemCopy['item']     = "\n</tr><tr>\n";
         $menuItemCopy['startTag'] = "<tr>\n";
         $menuItemCopy['endTag']   = "\n</tr>";
         $menu[] = $menuItemCopy;
-        $count = 1;
+        $countCells = 1;
       }
 
       // * reset $menuItemCopy
@@ -646,8 +651,10 @@ class FeinduraBase {
       $menuItemCopy['href']       = $link['href'];
       if($link['title'])
         $menuItemCopy['title']               = $link['title'];
-      if($link['id'])
+      if($link['id']) {
         $menuItemCopy['pageId']              = $link['id'];
+        $menuItemCopy['id']                  = $link['id'];
+      }
       if($link['category'])
         $menuItemCopy['categoryId']          = $link['category'];
       if($link['flag'])
@@ -659,6 +666,13 @@ class FeinduraBase {
       if($link['language'])
         $menuItemCopy['language']            = $link['language'];
 
+      // adds the position
+      if($countLinks == 1)
+        $menuItemCopy['position']            = 'first';
+      elseif($countLinks == count($links))
+        $menuItemCopy['position']            = 'last';
+      else
+        $menuItemCopy['position']            = $countLinks;
       
       // add link
       $menu[] = $menuItemCopy;
@@ -667,19 +681,22 @@ class FeinduraBase {
       $menuItemCopy = $menuItem;
       
       // count the table cells
-      $count++;
+      $countCells++;
+
+      // count the links
+      $countLinks++;
     }
     
     // fills in the missing TABLE CELLs
     while($menuTagSet == 'table' &&
           is_numeric($breakAfter) &&
-          $breakAfter >= $count) {
+          $breakAfter >= $countCells) {
       $menuItemCopy['menuItem'] = "\n<td></td>\n";
       $menuItemCopy['item']     = "\n<td></td>\n";
       $menuItemCopy['startTag'] = "\n<td>";
       $menuItemCopy['endTag']   = "</td>\n";
       $menu[] = $menuItemCopy;
-      $count++;
+      $countCells++;
     }
 
     // * reset $menuItemCopy
@@ -795,6 +812,7 @@ class FeinduraBase {
     
     // vars
     $return['id'] = false;
+    $return['pageId'] = false; // same as 'id'
     $return['category'] = false;
     $return['categoryId'] = false;
     $return['subCategory'] = false;
@@ -961,9 +979,11 @@ class FeinduraBase {
     
     // -> SET UP the PAGE ELEMENTS
     // *******************
-    if(!empty($pageContent['id']))
+    if(!empty($pageContent['id'])) {
       $return['id']                                           = $pageContent['id'];
-    
+      $return['pageId']                                       = $pageContent['id'];
+    }
+
     if($pageContent['category'] && $pageContent['category'] != 0) {
       $return['category']                                     = $this->getLocalized($this->categoryConfig[$pageContent['category']],'name');
     }

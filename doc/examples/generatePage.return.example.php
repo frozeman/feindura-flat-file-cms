@@ -1,7 +1,7 @@
 <?php
 
 array(
-  'id'                => 1,
+  'pageId' or 'id'    => 1,
   'category'          => 'Example Category',
   'categoryId'        => 3,
   'subCategory'       => 'Another Category',

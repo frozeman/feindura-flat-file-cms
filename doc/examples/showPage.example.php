@@ -1,14 +1,38 @@
 <?php
-/*                               *** CODE *** 
+/*                               *** SIMPLE EXAMPLE *** 
+-------------------------------------------------------------------------------- */
+
+// add before any HTML Tag. (eg. before the <!doctype html>)
+require('cms/feindura.include.php');
+
+// creates a new Feindura instance
+$feindura = new Feindura();
+
+// get the page, which is currently selected, if not page is selected it uses the $feindura->startPage property
+$currentPage = $feindura->showPage();
+
+// displays the page
+echo '<h1>'.$page['title'].'</h1>';
+echo $page['content'];
+
+
+                               *** RESULT *** 
+--------------------------------------------------------------------------------
+
+<h1>Example Page 1</h1>
+
+<p>Lorem ipsum dolor sit amet, consetetur sadipscing dolores et ea rebum.
+Stet clita kasd gubergren, no sea takimata sanctus.</p>
+
+
+/*                               *** EXTENDED EXAMPLE *** 
 --------------------------------------------------------------------------------
 This example uses all possible properties.
 It's also works much more simple: just call showPage() without setting properties
 and it shows the current page given by the $_GET variable.
 */
 
-// a session will be started in the "feindura.include.php",
-// therefor you have to include this file before the header of the HTML page is sent,
-// which means before any HTML Tag.
+// add before any HTML Tag. (eg. before the <!doctype html>)
 require('cms/feindura.include.php');
 
 // creates a new Feindura instance
@@ -38,7 +62,7 @@ $feindura->errorClass =             'errorClass';
 $feindura->errorAttributes =        'test="exampleAttribute1" onclick="exampleAttribute2"';
 
 
-// finally, return the page, with ID "1", using the above set properties
+// finally, get the page, with ID "1", using the above set properties
 $page = $feindura->showPage(1);
 
 // displays the page (the "\n" creates a line break for a better look)

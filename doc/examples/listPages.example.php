@@ -1,14 +1,50 @@
 <?php
-/*                               *** CODE *** 
+/*                               *** SIMPLE EXAMPLE *** 
+-------------------------------------------------------------------------------- */
+
+// add before any HTML Tag. (eg. before the <!doctype html>)
+require('cms/feindura.include.php');
+
+// creates a new Feindura instance
+$feindura = new Feindura();
+
+// Get the pages from the category with ID "1"
+// the page content will be shorten to "200" characters
+$pages = $feindura->listPages('category',1,200);
+
+// displays the pages
+foreach($pages as $page) {
+  echo '<h1>'.$page['title'].'</h1>';
+  echo $page['content'];
+  echo '<br>-----------------------<br>\n';
+}
+
+                               *** RESULT *** 
+--------------------------------------------------------------------------------
+
+<h1>Example Page 1</h1>
+<p>Lorem ipsum dolor sit amet, consetetur sadipscing dolores et ea rebum.
+Stet clita kasd gubergren, no sea takimata sanctus.</p>
+<a href="?category=1&amp;page=1">mehr</a>
+
+<br>-----------------------<br>
+
+<h1>Example Page 2</h1>
+<p>Lorem ipsum dolor sit amet, consetetur sadipscing dolores et ea rebum.
+Stet clita kasd gubergren, no sea takimata sanctus.</p>
+<a href="?category=1&amp;page=2">mehr</a>
+
+<br>-----------------------<br>
+
+
+/*                               *** EXTENDED EXAMPLE *** 
 --------------------------------------------------------------------------------
 This example uses all possible properties.
 It's also works much more simple: just call listPages() without setting properties
 and list the current category given by $_GET variable.
 */
 
-// a session will be started in the "feindura.include.php",
-// therefor you have to include this file before the header of the HTML page is sent,
-// which means before any HTML Tag.
+// add before any HTML Tag. (eg. before the <!doctype html>)
 require('cms/feindura.include.php');
 
 // creates a new Feindura instance
@@ -38,15 +74,16 @@ $feindura->thumbnailBefore =        false;
 $feindura->thumbnailAfter =         false;
 
 
-// finally return the pages from the category with ID "1" and "2" using the above set properties
+// finally get the pages from the category with ID "1" and "2" using the above set properties
 // the page content will be shorten to "200" characters
 $pages = $feindura->listPages('category',array(1,2),200,true,true);
 
-// displays the pages (the "\n" creates a line break for a better look)
+// displays the pages
 foreach($pages as $page) {
   echo $page['title'];
   echo $page['thumbnail'];
-  echo $page['content']."\n<br>-----------------------<br>\n";
+  echo $page['content'];
+  echo '<br>-----------------------<br>\n';
 }
 
 

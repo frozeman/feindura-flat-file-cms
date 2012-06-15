@@ -3,7 +3,8 @@
 array(
 
   0 => array(
-    'id'                => 1,
+    'position'          => 'first', // is the first page in the returned pages list
+    'pageId' or 'id'    => 1,
     'category'          => 'A Category',
     'categoryId'        => 1,
     'subCategory'       => 'Another Category',
@@ -30,7 +31,8 @@ array(
     ),
    
    1 => array(
-    'id'                => 5,
+    'position'          => 2,
+    'pageId' or 'id'    => 5,
     'category'          => 'A Category',
     'categoryId'        => 1,
     'subCategory'       => false,
@@ -47,7 +49,8 @@ array(
     ),
   
    2 => array(
-    'id'                => 8,
+    'position'          => 'last', // is the last page in the returned pages list
+    'pageId' or 'id'    => 8,
     'category'          => 'Another Category',
     'categoryId'        => 2,
     'subCategory'       => false,
@@ -62,8 +65,6 @@ array(
     'tags'              => 'tag3,tag1',
     'plugins'           => array ()
     )
-
-    ...
   )
   
 ?>
