@@ -154,7 +154,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
         $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['realBasePath']);
     }
 
-    // -> add SESSION
+    // -> add to SESSION
     $_SESSION['feinduraSession']['websiteLanguage'] = $newAdminConfig['multiLanguageWebsite']['mainLanguage'];
 
 
@@ -213,8 +213,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
         $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['realBasePath']);
     }
 
-    // -> unset SESSION
-    unset($_SESSION['feinduraSession']['websiteLanguage']);
+    // -> add to SESSION
+    $_SESSION['feinduraSession']['websiteLanguage'] = 0;
   }
   // ------------------------------------------------------------------
 

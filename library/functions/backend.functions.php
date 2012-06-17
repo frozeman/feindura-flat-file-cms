@@ -914,7 +914,9 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['multiLanguageWebsite']['active']       = ".XssFilter::bool($adminConfig['multiLanguageWebsite']['active'],true).";\n";
     if(is_array($adminConfig['multiLanguageWebsite']['languages'])) {
       foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langKey) {
-        $fileContent .= "\$adminConfig['multiLanguageWebsite']['languages'][]    = ".XssFilter::alphabetical($langKey,$_SESSION['feinduraSession']['backendLanguage']).";\n";
+        $langCode = XssFilter::alphabetical($langKey,$_SESSION['feinduraSession']);
+        if($langCode && strlen($langCode) == 2)
+          $fileContent .= "\$adminConfig['multiLanguageWebsite']['languages'][]    = ".$langCode.";\n";
       }
     }
     $fileContent .= "\$adminConfig['multiLanguageWebsite']['mainLanguage']   = ".XssFilter::alphabetical($adminConfig['multiLanguageWebsite']['mainLanguage'],0).";\n\n";

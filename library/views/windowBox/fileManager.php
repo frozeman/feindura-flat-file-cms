@@ -51,8 +51,11 @@ if(!$adminConfig['user']['fileManager'])
   /* <![CDATA[ */
     function openFilemanager(){
       var complete = function(path, file){
-        // remove the websitePath from the absolute path, to generate one relative to the websitePath
-        path = path.replace('<?php echo GeneralFunctions::getDirname($adminConfig['websitePath']); ?>','');
+        // when mimeType == image
+        <?php if(isset($_GET["mimType"])) { ?>
+          // remove the websitePath from the absolute path, to generate one relative to the websitePath
+          path = path.replace('<?php echo GeneralFunctions::getDirname($adminConfig['websitePath']); ?>','');
+        <?php } ?>
         window.opener.CKEDITOR.tools.callFunction('<?php echo $_GET["CKEditorFuncNum"]; ?>', path);
         window.close();
       };

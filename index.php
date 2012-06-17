@@ -44,10 +44,10 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 <head>
   <meta charset="UTF-8">
   
-  <title>feindura > <?php
+  <title>feindura &gt; <?php
   echo GeneralFunctions::getLocalized($websiteConfig,'title');
   if(isset($_GET['page']) && is_numeric($_GET['page']) && ($pageTitle = GeneralFunctions::readPage($_GET['page'],GeneralFunctions::getPageCategory($_GET['page']))) != false) {
-    echo ' - '.GeneralFunctions::getLocalized($pageTitle,'title');
+    echo ' | '.GeneralFunctions::getLocalized($pageTitle,'title');
   }
   unset($pageTitle);
   ?></title>
@@ -60,7 +60,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate">
   
-  <meta name="title" content="feindura: <?php echo GeneralFunctions::getLocalized($websiteConfig,'title'); ?>">    
   <meta name="author" content="Fabian Vogelsteller [frozeman.de]">     
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
   <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">    
@@ -433,7 +432,7 @@ if($_GET['site'] == 'addons') {
       // -> add new language to the page languages selection, if $_GET['status'] = "addLanguage"
       if($_GET['status'] == 'addLanguage')
         $currentlanguageSlection = array_unique(array_merge($adminConfig['multiLanguageWebsite']['languages'],array_keys($pageContent['localized'])));
-      $_SESSION['feinduraSession']['websiteLanguage'] = in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection) ? $_SESSION['feinduraSession']['websiteLanguage']: current($currentlanguageSlection);
+      $_SESSION['feinduraSession']['websiteLanguage'] = (in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection)) ? $_SESSION['feinduraSession']['websiteLanguage']: current($currentlanguageSlection);
 
       // if NEW PAGE, overwrite with the mainLanguage
       if($newPage)

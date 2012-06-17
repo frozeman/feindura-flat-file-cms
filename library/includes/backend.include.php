@@ -121,7 +121,7 @@ if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {
 }
 
 /**
- * GET the PAGE LANGUAGE CODE
+ * SET the WEBSITE LANGUAGE
  * 
  */
 if($adminConfig['multiLanguageWebsite']['active']) {

@@ -575,7 +575,7 @@ class FeinduraBase {
 
         // remove "
         $menuTag = str_replace('"', '', $menuTag);
-        $pureTag = strtolower(preg_replace('#([\.|\#|\>|\[|\{|\+|\<].*)#i', '', $menuTag));
+        $pureTag = strtolower(preg_replace('#([\.|\#|\>|\[|\{|\+|\<|\:|\%].*)#i', '', $menuTag));
       
       // or uses standard tag
       } else {
@@ -873,7 +873,7 @@ class FeinduraBase {
 
         // remove "
         $errorTag = str_replace('"', '', $this->errorTag);
-        $pureErrorTag = strtolower(preg_replace('#([\.|\#|\>|\[|\{|\+|\<].*)#i', '', $errorTag));
+        $pureErrorTag = strtolower(preg_replace('#([\.|\#|\>|\[|\{|\+|\<|\:|\%].*)#i', '', $errorTag));
 
         // generate tag with id, classes and attributes
         $errorTag = ZenPHP::expand($errorTag);

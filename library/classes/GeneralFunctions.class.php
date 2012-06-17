@@ -691,7 +691,7 @@ class GeneralFunctions {
 
     // get the one matching $languageCode
     if((isset($localizedArray[$languageCode]) && !empty($localizedArray[$languageCode][$value])) ||
-       (is_bool($forceOrUseLanguage) && $forceOrUseLanguage === true))
+       $forceOrUseLanguage === true)
       $localizedValues = $localizedArray[$languageCode];
 
     // if not get the one matching the "Main Language"
