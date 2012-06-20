@@ -518,6 +518,9 @@ class FeinduraBase {
   * Generates a menu from a given <var>$links</var> array.
   * 
   * 
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current language.
+  * 
+  * 
   * @param array        $links      an array with links in the format
   * @param string|false $menuTag    (optional) the menu tag or FALSE to just return links
   * @param int|false    $breakAfter (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
@@ -554,6 +557,8 @@ class FeinduraBase {
     $menuItem['pageDate']          = false;
     $menuItem['pageDateTimestamp'] = false;
     $menuItem['language']          = false;
+    $menuItem['thumbnail']         = false;
+    $menuItem['thumbnailPath']     = false;
     $menuItem['id']                = false;
     $menuItem['pageId']            = false; // same as 'id'
     $menuItem['categoryId']        = false;
@@ -601,7 +606,7 @@ class FeinduraBase {
 
       $menuStartTag = "\n".$menuTag;
       $menuEndTag   = "</".$pureTag.'>'."\n\n";
-    } 
+    }
 
     // --------------------------------------
     // -> builds the final MENU
@@ -649,19 +654,24 @@ class FeinduraBase {
 
       // * reset $menuItemCopy
       $menuItemCopy = $menuItem;
+
+      // add "active" class to the link wrapping element
+      $linkClass = '';
+      if(!empty($this->linkActiveClass) && ($link['active'] || $this->page == $link['id']))
+        $linkClass = ' class="'.$this->linkActiveClass.'"';
       
       // if menuTag is a LIST ------
       if($pureTag == 'menu' || $pureTag == 'ul' || $pureTag == 'ol') {
-        $menuItemCopy['menuItem'] = '<li>'.$link['link']."</li>\n";
-        $menuItemCopy['item']     = '<li>'.$link['link']."</li>\n";
-        $menuItemCopy['startTag'] = '<li>';
+        $menuItemCopy['menuItem'] = '<li'.$linkClass.'>'.$link['link']."</li>\n";
+        $menuItemCopy['item']     = '<li'.$linkClass.'>'.$link['link']."</li>\n";
+        $menuItemCopy['startTag'] = '<li'.$linkClass.'>';
         $menuItemCopy['endTag']   = "</li>\n";
 
       // if menuTag is a TABLE -----
       } elseif($pureTag == 'table') {
-        $menuItemCopy['menuItem'] = "<td>\n".$link['link']."\n</td>";
-        $menuItemCopy['item']     = "<td>\n".$link['link']."\n</td>";
-        $menuItemCopy['startTag'] = "<td>\n";
+        $menuItemCopy['menuItem'] = "<td'.$linkClass.'>\n".$link['link']."\n</td>";
+        $menuItemCopy['item']     = "<td'.$linkClass.'>\n".$link['link']."\n</td>";
+        $menuItemCopy['startTag'] = "<td'.$linkClass.'>\n";
         $menuItemCopy['endTag']   = "\n</td>";
 
       // if just a link
@@ -671,8 +681,9 @@ class FeinduraBase {
       }
 
       // add the rest of the menu item
-      $menuItemCopy['link']       = $link['link'];
-      $menuItemCopy['href']       = $link['href'];
+      $menuItemCopy['link']                  = $link['link'];
+      $menuItemCopy['href']                  = $link['href'];
+      $menuItemCopy['active']                = ($link['active'] || $this->page == $link['id']) ? true : false;
       if($link['title'])
         $menuItemCopy['title']               = $link['title'];
       if($link['id']) {
@@ -689,6 +700,12 @@ class FeinduraBase {
         $menuItemCopy['pageDateTimestamp']   = $link['pageDateTimestamp'];
       if($link['language'])
         $menuItemCopy['language']            = $link['language'];
+
+      // add thumbnail
+      if($link['thumbnail']) {
+        $menuItemCopy['thumbnail']     = $link['thumbnail'];
+        $menuItemCopy['thumbnailPath'] = $link['thumbnailPath'];
+      }
 
       // adds the position
       if($countLinks == 1)
@@ -835,22 +852,22 @@ class FeinduraBase {
   protected function generatePage($page, $showErrors = true, $shortenText = false, $useHtml = true) {
     
     // vars
-    $return['id'] = false;
-    $return['pageId'] = false; // same as 'id'
-    $return['category'] = false;
-    $return['categoryId'] = false;
-    $return['subCategory'] = false;
-    $return['subCategoryId'] = false;
-    $return['pageDate'] = false;
+    $return['id']                = false;
+    $return['pageId']            = false; // same as 'id'
+    $return['category']          = false;
+    $return['categoryId']        = false;
+    $return['subCategory']       = false;
+    $return['subCategoryId']     = false;
+    $return['pageDate']          = false;
     $return['pageDateTimestamp'] = false;
-    $return['title'] = false;
-    $return['thumbnail'] = false;
-    $return['thumbnailPath'] = false;
-    $return['content'] = false;
-    $return['description'] = false;
-    $return['tags'] = false;
-    $return['plugins'] = array();
-    $return['error'] = true;
+    $return['title']             = false;
+    $return['thumbnail']         = false;
+    $return['thumbnailPath']     = false;
+    $return['content']           = false;
+    $return['description']       = false;
+    $return['tags']              = false;
+    $return['plugins']           = array();
+    $return['error']             = true;
 
     // ->> CHECKS
     // -------------------

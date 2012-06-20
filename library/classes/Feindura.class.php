@@ -225,7 +225,8 @@ class Feindura extends FeinduraBase {
 
  /**
   * This class name will be add to every link created with {@link Feindura::createLink()} or {@link Feindura::createMenu()},
-  * when it is matching the currently selected page.
+  * when it is matching the currently selected page. When using the {@link Feindura::createMenu()} method,
+  * this class will also be add to the wrapping element of the link, like <li> or <td>.
   * 
   * @var string
   * @access public
@@ -1381,7 +1382,7 @@ class Feindura extends FeinduraBase {
   * If there is no current, next or previous page in it returns FALSE.
   * 
   * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link Feindura::$page} property.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and it also it wrapping element, e.g. <li> or <td>), which is matching the current page.
   * 
   *
   * Example:
@@ -1539,7 +1540,7 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and it also it wrapping element, e.g. <li> or <td>), which is matching the current page.
   * 
   * Example Usage:
   * {@example createMenu.example.php}
@@ -1587,7 +1588,8 @@ class Feindura extends FeinduraBase {
   * @uses FeinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
   * @uses FeinduraBase::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
   * @uses GeneralFunctions::sortPages()           to sort the $pageContent arrays by category
-  * 
+  * @uses FeinduraBase::generateMenu()            to generate the final menu
+  *
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
   * @see createLink()
@@ -1625,6 +1627,12 @@ class Feindura extends FeinduraBase {
           $link['href']     = $this->createHref($page);
           $link['id']       = $page['id'];
           $link['category'] = $page['category'];
+
+          // -> add Thumbnail
+          if($pageThumbnail = $this->createThumbnail($page)) {
+            $link['thumbnail'] = $pageThumbnail['thumbnail'];
+            $link['thumbnailPath'] = $pageThumbnail['thumbnailPath'];
+          }
 
           // -> add PAGE DATE
           $pageDate = false;
@@ -1684,7 +1692,7 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and it also it wrapping element, e.g. <li> or <td>), which is matching the current page.
   * 
   * Example:
   * {@example createMenuByTags.example.php}
@@ -1781,7 +1789,7 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and it also it wrapping element, e.g. <li> or <td>), which is matching the current page.
   * 
   * Example:
   * {@example createMenuByDate.example.php}
@@ -1876,7 +1884,7 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and it also it wrapping element, e.g. <li> or <td>), which is matching the current page.
   * 
   * 
   * Example:
@@ -2058,7 +2066,7 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current page (means the {@link Feindura::$page} property).<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and it also it wrapping element, e.g. <li> or <td>), which is matching the current page.
   *
   * 
   * Example:
@@ -2148,7 +2156,7 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current category (means the {@link Feindura::$category} property).<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and it also it wrapping element, e.g. <li> or <td>), which is matching the current page.
   *
   * 
   * You can use this function in conjunction with {@link Feindura::createSubMenu()} to display the submenu,
@@ -2263,6 +2271,7 @@ class Feindura extends FeinduraBase {
   * Creates a menu as language selection for the multi language website feature.
   * In case that the multi language website feature is deactivated it returns an empty array.
   * 
+  * 
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current language.
@@ -2295,7 +2304,7 @@ class Feindura extends FeinduraBase {
   * 
   * @uses Feindura::$adminConfig
   * 
-  * @USES FeinduraBase::generateMenu()            to generate the final menu
+  * @uses FeinduraBase::generateMenu()            to generate the final menu
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
@@ -2346,6 +2355,7 @@ class Feindura extends FeinduraBase {
         if($languageLink = $this->createLink(false,$modLinkText)) {
           // adds the link to an array
           $link['link']     = $languageLink;
+          $link['active']   = ($orgLanguage == $langCode) ? true : false;
           $link['href']     = $this->createHref(false);
           $link['language'] = $langCode;
           $link['flag']     = GeneralFunctions::getFlagHref($langCode, false);
@@ -2466,6 +2476,12 @@ class Feindura extends FeinduraBase {
                                               $this->linkCategorySeparator,
                                               false); // $allowFrontendEditing
 
+          // -> add Thumbnail
+          if($pageThumbnail = $this->createThumbnail($page)) {
+            $link['thumbnail'] = $pageThumbnail['thumbnail'];
+            $link['thumbnailPath'] = $pageThumbnail['thumbnailPath'];
+          }
+
           $links[] = $link;
           unset($link,$startPage);
         }
@@ -2492,6 +2508,12 @@ class Feindura extends FeinduraBase {
                                                 false); // $allowFrontendEditing
             $this->linkShowCategory = $getLinkCategory;
 
+            // -> add Thumbnail
+            if($pageThumbnail = $this->createThumbnail($page)) {
+              $link['thumbnail'] = $pageThumbnail['thumbnail'];
+              $link['thumbnailPath'] = $pageThumbnail['thumbnailPath'];
+            }
+
             $links[] = $link;
             unset($link);
           }
@@ -2516,6 +2538,12 @@ class Feindura extends FeinduraBase {
                                               $this->linkCategorySeparator,
                                               false); // $allowFrontendEditing
         $this->linkShowCategory = $getLinkCategory;
+
+        // -> add Thumbnail
+        if($pageThumbnail = $this->createThumbnail($page)) {
+          $link['thumbnail'] = $pageThumbnail['thumbnail'];
+          $link['thumbnailPath'] = $pageThumbnail['thumbnailPath'];
+        }
 
         $links[] = $link;
         unset($link);
@@ -3111,7 +3139,7 @@ class Feindura extends FeinduraBase {
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
   * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current page (means the {@link Feindura::$page} property).<br>
-  * b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as CSS class to the link, which is matching the current page.
+  * b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and it also it wrapping element, e.g. <li> or <td>), which is matching the current page.
   *
   * Example:
   * {@example listSubPages.example.php}

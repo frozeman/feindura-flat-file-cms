@@ -7,9 +7,10 @@ array(
     ),
   array(
     'position'           => 'first',
-    'menuItem' or 'item' => '<li><a href="?page=5&category=1">Example Page 1</a></li>',
+    'active'             => true,
+    'menuItem' or 'item' => '<li class="active"><a href="?page=5&category=1" class="active">Example Page 1</a></li>',
     'startTag'           => '<li>',
-    'link'               => '<a href="?page=5&category=1">Example Page 1</a>',
+    'link'               => '<a href="?page=5&category=1" class="active">Example Page 1</a>',
     'endTag'             => '</li>',
     'title'              => 'Example Page 1',
     'href'               => '?page=5&category=1',
@@ -20,6 +21,7 @@ array(
     ),
   array(
     'position'           => 2,
+    'active'             => false,
     'menuItem' or 'item' => '<li><a href="?page=8&category=1">Example Page 2</a></li>',
     'startTag'           => '<li>',
     'link'               => '<a href="?page=8&category=1">Example Page 2</a>',
@@ -33,6 +35,7 @@ array(
     ),
   array(
     'position'           => 'last',
+    'active'             => false,
     'menuItem' or 'item' => '<li><a href="?page=9&category=1">Example Page 3</a></li>',
     'startTag'           => '<li>',
     'link'               => '<a href="?page=9&category=1">Example Page 3</a>',

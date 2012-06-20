@@ -133,7 +133,7 @@ div.feindura_pageBar {
 
 div.feindura_editPage, div.feindura_editPageDisabled, span.feindura_editTitle, span.feindura_editTitleDisabled {
   position: relative;
-  display: inline-block;
+  display: inherit; /*inline-block;*/
   outline: none;
   resize: none;
 }
