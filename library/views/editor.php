@@ -283,6 +283,8 @@ if(!$newPage) {
   <div class="content">   
     <?php
 
+    $thumbnailPath = (!empty($pageContent['thumbnail'] )) ? $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'] : '#';
+
     // -> show LAST SAVE DATE TIME
     $lastSaveDate =  GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile));
     $lastSaveTime =  formatTime($pageContent['lastSaveDate']);
@@ -316,18 +318,18 @@ if(!$newPage) {
 
     // thumbnailPreviewContainer
     echo '<br><div id="thumbnailPreviewContainer" style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;'.$displayThumbnailContainer.'">';
-    echo '<span class="thumbnailToolTip" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'">'.$langFile['THUMBNAIL_TEXT_NAME'].'</span><br>';
+    echo $langFile['THUMBNAIL_TEXT_NAME'].'<br>';
     echo '<span class="deleteIcon">';
 
     // see if the thumbnails are activated, add upload/delete buttons
     if(($pageContent['category'] == 0 && $adminConfig['pages']['thumbnails']) || ($pageContent['category'] != 0 && $categoryConfig[$pageContent['category']]['thumbnails'])) {
       echo '<a href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\',false);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"" class="deleteIcon toolTip"></a>';
       echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',false);return false;" class="image">';
-      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" id="thumbnailPreviewImage" class="thumbnailPreview thumbnailToolTip"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'">';
+      echo '<img src="'.$thumbnailPath.'" id="thumbnailPreviewImage" class="thumbnailPreview"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail">';
       echo '</a>';
     // if not only show the thumbnailPreviewImage
     } else
-      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" id="thumbnailPreviewImage" class="thumbnailPreview thumbnailToolTip"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'">';
+      echo '<img src="'.$thumbnailPath.'" id="thumbnailPreviewImage" class="thumbnailPreview"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail">';
     
     echo '</span>';
     echo '</div>';
