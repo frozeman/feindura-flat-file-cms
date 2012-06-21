@@ -41,6 +41,7 @@ This plugin will be wraped with a <div class="feinduraPlugins feinduraPlugin_ima
 
 
 The imageGallery class can also be used without feindura as a image gallery in your websites!
+Just make sure, to set an 1x1 empty gif to the $gallery->emptyImage property.
 
 
 ### USES

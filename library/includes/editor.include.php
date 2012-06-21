@@ -91,7 +91,7 @@ if($adminConfig['editor']['snippets'] || $hasPlugins) { ?>
 
 // CSS
 if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false && !empty($editorStyleFiles)) { ?>
-  CKEDITOR.config.contentsCss               = ['<?php $echoStyleFile = ''; foreach($editorStyleFiles as $editorStyleFile) {$uniqueStyleId = (strpos($editorStyleFile,"?") === false) ? "?=".md5(uniqid(rand(),1)) : ''; $echoStyleFile .= $editorStyleFile.$uniqueStyleId."','";} echo substr($echoStyleFile,0,-3); ?>','<?php echo $adminConfig['basePath']; ?>library/thirdparty/ckeditor/plugins/feinduraSnippets/styles.css'];
+  CKEDITOR.config.contentsCss               = ['<?php $echoStyleFile = ''; foreach($editorStyleFiles as $editorStyleFile) {$uniqueStyleId = (strpos($editorStyleFile,"?") === false) ? "?".md5(uniqid(rand(),1)) : ''; $echoStyleFile .= $editorStyleFile.$uniqueStyleId."','";} echo substr($echoStyleFile,0,-3); ?>','<?php echo $adminConfig['basePath']; ?>library/thirdparty/ckeditor/plugins/feinduraSnippets/styles.css'];
 <?php } ?>
   CKEDITOR.config.bodyId                    = '<?php echo $editorStyleId; ?>';
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
@@ -112,7 +112,7 @@ if($adminConfig['editor']['enterMode'] == 'br') { ?>
 <? } if(!$adminConfig['editor']['editorStyles']) { ?>
   CKEDITOR.config.removePlugins = 'stylescombo';
 <?php } if($adminConfig['editor']['editorStyles'] && file_exists(dirname(__FILE__)."/../../config/EditorStyles.js")) { ?>
-  CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/EditorStyles.js?=<?php echo md5(uniqid(rand(),1)); ?>';
+  CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/EditorStyles.js?<?php echo md5(uniqid(rand(),1)); ?>';
 <?php }
 
 // FILEMANAGER

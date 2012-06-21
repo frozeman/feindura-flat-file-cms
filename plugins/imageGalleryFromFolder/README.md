@@ -46,7 +46,7 @@ filename2.png###another image text
 ...
 
 The imageGalleryFromFolder class can also be used without feindura as a image gallery in your websites!
-
+Just make sure, to set an 1x1 empty gif to the $gallery->emptyImage property.
 
 ### USES
 milkbox http://reghellin.com/milkbox/

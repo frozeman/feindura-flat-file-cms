@@ -78,6 +78,7 @@ $gallery->imageHeight = $pluginConfig['imageHeightNumber'];
 $gallery->thumbnailWidth = $pluginConfig['thumbnailWidthNumber'];
 $gallery->thumbnailHeight = $pluginConfig['thumbnailHeightNumber'];
 $gallery->filenameCaptions = $pluginConfig['filenameCaptions'];
+$gallery->emptyImage = $feindura->adminConfig['basePath'].'library/images/icons/emptyImage.gif';
 
 // SHOW IMAGE GALLERY
 echo $gallery->showGallery($pluginConfig['tagSelection'],$pluginConfig['breakAfterNumber'],$pageContent);

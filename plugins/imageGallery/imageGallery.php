@@ -174,6 +174,16 @@ class imageGallery {
   * 
   */
   public $thumbnailHeight = null;
+
+ /**
+  * A path to and 1px x 1px empty gif image, which is needed when adding the image as background when specifing width and height.
+  * 
+  * @var bool
+  * @access public
+  * @see imageGallery::getImages()
+  * 
+  */
+  public $emptyImage = false;
   
  /**
   * If this is TRUE it uses the filename as captions, when no line in a captions.txt exist for this file.
@@ -429,7 +439,7 @@ class imageGallery {
   * <b>Name</b> getImages()<br>
   * 
   * Generates the image links and return them in an array.
-  * When both the thumbnail width and height are set, then it will add the image as background to the <a> tag.
+  * When both the thumbnail width and height are set, then it will add the image as background to the <img> tag.
   * This ensures that all images have the same size.
   * 
   * @return array an array with image links
@@ -460,9 +470,9 @@ class imageGallery {
         $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : '';
       
       if(!empty($this->thumbnailWidth) && !empty($this->thumbnailHeight) && is_numeric($this->thumbnailWidth) && is_numeric($this->thumbnailHeight))
-        $return[] = '<a href="'.$image['path'].$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block; width:'.$this->thumbnailWidth.'px; height:'.$this->thumbnailHeight.'px; background: url(\''.$image['path'].$thumbnailName.'\') no-repeat center center;"></a>';
+        $return[] = '<a href="'.$image['path'].$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block;"><img src="'.$this->emptyImage.'" alt="thumbnail" style="display:inline-block; width:'.$this->thumbnailWidth.'px; height:'.$this->thumbnailHeight.'px; background: url(\''.$image['path'].$thumbnailName.'\') no-repeat center center;"'.$tagEnd.'</a>';
       else
-        $return[] = '<a href="'.$image['path'].$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.'><img src="'.$image['path'].$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
+        $return[] = '<a href="'.$image['path'].$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block;"><img src="'.$image['path'].$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
     }
     
     return $return;    
