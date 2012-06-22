@@ -27,18 +27,6 @@ if(isset($_POST['username'])) $_POST['username'] = XssFilter::text($_POST['usern
 if(isset($_POST['password'])) $_POST['password'] = XssFilter::text($_POST['password']);
 //unset($_SESSION);
 
-// -> LOGOUT
-if(isset($_GET['logout']) || (isset($_SESSION['feinduraSession']['login']['end']) && $_SESSION['feinduraSession']['login']['end'] <= time())) { // automatically logout after 3 hours
-  $_SESSION['feinduraSession']['login'] = array();
-  unset($_SESSION['feinduraSession']['login']);
-  session_regenerate_id(true);
-  $loggedOut = true;
-
-// -> else RESET the SESSION TIME as always when reloading the page
-} else {
-  $_SESSION['feinduraSession']['login']['end'] = time() + $sessionLifeTime;
-}
-
 // -> if NO USER EXISTS
 if(empty($userConfig)) {
   $_SESSION['feinduraSession']['login']['user'] = false;
@@ -120,6 +108,18 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
   } else
     $loginError = $langFile['LOGIN_ERROR_WRONGUSER'];
   
+}
+
+// -> LOGOUT
+if(isset($_GET['logout']) || (isset($_SESSION['feinduraSession']['login']['end']) && $_SESSION['feinduraSession']['login']['end'] <= time())) { // automatically logout after 3 hours
+  $_SESSION['feinduraSession']['login'] = array();
+  unset($_SESSION['feinduraSession']['login']);
+  session_regenerate_id(true);
+  $loggedOut = true;
+
+// -> else RESET the SESSION TIME as always when reloading the page
+} else {
+  $_SESSION['feinduraSession']['login']['end'] = time() + $sessionLifeTime;
 }
 
 

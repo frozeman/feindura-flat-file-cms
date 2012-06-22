@@ -216,7 +216,7 @@ class FeinduraBase {
     $this->languageNames = $GLOBALS['feindura_languageNames'];
 
     // get LOGOUT?
-    if(isset($_GET['feindura_logout']))
+    if(isset($_GET['feinduraLogout']))
       unset($_SESSION['feinduraSession']['login']);
 
     // CHECK if logged in
