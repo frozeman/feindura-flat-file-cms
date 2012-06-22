@@ -60,6 +60,7 @@ echo '<script type="text/javascript">
     document.write(unescape(\'<script src="'.$feindura->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"><\/script>\'));
     document.write(unescape(\'<script src="'.$feindura->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"><\/script>\'));
   }
+
   // add milkbox
   (window.MilkBox || document.write(unescape(\'<script src="'.$filePath.'/milkbox/milkbox.js"><\/script>\'))); 
   /* ]]> */

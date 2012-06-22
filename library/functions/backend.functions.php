@@ -2274,7 +2274,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
     $file = str_replace(array('<','>'),array('&lt;','&gt;'),$file);
     
     echo '<input type="hidden" name="file" value="'.$editFile.'">'."\n";
-    echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles '.substr($filesPath.$editFile, strrpos($filesPath.$editFile, '.') + 1).'" id="editFiles'.uniqid().'">'.$file.'</textarea>';
+    echo '<textarea name="fileContent" cols="90" rows="30" spellcheck="false" class="editFiles '.substr($filesPath.$editFile, strrpos($filesPath.$editFile, '.') + 1).'" id="editFiles'.uniqid().'">'.$file.'</textarea>';
   }  
   
   

@@ -1221,15 +1221,6 @@ class Feindura extends FeinduraBase {
           $metaTags .= "\n";
         }
       }
-      
-      // -> add plugin-stylesheets
-      // $plugins = GeneralFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
-      // if(is_array($plugins)) {
-      //   foreach($plugins['folders'] as $pluginFolder) {
-      //     $pluginName = basename($pluginFolder);
-      //     $metaTags .= GeneralFunctions::createStyleTags($pluginFolder,false);
-      //   }
-      // }
 
       // ->> ENABLE FRONTEND EDITING
       // if user is logged into the CMS, add javascripts for implementing ckeditor      
@@ -3646,22 +3637,40 @@ class Feindura extends FeinduraBase {
     $return = false;
 
     // ->> goes trough all folder and subfolders and gets the stylesheets
-    $stylesheets = trim(GeneralFunctions::createStyleTags($folder,false));
+    $stylesheets = GeneralFunctions::createStyleTags($folder,false,true);
 
     // js adding to the head
     $return .= '<!-- Add the plugin stylesheets to the <head> tag -->
-<script type="text/javascript">
-/* <![CDATA[ */
-var head = document.getElementsByTagName(\'head\')[0];
-head.innerHTML = head.innerHTML + \''.str_replace("\n", '', $stylesheets).'\';
-/* ]]> */
-</script>';
+    <script type="text/javascript">
+    /* <![CDATA[ */
+    (function() {
+      var head = document.getElementsByTagName(\'head\')[0];
+      ';
+
+    foreach ($stylesheets as $stylesheet) {
+      $return .= '
+      url = "'.$stylesheet.'";
+      if (document.createStyleSheet)  {
+        document.createStyleSheet(url);
+      }
+      else {
+        head.innerHTML = head.innerHTML +\'<link rel="stylesheet" type="text/css" href="\' + url + \'">\';
+      }
+      ';
+    }
+
+    $return .=  '
+    })();
+    /* ]]> */
+    </script>
+    ';
 
     // non js adding
-    $return .= '
-<noscript>
-  '.$stylesheets.'
-</noscript>
+    $return .= '<noscript>';
+      foreach ($stylesheets as $stylesheet) {
+        $return .= '<link rel="stylesheet" type="text/css" href="'.$stylesheet.'">';
+      }
+    $return .= '</noscript>
 
 ';
     return $return;

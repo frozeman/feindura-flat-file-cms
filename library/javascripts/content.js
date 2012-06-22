@@ -1424,6 +1424,9 @@ window.addEvent('domready', function() {
         hlLine = editor.setLineClass(editor.getCursor().line, "CodeMirrorActiveline");
       }
     });
+
+    // make sure, webkit spellchecking is turned off
+    $$('div.CodeMirror textarea').setProperty('spellcheck','false');
   });
 
   // *** ->> FORMS -----------------------------------------------------------------------------------------------------------------------

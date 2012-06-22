@@ -2326,10 +2326,11 @@ class GeneralFunctions {
    * 
    * @param string $folder  the absolute path of the folder to look for stylesheet files
    * @param bool   $backend if TRUE is substract the {@link GeneralFunctions::$adminConfig $adminConfig['basePath']} from the stylesheet link
+   * @param bool   $returnHrefOnly if TRUE it will return an array with the paths of the style files
    * 
    * @uses GeneralFunctions::readFolderRecursive() to read the folder
    * 
-   * @return string|false the HTML <link> tags or FALSE if no stylesheet-file was found
+   * @return string|array|false the HTML <link> tags, FALSE if no stylesheet-file was found, or an array with style file paths
    * 
    * @static 
    * @version 1.0
@@ -2338,10 +2339,10 @@ class GeneralFunctions {
    *    - 1.0 initial release
    * 
    */
-  public static function createStyleTags($folder, $backend = true) {
+  public static function createStyleTags($folder, $backend = true, $returnHrefOnly = false) {
     
     //var
-    $return = false;
+    $return = ($returnHrefOnly) ? array() : false;
 
     // ->> goes trough all folder and subfolders
     $filesInFolder = self::readFolderRecursive($folder);
@@ -2351,8 +2352,13 @@ class GeneralFunctions {
         if(substr($file,-4) == '.css') {
           // -> removes the $adminConfig('realBasePath')
           if($backend) $file = str_replace(self::$adminConfig['realBasePath'],'',$file);
+
+          // -> return only link
+          if($returnHrefOnly) {
+            $return[] = $file;
           // -> WRITES the HTML-Style-Tags
-          $return .= '  <link rel="stylesheet" type="text/css" href="'.$file.'">'."\n";
+          } else
+            $return .= '  <link rel="stylesheet" type="text/css" href="'.$file.'">'."\n";
         }
       }
     }

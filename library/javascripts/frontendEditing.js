@@ -168,7 +168,12 @@
           // window.fireEvent('domready');
 
         // block.set('html',responseHTML);
+
+        // var scriptElement = new Element('script',{text:responseJavaScript});
+        // block.grab(scriptElement,'bottom');
+
         // Browser.exec(responseJavaScript);
+        
 
         // if(mode == 'activate') {
         //   // bring the moorte back

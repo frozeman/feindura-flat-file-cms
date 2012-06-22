@@ -660,7 +660,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
         <td class="left">
         <label for="subCategory" class="toolTip" title="::<?php echo $langFile['EDITOR_TIP_SUBCATEGORY']; ?>"><strong><?php echo $langFile['EDITOR_TEXT_SUBCATEGORY']; ?></strong></label>
         </td><td class="right">
-        <img src="library/images/icons/categoryIcon_subCategory_middle.png" style="position:absolute; top: 2px;">
+        <img src="library/images/icons/categoryIcon_subCategory_middle.png" style="position:absolute; margin-top: -6px;">
         <select name="subCategory" id="subCategory" class="toolTip" style="margin-left: 45px;" title="<?php echo $langFile['EDITOR_TEXT_SUBCATEGORY'].'::'.$langFile['EDITOR_TIP_SUBCATEGORY']; ?>">';
         <?php
           echo '<option>-</option>';

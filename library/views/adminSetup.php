@@ -511,7 +511,7 @@ $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
   <h1><a href="#" id="fckstyleFileAnchor"><?php echo $langFile['adminSetup_styleFileSettings_h1']; ?></a></h1>
   <div class="content">
     <span style="font-size:10px">&nbsp;&nbsp;Details: <a href="http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Styles" target="_blank">http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Styles</a></span>
-    <textarea name="fckStyleFile" cols="90" rows="30" class="editFiles js" id="fckStyleFile"><?php echo $htmlEditorStyleContent; ?></textarea>
+    <textarea name="fckStyleFile" cols="90" rows="30" spellcheck="false" class="editFiles js" id="fckStyleFile"><?php echo $htmlEditorStyleContent; ?></textarea>
     <br><br>
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
     <input type="submit" value="" name="saveFckStyles" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
