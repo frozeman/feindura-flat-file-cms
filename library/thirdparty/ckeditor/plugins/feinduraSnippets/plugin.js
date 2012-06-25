@@ -250,7 +250,7 @@ CKEDITOR.plugins.add('feinduraSnippets',
                     if(pageContentChanged || this.getDialog().getParentEditor().checkDirty()) {
                       pageContentChangedSign();
                       pageContentChanged = true;
-                      openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(href),false,false);
+                      openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(href),false);
                       
                     } else
                       window.location.href = href;

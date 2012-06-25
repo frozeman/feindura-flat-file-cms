@@ -389,7 +389,8 @@ class slideShowFromFolder {
       if($sizeDifference) {
         
         // get the Image class
-        require_once(dirname(__FILE__).'/includes/Image.class.php');
+        if(!class_exists(Image,false))
+          require_once(dirname(__FILE__).'/includes/Image.class.php');
         
         // wont resize the height so it overflows the slideshow, looks better
         $resize = new Image($imagePath);

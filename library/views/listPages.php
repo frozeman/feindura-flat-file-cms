@@ -266,7 +266,7 @@ foreach($allCategories as $category) {
       echo '<div class="name'.$subCategoryIcon.$startPageIcon.'">
             <a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip"
             title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))).'::
-            '.$pageTitle_startPageText.$pageTitle_Id.$pageTitle_subCategory.$pageTitle_pageDate.$pageTitle_tags.$pageTitle_pageLanguages.'">
+            '.trim($pageTitle_startPageText.$pageTitle_Id.$pageTitle_subCategory.$pageTitle_pageDate.$pageTitle_tags.$pageTitle_pageLanguages,'[br]]').'">
             <b>'.$title.'</b>
             </a></div>';
       echo ($pageContent['lastSaveAuthor'])

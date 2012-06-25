@@ -286,7 +286,8 @@ class slideShow {
         // echo "RESIZE";
       
         // get the Image class
-        require_once(dirname(__FILE__).'/includes/Image.class.php');
+        if(!class_exists(Image,false))
+          require_once(dirname(__FILE__).'/includes/Image.class.php');
 
         // vars
         $width = $this->imageWidth;

@@ -23,7 +23,7 @@
     }
 
 #windowBox {
-    position: fixed;
+    position: absolute;
     top: 20%;
     left: 50%;
     margin-left: -390px;

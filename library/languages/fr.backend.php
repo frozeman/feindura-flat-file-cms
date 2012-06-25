@@ -284,7 +284,7 @@ $langFile['SIDEBARMENU_TITLE_PAGES']                                      = 'pag
 */
 
 // ---------- DASHBOARD
-$langFile['DASHBOARD_TITLE_USERINFO']                                     = 'informations utilisateur';
+$langFile['DASHBOARD_TITLE_USERINFO']                                     = 'utilisateurs';
 $langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Bienvenue au content management system <span class="logoname">fein<span>dura</span></span><br> de ton site web';
 $langFile['DASHBOARD_TEXT_WELCOME']                                       = '<span class="logoname">fein<span>dura</span></span> est un  Content Management System basé sur <span class="toolTip" title="Flat-Files.::fichiers sur un server contenant le contenu du site web">Flat-Files</span>. <br>Ici tu peux gérer le contenu de ton site web.';
 $langFile['DASHBOARD_TITLE_STATISTICS']                                   = 'statistiques du site web';

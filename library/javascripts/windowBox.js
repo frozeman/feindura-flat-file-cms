@@ -22,16 +22,12 @@ var windowBoxIsVisible = false;
 
 /* ---------------------------------------------------------------------------------- */
 // dimms the background and calls: requestSite(site,siteTitle);
-function openWindowBox(site,siteTitle,fixed) {
+function openWindowBox(site,siteTitle) {
     
   if(site) {
     
-    // if fixed is true, than the window positon is relative,
-    // means its fixed in the document, and NOT scrolling with the user
-    if(fixed || navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
-      $('windowBox').setStyle('position','relative');
-    else
-      $('windowBox').setStyle('position','fixed');
+    // place window in the useres sight
+    $('windowBox').setStyle('top',window.getScroll().y + 150);
 
     loadingText = $$('#windowBox > h1').get('html');
 

@@ -79,6 +79,7 @@ mark {
     height: 150px;
     min-width: 1255px;
     background: url("../images/bg/header.png") repeat-x;
+    text-shadow: 0 1px 1px #fff;
     }
 #headerBlock {
     position: relative;
@@ -126,23 +127,24 @@ mark {
 /* --- LOGO */ 
 #logo {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 25px;
+    left: 15px;
     z-index: 1;
     display: block;
-    width: 205px;
-    height: 140px;
+    width: 163px;
+    height: 94px;
     background: url("../images/icons/logo.png") no-repeat;
     }
 #version {
     position: absolute;
-    top: 45px;
-    left: 134px;
+    top: 48px;
+    left: 110px;
     z-index: 2;
     width: 60px;
     color: #3979A5;
     text-align: right;
     font-size: 11px;
+    font-weight: bold;
     }
 .logoname {
     color: #DD6C1D !important;
@@ -225,6 +227,7 @@ mark {
     width: 100%;
     min-width: 1255px;
     background: url("../images/bg/mainBody.png") repeat-y #d8d8d8;
+    text-shadow: 0 1px 1px #dfdfdf;
     }
   
 #content {
@@ -338,12 +341,10 @@ ul.horizontalButtons {
 .horizontalButtons li {
     position: relative;
     float: left;
-    /* display: -moz-inline-stack; */
     display: block;
     margin: 0px auto;
     padding: 0px;
     list-style: none;    
-    vertical-align: top;
     }
     
 ul.verticalButtons {
@@ -741,9 +742,14 @@ div.leftSidebarLoadingCircle {
     /* background: url("../images/icons/link.gif") no-repeat 0px 0px; */
     color: #3A7AA5;
     text-decoration: none;
+    text-shadow: 0 1px 1px #fff;
     }
-#leftSidebar a:hover, #leftSidebar a:focus {
+#leftSidebar a:hover,
+#leftSidebar a:focus,
+#leftSidebar a:active,
+#leftSidebar a.active {
     color: #666666;
+    text-shadow: none;
     }
 
 
@@ -876,7 +882,7 @@ div.leftSidebarLoadingCircle {
     }
 #leftSidebar .sidebarMenu .content.white a.active {
     background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x 0px -70px !important;
-    color: #333 !important;
+    color: #ffffff;
     }
 #leftSidebar .sidebarMenu .content.white a:hover, #leftSidebar .sidebarMenu .content.white a:focus {
     background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x 0px -35px;

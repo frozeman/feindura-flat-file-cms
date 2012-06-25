@@ -558,7 +558,7 @@ function LeavingWithoutSavingWarning() {
       link.addEvent('click',function(e) {
         if(pageContentChanged) {
           e.stop();
-          openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(href),false,false);
+          openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(href),false);
         }
       });
     }
@@ -602,8 +602,10 @@ window.addEvent('domready', function() {
   // makes sidebarmenu dynamic
   sidebarMenu();
 
-  // let the errorWindow clos by ESC or ENTER keys
+  // let the errorWindow get closed by ESC or ENTER keys
   if($('feindura_errorWindow') !== null) {
+    $('feindura_errorWindow').setStyle('top',window.getScroll().y + 150);
+    
     document.addEvent('keyup',function(e){
       if(e.key == 'esc' || e.key == 'enter')
         feindura_closeErrorWindow(e);
@@ -1297,7 +1299,7 @@ window.addEvent('domready', function() {
       // -> show dialog if languages will be deleted
       if(removedLangString !== '') {
         e.stop();
-        openWindowBox('library/views/windowBox/deleteWebsiteLanguages.php?site=pageSetup&status='+status+'&mainLanguage='+$('cfg_websiteMainLanguage').get('value')+'&languages='+removedLangString,'',false);
+        openWindowBox('library/views/windowBox/deleteWebsiteLanguages.php?site=pageSetup&status='+status+'&mainLanguage='+$('cfg_websiteMainLanguage').get('value')+'&languages='+removedLangString,'');
       }
 
       // reset the website Languages variable
@@ -1389,7 +1391,7 @@ window.addEvent('domready', function() {
       var newLocation = addParameterToUrl('websiteLanguage',language);
 
       if(pageContentChanged)
-        openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(newLocation),false,false);
+        openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(newLocation),false);
       else
         window.location.href = newLocation;
     });

@@ -304,7 +304,7 @@ $langFile['DASHBOARD_TEXT_WELCOME']                                       = '<sp
 
 $langFile['DASHBOARD_TITLE_STATISTICS']                                   = 'Website-Statistic';
 
-$langFile['DASHBOARD_TITLE_USER']                                         = 'User';
+$langFile['DASHBOARD_TITLE_USER']                                         = 'Users';
 $langFile['DASHBOARD_TITLE_ACTIVITY']                                     = 'Activities';
 $langFile['DASHBOARD_TEXT_ACTIVITY_NONE']                                 = 'none';
 

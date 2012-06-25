@@ -58,9 +58,9 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
   -moz-border-radius:10px;
   border-radius:10px;
   background-color: #F7F7F7;
-  -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 20px rgba(0,0,0,0.15);
-  -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 20px rgba(0,0,0,0.15);
-  box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 20px rgba(0,0,0,0.15);
+  -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.1);
   font: 12px Verdana, Arial, Sans-serif, Serif !important;
 }
 
@@ -110,8 +110,8 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 /* --- ERRORWINDOW */
 
 #feindura_errorWindow {
-  position: fixed;    
-  top: 15%;
+  position: absolute;    
+  top: 25%;
   left: 370px;
   z-index: 20010;
   padding: 30px 40px;
@@ -181,10 +181,10 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
   left: 130px;
   display: block;
   padding: 0px;
-  width: 75px;
-  height: 65px;
-  background: url("../images/buttons/errorWindow_ok.png") no-repeat 0px -64px;
+  width: 55px;
+  height: 55px;
+  background: url("../images/buttons/errorWindow_ok.png") no-repeat 0 0;
 }
 #feindura_errorWindow .feindura_content a.feindura_ok:hover, #feindura_errorWindow .feindura_content a.feindura_ok:focus {
-  background-position: 0 0;
+  background-position: 0 -55px;
 }

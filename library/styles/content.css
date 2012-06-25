@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-content.css version 0.3 */
+content.css version 0.5 */
 
 /**************/  
 /* *** BLOCK */
@@ -1681,16 +1681,26 @@ a.submit, a.ok {
     display: inline-block;
     text-decoration: none;
     }
-input.submit, a.submit, a.ok {
+input.submit,
+a.submit, a.ok {
     position: relative;
-    width: 75px;
-    height: 75px;
+    width: 55px;
+    height: 55px;
     background: url("../images/buttons/form_submit.png") no-repeat !important;
     cursor: pointer;
     }
-input.submit:hover, a.submit:hover, a.ok:hover, input.submit:focus, a.submit:focus, a.ok:focus {
-    background-position: 1px -78px !important;
-    }
+input.submit:hover,
+a.submit:hover,
+a.ok:hover,
+input.submit:focus, 
+a.submit:focus,
+a.ok:focus {
+  background-position: 0 -55px !important;
+}
+input.submit:active,
+a.submit:active, a.ok:active {
+  background-position: 0 0 !important;
+}
 #content .block input.submit {
     z-index: 4;
     position: relative;
@@ -1702,14 +1712,22 @@ a.cancel {
     display: inline-block;
     text-decoration: none;    
     }
-input.cancel, a.cancel {
-    width: 75px;
-    height: 75px;
+input.cancel,
+a.cancel {
+    width: 55px;
+    height: 55px;
     background: url("../images/buttons/form_cancel.png") no-repeat !important;
     }
-input.cancel:hover, a.cancel:hover, input.cancel:focus, a.cancel:focus {
-    background-position: 0px -78px !important;
-    }
+input.cancel:hover,
+a.cancel:hover,
+input.cancel:focus, 
+a.cancel:focus {
+  background-position: 0px -55px !important;
+}
+input.cancel:active,
+a.cancel:active {
+  background-position: 0 0 !important;
+}
 #content .block input.cancel {
     position: relative;
     margin-bottom: 20px;

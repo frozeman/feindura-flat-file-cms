@@ -183,7 +183,7 @@ $GLOBALS['languageNames'] = $languageNames;
 /**
  * The absolut path of the webserver, with fix for IIS Server
  */
-// ->> if no realBasePath exists, GENERATE the DOCUMENTROOT FROM the $_SERVER["SCRIPT_NAME"]
+// ->> if no realBasePath exists, GENERATE the DOCUMENTROOT FROM the $_SERVER["PHP_SELF"]
 if(empty($adminConfig['realBasePath']) && !isset($_POST['cfg_basePath'])) {
   //echo 'generate the docRoot from PHP_SELF';
   $localpath=$_SERVER["PHP_SELF"];

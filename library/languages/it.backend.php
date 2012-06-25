@@ -299,7 +299,7 @@ $langFile['SIDEBARMENU_TITLE_PAGES']                                      = 'pag
 */
 
 // ---------- DASHBOARD
-$langFile['DASHBOARD_TITLE_USERINFO']                                     = 'Informazioni-Utente';
+$langFile['DASHBOARD_TITLE_USERINFO']                                     = 'Utenti';
 
 $langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Benvenuti in - <span class="logoname">fein<span>dura</span></span> - (Content Management System) <br>Un Sistema Di Gestione Dei Contenuti Per Il Tuo Sito Web.';
 $langFile['DASHBOARD_TEXT_WELCOME']                                       = '<span class="logoname">fein<span>dura</span></span> usa il sistema <span class="toolTip" title="Files Flat::Flat è un sistema che non necessita di database per memorizzazione il contenuto, esso viene scritto direttamente nei files che verranno poi stipati in una cartella appositamente creata sul server e in cui il contenuto del sito WEB viene memorizzato.">files flat</span> basati come Content Management System.<br>Qui è possibile gestire il contenuto del tuo sito web senza l\'uso di database.
