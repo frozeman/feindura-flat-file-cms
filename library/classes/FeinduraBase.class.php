@@ -589,11 +589,18 @@ class FeinduraBase {
       }
 
       // add menuClass property to the zencode string
-      if(is_string($this->menuClass))
-        $menuTag = substr_replace($menuTag, '.'.$this->menuClass, strpos($menuTag, '.'), 0);
+      if(is_string($this->menuClass)) {
+        if(($pos = strpos($menuTag, '.')) !== false)
+          $menuTag = substr_replace($menuTag, '.'.str_replace(' ','.',trim($this->menuClass)), $pos, 0);
+        elseif(($pos = strpos($menuTag, '[')) !== false)
+          $menuTag = substr_replace($menuTag, '.'.str_replace(' ','.',trim($this->menuClass)), $pos, 0);
+        else
+          $menuTag .= '.'.str_replace(' ','.',trim($this->menuClass));
+      }
       // add menuId property to the zencode string
-      if(strpos($menuTag, '#') === false && is_string($this->menuId))
+      if(strpos($menuTag, '#') === false && is_string($this->menuId)) {
         $menuTag = str_replace($pureTag, $pureTag.'#'.$this->menuId, $menuTag);
+      }
       // add Attributes
       if(is_string($this->menuAttributes))
         $menuTag .= '['.str_replace(array('"',' '), array('',']['), $this->menuAttributes).']';
