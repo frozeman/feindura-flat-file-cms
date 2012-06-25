@@ -17,6 +17,7 @@ mk.js      Found: 5 Missing: 25
 nb.js      Found: 30 Missing: 0
 nl.js      Found: 30 Missing: 0
 no.js      Found: 30 Missing: 0
+pt-br.js   Found: 30 Missing: 0
 ro.js      Found: 6 Missing: 24
 tr.js      Found: 30 Missing: 0
 ug.js      Found: 27 Missing: 3

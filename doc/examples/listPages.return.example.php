@@ -17,6 +17,7 @@ array(
     'content'           => "\n".'<p>Content Text</p>'."\n",
     'description'       => 'Short description of the page',
     'tags'              => 'tag1,tag2,tag3',
+    'href'              => '?category=1&page=1', // or a speaking url, if activated
     'plugins'           => array (
     	'imageGallery' => array(
                 'galleryPath'     => '',
@@ -45,6 +46,7 @@ array(
     'content'           => "\n".'<p>Content Text</p>'."\n",
     'description'       => 'Short description of the page',
     'tags'              => 'tag3,tag4',
+    'href'              => '?category=1&page=5',
     'plugins'           => array ()
     ),
   
@@ -63,6 +65,7 @@ array(
     'content'           => "\n".'<p>Content Text</p>'."\n",
     'description'       => 'Short description of the page',
     'tags'              => 'tag3,tag1',
+    'href'              => '?category=2&page=8', 
     'plugins'           => array ()
     )
   )

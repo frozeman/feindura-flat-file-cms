@@ -3665,14 +3665,24 @@ class Feindura extends FeinduraBase {
     </script>
     ';
 
-    // non js adding
-    $return .= '<noscript>';
+    // if in frontend editing, just place stylesheets
+    if($this->loggedIn && $this->adminConfig['user']['frontendEditing']) {
+
       foreach ($stylesheets as $stylesheet) {
         $return .= '<link rel="stylesheet" type="text/css" href="'.$stylesheet.'">';
       }
-    $return .= '</noscript>
 
+    // non js, just place the stylesheets
+    } else {
+
+      $return .= '<noscript>';
+        foreach ($stylesheets as $stylesheet) {
+          $return .= '<link rel="stylesheet" type="text/css" href="'.$stylesheet.'">';
+        }
+      $return .= '</noscript>
+   
 ';
+    }
     return $return;
   }
 }

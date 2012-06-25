@@ -536,8 +536,8 @@ function saveCategories($newCategories) {
       $fileContent .= "\$categoryConfig[".$category['id']."]['styleId']             = '".XssFilter::string($category['styleId'])."';\n";
       $fileContent .= "\$categoryConfig[".$category['id']."]['styleClass']          = '".XssFilter::string($category['styleClass'])."';\n\n";
       
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbWidth']          = '".XssFilter::int($category['thumbWidth'])."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbHeight']         = '".XssFilter::int($category['thumbHeight'])."';\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbWidth']          = ".XssFilter::int($category['thumbWidth']).";\n";
+      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbHeight']         = ".XssFilter::int($category['thumbHeight']).";\n";
       $fileContent .= "\$categoryConfig[".$category['id']."]['thumbRatio']          = '".XssFilter::alphabetical($category['thumbRatio'])."';\n\n";
       
       // save localized
@@ -941,8 +941,8 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['editor']['styleId']      = '".XssFilter::string($adminConfig['editor']['styleId'])."';\n";
     $fileContent .= "\$adminConfig['editor']['styleClass']   = '".XssFilter::string($adminConfig['editor']['styleClass'])."';\n\n";  
   
-    $fileContent .= "\$adminConfig['pageThumbnail']['width']   = '".XssFilter::int($adminConfig['pageThumbnail']['width'])."';\n";
-    $fileContent .= "\$adminConfig['pageThumbnail']['height']  = '".XssFilter::int($adminConfig['pageThumbnail']['height'])."';\n";
+    $fileContent .= "\$adminConfig['pageThumbnail']['width']   = ".XssFilter::int($adminConfig['pageThumbnail']['width']).";\n";
+    $fileContent .= "\$adminConfig['pageThumbnail']['height']  = ".XssFilter::int($adminConfig['pageThumbnail']['height']).";\n";
     $fileContent .= "\$adminConfig['pageThumbnail']['ratio']   = '".XssFilter::alphabetical($adminConfig['pageThumbnail']['ratio'])."';\n";
     $fileContent .= "\$adminConfig['pageThumbnail']['path']    = '".XssFilter::path($adminConfig['pageThumbnail']['path'],false,(empty($adminConfig['uploadPath'])) ? '' : 'thumbnails/')."';\n\n";
     

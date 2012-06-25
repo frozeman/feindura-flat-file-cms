@@ -764,7 +764,13 @@ window.addEvent('domready', function() {
   // FILTER LIST PAGES -------------------------------------------------------------------------
 
   if($('listPagesFilter') !== null) {
-    var cancelListPagesFilter = function() {$('listPagesFilter').set('value',''); $('listPagesFilter').fireEvent('keyup');};
+    var cancelListPagesFilter = function(e) {
+      if(e) e.stop();
+
+      $('listPagesFilter').set('value','');
+      $('listPagesFilter').fireEvent('keyup');
+      $$('.subCategoryArrowLine').setStyle('display','block');
+    };
     $('listPagesFilterCancel').addEvent('click',cancelListPagesFilter);
     var openBlocks = [];
     var selectedPage = null;
@@ -852,7 +858,7 @@ window.addEvent('domready', function() {
         } else if(filteredPages.length === 0)
           selectedPage = null;
 
-        // mark teh selcted page
+        // mark the selcted page
         if(selectedPage !== null && typeOf(selectedPage) !== 'null')
           selectedPage.setStyle('background-position','0 -41px');
 
@@ -873,6 +879,9 @@ window.addEvent('domready', function() {
       // ->> WHEN filter is started
       // ->> SLIDE all blocks IN
       if(filter.length > 0) {
+
+        // hide subCategory arrows
+        $$('.subCategoryArrowLine').setStyle('display','none');
 
         // fade in the input
         this.fade(1);
@@ -916,6 +925,8 @@ window.addEvent('domready', function() {
           storedOpenBlocks = false;
           selectedPage = null;
         }
+
+        cancelListPagesFilter();
       }
     });
   }

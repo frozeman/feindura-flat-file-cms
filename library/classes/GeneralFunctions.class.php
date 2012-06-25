@@ -1558,6 +1558,8 @@ class GeneralFunctions {
         if(!(self::$FeinduraCLass instanceof Feindura))
           self::$FeinduraCLass = new Feindura();
         $feindura = self::$FeinduraCLass;
+        $feindura->page = $pageId;
+        $feindura->category = self::getPageCategory($pageId);
       }
     }
 
@@ -1584,7 +1586,7 @@ class GeneralFunctions {
           if($feindura_match[1] === 'feinduraSnippet') {
 
             // available vars in the snippet
-            $GLOBALS['ISSNIPPET'] = 'dsdas';
+            $GLOBALS['ISSNIPPET'] = true;
             $feindura;
             $pageId;
             $categoryId = self::getPageCategory($pageId);

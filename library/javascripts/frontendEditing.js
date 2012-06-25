@@ -91,8 +91,8 @@
         loadingFill.fade('hide').fade(0.5);
 
         // -> ADD the LOADING CIRCLE
-        if(!pageBlock.contains(jsLoadingCircle))
-          pageBlock.grab(jsLoadingCircle,'top');
+        if(!document.body.contains(jsLoadingCircle))
+          document.body.grab(jsLoadingCircle,'bottom');
         centerOnElement(jsLoadingCircle,pageBlock);
         removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");
         jsLoadingCircle.set('tween',{duration: 200});
@@ -119,7 +119,7 @@
           document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
         else {
           // display finish picture
-          pageBlock.grab(finishPicture,'top');
+          document.body.grab(finishPicture,'bottom');
           centerOnElement(finishPicture,pageBlock);
           finishPicture.set('tween',{duration: 400});
           finishPicture.fade('in');

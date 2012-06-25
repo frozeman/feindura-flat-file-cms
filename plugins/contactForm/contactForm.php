@@ -59,6 +59,15 @@ class contactForm {
  /* **************************************************************************************************************************** */
   
  /**
+  * The current URL. Or the url where the form should be send to. If empty, it will use the current URL.
+  * It will also add the current session to the url.
+  * 
+  * @var string
+  * @access public
+  */
+  var $currentUrl = false;
+
+ /**
   * TRUE when the pages content should be handled as XHTML
   *
   * In XHTML standalone tags end with " />" instead of ">".<br>
@@ -132,14 +141,6 @@ class contactForm {
   * @access public
   */
   var $mandatoryColor = ' style="color:#D23D30;"';
-  
- /**
-  * The current URL with ? or & add to it. (depending if GET varibales already exist or not)
-  * 
-  * @var string
-  * @access protected
-  */
-  protected $currentUrl;
 
  /**
   * <b>Type</b> constructor<br>
@@ -166,14 +167,7 @@ class contactForm {
     // check if the langFile was set
     if(!is_array($this->langFile))
       $this->langFile = include('languages/en.php');
-    
-    // add the session to the current URL
-    if(strpos($_SERVER['REQUEST_URI'],session_name()) === false) {
-      $this->currentUrl = (strpos($_SERVER['REQUEST_URI'],'?') === false)
-        ? $_SERVER['REQUEST_URI'].'?'.htmlspecialchars(session_name().'='.session_id())
-        : $_SERVER['REQUEST_URI'].'&amp;'.htmlspecialchars(session_name().'='.session_id());
-    } else
-       $this->currentUrl = $_SERVER['REQUEST_URI'];    
+
   }
 
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -412,6 +406,18 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
   protected function createForm($mandatoryFields = array()) {
     //var
     $return = '';
+
+    // add the session to the current URL
+    $this->currentUrl = (empty($this->currentUrl))
+       ? $_SERVER['REQUEST_URI']
+       : $this->currentUrl;
+
+    if(strpos($this->currentUrl,session_name()) === false) {
+      $this->currentUrl = (strpos($this->currentUrl,'?') === false)
+        ? $this->currentUrl.'?'.htmlspecialchars(session_name().'='.session_id())
+        : $this->currentUrl.'&amp;'.htmlspecialchars(session_name().'='.session_id());
+    }
+    $this->currentUrl .= '&amp;sendForm';
 
     $return .= '<form action="'.$this->currentUrl.'#feinduraPlugin_contactFormAnchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
     <div>

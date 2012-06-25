@@ -57,6 +57,7 @@ require_once('contactForm.php');
 $contactForm = new contactForm($pluginConfig['recipient']);
 
 // set configs
+$contactForm->currentUrl = $feindura->createHref();
 $contactForm->xHtml = $feindura->xHtml; // set the xHtml property from the feindura class
 $contactForm->websiteTitle = GeneralFunctions::getLocalized($feindura->websiteConfig,'title',$feindura->language);
 $contactForm->websiteUrl = $feindura->adminConfig['url'];

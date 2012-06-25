@@ -866,6 +866,7 @@ class FeinduraBase {
     $return['content']           = false;
     $return['description']       = false;
     $return['tags']              = false;
+    $return['href']              = false;
     $return['plugins']           = array();
     $return['error']             = true;
 
@@ -1059,6 +1060,8 @@ class FeinduraBase {
     
     if(!empty($localizedPageTags))
       $return['tags']                                         = $localizedPageTags;
+
+    $return['href']                                           = GeneralFunctions::createHref($pageContent,$this->sessionId,$this->language);
     
     if(isset($pageContent['plugins']))  
       $return['plugins']                                      = $pageContent['plugins'];
@@ -1240,9 +1243,10 @@ class FeinduraBase {
       $thumbnailAttributes = $this->createAttributes($this->thumbnailId, $this->thumbnailClass, $this->thumbnailAttributes);
       
       // thumbnail FLOAT
+      $thumbnailAlign = false;
       if(strtolower($this->thumbnailAlign) === 'left' ||
          strtolower($this->thumbnailAlign) === 'right')
-        $thumbnailAttributes .= ' style="float:'.strtolower($this->thumbnailAlign).';"';
+        $thumbnailAlign .= ' float:'.strtolower($this->thumbnailAlign).';';
       
       // CHECK if the THUMBNAIL BEFORE & AFTER is !== true
       $thumbnailBefore = '';
@@ -1254,14 +1258,22 @@ class FeinduraBase {
         $thumbnailAfter = $this->thumbnailAfter;
       
       // get the setting thumbnail sizes
-      $configThumbWidth = ($pageContent['category'] == 0) ? $this->adminConfig['pageThumbnail']['width'] : $this->categoryConfig[$pageContent['category']]['thumbWidth'];
-      $configThumbHeight = ($pageContent['category'] == 0) ? $this->adminConfig['pageThumbnail']['height'] : $this->categoryConfig[$pageContent['category']]['thumbHeight'];
-      
+      // THUMB WIDTH
+      $configThumbWidth = (!empty($this->categoryConfig[$pageContent['category']]['thumbWidth']))
+        ? $this->categoryConfig[$pageContent['category']]['thumbWidth']
+        : $this->adminConfig['pageThumbnail']['width'];
+      // THUMB HEIGHT
+      $configThumbHeight = (!empty($this->categoryConfig[$pageContent['category']]['thumbHeight']))
+        ? $this->categoryConfig[$pageContent['category']]['thumbHeight']
+        : $this->adminConfig['pageThumbnail']['height'];
+
       if(!empty($configThumbWidth) && !empty($configThumbHeight) && is_numeric($configThumbWidth) && is_numeric($configThumbHeight)) {
-        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['basePath'].'library/images/icons/emptyImage.gif" style="display:table-cell; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'\') no-repeat center center;" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
-      } else
-        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
-      
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['basePath'].'library/images/icons/emptyImage.gif" style="display:table-cell; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'\') no-repeat center center;'.$thumbnailAlign.'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+      } else {
+        if($thumbnailAlign) $thumbnailAlign = ' style="'.trim($thumbnailAlign).'"';
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAlign.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+      }
+
       $pageThumbnail['thumbnailPath'] = $this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
       
       return $pageThumbnail;

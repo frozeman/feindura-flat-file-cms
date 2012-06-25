@@ -131,13 +131,19 @@ div.feindura_pageBar {
 
 /* EDITABLE BLOCKS */
 
-div.feindura_editPage, div.feindura_editPageDisabled, span.feindura_editTitle, span.feindura_editTitleDisabled {
+div.feindura_editPage,
+div.feindura_editPageDisabled,
+span.feindura_editTitle,
+span.feindura_editTitleDisabled {
   position: relative;
   display: inherit; /*inline-block;*/
   outline: none;
   resize: none;
 }
-div.feindura_editPage:hover, div.feindura_editPageDisabled:hover, span.feindura_editTitle:hover, span.feindura_editTitleDisabled:hover {
+div.feindura_editPage:hover,
+div.feindura_editPageDisabled:hover,
+span.feindura_editTitle:hover,
+span.feindura_editTitleDisabled:hover {
   margin: -7px;
   padding: 6px;
   border: 1px solid #c7c7c7;
@@ -146,7 +152,8 @@ div.feindura_editPage:hover, div.feindura_editPageDisabled:hover, span.feindura_
   box-shadow: 0px 0px 10px #c7c7c7;
   -o-box-shadow: 0px 0px 10px #c7c7c7;
 }
-div.feindura_editPage:focus, span.feindura_editTitle:focus {
+div.feindura_editPage:focus,
+span.feindura_editTitle:focus {
   margin: -7px;
   padding: 6px;
   border: 1px solid #afafaf;
@@ -155,7 +162,8 @@ div.feindura_editPage:focus, span.feindura_editTitle:focus {
   box-shadow: 0px 0px 10px #c7c7c7;
   -o-box-shadow: 0px 0px 10px #c7c7c7;
 }
-div.feindura_editPageDisabled:hover, span.feindura_editTitleDisabled:hover {
+div.feindura_editPageDisabled:hover,
+span.feindura_editTitleDisabled:hover {
   background-color: #fff;
   opacity: 0.6;
   filter: alpha(opacity=60);
