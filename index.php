@@ -378,30 +378,23 @@ if($_GET['site'] == 'addons') {
     // ---------------------------------------------------------------
     // ->> CHECK to show BUTTONs in subMenu and FooterMenu 
      
-    // -> CHECK if show createPage
     $generallyCreatePages = false;
-    // check if non-category can create pages
-    if($adminConfig['pages']['createDelete'])
-      $generallyCreatePages = true;
-    // if not check if one category can create pages
-    else {
-      if(!empty($categoryConfig)) {
-        foreach($categoryConfig as $category) {
-          if($category['createDelete'])
-            $generallyCreatePages = true;
-        }
+    // CHECK if one category can create pages
+    if(!empty($categoryConfig)) {
+      foreach($categoryConfig as $category) {
+        if($category['createDelete'])
+          $generallyCreatePages = true;
       }
+      unset($category);
     }
+
     
     $showCreatePage = ($generallyCreatePages || //&& $_GET['site'] == 'pages'
-                       (!empty($_GET['page']) &&
-                       ($_GET['category'] === 0 && $adminConfig['pages']['createDelete']) ||
-                       ($_GET['category'] !== 0 && $categoryConfig[$_GET['category']]['createDelete']))) ? true : false;
+                       (!empty($_GET['page']) && $categoryConfig[$_GET['category']]['createDelete'])) ? true : false;
     
      // -> CHECK for DELETE PAGE
     $showDeletePage = ($generallyCreatePages && !$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new' &&
-                       ($_GET['category'] === 0 && $adminConfig['pages']['createDelete']) ||
-                       ($_GET['category'] !== 0 && $categoryConfig[$_GET['category']]['createDelete'])) ? true : false;
+                       $categoryConfig[$_GET['category']]['createDelete']) ? true : false;
     
     $isInPageEditor = (isset($_GET['page']) && !$newPage) ? true : false;
     
@@ -411,7 +404,7 @@ if($_GET['site'] == 'addons') {
     // -> CHECK for pageThumbnailUpload
     $showPageThumbnailUpload = (!$newPage &&
                                 empty($_GET['site']) && !empty($_GET['page']) &&
-                                (($_GET['category'] === 0 && $adminConfig['pages']['thumbnails']) || $categoryConfig[$_GET['category']]['thumbnails'])) ? true : false;
+                                $categoryConfig[$_GET['category']]['thumbnails']) ? true : false;
 
     
     // -> CHECK for pageThumbnailDelete

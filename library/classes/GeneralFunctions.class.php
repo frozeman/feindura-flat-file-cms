@@ -629,17 +629,14 @@ class GeneralFunctions {
 
           if(($parentPageContent = self::readPage($parentPageId,self::getPageCategory($parentPageId))) !== false) {
             // check if the parent pages category is a sub category
-            if(($parentPageContent['category'] != 0 && self::$categoryConfig[$parentPageContent['category']]['showSubCategory']) ||
-               ($parentPageContent['category'] == 0 && self::$adminConfig['pages']['showSubCategory'])) {
+            if(self::$categoryConfig[$parentPageContent['category']]['showSubCategory']) {
 
               $return[] = $parentPageContent;
 
               // set the next (sub) category
               $categoryId = $parentPageContent['category'];
 
-            } elseif($parentPageContent['category'] != 0)
-              $categoryId = false;
-            else
+            } else
               $categoryId = false;
           } else
             $categoryId = false;
@@ -1082,13 +1079,9 @@ class GeneralFunctions {
       //vars
       $pagesArray = array();
 
-      // IF $category TRUE create array with non-category and all category IDs
-      if($category === true) {
-      	// puts the categories IDs in an array
-      	$category = array(0);
-        if(is_array(self::$categoryConfig))
-          $category = array_merge($category,array_keys(self::$categoryConfig));
-      }
+      // IF $category TRUE use all Categories
+      if($category === true)
+        $category = array_keys(self::$categoryConfig);
       
       // change category into array
       if(is_numeric($category))
@@ -1451,8 +1444,7 @@ class GeneralFunctions {
     $pageDate = self::getLocalized($pageContent,'pageDate');
     $pageDateBefore = $pageDate['before'];
     $pageDateAfter = $pageDate['after'];
-    if((($pageContent['category'] != 0 && self::$categoryConfig[$pageContent['category']]['showPageDate']) ||
-       ($pageContent['category'] == 0 && self::$adminConfig['pages']['showPageDate'])) &&
+    if(self::$categoryConfig[$pageContent['category']]['showPageDate'] &&
        (!empty($pageDateBefore) || !empty($pageContent['pageDate']['date']) || $pageContent['pageDate']['date'] === 0 || !empty($pageDateAfter)))
        return true;
     else
@@ -1883,11 +1875,9 @@ class GeneralFunctions {
         
         // SORTS the category the GIVEN SORTFUNCTION
         if($sortBy === false) {
-          if(($category != 0 && self::$categoryConfig[$category]['sorting'] == 'byPageDate') ||
-             ($category == 0 && self::$adminConfig['pages']['sorting'] == 'byPageDate'))
+          if(self::$categoryConfig[$category]['sorting'] == 'byPageDate')
             usort($categoriesArray, 'sortByDate');
-          elseif(($category != 0 && self::$categoryConfig[$category]['sorting'] == 'alphabetical') ||
-                 ($category == 0 && self::$adminConfig['pages']['sorting'] == 'alphabetical'))
+          elseif(self::$categoryConfig[$category]['sorting'] == 'alphabetical')
             usort($categoriesArray, 'sortAlphabetical');
           else
             usort($categoriesArray, 'sortBySortOrder');
@@ -1895,8 +1885,7 @@ class GeneralFunctions {
             usort($categoriesArray, $sortBy);
         
         // reverse the category, if its in the options
-        if(($category != 0 && self::$categoryConfig[$category]['sortReverse']) ||
-           ($category == 0 && self::$adminConfig['pages']['sortReverse']))
+        if(self::$categoryConfig[$category]['sortReverse'])
           $categoriesArray = array_reverse($categoriesArray);
          
         foreach($categoriesArray as $pageContent) {
@@ -1908,46 +1897,6 @@ class GeneralFunctions {
       return $newPageContentArray;
     } else
       return $pageContentArrays;
-  }
-
-  /**
-   * <b>Name</b> getStylesByPriority()<br>
-   * 
-   * Returns the right stylesheet-file path, ID or class-attribute.
-   * If the <var>$givenStyle</var> parameter is empty,
-   * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
-   * 
-   * <b>Used Global Variables</b><br>
-   *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
-   *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
-   * 
-   * @param string $givenStyle the string with the stylesheet-file path, id or class
-   * @param string $styleType  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass" 
-   * @param int    $category   the ID of the category to bubble through
-   * 
-   * @return string the right stylesheet-file, ID or class
-   * 
-   * @static
-   * @version 1.01
-   * <br>
-   * <b>ChangeLog</b><br>
-   *    - 1.01 moved to GeneralFunctions class   
-   *    - 1.0 initial release
-   * 
-   */
-  public static function getStylesByPriority($givenStyle,$styleType,$category) {
-    
-    // check if the $givenStyle is empty
-    if(empty($givenStyle) || $givenStyle == 'a:0:{}') {
-    
-      return (empty(self::$categoryConfig[$category][$styleType]) || self::$categoryConfig[$category][$styleType] == 'a:0:{}')
-        ? self::$adminConfig['editor'][$styleType]
-        : self::$categoryConfig[$category][$styleType];
-    
-    // OTHER BUTTONSwise it passes through the $givenStyle parameter
-    } else
-      return $givenStyle;
-    
   }
   
  /**

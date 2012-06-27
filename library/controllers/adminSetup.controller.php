@@ -119,26 +119,19 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
     
   // -> saved in pageSetup.php
   //$adminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
-  //$adminConfig['pages']['createDelete'] = $_POST['cfg_pageCreatePages'];
-  //$adminConfig['pages']['thumbnails'] = $_POST['cfg_pageThumbnailUpload'];  
-  //$adminConfig['pages']['plugins'] = $_POST['cfg_pagePlugins'];
-  //$adminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];
   
   $adminConfig['editor']['htmlLawed']    = $_POST['cfg_editorHtmlLawed'];
   $adminConfig['editor']['safeHtml']     = $_POST['cfg_editorSafeHtml'];
   $adminConfig['editor']['editorStyles'] = $_POST['cfg_editorStyles'];
   $adminConfig['editor']['snippets']     = $_POST['cfg_snippets'];
-
   $adminConfig['editor']['enterMode']    = $_POST['cfg_editorEnterMode'];
-  $adminConfig['editor']['styleFile']    = prepareStyleFilePaths($_POST['cfg_editorStyleFile']);
-  $adminConfig['editor']['styleId']      = str_replace(array('#','.'),'',$_POST['cfg_editorStyleId']);  
-  $adminConfig['editor']['styleClass']   = str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass']);  
+
   
   // -> saved in pageSetup.php
-  //$adminConfig['pageThumbnail']['width'] =  $_POST['cfg_thumbWidth'];
+  //$adminConfig['pageThumbnail']['width']  =  $_POST['cfg_thumbWidth'];
   //$adminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];
-  //$adminConfig['pageThumbnail']['ratio'] = $_POST['cfg_thumbRatio'];
-  //$adminConfig['pageThumbnail']['path'] = $_POST['cfg_thumbPath'];
+  //$adminConfig['pageThumbnail']['ratio']  = $_POST['cfg_thumbRatio'];
+  //$adminConfig['pageThumbnail']['path']   = $_POST['cfg_thumbPath'];
   
   // **** opens admin.config.php for writing
   if(saveAdminConfig($adminConfig)) {
@@ -149,6 +142,13 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   } else
     $errorWindow .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['realBasePath']);
   
+
+  // adds the HTML-Editor stylesheets to the NON-CATEGORY
+  $categoryConfig[0]['styleFile']    = prepareStyleFilePaths($_POST['cfg_editorStyleFile']);
+  $categoryConfig[0]['styleId']      = str_replace(array('#','.'),'',$_POST['cfg_editorStyleId']);  
+  $categoryConfig[0]['styleClass']   = str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass']); 
+  saveCategories($categoryConfig);
+
   $savedForm = $_POST['savedBlock'];
   $savedSettings = true;
 }

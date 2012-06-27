@@ -105,7 +105,7 @@ require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 @set_error_handler("showErrorsInWindow",E_ALL ^ E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
 // -> CREATE the CONFIG, PAGES and STATISTIC FOLDERS if they dont exist
-createBasicFolders();
+createBasicFilesAndFolders();
 
 // -> SET the BASIC VARIABLEs
 $errorWindow      = false; // when string the errorWindow with this string is displayed
@@ -162,6 +162,10 @@ $sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$
 
 $langFile = array_merge($sharedLangFile,$backendLangFile);
 unset($backendLangFile,$sharedLangFile);
+
+
+// -> ADD NON-CATEGORY name from the current language file
+$categoryConfig[0]['localized'][0]['name'] = $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'];
 
 
 // -> SEND BACKEND HEADER

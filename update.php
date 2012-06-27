@@ -33,11 +33,18 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 // gets the version of the feindura CMS
 
-if($lastVersionFile = file(dirname(__FILE__).'/VERSION'))
-  $oldVersion = trim($lastVersionFile[1]);
-else
-  $oldVersion = '1.0';
-$newVersion = '2.0';
+if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
+  $PREVVERSION = trim($prevVersionFile[1]);
+  $PREVBUILD = trim($prevVersionFile[2]);
+} else
+  $PREVVERSION = '1.0';
+
+$NEWVERSION = '2.0';
+$NEWBUILD = 947;
+
+$PREVVERSIONSTRING = $PREVVERSION.' <small>Build '.$PREVBUILD.'</small>';
+$CURVERSIONSTRING = VERSION.' <small>Build '.BUILD.'</small>';
+$NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
     
 ?>
 <!DOCTYPE html>
@@ -116,32 +123,33 @@ $newVersion = '2.0';
 <body>
   
   <?PHP
+
   // ->> CHECK PHP VERSION
   // *********************
   if(PHP_VERSION < REQUIREDPHPVERSION)
-    die('You have the wrong PHP version for feindura '.$newVersion.'. You need at least PHP version'.REQUIREDPHPVERSION);
+    die('You have the wrong PHP version for feindura '.$NEWVERSIONSTRING.'. You need at least PHP version'.REQUIREDPHPVERSION);
   ?>
   
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
-  <span style="font-size:25px;"><?php echo ($oldVersion == '1.0') ? $oldVersion.'>': $oldVersion; ?> &rArr; <?php echo $newVersion ?></span><br>
+  <span style="font-size:25px;"><?php echo ($PREVVERSION == '1.0') ? $PREVVERSION.'>': $PREVVERSIONSTRING; ?> &rArr; <?php echo $NEWVERSIONSTRING; ?></span><br>
   <br>
   <?php
 
   // check version
-  if($oldVersion == $newVersion)
+  if($PREVVERSION.$PREVBUILD == $NEWVERSION.$NEWBUILD)
     die('<span class="succesfull">You content is already up to date.</span><br>
       <small style="color:#999;">(If you don\'t think so, then delete the "VERSION" file in your "/cms/" folder and run this updater again.)</small>
       <br><br>
       <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a>');
   
   // check if cms is already updated
-  $updatePossible = (VERSION == $newVersion) ? true : false;
+  $updatePossible = (VERSION.BUILD == $NEWVERSION.$NEWBUILD) ? true : false;
   
   // WARNING
   if(!$updatePossible) {
     
-    echo 'hm... you current version is <b>'.VERSION.'</b> you cannot use this updater, :-(';
-    echo '<br><span class="warning">it\'s only for updating to '.$newVersion.'!</span>';
+    echo 'hm... you current version is <b>'.$CURVERSIONSTRING.'</b> you cannot use this updater, :-(';
+    echo '<br><span class="warning">it\'s only for updating to <span class="feindura"><em>fein</em>dura</span> '.$NEWVERSIONSTRING.'!</span>';
   }
   //$basePath = dirname($_SERVER['PHP_SELF']).'/';
   //$basePath = preg_replace('#\/+#','/',$basePath);
@@ -156,12 +164,12 @@ $newVersion = '2.0';
   elseif($updatePossible && empty($_POST['asking'])) {
     ?>
 
-Good, your current version is <b><?php echo VERSION; ?></b>, but your content isn't updated yet?
+Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your content isn't updated yet?
 <div>
-<h2>Do you want to update all pages and configs, so that they work with feindura <?php echo $newVersion ?>?</h2>
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<input type="hidden" name="asking" value="true">
-<input type="submit" value="UPDATE">
+  <h2>Do you want to update all pages and configs, so that they work with <span class="feindura"><em>fein</em>dura</span> <?php echo $CURVERSIONSTRING; ?>?</h2>
+  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+  <input type="hidden" name="asking" value="true">
+  <input type="submit" value="UPDATE">
 </div>
     <?php 
   
@@ -316,8 +324,32 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       $adminConfig['dateFormat'] = 'YMD';
 
     // only if was below 1.1.6
-    if($oldVersion <= '1.1.6')
-      $adminConfig['speakingUrl'] = false; // changed speaking url reg ex and createHref generation
+    if($PREVVERSION <= '1.1.6')
+      $adminConfig['speakingUrl'] = false; // beacuse i changed speaking url reg ex and createHref generation
+
+    // only if was below 2.0 build 946
+    if($PREVVERSION.$PREVBUILD <= '2.0946' && !isset($categoryConfig[0]['id'])) {
+
+      // delete the non-category, which only has the name (set in backend.include.php)
+      unset($categoryConfig[0]);
+
+
+      $nonCat[0]                    = $adminConfig['pages'];
+
+      $nonCat[0]['id']              = 0;
+      $nonCat[0]['public']          = true;
+      $nonCat[0]['isSubCategory']   = false;
+      $nonCat[0]['isSubCategoryOf'] = 'a:0:{}';
+      
+      $nonCat[0]['styleFile']       = $adminConfig['editor']['styleFile'];
+      $nonCat[0]['styleId']         = $adminConfig['editor']['styleId'];
+      $nonCat[0]['styleClass']      = $adminConfig['editor']['styleClass'];
+
+      // merge non category into the categoryConfig
+      $categoryConfig = array_merge($nonCat, $categoryConfig);
+
+      unset($adminConfig['pages'],$adminConfig['editor']['styleFile'],$adminConfig['editor']['styleId'],$adminConfig['editor']['styleClass']);
+    }
 
     if(saveAdminConfig($adminConfig))
       echo 'adminConfig <span class="succesfull">succesfully updated</span> (if you had SPEAKING URLS activated, you must delete the mod_rewrite code from your .htaccess file, in the root of your webserver and save the administrator settings to create a new one!)<br>';
@@ -385,7 +417,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
 
       // only if was below 1.1.6
       // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
-      if($oldVersion <= '1.1.6') {
+      if($PREVVERSION <= '1.1.6') {
         if(isset($pageContent['plugins']['imageGallery']) && !isset($pageContent['plugins']['imageGalleryFromFolder'])) {
           $pageContent['plugins']['imageGalleryFromFolder'] = $pageContent['plugins']['imageGallery'];
           unset($pageContent['plugins']['imageGallery']);
@@ -568,7 +600,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
 
       // only if was below 1.1.6
       // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
-      if($oldVersion <= '1.1.6') {
+      if($PREVVERSION <= '1.1.6') {
         $categoryPlugins = unserialize($category['plugins']);
         $newCategoryPlugins = array();
 
@@ -654,11 +686,11 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
       flock($statisticFile,LOCK_EX);        
       fwrite($statisticFile,"<?php\n");  
             
-      fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    ".$websiteStatistic["userVisitCount"].";\n");
-      fwrite($statisticFile,"\$websiteStatistic['robotVisitCount'] =  ".$websiteStatistic["robotVisitCount"].";\n\n");
+      fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    ".XssFilter::int($websiteStatistic["userVisitCount"],0).";\n");
+      fwrite($statisticFile,"\$websiteStatistic['robotVisitCount'] =  ".XssFilter::int($websiteStatistic["robotVisitCount"],0).";\n\n");
       
-      fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        ".$websiteStatistic["firstVisit"].";\n");
-      fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         ".$websiteStatistic["lastVisit"].";\n\n");
+      fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        ".XssFilter::int($websiteStatistic["firstVisit"],0).";\n");
+      fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         ".XssFilter::int($websiteStatistic["lastVisit"],0).";\n\n");
       
       fwrite($statisticFile,"\$websiteStatistic['browser'] =      '".$websiteStatistic["browser"]."';\n\n");
       
@@ -994,9 +1026,9 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
     
     // -> final success text or failure warning
     if($succesfullUpdate) {
-      file_put_contents(dirname(__FILE__).'/VERSION', "This file is necessary for the next feindura update. Do not delete it!\n".$newVersion);
+      file_put_contents(dirname(__FILE__).'/VERSION', "This file is necessary for the next feindura update. Do not delete it!\n".$NEWVERSION."\n".$NEWBUILD);
       echo 'NOTE: If you had Speaking URL activated, you have to activate it again in the admin settings. But before delete the speaking URL code from you .htaccess file manually!<br>';
-      echo '<h1>You can now delete the "update.php" file.</h1>';
+      echo '<br><h1>You can now delete the "update.php" file.</h1>';
     } else
       echo '<h1>something went wrong :-( could not completely update feindura, check the errors and try again.</h1>';
     
@@ -1004,7 +1036,7 @@ Good, your current version is <b><?php echo VERSION; ?></b>, but your content is
 
   
   ?>
-  <br>
+  <br><br>
   <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a>
 </body>
 </html>

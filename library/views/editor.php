@@ -32,10 +32,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // VARS
 // get the activated plugins
-$activatedPlugins = ($_GET['category'] === 0)
-  ? unserialize($adminConfig['pages']['plugins'])
-  : unserialize($categoryConfig[$_GET['category']]['plugins']);
-
+$activatedPlugins = unserialize($categoryConfig[$_GET['category']]['plugins']);
 
 // ->> SHOW the FORM
 echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'" method="post" accept-charset="UTF-8" id="editorForm" class="Page'.$_GET['page'].'">
@@ -322,7 +319,7 @@ if(!$newPage) {
     echo '<span class="deleteIcon">';
 
     // see if the thumbnails are activated, add upload/delete buttons
-    if(($pageContent['category'] == 0 && $adminConfig['pages']['thumbnails']) || ($pageContent['category'] != 0 && $categoryConfig[$pageContent['category']]['thumbnails'])) {
+    if($categoryConfig[$pageContent['category']]['thumbnails']) {
       echo '<a href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"" class="deleteIcon toolTip"></a>';
       echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" class="image">';
       echo '<img src="'.$thumbnailPath.'" id="thumbnailPreviewImage" class="thumbnailPreview"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail">';
@@ -335,10 +332,8 @@ if(!$newPage) {
     echo '</div>';
     
     // -> show the thumbnail upload button if there is no thumbnail yet
-    $displayThumbnailUploadButton = (!$newPage &&
-       (($_GET['category'] == 0 && $adminConfig['pages']['thumbnails']) ||
-       $categoryConfig[$_GET['category']]['thumbnails']))
-       ? '' : ' style="display:none;"';
+    $displayThumbnailUploadButton = ($newPage || !empty($pageContent['thumbnail']))
+       ? ' style="display:none;"' :  '';
 
     // thumbnailUploadButtonInPreviewArea
     echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" id="thumbnailUploadButtonInPreviewArea" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="pageThumbnailUpload toolTip"'.$displayThumbnailUploadButton.'>&nbsp;</a>';
@@ -383,12 +378,16 @@ if(!$newPage) {
                 </td><td class="right">
                 <select name="categorySelection" id="categorySelection">';
                 
-                // -> shows non-category selection if create pages is allowed
-                if($adminConfig['pages']['createDelete'])
-                  echo '<option value="0">'.$langFile['EDITOR_pageinfo_category_noCategory'].'</option>';
-                
                 // ->> goes trough categories and list them
                 foreach($categoryConfig as $listCategory) {
+
+                  if($listCategory['id'] == 0) {
+                    // -> shows non-category selection if create pages is allowed
+                    if($listCategory['createDelete'])
+                      echo '<option value="0">'.$langFile['EDITOR_pageinfo_category_noCategory'].'</option>';
+                    continue;
+                  }
+
                   $selected = ($listCategory['id'] == $_GET['category']) ? ' selected="selected"' : $selected = '';
                   $categoryId = (isAdmin()) ? ' (ID '.$listCategory['id'].')' : '';
 
@@ -527,15 +526,12 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
         
         // -> CHECK if page date or tags are activated, show the spacer
         if($categoryConfig[$_GET['category']]['showPageDate'] ||
-           $categoryConfig[$_GET['category']]['showTags'] ||
-           $adminConfig['pages']['showPageDate'] ||
-           $adminConfig['pages']['showTags']) {
+           $categoryConfig[$_GET['category']]['showTags']) {
           echo '<tr><td class="spacer"></td><td></td></tr>';
         }
               
         // ->> CHECK if activated
-        if(($_GET['category'] != 0 && $categoryConfig[$_GET['category']]['showPageDate']) ||
-           ($_GET['category'] == 0 && $adminConfig['pages']['showPageDate'])) { ?>
+        if($categoryConfig[$_GET['category']]['showPageDate']) { ?>
         
         <!-- ***** SORT DATE -->      
         <?php
@@ -637,7 +633,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
         <?php }
         
         // ->> CHECK if activated
-        if($categoryConfig[$_GET['category']]['showTags'] || $adminConfig['pages']['showTags']) {
+        if($categoryConfig[$_GET['category']]['showTags']) {
         ?>      
         <!-- ***** TAGS -->
         
@@ -652,8 +648,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
         <tr><td class="spacer"></td><td></td></tr>
 
         <?php
-        if((($_GET['category'] != 0 && $categoryConfig[$_GET['category']]['showSubCategory']) ||
-           ($_GET['category'] == 0 && $adminConfig['pages']['showSubCategory']))) {
+        if($categoryConfig[$_GET['category']]['showSubCategory']) {
         ?>
         <!-- ***** Subcategory selection -->
         <tr>
@@ -666,6 +661,9 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
           echo '<option>-</option>';
           // ->> goes trough categories and list them
           foreach($categoryConfig as $listCategory) {
+            // overjump the non-category
+            if($listCategory['id'] == 0) continue;
+            
             $selected = ($listCategory['id'] == $pageContent['subCategory']) ? ' selected="selected"' : $selected = '';
             echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.GeneralFunctions::getLocalized($listCategory,'name').'</option>'."\n";
           }
@@ -931,7 +929,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
         <span class="hint" style="float:right;width:190px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
         <?php
         
-        echo showStyleFileInputs(GeneralFunctions::getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']),'styleFile');
+        echo showStyleFileInputs(getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']),'styleFile');
 
         ?>      
         </div>
@@ -941,13 +939,13 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
         <tr><td class="left">
         <span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_ID'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_ID']; ?></span>
         </td><td class="right">
-        <input name="styleId" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
+        <input name="styleId" value="<?php echo getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
         </td></tr>
               
         <tr><td class="left">
         <span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
         </td><td class="right">
-        <input name="styleClass" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
+        <input name="styleClass" value="<?php echo getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
         </td></tr>
 
         <tr><td class="leftBottom"></td><td></td></tr>

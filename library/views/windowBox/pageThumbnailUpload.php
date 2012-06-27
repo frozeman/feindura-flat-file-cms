@@ -205,7 +205,7 @@ else
     echo '</div>';
   }
   ?>
-	<input type="submit" value="" class="button thumbnailUpload" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>">
+	<input type="submit" value="" class="button thumbnailUpload toolTip" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>">
 </form>
 </div>
 

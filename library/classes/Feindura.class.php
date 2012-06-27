@@ -1150,7 +1150,7 @@ class Feindura extends FeinduraBase {
       // -> add keywords
       $websiteConfigKeywords =  $this->getLocalized($this->websiteConfig,'keywords');
       $pageTags          =  $this->getLocalized($currentPage,'tags');
-      if(!empty($pageTags) && (($currentPage['category'] != 0 && $this->category['showTags']) || ($currentPage['category'] == 0 && $this->adminConfig['pages']['showTags'])))
+      if(!empty($pageTags) && $this->categoryConfig[$currentPage['category']]['showTags'])
         $metaTags .= '  <meta name="keywords" content="'.$pageTags.'"'.$tagEnding."\n";
       elseif(!empty($websiteConfigKeywords))
         $metaTags .= '  <meta name="keywords" content="'.$websiteConfigKeywords.'"'.$tagEnding."\n";
@@ -1169,15 +1169,11 @@ class Feindura extends FeinduraBase {
       $metaTags .= '  <meta name="generator" content="feindura - Flat File CMS '.VERSION.' build:'.BUILD.'"'.$tagEnding."\n";
       $metaTags .= "\n";
       
-      // ->> add FEEDS
-      $nonCategory[0] = array('id' => 0);
-      $allCategories = $nonCategory + $this->categoryConfig;
-      // -> for all categories
-      foreach($allCategories as $category) {
+      // ->> add FEED;
+      foreach($this->categoryConfig as $category) {
         
         // check if feeds are is activated for that category
-        if(($category['id'] != 0 && $category['public'] && $category['feeds']) ||
-           ($category['id'] == 0 && $this->adminConfig['pages']['feeds'])) {
+        if($category['public'] && $category['feeds']) {
 
           // get languages
           if($this->adminConfig['multiLanguageWebsite']['active'])
@@ -2123,9 +2119,7 @@ class Feindura extends FeinduraBase {
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
         // return subcategory
-        if(is_numeric($pageContent['subCategory']) &&
-           (($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['showSubCategory']) ||
-            ($pageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])))
+        if(is_numeric($pageContent['subCategory']) && $this->categoryConfig[$pageContent['category']]['showSubCategory'])
           return $this->createMenu('category', $pageContent['subCategory'], $menuTag, $linkText, $breakAfter, $sortByCategories);
       }
     }
@@ -2226,10 +2220,9 @@ class Feindura extends FeinduraBase {
     if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
       $categoryId = $ids[1];
       if($this->isSubCategory($categoryId)) {
-        // create subcategory
-        if($categoryId && is_numeric($categoryId) &&
-           (($pageContent['category'] != 0 && $this->categoryConfig[$categoryId]['showSubCategory']) ||
-            ($pageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])))
+
+        // check if subcategory
+        if($categoryId && is_numeric($categoryId) && $this->categoryConfig[$categoryId]['isSubCategory'])
           return $this->createMenu('category', $categoryId, $menuTag, $linkText, $breakAfter, $sortByCategories);
       }
     }
@@ -2883,10 +2876,7 @@ class Feindura extends FeinduraBase {
         if(($pageContent['category'] == 0 || $this->categoryConfig[$pageContent['category']]['public']) && $pageContent['public']) {
           if(is_array($pageContent['plugins'])) {
             // get the activated plugins
-            if($pageContent['category'] === 0)
-              $activatedPlugins = unserialize($this->adminConfig['pages']['plugins']);
-            else
-              $activatedPlugins = unserialize($this->categoryConfig[$pageContent['category']]['plugins']);
+            $activatedPlugins = unserialize($this->categoryConfig[$pageContent['category']]['plugins']);
           
             foreach($pageContent['plugins'] as $pluginName => $pluginContent) {
 
@@ -3188,9 +3178,7 @@ class Feindura extends FeinduraBase {
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
         // return subcategory
-        if(is_numeric($pageContent['subCategory']) &&
-           (($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['showSubCategory']) ||
-            ($pageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])))
+        if(is_numeric($pageContent['subCategory']) && $this->categoryConfig[$pageContent['category']]['showSubCategory'])
           return $this->listPages('category', $pageContent['subCategory'], $shortenText, $useHtml, $sortByCategories);
       }
     }
@@ -3291,9 +3279,7 @@ class Feindura extends FeinduraBase {
       $categoryId = $ids[1];
       if($this->isSubCategory($categoryId)) {
         // create subcategory
-        if($categoryId && is_numeric($categoryId) &&
-           (($pageContent['category'] != 0 && $this->categoryConfig[$categoryId]['showSubCategory']) ||
-            ($pageContent['category'] == 0 && $this->adminConfig['pages']['showSubCategory'])))
+        if($categoryId && is_numeric($categoryId) && $this->categoryConfig[$categoryId]['showSubCategory'])
           return $this->listPages('category', $categoryId, $shortenText, $useHtml, $sortByCategories);
       }
     }

@@ -25,8 +25,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 $sortOrder = explode('|',$_POST['sort_order']);
 
 // reverse the array when sortReverse == true
-if(($_POST['categoryNew'] == 0 && !$adminConfig['pages']['sortReverse']) ||
-   ($_POST['categoryNew'] != 0 && !$categoryConfig[$_POST['categoryNew']]['sortReverse']))
+if(!$categoryConfig[$_POST['categoryNew']]['sortReverse'])
   $sortOrder = array_reverse($sortOrder);
 
 // MOVE the file if it is sorted in an new category

@@ -1391,6 +1391,7 @@ a.categoryUp {
     display: block;
     width: 43px;
     height: 31px;
+    margin-top: -40px;
     padding: 0px !important; /* overwrites the #mainBody a*/
     background: url("../images/buttons/pageSetup_categoryUp.png") no-repeat 0px 0px !important;
     }
@@ -1402,7 +1403,6 @@ a.categoryUp:hover, a.categoryUp:focus {
 a.categoryDown {
     position: absolute;
     right: 45px;
-    margin-top: 40px;
     display: block;
     width: 43px;
     height: 31px;
@@ -1472,7 +1472,7 @@ a.deleteUser:hover, a.deleteUser:focus {
 /* --- FORMS ------------------------------------------------------------------------------------------------------------------- */
 
 /****************/	
-/* *** INPUT */
+/* *** INPUTs */
 
 input, input[type="text"], textarea, select, div.CodeMirror {
     background-color: #fff;
@@ -1480,9 +1480,12 @@ input, input[type="text"], textarea, select, div.CodeMirror {
     -webkit-box-shadow:inset 1px 1px 5px #ccc;
     box-shadow:inset 1px 1px 5px #ccc;
     border: 1px solid #BEC0C3;
-    padding: 2px 4px;
+    padding: 3px 4px;
     margin: 1px 0px;
     font: 13px Verdana, Arial, Helvetica;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
     }
 input:hover, textarea:hover, select:hover, div.CodeMirror:hover {
     border: 1px dotted #CF974D;

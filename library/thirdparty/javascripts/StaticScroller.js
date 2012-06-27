@@ -30,6 +30,10 @@ var StaticScroller = new Class({
 	initialize: function(element, options) {
 		this.setOptions(options);
 		this.element = document.id(element);
+
+		if(this.element === null)
+			return false;
+
 		this.scrollElement = document.id(this.options.scrollElement);
 		this.originalPosition = this.element.getPosition();
 		this.bound = {
@@ -37,6 +41,9 @@ var StaticScroller = new Class({
 			resize: this.resize.bind(this)
 		};
 		this.stylePosition = this.element.getStyle('position');
+		this.styleTop      = this.element.getStyle('top');
+		this.styleLeft     = this.element.getStyle('left');
+		this.styleRight    = this.element.getStyle('right');
 		this.attachWindow();
 		this.checkHeight();
 	},
@@ -62,32 +69,41 @@ var StaticScroller = new Class({
 	},
 	
 	checkHeight: function(){
-		if(document.getSize().y < this.element.getSize().y) {
+		if(this.getDocHeight() < this.element.getSize().y) {
 			this.detachScroll().reset();
 		} else {
 			this.attachScroll().scroll();
 		}
 		return this;
 	},
+
+	getDocHeight: function() {
+		var D = document;
+		return Math.max(
+			Math.max(D.body.scrollHeight, D.documentElement.scrollHeight),
+			Math.max(D.body.offsetHeight, D.documentElement.offsetHeight),
+			Math.max(D.body.clientHeight, D.documentElement.clientHeight)
+		);
+	},
 	
 	isPinned: function(){
 		return (this.element.retrieve('pinned'));
 	},
 	
-	scroll: function(){	  
-		var collision = (this.scrollElement.getScroll().y >= this.originalPosition.y - this.options.offset);		
+	scroll: function(){
+		var collision = (this.scrollElement.getScroll().y > this.originalPosition.y - this.options.offset);
 		var isPinned = this.isPinned();
-		
+
 		if(collision) {
 			if(!isPinned) {
 				this.element.pin();
         if(this.options.offset.toInt() > 0)
           this.element.setStyle('top', this.options.offset.toInt());
 				this.element.store('pinned',true);
-			};
-		} else {		  
+			}
+		} else {
 			if(isPinned) this.reset();
-		};
+		}
 		return this;
 	},
 	
@@ -99,7 +115,12 @@ var StaticScroller = new Class({
 	
 	reset: function(){
 		if(this.isPinned()) {
-      this.element.unpin().setStyle('position',this.stylePosition);
+      this.element.unpin().setStyles({
+				'position':this.stylePosition,
+				'top':this.styleTop,
+				'left':this.styleLeft,
+				'right':this.styleRight
+			});
       this.element.store('pinned',false);
     }
 	}

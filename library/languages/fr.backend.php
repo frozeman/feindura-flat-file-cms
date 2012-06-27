@@ -409,8 +409,8 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'activer le cache';
 $langFile['ADMINSETUP_TIP_CACHE']                                         = 'Si active, toutes les pages seront mises en cache. Cela peut graine jusqu\'à le site, mais conduit également à pas de contenu réel.[br][br][span class=hint]La mise en cache sera rafraîchi, lors de l\'édition des pages.[/span]';
-$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'caching expiration';
-$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Indique après combien de [b]heures[/b] le cache sera rafraîchi.';
+$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'cache expiration';
+$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Indique le délai après lequel le cache sera rafraîchi.';
 $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'heures';
 
 // ---------- user Settings
@@ -437,7 +437,7 @@ $langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Le 
 $langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']                              = 'activer fragments de code';
 $langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Permettent de placer fragments de code dans les pages.[br]Cliquez sur l\'icône dans la l\'éditeur HTML: [img src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png][br][br][span class=hint]Si cette option est activée, vous pouvez éditer/créer des fragments de code plus bas.[/span]';
 $langFile['adminSetup_editorSettings_field1']                             = 'modus ENTER-touche';
-$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER va créer un &quot;&lt;br&gt;&quot;';
+$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER va créer un &quot;%s&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Va définir le HTML-tag en touchant la touche entrée[br]wird.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip']                    = 'Si la case reste vide, aucune Id sera utilisé.';
 $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Si la case reste vide, aucune classe sera utilisé.';

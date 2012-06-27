@@ -433,8 +433,8 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'Attivare la cache';
 $langFile['ADMINSETUP_TIP_CACHE']                                         = 'Se attivo, tutte le pagine saranno memorizzate nella cache. Questo può sementi contenenti al massimo il sito web, ma porta anche a non così contenuto effettivo.[br][br][span class=hint]La cache verrà aggiornata, quando si modificano le pagine.[/span]';
-$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Caching timeout';
-$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Indica dopo quanto [b]ore[/b] la cache verrà aggiornata.';
+$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Cache timeout';
+$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Indica il tempo dopo il quale la cache viene aggiornata.';
 $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'orario';
 
 // ---------- user Settings
@@ -461,7 +461,7 @@ $langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Il 
 $langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']                              = 'attivare frammenti di codice';
 $langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Permette di inserire frammenti di codice nelle pagine.[br]Fare clic sull\'icona nella editor Editor-HTML: [img src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png][br][br][span class=hint]Se questa opzione è attivata, è possibile modificare/creare frammenti di codice più in basso.[/span]';
 $langFile['adminSetup_editorSettings_field1']                             = 'ENTER-Key mode';
-$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER genera un &quot;&lt;br&gt;&quot;';
+$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER genera un &quot;%s&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Specifica quali tag HTML quando si preme il tasto ENTER verranno impostati.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip']                    = 'Se il campo è vuoto, non viene utilizzato l\'ID.';
 $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Se il campo è vuoto, nessuna classe verrà utilizza.';

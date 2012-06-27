@@ -137,7 +137,6 @@ function sortByCategory($a, $b) {     // (Array) $a = current; $b = following va
     : $GLOBALS['categoryConfig'];
 
   // puts the categories order in a string for comparision
-  $categoryIds = '0-';
   if(is_array($categoryConfig)) {
     foreach($categoryConfig as $category) {
       $categoryIds .= $category['id'].'-';

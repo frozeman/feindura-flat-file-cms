@@ -114,20 +114,20 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         </td></tr>
         
         <tr><td class="left">
-        <label for="cfg_websiteFilesPath"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field5_tip'] ?>">
-        <?php echo $langFile['ADMINSETUP_GENERAL_field5'] ?></span></label>
-        </td><td class="right">
-        <input size="40" id="cfg_websiteFilesPath" name="cfg_websiteFilesPath" value="<?php echo $adminConfig['websiteFilesPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
-        <span class="hint toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
-        </td></tr>
-        
-        <tr><td class="left">
         <label for="cfg_stylesheetPath"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field6_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field6'] ?></span></label>
         </td><td class="right">
         <input size="40" id="cfg_stylesheetPath" name="cfg_stylesheetPath" value="<?php echo $adminConfig['stylesheetPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
         <span class="hint toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
         </td></tr>      
+        
+        <tr><td class="left">
+        <label for="cfg_websiteFilesPath"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field5_tip'] ?>">
+        <?php echo $langFile['ADMINSETUP_GENERAL_field5'] ?></span></label>
+        </td><td class="right">
+        <input size="40" id="cfg_websiteFilesPath" name="cfg_websiteFilesPath" value="<?php echo $adminConfig['websiteFilesPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
+        <span class="hint toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        </td></tr>
         
         <tr><td class="spacer"></td><td></td></tr>
         
@@ -410,7 +410,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         <span class="hint" style="float:right;width:190px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
         <?php      
         
-        echo showStyleFileInputs($adminConfig['editor']['styleFile'],'cfg_editorStyleFile');
+          echo showStyleFileInputs($categoryConfig[0]['styleFile'],'cfg_editorStyleFile');
 
         ?>
         </div>
@@ -421,21 +421,20 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         <label for="cfg_editorStyleId"><span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_ID'] ?>">
         <?php echo $langFile['STYLESHEETS_TEXT_ID'] ?></span></label>
         </td><td class="right">
-        <input id="cfg_editorStyleId" name="cfg_editorStyleId" class="inputToolTip" value="<?php echo $adminConfig['editor']['styleId']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field3_inputTip']; ?>">
+        <input id="cfg_editorStyleId" name="cfg_editorStyleId" class="inputToolTip" value="<?php echo $categoryConfig[0]['styleId']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field3_inputTip']; ?>">
         </td></tr>
         
         <tr><td class="left">
         <label for="cfg_editorStyleClass"><span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_CLASS'] ?>">
         <?php echo $langFile['STYLESHEETS_TEXT_CLASS'] ?></span></label>
         </td><td class="right">
-        <input id="cfg_editorStyleClass" name="cfg_editorStyleClass" class="inputToolTip" value="<?php echo $adminConfig['editor']['styleClass']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field4_inputTip']; ?>">
+        <input id="cfg_editorStyleClass" name="cfg_editorStyleClass" class="inputToolTip" value="<?php echo $categoryConfig[0]['styleClass']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field4_inputTip']; ?>">
         </td></tr>
         
         <tr><td class="leftBottom"></td><td></td></tr>
       </tbody>
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
     <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'editorSettings'; submitAnchor('adminSettingsForm','editorSettings');">
   </div>
   <div class="bottom"></div>

@@ -60,7 +60,7 @@ function setToolTips() {
     //onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');
     offset: {'x': 10,'y': 15},
     fixed: false,
-    showDelay: 500,
+    showDelay: 300,
     hideDelay: 0 });
 
   /* thumbnailToolTip */
@@ -68,7 +68,7 @@ function setToolTips() {
     className: 'feindura_toolTipBox',
     offset: {'x': -320,'y': -20},
     fixed: true,
-    showDelay: 330,
+    showDelay: 300,
     hideDelay: 100 });
 
   // -> window is smaller 1255px
@@ -1190,10 +1190,13 @@ window.addEvent('domready', function() {
   if($('cfg_editorEnterMode') !== null) {
     $('cfg_editorEnterMode').addEvent('change',function() {
       var opposite = $('enterModeOpposite');
-      if(opposite.get('html') == '&lt;br&gt;')
-        opposite.set('html','&lt;p&gt;');
-      else
-        opposite.set('html','&lt;br&gt;');
+
+      if(opposite !== null) {
+        if(opposite.get('html') == '&lt;br&gt;')
+          opposite.set('html','&lt;p&gt;');
+        else
+          opposite.set('html','&lt;br&gt;');
+      }
     });
   }
 
@@ -1504,8 +1507,9 @@ window.addEvent('domready', function() {
     }
   });
   // set depency for page sortingByDate
-  feinduraFancyForm.setDepency($('cfg_pageSortByPageDate'),$('cfg_pagePageDate'));
-  feinduraFancyForm.setDepency($('cfg_pagePageDate'),$('cfg_pageSortByPageDate'),false,false);
+  feinduraFancyForm.setDepency($('nonCategorySortByPageDate'),$('nonCategoryShowPageDate'));
+  feinduraFancyForm.setDepency($('nonCategoryShowPageDate'),$('nonCategorySortByPageDate'),false,false);
+  
   // set depency for page editorHtmlLawed
   feinduraFancyForm.setDepency($('cfg_editorHtmlLawed'),$('cfg_editorSafeHtml'),false,false);
 

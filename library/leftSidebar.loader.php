@@ -26,7 +26,7 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 // -----------------------------------------------------------------------------------
 // if page ID is given, it LOAD THE EDITOR
 // or if $_GET['site'] == 'pages'
-if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') {
+if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pages'
   
   $tabIndex = 40;
   
@@ -84,6 +84,10 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       <ul class="verticalButtons">';      
         
       foreach($categoryConfig as $category) {
+
+        // overjump the non-category
+        if($category['id'] == 0) continue;
+
         // -> show category ID
         $categoryId = (isAdmin())
           ? ' class="toolTip noMark" title="ID '.$category['id'].'"'
@@ -244,6 +248,9 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           
             // -> show a anchor link to each category
   	        foreach($categoryConfig as $category) {
+              // overjump the non-category
+              if($category['id'] == 0) continue;
+
               echo '<li><a href="#categoryAnchor'.$category['id'].'" class="standardLink">'.GeneralFunctions::getLocalized($category,'name').'</a></li>';
           
             }	echo '</ul>';

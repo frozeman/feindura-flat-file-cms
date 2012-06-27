@@ -206,9 +206,7 @@ foreach($logContent as $logRow) {
       $categoryId = (substr($logObject[0],0,9) == 'category=') ? substr($logObject[0],9) : substr($logObject[1],9);
       $categoryId = GeneralFunctions::cleanSpecialChars($categoryId); // removes \n\r
       
-      $categoryName = ($categoryId == 0)
-        ? $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']
-        : GeneralFunctions::getLocalized($categoryConfig[$categoryId],'name');
+      $categoryName = GeneralFunctions::getLocalized($categoryConfig[$categoryId],'name');
       
       $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" tabindex="'.$count.'" title="'.$categoryName.'">'.GeneralFunctions::shortenString($categoryName, $maxLength).'</a>';
       

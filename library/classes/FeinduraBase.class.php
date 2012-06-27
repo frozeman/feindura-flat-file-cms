@@ -1237,10 +1237,8 @@ class FeinduraBase {
   protected function createThumbnail($pageContent) {
       
     // ->> CHECK if thumbnail exists and is allowed to show
-    if(!empty($pageContent['thumbnail']) &&
-      @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) { //&&
-      //(($pageContent['category'] == 0 && $this->adminConfig['pages']['thumbnails']) ||
-      //($pageContent['category'] && $this->categoryConfig[$pageContent['category']]['thumbnails']))) {
+    if(!empty($pageContent['thumbnail']) && $this->categoryConfig[$pageContent['category']]['thumbnails'] &&
+      @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) {
       
       // set TAG ENDING (xHTML or HTML) 
       if($this->xHtml === true) $tagEnding = ' />';
@@ -1633,8 +1631,7 @@ class FeinduraBase {
       $selectedPages = array();
       foreach($pages as $page) {
         // show the pages, if they have a date which can be sorten
-        if(!empty($page['pageDate']['date']) &&
-           (($page['category'] != 0 && $this->categoryConfig[$page['category']]['showPageDate']) || ($page['category'] == 0 && $this->adminConfig['pages']['showPageDate']))) {         
+        if(!empty($page['pageDate']['date']) && $this->categoryConfig[$page['category']]['showPageDate']) {         
            
           // echo 'pageDate: '.date('d-m-Y',$page['pageDate']['date']).'<br>';
 
@@ -1848,10 +1845,9 @@ class FeinduraBase {
       return false;
     
     // vars    
-    // ??include the non-category??
-    //$nonCategory[0] = array('id' => 0);
-    //$categoriesArray = array_merge($nonCategory,$this->categoryConfig);
     $categoriesArray = $this->categoryConfig;
+    // ??include the non-category??
+    unset($categoriesArray[0]);
     
     // CHECK if its a $pageContent array, set the $page ID to the $page parameter
     if(GeneralFunctions::isPageContentArray($ids))

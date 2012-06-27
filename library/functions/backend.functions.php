@@ -427,22 +427,32 @@ function removeDocumentRootFromPaths($postData) {
 }
 
 /**
- * <b>Name</b> createBasicFolders()<br>
+ * <b>Name</b> createBasicFilesAndFolders()<br>
  * 
  * Check if the config, pages and statistic folders exist, if not try to create these.
  * 
  * 
- * @version 1.0.1
+ * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.1 add categoryConfig
  *    - 1.0.1 add backups folder 
  *    - 1.0 initial release
  * 
  */
-function createBasicFolders() {
+function createBasicFilesAndFolders() {
+
   // config folder
   if(!is_dir(dirname(__FILE__).'/../../config'))
-    mkdir(dirname(__FILE__).'/../../config',$GLOBALS['adminConfig']['permissions']);    
+    mkdir(dirname(__FILE__).'/../../config',$GLOBALS['adminConfig']['permissions']);
+
+  // create CategoryConfig
+  if(!is_file(dirname(__FILE__).'/../../config/category.config.php')) {
+    $categoryConfig[0]['id'] = 0;
+    saveCategories($categoryConfig);
+    $GLOBALS['categoryConfig'] = include(dirname(__FILE__).'/../../config/category.config.php');
+  }
+
   // pages folder
   if(!is_dir(dirname(__FILE__).'/../../pages'))
     mkdir(dirname(__FILE__).'/../../pages',$GLOBALS['adminConfig']['permissions']);  
@@ -472,9 +482,10 @@ function createBasicFolders() {
  * 
  * @example backend/categoryConfig.array.example.php of the $categoryConfig array
  * 
- * @version 1.2
+ * @version 1.3
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.3 moved ['pages'] and styleFile, class, id from the adminConfig to the categoryConfig
  *    - 1.2 add localization
  *    - 1.1 change from fopen() to file_put_contents()
  *    - 1.0.2 add prevent resetting check
@@ -485,84 +496,83 @@ function createBasicFolders() {
 function saveCategories($newCategories) {
   
   // prevent resetting config
-  if($newCategories !== 1) {
+  if($newCategories == 1) 
+    return false;
     
-    // CREATE file content
-    $fileContent = '';
-    $fileContent .= "<?php\n"; //< ?php
+  // CREATE file content
+  $fileContent = '';
+  $fileContent .= "<?php\n"; //< ?php
+  
+  // ->> GO through EVERY catgory and write it
+  foreach($newCategories as $category) {
+    // -> CHECK depency of PAGEDATE
+    if(!isset($category['showPageDate']) && $category['sorting'] == 'byPageDate' && $GLOBALS['categoryConfig'][$category['id']]['showPageDate'])
+      $category['sorting'] = 'manually';
+    if($category['sorting'] == 'byPageDate' && !isset($category['showPageDate']))
+      $category['showPageDate'] = 'true';
     
-    // ->> GO through EVERY catgory and write it
-    foreach($newCategories as $category) {
-      // -> CHECK depency of PAGEDATE
-      if(!isset($category['showPageDate']) && $category['sorting'] == 'byPageDate' && $GLOBALS['categoryConfig'][$category['id']]['showPageDate'])
-        $category['sorting'] = 'manually';
-      if($category['sorting'] == 'byPageDate' && !isset($category['showPageDate']))
-        $category['showPageDate'] = 'true';
-      
-      // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
-      if(!isset($category['thumbWidth']))
-        $category['thumbWidth'] = $GLOBALS['categoryConfig'][$category['id']]['thumbWidth'];
-      if(!isset($category['thumbHeight']))
-        $category['thumbHeight'] = $GLOBALS['categoryConfig'][$category['id']]['thumbHeight'];
-      
-      // -> escape \ and '
-      $category = XssFilter::escapeBasics($category);
-            
-      // adds absolute path slash on the beginning and serialize the stylefiles
-      $category['styleFile'] = prepareStyleFilePaths($category['styleFile']);
+    // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
+    if(!isset($category['thumbWidth']))
+      $category['thumbWidth'] = $GLOBALS['categoryConfig'][$category['id']]['thumbWidth'];
+    if(!isset($category['thumbHeight']))
+      $category['thumbHeight'] = $GLOBALS['categoryConfig'][$category['id']]['thumbHeight'];
     
-      // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
-      $category['styleFile'] = setStylesByPriority($category['styleFile'],'styleFile',true);
-      $category['styleId'] = setStylesByPriority($category['styleId'],'styleId',true);
-      $category['styleClass'] = setStylesByPriority($category['styleClass'],'styleClass',true);        
-      
-      // WRITE
-      $fileContent .= "\$categoryConfig[".$category['id']."]['id']                  = ".XssFilter::int($category['id'],0).";\n";      
-      $fileContent .= "\$categoryConfig[".$category['id']."]['public']              = ".XssFilter::bool($category['public'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['isSubCategory']       = ".XssFilter::bool($category['isSubCategory'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['isSubCategoryOf']     = '".$category['isSubCategoryOf']."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['createDelete']        = ".XssFilter::bool($category['createDelete'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbnails']           = ".XssFilter::bool($category['thumbnails'],true).";\n";        
-      $fileContent .= "\$categoryConfig[".$category['id']."]['plugins']             = '".$category['plugins']."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['showTags']            = ".XssFilter::bool($category['showTags'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['showPageDate']        = ".XssFilter::bool($category['showPageDate'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['showSubCategory']     = ".XssFilter::bool($category['showSubCategory'],true).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['feeds']               = ".XssFilter::bool($category['feeds'],true).";\n\n";
-      
-      $fileContent .= "\$categoryConfig[".$category['id']."]['sorting']             = '".XssFilter::alphabetical($category['sorting'],'manually')."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['sortReverse']         = ".XssFilter::bool($category['sortReverse'],true).";\n\n";
-      
-      $fileContent .= "\$categoryConfig[".$category['id']."]['styleFile']           = '".$category['styleFile']."';\n"; //XssFilter is in prepareStyleFilePaths() function
-      $fileContent .= "\$categoryConfig[".$category['id']."]['styleId']             = '".XssFilter::string($category['styleId'])."';\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['styleClass']          = '".XssFilter::string($category['styleClass'])."';\n\n";
-      
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbWidth']          = ".XssFilter::int($category['thumbWidth']).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbHeight']         = ".XssFilter::int($category['thumbHeight']).";\n";
-      $fileContent .= "\$categoryConfig[".$category['id']."]['thumbRatio']          = '".XssFilter::alphabetical($category['thumbRatio'])."';\n\n";
-      
-      // save localized
-      if(is_array($category['localized'])) {
-        foreach ($category['localized'] as $langCode => $categoryLocalized) {
+    // -> escape \ and '
+    $category = XssFilter::escapeBasics($category);
+          
+    // adds absolute path slash on the beginning and serialize the stylefiles
+    $category['styleFile'] = prepareStyleFilePaths($category['styleFile']);
+  
+    // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
+    $category['styleFile']  = setStylesByPriority($category['styleFile'],'styleFile',$category['id'],true);
+    $category['styleId']    = setStylesByPriority($category['styleId'],'styleId',$category['id'],true);
+    $category['styleClass'] = setStylesByPriority($category['styleClass'],'styleClass',$category['id'],true);        
+    
+    // WRITE
+    $fileContent .= "\$categoryConfig[".$category['id']."]['id']                  = ".XssFilter::int($category['id'],0).";\n";      
+    $fileContent .= "\$categoryConfig[".$category['id']."]['public']              = ".XssFilter::bool($category['public'],true).";\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['isSubCategory']       = ".XssFilter::bool($category['isSubCategory'],true).";\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['isSubCategoryOf']     = '".$category['isSubCategoryOf']."';\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['createDelete']        = ".XssFilter::bool($category['createDelete'],true).";\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['thumbnails']          = ".XssFilter::bool($category['thumbnails'],true).";\n";        
+    $fileContent .= "\$categoryConfig[".$category['id']."]['plugins']             = '".$category['plugins']."';\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['showTags']            = ".XssFilter::bool($category['showTags'],true).";\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['showPageDate']        = ".XssFilter::bool($category['showPageDate'],true).";\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['showSubCategory']     = ".XssFilter::bool($category['showSubCategory'],true).";\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['feeds']               = ".XssFilter::bool($category['feeds'],true).";\n\n";
+    
+    $fileContent .= "\$categoryConfig[".$category['id']."]['sorting']             = '".XssFilter::alphabetical($category['sorting'],'manually')."';\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['sortReverse']         = ".XssFilter::bool($category['sortReverse'],true).";\n\n";
+    
+    $fileContent .= "\$categoryConfig[".$category['id']."]['styleFile']           = '".$category['styleFile']."';\n"; //XssFilter is in prepareStyleFilePaths() function
+    $fileContent .= "\$categoryConfig[".$category['id']."]['styleId']             = '".XssFilter::string($category['styleId'])."';\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['styleClass']          = '".XssFilter::string($category['styleClass'])."';\n\n";
+    
+    $fileContent .= "\$categoryConfig[".$category['id']."]['thumbWidth']          = ".XssFilter::int($category['thumbWidth']).";\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['thumbHeight']         = ".XssFilter::int($category['thumbHeight']).";\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['thumbRatio']          = '".XssFilter::alphabetical($category['thumbRatio'])."';\n\n";
+    
+    // save localized
+    if($category['id'] !== 0 && is_array($category['localized'])) {
+      foreach ($category['localized'] as $langCode => $categoryLocalized) {
 
-          // remove the '' when its 0 (for non localized pages)
-          $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
+        // remove the '' when its 0 (for non localized pages)
+        $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
 
-          $fileContent .= "\$categoryConfig[".$category['id']."]['localized'][".$langCode."]['name']   = '".XssFilter::text($categoryLocalized['name'])."';\n";
-         }
-      }
-      $fileContent .= "\n\n";
+        $fileContent .= "\$categoryConfig[".$category['id']."]['localized'][".$langCode."]['name']   = '".XssFilter::text($categoryLocalized['name'])."';\n";
+       }
+    }
+    $fileContent .= "\n\n";
 
-    }    
-    $fileContent .= 'return $categoryConfig;';
-    $fileContent .= "\n?>"; //? >
-    
-    // -> SAVE the flat file
-    if(file_put_contents(dirname(__FILE__)."/../../config/category.config.php", $fileContent, LOCK_EX)) {
-      // reload the $pagesMetaData array
-      GeneralFunctions::savePagesMetaData();
-      return true;
-    } else
-      return false;
+  }    
+  $fileContent .= 'return $categoryConfig;';
+  $fileContent .= "\n?>"; //? >
+  
+  // -> SAVE the flat file
+  if(file_put_contents(dirname(__FILE__)."/../../config/category.config.php", $fileContent, LOCK_EX)) {
+    // reload the $pagesMetaData array
+    GeneralFunctions::savePagesMetaData();
+    return true;
   } else
     return false;
 }
@@ -581,21 +591,27 @@ function saveCategories($newCategories) {
  * 
  * @example backend/categoryConfig.array.example.php of the $categoryConfig array
  * 
- * @version 1.0
+ * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.1 prevent moving of the non-category
  *    - 1.0 initial release
  * 
  */
 function moveCategories(&$categoryConfig, $category, $direction, $position = false) {
   
+  // deny if its the non category
+  if(empty($category))
+    return false;
+
   $direction = strtolower($direction);
+
   
   // ->> CHECKS
   // if they fail it returns the unchanged $categoryConfig array
-  if(is_array($categoryConfig) &&                         // is categories is array
+  if(is_array($categoryConfig) &&                     // is categories is array
     is_numeric($category) &&                          // have the given category id is a number
-    $category == $categoryConfig[$category]['id'] &&     // dows the category exists in the $categoryConfig array
+    $category == $categoryConfig[$category]['id'] &&  // dows the category exists in the $categoryConfig array
     (!$direction || $direction == 'up' || $direction == 'down') &&
     (!$position || is_numeric($position))) {   // is the right direction is given
     
@@ -604,6 +620,9 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
     $currentPosition = false;
     $dropedCategories = array();
     
+    $nonCat[0] = $categoryConfig[0];
+    unset($categoryConfig[0]);
+
     // -> finds out the position in the $categoryConfig array
     // and extract this category from it
     foreach($categoryConfig as $sortCategory) {
@@ -699,6 +718,9 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
       echo '';
       $categoryConfig[$sortetCategory['id']] = $sortetCategory;
     }
+
+    // merge non category into the categoryConfig, again
+    $categoryConfig = array_merge($nonCat, $categoryConfig);
     
     return true;
   
@@ -734,9 +756,7 @@ function checkSubCategories() {
   // -> CHECK in PAGES, if the sub category still exists and if the pages have subCategories activated
   foreach($allPages as $pageContent) {
     if(is_numeric($pageContent['subCategory']) &&
-       (!isset($GLOBALS['categoryConfig'][$pageContent['subCategory']]) ||
-        ($pageContent['category'] != 0 && !$GLOBALS['categoryConfig'][$pageContent['subCategory']]['showSubCategory']) ||
-        ($pageContent['category'] == 0 && !$GLOBALS['adminConfig']['pages']['showSubCategory']))) {
+       (!isset($GLOBALS['categoryConfig'][$pageContent['subCategory']]) || !$GLOBALS['categoryConfig'][$pageContent['category']]['showSubCategory'])) {
       $pageContent['subCategory'] = false;
       GeneralFunctions::savePage($pageContent);
     }
@@ -843,9 +863,10 @@ function movePage($page, $fromCategory, $toCategory) {
  * 
  * @example backend/adminConfig.array.example.php of the $adminConfig array
  * 
- * @version 1.2
+ * @version 1.3
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.3 moved ['pages'] and styleFile, class, id to the categoryConfig
  *    - 1.2 change from fopen() to file_put_contents()
  *    - 1.1.2 add prevent resetting check
  *    - 1.1.1 fixed chmod permissions
@@ -863,12 +884,6 @@ function saveAdminConfig($adminConfig) {
     
     // clear the thumbnail path, when no upload path is specified
     if(empty($adminConfig['uploadPath'])) $adminConfig['pageThumbnail']['path'] = '';
-    // -> CHECK depency of PAGEDATE
-    if(!isset($adminConfig['pages']['showPageDate']) && $adminConfig['pages']['sorting'] == 'byPageDate' && $GLOBALS['adminConfig']['pages']['showPageDate'])
-      $adminConfig['pages']['sorting'] = 'manually';
-    
-    if($adminConfig['pages']['sorting'] == 'byPageDate' && !isset($adminConfig['pages']['showPageDate']))
-      $adminConfig['pages']['showPageDate'] = 'true';
     
     // -> escape \ and '
     $adminConfig = XssFilter::escapeBasics($adminConfig);
@@ -921,26 +936,12 @@ function saveAdminConfig($adminConfig) {
     }
     $fileContent .= "\$adminConfig['multiLanguageWebsite']['mainLanguage']   = ".XssFilter::alphabetical($adminConfig['multiLanguageWebsite']['mainLanguage'],0).";\n\n";
 
-    $fileContent .= "\$adminConfig['pages']['createDelete']     = ".XssFilter::bool($adminConfig['pages']['createDelete'],true).";\n";
-    $fileContent .= "\$adminConfig['pages']['thumbnails']       = ".XssFilter::bool($adminConfig['pages']['thumbnails'],true).";\n";    
-    $fileContent .= "\$adminConfig['pages']['showTags']         = ".XssFilter::bool($adminConfig['pages']['showTags'],true).";\n";
-    $fileContent .= "\$adminConfig['pages']['showPageDate']     = ".XssFilter::bool($adminConfig['pages']['showPageDate'],true).";\n";
-    $fileContent .= "\$adminConfig['pages']['showSubCategory']  = ".XssFilter::bool($adminConfig['pages']['showSubCategory'],true).";\n";
-    $fileContent .= "\$adminConfig['pages']['feeds']            = ".XssFilter::bool($adminConfig['pages']['feeds'],true).";\n";
-    $fileContent .= "\$adminConfig['pages']['plugins']          = '".$adminConfig['pages']['plugins']."';\n\n"; // no XssFilter, comes from a <select>
-    
-    $fileContent .= "\$adminConfig['pages']['sorting']       = '".XssFilter::alphabetical($adminConfig['pages']['sorting'],'manually')."';\n";
-    $fileContent .= "\$adminConfig['pages']['sortReverse']   = ".XssFilter::bool($adminConfig['pages']['sortReverse'],true).";\n\n";
-    
     $fileContent .= "\$adminConfig['editor']['htmlLawed']    = ".XssFilter::bool($adminConfig['editor']['htmlLawed'],true).";\n";
     $fileContent .= "\$adminConfig['editor']['safeHtml']     = ".XssFilter::bool($adminConfig['editor']['safeHtml'],true).";\n";
     $fileContent .= "\$adminConfig['editor']['editorStyles'] = ".XssFilter::bool($adminConfig['editor']['editorStyles'],true).";\n";
     $fileContent .= "\$adminConfig['editor']['snippets']     = ".XssFilter::bool($adminConfig['editor']['snippets'],true).";\n";
-    $fileContent .= "\$adminConfig['editor']['enterMode']    = '".XssFilter::alphabetical($adminConfig['editor']['enterMode'])."';\n";
-    $fileContent .= "\$adminConfig['editor']['styleFile']    = '".$adminConfig['editor']['styleFile']."';\n"; // XssFilter is in prepareStyleFilePaths() function
-    $fileContent .= "\$adminConfig['editor']['styleId']      = '".XssFilter::string($adminConfig['editor']['styleId'])."';\n";
-    $fileContent .= "\$adminConfig['editor']['styleClass']   = '".XssFilter::string($adminConfig['editor']['styleClass'])."';\n\n";  
-  
+    $fileContent .= "\$adminConfig['editor']['enterMode']    = '".XssFilter::alphabetical($adminConfig['editor']['enterMode'])."';\n\n";
+
     $fileContent .= "\$adminConfig['pageThumbnail']['width']   = ".XssFilter::int($adminConfig['pageThumbnail']['width']).";\n";
     $fileContent .= "\$adminConfig['pageThumbnail']['height']  = ".XssFilter::int($adminConfig['pageThumbnail']['height']).";\n";
     $fileContent .= "\$adminConfig['pageThumbnail']['ratio']   = '".XssFilter::alphabetical($adminConfig['pageThumbnail']['ratio'])."';\n";
@@ -995,11 +996,11 @@ function saveUserConfig($userConfig) {
     $fileContent .= "<?php\n"; //< ?php
     foreach($userConfig as $user => $configs) {
 
-      $fileContent .= "\$userConfig['".$user."']['id']       = ".XssFilter::int($configs['id'],0).";\n";
-      $fileContent .= "\$userConfig['".$user."']['admin']    = ".XssFilter::bool($configs['admin'],true).";\n";
-      $fileContent .= "\$userConfig['".$user."']['username'] = '".XssFilter::text($configs['username'])."';\n";
-      $fileContent .= "\$userConfig['".$user."']['email']    = '".XssFilter::string($configs['email'])."';\n";
-      $fileContent .= "\$userConfig['".$user."']['password'] = '".XssFilter::text($configs['password'])."';\n";
+      $fileContent .= "\$userConfig[".$user."]['id']       = ".XssFilter::int($configs['id'],0).";\n";
+      $fileContent .= "\$userConfig[".$user."]['admin']    = ".XssFilter::bool($configs['admin'],true).";\n";
+      $fileContent .= "\$userConfig[".$user."]['username'] = '".XssFilter::text($configs['username'])."';\n";
+      $fileContent .= "\$userConfig[".$user."]['email']    = '".XssFilter::string($configs['email'])."';\n";
+      $fileContent .= "\$userConfig[".$user."]['password'] = '".XssFilter::text($configs['password'])."';\n";
       
       $fileContent .= "\n";
     }      
@@ -1499,9 +1500,7 @@ function clearFeeds() {
 function saveFeeds($category) {
 
   // quit if feeds are deactivated for that category
-  if(!is_numeric($category) ||
-     ($category == 0 && !$GLOBALS['adminConfig']['pages']['feeds']) ||
-     ($category != 0 && !$GLOBALS['categoryConfig'][$category]['feeds']))
+  if(!is_numeric($category) || !$GLOBALS['categoryConfig'][$category]['feeds'])
     return false;
   
   // vars
@@ -1742,46 +1741,92 @@ function prepareStyleFilePaths($givenStyleFiles) {
  * 
  * Bubbles through the stylesheet-file path, ID or class-attribute
  * of the page, category and adminSetup and check if the stylesheet-file path, ID or class-attribute already exist.
- * Ff the <var>$givenStyle</var> parameter is empty,
+ * If the <var>$givenStyle</var> parameter is empty,
  * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
  * 
  * <b>Used Global Variables</b><br>
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  * 
- * @param string   $givenStyle the string with the stylesheet-file path, id or class
- * @param string   $styleType  the key for the $pageContent, $categoryConfig or $adminConfig array can be "styleFile", "styleId" or "styleClass" 
- * @param int|true $category   the ID of the category to bubble through or TRUE when the stylesheet-file path, id or class is from a category
+ * @param string   $givenStyle    the string with the stylesheet-file path, id or class
+ * @param string   $styleType     the key for the $pageContent, $categoryConfig or $adminConfig array can be "styleFile", "styleId" or "styleClass" 
+ * @param int|true $category      the ID of the category to bubble through
+ * @param bool     $saveCategory  (optional) TRUE when the $givenStyle is from a category
  * 
  * @return string an empty string or the $givenStyle parameter if it was not found through while bubbleing up
  * 
  * 
- * @version 1.0
+ * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.1 moved adminConfig styles to categoryConfig[0]
  *    - 1.0 initial release
  * 
  */
-function setStylesByPriority($givenStyle,$styleType,$category) {
+function setStylesByPriority($givenStyle,$styleType,$category,$saveCategory = false) {
   
   // prepare string
   if($styleType != 'styleFile')
     $givenStyle = str_replace(array('#','.'),'',$givenStyle);
   elseif($styleType == 'styleFile' && !empty($givenStyle) && substr($givenStyle,0,2) !== 'a:' &&substr($givenStyle,0,1) !== '/')
     $givenStyle = '/'.$givenStyle;
-  
-  // compare string with category
-  if($category !== true &&
+
+  // IS NON CATEGORY
+  if($saveCategory && $category == 0) {
+    return $givenStyle;
+
+  // COMPARE string with CATEGORY STYLES
+  } elseif($saveCategory === false &&
      (!empty($GLOBALS['categoryConfig'][$category][$styleType]) || $GLOBALS['categoryConfig'][$category][$styleType] != 'a:0:{}') &&
      $givenStyle == $GLOBALS['categoryConfig'][$category][$styleType]) {
-      $givenStyle = '';
+    return '';
       
-  //  or adminConfig
-  } elseif($givenStyle == $GLOBALS['adminConfig']['editor'][$styleType]) {
-    $givenStyle = '';
-  }  
+  //  COMPARE with HTML-EDITOR STYLES (non-category styles)
+  } elseif($givenStyle == $GLOBALS['categoryConfig'][0][$styleType]) {
+    return '';
+  } else
+    return $givenStyle;
+}
+
+/**
+ * <b>Name</b> getStylesByPriority()<br>
+ * 
+ * Returns the right stylesheet-file path, ID or class-attribute.
+ * If the <var>$givenStyle</var> parameter is empty,
+ * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+ *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+ * 
+ * @param string $givenStyle the string with the stylesheet-file path, id or class
+ * @param string $styleType  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass" 
+ * @param int    $category   the ID of the category to bubble through
+ * 
+ * @return string the right stylesheet-file, ID or class
+ * 
+ * @static
+ * @version 1.1
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.1 moved back to backend.functions.php
+ *    - 1.0.1 moved to GeneralFunctions class   
+ *    - 1.0 initial release
+ * 
+ */
+function getStylesByPriority($givenStyle,$styleType,$category) {
   
-  return $givenStyle;
+  // check if the $givenStyle is empty
+  if(empty($givenStyle) || $givenStyle == 'a:0:{}') {
+  
+    return (empty($GLOBALS['categoryConfig'][$category][$styleType]) || $GLOBALS['categoryConfig'][$category][$styleType] == 'a:0:{}')
+      ? $GLOBALS['categoryConfig'][0][$styleType]
+      : $GLOBALS['categoryConfig'][$category][$styleType];
+  
+  // OTHERWISE it pass returns the $givenStyle parameter
+  } else
+    return $givenStyle;
+  
 }
 
 /**

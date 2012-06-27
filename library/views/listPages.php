@@ -40,12 +40,6 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 <?php
 
 // vars
-
-// shows the PAGES in NO CATEGORIES (the page/ folder),
-// by adding a empty category to the $categoryConfig array
-$nonCategory[0] = array('id' => 0,'localized' => array( 0 => array( 'name' => $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'])));
-$allCategories = $nonCategory + $categoryConfig;
-
 // for checking if is parent pages
 $allPages = GeneralFunctions::loadPages(true);
 
@@ -55,7 +49,7 @@ $pagesWithSubCategories  = array();
 
 // -----------------------------------------------------------------------------------------------------------
 // ->> LIST CATEGORIES
-foreach($allCategories as $category) {
+foreach($categoryConfig as $category) {
 
   // vars
   $categoryTitle = '';
@@ -68,9 +62,7 @@ foreach($allCategories as $category) {
   if($category['id'] != 0) {
     $parentPages = array();
     foreach ($allPages as $pageContent) {
-      if($pageContent['subCategory'] == $category['id'] && 
-         (($pageContent['category'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
-          ($pageContent['category'] == 0 && $adminConfig['pages']['showSubCategory'])))
+      if($pageContent['subCategory'] == $category['id'] && $categoryConfig[$pageContent['category']]['showSubCategory'])
         $parentPages[] = $pageContent;
     }
     unset($pageContent);
@@ -83,11 +75,9 @@ foreach($allCategories as $category) {
   ? '' : ' hidden';
   
   // shows the text of the sorting of a CATEGORY
-  if(($category['id'] != 0 && $category['sorting'] == 'byPageDate') ||
-     ($category['id'] == 0 && $adminConfig['pages']['sorting'] == 'byPageDate'))
+  if($category['sorting'] == 'byPageDate')
     $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="listPagesH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23">';
-  elseif(($category['id'] != 0 && $category['sorting'] == 'alphabetical') ||
-         ($category['id'] == 0 && $adminConfig['pages']['sorting'] == 'alphabetical'))
+  elseif($category['sorting'] == 'alphabetical')
     $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="listPagesH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23">';
   else
     $sorting = '';
@@ -123,8 +113,7 @@ foreach($allCategories as $category) {
       ? '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR'].'[/b][br]'
       : '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL'].'[/b][br]';
     foreach($parentPages as $parentPage) {
-      if((($parentPage['category'] != 0 && $categoryConfig[$parentPage['category']]['showSubCategory']) ||
-          ($parentPage['category'] == 0 && $adminConfig['pages']['showSubCategory']))) {
+      if($categoryConfig[$parentPage['category']]['showSubCategory']) {
         $parentPageCategory = ($parentPage['category'] != 0 ) ? GeneralFunctions::getLocalized($categoryConfig[$pageOfSubCategory['category']],'name').' &rArr; ' : '';
         $categoryTitle .= '[img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.$parentPageCategory.GeneralFunctions::getLocalized($parentPage,'title').'[br]';
       }
@@ -152,8 +141,7 @@ foreach($allCategories as $category) {
       echo '<div class="functions">';
       
       // create page
-      if(($category['id'] != 0 && $category['createDelete']) ||
-         ($category['id'] == 0 && $adminConfig['pages']['createDelete']))
+      if($category['createDelete'])
         echo '<a href="?category='.$category['id'].'&amp;page=new" title="'.$langFile['BUTTON_TOOLTIP_CREATEPAGE'].'::" class="createPage toolTip">&nbsp;</a>';
          
   echo '  </div>
@@ -161,8 +149,7 @@ foreach($allCategories as $category) {
       <div class="content">';
   
   // -> CHECK if pages are sortable
-  $listIsSortableClass = (($category['id'] != 0 && $category['sorting'] == 'manually') ||
-                          ($category['id'] == 0 && $adminConfig['pages']['sorting'] == 'manually')) ? ' class="sortablePageList"' : '';
+  $listIsSortableClass = ($category['sorting'] == 'manually') ? ' class="sortablePageList"' : '';
   
   echo '<ul'.$listIsSortableClass.' id="category'.$category['id'].'">';
 
@@ -213,9 +200,7 @@ foreach($allCategories as $category) {
         : '';
 
       // -> show subcategory in toolTip
-      $pageTitle_subCategory = ($pageContent['subCategory'] &&
-                                (($category['id'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
-                                 ($category['id'] == 0 && $adminConfig['pages']['showSubCategory'])))
+      $pageTitle_subCategory = ($pageContent['subCategory'] && $categoryConfig[$pageContent['category']]['showSubCategory'])
         ? '[b]'.$langFile['EDITOR_TEXT_SUBCATEGORY'].':[/b][br][img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($categoryConfig[$pageContent['subCategory']],'name').'[br]'
         : '';
 
@@ -224,7 +209,7 @@ foreach($allCategories as $category) {
       
       // -> generate tags for toolTip
       $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
-      if(!empty($localizedTags) && (($pageContent['category'] != 0 && $category['showTags']) || ($pageContent['category'] == 0 && $adminConfig['pages']['showTags']))) {
+      if(!empty($localizedTags) && $categoryConfig[$pageContent['category']]['showTags']) {
         $pageTitle_tags = '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].':[/b] '.$localizedTags.'[br]';
       }
 
@@ -251,9 +236,7 @@ foreach($allCategories as $category) {
       echo '<li id="page'.$pageContent['id'].'"'.$hasSubCategoryClass.' data-pageId="'.$pageContent['id'].'" data-categoryId="'.$pageContent['category'].'">';
       
       // -> display other icon for pages
-      $subCategoryIcon = ($pageContent['subCategory'] &&
-                          (($category['id'] != 0 && $categoryConfig[$pageContent['category']]['showSubCategory']) ||
-                           ($category['id'] == 0 && $adminConfig['pages']['showSubCategory'])))
+      $subCategoryIcon = ($pageContent['subCategory'] && $categoryConfig[$pageContent['category']]['showSubCategory'])
         ? ' hasSubCategory'
         : '';
 
@@ -286,11 +269,11 @@ foreach($allCategories as $category) {
       echo '<div class="functions">';      
  
       // thumbnail upload
-      if(($category['id'] == 0 && $adminConfig['pages']['thumbnails']) || $allCategories[$category['id']]['thumbnails'])
+      if($category['thumbnails'])
         echo '<a href="?site=pageThumbnailUpload&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
       
       // thumbnail upload delete
-      if((($category['id'] == 0 && $adminConfig['pages']['thumbnails']) || $allCategories[$category['id']]['thumbnails']) && !empty($pageContent['thumbnail']))
+      if($category['thumbnails'] && !empty($pageContent['thumbnail']))
         echo '<a href="?site=pageThumbnailDelete&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::" class="pageThumbnailDelete toolTip">&nbsp;</a>';
       
       // frontend editing
@@ -300,7 +283,7 @@ foreach($allCategories as $category) {
       echo '<a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$langFile['SORTABLEPAGELIST_functions_editPage'].'::" class="editPage toolTip">&nbsp;</a>';
       
       // delete page
-      if(($category['id'] == 0 && $adminConfig['pages']['createDelete']) || $allCategories[$category['id']]['createDelete'])
+      if($category['createDelete'])
         echo '<a href="?site=deletePage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_DELETEPAGE'].'::" class="deletePage toolTip">&nbsp;</a>';
 
       // startpage
@@ -329,14 +312,14 @@ foreach($allCategories as $category) {
 
   echo '</ul>';
   echo '</div>';
-  if(end($allCategories) == $category)
+  if(end($categoryConfig) == $category)
     echo '<div class="bottom"></div>';
 
   echo '</div>';
 
   echo "\n".'<!-- transport the sortOrder to the javascript -->
         <!-- reverse order yes/no -->
-        <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories[$category['id']]['sortReverse'].'">
+        <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$category['sortReverse'].'">
         <!-- the new page order -->
         <input type="hidden" name="sort_order" id="sort_order'.$category['id'].'" value="'.@implode($sort_order,'|').'">';
 

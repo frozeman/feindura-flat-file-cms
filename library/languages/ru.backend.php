@@ -437,8 +437,8 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'Включить кэш';
 $langFile['ADMINSETUP_TIP_CACHE']                                         = 'Если активный, все страницы будут кэшироваться. Это может семян на веб-сайте, но и приводит к не очень реальное содержание.[br][br][span class=hint] кэшироваться будет обновлена​​, при редактировании страницы.[/span]';
-$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Кэширование тайм-аут';
-$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Указывает, после того, как много [b]часов[/b] кэш будет обновлен.';
+$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'кэш тайм-аут';
+$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Показывает время, после которого кэш будет обновлен.';
 $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'часов';
 
 // ---------- user Settings
@@ -465,7 +465,7 @@ $langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'С�
 $langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']                              = 'Фрагменты кода активации';
 $langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Разрешите поставить фрагменты кода на страницах.[br]Нажмите на иконку в HTML-редактор: [img src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png][br][br][span class=hint]If this option is activated, you can edit/create code snippets further down.Если эта опция включена, вы можете редактировать/создавать фрагменты кода ниже.[/span]';
 $langFile['adminSetup_editorSettings_field1']                             = 'Режим клавиши ENTER';
-$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER вставляет &quot;&lt;br&gt;&quot;';
+$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER вставляет &quot;%s&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Вставляет при нажатии ENTER выбранный тег.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip']                    = 'Если не задано - атрибут ID не будет присвоен.';
 $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Если не задано - атрибут class не будет присвоен.';

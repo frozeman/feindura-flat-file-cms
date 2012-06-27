@@ -54,17 +54,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   $newAdminConfig['multiLanguageWebsite']['mainLanguage'] = $_POST['cfg_websiteMainLanguage'];
   $newAdminConfig['multiLanguageWebsite']['languages']    = $_POST['cfg_websiteLanguages'];
   
-  $newAdminConfig['pages']['createDelete']                = $_POST['cfg_pageCreatePages'];
-  $newAdminConfig['pages']['thumbnails']                  = $_POST['cfg_pageThumbnailUpload'];  
-  $newAdminConfig['pages']['plugins']                     = serialize($_POST['cfg_pagePlugins']);
-  $newAdminConfig['pages']['showTags']                    = $_POST['cfg_pageTags'];
-  $newAdminConfig['pages']['showPageDate']                = $_POST['cfg_pagePageDate'];
-  $newAdminConfig['pages']['showSubCategory']             = $_POST['cfg_subCategory'];
-  $newAdminConfig['pages']['feeds']                       = $_POST['cfg_pagefeeds'];
-  $newAdminConfig['pages']['sorting']                     = $_POST['cfg_pageSorting'];
-  $newAdminConfig['pages']['sortReverse']                 = $_POST['cfg_pageSortReverse'];
-  
-  $newAdminConfig['pageThumbnail']['width']               =  $_POST['cfg_thumbWidth'];
+  $newAdminConfig['pageThumbnail']['width']               = $_POST['cfg_thumbWidth'];
   $newAdminConfig['pageThumbnail']['height']              = $_POST['cfg_thumbHeight'];
   $newAdminConfig['pageThumbnail']['ratio']               = $_POST['cfg_thumbRatio'];
   $newAdminConfig['pageThumbnail']['path']                = $_POST['cfg_thumbPath'];
@@ -355,9 +345,8 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 
 
 // ****** ---------- SAVE CATEGORIES
-if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['saveCategories'])) {
-  
-  
+if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['categories'])) {
+
 
   // transfer data from the categoryConfig
   foreach($_POST['categories'] as $categoryId => $value) {
@@ -373,6 +362,11 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
     // delete unnecessary variables
     unset($_POST['categories'][$categoryId]['name']);
   }
+
+  // transfer the style settings
+  $_POST['categories'][0]['styleFile']  = $categoryConfig[0]['styleFile'];
+  $_POST['categories'][0]['styleId']    = $categoryConfig[0]['styleId'];
+  $_POST['categories'][0]['styleClass'] = $categoryConfig[0]['styleClass'];
 
   if(saveCategories($_POST['categories'])) {
     $documentSaved = true; // set documentSaved status
@@ -418,8 +412,6 @@ if($savedSettings) {
   
   // -> delete old feeds
   clearFeeds();
-  // ->> save the FEEDS for non-category pages, if activated
-  saveFeeds(0);
   // ->> save the FEEDS for categories, if activated
   if(is_array($categoryConfig)) {
     foreach($categoryConfig as $category)

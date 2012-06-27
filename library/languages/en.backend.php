@@ -432,8 +432,8 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'Activate cache';
 $langFile['ADMINSETUP_TIP_CACHE']                                         = 'If active, all pages will be cached. This can seed up the website, but also leads to not so actual content.[br][br][span class=hint]The cached will be refreshed, when saving pages.[/span]';
-$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Caching timeout';
-$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Indicates after how much [b]hours[/b] the cache will be refreshed.';
+$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Cache timeout';
+$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Indicates the time after which the cache will be refreshed.';
 $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'hours';
 
 // ---------- user Settings
@@ -460,7 +460,7 @@ $langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'The
 $langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']                              = 'activate code snippets';
 $langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Makes it possible to place code snippets in the pages.[br]Click on the icon in the HTML-Editor: [img src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png][br][br][span class=hint]If this option is activated, you can edit/create code snippets further down.[/span]';
 $langFile['adminSetup_editorSettings_field1']                             = 'ENTER-Key mode';
-$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER generates a &quot;&lt;br&gt;&quot;';
+$langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER generates a &quot;%s&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Sets which HTML-Tag will be add when pressing the ENTER-Key in the HTML-Editor.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip']                    = 'If empty no Id-attribute will be used.';
 $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'If empty no Class-attribute will be used.';

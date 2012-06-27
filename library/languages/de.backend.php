@@ -430,8 +430,8 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'Cache aktivieren';
 $langFile['ADMINSETUP_TIP_CACHE']                                         = 'Wenn aktiv, werden die Seiten zwischengespeichert. Das kann die Website beschleunigen, aber auch dazu führen dass Inhalte nicht aktuell angezeigt werden.[br][br][span class=hint]Beim speichern der Seiten wird der Cache automatisch neu erzeugt.[/span]';
-$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Caching-Dauer';
-$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Gibt an nach wieviel [b]Stunden[/b] der Cache automatisch erneuert wird.';
+$langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Cache-Dauer';
+$langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Gibt die Zeit an nach der der Cache automatisch erneuert wird.';
 $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'Stunden';
 
 // ---------- user Settings
