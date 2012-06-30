@@ -436,6 +436,48 @@ class GeneralFunctions {
     } else
       return $currentURL;
   }
+
+/**
+  * <b>Name</b> URI2Path()<br>
+  * 
+  * Removes the URIEXTENSION from a given URI.
+  * 
+  * @param string $uri the URI to change
+  * 
+  * @return string the changed URI
+  * 
+  * @see URIEXTENSION
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function URI2Path($uri) {
+    return str_replace(URIEXTENSION, '', $uri);
+  }
+
+/**
+  * <b>Name</b> Path2URI()<br>
+  * 
+  * Adds the URIEXTENSION to a given path.
+  * 
+  * @param string $path the path to change
+  * 
+  * @return string the changed path
+  * 
+  * @see URIEXTENSION
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function Path2URI($path) {
+    return URIEXTENSION.$path;
+  }
   
 /**
   * <b>Name</b> getDirname()<br>
@@ -458,7 +500,7 @@ class GeneralFunctions {
     
     // vars
     $return = false;
-    $realPath = self::getRealPath($dir).'/'.basename($dir);
+    $realPath = self::getRealPath(self::URI2Path($dir)).'/'.basename($dir);
 
     if(is_file($realPath))
       $return = preg_replace('#/+#','/',str_replace('\\','/',dirname($dir)));
@@ -1479,7 +1521,7 @@ class GeneralFunctions {
 
     return ($backend)
       ? 'library/images/icons/flags/'.$flagFilename
-      : self::$adminConfig['basePath'].'library/images/icons/flags/'.$flagFilename;
+      : self::Path2URI(self::$adminConfig['basePath']).'library/images/icons/flags/'.$flagFilename;
   }
 
  /**
@@ -1660,7 +1702,7 @@ class GeneralFunctions {
     // *************************************
     if(self::$adminConfig['speakingUrl'] == 'true') {
       
-      $href .= self::getDirname(self::$adminConfig['websitePath']);
+      $href .= self::Path2URI(self::getDirname(self::$adminConfig['websitePath']));
 
       // add the LANGUAGE if multilanguage page
       if(self::$adminConfig['multiLanguageWebsite']['active']) {
@@ -1703,7 +1745,7 @@ class GeneralFunctions {
     // *************************************
     } else {
       
-      $href .= self::$adminConfig['websitePath'];
+      $href .= self::Path2URI(self::$adminConfig['websitePath']);
       $href .= '?';
 
       // -> add PARENT PAGES
@@ -2025,6 +2067,7 @@ class GeneralFunctions {
   * 
   */
   public static function getRealPath($path) {
+    $path = self::URI2Path($path);
     $path = preg_replace("#[\\\]+#",'/',$path);
     $path = (substr($path,0,1) == '/' && strpos($path,DOCUMENTROOT) === false) ? DOCUMENTROOT.$path : $path;
     $path = (is_file($path)) ? dirname($path) : $path;
@@ -2301,15 +2344,16 @@ class GeneralFunctions {
       foreach($filesInFolder['files'] as $file) {
         // -> check for CSS FILES
         if(substr($file,-4) == '.css') {
-          // -> removes the $adminConfig('realBasePath')
-          if($backend) $file = str_replace(self::$adminConfig['realBasePath'],'',$file);
+          // -> removes the $adminConfig('basePath')
+          if($backend)
+            $file = str_replace($adminConfig['basePath'],'',$file);
 
           // -> return only link
           if($returnHrefOnly) {
-            $return[] = $file;
+            $return[] = self::Path2URI($file);
           // -> WRITES the HTML-Style-Tags
           } else
-            $return .= '  <link rel="stylesheet" type="text/css" href="'.$file.'">'."\n";
+            $return .= '  <link rel="stylesheet" type="text/css" href="'.self::Path2URI($file).'">'."\n";
         }
       }
     }

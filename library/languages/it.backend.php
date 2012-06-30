@@ -109,7 +109,7 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'percorso assoluto';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'percorso relativo';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Percorso Assoluto::Percorso URI assoluto, significa che rispetto al documento root.[br][br][span class=hint]http://mysite.it[b]/percorso/[/b][/span]';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Percorso Assoluto::Percorso del file di sistema assoluto. (Ma rispetto alla DocumentRoot)[br][br][span class=hint]/server/htdocs[b]/percorso/[/b][/span]';
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Percorso Relativo::Percorso URI relativo, significa che rispetto al documento corrente.';
 
 // STATISTICS
@@ -392,9 +392,6 @@ $langFile['ADMINSETUP_GENERAL_field2']                                    = 'Per
 $langFile['ADMINSETUP_GENERAL_field2_tip']                                = 'Il percorso di base sarà determinato automaticamente e salvato, per la prima volta le impostazioni vengono salvate.';
 $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'Il percorso verrà aggiunto automaticamente';
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Si prega di salvare le impostazioni!';
-$langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH']                         = 'Percorso Reale feindura';
-$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']                      = 'Il percorso del file reale del tuo [span class=logoname]fein[span]dura[/span][/span] cms, relativo alla radice dei documenti.';
-$langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']                      = '<b>Esempio</b> &quot;/cms/&quot;';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Percorso Sito Web';
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Il [b]percorso assoluto[/b] in cui il sito si trova.[br][br][span class=hint]Può anche contenere i nomi di file, ad esempio &quot;/website/index.php&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Percorso Upload';

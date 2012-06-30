@@ -715,7 +715,6 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
     // -> set back the id as index
     $categoryConfig = array();
     foreach($sortetCategories as $sortetCategory) {
-      echo '';
       $categoryConfig[$sortetCategory['id']] = $sortetCategory;
     }
 
@@ -900,7 +899,6 @@ function saveAdminConfig($adminConfig) {
 
     $fileContent .= "\$adminConfig['url']               = '".XssFilter::url($adminConfig['url'])."';\n";
     $fileContent .= "\$adminConfig['basePath']          = '".XssFilter::path($adminConfig['basePath'])."';\n";
-    $fileContent .= "\$adminConfig['realBasePath']      = '".XssFilter::path($adminConfig['realBasePath'])."';\n";
     $fileContent .= "\$adminConfig['websitePath']       = '".XssFilter::path($adminConfig['websitePath'],false,'/')."';\n";
     $fileContent .= "\$adminConfig['uploadPath']        = '".XssFilter::path($adminConfig['uploadPath'])."';\n";
     $fileContent .= "\$adminConfig['websiteFilesPath']  = '".XssFilter::path($adminConfig['websiteFilesPath'])."';\n";
@@ -1187,17 +1185,15 @@ function saveSpeakingUrl(&$errorWindow) {
     return false;
   }
   $htaccessFile = $websitePath.'/.htaccess';
-  $newWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($_POST['cfg_websitePath'])),1);
-  $oldWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($GLOBALS['adminConfig']['websitePath'])),1);
   
   // (?:[\/a-z0-9_-]*/{1})?  <- is only to add parent pages
   $categoryRegEx = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?category/([a-zA-Z0-9_-]+)/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
   $pageRegEx     = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?page/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
 
-  $newRewriteRule = $categoryRegEx.XssFilter::path($_POST['cfg_websitePath']).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
-  $newRewriteRule .= $pageRegEx.XssFilter::path($_POST['cfg_websitePath']).'?page=$2&language=$1 [QSA,L]';
-  $oldRewriteRule = $categoryRegEx.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
-  $oldRewriteRule .= $pageRegEx.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$2&language=$1 [QSA,L]';
+  $newRewriteRule  = $categoryRegEx.GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
+  $newRewriteRule .= $pageRegEx.GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?page=$2&language=$1 [QSA,L]';
+  $oldRewriteRule  = $categoryRegEx.GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
+  $oldRewriteRule .= $pageRegEx.GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?page=$2&language=$1 [QSA,L]';
   
   $speakingUrlCode = '#
 # feindura - Flat File CMS -> speakingURL activation
@@ -1389,7 +1385,7 @@ function saveSitemap() {
   $realWebsitePath = GeneralFunctions::getRealPath($websitePath).'/';
   if($realWebsitePath == '/')
     return false;
-  $baseUrl = $GLOBALS['adminConfig']['url'].$websitePath;
+  $baseUrl = $GLOBALS['adminConfig']['url'].GeneralFunctions::Path2URI($websitePath);
 
   // get the Sitemap class
   require_once(dirname(__FILE__).'/../thirdparty/PHP/Sitemap.php');
@@ -1702,10 +1698,11 @@ function createBackup($backupFile) {
  * @return string the checked stylesheet files path as serialized array
  * 
  * 
- * @version 1.01
+ * @version 1.2
  * <br>
  * <b>ChangeLog</b><br>
- *    - add XssFilter test 
+ *    - 1.2 add GeneralFunctions::URI2Path()
+ *    - 1.1 add XssFilter test 
  *    - 1.0 initial release
  * 
  */
@@ -1726,7 +1723,7 @@ function prepareStyleFilePaths($givenStyleFiles) {
       if(strstr($styleFile,'://'))
         $styleFile = XssFilter::url($styleFile);
       else
-        $styleFile = XssFilter::path($styleFile);
+        $styleFile = GeneralFunctions::URI2Path(XssFilter::path($styleFile));
       
       // adds back to the string only if its not empty
       if(!empty($styleFile))
@@ -2141,7 +2138,7 @@ function formatHighNumber($number,$decimalsNumber = 0) {
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
  *    - <var>$savedForm</var> the variable to tell which form was saved (set in the {@link saveEditedFiles})
  * 
- * @param string		$filesPath	         the path where all files (also files in subfolders) will be shown for editing
+ * @param string		$filesPath	         the absolute file system path to the files (also files in subfolders), which will be editable
  * @param string		$status		           a status name which will be set to the $_GET['status'] variable in the formular action attribute
  * @param string		$titleText	         a title text which will be displayed as the title of the edit files textfield
  * @param string		$anchorName	         the name of the anchor which will be added to the formular action attribute
@@ -2548,7 +2545,7 @@ function checkBasePathAndURL() {
   $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$GLOBALS['adminConfig']['url']);
   $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$_SERVER["SERVER_NAME"]);
   
-  $checkPath = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
+  $checkPath = GeneralFunctions::URI2Path(GeneralFunctions::getDirname($_SERVER['PHP_SELF']));
   
   if($GLOBALS['adminConfig']['basePath'] == $checkPath &&
      $baseUrl == $checkUrl)
@@ -2576,7 +2573,7 @@ function checkBasePathAndURL() {
  * 
  */
 function documentrootWarning() {
-  if(checkBasePathAndURL() && (DOCUMENTROOT === false || empty($GLOBALS['adminConfig']['realBasePath']))) {
+  if(checkBasePathAndURL() && (DOCUMENTROOT === false)) {
     return '<div class="block warning">
             <h1>'.$GLOBALS['langFile']['WARNING_TITLE_DOCUMENTROOT'].'</h1>
             <div class="content">

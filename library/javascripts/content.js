@@ -1552,27 +1552,21 @@ window.addEvent('domready', function() {
 
 
     CKEDITOR.config.toolbar = [
-                              ['Save','-','Maximize','-','Source'],
-                              ['Undo','Redo','-','RemoveFormat','SelectAll'],
-                              ['PasteText','PasteFromWord'], // 'Paste',
-                              ['Print'],
-                              ['Find','Replace','-','SpellChecker', 'Scayt'],
-                               '/',
-                              ['Bold','Italic','Underline','Strike'],
-                              ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-                              ['Outdent','Indent'],
-                              ['Subscript','Superscript'],
-                              ['NumberedList','BulletedList'],
-                              ['Blockquote','HorizontalRule','Table'],
-                              ['Link','Unlink','Anchor'],
-                              ['Image','Flash'], // ,'Media'
-                              ['Snippets'],
-                              ['SpecialChar'],
-                               '/',
-                              ['Styles','Format','FontSize'], // 'Font','FontName',
-                              ['TextColor','BGColor','-'],
-                              ['ShowBlocks','-','About']
-                              ];		// No comma for the last row.
+      { name: 'document', items : ['Save','-','Maximize','-','Source'] },
+      { name: 'clipboard', items : [ 'Undo','Redo','-','Cut','Copy','Paste','PasteText','PasteFromWord'] },
+      { name: 'editing', items : [ 'Find','Replace','-','SelectAll'] }, //,'-','SpellChecker', 'Scayt' ] },
+      '/',
+      { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
+      { name: 'align', items : [ 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] }, //,'-','BidiLtr','BidiRtl' ] },
+      { name: 'paragraph', items : [ 'Outdent','Indent','-','NumberedList','BulletedList','-','Blockquote','CreateDiv'] },
+      { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+      { name: 'insert', items : [ 'Image','Flash','Iframe','Table','HorizontalRule','SpecialChar'] },
+      { name: 'feindura', items : [ 'Snippets'] },
+      '/',
+      { name: 'styles', items : [ 'Styles','Format','FontSize' ] }, //'Font'
+      { name: 'colors', items : [ 'TextColor','BGColor' ] },
+      { name: 'tools', items : [ 'ShowBlocks','-','About' ] }
+    ];
 
     // -> CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
     HTMLEditor = CKEDITOR.replace('HTMLEditor');

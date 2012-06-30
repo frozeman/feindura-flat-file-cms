@@ -20,17 +20,22 @@
  * See the README.md for more.
  * 
  * The following variables are available in this script when it gets included by the {@link Feindura::showPlugins()} method:
- *     - $feindura      -> the current {@link Feindura} class instance with all its methods (use "$feindura->..")
- *     - $pluginConfig  -> contains the changed settings from the "config.php" from this plugin
- *     - $pluginName    -> the folder name of this plugin
- *     - $pageContent   -> the pageContent array of the page which has this plugin activated 
+ *     - $feindura                  -> the current {@link Feindura} class instance with all its methods (use "$feindura->..")
+ *     - $feinduraBaseURL           -> the base url of the feindura folder, e.g. "http://mysite.com/cms/"
+ *     - $feinduraBasePath          -> the base path of the feindura folder, e.g. "/cms/". Be aware that this is a file system path and could differ from an URI path.
+ *     - $pluginBaseURL             -> the base url of this plugins folder, e.g. "http://mysite.com/cms/plugins/examplePlugin/"
+ *     - $pluginBasePath            -> the base path of this plugins folder, e.g. "/cms/plugins/examplePlugin/". Be aware that this is a file system path and could differ from an URI path.
+ *     - $pluginConfig              -> contains the changed settings from the "config.php" from this plugin
+ *     - $pluginName                -> the folder name of this plugin
+ *     - $pageContent               -> the pageContent array of the page which contains this plugin
+ *     - the GeneralFunctions class -> for advanced methods. It's a static class so use "GeneralFunctions::exampleMethod(..);"
  * 
  * 
  * Example plugin:
  * <code>
  * <?php
  * // Add the stylesheet files of this plugin to the current page
- * echo $feindura->addPluginStylesheets(dirname(__FILE__));
+ * echo $feindura->addPluginStylesheets($pluginBasePath);
  * 
  * echo '<p>Plugin HTML</p>';
  * 
@@ -46,8 +51,8 @@
  * 
  */
 
-// Add the stylesheet files of this plugin to the current page
-echo $feindura->addPluginStylesheets(dirname(__FILE__));
+// Add the stylesheet files of this plugin to the current page (these CSS files can be anywhere in this plugin folder or subfolders)
+echo $feindura->addPluginStylesheets($pluginBasePath);
 
 
 // load the contactForm class
@@ -58,15 +63,15 @@ $contactForm = new contactForm($pluginConfig['recipient']);
 
 // set configs
 $contactForm->currentUrl = $feindura->createHref();
-$contactForm->xHtml = $feindura->xHtml; // set the xHtml property from the feindura class
-$contactForm->websiteTitle = GeneralFunctions::getLocalized($feindura->websiteConfig,'title',$feindura->language);
+$contactForm->xHtml = $feindura->xHtml;
+$contactForm->websiteTitle = $feindura->metaData['title'];
 $contactForm->websiteUrl = $feindura->adminConfig['url'];
 $contactForm->config = $pluginConfig;
 // include the $pluginLangFile
 $pluginCountryCode = (file_exists(dirname(__FILE__).'/languages/'.$feindura->language.'.php'))
 	  ? $feindura->language
 	  : 'en';
-if($pluginLangFile = @include('languages/'.$pluginCountryCode.'.php'))
+if($pluginLangFile = @include(dirname(__FILE__).'/languages/'.$pluginCountryCode.'.php'))
   $contactForm->langFile = $pluginLangFile;
 
 // SHOW CONTACT FORM

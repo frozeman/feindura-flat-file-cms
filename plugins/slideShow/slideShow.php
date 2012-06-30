@@ -348,7 +348,7 @@ class slideShow {
     
     foreach($this->images as $image) {
       $imageText = (!empty($image['text'])) ? ' title="'.XssFilter::text($image['text']).'"' : '';
-      $return[] = '<img src="'.$image['path'].$image['filename'].'" alt="slideShowImage"'.$imageText.$tagEnd."\n";
+      $return[] = '<img src="'.GeneralFunctions::Path2URI($image['path']).$image['filename'].'" alt="slideShowImage"'.$imageText.$tagEnd."\n";
     }
     
     return $return;    

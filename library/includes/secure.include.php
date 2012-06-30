@@ -31,6 +31,10 @@ require_once(dirname(__FILE__)."/backend.include.php");
 // ->> Then check incoming data like category and page vars
 // *****************************
 
+// -> check PHP vars
+$_SERVER['PHP_SELF'] = XssFilter::path($_SERVER['PHP_SELF']);
+
+
 // ->> CHECK the GET and POST variables
 // -> check CATEGORY
 if(isset($_GET['category'])) $_GET['category'] = XssFilter::int($_GET['category'],0);

@@ -1120,7 +1120,7 @@ class Feindura extends FeinduraBase {
       
       // -> add BASE PATH if SPEAKING URLS are ON
       if($this->adminConfig['speakingUrl'])
-        $metaTags .= '  <base href="'.$this->adminConfig['url'].GeneralFunctions::getDirname($this->adminConfig['websitePath']).'"'.$tagEnding."\n\n";
+        $metaTags .= '  <base href="'.$this->adminConfig['url'].GeneralFunctions::Path2URI(GeneralFunctions::getDirname($this->adminConfig['websitePath'])).'"'.$tagEnding."\n\n";
       
       // -> add other META TAGs
       $metaTags .= '  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"'.$tagEnding.' <!-- enable google chrome frame, if available -->'."\n\n";
@@ -1194,8 +1194,8 @@ class Feindura extends FeinduraBase {
               $addLanguageToFilename = '.'.$langCode;
             else
               $addLanguageToFilename = '';
-            $atomLink = $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$categoryPath.'atom'.$addLanguageToFilename.'.xml';
-            $rss2Link = $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$categoryPath.'rss2'.$addLanguageToFilename.'.xml';
+            $atomLink = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']).'pages/'.$categoryPath.'atom'.$addLanguageToFilename.'.xml';
+            $rss2Link = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']).'pages/'.$categoryPath.'rss2'.$addLanguageToFilename.'.xml';
 
             // title
             $websiteTitle = $this->getLocalized($this->websiteConfig,'title',$langCode);
@@ -1224,11 +1224,11 @@ class Feindura extends FeinduraBase {
         
         $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
         // add frontend editing stylesheets
-        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/ckeditor/plugins/feinduraSnippets/styles.css"'.$tagEnding."\n";
-        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/shared.css"'.$tagEnding."\n";
-        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/frontendEditing.css"'.$tagEnding."\n";    
-        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/Assets/moorte.css"'.$tagEnding."\n";
-        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/feinduraSkin/rteFeinduraSkin.css"'.$tagEnding."\n";
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/thirdparty/ckeditor/plugins/feinduraSnippets/styles.css"'.$tagEnding."\n";
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/styles/shared.css"'.$tagEnding."\n";
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/styles/frontendEditing.css"'.$tagEnding."\n";    
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/thirdparty/MooRTE/Source/Assets/moorte.css"'.$tagEnding."\n";
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/thirdparty/MooRTE/feinduraSkin/rteFeinduraSkin.css"'.$tagEnding."\n";
         
         // -> move body padding, if frontend edititng is not deactivated
         if(!$_SESSION['feinduraSession']['login']['deactivateFrontendEditing'])
@@ -1247,23 +1247,24 @@ class Feindura extends FeinduraBase {
  </style>';
         
         // add MOOTOOLS
-        $metaTags .= "\n".'  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"></script>'."\n";
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"></script>'."\n";   
+        $metaTags .= "\n";
+        $metaTags .= '  <script type="text/javascript" src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/thirdparty/javascripts/mootools-core-1.4.5.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"></script>'."\n";   
         
         // add MooRTE
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/moorte.min.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/thirdparty/MooRTE/Source/moorte.min.js"></script>'."\n";
         //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/dependencies/stickywin/StickyWinModalUI.js"></script>'."\n";
         // add raphael
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/raphael-1.5.2.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/thirdparty/javascripts/raphael-1.5.2.js"></script>'."\n";
         // add the javascripts which are shared by the backend and the frontend
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/shared.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/javascripts/shared.js"></script>'."\n";
         
         // ->> create templates of the TOP BAR and PAGE BAR
         $metaTags .= "  <script type=\"text/javascript\">
   /* <![CDATA[ */
   // transport feindura PHP vars to javascript
   var feindura_url =                       '".$this->adminConfig['url']."';
-  var feindura_basePath =                  '".$this->adminConfig['basePath']."';
+  var feindura_basePath =                  '".GeneralFunctions::Path2URI($this->adminConfig['basePath'])."';
   var feindura_currentBackendLocation =    '".$_SESSION['feinduraSession']['login']['currentBackendLocation']."';
   var feindura_deactivateFrontendEditing = '".$_SESSION['feinduraSession']['login']['deactivateFrontendEditing']."';
   var feindura_langFile = {
@@ -1287,7 +1288,7 @@ class Feindura extends FeinduraBase {
   </script>\n";
 
         // add frontend editing integration
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/frontendEditing.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/javascripts/frontendEditing.js"></script>'."\n";
       }
       
       // -> show the metaTags
@@ -2888,10 +2889,18 @@ class Feindura extends FeinduraBase {
                 if($returnPlugin) {
                 
                   // -> PROVIDE VARS for INSIDE the PLUGIN
-                  $pluginConfig = $pluginContent;
-                  unset($pluginConfig['active'],$pluginContent,$plugin); // remove the active value from the plugin config
-                  $feindura = $this;
-                  echo $plugin;
+                  $pluginConfig     = $pluginContent;
+                  $feindura         = $this;
+                  $feinduraBaseURL  = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']);
+                  $feinduraBasePath = $this->adminConfig['basePath'];
+                  $pluginBaseURL    = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']).'plugins/'.$pluginName.'/';
+                  $pluginBasePath   = $this->adminConfig['basePath'].'plugins/'.$pluginName.'/';
+
+
+                  // remove the active value from the plugin config
+                  unset($pluginConfig['active'],$pluginContent,$plugin);
+
+
                   // -> include the plugin
                   ob_start();
             		    include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/plugin.php');
@@ -3604,7 +3613,7 @@ class Feindura extends FeinduraBase {
   * If no javascript is activated it will just place the <link...> tags to the current position.
   * 
   * 
-  * @param string $folder the absolute path of the plugin folder to look for stylesheet files
+  * @param string $folder the path of the plugin folder to look for stylesheet files
   * 
   * @uses GeneralFunctions::createStyleTags() to get the stylesheet <link..> tags
   * 
@@ -3621,6 +3630,9 @@ class Feindura extends FeinduraBase {
     
     //var
     $return = false;
+    // makes sure the DOCUMENTROOT is not add twice
+    $folder = str_replace(DOCUMENTROOT, '', $folder);
+    $folder = DOCUMENTROOT.$folder;
 
     // ->> goes trough all folder and subfolders and gets the stylesheets
     $stylesheets = GeneralFunctions::createStyleTags($folder,false,true);

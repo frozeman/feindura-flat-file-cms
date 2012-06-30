@@ -97,7 +97,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
         unset($pageContent['localized'][0]);
       }
       if(!GeneralFunctions::savePage($pageContent))
-        $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
+        $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
     }
 
     // -> CHANGE WEBSITE CONFIG
@@ -117,7 +117,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
       }
     }
     if(!saveWebsiteConfig($websiteConfig))
-      $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['realBasePath']);    
+      $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['basePath']);    
 
     // -> CHANGE CATEGORY CONFIG
     // change the localized content to non localized content using the the mainLanguage
@@ -141,7 +141,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
         }
       }
       if(!saveCategories($newCategoryConfig))
-        $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['realBasePath']);
+        $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
     }
 
     // -> add to SESSION
@@ -166,7 +166,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
         $pageContent['localized'][0] = array();
 
       if(!GeneralFunctions::savePage($pageContent))
-        $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
+        $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
     }
 
     // -> CHANGE WEBSITE CONFIG
@@ -180,7 +180,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     } else
       $websiteConfig['localized'][0] = array();
     if(!saveWebsiteConfig($websiteConfig))
-      $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['realBasePath']);
+      $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['basePath']);
 
 
     // -> CHANGE CATEGORY CONFIG
@@ -200,7 +200,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
           $newCategoryConfig[$key]['localized'][0] = array();
       }
       if(!saveCategories($newCategoryConfig))
-        $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['realBasePath']);
+        $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
     }
 
     // -> add to SESSION
@@ -215,7 +215,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     saveActivityLog(14); // <- SAVE the task in a LOG FILE
     
   } else
-    $errorWindow .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['realBasePath']);
+    $errorWindow .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['basePath']);
   
   $savedForm = $_POST['savedBlock'];
   $savedSettings = true;
@@ -245,7 +245,7 @@ if((isset($_POST['send']) && $_POST['send'] == 'categorySetup' && isset($_POST['
       // creates a new category folder
       if(!@mkdir(dirname(__FILE__).'/../../pages/'.$newId, $adminConfig['permissions'],true)) {
           $isDir = false;
-          $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATEDIR'],$adminConfig['realBasePath']);      
+          $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATEDIR'],$adminConfig['basePath']);      
       // save category dir could be created
       } else
         $isDir = true;
@@ -260,13 +260,13 @@ if((isset($_POST['send']) && $_POST['send'] == 'categorySetup' && isset($_POST['
          saveActivityLog(15); // <- SAVE the task in a LOG FILE
       } else { // throw error
         $errorWindow .= ($errorWindow) // if there is allready an warning
-          ? '<br><br>'.sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['realBasePath'])
-          : sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['realBasePath']); 
+          ? '<br><br>'.sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath'])
+          : sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']); 
       }
     }
      
   } else // throw error
-    $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['realBasePath']);
+    $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
     
   $savedForm = 'categories';
   $savedSettings = true;
@@ -304,14 +304,14 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
       // deletes the dir with subdirs and files
       if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/../../pages/'.$_GET['category'].'/')) {
         $errorWindow .= ($errorWindow) // if there is allready an warning
-          ? '<br><br>'.sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETEDIR'],$adminConfig['realBasePath'])
-          : sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETEDIR'],$adminConfig['realBasePath']);
+          ? '<br><br>'.sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETEDIR'],$adminConfig['basePath'])
+          : sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETEDIR'],$adminConfig['basePath']);
       }    
     }
     
     saveActivityLog(16,$storedCategoryName); // <- SAVE the task in a LOG FILE
   } else // throw error
-    $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETECATEGORY'],$adminConfig['realBasePath']);
+    $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETECATEGORY'],$adminConfig['basePath']);
 
   $savedForm = 'categories';
   $savedSettings = true;
@@ -335,7 +335,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
       $documentSaved = true; // set documentSaved status
       saveActivityLog(17,'category='.$_GET['category']); // <- SAVE the task in a LOG FILE
     } else
-      $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_SAVE'],$adminConfig['realBasePath']);
+      $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_SAVE'],$adminConfig['basePath']);
     
   }
     

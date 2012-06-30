@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 947
+Build 948
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 2.0
   
+  build 948: new way of retrieving the DOCUMENTROOT, with generating the URIEXTENSION it should now also work in servers with virtual paths
   build 947: moved non-category from $adminConfig to $categoryConfig[0]
   build 946: made logo smaller and changed save buttons
   build 945: fixed ZenCoding in generateMenu()

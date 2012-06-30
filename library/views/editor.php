@@ -280,7 +280,7 @@ if(!$newPage) {
   <div class="content">   
     <?php
 
-    $thumbnailPath = (!empty($pageContent['thumbnail'] )) ? $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'] : '#';
+    $thumbnailPath = (!empty($pageContent['thumbnail'] )) ? GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'] : '#';
 
     // -> show LAST SAVE DATE TIME
     $lastSaveDate =  GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile));
@@ -297,7 +297,7 @@ if(!$newPage) {
 
     // -> show THUMBNAIL if the page has one
     $displayThumbnailContainer = ' display:none;';
-    if(!$newPage && !empty($pageContent['thumbnail'])) {
+    if(!$newPage && $categoryConfig[$pageContent['category']]['thumbnails'] && !empty($pageContent['thumbnail'])) {
 
       $displayThumbnailContainer = '';
 
@@ -332,8 +332,8 @@ if(!$newPage) {
     echo '</div>';
     
     // -> show the thumbnail upload button if there is no thumbnail yet
-    $displayThumbnailUploadButton = ($newPage || !empty($pageContent['thumbnail']))
-       ? ' style="display:none;"' :  '';
+    $displayThumbnailUploadButton = (!$newPage && $categoryConfig[$pageContent['category']]['thumbnails'] && empty($pageContent['thumbnail']))
+       ? '' : ' style="display:none;"';
 
     // thumbnailUploadButtonInPreviewArea
     echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" id="thumbnailUploadButtonInPreviewArea" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="pageThumbnailUpload toolTip"'.$displayThumbnailUploadButton.'>&nbsp;</a>';
@@ -907,7 +907,7 @@ $hidden = ($savedForm == 'advancedPageSettings') ? '' : ' hidden';
 $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['styleFile'] != 'a:0:{}') ||
                        (!empty($pageContent['styleId']) &&  $pageContent['styleId'] != 'a:0:{}') ||
                        (!empty($pageContent['styleClass']) && $pageContent['styleClass'] != 'a:0:{}'))
-  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" width="27" height="23">'
+  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" style="width:27px;height:23px;">'
   : '';
 ?>
 <div class="block<?php echo $hidden; ?>">

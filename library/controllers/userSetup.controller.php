@@ -47,12 +47,12 @@ if((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['cre
      saveActivityLog(25); // <- SAVE the task in a LOG FILE
   } else { // throw error
     $errorWindow .= ($errorWindow) // if there is already an warning
-      ? '<br><br>'.sprintf($langFile['userSetup_error_create'],$adminConfig['realBasePath'])
-      : sprintf($langFile['userSetup_error_create'],$adminConfig['realBasePath']); 
+      ? '<br><br>'.sprintf($langFile['userSetup_error_create'],$adminConfig['basePath'])
+      : sprintf($langFile['userSetup_error_create'],$adminConfig['basePath']); 
   }
      
   } else // throw error
-    $errorWindow .= sprintf($langFile['userSetup_error_create'],$adminConfig['realBasePath']);
+    $errorWindow .= sprintf($langFile['userSetup_error_create'],$adminConfig['basePath']);
     
   $savedSettings = true;
 }
@@ -75,7 +75,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['de
     $documentSaved = true; // set documentSaved status
     saveActivityLog(26,$storedUserName); // <- SAVE the task in a LOG FILE
   } else
-    $errorWindow .= sprintf($langFile['userSetup_error_save'],$adminConfig['realBasePath']);
+    $errorWindow .= sprintf($langFile['userSetup_error_save'],$adminConfig['basePath']);
     
   $savedSettings = true;
 }
@@ -125,7 +125,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
     else
       saveActivityLog(28,$savedUsername); // <- SAVE the task in a LOG FILE
   } else
-    $errorWindow .= sprintf($langFile['userSetup_error_save'],$adminConfig['realBasePath']);
+    $errorWindow .= sprintf($langFile['userSetup_error_save'],$adminConfig['basePath']);
     
   $savedSettings = true;
 }

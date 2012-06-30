@@ -20,16 +20,21 @@
  * See the README.md for more.
  * 
  * The following variables are available in this script when it gets included by the {@link Feindura::showPlugins()} method:
- *     - $feindura      -> the current {@link Feindura} class instance with all its methods (use "$feindura->..")
- *     - $pluginConfig  -> contains the changed settings from the "config.php" from this plugin
- *     - $pluginName    -> the folder name of this plugin
- *     - $pageContent   -> the pageContent array of the page which has this plugin activated 
+ *     - $feindura                  -> the current {@link Feindura} class instance with all its methods (use "$feindura->..")
+ *     - $feinduraBaseURL           -> the base url of the feindura folder, e.g. "http://mysite.com/cms/"
+ *     - $feinduraBasePath          -> the base path of the feindura folder, e.g. "/cms/". Be aware that this is a file system path and could differ from an URI path.
+ *     - $pluginBaseURL             -> the base url of this plugins folder, e.g. "http://mysite.com/cms/plugins/examplePlugin/"
+ *     - $pluginBasePath            -> the base path of this plugins folder, e.g. "/cms/plugins/examplePlugin/". Be aware that this is a file system path and could differ from an URI path.
+ *     - $pluginConfig              -> contains the changed settings from the "config.php" from this plugin
+ *     - $pluginName                -> the folder name of this plugin
+ *     - $pageContent               -> the pageContent array of the page which contains this plugin
+ *     - the GeneralFunctions class -> for advanced methods. It's a static class so use "GeneralFunctions::exampleMethod(..);"
  * 
  * Example plugin:
  * <code>
  * <?php
  * // Add the stylesheet files of this plugin to the current page
- * echo $feindura->addPluginStylesheets(dirname(__FILE__));
+ * echo $feindura->addPluginStylesheets($pluginBasePath);
  * 
  * echo '<p>Plugin HTML</p>';
  * 
@@ -45,8 +50,8 @@
  * 
  */
 
-// Add the stylesheet files of this plugin to the current page
-echo $feindura->addPluginStylesheets(dirname(__FILE__));
+// Add the stylesheet files of this plugin to the current page (these CSS files can be anywhere in this plugin folder or subfolders)
+echo $feindura->addPluginStylesheets($pluginBasePath);
 
 // unset($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated']);
 
@@ -58,7 +63,7 @@ $_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] = ($_SESSION
 echo '<script type="text/javascript">
   /* <![CDATA[ */
   if(!window.MooTools) {
-    document.write(unescape(\'%3Cscript src="'.$feindura->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"%3E%3C/script%3E\'));
+    document.write(unescape(\'%3Cscript src="'.$feinduraBaseURL.'library/thirdparty/javascripts/mootools-core-1.4.5.js"%3E%3C/script%3E\'));
   }
   /* ]]> */
 </script>';
@@ -95,7 +100,7 @@ echo '<script type="text/javascript">
     
     // save the rating
     new Request({
-      url: "'.$feindura->adminConfig['basePath'].'plugins/pageRating/saveRating.php",
+      url: "'.$pluginBaseURL.'saveRating.php",
       data: "page=" + pageIds[0] + "&category=" + pageIds[1] + "&rating="+this.getProperty("data-pageRating"),
       onRequest: function() {
         feinduraPlugin_pageRating.set("tween",{duration:300});

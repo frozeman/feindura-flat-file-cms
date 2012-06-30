@@ -201,7 +201,7 @@ else
     $randomImage = '?'.md5(uniqid(rand(),1));
     
     echo '<div style="z-index:0; position:relative; width: 280px; margin-bottom: 10px; margin-top: 20px; float:right; text-align: center;">';
-    echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
+    echo '<img src="'.GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
     echo '</div>';
   }
   ?>
@@ -230,7 +230,7 @@ else
 /* <![CDATA[ */
   function refreshThumbnailImage(newImage,imageWidth) {
     if($('thumbnailPreviewImage') != null) {
-      $$('img.thumbnailPreview').setProperty('src','<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path']; ?>'+newImage);
+      $$('img.thumbnailPreview').setProperty('src','<?php echo GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path']; ?>'+newImage);
       $('thumbnailPreviewImage').setProperty('data-width',imageWidth);
       if(imageWidth >= 200)
         $('thumbnailPreviewImage').setStyle('width',200);

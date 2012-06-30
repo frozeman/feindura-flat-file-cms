@@ -40,10 +40,10 @@ if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
         saveSitemap();
         
       } else
-        $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['realBasePath']);
+        $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['basePath']);
         
     } else
-      $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['realBasePath']);
+      $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['basePath']);
   
   // shows the category open, after saving
   $opendCategory = $_GET['category'];

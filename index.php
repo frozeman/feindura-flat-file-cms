@@ -151,10 +151,12 @@ if($_GET['site'] == 'addons') {
   /* <![CDATA[ */
 
   // -> TRANSPORT feindura PHP VARS to JAVASCRIPT
-  var feindura_basePath = '<?php echo $adminConfig['basePath']; ?>';
-  var feindura_langFile = {
+  var feindura_basePath    = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath']); ?>';
+  var feindura_websitePath = '<?php echo GeneralFunctions::Path2URI(GeneralFunctions::getDirname($adminConfig['websitePath'])); ?>';
+
+  var feindura_langFile    = {
     ERRORWINDOW_TITLE:              "<?php echo $langFile['errorWindow_h1']; ?>",
-    ERROR_SAVE:                     "<?php echo sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']); ?>",
+    ERROR_SAVE:                     "<?php echo sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']); ?>",
     CKEDITOR_TITLE_LINKS:           "<?php echo (!empty($langFile['CKEDITOR_TITLE_LINKS'])) ? $langFile['CKEDITOR_TITLE_LINKS'] : 'feindura pages'; ?>",
     CKEDITOR_TITLE_SNIPPETS:        "<?php echo (!empty($langFile['CKEDITOR_TITLE_SNIPPETS'])) ? $langFile['CKEDITOR_TITLE_SNIPPETS'] : 'Snippets'; ?>",
     CKEDITOR_TEXT_SNIPPETS:         "<?php echo (!empty($langFile['CKEDITOR_TEXT_SNIPPETS'])) ? $langFile['CKEDITOR_TEXT_SNIPPETS'] : ''; ?>",
@@ -191,7 +193,6 @@ if($_GET['site'] == 'addons') {
   ];
   var feindura_snippets_editInWebsiteSettings = <?php echo ($adminConfig['user']['editSnippets']) ? 'true' : 'false' ?>;
   var feindura_snippets_isAdmin               = <?php echo (isAdmin()) ? 'true' : 'false' ?>;
-  var feindura_basePath                       = '<?php echo $adminConfig['basePath']; ?>';
 
   window.addEvent('domready', function () {
     
@@ -301,7 +302,7 @@ if($_GET['site'] == 'addons') {
       
       <a href="index.php?logout"  tabindex="1" class="logout toolTip" title="<?php echo $langFile['HEADER_BUTTON_LOGOUT']; ?>"></a>
       <?php if($adminConfig['user']['frontendEditing']) { ?>
-      <a href="<?php echo $adminConfig['url'].$adminConfig['websitePath']; ?>"  tabindex="2" class="toWebsite toolTip" title="<?php echo $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']; ?>"></a>
+      <a href="<?php echo $adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']); ?>"  tabindex="2" class="toWebsite toolTip" title="<?php echo $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']; ?>"></a>
       <?php } ?>
 
       <div id="languageSelection">        
@@ -490,7 +491,7 @@ if($_GET['site'] == 'addons') {
               if($showSpacer) { ?>
               <li class="spacer">&nbsp;</li>
               <?php } ?>
-              <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'"'; ?> tabindex="30" class="editPage toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="'.$adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']).'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'"'; ?> tabindex="30" class="editPage toolTip">&nbsp;</a></li>
             <?php $showSpacer = true;
             }
             // DELETEPAGE

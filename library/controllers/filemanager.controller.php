@@ -36,7 +36,7 @@ if(!empty($adminConfig['uploadPath']) && !is_dir(DOCUMENTROOT.$adminConfig['uplo
     die('Couldn\'t create the thumbnail folder');
 
 
-require_once(dirname(__FILE__).'/../thirdparty/MooTools-FileManager/Assets/Connector/FileManager.php');
+require_once(dirname(__FILE__).'/../thirdparty/MooTools-FileManager/Assets/Connector/FileManagerWithAliasSupport.php');
 
 // set the right dateformat
 switch ($adminConfig['dateFormat']) {
@@ -55,10 +55,12 @@ switch ($adminConfig['dateFormat']) {
     break;
 }
 
-$browser = new FileManager(array(
-  'directory' => $adminConfig['uploadPath'],
-  'thumbnailPath' => $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'],
-  'assetBasePath' => $adminConfig['basePath'].'library/thirdparty/MooTools-FileManager/Assets',
+$browser = new FileManagerWithAliasSupport(array(
+  'Aliases' => array(URIEXTENSION => DOCUMENTROOT),
+  'directory' =>  GeneralFunctions::Path2URI($adminConfig['uploadPath']),
+  // 'directory' =>  $adminConfig['uploadPath'],
+  'thumbnailPath' => GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'],
+  'assetBasePath' => GeneralFunctions::Path2URI($adminConfig['basePath']).'library/thirdparty/MooTools-FileManager/Assets',
   'documentRootPath' => DOCUMENTROOT,
   'chmod' => $adminConfig['permissions'],
   'dateFormat' => $dateFormat,

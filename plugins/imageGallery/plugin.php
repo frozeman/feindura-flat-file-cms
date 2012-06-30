@@ -20,16 +20,21 @@
  * See the README.md for more.
  * 
  * The following variables are available in this script when it gets included by the {@link Feindura::showPlugins()} method:
- *     - $feindura      -> the current {@link Feindura} class instance with all its methods (use "$feindura->..")
- *     - $pluginConfig  -> contains the changed settings from the "config.php" from this plugin
- *     - $pluginName    -> the folder name of this plugin
- *     - $pageContent   -> the pageContent array of the page which has this plugin activated 
+ *     - $feindura                  -> the current {@link Feindura} class instance with all its methods (use "$feindura->..")
+ *     - $feinduraBaseURL           -> the base url of the feindura folder, e.g. "http://mysite.com/cms/"
+ *     - $feinduraBasePath          -> the base path of the feindura folder, e.g. "/cms/". Be aware that this is a file system path and could differ from an URI path.
+ *     - $pluginBaseURL             -> the base url of this plugins folder, e.g. "http://mysite.com/cms/plugins/examplePlugin/"
+ *     - $pluginBasePath            -> the base path of this plugins folder, e.g. "/cms/plugins/examplePlugin/". Be aware that this is a file system path and could differ from an URI path.
+ *     - $pluginConfig              -> contains the changed settings from the "config.php" from this plugin
+ *     - $pluginName                -> the folder name of this plugin
+ *     - $pageContent               -> the pageContent array of the page which contains this plugin
+ *     - the GeneralFunctions class -> for advanced methods. It's a static class so use "GeneralFunctions::exampleMethod(..);"
  * 
  * Example plugin:
  * <code>
  * <?php
  * // Add the stylesheet files of this plugin to the current page
- * echo $feindura->addPluginStylesheets(dirname(__FILE__));
+ * echo $feindura->addPluginStylesheets($pluginBasePath);
  * 
  * echo '<p>Plugin HTML</p>';
  * 
@@ -45,24 +50,20 @@
  * 
  */
 
-// vars
-$filePath = str_replace('\\','/',dirname(__FILE__)); // replace this on windows servers
-$filePath = str_replace(DOCUMENTROOT,'',$filePath);
-
-// Add the stylesheet files of this plugin to the current page
-echo $feindura->addPluginStylesheets(dirname(__FILE__));
+// Add the stylesheet files of this plugin to the current page (these CSS files can be anywhere in this plugin folder or subfolders)
+echo $feindura->addPluginStylesheets($pluginBasePath);
 
 // ->> add MooTools and MilkBox
 echo '<script type="text/javascript">
   /* <![CDATA[ */
   // add mootools if user is not logged into backend
   if(!window.MooTools) {
-    document.write(unescape(\'<script src="'.$feindura->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.4.5.js"><\/script>\'));
-    document.write(unescape(\'<script src="'.$feindura->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"><\/script>\'));
+    document.write(unescape(\'<script src="'.$feinduraBaseURL.'library/thirdparty/javascripts/mootools-core-1.4.5.js"><\/script>\'));
+    document.write(unescape(\'<script src="'.$feinduraBaseURL.'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"><\/script>\'));
   }
 
   // add milkbox
-  (window.MilkBox || document.write(unescape(\'<script src="'.$filePath.'/milkbox/milkbox.js"><\/script>\'))); 
+  (window.MilkBox || document.write(unescape(\'<script src="'.$pluginBaseURL.'milkbox/milkbox.js"><\/script>\'))); 
   /* ]]> */
 </script>';
 
@@ -81,7 +82,7 @@ $gallery->imageHeight = $pluginConfig['imageHeightNumber'];
 $gallery->thumbnailWidth = $pluginConfig['thumbnailWidthNumber'];
 $gallery->thumbnailHeight = $pluginConfig['thumbnailHeightNumber'];
 $gallery->filenameCaptions = $pluginConfig['filenameCaptions'];
-$gallery->emptyImage = $feindura->adminConfig['basePath'].'library/images/icons/emptyImage.gif';
+$gallery->emptyImage = $feinduraBaseURL.'library/images/icons/emptyImage.gif';
 
 // SHOW IMAGE GALLERY
 echo $gallery->showGallery($pluginConfig['tagSelection'],$pluginConfig['breakAfterNumber']);

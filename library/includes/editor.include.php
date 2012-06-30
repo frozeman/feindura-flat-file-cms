@@ -75,7 +75,7 @@ window.addEvent('domready',function() {
   // -> set the CONFIGs of the editor with PHP vars (more configs are set in the content.js)
 
 // BASE
-  CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['url'].GeneralFunctions::getDirname($adminConfig['websitePath']); ?>'; //$adminConfig['basePath']."library/thirdparty/ckeditor/"
+  CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['url'].GeneralFunctions::Path2URI(GeneralFunctions::getDirname($adminConfig['websitePath'])); ?>';
   CKEDITOR.config.language                  = '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>';
   CKEDITOR.config.extraPlugins              = 'Media,codemirror'; //stylesheetparser
   CKEDITOR.config.blockedKeystrokes.push(CKEDITOR.CTRL + 83);
@@ -91,7 +91,15 @@ if($adminConfig['editor']['snippets'] || $hasPlugins) { ?>
 
 // CSS
 if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false && !empty($editorStyleFiles)) { ?>
-  CKEDITOR.config.contentsCss               = ['<?php $echoStyleFile = ''; foreach($editorStyleFiles as $editorStyleFile) {$uniqueStyleId = (strpos($editorStyleFile,"?") === false) ? "?".md5(uniqid(rand(),1)) : ''; $echoStyleFile .= $editorStyleFile.$uniqueStyleId."','";} echo substr($echoStyleFile,0,-3); ?>','<?php echo $adminConfig['basePath']; ?>library/thirdparty/ckeditor/plugins/feinduraSnippets/styles.css'];
+  CKEDITOR.config.contentsCss               = ['<?php $echoStyleFile = '';
+                                                      foreach($editorStyleFiles as $editorStyleFile) {
+                                                        $uniqueStyleId = (strpos($editorStyleFile,"?") === false)
+                                                          ? "?".md5(uniqid(rand(),1))
+                                                          : '';
+                                                        $echoStyleFile .= GeneralFunctions::Path2URI($editorStyleFile).$uniqueStyleId."','";
+                                                      }
+                                                      echo substr($echoStyleFile,0,-3);
+                                                      ?>','<?php echo GeneralFunctions::Path2URI($adminConfig['basePath']); ?>library/thirdparty/ckeditor/plugins/feinduraSnippets/styles.css'];
 <?php } ?>
   CKEDITOR.config.bodyId                    = '<?php echo $editorStyleId; ?>';
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
@@ -118,9 +126,9 @@ if($adminConfig['editor']['enterMode'] == 'br') { ?>
 // FILEMANAGER
 if($adminConfig['user']['fileManager']) {
 ?>
-  CKEDITOR.config.filebrowserBrowseUrl      = '<?php echo $adminConfig['basePath']."library/views/windowBox/fileManager.php"; ?>';
-  CKEDITOR.config.filebrowserImageBrowseUrl = '<?php echo $adminConfig['basePath']."library/views/windowBox/fileManager.php?mimType=image"; ?>';
-  CKEDITOR.config.filebrowserFlashBrowseUrl = '<?php echo $adminConfig['basePath']."library/views/windowBox/fileManager.php?mimType=application"; ?>';
+  CKEDITOR.config.filebrowserBrowseUrl      = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath'])."library/views/windowBox/fileManager.php"; ?>';
+  CKEDITOR.config.filebrowserImageBrowseUrl = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath'])."library/views/windowBox/fileManager.php?mimType=image"; ?>';
+  CKEDITOR.config.filebrowserFlashBrowseUrl = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath'])."library/views/windowBox/fileManager.php?mimType=application"; ?>';
   CKEDITOR.config.filebrowserWindowWidth    = 960;
   CKEDITOR.config.filebrowserWindowHeight   = 600;
   CKEDITOR.config.filebrowserWindowFeatures = 'scrollbars=no,center=yes,status=no';

@@ -115,7 +115,7 @@ if(!$asking) {
   // generates a random number to put on the end of the image, to prevent caching
   $randomImage = '?'.md5(uniqid(rand(),1));
 ?>
-<img src="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.$randomImage; ?>" alt="thumbnail" title="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail; ?>">
+<img src="<?php echo GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$thumbnail.$randomImage; ?>" alt="thumbnail" title="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail; ?>">
 </div>
 </div>
 <?php

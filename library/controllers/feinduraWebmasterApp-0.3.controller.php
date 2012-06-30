@@ -41,7 +41,7 @@ if(is_array($currentUser) && $currentUser['password'] == $_POST['password']) {
     $returnJSON['feinduraVersion'] =  VERSION;
     $returnJSON['feinduraBuild'] =  BUILD;
     $returnJSON['title'] = GeneralFunctions::getLocalized($websiteConfig,'title',$adminConfig['multiLanguageWebsite']['mainLanguage']);
-    $returnJSON['websiteUrl'] = $adminConfig['url'].GeneralFunctions::getDirname($adminConfig['websitePath']);
+    $returnJSON['websiteUrl'] = $adminConfig['url'].GeneralFunctions::Path2URI(GeneralFunctions::getDirname($adminConfig['websitePath']));
     $returnJSON['statistics'] = array();
     $returnJSON['statistics']['userVisitCount'] = $websiteStatistic['userVisitCount'];
     $returnJSON['statistics']['robotVisitCount'] = $websiteStatistic['robotVisitCount'];

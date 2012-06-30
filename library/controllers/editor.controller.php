@@ -69,7 +69,7 @@ if($_POST['save'] && isBlocked() === false) {
     // if flatfile exists, load $pageContent array
     // (necessary for: thumbnail, sortOrder and logs)
     if(!$pageContent = GeneralFunctions::readPage($page,$category))
-      $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['realBasePath']);
+      $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['basePath']);
     
     $logText = ($_POST['status'] == 'addLanguage')
       ? 33
@@ -133,7 +133,7 @@ if($_POST['save'] && isBlocked() === false) {
     if(!empty($_POST['subCategory']) && is_numeric($_POST['subCategory'])) {
       $pagesWithSubCategory = unserialize($newCategoryConfig[$_POST['subCategory']]['isSubCategoryOf']);
       $pagesWithSubCategory[$page] = $category;
-      $newCategoryConfig[$_POST['subCategory']]['isSubCategory'] = true;
+      $newCategoryConfig[$_POST['subCategory']]['isSubCategory']   = true;
       $newCategoryConfig[$_POST['subCategory']]['isSubCategoryOf'] = serialize($pagesWithSubCategory);
     }
     saveCategories($newCategoryConfig);
@@ -143,8 +143,8 @@ if($_POST['save'] && isBlocked() === false) {
     $_POST['styleFile'] = prepareStyleFilePaths($_POST['styleFile']);
     
     // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
-    $_POST['styleFile'] = setStylesByPriority($_POST['styleFile'],'styleFile',$category);
-    $_POST['styleId'] = setStylesByPriority($_POST['styleId'],'styleId',$category);
+    $_POST['styleFile']  = setStylesByPriority($_POST['styleFile'],'styleFile',$category);
+    $_POST['styleId']    = setStylesByPriority($_POST['styleId'],'styleId',$category);
     $_POST['styleClass'] = setStylesByPriority($_POST['styleClass'],'styleClass',$category);
 
     if(GeneralFunctions::savePage($_POST)) {
@@ -167,7 +167,7 @@ if($_POST['save'] && isBlocked() === false) {
       saveSitemap();
       
     } else
-      $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
+      $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
   }
   
   // sets which block should be opend after saving

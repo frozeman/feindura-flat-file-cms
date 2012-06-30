@@ -471,9 +471,9 @@ class imageGallery {
         $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : '';
       
       if(!empty($this->thumbnailWidth) && !empty($this->thumbnailHeight) && is_numeric($this->thumbnailWidth) && is_numeric($this->thumbnailHeight))
-        $return[] = '<a href="'.$image['path'].$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block;"><img src="'.$this->emptyImage.'" alt="thumbnail" style="display:table-cell; width:'.$this->thumbnailWidth.'px; height:'.$this->thumbnailHeight.'px; background: url(\''.$image['path'].$thumbnailName.'\') no-repeat center center;"'.$tagEnd.'</a>';
+        $return[] = '<a href="'.GeneralFunctions::Path2URI($image['path']).$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block;"><img src="'.$this->emptyImage.'" alt="thumbnail" style="display:table-cell; width:'.$this->thumbnailWidth.'px; height:'.$this->thumbnailHeight.'px; background: url(\''.GeneralFunctions::Path2URI($image['path']).$thumbnailName.'\') no-repeat center center;"'.$tagEnd.'</a>';
       else
-        $return[] = '<a href="'.$image['path'].$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block;"><img src="'.$image['path'].$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
+        $return[] = '<a href="'.GeneralFunctions::Path2URI($image['path']).$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block;"><img src="'.$image['path'].$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
     }
     
     return $return;    

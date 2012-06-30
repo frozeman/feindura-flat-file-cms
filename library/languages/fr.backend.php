@@ -106,7 +106,7 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'chemin absolue';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'chemin relative';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'chemin absolue::Chemin de l\'URI absolu, signifie par rapport à la Document Root.[br][br][span class=hint]http://mysite.fr[b]/chemin/[/b][/span]';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'chemin absolue::Chemin de système de fichiers absolu. (Mais par rapport à la DocumentRoot)[br][br][span class=hint]/server/htdocs[b]/chemin/[/b][/span]';
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'chemin relative::Chemin de l\'URI relative, signifie par rapport au document courant.';
 
 // STATISTICS
@@ -368,9 +368,6 @@ $langFile['ADMINSETUP_GENERAL_field2']                                    = 'che
 $langFile['ADMINSETUP_GENERAL_field2_tip']                                = 'La chemin principale sera estimé automatiquement et sauvegardé avec la configuration.';
 $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'La chemin principale sera mise automatiquement';
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Svp sauvegardez la configuration!';
-$langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH']                         = 'chemin réel du feindura';
-$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']                      = 'Le chemin réel du fichier de votre [span class=logoname]fein[span]dura[/span][/span] cms, relatif du Document Root.';
-$langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']                      = '<b>par exemple</b> &quot;/cms/&quot;';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'chemin du site web';
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Le [b]chemin absolue[/b], contenant les site web.[br][br][span class=hint]Peut également contenir des noms de fichiers, par exemple &quot;/siteweb/index.php&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'chemin upload';

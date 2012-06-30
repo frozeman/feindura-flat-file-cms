@@ -40,7 +40,7 @@ if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus') {
         saveSitemap();
         
       } else
-        $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['realBasePath']);
+        $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['basePath']);
    
    // shows after saving the category open
    $opendCategory = $_GET['category'];
@@ -56,7 +56,7 @@ if(isset($_GET['status']) && $_GET['status'] == 'setStartPage' && !empty($_GET['
       // give documentSaved status
       $documentSaved = true;
       
-    } else $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_setStartPage_error_save'],$adminConfig['realBasePath']);
+    } else $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_setStartPage_error_save'],$adminConfig['basePath']);
 
   
   // shows after saving the category open

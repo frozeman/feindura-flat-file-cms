@@ -31,7 +31,7 @@ if(!$categoryConfig[$_POST['categoryNew']]['sortReverse'])
 // MOVE the file if it is sorted in an new category
 if($_POST['categoryOld'] != $_POST['categoryNew']) {
   if(!movePage($_POST['sortedPageId'],$_POST['categoryOld'],$_POST['categoryNew'])) {
-      echo '<span style="color: #960000;">'.sprintf($langFile['SORTABLEPAGELIST_error_move'],$adminConfig['realBasePath']).'</span>';
+      echo '<span style="color: #960000;">'.sprintf($langFile['SORTABLEPAGELIST_error_move'],$adminConfig['basePath']).'</span>';
       die();
   }
 }
@@ -64,7 +64,7 @@ foreach($sortOrder as $sort) {
         }
       // -X ERROR savePage
       } else {
-        $status = sprintf($langFile['SORTABLEPAGELIST_error_save'],$adminConfig['realBasePath']);
+        $status = sprintf($langFile['SORTABLEPAGELIST_error_save'],$adminConfig['basePath']);
       }        
       
       /*
@@ -75,7 +75,7 @@ foreach($sortOrder as $sort) {
       
     // -X ERROR readPage 
     } else
-      $status = sprintf($langFile['SORTABLEPAGELIST_error_read'],$adminConfig['realBasePath']);
+      $status = sprintf($langFile['SORTABLEPAGELIST_error_read'],$adminConfig['basePath']);
   }  
 }
 // -> CHECKs if the category folder is empty,

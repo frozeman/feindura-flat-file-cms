@@ -27,15 +27,13 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   $checkBasePathAndURL = checkBasePathAndURL();
   
-  // *part 1* ensure that the website path with a filename, doesnt have a slashs on the end -> generate the full path
-  $realWebsitePathPath = GeneralFunctions::getRealPath($_POST['cfg_websitePath']).'/'.basename($_POST['cfg_websitePath']);
   
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
   $_POST = addSlashesToPaths($_POST);
   $_POST = removeDocumentRootFromPaths($_POST);
   
-  // *part 2* ensure that the website path with a filename, doesnt have a slashs on the end -> check if is file
-  if(is_file($realWebsitePathPath))
+  // ensure that the website path with a filename, doesnt have a slashs on the end -> check if is file
+  if(is_file(DOCUMENTROOT.substr($_POST['cfg_websitePath'],0,-1)))
     $_POST['cfg_websitePath'] = substr($_POST['cfg_websitePath'],0,-1);
 
   // ->> add SPEAKING URL to .htaccess
@@ -82,21 +80,14 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   // -> PREPARE CONFIG VARs
   $serverProtocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos($_SERVER["SERVER_PROTOCOL"],'/'))).((empty($_SERVER["HTTPS"])) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "");
   
-  $adminConfig['url'] = $serverProtocol."://".$_SERVER['SERVER_NAME'];
-  $adminConfig['basePath'] = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
+  $adminConfig['url']                      = $serverProtocol."://".$_SERVER['SERVER_NAME'];
+  $adminConfig['basePath']                 = GeneralFunctions::URI2Path(GeneralFunctions::getDirname($_SERVER['PHP_SELF']));
   
-  // set the REAL BASE PATH
-  if((empty($adminConfig['realBasePath']) || !$checkBasePathAndURL) && !isset($_POST['cfg_realBasePath'])) {
-    $_POST['cfg_realBasePath'] = $adminConfig['basePath'];
-  } elseif(!isset($_POST['cfg_realBasePath']))
-    $_POST['cfg_realBasePath'] = $adminConfig['realBasePath'];
+  $adminConfig['websitePath']              = GeneralFunctions::URI2Path($_POST['cfg_websitePath']);
   
-  $adminConfig['realBasePath']             = $_POST['cfg_realBasePath'];
-  $adminConfig['websitePath']              = $_POST['cfg_websitePath'];
-  
-  $adminConfig['uploadPath']               = $_POST['cfg_uploadPath'];  
-  $adminConfig['websiteFilesPath']         = $_POST['cfg_websiteFilesPath'];
-  $adminConfig['stylesheetPath']           = $_POST['cfg_stylesheetPath'];
+  $adminConfig['uploadPath']               = GeneralFunctions::URI2Path($_POST['cfg_uploadPath']);  
+  $adminConfig['websiteFilesPath']         = GeneralFunctions::URI2Path($_POST['cfg_websiteFilesPath']);
+  $adminConfig['stylesheetPath']           = GeneralFunctions::URI2Path($_POST['cfg_stylesheetPath']);
   
   $adminConfig['permissions']              = $_POST['cfg_permissions'];
   $adminConfig['timezone']                 = $_POST['cfg_timeZone'];
@@ -116,18 +107,16 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $adminConfig['user']['editStyleSheets']  = $_POST['cfg_userStylesheets'];
   $adminConfig['user']['editSnippets']     = $_POST['cfg_userSnippets'];
   $adminConfig['user']['info']             = $_POST['cfg_userInfo'];
-    
-  // -> saved in pageSetup.php
-  //$adminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
-  
-  $adminConfig['editor']['htmlLawed']    = $_POST['cfg_editorHtmlLawed'];
-  $adminConfig['editor']['safeHtml']     = $_POST['cfg_editorSafeHtml'];
-  $adminConfig['editor']['editorStyles'] = $_POST['cfg_editorStyles'];
-  $adminConfig['editor']['snippets']     = $_POST['cfg_snippets'];
-  $adminConfig['editor']['enterMode']    = $_POST['cfg_editorEnterMode'];
+  $adminConfig['editor']['htmlLawed']      = $_POST['cfg_editorHtmlLawed'];
+  $adminConfig['editor']['safeHtml']       = $_POST['cfg_editorSafeHtml'];
+  $adminConfig['editor']['editorStyles']   = $_POST['cfg_editorStyles'];
+  $adminConfig['editor']['snippets']       = $_POST['cfg_snippets'];
+  $adminConfig['editor']['enterMode']      = $_POST['cfg_editorEnterMode'];
 
   
   // -> saved in pageSetup.php
+  //$adminConfig['setStartPage']            = $_POST['cfg_setStartPage'];
+  
   //$adminConfig['pageThumbnail']['width']  =  $_POST['cfg_thumbWidth'];
   //$adminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];
   //$adminConfig['pageThumbnail']['ratio']  = $_POST['cfg_thumbRatio'];
@@ -140,7 +129,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
     saveActivityLog(8); // <- SAVE the task in a LOG FILE
     
   } else
-    $errorWindow .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['realBasePath']);
+    $errorWindow .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['basePath']);
   
 
   // adds the HTML-Editor stylesheets to the NON-CATEGORY
@@ -182,7 +171,8 @@ include_once(dirname(__FILE__).'/saveEditFiles.controller.php');
 if($savedSettings) {
   if($fp = @fopen(dirname(__FILE__).'/../../config/admin.config.php','r')) {
     flock($fp,LOCK_SH);
-    unset($adminConfig); $adminConfig = include(dirname(__FILE__)."/../../config/admin.config.php");
+    unset($adminConfig);
+    $adminConfig = include(dirname(__FILE__)."/../../config/admin.config.php");
     flock($fp,LOCK_UN);
     fclose($fp);
   }

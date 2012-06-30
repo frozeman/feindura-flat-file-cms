@@ -80,21 +80,11 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php echo $langFile['ADMINSETUP_GENERAL_field2'] ?></span></label>
         </td><td class="right">
         <?php
-        $checkPath = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
+        $checkPath = GeneralFunctions::URI2Path(GeneralFunctions::getDirname($_SERVER['PHP_SELF']));
         ?>
         <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field2_inputTip']; ?>">
         </td></tr>
         
-        <?php if(checkBasePathAndURL() && documentrootWarning()) { ?>
-        <tr><td class="left">
-        <label for="cfg_realBasePath"><span class="toolTip red" title="::<?php echo $langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH'] ?>">
-        <?php echo $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH'] ?></span></label>
-        </td><td class="right">
-        <input size="40" id="cfg_realBasePath" name="cfg_realBasePath" value="<?php echo $adminConfig['realBasePath']; ?>" class="inputToolTip red" title="<?php echo $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH'].'::'.$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']; ?>">
-        <span class="hint"><?php echo $langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']; ?></span>
-        </td></tr>
-      
-        <?php } ?>
         <tr><td class="left">
         <label for="cfg_websitePath"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field8_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field8'] ?></span></label>

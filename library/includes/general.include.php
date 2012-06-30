@@ -32,16 +32,6 @@ error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING // ~E_NOTICE
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 
-/**
- * Fix the $_SERVER['REQUEST_URI'] for IIS Server
- */
-if (!isset($_SERVER['REQUEST_URI'])) {
-  $_SERVER['REQUEST_URI'] = substr($_SERVER['PHP_SELF'],0);
-  if (isset($_SERVER['QUERY_STRING']) AND $_SERVER['QUERY_STRING'] != "") {
-    $_SERVER['REQUEST_URI'] .= '?'.$_SERVER['QUERY_STRING'];
-  }
-}
-
 // ->> autoload CLASSES
 /**
  * Autoloads all classes
@@ -61,6 +51,17 @@ function __autoload($class_name) {
 
   return true;
 }
+
+/**
+ * Fix the $_SERVER['REQUEST_URI'] for IIS Server
+ */
+if (!isset($_SERVER['REQUEST_URI'])) {
+  $_SERVER['REQUEST_URI'] = substr(XssFilter::path($_SERVER['PHP_SELF']),0);
+  if (isset($_SERVER['QUERY_STRING']) AND $_SERVER['QUERY_STRING'] != "") {
+    $_SERVER['REQUEST_URI'] .= '?'.$_SERVER['QUERY_STRING'];
+  }
+}
+
 
 // ->> FUNCTIONS
 /**
@@ -183,42 +184,51 @@ $GLOBALS['languageNames'] = $languageNames;
 /**
  * The absolut path of the webserver, with fix for IIS Server
  */
-// ->> if no realBasePath exists, GENERATE the DOCUMENTROOT FROM the $_SERVER["PHP_SELF"]
-if(empty($adminConfig['realBasePath']) && !isset($_POST['cfg_basePath'])) {
-  //echo 'generate the docRoot from PHP_SELF';
-  $localpath=$_SERVER["PHP_SELF"];
-  $absolutepath=realpath($localPath);
-  // a fix for Windows slashes
-  $absolutepath=str_replace("\\","/",$absolutepath);
-  $docRoot = (dirname($localpath) != '/') ? str_replace(dirname($localpath),'',$absolutepath) : $absolutepath;
-  
-// ->> else GENERATE the DOCUMENTROOT THROUGH "__FILE__" - "$adminConfig['realBasePath']"
-} else {
-  // -> if the SETTINGS were SAVED FOR THE FIRST TIME (because of a basePathWarning())
-  if(isset($_POST['cfg_basePath']) && $_POST['cfg_basePath'] != preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/')) {
-    //echo 'settings saved for the first time';
-    $basePath = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
-    
-  // -> if the REAL BASE PATH was JUST SAVED, add slashes when missing
-  } elseif((isset($_POST['cfg_realBasePath']))) {
-    //echo 'realBasePath just saved';
-    $basePath = $_POST['cfg_realBasePath'];
-    if(substr($basePath,-1) !== '/')
-      $basePath = $basePath.'/'; // add slash to the end
-    if(substr($basePath,0,1) !== '/')
-      $basePath = '/'.$basePath; // add slash to the start
-    $basePath = preg_replace("#/+#",'/',$basePath);
-    
-  // -> else USE the REAL BASE PATH
-  } else {
-    //echo 'use the realBasePath';
-    $basePath = $adminConfig['realBasePath'];
-  }
+// use getcwd()?
+$filePath = (empty($_SERVER["SCRIPT_FILENAME"])) ? realpath(null) : realpath($_SERVER["SCRIPT_FILENAME"]);
+// should realpath() fail, use just the $_SERVER["SCRIPT_FILENAME"] variable
+if($filePath === false && !empty($_SERVER["SCRIPT_FILENAME"])) $filePath = $_SERVER["SCRIPT_FILENAME"];
 
-  $docRoot = str_replace($basePath.'library/includes/general.include.php','',str_replace("\\","/",__FILE__));
-  $docRoot = (strpos($docRoot,'general.include.php') !== false || empty($docRoot)) ? false : $docRoot;
+if(file_exists($_SERVER['DOCUMENT_ROOT'].XssFilter::path($_SERVER['PHP_SELF']))) {
+  $docRoot = $_SERVER['DOCUMENT_ROOT'];
+} else {
+  // $fileDir = str_replace('/library/includes/general.include.php','',str_replace("\\","/",__FILE__));
+  $fileDir = str_replace("\\","/",$filePath);
+  $docRootPattern = str_replace('/','|',XssFilter::path($_SERVER['PHP_SELF']));
+  $docRoot = preg_replace('#'.$docRootPattern.'#', '', $fileDir);
+  if(substr($docRoot, -1) == '/')
+    $docRoot = substr(preg_replace('#/+#','/',$docRoot), 0, -1);
 }
-define('DOCUMENTROOT', $docRoot); unset($docRoot,$basePath,$localpath,$absolutepath);
+if(empty($docRoot))
+  $docRoot = false;
+
+define('DOCUMENTROOT', $docRoot);
+unset($fileDir,$docRoot,$docRootPattern); //unset($docRoot,$basePath,$localpath,$absolutepath);
+
+
+// ->> URIEXTENSION
+/**
+ * The URI extension which is add by a redirected url.<br>
+ * E.g. "mysite.com/user/index.php" is in real "/server/username/htdocs/index.php".<br>
+ * So URIEXTENSION contains "/user", which will be add to absolute paths, so they will work also as URL paths.
+ */
+// for $filePath see above
+if(!empty($filePath)) {
+  $uriExtension = str_replace(DOCUMENTROOT, '', str_replace("\\","/",$filePath));
+  $uriPattern = str_replace('/','|',preg_quote($uriExtension));
+  $uriExtension = preg_replace('#'.$uriPattern.'#', '', dirname(XssFilter::path($_SERVER['PHP_SELF'])));
+  $uriExtension = preg_replace('#/+#','/',$uriExtension);
+  if(substr($uriExtension, -1) == '/')
+   $uriExtension = substr($uriExtension, 0, -1);
+  $uriExtension = (empty($uriExtension)) ? false : $uriExtension;
+} else
+  $uriExtension = '';
+
+define('URIEXTENSION', $uriExtension);
+unset($uriPattern,$uriExtension,$filePath);
+
+// echo 'DOCROOT: '.DOCUMENTROOT.'<br>';
+// echo 'URI: '.URIEXTENSION.'<br>';
 
 /**
  * The required PHP version
@@ -239,7 +249,7 @@ if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false) $_SERVER['REMOTE_ADDR'] = '1
   define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']));
 
 
-// -> GET VERSION and BUILD nr
+// -> GET VERSION and BUILD
 $changelogFile = file(dirname(__FILE__)."/../../CHANGELOG");
 $version = trim($changelogFile[2]);
 $buildNr = explode(' ',$changelogFile[3]);
@@ -254,6 +264,7 @@ define('VERSION',$version);
  * The build number of feindura
  */ 
 define('BUILD',trim($buildNr[1]));
+unset($changelogFile,$version,$buildNr);
 
 
 // INIT STATIC CLASSES

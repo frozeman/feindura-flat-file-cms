@@ -40,12 +40,12 @@ if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
   $PREVVERSION = '1.0';
 
 $NEWVERSION = '2.0';
-$NEWBUILD = 947;
+$NEWBUILD = 948;
 
 $PREVVERSIONSTRING = $PREVVERSION.' <small>Build '.$PREVBUILD.'</small>';
 $CURVERSIONSTRING = VERSION.' <small>Build '.BUILD.'</small>';
 $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
-    
+
 ?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -127,7 +127,7 @@ $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
   // ->> CHECK PHP VERSION
   // *********************
   if(PHP_VERSION < REQUIREDPHPVERSION)
-    die('You have the wrong PHP version for feindura '.$NEWVERSIONSTRING.'. You need at least PHP version'.REQUIREDPHPVERSION);
+    die('You have the wrong PHP version for feindura '.$NEWVERSIONSTRING.'. You need at least PHP version'.REQUIREDPHPVERSION.'</body></html>');
   ?>
   
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
@@ -140,7 +140,7 @@ $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
     die('<span class="succesfull">You content is already up to date.</span><br>
       <small style="color:#999;">(If you don\'t think so, then delete the "VERSION" file in your "/cms/" folder and run this updater again.)</small>
       <br><br>
-      <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a>');
+      <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a></body></html>');
   
   // check if cms is already updated
   $updatePossible = (VERSION.BUILD == $NEWVERSION.$NEWBUILD) ? true : false;
@@ -151,8 +151,6 @@ $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
     echo 'hm... you current version is <b>'.$CURVERSIONSTRING.'</b> you cannot use this updater, :-(';
     echo '<br><span class="warning">it\'s only for updating to <span class="feindura"><em>fein</em>dura</span> '.$NEWVERSIONSTRING.'!</span>';
   }
-  //$basePath = dirname($_SERVER['PHP_SELF']).'/';
-  //$basePath = preg_replace('#\/+#','/',$basePath);
   
   // WRONG PATH WARNING
   if($wrongDirectory) {
@@ -167,7 +165,7 @@ $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
 Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your content isn't updated yet?
 <div>
   <h2>Do you want to update all pages and configs, so that they work with <span class="feindura"><em>fein</em>dura</span> <?php echo $CURVERSIONSTRING; ?>?</h2>
-  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+  <form action="<?php echo XssFilter::path($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <input type="hidden" name="asking" value="true">
   <input type="submit" value="UPDATE">
 </div>
@@ -264,12 +262,6 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     // *********
     
     echo '<br>';
-    
-    // set the DOCUMENTROOT right
-    if(DOCUMENTROOT === false) {
-      $adminConfig['realBasePath'] = $adminConfig['basePath'];
-      $DOCUMENTROOT = str_replace($adminConfig['basePath'].'update.php','',__FILE__);
-    }
     
     // try to move the pages folder
     $copyError = false;
@@ -383,7 +375,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       // v2.0 change thumbnail filename extension (convert to .jpg)
       $thumbnailExtension = substr($pageContent['thumbnail'], (strrpos($pageContent['thumbnail'], '.') + 1 ));
       $thumbnailExtension = strtolower( $thumbnailExtension );
-      $thumbnailPath = DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
+      $thumbnailPath = DOCUMENTROOT.GeneralFunctions::URI2Path($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
       if(!empty($pageContent['thumbnail']) && !empty($thumbnailExtension) && $thumbnailExtension != 'jpg' && is_file($thumbnailPath)) {
         require_once(dirname(__FILE__).'/library/thirdparty/PHP/Image.class.php');
         $newThumbnail = new Image($thumbnailPath);

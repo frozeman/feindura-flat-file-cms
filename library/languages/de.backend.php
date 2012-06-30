@@ -109,7 +109,7 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'Absoluter Pfad';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'Relativer Pfad';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absoluter Pfad::Absoluter URI Pfad, bedeuted relativ zum Dokumenten-Wurzelverzeichnis.[br][br][span class=hint]http://meineseite.de[b]/pfad/[/b][/span]';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absoluter Pfad::Absoluter Dateisystem-Pfad. (Aber relativ zum Dokumenten-Wurzelverzeichnis)[br][br][span class=hint]/server/htdocs[b]/pfad/[/b][/span]';
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Relativer Pfad::Relativer URI Pfad, bedeuted relativ zum aktuellen Dokument.';
 
 // STATISTICS
@@ -389,9 +389,6 @@ $langFile['ADMINSETUP_GENERAL_field2']                                    = 'fei
 $langFile['ADMINSETUP_GENERAL_field2_tip']                                = 'Der Hauptpfad wird automatisch ermittelt und beim speichern der Einstellungen übernommen.';
 $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'Der Pfad wird automatisch eingefügt';
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Bitte speichere die Einstellungen!';
-$langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH']                         = 'Echter feindura Pfad';
-$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']                      = 'Der echte dateisystem-basierte Pfad deines [span class=logoname]fein[span]dura[/span][/span] cms, relativ zum Dokumenten-Wurzelverzeichnis.';
-$langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']                      = '<b>Beispiel</b> &quot;/cms/&quot;';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Webseitenpfad';
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Der [b]absolute Pfad[/b], unter dem sich die Webseite befindet.[br][br][span class=hint]Kann kann auch einen Dateinamen enthalten z.b &quot;/webseite/index.php&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Daten-Uploadpfad';
@@ -421,7 +418,7 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/ca
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URLs mit Variablen';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Das URL Format, welches für die Seiten-Verlinkung verwendet wird.[br][br]Speaking URLs funktionieren nur wenn im [b]Apache[/b] das [b]mod_rewrite[/b] Modul verfügbar ist.';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'WARNUNG!::[span class=red]Sollten Fehler bei der Vewendung von Speaking URLs auftreten, muss die [b].htaccess Datei[/b] im Dokumenten-Root Pfad des Webservers gelöscht werden.[/span][br][br](In manchen FTP-Programmen muss man erst die versteckten Dateien anzeigen, um die .htaccess Datei sichtbar zu machen)';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'WARNUNG!::[span class=red]Sollten Fehler bei der Vewendung von Speaking URLs auftreten, muss die [b].htaccess Datei[/b] im Dokumenten-Wurzelverzeichnis Pfad des Webservers gelöscht werden.[/span][br][br](In manchen FTP-Programmen muss man erst die versteckten Dateien anzeigen, um die .htaccess Datei sichtbar zu machen)';
 
 // ---------- speaking url ERRORs
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_save']                    = '<b>Speaking URLs</b> konnte nicht aktiviert werden'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';

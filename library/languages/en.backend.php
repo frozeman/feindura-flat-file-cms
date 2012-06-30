@@ -109,7 +109,7 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'absolute path';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'relative path';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absolute Path::Absolute URI Path, means relative to the DocumentRoot.[br][br][span class=hint]http://mysite.com[b]/path/[/b][/span]';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absolute Path::Absolute file system Path. (But relative to the Documentroot)[br][br][span class=hint]/server/htdocs[b]/path/[/b][/span]';
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Relative Path::Relative URI Path, means relative to the current document.';
 
 // STATISTICS
@@ -211,10 +211,10 @@ $langFile['LOADING_TEXT_LOAD']                                            = 'Pag
 // CKEDITOR transport
 $langFile['CKEDITOR_TITLE_LINKS']                                         = 'feindura pages';
 $langFile['CKEDITOR_TITLE_SNIPPETS']                                      = 'Code snippets';
-$langFile['CKEDITOR_TEXT_SNIPPETS']                                       = 'Choose a code snippet to place it in the page.';
+$langFile['CKEDITOR_TEXT_SNIPPETS']                                       = 'Choose a code snippet to place in the page.';
 $langFile['CKEDITOR_BUTTON_EDITSNIPPET']                                  = 'Edit code snippet';
 $langFile['CKEDITOR_TITLE_PLUGINS']                                       = 'Plugins';
-$langFile['CKEDITOR_TEXT_PLUGINS']                                        = 'Choose a plugin to place it in the page.';
+$langFile['CKEDITOR_TEXT_PLUGINS']                                        = 'Choose a plugin to place in the page.';
 
 // -> BUTTON TEXTS
 
@@ -391,9 +391,6 @@ $langFile['ADMINSETUP_GENERAL_field2']                                    = 'fei
 $langFile['ADMINSETUP_GENERAL_field2_tip']                                = 'The base path will be determined automatically and saved, the first time the settings are saved.';
 $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'The path will be added automatically';
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Please save the settings!';
-$langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH']                         = 'Real feindura Path';
-$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']                      = 'The real file path of your [span class=logoname]fein[span]dura[/span][/span] cms, relative to the Document Root.';
-$langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']                      = '<b>Example</b> &quot;/cms/&quot;';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Website path';
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'The [b]absolute path[/b] where the website is situated.[br][br][span class=hint]Can also contain filenames e.g &quot;/website/index.php&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Upload path';

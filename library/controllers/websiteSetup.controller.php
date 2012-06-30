@@ -45,7 +45,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
       $documentSaved = true;
       saveActivityLog(7); // <- SAVE the task in a LOG FILE
     } else
-    $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['realBasePath']);
+    $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['basePath']);
   
   $savedForm = 'websiteConfig';
   $savedSettings = true;

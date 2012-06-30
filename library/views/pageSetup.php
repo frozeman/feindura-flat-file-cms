@@ -582,8 +582,15 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
             echo '<tr><td class="leftBottom"></td><td>';                
           }
           
+          $advancedSettingsEdited = ((!empty($category['styleFile']) && $category['styleFile'] != 'a:0:{}') ||
+                                     (!empty($category['styleId']) &&  $category['styleId'] != 'a:0:{}') ||
+                                     (!empty($category['styleClass']) && $category['styleClass'] != 'a:0:{}') ||
+                                      !empty($category['thumbWidth']) || !empty($category['thumbHeight']) || !empty($category['thumbRatio']))
+            ? '&nbsp;<img src="library/images/icons/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" style="position:absolute;margin-top:-2px;width:27px;height:23px;">'
+            : '';
+
           echo '<tr><td class="left checkboxes"></td>
-                <td><a href="#" class="down inBlockSliderLink" style="position:relative; left:-20px; bottom: -10px;">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].'</a>
+                <td><a href="#" class="down inBlockSliderLink" style="position:relative; left:-20px; bottom: -10px;">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].$advancedSettingsEdited.'</a>
                 </td></tr>';
             echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
           

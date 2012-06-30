@@ -39,13 +39,26 @@ Take a look in each of the example files to see how they are written.
 
 If you made a plugin and you want to share it, let me know -> fabian@feindura.org
 
-To displa
 
 ### USAGE
 A plugin can be displayed in your website with the showPlugins('contactForm',$pageId) method from the Feindura class (when the this plugin is activated in that page). See http://feindura.org/api/[Implementation]/Feindura.html#showPlugins for more.
 
 ### STYLING
 Every plugin will be wraped with a <div class="feinduraPlugins feinduraPlugin_<pluginName>" id="feinduraPlugin_<pluginName>_<currentPageID>"> to make it easy to style. 
+
+### AVAILABLE VARS
+In the plugin.php you have the following vars available:
+
+ - $feindura                  -> the current Feindura class instance with all its methods (use "$feindura->..")
+ - $feinduraBaseURL           -> the base url of the feindura folder, e.g. "http://mysite.com/cms/"
+ - $feinduraBasePath          -> the base path of the feindura folder, e.g. "/cms/". Be aware that this is a file system path and could differ from an URI path.
+ - $pluginBaseURL             -> the base url of this plugins folder, e.g. "http://mysite.com/cms/plugins/examplePlugin/"
+ - $pluginBasePath            -> the base path of this plugins folder, e.g. "/cms/plugins/examplePlugin/". Be aware that this is a file system path and could differ from an URI path.
+ - $pluginConfig              -> contains the changed settings from the "config.php" from this plugin
+ - $pluginName                -> the folder name of this plugin
+ - $pageContent               -> the pageContent array of the page which contains this plugin
+ - the GeneralFunctions class -> for advanced methods. It's a static class so use "GeneralFunctions::exampleMethod(..);"
+ 
 
 ### USES
 Nothing but PHP

@@ -1273,13 +1273,13 @@ class FeinduraBase {
         : $this->adminConfig['pageThumbnail']['height'];
 
       if(!empty($configThumbWidth) && !empty($configThumbHeight) && is_numeric($configThumbWidth) && is_numeric($configThumbHeight)) {
-        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['basePath'].'library/images/icons/emptyImage.gif" style="display:table-cell; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'\') no-repeat center center;'.$thumbnailAlign.'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/images/icons/emptyImage.gif" style="display:table-cell; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.GeneralFunctions::Path2URI($this->adminConfig['uploadPath']).$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'\') no-repeat center center;'.$thumbnailAlign.'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       } else {
         if($thumbnailAlign) $thumbnailAlign = ' style="'.trim($thumbnailAlign).'"';
-        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAlign.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI($this->adminConfig['uploadPath']).$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAlign.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       }
 
-      $pageThumbnail['thumbnailPath'] = $this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
+      $pageThumbnail['thumbnailPath'] = GeneralFunctions::Path2URI($this->adminConfig['uploadPath']).$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
       
       return $pageThumbnail;
     } else 
