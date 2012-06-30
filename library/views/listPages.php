@@ -162,6 +162,8 @@ foreach($categoryConfig as $category) {
   
     // zählt die $pages durch
     foreach ($pages as $pageContent) {
+      if(!isset($pageContent['id']))
+        continue;
     
       $pageStatistics = StatisticFunctions::readPageStatistics($pageContent['id']);
 

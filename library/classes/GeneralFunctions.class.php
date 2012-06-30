@@ -990,21 +990,23 @@ class GeneralFunctions {
   * <b>Name</b> savePagesMetaData()<br>
   * 
   * Save all pages meta data in an array, to faster access them.
-  * It also reloads them as propertiesin the GeneralFunctions and StatisticsFunctions classes.
+  * It also reloads them as properties in the GeneralFunctions and StatisticsFunctions classes.
   *
   * 
   * Example of the $pagesMetaData array:
   * {@example pagesMetaData.array.example.php}
   * 
-  *
-  * @uses loadPages()  to get all pages content
+  * @uses GeneralFunctions::$pagesMetaData
+  * @uses GeneralFunctions::readFolderRecursive()  to get all pages from the "pages" folder
+  * @uses GeneralFunctions::readPage()  to read the pageContent array
   * 
   * @return bool TRUE if the meta data was succesfull saved, otherwise FALSE
   * 
   * @static
-  * @version 1.1
+  * @version 1.2
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.2 add file modified date
   *    - 1.1 add tags to the meta data, to speed up tag comparision
   *    - 1.0 initial release
   * 
@@ -1019,16 +1021,23 @@ class GeneralFunctions {
     // ->> GET ALL PAGES, which are inside the /pages/ folder
     $files = self::readFolderRecursive(dirname(__FILE__).'/../../pages/');
     if(is_array($files['files'])) {
+      $countFiles = 0;
       foreach ($files['files'] as $file) {
         // load category pages
         if(preg_match('#^.*\/([0-9]+)/([0-9]+)\.php$#',$file,$match)) {
-          $pages[] = self::readPage($match[2],$match[1]);
+          $pages[$countFiles] = self::readPage($match[2],$match[1]);
+          $pages[$countFiles]['realCategory'] = $match[1];
+          $pages[$countFiles]['modified'] = @filemtime(DOCUMENTROOT.$file);
+          $countFiles++;
         // load non category pages
         } elseif(preg_match('#^.*/([0-9]+)\.php$#',$file,$match)) {
-          $pages[] = self::readPage($match[1]);
+          $pages[$countFiles] = self::readPage($match[1]);
+          $pages[$countFiles]['realCategory'] = 0;
+          $pages[$countFiles]['modified'] = @filemtime(DOCUMENTROOT.$file);
+          $countFiles++;
         }
       }
-    } 
+    }
 
     // -> dont save the file, if there are no pages
     if(empty($pages)) {
@@ -1040,11 +1049,14 @@ class GeneralFunctions {
    
     foreach ($pages as $pageContent) {
 
-      // CREATE file content      
+      // CREATE file content
       $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['id']       = ".XssFilter::int($pageContent['id'],0).";\n";
-      $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['category'] = ".XssFilter::int($pageContent['category'],0).";\n";
+      $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['category'] = ".XssFilter::int($pageContent['realCategory'],0).";\n";
       if(self::$websiteConfig['startPage'] == $pageContent['id'])
         $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['startPage'] = true;\n";
+      if(!empty($pageContent['modified']))
+        $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['modified'] = ".$pageContent['modified'].";\n";
+
 
       // save localized titles
       if(is_array($pageContent['localized'])) {
@@ -1056,7 +1068,12 @@ class GeneralFunctions {
         }
       }
        $fileContent .= "\n";
-      
+
+      // check if the page was moved, then change the category
+      if($pageContent['category'] != $pageContent['realCategory']) {
+        $pageContent['category'] = $pageContent['realCategory'];
+        GeneralFunctions::savePage($pageContent);
+      }      
     }
     $fileContent .= "return \$pagesMetaData;";
     $fileContent .= "\n?>";
@@ -1073,6 +1090,62 @@ class GeneralFunctions {
       return false;
 
   }
+
+/**
+  * <b>Name</b> checkPagesMetaData()<br>
+  * 
+  * Check all pages in if they were changed (changed the modified timestamp). If so save the {@link GeneralFunctions::pagesMetaData} again.
+  *
+  * 
+  * Example of the $pagesMetaData array:
+  * {@example pagesMetaData.array.example.php}
+  * 
+  * @uses GeneralFunctions::$pagesMetaData
+  * @uses GeneralFunctions::savePagesMetaData()
+  * 
+  * @return bool TRUE if the pagesMetaData was saved again, otherwise FALSE
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function checkPagesMetaData() {
+
+    // vars
+    $savepagesMetaData = false;
+    $pages = array();
+
+    clearstatcache();
+
+    // ->> GET ALL PAGES, which are inside the /pages/ folder
+    $files = self::readFolderRecursive(dirname(__FILE__).'/../../pages/');
+    if(is_array($files['files'])) {
+      foreach ($files['files'] as $file) {
+        // load category pages
+        if(preg_match('#^.*\/([0-9]+)/([0-9]+)\.php$#',$file,$match)) {
+          if(!isset(self::$pagesMetaData[$match[2]]) || self::$pagesMetaData[$match[2]]['category'] != $match[1] || self::$pagesMetaData[$match[2]]['modified'] < @filemtime(DOCUMENTROOT.$file))
+            $savepagesMetaData = true;
+        // load non category pages
+        } elseif(preg_match('#^.*/([0-9]+)\.php$#',$file,$match)) {
+          if(!isset(self::$pagesMetaData[$match[1]]) || self::$pagesMetaData[$match[1]]['category'] != 0 || self::$pagesMetaData[$match[1]]['modified'] < @filemtime(DOCUMENTROOT.$file))
+            $savepagesMetaData = true;
+        }
+      }
+    }
+
+    if($savepagesMetaData) {
+      // echo 'RESAVED PAGESMETADATA';
+      self::savePagesMetaData();
+      return true;
+    } else {
+      // echo 'PAGESMETADATA UNTOUCHED';
+      return false;
+    }
+  }
+
   
  /**
   * <b>Name</b> loadPages()<br>

@@ -40,7 +40,7 @@ if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
   $PREVVERSION = '1.0';
 
 $NEWVERSION = '2.0';
-$NEWBUILD = 948;
+$NEWBUILD = 949;
 
 $PREVVERSIONSTRING = $PREVVERSION.' <small>Build '.$PREVBUILD.'</small>';
 $CURVERSIONSTRING = VERSION.' <small>Build '.BUILD.'</small>';
