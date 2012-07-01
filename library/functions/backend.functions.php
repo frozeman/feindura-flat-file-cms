@@ -361,6 +361,63 @@ function getNewUserId() {
 }
 
 /**
+ * <b>Name</b> checkPagesMetaData()<br>
+ * 
+ * Check all pages in if they were changed (changed the modified timestamp). If so save the {@link GeneralFunctions::pagesMetaData} again.
+ *
+ * 
+ * Example of the $pagesMetaData array:
+ * {@example pagesMetaData.array.example.php}
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$pageMetaData</var> to get the highest id (included in the {@link general.include.php})
+ * 
+ * @uses GeneralFunctions::savePagesMetaData()
+ *  
+ * @return bool TRUE if the pagesMetaData was saved again, otherwise FALSE
+ * 
+ * @static
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function checkPagesMetaData() {
+
+  // vars
+  $savepagesMetaData = false;
+  $pages = array();
+
+  // clearstatcache();
+
+  // ->> GET ALL PAGES, which are inside the /pages/ folder
+  $files = GeneralFunctions::readFolderRecursive(dirname(__FILE__).'/../../pages/');
+  if(is_array($files['files'])) {
+    foreach ($files['files'] as $file) {
+      // load category pages
+      if(preg_match('#^.*\/([0-9]+)/([0-9]+)\.php$#',$file,$match)) {
+        if(!isset($GLOBALS['pagesMetaData'][$match[2]]) || $GLOBALS['pagesMetaData'][$match[2]]['category'] != $match[1] || $GLOBALS['pagesMetaData'][$match[2]]['modified'] < @filemtime(DOCUMENTROOT.$file))
+          $savepagesMetaData = true;
+      // load non category pages
+      } elseif(preg_match('#^.*/([0-9]+)\.php$#',$file,$match)) {
+        if(!isset($GLOBALS['pagesMetaData'][$match[1]]) || $GLOBALS['pagesMetaData'][$match[1]]['category'] != 0 || $GLOBALS['pagesMetaData'][$match[1]]['modified'] < @filemtime(DOCUMENTROOT.$file))
+          $savepagesMetaData = true;
+      }
+    }
+  }
+
+  if($savepagesMetaData) {
+    // echo 'RESAVED PAGESMETADATA';
+    GeneralFunctions::savePagesMetaData();
+    return true;
+  } else {
+    // echo 'PAGESMETADATA UNTOUCHED';
+    return false;
+  }
+}
+
+/**
  * <b>Name</b> addSlashesToPaths()<br>
  * 
  * Ensures that all values of the $postData var with a 'Path' in the key value start and end with a slash.
@@ -395,6 +452,7 @@ function addSlashesToPaths($postData) {
   }
   return $return;
 }
+
 /**
  * <b>Name</b> removeDocumentRootFromPaths()<br>
  * 

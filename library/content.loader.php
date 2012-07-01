@@ -27,7 +27,7 @@ echo documentrootWarning();
 if($_GET['site'] != 'adminSetup')
   echo basePathWarning();
 
-GeneralFunctions::checkPagesMetaData();
+checkPagesMetaData();
 
 // ***********************************************************************
 // CHECKs if the necessary FILEs are WRITEABLE, otherwise show an warnings

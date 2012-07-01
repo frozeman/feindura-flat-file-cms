@@ -395,9 +395,9 @@ $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Dat
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br][br][span class=hint]Dateien werden im HTML-Editor unter Link-einfügen > Upload hochgeladen oder im Dateimanager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Diese Dateien können dann weiter unten oder in den Webseiten-Einstellungen bearbeitet werden (sollte dies in den Benutzer-Einstellungen aktiviert sein).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Pfad für Webseitendateien';
-$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Ein Verzeichnispfad mit Dateien.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Hier kann ein Pfad zu webseiten-spezifischen Dateien angeben werden, welche dann direkt in [span class=logoname]fein[span]dura[/span][/span] bearbeitet werden können.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'Pfad für Stylesheetdateien';
-$langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Ein [b]absoluter Pfad[/b] in dem sich Stylesheet-Dateien befinden, die z.B. vom Benutzer bearbeitet werden können.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Hier kann ein Pfad zu Stylesheet-Dateien angeben werden, welche dann direkt in [span class=logoname]fein[span]dura[/span][/span] bearbeitet werden können.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'Schreibrechte für Dateien und Verzeichnisse';
 $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS']                           = 'Jeder von [span class=logoname]fein[span]dura[/span][/span] erstellten Datei oder Verzeichnis wird versucht diese Schreibrechte zuzuweisen.';
 $langFile['ADMINSETUP_GENERAL_varName_ifempty']                           = 'Wenn das Feld leer ist, wird der Standard Name für die GET-Variablen verwendet: ';

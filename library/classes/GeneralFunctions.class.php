@@ -912,7 +912,7 @@ class GeneralFunctions {
     $fileContent .= "\$pageContent['public']             = ".XssFilter::bool($pageContent['public'],true).";\n\n";
     
     $fileContent .= "\$pageContent['lastSaveDate']       = ".XssFilter::int($pageContent['lastSaveDate'],0).";\n";
-    $fileContent .= "\$pageContent['lastSaveAuthor']     = ".XssFilter::int($pageContent['lastSaveAuthor'],'false').";\n\n"; 
+    $fileContent .= "\$pageContent['lastSaveAuthor']     = ".XssFilter::int($pageContent['lastSaveAuthor'],'false').";\n\n"; // user id
     
     $fileContent .= "\$pageContent['pageDate']['date']   = ".XssFilter::int($pageContent['pageDate']['date'],0).";\n\n";
 
@@ -1089,61 +1089,6 @@ class GeneralFunctions {
     } else
       return false;
 
-  }
-
-/**
-  * <b>Name</b> checkPagesMetaData()<br>
-  * 
-  * Check all pages in if they were changed (changed the modified timestamp). If so save the {@link GeneralFunctions::pagesMetaData} again.
-  *
-  * 
-  * Example of the $pagesMetaData array:
-  * {@example pagesMetaData.array.example.php}
-  * 
-  * @uses GeneralFunctions::$pagesMetaData
-  * @uses GeneralFunctions::savePagesMetaData()
-  * 
-  * @return bool TRUE if the pagesMetaData was saved again, otherwise FALSE
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function checkPagesMetaData() {
-
-    // vars
-    $savepagesMetaData = false;
-    $pages = array();
-
-    clearstatcache();
-
-    // ->> GET ALL PAGES, which are inside the /pages/ folder
-    $files = self::readFolderRecursive(dirname(__FILE__).'/../../pages/');
-    if(is_array($files['files'])) {
-      foreach ($files['files'] as $file) {
-        // load category pages
-        if(preg_match('#^.*\/([0-9]+)/([0-9]+)\.php$#',$file,$match)) {
-          if(!isset(self::$pagesMetaData[$match[2]]) || self::$pagesMetaData[$match[2]]['category'] != $match[1] || self::$pagesMetaData[$match[2]]['modified'] < @filemtime(DOCUMENTROOT.$file))
-            $savepagesMetaData = true;
-        // load non category pages
-        } elseif(preg_match('#^.*/([0-9]+)\.php$#',$file,$match)) {
-          if(!isset(self::$pagesMetaData[$match[1]]) || self::$pagesMetaData[$match[1]]['category'] != 0 || self::$pagesMetaData[$match[1]]['modified'] < @filemtime(DOCUMENTROOT.$file))
-            $savepagesMetaData = true;
-        }
-      }
-    }
-
-    if($savepagesMetaData) {
-      // echo 'RESAVED PAGESMETADATA';
-      self::savePagesMetaData();
-      return true;
-    } else {
-      // echo 'PAGESMETADATA UNTOUCHED';
-      return false;
-    }
   }
 
   

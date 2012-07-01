@@ -397,9 +397,9 @@ $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Upl
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br][br][span class=hint]The files can be uploaded on the Link button > Upload in the HTML-Editor or in the file manager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]This files can be edited further down, or in the website-settings (if it\'s activated in the user-settings).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Path for website files';
-$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'A folder path with files which are used by your website.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Here you can add a path to website-specific files, which should be editable in [span class=logoname]fein[span]dura[/span][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'Path for stylesheets';
-$langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'A [b]absolute path[/b] where stylesheet files are. E.g. which can be edited by the user.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Here you can add a path to stylesheet files, which should be editable in [span class=logoname]fein[span]dura[/span][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'Permissions for files and folders';
 $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS']                           = 'Every file or folder created by [span class=logoname]fein[span]dura[/span][/span] will get these permissions.';
 $langFile['ADMINSETUP_GENERAL_varName_ifempty']                           = 'If the field is empty the standard name for the GET-Variablen will be used: ';

@@ -1165,10 +1165,14 @@ class Feindura extends FeinduraBase {
           $metaTags .= '  <meta name="description" content="'.$websiteConfigDescription.'"'.$tagEnding."\n";
       }
 
-      
+
+      $metaTags .= '  <meta name="revised" content="'.GeneralFunctions::getDateTimeValue($currentPage['lastSaveDate'],false).'"'.$tagEnding."\n";
+      $metaTags .= '  <meta name="modified" content="'.GeneralFunctions::getDateTimeValue($currentPage['lastSaveDate'],false).'"'.$tagEnding."\n";
+
       $metaTags .= '  <meta name="generator" content="feindura - Flat File CMS '.VERSION.' build:'.BUILD.'"'.$tagEnding."\n";
       $metaTags .= "\n";
       
+
       // ->> add FEED;
       foreach($this->categoryConfig as $category) {
         

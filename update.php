@@ -31,16 +31,16 @@ $wrongDirectory = (include("library/includes/backend.include.php"))
 // -----------------------------------------------------------------------------------
 error_reporting(E_ALL ^ E_NOTICE);
 
-// gets the version of the feindura CMS
+$NEWVERSION = '2.0';
+$NEWBUILD = 950;
 
+// gets the version of the feindura CMS
 if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
   $PREVVERSION = trim($prevVersionFile[1]);
   $PREVBUILD = trim($prevVersionFile[2]);
 } else
   $PREVVERSION = '1.0';
 
-$NEWVERSION = '2.0';
-$NEWBUILD = 949;
 
 $PREVVERSIONSTRING = $PREVVERSION.' <small>Build '.$PREVBUILD.'</small>';
 $CURVERSIONSTRING = VERSION.' <small>Build '.BUILD.'</small>';

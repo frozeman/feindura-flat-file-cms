@@ -374,9 +374,9 @@ $langFile['ADMINSETUP_GENERAL_field4']                                    = 'che
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Ici des fichiers comme des images, animations flashs ou documents vont être téléchargés.[br][br][span class=hint]pour insérer des fichiers, cliquez dans le HTML-Editor insérer lien > upload transféré ou dans le gestionnaire de fichiers.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]ces fichiers peuvent être rédigés plus bas ou dans le paramètrages du site web (si cette option est activé pour le site web).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'chemin d\'un dossier des fichiers';
-$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Un dossier contenant des fichiers'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Ici, vous pouvez ajouter un chemin vers les fichiers spécifiques pour la site web, ce qui devrait être modifiable dans [span class=logoname]fein[span]dura[/span][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'chemin des feuilles de style';
-$langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Une chemin absolue [b]chemin absolue[/b] contenat les feuilles de style qui peuvent être rédigés par ex. par les utilisateurs.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Ici, vous pouvez ajouter un chemin vers les fichiers stylesheet, ce qui devrait être modifiable dans [span class=logoname]fein[span]dura[/span][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'autorisations des fichiers et des répertoires';
 $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS']                           = 'Chaque fichier ou un dossier créé par [span class=logoname]fein[span]dura[/span][/span] obtiendrez ces autorisations.';
 $langFile['ADMINSETUP_GENERAL_varName_ifempty']                           = 'si le panneua est vide, le nom standard des variables GET sera utilisé: ';

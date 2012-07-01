@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* controllers/adminSetup.controller.php version 2.36
+* controllers/adminSetup.controller.php version 3.0
 */
 
 /**
@@ -180,8 +180,6 @@ if($savedSettings) {
   GeneralFunctions::$storedPages = null;
   GeneralFunctions::$adminConfig = $adminConfig;
   StatisticFunctions::$adminConfig = $adminConfig;
-  // reload the $pagesMetaData array
-  GeneralFunctions::savePagesMetaData();
 }
 
 // ->> SET PERMISSIONS

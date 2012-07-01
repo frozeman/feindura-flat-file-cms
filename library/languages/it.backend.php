@@ -398,9 +398,9 @@ $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Per
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'File come foto caricate, Animazioni-Flash e altri tipi di documenti verranno salvati qui.[br][br][span class=hint]I file possono essere caricati sul pulsante Link > Carica in Editor-HTML o nel file manager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Questi file possono essere modificati più in basso, o nelle impostazioni-website (se è attivato dalle impostazioni-utente).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Percorso Per I File';
-$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Crea un percorso per la cartella con i file che vengono utilizzati dal tuo sito web.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Qui è possibile aggiungere un percorso per i sito-specifici file, che dovrebbe essere modificabile in [span class=logoname]fein[span]dura[/span][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'Percorso Per I Fogli Di Stile';
-$langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Un [b]percorso assoluto[/b] in cui i file sono fogli di stile. Esempio: che può essere modificato dall\'utente.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Qui è possibile aggiungere un percorso per i file di fogli di stile, che dovrebbe essere modificabile in [span class=logoname]fein[span]dura[/span][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'Autoriz.ni File E Cartelle';
 $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS']                           = 'Ogni file o cartella creata da [span class=logoname]fein[span]dura[/span][/span] otterrà le autorizzazioni in scrittura automaticamente.';
 $langFile['ADMINSETUP_GENERAL_varName_ifempty']                           = 'Se il campo è vuoto per il nome standard della Variable $_GET sarà utilizzato: ';
