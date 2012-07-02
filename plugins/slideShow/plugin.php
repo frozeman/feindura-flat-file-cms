@@ -16,9 +16,9 @@
  */
 /**
  * The plugin file
- * 
+ *
  * See the README.md for more.
- * 
+ *
  * The following variables are available in this script when it gets included by the {@link Feindura::showPlugins()} method:
  *     - $feindura                  -> the current {@link Feindura} class instance with all its methods (use "$feindura->..")
  *     - $feinduraBaseURL           -> the base url of the feindura folder, e.g. "http://mysite.com/cms/"
@@ -29,32 +29,32 @@
  *     - $pluginName                -> the folder name of this plugin
  *     - $pageContent               -> the pageContent array of the page which contains this plugin
  *     - the GeneralFunctions class -> for advanced methods. It's a static class so use "GeneralFunctions::exampleMethod(..);"
- * 
+ *
  * Example plugin:
  * <code>
  * <?php
  * // Add the stylesheet files of this plugin to the current page
  * echo $feindura->addPluginStylesheets($pluginBasePath);
- * 
+ *
  * echo '<p>Plugin HTML</p>';
- * 
+ *
  * ?>
  * </code>
- * 
+ *
  * @package [Plugins]
  * @subpackage slideShow
- * 
+ *
  * @author Fabian Vogelsteller <fabian@feindura.org>
  * @copyright Fabian Vogelsteller
  * @license http://www.gnu.org/licenses GNU General Public License version 3
- * 
+ *
  */
 
 // Add the stylesheet files of this plugin to the current page (these CSS files can be anywhere in this plugin folder or subfolders)
 echo $feindura->addPluginStylesheets($pluginBasePath);
 
 // vars
-$uniqueId = rand(0,999);
+$uniqueId = uniqid();
 
 if($pluginConfig['effectSelection'] == 'sliceLeftDown' ||
    $pluginConfig['effectSelection'] == 'sliceLeftUp' ||
@@ -68,7 +68,7 @@ if($pluginConfig['effectSelection'] == 'sliceLeftDown' ||
 else
   $effectsDirection = 'vertical';
 
-// set new sizes of the slider holder  
+// set new sizes of the slider holder
 $resizeWidthAfter = (!empty($pluginConfig['widthNumber']))
   ? "$$('#slideShow".$uniqueId." div.nivoo-slider-holder')[0].setStyle('width',".$pluginConfig['widthNumber'].");"
   : '';
@@ -86,7 +86,7 @@ echo '<script type="text/javascript">
     document.write(unescape(\'<script src="'.$feinduraBaseURL.'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"><\/script>\'));
   }
   // add NivooSlider
-  (window.NivooSlider || document.write(unescape(\'<script src="'.$pluginBaseURL.'NivooSlider/NivooSlider.min.js"><\/script>\'))); 
+  (window.NivooSlider || document.write(unescape(\'<script src="'.$pluginBaseURL.'NivooSlider/NivooSlider.min.js"><\/script>\')));
   /* ]]> */
 </script>';
 
@@ -95,7 +95,7 @@ echo '<script type="text/javascript">
 
   window.addEvent(\'domready\', function() {
     if(document.id(\'slideShow'.$uniqueId.'\') != null) {
-    
+
       // initialize Nivoo-Slider
       var slideShow = new NivooSlider(document.id(\'slideShow'.$uniqueId.'\'), {
       	effect: \''.$pluginConfig['effectSelection'].'\',
@@ -103,7 +103,7 @@ echo '<script type="text/javascript">
       	orientation: \''.$effectsDirection.'\',
         directionNavHide: true
       });
-      
+
       // set size for the div.nivoo-slider-holder
       // NivooSlider fixes:
       // line 346 in NivooSlider.js: this.containerSize = this.holder.getParent(\'.nivoo-slider\').getSize();

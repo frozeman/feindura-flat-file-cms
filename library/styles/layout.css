@@ -10,7 +10,7 @@
     You should have received a copy of the GNU General Public License along with this program;
 
 
-/****************/  
+/****************/
 /* *** BODY */
 
 html,body {
@@ -27,7 +27,7 @@ html,body {
   font-smoothing: antialiased;
 }
 
-/****************/  
+/****************/
 /* *** GENERAL ELEMENTs FORMAT  */
 
 span.blue, label.blue, h1.blue, div.blue, li.blue {
@@ -51,7 +51,7 @@ mark {
     color: inherit;
 }
 
-/****************/  
+/****************/
 /* *** DIMM-CONTAINER */
 
 #dimContainer {
@@ -62,7 +62,7 @@ mark {
     height: 100%;
     background: url("../images/bg/dimContainer.png") repeat;
     /* background-color: #222222; */
-    } 
+    }
 
 .cke_dialog_background_cover {
     background: url("../images/bg/dimContainer.png") repeat !important;
@@ -70,7 +70,7 @@ mark {
     }
 
 /****************/
-/* --- HEADER */    
+/* --- HEADER */
 #header {
     position: relative;
     top: 0px;
@@ -88,7 +88,7 @@ mark {
     z-index: 2;
     width: 850px;
     height: 141px;
-    background: url("../images/bg/headerBlock.png") no-repeat; 
+    background: url("../images/bg/headerBlock.png") no-repeat;
     }
 
 #sessionTimer {
@@ -98,7 +98,7 @@ mark {
   z-index: 3;
   font-size: 11px;
 }
-    
+
 #adminMenu {
     position: absolute;
     top: 0px;
@@ -124,7 +124,7 @@ mark {
     }
 
 /****************/
-/* --- LOGO */ 
+/* --- LOGO */
 #logo {
     position: absolute;
     top: 25px;
@@ -146,12 +146,6 @@ mark {
     font-size: 11px;
     font-weight: bold;
     }
-.logoname {
-    color: #DD6C1D !important;
-    }
-.logoname span {
-    color: #3979A5 !important;
-    }
 
 /****************/
 /* --- LANGUAGE SELECTION */
@@ -171,7 +165,7 @@ mark {
 #languageSelection a:hover, #languageSelection a:focus {
     background-position: 0px -21px !important;
     }
-    
+
 #languageSelection a.de {
     left: 0px;
     background: url("../images/buttons/langSelection_de.png") no-repeat;
@@ -229,7 +223,7 @@ mark {
     background: url("../images/bg/mainBody.png") repeat-y #d8d8d8;
     text-shadow: 0 1px 1px #dfdfdf;
     }
-  
+
 #content {
     position: relative;
     top: 0px;
@@ -276,8 +270,8 @@ mark {
     text-align: center;
     font-size: 11px;
     }
-    
-/* - footer links */  
+
+/* - footer links */
 #footer a {
     color: #cccccc;
     text-decoration: none;
@@ -330,12 +324,12 @@ mark {
     background: url("../images/icons/documentSaved.png") no-repeat;
     }
 
-/****************/    
+/****************/
 /* --- BUTTON LISTE */
 
 ul.horizontalButtons {
     position: relative;
-    margin: 0px auto;    
+    margin: 0px auto;
     padding: 0px;
     }
 .horizontalButtons li {
@@ -344,9 +338,9 @@ ul.horizontalButtons {
     display: block;
     margin: 0px auto;
     padding: 0px;
-    list-style: none;    
+    list-style: none;
     }
-    
+
 ul.verticalButtons {
     margin: 0px;
     padding: 0px;
@@ -378,7 +372,7 @@ ul.verticalButtons {
 #mainMenu table {
     width: 100%;
     border: none;
-    border-collapse: collapse;    
+    border-collapse: collapse;
     }
 #mainMenu td {
     vertical-align: top;
@@ -418,7 +412,7 @@ ul.verticalButtons {
     vertical-align: middle;
     font-size: 12px;
     }
-    
+
 /* dashboard */
 #mainMenu a.dashboard {
     background: url("../images/buttons/mainMenu_dashboard.png") no-repeat;
@@ -556,11 +550,11 @@ a.button:active {
     height: 56px; /* org height 64px */
     background: url("../images/bg/subMenu_middle.png") repeat-x;
     }
-    
+
 .subMenu .content {
     padding: 4px 0px;
     }
-    
+
 .subMenu .left {
     position: absolute;
     top: 0px;
@@ -601,7 +595,7 @@ a.button:active {
 .subMenu img.flag {
     margin-left: 8px;
 }
-    
+
 /****************/
 /* --- buttons */
 
@@ -616,35 +610,35 @@ a.button:active {
     background-position: -50px 0px !important;
     }
 
-/* fileManager */ 
+/* fileManager */
 .subMenu a.fileManager {
     background: url("../images/buttons/subMenu_fileManager.png") no-repeat;
     }
-/* createPage */ 
+/* createPage */
 .subMenu a.createPage {
     background: url("../images/buttons/subMenu_createPage.png") no-repeat;
     }
-/* deletePage */ 
+/* deletePage */
 .subMenu a.deletePage {
     background: url("../images/buttons/subMenu_deletePage.png") no-repeat;
     }
-/* editPage */ 
+/* editPage */
 .subMenu a.editPage {
     background: url("../images/buttons/subMenu_editPage.png") no-repeat;
     }
-/* uploadThumb */ 
+/* uploadThumb */
 .subMenu a.pageThumbnailUpload {
     background: url("../images/buttons/subMenu_uploadThumb.png") no-repeat;
     }
-/* deleteThumb */ 
+/* deleteThumb */
 .subMenu a.pageThumbnailDelete {
     background: url("../images/buttons/subMenu_deleteThumb.png") no-repeat;
     }
-/* addPageLanguage */ 
+/* addPageLanguage */
 .subMenu a.addPageLanguage {
     background: url("../images/buttons/subMenu_addPageLanguage.png") no-repeat;
     }
-/* removePageLanguage */ 
+/* removePageLanguage */
 .subMenu a.removePageLanguage {
     background: url("../images/buttons/subMenu_removePageLanguage.png") no-repeat;
     }
@@ -670,7 +664,7 @@ a.button:active {
     height: 100px;
     background: url("../images/buttons/footerMenu_spacer.png") no-repeat;
     }
-    
+
 /****************/
 /* --- buttons */
 
@@ -698,27 +692,27 @@ a.button:active {
     vertical-align: middle;
     }
 
-/* fileManager */ 
+/* fileManager */
 #footerMenu a.fileManager {
     background: url("../images/buttons/footerMenu_fileManager.png") no-repeat;
     }
-/* createPage */ 
+/* createPage */
 #footerMenu a.createPage {
     background: url("../images/buttons/footerMenu_createPage.png") no-repeat;
     }
-/* deletePage */ 
+/* deletePage */
 #footerMenu a.deletePage {
     background: url("../images/buttons/footerMenu_deletePage.png") no-repeat;
     }
-/* editPage */ 
+/* editPage */
 #footerMenu a.editPage {
     background: url("../images/buttons/footerMenu_editPage.png") no-repeat;
     }
-/* uploadThumb */ 
+/* uploadThumb */
 #footerMenu a.pageThumbnailUpload {
     background: url("../images/buttons/footerMenu_uploadThumb.png") no-repeat;
     }
-/* deleteThumb */ 
+/* deleteThumb */
 #footerMenu a.pageThumbnailDelete {
     background: url("../images/buttons/footerMenu_deleteThumb.png") no-repeat;
     }
@@ -733,7 +727,7 @@ div.leftSidebarLoadingCircle {
     top: 60px;
     left: 60px;
     z-index: 0;
-    }    
+    }
 
 /****************/
 /* --- SIDEBAR LINKS */
@@ -762,7 +756,7 @@ div.leftSidebarLoadingCircle {
     overflow: hidden;
     width: 210px;
     max-width: 1260px;
-    /* border: 1px solid #000000; */    
+    /* border: 1px solid #000000; */
     }
 
 /* top */
@@ -773,19 +767,19 @@ div.leftSidebarLoadingCircle {
     text-decoration: none;
     white-space: nowrap;
     font-weight: bold;
-    font-size: 13px;    
+    font-size: 13px;
     }
-        
+
 #leftSidebar .sidebarMenu .top span {
     position: absolute;
     top: 10px;
     left: 43px;
     }
 #leftSidebar .sidebarMenu .top.blue span {
-    color: #536068; /* color: #668CA6; */    
+    color: #536068; /* color: #668CA6; */
     }
 #leftSidebar .sidebarMenu .top.brown span {
-    color: #536068; /* color: #668CA6; */ 
+    color: #536068; /* color: #668CA6; */
     }
 #leftSidebar .sidebarMenu .top.gray span {
     color: #666666;
@@ -825,7 +819,7 @@ div.leftSidebarLoadingCircle {
 #leftSidebar .sidebarMenu.free .top img.icon {
     margin-left: 4px;
     }
-    
+
 /* content */
 #leftSidebar .sidebarMenu .content {
     position: relative;
@@ -833,7 +827,7 @@ div.leftSidebarLoadingCircle {
     }
 
 #leftSidebar .sidebarMenu .content.dark {
-    border-right: 1px solid #666666;    
+    border-right: 1px solid #666666;
     }
 #leftSidebar .sidebarMenu .content.white {
     border-right: 1px solid #BDBDB9;
@@ -843,7 +837,7 @@ div.leftSidebarLoadingCircle {
     }
 #leftSidebar .sidebarMenu .content.brown {
     border-right: 1px solid #E6BF7C;
-    }    
+    }
 #leftSidebar .sidebarMenu .content.blue {
     border-right: 1px solid #89B5D6;
     }
@@ -855,7 +849,7 @@ div.leftSidebarLoadingCircle {
     padding: 10px 0px;
     padding-left: 18px;
     height: 15px; /* original 35px */
-    color: #FBC279;    
+    color: #FBC279;
     text-decoration: none;
     font-weight: bold;
     font-size: 11px;
@@ -902,7 +896,7 @@ div.leftSidebarLoadingCircle {
     background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x 0px -35px;
     color: #ffffff;
     }
-    
+
 /* brown */
 #leftSidebar .sidebarMenu .content.brown a {
     background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x;
@@ -941,7 +935,7 @@ div.leftSidebarLoadingCircle {
     display: inline-block;
     width: 208px; /* 208px */
     height: 35px;
-    text-decoration: none;    
+    text-decoration: none;
     }
 
 #leftSidebar .sidebarMenu .top a {
@@ -949,8 +943,8 @@ div.leftSidebarLoadingCircle {
     }
 #leftSidebar .sidebarMenu.hidden .top a {
     background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
-    } 
-        
+    }
+
 #leftSidebar .sidebarMenu .top a:hover, #leftSidebar .sidebarMenu .top a:focus {
     background-position: right -36px;
     }
@@ -963,7 +957,7 @@ div.leftSidebarLoadingCircle {
     display: block;
     width: 100%;
     height: 13px; /* original 13px */
-    background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top; 
+    background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top;
     text-decoration: none;
     }
 #leftSidebar .sidebarMenu .bottom a:hover, #leftSidebar .sidebarMenu .bottom a:focus {
@@ -980,7 +974,7 @@ div.leftSidebarLoadingCircle {
 
 #leftSidebar .spacer.arrow {
     background: url("../images/bg/sidebarMenu_spacer_arrow.png") no-repeat top left !important;
-    }    
+    }
 
 /* ------------------------- */
 /* - SIDEBAR INFO */
@@ -1004,13 +998,13 @@ div.leftSidebarLoadingCircle {
   word-wrap: break-word;
   font-size: 10px;
 }
-  
+
 #leftSidebar .sidebarInfo h2, #leftSidebar .sidebarInfo h3 {
   margin: 0px;
   margin-top: 4px;
   margin-bottom: 8px;
   padding: 0px;
-  color: #666666;    
+  color: #666666;
   font-weight: bold;
   font-size: 11px;
 }
@@ -1023,7 +1017,7 @@ div.leftSidebarLoadingCircle {
   color: #C57F3D;
 }
 #leftSidebar .sidebarInfo hr {
-  margin: 15px 0px;    
+  margin: 15px 0px;
   height: 0px;
   border: none;
   border-top: 1px solid #E2E3E3;
@@ -1033,7 +1027,7 @@ div.leftSidebarLoadingCircle {
   margin: 0px;
   margin-left: 6px;
 }
-#leftSidebar .sidebarInfo ul li {    
+#leftSidebar .sidebarInfo ul li {
   margin: 3px 0px;
   margin-bottom: 20px;
   margin-left: 7px;
@@ -1062,7 +1056,7 @@ div.leftSidebarLoadingCircle {
   width: 150px;
   list-style: none !important;
 }
-    
+
 #leftSidebar .scrollUpDown {
   position: absolute;
   z-index: 2;
@@ -1075,7 +1069,7 @@ div.leftSidebarLoadingCircle {
 
 #sidebarListUsers {
   margin-left: 27px !important;
-  
+
 }
 
 #sidebarListUsers li {
@@ -1097,7 +1091,7 @@ div.leftSidebarLoadingCircle {
   padding: 8px 0px;
   list-style: none !important;
 }
-    
+
 /* --- RIGHT SIDEBAR ------------------------------------------------------------------------------------------------------------------- */
 
 /* --- sortPagesMessageBox */

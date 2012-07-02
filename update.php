@@ -15,7 +15,7 @@
  * if not,see <http://www.gnu.org/licenses/>.
  *
  * update.php
- * 
+ *
  *
  * @version 2.0
  */
@@ -32,7 +32,7 @@ $wrongDirectory = (include("library/includes/backend.include.php"))
 error_reporting(E_ALL ^ E_NOTICE);
 
 $NEWVERSION = '2.0';
-$NEWBUILD = 950;
+$NEWBUILD = 951;
 
 // gets the version of the feindura CMS
 if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
@@ -52,34 +52,34 @@ $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
 <head>
   <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
   <meta http-equiv="content-language" content="en">
-  
-  <title>      
+
+  <title>
     feindura Updater
   </title>
-  
+
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  
+
   <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
   <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
-  
-  <meta name="title" content="feindura > Updater">    
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">     
+
+  <meta name="title" content="feindura > Updater">
+  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
   <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">
-  
+
   <style type="text/css">
    body {
     font: 16px verdana, arial;
    }
-   
+
    h1 {
     font-size: 20px;
    }
-   
+
    h2 {
     font-size: 15px;
    }
-   
+
    a {
     text-decoration: none;
     color: #C2802B;
@@ -87,7 +87,7 @@ $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
    a:hover {
     color: #ccc;
    }
-   
+
    /* feindura logo inside texts */
    span.feindura {
       color: #3F7DA6;
@@ -96,32 +96,32 @@ $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
       color: #DE7124;
       font-style: normal;
    }
-   
+
    .warning {
     color: #8A3100;
     font-weight: bold;
-   }   
-   
+   }
+
    .succesfull {
     color: #689420;
     line-height: 25px;
-   }   
+   }
    .succesfull:before {
     content: " -> ";
    }
-   
+
    .notSuccesfull {
     color: #BD3317;
     line-height: 25px;
-   }   
+   }
    .notSuccesfull:before {
     content: " -> ";
    }
  </style>
-  
+
 </head>
 <body>
-  
+
   <?PHP
 
   // ->> CHECK PHP VERSION
@@ -129,7 +129,7 @@ $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
   if(PHP_VERSION < REQUIREDPHPVERSION)
     die('You have the wrong PHP version for feindura '.$NEWVERSIONSTRING.'. You need at least PHP version'.REQUIREDPHPVERSION.'</body></html>');
   ?>
-  
+
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
   <span style="font-size:25px;"><?php echo ($PREVVERSION == '1.0') ? $PREVVERSION.'>': $PREVVERSIONSTRING; ?> &rArr; <?php echo $NEWVERSIONSTRING; ?></span><br>
   <br>
@@ -141,23 +141,23 @@ $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
       <small style="color:#999;">(If you don\'t think so, then delete the "VERSION" file in your "/cms/" folder and run this updater again.)</small>
       <br><br>
       <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a></body></html>');
-  
+
   // check if cms is already updated
   $updatePossible = (VERSION.BUILD == $NEWVERSION.$NEWBUILD) ? true : false;
-  
+
   // WARNING
   if(!$updatePossible) {
-    
+
     echo 'hm... you current version is <b>'.$CURVERSIONSTRING.'</b> you cannot use this updater, :-(';
     echo '<br><span class="warning">it\'s only for updating to <span class="feindura"><em>fein</em>dura</span> '.$NEWVERSIONSTRING.'!</span>';
   }
-  
+
   // WRONG PATH WARNING
   if($wrongDirectory) {
     echo '<br><span class="warning">You must place the "updater.php" file inside your <span class="feindura"><em>fein</em>dura</span> folder!</span>';
     $updatePossible = false;
   }
-  
+
   // UPDATE QUESTION
   elseif($updatePossible && empty($_POST['asking'])) {
     ?>
@@ -169,100 +169,100 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
   <input type="hidden" name="asking" value="true">
   <input type="submit" value="UPDATE">
 </div>
-    <?php 
-  
+    <?php
+
   // ------------------------------------------------------
   // UPDATE
   } elseif($updatePossible && $_POST['asking'] == 'true') {
-    
+
     // var
     // **
-    $succesfullUpdate = true;    
-    
+    $succesfullUpdate = true;
+
     // functions
     // *********
     // changeToSerializedDataString
     function changeToSerializedDataString($oldDataString,$separator) {
       $dataArray = explode($separator,$oldDataString);
       $newDataArry = array();
-      
+
       foreach($dataArray as $data) {
         if(!empty($data)) {
           $dataExploded = explode(',',$data);
           $newDataArry[] = array('data' => $dataExploded[0], 'number' => $dataExploded[1]);
         }
-      }    
+      }
       return serialize($newDataArry);
     }
-    
+
     function changeToSerializedData($oldDataString,$separator) {
       $dataArray = explode($separator,$oldDataString);
       return serialize($dataArray);
     }
-    
+
     function changeVisitTime($oldDataString,$separator) {
       $dataExploded = explode($separator,$oldDataString);
-      $newDataString = array();      
-      
-      foreach($dataExploded as $data) {        
+      $newDataString = array();
+
+      foreach($dataExploded as $data) {
         $hour = substr($time,0,2);
         $minute = substr($time,3,2);
         $second = substr($time,6,2);
-        
+
         $sec = floor($hour * 3600);
         $sec += floor($minute * 60);
         $sec += $second;
-        
+
         $newDataString = $sec;
-      }      
-      $newDataString = implode($separator,$newDataString);      
+      }
+      $newDataString = implode($separator,$newDataString);
       return changeToSerializedData($newDataString,$separator);
     }
-    
+
     function copyDir($source,$target,&$copyError) {
         if ( is_dir( $source ) ) {
             @mkdir( $target,$GLOBALS['adminConfig']['permissions'],true);
-          
+
             $d = dir( $source );
-          
+
             while ( FALSE !== ( $entry = $d->read() ) ) {
                 if ( $entry == '.' || $entry == '..' )
                 {
                     continue;
                 }
-              
-                $Entry = $source . '/' . $entry;          
+
+                $Entry = $source . '/' . $entry;
                 if ( is_dir( $Entry ) ) {
                     copyDir( $Entry, $target . '/' . $entry );
                     continue;
                 }
-                
+
                 if(!copy( $Entry, $target . '/' . $entry ))
                   $copyError = true;
             }
-          
+
             $d->close();
         } else {
             if(!copy( $source, $target ));
               $copyError = true;
         }
     }
-    
+
     // save all activated plugins as serialized string
     function activateAllPluginsSerialized() {
       $activatedPlugins = array();
       foreach($pluginsConfig as $pluginName => $pluginConfig) {
         if($pluginConfig['active'])
-          $activatedPlugins[] = $pluginName;    
+          $activatedPlugins[] = $pluginName;
       }
       return serialize($activatedPlugins);
     }
-    
+
     // and start!
     // *********
-    
+
     echo '<br>';
-    
+
     // try to move the pages folder
     $copyError = false;
     $didntCopy = false;
@@ -280,13 +280,13 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       echo 'pages <span class="notSuccesfull">could not be copied! Please move the folder with your pages (1.php, 2.php, etc..) to "feindura_folder/pages/" manually and run this updater again.</span><br>';
       $succesfullUpdate = false;
     }
-    
+
     // save the $pagesMetaData array
     GeneralFunctions::savePagesMetaData();
 
     // ->> LOAD PAGES
     $pages = GeneralFunctions::loadPages(true);
-    
+
     // ->> SAVE NEW adminConfig
     // rename
     $adminConfig['websiteFilesPath'] = (isset($adminConfig['websitefilesPath'])) ? $adminConfig['websitefilesPath'] : $adminConfig['websiteFilesPath'];
@@ -295,11 +295,11 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $adminConfig['user']['editStyleSheets'] = (isset($adminConfig['user']['editStylesheets'])) ? $adminConfig['user']['editStylesheets'] : $adminConfig['user']['editStyleSheets'];
     if(!isset($adminConfig['editor']['safeHtml'])) $adminConfig['editor']['safeHtml'] = false;
     if(!isset($adminConfig['editor']['htmlLawed'])) $adminConfig['editor']['htmlLawed'] = true;
-    
+
     // save all activated plugins as serialized string
     if($adminConfig['pages']['plugins'] === true || $adminConfig['pages']['plugins'] === 'true')
       $adminConfig['pages']['plugins'] = activateAllPluginsSerialized();
-    
+
     $data = $adminConfig['editor']['styleFile'];
     if(strpos($data,'|#|') !== false)
       $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|#|');
@@ -307,7 +307,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|');
     elseif(!empty($data) && substr($data,0,2) != 'a:')
       $adminConfig['editor']['styleFile'] = changeToSerializedData($data,' ');
-    
+
     $adminConfig['websitePath'] = (isset($adminConfig['websitePath'])) ? $adminConfig['websitePath'] : '/';
 
     if($adminConfig['dateFormat'] == 'eu')
@@ -332,7 +332,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       $nonCat[0]['public']          = true;
       $nonCat[0]['isSubCategory']   = false;
       $nonCat[0]['isSubCategoryOf'] = 'a:0:{}';
-      
+
       $nonCat[0]['styleFile']       = $adminConfig['editor']['styleFile'];
       $nonCat[0]['styleId']         = $adminConfig['editor']['styleId'];
       $nonCat[0]['styleClass']      = $adminConfig['editor']['styleClass'];
@@ -351,11 +351,11 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     }
     GeneralFunctions::$adminConfig = $adminConfig;
 
-    
+
     //print_r($pages);
     $pagesSuccesfullUpdated = true;
     foreach($pages as $pageContent) {
-      
+
       // renaming of some values
       $pageContent['sortOrder'] = (isset($pageContent['sortorder'])) ? $pageContent['sortorder'] : $pageContent['sortOrder'];
       $pageContent['lastSaveDate'] = (isset($pageContent['lastsavedate'])) ? $pageContent['lastsavedate'] : $pageContent['lastSaveDate'];
@@ -396,12 +396,12 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
         // page date before/after
         $pageContent['localized'][0]['pageDate']['before'] = (isset($pageContent['pagedate']['before'])) ? $pageContent['pagedate']['before'] : $pageContent['pageDate']['before'];
         $pageContent['localized'][0]['pageDate']['after'] = (isset($pageContent['pagedate']['after'])) ? $pageContent['pagedate']['after'] : $pageContent['pageDate']['after'];
-      
+
       }
 
       $pageContent['log_visitorCount'] = (isset($pageContent['log_visitorcount'])) ? $pageContent['log_visitorcount'] : $pageContent['log_visitorCount'];
       $pageContent['log_searchWords'] = (isset($pageContent['log_searchwords'])) ? $pageContent['log_searchwords'] : $pageContent['log_searchWords'];
-      
+
       // activate the captcha in the contactForm plugins, when the contactForm is activated
       if(isset($pageContent['plugins']['contactForm']) && !isset($pageContent['plugins']['contactForm']['captcha']))
         $pageContent['plugins']['contactForm']['captcha'] = true;
@@ -484,10 +484,10 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
           ? $pageContent['plugins']['slideShowFromFolder']['effectSelection']
           : 'fade';
       }
-      
+
       // -> change such a date: 2010-03-20 17:50:27 to unix timestamp
       // mktime(hour,minute,seconds,month,day,year)
-      
+
       $time = $pageContent['lastSaveDate'];
       if(substr($time,4,1) == '-')
         $pageContent['lastSaveDate'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
@@ -495,11 +495,11 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       $time = $pageContent['log_firstVisit'];
       if(substr($time,4,1) == '-')
         $pageContent['log_firstVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
-      
+
       $time = $pageContent['log_lastVisit'];
       if(substr($time,4,1) == '-')
         $pageContent['log_lastVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
-      
+
       $time = $pageContent['pageDate']['date'];
       if(substr($time,4,1) == '-')
         $pageContent['pageDate']['date'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
@@ -512,7 +512,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
           $pageContent['log_visitTime_min'] = changeVisitTime($data,'|');
         elseif(!empty($data) && substr($data,0,2) != 'a:')
           $pageContent['log_visitTime_min'] = changeVisitTime($data,' ');
-      
+
       $data = $pageContent['log_visitTime_max'];
         if(strpos($data,'|#|') !== false)
           $pageContent['log_visitTime_max'] = changeVisitTime($data,'|#|');
@@ -520,8 +520,8 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
           $pageContent['log_visitTime_max'] = changeVisitTime($data,'|');
         elseif(!empty($data) && substr($data,0,2) != 'a:')
           $pageContent['log_visitTime_max'] = changeVisitTime($data,' ');
-          
-      
+
+
       $data = $pageContent['log_searchWords'];
         if(strpos($data,'|#|') !== false)
           $pageContent['log_searchWords'] = changeToSerializedDataString($data,'|#|');
@@ -529,7 +529,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
           $pageContent['log_searchWords'] = changeToSerializedDataString($data,'|');
         elseif(!empty($data) && substr($data,0,2) != 'a:')
           $pageContent['log_searchWords'] = changeToSerializedDataString($data,' ');
-        
+
       // save page stats
       $pageStatistics = StatisticFunctions::readPageStatistics($pageContent['id']);
       if(!$pageStatistics) {
@@ -542,7 +542,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
         $pageStatistics['searchWords'] = $pageContent['log_searchWords'];
         StatisticFunctions::savePageStatistics($pageStatistics);
       }
-      
+
       if(!GeneralFunctions::savePage($pageContent))
         $pagesSuccesfullUpdated = false;
     }
@@ -552,10 +552,10 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       echo 'pages <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
-    
+
     // ->> SAVE NEW categoryConfig
     foreach($categoryConfig as $key => $category) {
-      
+
       // rename
       $category['showTags'] = (isset($category['showtags'])) ? $category['showtags'] : $category['showTags'];
       $category['showPageDate'] = (isset($category['showpagedate'])) ? $category['showpagedate'] : $category['showPageDate'];
@@ -563,17 +563,17 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       $category['sortReverse'] = ($category['sortascending'] || $category['sortAscending']) ? 'true' : $category['sortReverse'];
       $category['createDelete'] = (isset($category['createdelete'])) ? $category['createdelete'] : $category['createDelete'];
       $category['thumbnails'] = (isset($category['thumbnail'])) ? $category['thumbnail'] : $category['thumbnails'];
-      
+
 
       if($category['plugins'] === true || $category['plugins'] === 'true')
       $category['plugins'] = activateAllPluginsSerialized();
-      
+
       $data = $category['styleFile'];
         if(strpos($data,'|#|') !== false)
           $category['styleFile'] = changeToSerializedData($data,'|#|');
         elseif(strpos($data,'|') !== false)
           $category['styleFile'] = changeToSerializedData($data,'|');
-      
+
       // v2.0 - localized
       if(!isset($category['localized'])) {
         $category['localized'][0]['name'] = $category['name'];
@@ -604,7 +604,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
           }
           $newCategoryPlugins[] = $categoryPlugin;
         }
-        
+
         // serialize the plugins again
         $category['plugins'] = serialize($newCategoryPlugins);
       }
@@ -621,7 +621,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       echo 'categoryConfig <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
-    
+
     // ->> SAVE NEW websiteConfig
     // v2.0 - localized
     if(!isset($websiteConfig['localized'])) {
@@ -637,31 +637,31 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       echo 'websiteConfig <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
-    
+
     // ->> CLEAR activity log
     if($taskLogFile = fopen(dirname(__FILE__)."/statistic/activity.statistic.log","wb")) {
       fclose($taskLogFile);
-      
+
       // set documentSaved status
       $documentSaved = true;
       $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'<br>';
       saveActivityLog(24); // <- SAVE the task in a LOG FILE
-      
+
       echo 'activity log <span class="succesfull">reset</span><br>';
     } else {
       echo 'activity log <span class="notSuccesfull">could not be reseted</span><br>';
       $succesfullUpdate = false;
     }
-    
+
     // ->> SAVE WEBSITE STATISTIC
     $time = $websiteStatistic['firstVisit'];
     if(substr($time,4,1) == '-')
       $websiteStatistic['firstVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
-      
+
     $time = $websiteStatistic['lastVisit'];
     if(substr($time,4,1) == '-')
       $websiteStatistic['lastVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
-      
+
     $data = $websiteStatistic['browser'];
       if(strpos($data,'|#|') !== false)
         $websiteStatistic['browser'] = changeToSerializedDataString($data,'|#|');
@@ -669,30 +669,30 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
         $websiteStatistic['browser'] = changeToSerializedDataString($data,'|');
       elseif(!empty($data) && substr($data,0,2) != 'a:')
         $websiteStatistic['browser'] = changeToSerializedDataString($data,' ');
-    
+
     // rename
     $websiteStatistic['robotVisitCount'] = (isset($websiteStatistic['spiderVisitCount'])) ? $websiteStatistic['spiderVisitCount'] : $websiteStatistic['robotVisitCount'];
-    
+
     if($statisticFile = fopen(dirname(__FILE__)."/statistic/website.statistic.php","wb")) {
-      
-      flock($statisticFile,LOCK_EX);        
-      fwrite($statisticFile,"<?php\n");  
-            
+
+      flock($statisticFile,LOCK_EX);
+      fwrite($statisticFile,"<?php\n");
+
       fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    ".XssFilter::int($websiteStatistic["userVisitCount"],0).";\n");
       fwrite($statisticFile,"\$websiteStatistic['robotVisitCount'] =  ".XssFilter::int($websiteStatistic["robotVisitCount"],0).";\n\n");
-      
+
       fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        ".XssFilter::int($websiteStatistic["firstVisit"],0).";\n");
       fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         ".XssFilter::int($websiteStatistic["lastVisit"],0).";\n\n");
-      
+
       fwrite($statisticFile,"\$websiteStatistic['browser'] =      '".$websiteStatistic["browser"]."';\n\n");
-      
+
       fwrite($statisticFile,"return \$websiteStatistic;");
-            
-      fwrite($statisticFile,"\n?>");        
+
+      fwrite($statisticFile,"\n?>");
       flock($statisticFile,LOCK_UN);
       fclose($statisticFile);
-      
-      echo 'website statistic <span class="succesfull">succesfully updated</span><br>';      
+
+      echo 'website statistic <span class="succesfull">succesfully updated</span><br>';
     } else {
       echo 'website statistic <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
@@ -708,45 +708,45 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       foreach($categoryConfig as $category)
         saveFeeds($category['id']);
     }
-    
+
     // ->> SAVE referer log
     $oldLog = file(dirname(__FILE__)."/statistic/referer.statistic.log");
-    
+
     if($logFile = fopen(dirname(__FILE__)."/statistic/referer.statistic.log","wb")) {
-        
+
       // -> write the new log file
       flock($logFile,LOCK_EX);
       foreach($oldLog as $oldLogRow) {
-        
+
        if(strpos($oldLogRow,'|#|') === false) {
-        
+
           $time = substr($oldLogRow,0,19);
           if(substr($time,4,1) == '-')
             $time = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
-  
+
           $url = substr($oldLogRow,20);
-          
+
           fwrite($logFile,$time.'|#|'.$url);
         } else
           fwrite($logFile,$oldLogRow);
-      }    
+      }
       flock($logFile,LOCK_UN);
       fclose($logFile);
-      
+
       echo 'referer <span class="succesfull">Succesfully updated</span><br>';
-      
+
     } else {
       echo 'referer <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
-    
+
     // ->> delete old files
     if(is_file(dirname(__FILE__).'/.htpasswd'))
       @unlink(dirname(__FILE__).'/.htpasswd');
-    
+
     // folders
     $checkFiles = array();
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/javascript/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/javascript/') &&
       is_dir(dirname(__FILE__).'/library/javascript/'))
       $checkFiles[] = dirname(__FILE__).'/library/javascript/';
     if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/javascript/') &&
@@ -758,34 +758,34 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/image/') &&
       is_dir(dirname(__FILE__).'/library/image/'))
       $checkFiles[] = dirname(__FILE__).'/library/image/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/lang/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/lang/') &&
       is_dir(dirname(__FILE__).'/library/lang/'))
       $checkFiles[] = dirname(__FILE__).'/library/lang/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/process/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/process/') &&
       is_dir(dirname(__FILE__).'/library/process/'))
       $checkFiles[] = dirname(__FILE__).'/library/process/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/style/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/style/') &&
       is_dir(dirname(__FILE__).'/library/style/'))
       $checkFiles[] = dirname(__FILE__).'/library/style/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/images/key/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/images/key/') &&
       is_dir(dirname(__FILE__).'/library/images/key/'))
       $checkFiles[] = dirname(__FILE__).'/library/images/key/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/images/sign/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/images/sign/') &&
       is_dir(dirname(__FILE__).'/library/images/sign/'))
       $checkFiles[] = dirname(__FILE__).'/library/images/sign/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/iepngfix_v2/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/iepngfix_v2/') &&
       is_dir(dirname(__FILE__).'/library/thirdparty/iepngfix_v2/'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/iepngfix_v2/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/CountDown/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/CountDown/') &&
       is_dir(dirname(__FILE__).'/library/thirdparty/CountDown/'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/CountDown/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/processes/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/processes/') &&
       is_dir(dirname(__FILE__).'/library/processes/'))
       $checkFiles[] = dirname(__FILE__).'/library/processes/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/sites/') && 
+    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/sites/') &&
       is_dir(dirname(__FILE__).'/library/sites/'))
       $checkFiles[] = dirname(__FILE__).'/library/sites/';
-    
+
     // files
     if(!unlink(dirname(__FILE__).'/README')&&
       is_file(dirname(__FILE__).'/README'))
@@ -962,8 +962,8 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_top.gif') &&
       is_file(dirname(__FILE__).'/library/images/bg/toolTip_top.gif'))
       $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_top.gif';
-    
-    
+
+
     // delete lowercase class names
     if(strpos(strtolower(PHP_OS),'win') === false) {
       if(!unlink(dirname(__FILE__).'/library/classes/feindura.class.php') &&
@@ -986,7 +986,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
         is_file(dirname(__FILE__).'/config/htmlEditorStyles.js'))
         $checkFiles[] = dirname(__FILE__).'/config/htmlEditorStyles.js';
     }
-      
+
     if(empty($checkFiles))
       echo 'removed <span class="succesfull">old files and folders</span><br>';
     else {
@@ -998,24 +998,24 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       echo '</span>';
       $succesfullUpdate = false;
     }
-    
-    
+
+
     // ->> UPDATE from 1.1.1
     if(!empty($userConfig) && is_array($userConfig)) {
       $newUserConfig = array();
       foreach($userConfig as $user) {
         $newUserConfig[$user['id']] = $user;
       }
-      
+
       if(saveUserConfig($newUserConfig))
         echo 'userConfig <span class="succesfull">succesfully updated</span><br>';
       else {
         echo 'userConfig <span class="notSuccesfull">could not be updated</span><br>';
         $succesfullUpdate = false;
       }
-    }    
-    
-    
+    }
+
+
     // -> final success text or failure warning
     if($succesfullUpdate) {
       file_put_contents(dirname(__FILE__).'/VERSION', "This file is necessary for the next feindura update. Do not delete it!\n".$NEWVERSION."\n".$NEWBUILD);
@@ -1023,10 +1023,10 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       echo '<br><h1>You can now delete the "update.php" file.</h1>';
     } else
       echo '<h1>something went wrong :-( could not completely update feindura, check the errors and try again.</h1>';
-    
+
   }
 
-  
+
   ?>
   <br><br>
   <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a>

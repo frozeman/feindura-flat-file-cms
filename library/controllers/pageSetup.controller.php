@@ -28,11 +28,11 @@ $categoryInfo = false;
 // ---------------------------------------------------------------------------------------------------
 // ****** ---------- SAVE PAGE CONFIG in config/admin.config.php
 if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
-  
+
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
   $_POST = addSlashesToPaths($_POST);
   $_POST = removeDocumentRootFromPaths($_POST);
-  
+
   // ** removes a "/" on the beginning of all relative paths
   if(!empty($_POST['cfg_thumbPath']) && substr($_POST['cfg_thumbPath'],0,1) == '/')
         $_POST['cfg_thumbPath'] = substr($_POST['cfg_thumbPath'],1);
@@ -40,7 +40,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   // -> check if languages exist, otherwise deactivate multilanguage pages
   if(empty($_POST['cfg_websiteLanguages']))
     $_POST['cfg_multiLanguageWebsite'] = false;
-  
+
   // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
   if(!isset($_POST['cfg_thumbWidth']))
     $_POST['cfg_thumbWidth'] = $adminConfig['pageThumbnail']['width'];
@@ -48,12 +48,13 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     $_POST['cfg_thumbHeight'] = $adminConfig['pageThumbnail']['height'];
 
   // -> PREPARE CONFIG VARs
-  $newAdminConfig                                         = $adminConfig; // transfer the rest if the adminConfig
+  $newAdminConfig                                         = $adminConfig; // transfer the rest of the adminConfig
+  $newAdminConfig['maintenance']                          = $_POST['cfg_maintenance'];
   $newAdminConfig['setStartPage']                         = $_POST['cfg_setStartPage'];
   $newAdminConfig['multiLanguageWebsite']['active']       = $_POST['cfg_multiLanguageWebsite'];
   $newAdminConfig['multiLanguageWebsite']['mainLanguage'] = $_POST['cfg_websiteMainLanguage'];
   $newAdminConfig['multiLanguageWebsite']['languages']    = $_POST['cfg_websiteLanguages'];
-  
+
   $newAdminConfig['pageThumbnail']['width']               = $_POST['cfg_thumbWidth'];
   $newAdminConfig['pageThumbnail']['height']              = $_POST['cfg_thumbHeight'];
   $newAdminConfig['pageThumbnail']['ratio']               = $_POST['cfg_thumbRatio'];
@@ -72,7 +73,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
           $removedLanguages[] = $langCode;
       }
     }
-        
+
     // -> CHANGE PAGES
     $allPages = GeneralFunctions::loadPages(true);
     foreach($allPages as $pageContent) {
@@ -81,7 +82,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
 
       // change the non localized content to the mainLanguage
       if(is_array($pageContent['localized']) && is_array(current($pageContent['localized']))) {
-        
+
         // USE LOCALIZATION: Get either the already existing mainLanguage, or use the next following language as the mainLanguage
         $useLocalization = (isset($pageContent['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
           ? $pageContent['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
@@ -117,7 +118,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
       }
     }
     if(!saveWebsiteConfig($websiteConfig))
-      $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['basePath']);    
+      $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['basePath']);
 
     // -> CHANGE CATEGORY CONFIG
     // change the localized content to non localized content using the the mainLanguage
@@ -160,7 +161,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
         $storedMainLanguageArray = $pageContent['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
         unset($pageContent['localized']);
         $pageContent['localized'][0] = $storedMainLanguageArray;
-      
+
       // if the mainLanguage didnt exist create an empty array
       } else
         $pageContent['localized'][0] = array();
@@ -175,7 +176,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
       $storedMainLanguageArray = $websiteConfig['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
       unset($websiteConfig['localized']);
       $websiteConfig['localized'][0] = $storedMainLanguageArray;
-    
+
     // if the mainLanguage didnt exist create an empty array
     } else
       $websiteConfig['localized'][0] = array();
@@ -194,7 +195,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
           $storedMainLanguageArray = $category['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
           unset($newCategoryConfig[$key]['localized']);
           $newCategoryConfig[$key]['localized'][0] = $storedMainLanguageArray;
-        
+
         // if the mainLanguage didnt exist create an empty array
         } else
           $newCategoryConfig[$key]['localized'][0] = array();
@@ -213,10 +214,10 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     // give documentSaved status
     $documentSaved = true;
     saveActivityLog(14); // <- SAVE the task in a LOG FILE
-    
+
   } else
     $errorWindow .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['basePath']);
-  
+
   $savedForm = $_POST['savedBlock'];
   $savedSettings = true;
 }
@@ -227,17 +228,17 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
 // ****** ---------- CREATE NEW CATEGORY
 if((isset($_POST['send']) && $_POST['send'] == 'categorySetup' && isset($_POST['createCategory'])) ||
    $_GET['status'] == 'createCategory') {
-   
+
   // var
   $isDir = false;
-   
+
   // -> GET highest category id
   $newId = getNewCatgoryId();
-  
+
   if(is_numeric($newId)) {
     if($newId == 1)
       $categoryConfig = array();
-    
+
     // if there is no category dir, try to create one
     if(@is_dir(dirname(__FILE__).'/../../pages/'.$newId)) {
       $isDir = true;
@@ -245,70 +246,70 @@ if((isset($_POST['send']) && $_POST['send'] == 'categorySetup' && isset($_POST['
       // creates a new category folder
       if(!@mkdir(dirname(__FILE__).'/../../pages/'.$newId, $adminConfig['permissions'],true)) {
           $isDir = false;
-          $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATEDIR'],$adminConfig['basePath']);      
+          $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATEDIR'],$adminConfig['basePath']);
       // save category dir could be created
       } else
         $isDir = true;
-    }      
-    
+    }
+
     // finaly if category directory exists
-    if($isDir) {         
+    if($isDir) {
       // add a new id to the category array
-      $categoryConfig[$newId] = array('id' => $newId); // gives the new category a id  
+      $categoryConfig[$newId] = array('id' => $newId); // gives the new category a id
       if(saveCategories($categoryConfig)) {
          $categoryInfo = $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED'];
          saveActivityLog(15); // <- SAVE the task in a LOG FILE
       } else { // throw error
         $errorWindow .= ($errorWindow) // if there is allready an warning
           ? '<br><br>'.sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath'])
-          : sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']); 
+          : sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
       }
     }
-     
+
   } else // throw error
     $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
-    
+
   $savedForm = 'categories';
   $savedSettings = true;
 }
 
 // ****** ---------- DELETE CATEGORY
 if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['deleteCategory'])) ||
-   $_GET['status'] == 'deleteCategory') && isset($categoryConfig[$_GET['category']])) {  
-  
+   $_GET['status'] == 'deleteCategory') && isset($categoryConfig[$_GET['category']])) {
+
   // save the name, to put it in the info
   $storedCategoryName = GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name');
 
   // deletes the category with the given id from the array and saves the categoriesSettings.php
-  unset($categoryConfig[$_GET['category']],$pageContent);  
+  unset($categoryConfig[$_GET['category']],$pageContent);
   if(saveCategories($categoryConfig)) {
-  
+
     // Hinweis für den Benutzer welche Gruppe gelöscht wurde
     $categoryInfo = $langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_DELETED'].': '.$storedCategoryName;
-  
+
     // if there is a category dir, trys to delete it !important deletes all files in it
     if(is_dir(dirname(__FILE__).'/../../pages/'.$_GET['category'])) {
-    
+
       if($pageContents = GeneralFunctions::loadPages($_GET['category'])) {
-      
+
         // deletes possible thumbnails before deleting the category
         foreach($pageContents as $page) {
           if(!empty($page['thumbnail']) && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'])) {
-            @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], $adminConfig['permissions']);          
-            // DELETING    
+            @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], $adminConfig['permissions']);
+            // DELETING
             @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail']);
           }
         }
       }
-      
+
       // deletes the dir with subdirs and files
       if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/../../pages/'.$_GET['category'].'/')) {
         $errorWindow .= ($errorWindow) // if there is allready an warning
           ? '<br><br>'.sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETEDIR'],$adminConfig['basePath'])
           : sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETEDIR'],$adminConfig['basePath']);
-      }    
+      }
     }
-    
+
     saveActivityLog(16,$storedCategoryName); // <- SAVE the task in a LOG FILE
   } else // throw error
     $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETECATEGORY'],$adminConfig['basePath']);
@@ -319,26 +320,26 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
 
 // ****** ---------- MOVE CATEGORY
 if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) && is_numeric($_GET['category'])) {
-  
+
   // move the categories in the categories array
   if($_GET['status'] == 'moveCategoryUp')
     $direction = 'up';
   if($_GET['status'] == 'moveCategoryDown')
     $direction = 'down';
-    
+
   if(moveCategories($categoryConfig,$_GET['category'],$direction)) {
-  
+
     $categoryInfo = $langFile['PAGESETUP_CATEGORY_TEXT_MOVECATEGORY_MOVED'];
-    
+
     // save the categories array
     if(saveCategories($categoryConfig)) {
       $documentSaved = true; // set documentSaved status
       saveActivityLog(17,'category='.$_GET['category']); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_SAVE'],$adminConfig['basePath']);
-    
+
   }
-    
+
   $savedForm = 'categories';
   $savedSettings = true;
 }
@@ -358,7 +359,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
     // STORE LOCALIZED CONTENT
     if(!empty($value['name']))
       $_POST['categories'][$categoryId]['localized'][$_POST['websiteLanguage']]['name'] = $value['name'];
-    
+
     // delete unnecessary variables
     unset($_POST['categories'][$categoryId]['name']);
   }
@@ -371,10 +372,10 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
   if(saveCategories($_POST['categories'])) {
     $documentSaved = true; // set documentSaved status
     saveActivityLog(18); // <- SAVE the task in a LOG FILE
-    
+
   } else
     $errorWindow .= $langFile['PAGESETUP_CATEGORY_ERROR_SAVE'];
-  
+
   $savedForm = 'categories';
   $savedSettings = true;
 }
@@ -391,7 +392,7 @@ if($savedSettings) {
   GeneralFunctions::$adminConfig = $adminConfig;
   GeneralFunctions::$categoryConfig = $categoryConfig;
   StatisticFunctions::$adminConfig = $adminConfig;
-  
+
   // DELETE old FEED FILES
   // non category
   $feedFiles = glob(dirname(__FILE__).'/../../pages/*.xml');
@@ -409,7 +410,7 @@ if($savedSettings) {
 
   // -> check isSubCategoryOf in categories and subCategory in pages
   checkSubCategories();
-  
+
   // -> delete old feeds
   clearFeeds();
   // ->> save the FEEDS for categories, if activated
@@ -417,7 +418,7 @@ if($savedSettings) {
     foreach($categoryConfig as $category)
       saveFeeds($category['id']);
   }
-  
+
   // ->> save the SITEMAP
   saveSitemap();
 }

@@ -2,20 +2,20 @@
 /**
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
- * 
+ *
  * This program is free software;
  * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
- * 
+ *
  * index.php
- * 
+ *
  * @version 2.3
  */
 
@@ -43,7 +43,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 <html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>">
 <head>
   <meta charset="UTF-8">
-  
+
   <title>feindura &gt; <?php
   echo GeneralFunctions::getLocalized($websiteConfig,'title');
   if(isset($_GET['page']) && is_numeric($_GET['page']) && ($pageTitle = GeneralFunctions::readPage($_GET['page'],GeneralFunctions::getPageCategory($_GET['page']))) != false) {
@@ -51,29 +51,29 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   }
   unset($pageTitle);
   ?></title>
-  
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=0.5">
-  
+
   <meta name="robots" content="no-index,nofollow">
   <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
   <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate">
-  
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">     
+
+  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">    
-  <meta name="description" content="A flat file based Content Management System, written in PHP">    
-  <meta name="keywords" content="cms,flat,file,content,management,system"> 
-   
+  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">
+  <meta name="description" content="A flat file based Content Management System, written in PHP">
+  <meta name="keywords" content="cms,flat,file,content,management,system">
+
   <link rel="shortcut icon" href="favicon.ico">
-  
+
   <!-- ************************************************************************************************************ -->
   <!-- STYLESHEETS -->
-  
+
   <!-- thirdparty/CodeMirror -->
   <link rel="stylesheet" type="text/css" href="library/thirdparty/CodeMirror/codemirror-unified.css">
-  
+
   <!-- feindura styles -->
   <link rel="stylesheet" type="text/css" href="library/styles/reset.css<?php echo '?v='.BUILD; ?>">
   <link rel="stylesheet" type="text/css" href="library/styles/layout.css<?php echo '?v='.BUILD; ?>">
@@ -81,58 +81,58 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css<?php echo '?v='.BUILD; ?>">
   <link rel="stylesheet" type="text/css" href="library/styles/shared.css<?php echo '?v='.BUILD; ?>">
 <?php
-if($_GET['site'] == 'addons') {  
+if($_GET['site'] == 'addons') {
   if($addonStyles = GeneralFunctions::createStyleTags(dirname(__FILE__).'/addons/')) {
     echo "\n  <!-- addons stylesheets -->\n";
     echo $addonStyles;
   }
 }
-?>  
+?>
   <!--[if IE 7]><link rel="stylesheet" type="text/css" href="library/styles/ie7.css"><![endif]-->
-  
+
   <noscript>
   <link rel="stylesheet" type="text/css" href="library/styles/noJavascript.css">
   </noscript>
-  
+
   <!-- ************************************************************************************************************ -->
   <!-- JAVASCRIPT -->
 
   <!-- thirdparty/MooTools -->
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.4.5.js"></script>
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.4.0.1.js"></script>
-  
+
   <!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
-  
+
   <!-- thirdparty/AutoGrow [http://cpojer.net/PowerTools/] (need MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/powertools-1.0.1.js"></script>
-  
+
   <!-- thirdparty/StaticScroller (need MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/StaticScroller.js"></script>
-  
+
   <!-- thirdparty/FancyForm (need MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/fancyform.js"></script>
 <?php if(!empty($userConfig)) { ?>
 
   <!-- thirdparty/CountDown (need MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/CountDown.js"></script>
-  
+
 <?php } ?>
   <!-- thirdparty/CodeMirror -->
   <script type="text/javascript" src="library/thirdparty/CodeMirror/codemirror-compressed.js"></script>
   <script type="text/javascript" src="library/thirdparty/CodeMirror/modes-compressed.js"></script>
 <?php
   if(!empty($_GET['page'])) { ?>
-  
+
   <!-- thirdparty/CKEditor -->
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js<?php echo '?v='.BUILD; ?>"></script>
-  
+
   <!-- thirdparty/MooRTE -->
   <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.min.js<?php echo '?v='.BUILD; ?>"></script>
 <?php
   }
   if($adminConfig['user']['fileManager'] && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
-  
+
   <!-- thirdparty/MooTools-FileManager -->
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js<?php echo '?v='.BUILD; ?>"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
@@ -140,13 +140,13 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>.js"></script>
 <?php } ?>
- 
+
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascripts/shared.js<?php echo '?v='.BUILD; ?>"></script>
   <script type="text/javascript" src="library/javascripts/loading.js<?php echo '?v='.BUILD; ?>"></script>
   <script type="text/javascript" src="library/javascripts/windowBox.js<?php echo '?v='.BUILD; ?>"></script>
   <script type="text/javascript" src="library/javascripts/content.js<?php echo '?v='.BUILD; ?>"></script>
-  
+
   <script type="text/javascript">
   /* <![CDATA[ */
 
@@ -166,7 +166,7 @@ if($_GET['site'] == 'addons') {
   };
   var currentSite = '<?php echo $_GET["site"]; ?>';
   var currentPage = '<?php echo $_GET["page"]; ?>';
-  
+
   // -> TRANSPORT pages for CKEditor FEINDURA LINKS
   <?php
   if(!empty($_GET['page'])) {
@@ -195,7 +195,7 @@ if($_GET['site'] == 'addons') {
   var feindura_snippets_isAdmin               = <?php echo (isAdmin()) ? 'true' : 'false' ?>;
 
   window.addEvent('domready', function () {
-    
+
     // ->> include FILEMANAGER
     <?php if($adminConfig['user']['fileManager'] && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
     var hideFileManager = function(){this.hide();}
@@ -244,7 +244,7 @@ if($_GET['site'] == 'addons') {
       });
     });
     <?php }
-    
+
     // ->> STARTS the session COUNTER
     if(!empty($userConfig) && isset($_SESSION['feinduraSession']['login']['end'])) {
     ?>
@@ -283,7 +283,7 @@ if($_GET['site'] == 'addons') {
 
   <!-- loadingBox -->
   <div id="loadingBox"></div>
-  
+
   <div id="windowBoxContainer">
     <div id="windowBox">
       <!-- <h1><?php echo $langFile['LOADING_TEXT_LOAD']; ?></h1> -->
@@ -297,26 +297,26 @@ if($_GET['site'] == 'addons') {
   <div id="header">
     <div id="sessionTimer" class="toolTip blue" title="<?php echo $langFile['LOGIN_TIP_AUTOLOGOUT']; ?>::"></div>
     <a id="top"></a>
-    
+
     <div id="headerBlock">
-      
+
       <a href="index.php?logout"  tabindex="1" class="logout toolTip" title="<?php echo $langFile['HEADER_BUTTON_LOGOUT']; ?>"></a>
       <?php if($adminConfig['user']['frontendEditing']) { ?>
       <a href="<?php echo $adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']); ?>"  tabindex="2" class="toWebsite toolTip" title="<?php echo $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']; ?>"></a>
       <?php } ?>
 
-      <div id="languageSelection">        
+      <div id="languageSelection">
         <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','de'); ?>" tabindex="20" class="de toolTip" title="Deutsch::"></a>
         <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','en'); ?>" tabindex="21" class="en toolTip" title="English::"></a>
         <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','fr'); ?>" tabindex="22" class="fr toolTip" title="français::"></a>
         <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','it'); ?>" tabindex="23" class="it toolTip" title="italiano::"></a>
         <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','ru'); ?>" tabindex="24" class="ru toolTip" title="русский::"></a>
       </div>
-      
+
       <h1 style="display:none;">feindura - flat file cms</h1><!-- just for the outline of the HTML page -->
       <div id="logo"></div>
       <div id="version" class="toolTip" title="<?php echo $langFile['LOGO_TEXT'].' '.VERSION.' - Build '.BUILD; ?>::"><?php echo VERSION; ?></div>
-      
+
       <div id="mainMenu"<?php if(!isAdmin()) echo ' style="width:830px"'; ?>>
         <table>
           <tbody>
@@ -335,7 +335,7 @@ if($_GET['site'] == 'addons') {
         </table>
       </div>
     </div>
-    
+
     <!-- ADMIN MENU -->
     <?php if(isAdmin()) { ?>
     <div id="adminMenu">
@@ -346,39 +346,38 @@ if($_GET['site'] == 'addons') {
         <table>
           <tbody>
             <tr>
-            <td><a href="?site=adminSetup" tabindex="10" class="adminSetup<?php if($_GET['site'] == 'adminSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_ADMINSETUP']; ?>"><span><?php echo $langFile['BUTTON_ADMINSETUP']; ?></span></a></td>
-            <td><a href="?site=pageSetup" tabindex="11" class="pageSetup<?php if($_GET['site'] == 'pageSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PAGESETUP']; ?>"><span><?php echo $langFile['BUTTON_PAGESETUP']; ?></span></a></td>
+            <td><a href="?site=pageSetup" tabindex="10" class="pageSetup<?php if($_GET['site'] == 'pageSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PAGESETUP']; ?>"><span><?php echo $langFile['BUTTON_PAGESETUP']; ?></span></a></td>
+            <td><a href="?site=adminSetup" tabindex="11" class="adminSetup<?php if($_GET['site'] == 'adminSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_ADMINSETUP']; ?>"><span><?php echo $langFile['BUTTON_ADMINSETUP']; ?></span></a></td>
             </tr><tr>
             <td><a href="?site=statisticSetup" tabindex="12" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_STATISTICSETUP']; ?>"><span><?php echo $langFile['BUTTON_STATISTICSETUP']; ?></span></a></td>
-            <td><a href="?site=backup" tabindex="13" class="backup<?php if($_GET['site'] == 'backup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_BACKUP']; ?>"><span><?php echo $langFile['BUTTON_BACKUP']; ?></span></a></td>
-            </tr>
-            <tr>
-            <td><a href="?site=userSetup" tabindex="14" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_USERSETUP']; ?>"><span><?php echo $langFile['BUTTON_USERSETUP']; ?></span></a></td>
+            <td><a href="?site=userSetup" tabindex="13" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_USERSETUP']; ?>"><span><?php echo $langFile['BUTTON_USERSETUP']; ?></span></a></td>
+            </tr><tr>
+            <td><a href="?site=backup" tabindex="14" class="backup<?php if($_GET['site'] == 'backup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_BACKUP']; ?>"><span><?php echo $langFile['BUTTON_BACKUP']; ?></span></a></td>
             <?php //}
             // CHECKS if the modlues/ folder is empty
             if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
             <td><a href="?site=modulSetup" tabindex="15" class="modulSetup<?php if($_GET['site'] == 'modulSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
             <?php } ?>
-            </tr> 
-          </tbody>     
+            </tr>
+          </tbody>
         </table>
-      </div>      
+      </div>
     </div>
     <?php } ?>
-  </div>     
-  
+  </div>
+
   <!-- ************************************************************************* -->
   <!-- ** DOCUMENT SAVED ******************************************************* -->
   <div id="documentSaved"<?php if($documentSaved === true) echo ' class="saved"'; ?>></div>
-  
+
   <!-- ***************************************************************************************** -->
   <!-- ** MAINBODY ***************************************************************************** -->
   <div id="mainBody">
     <?php
-    
+
     // ---------------------------------------------------------------
-    // ->> CHECK to show BUTTONs in subMenu and FooterMenu 
-     
+    // ->> CHECK to show BUTTONs in subMenu and FooterMenu
+
     $generallyCreatePages = false;
     // CHECK if one category can create pages
     if(!empty($categoryConfig)) {
@@ -389,16 +388,16 @@ if($_GET['site'] == 'addons') {
       unset($category);
     }
 
-    
+
     $showCreatePage = ($generallyCreatePages || //&& $_GET['site'] == 'pages'
                        (!empty($_GET['page']) && $categoryConfig[$_GET['category']]['createDelete'])) ? true : false;
-    
+
      // -> CHECK for DELETE PAGE
     $showDeletePage = ($generallyCreatePages && !$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new' &&
                        $categoryConfig[$_GET['category']]['createDelete']) ? true : false;
-    
+
     $isInPageEditor = (isset($_GET['page']) && !$newPage) ? true : false;
-    
+
     // ->CHECK frontend editing
     $showFrontendEditing = ($isInPageEditor && $adminConfig['user']['frontendEditing']) ? true : false;
 
@@ -407,14 +406,14 @@ if($_GET['site'] == 'addons') {
                                 empty($_GET['site']) && !empty($_GET['page']) &&
                                 $categoryConfig[$_GET['category']]['thumbnails']) ? true : false;
 
-    
+
     // -> CHECK for pageThumbnailDelete
     $showPageThumbnailDelete = (empty($_GET['site']) && !empty($pageContent['thumbnail'])) ? true : false;
-    
+
     // -> CHECK if show SUBMENU
-    $showSubMenu = ((isset($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup') && 
+    $showSubMenu = ((isset($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup') &&
        ($showPageThumbnailUpload || $showCreatePage || $showPageThumbnailUpload || $adminConfig['user']['fileManager'] || $showDeletePage)) ? true : false;
-      
+
 
     // ->> RE-SET CURRENT WEBSITE LANGUAGE based on the pages languages
     if($adminConfig['multiLanguageWebsite']['active']) {
@@ -442,19 +441,19 @@ if($_GET['site'] == 'addons') {
         $missingLanguages = false;
     }
     ?>
-    
+
     <!-- ************************************************************************* -->
     <!-- ** LEFT-SIDEBAR ************************************************************** -->
     <!-- requires the <span> tag inside the <li><a> tag for measure the text width -->
     <div id="leftSidebar">
       <?php
-    
+
       include('library/leftSidebar.loader.php');
-      
+
       ?>
     </div>
-    
-    <!-- ************************************************************************* -->    
+
+    <!-- ************************************************************************* -->
     <!-- ** CONTENT ************************************************************** -->
     <div id="content"<?php if($showSubMenu) echo 'class="hasSubMenu"'; ?>>
       <!-- ************************************************************************* -->
@@ -463,7 +462,7 @@ if($_GET['site'] == 'addons') {
       <div class="subMenu">
         <div class="left"></div>
         <div class="content">
-          <ul class="horizontalButtons">         
+          <ul class="horizontalButtons">
             <?php
 
             // vars
@@ -477,7 +476,7 @@ if($_GET['site'] == 'addons') {
             }
 
             // CREATE NEW PAGE
-            if($showCreatePage) { 
+            if($showCreatePage) {
               if($showSpacer) { ?>
               <li class="spacer">&nbsp;</li>
               <?php } ?>
@@ -485,9 +484,9 @@ if($_GET['site'] == 'addons') {
             <?php
               $showSpacer = true;
             }
-            
+
             // FRONTEND EDITING
-            if($showFrontendEditing) { 
+            if($showFrontendEditing) {
               if($showSpacer) { ?>
               <li class="spacer">&nbsp;</li>
               <?php } ?>
@@ -501,8 +500,8 @@ if($_GET['site'] == 'addons') {
               <?php } ?>
               <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_DELETEPAGE'].'::'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'"'; ?> tabindex="32" class="deletePage toolTip">&nbsp;</a></li>
             <?php $showSpacer = true;
-            }       
-            
+            }
+
             // PAGETHUMBNAILUPLOAD
             if($showPageThumbnailUpload) {
               if($showSpacer) { ?>
@@ -516,7 +515,7 @@ if($_GET['site'] == 'addons') {
             <?php }
             $showSpacer = true;
             }
-            
+
             // WEBSITE LANGUAGE BUTTONS and SELECTION
             if($adminConfig['multiLanguageWebsite']['active']) {
 
@@ -524,7 +523,7 @@ if($_GET['site'] == 'addons') {
               if($isInPageEditor) {
                 if($showSpacer) { ?>
                 <li class="spacer">&nbsp;</li>
-                <?php } 
+                <?php }
                 if($missingLanguages) { ?>
                 <li><a <?php echo 'href="?site=addPageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/addPageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_ADD'].'\');return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_ADD'].'::'.$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD'].'"'; ?> tabindex="35" class="addPageLanguage toolTip">&nbsp;</a></li>
               <?php
@@ -558,51 +557,51 @@ if($_GET['site'] == 'addons') {
               }
 
             }
-            ?>          
+            ?>
           </ul>
-        </div>        
+        </div>
         <div class="right"></div>
       </div>
       <?php }
 
       include('library/content.loader.php');
-      
+
       ?>
       <a href="#top" class="fastUp" title="<?php echo $langFile['BUTTON_UP']; ?>">&nbsp;</a>
     </div>
-    
+
     <!-- ************************************************************************* -->
     <!-- ** RIGHT-SIDEBAR ************************************************************** -->
     <!-- requires the <span> tag inside the <li><a> tag for measure the text width -->
     <div id="rightSidebar">
       <?php
-  
+
       include('library/rightSidebar.loader.php');
-      
+
       ?>
-    </div>    
-  </div> 
-  
+    </div>
+  </div>
+
   <!-- ******************************************************************************************* -->
   <!-- ** FOOTER ********************************************************************************* -->
   <div id="footer">
-    <div id="footerBlock">      
+    <div id="footerBlock">
       <div id="copyright">
-        <span class="logoname">fein<span>dura</span></span> - Flat File Content Management System, Copyright &copy; 2009-<?php echo date('Y'); ?> <a href="http://frozeman.de">Fabian Vogelsteller</a> - <span class="logoname">fein<span>dura</span></span> is published under the <a href="LICENSE">GNU General Public License, version 3</a>
+        <span class="feinduraName">fein<span>dura</span></span> - Flat File Content Management System, Copyright &copy; 2009-<?php echo date('Y'); ?> <a href="http://frozeman.de">Fabian Vogelsteller</a> - <span class="feinduraName">fein<span>dura</span></span> is published under the <a href="LICENSE">GNU General Public License, version 3</a>
       </div>
     </div>
   </div>
 
   <?php if($errorWindow !== false) { ?>
   <!-- ************************************************************************* -->
-  <!-- ** ERROR WINDOW ********************************************************* -->    
+  <!-- ** ERROR WINDOW ********************************************************* -->
   <div id="feindura_errorWindow">
     <h1><?php echo $langFile['errorWindow_h1'];?></h1>
     <div class="feindura_content feindura_warning">
       <div class="scroll"><?php echo $errorWindow; ?></div>
       <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('feindura_errorWindow').fade('out');return false;" class="feindura_ok"></a>
     </div>
-  </div>  
+  </div>
   <?php } ?>
 
 </body>

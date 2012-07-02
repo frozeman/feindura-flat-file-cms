@@ -35,7 +35,7 @@ html,body {
 /* *** CONTAINER */
 
 #container {
-  position: relative; 
+  position: relative;
   top: 20%;
   width: 330px;
   margin: auto;
@@ -54,10 +54,10 @@ html,body {
   background: url("../images/bg/loginBox.png") repeat;
 }
 
-.logoname {
+.feinduraName {
     color: #DD6C1D !important;
     }
-.logoname span {
+.feinduraName span {
     color: #3979A5 !important;
     }
 
@@ -66,7 +66,7 @@ html,body {
 
 #loginErrorBox {
   position: relative;
-  width: 330px;  
+  width: 330px;
 }
 
 #loginErrorBox .top {

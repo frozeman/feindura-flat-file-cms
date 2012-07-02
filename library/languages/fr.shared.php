@@ -16,7 +16,7 @@
  */
 /**
  * FRENCH (FR) language-file for the feindura CMS (FRONTEND and BACKEND)
- * 
+ *
  * need a RETURN $frontendLangFile; at the END
  */
 
@@ -54,7 +54,7 @@ $sharedLangFile['SEARCH_TEXT_TIME_2']                       = 'secondes';
 $sharedLangFile['errorWindow_h1']                           = 'une erreur s\'est produite!';
 $sharedLangFile['SORTABLEPAGELIST_setStartPage_error_save'] = '<b>activation de la page d\'accueil impossible.</b>';
 $sharedLangFile['EDITOR_savepage_error_save']               = '<b>Cette page ne pouvait pas être sauvegardée.</b>';
-$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'ERREUR<br><br><span class="logoname">fein<span>dura</span></span> nécessite au moins la version de PHP'; // PHP 5.2.3
+$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'ERREUR<br><br><span class="feinduraName">fein<span>dura</span></span> nécessite au moins la version de PHP'; // PHP 5.2.3
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

@@ -16,7 +16,7 @@
  */
 /**
  * ENGLISH (EN) language-file for the feindura CMS (FRONTEND)
- * 
+ *
  * need a RETURN $frontendLangFile; at the END
  */
 
@@ -36,6 +36,7 @@ $frontendLangFile['TOPBAR_TIP_DEACTIVATEFRONTENDEDITING'] = 'Deactivate Frontend
 
 $frontendLangFile['PAGE_ERROR_NOPAGE']               = 'The requested page doesn\'t exist.';
 $frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC']        = 'The requested page is currently not available.';
+$frontendLangFile['INFO_MAINTENACE']                 = 'This website will be available soon.';
 
 
 // DATE TEXTS

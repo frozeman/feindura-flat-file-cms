@@ -26,41 +26,44 @@ $opendCategory = false;
 
 // ->> CHANGE CATEGORY STATUS
 if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus') {
-     
-      // change the status
-      $categoryConfig[$_GET['category']]['public'] = ($_GET['public']) ? false : true;
-  
-      // save the new status
-      if(saveCategories($categoryConfig)) {
-        $documentSaved = true;
-        // ->> save the FEEDS, if activated
-        GeneralFunctions::$categoryConfig = $categoryConfig;
-        saveFeeds($_GET['category']);
-        // ->> save the SITEMAP
-        saveSitemap();
-        
-      } else
-        $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['basePath']);
-   
-   // shows after saving the category open
-   $opendCategory = $_GET['category'];
+
+  // change the status
+  $categoryConfig[$_GET['category']]['public'] = ($_GET['public']) ? false : true;
+
+  // save the new status
+  if(saveCategories($categoryConfig)) {
+    $documentSaved = true;
+    // ->> save the FEEDS, if activated
+    GeneralFunctions::$categoryConfig = $categoryConfig;
+    saveFeeds($_GET['category']);
+    // ->> save the SITEMAP
+    saveSitemap();
+
+  } else
+    $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['basePath']);
+
+ // shows after saving the category open
+ $opendCategory = $_GET['category'];
 }
 
 // ->> SET THE STARTPAGE
 if(isset($_GET['status']) && $_GET['status'] == 'setStartPage' && !empty($_GET['page'])) {
-  
-    // sets the new startPage
-    $websiteConfig['startPage'] = $_GET['page'];
-    
-    if(savewebsiteConfig($websiteConfig)) {
-      // give documentSaved status
-      $documentSaved = true;
-      
-    } else $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_setStartPage_error_save'],$adminConfig['basePath']);
 
-  
+  // sets the new startPage
+  if( $websiteConfig['startPage'] == $_GET['page'])
+      $websiteConfig['startPage'] = 0;
+  else
+    $websiteConfig['startPage'] = $_GET['page'];
+
+  if(savewebsiteConfig($websiteConfig)) {
+    // give documentSaved status
+    $documentSaved = true;
+
+  } else $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_setStartPage_error_save'],$adminConfig['basePath']);
+
+
   // shows after saving the category open
-   $opendCategory = $_GET['category'];
+ $opendCategory = $_GET['category'];
 }
 
 ?>

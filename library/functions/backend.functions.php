@@ -16,50 +16,50 @@
  */
 /**
  * This file contains the main functions used by the backend of the feindura-CMS.
- * 
+ *
  * @package [Backend]
- * 
+ *
  * @version 1.4
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.4 changed all save…() functions from fopen() to file_put_contents()
- *    - 1.33 isAdmin(): add immediately return true if no remote_user exists 
+ *    - 1.33 isAdmin(): add immediately return true if no remote_user exists
  *    - 1.32 fixed editFiles()
  *    - 1.31 add checkStyleFiles()
- * 
+ *
  */
 
 /**
  * <b>Name</b> showErrorsInWindow()<br>
- * 
+ *
  * gets the PHP errors, to show them in the errorWindow
- * 
- * 
+ *
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$errorWindow</var> the errorWindow text which will extended with the given errors from PHP
- * 
+ *
  * @param int     $errorCode the PHP errorcode
  * @param string  $errorText the PHP error message
  * @param string  $errorFile the filename of the file where the erro occurred
  * @param int     $errorLine the line number where the error occurred
- * 
+ *
  * @return bool TRUE if PHP should not handle th errors, FALSE if PHP should show the errors
- * 
- * 
+ *
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function showErrorsInWindow($errorCode, $errorText, $errorFile, $errorLine) {
-    
+
     // var
     $error = '<span class="rawError">'.$errorText."<br><br>".$errorFile.' on line '.$errorLine."</span>\n";
-    
+
     // suppress Error reporting with @
     if(0 == error_reporting()) { return; }
-    
+
     switch ($errorCode) {
     case E_USER_ERROR:
         return false;
@@ -73,41 +73,41 @@ function showErrorsInWindow($errorCode, $errorText, $errorFile, $errorLine) {
         $GLOBALS['errorWindow'] .= $error;
         break;
     }
-    
+
     /* to prevent the internal PHP error reporting */
     return true;
 }
 
 /**
  * <b>Name</b> isAdmin()<br>
- * 
+ *
  * Check if the current user is an admin. If no users exist everyone is an admin.
- * 
- * 
+ *
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$userConfig</var> the user-settings config (included in the {@link general.include.php})
- * 
+ *
  * @return bool TRUE if the current user is an admin, or no admins exist, otherwise FALSE
- * 
- * 
+ *
+ *
  * @version 1.2
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.2 returns now also TRUE when no user is admin
- *    - 1.1 changed user managament system, it now get the users from the user.config.php 
+ *    - 1.1 changed user managament system, it now get the users from the user.config.php
  *    - 1.01 add immediately return true if no remote_user exists
  *    - 1.0 initial release
- * 
+ *
  */
 function isAdmin() {
-  
+
   // var
   $otherUsers = false;
 
   if(!empty($GLOBALS['userConfig'])) {
-    
+
     $user = $_SESSION['feinduraSession']['login']['user'];
-    
+
     // check if the user exists
     if(!empty($user)) {
       foreach($GLOBALS['userConfig'] as $configUser) {
@@ -118,7 +118,7 @@ function isAdmin() {
         } else {
           if($configUser['admin'])
             $otherUsers = true;
-        }  
+        }
       }
     }
   }
@@ -131,18 +131,18 @@ function isAdmin() {
 
 /**
  * <b>Name</b> isBlocked()<br>
- * 
+ *
  * Check if an other user is on the current site.
- * 
- * @param bool $returnBool (optional) Whether the content blocked or a bool will be returned  
- * 
+ *
+ * @param bool $returnBool (optional) Whether the content blocked or a bool will be returned
+ *
  * @return string|false The #contentBlocked DIV, if another user is on that site, otherwise FALSE
- * 
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function isBlocked($returnBool = false) {
   $return = '';
@@ -163,23 +163,23 @@ function isBlocked($returnBool = false) {
 
 /**
  * <b>Name</b> userCache()<br>
- * 
+ *
  * Creates a <var>user.statistic.cache</var> file and store the username and the currently visited site/page.
- * 
+ *
  * An example of the saved cache lines
  * <samp>
  * c5b5533c8475801044fb7680059d5846|#|1306781298|#|frozeman|#|websiteSetup|#|edit
  * 4afe1d41e2f2edbf07086b1c2c492c10|#|1306781299|#|test|#|websiteSetup
  * </samp>
- * 
- * 
+ *
+ *
  * @return array an array with all users and current sites/pages
- * 
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function userCache() {
 
@@ -193,7 +193,7 @@ function userCache() {
   $cacheFile = dirname(__FILE__)."/../../statistic/user.statistic.cache";
   $newLines = array();
   $cachedLines = false;
-  
+
   // -> OPEN user.statistic.cache for reading
   if($cache = @fopen($cacheFile,"r")) {
     flock($cache,LOCK_SH);
@@ -202,38 +202,38 @@ function userCache() {
     flock($cache,LOCK_UN);
     fclose($cache);
   }
-  
+
   // STORE OLD CACHE LINES
   if(is_array($cachedLines)) {
-    
+
     // check if a user is already on the current location
     $free = true;
     foreach($cachedLines as $cachedLine) {
       $cachedLineArray = explode('|#|', $cachedLine);
       if(isset($cachedLineArray[4]) && IDENTITY != trim($cachedLineArray[0]) && trim($cachedLineArray[3]) == $location) $free = false;
     }
-    
+
     foreach($cachedLines as $cachedLine) {
       $cachedLineArray = explode('|#|', $cachedLine);
-      
+
       // stores the user AGAIN with new timestamp, if the user was less than $maxTime on the page,
       // otherwise remove the user form the cache (dont save his line)
       if(!empty($location) && $timeStamp - $cachedLineArray[1] < $maxTime) {
-        
+
         if($cachedLineArray[0] == IDENTITY) {
           $edit = ($free) ? '|#|edit' : false;
-          
+
           $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'].'|#|'.$location.$edit;
           $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'], 'location' => $location);
-          
+
           if($free) $addArray['edit'] = true;
           $return[] = $addArray;
           $stored = true;
         } elseif(!empty($cachedLineArray[0])) {
           $newLines[] = $cachedLine;
-          
+
           $addArray = array('identity' => $cachedLineArray[0], 'timestamp' => $cachedLineArray[1], 'username' => $cachedLineArray[2], 'location' => trim($cachedLineArray[3]));
-          
+
           if(isset($cachedLineArray[4])) $addArray['edit'] = true;
           $return[] = $addArray;
         }
@@ -249,47 +249,47 @@ function userCache() {
     if($free) $addArray['edit'] = true;
     $return[] = $addArray;
   }
-  
+
   // CREATE file content
   $fileContent = '';
   foreach($newLines as $newLine) {
     $newLine = trim($newLine);
     $fileContent .= $newLine."\n";
   }
-  
+
   // -> write file
   if(file_put_contents($cacheFile, $fileContent, LOCK_EX))
     // -> add permissions on the first creation
-    if(!$cachedLines) @chmod($cacheFile, $GLOBALS['adminConfig']['permissions']);   
-  
+    if(!$cachedLines) @chmod($cacheFile, $GLOBALS['adminConfig']['permissions']);
+
   // return the right users
   return $return;
 }
 
 /**
  * <b>Name</b> getNewPageId()<br>
- * 
+ *
  * Returns a new page ID, which is the highest page ID + 1.
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$pageMetaData</var> to get the highest id (included in the {@link general.include.php})
- * 
+ *
  * @return int a new page ID
- * 
- * 
+ *
+ *
  * @version 2.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 2.0 uses now $pagesMetaData
  *    - 1.0 initial release
- * 
+ *
  */
 function getNewPageId() {
   $highestId = 0;
-  
+
   // go trough the file list and look for the highest number
   if(is_array($GLOBALS['pagesMetaData'])) {
-    foreach($GLOBALS['pagesMetaData'] as $pageMetaData) {          
+    foreach($GLOBALS['pagesMetaData'] as $pageMetaData) {
       if($pageMetaData['id'] > $highestId)
         $highestId = $pageMetaData['id'];
     }
@@ -300,27 +300,27 @@ function getNewPageId() {
 
 /**
  * <b>Name</b> getNewCatgoryId()<br>
- * 
+ *
  * Returns a new category ID, which is the highest category ID + 1.
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
- *     
+ *
  * @return int a new category ID
- * 
- * 
+ *
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function getNewCatgoryId() {
-  
+
   // gets the highest id
   $highestId = 0;
   if(is_array($GLOBALS['categoryConfig'])) {
-    foreach($GLOBALS['categoryConfig'] as $category) {          
+    foreach($GLOBALS['categoryConfig'] as $category) {
       if($category['id'] > $highestId)
         $highestId = $category['id'];
     }
@@ -331,27 +331,27 @@ function getNewCatgoryId() {
 
 /**
  * <b>Name</b> getNewUserId()<br>
- * 
+ *
  * Returns a new user ID, which is the highest user ID + 1.
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$userConfig</var> the user-settings config (included in the {@link general.include.php})
- *     
+ *
  * @return int a new user ID
- * 
- * 
+ *
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function getNewUserId() {
-  
+
   // gets the highest id
   $highestId = 0;
   if(is_array($GLOBALS['userConfig'])) {
-    foreach($GLOBALS['userConfig'] as $user) {          
+    foreach($GLOBALS['userConfig'] as $user) {
       if($user['id'] > $highestId)
         $highestId = $user['id'];
     }
@@ -362,26 +362,26 @@ function getNewUserId() {
 
 /**
  * <b>Name</b> checkPagesMetaData()<br>
- * 
+ *
  * Check all pages in if they were changed (changed the modified timestamp). If so save the {@link GeneralFunctions::pagesMetaData} again.
  *
- * 
+ *
  * Example of the $pagesMetaData array:
  * {@example pagesMetaData.array.example.php}
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$pageMetaData</var> to get the highest id (included in the {@link general.include.php})
- * 
+ *
  * @uses GeneralFunctions::savePagesMetaData()
- *  
+ *
  * @return bool TRUE if the pagesMetaData was saved again, otherwise FALSE
- * 
+ *
  * @static
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function checkPagesMetaData() {
 
@@ -419,20 +419,20 @@ function checkPagesMetaData() {
 
 /**
  * <b>Name</b> addSlashesToPaths()<br>
- * 
+ *
  * Ensures that all values of the $postData var with a 'Path' in the key value start and end with a slash.
- * 
+ *
  * @param array $postData an array with path values
  *
  * @return array the changed $postData parameter
- * 
+ *
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.2 now returns the changed $postData parameter
- *    - 1.0.1 add slash to start also 
+ *    - 1.0.1 add slash to start also
  *    - 1.0 initial release
- * 
+ *
  */
 function addSlashesToPaths($postData) {
   foreach($postData as $postKey => $post) {
@@ -442,9 +442,9 @@ function addSlashesToPaths($postData) {
       if(!empty($post) && substr($post,0,1) !== '/')
         $post = '/'.$post; // add slash to the start
       $post = preg_replace("#/+#",'/',$post);
-      
+
       $return[$postKey] = $post;
-    
+
     } elseif(is_array($post))
       $return[$postKey] = addSlashesToPaths($post);
     else
@@ -455,8 +455,8 @@ function addSlashesToPaths($postData) {
 
 /**
  * <b>Name</b> removeDocumentRootFromPaths()<br>
- * 
- * Removes the DOCUMENTROOT from all values of the $postData var with a 'Path' in the key value. 
+ *
+ * Removes the DOCUMENTROOT from all values of the $postData var with a 'Path' in the key value.
  *
  * <b>Used Constants</b><br>
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
@@ -464,12 +464,12 @@ function addSlashesToPaths($postData) {
  * @param array $postData an array with path values
  *
  * @return array the changed $postData parameter
- * 
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function removeDocumentRootFromPaths($postData) {
   foreach($postData as $postKey => $post) {
@@ -486,17 +486,17 @@ function removeDocumentRootFromPaths($postData) {
 
 /**
  * <b>Name</b> createBasicFilesAndFolders()<br>
- * 
+ *
  * Check if the config, pages and statistic folders exist, if not try to create these.
- * 
- * 
+ *
+ *
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 add categoryConfig
- *    - 1.0.1 add backups folder 
+ *    - 1.0.1 add backups folder
  *    - 1.0 initial release
- * 
+ *
  */
 function createBasicFilesAndFolders() {
 
@@ -513,7 +513,7 @@ function createBasicFilesAndFolders() {
 
   // pages folder
   if(!is_dir(dirname(__FILE__).'/../../pages'))
-    mkdir(dirname(__FILE__).'/../../pages',$GLOBALS['adminConfig']['permissions']);  
+    mkdir(dirname(__FILE__).'/../../pages',$GLOBALS['adminConfig']['permissions']);
   // statistic folder
   if(!is_dir(dirname(__FILE__).'/../../statistic'))
     mkdir(dirname(__FILE__).'/../../statistic',$GLOBALS['adminConfig']['permissions']);
@@ -524,22 +524,22 @@ function createBasicFilesAndFolders() {
 
 /**
  * <b>Name</b> saveCategories()<br>
- * 
+ *
  * Saves the category-settings config array to the "config/category.config.php" file.
- * 
+ *
  * <b>Used Constants</b><br>
  *    - <var>"<?php\n"</var> the php start tag
  *    - <var>"\n?>"</var> the php end tag
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$GeneralFunctions</var> to reset the {@link getStoredPagesIds} (included in the {@link general.include.php})
- * 
+ *
  * @param array $newCategories a $categoryConfig array to save
- * 
+ *
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
- * 
+ *
  * @example backend/categoryConfig.array.example.php of the $categoryConfig array
- * 
+ *
  * @version 1.3
  * <br>
  * <b>ChangeLog</b><br>
@@ -549,18 +549,18 @@ function createBasicFilesAndFolders() {
  *    - 1.0.2 add prevent resetting check
  *    - 1.0.1 add XssFilter to every value
  *    - 1.0 initial release
- * 
+ *
  */
 function saveCategories($newCategories) {
-  
+
   // prevent resetting config
-  if($newCategories == 1) 
+  if($newCategories == 1)
     return false;
-    
+
   // CREATE file content
   $fileContent = '';
   $fileContent .= "<?php\n"; //< ?php
-  
+
   // ->> GO through EVERY catgory and write it
   foreach($newCategories as $category) {
     // -> CHECK depency of PAGEDATE
@@ -568,48 +568,48 @@ function saveCategories($newCategories) {
       $category['sorting'] = 'manually';
     if($category['sorting'] == 'byPageDate' && !isset($category['showPageDate']))
       $category['showPageDate'] = 'true';
-    
+
     // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
     if(!isset($category['thumbWidth']))
       $category['thumbWidth'] = $GLOBALS['categoryConfig'][$category['id']]['thumbWidth'];
     if(!isset($category['thumbHeight']))
       $category['thumbHeight'] = $GLOBALS['categoryConfig'][$category['id']]['thumbHeight'];
-    
+
     // -> escape \ and '
     $category = XssFilter::escapeBasics($category);
-          
+
     // adds absolute path slash on the beginning and serialize the stylefiles
     $category['styleFile'] = prepareStyleFilePaths($category['styleFile']);
-  
+
     // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
     $category['styleFile']  = setStylesByPriority($category['styleFile'],'styleFile',$category['id'],true);
     $category['styleId']    = setStylesByPriority($category['styleId'],'styleId',$category['id'],true);
-    $category['styleClass'] = setStylesByPriority($category['styleClass'],'styleClass',$category['id'],true);        
-    
+    $category['styleClass'] = setStylesByPriority($category['styleClass'],'styleClass',$category['id'],true);
+
     // WRITE
-    $fileContent .= "\$categoryConfig[".$category['id']."]['id']                  = ".XssFilter::int($category['id'],0).";\n";      
+    $fileContent .= "\$categoryConfig[".$category['id']."]['id']                  = ".XssFilter::int($category['id'],0).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['public']              = ".XssFilter::bool($category['public'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['isSubCategory']       = ".XssFilter::bool($category['isSubCategory'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['isSubCategoryOf']     = '".$category['isSubCategoryOf']."';\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['createDelete']        = ".XssFilter::bool($category['createDelete'],true).";\n";
-    $fileContent .= "\$categoryConfig[".$category['id']."]['thumbnails']          = ".XssFilter::bool($category['thumbnails'],true).";\n";        
+    $fileContent .= "\$categoryConfig[".$category['id']."]['thumbnails']          = ".XssFilter::bool($category['thumbnails'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['plugins']             = '".$category['plugins']."';\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['showTags']            = ".XssFilter::bool($category['showTags'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['showPageDate']        = ".XssFilter::bool($category['showPageDate'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['showSubCategory']     = ".XssFilter::bool($category['showSubCategory'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['feeds']               = ".XssFilter::bool($category['feeds'],true).";\n\n";
-    
+
     $fileContent .= "\$categoryConfig[".$category['id']."]['sorting']             = '".XssFilter::alphabetical($category['sorting'],'manually')."';\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['sortReverse']         = ".XssFilter::bool($category['sortReverse'],true).";\n\n";
-    
+
     $fileContent .= "\$categoryConfig[".$category['id']."]['styleFile']           = '".$category['styleFile']."';\n"; //XssFilter is in prepareStyleFilePaths() function
     $fileContent .= "\$categoryConfig[".$category['id']."]['styleId']             = '".XssFilter::string($category['styleId'])."';\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['styleClass']          = '".XssFilter::string($category['styleClass'])."';\n\n";
-    
+
     $fileContent .= "\$categoryConfig[".$category['id']."]['thumbWidth']          = ".XssFilter::int($category['thumbWidth']).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['thumbHeight']         = ".XssFilter::int($category['thumbHeight']).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['thumbRatio']          = '".XssFilter::alphabetical($category['thumbRatio'])."';\n\n";
-    
+
     // save localized
     if($category['id'] !== 0 && is_array($category['localized'])) {
       foreach ($category['localized'] as $langCode => $categoryLocalized) {
@@ -622,10 +622,10 @@ function saveCategories($newCategories) {
     }
     $fileContent .= "\n\n";
 
-  }    
+  }
   $fileContent .= 'return $categoryConfig;';
   $fileContent .= "\n?>"; //? >
-  
+
   // -> SAVE the flat file
   if(file_put_contents(dirname(__FILE__)."/../../config/category.config.php", $fileContent, LOCK_EX)) {
     // reload the $pagesMetaData array
@@ -637,34 +637,34 @@ function saveCategories($newCategories) {
 
 /**
  * <b>Name</b> moveCategories()<br>
- * 
+ *
  * Change the order of the <var>$categoryConfig</var> array.
- * 
+ *
  * @param array       &$categoryConfig the $categoryConfig array (will also be changed global)
  * @param int         $category        the ID of the category to move
  * @param string      $direction       the direction to move, can be "up" or "down"
  * @param false|int   $position        (optional) the exact position where the category should be moved ("1" is top), if is number the $direction paramter doesn't count
- * 
+ *
  * @return bool TRUE if the category was succesfull moved, otherwise FALSE
- * 
+ *
  * @example backend/categoryConfig.array.example.php of the $categoryConfig array
- * 
+ *
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 prevent moving of the non-category
  *    - 1.0 initial release
- * 
+ *
  */
 function moveCategories(&$categoryConfig, $category, $direction, $position = false) {
-  
+
   // deny if its the non category
   if(empty($category))
     return false;
 
   $direction = strtolower($direction);
 
-  
+
   // ->> CHECKS
   // if they fail it returns the unchanged $categoryConfig array
   if(is_array($categoryConfig) &&                     // is categories is array
@@ -672,12 +672,12 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
     $category == $categoryConfig[$category]['id'] &&  // dows the category exists in the $categoryConfig array
     (!$direction || $direction == 'up' || $direction == 'down') &&
     (!$position || is_numeric($position))) {   // is the right direction is given
-    
+
     // vars
     $count = 1;
     $currentPosition = false;
     $dropedCategories = array();
-    
+
     $nonCat[0] = $categoryConfig[0];
     unset($categoryConfig[0]);
 
@@ -685,27 +685,27 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
     // and extract this category from it
     foreach($categoryConfig as $sortCategory) {
       //echo '>'.$sortCategory['id'].' -> '.$count.'<br>';
-      
+
       if($sortCategory['id'] == $category) {
         $currentPosition = $count;
         $extractCategory = $sortCategory;
-      } else  
+      } else
         $dropedCategories[$sortCategory['id']] = $sortCategory;
-      
+
       $count++;
-    }    
+    }
     //echo 'currentPos: '.$currentPosition;
-    
+
     // -> creates a new array with the category at the new position
     $count = 1;
     $sortetCategories = array();
     foreach($dropedCategories as $sortCategory) {
-      
+
       // MOVE BY POSITION
       if($position !== false && is_numeric($position)) {
-        
+
          //echo 'exactPos: '.$position;
-        
+
         // if the position is lower than 1
         if($position < 1) {
           if($count == 1)
@@ -713,7 +713,7 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
           // put it at the first position
          $sortetCategories[] = $dropedCategories[$sortCategory['id']];
         }
-        
+
         // if the position is higher than the count() of the array
         if($position > count($dropedCategories)) {
           $sortetCategories[] = $dropedCategories[$sortCategory['id']];
@@ -721,7 +721,7 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
           if($count == count($dropedCategories))
             $sortetCategories[] = $extractCategory;
         }
-        
+
         // if it is in the array put it at the exact position
         if($position >= 1 && $position <= count($dropedCategories)) {
           if($position == $count)
@@ -729,47 +729,47 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
           // put it at the first position
           $sortetCategories[] = $dropedCategories[$sortCategory['id']];
         }
-      
+
       // MOVE BY DIRECTION
       } else {
         // move the category UP
         // -------------
         if($direction == 'up') {
-          
+
           // if the currentPosition is outside of the foreach
           if(($currentPosition - 1) <= 1) {
             // add the extract at the beginging of the array
             if($count == 1)
               $sortetCategories[] = $extractCategory;
-          
+
           // add the extract at the new position
           } elseif(($currentPosition - 1) == $count)
               $sortetCategories[] = $extractCategory;
         }
-        
+
         // adds the unmoved categories to the array
         // -------------
         $sortetCategories[] = $dropedCategories[$sortCategory['id']];
-        
+
         // move the category DOWN
         // -------------
         if($direction == 'down') {
-          
+
           // if the currentPosition is outside of the foreach
           if(($currentPosition + 1) > count($dropedCategories)) {
             // add the extract at the end of the array
             if($count == count($dropedCategories))
               $sortetCategories[] = $extractCategory;
-          
+
           // add the extract at the new position
           } elseif($currentPosition == $count)
-              $sortetCategories[] = $extractCategory; 
+              $sortetCategories[] = $extractCategory;
         }
       }
-     
+
       $count++;
     }
-    
+
     // -> set back the id as index
     $categoryConfig = array();
     foreach($sortetCategories as $sortetCategory) {
@@ -778,31 +778,31 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
 
     // merge non category into the categoryConfig, again
     $categoryConfig = array_merge($nonCat, $categoryConfig);
-    
+
     return true;
-  
+
   } else
     return false;
 }
 
 /**
  * <b>Name</b> checkSubCategories()<br>
- * 
+ *
  * Goes through all pages and recheckes the <var>$categoryConfig['isSubCategoryOf']</var> and <var>$pageContent['subCategory']</var> values.
  * In Case a category was deleted it will erase this subcategory from the pages. In case a page is deleted it will erase the page from the isSubCategoryOf array.
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
- * 
+ *
  * @return bool TRUE if the cateogires were succesfull checked, otherwise FALSE
- * 
- * 
+ *
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function checkSubCategories() {
 
@@ -859,47 +859,47 @@ function checkSubCategories() {
 
 /**
  * <b>Name</b> movePage()<br>
- * 
+ *
  * Moves a file into a new category directory.
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
- * 
+ *
  * @param int $page         the page ID
  * @param int $fromCategory the ID of the category where the page is situated
- * @param int $toCategory   the ID of the category where the file will be moved to 
- * 
+ * @param int $toCategory   the ID of the category where the file will be moved to
+ *
  * @return bool TRUE if the page was succesfull moved, otherwise FALSE
- * 
+ *
  * @version 1.01
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.01 add create category folder, if not exiting
  *    - 1.0 initial release
- * 
+ *
  */
 function movePage($page, $fromCategory, $toCategory) {
-  
+
   // if there are pages not in a category set the category to empty
   $fromCategory = ($fromCategory === false || $fromCategory == 0)
     ? '' : $fromCategory.'/';
   $toCategory = ($toCategory === false || $toCategory == 0)
     ? '' : $toCategory.'/';
-  
+
   // create category folder if its not exist
   if(!empty($toCategory) && !is_dir(dirname(__FILE__).'/../../pages/'.$toCategory))
     mkdir(dirname(__FILE__).'/../../pages/'.$toCategory,$GLOBALS['adminConfig']['permissions'],true);
-  
+
   // MOVE categories
   if(copy(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.php',
     dirname(__FILE__).'/../../pages/'.$toCategory.$page.'.php') &&
     unlink(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.php')) {
     // reset the stored page ids
     GeneralFunctions::$storedPages = null;
-    
+
     // reload the $pagesMetaData array
     GeneralFunctions::savePagesMetaData();
-    
+
     return true;
   } else
     return false;
@@ -907,19 +907,19 @@ function movePage($page, $fromCategory, $toCategory) {
 
 /**
  * <b>Name</b> saveAdminConfig()<br>
- * 
+ *
  * Saves the administrator-settings config array to the "config/admin.config.php" file.
- * 
+ *
  * <b>Used Constants</b><br>
  *    - <var>"<?php\n"</var> the php start tag
  *    - <var>"\n?>"</var> the php end tag
- * 
+ *
  * @param array $adminConfig a $adminConfig array to save
- * 
+ *
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
- * 
+ *
  * @example backend/adminConfig.array.example.php of the $adminConfig array
- * 
+ *
  * @version 1.3
  * <br>
  * <b>ChangeLog</b><br>
@@ -931,24 +931,24 @@ function movePage($page, $fromCategory, $toCategory) {
  *    - 1.0.2 add XssFilter to every value
  *    - 1.0.1 add websitePath
  *    - 1.0 initial release
- * 
+ *
  */
- 
+
 function saveAdminConfig($adminConfig) {
-  
+
   // prevent resetting config
   if($adminConfig !== 1) {
-    
+
     // clear the thumbnail path, when no upload path is specified
     if(empty($adminConfig['uploadPath'])) $adminConfig['pageThumbnail']['path'] = '';
-    
+
     // -> escape \ and '
     $adminConfig = XssFilter::escapeBasics($adminConfig);
-    
+
     $permissions = (is_string($adminConfig['permissions']))
        ? octdec($adminConfig['permissions'])
        : $adminConfig['permissions'];
-    
+
     @chmod(dirname(__FILE__)."/../../config/admin.config.php", $permissions);
 
     // CREATE file content
@@ -961,26 +961,27 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['uploadPath']        = '".XssFilter::path($adminConfig['uploadPath'])."';\n";
     $fileContent .= "\$adminConfig['websiteFilesPath']  = '".XssFilter::path($adminConfig['websiteFilesPath'])."';\n";
     $fileContent .= "\$adminConfig['stylesheetPath']    = '".XssFilter::path($adminConfig['stylesheetPath'])."';\n\n";
-    
+
     $fileContent .= "\$adminConfig['permissions']       = ".XssFilter::number($adminConfig['permissions']).";\n";
-    $fileContent .= "\$adminConfig['timezone']          = '".XssFilter::string($adminConfig['timezone'],'\/','Europe/London')."';\n"; 
+    $fileContent .= "\$adminConfig['timezone']          = '".XssFilter::string($adminConfig['timezone'],'\/','Europe/London')."';\n";
     $fileContent .= "\$adminConfig['dateFormat']        = '".XssFilter::alphabetical($adminConfig['dateFormat'])."';\n";
     $fileContent .= "\$adminConfig['speakingUrl']       = ".XssFilter::bool($adminConfig['speakingUrl'],true).";\n\n";
-    
-    $fileContent .= "\$adminConfig['varName']['page']      = '".XssFilter::stringStrict($adminConfig['varName']['page'],'page')."';\n";  
-    $fileContent .= "\$adminConfig['varName']['category']  = '".XssFilter::stringStrict($adminConfig['varName']['category'],'category')."';\n";  
+
+    $fileContent .= "\$adminConfig['varName']['page']      = '".XssFilter::stringStrict($adminConfig['varName']['page'],'page')."';\n";
+    $fileContent .= "\$adminConfig['varName']['category']  = '".XssFilter::stringStrict($adminConfig['varName']['category'],'category')."';\n";
     $fileContent .= "\$adminConfig['varName']['modul']     = '".XssFilter::stringStrict($adminConfig['varName']['modul'],'modul')."';\n\n";
 
     $fileContent .= "\$adminConfig['cache']['active']      = ".XssFilter::bool($adminConfig['cache']['active'],true).";\n";
     $fileContent .= "\$adminConfig['cache']['timeout']     = ".XssFilter::number($adminConfig['cache']['timeout'],5).";\n\n";
-    
+
     $fileContent .= "\$adminConfig['user']['frontendEditing']   = ".XssFilter::bool($adminConfig['user']['frontendEditing'],true).";\n";
     $fileContent .= "\$adminConfig['user']['fileManager']       = ".XssFilter::bool($adminConfig['user']['fileManager'],true).";\n";
     $fileContent .= "\$adminConfig['user']['editWebsiteFiles']  = ".XssFilter::bool($adminConfig['user']['editWebsiteFiles'],true).";\n";
-    $fileContent .= "\$adminConfig['user']['editStyleSheets']   = ".XssFilter::bool($adminConfig['user']['editStyleSheets'],true).";\n";  
-    $fileContent .= "\$adminConfig['user']['editSnippets']      = ".XssFilter::bool($adminConfig['user']['editSnippets'],true).";\n";  
+    $fileContent .= "\$adminConfig['user']['editStyleSheets']   = ".XssFilter::bool($adminConfig['user']['editStyleSheets'],true).";\n";
+    $fileContent .= "\$adminConfig['user']['editSnippets']      = ".XssFilter::bool($adminConfig['user']['editSnippets'],true).";\n";
     $fileContent .= "\$adminConfig['user']['info']              = '".$adminConfig['user']['info']."';\n\n"; // htmLawed in adminSetup.controller.php
-    
+
+    $fileContent .= "\$adminConfig['maintenance']                          = ".XssFilter::bool($adminConfig['maintenance'],true).";\n";
     $fileContent .= "\$adminConfig['setStartPage']                         = ".XssFilter::bool($adminConfig['setStartPage'],true).";\n";
     $fileContent .= "\$adminConfig['multiLanguageWebsite']['active']       = ".XssFilter::bool($adminConfig['multiLanguageWebsite']['active'],true).";\n";
     if(is_array($adminConfig['multiLanguageWebsite']['languages'])) {
@@ -1002,10 +1003,10 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['pageThumbnail']['height']  = ".XssFilter::int($adminConfig['pageThumbnail']['height']).";\n";
     $fileContent .= "\$adminConfig['pageThumbnail']['ratio']   = '".XssFilter::alphabetical($adminConfig['pageThumbnail']['ratio'])."';\n";
     $fileContent .= "\$adminConfig['pageThumbnail']['path']    = '".XssFilter::path($adminConfig['pageThumbnail']['path'],false,(empty($adminConfig['uploadPath'])) ? '' : 'thumbnails/')."';\n\n";
-    
+
     $fileContent .= "return \$adminConfig;";
     $fileContent .= "\n?>"; //? >
-    
+
     // -> SAVE the flat file
     if(file_put_contents(dirname(__FILE__)."/../../config/admin.config.php", $fileContent, LOCK_EX))
       return true;
@@ -1017,36 +1018,36 @@ function saveAdminConfig($adminConfig) {
 
 /**
  * <b>Name</b> saveUserConfig()<br>
- * 
+ *
  * Saves the user-settings config array to the "config/user.config.php" file.
- * 
+ *
  * <b>Used Constants</b><br>
  *    - <var>"<?php\n"</var> the php start tag
  *    - <var>"\n?>"</var> the php end tag
- * 
+ *
  * @param array $userConfig a $userConfig array to save
- * 
+ *
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
- * 
+ *
  * @example backend/userConfig.array.example.php of the $userConfig array
- * 
+ *
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 change from fopen() to file_put_contents()
  *    - 1.0.2 add prevent resetting check
- *    - 1.0.1 add XssFilter to every value 
+ *    - 1.0.1 add XssFilter to every value
  *    - 1.0 initial release
- * 
+ *
  */
 function saveUserConfig($userConfig) {
-   
+
   // prevent resetting config
   if($userConfig !== 1) {
-    
+
     // -> escape \ and '
     $userConfig = XssFilter::escapeBasics($userConfig);
-    
+
     // CREATE file content
     $fileContent = '';
     $fileContent .= "<?php\n"; //< ?php
@@ -1057,11 +1058,11 @@ function saveUserConfig($userConfig) {
       $fileContent .= "\$userConfig[".$user."]['username'] = '".XssFilter::text($configs['username'])."';\n";
       $fileContent .= "\$userConfig[".$user."]['email']    = '".XssFilter::string($configs['email'])."';\n";
       $fileContent .= "\$userConfig[".$user."]['password'] = '".XssFilter::text($configs['password'])."';\n";
-      
+
       $fileContent .= "\n";
-    }      
+    }
     $fileContent .= "return \$userConfig;";
-  
+
     $fileContent .= "\n?>"; //? >
 
     // -> SAVE the flat file
@@ -1075,38 +1076,38 @@ function saveUserConfig($userConfig) {
 
 /**
  * <b>Name</b> saveWebsiteConfig()<br>
- * 
+ *
  * Saves the website-settings config array to the "config/website.config.php" file.
- * 
+ *
  * <b>Used Constants</b><br>
  *    - <var>"<?php\n"</var> the php start tag
  *    - <var>"\n?>"</var> the php end tag
- * 
+ *
  * @param array $websiteConfig a $websiteConfig array to save
- * 
+ *
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
- * 
+ *
  * @example backend/websiteConfig.array.example.php of the $websiteConfig array
- * 
+ *
  * @version 1.2
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.2 add localization
  *    - 1.1 change from fopen() to file_put_contents()
  *    - 1.0.3 add prevent resetting check
- *    - 1.0.2 add XssFilter to every value 
+ *    - 1.0.2 add XssFilter to every value
  *    - 1.0.1 removed $websiteconfig['email'], because its now set up in the contactForm plugin
  *    - 1.0 initial release
- * 
+ *
  */
 function saveWebsiteConfig($websiteConfig) {
-   
+
   // opens the file for writing
   if($websiteConfig !== 1) { // prevent resetting config
-  
+
     // -> escape \ and '
     $websiteConfig = XssFilter::escapeBasics($websiteConfig);
-    
+
     // CREATE file content
     $fileContent = '';
     $fileContent .= "<?php\n"; //< ?php
@@ -1127,14 +1128,14 @@ function saveWebsiteConfig($websiteConfig) {
         $fileContent .= "\$websiteConfig['localized'][".$langCode."]['description']    = '".XssFilter::text($websiteConfigLocalized['description'])."';\n\n";
       }
     }
-    
+
     $fileContent .= "return \$websiteConfig;";
-  
+
     $fileContent .= "\n?>"; //? >
 
     // -> SAVE the flat file
     if(file_put_contents(dirname(__FILE__).'/../../config/website.config.php', $fileContent, LOCK_EX)) {
-      unset($GLOBALS['websiteConfig']); $GLOBALS['websiteConfig'] = include(dirname(__FILE__).'/../../config/website.config.php'); 
+      unset($GLOBALS['websiteConfig']); $GLOBALS['websiteConfig'] = include(dirname(__FILE__).'/../../config/website.config.php');
       // reload $pagesMetaData array, because of the startPage
       GeneralFunctions::savePagesMetaData();
       return true;
@@ -1147,36 +1148,36 @@ function saveWebsiteConfig($websiteConfig) {
 
 /**
  * <b>Name</b> saveStatisticConfig()<br>
- * 
+ *
  * Saves the statiostic-settings config array to the "config/statistic.config.php" file.
- * 
+ *
  * <b>Used Constants</b><br>
  *    - <var>"<?php\n"</var> the php start tag
  *    - <var>"\n?>"</var> the php end tag
- * 
+ *
  * @param array $statisticConfig a $statisticConfig array to save
- * 
+ *
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
- * 
+ *
  * @example backend/statisticConfig.array.example.php of the $statisticConfig array
- * 
+ *
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 change from fopen() to file_put_contents()
  *    - 1.0.2 add prevent resetting check
- *    - 1.0.1 add XssFilter to every value 
+ *    - 1.0.1 add XssFilter to every value
  *    - 1.0 initial release
- * 
+ *
  */
 function saveStatisticConfig($statisticConfig) {
-   
+
   // prevent resetting config
   if($statisticConfig !== 1) {
-    
+
     // -> escape \ and '
     $statisticConfig = XssFilter::escapeBasics($statisticConfig);
-    
+
     /// CREATE file content
     $fileContent = '';
     $fileContent .= "<?php\n"; //< ?php
@@ -1185,12 +1186,12 @@ function saveStatisticConfig($statisticConfig) {
     $fileContent .= "\$statisticConfig['number']['longestVisitedPages']     = ".XssFilter::int($statisticConfig['number']['longestVisitedPages'],10).";\n";
     $fileContent .= "\$statisticConfig['number']['lastVisitedPages']        = ".XssFilter::int($statisticConfig['number']['lastVisitedPages'],10).";\n";
     $fileContent .= "\$statisticConfig['number']['lastEditedPages']         = ".XssFilter::int($statisticConfig['number']['lastEditedPages'],10).";\n\n";
-    
+
     $fileContent .= "\$statisticConfig['number']['refererLog']    = ".XssFilter::int($statisticConfig['number']['refererLog'],100).";\n";
     $fileContent .= "\$statisticConfig['number']['taskLog']       = ".XssFilter::int($statisticConfig['number']['taskLog'],50).";\n\n";
-    
+
     $fileContent .= "return \$statisticConfig;";
-  
+
     $fileContent .= "\n?>"; //? >
 
     // -> SAVE the flat file
@@ -1204,23 +1205,23 @@ function saveStatisticConfig($statisticConfig) {
 
 /**
  * <b>Name</b> saveSpeakingUrl()<br>
- * 
+ *
  * Check if speakingUrl is activated and save a speakingUrl redirect (with mod_rewrite) to the .htacces file in the document root.
- * 
- * 
+ *
+ *
  * <b>Used Constants</b><br>
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$langFile</var> the language file of the backend (included in the {@link general.include.php})
  *    - <var>$XssFilter</var> the {@link XssFilter::__construct()} class instance created in the {@link general.include.php})
- * 
+ *
  * @param false|string $errorWindow will be filled with an error message if an error occurs
- * 
+ *
  * @return void
- * 
- * 
+ *
+ *
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
@@ -1228,10 +1229,10 @@ function saveStatisticConfig($statisticConfig) {
  *    - 1.0.2 add "(?:[a-z]{2}/{1})?" to allow "en/" etc.
  *    - 1.0.1 small fix with website path; add GeneralFunctions::getRealPath()
  *    - 1.0 initial release
- * 
+ *
  */
 function saveSpeakingUrl(&$errorWindow) {
-  
+
   // vars
   $save = false;
   $data = false;
@@ -1243,7 +1244,7 @@ function saveSpeakingUrl(&$errorWindow) {
     return false;
   }
   $htaccessFile = $websitePath.'/.htaccess';
-  
+
   // (?:[\/a-z0-9_-]*/{1})?  <- is only to add parent pages
   $categoryRegEx = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?category/([a-zA-Z0-9_-]+)/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
   $pageRegEx     = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?page/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
@@ -1252,7 +1253,7 @@ function saveSpeakingUrl(&$errorWindow) {
   $newRewriteRule .= $pageRegEx.GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?page=$2&language=$1 [QSA,L]';
   $oldRewriteRule  = $categoryRegEx.GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
   $oldRewriteRule .= $pageRegEx.GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?page=$2&language=$1 [QSA,L]';
-  
+
   $speakingUrlCode = '#
 # feindura - Flat File CMS -> speakingURL activation
 #
@@ -1265,115 +1266,115 @@ RewriteCond %{REQUEST_URI} !\.(css|jpg|gif|png|js)$ [NC] #do the stuff that foll
 RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http://','https://'),'',$_SERVER["HTTP_HOST"]).'$
 '.$newRewriteRule.'
 </IfModule>';
-  
+
   $oldSpeakingUrlCode = str_replace($newRewriteRule,$oldRewriteRule,$speakingUrlCode);
-  
+
   // -> looks if the MOD_REWRITE modul exists
   $apacheModules = (function_exists('apache_get_modules')) ? apache_get_modules() : array('mod_rewrite');
   if(!in_array('mod_rewrite',$apacheModules)) {
     $_POST['cfg_speakingUrl'] = '';
     return;
   }
-  
+
   // **********************************
   // ->> if a the .htaccess file exists
   if(file_exists($htaccessFile)) {
-    
+
     // vars
     $currrentContent = trim(file_get_contents($htaccessFile));
-    
+
     // ->> create or change the .htaccess file
     if($_POST['cfg_speakingUrl'] == 'true') {
-      
+
       // -> if no speakingUrl code exists, add new one (or update the old one)
       if(strpos($currrentContent,$speakingUrlCode) === false) {
-         
+
         $save = true;
         $currrentContent = str_replace($oldSpeakingUrlCode,'', $currrentContent); // removes perhaps existing old one
         $data = $currrentContent."\n".$speakingUrlCode;
-        
+
       }
-    
+
     // ->> delete the .htaccess file or remove the speakingUrl code
     } else {
-      
+
       // -> ONLY if the SPEAKING URL code is in the .htaccess then DELTE the .htaccess file
       if($currrentContent == $speakingUrlCode ||
          $currrentContent == $oldSpeakingUrlCode) {
         @unlink($htaccessFile);
-           
+
       // -> looks if SPEAKING URL code EXISTs in the .htaccess file and remove it
       } elseif(strpos($currrentContent,$speakingUrlCode) !== false ||
                strpos($currrentContent,$oldSpeakingUrlCode) !== false) {
         $newContent = str_replace($speakingUrlCode,'',$currrentContent);
         $newContent = str_replace($oldSpeakingUrlCode,'',$currrentContent);
-        
+
         $save = true;
         $data = $newContent;
-      }    
+      }
     }
-      
+
   // -> if no .htaccess exists and speaking url is acitvated
   } elseif($_POST['cfg_speakingUrl'] == 'true') {
     $save = true;
-    $data = $speakingUrlCode;  
+    $data = $speakingUrlCode;
   }
-    
+
   // **************************
   // ->> saves the htacces file
   if($save && !empty($data)) {
-    
+
     $data = preg_replace("#\\n+$#","\n",$data); // prevent growing of the file with line endings
-    
+
     // -> SAVE the .htaccess
     file_put_contents($htaccessFile, $data, LOCK_EX);
-    
+
     @chmod($htaccessFile,0644);
-  
+
   // ->> throw error
   } elseif($save) {
     $_POST['cfg_speakingUrl'] = '';
     $errorWindow .= $GLOBALS['langFile']['ADMINSETUP_GENERAL_speakingUrl_error_save'];
   }
-  
+
   return;
 }
 
 /**
  * <b>Name</b> saveActivityLog()<br>
- * 
+ *
  * Adds a entry to the task log-file with time and task which was performed.
- * 
+ *
  * Example entry:
  * <samp>
  * 1334313735|#|frozeman|#|i:1;|#|page=3
  * </samp>
- * 
+ *
  * <b>Used Global Variables</b><br>
  *   - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *   - <var>$statisticConfig</var> the statistic config (included in the {@link general.include.php})
- * 
- * 
+ *
+ *
  * @param string $task     a description of the task which was performed
  * @param string $object   (optional) the page name or the name of the object on which the task was performed
- * 
- * 
+ *
+ *
  * @return bool
- * 
+ *
  * @static
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 moved tobackend functions again
  *    - 1.0 initial release
- * 
+ *
  */
 function saveActivityLog($task, $object = false) {
-  
+
   $maxEntries = $GLOBALS['statisticConfig']['number']['taskLog'];
   $logFilePath = dirname(__FILE__).'/../../'.'statistic/activity.statistic.log';
   $oldLog = false;
-  
+
   if($logFile = @fopen($logFilePath,"r")) {
     flock($logFile,LOCK_SH);
     if(is_file($logFilePath))
@@ -1381,14 +1382,14 @@ function saveActivityLog($task, $object = false) {
     flock($logFile,LOCK_UN);
     fclose($logFile);
   }
-    
-    
+
+
   // adds the Object
   $object = ($object) ? '|#|'.$object : false;
-  
+
   // -> create the new log string
   $newLog = time().'|#|'.$_SESSION['feinduraSession']['login']['user'].'|#|'.serialize($task).$object;
-  
+
   // CREATE file content
   $fileContent = '';
   $fileContent .= $newLog."\n";
@@ -1402,12 +1403,12 @@ function saveActivityLog($task, $object = false) {
       $count++;
     }
   }
-  
+
   // -> write file
   if(file_put_contents($logFilePath, $fileContent, LOCK_EX)) {
     // -> add permissions on the first creation
     if(!$oldLog) @chmod($logFilePath, $GLOBALS['adminConfig']['permissions']);
-    
+
     return true;
   } else
     return false;
@@ -1415,17 +1416,17 @@ function saveActivityLog($task, $object = false) {
 
 /**
 * <b>Name</b> saveSitemap()<br>
-* 
+*
 * Saves a sitemap xml file (see http://www.sitemaps.org).
-* 
+*
 * <b>Used Global Variables</b><br>
-*    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+*    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
 *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
 *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
-* 
-* 
+*
+*
 * @return bool whether the saving of the sitemap was done or not
-* 
+*
 * @link http://www.sitemaps.org
 * @version 0.4
 * <br>
@@ -1434,10 +1435,10 @@ function saveActivityLog($task, $object = false) {
 *    - 0.3 moved to backend.functions.php
 *    - 0.2 return false if the real website path, couldn't be resolved
 *    - 0.1 initial release
-* 
+*
 */
 function saveSitemap() {
-  
+
   // vars
   $websitePath = GeneralFunctions::getDirname($GLOBALS['adminConfig']['websitePath']);
   $realWebsitePath = GeneralFunctions::getRealPath($websitePath).'/';
@@ -1447,52 +1448,52 @@ function saveSitemap() {
 
   // get the Sitemap class
   require_once(dirname(__FILE__).'/../thirdparty/PHP/Sitemap.php');
-  
+
   // vars
   $sitemapPages = GeneralFunctions::loadPages(true);
-  
+
   // ->> START sitemap
   $sitemap = new Sitemap($baseUrl,$realWebsitePath,false); // not compressed
   $sitemap->showError = false;
   $sitemap->filePermissions = $GLOBALS['adminConfig']['permissions'];
   $sitemap->page('pages');
-  
+
   // ->> adds the sitemap ENTRIES
   foreach($sitemapPages as $sitemapPage) {
-    
+
     // ->> if category is deactivated jump to the next item in the foreach loop
     if($sitemapPage['category'] != 0 && !$GLOBALS['categoryConfig'][$sitemapPage['category']]['public'])
       continue;
-    
+
     if($sitemapPage['public']) {
       // generate page link
       $link = GeneralFunctions::createHref($sitemapPage,false,$GLOBALS['adminConfig']['multiLanguageWebsite']['mainLanguage'],true);
       // add page to sitemap
-      $sitemap->url($link, date('Y-m-d',$sitemapPage['lastSaveDate']), 'daily'); 
+      $sitemap->url($link, date('Y-m-d',$sitemapPage['lastSaveDate']), 'daily');
     }
   }
-  
-  $sitemap->close(); 
+
+  $sitemap->close();
   unset ($sitemap);
   return true;
 }
 
 /**
  * <b>Name</b> clearFeeds()<br>
- * 
+ *
  * Deletes all the Atom and RSS 2.0 Feeds for all category.
- * 
+ *
  * <b>Used Global Variables</b><br>
- *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
- * 
- * 
+ *
+ *
  * @version 0.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 0.1 initial release
- * 
+ *
  */
 function clearFeeds() {
 
@@ -1503,10 +1504,10 @@ function clearFeeds() {
         array_push($category,0); // add non-category
       }
       foreach ($category as $catId) {
-        $atomFileName = ($catId == 0) 
+        $atomFileName = ($catId == 0)
           ? dirname(__FILE__).'/../../pages/atom*.xml'
           : dirname(__FILE__).'/../../pages/'.$catId.'/atom*.xml';
-        $rss2FileName = ($catId == 0) 
+        $rss2FileName = ($catId == 0)
           ? dirname(__FILE__).'/../../pages/rss2*.xml'
           : dirname(__FILE__).'/../../pages/'.$catId.'/rss2*.xml';
 
@@ -1514,10 +1515,10 @@ function clearFeeds() {
         if(is_file($rss2FileName)) unlink($rss2FileName);
       }
     } elseif($category === false) {
-      $atomFileName = ($catId == 0) 
+      $atomFileName = ($catId == 0)
         ? dirname(__FILE__).'/../../pages/atom*.xml'
         : dirname(__FILE__).'/../../pages/'.$catId.'/atom*.xml';
-      $rss2FileName = ($catId == 0) 
+      $rss2FileName = ($catId == 0)
         ? dirname(__FILE__).'/../../pages/rss2*.xml'
         : dirname(__FILE__).'/../../pages/'.$catId.'/rss2*.xml';
 
@@ -1529,19 +1530,19 @@ function clearFeeds() {
 
 /**
  * <b>Name</b> saveFeeds()<br>
- * 
+ *
  * Saves an Atom and RSS 2.0 Feed for the given category.
- * 
+ *
  * <b>Used Global Variables</b><br>
- *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
- * 
+ *
  * @param string $category the category of which feeds should be created, must be an ID number
- * 
+ *
  *  @return bool whether the saving of the feeds succeed or not
- * 
- * 
+ *
+ *
  * @version 0.4
  * <br>
  * <b>ChangeLog</b><br>
@@ -1549,14 +1550,14 @@ function clearFeeds() {
  *    - 0.3 moved to backend.functions.php
  *    - 0.2 add multilanguage website, creating multiple feeds
  *    - 0.1 initial release
- * 
+ *
  */
 function saveFeeds($category) {
 
   // quit if feeds are deactivated for that category
   if(!is_numeric($category) || !$GLOBALS['categoryConfig'][$category]['feeds'])
     return false;
-  
+
   // vars
   $return = false;
   $languages = ($GLOBALS['adminConfig']['multiLanguageWebsite']['active'])
@@ -1564,61 +1565,61 @@ function saveFeeds($category) {
     : array(0 => 0);
 
   foreach ($languages as $langCode) {
-    
+
     // get the FeedWriter class
     require_once(dirname(__FILE__).'/../thirdparty/FeedWriter/FeedWriter.php');
-    
+
     $addLanguageToFilename = (!empty($langCode)) ? '.'.$langCode : '';
 
     // vars
-    $atomFileName = ($category == 0) 
+    $atomFileName = ($category == 0)
       ? dirname(__FILE__).'/../../pages/atom'.$addLanguageToFilename.'.xml'
       : dirname(__FILE__).'/../../pages/'.$category.'/atom'.$addLanguageToFilename.'.xml';
-    $rss2FileName = ($category == 0) 
+    $rss2FileName = ($category == 0)
       ? dirname(__FILE__).'/../../pages/rss2'.$addLanguageToFilename.'.xml'
       : dirname(__FILE__).'/../../pages/'.$category.'/rss2'.$addLanguageToFilename.'.xml';
 
     // delete old files
     if(is_file($atomFileName)) unlink($atomFileName);
     if(is_file($rss2FileName)) unlink($rss2FileName);
-    
+
     $feedsPages = GeneralFunctions::loadPages($category,true);
     $channelTitle = ($category == 0)
       ? GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'title',$langCode)
       : GeneralFunctions::getLocalized($GLOBALS['categoryConfig'][$category],'name',$langCode).' - '.GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'title',$langCode);
-    
+
     // ->> START feeds
     $atom = new FeedWriter(ATOM);
     $rss2 = new FeedWriter(RSS2);
-  
+
     // ->> CHANNEL
     // -> ATOM
-    $atom->setTitle($channelTitle); 
-    $atom->setLink($GLOBALS['adminConfig']['url']);  
+    $atom->setTitle($channelTitle);
+    $atom->setLink($GLOBALS['adminConfig']['url']);
     $atom->setChannelElement('updated', date(DATE_ATOM , time()));
     $atom->setChannelElement('author', array('name'=>GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'publisher',$langCode)));
     $atom->setChannelElement('rights', GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'copyright',$langCode));
     $atom->setChannelElement('generator', 'feindura - flat file cms',array('uri'=>'http://feindura.org','version'=>VERSION));
-    
+
     // -> RSS2
     $rss2->setTitle($channelTitle);
-    $rss2->setLink($GLOBALS['adminConfig']['url']);  
+    $rss2->setLink($GLOBALS['adminConfig']['url']);
     $rss2->setDescription(GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'description',$langCode));
     //$rss2->setChannelElement('language', 'en-us');
     $rss2->setChannelElement('pubDate', date(DATE_RSS, time()));
-    $rss2->setChannelElement('copyright', GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'copyright',$langCode)); 
-    
+    $rss2->setChannelElement('copyright', GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'copyright',$langCode));
+
     // ->> adds the feed ENTRIES/ITEMS
     foreach($feedsPages as $feedsPage) {
-      
+
       if($feedsPage['public']) {
         // shows the page link
         $link = GeneralFunctions::createHref($feedsPage,false,$langCode,true);
         $title = strip_tags(GeneralFunctions::getLocalized($feedsPage,'title',$langCode));
         $description = GeneralFunctions::getLocalized($feedsPage,'description',$langCode);
-        
+
         $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.$GLOBALS['adminConfig']['url'].$GLOBALS['adminConfig']['uploadPath'].$GLOBALS['adminConfig']['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
-        
+
         $content = GeneralFunctions::replaceLinks(GeneralFunctions::getLocalized($feedsPage,'content',$langCode),false,$langCode,true);
         $content = GeneralFunctions::replaceCodeSnippets($content,$feedsPage['id']); // Has to create a new Feindura class instance inside
         $content = preg_replace('#<script\b[^>]*>[\s\S]*?<\/script>#i', '', $content); // remove script tags
@@ -1630,16 +1631,16 @@ function saveFeeds($category) {
         $content = strip_tags($content,'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><em><s><u><strong><small><span><img><table><tr><td><thead><tbody><object>');
         // $content = preg_replace('#<h[0-6]>#','<strong>',$content);
         // $content = preg_replace('#</h[0-6]>#','</strong><br>',$content);
-        
+
         // ATOM
-        $atomItem = $atom->createNewItem();   
+        $atomItem = $atom->createNewItem();
         $atomItem->setTitle($title);
         $atomItem->setLink($link);
         $atomItem->setDate($feedsPage['lastSaveDate']);
         $atomItem->addElement('content',$thumbnail.$content,array('src'=>$link));
-      
+
         // RSS2
-        $rssItem = $rss2->createNewItem();    
+        $rssItem = $rss2->createNewItem();
         $rssItem->setTitle($title);
         $rssItem->setLink($link);
         $rssItem->setDate($feedsPage['lastSaveDate']);
@@ -1653,20 +1654,20 @@ function saveFeeds($category) {
           $atomItem->setDescription($thumbnail.$description);
           $rssItem->setDescription($thumbnail.$description);
         }
-        
-        //Now add the feeds item  
+
+        //Now add the feeds item
         $atom->addItem($atomItem);
-        //Now add the feeds item  
+        //Now add the feeds item
         $rss2->addItem($rssItem);
       }
     }
-      
+
     // -> SAVE
     if(file_put_contents($atomFileName,$atom->generateFeed(),LOCK_EX) !== false &&
             file_put_contents($rss2FileName,$rss2->generateFeed(),LOCK_EX) !== false) {
       @chmod($atomFileName, $GLOBALS['adminConfig']['permissions']);
       @chmod($rss2FileName, $GLOBALS['adminConfig']['permissions']);
-      $return = true; 
+      $return = true;
     } else
       $return = false;
 
@@ -1676,65 +1677,65 @@ function saveFeeds($category) {
 
 /**
  * <b>Name</b> generateBackupFileName()<br>
- * 
+ *
  * Generates the backup file name like:
- * 
+ *
  * <samp>
  * feinduraBackup_localhost_2010-11-17_17-36.zip
  * </samp>
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
- * 
+ *
  * @param string $backupAppendix (optional) a name which will be appended to the backup file name
- * 
+ *
  * @return string the generated backup file name with full path
- * 
- * 
+ *
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function generateBackupFileName($backupAppendix = false) {
-  
+
   $backupAppendix = ($backupAppendix) ? '_'.$backupAppendix : '';
   $websitePath = GeneralFunctions::getDirname($GLOBALS['adminConfig']['websitePath']);
   $websitePath = str_replace(array('/',"\\"),'-',$websitePath);
   $websitePath = ($websitePath != '-') ? substr($websitePath,0,-1) : '';
   $backupName = 'feinduraBackup_'.$_SERVER['SERVER_NAME'].$websitePath.'_'.date('Y-m-d_H-i').$backupAppendix.'.zip';
   $backupFileName = dirname(__FILE__).'/../../backups/'.$backupName;
-  
+
   return $backupFileName;
 }
 
 /**
  * <b>Name</b> createBackup()<br>
- * 
+ *
  * Creates a backup file from the "config", "statistic" and "pages" folder.
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
- * 
+ *
  * @param string $backupFileName the full path of the new backup file
- * 
+ *
  * @return true|string TRUE if the creation of a backup zip was successfull, otherwise a string with the error warning
- * 
- * 
+ *
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function createBackup($backupFile) {
-  
+
   // -> generate archive
   require_once(dirname(__FILE__).'/../thirdparty/PHP/pclzip.lib.php');
   $archive = new PclZip($backupFile);
   $catchError = $archive->add('config/,statistic/,pages/',PCLZIP_OPT_REMOVE_PATH, $GLOBALS['adminConfig']['realBasePath']);//,PCLZIP_OPT_SET_CHMOD,$GLOBALS['adminConfig']['permissions']);
-  
+
   if($catchError == 0)
     return $archive->errorInfo(true);
   else {
@@ -1745,44 +1746,44 @@ function createBackup($backupFile) {
 
 /**
  * <b>Name</b> prepareStyleFilePaths()<br>
- * 
+ *
  * Check the array with stylesheet file paths, whether they have a slash on the beginnging and that they are not empty.
  * If slash is missing, it adds one and return the serialized the array as string.
- * 
+ *
  * If the $givenStyleFiles parameter is already a string it passes it trough.
- * 
+ *
  * @param array $givenStyleFiles the array with stylesheetfile paths
- * 
+ *
  * @return string the checked stylesheet files path as serialized array
- * 
- * 
+ *
+ *
  * @version 1.2
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.2 add GeneralFunctions::URI2Path()
- *    - 1.1 add XssFilter test 
+ *    - 1.1 add XssFilter test
  *    - 1.0 initial release
- * 
+ *
  */
 function prepareStyleFilePaths($givenStyleFiles) {
-  
+
   //vars
   $styleFiles = array();
-  
+
   if(is_string($givenStyleFiles))
     return $givenStyleFiles;
-    
+
   if(is_array($givenStyleFiles)) {
     foreach($givenStyleFiles as $styleFile) {
       // ** adds a "/" on the beginning of all absolute paths
       if(!empty($styleFile) && !strstr($styleFile,'://') && substr($styleFile,0,1) !== '/')
           $styleFile = '/'.$styleFile;
-          
+
       if(strstr($styleFile,'://'))
         $styleFile = XssFilter::url($styleFile);
       else
         $styleFile = GeneralFunctions::URI2Path(XssFilter::path($styleFile));
-      
+
       // adds back to the string only if its not empty
       if(!empty($styleFile))
         $styleFiles[] = $styleFile;
@@ -1793,33 +1794,33 @@ function prepareStyleFilePaths($givenStyleFiles) {
 
 /**
  * <b>Name</b> setStylesByPriority()<br>
- * 
+ *
  * Bubbles through the stylesheet-file path, ID or class-attribute
  * of the page, category and adminSetup and check if the stylesheet-file path, ID or class-attribute already exist.
  * If the <var>$givenStyle</var> parameter is empty,
  * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
- * 
+ *
  * <b>Used Global Variables</b><br>
- *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
- * 
+ *
  * @param string   $givenStyle    the string with the stylesheet-file path, id or class
- * @param string   $styleType     the key for the $pageContent, $categoryConfig or $adminConfig array can be "styleFile", "styleId" or "styleClass" 
+ * @param string   $styleType     the key for the $pageContent, $categoryConfig or $adminConfig array can be "styleFile", "styleId" or "styleClass"
  * @param int|true $category      the ID of the category to bubble through
  * @param bool     $saveCategory  (optional) TRUE when the $givenStyle is from a category
- * 
+ *
  * @return string an empty string or the $givenStyle parameter if it was not found through while bubbleing up
- * 
- * 
+ *
+ *
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 moved adminConfig styles to categoryConfig[0]
  *    - 1.0 initial release
- * 
+ *
  */
 function setStylesByPriority($givenStyle,$styleType,$category,$saveCategory = false) {
-  
+
   // prepare string
   if($styleType != 'styleFile')
     $givenStyle = str_replace(array('#','.'),'',$givenStyle);
@@ -1835,7 +1836,7 @@ function setStylesByPriority($givenStyle,$styleType,$category,$saveCategory = fa
      (!empty($GLOBALS['categoryConfig'][$category][$styleType]) || $GLOBALS['categoryConfig'][$category][$styleType] != 'a:0:{}') &&
      $givenStyle == $GLOBALS['categoryConfig'][$category][$styleType]) {
     return '';
-      
+
   //  COMPARE with HTML-EDITOR STYLES (non-category styles)
   } elseif($givenStyle == $GLOBALS['categoryConfig'][0][$styleType]) {
     return '';
@@ -1845,68 +1846,68 @@ function setStylesByPriority($givenStyle,$styleType,$category,$saveCategory = fa
 
 /**
  * <b>Name</b> getStylesByPriority()<br>
- * 
+ *
  * Returns the right stylesheet-file path, ID or class-attribute.
  * If the <var>$givenStyle</var> parameter is empty,
  * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
- * 
+ *
  * <b>Used Global Variables</b><br>
- *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
- * 
+ *
  * @param string $givenStyle the string with the stylesheet-file path, id or class
- * @param string $styleType  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass" 
+ * @param string $styleType  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass"
  * @param int    $category   the ID of the category to bubble through
- * 
+ *
  * @return string the right stylesheet-file, ID or class
- * 
+ *
  * @static
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 moved back to backend.functions.php
- *    - 1.0.1 moved to GeneralFunctions class   
+ *    - 1.0.1 moved to GeneralFunctions class
  *    - 1.0 initial release
- * 
+ *
  */
 function getStylesByPriority($givenStyle,$styleType,$category) {
-  
+
   // check if the $givenStyle is empty
   if(empty($givenStyle) || $givenStyle == 'a:0:{}') {
-  
+
     return (empty($GLOBALS['categoryConfig'][$category][$styleType]) || $GLOBALS['categoryConfig'][$category][$styleType] == 'a:0:{}')
       ? $GLOBALS['categoryConfig'][0][$styleType]
       : $GLOBALS['categoryConfig'][$category][$styleType];
-  
+
   // OTHERWISE it pass returns the $givenStyle parameter
   } else
     return $givenStyle;
-  
+
 }
 
 /**
  * <b>Name</b> showStyleFileInputs()<br>
- * 
+ *
  * Lists the styleFile inputs from a given styleFile data-string.
- * 
- * 
+ *
+ *
  * @param string   $styleFiles the string with the stylesheet-file path, id or class
- * @param string   $inputNames  the key for the $pageContent, $categoryConfig or $adminConfig array can be "styleFile", "styleId" or "styleClass" 
- * 
+ * @param string   $inputNames  the key for the $pageContent, $categoryConfig or $adminConfig array can be "styleFile", "styleId" or "styleClass"
+ *
  * @return string the style File inputs
- * 
- * 
+ *
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function showStyleFileInputs($styleFiles,$inputNames) {
 
   // var
   $return = false;
-  
+
   if(!empty($styleFiles) &&
      $styleFiles != 'a:0:{}' &&
      ($styleFileInputs = unserialize($styleFiles)) !== false) {
@@ -1915,41 +1916,41 @@ function showStyleFileInputs($styleFiles,$inputNames) {
     }
   } else
     $return = '<input class="noResize" name="'.$inputNames.'[]" value="">';
-  
+
   // return the result
   return $return;
 }
 
 /**
  * <b>Name</b> showPageDate()<br>
- * 
+ *
  * Shows the page date, if the date is invalid it shows an error text.
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$langFile</var> the language file of the backend (included in the {@link general.include.php})
- * 
+ *
  * @param array        $pageContent  the $pageContent array of a page
- * 
+ *
  * @uses GeneralFunctions::checkPageDate()      to check if the page date is a valid date
  * @uses GeneralFunctions::dateDayBeforeAfter() to check if the date was yesterday or is tomorrow
  * @uses GeneralFunctions::formatDate()         to format the unix timstamp into the right date format
- * 
+ *
  * @return string the page date as text string, or an error text
- * 
+ *
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 moved to backend.functions.php
  *    - 1.0 initial release
- * 
+ *
  */
 function showPageDate($pageContent) {
-  
+
   // vars
   $return = false;
   $titleDateBefore = '';
   $titleDateAfter = '';
-  
+
   if(GeneralFunctions::checkPageDate($pageContent)) {
     $pageDate = GeneralFunctions::getLocalized($pageContent,'pageDate');
     $pageDateBefore = $pageDate['before'];
@@ -1962,49 +1963,49 @@ function showPageDate($pageContent) {
     $return = (GeneralFunctions::formatDate(validateDateString($pageContent['pageDate']['date'])) === false)
     ? '[br][b]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/b] '.$titleDateBefore.'[span style=color:#950300]'.$GLOBALS['langFile']['EDITOR_pageSettings_pagedate_error'].'[/span]'.$titleDateAfter
     : '[br][b]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/b] '.$titleDateBefore.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$GLOBALS['langFile'])).$titleDateAfter;
-  }    
+  }
   return $return;
 }
 
 /**
  * <b>Name</b> showVisitTime()<br>
- * 
+ *
  * Converts a given time into "12 Seconds", "01:15 Minutes" or "01:30:20 Hours".
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
- * 
+ *
  * @param string $time     the time in the following format: "HH:MM:SS"
- * 
+ *
  * @return string the formated time
- * 
+ *
  * @static
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 moved to backend.functions.php
  *    - 1.0 initial release
- * 
+ *
  */
 function showVisitTime($time) {
-  
+
   // change seconds to the following format: hh:mm:ss
   $time = secToTime($time);
-  
+
   $hour = substr($time,0,2);
   $minute = substr($time,3,2);
   $second = substr($time,6,2);
-  
+
   // adds the text for the HOURs
   if($hour == 0)
       $hour = false;
   // adds the text for the MINUTEs
   if($minute == 0)
-      $minute = false;  
+      $minute = false;
   // adds the text for the SECONDs
   if($second == 0)
       $second = false;
-  
+
   // 01:01:01 Stunden
   if($hour !== false && $minute !== false && $second !== false)
       $printTime = $hour.':'.$minute.':'.$second;
@@ -2013,8 +2014,8 @@ function showVisitTime($time) {
       $printTime = $hour.':'.$minute;
   // 01:01 Minuten
   elseif($hour === false && $minute !== false && $second !== false)
-      $printTime = $minute.':'.$second; 
-  
+      $printTime = $minute.':'.$second;
+
   // 01 Stunden
   elseif($hour !== false && $minute === false && $second === false)
       $printTime = $hour;
@@ -2024,8 +2025,8 @@ function showVisitTime($time) {
   // 01 Sekunden
   elseif($hour === false && $minute === false && $second !== false)
       $printTime = $second;
-  
-  
+
+
   // get the time together
   if($hour) {
     if($hour == 1)
@@ -2043,7 +2044,7 @@ function showVisitTime($time) {
     else
       $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_SECOND_PLURAL'].'</b>';
   }
-  
+
   // RETURN formated time
   if($time != '00:00:00')
     return $printTime;
@@ -2053,24 +2054,24 @@ function showVisitTime($time) {
 
 /**
  * <b>Name</b> secToTime()<br>
- * 
+ *
  * Converts seconds into a readable time
- * 
+ *
  * @return string the seconds in a readable time
- * 
+ *
  * @static
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 moved to backend.functions.php
  *    - 1.0 initial release
- * 
+ *
  */
 function secToTime($sec) {
   $hours = floor($sec / 3600);
-  $mins = floor(($sec -= ($hours * 3600)) / 60);  
+  $mins = floor(($sec -= ($hours * 3600)) / 60);
   $seconds = floor($sec - ($mins * 60));
-  
+
   // adds leading zeros
   if($hours < 10)
     $hours = '0'.$hours;
@@ -2078,33 +2079,33 @@ function secToTime($sec) {
     $mins = '0'.$mins;
   if($seconds < 10)
     $seconds = '0'.$seconds;
-  
+
   return $hours.':'.$mins.':'.$seconds;
 }
 
 /**
  * <b>Name</b> validateDateString()<br>
- * 
+ *
  * Check if a date is valid and returns the date as UNIX-Timestamp
- * 
+ *
  * @param string $dateString a UNIX-Timestamp or a date string to validate in the format: "YYYY-MM-DD"
- * 
+ *
  * @return int|false the timestamp of the date or FALSE if the date is not valid
- * 
+ *
  * @static
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 moved to backend.functions.php
  *    - 1.0 initial release
- * 
+ *
  */
 function validateDateString($dateString) {
 
   // if its a unix timestamp return immediately
   if($dateString !== 0 && preg_match('/^[0-9]{1,}$/',$dateString))
     return $dateString;
-  
+
   if((!is_string($dateString) && !is_numeric($dateString)) || $dateString === 0)
     return false;
 
@@ -2114,7 +2115,7 @@ function validateDateString($dateString) {
     is_numeric($date[0]) &&
     is_numeric($date[1]) &&
     is_numeric($date[2])) {
-    
+
     //yyyymmdd
     if(strlen($date[0]) == 4 && checkdate($date[1], $date[2], $date[0]))
       return mktime(23,59,59,$date[1],$date[2],$date[0]);
@@ -2128,55 +2129,55 @@ function validateDateString($dateString) {
 
 /**
  * <b>Name</b> formatTime()<br>
- * 
+ *
  * Converts a given timestamp into the following format "12:60" or "12:60:00", if the <var>$showSeconds</var> parameter is TRUE.
- * 
+ *
  * @param int    $timeStamp      the given date with following format: "YYYY-MM-DD HH:MM:SS" or "HH:MM:SS"
  * @param bool   $showSeconds    (optional) whether seconds are shown in the time string
- * 
+ *
  * @return string the formated time with or without seconds or the $timestamp parameter
- * 
+ *
  * @static
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 moved to backend.functions.php
- *    - 1.01 changed from date conversion to timestamp  
+ *    - 1.01 changed from date conversion to timestamp
  *    - 1.0 initial release
- * 
+ *
  */
 function formatTime($timeStamp,$showSeconds = false) {
-  
+
   if(empty($timeStamp) || !preg_match('/^[0-9]{1,}$/',$timeStamp))
     return $timeStamp;
-  
+
   return ($showSeconds)
     ? date('H:i:s',$timeStamp)
     : date('H:i',$timeStamp);
 }
-  
+
 /**
  * <b>Name</b> formatHighNumber()<br>
- * 
+ *
  * Seperates the thouseds in a number with whitespaces.
- * 
+ *
  * Example
  * <samp>
  * 12 050 125
  * </samp>
- * 
+ *
  * @param float $number          the number to convert
  * @param int   $decimalsNumber  (optional) the number of decimal places, like "1 250,25"
- * 
+ *
  * @return float the converted number
- * 
+ *
  * @static
  * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.1 moved to backend.functions.php
  *    - 1.0 initial release
- * 
+ *
  */
 function formatHighNumber($number,$decimalsNumber = 0) {
   $number = floatval($number);
@@ -2185,38 +2186,38 @@ function formatHighNumber($number,$decimalsNumber = 0) {
 
 /**
  * <b>Name</b> editFiles()<br>
- * 
+ *
  * Generates a editable textfield with a file selection and a input for creating new files.
- * 
+ *
  * <b>Used Constants</b><br>
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$_POST</var> to get which form is open
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
  *    - <var>$savedForm</var> the variable to tell which form was saved (set in the {@link saveEditedFiles})
- * 
+ *
  * @param string		$filesPath	         the absolute file system path to the files (also files in subfolders), which will be editable
  * @param string		$status		           a status name which will be set to the $_GET['status'] variable in the formular action attribute
  * @param string		$titleText	         a title text which will be displayed as the title of the edit files textfield
  * @param string		$anchorName	         the name of the anchor which will be added to the formular action attribute
  * @param string|false		$fileType      (optional) a filetype which will be added to each ne created file
  * @param string|array|false	$excluded	 (optional) a string (seperated with ",") or array with files or folder names which should be excluded from the file selection, if FALSE no file will be excluded
- * 
+ *
  * @uses GeneralFunctions::readFolderRecursive()	reads the $filesPath folder recursive and loads all file paths in an array
- * 
+ *
  * @return void displayes the file edit textfield
- * 
+ *
  * @version 2.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 2.0 moved delete files in here; deletes now also empty folders of files which were deleted
  *    - 1.0.1 put fileType to the classe instead of the id of the textarea
  *    - 1.0 initial release
- * 
+ *
  */
 function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = false, $excluded = false) {
-  
+
   // var
   $fileTypeText = '';
   $fileType = str_replace('.', '', $fileType); // remove . from the given extension
@@ -2246,7 +2247,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
       $errorWindow .= $langFile['EDITFILESSETTINGS_ERROR_DELETEFILE'].' '.$filesPath.$_GET['file'];
   }
 
-  
+
   // shows the block below if it is the ones which is saved before
   $hidden = ($_GET['status'] == $status || $GLOBALS['savedForm'] === $status) ? '' : ' hidden';
 
@@ -2258,14 +2259,14 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
   if($fileType)
     echo '<input type="hidden" name="fileType" value=".'.$fileType.'">';
   echo '</div>';
-  
+
   echo '<div class="block'.$hidden.'">
           <h1><a href="#" name="'.$anchorName.'" id="'.$anchorName.'">'.$titleText.'</a></h1>
           <div class="content editFiles"><br>';
-      
-  //echo $filesPath.'<br>';      
+
+  //echo $filesPath.'<br>';
   // gets the files out of the directory --------------
-  // adds the DOCUMENTROOT  
+  // adds the DOCUMENTROOT
   $dir = DOCUMENTROOT.$filesPath;
   if(!empty($filesPath) && is_dir($dir)) {
     $files = GeneralFunctions::readFolderRecursive($filesPath);
@@ -2287,39 +2288,39 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
 
   	// ->> EXLUDES files or folders
   	if($files && $excluded !== false) {
-  	  
+
   	  // -> is string convert to array
   	  if(is_string($excluded))
   	    $excluded = explode(',',$excluded);
-  	  
-  	  if(is_array($excluded)) { 
+
+  	  if(is_array($excluded)) {
         $newFiles = array();
 
-  	    foreach($files as $file) {  	      
-  	      $foundToExclud = false;  	      
+  	    foreach($files as $file) {
+  	      $foundToExclud = false;
   	      // looks if any of a excluded file is found
   	      foreach($excluded as $excl) {
   	        if(strpos($file,$excl) !== false)
   		        $foundToExclud = true;
   	      }
-  
+
   	      // then exclud them
   	      if($foundToExclud === false)
-  	        $newFiles[] = $file;	      
+  	        $newFiles[] = $file;
   	    }
   	    // set new files array to the old one
   	    $files = $newFiles;
-  	  }  	  
+  	  }
   	}
-  	$isDir = true;	
-  	
+  	$isDir = true;
+
   	// only if still are files left
   	if(is_array($files) && !empty($files)) {
   	  $isFiles = true;
   	  // sort the files in a natural way (alphabetical)
   	  natsort($files);
   	}
-  // dont show files but show directory error       
+  // dont show files but show directory error
   } else {
     echo '<code>"'.$filesPath.'"</code> <b>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_NODIR'].'</b>';
     $isDir = false;
@@ -2329,7 +2330,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
   if(empty($editFile) && isset($files)) {
     $editFile = str_replace($filesPath,'',$files[0]);
   }
-  
+
   // ->> CHECK DIR
   if($isDir) {
 
@@ -2339,14 +2340,14 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
             <h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CHOOSEFILE'].'</h2>
             <input value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'">'."\n";
       echo '<select onchange="changeEditFile(\''.$_GET['site'].'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
- 
+
             // listet die Dateien aus dem Ordner als Mehrfachauswahl auf
             foreach($files as $cFile) {
               $onlyFile = str_replace($filesPath,'',$cFile);
               if($editFile == $onlyFile)
                 echo '<option value="'.$onlyFile.'" selected="selected">'.$onlyFile.'</option>'."\n";
               else
-                echo '<option value="'.$onlyFile.'">'.$onlyFile.'</option>'."\n";    
+                echo '<option value="'.$onlyFile.'">'.$onlyFile.'</option>'."\n";
             }
       echo '</select></div>'."\n\n";
 
@@ -2356,7 +2357,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
       echo '<h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_NOFILE'].'</h2>';
       echo '</div>';
     }
-    
+
     // create a NEW FILE ---------------------------------
     if($fileType)
       $fileTypeText = '<b>.'.$fileType.'</b>';
@@ -2368,16 +2369,16 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
 
   // OPEN THE FILE -------------------------------------
   if(@is_file(DOCUMENTROOT.$filesPath.$editFile)) {
-    $editFileOpen = fopen(DOCUMENTROOT.$filesPath.$editFile,"r");  
+    $editFileOpen = fopen(DOCUMENTROOT.$filesPath.$editFile,"r");
     $file = @fread($editFileOpen,filesize(DOCUMENTROOT.$filesPath.$editFile));
     fclose($editFileOpen);
     $file = str_replace(array('<','>'),array('&lt;','&gt;'),$file);
-    
+
     echo '<input type="hidden" name="file" value="'.$editFile.'">'."\n";
     echo '<textarea name="fileContent" cols="90" rows="30" spellcheck="false" class="editFiles '.substr($filesPath.$editFile, strrpos($filesPath.$editFile, '.') + 1).'" id="editFiles'.uniqid().'">'.$file.'</textarea>';
-  }  
-  
-  
+  }
+
+
   if($isDir) {
     if($isFiles)
       echo '<a href="?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/views/windowBox/deleteEditFiles.php?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_DELETEFILE'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_DELETEFILE'].'::" style="float:left;"></a>';
@@ -2393,59 +2394,59 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
 
 /**
  * <b>Name</b> saveEditedFiles()<br>
- * 
+ *
  * Save the files edited in {@link editFiles()}.
- * 
+ *
  * <b>Used Constants</b><br>
  *    - <var>$_POST</var> for the file data
- *    - <var>DOCUMENTROOT</var> the absolut path of the webserver 
- * 
+ *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+ *
  * @param string &$savedForm	to set which form was is saved
- * 
+ *
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
- * 
+ *
  * @version 1.0.1
  * <br>
  * <b>ChangeLog</b><br>
- *    - 1.0.1 add XssFilter and removed htmlentities 
+ *    - 1.0.1 add XssFilter and removed htmlentities
  *    - 1.0 initial release
- * 
+ *
  */
 function saveEditedFiles(&$savedForm) {
 
   // var
   $_POST['filesPath'] = DOCUMENTROOT.str_replace(DOCUMENTROOT,'',$_POST['filesPath']);
   $_POST['file'] = XssFilter::path($_POST['file']);
-  
+
   // ->> SAVE FILE
   if(@is_file($_POST['filesPath'].$_POST['file']) && empty($_POST['newFile'])) {
-    
+
     // encode when ISO-8859-1
     if(mb_detect_encoding($_POST['fileContent']) == 'ISO-8859-1') $_POST['fileContent'] = utf8_encode($_POST['fileContent']);
     $_POST['fileContent'] = GeneralFunctions::smartStripslashes($_POST['fileContent']);
     $_POST['fileContent'] = preg_replace("#\\n#","",$_POST['fileContent']); // prevent double line breaks
-    
+
     // -> SAVE
     if(file_put_contents($_POST['filesPath'].$_POST['file'],$_POST['fileContent'],LOCK_EX) !== false) {
-      
+
       @chmod($_POST['filesPath'].$_POST['file'], $GLOBALS['adminConfig']['permissions']);
       $_GET['file'] = $_POST['file'];
       $_GET['status'] = $_POST['status'];
       $savedForm = $_POST['status'];
-    
+
       saveActivityLog(12,$_GET['file']); // <- SAVE the task in a LOG FILE
-      return true;      
+      return true;
     } else
       return false;
-    
+
   // ->> NEW FILE
   } elseif(!empty($_POST['newFile'])) { // creates a new file if a filename was input in the field
-    
+
     // get extension, to add when filename is wrong to save and unnamed files
     $ext = (empty($_POST['fileType'])) ? '.'.pathinfo($_POST['newFile'], PATHINFO_EXTENSION) : $_POST['fileType'];
 
     $_POST['newFile'] = XssFilter::path($_POST['newFile'],false,'unnamed'.$ext);
-    
+
     // check if a path is included
     if(strpos($_POST['newFile'],'/') !== false) {
       $directory = dirname($_POST['newFile']);
@@ -2456,18 +2457,18 @@ function saveEditedFiles(&$savedForm) {
     } else {
       $_POST['newFile'] = GeneralFunctions::cleanSpecialChars($_POST['newFile'],'-');
     }
-    
+
     $_POST['newFile'] = str_replace($_POST['fileType'],'',$_POST['newFile']);
     $fullFilePath = $_POST['filesPath'].'/'.$_POST['newFile'].$_POST['fileType'];
     $fullFilePath = preg_replace("/\/+/", '/', $fullFilePath);
-    
+
     if($file = fopen($fullFilePath,"wb")) {
 
       @chmod($fullFilePath, $GLOBALS['adminConfig']['permissions']);
-      $_GET['file'] = '/'.$_POST['newFile'].$_POST['fileType'];       
+      $_GET['file'] = '/'.$_POST['newFile'].$_POST['fileType'];
       $_GET['status'] = $_POST['status'];
       $savedForm = $_POST['status'];
-     
+
       fclose($file);
       saveActivityLog(12,$_GET['file']); // <- SAVE the task in a LOG FILE
       return true;
@@ -2478,25 +2479,25 @@ function saveEditedFiles(&$savedForm) {
 
 /**
  * <b>Name</b> isFolderWarning()<br>
- * 
+ *
  * Check if the <var>$folder</var> parameter is a directory, otherwise it return a warning text.
- * 
- * 
+ *
+ *
  * <b>Used Global Variables</b><br>
- *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})    
- * 
+ *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
+ *
  * @param string $folder the absolut path of the folder to check
- * 
+ *
  * @return string|false a warning text if it's not a directory, otherwise FALSE
- * 
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function isFolderWarning($folder) {
-  
+
   if(!GeneralFunctions::getRealPath($folder) && is_dir($folder) === false) {
       return '<span class="warning"><b>&quot;'.$folder.'&quot;</b> -> '.$GLOBALS['langFile']['ADMINSETUP_TEXT_ISFOLDERERROR'].'</span><br>';
   } else
@@ -2505,27 +2506,27 @@ function isFolderWarning($folder) {
 
 /**
  * <b>Name</b> isWritableWarning()<br>
- * 
+ *
  * Check if a file/folder is writeable, otherwise it return a warning text.
- * 
+ *
  * <b>Used Constants</b><br>
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
- * 
+ *
  * @param string $fileFolder the absolut path of a file/folder to check
- * 
+ *
  * @return string|false a warning text if it's not writable, otherwise FALSE
- * 
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function isWritableWarning($fileFolder) {
-  
+
   $fileFolder = GeneralFunctions::getRealPath($fileFolder);
 
   if(file_exists($fileFolder) && is_writable($fileFolder) === false) {
@@ -2536,30 +2537,30 @@ function isWritableWarning($fileFolder) {
 
 /**
  * <b>Name</b> isWritableWarningRecursive()<br>
- * 
+ *
  * Check if folders and it's containing files are writeable, otherwise it return a warning text.
- * 
+ *
  * @param array $folders an array with absolut paths of folders to check
- * 
+ *
  * @uses isFolderWarning()                        to check if the folder is a valid directory, if not return a warning
  * @uses isWritableWarning()                      to check every file/folder if it's writable, if not return a warning
  * @uses GeneralFunctions::readFolderRecursive()  to read all subfolders and files in a directory
- * 
+ *
  * @return string|false warning texts if they are not writable, otherwise FALSE
- * 
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function isWritableWarningRecursive($folders) {
-  
+
   // var
   $return = false;
-  
+
   foreach($folders as $folder) {
-    if(!empty($folder)) {    
+    if(!empty($folder)) {
       if($isFolder = isFolderWarning($folder)) {
         $return .= $isFolder;
       } else {
@@ -2584,27 +2585,27 @@ function isWritableWarningRecursive($folders) {
 
 /**
  * <b>Name</b> checkBasePathAndURL()<br>
- * 
+ *
  * Check if the current path of the CMS is matching the <var>$adminConfig['basePath']</var>
  * And if the current URL is matching the <var>$adminConfig['url']</var>.
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
- * 
+ *
  * @return bool TRUE if there are matching, otherwise FALSE
- * 
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function checkBasePathAndURL() {
   $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$GLOBALS['adminConfig']['url']);
   $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$_SERVER["SERVER_NAME"]);
-  
+
   $checkPath = GeneralFunctions::URI2Path(GeneralFunctions::getDirname($_SERVER['PHP_SELF']));
-  
+
   if($GLOBALS['adminConfig']['basePath'] == $checkPath &&
      $baseUrl == $checkUrl)
     return true;
@@ -2614,30 +2615,30 @@ function checkBasePathAndURL() {
 
 /**
  * <b>Name</b> documentrootWarning()<br>
- * 
+ *
  * Returns a warning if the DOCUMENTROOT couldn't be resolved automaticaly.
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
- * 
- * 
+ *
+ *
  * @return string|false a warning if the basePath is wrong, otherwise FALSE
- * 
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function documentrootWarning() {
   if(checkBasePathAndURL() && (DOCUMENTROOT === false)) {
     return '<div class="block warning">
             <h1>'.$GLOBALS['langFile']['WARNING_TITLE_DOCUMENTROOT'].'</h1>
             <div class="content">
-              <p>'.$GLOBALS['langFile']['WARNING_TEXT_DOCUMENTROOT'].'</p><!-- need <p> tags for margin-left:..--> 
-            </div> 
-            <div class="bottom"></div> 
+              <p>'.$GLOBALS['langFile']['WARNING_TEXT_DOCUMENTROOT'].'</p><!-- need <p> tags for margin-left:..-->
+            </div>
+            <div class="bottom"></div>
           </div>';
   } else
     return false;
@@ -2645,30 +2646,30 @@ function documentrootWarning() {
 
 /**
  * <b>Name</b> basePathWarning()<br>
- * 
+ *
  * Returns a warning if the current path of the CMS and the current URL is not matching with the ones set in the <var>$adminConfig</var>.
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
- * 
+ *
  * @uses checkBasePathAndURL() to check if the current pathand URL are matching
- * 
+ *
  * @return string|false a warning if the basePath is wrong, otherwise FALSE
- * 
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function basePathWarning() {
   if(checkBasePathAndURL() === false) {
     return '<div class="block warning">
             <h1>'.$GLOBALS['langFile']['WARNING_TITLE_BASEPATH'].'</h1>
             <div class="content">
-              <p>'.$GLOBALS['langFile']['WARNING_TEXT_BASEPATH'].'</p><!-- need <p> tags for margin-left:..--> 
-            </div> 
-            <div class="bottom"></div> 
+              <p>'.$GLOBALS['langFile']['WARNING_TEXT_BASEPATH'].'</p><!-- need <p> tags for margin-left:..-->
+            </div>
+            <div class="bottom"></div>
           </div>';
   } else
     return false;
@@ -2676,30 +2677,30 @@ function basePathWarning() {
 
 /**
  * <b>Name</b> startPageWarning()<br>
- * 
+ *
  * Retruns a warning if the current set start page is existing.
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
  *    - <var>$GeneralFunctions</var> for the {@link GeneralFunctions::getPageCategory()} method (included in the {@link general.include.php})
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
- * 
+ *
  * @uses GeneralFunctions::getPageCategory() to get the category of the start page
- * 
+ *
  * @return string|false a warning if the start page doesn't exist, otherwise FALSE
- * 
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function startPageWarning() {
-  
+
   if(checkBasePathAndURL() === false || !is_dir(dirname(__FILE__).'/../../pages/'))
     return false;
-  
+
   if($GLOBALS['adminConfig']['setStartPage'] && !empty($GLOBALS['websiteConfig']['startPage']) && ($startPageCategory = GeneralFunctions::getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
     $startPageCategory .= '/';
   else
@@ -2709,9 +2710,9 @@ function startPageWarning() {
     return '<div class="block info">
             <h1>'.$GLOBALS['langFile']['WARNING_TITLE_STARTPAGE'].'</h1>
             <div class="content">
-              <p>'.$GLOBALS['langFile']['WARNING_TEXT_STARTPAGE'].'</p><!-- need <p> tags for margin-left:..--> 
-            </div> 
-            <div class="bottom"></div> 
+              <p>'.$GLOBALS['langFile']['WARNING_TEXT_STARTPAGE'].'</p><!-- need <p> tags for margin-left:..-->
+            </div>
+            <div class="bottom"></div>
           </div>';
   } else
     return false;
@@ -2719,32 +2720,32 @@ function startPageWarning() {
 
 /**
  * <b>Name</b> missingLanguageWarning()<br>
- * 
+ *
  * Retruns a warning if the <var>$categoryConfig</var> or <var>$websiteConfig</var> has missing languages.
- * 
+ *
  * <b>Used Global Variables</b><br>
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
  *    - <var>$languageNames</var> an array with country codes and language names (included in the {@link general.include.php})
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  *    - <var>$langFile</var> the language file of the backend (included in the {@link general.include.php})
- * 
+ *
  * @return string|false a warning if the there are still missing languages, otherwise FALSE
- * 
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
+ *
  */
 function missingLanguageWarning() {
-  
+
   // var
   $return = false;
 
   if(!$GLOBALS['adminConfig']['multiLanguageWebsite']['active'])
     return false;
-  
+
   // -> websiteConfig
   $websiteConfig = '';
   if($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] != array_keys($GLOBALS['websiteConfig']['localized'])) {
@@ -2785,9 +2786,9 @@ function missingLanguageWarning() {
       $return .= '<h2>'.$GLOBALS['langFile']['BUTTON_WEBSITESETTINGS'].'</h2><p>'.$websiteConfig.'</p><!-- need <p> tags for margin-left:..-->';
     if(!empty($categoryConfig))
       $return .= '<h2>'.$GLOBALS['langFile']['BUTTON_PAGESETUP'].'</h2><p>'.$categoryConfig.'</p><!-- need <p> tags for margin-left:..-->';
-    
-    $return .= '</div> 
-            <div class="bottom"></div> 
+
+    $return .= '</div>
+            <div class="bottom"></div>
           </div>';
 
   }
@@ -2797,45 +2798,45 @@ function missingLanguageWarning() {
 
 /**
 * <b>Name</b> createBrowserChart()<br>
-* 
+*
 * Create the browser chart out of the browser's list saved in the website-statistic.
-* 
+*
 * @param string $browserString the browsers with their number of visits in a string with the format: "firefox,34|chrome,12"
-* 
-* 
+*
+*
 * @return string|false the browser chart or FALSE
-* 
+*
 * @version 1.0.2
 * <br>
 * <b>ChangeLog</b><br>
 *    - 1.0.2 transfered this function to the backend.functions.php
-*    - 1.0.1 add a lot of new browsers  
+*    - 1.0.1 add a lot of new browsers
 *    - 1.0 initial release
-* 
+*
 */
 function createBrowserChart($browserString) {
-  
+
   //var
   $return = false;
   $listBrowser = array();
-  
+
   if(isset($browserString) && !empty($browserString)) {
-       
+
     $browsers = unserialize($browserString);
-    
+
     if(is_array($browsers)) {
-      
+
       //  number of all visits
       $sumOfNumbers = 0;
       foreach($browsers as $browser) {
         $sumOfNumbers += $browser['number'];
       }
-      
+
       foreach($browsers as $browser) {
-        
+
         // var
         $default = false;
-        
+
         //echo $browser['data'].' - '.$browser['number'].'<br>';
 
         // change the Names and the Colors
@@ -2998,15 +2999,15 @@ function createBrowserChart($browserString) {
             $browserTextColor = '#000000';
             break;
         }
-        
-        if($default) {            
+
+        if($default) {
           $listBrowser['unknown']['name'] = $browserName;
           $listBrowser['unknown']['bgImage'] = $browserColor;
           $listBrowser['unknown']['logo'] = $browserLogo;
           $listBrowser['unknown']['textColor'] = $browserTextColor;
           $listBrowser['unknown']['percent'] = round((($browser['number'] + $listBrowser['unknown']['number'])  / $sumOfNumbers) * 100);
           $listBrowser['unknown']['number'] += $browser['number'];
-        } else {   
+        } else {
           $listBrowser[$browser['data']]['name'] = $browserName;
           $listBrowser[$browser['data']]['bgImage'] = $browserColor;
           $listBrowser[$browser['data']]['logo'] = $browserLogo;
@@ -3015,114 +3016,114 @@ function createBrowserChart($browserString) {
           $listBrowser[$browser['data']]['number'] = $browser['number'];
         }
       }
-      
+
       // sort by number
       usort($listBrowser,'sortDataString');
-      
-      $return = '<table class="tableChart"><tbody><tr>';        
+
+      $return = '<table class="tableChart"><tbody><tr>';
       foreach($listBrowser as $displayBrowser) {
-      
+
         // calculates the text width and the cell width
         $textWidth = round(((strlen($displayBrowser['name']) + strlen($displayBrowser['number']) + 15) * 4) + 45); // +45 = logo width + padding; +15 = for the "(54)"; the visitor count
-        $cellWidth = round(780 * ($displayBrowser['percent'] / 100)); // 780px = the width of the 100% table    
+        $cellWidth = round(780 * ($displayBrowser['percent'] / 100)); // 780px = the width of the 100% table
         //$return .= '<div style="border-bottom:1px solid red;width:'.$textWidth.'px;">'.$cellWidth.' -> '.$textWidth.'</div>';
-        
+
         // show text only if cell is big enough
         if($cellWidth < $textWidth) {
           $cellText = '';
           $cellWidth -= 10;
-          
+
           //echo $displayBrowser['name'].': '.$cellWidth.'<br>';
-          
+
           // makes the browser logo smaller
           if($cellWidth < 40) {// 40 = logo width
-            
+
             // change logo size
             if($cellWidth <= 0)
               $logoSize = 'width: 0px;';
             else
               $logoSize = 'width: '.$cellWidth.'px;';
-            
+
             // change cellpadding
             $createPadding = round(($cellWidth / 40) * 10);
             if($bigLogo === false && $createPadding < 5 && $createPadding > 0)
               $cellpadding = $createPadding.'px 5px;';
             else
               $cellpadding = 'padding: 0px 5px;';
-    
+
           }
-            
+
           $bigLogo = false;
-        } else {      
+        } else {
           $cellText = '<span style="position: absolute; left: 45px; top: 13px;"><b>'.$displayBrowser['name'].'</b> ('.$displayBrowser['percent'].'%)</span>';
           $logoSize = '';
           $bigLogo = true;
           $cellpadding = '';
         }
-        
+
         // SHOW the table cell with the right browser and color
         $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$displayBrowser['textColor'].'; width: '.$displayBrowser['percent'].'%; background: '.$displayBrowser['bgImage'].' repeat-x;" class="toolTip" title="[span]'.$displayBrowser['name'].'[/span] ('.$displayBrowser['percent'].'%)::'.$displayBrowser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
                     <div style="position: relative;">
                     <img src="library/images/icons/'.$displayBrowser['logo'].'" style="float: left;'.$logoSize.';" alt="browser logo">'.$cellText.'
                     </div>
                     </td>';
-                    
+
         unset($logoSize,$cellText);
       }
       $return .= '</tr></tbody></table>';
-      
+
     }
-  }    
-  
+  }
+
   // return the chart or false
   return $return;
 }
-  
+
 /**
 * <b>Name</b> createTagCloud()<br>
-* 
+*
 * Create a tag-cloud out of the given <var>$tagString</var>.
-* 
+*
 * @param string $tagString      the words with their number of importance in a string with the format: "lake,3|mountain,5"
 * @param int    $minFontSize    (optional) the minimal font size in the tag-cloud
-* @param int    $maxFontSize    (optional) the maximal font size in the tag-cloud  
-* 
+* @param int    $maxFontSize    (optional) the maximal font size in the tag-cloud
+*
 * @return string|false the tag-cloud or FALSE if the $tagString parameter is empty
-* 
+*
 * @version 1.0.1
 * <br>
 * <b>ChangeLog</b><br>
 *    - 1.0.1 transfered this function to the backend.functions.php
 *    - 1.0 initial release
-* 
+*
 */
 function createTagCloud($serializedTags,$minFontSize = 10,$maxFontSize = 20) {
-  
+
   //var
   $return = false;
-  
+
   if(!empty($serializedTags) && is_string($serializedTags)) {
-       
+
     $tags = unserialize($serializedTags);
-    
+
     $highestNumber = $tags[0]['number'];
-    
+
     // sort alphabetical
     asort($tags);
-    
+
     foreach($tags as $tag) {
-      
+
       $fontSize = $tag['number'] / $highestNumber;
       $fontSize = round($fontSize * $maxFontSize) + $minFontSize;
-      
+
       // create href
       $tagsHref = urlencode(html_entity_decode($tag['data'],ENT_QUOTES,'UTF-8'));
-      
+
       $return .= '<a href="?site=search&amp;search='.$tagsHref.'" style="font-size:'.$fontSize.'px;" class="toolTip" title="[span]&quot;'.$tag['data'].'&quot;[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART1'].' [span]'.$tag['number'].'[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART2'].'::'.$GLOBALS['langFile']['STATISTICS_TOOLTIP_SEARCHWORD'].'">'.$tag['data'].'</a>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$tag['number'].')</span>
-    
+
     }
-  }    
-  
+  }
+
   // return the tag-cloud or false
   return $return;
 }

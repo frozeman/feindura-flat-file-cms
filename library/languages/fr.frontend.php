@@ -16,11 +16,11 @@
  */
 /**
  * FRENCH (FR) language-file for the feindura CMS (FRONTEND)
- * 
+ *
  * need a RETURN $frontendLangFile; at the END
  */
 
- 
+
 /*
 // -> GENERAL <-
 */
@@ -34,8 +34,9 @@ $frontendLangFile['TOPBAR_TIP_DEACTIVATEFRONTENDEDITING'] = 'Désactiver éditio
 
 // FRONTEND ERROR TEXTS
 
-$frontendLangFile['PAGE_ERROR_NOPAGE']               = 'la page demandée n\'existe pas.';
-$frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC']        = 'la page demandée est désactivée.';
+$frontendLangFile['PAGE_ERROR_NOPAGE']               = 'La page demandée n\'existe pas.';
+$frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC']        = 'La page demandée est désactivée.';
+$frontendLangFile['INFO_MAINTENACE']                 = 'Le site web sera bientôt disponible.';
 
 
 // DATE TEXTS

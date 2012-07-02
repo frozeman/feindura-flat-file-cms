@@ -38,6 +38,7 @@ $frontendLangFile['TOPBAR_TIP_DEACTIVATEFRONTENDEDITING'] = 'Отключить 
 
 $frontendLangFile['PAGE_ERROR_NOPAGE']               = 'Запрашиваемая страница не существует.';
 $frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC']        = 'Запрашиваемая страница недоступна.';
+$frontendLangFile['INFO_MAINTENACE']                 = 'На сайте будут доступны в ближайшее время.';
 
 
 // DATE TEXTS

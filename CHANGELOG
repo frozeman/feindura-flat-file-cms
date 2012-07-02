@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 950
+Build 951
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,9 +21,10 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ----------
-  
+
 2.0
-  
+
+  build 951: add deactivate website (shows a "under construction" text)
   build 950: add modified and revised meta tag
   build 949: check pageMetaArray Dat if page a was moved or otherwiese changed
   build 948: new way of retrieving the DOCUMENTROOT, with generating the URIEXTENSION it should now also work in servers with virtual paths
@@ -96,7 +97,7 @@ ChangeLog:
   build 881: fixed update.php
 
 1.2
-  
+
   build 880: fixed filter cancel button
   build 879: add checkSubCategories() to backend.functions.php
   build 878: small fix in user cache
@@ -171,7 +172,7 @@ ChangeLog:
   build 809: started to change to localized pages, still need the add languages buttons and new language creation
   build 808: changed the lang files
   build 807: fixed plugin pageRating save path
-  build 806: writeable warnings will not display deeper folder warnings, when the folder have already one 
+  build 806: writeable warnings will not display deeper folder warnings, when the folder have already one
   build 805: add local timezone support for the frontend. it now gets the local timezone of the visitor
   build 804: add italian translation for the plugins, thanks to Raffaele Panariello
   build 803: add transliteration for links
@@ -181,9 +182,9 @@ ChangeLog:
   build 799: changed frontend editing mode block back to: display: inline-block;
   build 798: imageGallery: add filename as caption option to the config, filed the unique id
   build 797: imageGallery: add unique id to the milkbox imageGallery name
-  
+
 1.1.6
-  
+
   build 796: create 1.1.6 release
   build 795: fixed the filemanager thumbnail issue (now showing thumbnails again)
   build 794: add new plugins slideShow
@@ -219,16 +220,16 @@ ChangeLog:
   build 764: add an alternative how the DOCUMENTROOT is generated
   build 763: removes now the DOCUMENTROOT from all path input in the page setup and the admin setup
   build 762: forget to add, remove page statistics when deleting
-  
+
 1.1.5
 
   build 761: create 1.1.5 release
   build 760: removed fopen() from the backend.functions.php and replaced it with file_put_contents()
   build 759: fixed now the reset statistics issue, by using file_put_contents() instead of fopen, changed fopen() in most cases to file_put_contents(); TODO: change still in backend.function.php
   build 758: try to fix the statistics reset again, by removing the lock_sh when read websiteStatistics
-  
+
 1.1.4
-  
+
   build 757: removed the dump output
   build 756: fixed an other issue in the loadLanguageFile() method
   build 755: small fix in the loadLanguageFile() method
@@ -238,7 +239,7 @@ ChangeLog:
   build 751: moved createTagCloud() and createBrowserChart() to the backend.functions.php
   build 750: fix in speakingUrl path
   build 749: allow now also to activate speakingUrls, even if the apache_modules function is not available to tell whether the mod_rewrite modul is existing or not
-  build 748: removed frontend editing feindura edit block display: inline-block 
+  build 748: removed frontend editing feindura edit block display: inline-block
   build 747: add new CKeditor
   build 746: generalFunctions add schemes to htmlLawed, add new htmlLawed version
   build 745: fixed description return in generatePage
@@ -265,18 +266,18 @@ ChangeLog:
   build 727: set safeHTML feature off by default
   build 726: add feinduraWebmasterTool-0.1.controller.php
   build 725: xss filter the language var
-  
+
 1.1.2
-  
+
   build 724: changed feindura session key word due to an issue with some php installations, fixed data to add, and add new feindura webmaster tool features
   build 723: changed user config style, keys are now only numbers, instead of the usernames
   build 722: fixed $_SERVER['REQUEST_URI'] for IIS Server
   build 721: try to fix DOCUMENTROOT on windows IIS servers
   build 720: removed complicated $_SERVER['DOCUMENT_ROOT'] creation, just simple use the given document root
   build 719: fixed check in refreshPageStatistics when scalar value returned from readPageStatistics()
-  
+
 1.1.1
-  
+
   build 718: add fixed FileManager
   build 717: fixed link.js, the link Dialog of the CKEditor
   build 716: fixed getDirname() method
@@ -301,15 +302,15 @@ ChangeLog:
   build 667: fixed checkBasePath()
   build 696: fixed statistics setup texts
   build 695: fixed currentVisitors.include.php
-  
+
 1.1
-  
+
   build 694: create 1.1 release
   build 693: finished contentBlocked
   build 692: started to create contentBlocked, when an other user is logged in and at the same page
 
 1.1 rc10
-  
+
   build 691: rc10 release
   build 690: changed folder names: "processes" > "controllers" and "sites" > "views"
   build 689: fixed frontend edititng when no user exists
@@ -342,11 +343,11 @@ ChangeLog:
   build 662: fixed FancyForm jump issue
   build 661: set permissions now to every saved file (configs, feeds, editFiles)
   build 660: automatically logout after 3 hours
-  build 659: removed user agent and ip from IDENTIFY, because its not trustworthy data  
+  build 659: removed user agent and ip from IDENTIFY, because its not trustworthy data
   build 658: changed tag behavior, now cmpares only tags between ,
   build 657: add feed item date
   build 656: fixed browser chart
-  
+
 1.1 rc9
 
   build 655: updated Image.class.php
@@ -370,7 +371,7 @@ ChangeLog:
   build 637: fixes in search class
   build 636: add createMenuBySortFunction() and listPagesBySortFunction()
   build 635: add new plugin rating and changed SESSION key names
-  build 634: fixed comparision, beacause i changed separarion of tags from whitespace to ,  
+  build 634: fixed comparision, beacause i changed separarion of tags from whitespace to ,
   build 633: add CodeMirror 2.0
   build 632: add CKEditor 3.5.3
   build 631: checked which js framework works with the frontendedtitng mode and disable when prototype is loaded
@@ -398,7 +399,7 @@ ChangeLog:
   build 609: changed home to dashboard
 
 1.1 rc8
-  
+
   build 608: add build number to css and js files
   build 607: removed IE6 support (just the pngfix)
   build 606: add languages for the CKEDitor feindura link plugin
@@ -411,9 +412,9 @@ ChangeLog:
   build 599: fixed some images
   build 598: remove encode- and decodePlainText function in feindura classes and generalFunctions.class.php
   build 597: hide frontend editing button when creating a new page
-  
+
 1.1 rc7
-  
+
   build 596: fixed frontendEditing, forgot to init static classes
   build 595: fixed filemanager thumbnailpath, if the thumbnailpath doesnt exist try to create one
   build 594: language switching doesnt jump back to the dashboard now
@@ -453,17 +454,17 @@ ChangeLog:
   build 572: add new moorte version and auto position now the finish savings icon in the frontend editing
   build 571: add new filemanager version
   build 570: fixed xssFilter and fixed loading circle (displays sometimes double)
-  
+
 1.1 rc2
-  
+
   build 569: replaced alphaNumeric xss filters with stringStrict filter
   build 568: fixed UTF-8 issue completely and introduced setting safeHtml in adminSetup.php
   build 567: fixed UTF-8 issues with htmLawed
   build 566: add extensive xss filtering and removed htmlentities (now only using UTF-8)
   build 565: work on XSS security, state: next is saveWebsiteConfig()
-  
+
 1.1 rc1
-  
+
   build 564: created release 1.1 rc1
   build 563: add fixed filemanager
   build 562: removed spider.txt
@@ -504,7 +505,7 @@ ChangeLog:
   build 527: add deactivation of frontend editing with session (still not working perfectly)
 
 1.1 beta3
-  
+
   build 530: add new moorte version
   build 526: removed "need mootools", found a better way to implement mootools on demand in the imageGallery plugin
   build 525: add milkbox as lightbox in imageGallery plugin and add "need mootools" to pluginSetup
@@ -551,7 +552,7 @@ ChangeLog:
   build 484: add PHP constructor
 
 1.1 beta2
-  
+
   build 483: startet porting to PHP 5; replaced opendir with scandir
   build 482: put all frontend js into frontendEditing.js and cleaned up createMetaTags() method
   build 481: add old MooRTE and removed mooml template engine
@@ -574,7 +575,7 @@ ChangeLog:
   build 464: fixed file extension, made to lowercase in imageGallery
   build 463: fixed links to rontend and languages files
   build 462: add backup download
-  build 461: started to change language file array names into UPPERCASE names 
+  build 461: started to change language file array names into UPPERCASE names
   build 460: started backup feature
   build 459: fixed readme.md
   build 458: fixed staticScroller again
@@ -584,7 +585,7 @@ ChangeLog:
   build 451: fixed div scroller
   build 450: fixed a language file bug
   build 449: finsihed beta status of the frontend editing
-  build 448: add frontendEditing.process.php  
+  build 448: add frontendEditing.process.php
   build 447: deactivated divScroller, want to use mootols Scroller class, but isnt working right now
   build 446: worked further on frontendEditing
   build 445: worked on frontend editing
@@ -600,7 +601,7 @@ ChangeLog:
   build 435: add raphael 1.5.2
   build 434: changed order of the ckeditor toolbar
   build 433: renamed style/ folder to styles/
-  build 432: working on frontend editing 
+  build 432: working on frontend editing
   build 431: fixed security issues found by Eldar "Wireghoul" Marcussen
   build 430: fixed savePage
   build 429: started frontendEditing (not working yet)
@@ -725,8 +726,8 @@ ChangeLog:
   build 320: add BrowserDetection 1.8
   build 319: changed clearTexte() to prepareStringInput() in generalFunctions class
 
-1.0 RC   
-  
+1.0 RC
+
   build 318: prepare release 1.0 RC
   build 317: changed README
   build 316: logo in the corner is now clickable and lead to the website
@@ -738,7 +739,7 @@ ChangeLog:
   build 310: removed smoothAnchor class
   build 309: add divScroll to API reference design
   build 308: finished changing the API reference design
-  build 307: changed API reference design to non frame 
+  build 307: changed API reference design to non frame
   build 306: fixes in backend.functions.php
   build 305: fixes in saveWebsiteStats()
   build 304: fixes in browser detection
@@ -874,12 +875,12 @@ ChangeLog:
   build 177: beta 2 feindura.class.php and feinduraPages.class.php removed content properties, add page properties; removed ..before and ..after in title and menu properties; public functions never ask for catgory ID if page ID is given
 
 1.0 beta 2 (implementation changed)
-	
+
   build 176: sort.functions.php: fixes in category sort
   build 175: changes in README.txt VERSION.txt and LICENSE.txt
   build 174: removed global from classes and replaced with the superglobal $GLOBAL
   build 173: startet to change feindura.class.php and add feinduraPages.class.php
-  build 172: small changes statisticFunctions class 
+  build 172: small changes statisticFunctions class
   build 171: removed frontendFunctions.class.php; statisticFunctions class extends now generalFunctions class
   build 170: feindura.class.php changed $page and $category property standard value from "false" to "null"; add some doxygen comments
   build 169: changed the index of the storedPageIds property, the array structure is now array(array('page' => 0, 'category' => '0'));
@@ -896,7 +897,7 @@ ChangeLog:
   build 158: fixed slide advancedCategorySetup in IE7
   build 157: !!! TOOLTIPS IN IE DEACTIVATED, WAITING FOR mootools UPDATE !!!
   build 156: add saveAdminConfig() to backend.functions.php; moved page settings to categorySetup.php; changeg saveprcess of the admin.config.php; add input field in editFiles()
-  build 155: adminSetup.php: add tags and plugins on/off to page settings, categorySetup.php: add plugins on/off 
+  build 155: adminSetup.php: add tags and plugins on/off to page settings, categorySetup.php: add plugins on/off
   build 154: pluginSetup.php: write plugin config add, forms.css: submit and cancel position changed
   build 153: editor.css changed .pageHead to .open and changed the name of content_block_pageHead.png -> content_block_open.png
   build 152: editFiles() delete button position fixed with float: left;
@@ -971,7 +972,7 @@ ChangeLog:
   build 83: sidebarMenu: reloads if pages are sorted; categories in listpages can now be opend without javascript
   build 82: layout.css: ck_editor dialog background set to the one in from the windowBox to: #cke_dialog_background_cover
   build 81: statistic.class: taskLog shows also the user now
-  build 80: adminSetup/categorySetup: add size-ratio for the pageThumbnail 
+  build 80: adminSetup/categorySetup: add size-ratio for the pageThumbnail
   build 79: ajax.js: with click on a category in the leftSidebar Menu a ajax request loads the leftSideBar.loader.php new, with new GET vars
   build 78: adminSetup: warning add to Speaking URLs
   build 77: general.class: speaking url are now lower-case
@@ -989,7 +990,7 @@ ChangeLog:
 	-> complete restructure of the file system
 
 	-> feindura class for an easy implimentation of the feindura cms
-	
+
 	-> Build Number system introduced
 	-> version set back to 1.0
 
@@ -1005,19 +1006,19 @@ OLD LOG
 	Flatfiles werden nicht mehr nach Dateinamen sondern nach ID gespeichert;
 	mootools Drag and Drop sortierfunktion zum anordnen der Seiten;
 
-1.7:  GPL Lizens eingefügt;      
+1.7:  GPL Lizens eingefügt;
 
       library/php/ ordner erstellt;
       library/thumbnail/ ordner erstellt; <- thumbnailupload.php, thumbnailinfo.php, thumbnaildelete.php, thumbupload.php und util.php, config.php (von filemanager/upload/php/) hineinkopiert
-    
+
       fmsfuntions.php in library/php/backend.php umbenannt;
       functions.php aus dem frontend in library/php/frontend.php umbenannt;
-      
+
       license.txt in version.txt umbenannt;
       sheets.css: input[readonly] eingefügt und border auf none gesetzt;
       alle FMS Farbschema css Dateien geändert;
 
-      htmleditor/posteddata.php in library/savePage.php umbenannt; 
+      htmleditor/posteddata.php in library/savePage.php umbenannt;
 
       Dateien verändert: savePage.php, search.php, delete.php, editor.php, setup.php, home.php,
       userSetup.php, download.php, settings.php, index.php, fmsFuntcions.php, frontendFunctions.php,
@@ -1057,7 +1058,7 @@ OLD LOG
       umbenennen auf schon existierende dateien wird auch diese nummeriert
 1.58: setup.php, editor.php: user entermode eingefügt (br,p oder div)
       delete.php: automatische weiterleitung wieder aktiviert;
-1.57: thumbnailupload.php, thumbinfo.php: erstellt (umbenannt von editor/fck_thumb.php); 
+1.57: thumbnailupload.php, thumbinfo.php: erstellt (umbenannt von editor/fck_thumb.php);
       thumbupload.php: dateityp check, überprüft ob es ein jpeg, jpg oder png datei ist, ansonsten -> fehler
       editor.php, sheets.css;
       postdata.php: bei automatischer nummerierung _ eingefügt nach der zahl;
