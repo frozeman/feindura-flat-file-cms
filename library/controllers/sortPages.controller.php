@@ -39,22 +39,22 @@ if($_POST['categoryOld'] != $_POST['categoryNew']) {
 // go trough the sort_order which has the id of the pages in the new order
 foreach($sortOrder as $sort) {
   static $count = 1;
-  
+
   if($sort != '') {
-    
+
     // ->> SORT the pages new
     if($pageContent = GeneralFunctions::readPage($sort,$_POST['categoryNew'])) {
-      
+
       // -> changes the properties of the page
       $pageContent['sortOrder'] = $count; // get a new sort order number
       $pageContent['category'] = $_POST['categoryNew']; // eventually get a new category id
-       
-      
+
+
       // ->> save the new sorting
       if(GeneralFunctions::savePage($pageContent)) {
         $status = $langFile['SORTABLEPAGELIST_save_finished'];
         $count++;
-        
+
         // -> saves the task log
         if($_POST['sortedPageId'] == $pageContent['id'] && $categoryConfig[$_POST['categoryNew']]['sorting'] != 'byPageDate') {
           $logText = ($_POST['categoryOld'] != $_POST['categoryNew'])
@@ -65,23 +65,26 @@ foreach($sortOrder as $sort) {
       // -X ERROR savePage
       } else {
         $status = sprintf($langFile['SORTABLEPAGELIST_error_save'],$adminConfig['basePath']);
-      }        
-      
+      }
+
       /*
       echo substr(GeneralFunctions::getLocalized($pageContent,'title'),0,4).',';
       echo $pageContent['id'].',';
       echo $pageContent['sortOrder'].'|';
       */
-      
-    // -X ERROR readPage 
+
+    // -X ERROR readPage
     } else
       $status = sprintf($langFile['SORTABLEPAGELIST_error_read'],$adminConfig['basePath']);
-  }  
+  }
 }
 // -> CHECKs if the category folder is empty,
 // if yes: the "&nbsp;" is read by the sortPages.js and it puts, a "no pages" - notice
 if(!GeneralFunctions::loadPages($_POST['categoryOld'],false))
   echo '<span></span>';
-  
+
+// clean up the $pageContent array
+unset($pageContent);
+
 echo $status;
 ?>

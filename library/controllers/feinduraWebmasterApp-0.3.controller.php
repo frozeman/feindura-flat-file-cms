@@ -13,7 +13,7 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
-    
+
 * controllers/feinduraWebmasterTool.controller.php version 0.3
 */
 
@@ -33,26 +33,26 @@ foreach($userConfig as $user) {
 if(is_array($currentUser) && $currentUser['password'] == $_POST['password']) {
   // return only TRUE, if an account will be add in the AddFeinduraViewController class
   if($_POST['status'] == 'CHECK') die('TRUE');
-  
+
   // ->> RETURN STATISTICS JSON OBJECT
   elseif($_POST['status'] == 'FETCH') {
-    
+
     $returnJSON = array();
     $returnJSON['feinduraVersion'] =  VERSION;
     $returnJSON['feinduraBuild'] =  BUILD;
-    $returnJSON['title'] = GeneralFunctions::getLocalized($websiteConfig,'title',$adminConfig['multiLanguageWebsite']['mainLanguage']);
+    $returnJSON['title'] = GeneralFunctions::getLocalized($websiteConfig,'title',$websiteConfig['multiLanguageWebsite']['mainLanguage']);
     $returnJSON['websiteUrl'] = $adminConfig['url'].GeneralFunctions::Path2URI(GeneralFunctions::getDirname($adminConfig['websitePath']));
     $returnJSON['statistics'] = array();
     $returnJSON['statistics']['userVisitCount'] = $websiteStatistic['userVisitCount'];
     $returnJSON['statistics']['robotVisitCount'] = $websiteStatistic['robotVisitCount'];
     $returnJSON['statistics']['firstVisit'] = $websiteStatistic['firstVisit'];
     $returnJSON['statistics']['lastVisit'] = $websiteStatistic['lastVisit'];
-    
+
     // browser
     $returnJSON['statistics']['browser'] = unserialize($websiteStatistic['browser']);
-    
+
     // searchwords
-    $pagesStats = GeneralFunctions::loadPagesStatistics(true);  
+    $pagesStats = GeneralFunctions::loadPagesStatistics(true);
     $allSearchwords = array();
     foreach($pagesStats as $pageStats) {
       if(!empty($pageStats['searchWords'])) {
@@ -60,26 +60,26 @@ if(is_array($currentUser) && $currentUser['password'] == $_POST['password']) {
       }
     }
     $returnJSON['statistics']['searchWords'] = unserialize($allSearchwords);
-    
+
     // pages
     $pages = GeneralFunctions::loadPages(true);
     $pagesArray = array();
     foreach($pagesStats as $key => $pageStats) {
-      $tmpPage['data']['title'] = GeneralFunctions::getLocalized($pages[$key],'title',$adminConfig['multiLanguageWebsite']['mainLanguage']);
+      $tmpPage['data']['title'] = GeneralFunctions::getLocalized($pages[$key],'title',$websiteConfig['multiLanguageWebsite']['mainLanguage']);
       $tmpPage['data']['firstVisit'] = $pageStats['firstVisit'];
       $tmpPage['data']['lastVisit'] = $pageStats['lastVisit'];
       $tmpPage['data']['visitTimeMin'] = unserialize($pageStats['visitTimeMin']);
       $tmpPage['data']['visitTimeMax'] = unserialize($pageStats['visitTimeMax']);
       $tmpPage['number'] = $pageStats['visitorCount'];
-      
+
       $pagesArray[] = $tmpPage;
     }
     $returnJSON['statistics']['pages'] = $pagesArray;
-    
+
     // TODO
     // add refere
     // add activity
-    
+
     $returnJSON = json_encode($returnJSON);
     die($returnJSON);
   }

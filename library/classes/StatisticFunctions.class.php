@@ -271,7 +271,7 @@ class StatisticFunctions {
       return false;
 
     // otherwise set the startpage
-    } elseif(self::$adminConfig['setStartPage'] && is_numeric($startPage)) {
+    } elseif(self::$websiteConfig['setStartPage'] && is_numeric($startPage)) {
       return $startPage;
     } else
       return false;

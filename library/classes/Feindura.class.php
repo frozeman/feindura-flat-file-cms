@@ -818,16 +818,16 @@ class Feindura extends FeinduraBase {
       $this->language = $_SESSION['feinduraSession']['websiteLanguage'];
     // -> last get BROWSER LANGUAGE
     } else
-      $this->language = GeneralFunctions::getBrowserLanguages($this->adminConfig['multiLanguageWebsite']['mainLanguage']);
+      $this->language = GeneralFunctions::getBrowserLanguages($this->websiteConfig['multiLanguageWebsite']['mainLanguage']);
 
     // ->> CHECK LANGUAGE
 
     // MULTILANGUAGE WEBSITE -> make sure the language exist
-    if($this->adminConfig['multiLanguageWebsite']['active'] && is_array($this->adminConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->adminConfig['multiLanguageWebsite']['languages']))
+    if($this->websiteConfig['multiLanguageWebsite']['active'] && is_array($this->websiteConfig['multiLanguageWebsite']['languages']) && in_array($this->language, $this->websiteConfig['multiLanguageWebsite']['languages']))
       $this->language = $this->language;
     // MULTILANGUAGE WEBSITE -> if not use the MAIN LANGUAGE
-    elseif($this->adminConfig['multiLanguageWebsite']['active'])
-      $this->language = $this->adminConfig['multiLanguageWebsite']['mainLanguage'];
+    elseif($this->websiteConfig['multiLanguageWebsite']['active'])
+      $this->language = $this->websiteConfig['multiLanguageWebsite']['mainLanguage'];
     // SINGLE LANGUAGE -> LOGGED IN use the backend language
     elseif($this->loggedIn && !empty($_SESSION['feinduraSession']['backendLanguage']))
       $this->language = $_SESSION['feinduraSession']['backendLanguage'];
@@ -1175,7 +1175,7 @@ class Feindura extends FeinduraBase {
 
 
     // -> CHECK if website is currently under MAINTENANCE, if so show ERROR
-    if($this->adminConfig['maintenance'] && !$this->loggedIn) {
+    if($this->websiteConfig['maintenance'] && !$this->loggedIn) {
       die($metaTags.'  <link rel="stylesheet" type="text/css" href="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/styles/frontendEditing.css"'.$tagEnding."\n".'</head><body class="feindura_maintenanceWarning"><div class="feindura_box">'.$this->languageFile['INFO_MAINTENACE'].'<div class="feindura_footer">'.$this->metaData['title'].'<br>&copy; '.date('Y').' '.$this->metaData['copyright'].'</div></div></body></html>');
     }
 
@@ -1186,8 +1186,8 @@ class Feindura extends FeinduraBase {
       if($category['public'] && $category['feeds']) {
 
         // get languages
-        if($this->adminConfig['multiLanguageWebsite']['active'])
-          $feedLanguages = $this->adminConfig['multiLanguageWebsite']['languages'];
+        if($this->websiteConfig['multiLanguageWebsite']['active'])
+          $feedLanguages = $this->websiteConfig['multiLanguageWebsite']['languages'];
         else
           $feedLanguages = array(0 => 0);
 
@@ -1291,7 +1291,7 @@ class Feindura extends FeinduraBase {
     TOPBAR_TIP_DEACTIVATEFRONTENDEDITING: \"".$this->languageFile['TOPBAR_TIP_DEACTIVATEFRONTENDEDITING']."\"
   };
   var feindura_logoutUrl =    '".GeneralFunctions::getCurrentUrl('feinduraLogout')."';
-  var feindura_setStartPage = '".$this->adminConfig['setStartPage']."';
+  var feindura_setStartPage = '".$this->websiteConfig['setStartPage']."';
   var feindura_startPage =    '".$this->startPage."';
   var feindura_xHtml =        '".$this->xHtml."';
   /* ]]> */
@@ -2314,12 +2314,12 @@ class Feindura extends FeinduraBase {
   public function createLanguageMenu($menuTag = false, $linkText = true, $breakAfter = false) {
 
     // quit if multilanguage website is deactivated
-    if(!$this->adminConfig['multiLanguageWebsite']['active'])
+    if(!$this->websiteConfig['multiLanguageWebsite']['active'])
       return array();
 
     // -> STOREs the LINKs in an Array
     $links = array();
-    if(!empty($this->adminConfig['multiLanguageWebsite']['languages'])) {
+    if(!empty($this->websiteConfig['multiLanguageWebsite']['languages'])) {
       // -> store original values
       $orgLinkShowThumbnail = $this->linkShowThumbnail;
       $orgLanguage = $this->language;
@@ -2329,7 +2329,7 @@ class Feindura extends FeinduraBase {
       $this->linkShowThumbnail = false;
 
       // create a link out of every language in the array
-      foreach($this->adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
+      foreach($this->websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
 
         // set language name as link text
         if($linkText === true)
@@ -2458,7 +2458,7 @@ class Feindura extends FeinduraBase {
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
 
         // start page
-        if($this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']) && $this->websiteConfig['startPage'] != $pageContent['id'] && ($startPage = GeneralFunctions::readPage($this->websiteConfig['startPage'],GeneralFunctions::getPageCategory($this->websiteConfig['startPage'])))) {
+        if($this->websiteConfig['setStartPage'] && !empty($this->websiteConfig['startPage']) && $this->websiteConfig['startPage'] != $pageContent['id'] && ($startPage = GeneralFunctions::readPage($this->websiteConfig['startPage'],GeneralFunctions::getPageCategory($this->websiteConfig['startPage'])))) {
           $link['link']  = $this->createLink($startPage).$separator;
           $link['href']  = $this->createHref($startPage);
           $link['id']    = $startPage['id'];

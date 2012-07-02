@@ -24,14 +24,14 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // ->> SAVE the editFiles
 if(isset($_POST['send']) && $_POST['send'] == 'saveEditedFiles') {
-  
+
   //var
   $file = (!empty($_POST['newFile'])) ? $_POST['newFile'].$_POST['fileType'] : $_POST['file'];
-  
+
   if(saveEditedFiles($savedForm)) {
     $documentSaved = true; // give documentSaved status
     // -> tasklog is saved in the saveEditFiles() function
-  } else {     
+  } else {
     $errorWindow .= $langFile['EDITFILESSETTINGS_ERROR_SAVEFILE'].' '.$file;
   }
 }

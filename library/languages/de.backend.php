@@ -277,6 +277,8 @@ Bitte gehe in die <a href                                                 ="?sit
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Bitte aktiviere Javascript';
 $langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>Um <span class="feinduraName">fein<span>dura</span></span> voll nutzen zu können, muss Javascript aktiviert sein!</strong>';
 
+$langFile['WARNING_TITLE_UNTITLEDCATEGORIES']                             = 'Fehlende Kategorienamen';
+
 $langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="feinduraName">fein<span>dura</span></span> ist nicht für ältere Versionen des Internet Explorers ausgelegt';
 $langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Um das <span class="feinduraName">fein<span>dura</span></span> CMS vollständig nutzen zu können ist mindestens der Internet Explorer 9 nötig.<br><br>Bitte installiere eine neuere Version des Internet Explorers,<br> oder installiere das <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> für den Internet Explorer,<br>oder lade dir den kostenlosen <a href="http://www.mozilla.org/firefox/">Firefox</a> oder <a href="http://www.google.com/chrome/">Chrome</a> Browser herunter.';
 
@@ -496,16 +498,6 @@ $langFile['EDITFILESSETTINGS_ERROR_DELETEFILE']                           = '<b>
 $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tags können dazu verwendet werden Seiten untereinander in Beziehung zu setzen (abhängig von der Programmierung der Webseite)';
 
 // ---------- page settings
-$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Webseiten-Einstellungen';
-$langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Startseite ist einstellbar';
-$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Startseite ist vom Benutzer selbst einstellbar.[br][br]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine bestimmte Seite aufgerufen wurde.';
-$langFile['PAGESETUP_PAGES_TEXT_MAINTENANCE']                             = 'Webseite deaktivieren';
-$langFile['PAGESETUP_PAGES_TIP_MAINTENANCE']                              = 'Zeigt anstatt der Webseite eine Meldung, dass diese derzeit bearbeitet wird.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'Mehrsprachige Webseite';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = '[b]Doppel-klicken[/b] um Sprachen auszuwählen.';
-$langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Hauptsprache';
-$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'Die Hauptsprache wird verwendet, wenn nicht automatisch eine passende Sprache erfasst werden konnte.';
-
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'Seiten ohne Kategorie';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'Seiten erstellen/löschen';
 $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']                              = 'Legt fest ob der Benutzer Seiten ohne Kategorie erstellen und löschen kann.';
@@ -541,7 +533,7 @@ $langFile['PAGESETUP_CATEGORY_ERROR_DELETEDIR']                           = '<b>
 $langFile['PAGESETUP_CATEGORY_ERROR_SAVE']                                = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/category.config.php';
 
 
-$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS']                    = 'Erweiterte-Einstellungen';
+$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS']                    = 'Erweiterte Einstellungen';
 $langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS']                     = 'Wenn diese Einstellungen ausgefüllt sind werden die Seiten-Thumbnail-Einstellungen weiter oben und die '.$langFile['adminSetup_editorSettings_h1'].' in den <a href="?site=adminSetup">Administrator-Einstellungen</a> überschrieben.';
 
 $langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY']                     = 'Wenn alle Felder leer sind, dann werden die Stylesheet-Einstellungen aus den '.$langFile['adminSetup_editorSettings_h1'].' verwendet.';
@@ -602,6 +594,17 @@ $langFile['websiteSetup_websiteConfig_field4_inputTip']                   = 'Die
 $langFile['websiteSetup_websiteConfig_field5']                            = 'Webseitenbeschreibung';
 $langFile['websiteSetup_websiteConfig_field5_tip']                        = 'Eine kurze Beschreibung die von den Suchmaschienen verwendet wird wenn Stichworte in der Webseiten-URL gefunden wurden aber nicht im inhalt.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Ein kurzer Text mit nicht mehr als 3 Zeilen.';
+
+$langFile['WEBSITESETUP_TITLE_PAGESETTINGS']                           = 'Erweiterte Webseiten-Einstellungen';
+$langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                            = 'Startseite ist einstellbar';
+$langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                             = 'Startseite ist vom Benutzer selbst einstellbar.[br][br]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine bestimmte Seite aufgerufen wurde.';
+$langFile['WEBSITESETUP_TEXT_MAINTENANCE']                             = 'Webseite deaktivieren';
+$langFile['WEBSITESETUP_TIP_MAINTENANCE']                              = 'Zeigt anstatt der Webseite eine Meldung, dass diese derzeit bearbeitet wird.';
+$langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                    = 'Mehrsprachige Webseite';
+$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                     = '[b]Doppel-klicken[/b] um Sprachen auszuwählen.';
+$langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                            = 'Hauptsprache';
+$langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                             = 'Die Hauptsprache wird verwendet, wenn nicht automatisch eine passende Sprache erfasst werden konnte.';
+
 
 /*
 * statisticSetup.php
@@ -677,7 +680,8 @@ $langFile['userSetup_error_save']                                         = $lan
 */
 
 // ---------- page info
-$langFile['EDITOR_h1_createpage']                                         = 'Neue Seite erstellen';
+$langFile['EDITOR_TITLE_CREATEPAGE']                                      = 'Neue Seite erstellen';
+$langFile['EDITOR_TITLE_ADDLANGUAGE']                                     = 'Sprache &quot;%s&quot; zur Seite hinzufügen';
 $langFile['EDITOR_pageinfo_lastsavedate']                                 = 'zuletzt bearbeitet';
 $langFile['EDITOR_pageinfo_lastsaveauthor']                               = 'von';
 $langFile['EDITOR_pageinfo_linktothispage']                               = 'Link zu dieser Seite';

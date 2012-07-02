@@ -2,29 +2,29 @@
 /**
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
- * 
+ *
  * This program is free software;
  * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
  * The Backend search file.
- * 
+ *
  * @uses Search::find() to search in the pages
- * 
+ *
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
  *    - 1.0 initial release
- * 
- */ 
+ *
+ */
 
 
 /* LANGUAGE-VARS
@@ -68,93 +68,93 @@ $searchWords = GeneralFunctions::smartStripslashes($searchWords);
 
 // ->> SEARCHING, if searchwords are given
 if(!empty($searchWords)) {
-  
+
   // var
   $count = 0;
 
   // SEARCH RESULTS HEADLINE
   echo '<div class="block"><h1>'.$langFile['SEARCH_TITLE_RESULTS'].' &quot;'.htmlentities($searchWords,ENT_QUOTES,'UTF-8').'&quot;</h1><div class="bottom"></div></div>';
-    
+
   // ->> START SEARCH
   // ****************
   $search = new Search(); //$_SESSION['feinduraSession']['websiteLanguage']
   $search->checkIfPublic = false;
   $results = $search->find($searchWords);
-  
+
   /*
   echo '<pre>';
   var_dump($results);
   echo '</pre>';
   */
-  	
+
   // ->> OUTPUT
   // **********
-  
+
   // -> messure end time
   $time_end = microtime();
   $time = round($time_end - $time_start,2);
   echo '<h2>'.count($results).' '.$langFile['SEARCH_TEXT_RESULTS'].' <span style="font-size:10px;">'.$langFile['SEARCH_TEXT_TIME_1'].' '.$time.' '.$langFile['SEARCH_TEXT_TIME_2'].'</span></h2>';
-  
+
   // -> display results
-  $countoutput = 0; 
-  // FERTIGE AUSGABE sortiert nach prioritität 
+  $countoutput = 0;
+  // FERTIGE AUSGABE sortiert nach prioritität
   if(isset($results)) {
     foreach($results as $result) {
-      
+
       $page = GeneralFunctions::readPage($result['page']['id'],$result['page']['category']);
-      
+
       // -> generate toolTip information
       $pageDate = showPageDate($page);
       $localizedTags = GeneralFunctions::getLocalized($page,'tags');
       if($categoryConfig[$page['category']]['showTags'] && !empty($localizedTags)) {
         $pageTags = '[br][br]';
         $pageTags .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].'[/b][br]'.GeneralFunctions::getLocalized($page,'tags');
-      }      
-      $startPageText = ($adminConfig['setStartPage'] && $page['id'] == $websiteConfig['startPage'])
+      }
+      $startPageText = ($websiteConfig['setStartPage'] && $page['id'] == $websiteConfig['startPage'])
         ? $langFile['SORTABLEPAGELIST_functions_startPage_set'].'[br][br]'
         : '';
-      
+
       echo '<div class="block open search"><h1>&nbsp;</h1>';
-      
+
       // found ID
       if($result['id']) {
         echo '<span class="resultHeadline matchingID">';
-        echo $langFile['SEARCH_TEXT_MATCH_ID'].' &rArr; ';      
+        echo $langFile['SEARCH_TEXT_MATCH_ID'].' &rArr; ';
         echo '</span>';
       }
-      
+
       // first TITLE
       echo '<span class="resultHeadline">';
       echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),strip_tags(GeneralFunctions::getLocalized($page,'title'))).'::'.$startPageText.'[b]ID[/b] '.$page['id'].$pageDate.$pageTags.'">';
       echo ($result['title']) ? $result['title'] : strip_tags(GeneralFunctions::getLocalized($page,'title'));
       echo '</a>';
       echo '</span>';
-      
+
       // otherwise display all results
       if($result['id'] === false) {
         echo '  <div class="content">';
-        
+
         // CATEGORY
         if($result['category']) {
           echo '<br><span class="keywords category">';
           echo ' '.$langFile['SEARCH_TEXT_MATCH_CATEGORY'].': '.$result['category'];
           echo '</span>';
         }
-        
+
         // SEARCHWORDS
         if($result['searchwords']) {
           echo '<br><span class="keywords blue">';
           echo ' '.$langFile['SEARCH_TEXT_MATCH_SEARCHWORDS'].': '.$result['searchwords'];
           echo '</span>';
         }
-        
+
         // TAGS
         if($result['tags']) {
           echo '<br><span class="keywords blue">';
           echo ' '.$langFile['SEARCH_TEXT_MATCH_TAGS'].': '.$result['tags'];
           echo '</span>';
         }
-        
+
         echo '<p>';
         if($result['description'] || $result['content']) {
           // DESCRIPTION
@@ -165,21 +165,21 @@ if(!empty($searchWords)) {
           if($result['content']) {
             echo $result['content'];
           }
-          
+
         // if nothing in the content or description is found its shows the description
         $localizedDescription = GeneralFunctions::getLocalized($page,'description');
         } elseif(!empty($localizedDescription))
           echo '<span class="description">'.GeneralFunctions::getLocalized($page,'description').'</span>';
         else
           echo substr(strip_tags(GeneralFunctions::getLocalized($page,'content')),0,200);
-          
+
         echo '</p>';
         echo '  </div>';
-      }      
-      
+      }
+
       //echo '  <div class="bottom"></div>';
       echo '</div>';
-      
+
       $count++;
     }
     echo '<div style="height: 60px;">&nbsp;</div>';

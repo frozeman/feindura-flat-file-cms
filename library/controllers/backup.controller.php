@@ -28,38 +28,38 @@ if(isset($_GET['createBackup'])) {
   // -> check backup folder
   $unwriteableList = false;
   $checkFolder = dirname(__FILE__).'/../../backups/';
-   
+
   // try to create folder
   if(!is_dir($checkFolder))
-    mkdir($checkFolder,$adminConfig['permissions']); 
+    mkdir($checkFolder,$adminConfig['permissions']);
   $unwriteableList .= isWritableWarning($checkFolder);
-  
+
   // ->> create archive
-  if(!$unwriteableList) {    
+  if(!$unwriteableList) {
 
     // delete cache before
     GeneralFunctions::deleteFolder(dirname(__FILE__).'/../pages/cache/');
-    
+
     // generates the file name
-    $backupFile = generateBackupFileName();    
+    $backupFile = generateBackupFileName();
     // create backup
     $catchError = createBackup($backupFile);
-    
+
     // -> throw error
     if($catchError !== true) {
       $errorWindow .= "BACKUP ERROR: ".$catchError;
-         
+
     // -> or redirect
     } else {
-      
+
       if(@file_exists($backupFile)) {
         saveActivityLog(29); // <- SAVE the task in a LOG FILE
-        
+
         header('Location: index.php?site=backup');
       } else
-        $errorWindow .= $langFile['BACKUP_ERROR_FILENOTFOUND'].'<br>'.$backupFile;      
+        $errorWindow .= $langFile['BACKUP_ERROR_FILENOTFOUND'].'<br>'.$backupFile;
     }
-  
+
   // -> throw folder error
   } else
     $errorWindow .= $unwriteableList;
@@ -76,30 +76,30 @@ if(isset($_GET['status']) && $_GET['status'] == 'deleteBackup') {
 
 // ------------>> RESTORE THE BACKUP
 if(isset($_POST['send']) && $_POST['send'] == 'restore') {
-  
+
   // var
   $error = false;
   $backupFile =  false;
-  
+
   // ->> use uploaded backup file
   if(!empty($_FILES['restoreBackupUpload']['tmp_name'])) {
     // Check if the file has been correctly uploaded.
     //if($_FILES['restoreBackupUpload']['name'] == '')
     	//$error .= $langFile['PAGETHUMBNAIL_ERROR_nofile'];
-    	
+
     $backupFile = $_FILES['restoreBackupUpload']['tmp_name'];
-    
+
     /*
     if($error === false) {
       if($_FILES['restoreBackupUpload']['tmp_name'] == '')
         $error .= $langFile['PAGETHUMBNAIL_ERROR_nouploadedfile'];
-        
+
       // Check if the file filesize is not 0
       if($_FILES['restoreBackupUpload']['size'] == 0)
         $error .= $langFile['PAGETHUMBNAIL_ERROR_filesize'].' '.ini_get('upload_max_filesize').'B';
     }
     */
-    
+
   // ->> otherwise use existing backup file
   } elseif(isset($_POST['restoreBackupFile'])) {
     $backupFile = '..'.$_POST['restoreBackupFile'];
@@ -107,16 +107,16 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
   } else {
     $errorWindow .= $langFile['BACKUP_ERROR_NORESTROEFILE'];
   }
-  
+
   // ->> start the restore process
   if($errorWindow === false && $backupFile) {
-        
+
     // create backup before
     $backupFileName = generateBackupFileName('restore');
     $catchError = createBackup($backupFileName);
     if($catchError !== true)
       $errorWindow .= "BACKUP BEFORE RESTORE ERROR: ".$catchError;
-    
+
     // only proceed when the backup was succesfully created
     if($errorWindow === false) {
       // -> extracting the backup file
@@ -136,7 +136,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
                            PCLZIP_OPT_REPLACE_NEWER,PCLZIP_OPT_STOP_ON_ERROR) == 0) {
         $errorWindow .= "ERROR ON RESTORE: ".$archive->errorInfo(true);
       }
-      
+
       if($errorWindow === false) {
         // delete the old pages dir
         GeneralFunctions::deleteFolder(dirname(__FILE__).'/../../pages/');
@@ -149,11 +149,11 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
         }
       }
     }
-    
+
     // delete the tmp file
     if(!empty($_FILES['restoreBackupUpload']['tmp_name']))
       @unlink($_FILES['restoreBackupUpload']['tmp_name']);
-    
+
     // -> when restore was succesfull
     if($errorWindow === false) {
       // set documentSaved status
@@ -161,7 +161,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
       saveActivityLog(30); // <- SAVE the task in a LOG FILE
     }
   }
-  
+
   $savedForm = 'restorBackup';
 }
 

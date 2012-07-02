@@ -605,7 +605,7 @@ window.addEvent('domready', function() {
   // let the errorWindow get closed by ESC or ENTER keys
   if($('feindura_errorWindow') !== null) {
     $('feindura_errorWindow').setStyle('top',window.getScroll().y + 150);
-    
+
     document.addEvent('keyup',function(e){
       if(e.key == 'esc' || e.key == 'enter')
         feindura_closeErrorWindow(e);
@@ -998,7 +998,7 @@ window.addEvent('domready', function() {
       // });
 
       // arrow.morph({'top': top, 'height': subCategory.getPosition(listPagesBlock).y - top + 10});
-      
+
       if(arrow.getStyle('width') === '0px')
         arrow.setStyle('width',(countSubCategoryArrows * 10));
 
@@ -1254,153 +1254,6 @@ window.addEvent('domready', function() {
   // ->> PAGE SETUP
   // ---------------
 
-  // -> PAGE SETTINGS
-
-  // -> MULTI LANGUAGE WEBSITE
-  if($('cfg_multiLanguageWebsite') !== null ) {
-
-    // var
-    var websiteLanguages = $('cfg_websiteLanguages').getChildren('option').get('value');
-    var selectedMainLanguage = $('cfg_websiteMainLanguage').getSelected();
-    selectedMainLanguage = selectedMainLanguage[0];
-
-    // -> change language function
-    var changeWebsiteLanguage = function(e){
-
-      // vars
-      var newLangs = $('cfg_websiteLanguages').getChildren('option').get('value');
-      var removedLangs = [];
-      var removedLangString = '';
-      var status = '';
-
-      // get removed languages
-      websiteLanguages.each(function(value){
-        if(!newLangs.contains(value)) {
-          removedLangs.push(value);
-        }
-      });
-
-      // IF MULTI LANGUAGES were DEACTIVATED
-      if(!$('cfg_multiLanguageWebsite').getProperty('checked')) {
-        status = 'deactivated';
-        websiteLanguages.each(function(lang){
-          removedLangString += lang;
-          if(lang != websiteLanguages[websiteLanguages.length-1])
-            removedLangString += ',';
-        });
-      // IF LANGUAGES were REMOVED
-      } else if(removedLangs.length > 0) {
-        status = 'changed';
-        removedLangs.each(function(lang){
-          removedLangString += lang;
-          if(lang != removedLangs[removedLangs.length-1])
-            removedLangString += ',';
-        });
-      }
-
-
-      // -> show dialog if languages will be deleted
-      if(removedLangString !== '') {
-        e.stop();
-        openWindowBox('library/views/windowBox/deleteWebsiteLanguages.php?site=pageSetup&status='+status+'&mainLanguage='+$('cfg_websiteMainLanguage').get('value')+'&languages='+removedLangString,'');
-      }
-
-      // reset the website Languages variable
-      // websiteLanguages = Array.clone($('cfg_websiteLanguages').getChildren('option').get('value'));
-    };
-
-    // -> CHECK if languages were changed
-    if(navigator.appVersion.match(/MSIE ([0-8]\.\d)/))
-      $$('#pageSettingsForm input.submit').addEvent('click',changeWebsiteLanguage);
-    else
-      $('pageSettingsForm').addEvent('submit',changeWebsiteLanguage);
-    
-
-    // -> disables the multiple language fields if "multiple languages" checkbox is deactivated
-    $('cfg_multiLanguageWebsite').addEvent('change',function() {
-      if(this.checked === true) {
-        $('cfg_websiteLanguages').removeProperty(deactivateType);
-        $('cfg_websiteMainLanguage').removeProperty(deactivateType);
-        $('cfg_websiteLanguageChoices').removeProperty(deactivateType);
-      } else {
-        $('cfg_websiteLanguages').setProperty(deactivateType,deactivateType);
-        $('cfg_websiteMainLanguage').setProperty(deactivateType,deactivateType);
-        $('cfg_websiteLanguageChoices').setProperty(deactivateType,deactivateType);
-      }
-    });
-
-    // -> get and save the selected main language
-    $('cfg_websiteMainLanguage').addEvent('change',function(e){
-      selectedMainLanguage = this.getSelected();
-      selectedMainLanguage = selectedMainLanguage[0];
-    });
-
-    // -> ADD selected languages to the main Language and page language selection
-    $('cfg_websiteLanguageChoices').addEvent('dblclick',function(e){
-      // get selected languages
-      var option = this.getSelected();
- 
-      // -> move the selected ones to the cfg_websiteLanguages <select>
-      // option.removeProperty('selected');
-      option.inject($('cfg_websiteLanguages'));
-
-      // create a copy of the <option> tag to be injected into the mainLanguage <select>
-      var newOption = new Element('option',{ 'html': option.get("html"), 'value': option.get("value")});
-      // -> add the selection to the mainLanguage <select>
-      newOption.inject($('cfg_websiteMainLanguage'));
-
-      // show the mainLanguage <select> if its not empty
-      if($('cfg_websiteMainLanguage').getChildren().length !== 0) $('websiteMainLanguageTr').setStyle('display','table-row');
-    });
-
-    // -> REMOVE selected languages from the main Language and page language selection
-    $('cfg_websiteLanguages').addEvent('click',function(e) {
-
-      var allLanguages = $('cfg_websiteLanguageChoices').getChildren();
-      $('cfg_websiteLanguageChoices').empty();
-      // get selected languages
-      var option = this.getSelected();
-      // -> move the selected ones to the cfg_websiteLanguageChoices <select>
-      option.removeProperty('selected');
-      option.inject($('cfg_websiteLanguageChoices','top'));
-      allLanguages.inject($('cfg_websiteLanguageChoices','top'));
-
-      // remove the selected on from the mainLanguage <select>
-      $('cfg_websiteMainLanguage').getChildren().each(function(mainLanguageOption) {
-        if(mainLanguageOption.get('value') == option.get('value'))
-          mainLanguageOption.destroy();
-      });
-
-      // select all languages again
-      $('cfg_websiteLanguages').getChildren().setProperty('selected','selected');
-
-      // hide the mainLanguage <select> if its empty and deactivate the multi language pages
-      if($('cfg_websiteMainLanguage').getChildren().length === 0) {
-        $('websiteMainLanguageTr').setStyle('display','none');
-        $('cfg_websiteLanguages').setProperty(deactivateType,deactivateType);
-        $('cfg_websiteMainLanguage').setProperty(deactivateType,deactivateType);
-        $('cfg_websiteLanguageChoices').setProperty(deactivateType,deactivateType);
-        $('cfg_multiLanguageWebsite').checked = false;
-        $('cfg_multiLanguageWebsite').retrieve('fancyform_replacment').removeClass('fancyform_checked').addClass('fancyform_unchecked');
-      }
-    });
-  }
-
-  // -> CHANGE WEBSITE LANGUAGE through SELECTION
-  if($('websiteLanguageSelection') !== null) {
-    $('websiteLanguageSelection').addEvent('change',function() {
-
-      var language = this.getSelected().get('value');
-      var newLocation = addParameterToUrl('websiteLanguage',language);
-
-      if(pageContentChanged)
-        openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(newLocation),false);
-      else
-        window.location.href = newLocation;
-    });
-  }
-
-
   // -> GO TROUGH every CATEGORY and add thumbScale to the advanced category settings
   if($$('.advancedcategoryConfig') !== null) {
     var countCategories = 0;
@@ -1444,6 +1297,154 @@ window.addEvent('domready', function() {
     // make sure, webkit spellchecking is turned off
     $$('div.CodeMirror textarea').setProperty('spellcheck','false');
   });
+
+
+  // WEBSITE SETUP
+  // ----------------
+
+  // -> MULTI LANGUAGE WEBSITE
+  if($('multiLanguageWebsite') !== null ) {
+
+    // var
+    var websiteLanguages = $('websiteLanguages').getChildren('option').get('value');
+    var selectedMainLanguage = $('websiteMainLanguage').getSelected();
+    selectedMainLanguage = selectedMainLanguage[0];
+
+    // -> change language function
+    var changeWebsiteLanguage = function(e){
+
+      // vars
+      var newLangs = $('websiteLanguages').getChildren('option').get('value');
+      var removedLangs = [];
+      var removedLangString = '';
+      var status = '';
+
+      // get removed languages
+      websiteLanguages.each(function(value){
+        if(!newLangs.contains(value)) {
+          removedLangs.push(value);
+        }
+      });
+
+      // IF MULTI LANGUAGES were DEACTIVATED
+      if(!$('multiLanguageWebsite').getProperty('checked')) {
+        status = 'deactivated';
+        websiteLanguages.each(function(lang){
+          removedLangString += lang;
+          if(lang != websiteLanguages[websiteLanguages.length-1])
+            removedLangString += ',';
+        });
+      // IF LANGUAGES were REMOVED
+      } else if(removedLangs.length > 0) {
+        status = 'changed';
+        removedLangs.each(function(lang){
+          removedLangString += lang;
+          if(lang != removedLangs[removedLangs.length-1])
+            removedLangString += ',';
+        });
+      }
+
+
+      // -> show dialog if languages will be deleted
+      if(removedLangString !== '') {
+        e.stop();
+        openWindowBox('library/views/windowBox/deleteWebsiteLanguages.php?site=pageSetup&status='+status+'&mainLanguage='+$('websiteMainLanguage').get('value')+'&languages='+removedLangString,'');
+      }
+
+      // reset the website Languages variable
+      // websiteLanguages = Array.clone($('websiteLanguages').getChildren('option').get('value'));
+    };
+
+    // -> CHECK if languages were changed
+    if(navigator.appVersion.match(/MSIE ([0-8]\.\d)/))
+      $$('#websiteSettingsForm input.submit').addEvent('click',changeWebsiteLanguage);
+    else
+      $('websiteSettingsForm').addEvent('submit',changeWebsiteLanguage);
+
+
+    // -> disables the multiple language fields if "multiple languages" checkbox is deactivated
+    $('multiLanguageWebsite').addEvent('change',function() {
+      if(this.checked === true) {
+        $('websiteLanguages').removeProperty(deactivateType);
+        $('websiteMainLanguage').removeProperty(deactivateType);
+        $('websiteLanguageChoices').removeProperty(deactivateType);
+      } else {
+        $('websiteLanguages').setProperty(deactivateType,deactivateType);
+        $('websiteMainLanguage').setProperty(deactivateType,deactivateType);
+        $('websiteLanguageChoices').setProperty(deactivateType,deactivateType);
+      }
+    });
+
+    // -> get and save the selected main language
+    $('websiteMainLanguage').addEvent('change',function(e){
+      selectedMainLanguage = this.getSelected();
+      selectedMainLanguage = selectedMainLanguage[0];
+    });
+
+    // -> ADD selected languages to the main Language and page language selection
+    $('websiteLanguageChoices').addEvent('dblclick',function(e){
+      // get selected languages
+      var option = this.getSelected();
+
+      // -> move the selected ones to the websiteLanguages <select>
+      // option.removeProperty('selected');
+      option.inject($('websiteLanguages'));
+
+      // create a copy of the <option> tag to be injected into the mainLanguage <select>
+      var newOption = new Element('option',{ 'html': option.get("html"), 'value': option.get("value")});
+      // -> add the selection to the mainLanguage <select>
+      newOption.inject($('websiteMainLanguage'));
+
+      // show the mainLanguage <select> if its not empty
+      if($('websiteMainLanguage').getChildren().length !== 0) $('websiteMainLanguageTr').setStyle('display','table-row');
+    });
+
+    // -> REMOVE selected languages from the main Language and page language selection
+    $('websiteLanguages').addEvent('click',function(e) {
+
+      var allLanguages = $('websiteLanguageChoices').getChildren();
+      $('websiteLanguageChoices').empty();
+      // get selected languages
+      var option = this.getSelected();
+      // -> move the selected ones to the websiteLanguageChoices <select>
+      option.removeProperty('selected');
+      option.inject($('websiteLanguageChoices','top'));
+      allLanguages.inject($('websiteLanguageChoices','top'));
+
+      // remove the selected on from the mainLanguage <select>
+      $('websiteMainLanguage').getChildren().each(function(mainLanguageOption) {
+        if(mainLanguageOption.get('value') == option.get('value'))
+          mainLanguageOption.destroy();
+      });
+
+      // select all languages again
+      $('websiteLanguages').getChildren().setProperty('selected','selected');
+
+      // hide the mainLanguage <select> if its empty and deactivate the multi language pages
+      if($('websiteMainLanguage').getChildren().length === 0) {
+        $('websiteMainLanguageTr').setStyle('display','none');
+        $('websiteLanguages').setProperty(deactivateType,deactivateType);
+        $('websiteMainLanguage').setProperty(deactivateType,deactivateType);
+        $('websiteLanguageChoices').setProperty(deactivateType,deactivateType);
+        $('multiLanguageWebsite').checked = false;
+        $('multiLanguageWebsite').retrieve('fancyform_replacment').removeClass('fancyform_checked').addClass('fancyform_unchecked');
+      }
+    });
+  }
+
+  // -> CHANGE WEBSITE LANGUAGE through SELECTION
+  if($('websiteLanguageSelection') !== null) {
+    $('websiteLanguageSelection').addEvent('change',function() {
+
+      var language = this.getSelected().get('value');
+      var newLocation = addParameterToUrl('websiteLanguage',language);
+
+      if(pageContentChanged)
+        openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(newLocation),false);
+      else
+        window.location.href = newLocation;
+    });
+  }
 
   // *** ->> FORMS -----------------------------------------------------------------------------------------------------------------------
 
@@ -1509,7 +1510,7 @@ window.addEvent('domready', function() {
   // set depency for page sortingByDate
   feinduraFancyForm.setDepency($('nonCategorySortByPageDate'),$('nonCategoryShowPageDate'));
   feinduraFancyForm.setDepency($('nonCategoryShowPageDate'),$('nonCategorySortByPageDate'),false,false);
-  
+
   // set depency for page editorHtmlLawed
   feinduraFancyForm.setDepency($('cfg_editorHtmlLawed'),$('cfg_editorSafeHtml'),false,false);
 
@@ -1623,7 +1624,7 @@ window.addEvent('domready', function() {
           // scroll to editor
           if(typeOf($$('div.editor')[0]) !== 'null')
             windowScroll.toElement($$('div.editor')[0]);
-      
+
           editorHasFocus = true;
         });
         $$('div.editor #cke_HTMLEditor').addEvent('mouseenter',function(e){

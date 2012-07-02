@@ -13,7 +13,7 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
-  
+
 * controllers/filemanager.controller.php
 * @version 0.2
 */
@@ -49,7 +49,7 @@ switch ($adminConfig['dateFormat']) {
   case 'MDY':
     $dateFormat = 'm/d/Y H:i';
     break;
-  
+
   default:
     $dateFormat = 'Y-m-d H:i';
     break;

@@ -416,24 +416,24 @@ if($_GET['site'] == 'addons') {
 
 
     // ->> RE-SET CURRENT WEBSITE LANGUAGE based on the pages languages
-    if($adminConfig['multiLanguageWebsite']['active']) {
+    if($websiteConfig['multiLanguageWebsite']['active']) {
 
       // -> use the languages of the page
-      $currentlanguageSlection = (isset($pageContent['localized'])) ? array_keys($pageContent['localized']) : $adminConfig['multiLanguageWebsite']['languages'];
+      $currentlanguageSlection = (isset($pageContent['localized'])) ? array_keys($pageContent['localized']) : $websiteConfig['multiLanguageWebsite']['languages'];
 
       // -> add new language to the page languages selection, if $_GET['status'] = "addLanguage"
       if($_GET['status'] == 'addLanguage')
-        $currentlanguageSlection = array_unique(array_merge($adminConfig['multiLanguageWebsite']['languages'],array_keys($pageContent['localized'])));
+        $currentlanguageSlection = array_unique(array_merge($websiteConfig['multiLanguageWebsite']['languages'],array_keys($pageContent['localized'])));
       $_SESSION['feinduraSession']['websiteLanguage'] = (in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection)) ? $_SESSION['feinduraSession']['websiteLanguage']: current($currentlanguageSlection);
 
       // if NEW PAGE, overwrite with the mainLanguage
       if($newPage)
-        $currentlanguageSlection = $adminConfig['multiLanguageWebsite']['languages'];
+        $currentlanguageSlection = $websiteConfig['multiLanguageWebsite']['languages'];
 
       // find out if there are missing languages
       if($isInPageEditor) {
         $missingLanguages = false;
-        foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
+        foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
           if(!isset($pageContent['localized'][$langCode]))
             $missingLanguages[] = $langCode;
         }
@@ -517,7 +517,7 @@ if($_GET['site'] == 'addons') {
             }
 
             // WEBSITE LANGUAGE BUTTONS and SELECTION
-            if($adminConfig['multiLanguageWebsite']['active']) {
+            if($websiteConfig['multiLanguageWebsite']['active']) {
 
               // ADD PAGE LANGUAGE
               if($isInPageEditor) {
@@ -537,7 +537,7 @@ if($_GET['site'] == 'addons') {
               }
 
               // PAGE LANGUAGE SELECTION with
-              if(!empty($adminConfig['multiLanguageWebsite']['languages']) && (empty($pageContent) || !empty($pageContent['localized']))) {
+              if(!empty($websiteConfig['multiLanguageWebsite']['languages']) && (empty($pageContent) || !empty($pageContent['localized']))) {
                 ?>
                 <li class="spacer">&nbsp;</li>
                 <li>

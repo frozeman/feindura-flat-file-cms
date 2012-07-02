@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 951
+Build 952
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 2.0
 
+  build 952: moved website settings from page setup to website settings :) sounds strange i know....
   build 951: add deactivate website (shows a "under construction" text)
   build 950: add modified and revised meta tag
   build 949: check pageMetaArray Dat if page a was moved or otherwiese changed

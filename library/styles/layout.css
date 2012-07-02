@@ -547,7 +547,7 @@ a.button:active {
     z-index: 7;
     overflow: visible;
     width: auto;
-    height: 56px; /* org height 64px */
+    height: 58px; /* org height 64px */
     background: url("../images/bg/subMenu_middle.png") repeat-x;
     }
 

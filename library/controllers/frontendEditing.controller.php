@@ -13,7 +13,7 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
-    
+
 * controllers/frontendEditing.controller.php version 0.1
 */
 
@@ -25,11 +25,11 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
 if($_POST['save'] == 'true') {
-  
+
   // var
   $return = '';
   $tmpReturn = '';
-  $langCode = ($adminConfig['multiLanguageWebsite']['active']) ? $_POST['language'] : 0;
+  $langCode = ($websiteConfig['multiLanguageWebsite']['active']) ? $_POST['language'] : 0;
 
   // read the page
   $pageContent = GeneralFunctions::readPage($_POST['page'],$_POST['category']);
@@ -59,17 +59,17 @@ if($_POST['save'] == 'true') {
     $return = $tmpReturn;
     $return = str_replace("\'", "'", $return);
     $return = str_replace('\"', '"', $return);
-    
+
     // ->> save the FEEDS, if activated
     saveFeeds($pageContent['category']);
     // ->> save the SITEMAP
     saveSitemap();
-    
+
   // ->> on failure, return the unsaved data
   } else {
     $return = '####SAVING-ERROR####';
   }
-  
+
   echo $return; // needed for editor.php title edit
 }
 
@@ -84,11 +84,11 @@ if($_POST['changeFrontendEditing'] == 'true') {
 
 // REPLACE EDITO CONTENT with REAL CONTENT
 if($_POST['replaceContent'] == 'true') {
-  
+
   // vars
   $return = '';
   $sessionId = htmlspecialchars(session_name().'='.session_id()); //SID;
-  $langCode = ($adminConfig['multiLanguageWebsite']['active']) ? $_POST['language'] : 0;
+  $langCode = ($websiteConfig['multiLanguageWebsite']['active']) ? $_POST['language'] : 0;
   $pageContent = GeneralFunctions::readPage($_POST['page'],$_POST['category']);
 
   if(is_array($pageContent['localized']))
@@ -100,12 +100,12 @@ if($_POST['replaceContent'] == 'true') {
   // -> add edit content
   if($_POST['mode'] == 'deactivate') {
     $return = GeneralFunctions::generateContent($localizedContent, $pageContent['id'], $sessionId, $langCode);
-    
+
     // clear xHTML tag endings from the content
     if(empty($_POST['xHtml']))
       $return = str_replace(' />','>',$return);
 
-  // -> add generated content  
+  // -> add generated content
   } elseif($_POST['mode'] == 'activate') {
     $return = $localizedContent;
   }

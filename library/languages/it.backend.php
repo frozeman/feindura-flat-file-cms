@@ -280,6 +280,8 @@ Si prega di andare su <a href                                             ="?sit
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Si prega di attivare Javascript';
 $langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>Per utilizzare appieno <span class="feinduraName">fein<span>dura</span></span>, è necessario attivare il  Javascript!</strong>';
 
+$langFile['WARNING_TITLE_UNTITLEDCATEGORIES']                             = 'Manca nomi delle categorie';
+
 $langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="feinduraName">fein<span>dura</span></span> non è fatto per le versioni di browser obsoleti e precedenti di <br>Internet Explorers';
 $langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Per utilizzare completamente  <span class="feinduraName">fein<span>dura</span></span> CMS è necessario almeno Internet Explorer 9.<br><br>Si prega di installare una versione più recente di Internet Explorer,<br> o installare <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> per Internet Explorer,<br>o scaricare e installare il programma gratuito <a href="http://www.mozilla.org/firefox/">Firefox</a> o <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
 
@@ -499,16 +501,6 @@ $langFile['EDITFILESSETTINGS_ERROR_DELETEFILE']                           = '<b>
 $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'I Tags possono essere utilizzati per creare connessioni tra le pagine (a seconda della programmazione del sito)';
 
 // ---------- page settings
-$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Impostazzioni del Sito Web';
-$langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Imposta Pagina Iniziale';
-$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'L\'utente può impostare una pagina come pagina iniziale.[br][br]Se selezionata questa impostazione l\'utente può decidere la pagina da visualizzare all\'entrata nel sito. Quando nessuna variabile [i]$_GET[/i] di altre pagine vengono passate nel sito o in qualunque pagina che è stata già visualizzata, sarà quella selezionata la Home Page.';
-$langFile['PAGESETUP_PAGES_TEXT_MAINTENANCE']                             = 'Disattivare sito web';
-$langFile['PAGESETUP_PAGES_TIP_MAINTENANCE']                              = 'Mostra un messaggio invece del sito, che dice che il sito è attualmente in fase di modifica.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'Sito web multi lingua';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = '[b]doppio click[/b] per selezionare le lingue.';
-$langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Lingua principale';
-$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'La lingua principale sarà selezionato, se non la lingua di corrispondenza è stato possibile determinare automaticamente.';
-
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'Pagine-Senza-Categoria';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'Creare Cancellare Pagine';
 $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']                              = 'Determina se l\'utente può creare o eliminare le pagine senza categoria.';
@@ -606,6 +598,16 @@ $langFile['websiteSetup_websiteConfig_field5']                            = 'Des
 $langFile['websiteSetup_websiteConfig_field5_tip']                        = 'Inserire qui una breve descrizione per l\'uso dei motori di ricerca, se lo SearchWords è stato trovato nell\'URL del sito web e non nel contenuto verrà mostrato come titolo di anteprima dal motore di ricerca.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Testo Breve Non Più Di 3 Linee.';
 
+$langFile['WEBSITESETUP_TITLE_PAGESETTINGS']                              = 'Impostazioni-Avanzate-SitoWeb';
+$langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'Imposta Pagina Iniziale';
+$langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'L\'utente può impostare una pagina come pagina iniziale.[br][br]Se selezionata questa impostazione l\'utente può decidere la pagina da visualizzare all\'entrata nel sito. Quando nessuna variabile [i]$_GET[/i] di altre pagine vengono passate nel sito o in qualunque pagina che è stata già visualizzata, sarà quella selezionata la Home Page.';
+$langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Disattivare sito web';
+$langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Mostra un messaggio invece del sito, che dice che il sito è attualmente in fase di modifica.';
+$langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Sito web multi lingua';
+$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[b]doppio click[/b] per selezionare le lingue.';
+$langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Lingua principale';
+$langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'La lingua principale sarà selezionato, se non la lingua di corrispondenza è stato possibile determinare automaticamente.';
+
 /*
 * statisticSetup.php
 */
@@ -680,7 +682,8 @@ $langFile['userSetup_error_save']                                         = $lan
 */
 
 // ---------- page info
-$langFile['EDITOR_h1_createpage']                                         = 'Crea una nuova pagina';
+$langFile['EDITOR_TITLE_CREATEPAGE']                                      = 'Crea una nuova pagina';
+$langFile['EDITOR_TITLE_ADDLANGUAGE']                                     = 'Aggiungi lingua &quot;%s&quot; alla pagina';
 $langFile['EDITOR_pageinfo_lastsavedate']                                 = 'ultima modifica';
 $langFile['EDITOR_pageinfo_lastsaveauthor']                               = 'di';
 $langFile['EDITOR_pageinfo_linktothispage']                               = 'Collegamento a questa pagina';

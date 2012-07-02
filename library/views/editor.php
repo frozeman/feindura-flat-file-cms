@@ -231,9 +231,12 @@ $headerColorClass = ($_GET['category'] != 0)
   : 'brown'; //" comes in the h1
 
 // get Title
-$pageTitle = ($newPage)
-  ? $langFile['EDITOR_h1_createpage']
-  : strip_tags(GeneralFunctions::getLocalized($pageContent,'title',true));
+if($newPage && $_GET['status'] == 'addLanguage')
+  $pageTitle = sprintf($langFile['EDITOR_TITLE_ADDLANGUAGE'],$languageNames[$_SESSION['feinduraSession']['websiteLanguage']]);
+elseif($newPage)
+  $pageTitle = $langFile['EDITOR_TITLE_CREATEPAGE'];
+else
+  $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent,'title',true));
 
 // adds the page and category IDs for the MooRTE saving of the title
 $titleData = (!$newPage) // data-feindura format: "pageID categoryID"
@@ -250,7 +253,7 @@ if($newPage) {
 }
 
 // -> checks for startpage, and show STARTPAGE ICON
-if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
+if($websiteConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
   $startPageIcon = '<img src="library/images/icons/startPageIcon_middle.png" width="33" height="30">';
   $startPageTitle = ' toolTip" title="'.$langFile['SORTABLEPAGELIST_functions_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }

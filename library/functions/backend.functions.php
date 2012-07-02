@@ -981,18 +981,6 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['user']['editSnippets']      = ".XssFilter::bool($adminConfig['user']['editSnippets'],true).";\n";
     $fileContent .= "\$adminConfig['user']['info']              = '".$adminConfig['user']['info']."';\n\n"; // htmLawed in adminSetup.controller.php
 
-    $fileContent .= "\$adminConfig['maintenance']                          = ".XssFilter::bool($adminConfig['maintenance'],true).";\n";
-    $fileContent .= "\$adminConfig['setStartPage']                         = ".XssFilter::bool($adminConfig['setStartPage'],true).";\n";
-    $fileContent .= "\$adminConfig['multiLanguageWebsite']['active']       = ".XssFilter::bool($adminConfig['multiLanguageWebsite']['active'],true).";\n";
-    if(is_array($adminConfig['multiLanguageWebsite']['languages'])) {
-      foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langKey) {
-        $langCode = XssFilter::alphabetical($langKey,$_SESSION['feinduraSession']);
-        if($langCode && strlen($langCode) == 2)
-          $fileContent .= "\$adminConfig['multiLanguageWebsite']['languages'][]    = ".$langCode.";\n";
-      }
-    }
-    $fileContent .= "\$adminConfig['multiLanguageWebsite']['mainLanguage']   = ".XssFilter::alphabetical($adminConfig['multiLanguageWebsite']['mainLanguage'],0).";\n\n";
-
     $fileContent .= "\$adminConfig['editor']['htmlLawed']    = ".XssFilter::bool($adminConfig['editor']['htmlLawed'],true).";\n";
     $fileContent .= "\$adminConfig['editor']['safeHtml']     = ".XssFilter::bool($adminConfig['editor']['safeHtml'],true).";\n";
     $fileContent .= "\$adminConfig['editor']['editorStyles'] = ".XssFilter::bool($adminConfig['editor']['editorStyles'],true).";\n";
@@ -1112,7 +1100,19 @@ function saveWebsiteConfig($websiteConfig) {
     $fileContent = '';
     $fileContent .= "<?php\n"; //< ?php
 
-    $fileContent .= "\$websiteConfig['startPage']      = ".XssFilter::int($websiteConfig['startPage'],0).";\n\n";
+    $fileContent .= "\$websiteConfig['maintenance']                          = ".XssFilter::bool($websiteConfig['maintenance'],true).";\n";
+    $fileContent .= "\$websiteConfig['setStartPage']                         = ".XssFilter::bool($websiteConfig['setStartPage'],true).";\n";
+    $fileContent .= "\$websiteConfig['startPage']                            = ".XssFilter::int($websiteConfig['startPage'],0).";\n\n";
+
+    $fileContent .= "\$websiteConfig['multiLanguageWebsite']['active']       = ".XssFilter::bool($websiteConfig['multiLanguageWebsite']['active'],true).";\n";
+    if(is_array($websiteConfig['multiLanguageWebsite']['languages'])) {
+      foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langKey) {
+        $langCode = XssFilter::alphabetical($langKey,$_SESSION['feinduraSession']);
+        if($langCode && strlen($langCode) == 2)
+          $fileContent .= "\$websiteConfig['multiLanguageWebsite']['languages'][]    = ".$langCode.";\n";
+      }
+    }
+    $fileContent .= "\$websiteConfig['multiLanguageWebsite']['mainLanguage']   = ".XssFilter::alphabetical($websiteConfig['multiLanguageWebsite']['mainLanguage'],0).";\n\n";
 
     // save localized
     if(is_array($websiteConfig['localized'])) {
@@ -1467,7 +1467,7 @@ function saveSitemap() {
 
     if($sitemapPage['public']) {
       // generate page link
-      $link = GeneralFunctions::createHref($sitemapPage,false,$GLOBALS['adminConfig']['multiLanguageWebsite']['mainLanguage'],true);
+      $link = GeneralFunctions::createHref($sitemapPage,false,$GLOBALS['websiteConfig']['multiLanguageWebsite']['mainLanguage'],true);
       // add page to sitemap
       $sitemap->url($link, date('Y-m-d',$sitemapPage['lastSaveDate']), 'daily');
     }
@@ -1560,8 +1560,8 @@ function saveFeeds($category) {
 
   // vars
   $return = false;
-  $languages = ($GLOBALS['adminConfig']['multiLanguageWebsite']['active'])
-    ? $GLOBALS['adminConfig']['multiLanguageWebsite']['languages']
+  $languages = ($GLOBALS['websiteConfig']['multiLanguageWebsite']['active'])
+    ? $GLOBALS['websiteConfig']['multiLanguageWebsite']['languages']
     : array(0 => 0);
 
   foreach ($languages as $langCode) {
@@ -2701,12 +2701,12 @@ function startPageWarning() {
   if(checkBasePathAndURL() === false || !is_dir(dirname(__FILE__).'/../../pages/'))
     return false;
 
-  if($GLOBALS['adminConfig']['setStartPage'] && !empty($GLOBALS['websiteConfig']['startPage']) && ($startPageCategory = GeneralFunctions::getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
+  if($GLOBALS['websiteConfig']['setStartPage'] && !empty($GLOBALS['websiteConfig']['startPage']) && ($startPageCategory = GeneralFunctions::getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
     $startPageCategory .= '/';
   else
     $startPageCategory = '';
 
-  if($GLOBALS['adminConfig']['setStartPage'] && (empty($GLOBALS['websiteConfig']['startPage']) || !file_exists(dirname(__FILE__).'/../../pages/'.$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
+  if($GLOBALS['websiteConfig']['setStartPage'] && (empty($GLOBALS['websiteConfig']['startPage']) || !file_exists(dirname(__FILE__).'/../../pages/'.$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
     return '<div class="block info">
             <h1>'.$GLOBALS['langFile']['WARNING_TITLE_STARTPAGE'].'</h1>
             <div class="content">
@@ -2743,13 +2743,13 @@ function missingLanguageWarning() {
   // var
   $return = false;
 
-  if(!$GLOBALS['adminConfig']['multiLanguageWebsite']['active'])
+  if(!$GLOBALS['websiteConfig']['multiLanguageWebsite']['active'])
     return false;
 
   // -> websiteConfig
   $websiteConfig = '';
-  if($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] != array_keys($GLOBALS['websiteConfig']['localized'])) {
-    foreach ($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] as $langCode) {
+  if($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'] != array_keys($GLOBALS['websiteConfig']['localized'])) {
+    foreach ($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'] as $langCode) {
       if(!isset($GLOBALS['websiteConfig']['localized'][$langCode])) {
         $websiteConfig .= '<span><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> <a href="?site=websiteSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageNames'][$langCode].'</a></span><br>';
       }
@@ -2759,22 +2759,24 @@ function missingLanguageWarning() {
   // -> categoryConfig
   $categoryHasMissingLanguages = false;
     foreach ($GLOBALS['categoryConfig'] as $category) {
-      $arrayDifferences = array_diff($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'],array_keys($category['localized']));
+      $arrayDifferences = array_diff($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'],array_keys($category['localized']));
       if(!empty($arrayDifferences)) {
         $categoryHasMissingLanguages = true;
         break;
       }
     }
     if($categoryHasMissingLanguages) {
+      foreach ($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'] as $langCode) {
         foreach ($GLOBALS['categoryConfig'] as $category) {
-          foreach ($GLOBALS['adminConfig']['multiLanguageWebsite']['languages'] as $langCode) {
-            if(!isset($category['localized'][$langCode])) {
-              $categoryName = GeneralFunctions::getLocalized($category,'name');
-              $categoryName = (!empty($categoryName)) ? $categoryName.' &rArr; ' : '';
-              $categoryConfig .= '<span><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> '.$categoryName.'<a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$GLOBALS['languageNames'][$langCode].'</a></span><br>';
-            }
+          if($category['id'] == 0)
+            continue;
+          if(!isset($category['localized'][$langCode])) {
+            $categoryName = GeneralFunctions::getLocalized($category,'name');
+            $categoryName = (!empty($categoryName)) ? ' &rArr; '.$categoryName : '';
+            $categoryConfig .= '<span><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> '.$GLOBALS['languageNames'][$langCode].'<a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="standardLink gray">'.$categoryName.'</a></span><br>';
           }
         }
+      }
     }
 
   if(!empty($websiteConfig) || !empty($categoryConfig)) {
@@ -2785,7 +2787,7 @@ function missingLanguageWarning() {
     if(!empty($websiteConfig))
       $return .= '<h2>'.$GLOBALS['langFile']['BUTTON_WEBSITESETTINGS'].'</h2><p>'.$websiteConfig.'</p><!-- need <p> tags for margin-left:..-->';
     if(!empty($categoryConfig))
-      $return .= '<h2>'.$GLOBALS['langFile']['BUTTON_PAGESETUP'].'</h2><p>'.$categoryConfig.'</p><!-- need <p> tags for margin-left:..-->';
+      $return .= '<h2>'.$GLOBALS['langFile']['WARNING_TITLE_UNTITLEDCATEGORIES'].'</h2><p>'.$categoryConfig.'</p><!-- need <p> tags for margin-left:..-->';
 
     $return .= '</div>
             <div class="bottom"></div>

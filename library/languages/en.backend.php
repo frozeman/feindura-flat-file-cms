@@ -278,10 +278,13 @@ Please go to the <a href                                                  ="?sit
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Please activate Javascript';
 $langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>To fully use <span class="feinduraName">fein<span>dura</span></span>, you need to activate  Javascript!</strong>';
 
+$langFile['WARNING_TITLE_UNTITLEDCATEGORIES']                             = 'Missing category names';
+
 $langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="feinduraName">fein<span>dura</span></span> is not made for older versions of the Internet Explorers';
 $langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'To completely use  <span class="feinduraName">fein<span>dura</span></span> CMS you need at leats Internet Explorer 9.<br><br>Please install a newer version of the Internet Explorer,<br> or install the <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> for Internet Explorer,<br>or download and install the free <a href="http://www.mozilla.org/firefox/">Firefox</a> or <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
 
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Page is currently being edited...';
+
 
 /*
 * leftSidebar.loader.php
@@ -498,16 +501,6 @@ $langFile['EDITFILESSETTINGS_ERROR_DELETEFILE']                           = '<b>
 $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tags can be used to create connections between pages (depending on the programming of the website)';
 
 // ---------- page settings
-$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Website-Settings';
-$langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Set start page';
-$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'The user can set a page as the start page.[br][br]The start page will be used if no page variable is given through the [i]$_GET[/i] variable in the website.';
-$langFile['PAGESETUP_PAGES_TEXT_MAINTENANCE']                             = 'Deactivate Website';
-$langFile['PAGESETUP_PAGES_TIP_MAINTENANCE']                              = 'Shows a message instead of the website, which says that the website is currently being edited.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'Multi language Website';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = '[b]double click[/b] to select languages.';
-$langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Main language';
-$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'The main language will be selected, if no matching language could be determined automatically.';
-
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'Pages without category';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'Create/delete pages';
 $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']                              = 'Specifies if the user can create and delete pages without category.';
@@ -543,7 +536,7 @@ $langFile['PAGESETUP_CATEGORY_ERROR_DELETEDIR']                           = '<b>
 $langFile['PAGESETUP_CATEGORY_ERROR_SAVE']                                = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/category.config.php';
 
 
-$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS']                    = 'Advanced-Settings';
+$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS']                    = 'Advanced Settings';
 $langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS']                     = 'If this settings are set, they overwrite the thumbnail-settings above and the '.$langFile['adminSetup_editorSettings_h1'].' in the <a href="?site=adminSetup">administrator-settings</a>.';
 
 $langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY']                     = 'If all fields are empty, then the stylesheet settings from the '.$langFile['adminSetup_editorSettings_h1'].' will be used.';
@@ -597,13 +590,23 @@ $langFile['websiteSetup_websiteConfig_field2']                            = 'Pub
 $langFile['websiteSetup_websiteConfig_field2_tip']                        = 'The name of the organisation/company/person, which publish the website.';
 $langFile['websiteSetup_websiteConfig_field3']                            = 'Copyright';
 $langFile['websiteSetup_websiteConfig_field3_tip']                        = 'The copyright holder of the website.';
-
 $langFile['websiteSetup_websiteConfig_field4']                            = 'Search engine keywords';
 $langFile['websiteSetup_websiteConfig_field4_tip']                        = 'The most search engines search the website content for keywords, however you should list some keywords here, which will be stored in the <meta> tags of the page.';
 $langFile['websiteSetup_websiteConfig_field4_inputTip']                   = 'The keywords must be separated with &quot;,&quot;::'.$langFile['TEXT_EXAMPLE'].':[br]stichwort1,stichwort2,etc';
 $langFile['websiteSetup_websiteConfig_field5']                            = 'Website description';
 $langFile['websiteSetup_websiteConfig_field5_tip']                        = 'A short description which will search engines use, if the searchwords were found in the website URL and not in the content.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'A short text with not more than 3 lines.';
+
+$langFile['WEBSITESETUP_TITLE_PAGESETTINGS']                              = 'Advanced Website-Settings';
+$langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'Set start page';
+$langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'The user can set a page as the start page.[br][br]The start page will be used if no page variable is given through the [i]$_GET[/i] variable in the website.';
+$langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Deactivate Website';
+$langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Shows a message instead of the website, which says that the website is currently being edited.';
+$langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Multi language Website';
+$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[b]double click[/b] to select languages.';
+$langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Main language';
+$langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'The main language will be selected, if no matching language could be determined automatically.';
+
 
 /*
 * statisticSetup.php
@@ -679,7 +682,8 @@ $langFile['userSetup_error_save']                                         = $lan
 */
 
 // ---------- page info
-$langFile['EDITOR_h1_createpage']                                         = 'Create new page';
+$langFile['EDITOR_TITLE_CREATEPAGE']                                      = 'Create new page';
+$langFile['EDITOR_TITLE_ADDLANGUAGE']                                     = 'Add language &quot;%s&quot; to the page';
 $langFile['EDITOR_pageinfo_lastsavedate']                                 = 'last edit';
 $langFile['EDITOR_pageinfo_lastsaveauthor']                               = 'by';
 $langFile['EDITOR_pageinfo_linktothispage']                               = 'Link to this page';

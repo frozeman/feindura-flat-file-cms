@@ -42,7 +42,7 @@ require_once(dirname(__FILE__)."/library/includes/general.include.php");
 
 // -> SEND FRONTEND HEADER
 header('Content-Type:text/html; charset=UTF-8');
-if($adminConfig['multiLanguageWebsite']['active'] && strlen($_SESSION['feinduraSession']['websiteLanguage']) === 2)
+if($websiteConfig['multiLanguageWebsite']['active'] && strlen($_SESSION['feinduraSession']['websiteLanguage']) === 2)
   header('Content-Language:'.$_SESSION['feinduraSession']['websiteLanguage']);
 
 // -> rename the config var names

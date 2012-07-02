@@ -367,7 +367,7 @@ class FeinduraBase {
           }
         }
       }
-    } elseif(empty($_GET['page']) && $this->adminConfig['setStartPage'] && is_numeric($this->startCategory)) {
+    } elseif(empty($_GET['page']) && $this->websiteConfig['setStartPage'] && is_numeric($this->startCategory)) {
       return $this->startCategory;
     } else
       return false;
@@ -414,7 +414,7 @@ class FeinduraBase {
   protected function setCurrentPageId($setStartPage = false) {
 
     // sets the startPage if it exists
-    if($setStartPage === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) { //empty($this->category)
+    if($setStartPage === true && $this->websiteConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) { //empty($this->category)
       $this->startPage = intval($this->websiteConfig['startPage']);
     }
 
@@ -462,7 +462,7 @@ class FeinduraBase {
   protected function setCurrentCategoryId($setStartCategory = false) {
 
     // sets the startPage if it exists
-    if($setStartCategory === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {
+    if($setStartCategory === true && $this->websiteConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {
       $this->startCategory = GeneralFunctions::getPageCategory($this->websiteConfig['startPage']);
     }
 
@@ -986,7 +986,7 @@ class FeinduraBase {
 
     // ->> MODIFING pageContent
     // ************************
-    if($this->adminConfig['multiLanguageWebsite']['active'])
+    if($this->websiteConfig['multiLanguageWebsite']['active'])
       $langCode = $this->language;
     else
       $langCode = 0;
@@ -1168,7 +1168,7 @@ class FeinduraBase {
 
       // ACTIVATE FRONTEND EDITING
       if($allowFrontendEditing && !$GLOBALS['ISSNIPPET'] && !$titleAsLink && $this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION)  {// data-feindura="pageID categoryID language"
-        if($this->adminConfig['multiLanguageWebsite']['active'])
+        if($this->websiteConfig['multiLanguageWebsite']['active'])
           $langCode = $this->language;
         else
           $langCode = 0;

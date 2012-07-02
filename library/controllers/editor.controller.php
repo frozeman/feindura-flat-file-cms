@@ -13,7 +13,7 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
-    
+
 * controllers/editor.controller.php version 1.97
 */
 
@@ -30,47 +30,47 @@ $category = $_GET['category'];
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
 if($_POST['save'] && isBlocked() === false) {
-  
+
   // vars
   $page	= $_POST['id'];
   $category = $_POST['category'];
   $_GET['page'] = $page;
   $_GET['category'] = $category;
-  
+
   // removes double whitespaces and slashes
   $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );
   $_POST['HTMLEditor'] = str_replace('\"', '"', $_POST['HTMLEditor'] );
-  
+
   // *** CREATE NEW PAGE ----------------------
   if ($page == 'new') {
-    
+
     // looks fore the highest id (FLATFILES)
     $page = getNewPageId();
     $_POST['id'] = $page;
     $pageContent['id'] = $page;
     $_POST['sortOrder'] = $page;
     $_GET['page'] = $page;
-    
+
     // sets the selected category
     $category = $_POST['categorySelection'];
     $_GET['category'] = $_POST['categorySelection'];
     $_POST['category'] = $_POST['categorySelection'];
     $pageContent['category'] = $_POST['categorySelection'];
-    
+
     $logText = 0;
-    
+
     // delete statistics, if still exist
     if(is_file(dirname(__FILE__).'/../../statistic/pages/'.$page.'.statistics.php'))
       @unlink(dirname(__FILE__).'/../../statistic/pages/'.$page.'.statistics.php');
-    
+
   // *** SAVE PAGE ----------------------
   } else {
-  
+
     // if flatfile exists, load $pageContent array
     // (necessary for: thumbnail, sortOrder and logs)
     if(!$pageContent = GeneralFunctions::readPage($page,$category))
       $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['basePath']);
-    
+
     $logText = ($_POST['status'] == 'addLanguage')
       ? 33
       : 1;
@@ -91,20 +91,20 @@ if($_POST['save'] && isBlocked() === false) {
     $_POST['localized'][$_POST['websiteLanguage']]['title'] = $_POST['title'];
     $_POST['localized'][$_POST['websiteLanguage']]['description'] = $_POST['description'];
     $_POST['localized'][$_POST['websiteLanguage']]['content'] = $_POST['HTMLEditor'];
-    
+
     // delete unnecessary variables
     unset($_POST['pageDate']['before'],$_POST['pageDate']['after'],$_POST['tags'],$_POST['title'],$_POST['description'],$_POST['HTMLEditor']);
-    
+
     // STORE data right
     $_POST['lastSaveDate'] = time();
     $_POST['lastSaveAuthor'] = $_SESSION['feinduraSession']['login']['user'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
-    
+
     // generates pageDate
     $generatedPageDate = '';
     if(!empty($_POST['pageDate']['day']) && !empty($_POST['pageDate']['month']))
       $generatedPageDate = $_POST['pageDate']['year'].'-'.$_POST['pageDate']['month'].'-'.$_POST['pageDate']['day'];
-    
+
     // VALIDATE the SORT DATE
     if(($pageDate = validateDateString($generatedPageDate)) === false)
       $pageDate = $generatedPageDate;
@@ -113,9 +113,9 @@ if($_POST['save'] && isBlocked() === false) {
       $_POST['pageDate']['date'] = $pageDate;
       unset($pageDate);
     }
-    
+
     if(empty($_POST['sortOrder']))  $_POST['sortOrder'] = $pageContent['sortOrder'];
-    
+
     // ->> add page and subcategory bool to the categoryConfig array
     $newCategoryConfig = $categoryConfig;
     // first clear this page put of every other categoryConfig
@@ -141,7 +141,7 @@ if($_POST['save'] && isBlocked() === false) {
 
     // adds absolute path slash on the beginning and implode the stylefiles
     $_POST['styleFile'] = prepareStyleFilePaths($_POST['styleFile']);
-    
+
     // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
     $_POST['styleFile']  = setStylesByPriority($_POST['styleFile'],'styleFile',$category);
     $_POST['styleId']    = setStylesByPriority($_POST['styleId'],'styleId',$category);
@@ -154,7 +154,7 @@ if($_POST['save'] && isBlocked() === false) {
         saveActivityLog(array($logText,$languageNames[$_POST['websiteLanguage']]),'page='.$page); // <- SAVE the task in a LOG FILE
       else
         saveActivityLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
-      
+
       // set PERMISSIONS of the page
       $filePath = ($category == 0)
         ? dirname(__FILE__).'/../../pages/'.$page.'.php'
@@ -165,11 +165,11 @@ if($_POST['save'] && isBlocked() === false) {
       saveFeeds($category);
       // ->> save the SITEMAP
       saveSitemap();
-      
+
     } else
       $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
   }
-  
+
   // sets which block should be opend after saving
   $savedForm = $_POST['savedBlock'];
 }

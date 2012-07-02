@@ -34,7 +34,7 @@ if($_POST['send'] && isset($_POST['statisticConfig'])) {
       saveActivityLog(19); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow .= sprintf($langFile['STATISTICSSETUP_ERROR_SAVE'],$adminConfig['basePath']);
-  
+
   $savedForm = 'statisticConfig';
   $savedSettings = true;
 }
@@ -46,7 +46,7 @@ if($_POST['sendClearstatistics']) {
   if($_POST['clearStatistics_pagesStatistics'] == 'true' &&
      $pagesStats = GeneralFunctions::loadPagesStatistics(true)) {
     foreach($pagesStats as $pageStatistics) {
-      
+
       // -> CLEAR the page stats
       $pageStatistics['visitorCount'] = 0;
       $pageStatistics['firstVisit'] = 0;
@@ -54,78 +54,78 @@ if($_POST['sendClearstatistics']) {
       $pageStatistics['visitTimeMin'] = '';
       $pageStatistics['visitTimeMax'] = '';
       $pageStatistics['searchWords'] = '';
-      
+
       if(StatisticFunctions::savePageStatistics($pageStatistics)) {
         // set documentSaved status
         $documentSaved = true;
       } else
         $errorWindow .= sprintf($langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'],$adminConfig['basePath']);
     }
-    
+
     // set the messagebox; save tasklog
     if($documentSaved) {
       $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'].'</li>';
       saveActivityLog(20); // <- SAVE the task in a LOG FILE
     }
   }
-  
+
   // ->> CLEAR PAGES-LENGTHOFSTAY-STATISTICs
   if($_POST['clearStatistics_pagesStaylengthStatistics'] == 'true' &&
      $pagesStats = GeneralFunctions::loadPagesStatistics(true)) {
-      
+
     foreach($pagesStats as $pageStatistics) {
-      
+
       // -> CLEAR the page time stats
       $pageStatistics['visitTimeMin'] = '';
       $pageStatistics['visitTimeMax'] = '';
-      
+
       if(StatisticFunctions::savePageStatistics($pageStatistics)) {
         // set documentSaved status
         $documentSaved = true;
       } else
         $errorWindow .= sprintf($langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'],$adminConfig['basePath']);
     }
-    
+
     // set the messagebox; save tasklog
     if($documentSaved) {
       $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'].'</li>';
       saveActivityLog(21); // <- SAVE the task in a LOG FILE
     }
-  }  
-  
+  }
+
   // ->> CLEAR WEBSITE-STATISTIC
   if($_POST['clearStatistics_websiteStatistic'] == 'true' &&
      is_file(dirname(__FILE__)."/../../statistic/website.statistic.php") &&
      unlink(dirname(__FILE__)."/../../statistic/website.statistic.php")) {
-    
+
     // set documentSaved status
     $documentSaved = true;
     $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'].'</li>';
     saveActivityLog(22); // <- SAVE the task in a LOG FILE
   }
-  
+
   // ->> CLEAR REFERER-LOG
   if($_POST['clearStatistics_refererLog'] == 'true' &&
      $refererLogFile = fopen(dirname(__FILE__)."/../../statistic/referer.statistic.log","wb")) {
     fclose($refererLogFile);
-    
+
     // set documentSaved status
     $documentSaved = true;
     $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_REFERERLOG'].'</li>';
     saveActivityLog(23); // <- SAVE the task in a LOG FILE
   }
-  
+
   // ->> CLEAR ACTIVITY-LOG
   if($_POST['clearStatistics_taskLog'] == 'true' &&
      $taskLogFile = fopen(dirname(__FILE__)."/../../statistic/activity.statistic.log","wb")) {
     fclose($taskLogFile);
-    
+
     // set documentSaved status
     $documentSaved = true;
     $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'</li>';
     saveActivityLog(24); // <- SAVE the task in a LOG FILE
   }
-  
+
   // SHOWs the MESSAGEBOX
   if($deletedStatistics !== false) {
     $deletedStatisticsFinal = '<ul class="red">';
@@ -133,7 +133,7 @@ if($_POST['sendClearstatistics']) {
     $deletedStatisticsFinal .= '</ul>';
     $deletedStatistics = $deletedStatisticsFinal;
   }
-  
+
   $savedForm = 'clearStatistics';
 }
 

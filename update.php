@@ -32,7 +32,7 @@ $wrongDirectory = (include("library/includes/backend.include.php"))
 error_reporting(E_ALL ^ E_NOTICE);
 
 $NEWVERSION = '2.0';
-$NEWBUILD = 951;
+$NEWBUILD = 952;
 
 // gets the version of the feindura CMS
 if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
@@ -138,7 +138,7 @@ $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
   // check version
   if($PREVVERSION.$PREVBUILD == $NEWVERSION.$NEWBUILD)
     die('<span class="succesfull">You content is already up to date.</span><br>
-      <small style="color:#999;">(If you don\'t think so, then delete the "VERSION" file in your "/cms/" folder and run this updater again.)</small>
+      <small style="color:#999;">(If you don\'t think so, change the number to your previous version of feindura in the "/cms/VERSION" file and run this updater again.)</small>
       <br><br>
       <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a></body></html>');
 
@@ -319,12 +319,11 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     if($PREVVERSION <= '1.1.6')
       $adminConfig['speakingUrl'] = false; // beacuse i changed speaking url reg ex and createHref generation
 
-    // only if was below 2.0 build 946
-    if($PREVVERSION.$PREVBUILD <= '2.0946' && !isset($categoryConfig[0]['id'])) {
+    // only if was below 2.0 build 947
+    if($PREVVERSION.$PREVBUILD < '2.0947' && !isset($categoryConfig[0]['id'])) {
 
       // delete the non-category, which only has the name (set in backend.include.php)
       unset($categoryConfig[0]);
-
 
       $nonCat[0]                    = $adminConfig['pages'];
 
@@ -631,6 +630,20 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       $websiteConfig['localized'][0]['keywords']    = $websiteConfig['keywords'];
       $websiteConfig['localized'][0]['description'] = $websiteConfig['description'];
     }
+
+    // only if was below 2.0 build 952
+    if($PREVVERSION.$PREVBUILD < '2.0952') {
+      // maintenance
+      if(!isset($websiteConfig['maintenance']))
+        $websiteConfig['maintenance'] = $adminConfig['maintenance'];
+      // setStartPage
+      if(!isset($websiteConfig['setStartPage']))
+        $websiteConfig['setStartPage'] = $adminConfig['setStartPage'];
+      // multiLanguageWebsite
+      if(!isset($websiteConfig['multiLanguageWebsite']))
+        $websiteConfig['multiLanguageWebsite'] = $adminConfig['multiLanguageWebsite'];
+    }
+
     if(saveWebsiteConfig($websiteConfig))
       echo 'websiteConfig <span class="succesfull">succesfully updated</span><br>';
     else {
@@ -1019,7 +1032,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     // -> final success text or failure warning
     if($succesfullUpdate) {
       file_put_contents(dirname(__FILE__).'/VERSION', "This file is necessary for the next feindura update. Do not delete it!\n".$NEWVERSION."\n".$NEWBUILD);
-      echo 'NOTE: If you had Speaking URL activated, you have to activate it again in the admin settings. But before delete the speaking URL code from you .htaccess file manually!<br>';
+      echo '<br>NOTE: If you had Speaking URL activated, you have to activate it again in the admin settings. But before delete the speaking URL code from you .htaccess file manually!<br>';
       echo '<br><h1>You can now delete the "update.php" file.</h1>';
     } else
       echo '<h1>something went wrong :-( could not completely update feindura, check the errors and try again.</h1>';

@@ -266,6 +266,8 @@ Cliquez sur <a href                                                       ="?sit
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Activer le javascript';
 $langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>Pour <span class="feinduraName">fein<span>dura</span></span> utiliser complètement le javasrcipt doit être activé!</strong>';
 
+$langFile['WARNING_TITLE_UNTITLEDCATEGORIES']                             = 'Manquant les noms des catégories';
+
 $langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="feinduraName">fein<span>dura</span></span> ne fonctionne pas avec une ancienne version de l\'Internet Explorer.';
 $langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Pour <span class="feinduraName">fein<span>dura</span></span> utiliser le CMS entièrement, version 9 de l\'IE est nécessaire.<br><br>Svp installez une nouvelle version de l\'Internet Explorer,<br> ou bien installez <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> pour l\'IE,<br> ou bien téléchargez <a href="http://www.mozilla.org/firefox/">Firefox</a> ou <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
 
@@ -474,16 +476,6 @@ $langFile['EDITFILESSETTINGS_ERROR_DELETEFILE']                           = '<b>
 $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Les tags peuvent être utilisés pour mettre en relation les pages entre eux (dépendant de le programmation du site web)';
 
 // ---------- page settings
-$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'paramètres du site web';
-$langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'la page d\'acceuil peut être définie';
-$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'La page d\'acceuil peut être définie par l\'utilisateur.[br][br]La page d\'acceuil définie sera publié, si aucune variable du site web sera transmise ou bien la page ne sera pas éxecutée.';
-$langFile['PAGESETUP_PAGES_TEXT_MAINTENANCE']                             = 'désactiver site web';
-$langFile['PAGESETUP_PAGES_TIP_MAINTENANCE']                              = 'Affiche un message au lieu du site, qui dit que le site est actuellement en cours d\'édition.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'site web multi-langues';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = '[b]double clic[/b] pour sélectionner les langues.';
-$langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'La langue principale';
-$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'La langue principale sera choisi, si aucune langue correspondante pourrait être déterminé automatiquement.';
-
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'pages sans catégories';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'créer/éffacer des pages';
 $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']                              = 'Définit si l\'utilisateur peut créer/éffacer une page sans catégorie.';
@@ -575,6 +567,16 @@ $langFile['websiteSetup_websiteConfig_field5']                            = 'des
 $langFile['websiteSetup_websiteConfig_field5_tip']                        = 'Une courte description de votre site web utilisé par les moteurs de recherche. Les mots-clé se trouveront dans l\'URL du site web mais dans le contenu.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Un texte court en 3 lignes.';
 
+$langFile['WEBSITESETUP_TITLE_PAGESETTINGS']                              = 'paramètres avancés du site web';
+$langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'la page d\'acceuil peut être définie';
+$langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'La page d\'acceuil peut être définie par l\'utilisateur.[br][br]La page d\'acceuil définie sera publié, si aucune variable du site web sera transmise ou bien la page ne sera pas éxecutée.';
+$langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'désactiver site web';
+$langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Affiche un message au lieu du site, qui dit que le site est actuellement en cours d\'édition.';
+$langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'site web multi-langues';
+$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[b]double clic[/b] pour sélectionner les langues.';
+$langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'La langue principale';
+$langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'La langue principale sera choisi, si aucune langue correspondante pourrait être déterminé automatiquement.';
+
 /*
 * statisticSetup.php
 */
@@ -646,7 +648,8 @@ $langFile['userSetup_error_save']                                         = $lan
 */
 
 // ---------- page info
-$langFile['EDITOR_h1_createpage']                                         = 'créer nouvelle page';
+$langFile['EDITOR_TITLE_CREATEPAGE']                                      = 'créer nouvelle page';
+$langFile['EDITOR_TITLE_ADDLANGUAGE']                                     = 'Ajouter la langue &quot;%s&quot; à la page';
 $langFile['EDITOR_pageinfo_lastsavedate']                                 = 'dernièrement traité';
 $langFile['EDITOR_pageinfo_lastsaveauthor']                               = 'de';
 $langFile['EDITOR_pageinfo_linktothispage']                               = 'lien mènant sur le site web';

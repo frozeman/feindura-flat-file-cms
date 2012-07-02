@@ -37,177 +37,18 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   if(!empty($_POST['cfg_thumbPath']) && substr($_POST['cfg_thumbPath'],0,1) == '/')
         $_POST['cfg_thumbPath'] = substr($_POST['cfg_thumbPath'],1);
 
-  // -> check if languages exist, otherwise deactivate multilanguage pages
-  if(empty($_POST['cfg_websiteLanguages']))
-    $_POST['cfg_multiLanguageWebsite'] = false;
-
   // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
   if(!isset($_POST['cfg_thumbWidth']))
     $_POST['cfg_thumbWidth'] = $adminConfig['pageThumbnail']['width'];
   if(!isset($_POST['cfg_thumbHeight']))
     $_POST['cfg_thumbHeight'] = $adminConfig['pageThumbnail']['height'];
 
-  // -> PREPARE CONFIG VARs
   $newAdminConfig                                         = $adminConfig; // transfer the rest of the adminConfig
-  $newAdminConfig['maintenance']                          = $_POST['cfg_maintenance'];
-  $newAdminConfig['setStartPage']                         = $_POST['cfg_setStartPage'];
-  $newAdminConfig['multiLanguageWebsite']['active']       = $_POST['cfg_multiLanguageWebsite'];
-  $newAdminConfig['multiLanguageWebsite']['mainLanguage'] = $_POST['cfg_websiteMainLanguage'];
-  $newAdminConfig['multiLanguageWebsite']['languages']    = $_POST['cfg_websiteLanguages'];
-
   $newAdminConfig['pageThumbnail']['width']               = $_POST['cfg_thumbWidth'];
   $newAdminConfig['pageThumbnail']['height']              = $_POST['cfg_thumbHeight'];
   $newAdminConfig['pageThumbnail']['ratio']               = $_POST['cfg_thumbRatio'];
   $newAdminConfig['pageThumbnail']['path']                = $_POST['cfg_thumbPath'];
 
-  // ------------------------------------------------------------------
-
-  // ->> CHANGE PAGES to MULTI LANGUAGE pages
-  if($newAdminConfig['multiLanguageWebsite']['active'] == 'true') {
-
-    // GET the REMOVED LANGUAGES
-    $removedLanguages = array();
-    if(is_array($adminConfig['multiLanguageWebsite']['languages'])) {
-      foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
-        if(!in_array($langCode, $newAdminConfig['multiLanguageWebsite']['languages']))
-          $removedLanguages[] = $langCode;
-      }
-    }
-
-    // -> CHANGE PAGES
-    $allPages = GeneralFunctions::loadPages(true);
-    foreach($allPages as $pageContent) {
-
-      // $pageContent['localized'][0] = (!isset($pageContent['localized'][0])) ? array() : $pageContent['localized'][0];
-
-      // change the non localized content to the mainLanguage
-      if(is_array($pageContent['localized']) && is_array(current($pageContent['localized']))) {
-
-        // USE LOCALIZATION: Get either the already existing mainLanguage, or use the next following language as the mainLanguage
-        $useLocalization = (isset($pageContent['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
-          ? $pageContent['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
-          : current($pageContent['localized']);
-
-        // REMOVE old LANGUAGES
-        foreach ($removedLanguages as $langCode) {
-          unset($pageContent['localized'][$langCode]);
-        }
-
-        // put the mainLanguage on the top
-        $pageContent['localized'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $pageContent['localized']);
-        unset($pageContent['localized'][0]);
-      }
-      if(!GeneralFunctions::savePage($pageContent))
-        $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
-    }
-
-    // -> CHANGE WEBSITE CONFIG
-    if(is_array($websiteConfig['localized']) && is_array(current($websiteConfig['localized']))) {
-      // get the either the already existing mainLanguage, or use the next following language as the mainLanguage
-      $useLocalization = (isset($websiteConfig['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
-        ? $websiteConfig['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
-        : current($websiteConfig['localized']);
-
-      // put the mainLanguage on the top
-      $websiteConfig['localized'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $websiteConfig['localized']);
-      unset($websiteConfig['localized'][0]);
-
-      // REMOVE old LANGUAGES
-      foreach ($removedLanguages as $langCode) {
-        unset($websiteConfig['localized'][$langCode]);
-      }
-    }
-    if(!saveWebsiteConfig($websiteConfig))
-      $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['basePath']);
-
-    // -> CHANGE CATEGORY CONFIG
-    // change the localized content to non localized content using the the mainLanguage
-    if(is_array($categoryConfig)) {
-      $newCategoryConfig = array();
-      foreach ($categoryConfig as $key => $category) {
-        $newCategoryConfig[$key] = $category;
-
-        // get the either the already existing mainLanguage, or use the next following language as the mainLanguage
-        $useLocalization = (isset($category['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
-          ? $category['localized'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
-          : current($category['localized']);
-
-        // put the mainLanguage on the top
-        $newCategoryConfig[$key]['localized'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $category['localized']);
-        unset($newCategoryConfig[$key]['localized'][0]);
-
-        // REMOVE old LANGUAGES
-        foreach ($removedLanguages as $langCode) {
-          unset($newCategoryConfig[$key]['localized'][$langCode]);
-        }
-      }
-      if(!saveCategories($newCategoryConfig))
-        $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
-    }
-
-    // -> add to SESSION
-    $_SESSION['feinduraSession']['websiteLanguage'] = $newAdminConfig['multiLanguageWebsite']['mainLanguage'];
-
-
-  // ->> CHANGE TO SINGLE LANGUAGE
-  } else {
-
-    // -> CHANGE PAGES
-    $allPages = GeneralFunctions::loadPages(true);
-    foreach($allPages as $pageContent) {
-
-      // change the localized content to non localized content using the the mainLanguage
-      if(is_array($pageContent['localized']) && isset($pageContent['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
-        $storedMainLanguageArray = $pageContent['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
-        unset($pageContent['localized']);
-        $pageContent['localized'][0] = $storedMainLanguageArray;
-
-      // if the mainLanguage didnt exist create an empty array
-      } else
-        $pageContent['localized'][0] = array();
-
-      if(!GeneralFunctions::savePage($pageContent))
-        $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
-    }
-
-    // -> CHANGE WEBSITE CONFIG
-    // change the localized content to non localized content using the the mainLanguage
-    if(is_array($websiteConfig['localized']) && isset($websiteConfig['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
-      $storedMainLanguageArray = $websiteConfig['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
-      unset($websiteConfig['localized']);
-      $websiteConfig['localized'][0] = $storedMainLanguageArray;
-
-    // if the mainLanguage didnt exist create an empty array
-    } else
-      $websiteConfig['localized'][0] = array();
-    if(!saveWebsiteConfig($websiteConfig))
-      $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['basePath']);
-
-
-    // -> CHANGE CATEGORY CONFIG
-    // change the localized content to non localized content using the the mainLanguage
-    if(is_array($categoryConfig)) {
-      $newCategoryConfig = array();
-      foreach ($categoryConfig as $key => $category) {
-        $newCategoryConfig[$key] = $category;
-
-        if(is_array($category['localized']) && isset($category['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
-          $storedMainLanguageArray = $category['localized'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
-          unset($newCategoryConfig[$key]['localized']);
-          $newCategoryConfig[$key]['localized'][0] = $storedMainLanguageArray;
-
-        // if the mainLanguage didnt exist create an empty array
-        } else
-          $newCategoryConfig[$key]['localized'][0] = array();
-      }
-      if(!saveCategories($newCategoryConfig))
-        $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
-    }
-
-    // -> add to SESSION
-    $_SESSION['feinduraSession']['websiteLanguage'] = 0;
-  }
-  // ------------------------------------------------------------------
 
   // -> save ADMIN SETTINGS
   if(saveAdminConfig($newAdminConfig)) {
@@ -281,7 +122,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
   $storedCategoryName = GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name');
 
   // deletes the category with the given id from the array and saves the categoriesSettings.php
-  unset($categoryConfig[$_GET['category']],$pageContent);
+  unset($categoryConfig[$_GET['category']]);
   if(saveCategories($categoryConfig)) {
 
     // Hinweis für den Benutzer welche Gruppe gelöscht wurde
@@ -290,10 +131,10 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
     // if there is a category dir, trys to delete it !important deletes all files in it
     if(is_dir(dirname(__FILE__).'/../../pages/'.$_GET['category'])) {
 
-      if($pageContents = GeneralFunctions::loadPages($_GET['category'])) {
+      if($pages = GeneralFunctions::loadPages($_GET['category'])) {
 
         // deletes possible thumbnails before deleting the category
-        foreach($pageContents as $page) {
+        foreach($pages as $page) {
           if(!empty($page['thumbnail']) && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'])) {
             @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], $adminConfig['permissions']);
             // DELETING

@@ -40,7 +40,7 @@ $question = '<div class="block">
              <td class="right">
              <select name="addLanguageSelection" id="addLanguageSelection">'."\n";
               // create language selection
-              foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
+              foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
                 if(!array_key_exists($langCode, $pageContent['localized'])) {
                   $question .= '<option value="'.$langCode.'">'.$languageNames[$langCode].'</option>';
                 }

@@ -207,7 +207,8 @@ foreach($categoryConfig as $category) {
         : '';
 
       // -> generate pageDate for toolTip
-      $pageTitle_pageDate = showPageDate($pageContent).'[br]';
+      if($pageTitle_pageDate = showPageDate($pageContent))
+        $pageTitle_pageDate .= '[br]';
 
       // -> generate tags for toolTip
       $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
@@ -217,15 +218,17 @@ foreach($categoryConfig as $category) {
 
       // -> generate page languages for toolTip
       if(!isset($pageContent['localized'][0])) {
-        $pageTitle_pageLanguages .= '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].':[/b]';
+        $pageTitle_pageLanguages .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].':[/b][br]';
         foreach ($pageContent['localized'] as $langCode => $values) {
           $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
         }
         // list not yet existing languages of the page
-        foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
-          if(!isset($pageContent['localized'][$langCode])) {
-            $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] [span class=gray][s]'.$languageNames[$langCode].'[/s][/span][br]';
-            $missingLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
+        if(is_array($websiteConfig['multiLanguageWebsite']['languages'])) {
+          foreach($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
+            if(!isset($pageContent['localized'][$langCode])) {
+              $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] [span class=gray][s]'.$languageNames[$langCode].'[/s][/span][br]';
+              $missingLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
+            }
           }
         }
       }
@@ -243,7 +246,7 @@ foreach($categoryConfig as $category) {
         : '';
 
       // -> startpage icon before the name
-      if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
+      if($websiteConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
         $startPageIcon = ' isStartPage';
         $pageTitle_startPageText = $langFile['SORTABLEPAGELIST_functions_startPage_set'].'[br]';
       }
@@ -263,7 +266,7 @@ foreach($categoryConfig as $category) {
       echo '<div class="status'.$publicClass.'">';
       echo '<a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'">&nbsp;</a>';
       // show language status (is everything translated)
-      if($adminConfig['multiLanguageWebsite']['active'] && !empty($missingLanguages))
+      if($websiteConfig['multiLanguageWebsite']['active'] && !empty($missingLanguages))
         echo '<span class="toolTip missingLanguages" title="'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'] .'::'.$missingLanguages.'"></span>';
       echo '</div>';
 
@@ -289,7 +292,7 @@ foreach($categoryConfig as $category) {
         echo '<a href="?site=deletePage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_DELETEPAGE'].'::" class="deletePage toolTip">&nbsp;</a>';
 
       // startpage
-      if($adminConfig['setStartPage']) {
+      if($websiteConfig['setStartPage']) {
         if($pageContent['id'] == $websiteConfig['startPage']) {
           $activeStartPage = ' active';
           $startPageTitle = $langFile['SORTABLEPAGELIST_functions_startPage_set'];

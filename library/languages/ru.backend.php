@@ -281,6 +281,8 @@ $langFile['WARNING_TEXT_BASEPATH']                                        = '<i>
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Включите Javascript!';
 $langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>Для полноценного использования <span class="feinduraName">fein<span>dura</span></span> необходимо включить Javascript!</strong>';
 
+$langFile['WARNING_TITLE_UNTITLEDCATEGORIES']                             = 'Отсутствие названия категории';
+
 $langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="feinduraName">fein<span>dura</span></span> не предназначена для устаревших версий Internet Explorers';
 $langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Для нормального использования <span class="feinduraName">fein<span>dura</span></span> CMS вам необходимо использовать хотя бы Internet Explorer 9.<br><br>Пожалуйста установите новую версию Internet Explorer,<br> или <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> для Internet Explorer,<br>или установите альтернативный браузер - <a href="http://www.mozilla.org/firefox/">Firefox</a> либо <a href="http://www.google.com/chrome/">Chrome</a>.';
 
@@ -504,16 +506,6 @@ $langFile['EDITFILESSETTINGS_ERROR_DELETEFILE']                           = '<b>
 $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tags can be used to create connections between pages (depending on the programming of the website)';
 
 // ---------- page settings
-$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'настройках сайта';
-$langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Установка главной страницы';
-$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Дает возможность установить любую страницу в качестве главной (стартовой).[br][br]Стартовая страница выводится если запрос в [i]$_GET[/i] пуст.';
-$langFile['PAGESETUP_PAGES_TEXT_MAINTENANCE']                             = 'Отключить сайта';
-$langFile['PAGESETUP_PAGES_TIP_MAINTENANCE']                              = 'Показывает сообщение, а не на сайт, в котором говорится, что сайт в настоящее время редактируется.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'Мульти язык сайта';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = '[b]двойной клик[/b] для выбора языка.';
-$langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Основной язык';
-$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'Основной язык будет выбран, если нет соответствующего языка может быть определен автоматически.';
-
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'Страницы без категории';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'Создание/удаление страниц';
 $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']                              = 'Дает пользователю возможность создавать и удалять страницы без категории.';
@@ -611,6 +603,16 @@ $langFile['websiteSetup_websiteConfig_field5']                            = 'О�
 $langFile['websiteSetup_websiteConfig_field5_tip']                        = 'Используется в мета-теге description.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Короткое описание не больше 2-5 строчек.';
 
+$langFile['WEBSITESETUP_TITLE_PAGESETTINGS']                              = 'настройках настройки сайта';
+$langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'Установка главной страницы';
+$langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'Дает возможность установить любую страницу в качестве главной (стартовой).[br][br]Стартовая страница выводится если запрос в [i]$_GET[/i] пуст.';
+$langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Отключить сайта';
+$langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Показывает сообщение, а не на сайт, в котором говорится, что сайт в настоящее время редактируется.';
+$langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Мульти язык сайта';
+$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[b]двойной клик[/b] для выбора языка.';
+$langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Основной язык';
+$langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'Основной язык будет выбран, если нет соответствующего языка может быть определен автоматически.';
+
 /*
 * statisticSetup.php
 */
@@ -685,7 +687,8 @@ $langFile['userSetup_error_save']                                         = $lan
 */
 
 // ---------- page info
-$langFile['EDITOR_h1_createpage']                                         = 'Создание новой страницы';
+$langFile['EDITOR_TITLE_CREATEPAGE']                                      = 'Создание новой страницы';
+$langFile['EDITOR_TITLE_ADDLANGUAGE']                                     = 'Добавить язык &quot;%s&quot; на странице';
 $langFile['EDITOR_pageinfo_lastsavedate']                                 = 'последняя редакция';
 $langFile['EDITOR_pageinfo_lastsaveauthor']                               = '-';
 $langFile['EDITOR_pageinfo_linktothispage']                               = 'Ссылка на страницу';

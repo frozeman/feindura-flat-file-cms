@@ -19,11 +19,11 @@
 
 // SWITCH the &_GET['site'] var
 switch($_GET['site']) {
-  
+
   // ***** dashboard sideBar -------------------------------------------------- *********
   case 'dashboard':
     break;
-  
+
   // ***** pages sideBar -------------------------------------------------- *********
   case 'pages':
       echo '<div id="rightSidebarMessageBox">';
@@ -34,9 +34,9 @@ switch($_GET['site']) {
         echo '</div>';
       echo '<div class="bottom"></div></div>';
     break;
-    
+
   // ***** statisticSetup sideBar -------------------------------------------- *********
-  case 'statisticSetup':    
+  case 'statisticSetup':
     if($deletedStatistics) {
       echo '<div id="rightSidebarMessageBox">';
         echo '<div class="content">';
@@ -49,13 +49,16 @@ switch($_GET['site']) {
 
   // ***** websiteSetup sideBar -------------------------------------------- *********
   case 'websiteSetup':
-    if($adminConfig['multiLanguageWebsite']['active'] && $adminConfig['multiLanguageWebsite']['languages'] != array_keys($websiteConfig['localized'])) {
+    $websiteConfigLanguages = array_keys($websiteConfig['localized']);
+    if(is_array($websiteConfigLanguages) && is_array($websiteConfig['multiLanguageWebsite']['languages']))
+      $websiteConfigLanguagesDiff = array_diff($websiteConfig['multiLanguageWebsite']['languages'],$websiteConfigLanguages);
+    if($websiteConfig['multiLanguageWebsite']['active'] && !empty($websiteConfigLanguagesDiff)) {
       echo '<div id="rightSidebarMessageBox">';
         echo '<div class="content">';
         echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
         echo '<h1>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>';
         echo '<ul class="flags">';
-        foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
+        foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
           if(!isset($websiteConfig['localized'][$langCode])) {
             echo '<li><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="standardLink gray">'.$languageNames[$langCode].'</a></li>';
           }
@@ -74,14 +77,15 @@ switch($_GET['site']) {
           echo '<div class="bottom"></div></div>';
       }
     }
+    unset($websiteConfigLanguages,$websiteConfigLanguagesDiff);
     break;
 
   // ***** pageSetup sideBar -------------------------------------------- *********
   case 'pageSetup':
     $categoryHasMissingLanguages = false;
-    if(is_array($adminConfig['multiLanguageWebsite']['languages'])) {
+    if(is_array($websiteConfig['multiLanguageWebsite']['languages'])) {
       foreach ($categoryConfig as $category) {
-        $arrayDifferences = array_diff($adminConfig['multiLanguageWebsite']['languages'],array_keys($category['localized']));
+        $arrayDifferences = array_diff($websiteConfig['multiLanguageWebsite']['languages'],array_keys($category['localized']));
         if(!empty($arrayDifferences)) {
           $categoryHasMissingLanguages = true;
           break;
@@ -92,14 +96,16 @@ switch($_GET['site']) {
       echo '<div id="rightSidebarMessageBox">';
         echo '<div class="content">';
         echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
-        echo '<h1>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>';
+        echo '<h1>'.$langFile['WARNING_TITLE_UNTITLEDCATEGORIES'].'</h1>';
         echo '<ul class="flags">';
-        foreach ($categoryConfig as $category) {
-          foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
+        foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
+          foreach ($categoryConfig as $category) {
+            if($category['id'] == 0)
+              continue;
             if(!isset($category['localized'][$langCode])) {
               $categoryName = GeneralFunctions::getLocalized($category,'name');
-              $categoryName = (!empty($categoryName)) ? $categoryName.' &rArr; ' : '';
-              echo '<li><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> '.$categoryName.'<a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="standardLink gray">'.$languageNames[$langCode].'</a></li>';
+              $categoryName = (!empty($categoryName)) ? ' &rArr; '.$categoryName : '';
+              echo '<li><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> '.$languageNames[$langCode].'<a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="standardLink gray">'.$categoryName.'</a></li>';
             }
           }
         }
@@ -117,8 +123,8 @@ switch($_GET['site']) {
           echo '<div class="bottom"></div></div>';
       }
     }
-    break; 
-    
+    break;
+
   // ***** DEFAULT --------------------------------------------------------- *********
   default:
     $currentVisitorFullDetail = false;
@@ -131,7 +137,7 @@ switch($_GET['site']) {
         echo '<div class="bottom"></div></div>';
     }
     break;
-    
+
 } //switch END
 
 ?>
