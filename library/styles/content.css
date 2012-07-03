@@ -15,7 +15,7 @@
 
 content.css version 0.5 */
 
-/**************/  
+/**************/
 /* *** BLOCK */
 
 #content .block {
@@ -38,7 +38,7 @@ content.css version 0.5 */
     padding-top: 30px;
     overflow: hidden;
     }
-    
+
 #content .block .bottom {
     position: absolute;
     bottom: -5px;
@@ -118,11 +118,11 @@ content.css version 0.5 */
     z-index: 0;
     margin-bottom: 0px;
     padding-bottom: 0px;
-    background: url("../images/bg/content_block_open.png") no-repeat !important; 
+    background: url("../images/bg/content_block_open.png") no-repeat !important;
     }
 
 #content .block.open.noBg {
-    background: transparent !important; 
+    background: transparent !important;
     }
 
 /* CONTENT BLOCKED */
@@ -141,12 +141,12 @@ div#contentBlocked {
   color: #000;
   background-color: #fff;
   filter: alpha(opacity=75);
-	-khtml-opacity: 0.75;
-	-moz-opacity: 0.75;
-	opacity: 0.75;
+  -khtml-opacity: 0.75;
+  -moz-opacity: 0.75;
+  opacity: 0.75;
 }
 
-/****************/  
+/****************/
 /* --- INNER BLOCKs */
 
 .block div.innerBlockLeft {
@@ -173,7 +173,7 @@ div#contentBlocked {
     font-size: 12px;
     overflow: hidden;
     }
-    
+
 .block .innerBlockListPages {
     position: relative;
     width: 100%;
@@ -192,11 +192,11 @@ div#contentBlocked {
   max-width: 500px;
 }
 
-/****************/  
+/****************/
 /* --- BLOCK-TABLE */
 
 .block table {
-    border: none;    
+    border: none;
     border-collapse: collapse;
     border-spacing: 0px;
     padding: 0px;
@@ -206,9 +206,9 @@ div#contentBlocked {
     position: relative;
     padding: 8px 5px;
     }
-    
-    
-/* left */    
+
+
+/* left */
 .block table td.left {
     width: 200px;
     padding-right: 18px;
@@ -218,7 +218,7 @@ div#contentBlocked {
     background: url("../images/bg/content_block_table_left_middle.png") repeat-y right top;
     }
 .block table col.left {
-    background: url("../images/bg/content_block_table_left_middle.png") repeat-y right top;    
+    background: url("../images/bg/content_block_table_left_middle.png") repeat-y right top;
     }
    /* checkboxes */
 .block table td.left.checkboxes {
@@ -229,20 +229,29 @@ div#contentBlocked {
     vertical-align: top;
     }
 
-/* leftTop */   
+.block table td.left.buttons {
+    line-height: 22px;
+    padding: 2px 5px;
+    /*padding-right: 40px !important;*/
+    background: #fff;
+    vertical-align: top;
+    text-align: center;
+    }
+
+/* leftTop */
 .block table td.leftTop {
     height: 30px;
-    background: url("../images/bg/content_block_table_left_top.png") no-repeat right top;    
+    background: url("../images/bg/content_block_table_left_top.png") no-repeat right top;
     }
- 
-/* leftBottom */   
+
+/* leftBottom */
 .block table td.leftBottom {
     height: 35px;
     padding: 0px;
-    background: url("../images/bg/content_block_table_left_bottom.png") no-repeat right top #ffffff;    
+    background: url("../images/bg/content_block_table_left_bottom.png") no-repeat right top #ffffff;
     }
-    
-/* right */       
+
+/* right */
 .block table td.right {
     padding-left: 10px;
     text-align: left;
@@ -258,8 +267,16 @@ div#contentBlocked {
     vertical-align: top;
     }
 
+.block table td.right.buttons {
+    padding: 0px 10px;
+    vertical-align: top;
+    text-align: left;
+    }
+.block table td.right.buttons a.button {
+    width:  310px
+}
 
-/* spacer */   
+/* spacer */
 .block table td.spacer {
     height: 20px;
     padding: 0px;
@@ -268,14 +285,14 @@ div#contentBlocked {
 .block table td.spacer.checkboxes {
     background: #ffffff !important;
     }
-    
+
 .block .verticalSeparator {
   background: url('../images/bg/content_block_verticalSeparator.png') no-repeat bottom center;
   padding-bottom: 5px;
   clear: both;
 }
-    
-/****************/  
+
+/****************/
 /* --- SLIDE HEADER LINKS */
 
 #content .block > h1 a {
@@ -298,8 +315,8 @@ div#contentBlocked {
 #content .block.hidden > h1 a:hover, #content .block.hidden > h1 a:focus {
     background: url("../images/buttons/content_h1_down_on.png") no-repeat right top;
     }
-    
-/****************/  
+
+/****************/
 /* *** H1 ICON */
 
 h1 img.blockH1Icon {
@@ -308,8 +325,8 @@ h1 img.blockH1Icon {
   left: 4px;
 }
 
-/****************/  
-/* - CONTENT FASTUP link */  
+/****************/
+/* - CONTENT FASTUP link */
 #content a.fastUp {
     z-index: 4;
     position: fixed;
@@ -324,24 +341,24 @@ h1 img.blockH1Icon {
 #content a.fastUp:hover, #content a.fastUp:focus {
     background-position: 0px -68px;
     }
-    
 
-/****************/  
-/* - DOWN/UP LINK */  
+
+/****************/
+/* - DOWN/UP LINK */
 
 a.down {
     font-weight: bold;
     padding-left: 18px;
     background: url("../images/buttons/down.gif") no-repeat 0px 3px !important;
     }
-    
+
 a.up {
     font-weight: bold;
     padding-left: 18px;
     background: url("../images/buttons/up.gif") no-repeat 0px 3px !important;
     }
 
-/****************/  
+/****************/
 /* - INLINE HINT modification (look notifications.css) */
 
 .block table span.hint {
@@ -358,11 +375,11 @@ a.up {
 }
 
 
-/* --------------------------------------------- */  
+/* --------------------------------------------- */
 /* *** ELEMENTS */
-/* --------------------------------------------- */  
+/* --------------------------------------------- */
 
-/****************/  
+/****************/
 /* *** HEADLINES */
 
 #content h1 {
@@ -411,7 +428,7 @@ a.up {
   color: #536068;
   }
 
-/****************/  
+/****************/
 /* *** TEXT */
 #content {
     font-size: 14px;
@@ -423,7 +440,7 @@ a.up {
     color: #536068;
     }
 
-/****************/  
+/****************/
 /* *** HR */
 
  hr {
@@ -450,45 +467,6 @@ a.up {
     margin-bottom: 50px;
     background: url("../images/bg/content_blockSpacer.png") no-repeat;
     }
-
-/****************/  
-/* - BLOCK and WINDOBOX Standard Links */  
-.block a, #windowBox a, a.standardLink {
-    padding-left: 18px;
-    color: #F58218;
-    text-decoration: none;
-    background: url("../images/icons/link.gif") no-repeat left center;
-    cursor: pointer !important;
-    }
-.block p a, #windowBox p a {
-  background-position: 0px 4px;
-}
-a.standardLink:hover, .block a:hover, #windowBox a:hover, a.standardLink:focus, .block a:focus, #windowBox a:focus {
-    color: #536068;
-    text-decoration: none;
-    }
-a.standardLink:active, .block a:active, #windowBox a:active {
-    color: #000000;
-    text-decoration: none;
-    }
-
-/* image links */
-a.image {  
-  display: inline-block;
-  padding-left: 0px;
-  background: none;
-}
-
-/* anchor targets*/
-a.anchorTarget {
-  position: relative;
-  display: block;
-  visibility: hidden;
-  padding-left: 0px;
-  height: 0px;
-  top: -30px;
-  background: none;
-}
 
 /* DELETE ICON */
 span.deleteIcon { /* this is the outer box, around a link with an delete corner */
@@ -521,7 +499,7 @@ a.deleteIcon:hover, a.deleteIcon:focus {
     margin-bottom: -18px;
     }
 
-/****************/  
+/****************/
 /* --- SLIDE HEADER LINKS */
 
 #content .block.listPages > h1 a img {
@@ -546,7 +524,7 @@ h1 img.listPagesH1Icon {
     font-size:15px;
     }
 
-/****************/	
+/****************/
 /* *** listPages */
 
 .listPages ul {
@@ -567,7 +545,7 @@ h1 img.listPagesH1Icon {
     white-space: nowrap;
     overflow: visible;
     }
-.listPages ul li:hover {    
+.listPages ul li:hover {
     background-position: 0px -41px;
     }
 
@@ -579,7 +557,7 @@ h1 img.listPagesH1Icon {
     background: url("../images/bg/listPages_liBg_hasSubCategory.png") no-repeat;
 }
 
-/****************/	
+/****************/
 /* *** listPages HEADER */
 
 div.listPagesHead {
@@ -604,9 +582,9 @@ div.listPagesHead {
     float: left;
     }
 
-.listPagesHead div.name {    
+.listPagesHead div.name {
     width: 270px;
-    padding-left: 15px;    
+    padding-left: 15px;
     }
 .listPagesHead div.name input {
     width: 170px;
@@ -624,7 +602,7 @@ a#listPagesFilterCancel {
 a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
   background-position: 1px -17px;
 }
-    
+
 .listPagesHead div.lastSaveDate {
     width: 145px;
     }
@@ -641,7 +619,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     text-align: center;
     }
 
-/****************/	
+/****************/
 /* *** listPages PAGES */
 
 .listPages .content div {
@@ -655,7 +633,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     float: left;
     }
 
-.listPages .content div.name {    
+.listPages .content div.name {
     width: 260px;
     padding: 6px 0px;
     }
@@ -671,7 +649,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     }
 .listPages .content div.status {
     width: 54px;
-    padding: 3px 5px; 
+    padding: 3px 5px;
     }
 .listPages .content div.functions {
     position: relative;
@@ -679,7 +657,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     width: 170px;
     padding: 5px 10px;
     padding-left: 0px;
-    text-align: right; 
+    text-align: right;
     }
 
 .listPages div.emptyList {
@@ -688,7 +666,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
    left:12px;
 }
 
-/**************************/	
+/**************************/
 /* *** listPages CATEGORY */
 
 .listPages div.category {
@@ -697,7 +675,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     top: -1px;
     left: 538px;
     }
-    
+
 .listPages div.category div.status {
     position: absolute;
     top: 0px;
@@ -708,13 +686,13 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     z-index: 6; /* fixes the problem that it hides the functions div under the h1 */
     position: absolute;
     top: 0px;
-    left: 103px;  
+    left: 103px;
     width: 100px;
     height: 27px;
     text-align: right;
     }
 
-/***************************/	
+/***************************/
 /* *** PAGE FUNCTION links */
 
 .listPages div.name a {
@@ -752,20 +730,20 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     }
 .listPages .functions a.deletePage {
     background: url("../images/buttons/listPages_deletePage.png") no-repeat;
-    }  
+    }
 .listPages .functions a.pageThumbnailUpload {
     background: url("../images/buttons/listPages_pageThumbnailUpload.png") no-repeat;
     }
 .listPages .functions a.pageThumbnailDelete {
     background: url("../images/buttons/listPages_pageThumbnailDelete.png") no-repeat;
-    } 
+    }
 
 .listPages .functions a:hover, .listPages .functions a:focus, .listPages .functions a.startPage.active {
     background-position: 0px -27px !important;
     filter: alpha(opacity=100) !important;
-  	-khtml-opacity: 1.0 !important;
-  	-moz-opacity: 1.0 !important;
-  	opacity: 1.0 !important;
+    -khtml-opacity: 1.0 !important;
+    -moz-opacity: 1.0 !important;
+    opacity: 1.0 !important;
     }
 
 .startPageIcon {
@@ -775,7 +753,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     height: 23px;
     }
 
-/****************/	
+/****************/
 /* *** category FUNCTION links */
 
 .listPages .createPage {
@@ -788,7 +766,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     background-position: 0px -27px !important;
     }
 
-/****************/	
+/****************/
 /* *** PUBLI/NON-PUBLIC links for CATEGORY and PAGES*/
 
 /* LANGUAGE STATUS */
@@ -818,7 +796,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     }
 
 /* for pages */
-.listPages .content .status.public a {     
+.listPages .content .status.public a {
     background: url("../images/icons/page_public.png") no-repeat !important;
     }
 .listPages .content .status.nonpublic a {
@@ -952,9 +930,9 @@ div.subCategoryInLineArrow {
 }
 
 /* --- EDITOR ------------------------------------------------------------------------------------------------------------------- */
-    
-/****************/	
-/* - EDITOR BLOCK */  
+
+/****************/
+/* - EDITOR BLOCK */
 
 #content .editor {
     z-index: 5;
@@ -967,12 +945,12 @@ div.subCategoryInLineArrow {
     background: url("../images/bg/content_block_normal.png") repeat-y;
     overflow: visible;
     width: 792px;
-    padding: 7px;    
+    padding: 7px;
     }
 
 #content .editor .content {
     margin: 20px 20px !important;
-    }    
+    }
 
 #content .editor textarea {
     z-index: 1;
@@ -1050,8 +1028,8 @@ span#editablePageTitle:focus {
   margin-left: -15px;
 }
 
-/****************/	
-/* - BLOCK EDITOR LINKS  
+/****************/
+/* - BLOCK EDITOR LINKS
 
 #content .block.editor a {
     background-image: none;
@@ -1063,8 +1041,8 @@ span#editablePageTitle:focus {
     word-wrap: break-word;
 }
 
-/********************/	
-/* - PAGE-THUMBNAIL */  
+/********************/
+/* - PAGE-THUMBNAIL */
 
 #content .block.pageHead a.pageThumbnailUpload {
     display: block;
@@ -1074,26 +1052,26 @@ span#editablePageTitle:focus {
     width: 90px;
     height: 75px; /* org: 40px*/
     text-decoration: none;
-    background: url("../images/buttons/content_pageThumbnailUpload.png") no-repeat;  
+    background: url("../images/buttons/content_pageThumbnailUpload.png") no-repeat;
     }
 #content .block.pageHead a.pageThumbnailUpload:hover, #content .block.pageHead a.pageThumbnailUpload:focus {
     background-position: 0px -76px;
     }
 
-/****************/	
-/* - info text */  
+/****************/
+/* - info text */
 
 span.info {
     font-size: 14px;
     font-weight: bold;
-    color: #666666;    
+    color: #666666;
     }
 span.info strong {
     color: #71A1BD !important;
     }
 
-/****************/	
-/* - VISIT-TIME */  
+/****************/
+/* - VISIT-TIME */
 
 #visitTimeMaxContainer {
     width: 180px;
@@ -1102,7 +1080,7 @@ span.info strong {
     width: 180px;
     }
 
-/**********************/	
+/**********************/
 /* - BACKUP / RESTORE */
 
 
@@ -1116,7 +1094,7 @@ a.createBackup {
   height: 48px; /* org: 78px */
   padding-left: 80px;
   padding-top: 30px;
-  background: url("../images/buttons/backup_download.png") no-repeat;  
+  background: url("../images/buttons/backup_download.png") no-repeat;
 }
 a.createBackup:hover, a.createBackup:focus {
   background-position: 0px -78px;
@@ -1127,15 +1105,15 @@ a.restoreBackup {
   height: 48px; /* org: 78px */
   padding-left: 80px;
   padding-top: 30px;
-  background: url("../images/buttons/backup_restore.png") no-repeat;  
+  background: url("../images/buttons/backup_restore.png") no-repeat;
 }
 a.restoreBackup:hover, a.restoreBackup:focus {
   background-position: 0px -78px;
 }
 
-    
+
 /* --- DASHBORAD STATISTICS ------------------------------------------------------------------------------------------------------------------- */
-    
+
 /* --------------------- */
 /* -------> TABLE CHART */
 
@@ -1161,13 +1139,13 @@ table.tableChart td {
 
 /* --------------------- */
 /* -------> VISIT COUNT */
-    
+
 .visitCountNumber {
     position: relative;
     font-size: 33px;
     font-weight: bold;
     }
-    
+
 /* --------------------- */
 /* -------> REFERER LOG */
 
@@ -1180,7 +1158,7 @@ table.tableChart td {
     border-right: none;
     overflow: auto;
     }
-    
+
 /* COLORED LIST in an UL or TABLE with two colors */
 .coloredList {
     font-size: 11px;
@@ -1191,14 +1169,14 @@ table.tableChart td {
 
 ul.coloredList {
     padding: 0px;
-    margin: 0px; 
+    margin: 0px;
     }
-ul.coloredList li {    
+ul.coloredList li {
     padding: 5px 10px;
     margin: 0px;
     list-style: none;
     }
-    
+
 table.coloredList {
     width: 100%;
     padding: 0px;
@@ -1210,10 +1188,10 @@ table.coloredList td {
     padding-right: 2px;
     }
 
-.coloredList .light {  
+.coloredList .light {
     background-color: #E5EEEE;
     }
-.coloredList .dark {  
+.coloredList .dark {
     background-color: #D4E0E0;
     }
 
@@ -1247,7 +1225,7 @@ table.coloredList td {
   font-size: 15px;
 }
 
-.search .category {  
+.search .category {
   color: #999;
 }
 
@@ -1277,7 +1255,7 @@ div.tagCloud span, div.tagCloud a {
 
 /* --- TOOLTIP in the text */
 
-.toolTip {    
+.toolTip {
     cursor: help;
     }
 /* textarea toolTip */
@@ -1295,14 +1273,14 @@ input.button.toolTip {
 /* link toolTip */
 a.toolTip {
     cursor: pointer;
-    }    
+    }
 /* text toolTip */
 span.toolTip, label.toolTip {
     /*color: #B46F00;*/
     background: url("../images/icons/hint_toolTipInfo.png") no-repeat right center;
     padding-right: 15px;
     }
-    
+
 span.toolTip.noMark {
   background: none;
   padding-right: 0;
@@ -1311,8 +1289,8 @@ span.toolTip.noMark {
 
 
 /* --- NOTIFICATIONS ------------------------------------------------------------------------------------------------------------------- */
-    
-/* -----------------------*/	
+
+/* -----------------------*/
 /* *** MESSAGEBOX */
 
 .messageBox {
@@ -1326,8 +1304,8 @@ span.toolTip.noMark {
     font-size:18px;
     line-height: 28px;
     }
-    
-/****************/	
+
+/****************/
 /* - INLINE HINTs */
 
 span.hint {
@@ -1339,7 +1317,7 @@ span.hint {
     color: #947342;
     }
 
-/****************/	
+/****************/
 /* - INLINE WARNINGs */
 
 span.warning {
@@ -1350,8 +1328,8 @@ span.warning {
     font-size: 12px;
     color: #990000;
     }
-    
-/****************/	
+
+/****************/
 /* *** BUTTONS */
 
 /* createCategory */
@@ -1367,7 +1345,7 @@ a.createCategory {
 a.createCategory:hover, a.createCategory:focus {
     background-position: 0px -54px !important;
     }
-    
+
 /* deleteCategory */
 a.deleteCategory {
     position: absolute;
@@ -1383,7 +1361,7 @@ a.deleteCategory {
 a.deleteCategory:hover, a.deleteCategory:focus {
     background-position: 0px -54px !important;
     }
-    
+
 /* categoryUp */
 a.categoryUp {
     position: absolute;
@@ -1398,7 +1376,7 @@ a.categoryUp {
 a.categoryUp:hover, a.categoryUp:focus {
     background-position: 0px -32px !important;
     }
-    
+
 /* categoryUp */
 a.categoryDown {
     position: absolute;
@@ -1412,7 +1390,7 @@ a.categoryDown {
 a.categoryDown:hover, a.categoryDown:focus {
     background-position: 0px -32px !important;
     }
-    
+
 /* createUser */
 a.createUser {
     position: relative;
@@ -1426,7 +1404,7 @@ a.createUser {
 a.createUser:hover, a.createUser:focus {
     background-position: 0px -54px !important;
     }
-    
+
 /* deleteUser */
 a.deleteUser {
     position: relative;
@@ -1440,11 +1418,11 @@ a.deleteUser {
 a.deleteUser:hover, a.deleteUser:focus {
     background-position: 0px -54px !important;
     }
-    
+
 
 /* --- THUMBNAIL ------------------------------------------------------------------------------------------------------------------- */
 
-/****************/	
+/****************/
 /* *** THUMB SCALE */
 
 .scale {
@@ -1459,7 +1437,7 @@ a.deleteUser:hover, a.deleteUser:focus {
     border-top:1px solid #BE8500;
     }
 
-/****************/	
+/****************/
 /* *** thumbSize - change Thumbnail Size table */
 
 #thumbSize {
@@ -1468,10 +1446,10 @@ a.deleteUser:hover, a.deleteUser:focus {
     margin-top: 5px;
     }
 
-    
+
 /* --- FORMS ------------------------------------------------------------------------------------------------------------------- */
 
-/****************/	
+/****************/
 /* *** INPUTs */
 
 input, input[type="text"], textarea, select, div.CodeMirror {
@@ -1489,7 +1467,7 @@ input, input[type="text"], textarea, select, div.CodeMirror {
     }
 input:hover, textarea:hover, select:hover, div.CodeMirror:hover {
     border: 1px dotted #CF974D;
-    } 
+    }
 input:focus, textarea:focus, select:focus, div.CodeMirror:focus {
     border: 1px solid #CF974D;
     }
@@ -1512,7 +1490,7 @@ label.disabled {
 }
 input[type="search"] { -webkit-appearance:textfield; -webkit-box-sizing:content-box; }
 ::-webkit-search-decoration { display: none; }
-    
+
 select {
     padding: 1px;
     }
@@ -1556,15 +1534,15 @@ textarea.autogrow {
   -o-transition-property: height;
   transition-property: height;
 }
-  
-/****************/	
+
+/****************/
 /* *** INPUT TYPES */
 
 input.short {
     width: 60px !important;
     text-align: center;
     }
-    
+
 input[type="checkbox"], .checkboxes input {
     cursor: pointer;
     }
@@ -1574,11 +1552,11 @@ input[type="radio"]{ /* works only in safari*/
     top: 3px;
     width: 18px !important;
     }
-    
+
 input[type="file"]{ /* works only in safari*/
     width: 300px;
     }
-    
+
 /* CKEditor HACKS for input */
 div.cke_dialog_ui_input_text {
   padding: 0px !important;
@@ -1624,7 +1602,7 @@ label.cke_dialog_ui_labeled_label {
 .cke_skin_kama .CodeMirror-scroll {
   height: 100%;
   _position: relative; /* IE6 hack */
-} 
+}
 .cke_skin_kama .CodeMirror-scroll * {
   font-size: 14px;
   white-space:pre;
@@ -1640,7 +1618,7 @@ textarea.editFiles, .CodeMirror-scroll  {
   background-color: #E8EEF9 !important;
 }
 
-/****************/  
+/****************/
 /* *** TEXTAREA */
 
 div.content.editFiles textarea {
@@ -1658,7 +1636,7 @@ textarea#fckStyleFile + div.CodeMirror {
 
 a.addStyleFilePath {
     position: relative;
-    display: block;    
+    display: block;
     width: 24px;
     height: 24px;
     top: 5px;
@@ -1672,13 +1650,13 @@ a.addStyleFilePath:active {
     background-position: 0px -48px;
     }
 
-/****************/	
+/****************/
 /* *** FORM BUTTONS */
 
 input.button {
     border: none;
     }
-    
+
 /* SUBMIT */
 a.submit, a.ok {
     display: inline-block;
@@ -1695,7 +1673,7 @@ a.submit, a.ok {
 input.submit:hover,
 a.submit:hover,
 a.ok:hover,
-input.submit:focus, 
+input.submit:focus,
 a.submit:focus,
 a.ok:focus {
   background-position: 0 -55px !important;
@@ -1709,11 +1687,11 @@ a.submit:active, a.ok:active {
     position: relative;
     bottom: 15px !important;
     }
-    
+
 /* CANCEL */
 a.cancel {
     display: inline-block;
-    text-decoration: none;    
+    text-decoration: none;
     }
 input.cancel,
 a.cancel {
@@ -1723,7 +1701,7 @@ a.cancel {
     }
 input.cancel:hover,
 a.cancel:hover,
-input.cancel:focus, 
+input.cancel:focus,
 a.cancel:focus {
   background-position: 0px -55px !important;
 }
@@ -1739,7 +1717,7 @@ a.cancel:active {
     position: relative;
     bottom: -18px !important;
     }
-    
+
 /* CANCEL, SUBMIT -> POSITIONS */
 #content .block input.submit.center,
 #content .block input.cancel.center,
@@ -1789,5 +1767,5 @@ div.editFiles.right {
     width: 250px;
     height: 80px;
     padding-left: 10px;
-    background-color: #ffffff;    
+    background-color: #ffffff;
     }

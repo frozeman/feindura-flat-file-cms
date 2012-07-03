@@ -436,19 +436,6 @@ $langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Cac
 $langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Indica il tempo dopo il quale la cache viene aggiornata.';
 $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'orario';
 
-// ---------- user Settings
-$langFile['ADMINSETUP_USERPERMISSIONS_TITLE']                             = 'Autorizzazioni-Utente';
-$langFile['ADMINSETUP_USERPERMISSIONS_check1']                            = 'Modificare i files dalle <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
-$langFile['ADMINSETUP_USERPERMISSIONS_check2']                            = 'Modificare i files fogli di stile in <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
-$langFile['ADMINSETUP_TEXT_USEREDITSNIPPETS']                             = 'Modifica frammenti di codice nel <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
-$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                  = 'Attivare il file manager';
-$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER']           = 'File manager disattivato::È necessario impostare il percorso di upload in Impostazioni-Di-Base, prima di poter attivare il file manager.';
-$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']              = 'Attivare la modifica frontale';
-
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1']                         = '<strong>Informazioni Utente</strong> in <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip']                     = 'Informazioni Utente::Questo testo verrà visualizzato nel '.$langFile['BUTTON_DASHBOARD'].' della pagina di [span class=feinduraName]fein[span]dura[/span][/span].';
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip']                = 'Se non si desidera visualizzare le informazioni per l\'utente, lasciare questo campo vuoto';
-
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1']                                 = 'Impostazzioni-Editor-HTML';
 $langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'Il filtro HTML (utilizza <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/" target="_blank">htmlLawed</a>)';
@@ -650,32 +637,46 @@ $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'Err
 * userSetup.php
 */
 
-$langFile['userSetup_h1']                                                 = 'Gestione-Utenti';
-$langFile['userSetup_userSelection']                                      = 'Utenti';
+$langFile['USERSETUP_h1']                                                 = 'Gestione-Utenti';
+$langFile['USERSETUP_userSelection']                                      = 'Utenti';
 
-$langFile['userSetup_createUser']                                         = 'Crea un nuovo utente';
-$langFile['userSetup_createUser_created']                                 = 'Nuovo utente creato';
-$langFile['userSetup_createUser_unnamed']                                 = 'Inserisci Info';
+$langFile['USERSETUP_createUser']                                         = 'Crea un nuovo utente';
+$langFile['USERSETUP_createUser_created']                                 = 'Nuovo utente creato';
+$langFile['USERSETUP_createUser_unnamed']                                 = 'Inserisci Info';
 
-$langFile['userSetup_deleteUser']                                         = 'Elimina Utente';
-$langFile['userSetup_deleteUser_deleted']                                 = 'Utente Cancellato';
+$langFile['USERSETUP_deleteUser']                                         = 'Elimina Utente';
+$langFile['USERSETUP_deleteUser_deleted']                                 = 'Utente Cancellato';
 
-$langFile['userSetup_username']                                           = 'Nome Utente';
-$langFile['userSetup_username_missing']                                   = 'Non c\'è ancota un Nome Utente.';
-$langFile['userSetup_password']                                           = 'Password';
-$langFile['userSetup_password_change']                                    = 'Cambia Password';
-$langFile['userSetup_password_confirm']                                   = 'Conferma Password';
-$langFile['userSetup_password_confirm_wrong']                             = 'Le due password non corrispondono.';
-$langFile['userSetup_password_missing']                                   = 'Non c\'è ancora nessuna password impostata.';
-$langFile['userSetup_password_success']                                   = 'Password modificata correttamente!';
-$langFile['userSetup_email']                                              = 'E-Mail';
-$langFile['userSetup_email_tip']                                          = 'Se l\'utente ha dimenticato la propria password, una nuova password verrà inviata a questo indirizzo e-mail.';
+$langFile['USERSETUP_username']                                           = 'Nome Utente';
+$langFile['USERSETUP_username_missing']                                   = 'Non c\'è ancota un Nome Utente.';
+$langFile['USERSETUP_password']                                           = 'Password';
+$langFile['USERSETUP_password_change']                                    = 'Cambia Password';
+$langFile['USERSETUP_password_confirm']                                   = 'Conferma Password';
+$langFile['USERSETUP_password_confirm_wrong']                             = 'Le due password non corrispondono.';
+$langFile['USERSETUP_password_missing']                                   = 'Non c\'è ancora nessuna password impostata.';
+$langFile['USERSETUP_password_success']                                   = 'Password modificata correttamente!';
+$langFile['USERSETUP_email']                                              = 'E-Mail';
+$langFile['USERSETUP_email_tip']                                          = 'Se l\'utente ha dimenticato la propria password, una nuova password verrà inviata a questo indirizzo e-mail.';
 
-$langFile['userSetup_admin']                                              = 'Amministratore';
-$langFile['userSetup_admin_tip']                                          = 'Determina se l\'utente disporrà dei diritti di amministrazione.';
+$langFile['USERSETUP_admin']                                              = 'Amministratore';
+$langFile['USERSETUP_admin_tip']                                          = 'Determina se l\'utente disporrà dei diritti di amministrazione.';
 
-$langFile['userSetup_error_create']                                       = '<b>Un nuovo utente non può essere creato.</b>'.$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
-$langFile['userSetup_error_save']                                         = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
+$langFile['USERSETUP_error_create']                                       = '<b>Un nuovo utente non può essere creato.</b>'.$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
+$langFile['USERSETUP_error_save']                                         = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
+
+// ---------- USER PERMISSION
+$langFile['USERSETUP_USERPERMISSIONS_TITLE']                              = 'Autorizzazioni-Utente';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Modificare i files dalle <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Modificare i files fogli di stile in <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Modifica frammenti di codice nel <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                   = 'Attivare il file manager';
+$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'File manager disattivato::È necessario impostare il percorso di upload in Impostazioni-Di-Base, prima di poter attivare il file manager.';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'Attivare la modifica frontale';
+
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>Informazioni Utente</strong> in <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'Informazioni Utente::Questo testo verrà visualizzato nel '.$langFile['BUTTON_DASHBOARD'].' della pagina di [span class=feinduraName]fein[span]dura[/span][/span].';
+$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'Se non si desidera visualizzare le informazioni per l\'utente, lasciare questo campo vuoto';
+
 
 /*
 * editor.php

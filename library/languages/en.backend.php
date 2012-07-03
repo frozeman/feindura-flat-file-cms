@@ -436,19 +436,6 @@ $langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'Cac
 $langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Indicates the time after which the cache will be refreshed.';
 $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'hours';
 
-// ---------- user Settings
-$langFile['ADMINSETUP_USERPERMISSIONS_TITLE']                             = 'User permissions';
-$langFile['ADMINSETUP_USERPERMISSIONS_check1']                            = 'Edit website files in the <a href="index.php?site=websiteSetup">website-settings</a>';
-$langFile['ADMINSETUP_USERPERMISSIONS_check2']                            = 'Edit stylesheet files in the <a href="index.php?site=websiteSetup">website-settings</a>';
-$langFile['ADMINSETUP_TEXT_USEREDITSNIPPETS']                             = 'Edit code snippets in the <a href="index.php?site=websiteSetup">website-settings</a>';
-$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                  = 'Activate file manager';
-$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER']           = 'File manager deactivated::You must set the upload path in the basic-settings, before you can activate the file manager.';
-$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']              = 'Activate frontend editing';
-
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1']                         = '<strong>User information</strong> in <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip']                     = 'User Information::This text will be shown in the '.$langFile['BUTTON_DASHBOARD'].' page of [span class=feinduraName]fein[span]dura[/span][/span].';
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip']                = 'If you don\'t want to display an information for the user, leave this field empty';
-
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1']                                 = 'HTML-Editor-Settings';
 $langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'Filter HTML (uses <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/" target="_blank">htmlLawed</a>)';
@@ -650,32 +637,46 @@ $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'Err
 * userSetup.php
 */
 
-$langFile['userSetup_h1']                                                 = 'User-Management';
-$langFile['userSetup_userSelection']                                      = 'Users';
+$langFile['USERSETUP_h1']                                                 = 'User-Management';
+$langFile['USERSETUP_userSelection']                                      = 'Users';
 
-$langFile['userSetup_createUser']                                         = 'Create new user';
-$langFile['userSetup_createUser_created']                                 = 'New user created';
-$langFile['userSetup_createUser_unnamed']                                 = 'Unnamed user';
+$langFile['USERSETUP_createUser']                                         = 'Create new user';
+$langFile['USERSETUP_createUser_created']                                 = 'New user created';
+$langFile['USERSETUP_createUser_unnamed']                                 = 'Unnamed user';
 
-$langFile['userSetup_deleteUser']                                         = 'Delete user';
-$langFile['userSetup_deleteUser_deleted']                                 = 'User deleted';
+$langFile['USERSETUP_deleteUser']                                         = 'Delete user';
+$langFile['USERSETUP_deleteUser_deleted']                                 = 'User deleted';
 
-$langFile['userSetup_username']                                           = 'Username';
-$langFile['userSetup_username_missing']                                   = 'There is no username set yet.';
-$langFile['userSetup_password']                                           = 'Password';
-$langFile['userSetup_password_change']                                    = 'change password';
-$langFile['userSetup_password_confirm']                                   = 'Password confirmation';
-$langFile['userSetup_password_confirm_wrong']                             = 'The two passwords do not match.';
-$langFile['userSetup_password_missing']                                   = 'There is no password set yet.';
-$langFile['userSetup_password_success']                                   = 'Password successfully changed!';
-$langFile['userSetup_email']                                              = 'E-Mail';
-$langFile['userSetup_email_tip']                                          = 'If the user has forgotten his password, a new password will be sent to this e-mail.';
+$langFile['USERSETUP_username']                                           = 'Username';
+$langFile['USERSETUP_username_missing']                                   = 'There is no username set yet.';
+$langFile['USERSETUP_password']                                           = 'Password';
+$langFile['USERSETUP_password_change']                                    = 'change password';
+$langFile['USERSETUP_password_confirm']                                   = 'Password confirmation';
+$langFile['USERSETUP_password_confirm_wrong']                             = 'The two passwords do not match.';
+$langFile['USERSETUP_password_missing']                                   = 'There is no password set yet.';
+$langFile['USERSETUP_password_success']                                   = 'Password successfully changed!';
+$langFile['USERSETUP_email']                                              = 'E-Mail';
+$langFile['USERSETUP_email_tip']                                          = 'If the user has forgotten his password, a new password will be sent to this e-mail.';
 
-$langFile['userSetup_admin']                                              = 'Administrator';
-$langFile['userSetup_admin_tip']                                          = 'Determines whether the user has administrator rights.';
+$langFile['USERSETUP_admin']                                              = 'Administrator';
+$langFile['USERSETUP_admin_tip']                                          = 'Determines whether the user has administrator rights.';
 
-$langFile['userSetup_error_create']                                       = '<b> A new user could not be created.</b>'.$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
-$langFile['userSetup_error_save']                                         = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
+$langFile['USERSETUP_error_create']                                       = '<b> A new user could not be created.</b>'.$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
+$langFile['USERSETUP_error_save']                                         = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
+
+// ---------- USER PERMISSION
+$langFile['USERSETUP_USERPERMISSIONS_TITLE']                              = 'User permissions';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Edit website files in the <a href="index.php?site=websiteSetup">website-settings</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Edit stylesheet files in the <a href="index.php?site=websiteSetup">website-settings</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Edit code snippets in the <a href="index.php?site=websiteSetup">website-settings</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                   = 'Activate file manager';
+$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'File manager deactivated::You must set the upload path in the basic-settings, before you can activate the file manager.';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'Activate frontend editing';
+
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>User information</strong> in <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'User Information::This text will be shown in the '.$langFile['BUTTON_DASHBOARD'].' page of [span class=feinduraName]fein[span]dura[/span][/span].';
+$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'If you don\'t want to display an information for the user, leave this field empty';
+
 
 /*
 * editor.php

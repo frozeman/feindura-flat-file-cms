@@ -440,19 +440,6 @@ $langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'к�
 $langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Показывает время, после которого кэш будет обновлен.';
 $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'часов';
 
-// ---------- user Settings
-$langFile['ADMINSETUP_USERPERMISSIONS_TITLE']                             = 'Пользовательские настройки';
-$langFile['ADMINSETUP_USERPERMISSIONS_check1']                            = 'Редактирование файлов сайта в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
-$langFile['ADMINSETUP_USERPERMISSIONS_check2']                            = 'Редактирование файлов стилей в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
-$langFile['ADMINSETUP_TEXT_USEREDITSNIPPETS']                             = 'Редактировать фрагменты кода в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
-$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                  = 'Включить файл-менеджер';
-$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER']           = 'Файл-менеджер выключен::Вы должны указать путь для загрузки файлов в секции "Базовых настроек" перед тем как активировать файл-менеджер.';
-$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']              = 'Включить редактирование непосредственно на сайте';
-
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1']                         = '<strong>Инфо-блок</strong> на странице <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip']                     = 'Инфо-блок::Это короткий ифнормационный текст для пользователей который будет отображаться на странице '.$langFile['BUTTON_DASHBOARD'].'.';
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip']                = 'Если у вас нет информации для пользователей - оставьте поле пустым.';
-
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1']                                 = 'Настройки визуального редактора';
 $langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'фильтровать HTML (использует <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/" target="_blank">htmlLawed</a>)';
@@ -655,32 +642,46 @@ $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'П�
 * userSetup.php
 */
 
-$langFile['userSetup_h1']                                                 = 'Учетные записи';
-$langFile['userSetup_userSelection']                                      = 'Пользователи';
+$langFile['USERSETUP_h1']                                                 = 'Учетные записи';
+$langFile['USERSETUP_userSelection']                                      = 'Пользователи';
 
-$langFile['userSetup_createUser']                                         = 'Создание нового пользователя';
-$langFile['userSetup_createUser_created']                                 = 'Новый пользователь создан';
-$langFile['userSetup_createUser_unnamed']                                 = 'Безымянный пользователь';
+$langFile['USERSETUP_createUser']                                         = 'Создание нового пользователя';
+$langFile['USERSETUP_createUser_created']                                 = 'Новый пользователь создан';
+$langFile['USERSETUP_createUser_unnamed']                                 = 'Безымянный пользователь';
 
-$langFile['userSetup_deleteUser']                                         = 'Удалить пользователя';
-$langFile['userSetup_deleteUser_deleted']                                 = 'Пользователь удален';
+$langFile['USERSETUP_deleteUser']                                         = 'Удалить пользователя';
+$langFile['USERSETUP_deleteUser_deleted']                                 = 'Пользователь удален';
 
-$langFile['userSetup_username']                                           = 'Логин';
-$langFile['userSetup_username_missing']                                   = 'Не установлено логина.';
-$langFile['userSetup_password']                                           = 'пароль';
-$langFile['userSetup_password_change']                                    = 'Изменить пароль';
-$langFile['userSetup_password_confirm']                                   = 'Подтверждение пароля';
-$langFile['userSetup_password_confirm_wrong']                             = 'Пароли не совпадают.';
-$langFile['userSetup_password_missing']                                   = 'Не установлен пароль.';
-$langFile['userSetup_password_success']                                   = 'Пароль изменен!';
-$langFile['userSetup_email']                                              = 'E-Mail';
-$langFile['userSetup_email_tip']                                          = 'Если пользователь потеряет пароль, его возможно восстановить на email.';
+$langFile['USERSETUP_username']                                           = 'Логин';
+$langFile['USERSETUP_username_missing']                                   = 'Не установлено логина.';
+$langFile['USERSETUP_password']                                           = 'пароль';
+$langFile['USERSETUP_password_change']                                    = 'Изменить пароль';
+$langFile['USERSETUP_password_confirm']                                   = 'Подтверждение пароля';
+$langFile['USERSETUP_password_confirm_wrong']                             = 'Пароли не совпадают.';
+$langFile['USERSETUP_password_missing']                                   = 'Не установлен пароль.';
+$langFile['USERSETUP_password_success']                                   = 'Пароль изменен!';
+$langFile['USERSETUP_email']                                              = 'E-Mail';
+$langFile['USERSETUP_email_tip']                                          = 'Если пользователь потеряет пароль, его возможно восстановить на email.';
 
-$langFile['userSetup_admin']                                              = 'Администратор';
-$langFile['userSetup_admin_tip']                                          = 'Наделить пользователя правами администратора.';
+$langFile['USERSETUP_admin']                                              = 'Администратор';
+$langFile['USERSETUP_admin_tip']                                          = 'Наделить пользователя правами администратора.';
 
-$langFile['userSetup_error_create']                                       = '<b> Пользователь не может быть создан.</b>'.$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
-$langFile['userSetup_error_save']                                         = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
+$langFile['USERSETUP_error_create']                                       = '<b> Пользователь не может быть создан.</b>'.$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
+$langFile['USERSETUP_error_save']                                         = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
+
+// ---------- USER PERMISSION
+$langFile['USERSETUP_USERPERMISSIONS_TITLE']                              = 'Пользовательские настройки';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Редактирование файлов сайта в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Редактирование файлов стилей в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Редактировать фрагменты кода в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                   = 'Включить файл-менеджер';
+$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'Файл-менеджер выключен::Вы должны указать путь для загрузки файлов в секции "Базовых настроек" перед тем как активировать файл-менеджер.';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'Включить редактирование непосредственно на сайте';
+
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>Инфо-блок</strong> на странице <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'Инфо-блок::Это короткий ифнормационный текст для пользователей который будет отображаться на странице '.$langFile['BUTTON_DASHBOARD'].'.';
+$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'Если у вас нет информации для пользователей - оставьте поле пустым.';
+
 
 /*
 * editor.php

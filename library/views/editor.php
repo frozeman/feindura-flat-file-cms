@@ -816,7 +816,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
 
               // SCRIPT
               } elseif(strpos(strtolower($key),'script') !== false) {
-                // will show nothing, it was already displayed before the <table>
+                // will show nothing, it is already displayed before the <table>
 
               // HIDDEN
               } elseif(strpos(strtolower($key),'hidden') !== false) {
@@ -850,9 +850,9 @@ $blockContentEdited = (isset($pageContent['plugins']))
               // JS FUNCTION
               } elseif(strpos(strtolower($key),'jsfunction') !== false) {
 
-                echo '<tr><td class="left checkboxes">
-                      </td><td class="right checkboxes">
-                        <a href="#" class="button" onclick="'.$value.'();return false;"'.$keyTip.'>'.$keyName.'</label>
+                echo '<tr><td class="left buttons">
+                      </td><td class="right buttons">
+                        <a href="#" class="button" onclick="'.$value.'();return false;"'.$keyTip.'>'.$keyName.'</a>
                       </td></tr>';
                 $checkboxes = true;
 

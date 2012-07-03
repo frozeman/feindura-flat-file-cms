@@ -659,6 +659,23 @@ window.addEvent('domready', function() {
     }
    }
 
+  // *** ->> CONTENT -----------------------------------------------------------------------------------------------------------------------
+
+  // BLOCK SLIDE IN/OUT
+	blockSlider();
+	inBlockTableSlider();
+
+  // ADDs SMOOTHSCROLL to ANCHORS
+  var smoothAnchorScroll = new Fx.SmoothScroll({
+      wheelStops: true,
+      duration: 200
+  });
+
+  // -------------------------------------------------------------------------------------------
+  // TOOLTIPS
+  setToolTips();
+
+
   // ->> SIDEBAR SCROLLES LIKE FIXED
   // ---------------------------
   if($('sidebarSelection') !== null && $('sidebarSelection').hasClass('staticScroller')) {
@@ -706,25 +723,9 @@ window.addEvent('domready', function() {
     });
   }
 
-  // *** ->> CONTENT -----------------------------------------------------------------------------------------------------------------------
-
-  // BLOCK SLIDE IN/OUT
-	blockSlider();
-	inBlockTableSlider();
-
-  // ADDs SMOOTHSCROLL to ANCHORS
-  var smoothAnchorScroll = new Fx.SmoothScroll({
-      wheelStops: true,
-      duration: 200
-  });
-
-  // -------------------------------------------------------------------------------------------
-  // TOOLTIPS
-  setToolTips();
 
   // *** ->> LISTPAGES -----------------------------------------------------------------------------------------------------------------------
 
-  // -------------------------------------------------------------------------------------------
   // TWEEN FUNCTIONS in LIST PAGES ---------------------------------------------------------------
   if($$('ul li div.functions') !== null) {
 
@@ -762,9 +763,7 @@ window.addEvent('domready', function() {
     });
   }
 
-  // -------------------------------------------------------------------------------------------
   // FILTER LIST PAGES -------------------------------------------------------------------------
-
   if($('listPagesFilter') !== null) {
     var cancelListPagesFilter = function(e) {
       if(e) e.stop();
@@ -1298,9 +1297,20 @@ window.addEvent('domready', function() {
     $$('div.CodeMirror textarea').setProperty('spellcheck','false');
   });
 
+  // *** ->> USER SETUP -----------------------------------------------------------------------------------------------------------------------
+  if(typeOf($$('input.userAdminCheckbox')[0]) !== 'null') {
 
-  // WEBSITE SETUP
-  // ----------------
+    $$('input.userAdminCheckbox').addEvent('change',function(){
+      if(this.checked) {
+        this.getParent('tr').getNext('tr.userPermissionsTr').setStyle('display','none');
+      } else
+        this.getParent('tr').getNext('tr.userPermissionsTr').setStyle('display','table-row');
+    });
+
+  }
+
+
+  // *** ->> WEBSITE SETUP -----------------------------------------------------------------------------------------------------------------------
 
   // -> MULTI LANGUAGE WEBSITE
   if($('multiLanguageWebsite') !== null ) {

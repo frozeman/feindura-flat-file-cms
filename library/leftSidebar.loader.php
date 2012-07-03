@@ -265,19 +265,19 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       // -> USER ANCHOR LINKS
       echo '<div id="sidebarSelection" class="staticScroller">';
       
-      echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['userSetup_createUser'].'::"></a>'; 
+      echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['USERSETUP_createUser'].'::"></a>'; 
       
       if(!empty($userConfig)) {
         echo '<div class="sidebarInfo"><div class="content">';
         echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['BUTTON_UP'].'">'.$langFile['BUTTON_UP'].'</a>';
         if(is_array($userConfig)) {
   	      echo '<hr>';
-            echo '<h2>'.$langFile['userSetup_userSelection'].'</h2>';
+            echo '<h2>'.$langFile['USERSETUP_userSelection'].'</h2>';
             echo '<ul>';      
           
             // -> show a anchor link to each user
   	        foreach($userConfig as $user) {
-  	          $userIsAdmin = ($user['admin']) ? ' toolTip" style="font-weight:bold" title="'.$langFile['userSetup_admin'].'::"' : '"';
+  	          $userIsAdmin = ($user['admin']) ? ' toolTip" style="font-weight:bold" title="'.$langFile['USERSETUP_admin'].'::"' : '"';
               echo '<li><a href="#userId'.$user['id'].'" class="standardLink'.$userIsAdmin.'>'.$user['username'].'</a></li>';
           
             } echo '</ul>';
