@@ -80,18 +80,18 @@ var fileManagerGallery = new FileManager.Gallery({
         mgr.populate(obj, false);
 
         window.location.hash = "#none";
-        $("dimContainer").setStyle("opacity",0);
-        $("dimContainer").setStyle("display","block");
-        $("dimContainer").set("tween", {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-        $("dimContainer").fade("in");
-        $("dimContainer").addEvent("click",hideFileManager.bind(this));
+        $("dimmContainer").setStyle("opacity",0);
+        $("dimmContainer").setStyle("display","block");
+        $("dimmContainer").set("tween", {duration: 350, transition: Fx.Transitions.Pow.easeOut});
+        $("dimmContainer").fade("in");
+        $("dimmContainer").addEvent("click",hideFileManager.bind(this));
       },
     onHide: function() {
-        $("dimContainer").removeEvent("click",hideFileManager);
-        $("dimContainer").set("tween", {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-        $("dimContainer").fade("out");
-        $("dimContainer").get("tween").chain(function() {
-          $("dimContainer").setStyle("display","none");
+        $("dimmContainer").removeEvent("click",hideFileManager);
+        $("dimmContainer").set("tween", {duration: 350, transition: Fx.Transitions.Pow.easeOut});
+        $("dimmContainer").fade("out");
+        $("dimmContainer").get("tween").chain(function() {
+          $("dimmContainer").setStyle("display","none");
         });
       },
     onComplete: function(serialized, files, legal_root_dir, mgr) {

@@ -60,7 +60,7 @@ switch($_GET['site']) {
         echo '<ul class="flags">';
         foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
           if(!isset($websiteConfig['localized'][$langCode])) {
-            echo '<li><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="standardLink gray">'.$languageNames[$langCode].'</a></li>';
+            echo '<li><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="link gray">'.$languageNames[$langCode].'</a></li>';
           }
         }
         echo '</ul>';
@@ -105,7 +105,7 @@ switch($_GET['site']) {
             if(!isset($category['localized'][$langCode])) {
               $categoryName = GeneralFunctions::getLocalized($category,'name');
               $categoryName = (!empty($categoryName)) ? ' &rArr; '.$categoryName : '';
-              echo '<li><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> '.$languageNames[$langCode].'<a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="standardLink gray">'.$categoryName.'</a></li>';
+              echo '<li><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> '.$languageNames[$langCode].'<a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="link gray">'.$categoryName.'</a></li>';
             }
           }
         }

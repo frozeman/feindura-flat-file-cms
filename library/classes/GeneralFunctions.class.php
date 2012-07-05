@@ -2538,12 +2538,13 @@ class GeneralFunctions {
       foreach ($values as $key => $value) {
         $return .= "['".$key."'] => '".$value."'<br>";
       }
+    } elseif(is_bool($values)) {
+      $values = ($values) ? 'TRUE' : 'FALSE';
+      $return = "Bool: ".$values."<br>";
+    } elseif(is_numeric($values)) {
+      $return = "Numeric: ".$values."<br>";
     } elseif(!empty($values)) {
       $return = "'".$values."'<br>";
-    } elseif(is_numeric($values)) {
-      $return = "Numeric: '".$values."'<br>";
-    } elseif(is_bool($values)) {
-      $return = "Bool: '".$values."'<br>";
     } elseif(empty($values)) {
       $return = "EMPTY'<br>";
     } else

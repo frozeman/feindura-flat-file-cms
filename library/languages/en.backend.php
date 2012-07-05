@@ -280,7 +280,7 @@ $langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<st
 
 $langFile['WARNING_TITLE_UNTITLEDCATEGORIES']                             = 'Missing category names';
 
-$langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="feinduraName">fein<span>dura</span></span> is not made for older versions of the Internet Explorers';
+$langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="feinduraName">fein<span>dura</span></span> is not made for older versions of the Internet Explorer';
 $langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'To completely use  <span class="feinduraName">fein<span>dura</span></span> CMS you need at leats Internet Explorer 9.<br><br>Please install a newer version of the Internet Explorer,<br> or install the <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> for Internet Explorer,<br>or download and install the free <a href="http://www.mozilla.org/firefox/">Firefox</a> or <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
 
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Page is currently being edited...';

@@ -1,0 +1,62 @@
+/*
+ * feindura - Flat File Content Management System
+ * Copyright (C) Fabian Vogelsteller [frozeman.de]
+ *
+ * This program is free software;
+ * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not,see <http://www.gnu.org/licenses/>.
+ *
+ *
+ * The main style file, which includes all the other less files.
+ *
+ */
+
+// @import "bootstrap/css/bootstrap.min.css";
+
+
+// All stylesheet rules are inside the feindura class,
+// which will be in the backend add to the <html> and in the frontend add to each element containing feindura objects.
+// Even Bootstrap will have a add feindura class.
+.feindura {
+
+    // LESS Elements are useful mixins for CSS3 effects
+    @import "elements.less";
+
+
+    // feindura class styles
+    #transition > .duration(0);
+
+
+    // DELETE these LINES FROM the "bootstrap/less/variables.less", to allow these rules to apply
+    @iconSpritePath:          "../images/icons/glyphicons-halflings.png";
+    @iconWhiteSpritePath:     "../images/icons/glyphicons-halflings-white.png";
+
+    // Get bootstrap
+    @import "../bootstrap/less/bootstrap.less";
+
+
+    // GENERAL
+    // =======
+    // Contains the main variables and other general elements
+    @import "general.less";
+
+
+    // THIRDPARTY FIXES
+    // ================
+    // add thirdparty fixes (like for CKEditor, CodeMirror, etc)
+    @import "thirpartyFixes.less";
+
+
+    // LAYOUT
+    // ======
+    // Main layout structure
+    @import "layout.less";
+
+}

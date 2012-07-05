@@ -1,0 +1,187 @@
+
+// Colors
+@logoColorBlue: #3A79A5;
+@logoColorOrange: #DD6E1F;
+@colorRed: #A02F00;
+@colorBrown: #D7943C;
+@colorGray: #999999;
+
+// Measures
+@appWidth: 1255px;
+
+// Effects
+#boxShadows {
+    #shadow > .both(0, 1px, 10px, 0.4, #000, 0, 0px, 40px, 0.05);
+    #border > .rounded(20px);
+}
+#PIE {
+    behavior: url('library/thirdparty/javascripts/PIE.htc');
+}
+
+// ELEMENT FORMAT
+
+.blue {
+    color: @logoColorBlue !important;
+}
+.brown {
+    color: @colorBrown !important;
+}
+.red {
+    color: @colorRed !important;
+}
+.gray {
+    color: @colorGray !important;
+}
+a.gray:hover, a.gray:focus {
+    color: @logoColorOrange !important;
+}
+
+.hidden {
+    display: none;
+}
+// overwrite the hidden function for div.block
+.block.hidden,
+.sidebarMenu.hidden {
+    display: block;
+}
+
+
+// GENERAL ELEMENTS
+
+mark {
+    background-color: #fef086;
+    color: inherit;
+}
+
+
+// LINKS
+
+a, a.link {
+    padding-left: 18px;
+    color: @logoColorOrange;
+    text-decoration: none;
+    background: url("../images/icons/link.gif") no-repeat left center;
+    cursor: pointer !important;
+}
+a:hover,
+a:focus,
+a.link:hover,
+a.link:focus {
+    color: #536068;
+    text-decoration: none;
+}
+a:active,
+a.active,
+a.link:active,
+a.link.active {
+    color: #000000;
+    text-decoration: none;
+}
+p a {
+    background-position: 0px 4px;
+}
+
+// image links
+a.image {
+    display: inline-block;
+    padding-left: 0px;
+    background: none;
+}
+
+// anchor targets
+a.anchorTarget {
+    position: relative;
+    display: block;
+    visibility: hidden;
+    padding-left: 0px;
+    height: 0px;
+    top: -30px;
+    background: none;
+}
+
+
+// HORIZONTAL MENU
+
+menu.horizontal {
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+
+    li {
+        position: relative;
+        float: left;
+        display: block;
+        margin: 0px auto;
+        padding: 0px;
+        list-style: none;
+    }
+}
+
+
+// VERTICAL MENU
+
+menu.vertical {
+    margin: 0;
+    padding: 0;
+
+    li {
+        position: relative;
+        overflow: hidden;
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        height: 35px;
+        list-style: none;
+        white-space: nowrap;
+    }
+}
+
+
+// ELEMENTS
+
+#dimmContainer {
+    position: fixed;
+    z-index: 5;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: url("../images/bg/dimmContainer.png") repeat;
+}
+
+#documentSaved {
+    position: fixed;
+    top: 50%;
+    left: 480px;
+    z-index: 17;
+    display: none;
+    margin-top: -132px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 246px;
+    height: 264px;
+    background: url("../images/icons/documentSaved.png") no-repeat;
+}
+
+#loadingBox {
+    position: fixed;
+    top: 40%;
+    left: 470px;
+    z-index: 16;
+    display: none;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 30px 20px;
+    width: 330px;
+    background-color: #fff;
+    border: 1px solid #fff;
+    text-align: center;
+    #boxShadows;
+    #PIE;
+}
+
+div.leftSidebarLoadingCircle {
+    position: absolute;
+    top: 75px;
+    left: 60px;
+    z-index: 0;
+}

@@ -399,7 +399,7 @@ function setSidbarMenuTextLength() {
   sidbarMenuTextLength = 0;
   // gets the length of the longest text
   // walk trough all <li> <a> ellements an messure the <span> length
-  $$('.sidebarMenu ul li').each(function(passedLi) {
+  $$('.sidebarMenu menu li').each(function(passedLi) {
     var textLength = passedLi.getElement('a').getElement('span').offsetWidth;
     if(sidbarMenuTextLength < textLength) {
       sidbarMenuTextLength = textLength + 30; //+ 30 for padding
@@ -625,7 +625,6 @@ window.addEvent('domready', function() {
 
     // -> adds the TWEEN to the LOG-list
     $('sidebarTaskLog').setStyle('height',minHeight);
-    //$('sidebarTaskLog').setStyle('overflow','hidden'); // currently deactivated, allows alos scrolling with mousewheel
 
     // TWEEN OUT
     $('sidebarTaskLog').addEvent('mouseenter', function() {
@@ -715,7 +714,7 @@ window.addEvent('domready', function() {
     $('adminMenu').addEvents({
       mouseenter : function() { // resize on mouseover
         $('adminMenu').scrollTo(0,0);
-        $('adminMenu').tween('height',($('adminMenu').getChildren('.content table')[0].offsetHeight + 40) + 'px');
+        $('adminMenu').tween('height',($('adminMenu').getChildren('table')[0].offsetHeight + 40) + 'px');
       },
       mouseleave : function() { // resize on onmouseout
         $('adminMenu').tween('height','140px');
@@ -1536,7 +1535,7 @@ window.addEvent('domready', function() {
     var editorSubmited = false;
     var editorSubmitHeight = $('HTMLEditorSubmit').getSize().y;
     //$('HTMLEditorSubmit').setStyle('height',0);
-    $$('#content .editor .content').setStyle('display','block'); // shows the hot keys
+    $$('.mainContent .editor .content').setStyle('display','block'); // shows the hot keys
 
     // ------------------------------
     // CONFIG the HTMlEditor
@@ -1720,7 +1719,7 @@ window.addEvent('domready', function() {
           // -> UPDATE the TITLE everywhere
           title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
           $('edit_title').set('value',html);
-          $$('#leftSidebar .verticalButtons a.active').getLast().getChildren('span').set('html',html);
+          $$('#leftSidebar menu.vertical a.active').getLast().getChildren('span').set('html',html);
           setSidbarMenuTextLength();
           titleContent = $('editablePageTitle').get('html');
           // display document saved

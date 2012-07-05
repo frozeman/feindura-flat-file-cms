@@ -16,8 +16,7 @@
  *
  * update.php
  *
- *
- * @version 2.0
+ * @version 2.1
  */
 
 /**
@@ -258,6 +257,14 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       return serialize($activatedPlugins);
     }
 
+    // check if the last version was until the given version number
+    function until($version) {
+      if(strlen($version) >= 3 && strpos($version, '.') === false)
+        return ($GLOBALS['PREVBUILD'] <= $version) ? true : false;
+      else
+        return ($GLOBALS['PREVVERSION'].$GLOBALS['PREVBUILD'] <= $version) ? true : false;
+    }
+
     // and start!
     // *********
 
@@ -316,11 +323,11 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       $adminConfig['dateFormat'] = 'YMD';
 
     // only if was below 1.1.6
-    if($PREVVERSION <= '1.1.6')
+    if(until('1.1.6'))
       $adminConfig['speakingUrl'] = false; // beacuse i changed speaking url reg ex and createHref generation
 
-    // only if was below 2.0 build 947
-    if($PREVVERSION.$PREVBUILD < '2.0947' && !isset($categoryConfig[0]['id'])) {
+    // only if was until build 947
+    if(until('946') && !isset($categoryConfig[0]['id'])) {
 
       // delete the non-category, which only has the name (set in backend.include.php)
       unset($categoryConfig[0]);
@@ -406,9 +413,9 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
         $pageContent['plugins']['contactForm']['captcha'] = true;
 
 
-      // only if was below 1.1.6
+      // only if was until 1.1.6
       // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
-      if($PREVVERSION <= '1.1.6') {
+      if(until('1.1.6')) {
         if(isset($pageContent['plugins']['imageGallery']) && !isset($pageContent['plugins']['imageGalleryFromFolder'])) {
           $pageContent['plugins']['imageGalleryFromFolder'] = $pageContent['plugins']['imageGallery'];
           unset($pageContent['plugins']['imageGallery']);
@@ -589,9 +596,9 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
         $category['localized'][0]['name'] = $category['name'];
       }
 
-      // only if was below 1.1.6
+      // only if was until 1.1.6
       // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
-      if($PREVVERSION <= '1.1.6') {
+      if(until('1.1.6')) {
         $categoryPlugins = unserialize($category['plugins']);
         $newCategoryPlugins = array();
 
@@ -631,8 +638,8 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       $websiteConfig['localized'][0]['description'] = $websiteConfig['description'];
     }
 
-    // only if was below 2.0 build 952
-    if($PREVVERSION.$PREVBUILD < '2.0952') {
+    // only if was below 2.0 build 951
+    if(until('951')) {
       // maintenance
       if(!isset($websiteConfig['maintenance']))
         $websiteConfig['maintenance'] = $adminConfig['maintenance'];
@@ -757,225 +764,102 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     if(is_file(dirname(__FILE__).'/.htpasswd'))
       @unlink(dirname(__FILE__).'/.htpasswd');
 
-    // folders
+    // -> folders (path is relative to the CMS folder)
+    $deleteFolders = array();
+
+    $deleteFolders[] = 'library/javascript/';
+    $deleteFolders[] = 'library/thirdparty/customformelements/';
+    $deleteFolders[] = 'library/image/';
+    $deleteFolders[] = 'library/lang/';
+    $deleteFolders[] = 'library/process/';
+    $deleteFolders[] = 'library/style/';
+    $deleteFolders[] = 'library/images/key/';
+    $deleteFolders[] = 'library/images/sign/';
+    $deleteFolders[] = 'library/thirdparty/iepngfix_v2/';
+    $deleteFolders[] = 'library/thirdparty/CountDown/';
+    $deleteFolders[] = 'library/processes/';
+    $deleteFolders[] = 'library/sites/';
+
+
+    // -> files (path is relative to the CMS folder)
+    $deleteFiles = array();
+
+    $deleteFiles[] = 'README';
+    $deleteFiles[] = 'library/general.include.php';
+    $deleteFiles[] = 'library/frontend.include.php';
+    $deleteFiles[] = 'library/backend.include.php';
+    $deleteFiles[] = 'library/includes/frontend.include.php';
+    $deleteFiles[] = 'library/styles/setup.css';
+    $deleteFiles[] = 'library/styles/menus.css';
+    $deleteFiles[] = 'library/styles/sidebars.css';
+    $deleteFiles[] = 'library/javascripts/sidebar.js';
+    $deleteFiles[] = 'library/images/buttons/mainMenu_home.png';
+    $deleteFiles[] = 'library/thirdparty/javascripts/mootools-core-1.3.1.js';
+    $deleteFiles[] = 'library/thirdparty/javascripts/mootools-more-1.3.1.1.js';
+    $deleteFiles[] = 'library/thirdparty/spiders.txt';
+    $deleteFiles[] = 'statistic/visit.statistic.cache';
+    $deleteFiles[] = 'library/thirdparty/PHP/sessionLister.php';
+    $deleteFiles[] = 'library/processes.loader.php';
+    $deleteFiles[] = 'config/plugins.config.php';
+    $deleteFiles[] = 'library/controllers/feinduraWebmasterTool-0.2.controller.php';
+    $deleteFiles[] = 'library/thirdparty/spiders.xml';
+    $deleteFiles[] = 'library/images/buttons/footerMenu_createPage.png';
+    $deleteFiles[] = 'library/images/buttons/footerMenu_deletePage.png';
+    $deleteFiles[] = 'library/images/buttons/footerMenu_deleteThumb.png';
+    $deleteFiles[] = 'library/images/buttons/footerMenu_editPage.png';
+    $deleteFiles[] = 'library/images/buttons/footerMenu_fileManager.png';
+    $deleteFiles[] = 'library/images/buttons/footerMenu_spacer.png';
+    $deleteFiles[] = 'library/images/buttons/footerMenu_uploadThumb.png';
+    $deleteFiles[] = 'library/processes.controller.php';
+    $deleteFiles[] = 'library/images/bg/loginBody.php';
+    $deleteFiles[] = 'library/thirdparty/javascripts/mootools-core-1.3.2.js';
+    $deleteFiles[] = 'library/thirdparty/javascripts/mootools-more-1.3.2.1.js';
+    $deleteFiles[] = 'library/images/bg/sortPages_headBg.png';
+    $deleteFiles[] = 'library/images/bg/sortPages_liBg.png';
+    $deleteFiles[] = 'library/images/bg/errorWindow_bottom.gif';
+    $deleteFiles[] = 'library/images/bg/errorWindow_bottom.png';
+    $deleteFiles[] = 'library/images/bg/errorWindow_middle.gif';
+    $deleteFiles[] = 'library/images/bg/errorWindow_middle.png';
+    $deleteFiles[] = 'library/images/bg/errorWindow_top.gif';
+    $deleteFiles[] = 'library/images/bg/errorWindow_top.png';
+    $deleteFiles[] = 'library/images/bg/loadingBox_bottom.png';
+    $deleteFiles[] = 'library/images/bg/loadingBox_middle.png';
+    $deleteFiles[] = 'library/images/bg/windowBox_bottom.png';
+    $deleteFiles[] = 'library/images/bg/windowBox_middle.png';
+    $deleteFiles[] = 'library/images/bg/windowBox_middle.gif';
+    $deleteFiles[] = 'library/images/bg/windowBox_top.png';
+    $deleteFiles[] = 'library/images/bg/windowBox_top.gif';
+    $deleteFiles[] = 'library/images/bg/windowBox_h1.png';
+    $deleteFiles[] = 'library/images/bg/toolTip_bottom.png';
+    $deleteFiles[] = 'library/images/bg/toolTip_bottom.gif';
+    $deleteFiles[] = 'library/images/bg/toolTip_middle.png';
+    $deleteFiles[] = 'library/images/bg/toolTip_middle.gif';
+    $deleteFiles[] = 'library/images/bg/toolTip_top.png';
+    $deleteFiles[] = 'library/images/bg/toolTip_top.gif';
+    $deleteFiles[] = 'library/images/bg/errorWindow_bottom.gif';
+    $deleteFiles[] = 'library/images/bg/errorWindow_bottom.gif';
+    $deleteFiles[] = 'library/images/bg/subMenu_left.png';
+    $deleteFiles[] = 'library/images/bg/subMenu_middle.png';
+    $deleteFiles[] = 'library/images/bg/subMenu_right.png';
+    $deleteFiles[] = 'library/images/bg/sidebarMenu_spacer.png';
+    $deleteFiles[] = 'library/images/bg/dimContainer.png';
+
+    // CHECK if files could be deleted
     $checkFiles = array();
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/javascript/') &&
-      is_dir(dirname(__FILE__).'/library/javascript/'))
-      $checkFiles[] = dirname(__FILE__).'/library/javascript/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/javascript/') &&
-      is_dir(dirname(__FILE__).'/library/thirdparty/javascript/'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascript/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/customformelements/') &&
-      is_dir(dirname(__FILE__).'/library/thirdparty/customformelements/'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/customformelements/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/image/') &&
-      is_dir(dirname(__FILE__).'/library/image/'))
-      $checkFiles[] = dirname(__FILE__).'/library/image/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/lang/') &&
-      is_dir(dirname(__FILE__).'/library/lang/'))
-      $checkFiles[] = dirname(__FILE__).'/library/lang/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/process/') &&
-      is_dir(dirname(__FILE__).'/library/process/'))
-      $checkFiles[] = dirname(__FILE__).'/library/process/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/style/') &&
-      is_dir(dirname(__FILE__).'/library/style/'))
-      $checkFiles[] = dirname(__FILE__).'/library/style/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/images/key/') &&
-      is_dir(dirname(__FILE__).'/library/images/key/'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/key/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/images/sign/') &&
-      is_dir(dirname(__FILE__).'/library/images/sign/'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/sign/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/iepngfix_v2/') &&
-      is_dir(dirname(__FILE__).'/library/thirdparty/iepngfix_v2/'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/iepngfix_v2/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/thirdparty/CountDown/') &&
-      is_dir(dirname(__FILE__).'/library/thirdparty/CountDown/'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/CountDown/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/processes/') &&
-      is_dir(dirname(__FILE__).'/library/processes/'))
-      $checkFiles[] = dirname(__FILE__).'/library/processes/';
-    if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/library/sites/') &&
-      is_dir(dirname(__FILE__).'/library/sites/'))
-      $checkFiles[] = dirname(__FILE__).'/library/sites/';
 
-    // files
-    if(!unlink(dirname(__FILE__).'/README')&&
-      is_file(dirname(__FILE__).'/README'))
-      $checkFiles[] = dirname(__FILE__).'/README';
-    if(!unlink(dirname(__FILE__).'/library/general.include.php')&&
-      is_file(dirname(__FILE__).'/library/general.include.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/general.include.php';
-    if(!unlink(dirname(__FILE__).'/library/frontend.include.php')&&
-      is_file(dirname(__FILE__).'/library/frontend.include.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/frontend.include.php';
-    if(!unlink(dirname(__FILE__).'/library/backend.include.php') &&
-      is_file(dirname(__FILE__).'/library/backend.include.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/backend.include.php';
-    if(!unlink(dirname(__FILE__).'/library/includes/frontend.include.php') &&
-      is_file(dirname(__FILE__).'/library/includes/frontend.include.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/includes/frontend.include.php';
-    if(!unlink(dirname(__FILE__).'/library/styles/setup.css') &&
-      is_file(dirname(__FILE__).'/library/styles/setup.css'))
-      $checkFiles[] = dirname(__FILE__).'/library/styles/setup.css';
-    if(!unlink(dirname(__FILE__).'/library/styles/menus.css') &&
-      is_file(dirname(__FILE__).'/library/styles/menus.css'))
-      $checkFiles[] = dirname(__FILE__).'/library/styles/menus.css';
-    if(!unlink(dirname(__FILE__).'/library/styles/sidebars.css') &&
-      is_file(dirname(__FILE__).'/library/styles/sidebars.css'))
-      $checkFiles[] = dirname(__FILE__).'/library/styles/sidebars.css';
-    if(!unlink(dirname(__FILE__).'/library/javascripts/sidebar.js') &&
-      is_file(dirname(__FILE__).'/library/javascripts/sidebar.js'))
-      $checkFiles[] = dirname(__FILE__).'/library/javascripts/sidebar.js';
-    if(!unlink(dirname(__FILE__).'/library/images/buttons/mainMenu_home.png') &&
-      is_file(dirname(__FILE__).'/library/images/buttons/mainMenu_home.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/mainMenu_home.png';
-    if(!unlink(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-core-1.3.1.js') &&
-      is_file(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-core-1.3.1.js'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascripts/mootools-core-1.3.1.js';
-    if(!unlink(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.1.1.js') &&
-      is_file(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.1.1.js'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.1.1.js';
-    if(!unlink(dirname(__FILE__).'/library/thirdparty/spiders.txt') &&
-      is_file(dirname(__FILE__).'/library/thirdparty/spiders.txt'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/spiders.txt';
-    if(!unlink(dirname(__FILE__).'/statistic/visit.statistic.cache') &&
-      is_file(dirname(__FILE__).'/statistic/visit.statistic.cache'))
-      $checkFiles[] = dirname(__FILE__).'/statistic/visit.statistic.cache';
-    if(!unlink(dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php') &&
-      is_file(dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php';
-    if(!unlink(dirname(__FILE__).'/library/processes.loader.php') &&
-      is_file(dirname(__FILE__).'/library/processes.loader.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/processes.loader.php';
-    // since 1.1.2
-    if(!unlink(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool.controller.php') &&
-      is_file(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool.controller.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/controllers/feinduraWebmasterTool.controller.php';
-    // since 1.1.4
-    if(!unlink(dirname(__FILE__).'/config/plugins.config.php') &&
-      is_file(dirname(__FILE__).'/config/plugins.config.php'))
-      $checkFiles[] = dirname(__FILE__).'/config/plugins.config.php';
-    // since 1.1.6
-    if(!unlink(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool-0.2.controller.php') &&
-      is_file(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool-0.2.controller.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/controllers/feinduraWebmasterTool-0.2.controller.php';
-    if(!unlink(dirname(__FILE__).'/library/thirdparty/spiders.xml') &&
-      is_file(dirname(__FILE__).'/library/thirdparty/spiders.xml'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/spiders.xml';
-    // since 2.0
-    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_createPage.png') &&
-      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_createPage.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_createPage.png';
-    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_deletePage.png') &&
-      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_deletePage.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_deletePage.png';
-    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_deleteThumb.png') &&
-      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_deleteThumb.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_deleteThumb.png';
-    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_editPage.png') &&
-      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_editPage.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_editPage.png';
-    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_fileManager.png') &&
-      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_fileManager.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_fileManager.png';
-    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_spacer.png') &&
-      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_spacer.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_spacer.png';
-    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_uploadThumb.png') &&
-      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_uploadThumb.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_uploadThumb.png';
-    if(!unlink(dirname(__FILE__).'/library/processes.controller.php') &&
-      is_file(dirname(__FILE__).'/library/processes.controller.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/processes.controller.php';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/loginBody.php') &&
-      is_file(dirname(__FILE__).'/library/images/bg/loginBody.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/loginBody.php';
-    if(!unlink(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-core-1.3.2.js') &&
-      is_file(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-core-1.3.2.js'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascripts/mootools-core-1.3.2.js';
-    if(!unlink(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.2.1.js') &&
-      is_file(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.2.1.js'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.2.1.js';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/sortPages_headBg.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/sortPages_headBg.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/sortPages_headBg.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/sortPages_liBg.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/sortPages_liBg.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/sortPages_liBg.png';
-    if(!unlink(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-index.xml.gz') &&
-      is_file(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-index.xml.gz'))
-      $checkFiles[] = GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-index.xml.gz';
-    if(!unlink(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-pages-1.xml.gz') &&
-      is_file(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-pages-1.xml.gz'))
-      $checkFiles[] = GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-pages-1.xml.gz';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/errorWindow_bottom.gif') &&
-      is_file(dirname(__FILE__).'/library/images/bg/errorWindow_bottom.gif'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/errorWindow_bottom.gif';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/errorWindow_bottom.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/errorWindow_bottom.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/errorWindow_bottom.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/errorWindow_middle.gif') &&
-      is_file(dirname(__FILE__).'/library/images/bg/errorWindow_middle.gif'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/errorWindow_middle.gif';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/errorWindow_middle.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/errorWindow_middle.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/errorWindow_middle.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/errorWindow_top.gif') &&
-      is_file(dirname(__FILE__).'/library/images/bg/errorWindow_top.gif'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/errorWindow_top.gif';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/errorWindow_top.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/errorWindow_top.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/errorWindow_top.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/loadingBox_bottom.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/loadingBox_bottom.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/loadingBox_bottom.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/loadingBox_middle.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/loadingBox_middle.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/loadingBox_middle.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_bottom.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/windowBox_bottom.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_bottom.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_bottom.gif') &&
-      is_file(dirname(__FILE__).'/library/images/bg/windowBox_bottom.gif'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_bottom.gif';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_middle.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/windowBox_middle.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_middle.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_middle.gif') &&
-      is_file(dirname(__FILE__).'/library/images/bg/windowBox_middle.gif'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_middle.gif';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_top.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/windowBox_top.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_top.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_top.gif') &&
-      is_file(dirname(__FILE__).'/library/images/bg/windowBox_top.gif'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_top.gif';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/windowBox_h1.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/windowBox_h1.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/windowBox_h1.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_bottom.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/toolTip_bottom.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_bottom.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_bottom.gif') &&
-      is_file(dirname(__FILE__).'/library/images/bg/toolTip_bottom.gif'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_bottom.gif';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_middle.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/toolTip_middle.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_middle.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_middle.gif') &&
-      is_file(dirname(__FILE__).'/library/images/bg/toolTip_middle.gif'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_middle.gif';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_top.png') &&
-      is_file(dirname(__FILE__).'/library/images/bg/toolTip_top.png'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_top.png';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_top.gif') &&
-      is_file(dirname(__FILE__).'/library/images/bg/toolTip_top.gif'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_top.gif';
-    if(!unlink(dirname(__FILE__).'/library/images/bg/toolTip_top.gif') &&
-      is_file(dirname(__FILE__).'/library/images/bg/toolTip_top.gif'))
-      $checkFiles[] = dirname(__FILE__).'/library/images/bg/toolTip_top.gif';
+    // DELTE FILES
+    foreach ($deleteFiles as $file) {
+      if(!unlink(dirname(__FILE__).'/'.$file) &&
+        is_file(dirname(__FILE__).'/'.$file))
+        $checkFiles[] = dirname(__FILE__).'/'.$file;
+    }
 
+    // DELTE FOLDERS
+    foreach ($deleteFolders as $folder) {
+      if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/'.$folder) &&
+      is_dir(dirname(__FILE__).'/'.$folder))
+      $checkFiles[] = dirname(__FILE__).'/'.$folder;
+    }
 
     // delete lowercase class names
     if(strpos(strtolower(PHP_OS),'win') === false) {
@@ -999,6 +883,15 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
         is_file(dirname(__FILE__).'/config/htmlEditorStyles.js'))
         $checkFiles[] = dirname(__FILE__).'/config/htmlEditorStyles.js';
     }
+
+    // extra, delete old sitemap files
+    if(!unlink(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-index.xml.gz') &&
+      is_file(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-index.xml.gz'))
+      $checkFiles[] = GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-index.xml.gz';
+    if(!unlink(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-pages-1.xml.gz') &&
+      is_file(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-pages-1.xml.gz'))
+      $checkFiles[] = GeneralFunctions::getRealPath(GeneralFunctions::getDirname($adminConfig['websitePath'])).'/sitemap-pages-1.xml.gz';
+
 
     if(empty($checkFiles))
       echo 'removed <span class="succesfull">old files and folders</span><br>';

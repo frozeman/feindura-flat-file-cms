@@ -18,7 +18,7 @@ noJavascript.css version 0.1 */
 /* --------------------- */
 /* -------> PREVENT HIDING of the HIDDEN BLOCKs*/
 
-#content .block.hidden .content {
+.mainContent .block.hidden .content {
     display: block !important;
     /*height: auto !important;*/
     }

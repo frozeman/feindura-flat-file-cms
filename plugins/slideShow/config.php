@@ -2,9 +2,9 @@
 /**
  * @package [Plugins]
  * @subpackage slideShow
- * 
+ *
  * If the key contains certain words, it will create different inputs. The check for this keywords in case insensitive (means "path" and "Path" is the same).
- * 
+ *
  * key contains (without the ...):<br>
  * - "...Url"                        The value of this setting will be checked by {@link XssFilter::url()}<br>
  * - "...Path"                       The value of this setting will be checked by {@link XssFilter::path()}<br>
@@ -16,19 +16,19 @@
  * - "...Script"                     It will create a <script> tag with the value as content, before the plugin settings <table> tag.
  * - "...Echo"                       It will just display this string after the last plugin setting ..</td></tr> and before the next <tr><td>... This could be used to create custom config settings in the plugin settings table.
  * - if the value is a boolean       It will create a checkbox and will check this value against {@link XssFilter::bool()}<br>
- * 
- *  
+ *
+ *
  * Example
  * <samp>
  * $pluginConfig['linkPath'] = ''; // would use the path filter
  * </samp>
- * 
+ *
  * @see XssFilter::url()
  * @see XssFilter::path()
  * @see XssFilter::number()
  * @see XssFilter::bool()
  * @see XssFilter::text()
- */ 
+ */
 
 $pluginConfig['imagesHidden']           = '';
 $pluginConfig['selectImagesJsFunction'] = 'slideShowSelectImage';
@@ -96,18 +96,18 @@ var fileManagerSlideShow = new FileManager.Gallery({
         mgr.populate(obj, false);
 
         window.location.hash = "#none";
-        $("dimContainer").setStyle("opacity",0);
-        $("dimContainer").setStyle("display","block");
-        $("dimContainer").set("tween", {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-        $("dimContainer").fade("in");
-        $("dimContainer").addEvent("click",hideFileManager.bind(this));
+        $("dimmContainer").setStyle("opacity",0);
+        $("dimmContainer").setStyle("display","block");
+        $("dimmContainer").set("tween", {duration: 350, transition: Fx.Transitions.Pow.easeOut});
+        $("dimmContainer").fade("in");
+        $("dimmContainer").addEvent("click",hideFileManager.bind(this));
       },
     onHide: function() {
-        $("dimContainer").removeEvent("click",hideFileManager);
-        $("dimContainer").set("tween", {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-        $("dimContainer").fade("out");
-        $("dimContainer").get("tween").chain(function() {
-          $("dimContainer").setStyle("display","none");
+        $("dimmContainer").removeEvent("click",hideFileManager);
+        $("dimmContainer").set("tween", {duration: 350, transition: Fx.Transitions.Pow.easeOut});
+        $("dimmContainer").fade("out");
+        $("dimmContainer").get("tween").chain(function() {
+          $("dimmContainer").setStyle("display","none");
         });
       },
     onComplete: function(serialized, files, legal_root_dir, mgr) {

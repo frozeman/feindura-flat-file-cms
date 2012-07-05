@@ -89,7 +89,7 @@ ChangeLog:
   build 891: fixed listPages filter; add enter mode and selection with up/down
   build 890: changed subcategory position in pagesetup
   build 889: changed imageGallery plugin, so that fixed thumbnails stay the same, because the image will be add as background to the <a>
-  build 888: hide always windowBox when clicking on the dimContainer
+  build 888: hide always windowBox when clicking on the dimmContainer
   build 887: add autofocus for listpages filter input
   build 886: tag string in hasTags() can't have whitespaces a separator
   build 885: and again the update.php
@@ -430,7 +430,7 @@ ChangeLog:
   build 586: add real paths to all filesystem related functions, so when the uri space is different (e.g. because of mod_alias) it should still everything work
   build 585: fixed currentVisitors info
   build 584: add currentVisitors info to the right sidebar
-  build 583: add transparent dimContainer image, to save resources (dont have to make it in js)
+  build 583: add transparent dimmContainer image, to save resources (dont have to make it in js)
   build 582: fixed thumbnail deletion
   build 581: add CKEditor 3.5.2
   build 580: fixed editor slide in out in firefox4

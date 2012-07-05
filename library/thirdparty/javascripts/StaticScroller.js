@@ -19,9 +19,9 @@ provides: [StaticScroller]
 
 */
 var StaticScroller = new Class({
-	
+
 	Implements: Options,
-	
+
 		options: {
 			offset: 1,
 			scrollElement: window
@@ -47,29 +47,29 @@ var StaticScroller = new Class({
 		this.attachWindow();
 		this.checkHeight();
 	},
-	
+
 	attachScroll: function(){
 		this.scrollElement.addEvent('scroll', this.bound.scroll);
 		return this;
 	},
-	
+
 	attachWindow: function(){
 		window.addEvent('resize', this.bound.resize);
 		return this;
 	},
-			
+
 	detachScroll: function(){
 		this.scrollElement.removeEvent('scroll', this.bound.scroll);
 		return this;
 	},
-	
+
 	detachWindow: function(){
 		window.removeEvent('resize', this.bound.resize);
 		return this;
 	},
-	
+
 	checkHeight: function(){
-		if(this.getDocHeight() < this.element.getSize().y) {
+		if(document.getSize().y < this.element.getSize().y) {
 			this.detachScroll().reset();
 		} else {
 			this.attachScroll().scroll();
@@ -77,19 +77,10 @@ var StaticScroller = new Class({
 		return this;
 	},
 
-	getDocHeight: function() {
-		var D = document;
-		return Math.max(
-			Math.max(D.body.scrollHeight, D.documentElement.scrollHeight),
-			Math.max(D.body.offsetHeight, D.documentElement.offsetHeight),
-			Math.max(D.body.clientHeight, D.documentElement.clientHeight)
-		);
-	},
-	
 	isPinned: function(){
 		return (this.element.retrieve('pinned'));
 	},
-	
+
 	scroll: function(){
 		var collision = (this.scrollElement.getScroll().y > this.originalPosition.y - this.options.offset);
 		var isPinned = this.isPinned();
@@ -106,13 +97,13 @@ var StaticScroller = new Class({
 		}
 		return this;
 	},
-	
+
 	resize: function(){
 		if(this.isPinned()) this.reset();
 		this.checkHeight();
 		return this;
 	},
-	
+
 	reset: function(){
 		if(this.isPinned()) {
       this.element.unpin().setStyles({

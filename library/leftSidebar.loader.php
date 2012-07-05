@@ -27,21 +27,21 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 // if page ID is given, it LOAD THE EDITOR
 // or if $_GET['site'] == 'pages'
 if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pages'
-  
+
   $tabIndex = 40;
-  
+
   // ----  show QUICKMENU for the NONE-CATEGORY PAGES
   // slide the categories menu IN, when a category is open
   if(empty($_GET['category']))
     $hidden = '';
-  else 
+  else
     $hidden = ' hidden';
-  
+
   echo '<div class="sidebarMenu fixed'.$hidden.'">
   <div class="top brown"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
   <div class="content brown">
-    <ul class="verticalButtons">';
-          
+    <menu class="vertical">';
+
     if($pages = GeneralFunctions::loadPages(0)) {
       foreach($pages as $page) {
 
@@ -54,35 +54,35 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
           $pageSelected = ' class="active"';
         else
           $pageSelected = '';
-             
+
         echo '<li><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span'.$pageId.'>'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
         $tabIndex++;
       }
     } else {
       echo '<li><a href="#" onclick="return false;"><span>'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'</span></a></li>';
     }
-      
-  echo '</ul>          
+
+  echo '</menu>
     </div>
     <div class="bottom"><a href="#">&nbsp;</a></div>
   </div>';
-  
+
   // ----  show QUICKMENU for the CATEGORIES
   if(!empty($categoryConfig)) {
-    
+
     // spacer
     echo '<div class="spacer"></div>';
 
     // slide the categories menu OUT, when a category is open
-    if($_GET['site'] != 'pages' && $_GET['category'] == 0) // 
+    if($_GET['site'] != 'pages' && $_GET['category'] == 0) //
       $hidden = ' hidden';
     else $hidden = '';
-  
+
     echo '<div class="sidebarMenu free'.$hidden.'">
     <div class="top blue"><img src="library/images/icons/categoryIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
     <div class="content blue">
-      <ul class="verticalButtons">';      
-        
+      <menu class="vertical">';
+
       foreach($categoryConfig as $category) {
 
         // overjump the non-category
@@ -96,29 +96,29 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
         if($_GET['category'] == $category['id'])
             $categorySelected = ' class="active"';
           else
-            $categorySelected = '';                  
-        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="requestLeftSidebar(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span'.$categoryId.'>'.GeneralFunctions::getLocalized($category,'name').'</span></a></li>';        
+            $categorySelected = '';
+        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="requestLeftSidebar(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span'.$categoryId.'>'.GeneralFunctions::getLocalized($category,'name').'</span></a></li>';
         $tabIndex++;
-      }        
-    echo '</ul>          
+      }
+    echo '</menu>
       </div>
       <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
     </div>';
   }
-  
+
   // ----  show QUICKMENU for the CATEGORY PAGES
   if(!empty($_GET['category'])) {
-    
+
     // spacer
     echo '<div class="spacer arrow"></div>';
-    
+
     echo '<div class="sidebarMenu free">
     <div class="top gray"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</span><a href="#" class="toolTip" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'::">&nbsp;</a></div>
     <div class="content white">
-      <ul class="verticalButtons">';      
-      
-      if($pages = GeneralFunctions::loadPages($_GET['category'])) { 
-  
+      <menu class="vertical">';
+
+      if($pages = GeneralFunctions::loadPages($_GET['category'])) {
+
         foreach($pages as $page) {
 
           // -> show page ID
@@ -130,14 +130,14 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
             $pageSelected = ' class="active"';
           else
             $pageSelected = '';
-               
+
           echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span'.$pageId.'>'.GeneralFunctions::getLocalized($page,'title').'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
           $tabIndex++;
-        }       
+        }
       } else {
         echo '<li><a href="#" onclick="return false;"><span>'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'</span></a></li>';
-      }        
-    echo '</ul>          
+      }
+    echo '</menu>
       </div>
       <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
     </div>';
@@ -150,52 +150,52 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
   // SWITCH the &_GET['site'] var
   switch($_GET['site']) {
     // ***** DASHBOARD -------------------------------------------- **********
-    case 'dashboard': case '':
-      
+    case 'dashboard': case 'pages': case '':
+
       echo '<div class="sidebarInfo"><div class="content">';
-      
+
       // -> SHOW TASK LOG
       echo '<h2>'.$langFile['DASHBOARD_TITLE_ACTIVITY'].'</h2>';
-      
+
       if(file_exists(dirname(__FILE__).'/../statistic/activity.statistic.log') &&
          $logContent = file(dirname(__FILE__).'/../statistic/activity.statistic.log')) {
-         
-         echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat;margin-bottom:-30px;"></div>';
+
+         echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat; top: 40px;"></div>';
          echo '<div id="sidebarTaskLog"><br><br>';
-         
+
               // ->> LIST the tasks
               include(dirname(__FILE__).'/includes/showTaskLog.include.php');
-              
+
          echo '<br><br></div>';
-         echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollDown.png) no-repeat;margin-top:-30px;"></div>';
+         echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(\'library/images/bg/sidebarScrollDown.png\') no-repeat; margin-top:-30px;"></div>';
       // no log
       } else
         echo $langFile['DASHBOARD_TEXT_ACTIVITY_NONE'];
-      
+
       echo '<hr>';
-      
+
       // -> SHOW USERs
-      echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" width="22" height="21" style="position:relative;top:5px;"> '.$langFile['DASHBOARD_TITLE_USER'].'</h2><br>';
-        if(!empty($userConfig)) {        
+      echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" width="22" height="21"> '.$langFile['DASHBOARD_TITLE_USER'].'</h2><br>';
+        if(!empty($userConfig)) {
 
           // list user
-          echo '<ul id="sidebarListUsers">';
+          echo '<ul class="sidebarListUsers unstyled">';
           foreach($userConfig as $user) {
-            
+
             echo '<li';
             // your own user
             if($_SESSION['feinduraSession']['login']['user'] == $user['id'])
               echo ' class="toolTip online brown" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
             // users who are online too
             else {
-              foreach($userCache as $cachedUser) { 
+              foreach($userCache as $cachedUser) {
                 if($user['username'] == $cachedUser['username']) {
                   echo ' class="toolTip online" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$cachedUser["timestamp"]).'"';
                     break;
-                }              
+                }
               }
             }
-              
+
             // list users
             echo '>'.$user['username'].'</li>';
           }
@@ -203,97 +203,95 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
         // no users
         } else
           echo '<span style="color:#9E0000;">'.$langFile['USER_TEXT_NOUSER'].'</span>';
-      
+
       echo '</div></div>';
-      
+
       break;
     // ***** ADMIN SETUP sideBar -------------------------------------------- **********
     case 'adminSetup':
       if(!isAdmin()) break;
-      
+
       echo '<div class="sidebarInfo"><div class="content">';
-      
+
       // FEINDURA INFO
       echo '<h2>'.$langFile['ADMINSETUP_TEXT_VERSION'].'</h2>
             <p>'.VERSION.' - Build '.BUILD.'</p>';
-      echo '<a href="README.md" class="standardLink">README</a><br>';
-      echo '<a href="CHANGELOG" class="standardLink">CHANGELOG</a><br>';
-      echo '<a href="LICENSE" class="standardLink">LICENSE</a>';
+      echo '<a href="README.md" class="link">README</a><br>';
+      echo '<a href="CHANGELOG" class="link">CHANGELOG</a><br>';
+      echo '<a href="LICENSE" class="link">LICENSE</a>';
       echo '<hr>';
-      
+
       echo '<h3>'.$langFile['ADMINSETUP_TEXT_PHPVERSION'].'</h3>
       <p>'.PHP_VERSION.'</p>';
-       
-      echo '<h3>'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'</h3>';   
+
+      echo '<h3>'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'</h3>';
       echo '<p class="toolTip" title="'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'::'.DOCUMENTROOT.'">'.DOCUMENTROOT.'</p>
           </div></div>';
-      
+
       break;
     // ***** PAGESETUP -------------------------------------------- **********
     case 'pageSetup':
       if(!isAdmin()) break;
-      
+
       // -> CATEGORY ANCHOR LINKS
       echo '<div id="sidebarSelection" class="staticScroller">';
-      
-      echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY'].'::"></a>'; 
-      
+
+      echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY'].'::"></a>';
+
       if(!empty($categoryConfig)) {
-        echo '<div class="sidebarInfo"><div class="content">';
-        echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['BUTTON_UP'].'">'.$langFile['BUTTON_UP'].'</a>';
+        echo '<div class="content">';
+        // echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['BUTTON_UP'].'">'.$langFile['BUTTON_UP'].'</a>';
         if(is_array($categoryConfig)) {
-  	      echo '<hr>';
             echo '<h2>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</h2>';
-            echo '<ul>';      
-          
+            echo '<ul class="nav nav-tabs nav-stacked">';
+
             // -> show a anchor link to each category
   	        foreach($categoryConfig as $category) {
               // overjump the non-category
               if($category['id'] == 0) continue;
 
-              echo '<li><a href="#categoryAnchor'.$category['id'].'" class="standardLink">'.GeneralFunctions::getLocalized($category,'name').'</a></li>';
-          
+              echo '<li><a href="#categoryAnchor'.$category['id'].'" class="link">'.GeneralFunctions::getLocalized($category,'name').'</a></li>';
+
             }	echo '</ul>';
-	      } echo '</div></div>';
+	      } echo '</div>';
       } echo '</div>';
 
       break;
     // ***** USERSETUP -------------------------------------------- **********
     case 'userSetup':
       if(!isAdmin()) break;
-      
+
       // -> USER ANCHOR LINKS
       echo '<div id="sidebarSelection" class="staticScroller">';
-      
-      echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['USERSETUP_createUser'].'::"></a>'; 
-      
+
+      echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['USERSETUP_createUser'].'::"></a>';
+
       if(!empty($userConfig)) {
-        echo '<div class="sidebarInfo"><div class="content">';
-        echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['BUTTON_UP'].'">'.$langFile['BUTTON_UP'].'</a>';
+        echo '<div class="content">';
+        // echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['BUTTON_UP'].'">'.$langFile['BUTTON_UP'].'</a>';
         if(is_array($userConfig)) {
-  	      echo '<hr>';
             echo '<h2>'.$langFile['USERSETUP_userSelection'].'</h2>';
-            echo '<ul>';      
-          
+            echo '<ul class="nav nav-tabs nav-stacked">';
+
             // -> show a anchor link to each user
   	        foreach($userConfig as $user) {
   	          $userIsAdmin = ($user['admin']) ? ' toolTip" style="font-weight:bold" title="'.$langFile['USERSETUP_admin'].'::"' : '"';
-              echo '<li><a href="#userId'.$user['id'].'" class="standardLink'.$userIsAdmin.'>'.$user['username'].'</a></li>';
-          
+              echo '<li><a href="#userId'.$user['id'].'" class="link'.$userIsAdmin.'>'.$user['username'].'</a></li>';
+
             } echo '</ul>';
-	      } echo '</div></div>';
+	      } echo '</div>';
       } echo '</div>';
 
       break;
     // ***** BACKUP sideBar -------------------------------------------- **********
     case 'backup':
       if(!isAdmin()) break;
-      
+
       echo '<div id="sidebarSelection">';
       echo '<div class="sidebarInfo"><div class="content">';
-      
+
       // link the backup files
-      $backups = GeneralFunctions::readFolder(dirname(__FILE__).'/../backups/');      
+      $backups = GeneralFunctions::readFolder(dirname(__FILE__).'/../backups/');
       if(!empty($backups['files'])) {
         $lastBackups = '<ul>';
         natsort($backups['files']);
@@ -306,20 +304,20 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
           $lastBackups .= (strpos($backupFile,'restore') === false)
             ? '<li class="backupLink"><a href="'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($backupTime)).' '.formatTime($backupTime).'</a></li>'."\n"
             : '<li class="backupLink"><a href="'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($backupTime)).' '.formatTime($backupTime).'</a></li>'."\n";
-          
+
           $lastBackups .= '</span>';
         }
-        $lastBackups .= '</ul>';   
+        $lastBackups .= '</ul>';
       } else
         $lastBackups = '<p>'.$langFile['BACKUP_TEXT_NOBACKUP'].'</p>';
-      
+
       // BACKUP DOWNLOADS
       echo '<h2>'.$langFile['BACKUP_TITLE_LASTBACKUPS'].'</h2>';
       echo $lastBackups;
       echo '</div></div>';
       echo '</div>';
-      
-      break;   
+
+      break;
   } //switch END
 }
 

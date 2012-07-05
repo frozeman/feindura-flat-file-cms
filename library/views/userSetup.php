@@ -161,7 +161,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
           echo '<tr class="userPermissionsTr'.$hidden.'"><td class="left buttons">
                       </td><td class="right buttons">
-                        <a href="?site=userPermissions" class="button" onclick="openWindowBox(\'library/views/windowBox/userPermissions.php\',\''.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'\');return false;"'.$keyTip.'>'.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'</a>
+                        <a href="?site=userPermissions" class="btn btn-large" onclick="openWindowBox(\'library/views/windowBox/userPermissions.php\',\''.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'\');return false;"'.$keyTip.'>'.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'</a>
                       </td></tr>';
 
           echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';

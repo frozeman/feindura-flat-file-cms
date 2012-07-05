@@ -138,7 +138,7 @@ if($adminConfig['user']['fileManager']) {
 </script>
 
     <div class="content">
-      <a href="#" id="hotKeysToogle" class="down standardLink"><?php echo $langFile['EDITOR_htmleditor_hotkeys_h1']; ?></a>
+      <a href="#" id="hotKeysToogle" class="down link"><?php echo $langFile['EDITOR_htmleditor_hotkeys_h1']; ?></a>
       <div id="hotKeys">
       <br>
       <table style="width:450px; padding: 8px; border-spacing: 0; border:1px solid #B3B3B4;">

@@ -1,0 +1,802 @@
+
+body {
+    height: 100%;
+    background: #5b5b5b url("../images/bg/body.png") repeat;
+    color: #000000;
+    font: 12px Verdana, Arial, Sans-serif, Serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+
+// HEADER
+
+header.main {
+    position: relative;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    height: 150px;
+    min-width: @appWidth;
+    background: url("../images/bg/header.png") repeat-x;
+    #shadow > .text(0 1px 1px #fff);
+
+    div.menuBlock {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        width: 850px;
+        height: 141px;
+        background: url("../images/bg/headerBlock.png") no-repeat;
+
+
+        // MAINMENU
+
+        nav.mainMenu {
+            position: absolute;
+            top: 0px; // right: 250px;
+            left: 208px;
+            z-index: 1;
+            width: 640px;
+
+            table {
+                width: 100%;
+                border: none;
+                border-collapse: collapse;
+            }
+            td {
+                vertical-align: top;
+                text-align: center;
+            }
+
+            // MAIN MENU BUTTONS
+            a {
+                position: relative;
+                top: 0px;
+                display: inline-block;
+                margin: 0px 5px;
+                padding: 0;
+                padding-top: 97px;
+                width: 106px;
+                height: 44px;
+                color: #666666;
+                text-align: center;
+                text-decoration: none;
+                line-height: 15px;
+            }
+            a:hover,
+            a:focus,
+            a.active {
+                background-position: 0px -142px !important;
+            }
+            a:hover {
+                color: #CF7F52;
+            }
+            // this hack, position the text in the bottom of the button, but its vertical-align in the span is middle
+            a span{
+                position: relative;
+                display: table-cell;
+                width: 106px;
+                height: 40px;
+                vertical-align: middle;
+                font-size: 12px;
+            }
+            a.dashboard {
+                background: url("../images/buttons/mainMenu_dashboard.png") no-repeat;
+            }
+            a.pages {
+                background: url("../images/buttons/mainMenu_pages.png") no-repeat;
+            }
+            a.addons {
+                background: url("../images/buttons/mainMenu_addons.png") no-repeat;
+            }
+            a.websiteSetup {
+                background: url("../images/buttons/mainMenu_settings.png") no-repeat;
+            }
+            a.search {
+                background: url("../images/buttons/mainMenu_search.png") no-repeat;
+            }
+        }
+    }
+
+    #sessionTimout {
+        position: absolute;
+        top: 8px;
+        left: 140px;
+        z-index: 3;
+        font-size: 11px;
+    }
+
+    // LOGO
+    a.feinduraLogo {
+        position: absolute;
+        top: 25px;
+        left: 15px;
+        z-index: 1;
+        display: block;
+        width: 163px;
+        height: 94px;
+        background: url("../images/icons/logo.png") no-repeat;
+    }
+    .feinduraVersion {
+        position: absolute;
+        top: 48px;
+        left: 110px;
+        z-index: 2;
+        width: 60px;
+        color: #3979A5;
+        text-align: right;
+        font-weight: bold;
+        font-size: 11px;
+    }
+
+    // LANGUAGE SELECTION
+
+    .languageSelection {
+        position: absolute;
+        bottom: 21px;
+        left: 15px;
+        z-index: 2;
+    }
+    .languageSelection a {
+        position: absolute;
+        display: block;
+        width: 30px;
+        height: 21px;
+    }
+    .languageSelection a:hover,
+    .languageSelection a:focus {
+        background-position: 0px -21px !important;
+    }
+
+    .languageSelection a.de {
+        left: 0px;
+        background: url("../images/buttons/langSelection_de.png") no-repeat;
+    }
+    .languageSelection a.en {
+        left: 30px;
+        background: url("../images/buttons/langSelection_en.png") no-repeat;
+    }
+    .languageSelection a.fr {
+        left: 60px;
+        background: url("../images/buttons/langSelection_fr.png") no-repeat;
+    }
+    .languageSelection a.it {
+        left: 90px;
+        background: url("../images/buttons/langSelection_it.png") no-repeat;
+    }
+    .languageSelection a.ru {
+        left: 120px;
+        background: url("../images/buttons/langSelection_ru.png") no-repeat;
+    }
+}
+
+
+// ADMIN MENU
+
+#adminMenu {
+    position: absolute;
+    top: 0;
+    left: 849px;
+    z-index: 1;
+    overflow: auto; // will be overwritten by javascript
+    width: 190px; // will be overwritten by javascript with 172px
+    height: 140px;
+    border-bottom: 1px solid #BBB9B7;
+    background: url("../images/bg/adminMenu.png") no-repeat;
+    text-align: center;
+
+    h2 {
+        display: inline-block;
+        margin-bottom: 3px;
+        padding-top: 10px;
+        padding-bottom: 5px;
+        width: 120px;
+        border-bottom: 1px solid #cccccc;
+        color: #999999;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    table {
+        position: absolute;
+        top: 37px;
+        left: 8px;
+        z-index: 1;
+    }
+
+
+    // ADMIN BUTTONS
+
+    a {
+        position: relative;
+        display: block;
+        margin: 0px 5px;
+        padding: 0;
+        padding-top: 70px;
+        width: 65px;
+        height: 30px; // org-image-size: 65px
+        color: #666666;
+        text-align: center;
+        text-decoration: none;
+        font-size: 9px;
+        line-height: 11px;
+    }
+    a:hover,
+    a:focus,
+    a.active {
+        background-position: -65px 0px !important;
+        color: #CF7F52;
+    }
+
+    a.adminSetup {
+        background: url("../images/buttons/adminMenu_adminSetup.png") no-repeat;
+    }
+    a.pageSetup {
+        background: url("../images/buttons/adminMenu_pageSetup.png") no-repeat;
+    }
+    a.statisticSetup {
+        background: url("../images/buttons/adminMenu_statisticSetup.png") no-repeat;
+    }
+    a.userSetup {
+        background: url("../images/buttons/adminMenu_userSetup.png") no-repeat;
+    }
+    a.backup {
+        background: url("../images/buttons/adminMenu_backup.png") no-repeat;
+    }
+}
+
+
+// MAINBODY
+
+.mainBody {
+    position: relative;
+    top: -5px;
+    z-index: 0;
+    overflow: auto;
+    width: 100%;
+    min-width: @appWidth;
+    background: #d8d8d8 url("../images/bg/mainBody.png") repeat-y;
+    #shadow > .text(0 1px 1px #dfdfdf);
+
+
+    // CONTENT
+
+    div.mainContent {
+        position: relative;
+        top: 0px;
+        left: 10px;
+        z-index: 0;
+        float: left;
+        overflow: visible;
+        padding: 10px 20px;
+        padding-bottom: 1px;
+        width: 770px;
+        background-color: #fff;
+
+        &.hasSubMenu {
+            padding-top: 60px;
+        }
+    }
+
+    // SIDEBARS
+
+    #leftSidebar {
+        position: relative;
+        top: 0px;
+        left: 0px;
+        z-index: 2;
+        float: left;
+        padding-bottom: 20px;
+        width: 208px;
+        #shadow > .text(0 1px 1px #fff);
+
+        a {
+            color: #3A7AA5;
+            text-decoration: none;
+        }
+        a:hover,
+        a:focus,
+        a:active,
+        a.active {
+            color: #666666;
+            #shadow > .text(none);
+        }
+
+        h2,
+        h3 {
+          margin: 0px;
+          margin-top: 3px;
+          margin-bottom: 5px;
+          padding: 0px;
+          color: #666666;
+          font-weight: bold;
+          font-size: 11px;
+        }
+        h2 img {
+            position: relative;
+            margin-top: -5px;
+        }
+        h3 {
+          font-size: 10px;
+        }
+        p {
+          margin: 2px 0px;
+          margin-bottom: 12px;
+          color: #C57F3D;
+        }
+
+        // SIDEBAR MENU
+
+        .sidebarMenu {
+            position: relative;
+            z-index: 0;
+            overflow: hidden;
+            width: 210px;
+            max-width: @appWidth;
+            #border > .rounded(8px);
+            #shadow > .drop(0,0,10px,0.3);
+
+            .top {
+                position: relative;
+                overflow: hidden;
+                height: 35px;
+                text-decoration: none;
+                white-space: nowrap;
+                font-weight: bold;
+                font-size: 13px;
+
+                span {
+                    position: absolute;
+                    top: 10px;
+                    left: 43px;
+                }
+                &.blue span {
+                    color: #536068;
+                }
+                &.brown span {
+                    color: #536068;
+                }
+                &.gray span {
+                    color: #666666;
+                }
+
+                img {
+                    display: inline-block;
+                    height: 35px;
+                }
+
+
+                // PULL UP/DOWN LINK in the TOP PART of the SIDEBAR MENU
+
+                a {
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    display: inline-block;
+                    width: 208px; /* 208px */
+                    height: 35px;
+                    text-decoration: none;
+                }
+
+                a {
+                    background: url("../images/buttons/sidebarMenu_buttonUp.png") no-repeat right top;
+                }
+
+                a:hover,
+                a:focus {
+                    background-position: right -36px;
+                }
+            }
+            &.hidden .top a {
+                background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
+            }
+
+
+            // FREE FLOATING SIDEBAR MENU
+            &.free .top.blue {
+                background: url("../images/bg/sidebarMenu_freeTop_blue.png") repeat-x right top;
+            }
+            &.free .top.brown {
+                background: url("../images/bg/sidebarMenu_freeTop_brown.png") repeat-x right top;
+            }
+            &.free .top.gray {
+                background: url("../images/bg/sidebarMenu_freeTop_gray.png") repeat-x right top;
+            }
+            /* fixed */
+            &.fixed .top.blue {
+                background: url("../images/bg/sidebarMenu_fixedTop_blue.png") repeat-x right top;
+            }
+            &.fixed .top.brown {
+                background: url("../images/bg/sidebarMenu_fixedTop_brown.png") repeat-x right top;
+            }
+            &.fixed .top.brown {
+                border-right: 1px solid #EED2A3;
+            }
+            &.free .top {
+                border-right: 0px solid #ffffff;
+            }
+
+            .fixed .top img.icon {
+                margin-left: 5px; /* -15px */
+            }
+            .free .top img.icon {
+                margin-left: 4px;
+            }
+
+            // SIDEBAR MENU CONTENT
+            .content {
+                position: relative;
+                background-color: #EEEFF7;
+
+                &.dark {
+                    border-right: 1px solid #666666;
+                }
+                &.white {
+                    border-right: 1px solid #BDBDB9;
+                }
+                &.light {
+                    border-right: 1px solid #979797;
+                }
+                &.brown {
+                    border-right: 1px solid #E6BF7C;
+                    }
+                &.blue {
+                    border-right: 1px solid #89B5D6;
+                }
+
+                /* ------------------------- */
+                /* - buttons */
+                a {
+                    display: block;
+                    padding: 10px 0px;
+                    padding-left: 18px;
+                    height: 15px; /* original 35px */
+                    color: #FBC279;
+                    text-decoration: none;
+                    font-weight: bold;
+                    font-size: 11px;
+                }
+
+                /* dark */
+                &.dark a {
+                    background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x;
+                    color: #ffffff;
+                }
+                &.dark a.active {
+                    background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x 0px -70px !important;
+                    color: #333333 !important;
+                }
+                &.dark a:hover,
+                &.dark a:focus {
+                    background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x 0px -35px;
+                    color: #333333;
+                }
+
+                /* white */
+                &.white a {
+                    background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x;
+                    color: #707F81;
+                }
+                &.white a.active {
+                    background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x 0px -70px !important;
+                    color: #ffffff;
+                }
+                &.white a:hover,
+                &.white a:focus {
+                    background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x 0px -35px;
+                    color: #ffffff;
+                }
+
+                /* light */
+                &.light a {
+                    background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x;
+                    color: #444444;
+                }
+                &.light a.active {
+                    background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x 0px -70px !important;
+                    color: #ffffff !important;
+                }
+                &.light a:hover,
+                &.light a:focus {
+                    background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x 0px -35px;
+                    color: #ffffff;
+                }
+
+                /* brown */
+                &.brown a {
+                    background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x;
+                    color: #9B6B1D;
+                }
+                &.brown a.active {
+                    background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x 0px -70px !important;
+                    color: #ffffff !important;
+                }
+                &.brown a:hover,
+                &.brown a:focus {
+                    background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x 0px -35px;
+                    color: #ffffff;
+                }
+
+                /* blue */
+                &.blue a {
+                    background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x;
+                    color: #457A96;
+                }
+                &.blue a.active {
+                    background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x 0px -70px !important;
+                    color: #ffffff !important;
+                }
+                &.blue a:hover,
+                &.blue a:focus {
+                    background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x 0px -35px;
+                    color: #ffffff;
+                }
+            }
+
+            // PULL TOOGLE link in the bottom
+            .bottom {
+                a {
+                    display: block;
+                    padding: 0;
+                    width: 100%;
+                    height: 13px; /* original 13px */
+                    background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top;
+                    text-decoration: none;
+                }
+                a:hover,
+                a:focus {
+                    background-position: right -14px;
+                }
+            }
+        }
+
+        // SPACER
+        .spacer {
+            position: relative;
+            width: 202px;
+            height: 26px;
+
+            &.arrow {
+                background: url("../images/bg/sidebarMenu_spacer_arrow.png") no-repeat left center;
+            }
+        }
+
+        .content {
+            position: relative;
+            overflow: hidden;
+            margin: 10px 20px;
+            margin-right: 13px;
+            padding: 0 5px;
+            width: 148px;
+            word-wrap: break-word;
+            font-size: 10px;
+        }
+
+        // SIDEBAR INFO
+
+        .sidebarInfo {
+            position: relative;
+            top: 2px;
+            left: 1px;
+            padding: 0px;
+            width: 198px;
+            min-height: 260px;
+            border-top: 1px solid #ffffff;
+            background: url("../images/bg/leftSidebarInfo_bg.png") no-repeat;
+
+
+            hr {
+                margin: 15px 0px;
+                height: 0px;
+                border: none;
+                border-top: 1px dotted #E2E3E3;
+            }
+
+        }
+
+        // SIDEBAR LIST MENU
+        ul.nav-tabs a {
+            background: none;
+            font-weight: bold;
+        }
+        ul.nav-tabs a:hover,
+        ul.nav-tabs a:focus {
+            background-color: #fff;
+        }
+
+        // SIDEBAR ACTIVITY LOG
+
+        #sidebarTaskLog {
+            position: relative;
+            z-index: 1;
+            overflow: auto;
+            margin: 0px -10px;
+            width: 200px;
+            height: 450px;
+            border-bottom: 1px solid #ffffff;
+            font-size: 9px;
+
+            ul {
+                margin: 0px;
+                margin-left: 15px;
+            }
+            ul li {
+                display: block;
+                margin: 3px 0px;
+                margin-bottom: 20px;
+                // margin-left: 5px;
+                width: 150px;
+            }
+        }
+        // the arrows inside the #sidebarTaskLog, the picture is add in inline in the leftSidebar.loader.php
+        .scrollUpDown {
+            position: absolute;
+            z-index: 2;
+            width: 165px;
+            height: 30px;
+        }
+
+
+        // SIDEBAR USERS
+
+        ul.sidebarListUsers {
+            margin-top: -15px;
+            margin-left: 27px;
+
+            li {
+                padding: 4px 0px;
+                list-style-image: url("../images/icons/user_offline.png");
+                font-weight:bold;
+            }
+
+            li.online {
+                list-style-image: url("../images/icons/user_online.png");
+            }
+        }
+
+
+    }
+
+    #rightSidebar {
+        position: absolute;
+        top: 0px;
+        left: 1035px;
+        z-index: 2;
+        width: 210px;
+    }
+
+
+    // SUBMENU
+
+    .subMenu {
+        position: absolute;
+        top: -8px;
+        left: 10px;
+        padding:  0 10px;
+        padding-top: 7px;
+        z-index: 7;
+        overflow: visible;
+        width: auto;
+        height: 48px;
+        border: 1px solid #f4f4f4;
+        background: #eaeaea;
+        background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 50%, #eaeaea 51%, #e6e6e6 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#f6f6f6), color-stop(51%,#eaeaea), color-stop(100%,#e6e6e6));
+        background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 50%,#eaeaea 51%,#e6e6e6 100%);
+        background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 50%,#eaeaea 51%,#e6e6e6 100%);
+        background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 50%,#eaeaea 51%,#e6e6e6 100%);
+        background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 50%,#eaeaea 51%,#e6e6e6 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 );
+        #shadow > .drop(0, 1px, 5px, 0.35);
+        #border > .rounded(8px);
+        #PIE;
+
+        // submenu selection
+        select {
+            position: relative;
+            margin: 12px 12px;
+            margin-left: 1px;
+            padding: 3px 3px;
+            font-size: 14px;
+        }
+        img.flag {
+            margin-left: 8px;
+        }
+
+        li.spacer {
+            display: inline-block;
+            width: 14px;
+            height: 47px;
+            background: url("../images/buttons/subMenu_spacer.png") no-repeat;
+        }
+
+        // submenu buttons
+        li a {
+            display: block;
+            margin: 0px 5px;
+            padding: 0;
+            width: 50px;
+            height: 48px;
+        }
+        a:hover,
+        a:focus {
+            background-position: -50px 0px !important;
+        }
+
+        a.fileManager {
+            background: url("../images/buttons/subMenu_fileManager.png") no-repeat;
+        }
+        a.createPage {
+            background: url("../images/buttons/subMenu_createPage.png") no-repeat;
+        }
+        a.deletePage {
+            background: url("../images/buttons/subMenu_deletePage.png") no-repeat;
+        }
+        a.editPage {
+            background: url("../images/buttons/subMenu_editPage.png") no-repeat;
+        }
+        a.pageThumbnailUpload {
+            background: url("../images/buttons/subMenu_uploadThumb.png") no-repeat;
+        }
+        a.pageThumbnailDelete {
+            background: url("../images/buttons/subMenu_deleteThumb.png") no-repeat;
+        }
+        a.addPageLanguage {
+            background: url("../images/buttons/subMenu_addPageLanguage.png") no-repeat;
+        }
+        a.removePageLanguage {
+            background: url("../images/buttons/subMenu_removePageLanguage.png") no-repeat;
+        }
+    }
+}
+
+
+// FOOTER
+
+footer.main {
+    position: relative;
+    top: -38px;
+    z-index: 1;
+    width: 100%;
+    height: 176px;
+    min-width: @appWidth;
+    clear: both;
+    background: url("../images/bg/footer.png") repeat-x;
+
+    div.sideBarBottom {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1024px;
+        height: 168px;
+        background: url("../images/bg/footerBlock.png") no-repeat;
+    }
+    div.copyright {
+        position: absolute;
+        top: 142px;
+        left: 0;
+        width: @appWidth;
+        color: #979797;
+        text-align: center;
+        font-size: 11px;
+    }
+
+    // - footer links
+    a {
+        color: #cccccc;
+        padding: 0;
+        background: none;
+    }
+    a:hover,
+    a:focus {
+        color: @logoColorOrange;
+    }
+    a:active {
+        color: #ffffff;
+    }
+}
