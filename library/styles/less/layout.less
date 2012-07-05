@@ -1,8 +1,12 @@
+// feindura - Flat File Content Management System
+// Copyright (C) Fabian Vogelsteller [frozeman.de]
+//
+// Published under the GNU General Public License
 
 body {
     height: 100%;
     background: #5b5b5b url("../images/bg/body.png") repeat;
-    color: #000000;
+    color: #666;
     font: 12px Verdana, Arial, Sans-serif, Serif;
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
@@ -28,19 +32,20 @@ header.main {
         top: 0;
         left: 0;
         z-index: 2;
-        width: 850px;
-        height: 141px;
-        background: url("../images/bg/headerBlock.png") no-repeat;
+        width: 860px;
+        height: 140px;
+        border-top: 1px solid #E5E5E5;
+        background: url("../images/bg/headerBlock.png") no-repeat 0 -1px;
 
 
         // MAINMENU
 
         nav.mainMenu {
             position: absolute;
-            top: 0px; // right: 250px;
+            top: -2px; // right: 250px;
             left: 208px;
             z-index: 1;
-            width: 640px;
+            width: 650px;
 
             table {
                 width: 100%;
@@ -180,7 +185,7 @@ header.main {
 #adminMenu {
     position: absolute;
     top: 0;
-    left: 849px;
+    left: 859px;
     z-index: 1;
     overflow: auto; // will be overwritten by javascript
     width: 190px; // will be overwritten by javascript with 172px
@@ -188,6 +193,7 @@ header.main {
     border-bottom: 1px solid #BBB9B7;
     background: url("../images/bg/adminMenu.png") no-repeat;
     text-align: center;
+    #border > .rounded(8px);
 
     h2 {
         display: inline-block;
@@ -260,6 +266,7 @@ header.main {
     overflow: auto;
     width: 100%;
     min-width: @appWidth;
+    margin-bottom: -38px;
     background: #d8d8d8 url("../images/bg/mainBody.png") repeat-y;
     #shadow > .text(0 1px 1px #dfdfdf);
 
@@ -295,18 +302,6 @@ header.main {
         width: 208px;
         #shadow > .text(0 1px 1px #fff);
 
-        a {
-            color: #3A7AA5;
-            text-decoration: none;
-        }
-        a:hover,
-        a:focus,
-        a:active,
-        a.active {
-            color: #666666;
-            #shadow > .text(none);
-        }
-
         h2,
         h3 {
           margin: 0px;
@@ -330,6 +325,17 @@ header.main {
           color: #C57F3D;
         }
 
+        .content {
+            position: relative;
+            overflow: hidden;
+            margin: 10px 10px;
+            width: 170px;
+            padding: 0 5px;
+            word-wrap: break-word;
+            font-size: 10px;
+        }
+
+
         // SIDEBAR MENU
 
         .sidebarMenu {
@@ -340,6 +346,13 @@ header.main {
             max-width: @appWidth;
             #border > .rounded(8px);
             #shadow > .drop(0,0,10px,0.3);
+
+            a:hover,
+            a:focus,
+            a:active,
+            a.active {
+                #shadow > .text(none);
+            }
 
             .top {
                 position: relative;
@@ -378,7 +391,7 @@ header.main {
                     top: 0px;
                     right: 0px;
                     display: inline-block;
-                    width: 208px; /* 208px */
+                    width: 208px; // 208px
                     height: 35px;
                     text-decoration: none;
                 }
@@ -396,145 +409,133 @@ header.main {
                 background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
             }
 
-
-            // FREE FLOATING SIDEBAR MENU
-            &.free .top.blue {
-                background: url("../images/bg/sidebarMenu_freeTop_blue.png") repeat-x right top;
-            }
-            &.free .top.brown {
-                background: url("../images/bg/sidebarMenu_freeTop_brown.png") repeat-x right top;
-            }
-            &.free .top.gray {
-                background: url("../images/bg/sidebarMenu_freeTop_gray.png") repeat-x right top;
-            }
-            /* fixed */
-            &.fixed .top.blue {
-                background: url("../images/bg/sidebarMenu_fixedTop_blue.png") repeat-x right top;
-            }
-            &.fixed .top.brown {
-                background: url("../images/bg/sidebarMenu_fixedTop_brown.png") repeat-x right top;
-            }
-            &.fixed .top.brown {
-                border-right: 1px solid #EED2A3;
-            }
             &.free .top {
                 border-right: 0px solid #ffffff;
             }
 
-            .fixed .top img.icon {
-                margin-left: 5px; /* -15px */
+            &.fixed .top img.icon {
+                margin-left: 5px; // -15px
             }
-            .free .top img.icon {
+            &.free .top img.icon {
                 margin-left: 4px;
             }
 
-            // SIDEBAR MENU CONTENT
-            .content {
+            &.fixed {
+                margin-top: -1px;
+            }
+
+            // MENU
+            .menuWrapper {
                 position: relative;
-                background-color: #EEEFF7;
+                background-color: #ccc;
 
-                &.dark {
-                    border-right: 1px solid #666666;
-                }
-                &.white {
-                    border-right: 1px solid #BDBDB9;
-                }
-                &.light {
-                    border-right: 1px solid #979797;
-                }
-                &.brown {
-                    border-right: 1px solid #E6BF7C;
-                    }
-                &.blue {
-                    border-right: 1px solid #89B5D6;
-                }
-
-                /* ------------------------- */
-                /* - buttons */
+                // buttons
                 a {
                     display: block;
                     padding: 10px 0px;
                     padding-left: 18px;
-                    height: 15px; /* original 35px */
+                    height: 15px;
                     color: #FBC279;
                     text-decoration: none;
                     font-weight: bold;
                     font-size: 11px;
                 }
+            }
 
-                /* dark */
-                &.dark a {
-                    background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x;
-                    color: #ffffff;
+            // GRAY SIDEBAR MENU
+            &.gray {
+                .top {
+                    background: url("../images/bg/sidebarMenu_top_gray.png") repeat-x;
                 }
-                &.dark a.active {
-                    background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x 0px -70px !important;
-                    color: #333333 !important;
+                &.free .top {
+                    background-position: right top;
                 }
-                &.dark a:hover,
-                &.dark a:focus {
-                    background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x 0px -35px;
-                    color: #333333;
-                }
-
-                /* white */
-                &.white a {
-                    background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x;
-                    color: #707F81;
-                }
-                &.white a.active {
-                    background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x 0px -70px !important;
-                    color: #ffffff;
-                }
-                &.white a:hover,
-                &.white a:focus {
-                    background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x 0px -35px;
-                    color: #ffffff;
+                &.fixed .top {
+                    background-position: -10px top;
+                    border-right: 1px solid #BDBDB9;
                 }
 
-                /* light */
-                &.light a {
-                    background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x;
-                    color: #444444;
+                .menuWrapper {
+                    border-right: 1px solid #BDBDB9;
+
+                    a {
+                        background: url("../images/buttons/sidebarMenu_key_gray.png") repeat-x;
+                        color: #707F81;
+                    }
+                    a.active {
+                        background-position: 0px -70px;
+                        color: #ffffff;
+                    }
+                    a:hover,
+                    a:focus {
+                        background-position: 0px -35px;
+                        color: #ffffff;
+                    }
                 }
-                &.light a.active {
-                    background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x 0px -70px !important;
-                    color: #ffffff !important;
+            }
+
+
+            // BROWN SIDEBAR MENU
+            &.brown {
+                .top {
+                    background: url("../images/bg/sidebarMenu_top_brown.png") repeat-x;
                 }
-                &.light a:hover,
-                &.light a:focus {
-                    background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x 0px -35px;
-                    color: #ffffff;
+                &.free .top {
+                    background-position: right top;
+                }
+                &.fixed .top {
+                    background-position: -10px top;
+                    border-right: 1px solid #E6BF7C;
                 }
 
-                /* brown */
-                &.brown a {
-                    background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x;
-                    color: #9B6B1D;
+                .menuWrapper {
+                    border-right: 1px solid #E6BF7C;
+
+                    a {
+                        background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x;
+                        color: #9B6B1D;
+                    }
+                    a.active {
+                        background-position: 0px -70px;
+                        color: #ffffff !important;
+                    }
+                    a:hover,
+                    a:focus {
+                        background-position: 0px -35px;
+                        color: #ffffff;
+                    }
                 }
-                &.brown a.active {
-                    background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x 0px -70px !important;
-                    color: #ffffff !important;
+            }
+
+            // BLUE SIDEBAR MENU
+            &.blue {
+                .top {
+                    background: url("../images/bg/sidebarMenu_top_blue.png") repeat-x;
                 }
-                &.brown a:hover,
-                &.brown a:focus {
-                    background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x 0px -35px;
-                    color: #ffffff;
+                &.free .top {
+                    background-position: right top;
+                }
+                &.fixed .top {
+                    background-position: -10px top;
+                    border-right: 1px solid #89B5D6;
                 }
 
-                /* blue */
-                &.blue a {
-                    background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x;
-                    color: #457A96;
-                }
-                &.blue a.active {
-                    background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x 0px -70px !important;
-                    color: #ffffff !important;
-                }
-                &.blue a:hover,
-                &.blue a:focus {
-                    background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x 0px -35px;
-                    color: #ffffff;
+                .menuWrapper {
+                    border-right: 1px solid #89B5D6;
+
+                    a {
+                        background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x;
+                        color: #457A96;
+                    }
+                    a.active {
+                        background-position: 0px -70px;
+                        color: #ffffff !important;
+                    }
+                    a:hover,
+                    a:focus {
+                        background-position: 0px -35px;
+                        color: #ffffff;
+                    }
                 }
             }
 
@@ -544,7 +545,7 @@ header.main {
                     display: block;
                     padding: 0;
                     width: 100%;
-                    height: 13px; /* original 13px */
+                    height: 13px; // original 13px
                     background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top;
                     text-decoration: none;
                 }
@@ -566,16 +567,6 @@ header.main {
             }
         }
 
-        .content {
-            position: relative;
-            overflow: hidden;
-            margin: 10px 20px;
-            margin-right: 13px;
-            padding: 0 5px;
-            width: 148px;
-            word-wrap: break-word;
-            font-size: 10px;
-        }
 
         // SIDEBAR INFO
 
@@ -589,6 +580,10 @@ header.main {
             border-top: 1px solid #ffffff;
             background: url("../images/bg/leftSidebarInfo_bg.png") no-repeat;
 
+            .content {
+                margin: 10px 20px;
+                width: 150px;
+            }
 
             hr {
                 margin: 15px 0px;
@@ -597,16 +592,10 @@ header.main {
                 border-top: 1px dotted #E2E3E3;
             }
 
-        }
+            h2 {
+                text-align: center;
+            }
 
-        // SIDEBAR LIST MENU
-        ul.nav-tabs a {
-            background: none;
-            font-weight: bold;
-        }
-        ul.nav-tabs a:hover,
-        ul.nav-tabs a:focus {
-            background-color: #fff;
         }
 
         // SIDEBAR ACTIVITY LOG
@@ -621,6 +610,17 @@ header.main {
             border-bottom: 1px solid #ffffff;
             font-size: 9px;
 
+            a {
+                color: #3A7AA5;
+                text-decoration: none;
+            }
+            a:hover,
+            a:focus,
+            a:active,
+            a.active {
+                color: #666666;
+            }
+
             ul {
                 margin: 0px;
                 margin-left: 15px;
@@ -629,7 +629,6 @@ header.main {
                 display: block;
                 margin: 3px 0px;
                 margin-bottom: 20px;
-                // margin-left: 5px;
                 width: 150px;
             }
         }
@@ -660,6 +659,22 @@ header.main {
         }
 
 
+        // SIDEBAR BACKUP
+        ul.backupDownload {
+            li {
+                position: relative;
+            }
+            a.backup {
+                display: inline-block;
+                padding: 5px 0;
+                padding-left: 25px;
+                background: url("../images/buttons/backup_download_small.png") no-repeat left center;
+            }
+            a.deleteIcon {
+                top: 15px;
+                right: 0px;
+            }
+        }
     }
 
     #rightSidebar {
@@ -668,7 +683,73 @@ header.main {
         left: 1035px;
         z-index: 2;
         width: 210px;
+
+        .box {
+            position: relative;
+            z-index: 2;
+            margin: 30px 0;
+            padding: 20px 20px;
+            border: 1px solid #cdcdcd;
+            line-height: 18px;
+            #gradient > .horizontal(#fff,#fff,#e2e2e2);
+            #border > .rounded(10px);
+            #shadow > .both(0,0,8px,0.1,#000,0,0,15px,0.05);
+            #PIE;
+
+            &:first-child {
+                margin-top: -10px;
+            }
+
+            h1 {
+                margin: 2px -13px;
+                margin-bottom: 15px;
+                padding-bottom: 8px;
+                border-bottom: 1px dotted #ccc;
+                text-align: center;
+                font-size: 14px;
+                line-height: 20px;
+            }
+
+            .hintIcon {
+                position: relative;
+                left: 50px;
+                display: block;
+                margin-bottom: 13px;
+            }
+            ul {
+                overflow: auto;
+                margin: 0;
+                margin-right: -15px;
+                margin-left: 0px;
+                padding-left: 20px;
+                max-height: 400px;
+                list-style: circle;
+            }
+            ul li {
+                margin-right: 15px;
+                line-height: 18px;
+            }
+            ul.flags {
+                margin-left: -5px;
+                padding-left: 10px;
+                list-style: none;
+            }
+            ul.flags li {
+                position: relative;
+                padding-left: 22px;
+            }
+            ul.flags img {
+                position: absolute;
+                left: 0px;
+                margin-top: 2px;
+            }
+            ul.flags a.link {
+                padding-left: 0px;
+                background: none;
+            }
+        }
     }
+
 
 
     // SUBMENU
@@ -685,12 +766,12 @@ header.main {
         height: 48px;
         border: 1px solid #f4f4f4;
         background: #eaeaea;
-        background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 50%, #eaeaea 51%, #e6e6e6 100%);
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#f6f6f6), color-stop(51%,#eaeaea), color-stop(100%,#e6e6e6));
-        background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 50%,#eaeaea 51%,#e6e6e6 100%);
-        background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 50%,#eaeaea 51%,#e6e6e6 100%);
-        background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 50%,#eaeaea 51%,#e6e6e6 100%);
-        background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 50%,#eaeaea 51%,#e6e6e6 100%);
+        background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 58%,#eaeaea 59%, #e6e6e6 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(58%,#f6f6f6), color-stop(59%,#eaeaea), color-stop(100%,#e6e6e6));
+        background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
+        background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
+        background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
+        background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 );
         #shadow > .drop(0, 1px, 5px, 0.35);
         #border > .rounded(8px);
@@ -760,7 +841,6 @@ header.main {
 
 footer.main {
     position: relative;
-    top: -38px;
     z-index: 1;
     width: 100%;
     height: 176px;

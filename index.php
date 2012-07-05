@@ -71,17 +71,17 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- ************************************************************************************************************ -->
   <!-- STYLESHEETS -->
 
-  <!-- thirdparty/CodeMirror -->
-  <link rel="stylesheet" type="text/css" href="library/thirdparty/CodeMirror/codemirror-unified.css">
-
   <!-- feindura styles -->
-  <link rel="stylesheet" type="text/css" href="library/styles/reset.css<?php echo '?v='.BUILD; ?>">
-  <link rel="stylesheet" type="text/css" href="library/styles/layout.css<?php echo '?v='.BUILD; ?>">
+  <!-- <link rel="stylesheet" type="text/css" href="library/styles/reset.css<?php echo '?v='.BUILD; ?>"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="library/styles/layout.css<?php echo '?v='.BUILD; ?>"> -->
   <link rel="stylesheet" type="text/css" href="library/styles/content.css<?php echo '?v='.BUILD; ?>">
   <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css<?php echo '?v='.BUILD; ?>">
   <link rel="stylesheet" type="text/css" href="library/styles/shared.css<?php echo '?v='.BUILD; ?>">
 
   <link rel="stylesheet" type="text/css" href="library/styles/styles.css<?php echo '?v='.BUILD; ?>">
+
+  <!-- thirdparty/CodeMirror -->
+  <link rel="stylesheet" type="text/css" href="library/thirdparty/CodeMirror/codemirror-unified.css">
 
 <?php
 if($_GET['site'] == 'addons') {

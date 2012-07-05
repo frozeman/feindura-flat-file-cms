@@ -262,7 +262,6 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
     <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'adminSettings'; submitAnchor('adminSettingsForm','adminSettings');">
   </div>
-  <div class="bottom"></div>
 </div>
 
 <!-- EDITOR SETTINGS -->
@@ -356,7 +355,6 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 
     <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'editorSettings'; submitAnchor('adminSettingsForm','editorSettings');">
   </div>
-  <div class="bottom"></div>
 </div>
 
 </form>
@@ -434,7 +432,6 @@ $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
     <input type="submit" value="" name="saveFckStyles" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
   </div>
-  <div class="bottom"></div>
 </div>
 </form>
 <?php } ?>

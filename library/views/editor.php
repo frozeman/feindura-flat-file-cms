@@ -200,7 +200,6 @@ $hidden = ' hidden';
     </tbody>
   </table>
   </div>
-  <div class="bottom"></div>
 </div>
 <?php
 }
@@ -481,7 +480,6 @@ if(!$newPage) {
     </table>
 
   </div>
-  <div class="bottom" style="height:0px; clear:all;"></div>
 </div>
 
 <!-- page settings anchor is here -->
@@ -707,7 +705,6 @@ $hidden = ($newPage || $savedForm == 'pageSettings' || !$savedForm) ? '' : ' hid
     <?php $setAnchor = ($newPage) ? 'pageInformation' : 'pageSettings';  ?>
     <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','<?php echo $setAnchor; ?>');">
   </div>
-  <div class="bottom"></div>
 </div>
 <?php
 
@@ -895,7 +892,6 @@ $blockContentEdited = (isset($pageContent['plugins']))
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
     <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pluginSettings'; submitAnchor('editorForm','pluginSettings');">
   </div>
-  <div class="bottom"></div>
 </div>
 <?php
 }
@@ -958,7 +954,6 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
     <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'advancedPageSettings'; submitAnchor('editorForm','advancedPageSettingsAnchor');">
   </div>
-  <div class="bottom"></div>
 </div>
 <?php } else
   echo '<div style="height:20px;"></div>';

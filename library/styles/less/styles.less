@@ -14,27 +14,29 @@
  * if not,see <http://www.gnu.org/licenses/>.
  *
  *
- * The main style file, which includes all the other less files.
+ * The MAIN STYLE FILE, which includes all the other .LESS Files.
  *
  */
 
 // @import "bootstrap/css/bootstrap.min.css";
 
-
-// All stylesheet rules are inside the feindura class,
-// which will be in the backend add to the <html> and in the frontend add to each element containing feindura objects.
-// Even Bootstrap will have a add feindura class.
+// FEINDURA CLASS
+// All stylesheet rules are inside the feindura class.
+// Will be add to the <html> in the backend and to each element containing feindura objects in the frontend.
 .feindura {
 
     // LESS Elements are useful mixins for CSS3 effects
     @import "elements.less";
 
 
-    // feindura class styles
+    // .feindura class styles
     #transition > .duration(0);
 
 
     // DELETE these LINES FROM the "bootstrap/less/variables.less", to allow these rules to apply
+    @gridColumns:             8;
+    @gridColumnWidth:         70px; // 80 - 2*10 padding
+    @gridGutterWidth:         25px;
     @iconSpritePath:          "../images/icons/glyphicons-halflings.png";
     @iconWhiteSpritePath:     "../images/icons/glyphicons-halflings-white.png";
 
@@ -58,5 +60,13 @@
     // ======
     // Main layout structure
     @import "layout.less";
+
+
+    // CONTENT BLOCKS
+    // ==============
+    // All content should be placed inside these blocks
+    .mainContent {
+        @import "contentBlocks.less";
+    }
 
 }

@@ -2387,7 +2387,6 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
     echo '<br><br><input type="submit" value="" name="saveEditedFiles" class="button submit right" title="'.$GLOBALS['langFile']['FORM_BUTTON_SUBMIT'].'">';
   }
   echo '</div>
-      <div class="bottom"></div>
     </div>
     </form>';
 }
@@ -2633,12 +2632,11 @@ function checkBasePathAndURL() {
  */
 function documentrootWarning() {
   if(checkBasePathAndURL() && (DOCUMENTROOT === false)) {
-    return '<div class="block warning">
+    return '<div class="block alert warning">
             <h1>'.$GLOBALS['langFile']['WARNING_TITLE_DOCUMENTROOT'].'</h1>
             <div class="content">
               <p>'.$GLOBALS['langFile']['WARNING_TEXT_DOCUMENTROOT'].'</p><!-- need <p> tags for margin-left:..-->
             </div>
-            <div class="bottom"></div>
           </div>';
   } else
     return false;
@@ -2664,12 +2662,11 @@ function documentrootWarning() {
  */
 function basePathWarning() {
   if(checkBasePathAndURL() === false) {
-    return '<div class="block warning">
+    return '<div class="block alert warning">
             <h1>'.$GLOBALS['langFile']['WARNING_TITLE_BASEPATH'].'</h1>
             <div class="content">
               <p>'.$GLOBALS['langFile']['WARNING_TEXT_BASEPATH'].'</p><!-- need <p> tags for margin-left:..-->
             </div>
-            <div class="bottom"></div>
           </div>';
   } else
     return false;
@@ -2707,12 +2704,11 @@ function startPageWarning() {
     $startPageCategory = '';
 
   if($GLOBALS['websiteConfig']['setStartPage'] && (empty($GLOBALS['websiteConfig']['startPage']) || !file_exists(dirname(__FILE__).'/../../pages/'.$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
-    return '<div class="block info">
+    return '<div class="block alert info">
             <h1>'.$GLOBALS['langFile']['WARNING_TITLE_STARTPAGE'].'</h1>
             <div class="content">
               <p>'.$GLOBALS['langFile']['WARNING_TEXT_STARTPAGE'].'</p><!-- need <p> tags for margin-left:..-->
             </div>
-            <div class="bottom"></div>
           </div>';
   } else
     return false;
@@ -2759,6 +2755,8 @@ function missingLanguageWarning() {
   // -> categoryConfig
   $categoryHasMissingLanguages = false;
     foreach ($GLOBALS['categoryConfig'] as $category) {
+      if($category['id'] == 0)
+          continue;
       $arrayDifferences = array_diff($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'],array_keys($category['localized']));
       if(!empty($arrayDifferences)) {
         $categoryHasMissingLanguages = true;
@@ -2780,7 +2778,7 @@ function missingLanguageWarning() {
     }
 
   if(!empty($websiteConfig) || !empty($categoryConfig)) {
-    $return .= '<div class="block info missingLanguages">
+    $return .= '<div class="block alert info missingLanguages">
             <h1>'.$GLOBALS['langFile']['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>
             <div class="content">
               ';
@@ -2790,7 +2788,6 @@ function missingLanguageWarning() {
       $return .= '<h2>'.$GLOBALS['langFile']['WARNING_TITLE_UNTITLEDCATEGORIES'].'</h2><p>'.$categoryConfig.'</p><!-- need <p> tags for margin-left:..-->';
 
     $return .= '</div>
-            <div class="bottom"></div>
           </div>';
 
   }

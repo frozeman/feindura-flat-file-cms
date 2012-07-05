@@ -1,21 +1,21 @@
-<?php 
+<?php
 /**
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
- * 
+ *
  * This program is free software;
  * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
- * 
+ *
  * This file is inlcuded in the index.php and all standalone files
- * 
+ *
  * @version 0.2
  */
 
@@ -39,7 +39,7 @@ if(isset($_POST) && $_POST['action'] == 'login') {
 
   // -> if user exits
   if(!empty($userConfig)) {
-    
+
     $currentUser = false;
     foreach($userConfig as $user) {
       if($user['username'] == $_POST['username']) {
@@ -66,34 +66,34 @@ if(isset($_POST) && $_POST['action'] == 'login') {
 // ->> RESET PASSWORD
 if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['username'])) {
   $userConfig = @include("config/user.config.php");
-  
+
   $currentUser = false;
   foreach($userConfig as $user) {
     if($user['username'] == $_POST['username'])
       $currentUser = $user;
   }
-  
+
   if($currentUser) {
-    
+
     $userEmail = $currentUser['email'];
-    
+
     if(!empty($userEmail)) {
-    
+
       // generate new password
       $chars = array_merge(range(0, 9),range('a', 'z'),range('A', 'Z'));
       shuffle($chars);
-      $newPassword = implode('', array_slice($chars, 0, 5)); 
-      
+      $newPassword = implode('', array_slice($chars, 0, 5));
+
       $subject = $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_SUBJECT'].': '.$adminConfig['url'];
       $message = $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_MESSAGE']."\n".$_POST['username']."\n".$newPassword;
       $header = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n"; // UTF-8 plain text mail
       $header .= 'From: "feindura CMS from '.$adminConfig['url'].'" <noreply@'.str_replace(array('http://','https://','www.'),'',$adminConfig['url']).">\r\n";
       $header .= 'X-Mailer: PHP/' . PHP_VERSION;
-      
+
       // change users password
       $newUserConfig = $userConfig;
       $newUserConfig[$currentUser['id']]['password'] = md5($newPassword);
-      
+
       // send mail with the new password
       if(saveUserConfig($newUserConfig)) {
         if(mail($userEmail,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$header)) {
@@ -107,7 +107,7 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
       $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOEMAIL'];
   } else
     $loginError = $langFile['LOGIN_ERROR_WRONGUSER'];
-  
+
 }
 
 // -> LOGOUT
@@ -146,45 +146,45 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 <head>
   <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
   <meta http-equiv="content-language" content="en">
-  
+
   <title>feindura login</title>
-  
+
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <meta name="robots" content="no-index,nofollow">
   <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
   <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate">
-  
-  <meta name="title" content="feindura login">    
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">     
+
+  <meta name="title" content="feindura login">
+  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">    
-  <meta name="description" content="A flat file based Content Management System, written in PHP">    
-  <meta name="keywords" content="cms,content,management,system,flat,file"> 
-   
+  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">
+  <meta name="description" content="A flat file based Content Management System, written in PHP">
+  <meta name="keywords" content="cms,content,management,system,flat,file">
+
   <link rel="shortcut icon" href="favicon.ico">
-  
+
   <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all">
   <link rel="stylesheet" type="text/css" href="library/styles/login.css" media="all">
-  
+
   <!-- thirdparty/MooTools -->
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.4.5.js"></script>
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.4.0.1.js"></script>
-  
+
   <!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
-  
+
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascripts/shared.js"></script>
-  
+
   <script type="text/javascript">
   function supports_input_placeholder() {
     var i = document.createElement('input');
     return 'placeholder' in i;
   }
-  
+
   window.addEvent('load',function() {
     if(!supports_input_placeholder()) {
       new OverText('username',{positionOptions: {offset: {x: 12,y: 5}}});
@@ -193,7 +193,7 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 <?php } ?>
     }
   });
-  
+
   function startLoadingCircle() {
     $('submitButton').dispose();
     // create loading circle element
@@ -201,7 +201,7 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
     $('inputsDiv').grab(loginLoadingCircle,'bottom');
     var removeLoadingCircle = feindura_loadingCircle('loginLoadingCircle', 12, 20, 12, 3, "#000");
   }
-  
+
   </script>
 </head>
 <body>
@@ -209,9 +209,9 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
   <?php if($loggedOut === true || $resetPassword === true) {  ?>
     <div id="loginSuccessBox">
       <div class="top"></div>
-      <div class="middle">     
-      <?php      
-      
+      <div class="middle">
+      <?php
+
       if($loggedOut)
         echo '<h1>'.$langFile['LOGIN_TEXT_LOGOUT_PART1'].'</h1><a href="'.$adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']).'">&rArr; '.$langFile['LOGIN_TEXT_LOGOUT_PART2'].'</a>';
       if($resetPassword)
@@ -224,21 +224,21 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
     <div id="loginBox">
       <?php
       $currentURL = $_SERVER['REQUEST_URI'];
-    
+
       if(isset($_GET['resetpassword']))
         $currentURL = (strpos($currentURL,'?') === false)
           ? $_SERVER['REQUEST_URI'].'?resetpassword'
           : $_SERVER['REQUEST_URI'].'&resetpassword';
-          
+
       $currentURL = str_replace('logout','',$currentURL);
-      
+
       ?>
       <form action="<?php echo $currentURL; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="startLoadingCircle();">
         <div id="inputsDiv">
           <input value="<?php echo $_POST['username']; ?>" name="username" id="username" placeholder="<?php echo $langFile['LOGIN_INPUT_USERNAME']; ?>" title="<?php echo $langFile['LOGIN_INPUT_USERNAME']; ?>" autofocus="autofocus"><br>
         <?php if(!isset($_GET['resetpassword'])) { ?>
           <input type="password" value="<?php echo $_POST['password']; ?>" name="password" id="password" placeholder="<?php echo $langFile['LOGIN_INPUT_PASSWORD']; ?>" title="<?php echo $langFile['LOGIN_INPUT_PASSWORD']; ?>"><br>
-        <?php } 
+        <?php }
         if(!isset($_GET['resetpassword'])) {
           echo '<input type="hidden" name="action" value="login">';
           echo '<input type="submit" id="submitButton" class="button" name="loginSubmit" value="'.$langFile['LOGIN_BUTTON_LOGIN'].'">';
@@ -252,7 +252,7 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
   <?php if($loginError) { ?>
     <div id="loginErrorBox">
       <div class="top"></div>
-      <div class="middle"><?php echo $loginError; ?></div>      
+      <div class="middle"><?php echo $loginError; ?></div>
       <div class="bottom"></div>
     </div>
     <?php } ?>
@@ -268,7 +268,7 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
   </div>
 </body>
 </html>
-<?php  
+<?php
   die();
 }
 ?>

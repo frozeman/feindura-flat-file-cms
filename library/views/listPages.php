@@ -25,7 +25,7 @@
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 ?>
-<div class="block open noBg" id="listPagesBlock">
+<div class="block listPages" id="listPagesBlock">
 <h1><?php echo $langFile['SORTABLEPAGELIST_h1']; ?></h1>
 
 <div class="listPagesHead">
@@ -317,8 +317,6 @@ foreach($categoryConfig as $category) {
 
   echo '</ul>';
   echo '</div>';
-  if(end($categoryConfig) == $category)
-    echo '<div class="bottom"></div>';
 
   echo '</div>';
 

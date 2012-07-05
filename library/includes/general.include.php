@@ -1,21 +1,21 @@
-<?php 
+<?php
 /**
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
- * 
+ *
  * This program is free software;
  * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
- * 
+ *
  * This file includes all necessary <var>classes</var> and configs for the use in the FRONTEND and the BACKEND
- * 
+ *
  * @version 0.15
  */
 
@@ -35,7 +35,7 @@ mb_http_output('UTF-8');
 // ->> autoload CLASSES
 /**
  * Autoloads all classes
- * 
+ *
  */
 function __autoload($class_name) {
   if($class_name == 'GeneralFunctions' ||
@@ -66,7 +66,7 @@ if (!isset($_SERVER['REQUEST_URI'])) {
 // ->> FUNCTIONS
 /**
  * Includes the main functions
- */ 
+ */
 require_once(dirname(__FILE__)."/../functions/sort.functions.php");
 
 
@@ -74,9 +74,9 @@ require_once(dirname(__FILE__)."/../functions/sort.functions.php");
 // ->> get CONFIGS
 /**
  * The administrator-settings config
- * 
+ *
  * This config <var>array</var> is included from: <i>"feindura-CMS/config/admin.config.php"</i>
- * 
+ *
  * @global array $GLOBALS['adminConfig']
  */
 if(!$adminConfig = @include(dirname(__FILE__)."/../../config/admin.config.php"))
@@ -86,9 +86,9 @@ $GLOBALS['adminConfig'] = $adminConfig;
 
 /**
  * The statistic-settings config
- * 
+ *
  * This config <var>array</var> is included from: <i>"feindura-CMS/config/statistic.config.php"</i>
- * 
+ *
  * @global array $GLOBALS['statisticConfig']
  */
 if(!$statisticConfig = @include(dirname(__FILE__)."/../../config/statistic.config.php"))
@@ -97,9 +97,9 @@ $GLOBALS['statisticConfig'] = $statisticConfig;
 
 /**
  * The website-statistics
- * 
+ *
  * This statistics <var>array</var> is included from: <i>"feindura-CMS/config/website.statistic.php"</i>
- * 
+ *
  * @global array $GLOBALS['websiteStatistic']
  */
 if(!$websiteStatistic = @include(dirname(__FILE__)."/../../statistic/website.statistic.php"))
@@ -108,9 +108,9 @@ $GLOBALS['websiteStatistic'] = $websiteStatistic;
 
 /**
  * The pagesMetaData array
- * 
+ *
  * This <var>array</var> is included from: <i>"feindura-CMS/pages/pagesMetaData.array.php"</i>
- * 
+ *
  * @global array $GLOBALS['pagesMetaData']
  */
 if(!$pagesMetaData = @include(dirname(__FILE__)."/../../pages/pagesMetaData.array.php"))
@@ -147,9 +147,9 @@ if(!defined('FEINDURA_UPDATE') && $adminConfig['cache']['active'] && !$_SESSION[
 
 /**
  * The website-settings config
- * 
+ *
  * This config <var>array</var> is included from: <i>"feindura-CMS/config/website.config.php"</i>
- * 
+ *
  * @global array $GLOBALS['websiteConfig']
  */
 if(!$websiteConfig = @include(dirname(__FILE__)."/../../config/website.config.php"))
@@ -158,9 +158,9 @@ $GLOBALS['websiteConfig'] = $websiteConfig;
 
 /**
  * The categories-settings config
- * 
+ *
  * This config <var>array</var> is included from: <i>"feindura-CMS/config/category.config.php"</i>
- * 
+ *
  * @global array $GLOBALS['categoryConfig']
  */
 if(!$categoryConfig = @include(dirname(__FILE__)."/../../config/category.config.php"))
@@ -169,9 +169,9 @@ $GLOBALS['categoryConfig'] = $categoryConfig;
 
 /**
  * The languages array
- * 
+ *
  * This languages <var>array</var> is included from: <i>"feindura-CMS/library/thirdparty/languages.array.php"</i>
- * 
+ *
  * @global array $GLOBALS['languageNames']
  */
 if(!$languageNames = @include(dirname(__FILE__)."/../../library/thirdparty/languages.array.php"))
@@ -232,19 +232,19 @@ unset($uriPattern,$uriExtension,$filePath);
 
 /**
  * The required PHP version
- */ 
+ */
 define('REQUIREDPHPVERSION','5.1');
 
 
 /**
  * The host of feindura
- */ 
+ */
 define('HOST', $_SERVER['SERVER_NAME']);
 
 
 /**
  * The identity of the user
- */ 
+ */
 if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false) $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
   define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']));
 
@@ -257,12 +257,12 @@ $buildNr = explode(' ',$changelogFile[3]);
 
 /**
  * The version of feindura
- */ 
+ */
 define('VERSION',$version);
 
 /**
  * The build number of feindura
- */ 
+ */
 define('BUILD',trim($buildNr[1]));
 unset($changelogFile,$version,$buildNr);
 

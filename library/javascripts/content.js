@@ -400,6 +400,8 @@ function setSidbarMenuTextLength() {
   // gets the length of the longest text
   // walk trough all <li> <a> ellements an messure the <span> length
   $$('.sidebarMenu menu li').each(function(passedLi) {
+    if(typeOf(passedLi.getElement('a').getElement('span')) === 'null')
+      return;
     var textLength = passedLi.getElement('a').getElement('span').offsetWidth;
     if(sidbarMenuTextLength < textLength) {
       sidbarMenuTextLength = textLength + 30; //+ 30 for padding
@@ -423,7 +425,7 @@ function sidebarMenu() {
     // gets the bottom toogle button
     var slideBottomButton = sideBarMenu.getChildren('div.bottom a')[0];
     // gets slideing content
-    var slideContent = sideBarMenu.getChildren('div.content')[0];
+    var slideContent = sideBarMenu.getChildren('div.menuWrapper')[0];
 
 
     // creates the slide effect
@@ -585,6 +587,13 @@ window.addEvent('load', function() {
 // *---------------------------------------------------------------------------------------------------*
 window.addEvent('domready', function() {
 
+  // ADD .active to links which get clicked
+  $$('a').addEvent('click',function(){
+    $$('a').removeClass('active');
+    this.addClass('active');
+  });
+
+
   // UPDATE the USER-CACHE every 5 minutes
   (function(){
     new Request({
@@ -596,6 +605,14 @@ window.addEvent('domready', function() {
       }
     }).send('status=updateUserCache&site='+currentSite+'&page='+currentPage);
   }).periodical(180000);
+
+  // ->> SIDEBAR SCROLLES LIKE FIXED
+  // ---------------------------
+  if($('sidebarSelection') !== null && $('sidebarSelection').hasClass('staticScroller')) {
+    // adds static scroller
+    new StaticScroller('sidebarSelection',{offset:1});
+  }
+
 
   // *** ->> SIDEBAR MENU -----------------------------------------------------------------------------------------------------------------------
 
@@ -675,26 +692,20 @@ window.addEvent('domready', function() {
   setToolTips();
 
 
-  // ->> SIDEBAR SCROLLES LIKE FIXED
-  // ---------------------------
-  if($('sidebarSelection') !== null && $('sidebarSelection').hasClass('staticScroller')) {
-    // adds static scroller
-    new StaticScroller('sidebarSelection');
-  }
-
-  // reload the currentVisitors statistic every 1/2 minute
-  if($('currentVisitorsSideBar') !== null) {
+  // -> RELOAD THE CURRENTVISITORS statistic every 1 minute
+  if($('rightSidebar') !== null &&
+     typeOf($('rightSidebar').getChildren('.currentVisitorsSideBar')[0]) !== 'null') {
     (function(){
       new Request({
         url:'library/includes/currentVisitors.include.php',
         onSuccess: function(html) {
           if(html) {
             toolTips.detach('a.toolTip');
-            $('currentVisitorsSideBar').set('html',html);
+            $('rightSidebar').getChildren('.currentVisitorsSideBar')[0].set('html',html);
             feindura_storeTipTexts('a.toolTip');
             toolTips.attach('a.toolTip');
           } else
-            $('currentVisitorsSideBar').set('html','');
+            $('rightSidebar').set('html','');
         }
       }).send('status=getCurrentVisitors&request=true'); // getCurrentVisitors status prevents userCache overwriting
     }).periodical(60000);

@@ -26,24 +26,20 @@ switch($_GET['site']) {
 
   // ***** pages sideBar -------------------------------------------------- *********
   case 'pages':
-      echo '<div id="rightSidebarMessageBox">';
-        echo '<div id="messageBox_input" class="content">';
+      echo '<div id="messageBox_input" class="box">';
         echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" width="65" height="65">'.$langFile['SORTABLEPAGELIST_info'];
         // -> the javascript request of the sortable gets its error messages from this input
         echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['SORTABLEPAGELIST_save'].'|'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'">';
-        echo '</div>';
-      echo '<div class="bottom"></div></div>';
+      echo '</div>';
     break;
 
   // ***** statisticSetup sideBar -------------------------------------------- *********
   case 'statisticSetup':
     if($deletedStatistics) {
-      echo '<div id="rightSidebarMessageBox">';
-        echo '<div class="content">';
+      echo '<div class="box">';
         echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" width="65" height="65">';
         echo $deletedStatistics;
-        echo '</div>';
-      echo '<div class="bottom"></div></div>';
+      echo '</div>';
     }
     break;
 
@@ -53,8 +49,7 @@ switch($_GET['site']) {
     if(is_array($websiteConfigLanguages) && is_array($websiteConfig['multiLanguageWebsite']['languages']))
       $websiteConfigLanguagesDiff = array_diff($websiteConfig['multiLanguageWebsite']['languages'],$websiteConfigLanguages);
     if($websiteConfig['multiLanguageWebsite']['active'] && !empty($websiteConfigLanguagesDiff)) {
-      echo '<div id="rightSidebarMessageBox">';
-        echo '<div class="content">';
+      echo '<div class="box">';
         echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
         echo '<h1>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>';
         echo '<ul class="flags">';
@@ -64,17 +59,14 @@ switch($_GET['site']) {
           }
         }
         echo '</ul>';
-        echo '</div>';
-      echo '<div class="bottom"></div></div>';
+      echo '</div>';
     } else {
       $currentVisitorFullDetail = false;
       $currentVisitors = include('library/includes/currentVisitors.include.php');
       if($currentVisitors) {
-          echo '<div id="rightSidebarMessageBox">';
-          echo '<div class="content">';
+        echo '<div class="box currentVisitorsSideBar">';
           echo $currentVisitors;
-          echo '</div>';
-          echo '<div class="bottom"></div></div>';
+        echo '</div>';
       }
     }
     unset($websiteConfigLanguages,$websiteConfigLanguagesDiff);
@@ -85,6 +77,8 @@ switch($_GET['site']) {
     $categoryHasMissingLanguages = false;
     if(is_array($websiteConfig['multiLanguageWebsite']['languages'])) {
       foreach ($categoryConfig as $category) {
+        if($category['id'] == 0)
+          continue;
         $arrayDifferences = array_diff($websiteConfig['multiLanguageWebsite']['languages'],array_keys($category['localized']));
         if(!empty($arrayDifferences)) {
           $categoryHasMissingLanguages = true;
@@ -93,8 +87,7 @@ switch($_GET['site']) {
       }
     }
     if($categoryHasMissingLanguages) {
-      echo '<div id="rightSidebarMessageBox">';
-        echo '<div class="content">';
+      echo '<div class="box">';
         echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
         echo '<h1>'.$langFile['WARNING_TITLE_UNTITLEDCATEGORIES'].'</h1>';
         echo '<ul class="flags">';
@@ -110,17 +103,14 @@ switch($_GET['site']) {
           }
         }
         echo '</ul>';
-        echo '</div>';
-      echo '<div class="bottom"></div></div>';
+      echo '</div>';
     } else {
       $currentVisitorFullDetail = false;
       $currentVisitors = include('library/includes/currentVisitors.include.php');
       if($currentVisitors) {
-          echo '<div id="rightSidebarMessageBox">';
-          echo '<div class="content">';
+        echo '<div class="box">';
           echo $currentVisitors;
-          echo '</div>';
-          echo '<div class="bottom"></div></div>';
+        echo '</div>';
       }
     }
     break;
@@ -130,11 +120,9 @@ switch($_GET['site']) {
     $currentVisitorFullDetail = false;
     $currentVisitors = include('library/includes/currentVisitors.include.php');
     if($currentVisitors) {
-        echo '<div id="rightSidebarMessageBox">';
-        echo '<div class="content">';
+      echo '<div class="box currentVisitorsSideBar">';
         echo $currentVisitors;
-        echo '</div>';
-        echo '<div class="bottom"></div></div>';
+      echo '</div>';
     }
     break;
 

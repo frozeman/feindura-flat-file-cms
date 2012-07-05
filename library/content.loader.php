@@ -41,24 +41,22 @@ if($_GET['site'] != 'pages' && empty($_GET['page']) && checkBasePathAndURL()) {
 
   // DOCUMENTROOT is set: gives the error OUTPUT if one of these files in unwriteable
   if(DOCUMENTROOT !== false && $unwriteableList = isWritableWarningRecursive($checkFolders)) {
-    echo '<div class="block warning">
+    echo '<div class="block alert warning">
       <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
       <div class="content">
         <p>'.$unwriteableList.'</p><!-- need <p> tags for margin-left:..-->
       </div>
-      <div class="bottom"></div>  
-    </div>'; 
+    </div>';
     echo '<div class="blockSpacer"></div>';
 
   // DOCUMENTROOT is NOT set: show error if admin.config.php is not readable
   } elseif(DOCUMENTROOT === false && $unwriteableConfig = isWritableWarningRecursive(array($checkFolders[0]))) {
-    echo '<div class="block warning">
+    echo '<div class="block alert warning">
       <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
       <div class="content">
         <p>'.$unwriteableConfig.'</p><!-- need <p> tags for margin-left:..-->
       </div>
-      <div class="bottom"></div>  
-    </div>'; 
+    </div>';
     echo '<div class="blockSpacer"></div>';
   }
 }
@@ -83,14 +81,14 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   // set the category 0 if there are no categories in the categoriesSettings.php
   if(empty($categoryConfig))
     $_GET['category'] = 0;
-  
+
   echo isBlocked();
   include (dirname(__FILE__).'/views/editor.php');
-  
+
 // otherwise, load the sites
 // -------------------------------------------------------------------------------------------------------------
 } else {
-  
+
   // SWITCHES the &_GET['site'] var
   switch($_GET['site']) {
     // DASHBOARD
@@ -110,7 +108,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     // FILEMANAGER
     case 'fileManager':
       include (dirname(__FILE__).'/views/windowBox/fileManager.php');
-      break; 
+      break;
     // DELETPAGE
     case 'deletePage':
       include (dirname(__FILE__).'/views/windowBox/deletePage.php');

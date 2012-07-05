@@ -61,7 +61,6 @@ $searchWords = GeneralFunctions::smartStripslashes($searchWords);
       <input type="search" name="search" size="50" value="<?php echo htmlentities($searchWords,ENT_QUOTES,'UTF-8'); ?>" style="float:left; margin-top: 12px; margin-right:10px;">
       <input type="submit" value="" class="button search">
     </div>
-    <div class="bottom"></div>
   </div>
 </form>
 <?php
@@ -73,7 +72,7 @@ if(!empty($searchWords)) {
   $count = 0;
 
   // SEARCH RESULTS HEADLINE
-  echo '<div class="block"><h1>'.$langFile['SEARCH_TITLE_RESULTS'].' &quot;'.htmlentities($searchWords,ENT_QUOTES,'UTF-8').'&quot;</h1><div class="bottom"></div></div>';
+  echo '<div class="block"><h1>'.$langFile['SEARCH_TITLE_RESULTS'].' &quot;'.htmlentities($searchWords,ENT_QUOTES,'UTF-8').'&quot;</h1></div>';
 
   // ->> START SEARCH
   // ****************
@@ -177,7 +176,6 @@ if(!empty($searchWords)) {
         echo '  </div>';
       }
 
-      //echo '  <div class="bottom"></div>';
       echo '</div>';
 
       $count++;

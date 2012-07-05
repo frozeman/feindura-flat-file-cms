@@ -121,9 +121,9 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'led
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'times to this site';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Click to search for this word in the pages.';
 
-$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'visitors';
-$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'current visitors';
-$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'activity';
+$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Visitors';
+$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Current Visitors';
+$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Activity';
 
 $langFile['STATISTICS_TITLE_PAGESTATISTICS']                              = 'Page Statistics';
 

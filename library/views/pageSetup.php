@@ -136,7 +136,6 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
     <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'thumbnailSettings'; submitAnchor('pageSettingsForm','thumbnailSettings');">
   </div>
-  <div class="bottom"></div>
 </div>
 
 </form>
@@ -257,7 +256,6 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
     <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedCategory').value = 0; submitAnchor('categoriesForm','nonCategoryPages');">
   </div>
-  <div class="bottom"></div>
 </div>
 
 
@@ -630,7 +628,6 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
 
   </div>
-  <div class="bottom"></div>
 </div>
 
 </form>

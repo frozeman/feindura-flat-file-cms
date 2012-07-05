@@ -843,6 +843,24 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/images/bg/subMenu_right.png';
     $deleteFiles[] = 'library/images/bg/sidebarMenu_spacer.png';
     $deleteFiles[] = 'library/images/bg/dimContainer.png';
+    $deleteFiles[] = 'library/images/bg/rightSidebar_bg.png';
+    $deleteFiles[] = 'library/images/bg/rightSidebar_bgBottom.png';
+    $deleteFiles[] = 'library/images/bg/sidebarMenu_key_white.png';
+    $deleteFiles[] = 'library/images/bg/sidebarMenu_key_light.png';
+    $deleteFiles[] = 'library/images/bg/sidebarMenu_key_dark.png';
+    $deleteFiles[] = 'library/images/bg/sidebarMenu_freeTop_brown.png';
+    $deleteFiles[] = 'library/images/bg/sidebarMenu_freeTop_gray.png';
+    $deleteFiles[] = 'library/images/bg/sidebarMenu_freeTop_blue.png';
+    $deleteFiles[] = 'library/images/bg/sidebarMenu_fixedTop_brown.png';
+
+    $deleteFiles[] = 'library/images/bg/content_block_bottom.png';
+    $deleteFiles[] = 'library/images/bg/content_block_normal.png';
+    $deleteFiles[] = 'library/images/bg/content_block_warning.png';
+    $deleteFiles[] = 'library/images/bg/content_block_info.png';
+    $deleteFiles[] = 'library/images/bg/content_block_open.png';
+    $deleteFiles[] = 'library/images/bg/block_innerBlock_small.png';
+    $deleteFiles[] = 'library/images/bg/block_innerBlock_big.png';
+    $deleteFiles[] = 'library/images/bg/block_h1.png';
 
     // CHECK if files could be deleted
     $checkFiles = array();

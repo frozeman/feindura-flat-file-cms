@@ -1,5 +1,12 @@
 /*! ---------------------------------------------------
-    LESS Elements 0.7
+    LESS Elements 0.8
+
+    Created by:
+    - Dmitry Fadeyev -> http://lesselements.com/
+
+    Edited by:
+    - Oreolek -> http://oreolek.ru
+    - frozeman -> frozeman.de
   ---------------------------------------------------
     A set of useful LESS mixins.
     See CREDITS file for full author list.
@@ -118,6 +125,11 @@
     -ms-text-shadow: @arguments;
     -o-text-shadow: @arguments;
     -khtml-text-shadow: @arguments;
+ }
+ .none() {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
  }
 }
 

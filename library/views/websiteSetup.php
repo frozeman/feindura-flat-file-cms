@@ -92,7 +92,6 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
 
     <input type="submit" value="" name="websiteConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'websiteConfig'; submitAnchor('websiteSettingsForm','websiteConfig');">
   </div>
-  <div class="bottom"></div>
 </div>
 
 
@@ -176,7 +175,6 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
     <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'advancedWebsiteConfig'; submitAnchor('websiteSettingsForm','advancedWebsiteConfig');">
   </div>
-  <div class="bottom"></div>
 </div>
 
 </form>

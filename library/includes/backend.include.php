@@ -1,21 +1,21 @@
-<?php 
+<?php
 /**
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
- * 
+ *
  * This program is free software;
  * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
- * 
- * backend.include.php 
- * 
+ *
+ * backend.include.php
+ *
  * @version 0.3
  */
 
@@ -38,43 +38,43 @@ require_once(dirname(__FILE__)."/general.include.php");
 if(PHP_VERSION < REQUIREDPHPVERSION) {
 ?>
 <!DOCTYPE html>
-<html>
+<html class="feindura">
 <head>
   <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
   <meta http-equiv="content-language" content="en">
-  
-  <title>feindura PHP error</title>
-  
+
+  <title>feindura PHP Error</title>
+
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  
+
   <meta name="robots" content="no-index,nofollow">
   <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
   <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate">
-  
-  <meta name="title" content="feindura login">    
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">     
+
+  <meta name="title" content="feindura login">
+  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">    
-  <meta name="description" content="A flat file based Content Management System, written in PHP">    
+  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">
+  <meta name="description" content="A flat file based Content Management System, written in PHP">
   <meta name="keywords" content="cms,content,management,system,flat,file">
-   
+
   <link rel="shortcut icon" href="favicon.ico">
-  
-  <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all">
-  <link rel="stylesheet" type="text/css" href="library/styles/login.css" media="all">
+
+  <!-- <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="library/styles/login.css" media="all"> -->
+  <link rel="stylesheet" type="text/css" href="library/styles/styles.css" media="all">
 
 </head>
 <body>
   <div id="container">
-    <div id="loginSuccessBox">
+    <div class="alert alert-error">
       <div class="top"></div>
-      <div class="middle">     
-      <?php      
+      <div class="middle">
+      <?php
       echo 'ERROR<br><br><span class="feinduraName">fein<span>dura</span></span> requires at least PHP version '.REQUIREDPHPVERSION;
       ?>
       </div>
-      <div class="bottom"></div>
     </div>
 </body>
 </html>
@@ -88,9 +88,9 @@ if(PHP_VERSION < REQUIREDPHPVERSION) {
 // ->> get CONFIGS
 /**
  * The user-settings config
- * 
+ *
  * This config <var>array</var> is included from: <i>"feindura-CMS/config/user.config.php"</i>
- * 
+ *
  * @global array $GLOBALS['userConfig']
  */
 if(!$userConfig = @include(dirname(__FILE__)."/../../config/user.config.php"))
@@ -122,7 +122,7 @@ if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {
 
 /**
  * SET the WEBSITE LANGUAGE
- * 
+ *
  */
 if($websiteConfig['multiLanguageWebsite']['active']) {
   //XSS Filter

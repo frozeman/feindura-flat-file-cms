@@ -1,0 +1,179 @@
+// feindura - Flat File Content Management System
+// Copyright (C) Fabian Vogelsteller [frozeman.de]
+//
+// Published under the GNU General Public License
+
+
+.block {
+    z-index: 1;
+    position: relative;
+    display: block;
+    width: 800px;
+    left: 0px;
+    margin: 20px 0;
+    margin-left: -10px;
+    padding: 0;
+    overflow: visible;
+    #shadow > .drop(0,0,5px,0.2);
+    #border > .rounded(10px);
+
+    .content {
+        position: relative;
+        margin: 0;
+        padding: 20px 30px; // content size is 800 - 40 = 760px
+        padding-top: 10px;
+        overflow: hidden;
+
+        .spacer {
+            height: 40px;
+        }
+    }
+
+
+    h1 {
+        padding-bottom: 2px;
+        font-size: 18px;
+        line-height: 23px;
+        margin-bottom: 10px;
+        border: 1px solid #fff;
+        #border > .rounded(10px);
+        #gradient > .vertical(#fff,#fff,#f0f0f0,0.1,1);
+
+        > span {
+            max-width: 695px;
+        }
+    }
+
+
+    // ALERT BOXES (general)
+
+    &.alert {
+        border: none;
+
+        h1 {
+            #shadow > .text(0 1px 1px #c1c1c1);
+        }
+        p {
+            display: block;
+            margin-left: 70px;
+        }
+        .content {
+            position: relative;
+            margin-top: 1px;
+            min-height: 80px;
+            max-height: 400px;
+            overflow: auto;
+            background-position: 20px 50%;
+            background-repeat: no-repeat;
+        }
+    }
+
+    // ALERT WARNING
+    &.warning {
+        #gradient > .vertical(#FFECDD,#FFECDD,#fff,0,0.6);
+
+        .content {
+            background-image: url("../images/icons/warning.png");
+        }
+        h1 {
+            color: #CA5C00;
+        }
+        h2 {
+            margin-left: 65px;
+        }
+    }
+
+    // ALERT INFO
+    &.info {
+        #gradient > .vertical(#FEEC92,#FEEC92,#fff,0,0.6);
+
+        .content {
+            background-image: url("../images/icons/info.png");
+        }
+        h1 {
+            color: #DFB300;
+        }
+        h2 {
+            margin-top: 20px;
+            margin-left: 95px;
+            border-bottom: 1px dotted #DFB300;
+        }
+        p {
+            // display: block;
+            margin: 5px 3px;
+            // margin-left: 100px;
+            color: #957700;
+        }
+    }
+
+    // ALERT MISSING LANGUAGES
+    &.info.missingLanguages {
+        .content {
+            background-image: url("../images/icons/missingLanguages_big.png");
+        }
+        a {
+            background-image: none;
+            padding-left: 0;
+        }
+    }
+
+    // OPEN BLOCK
+    &.open {
+        z-index: 0;
+        #shadow > .drop(0,-5px,5px,0.2);
+
+        .content {
+            margin-top: -5px;
+        }
+
+        h1 {
+            top: -5px;
+        }
+    }
+
+    // LISTPAGES BLOCK
+    &.listPages {
+        #shadow > .none();
+
+        > h1 {
+            z-index: -1;
+           #shadow > .drop(0,0,5px,0.2);
+           padding-bottom: 30px;
+           margin-bottom: -20px;
+        }
+    }
+
+
+    // INNER BLOCKS
+
+    .innerBlock {
+        #shadow > .inner(0,0,5px,0.3);
+        #border > .rounded(10px);
+        padding: 10px;
+
+        .left {
+            position: relative;
+            width: 270px; /* org: 320px */
+            height: 180px; /* org: 200px */
+            padding: 10px 25px;
+            // margin: 20px 0px;
+            // margin-bottom: 2px;
+            // float: left;
+            font-size: 12px;
+            overflow: hidden;
+        }
+        .right {
+            position: relative;
+            width: 380px; /* org: 430px */
+            height: 180px; /* org: 200px */
+            padding: 10px 25px;
+            margin: 20px 0px;
+            margin-bottom: 2px;
+            float: right;
+            font-size: 12px;
+            overflow: hidden;
+        }
+    }
+
+
+}

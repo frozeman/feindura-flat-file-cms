@@ -175,6 +175,5 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
       ?>
 
   </div>
-  <div class="bottom"></div>
 </div>
 </form>
