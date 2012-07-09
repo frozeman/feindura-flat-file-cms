@@ -1,0 +1,252 @@
+// feindura - Flat File Content Management System
+// Copyright (C) Fabian Vogelsteller [frozeman.de]
+//
+// Published under the GNU General Public License
+
+
+.block.listPages {
+    margin-bottom: 30px;
+    #border > .radius(@blockBorderRadius,0,0,@blockBorderRadius);
+
+    > h1 {
+        z-index: -1;
+       #shadow > .drop(0,0,5px,0.2);
+       padding-bottom: 30px;
+       margin-bottom: -20px;
+    }
+
+    span.toolTip {
+        background: none;
+        padding: 0;
+    }
+
+    // .content {
+    // }
+
+
+    // BLOCK INSIDE LISTPAGES
+    .block {
+        z-index: 1;
+        margin: 0;
+
+        > div {
+            #shadow > .none();
+        }
+
+        .content {
+            padding: 5px 20px;
+        }
+
+        > h1 > a {
+            margin-left: -35px;
+            background-position: right 8px; // overwrites the slide in link in contentBlock.less
+            width: 100%;
+        }
+        > h1 span > img {
+            position: relative;
+            top: -4px;
+        }
+        > h1:hover {
+            #gradient > .none();
+        }
+
+        // CATEGORY HEADER
+        div.categoryHeader {
+            z-index: 2;
+            position: absolute;
+            top: 17px;
+            right: 90px;
+
+            a.status {
+                position: absolute;
+                top: 0;
+                right: 175px;
+            }
+
+            div.functions {
+                z-index: 6;
+                position: absolute;
+                top: 0;
+                height: 27px;
+            }
+        }
+
+
+        // LISTPAGES UL
+        ul {
+            position: relative;
+            margin: 15px 0px;
+            // margin-left: -20px;
+            padding: 0px;
+            min-height: 10px;
+
+            li {
+                position: relative;
+                width: @gridRowWidth;
+                margin: 10px 0px;
+                white-space: nowrap;
+                overflow: visible;
+                border: 1px solid #fff;
+                #border > .rounded(@blockBorderRadius);
+                #shadow > .drop(0,0,5px,0.3);
+
+                &:hover {
+                    background: url('../images/bg/listPages_pageBar.png') repeat-x;
+                }
+                &.active {
+                    border-color: @colorBrown;
+                }
+                &.hasSubCategory {
+                    #border > .radius(25px,25px,@blockBorderRadius,@blockBorderRadius);
+                }
+
+
+                // LISTPAGES PAGEBLOCK ELEMENTS
+                > div {
+                    padding: 3px 0px;
+                    height: 27px;
+                    line-height: 27px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+                div.emptyList {
+                    position:relative;
+                    top:-2px;
+                    left:12px;
+                }
+
+                .missingLanguages {
+                    display: inline-block;
+                    width: 27px;
+                    height: 27px;
+                    background: url("../images/icons/missingLanguages_small.png") no-repeat !important;
+                }
+
+                // page name
+                .name a {
+                    display: inline-block;
+                    height: 27px;
+                    margin-left: 4px;
+                    margin-top: 2px;
+                    background-image: url("../images/icons/pageIcon_small.png");
+                    background-repeat: no-repeat;
+                    padding-left: 31px;
+
+                    strong {
+                        position: relative;
+                        top: -2px;
+                    }
+
+                    &.hasSubCategory {
+                        background-image: url("../images/icons/pageIcon_subCategory_small.png");
+                    }
+                    &.isStartPage {
+                        background-image: url("../images/icons/pageIcon_startPage_small.png");
+                    }
+                    &.hasSubCategory.isStartPage {
+                        background-image: url("../images/icons/pageIcon_startPage_subCategory_small.png");
+                    }
+                }
+
+                // function links
+                .functions a {
+                    display: inline-block;
+                    width: 27px;
+                    height: 27px;
+                    padding: 0px;
+                    background-repeat: no-repeat;
+                    background-position: 0 0;
+                }
+                .functions a:hover,
+                .functions a:focus,
+                .functions a.startPage.active {
+                    background-position: 0px -27px;
+                    filter: alpha(opacity=100);
+                    -khtml-opacity: 1.0;
+                    -moz-opacity: 1.0;
+                    opacity: 1.0;
+                }
+
+                .functions a.startPage {
+                    background-image: url("../images/buttons/listPages_startPage.png");
+                }
+                .functions a.frontendEditing {
+                    background-image: url("../images/buttons/listPages_frontendEditing.png");
+                }
+                .functions a.editPage {
+                    background-image: url("../images/buttons/listPages_editPage.png");
+                }
+                .functions a.deletePage {
+                    background-image: url("../images/buttons/listPages_deletePage.png");
+                }
+                .functions a.pageThumbnailUpload {
+                    background-image: url("../images/buttons/listPages_pageThumbnailUpload.png");
+                }
+                .functions a.pageThumbnailDelete {
+                    background-image: url("../images/buttons/listPages_pageThumbnailDelete.png");
+                }
+            }
+            &.sortablePageList li {
+                cursor: move;
+            }
+        }
+
+
+    }
+
+    // > h1 a span {
+    //     position: relative;
+    //     top: -12px;
+    //     line-height: 15px;
+    //     font-weight: bold;
+    //     background: none;
+    //     padding: 0px;
+    //     font-size:15px;
+    // }
+
+    // > h1 img.listPagesH1Icon {
+    //   position: relative;
+    //   top: -4px !important;
+    //   left: -2px;
+    // }
+
+    // LISTPAGES HEADER
+    div.listPagesHead {
+        z-index: 0;
+        height: 50px;
+        margin-bottom: -20px;
+        padding: 5px @gridGutterWidth;
+        border-top: 1px solid @colorBrown;
+        font-size: 15px;
+        line-height: 30px;
+        background: url("../images/bg/listPages_headBg.png") repeat-x;
+        color:3C5E91;
+
+        > div {
+            white-space: nowrap;
+        }
+
+        div.name {
+            input {
+                width: 170px;
+                padding-right: 23px;
+            }
+
+            a#listPagesFilterCancel {
+                display: none;
+                position: absolute;
+                top: 12px;
+                right: 15px;
+                width: 18px;
+                height: 18px;
+                background: url("../images/buttons/listPages_filterCancel.png") no-repeat;
+
+                &:hover,
+                &:focus {
+                    background-position: 1px -17px;
+                }
+            }
+        }
+    }
+
+}

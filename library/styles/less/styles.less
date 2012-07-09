@@ -20,6 +20,10 @@
 
 // @import "bootstrap/css/bootstrap.min.css";
 
+// VARS
+@blockBorderRadius: 10px;
+
+
 // FEINDURA CLASS
 // All stylesheet rules are inside the feindura class.
 // Will be add to the <html> in the backend and to each element containing feindura objects in the frontend.
@@ -35,8 +39,8 @@
 
     // DELETE these LINES FROM the "bootstrap/less/variables.less", to allow these rules to apply
     @gridColumns:             8;
-    @gridColumnWidth:         70px; // 80 - 2*10 padding
-    @gridGutterWidth:         25px;
+    @gridColumnWidth:         81px; // 84px - 2*20px padding of the div.content
+    @gridGutterWidth:         16px;
     @iconSpritePath:          "../images/icons/glyphicons-halflings.png";
     @iconWhiteSpritePath:     "../images/icons/glyphicons-halflings-white.png";
 
@@ -68,5 +72,17 @@
     .mainContent {
         @import "contentBlocks.less";
     }
+
+    // PAGE SPECIFIC STYLES
+    // ====================
+
+    // DASHBOARD
+    @import "page_dashboard.less";
+
+    // BACKUP
+    @import "page_backup.less";
+
+    // LIST PAGES
+    @import "page_listPages.less";
 
 }

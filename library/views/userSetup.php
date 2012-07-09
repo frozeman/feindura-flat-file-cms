@@ -35,30 +35,24 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 <div class="block">
   <h1><?php echo $langFile['USERSETUP_h1']; ?></h1>
-  <div class="content">
+  <div class="content form">
 
-    <table>
-      <colgroup>
-      <col class="left">
-      </colgroup>
-
-      <tbody>
-        <tr><td class="leftTop"></td><td></td></tr>
-
-        <tr><td class="left">
+    <div class="row">
+      <div class="span3 formLeft">
           <a href="?site=userSetup&amp;status=createUser#userId<?php echo getNewUserId(); ?>" class="createUser toolTip" title="<?php echo $langFile['USERSETUP_createUser']; ?>::"></a>
-        </td><td class="right">
+      </div>
+      <div class="span5">
         <br>
         <?php
         // user info
         if($userInfo)
           echo '<span class="hint"><b>'.$userInfo.'</b></span>';
         ?>
-        </td></tr>
+      </div>
+    </div>
 
-        <tr><td class="leftBottom"></td><td></td></tr>
-      </tbody>
-    </table>
+    <div class="spacer2x"></div>
+
     <?php
 
       // lists the users
@@ -71,34 +65,24 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
           // checks the user settings
           $checked[1] = ($user['admin']) ? 'checked="checked"' : '';
 
-          // --------------------------------------
-          // basic user settings
-          echo '<table>
-                <colgroup>
-                <col class="left">
-                </colgroup>
-                <tbody>';
+
+          echo '<div class="verticalSeparator"></div>';
 
           // user anchor
-          echo '<tr><td class="leftTop">
-                <a name="userId'.$user['id'].'" id="userId'.$user['id'].'" class="anchorTarget"></a>
-                </td><td></td></tr>';
+          echo '<a id="userId'.$user['id'].'" class="anchorTarget"></a>';
+
 
           // user NAME
           $userName = (empty($user['username']))
             ? '<i>'.$langFile['USERSETUP_createUser_unnamed'].'</i>'
             : $user['username'];
-
-          echo '<tr><td class="left">';
-          echo '<span style="font-size:20px;font-weight:bold;">'.$userName.'</span><!--<br>ID '.$user['id'].'-->';
+          echo '<div class="row"><div class="offset3 span5">';
+          echo '<h2>'.$userName.'</h2><!--<br>ID '.$user['id'].'-->';
           echo '<input type="hidden" name="users['.$user['id'].'][id]" value="'.$user['id'].'">';
-          echo '</td>';
 
                 // deleteUser
-          echo '<td class="right" style="width:525px;">
-                <div style="border-bottom: 1px dotted #cccccc;width:400px;height:15px;float:left !important;"></div>
-                <a href="?site=userSetup&amp;status=deleteUser&amp;userId='.$user['id'].'#top" class="deleteUser toolTip" title="'.$langFile['USERSETUP_deleteUser'].'::'.$user['username'].'"></a>';
-          echo '</td></tr>';
+          echo '<a href="?site=userSetup&amp;status=deleteUser&amp;userId='.$user['id'].'#top" class="deleteUser toolTip" title="'.$langFile['USERSETUP_deleteUser'].'::'.$user['username'].'"></a>';
+          echo '</div></div>';
 
                 // user name
                 $markUsername = (empty($user['username']))
@@ -107,20 +91,20 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
                 $autofocus = (empty($user['username']))
                   ? ' autofocus="autofocus"'
                   : '';
-          echo '<tr><td class="left">
-                <label for="users'.$user['id'].'username"'.$markUsername.'>'.$langFile['USERSETUP_username'].'</label>
-                </td><td class="right">
-                <input id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" required="required" autocomplete="off"'.$autofocus.'>
-                </td></tr>';
+          echo '<div class="row"><div class="span3 formLeft">';
+          echo '<label for="users'.$user['id'].'username"'.$markUsername.'>'.$langFile['USERSETUP_username'].'</label>
+                </div><div class="span5">
+                <input id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" autocomplete="off"'.$autofocus.' required="required">
+                </div></div>';
 
                 // user email
-          echo '<tr><td class="left">
-                <label for="users'.$user['id'].'email" class="toolTip" title="::'.$langFile['USERSETUP_email_tip'].'">'.$langFile['USERSETUP_email'].'</label>
-                </td><td class="right">
+          echo '<div class="row"><div class="span3 formLeft">';
+          echo '<label for="users'.$user['id'].'email" class="toolTip" title="::'.$langFile['USERSETUP_email_tip'].'">'.$langFile['USERSETUP_email'].'</label>
+                </div><div class="span5">
                 <input type="email" id="users'.$user['id'].'email" name="users['.$user['id'].'][email]" value="'.$user['email'].'" class="toolTip" title="'.$langFile['USERSETUP_email'].'::'.$langFile['USERSETUP_email_tip'].'" autocomplete="off">
-                </td></tr>';
+                </div></div>';
 
-          echo '<tr><td class="left spacer"></td><td>';
+          echo '<div class="spacer"></div>';
 
                 // user password
                 $passwordTitle = (empty($user['password']))
@@ -131,42 +115,33 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
                   : '';
           echo $userInfoPassword[$user['id']];
 
-          echo '<tr><td class="left">
-                <label for="users'.$user['id'].'password"'.$markPassword.'>'.$passwordTitle.'</label>
-                </td><td class="right">
-                <input type="password" id="users'.$user['id'].'password" name="users['.$user['id'].'][password]" value="" autocomplete="off">
-                </td></tr>';
+          echo '<div class="row"><div class="span3 formLeft">';
+          echo '<label for="users'.$user['id'].'password"'.$markPassword.'>'.$passwordTitle.'</label>
+                </div><div class="span5">
+                <input type="password" id="users'.$user['id'].'password" name="users['.$user['id'].'][password]" value="" autocomplete="off" required="required">
+                </div></div>';
+
                 // user password confirm
-          echo '<tr><td class="left">
-                <label for="users'.$user['id'].'passwordConfirm"'.$markPassword.'>'.$langFile['USERSETUP_password_confirm'].'</label>
-                </td><td class="right">
-                <input type="password" id="users'.$user['id'].'passwordConfirm" name="users['.$user['id'].'][password_confirm]" value="">
-                </td></tr>';
-
-          echo '<tr><td class="leftBottom"></td><td>';
-
-          echo '</td></tr>';
+          echo '<div class="row"><div class="span3 formLeft">';
+          echo '<label for="users'.$user['id'].'passwordConfirm"'.$markPassword.'>'.$langFile['USERSETUP_password_confirm'].'</label>
+                </div><div class="span5">
+                <input type="password" id="users'.$user['id'].'passwordConfirm" name="users['.$user['id'].'][password_confirm]" value="" required="required">
+                </div></div>';
 
           // USER PERMISSIONS
-          echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="users'.$user['id'].'admin" name="users['.$user['id'].'][admin]" class="userAdminCheckbox" value="true" '.$checked[1].' class="toolTip" title="'.$langFile['USERSETUP_admin'].'::'.$langFile['USERSETUP_admin_tip'].'"><br>
-                </td><td class="right checkboxes">
+          echo '<div class="row"><div class="span3 formLeft">';
+          echo '<input type="checkbox" id="users'.$user['id'].'admin" name="users['.$user['id'].'][admin]" class="toolTip userAdminCheckbox" value="true" '.$checked[1].' title="'.$langFile['USERSETUP_admin'].'::'.$langFile['USERSETUP_admin_tip'].'"><br>
+                </div><div class="span5">
                 <label for="users'.$user['id'].'admin">';
                 echo '<span class="toolTip" title="::'.$langFile['USERSETUP_admin_tip'].'">'.$langFile['USERSETUP_admin'].'</span></label>
-                </td></tr>';
+                </div></div>';
 
-          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
 
           $hidden = ($checked[1]) ? ' hidden' : '';
 
-          echo '<tr class="userPermissionsTr'.$hidden.'"><td class="left buttons">
-                      </td><td class="right buttons">
-                        <a href="?site=userPermissions" class="btn btn-large" onclick="openWindowBox(\'library/views/windowBox/userPermissions.php\',\''.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'\');return false;"'.$keyTip.'>'.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'</a>
-                      </td></tr>';
-
-          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
-          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
-          echo '</tbody></table>';
+          echo '<div class="row userPermissionsRow'.$hidden.'"><div class="offset3 span5 buttons">
+                  <a href="?site=userPermissions" class="btn btn-large" onclick="openWindowBox(\'library/views/windowBox/userPermissions.php\',\''.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'\');return false;"'.$keyTip.'>'.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'</a>
+                </div></div>';
 
           echo '<input type="submit" value="" name="saveUserSetup" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="$(\'savedUserId\').value = \''.$user['id'].'\'; submitAnchor(\'userForm\',\'userId'.$user['id'].'\');">'; // end slide in box
 

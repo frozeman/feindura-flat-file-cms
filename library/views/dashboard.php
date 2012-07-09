@@ -77,7 +77,7 @@ if(!empty($adminConfig['user']['info'])) {
     <?php
 
     // vars
-    $rowColor = 'dark'; // starting row color
+    $maxListEntries = 50;
 
     // ->> LOAD all PAGES
     $orgPages = GeneralFunctions::loadPages(true);
@@ -91,9 +91,8 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<div class="span4">';
         echo '<div class="innerBlock">';
         echo '<h2>'.$langFile['STATISTICS_TEXT_VISITORCOUNT'].'</h2>';
-        echo '<div style="width:100%; text-align:center;margin-top: -10px;">';
+        echo '<div class="center">';
           echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br>';
-          echo '<div style="line-height: 18px;">';
             echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'].'">'.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.formatHighNumber($websiteStatistic['robotVisitCount']).'</span><br>';
             // CURRENT VISITORS
             $currentVisitors = StatisticFunctions::getCurrentVisitors();
@@ -106,7 +105,6 @@ if(!empty($adminConfig['user']['info'])) {
                 $countRobots++;
             }
             echo '<span class="blue"><strong>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</strong> '.$countVisitor.' ('.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.$countRobots.')</span>';
-          echo '</div>';
           echo '<hr class="small">';
         echo '</div>';
 
@@ -129,7 +127,7 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<div class="span4">';
         echo '<div class="innerBlock">';
         echo '<h2>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h2>';
-          echo '<div class="innerBlockListPages">';
+          echo '<div class="innerBlocklistPages">';
           echo $currentVisitors;
           echo '</div>';
         echo '</div>';
@@ -137,149 +135,161 @@ if(!empty($adminConfig['user']['info'])) {
     }
     echo '</div>';
 
-    echo '<div class="spacer"></div>';
+    echo '<div class="spacer2x"></div>';
 
     // -> inBlockSlider
-    echo '<div style="text-align:center;"><a href="#" tabindex="30" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></div><br>';
-
+    echo '<h2 class="center"><a href="#" tabindex="30" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></h2>';
     echo '<div class="verticalSeparator"></div>';
 
     echo '<div class="inBlockSlider hidden">';
 
-    // ---------------------------------
-    // -> MOST VISITED PAGE
-    echo '<div class="innerBlockLeft">';
-    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'].'</h2>';
-      echo '<div class="innerBlockListPages">
-            <table class="coloredList"><tbody>';
-      // SORT the Pages by VISIT COUNT
-      usort($pagesStats, 'sortByVisitCount');
+    echo '<div class="row">';
+      echo '<div class="span4">';
 
-      $count = 1;
-      foreach($pagesStats as $pageStats) {
-        if(!empty($pageStats['visitorCount'])) {
-          // get page category and title
-          foreach($pages as $page) {
-            if($pageStats['id'] == $page['id']) {
-              $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
-              $pageStats['category'] = $page['category'];
+        // ---------------------------------
+        // -> MOST VISITED PAGE
+        echo '<div class="innerBlock">';
+        echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'].'</h2>';
+          echo '<div class="innerBlocklistPages">
+                <table class="coloredList"><tbody>';
+          // SORT the Pages by VISIT COUNT
+          usort($pagesStats, 'sortByVisitCount');
+
+          $count = 1;
+          foreach($pagesStats as $pageStats) {
+            if(!empty($pageStats['visitorCount'])) {
+              // get page category and title
+              foreach($pages as $page) {
+                if($pageStats['id'] == $page['id']) {
+                  $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
+                  $pageStats['category'] = $page['category'];
+                }
+              }
+              echo '<tr><td style="font-size:11px;text-align:center;"><strong>'.$pageStats['visitorCount'].'</strong></td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
+              // count
+              if($count == $maxListEntries) break;
+              else $count++;
             }
           }
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;"><strong>'.$pageStats['visitorCount'].'</strong></td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
-          // change row color
-          $rowColor = ($rowColor == 'light') ? 'dark' : 'light';
-          // count
-          if($count == $statisticConfig['number']['mostVisitedPages']) break;
-          else $count++;
-        }
-      }
-      echo '</tbody></table>
-            </div>';
-    echo '</div>';
+          echo '</tbody></table>
+                </div>';
+        echo '</div>';
 
-    $pagesStats = $orgPagesStats;
+      echo '</div>';
 
-    // ---------------------------------
-    // -> LAST VISITED PAGES
-    echo '<div class="innerBlockRight">';
-    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'].'</h2>';
-      echo '<div class="innerBlockListPages">
-            <table class="coloredList"><tbody>';
-      // SORT the Pages by VISIT SAVEDATE
-      usort($pagesStats, 'sortByLastVisitDate');
+      $pagesStats = $orgPagesStats;
 
-      $count = 1;
-      $rowColor = 'dark'; // starting row color
-      foreach($pagesStats as $pageStats) {
-        if($pageStats['lastVisit'] != 0) {
-          // get page category and title
-          foreach($pages as $page) {
-            if($pageStats['id'] == $page['id']) {
-              $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
-              $pageStats['category'] = $page['category'];
+      echo '<div class="span4">';
+
+        // ---------------------------------
+        // -> LAST VISITED PAGES
+        echo '<div class="innerBlock">';
+        echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'].'</h2>';
+          echo '<div class="innerBlocklistPages">
+                <table class="coloredList"><tbody>';
+          // SORT the Pages by VISIT SAVEDATE
+          usort($pagesStats, 'sortByLastVisitDate');
+
+          $count = 1;
+          foreach($pagesStats as $pageStats) {
+            if($pageStats['lastVisit'] != 0) {
+              // get page category and title
+              foreach($pages as $page) {
+                if($pageStats['id'] == $page['id']) {
+                  $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
+                  $pageStats['category'] = $page['category'];
+                }
+              }
+              echo '<tr><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageStats['lastVisit'])).'</strong> '.formatTime($pageStats['lastVisit']).'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
+              // count
+              if($count == $maxListEntries) break;
+              else $count++;
             }
           }
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageStats['lastVisit'])).'</strong> '.formatTime($pageStats['lastVisit']).'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
-          // change row color
-          $rowColor = ($rowColor == 'light') ? 'dark' : 'light';
-          // count
-          if($count == $statisticConfig['number']['lastVisitedPages']) break;
-          else $count++;
-        }
-      }
-      echo '</tbody></table>
-            </div>';
+          echo '</tbody></table>
+                </div>';
+        echo '</div>';
+      echo '</div>';
     echo '</div>';
 
     $pagesStats = $orgPagesStats;
 
-    // ---------------------------------
-    // -> LONGEST VIEWED PAGE
-    echo '<div class="innerBlockLeft">';
-    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'].'</h2>';
-      echo '<div class="innerBlockListPages">
-            <table class="coloredList"><tbody>';
-      // SORT the Pages by MAX VISIT TIME
-      usort($pagesStats, 'sortByVisitTimeMax');
+    //  spacer
+    echo '<div class="spacer"></div>';
 
-      $count = 1;
-      foreach($pagesStats as $pageStats) {
-        // get page category and title
-        foreach($pages as $page) {
-          if($pageStats['id'] == $page['id']) {
-            $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
-            $pageStats['category'] = $page['category'];
+    echo '<div class="row">';
+      echo '<div class="span4">';
+
+        // ---------------------------------
+        // -> LONGEST VIEWED PAGE
+        echo '<div class="innerBlock">';
+        echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'].'</h2>';
+          echo '<div class="innerBlocklistPages">
+                <table class="coloredList"><tbody>';
+          // SORT the Pages by MAX VISIT TIME
+          usort($pagesStats, 'sortByVisitTimeMax');
+
+          $count = 1;
+          foreach($pagesStats as $pageStats) {
+            // get page category and title
+            foreach($pages as $page) {
+              if($pageStats['id'] == $page['id']) {
+                $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
+                $pageStats['category'] = $page['category'];
+              }
+            }
+
+            // get highest time
+            $highestTime = unserialize($pageStats['visitTimeMax']);
+
+            if($pageVisitTime = showVisitTime($highestTime[0]))
+              echo '<tr><td style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
+            // count
+            if($count == $maxListEntries) break;
+            else $count++;
           }
-        }
+          echo '</tbody></table>
+                </div>';
+        echo '</div>';
 
-        // get highest time
-        $highestTime = unserialize($pageStats['visitTimeMax']);
+      echo '</div>';
 
-        if($pageVisitTime = showVisitTime($highestTime[0]))
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
-        // change row color
-        $rowColor = ($rowColor == 'light') ? 'dark' : 'light';
-        // count
-        if($count == $statisticConfig['number']['longestVisitedPages']) break;
-        else $count++;
-      }
-      echo '</tbody></table>
-            </div>';
-    echo '</div>';
+      $pagesStats = $orgPagesStats;
 
-    $pagesStats = $orgPagesStats;
+      echo '<div class="span4">';
 
-    // ---------------------------------
-    // -> LAST EDITED PAGES
-    echo '<div class="innerBlockRight">';
-    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'].'</h2>';
-      echo '<div class="innerBlockListPages">
-            <table class="coloredList"><tbody>';
-      // SORT the Pages by VISIT SAVEDATE
-      usort($pages, 'sortByLastSaveDate');
+        // ---------------------------------
+        // -> LAST EDITED PAGES
+        echo '<div class="innerBlock">';
+        echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'].'</h2>';
+          echo '<div class="innerBlocklistPages">
+                <table class="coloredList"><tbody>';
+          // SORT the Pages by VISIT SAVEDATE
+          usort($pages, 'sortByLastSaveDate');
 
-      $count = 1;
-      $rowColor = 'dark'; // starting row color
-      foreach($pages as $page) {
-        if($page['lastSaveDate'] != 0) {
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</strong> '.formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'</a></td></tr>';
-          // change row color
-          $rowColor = ($rowColor == 'light') ? 'dark' : 'light';
-          // count
-          if($count == $statisticConfig['number']['lastEditedPages']) break;
-          else $count++;
-        }
-      }
-      echo '</tbody></table>
-            </div>';
+          $count = 1;
+          foreach($pages as $page) {
+            if($page['lastSaveDate'] != 0) {
+              echo '<tr><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</strong> '.formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'</a></td></tr>';
+              // count
+              if($count == $maxListEntries) break;
+              else $count++;
+            }
+          }
+          echo '</tbody></table>
+                </div>';
+        echo '</div>';
+
+        echo '</div>';
     echo '</div>';
 
     $pages = $orgPages;
 
-    echo '<br style="clear:both;"><br><div class="verticalSeparator"></div>';
+    echo '<div class="verticalSeparator"></div>';
     echo '</div>'; // <- inBlockSlider End
 
-    echo '<br>';
+    //  spacer
+    echo '<div class="spacer2x"></div>';
 
     // ---------------------------------
     // ->> SEARCHWORD CLOUD
@@ -297,16 +307,16 @@ if(!empty($adminConfig['user']['info'])) {
     if($tagCloud = createTagCloud($allSearchwords)) {
       echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h2>';
       echo '<div class="tagCloud">'.$tagCloud.'</div>';
-      echo '<br><div class="verticalSeparator"></div><br>';
     }
 
     // ---------------------------------
     // -> BROWSER CHART
 
     if($browserChart = createBrowserChart($websiteStatistic['browser'])) {
-      echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
+      // echo '<div class="verticalSeparator"></div>';
+      echo '<div class="spacer2x"></div>';
+      echo '<h2 class="center">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
       echo $browserChart;
-      echo '<br><br><div class="verticalSeparator"></div><br>';
     }
 
     // ---------------------------------
@@ -314,24 +324,25 @@ if(!empty($adminConfig['user']['info'])) {
     if(file_exists(dirname(__FILE__).'/../../statistic/referer.statistic.log') &&
        $logContent = file(dirname(__FILE__).'/../../statistic/referer.statistic.log')) {
 
-      echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['DASHBOARD_TITLE_REFERER'].'</h2>';
+      // echo '<div class="verticalSeparator"></div>';
+      echo '<div class="spacer2x"></div>';
 
-      echo '<div id="refererLogContainer">
-            <ul class="coloredList">';
-      foreach($logContent as $logRow) {
-        $logRow = explode('|#|',$logRow);
-        $logDate = GeneralFunctions::formatDate($logRow[0]);
-        $logTime = formatTime($logRow[0]);
-        $logUrl = $logRow[1];
+      echo '<h2 class="center">'.$langFile['DASHBOARD_TITLE_REFERER'].'</h2>';
 
-        echo '<li class="'.$rowColor.'"><span style="font-size:11px;">'.$logDate.' '.$logTime.'</span> <a href="'.$logUrl.'" class="blue">'.str_replace('http://','',$logUrl).'</a></li>';
+      echo '<div class="row">';
+        echo '<div class="span8 refererBox">';
+          echo '<ul class="coloredList">';
+            foreach($logContent as $logRow) {
+              $logRow = explode('|#|',$logRow);
+              $logDate = GeneralFunctions::formatDate($logRow[0]);
+              $logTime = formatTime($logRow[0]);
+              $logUrl = str_replace('&','&amp;',$logRow[1]);
 
-        // change row color
-        $rowColor = ($rowColor == 'light') ? 'dark' : 'light';
-      }
-      echo '</ul>
-            </div>';
-    // no log
+              echo '<li><strong>'.$logDate.'</strong>  '.$logTime.'<a href="'.$logUrl.'" class="blue">'.str_replace('http://','',$logUrl).'</a></li>';
+            }
+          echo '</ul>';
+        echo '</div>';
+      echo '</div>';
     }
     ?>
   </div>

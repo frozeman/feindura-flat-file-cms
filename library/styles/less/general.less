@@ -44,10 +44,30 @@ a.gray:hover, a.gray:focus {
 .hidden {
     display: none;
 }
-// overwrite the hidden function for div.block
-.block.hidden,
-.sidebarMenu.hidden {
-    display: block;
+
+.center {
+    text-align: center;
+}
+.left {
+    text-align: left;
+}
+.right {
+    text-align: right;
+}
+
+.spacer {
+    height: @gridGutterWidth;
+}
+.spacer2x {
+    height: @gridGutterWidth * 2;
+}
+
+div.blockSpacer {
+    position: relative;
+    width: 788px;
+    height: 28px;
+    margin: 25px -8px;
+    background: url("../images/bg/content_blockSpacer.png") no-repeat;
 }
 
 
@@ -58,6 +78,26 @@ mark {
     color: inherit;
 }
 
+hr {
+    position: relative;
+    height: 0px;
+    margin: 15px 0px;
+    border: none;
+    border-top: 10px dotted #cccccc;
+    clear: both;
+
+    &.small {
+        position: relative;
+        height: 0px;
+        margin: 10px 0px;
+        border: none;
+        border-top: 1px solid @colorLightGray;
+    }
+}
+
+span.hint {
+    background-position: 0px 4px !important;
+}
 
 // LINKS
 
@@ -67,6 +107,7 @@ a, a.link {
     text-decoration: none;
     background: url("../images/icons/link.gif") no-repeat left center;
     cursor: pointer !important;
+    outline: none !important;
 }
 a:hover,
 a:focus,
@@ -79,7 +120,7 @@ a:active,
 a.active,
 a.link:active,
 a.link.active {
-    color: #000000;
+    color: @logoColorOrange;
     text-decoration: none;
 }
 p a {
@@ -116,6 +157,63 @@ a.deleteIcon {
 a.deleteIcon:hover,
 a.deleteIcon:focus {
   background-position: 0px -16px;
+}
+
+
+// add icon
+a.addButton {
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: 6px 0;
+    background: url("../images/buttons/addButton.png") no-repeat;
+
+    &:hover,
+    &:focus {
+        background-position: 0px -24px;
+    }
+    &:active {
+        background-position: 0px -48px;
+    }
+}
+
+a.down {
+    font-weight: bold;
+    padding-left: 16px;
+    background: url("../images/buttons/down.gif") no-repeat 0px 3px !important;
+}
+a.up {
+    font-weight: bold;
+    padding-left: 16px;
+    background: url("../images/buttons/up.gif") no-repeat 0px 3px !important;
+}
+
+
+// STATUS BUTTON
+a.status {
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    text-decoration: none;
+    padding-left: 0px;
+
+    // for pages
+    &.public {
+        background: url("../images/icons/page_public.png") no-repeat;
+    }
+    &.nonpublic {
+        background: url("../images/icons/page_nonpublic.png") no-repeat;
+    }
+}
+
+// for categories
+.categoryHeader a.status.public {
+    background: url("../images/icons/category_public.png") no-repeat;
+}
+.categoryHeader a.status.nonpublic {
+    background: url("../images/icons/category_nonpublic.png") no-repeat;
 }
 
 
@@ -173,6 +271,51 @@ menu.vertical {
         white-space: nowrap;
     }
 }
+
+
+// COLORED LIST or TABLE with two colors
+.coloredList {
+    font-size: 11px;
+
+    a {
+        background-position: 1px 1px;
+    }
+
+    li:nth-child(even),
+    tr:nth-child(even), {
+        background-color: #eef7f7;
+    }
+    li:nth-child(odd),
+    tr:nth-child(odd) {
+        background-color: #e2eeef;
+    }
+
+    li {
+        padding: 5px 10px;
+        margin: 0px;
+        list-style: none;
+    }
+    td {
+        padding: 5px 0px;
+        padding-left: 5px;
+        padding-right: 2px;
+    }
+
+    li:hover,
+    tr:hover {
+        background-color: #fff;
+    }
+}
+ul.coloredList {
+    padding: 0px;
+    margin: 0px;
+}
+table.coloredList {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
 
 
 // ELEMENTS

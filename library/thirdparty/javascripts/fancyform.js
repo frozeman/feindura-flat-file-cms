@@ -25,9 +25,9 @@
 */
 
 var FancyForm = new Class ({
-  
+
   Implements: Options,
-	
+
 		options: {
 			onClasses: {
         checkbox: 'fancyform_checked',
@@ -41,7 +41,7 @@ var FancyForm = new Class ({
       onSelect: function(){},
       onDeselect: function(){}
 		},
-  
+
 	initialize: function(elements, options){
 		this.setOptions(options);
 		if(this.initing !== undefined) return;
@@ -112,7 +112,7 @@ var FancyForm = new Class ({
 			chk.addEvent('selectStart', function(f){f.stop();});
 			chk.name = c.getProperty('name');
 			this.update(chk);
-			
+
 			// ->> add events
 			chk.addEvent('click', function(f){
 				f.stop();
@@ -219,8 +219,11 @@ var FancyForm = new Class ({
 			if(!this.initing)
 				this.options.onDeselect(chk);
 		}
-		if(!this.initing)
+		if(!this.initing) {
 			chk.inputElement.focus();
+			if(chk.type == 'radio' || chk.type == 'checkbox')
+				chk.inputElement.fireEvent('change');
+		}
 	},
 	setDepency: function(element,depencies,checkElement,checkDepencies) {
 

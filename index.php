@@ -368,6 +368,8 @@ if($_GET['site'] == 'addons') {
           // CHECKS if the modlues/ folder is empty
           if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
           <td><a href="?site=modulSetup" tabindex="15" class="modulSetup<?php if($_GET['site'] == 'modulSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
+          <?php } else { ?>
+          <td></td>
           <?php } ?>
           </tr>
         </tbody>
@@ -537,7 +539,7 @@ if($_GET['site'] == 'addons') {
                 // DELETE PAGE LANGUAGE
                 if(isset($_GET['page']) && !isset($pageContent['localized'][0]) && isset($pageContent['localized'][$_SESSION['feinduraSession']['websiteLanguage']])) { ?>
                   <!-- <li class="spacer"></li> -->
-                  <li><a <?php echo 'href="?site=deletePageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'\');return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'::'.sprintf($langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE'],'[b]'.$languageNames[$_SESSION['feinduraSession']['websiteLanguage']].'[/b]').'"'; ?> tabindex="36" class="removePageLanguage toolTip"></a></li>
+                  <li><a <?php echo 'href="?site=deletePageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'\');return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'::'.sprintf($langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE'],'[strong]'.$languageNames[$_SESSION['feinduraSession']['websiteLanguage']].'[/strong]').'"'; ?> tabindex="36" class="removePageLanguage toolTip"></a></li>
                 <?php }
                 $showSpacer = true;
                 }

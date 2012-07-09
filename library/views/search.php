@@ -107,7 +107,7 @@ if(!empty($searchWords)) {
       $localizedTags = GeneralFunctions::getLocalized($page,'tags');
       if($categoryConfig[$page['category']]['showTags'] && !empty($localizedTags)) {
         $pageTags = '[br][br]';
-        $pageTags .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].'[/b][br]'.GeneralFunctions::getLocalized($page,'tags');
+        $pageTags .= '[strong]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].'[/strong][br]'.GeneralFunctions::getLocalized($page,'tags');
       }
       $startPageText = ($websiteConfig['setStartPage'] && $page['id'] == $websiteConfig['startPage'])
         ? $langFile['SORTABLEPAGELIST_functions_startPage_set'].'[br][br]'
@@ -124,7 +124,7 @@ if(!empty($searchWords)) {
 
       // first TITLE
       echo '<span class="resultHeadline">';
-      echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),strip_tags(GeneralFunctions::getLocalized($page,'title'))).'::'.$startPageText.'[b]ID[/b] '.$page['id'].$pageDate.$pageTags.'">';
+      echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),strip_tags(GeneralFunctions::getLocalized($page,'title'))).'::'.$startPageText.'[strong]ID[/strong] '.$page['id'].$pageDate.$pageTags.'">';
       echo ($result['title']) ? $result['title'] : strip_tags(GeneralFunctions::getLocalized($page,'title'));
       echo '</a>';
       echo '</span>';

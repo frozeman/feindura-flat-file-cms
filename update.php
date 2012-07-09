@@ -852,7 +852,6 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/images/bg/sidebarMenu_freeTop_gray.png';
     $deleteFiles[] = 'library/images/bg/sidebarMenu_freeTop_blue.png';
     $deleteFiles[] = 'library/images/bg/sidebarMenu_fixedTop_brown.png';
-
     $deleteFiles[] = 'library/images/bg/content_block_bottom.png';
     $deleteFiles[] = 'library/images/bg/content_block_normal.png';
     $deleteFiles[] = 'library/images/bg/content_block_warning.png';
@@ -861,6 +860,14 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/images/bg/block_innerBlock_small.png';
     $deleteFiles[] = 'library/images/bg/block_innerBlock_big.png';
     $deleteFiles[] = 'library/images/bg/block_h1.png';
+    $deleteFiles[] = 'library/images/buttons/addStyleFilePath.png';
+    $deleteFiles[] = 'library/images/bg/content_block_table_left_middle.png';
+    $deleteFiles[] = 'library/images/bg/listPages_liBg.png';
+    $deleteFiles[] = 'library/images/bg/listPages_liBg_hasSubCategory.png';
+
+    $deleteFiles[] = 'library/images/bg/content_block_table_left_bottom.png';
+    $deleteFiles[] = 'library/images/bg/content_block_table_left_middle.png';
+    $deleteFiles[] = 'library/images/bg/content_block_table_left_top.png';
 
     // CHECK if files could be deleted
     $checkFiles = array();

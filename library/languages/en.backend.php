@@ -109,7 +109,7 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'absolute path';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'relative path';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absolute Path::Absolute file system Path. (But relative to the Documentroot)[br][br][span class=hint]/server/htdocs[b]/path/[/b][/span]';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absolute Path::Absolute file system Path. (But relative to the Documentroot)[br][br][span class=hint]/server/htdocs[strong]/path/[/strong][/span]';
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Relative Path::Relative URI Path, means relative to the current document.';
 
 // STATISTICS
@@ -325,12 +325,12 @@ $langFile['DASHBOARD_TITLE_REFERER']                                      = 'Web
 // ---------- PAGES SORTABLE LIST
 $langFile['SORTABLEPAGELIST_h1']                                          = 'The content of your website';
 $langFile['SORTABLEPAGELIST_headText1']                                   = 'Filter';
-$langFile['SORTABLEPAGELIST_headText2']                                   = 'Last edited';
 $langFile['SORTABLEPAGELIST_headText3']                                   = 'Visitors';
 $langFile['SORTABLEPAGELIST_headText4']                                   = 'Status';
 $langFile['SORTABLEPAGELIST_headText5']                                   = 'Functions';
 
 $langFile['SORTABLEPAGELIST_TIP_PAGEDATE']                                = 'Page date';
+$langFile['SORTABLEPAGELIST_TIP_LASTEDIT']                                = 'Last edited';
 $langFile['SORTABLEPAGELIST_TIP_TAGS']                                    = 'Tags';
 $langFile['SORTABLEPAGELIST_TIP_LOCALIZATION']                            = 'Languages';
 
@@ -395,7 +395,7 @@ $langFile['ADMINSETUP_GENERAL_field2_tip']                                = 'The
 $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'The path will be added automatically';
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Please save the settings!';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Website path';
-$langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'The [b]absolute path[/b] where the website is situated.[br][br][span class=hint]Can also contain filenames e.g &quot;/website/index.php&quot;[/span]';
+$langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'The [strong]absolute path[/strong] where the website is situated.[br][br][span class=hint]Can also contain filenames e.g &quot;/website/index.php&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Upload path';
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br][br][span class=hint]The files can be uploaded on the Link button > Upload in the HTML-Editor or in the file manager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]This files can be edited further down, or in the website-settings (if it\'s activated in the user-settings).[br][br]';
@@ -407,12 +407,12 @@ $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'Per
 $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS']                           = 'Every file or folder created by [span class=feinduraName]fein[span]dura[/span][/span] will get these permissions.';
 $langFile['ADMINSETUP_GENERAL_varName_ifempty']                           = 'If the field is empty the standard name for the GET-Variablen will be used: ';
 $langFile['ADMINSETUP_GENERAL_varName1']                                  = 'Page variable name';
-$langFile['ADMINSETUP_GENERAL_varName1_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]page[/b]&quot;';
+$langFile['ADMINSETUP_GENERAL_varName1_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]page[/strong]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName2']                                  = 'Category variable name';
-$langFile['ADMINSETUP_GENERAL_varName2_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]category[/b]&quot;';
+$langFile['ADMINSETUP_GENERAL_varName2_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]category[/strong]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'Modul variable name';
-$langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
-$langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'The name of the [b]$_GET Variable[/b] which will be used to link the pages.';
+$langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]modul[/strong]&quot;';
+$langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'The name of the [strong]$_GET Variable[/strong] which will be used to link the pages.';
 $langFile['ADMINSETUP_GENERAL_field7']                                    = 'Date format';
 $langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Will be used in the [span class=feinduraName]fein[span]dura[/span][/span] Backend and the Website.';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Time zone';
@@ -422,8 +422,8 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'Spe
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/example-category/example-page';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URLs with variables';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'The URL format, which will be used to link the pages.[br][br]Speaking URLs work only if the [b]Apache[/b] [b]mod_rewrite[/b] modul is available.';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'WARNING!::[span class=red]If an error occours while using speaking URLs, you have to delete the [b].htaccess file[/b] in the document root path of your webserver.[/span][br][br](In some FTP programs you have to show hidden files first, to see the .htaccess file)';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'The URL format, which will be used to link the pages.[br][br]Speaking URLs work only if the [strong]Apache[/strong] [strong]mod_rewrite[/strong] modul is available.';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'WARNING!::[span class=red]If an error occours while using speaking URLs, you have to delete the [strong].htaccess file[/strong] in the document root path of your webserver.[/span][br][br](In some FTP programs you have to show hidden files first, to see the .htaccess file)';
 
 // ---------- speaking url ERRORs
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_save']                    = '<b>Speaking URLs</b> could not be activated'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
@@ -457,7 +457,7 @@ $langFile['adminSetup_thumbnailSettings_h1']                              = 'Pag
 $langFile['adminSetup_thumbnailSettings_field3']                          = 'Save path'; // Thumbnail-Speicherpfad
 $langFile['adminSetup_thumbnailSettings_field3_tip']                      = 'The path inside the upload path which will be used to save the thumbanils.';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip1']                = 'The upload path';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Relative path::Relative to the &quot;[b]%s[/b]&quot; path.[br][br]Starts without &quot;/&quot;';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Relative path::Relative to the &quot;[strong]%s[/strong]&quot; path.[br][br]Starts without &quot;/&quot;';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
@@ -471,7 +471,7 @@ $langFile['EDITFILESSETTINGS_TITLE_SNIPPETS']                             = 'Edi
 $langFile['EDITFILESSETTINGS_TEXT_NODIR']                                 = 'is not a valid directory!';
 $langFile['EDITFILESSETTINGS_TEXT_CHOOSEFILE']                            = 'Choose a file';
 $langFile['EDITFILESSETTINGS_TEXT_CREATEFILE']                            = 'Create a new file';
-$langFile['EDITFILESSETTINGS_TIP_CREATEFILE']                             = 'If you type a filename in here, a new file created and [b]the currently selected file will not be saved![/b]';
+$langFile['EDITFILESSETTINGS_TIP_CREATEFILE']                             = 'If you type a filename in here, a new file created and [strong]the currently selected file will not be saved![/strong]';
 $langFile['EDITFILESSETTINGS_TEXT_NOFILE']                                = 'No files available';
 
 $langFile['EDITFILESSETTINGS_TEXT_DELETEFILE']                            = 'Delete this file';
@@ -551,10 +551,10 @@ $langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'Edi
 $langFile['PAGESETUP_TIP_SUBCATEGORY']                                    = 'Allows to choose a subcategory for each page.';
 
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'Sort pages by page date';
-$langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Pages with a younger date appear at the [b]top[/b].[br][br][span class=hint]Deactivates manually sorting.[/span]';
+$langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Pages with a younger date appear at the [strong]top[/strong].[br][br][span class=hint]Deactivates manually sorting.[/span]';
 
 $langFile['PAGESETUP_TEXT_SORTMANUALLY']                                  = 'Sort pages manually';
-$langFile['PAGESETUP_TIP_SORTMANUALLY']                                   = 'Newly created pages appear at the [b]top[/b].';
+$langFile['PAGESETUP_TIP_SORTMANUALLY']                                   = 'Newly created pages appear at the [strong]top[/strong].';
 
 $langFile['PAGESETUP_TEXT_SORTALPHABETICAL']                              = 'Sort pages alphabetical';
 $langFile['PAGESETUP_TIP_SORTALPHABETICAL']                               = '[span class=hint]Deactivates manually sorting.[/span]';
@@ -590,7 +590,7 @@ $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'The
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Deactivate Website';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Shows a message instead of the website, which says that the website is currently being edited.';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Multi language Website';
-$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[b]double click[/b] to select languages.';
+$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[strong]double click[/strong] to select languages.';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Main language';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'The main language will be selected, if no matching language could be determined automatically.';
 
@@ -603,14 +603,6 @@ $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'The
 $langFile['STATISTICSSETUP_ERROR_SAVE']                                   = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/statistic.config.php';
 
 $langFile['STATISTICSSETUP_TITLE_STATISTICSSETTINGS']                     = 'Statistic-Settings';
-$langFile['STATISTICSSETUP_TEXT_MOSTVISTED']                              = 'Number of <b>most visited</b> pages';
-$langFile['STATISTICSSETUP_TIP_MOSTVISTED']                               = 'Specifies how much most visted pages will be displayed on the dashboard page.';
-$langFile['STATISTICSSETUP_TEXT_LONGESTVIEWED']                           = 'Number of <b>longest viewed</b> pages';
-$langFile['STATISTICSSETUP_TIP_LONGESTVIEWED']                            = 'Specifies how much longest viewed pages will be displayed on the dashboard page.';
-$langFile['STATISTICSSETUP_TEXT_LASTEDITED']                              = 'Number of <b>last edited</b> pages';
-$langFile['STATISTICSSETUP_TIP_LASTEDITED']                               = 'Specifies how much last edited pages will be displayed on the dashboard page.';
-$langFile['STATISTICSSETUP_TEXT_LASTVISITED']                             = 'Number of <b>last visited</b> pages';
-$langFile['STATISTICSSETUP_TIP_LASTVISITED']                              = 'Specifies how much last visted pages will be displayed on the dashboard page.';
 $langFile['STATISTICSSETUP_TEXT_REFERERNUMBER']                           = 'Number of <b>Referrer-URLs</b>';
 $langFile['STATISTICSSETUP_TIP_REFERERNUMBER']                            = 'Specifies how much Referrer-URLs ([i]URLs which lead to the website[/i]) will be saved and displayed.';
 $langFile['STATISTICSSETUP_TEXT_ACTIVITYNUMBER']                          = 'Number of <b>Activities-Log</b>';
@@ -619,9 +611,9 @@ $langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER']                           = 'Spe
 
 $langFile['statisticSetup_clearStatistic_h1']                             = 'Delete statistics';
 $langFile['statisticSetup_clearStatistics_websiteStatistic']              = 'Website-Statistic';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[b]Contains[/b][ul][li]Total number of visitors[/li][li]Total number of web-crawler[/li][li]Date of the first visit[/li][li]Date of the last visit[/li][li]Browser spectrum[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[strong]Contains[/strong][ul][li]Total number of visitors[/li][li]Total number of web-crawler[/li][li]Date of the first visit[/li][li]Date of the last visit[/li][li]Browser spectrum[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic']                = 'Page-Statistics';
-$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[b]Contains[/b][ul][li]Number of page visitors[/li][li]Date of the first page visit[/li][li]Date of the last page visit[/li][li]shortest length of stay[/li][li]longest length of stay[/li][li]Keywords which led to this site[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[strong]Contains[/strong][ul][li]Number of page visitors[/li][li]Date of the first page visit[/li][li]Date of the last page visit[/li][li]shortest length of stay[/li][li]longest length of stay[/li][li]Keywords which led to this site[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics']     = 'only the Page-Length-Of-Stay-Statistics';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics_tip'] = '';
 $langFile['statisticSetup_clearStatistics_refererLog']                    = 'Referrer-URLs Log'; // engl.: referer
@@ -716,9 +708,9 @@ $langFile['EDITOR_pageSettings_pagedate_before_inputTip']                 = 'Tex
 $langFile['EDITOR_pageSettings_pagedate_after_inputTip']                  = 'Text after the date::';
 $langFile['EDITOR_pageSettings_pagedate_day_inputTip']                    = 'Day::';
 $langFile['EDITOR_pageSettings_pagedate_month_inputTip']                  = 'Month::';
-$langFile['EDITOR_pageSettings_pagedate_year_inputTip']                   = 'Year::[b]Format[/b] YYYY';
+$langFile['EDITOR_pageSettings_pagedate_year_inputTip']                   = 'Year::[strong]Format[/strong] YYYY';
 $langFile['EDITOR_pageSettings_field4']                                   = 'Status of the page';
-$langFile['EDITOR_pageSettings_field4_tip']                               = '[b]Only if the page is public, it will be shown in the website![/b]';
+$langFile['EDITOR_pageSettings_field4_tip']                               = '[strong]Only if the page is public, it will be shown in the website![/strong]';
 
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'Wrong date format';
 $langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'This month has perhaps no 31 days.[br]The date should have the follwing format:';
@@ -852,7 +844,7 @@ $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE']                      = 'Bac
 
 $langFile['BACKUP_BUTTON_DOWNLOAD']                                       = 'create current backup';
 $langFile['BACKUP_TEXT_BACKUP']                                           = 'A backup creates a <code>.zip</code> file with the <span class="blue">"pages","config"</span> and <span class="blue">"statistic"</span> folders.<br>The upload folder will not be saved.';
-$langFile['BACKUP_TEXT_RESTORE']                                          = 'Select here a <span class="feinduraName"><span>fein</span>dura</span> backup file, to restore an old state.<br><span class="blue">A backup of the current state will be created before the restore.</ span>';
+$langFile['BACKUP_TEXT_RESTORE']                                          = '<p>Select here a <span class="feinduraName"><span>fein</span>dura</span> backup file, to restore an old state.</p><div class="alert"><strong>Hint!</strong> A backup of the current state will be created before the restore.</div>';
 $langFile['BACKUP_TOOLTIP_DELETE']                                        = 'Delete backup';
 $langFile['BACKUP_TEXT_DELETE_QUESTION']                                  = 'Really delete %s?'; // really delete backup 2010-11-05 15:03?
 

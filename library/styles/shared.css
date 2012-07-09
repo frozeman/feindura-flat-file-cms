@@ -62,10 +62,10 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
   max-width: 250px;
   min-width: 100px;
   border: 1px solid #F7F7F7;
-  -webkit-border-radius:10px;
-  -moz-border-radius:10px;
-  border-radius:10px;
-  background-color: #F7F7F7;
+  -webkit-border-radius:0 10px 10px 10px;
+  -moz-border-radius:0 10px 10px 10px;
+  border-radius:0 10px 10px 10px;
+  background-color: #fdfdfd;
   -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.1);
   -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.1);
   box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.1);

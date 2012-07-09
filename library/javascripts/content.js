@@ -25,6 +25,8 @@ var HTMLEditor;
 var subCategoryArrows;
 var countSubCategoryArrows = 1;
 var inputBlurFade = 0.6;
+var listPagesBars = []; // stores all pages li elements
+
 
 /* GENERAL FUNCTIONS */
 
@@ -105,7 +107,7 @@ function addField(containerId,inputName) {
   if(containerId && $(containerId) !== null) {
     var newInput  = new Element('input', {name: inputName});
     $(containerId).grab(newInput,'bottom');
-		return true;
+    return true;
   } else
     return false;
 }
@@ -362,6 +364,7 @@ function inBlockTableSlider() {
          // slides the hotky div in, on start
          if(insideBlockTable.hasClass('hidden')) {
            //hides the wrapper on start
+           insideBlockTable.setStyle('display','block');
            insideBlockTable.slide('hide');
            insideBlockTable.get('slide').wrapper.fade('hide');
          }
@@ -507,14 +510,14 @@ function requestLeftSidebar(site,page,category) {
 
     },
     //-----------------------------------------------------------------------------
-		onSuccess: function(html) { //-------------------------------------------------
+    onSuccess: function(html) { //-------------------------------------------------
 
-			// -> TWEEN leftSidebar
-			$('leftSidebar').set('tween',{duration: 300});
-			$('leftSidebar').tween('left','0px');
-			//$('leftSidebar').tween('opacity',1);
+      // -> TWEEN leftSidebar
+      $('leftSidebar').set('tween',{duration: 300});
+      $('leftSidebar').tween('left','0px');
+      //$('leftSidebar').tween('opacity',1);
 
-			$('leftSidebar').get('tween').chain(function(){
+      $('leftSidebar').get('tween').chain(function(){
         // -> REMOVE the LOADING CIRCLE
         jsLoadingCircleContainer.destroy();
         removeLoadingCircle();
@@ -523,15 +526,15 @@ function requestLeftSidebar(site,page,category) {
       LeavingWithoutSavingWarning();
       sidebarMenu();
       setToolTips();
-		},
-		//-----------------------------------------------------------------------------
-		//Our request will most likely succeed, but just in case, we'll add an
-		//onFailure method which will let the user know what happened.
-		onFailure: function() { //-----------------------------------------------------
+    },
+    //-----------------------------------------------------------------------------
+    //Our request will most likely succeed, but just in case, we'll add an
+    //onFailure method which will let the user know what happened.
+    onFailure: function() { //-----------------------------------------------------
       var failureText = new Element('p');
       failureText.set('text','Couldn\'t load the sidebar?');
-			$('leftSidebar').set('html',failureText);
-		}
+      $('leftSidebar').set('html',failureText);
+    }
   });
 
   // send only the site
@@ -589,10 +592,14 @@ window.addEvent('domready', function() {
 
   // ADD .active to links which get clicked
   $$('a').addEvent('click',function(){
+    if(this.hasClass('btn'))
+      return;
     $$('a').removeClass('active');
     this.addClass('active');
   });
 
+  // STORES all pages LI ELEMENTS
+  listPagesBars = $$('div.block.listPagesBlock li');
 
   // UPDATE the USER-CACHE every 5 minutes
   (function(){
@@ -678,8 +685,8 @@ window.addEvent('domready', function() {
   // *** ->> CONTENT -----------------------------------------------------------------------------------------------------------------------
 
   // BLOCK SLIDE IN/OUT
-	blockSlider();
-	inBlockTableSlider();
+  blockSlider();
+  inBlockTableSlider();
 
   // ADDs SMOOTHSCROLL to ANCHORS
   var smoothAnchorScroll = new Fx.SmoothScroll({
@@ -773,29 +780,94 @@ window.addEvent('domready', function() {
     });
   }
 
+  // SELECT PAGES ------------------------------------------------------------------------------
+  window.addEvent('keydown',function(e){
+
+    // move the cursor to select pages
+    if(typeOf(e.key) != 'null' && (e.key == 'up' || e.key == 'down' ||  e.key == 'enter')) {
+      e.preventDefault();
+
+      var pageBefore = null;
+      var pageAfter = null;
+      var selectedPage = false;
+
+      // get the selected page
+      listPagesBars.each(function(page){
+        if(page.retrieve('selected') === true) {
+          selectedPage = page;
+          // deselect the old page
+          selectedPage.removeClass('active');
+          // remove: is selected page
+          selectedPage.eliminate('selected');
+        }
+      });
+
+      // OPEN the page on ENTER
+      if(e.key == 'enter' && selectedPage !== null) {
+        window.location.href = 'index.php?category='+selectedPage.get('data-categoryId')+'&page='+selectedPage.get('data-pageId');
+        return;
+      }
+
+      // move the selection up or down
+      listPagesBars.each(function(curPage,index) {
+        if(curPage === selectedPage) {
+          pageBefore = listPagesBars[index-1];
+          pageAfter = listPagesBars[index+1];
+        }
+      });
+      // move the cursor
+      if(typeOf(e) != 'null' && e.key == 'up' && typeOf(pageBefore) !== 'null')
+        selectedPage = pageBefore;
+      else if(typeOf(e) != 'null' && e.key == 'down' && typeOf(pageAfter) !== 'null')
+        selectedPage = pageAfter;
+
+      // select the first if no page was selected
+      if(selectedPage === false) {
+        selectedPage = listPagesBars[0];
+      }
+
+
+      // mark the selcted page
+      if(selectedPage !== null && typeOf(selectedPage) !== 'null') {
+        selectedPage.addClass('active');
+        selectedPage.store('selected',true);
+
+        // slide the current category
+        var categoryBlock =  $('category' + selectedPage.get('data-categoryId')).getParent('div.listPagesBlock');
+        if(categoryBlock.hasClass('hidden')) {
+          categoryBlock.removeClass('hidden'); // change the arrow
+          categoryBlock.getElement('div.content').setStyle('display','block'); // to allow sorting above the slided in box (reset)
+          categoryBlock.getElement('div.content').slide('show');
+          categoryBlock.getElement('div.content').get('slide').wrapper.setStyle('height','auto');
+        }
+      }
+    }
+  });
+
   // FILTER LIST PAGES -------------------------------------------------------------------------
   if($('listPagesFilter') !== null) {
     var cancelListPagesFilter = function(e) {
       if(e) e.stop();
+
+      listPagesBars = $$('div.block.listPagesBlock li');
 
       $('listPagesFilter').set('value','');
       $('listPagesFilter').fireEvent('keyup');
       $$('.subCategoryArrowLine').setStyle('display','block');
     };
     $('listPagesFilterCancel').addEvent('click',cancelListPagesFilter);
-    var openBlocks = [];
-    var selectedPage = null;
     var storedOpenBlocks = false;
+    var openBlocks = [];
 
     // -> stop moving the cursor on up and down
     $('listPagesFilter').addEvent('keydown',function(e){
-      if(e.key == 'up' || e.key == 'down')
+      if(e.key == 'up' || e.key == 'down' || e.key == 'enter') {
         e.preventDefault();
+      }
     });
 
     // ->> filter on input
     $('listPagesFilter').addEvent('keyup',function(e){
-      // e.preventDefault();
 
       // clear on ESC
       if(typeOf(e) != 'null' && e.key == 'esc')
@@ -803,30 +875,29 @@ window.addEvent('domready', function() {
 
       // vars
       var filter = this.get('value');
-      var filteredPages = [];
 
-      // reset the background of the last selected page
-      if(selectedPage !== null && typeOf(selectedPage) !== 'null') {
-        selectedPage.removeProperty('style');
+      // clear the listPagesBars, to add filtered pages
+      if(filter.length > 0) {
+        listPagesBars = [];
       }
 
       // ->> FILTER the PAGES
       if(filter) {
 
-        $$('div.block.listPages li').each(function(page) {
-          if(typeOf(page.getChildren('div.name a')[0]) !== 'null' && page.getChildren('div.name a')[0].get('text').toLowerCase().contains(filter.toLowerCase())) {
+        $$('div.block.listPagesBlock li').each(function(page) {
+          var pageTitle = page.getChildren('div div.name a')[0];
+          if(typeOf(pageTitle) !== 'null' && pageTitle.get('text').toLowerCase().contains(filter.toLowerCase())) {
             page.setStyle('display','block');
-            filteredPages.push(page);
+            listPagesBars.push(page);
           } else {
             page.setStyle('display','none');
           }
         });
 
         // hide empty blocks
-        $$('div.block.listPages').each(function(block) {
+        $$('div.block.listPagesBlock').each(function(block) {
           var isEmpty = true;
-
-          block.getElements('li').each(function(li){
+          block.getElements('li').each(function(li) {
             if(li.getStyle('display') == 'block' && typeOf(li.getChildren('div.emptyList')[0]) == 'null')
               isEmpty = false;
           });
@@ -837,52 +908,12 @@ window.addEvent('domready', function() {
             block.setStyle('display','none');
         });
 
-
-        // move the cursor to select pages
-        if(typeOf(e.key) != 'null' && (e.key == 'up' || e.key == 'down')) {
-          var pageBefore = null;
-          var pageAfter = null;
-
-          // select the first if now page was selected
-          if(selectedPage === null)
-            selectedPage = filteredPages[0];
-
-          // move the selection up or down
-          else {
-            filteredPages.each(function(curPage,index) {
-              if(curPage === selectedPage) {
-                pageBefore = filteredPages[index-1];
-                pageAfter = filteredPages[index+1];
-              }
-            });
-            // move the cursor
-            if(typeOf(e) != 'null' && e.key == 'up' && typeOf(pageBefore) !== 'null')
-              selectedPage = pageBefore;
-            else if(typeOf(e) != 'null' && e.key == 'down' && typeOf(pageAfter) !== 'null')
-              selectedPage = pageAfter;
-          }
-        }
-
-        // check if its only one page left, make this page selectable by enter
-        if(filteredPages.length === 1) {
-          selectedPage = filteredPages[0];
-        } else if(filteredPages.length === 0)
-          selectedPage = null;
-
-        // mark the selcted page
-        if(selectedPage !== null && typeOf(selectedPage) !== 'null')
-          selectedPage.setStyle('background-position','0 -41px');
-
-        if(typeOf(e) != 'null' && e.key == 'enter' && selectedPage !== null) {
-          window.location.href = 'index.php?category='+selectedPage.get('data-categoryId')+'&page='+selectedPage.get('data-pageId');
-        }
-
       // SHOW the category and pages again, when filter is empty
       } else {
-        $$('div.block.listPages li').each(function(page) {
+        $$('div.block.listPagesBlock li').each(function(page) {
           page.setStyle('display','block');
         });
-        $$('div.block.listPages').each(function(block) {
+        $$('div.block.listPagesBlock').each(function(block) {
           block.setStyle('display','block');
         });
       }
@@ -899,12 +930,12 @@ window.addEvent('domready', function() {
 
         $('listPagesFilterCancel').setStyle('display','block');
 
-        $$('div.block.listPages div.content').each(function(block){
-          if(block.getParent('div.listPages').hasClass('hidden')) {
-            block.getParent('div.listPages').removeClass('hidden'); // change the arrow
-            block.setStyle('display','block'); // to allow sorting above the slided in box (reset)
-            block.slide('show');
-            block.get('slide').wrapper.setStyle('height','auto');
+        $$('div.block.listPagesBlock').each(function(block){
+          if(block.hasClass('hidden')) {
+            block.removeClass('hidden'); // change the arrow
+            block.getElement('div.content').slide('show');
+            block.getElement('div.content').setStyle('display','block'); // to allow sorting above the slided in box (reset)
+            block.getElement('div.content').get('slide').wrapper.setStyle('height','auto');
 
           // store the open blocks
           } else if(!storedOpenBlocks) {
@@ -922,19 +953,19 @@ window.addEvent('domready', function() {
 
         $('listPagesFilterCancel').setStyle('display','none');
 
-        $$('div.block.listPages div.content').each(function(block){
+        $$('div.block.listPagesBlock').each(function(block){
           if(!openBlocks.contains(block)) {
-            block.getParent('div.listPages').addClass('hidden'); // change the arrow
-            block.slide('hide');
-            block.setStyle('display','none'); // to allow sorting above the slided in box (reset)
-            block.get('slide').wrapper.setStyle('height',block.getSize().y);
+            block.addClass('hidden'); // change the arrow
+            block.getElement('div.content').slide('hide');
+            block.getElement('div.content').setStyle('display','none'); // to allow sorting above the slided in box (reset)
+            block.getElement('div.content').get('slide').wrapper.setStyle('height',block.getElement('div.content').getSize().y);
+            openBlocks.erase(block);
           }
         });
         // clean the stored blocks array
         if(storedOpenBlocks) {
-          openBlocks.empty();
+          openBlocks = [];
           storedOpenBlocks = false;
-          selectedPage = null;
         }
 
         cancelListPagesFilter();
@@ -1029,54 +1060,60 @@ window.addEvent('domready', function() {
       return false;
   };
 
-	var sb = new Sortables('.sortablePageList', {
-		/* set options */
-		//clone: true,
-		revert: true,
-		opacity: 1,
-		snap: 10,
+  var sb = new Sortables('.sortablePageList', {
+    /* set options */
+    //clone: true,
+    revert: true,
+    opacity: 1,
+    snap: 10,
 
-		/* --> initialization stuff here */
-		initialize: function() {
+    /* --> initialization stuff here */
+    initialize: function() {
 
-		},
-		/* --> once an item is selected */
-		onStart: function(el,elClone) {
-			el.setStyle('background-position', '0px -81px');
+    },
+    /* --> once an item is selected */
+    onStart: function(el,elClone) {
+      // clear all last active pages bars
+      $$('.sortablePageList li').each(function(li) {
+        li.removeClass('active');
+        li.eliminate('selected');
+      });
+      el.addClass('active');
+      el.store('selected',true);
 
-			categoryOld = el.getParent().get('id').substr(8); // gets the category id where the element comes from
+      categoryOld = el.getParent().get('id').substr(8); // gets the category id where the element comes from
 
-		},
+    },
     // check if sorted
-		onSort: function(el){
+    onSort: function(el){
       clicked = true;
       $$('.sortablePageList a').each(function(a) { a.addEvent('click',preventLink); }); // prevent clicking the link on sort
     },
-		/* --> when a drag is complete */
-		onComplete: function(el) {
+    /* --> when a drag is complete */
+    onComplete: function(el) {
 
       subCategoryArrows();
 
-			// --> SAVE SORT ----------------------
-			/* nur wenn sortiert wurde wird werden die seiten neu gespeichert */
-			if(clicked) {
-			clicked = false;
+      // --> SAVE SORT ----------------------
+      /* nur wenn sortiert wurde wird werden die seiten neu gespeichert */
+      if(clicked) {
+      clicked = false;
 
-			categoryNew = el.getParent().get('id').substr(8); // gets the category id where the element comes from
-			var sortedPageId = el.get('id').substr(4);
+      categoryNew = el.getParent().get('id').substr(8); // gets the category id where the element comes from
+      var sortedPageId = el.get('id').substr(4);
 
-			// build a string of the order
-			var sort_order = '';
+      // build a string of the order
+      var sort_order = '';
       var count_sort = 0;
 
-			$$('.sortablePageList li').each(function(li) {
+      $$('.sortablePageList li').each(function(li) {
         if(li.getParent().get('id') == el.getParent().get('id') && li.get('id') !== null) {
           sort_order = sort_order + li.get('id').substr(4)  + '|'; count_sort++;
         } });
-			$('sort_order' + categoryNew).value = sort_order;
+      $('sort_order' + categoryNew).value = sort_order;
 
-			// if pages has changed the category id in the href!
-			if(categoryOld != categoryNew) {
+      // if pages has changed the category id in the href!
+      if(categoryOld != categoryNew) {
         el.getElements('div').each(function(div){
           var newHref,oldHref;
 
@@ -1108,13 +1145,13 @@ window.addEvent('domready', function() {
         });
       }
 
-			// --> sortiert die Seite mithilfe einer AJAX anfrage an library/controllers/sortPages.controller.php	------------------------------
-				var req = new Request({
-					url:'library/controllers/sortPages.controller.php',
-					method:'post',
-					//autoCancel:true,
-					data:'sort_order=' + sort_order + '&categoryOld=' + categoryOld +'&categoryNew=' + categoryNew + '&sortedPageId=' + sortedPageId , // + '&do_submit=1&byajax=1&ajax=' + $('auto_submit').checked
-					//-------------------------------------
+      // --> sortiert die Seite mithilfe einer AJAX anfrage an library/controllers/sortPages.controller.php ------------------------------
+        var req = new Request({
+          url:'library/controllers/sortPages.controller.php',
+          method:'post',
+          //autoCancel:true,
+          data:'sort_order=' + sort_order + '&categoryOld=' + categoryOld +'&categoryNew=' + categoryNew + '&sortedPageId=' + sortedPageId , // + '&do_submit=1&byajax=1&ajax=' + $('auto_submit').checked
+          //-------------------------------------
           onRequest: function() {
 
             // PUT the save new order - TEXT in the loadingBox AND SHOW the LOADINGBOX
@@ -1124,52 +1161,49 @@ window.addEvent('domready', function() {
             $('loadingBox').setStyle('display','block');
             $('loadingBox').setStyle('opacity','1');
 
-		},
-		//-------------------------------------
-		onSuccess: function(responseText) {
+          },
+          //-------------------------------------
+          onSuccess: function(responseText) {
 
-      // FINAL SORT MESSAGE
-      //puts the right message which is get from the sortablePageList_status array (hidden input) in the messageBox
-      //$('messageBox_input').set('html',sortablePageList_status[responseText.substr(6,1)]);
-      $('messageBox_input').set('html','<img src="library/images/icons/hintIcon.png" class="hintIcon"><span style="color:#407287;font-weight:bold;">' + responseText + '</span>');
+            // FINAL SORT MESSAGE
+            //puts the right message which is get from the sortablePageList_status array (hidden input) in the messageBox
+            //$('messageBox_input').set('html',sortablePageList_status[responseText.substr(6,1)]);
+            $('messageBox_input').set('html','<img src="library/images/icons/hintIcon.png" class="hintIcon"><span style="color:#407287;font-weight:bold;">' + responseText + '</span>');
 
-			// remove prevent clicking the link on sort
-			$$('.sortablePageList a').each(function(a) { a.removeEvent('click',preventLink); });
+            // remove prevent clicking the link on sort
+            $$('.sortablePageList a').each(function(a) { a.removeEvent('click',preventLink); });
 
-			// remove the "no pages notice" li if there is a page put in this category
-      $$('.sortablePageList li').each(function(li) {
-        if(li.get('id') === null && li.getParent().get('id').substr(8) == categoryNew && responseText.substr(-1) != '4') {
-          li.destroy();
-        }
-      });
+            // remove the "no pages notice" li if there is a page put in this category
+            $$('.sortablePageList li').each(function(li) {
+              if(li.get('id') === null && li.getParent().get('id').substr(8) == categoryNew && responseText.substr(-1) != '4') {
+                li.destroy();
+              }
+            });
 
-      // adds the "no page - notice" li if the old category is empty
-      if(responseText.substr(0,13) == '<span></span>') {
-        $$('.sortablePageList').each(function(ul) {
-          if(ul.get('id').substr(8) == categoryOld) { // && responseText.substr(-1) != '4'
-            var newLi = new Element('li', {html: '<div class="emptyList">' + sortablePageList_status[1] + '</div>'});
-            newLi.setStyle('cursor','auto');
-            ul.grab(newLi,'top');
+            // adds the "no page - notice" li if the old category is empty
+            if(responseText.substr(0,13) == '<span></span>') {
+              $$('.sortablePageList').each(function(ul) {
+                if(ul.get('id').substr(8) == categoryOld) { // && responseText.substr(-1) != '4'
+                  var newLi = new Element('li', {html: '<div class="emptyList">' + sortablePageList_status[1] + '</div>'});
+                  newLi.setStyle('cursor','auto');
+                  ul.grab(newLi,'top');
+                }
+              });
+            }
+
+            // HIDE the LOADINGBOX
+            $('loadingBox').tween('opacity','0');
+            $('loadingBox').get('tween').chain(function(){
+              $('loadingBox').empty();
+              $('loadingBox').setStyle('display','none');
+            });
+
           }
-        });
-      }
-
-      // RELOADS the sidebarMenu
-      requestLeftSidebar('pages','0',categoryNew);
-
-      // HIDE the LOADINGBOX
-      $('loadingBox').tween('opacity','0');
-      $('loadingBox').get('tween').chain(function(){
-        $('loadingBox').empty();
-        $('loadingBox').setStyle('display','none');
-      });
-
-		}
-  }).send();
+        }).send();
 
     } // <-- SAVE SORT -- END --------------------
   }
-	});
+  });
 
   // makes the "no pages notice" li un-dragable
   $$('.sortablePageList li').each(function(li) {
@@ -1224,7 +1258,7 @@ window.addEvent('domready', function() {
 
   // -> DISABLE varNames if SPEAKING URL is selected
   if($('cfg_speakingUrl') !== null) {
-    var smallSize = '50px';
+    var smallSize = 60;
 
     $('cfg_speakingUrl').addEvent('change',function() {
       // disables all varNames fields is option value == true; speaking url
@@ -1238,11 +1272,11 @@ window.addEvent('domready', function() {
       // activates thema if link with vars
       } else {
         $('cfg_varNamePage').removeProperty(deactivateType);
-        $('cfg_varNamePage').tween('width','300px');
+        $('cfg_varNamePage').tween('width',320);
         $('cfg_varNameCategory').removeProperty(deactivateType);
-        $('cfg_varNameCategory').tween('width','300px');
+        $('cfg_varNameCategory').tween('width',320);
         //$('cfg_varNameModul').removeProperty(deactivateType);
-        //$('cfg_varNameModul').tween('width','300px');
+        //$('cfg_varNameModul').tween('width',320);
       }
     });
   }
@@ -1252,10 +1286,10 @@ window.addEvent('domready', function() {
     $('cfg_cache').addEvent('change',function() {
       // disable
       if(this.checked) {
-        $('cfg_cacheTimeout').removeProperty(deactivateType);
+        $('cacheTimeoutRow').setStyle('display','block');
       // activate
       } else {
-        $('cfg_cacheTimeout').setProperty(deactivateType,deactivateType);
+        $('cacheTimeoutRow').setStyle('display','none');
       }
     });
   }
@@ -1312,9 +1346,9 @@ window.addEvent('domready', function() {
 
     $$('input.userAdminCheckbox').addEvent('change',function(){
       if(this.checked) {
-        this.getParent('tr').getNext('tr.userPermissionsTr').setStyle('display','none');
+        this.getParent('div.row').getNext('div.userPermissionsRow').setStyle('display','none');
       } else
-        this.getParent('tr').getNext('tr.userPermissionsTr').setStyle('display','table-row');
+        this.getParent('div.row').getNext('div.userPermissionsRow').setStyle('display','table-row');
     });
 
   }
@@ -1385,10 +1419,12 @@ window.addEvent('domready', function() {
     // -> disables the multiple language fields if "multiple languages" checkbox is deactivated
     $('multiLanguageWebsite').addEvent('change',function() {
       if(this.checked === true) {
+        $('websiteLanguagesSettings').setStyle('display','block');
         $('websiteLanguages').removeProperty(deactivateType);
         $('websiteMainLanguage').removeProperty(deactivateType);
         $('websiteLanguageChoices').removeProperty(deactivateType);
       } else {
+        $('websiteLanguagesSettings').setStyle('display','none');
         $('websiteLanguages').setProperty(deactivateType,deactivateType);
         $('websiteMainLanguage').setProperty(deactivateType,deactivateType);
         $('websiteLanguageChoices').setProperty(deactivateType,deactivateType);
@@ -1416,7 +1452,7 @@ window.addEvent('domready', function() {
       newOption.inject($('websiteMainLanguage'));
 
       // show the mainLanguage <select> if its not empty
-      if($('websiteMainLanguage').getChildren().length !== 0) $('websiteMainLanguageTr').setStyle('display','table-row');
+      if($('websiteMainLanguage').getChildren().length !== 0) $('websiteMainLanguageRow').setStyle('display','block');
     });
 
     // -> REMOVE selected languages from the main Language and page language selection
@@ -1442,7 +1478,7 @@ window.addEvent('domready', function() {
 
       // hide the mainLanguage <select> if its empty and deactivate the multi language pages
       if($('websiteMainLanguage').getChildren().length === 0) {
-        $('websiteMainLanguageTr').setStyle('display','none');
+        $('websiteMainLanguageRow').setStyle('display','none');
         $('websiteLanguages').setProperty(deactivateType,deactivateType);
         $('websiteMainLanguage').setProperty(deactivateType,deactivateType);
         $('websiteLanguageChoices').setProperty(deactivateType,deactivateType);

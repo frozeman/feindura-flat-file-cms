@@ -3,45 +3,142 @@
 //
 // Published under the GNU General Public License
 
-
 .block {
     z-index: 1;
     position: relative;
     display: block;
     width: 800px;
-    left: 0px;
     margin: 20px 0;
-    margin-left: -10px;
     padding: 0;
     overflow: visible;
     #shadow > .drop(0,0,5px,0.2);
-    #border > .rounded(10px);
+    #border > .rounded(@blockBorderRadius);
+
+    &.hidden {
+        display: block; // overwrites the class .hidden in general.less
+        #shadow > .none();
+    }
+    &:hover {
+        #shadow > .drop(0,0,5px,0.2);
+    }
 
     .content {
         position: relative;
+        width: @gridRowWidth;
         margin: 0;
-        padding: 20px 30px; // content size is 800 - 40 = 760px
+        padding: 20px 20px; // content size is 800 - 40 = 760px
         padding-top: 10px;
         overflow: hidden;
-
-        .spacer {
-            height: 40px;
-        }
     }
 
 
-    h1 {
+    > h1 {
+        padding: 0;
         padding-bottom: 2px;
+        min-height: 35px;
+        padding: 15px 25px;
         font-size: 18px;
-        line-height: 23px;
-        margin-bottom: 10px;
+        line-height: 26px;
         border: 1px solid #fff;
-        #border > .rounded(10px);
-        #gradient > .vertical(#fff,#fff,#f0f0f0,0.1,1);
+        #border > .rounded(@blockBorderRadius);
+        #gradient > .vertical(#fff,#fff,#f0f0f0,0,1);
 
         > span {
             max-width: 695px;
         }
+
+        &.brown {
+            background: url("../images/bg/block_h1_brown.png") repeat-x !important;
+        }
+        &.blue {
+            background: url("../images/bg/block_h1_blue.png") repeat-x !important;
+        }
+
+        img {
+            position: relative;
+            top: -1px;
+        }
+        img.blockH1Icon {
+            position: relative;
+            top: 0px;
+            left: 4px;
+        }
+
+        // HEADER LINKS
+        a {
+            z-index: 1;
+            position: relative;
+            display: block;
+            width: 97.5%;
+            min-height: 35px;
+            padding: 10px 25px;
+            padding-bottom: 11px;
+            margin: -10px -25px;
+            line-height: 32px;
+            background-image: url("../images/buttons/content_h1_up_off.png");
+            background-repeat: no-repeat;
+            background-position: right 12px;
+            color: #536068;
+        }
+        a:hover,
+        a:focus {
+            color: #536068;
+            background-image: url("../images/buttons/content_h1_up_on.png");
+        }
+    }
+    &.hidden > h1 {
+        #gradient > .none();
+    }
+    &:hover > h1{
+        #gradient > .vertical(#fff,#fff,#f0f0f0,0,1);
+
+        > span {
+            max-width: 695px;
+        }
+    }
+    &.hidden > h1 a {
+        background-image: url("../images/buttons/content_h1_down_off.png");
+    }
+    &.hidden > h1 a:hover,
+    &.hidden > h1 a:focus {
+        background-image: url("../images/buttons/content_h1_down_on.png");
+    }
+
+    h2 {
+        margin: 0;
+        margin-bottom: 6px;
+        padding: 4px 6px;
+        padding-bottom: 6px;
+        line-height: 20px;
+        font-size: 16px;
+    }
+    h3 {
+        margin: 10px;
+        padding: 5px 7px;
+        font-size: 15px;
+        color: #536068;
+
+        span {
+            color: #BAB8B6;
+        }
+    }
+    h4 {
+        margin: 10px 0 5px -10px;
+        padding: 5px 10px;
+        font-size: 14px;
+        color: #536068;
+    }
+
+
+    // VERTICAL SEPERATOR
+    .verticalSeparator {
+      background: url('../images/bg/content_block_verticalSeparator.png') no-repeat bottom center;
+      height: 5px;
+      margin: @gridGutterWidth -16px;
+      clear: both;
+    }
+    h2 + .verticalSeparator {
+        margin-top: 0px !important;
     }
 
 
@@ -55,7 +152,7 @@
         }
         p {
             display: block;
-            margin-left: 70px;
+            margin-left: 100px;
         }
         .content {
             position: relative;
@@ -99,9 +196,6 @@
             border-bottom: 1px dotted #DFB300;
         }
         p {
-            // display: block;
-            margin: 5px 3px;
-            // margin-left: 100px;
             color: #957700;
         }
     }
@@ -120,58 +214,84 @@
     // OPEN BLOCK
     &.open {
         z-index: 0;
-        #shadow > .drop(0,-5px,5px,0.2);
+        border-bottom: transparent;
+        #shadow > .none();
+        #border > .radius(@blockBorderRadius,0,0,@blockBorderRadius);
 
         .content {
-            margin-top: -5px;
+            margin-top: -10px;
+            background-color: #fff;
         }
 
-        h1 {
-            top: -5px;
-        }
-    }
-
-    // LISTPAGES BLOCK
-    &.listPages {
-        #shadow > .none();
-
-        > h1 {
-            z-index: -1;
-           #shadow > .drop(0,0,5px,0.2);
-           padding-bottom: 30px;
-           margin-bottom: -20px;
+        > h1,
+        > h1:hover,
+        > h1.hidden {
+            // padding-bottom: 20px;
+            #shadow > .drop(0,0,5px,0.2);
+            #border > .radius(@blockBorderRadius,0,0,@blockBorderRadius);
         }
     }
-
 
     // INNER BLOCKS
 
     .innerBlock {
         #shadow > .inner(0,0,5px,0.3);
         #border > .rounded(10px);
-        padding: 10px;
+        padding: 20px;
 
-        .left {
+        @innerBlockMargin: -14px;
+        @innerBlockRoundBorder: 6px;
+
+        .innerBlocklistPages {
             position: relative;
-            width: 270px; /* org: 320px */
-            height: 180px; /* org: 200px */
-            padding: 10px 25px;
-            // margin: 20px 0px;
-            // margin-bottom: 2px;
-            // float: left;
-            font-size: 12px;
-            overflow: hidden;
+            max-height: 150px;
+            min-height: 2px;
+            padding: 0px;
+            margin: 0 @innerBlockMargin;
+            margin-top: -16px;
+            margin-bottom: -14px;
+            border: 1px solid #cccccc;
+            border-left: none;
+            border-right: none;
+            overflow: auto;
+            #border > .radius(0,@innerBlockRoundBorder,@innerBlockRoundBorder,0);
         }
-        .right {
-            position: relative;
-            width: 380px; /* org: 430px */
-            height: 180px; /* org: 200px */
-            padding: 10px 25px;
-            margin: 20px 0px;
-            margin-bottom: 2px;
-            float: right;
-            font-size: 12px;
-            overflow: hidden;
+
+        h2 {
+            border-bottom: 1px solid #c4c4c4;
+            margin: -15px @innerBlockMargin;
+            margin-bottom: 15px;
+            padding: 10px 20px;
+            text-align: center;
+            color: #a3a3a3;
+            #shadow > .text(0 1px 1px #fff);
+            #border > .radius(@innerBlockRoundBorder,0,0,@innerBlockRoundBorder);
+            #gradient > .vertical(#f3f3f3,#f3f3f3,#fff,0,1);
+        }
+        hr.small {
+            margin: 10px @innerBlockMargin;
+        }
+    }
+
+
+    // FORM SPANS
+    .form {
+        .row {
+            padding: 10px 0;
+        }
+
+        // class="span3 formLeft" - "formLeft" is used so i could change the span3 more easily over multiple files, just replace "span3 formLeft" with e.g. "span2 formLeft"
+        .formLeft {
+            text-align: right;
+        }
+        input {
+            margin: 1px 0;
+        }
+        input, textarea, select {
+            width: 70%;
+        }
+        label {
+            width: auto;
         }
     }
 

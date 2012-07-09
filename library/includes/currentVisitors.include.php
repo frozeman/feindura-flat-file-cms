@@ -66,13 +66,12 @@ if(!empty($currentVisitors) && $showVisitors) {
 
     $geoIPCode = geoip_country_code_by_addr($geoIP, $ip);
     $geoIPFlag = (empty($geoIPCode))
-      ? '<img src="'.GeneralFunctions::getFlagHref($geoIPCode).'" width="18" height="12">'
-      : '<img src="'.GeneralFunctions::getFlagHref($geoIPCode).'" class="toolTip" width="18" height="12" title="'.geoip_country_name_by_addr($geoIP, $ip).'">';
+      ? '<img src="'.GeneralFunctions::getFlagHref($geoIPCode).'" alt="flag" width="18" height="12">'
+      : '<img src="'.GeneralFunctions::getFlagHref($geoIPCode).'" alt="flag" class="toolTip" width="18" height="12" title="'.geoip_country_name_by_addr($geoIP, $ip).'">';
     $return .= ($currentVisitorDashboard)
-      ? '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$ip.'" target="_blank">'.$ip.'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.GeneralFunctions::formatDate($currentVisitor['time']).'">'.formatTime($currentVisitor['time']).'</b></td></tr>'
+      ? '<tr><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$ip.'" target="_blank">'.$ip.'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.GeneralFunctions::formatDate($currentVisitor['time']).'">'.formatTime($currentVisitor['time']).'</b></td></tr>'
       : '<li>'.$geoIPFlag.' <a href="http://www.ip2location.com/'.$ip.'" target="_blank" class="link toolTip" title="'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].'::'.GeneralFunctions::formatDate($currentVisitor['time']).' - '.formatTime($currentVisitor['time']).'">'.$ip.'</a></li>';
     // change row color
-    $rowColor = ($rowColor == 'light') ? 'dark' : 'light';
   }
   // close geodates
   geoip_close($geoIP);

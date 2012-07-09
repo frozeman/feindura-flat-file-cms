@@ -1161,9 +1161,10 @@ function saveWebsiteConfig($websiteConfig) {
  *
  * @example backend/statisticConfig.array.example.php of the $statisticConfig array
  *
- * @version 1.1
+ * @version 1.2
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.2 removed numbers fro the listpage in dashboard (mostvied, lastpages, etc..)
  *    - 1.1 change from fopen() to file_put_contents()
  *    - 1.0.2 add prevent resetting check
  *    - 1.0.1 add XssFilter to every value
@@ -1181,11 +1182,6 @@ function saveStatisticConfig($statisticConfig) {
     /// CREATE file content
     $fileContent = '';
     $fileContent .= "<?php\n"; //< ?php
-
-    $fileContent .= "\$statisticConfig['number']['mostVisitedPages']        = ".XssFilter::int($statisticConfig['number']['mostVisitedPages'],10).";\n";
-    $fileContent .= "\$statisticConfig['number']['longestVisitedPages']     = ".XssFilter::int($statisticConfig['number']['longestVisitedPages'],10).";\n";
-    $fileContent .= "\$statisticConfig['number']['lastVisitedPages']        = ".XssFilter::int($statisticConfig['number']['lastVisitedPages'],10).";\n";
-    $fileContent .= "\$statisticConfig['number']['lastEditedPages']         = ".XssFilter::int($statisticConfig['number']['lastEditedPages'],10).";\n\n";
 
     $fileContent .= "\$statisticConfig['number']['refererLog']    = ".XssFilter::int($statisticConfig['number']['refererLog'],100).";\n";
     $fileContent .= "\$statisticConfig['number']['taskLog']       = ".XssFilter::int($statisticConfig['number']['taskLog'],50).";\n\n";
@@ -1961,8 +1957,8 @@ function showPageDate($pageContent) {
 
     // CHECKs the DATE FORMAT
     $return = (GeneralFunctions::formatDate(validateDateString($pageContent['pageDate']['date'])) === false)
-    ? '[br][b]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/b] '.$titleDateBefore.'[span style=color:#950300]'.$GLOBALS['langFile']['EDITOR_pageSettings_pagedate_error'].'[/span]'.$titleDateAfter
-    : '[br][b]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/b] '.$titleDateBefore.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$GLOBALS['langFile'])).$titleDateAfter;
+    ? '[br][strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong] '.$titleDateBefore.'[span style=color:#950300]'.$GLOBALS['langFile']['EDITOR_pageSettings_pagedate_error'].'[/span]'.$titleDateAfter
+    : '[br][strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong] '.$titleDateBefore.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$GLOBALS['langFile'])).$titleDateAfter;
   }
   return $return;
 }
@@ -2260,8 +2256,10 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
     echo '<input type="hidden" name="fileType" value=".'.$fileType.'">';
   echo '</div>';
 
+  echo '<a href="#" id="'.$anchorName.'" class="anchorTarget"></a>';
+
   echo '<div class="block'.$hidden.'">
-          <h1><a href="#" name="'.$anchorName.'" id="'.$anchorName.'">'.$titleText.'</a></h1>
+          <h1><a href="#">'.$titleText.'</a></h1>
           <div class="content editFiles"><br>';
 
   //echo $filesPath.'<br>';
@@ -3061,7 +3059,7 @@ function createBrowserChart($browserString) {
         }
 
         // SHOW the table cell with the right browser and color
-        $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$displayBrowser['textColor'].'; width: '.$displayBrowser['percent'].'%; background: '.$displayBrowser['bgImage'].' repeat-x;" class="toolTip" title="[span]'.$displayBrowser['name'].'[/span] ('.$displayBrowser['percent'].'%)::'.$displayBrowser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
+        $return .= '<td style="vertical-align:middle;padding: '.$cellpadding.'; color: '.$displayBrowser['textColor'].'; width: '.$displayBrowser['percent'].'%; background: '.$displayBrowser['bgImage'].' repeat-x;" class="toolTip" title="[span]'.$displayBrowser['name'].'[/span] ('.$displayBrowser['percent'].'%)::'.$displayBrowser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
                     <div style="position: relative;">
                     <img src="library/images/icons/'.$displayBrowser['logo'].'" style="float: left;'.$logoSize.';" alt="browser logo">'.$cellText.'
                     </div>

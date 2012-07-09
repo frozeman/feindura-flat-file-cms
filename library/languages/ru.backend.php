@@ -111,7 +111,7 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'абсолютный путь';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'относительный путь';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Абсолютный путь::Абсолютный путь файловой системы. (Но по отношению к DocumentRoot)[br][br][span class=hint]/server/htdocs[b]/path/[/b][/span]';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Абсолютный путь::Абсолютный путь файловой системы. (Но по отношению к DocumentRoot)[br][br][span class=hint]/server/htdocs[strong]/path/[/strong][/span]';
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Относительный путь::Относительный путь URI, значит, по отношению к текущему документу.';
 
 // STATISTICS
@@ -330,12 +330,12 @@ $langFile['DASHBOARD_TITLE_REFERER']                                      = 'И�
 // ---------- PAGES SORTABLE LIST
 $langFile['SORTABLEPAGELIST_h1']                                          = 'Содержание сайта';
 $langFile['SORTABLEPAGELIST_headText1']                                   = 'фильтр';
-$langFile['SORTABLEPAGELIST_headText2']                                   = 'Редактировалось';
 $langFile['SORTABLEPAGELIST_headText3']                                   = 'Визитов';
 $langFile['SORTABLEPAGELIST_headText4']                                   = 'Статус';
 $langFile['SORTABLEPAGELIST_headText5']                                   = 'Операции';
 
 $langFile['SORTABLEPAGELIST_TIP_PAGEDATE']                                = 'Дата';
+$langFile['SORTABLEPAGELIST_TIP_LASTEDIT']                                = 'Редактировалось';
 $langFile['SORTABLEPAGELIST_TIP_TAGS']                                    = 'Таги';
 $langFile['SORTABLEPAGELIST_TIP_LOCALIZATION']                            = 'Языки';
 
@@ -399,7 +399,7 @@ $langFile['ADMINSETUP_GENERAL_field2_tip']                                = 'Б�
 $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'Путь будет добавлен автоматически';
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Пожалуйста, сохраните настройки!';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Путь к сайту';
-$langFile['ADMINSETUP_GENERAL_field8_tip']                                = '[b]Абсолютный путь[/b] расположения файлов сайта.[br][br][span class=hint]также могут содержать имена, например &quot;/website/index.php&quot;[/span]';
+$langFile['ADMINSETUP_GENERAL_field8_tip']                                = '[strong]Абсолютный путь[/strong] расположения файлов сайта.[br][br][span class=hint]также могут содержать имена, например &quot;/website/index.php&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Путь для загрузи файлов';
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Файлы вроде иллюстраций, изображений, флеш-анимациии другие будут закачиваться по этому адресу.';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Файлы могут редактироваться в сеции Настройки сайта, (если выбраны соответсвующие Пользовательские настроки).[br][br]';
@@ -411,11 +411,11 @@ $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'П�
 $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS']                           = 'Каждый файл или директория созданные [span class=feinduraName]fein[span]dura[/span][/span] будут иметь указанные здесь права.';
 $langFile['ADMINSETUP_GENERAL_varName_ifempty']                           = 'Если поле пусто - будет использовано стандарное имя GET-перемнной: ';
 $langFile['ADMINSETUP_GENERAL_varName1']                                  = 'Переменная для страниц';
-$langFile['ADMINSETUP_GENERAL_varName1_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]page[/b]&quot;';
+$langFile['ADMINSETUP_GENERAL_varName1_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]page[/strong]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName2']                                  = 'Переменная для категорий';
-$langFile['ADMINSETUP_GENERAL_varName2_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]category[/b]&quot;';
+$langFile['ADMINSETUP_GENERAL_varName2_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]category[/strong]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'Переменная для модулей';
-$langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
+$langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]modul[/strong]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'Имя GET-переменной которая будет использоваться для формирования ссылки.';
 $langFile['ADMINSETUP_GENERAL_field7']                                    = 'Формат даты';
 $langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Используется в [span class=feinduraName]fein[span]dura[/span][/span] и на сайте.';
@@ -426,8 +426,8 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'Ч�
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/category-name/example-page';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URL с переменными';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Формат URL используется при формировании всех ссылок на сайте.[br][br]ЧПУ работают только если есть модуль [b]Apache[/b] [b]mod_rewrite[/b].[br][br][b]ВНИМАНИЕ: С РУССКИМИ НАЗВАНИЯМИ СТРАНИЦ И КАТЕГОРИЙ ЧПУ НЕ РАБОТАЕТ (на данный момент)![/b]';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'ВНИМАНИЕ!::[span class=red]Если при использовании ЧПУ возникнут проблемы, вы должны удалить файл [b].htaccess[/b] из корня сайта.[/span]';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Формат URL используется при формировании всех ссылок на сайте.[br][br]ЧПУ работают только если есть модуль [strong]Apache[/strong] [strong]mod_rewrite[/strong].[br][br][strong]ВНИМАНИЕ: С РУССКИМИ НАЗВАНИЯМИ СТРАНИЦ И КАТЕГОРИЙ ЧПУ НЕ РАБОТАЕТ (на данный момент)![/strong]';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'ВНИМАНИЕ!::[span class=red]Если при использовании ЧПУ возникнут проблемы, вы должны удалить файл [strong].htaccess[/strong] из корня сайта.[/span]';
 
 // ---------- speaking url ERRORs
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_save']                    = '<b>ЧПУ</b> не могут быть активированы '.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
@@ -461,7 +461,7 @@ $langFile['adminSetup_thumbnailSettings_h1']                              = 'Н�
 $langFile['adminSetup_thumbnailSettings_field3']                          = 'Путь для сохранения'; // Thumbnail-Speicherpfad
 $langFile['adminSetup_thumbnailSettings_field3_tip']                      = 'Дирктория в которую будут сохраняться миниатюры.';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip1']                = 'Директория загрузок';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Относительный путь::Относительный путь &quot;[b]%s[/b]&quot; path.[br][br]Без открывающего слеша впереди - &quot;/&quot;';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Относительный путь::Относительный путь &quot;[strong]%s[/strong]&quot; path.[br][br]Без открывающего слеша впереди - &quot;/&quot;';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
@@ -476,7 +476,7 @@ $langFile['EDITFILESSETTINGS_TITLE_SNIPPETS']                             = 'Р�
 $langFile['EDITFILESSETTINGS_TEXT_NODIR']                                 = 'Не корректная директория!';
 $langFile['EDITFILESSETTINGS_TEXT_CHOOSEFILE']                            = 'Выберите файл';
 $langFile['EDITFILESSETTINGS_TEXT_CREATEFILE']                            = 'Создать новый файл';
-$langFile['EDITFILESSETTINGS_TIP_CREATEFILE']                             = 'Если ввести название файла здесь - будет создан новый файл. [b]Текущий файл не будет сохранен![/b]';
+$langFile['EDITFILESSETTINGS_TIP_CREATEFILE']                             = 'Если ввести название файла здесь - будет создан новый файл. [strong]Текущий файл не будет сохранен![/strong]';
 $langFile['EDITFILESSETTINGS_TEXT_NOFILE']                                = 'Нет файлов';
 
 $langFile['EDITFILESSETTINGS_TEXT_DELETEFILE']                            = 'Удалить этот файл';
@@ -556,10 +556,10 @@ $langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'Р�
 $langFile['PAGESETUP_TIP_SUBCATEGORY']                                    = 'Позволяет выбрать подкатегорию для каждой страницы.';
 
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'Сортировать страницы по дате';
-$langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Страницы созданные позже (более новые) будут выводится в списке [b]вверху[/b].[br][br][span class=hint]Деактивирует ручную сортировку.[/span]';
+$langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Страницы созданные позже (более новые) будут выводится в списке [strong]вверху[/strong].[br][br][span class=hint]Деактивирует ручную сортировку.[/span]';
 
 $langFile['PAGESETUP_TEXT_SORTMANUALLY']                                  = 'Ручная сотрировка';
-$langFile['PAGESETUP_TIP_SORTMANUALLY']                                   = 'Последние созданные страницы [b]вверху[/b].';
+$langFile['PAGESETUP_TIP_SORTMANUALLY']                                   = 'Последние созданные страницы [strong]вверху[/strong].';
 
 $langFile['PAGESETUP_TEXT_SORTALPHABETICAL']                              = 'Сортировать по алфавиту';
 $langFile['PAGESETUP_TIP_SORTALPHABETICAL']                               = '[span class=hint]Деактивирует ручную сортировку.[/span]';
@@ -596,7 +596,7 @@ $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'Д�
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Отключить сайта';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Показывает сообщение, а не на сайт, в котором говорится, что сайт в настоящее время редактируется.';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Мульти язык сайта';
-$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[b]двойной клик[/b] для выбора языка.';
+$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[strong]двойной клик[/strong] для выбора языка.';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Основной язык';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'Основной язык будет выбран, если нет соответствующего языка может быть определен автоматически.';
 
@@ -608,25 +608,17 @@ $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'О�
 $langFile['STATISTICSSETUP_ERROR_SAVE']                                   = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/statistic.config.php';
 
 $langFile['STATISTICSSETUP_TITLE_STATISTICSSETTINGS']                     = 'Настройки статистики';
-$langFile['STATISTICSSETUP_TEXT_MOSTVISTED']                              = 'Количество <b>наиболее посещаемых</b> страниц';
-$langFile['STATISTICSSETUP_TIP_MOSTVISTED']                               = 'Количество наиболее посещаемых страниц выводящихся в списке секции [b]Статистика по страницам[/b] в [b]Сводке[/b].';
-$langFile['STATISTICSSETUP_TEXT_LONGESTVIEWED']                           = 'Количество <b>дольше всего просматриваемых</b> страниц';
-$langFile['STATISTICSSETUP_TIP_LONGESTVIEWED']                            = 'Количество дольше всего просматриваемых страниц выводящихся в списке секции [b]Статистика по страницам[/b] в [b]Сводке[/b].';
-$langFile['STATISTICSSETUP_TEXT_LASTEDITED']                              = 'Количество <b>последних измененных</b> страниц';
-$langFile['STATISTICSSETUP_TIP_LASTEDITED']                               = 'Количество последних измененных страниц выводящихся в списке секции [b]Статистика по страницам[/b] в [b]Сводке[/b].';
-$langFile['STATISTICSSETUP_TEXT_LASTVISITED']                             = 'Количество <b>последних просмотренных</b> страниц';
-$langFile['STATISTICSSETUP_TIP_LASTVISITED']                              = 'Количество последних просмотренных страниц выводящихся в списке секции [b]Статистика по страницам[/b] в [b]Сводке[/b].';
 $langFile['STATISTICSSETUP_TEXT_REFERERNUMBER']                           = 'Количество <b>источников переходов</b>';
-$langFile['STATISTICSSETUP_TIP_REFERERNUMBER']                            = 'Количество источников переходов выводящихся в списке секции [b]Статистика по страницам[/b] в [b]Сводке[/b].';
+$langFile['STATISTICSSETUP_TIP_REFERERNUMBER']                            = 'Количество источников переходов выводящихся в списке секции [strong]Статистика по страницам[/strong] в [strong]Сводке[/strong].';
 $langFile['STATISTICSSETUP_TEXT_ACTIVITYNUMBER']                          = 'Количество <b>последних действий</b>';
 $langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER']                           = 'Максимальное количество выводящихся в левом сайд-баре последних действий.';
 
 
 $langFile['statisticSetup_clearStatistic_h1']                             = 'Обнулить статистику';
 $langFile['statisticSetup_clearStatistics_websiteStatistic']              = 'Статистика сайта';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[b]Содержит[/b][ul][li]Статистика посещений/посетителей[/li][li]Статистика пауков/ботов[/li][li]Дата первого визита[/li][li]Дата последнего визита[/li][li]Статистика браузеров[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[strong]Содержит[/strong][ul][li]Статистика посещений/посетителей[/li][li]Статистика пауков/ботов[/li][li]Дата первого визита[/li][li]Дата последнего визита[/li][li]Статистика браузеров[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic']                = 'Статистика по страницам';
-$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[b]Содержит[/b][ul][li]Количество посетителей[/li][li]Дата первого визита страницы[/li][li]Дата последнего визита страницы[/li][li]Самые короткие визиты[/li][li]Самые продолжительные визиты[/li][li]Ключевые слова из поиска[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[strong]Содержит[/strong][ul][li]Количество посетителей[/li][li]Дата первого визита страницы[/li][li]Дата последнего визита страницы[/li][li]Самые короткие визиты[/li][li]Самые продолжительные визиты[/li][li]Ключевые слова из поиска[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics']     = 'Только статистику продолжительности пребывания на странице';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics_tip'] = 'Удалить только статистику продолжительности просмотров всех страниц';
 $langFile['statisticSetup_clearStatistics_refererLog']                    = 'Источники переходов'; // engl.: referer
@@ -721,9 +713,9 @@ $langFile['EDITOR_pageSettings_pagedate_before_inputTip']                 = 'Т�
 $langFile['EDITOR_pageSettings_pagedate_after_inputTip']                  = 'Текст после даты::';
 $langFile['EDITOR_pageSettings_pagedate_day_inputTip']                    = 'День::';
 $langFile['EDITOR_pageSettings_pagedate_month_inputTip']                  = 'Месяц::';
-$langFile['EDITOR_pageSettings_pagedate_year_inputTip']                   = 'Год::[b]Формат[/b] YYYY';
+$langFile['EDITOR_pageSettings_pagedate_year_inputTip']                   = 'Год::[strong]Формат[/strong] YYYY';
 $langFile['EDITOR_pageSettings_field4']                                   = 'Статус страницы';
-$langFile['EDITOR_pageSettings_field4_tip']                               = '[b]Только активная страница отображается на сайте![/b]';
+$langFile['EDITOR_pageSettings_field4_tip']                               = '[strong]Только активная страница отображается на сайте![/strong]';
 
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'Ошибочный формат даты';
 $langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'В этом месяце не 31 день.[br]Формат даты может быть следующим:';
@@ -857,7 +849,7 @@ $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE']                      = 'С�
 
 $langFile['BACKUP_BUTTON_DOWNLOAD']                                       = 'создать резервную копию';
 $langFile['BACKUP_TEXT_BACKUP']                                           = 'Резервная копия упаковывается в <code>.zip</code> архив включая все файлы из директорий <span class="blue">"pages","config"</span> и <span class="blue">"statistic"</span>.<br>Директория <span class="blue">"upload"</span> не упаковывается.';
-$langFile['BACKUP_TEXT_RESTORE']                                          = 'Выберите <span class="feinduraName"><span>fein</span>dura</span> резервную копию, для возвращения к предыдущему состоянию.<br><span class="blue">До восстановления рекомендуем создать новую резервную копию.</ span>';
+$langFile['BACKUP_TEXT_RESTORE']                                          = '<p>Выберите <span class="feinduraName"><span>fein</span>dura</span> резервную копию, для возвращения к предыдущему состоянию.</p><div class="alert"><strong>намек</strong> До восстановления рекомендуем создать новую резервную копию.</div>';
 $langFile['BACKUP_TOOLTIP_DELETE']                                        = 'Удалить резервную копию';
 $langFile['BACKUP_TEXT_DELETE_QUESTION']                                  = 'Удалить %s?'; // really delete backup 2010-11-05 15:03?
 

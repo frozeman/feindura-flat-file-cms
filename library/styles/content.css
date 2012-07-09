@@ -15,588 +15,24 @@
 
 content.css version 0.5 */
 
-/**************/
-/* *** BLOCK */
 
-
-
-
-
-
-/* info */
-
-
-/* missing Languages */
-
-
-/* open block */
-
-
-/* CONTENT BLOCKED */
-
-/****************/
-/* --- INNER BLOCKs */
-
-
-
-.block .innerBlockListPages {
-    position: relative;
-    width: 100%;
-    max-height: 126px; /* org 108px */
-    min-height: 2px;
-    padding: 0px;
-    margin-top: -16px;
-    border: 1px solid #cccccc;
-    border-left: none;
-    border-right: none;
-    overflow: auto;
-    }
-
-/* BLOCK SELECT */
-.block select {
-  max-width: 500px;
-}
-
-/****************/
-/* --- BLOCK-TABLE */
-
-.block table {
-    border: none;
-    border-collapse: collapse;
-    border-spacing: 0px;
-    padding: 0px;
-    margin: 10px 0px;
-    }
-.block table td {
-    position: relative;
-    padding: 8px 5px;
-    }
-
-
-/* left */
-.block table td.left {
-    width: 200px;
-    padding-right: 18px;
-    text-align: right;
-    vertical-align: middle;
-    color: #888888;
-    background: url("../images/bg/content_block_table_left_middle.png") repeat-y right top;
-    }
-.block table col.left {
-    background: url("../images/bg/content_block_table_left_middle.png") repeat-y right top;
-    }
-   /* checkboxes */
-.block table td.left.checkboxes {
-    line-height: 22px;
-    padding: 2px 5px;
-    padding-right: 1px !important;
-    background: #fff;
-    vertical-align: top;
-    }
-
-.block table td.left.buttons {
-    line-height: 22px;
-    padding: 2px 5px;
-    /*padding-right: 40px !important;*/
-    background: #fff;
-    vertical-align: top;
-    text-align: center;
-    }
-
-/* leftTop */
-.block table td.leftTop {
-    height: 30px;
-    background: url("../images/bg/content_block_table_left_top.png") no-repeat right top;
-    }
-
-/* leftBottom */
-.block table td.leftBottom {
-    height: 35px;
-    padding: 0px;
-    background: url("../images/bg/content_block_table_left_bottom.png") no-repeat right top #ffffff;
-    }
-
-/* right */
-.block table td.right {
-    padding-left: 10px;
-    text-align: left;
-    vertical-align: middle;
-    line-height: 23px;
-    }
-.block table td.right input {
-    width: 300px;
-    margin-right: 5px;
-    }
-.block table td.right.checkboxes {
-    padding: 0px 10px;
-    vertical-align: top;
-    }
-
-.block table td.right.buttons {
-    padding: 0px 10px;
-    vertical-align: top;
-    text-align: left;
-    }
-.block table td.right.buttons a.button {
-    width:  310px
-}
-
-/* spacer */
-.block table td.spacer {
-    height: 20px;
-    padding: 0px;
-    margin: 0px;
-    }
-.block table td.spacer.checkboxes {
-    background: #ffffff !important;
-    }
-
-.block .verticalSeparator {
-  background: url('../images/bg/content_block_verticalSeparator.png') no-repeat bottom center;
-  padding-bottom: 5px;
-  clear: both;
-}
-
-/****************/
-/* --- SLIDE HEADER LINKS */
-
-.mainContent .block > h1 a {
-    z-index: 1;
-    position: relative;
-    display: block;
-    width: 760px;
-    min-height: 35px;
-    padding: 0px;
-    background: url("../images/buttons/content_h1_up_off.png") no-repeat right top;
-    color: #536068;
-    }
-.mainContent .block > h1 a:hover, .mainContent .block > h1 a:focus {
-    color: #536068;
-    background: url("../images/buttons/content_h1_up_on.png") no-repeat right top;
-    }
-.mainContent .block.hidden > h1 a {
-    background: url("../images/buttons/content_h1_down_off.png") no-repeat right top;
-    }
-.mainContent .block.hidden > h1 a:hover, .mainContent .block.hidden > h1 a:focus {
-    background: url("../images/buttons/content_h1_down_on.png") no-repeat right top;
-    }
-
-/****************/
-/* *** H1 ICON */
-
-h1 img.blockH1Icon {
-  position: relative;
-  top: 8px !important;
-  left: 4px;
-}
-
-/****************/
-/* - CONTENT FASTUP link */
-.mainContent a.fastUp {
-    z-index: 4;
-    position: fixed;
-    left: 1108px;
-    top: 80px;
-    display: block;
-    width: 66px;
-    height: 65px;
-    text-decoration: none;
-    background: url("../images/buttons/content_fastUp.png") no-repeat;
-    }
-.mainContent a.fastUp:hover, .mainContent a.fastUp:focus {
-    background-position: 0px -68px;
-    }
-
-
-/****************/
-/* - DOWN/UP LINK */
-
-a.down {
-    font-weight: bold;
-    padding-left: 18px;
-    background: url("../images/buttons/down.gif") no-repeat 0px 3px !important;
-    }
-
-a.up {
-    font-weight: bold;
-    padding-left: 18px;
-    background: url("../images/buttons/up.gif") no-repeat 0px 3px !important;
-    }
-
-/****************/
-/* - INLINE HINT modification (look notifications.css) */
-
-.block table span.hint {
-    background-position: 0px 6px !important;
-    }
-
-/* WINDOBOX BLOCK and TABLE */
-#windowBox .block td {
-    background: none !important;
-    font-weight: bold;
-}
-#windowBox .block td.left {
-    width: 280px;
-}
-
-
-/* --------------------------------------------- */
-/* *** ELEMENTS */
-/* --------------------------------------------- */
-
-/****************/
-/* *** HEADLINES */
-
-.mainContent h1 {
-    z-index: 1;
-    position: relative;
-    display: block;
-    margin: 0px -20px;
-    padding: 15px 23px;
-    padding-bottom: 10px;
-    font-size: 17px;
-    color: #536068;
-    line-height: 30px;
-    background: url("../images/bg/block_h1.png") no-repeat;
-    }
-.mainContent h1.brown {
-    background: url("../images/bg/block_h1_brown.png") no-repeat;
-    }
-.mainContent h1.blue {
-    background: url("../images/bg/block_h1_blue.png") no-repeat;
-    }
-
-.mainContent h1 img {
-    position: relative;
-    top: 8px;
-    }
-.mainContent h2 {
-    margin: 0px 0px 15px 0px;
-    padding: 8px 7px;
-    font-size: 14px;
-    color: #536068;
-    border-bottom: 1px solid #C3C4C4;
-    }
-.mainContent h3 {
-    margin: 10px 10px 10px -4px;
-    padding: 5px 7px;
-    font-size: 15px;
-    color: #536068;
-    }
-.mainContent h3 span {
-    color: #BAB8B6;
-    }
-.mainContent h4 {
-  margin: 10px 0 5px -10px;
-  padding: 5px 10px;
-  font-size: 14px;
-  color: #536068;
-  }
-
-/****************/
-/* *** TEXT */
-.mainContent {
-    font-size: 14px;
-    color: #536068;
-    }
-.mainContent p {
-    margin: 10px 3px;
-    font-size: 14px;
-    color: #536068;
-    }
-
-/****************/
-/* *** HR */
-
- hr {
-    position: relative;
-    height: 0px;
-    margin: 15px 0px;
-    border: none;
-    border-top: 10px dotted #cccccc;
-    clear: both;
-    }
- hr.small {
-    position: relative;
-    height: 0px;
-    margin: 10px 0px;
-    border: none;
-    border-top: 1px dotted #cccccc;
-    }
-
- div.blockSpacer {
-    position: relative;
-    width: 788px;
-    height: 30px;
-    margin: 25px -8px;
-    margin-bottom: 50px;
-    background: url("../images/bg/content_blockSpacer.png") no-repeat;
-    }
-
-/* DELETE ICON */
-span.deleteIcon { /* this is the outer box, around a link with an delete corner */
-  position: relative;
-  display: inline-block;
-}
-
-/* --- LISTPAGES ------------------------------------------------------------------------------------------------------------------- */
-
-/* LISTPAGES BLOCK */
-
-.mainContent .block.listPages {
-    margin-bottom: 35px;
-    margin-top:-20px;
-    }
-.mainContent .block.listPages .content {
-    margin-bottom: -18px;
-    }
-
-/****************/
-/* --- SLIDE HEADER LINKS */
-
-.mainContent .block.listPages > h1 a img {
-    position: relative;
-    top: 10px;
-    margin-right: 5px;
-    }
-
-h1 img.listPagesH1Icon {
-  position: relative;
-  top: -4px !important;
-  left: -2px;
-}
-
-.mainContent .block.listPages > h1 a span {
-    position: relative;
-    top: -12px;
-    line-height: 15px;
-    font-weight: bold;
-    background: none;
-    padding: 0px;
-    font-size:15px;
-    }
-
-/****************/
-/* *** listPages */
-
-.listPages ul {
-    position: relative;
-    margin: 15px 0px;
-    padding: 0px;
-    min-height: 10px;
-    }
-
-.listPages ul li {
-    position: relative;
-    width: 755px;
-    margin: 5px 0px;
-    height: 34px; /* org: 40px*/
-    padding: 3px 7px;
-    list-style: none;
-    background: url("../images/bg/listPages_liBg.png") no-repeat;
-    white-space: nowrap;
-    overflow: visible;
-    }
-.listPages ul li:hover {
-    background-position: 0px -41px;
-    }
-
-.listPages ul.sortablePageList li {
-    cursor: move;
-    }
-
-.listPages li.hasSubCategory {
-    background: url("../images/bg/listPages_liBg_hasSubCategory.png") no-repeat;
-}
-
-/****************/
-/* *** listPages HEADER */
-
-div.listPagesHead {
-    width: 790px;
-    height: 50px;
-    margin-left: -12px;
-    margin-bottom: 33px;
-    color:3C5E91;
-    border-top: 1px solid #DB9E39;
-    font-size:15px;
-    line-height:30px;
-    background: url("../images/bg/listPages_headBg.png") repeat-x;
-    }
-
-.listPagesHead div {
-    position: relative;
-    display: inline-block;
-    max-height: 25px;
-    padding: 4px 0px;
-    /*overflow: hidden;*/
-    white-space: nowrap;
-    float: left;
-    }
-
-.listPagesHead div.name {
-    width: 270px;
-    padding-left: 15px;
-    }
-.listPagesHead div.name input {
-    width: 170px;
-    padding-right: 23px;
-    }
-a#listPagesFilterCancel {
-  display: none;
-  position: absolute;
-  top: 12px;
-  right: 15px;
-  width: 18px;
-  height: 18px;
-  background: url("../images/buttons/listPages_filterCancel.png") no-repeat;
-}
-a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
-  background-position: 1px -17px;
-}
-
-.listPagesHead div.lastSaveDate {
-    width: 145px;
-    }
-.listPagesHead div.counter {
-    width: 80px;
-    text-align: center;
-    }
-.listPagesHead div.status {
-    width: 70px;
-    text-align: center;
-    }
-.listPagesHead div.functions {
-    width: 200px;
-    text-align: center;
-    }
 
 /****************/
 /* *** listPages PAGES */
 
-.listPages .content div {
-    display: inline-block;
-    height: 24px;
-    max-height: 24px;
-    padding: 6px 0px;
-    overflow: hidden;
-    line-height: 24px;
-    white-space: nowrap;
-    float: left;
-    }
 
-.listPages .content div.name {
-    width: 260px;
-    padding: 6px 0px;
-    }
-.listPages .content div.lastSaveDate {
-    width: 140px;
-    padding-left: 10px;
-    }
-.listPages .content div.counter {
-    width: 85px;
-    padding: 6px 5px;
-    text-align: center;
-    font-weight: bold;
-    }
-.listPages .content div.status {
-    width: 54px;
-    padding: 3px 5px;
-    }
-.listPages .content div.functions {
-    position: relative;
-    float: right !important;
-    width: 170px;
-    padding: 5px 10px;
-    padding-left: 0px;
-    text-align: right;
-    }
-
-.listPages div.emptyList {
-   position:relative;
-   top:-2px;
-   left:12px;
-}
 
 /**************************/
 /* *** listPages CATEGORY */
 
-.listPages div.category {
-    z-index: 2; /* fixes the problem that it hides the functions div under the h1 */
-    position: absolute;
-    top: -1px;
-    left: 538px;
-    }
 
-.listPages div.category div.status {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    }
-
-.listPages div.category div.functions {
-    z-index: 6; /* fixes the problem that it hides the functions div under the h1 */
-    position: absolute;
-    top: 0px;
-    left: 103px;
-    width: 100px;
-    height: 27px;
-    text-align: right;
-    }
 
 /***************************/
 /* *** PAGE FUNCTION links */
 
-.listPages div.name a {
-    display: inline-block;
-    height: 27px;
-    background: url("../images/icons/pageIcon_small.png") no-repeat;
-    padding-left: 30px !important;
-    }
-.listPages div.name.hasSubCategory a {
-    background: url("../images/icons/pageIcon_subCategory_small.png") no-repeat;
-    }
-.listPages div.name.isStartPage a {
-    background: url("../images/icons/pageIcon_startPage_small.png") no-repeat;
-    }
-.listPages div.name.hasSubCategory.isStartPage a {
-    background: url("../images/icons/pageIcon_startPage_subCategory_small.png") no-repeat;
-    }
 
-.listPages .functions a {
-    display: inline-block;
-    width: 27px;
-    height: 26px;
-    padding: 0px !important;
-    background-position: 0px 0px !important;
-    }
 
-.listPages .functions a.startPage {
-    background: url("../images/buttons/listPages_startPage.png") no-repeat;
-    }
-.listPages .functions a.frontendEditing {
-    background: url("../images/buttons/listPages_frontendEditing.png") no-repeat;
-    }
-.listPages .functions a.editPage {
-    background: url("../images/buttons/listPages_editPage.png") no-repeat;
-    }
-.listPages .functions a.deletePage {
-    background: url("../images/buttons/listPages_deletePage.png") no-repeat;
-    }
-.listPages .functions a.pageThumbnailUpload {
-    background: url("../images/buttons/listPages_pageThumbnailUpload.png") no-repeat;
-    }
-.listPages .functions a.pageThumbnailDelete {
-    background: url("../images/buttons/listPages_pageThumbnailDelete.png") no-repeat;
-    }
 
-.listPages .functions a:hover, .listPages .functions a:focus, .listPages .functions a.startPage.active {
-    background-position: 0px -27px !important;
-    filter: alpha(opacity=100) !important;
-    -khtml-opacity: 1.0 !important;
-    -moz-opacity: 1.0 !important;
-    opacity: 1.0 !important;
-    }
 
 .startPageIcon {
     display: inline-block;
@@ -622,38 +58,9 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
 /* *** PUBLI/NON-PUBLIC links for CATEGORY and PAGES*/
 
 /* LANGUAGE STATUS */
-.listPages .status span.missingLanguages {
-    display: inline-block;
-    width: 27px;
-    height: 27px;
-    background: url("../images/icons/missingLanguages_small.png") no-repeat !important;
-}
 
-/* works for pages status and category status */
-.listPages .status a {
-    display: block;
-    width: 27px;
-    height: 27px;
-    text-decoration: none;
-    padding-left: 0px !important;
-    float: left;
-    }
 
-/* for categories */
-.listPages .category .status a.public {
-    background: url("../images/icons/category_public.png") no-repeat !important;
-    }
-.listPages .category .status a.nonpublic {
-    background: url("../images/icons/category_nonpublic.png") no-repeat !important;
-    }
 
-/* for pages */
-.listPages .content .status.public a {
-    background: url("../images/icons/page_public.png") no-repeat !important;
-    }
-.listPages .content .status.nonpublic a {
-    background: url("../images/icons/page_nonpublic.png") no-repeat !important;
-    }
 
 /* SUB CATEGORY ARROWS */
 div.subCategoryArrowLine {
@@ -801,7 +208,7 @@ div.subCategoryInLineArrow {
     }
 
 .mainContent .editor .content {
-    margin: 20px 20px !important;
+    margin: 20px 20px;
     }
 
 .mainContent .editor textarea {
@@ -936,27 +343,6 @@ span.info strong {
 /* - BACKUP / RESTORE */
 
 
-a.createBackup {
-  display: inline-block;
-  height: 48px; /* org: 78px */
-  padding-left: 80px;
-  padding-top: 30px;
-  background: url("../images/buttons/backup_download.png") no-repeat;
-}
-a.createBackup:hover, a.createBackup:focus {
-  background-position: 0px -78px;
-}
-
-a.restoreBackup {
-  display: inline-block;
-  height: 48px; /* org: 78px */
-  padding-left: 80px;
-  padding-top: 30px;
-  background: url("../images/buttons/backup_restore.png") no-repeat;
-}
-a.restoreBackup:hover, a.restoreBackup:focus {
-  background-position: 0px -78px;
-}
 
 
 /* --- DASHBORAD STATISTICS ------------------------------------------------------------------------------------------------------------------- */
@@ -987,60 +373,12 @@ table.tableChart td {
 /* --------------------- */
 /* -------> VISIT COUNT */
 
-.visitCountNumber {
-    position: relative;
-    font-size: 33px;
-    font-weight: bold;
-    }
 
 /* --------------------- */
 /* -------> REFERER LOG */
 
-#refererLogContainer {
-    width: 100%;
-    max-height: 250px;
-    padding: 0px;
-    border: 1px solid #cccccc;
-    border-left: none;
-    border-right: none;
-    overflow: auto;
-    }
 
-/* COLORED LIST in an UL or TABLE with two colors */
-.coloredList {
-    font-size: 11px;
-    }
-.coloredList a {
-    background-position: 1px 1px;
-    }
 
-ul.coloredList {
-    padding: 0px;
-    margin: 0px;
-    }
-ul.coloredList li {
-    padding: 5px 10px;
-    margin: 0px;
-    list-style: none;
-    }
-
-table.coloredList {
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
-    }
-table.coloredList td {
-    padding: 5px 0px;
-    padding-left: 5px;
-    padding-right: 2px;
-    }
-
-.coloredList .light {
-    background-color: #E5EEEE;
-    }
-.coloredList .dark {
-    background-color: #D4E0E0;
-    }
 
 /* --- SEARCH ------------------------------------------------------------------------------------------------------------------- */
 
@@ -1084,18 +422,7 @@ table.coloredList td {
 /* --------------------- */
 /* -------> TAG CLOUD */
 
-div.tagCloud {
-    width: 100%;
-    max-height: 450px;
-    text-align: center;
-    overflow: auto;
-    }
 
-div.tagCloud span, div.tagCloud a {
-    background: none !important;
-    padding-right: 0px !important;
-    color: #668CA6 !important;
-    }
 
 
 /* --- TOOLTIPS ------------------------------------------------------------------------------------------------------------------- */
@@ -1254,7 +581,8 @@ a.createUser:hover, a.createUser:focus {
 
 /* deleteUser */
 a.deleteUser {
-    position: relative;
+    position: absolute;
+    right: 50px;
     display: block;
     width: 75px;
     height: 54px;
@@ -1480,22 +808,6 @@ textarea#fckStyleFile, textarea#fckStyleFile + div.CodeMirror {
 textarea#fckStyleFile + div.CodeMirror {
   margin-top: 30px;
 }
-
-a.addStyleFilePath {
-    position: relative;
-    display: block;
-    width: 24px;
-    height: 24px;
-    top: 5px;
-    left: 1px;
-    background: url("../images/buttons/addStyleFilePath.png") no-repeat;
-    }
-a.addStyleFilePath:hover, a.addStyleFilePath:focus {
-    background-position: 0px -24px;
-    }
-a.addStyleFilePath:active {
-    background-position: 0px -48px;
-    }
 
 /****************/
 /* *** FORM BUTTONS */

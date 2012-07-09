@@ -405,7 +405,7 @@ class GeneralFunctions {
       $params[$key] = $value;
 
     $query = http_build_query($params);
-    return '?'.$query;
+    return '?'.str_replace('&','&amp;',$query);
   }
 
  /**
