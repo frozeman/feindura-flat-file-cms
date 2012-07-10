@@ -5054,6 +5054,7 @@
 }
 .feindura .mainBody #leftSidebar .sidebarMenu.gray .top {
   background: url("../images/bg/sidebarMenu_top_gray.png") repeat-x;
+  color: #666;
 }
 .feindura .mainBody #leftSidebar .sidebarMenu.gray.free .top {
   background-position: right top;
@@ -5080,6 +5081,7 @@
 }
 .feindura .mainBody #leftSidebar .sidebarMenu.brown .top {
   background: url("../images/bg/sidebarMenu_top_brown.png") repeat-x;
+  color: #9B6B1D;
 }
 .feindura .mainBody #leftSidebar .sidebarMenu.brown.free .top {
   background-position: right top;
@@ -6061,10 +6063,6 @@
 .feindura .block.listPages .block ul li .functions a:focus,
 .feindura .block.listPages .block ul li .functions a.startPage.active {
   background-position: 0px -27px;
-  filter: alpha(opacity=100);
-  -khtml-opacity: 1.0;
-  -moz-opacity: 1.0;
-  opacity: 1.0;
 }
 .feindura .block.listPages .block ul li .functions a.startPage {
   background-image: url("../images/buttons/listPages_startPage.png");

@@ -217,5 +217,6 @@ if($savedSettings) {
   unset($websiteConfig);
   $websiteConfig = @include (dirname(__FILE__)."/../../config/website.config.php");
   GeneralFunctions::$websiteConfig = $websiteConfig;
+  StatisticFunctions::$websiteConfig = $websiteConfig;
 }
 ?>

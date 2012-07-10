@@ -66,6 +66,18 @@ class StatisticFunctions {
   public static $adminConfig;
 
  /**
+  * Contains the website-config <var>array</var>
+  *
+  * Example array:
+  * {@example backend/websiteConfig.array.example.php}
+  *
+  * @static
+  * @var array
+  * @see init()
+  */
+  public static $websiteConfig = array();
+
+ /**
   * Contains the website-statistic <var>array</var>
   *
   * Example array:
@@ -134,14 +146,15 @@ class StatisticFunctions {
   *
   * <b>Used Global Variables</b><br>
   *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
-  *    - <var>$websiteStatistic</var> the website-settings config (included in the {@link general.include.php})
+  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
+  *    - <var>$websiteStatistic</var> the website-statistic (included in the {@link general.include.php})
   *    - <var>$statisticConfig</var> the statistic-settings config (included in the {@link general.include.php})
   *
   *
   * @return void
   *
   * @static
-  * @version 1.2
+  * @version 1.2.1
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.2 add $pagesMetaData
@@ -155,6 +168,7 @@ class StatisticFunctions {
 
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     self::$adminConfig      = $GLOBALS["adminConfig"];
+    self::$websiteConfig    = $GLOBALS["websiteConfig"];
     self::$websiteStatistic = $GLOBALS["websiteStatistic"];
     self::$statisticConfig  = $GLOBALS["statisticConfig"];
     self::$pagesMetaData    = $GLOBALS["pagesMetaData"];

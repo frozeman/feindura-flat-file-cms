@@ -2361,7 +2361,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
       $fileTypeText = '<b>.'.$fileType.'</b>';
     echo '<div class="editFiles right">
           <h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'</h2>
-          <input name="newFile" style="width:200px;" class="thumbnailToolTip" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'::'.$GLOBALS['langFile']['EDITFILESSETTINGS_TIP_CREATEFILE'].'"> '.$fileTypeText.'
+          <input name="newFile" style="width:200px;" class="inputToolTipLeft" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'::'.$GLOBALS['langFile']['EDITFILESSETTINGS_TIP_CREATEFILE'].'"> '.$fileTypeText.'
           </div>';
   }
 

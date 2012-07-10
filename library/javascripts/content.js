@@ -24,7 +24,6 @@ var pageContentChanged = false; // used to give a warning, if a page in the edit
 var HTMLEditor;
 var subCategoryArrows;
 var countSubCategoryArrows = 1;
-var inputBlurFade = 0.6;
 var listPagesBars = []; // stores all pages li elements
 
 
@@ -66,8 +65,8 @@ function setToolTips() {
     hideDelay: 0 });
 
   /* thumbnailToolTip */
-  toolTipsInput = new Tips('.thumbnailToolTip',{
-    className: 'feindura_toolTipBox',
+  toolTipsThumbnail = new Tips('.inputToolTipLeft',{
+    className: 'feindura_toolTipBox inputTipLeft',
     offset: {'x': -320,'y': -20},
     fixed: true,
     showDelay: 300,
@@ -77,7 +76,7 @@ function setToolTips() {
   if(window.getSize().x < 1255) {
     /* inputToolTip */
     toolTipsInput = new Tips('.inputToolTip',{
-      className: 'feindura_toolTipBox',
+      className: 'feindura_toolTipBox inputTip',
       offset: {'x': -275,'y': -20},
       fixed: true,
       showDelay: 300,
@@ -87,7 +86,7 @@ function setToolTips() {
   } else {
     /* inputToolTip */
     toolTipsInput = new Tips('.inputToolTip',{
-      className: 'feindura_toolTipBox',
+      className: 'feindura_toolTipBox inputTip',
       offset: {'x': 500,'y': -20},
       fixed: true,
       showDelay: 300,
@@ -929,9 +928,6 @@ window.addEvent('domready', function() {
         // hide subCategory arrows
         $$('.subCategoryArrowLine').setStyle('display','none');
 
-        // fade in the input
-        this.fade(1);
-
         $('listPagesFilterCancel').setStyle('display','block');
 
         $$('div.block.listPagesBlock').each(function(block){
@@ -951,9 +947,6 @@ window.addEvent('domready', function() {
       // ->> WHEN filter is cleared
       // ->> SLIDE the blocks OUT again, besides the one which was in at the beginning
       } else if(filter === '' && storedOpenBlocks) {
-
-        // fade out the input
-        this.fade(inputBlurFade);
 
         $('listPagesFilterCancel').setStyle('display','none');
 
@@ -1507,45 +1500,6 @@ window.addEvent('domready', function() {
   }
 
   // *** ->> FORMS -----------------------------------------------------------------------------------------------------------------------
-
-  // ------------------------------------------------------------
-  // makes inputs who are empty transparent, and fade in on mouseover
-  if($$('.right input') !== null) {
-        //var smallSize = 50;
-
-        $$('.right input, .listPagesHead input').each(function(input) {
-            // looks for empty inputs
-            if(!input.hasClass('noResize') && (input.get('value') === '' || input.get('disabled') !== false)) {
-
-                var hasFocus = false;
-                var hasContent = false;
-
-                var inputWidthBefore = input.getStyle('opacity');
-                input.setStyle('opacity', inputBlurFade); //makes the input small
-
-                input.set('tween',{duration: '500', transition: Fx.Transitions.Sine.easeOut}); //Bounce.easeOut
-
-                input.addEvents({
-                  'mouseover' : function() { // resize on mouseover
-                      input.tween('opacity',inputWidthBefore);
-                  },
-                  'focus' : function(){ // if onfocus set hasFocus = true
-                      hasFocus = true;
-                      input.tween('opacity',inputWidthBefore);
-                  },
-                  'blur' : function() { // if onblur set hasFocus = false and tween to small if the input has still no content
-                      hasFocus = false;
-                      if(input.get('value') === '')
-                        input.tween('opacity',inputBlurFade);
-                  },
-                  'mouseout' : function() { // onmouseout, if has not focus tween to small
-                      if(!hasFocus && input.get('value') === '')
-                        input.tween('opacity',inputBlurFade);
-                  }
-                });
-            }
-        });
-  }
 
 
   // ------------------------------------------------------------
