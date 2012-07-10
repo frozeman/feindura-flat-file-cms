@@ -270,7 +270,7 @@ $langFile['ERROR_FOLDER_PART2']                                           = '&qu
 
 // -> WARNINGS
 $langFile['WARNING_TITLE_STARTPAGE']                                      = 'Главная страница не установлена!';
-$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Пожалуйста установите главную страницу.<br>Пройдите к <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> и выберите <span class="startPageIcon"></span> иконку для назначения страницы.';
+$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Пожалуйста установите главную страницу.<br>Пройдите к <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> и выберите <span class="icon startpage"></span> иконку для назначения страницы.';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Ваш Document Root не удается обнаружить автоматически!';
 $langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Для корректной установки Document Root пройдите в <a href="?site=adminSetup#adminSettings">Основные настройки</a> и установите &quot;Реальный путь feindura&quot;.';

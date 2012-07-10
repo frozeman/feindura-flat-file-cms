@@ -27,7 +27,7 @@ switch($_GET['site']) {
   // ***** pages sideBar -------------------------------------------------- *********
   case 'pages':
       echo '<div id="messageBox_input" class="box">';
-        echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" width="65" height="65">'.$langFile['SORTABLEPAGELIST_info'];
+        echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" alt="icon" style="width: 65px; height: 65px">'.$langFile['SORTABLEPAGELIST_info'];
         // -> the javascript request of the sortable gets its error messages from this input
         echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['SORTABLEPAGELIST_save'].'|'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'">';
       echo '</div>';

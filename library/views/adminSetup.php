@@ -365,7 +365,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         <a href="#" class="addStyleFilePath addButton toolTip" style="margin-right: 10px;float:left;" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
         <span class="hint" style="margin-top: 10px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
       </div>
-      </div>
+    </div>
 
     <div class="row">
       <div class="span3 formLeft">

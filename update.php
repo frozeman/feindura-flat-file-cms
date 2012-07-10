@@ -864,10 +864,10 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/images/bg/content_block_table_left_middle.png';
     $deleteFiles[] = 'library/images/bg/listPages_liBg.png';
     $deleteFiles[] = 'library/images/bg/listPages_liBg_hasSubCategory.png';
-
     $deleteFiles[] = 'library/images/bg/content_block_table_left_bottom.png';
     $deleteFiles[] = 'library/images/bg/content_block_table_left_middle.png';
     $deleteFiles[] = 'library/images/bg/content_block_table_left_top.png';
+    $deleteFiles[] = 'library/images/bg/listPages_pageBar.png';
 
     // CHECK if files could be deleted
     $checkFiles = array();

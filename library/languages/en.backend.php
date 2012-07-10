@@ -266,7 +266,7 @@ $langFile['ERROR_FOLDER_PART2']                                           = '&qu
 
 // -> WARNINGS
 $langFile['WARNING_TITLE_STARTPAGE']                                      = 'The start page is not set!';
-$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Please set a page as start page.<br>Go to <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> and click on the <span class="startPageIcon"></span> icon on the desired page.';
+$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Please set a page as start page.<br>Go to <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> and click on the <span class="icon startpage"></span> icon on the desired page.';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Your Document Root couldn\'t be resolved automatically!';
 $langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'To correctly resolve the Document Root, go to the <a href="?site=adminSetup#adminSettings">administrator-settings</a> and set the &quot;real feindura path&quot; of your <span class="feinduraName">fein<span>dura</span></span> CMS manually.';

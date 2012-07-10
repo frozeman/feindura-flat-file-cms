@@ -901,7 +901,7 @@ ChangeLog:
   build 156: add saveAdminConfig() to backend.functions.php; moved page settings to categorySetup.php; changeg saveprcess of the admin.config.php; add input field in editFiles()
   build 155: adminSetup.php: add tags and plugins on/off to page settings, categorySetup.php: add plugins on/off
   build 154: pluginSetup.php: write plugin config add, forms.css: submit and cancel position changed
-  build 153: editor.css changed .pageHead to .open and changed the name of content_block_pageHead.png -> content_block_open.png
+  build 153: editor.css changed .pageHeader to .open and changed the name of content_block_pageHeader.png -> content_block_open.png
   build 152: editFiles() delete button position fixed with float: left;
   build 151: userSetup.php fixed start session issue
   build 150: even if config folder is missing there are now no errors thrown

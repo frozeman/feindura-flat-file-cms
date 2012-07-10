@@ -330,7 +330,7 @@ function blockSlider(givenId) {
 
 // -------------------------------------------------
 // BLOCK SLIDE IN/OUT
-function inBlockTableSlider() {
+function inBlockSlider() {
 
   var count = 0;
   var slideLinks = [];
@@ -347,34 +347,34 @@ function inBlockTableSlider() {
         slideLinks.push(insideBlockLinks);
       });
 
-      block.getElements('.inBlockSlider').each(function(insideBlockTable) {
+      block.getElements('.inBlockSlider').each(function(insideBlock) {
 
          // ON COMPLETE
-         insideBlockTable.get('slide').addEvent('complete', function(el) {
-              // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-              if(this.open) {
-                this.wrapper.fade('show');
-                this.wrapper.setStyle('height','auto');
-              } else {
-                this.wrapper.fade('hide');
-                this.wrapper.setStyle('height',insideBlockTable.getChildren('tbody').getSize().y);
-              }
-          });
+         // insideBlock.get('slide').addEvent('complete', function(el) {
+         //      // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
+         //      if(this.open) {
+         //        this.wrapper.fade('show');
+         //        this.wrapper.setStyle('height','auto');
+         //      } else {
+         //        this.wrapper.fade('hide');
+         //        this.wrapper.setStyle('height',insideBlock.getChildren('tbody').getSize().y);
+         //      }
+         //  });
 
          // slides the hotky div in, on start
-         if(insideBlockTable.hasClass('hidden')) {
+         if(insideBlock.hasClass('hidden')) {
            //hides the wrapper on start
-           insideBlockTable.setStyle('display','block');
-           insideBlockTable.slide('hide');
-           insideBlockTable.get('slide').wrapper.fade('hide');
+           // insideBlock.setStyle('display','block');
+           // insideBlock.slide('hide');
+           // insideBlock.get('slide').wrapper.fade('hide');
          }
 
          // sets the SLIDE effect to the SLIDE links
          slideLinks[count].addEvent('click', function(e) {
             if(e.target.match('a')) e.stop();
-            insideBlockTable.get('slide').toggle();
-            insideBlockTable.get('slide').wrapper.fade('show');
-            insideBlockTable.toggleClass('hidden');
+            // insideBlock.get('slide').toggle();
+            // insideBlock.get('slide').wrapper.fade('show');
+            insideBlock.toggleClass('hidden');
           });
 
          count++;
@@ -526,6 +526,11 @@ function requestLeftSidebar(site,page,category) {
       LeavingWithoutSavingWarning();
       sidebarMenu();
       setToolTips();
+
+      // adds static scroller
+      $$('.staticScroller').each(function(element){
+        new StaticScroller(element,{offset:1});
+      });
     },
     //-----------------------------------------------------------------------------
     //Our request will most likely succeed, but just in case, we'll add an
@@ -615,10 +620,9 @@ window.addEvent('domready', function() {
 
   // ->> SIDEBAR SCROLLES LIKE FIXED
   // ---------------------------
-  if($('sidebarSelection') !== null && $('sidebarSelection').hasClass('staticScroller')) {
-    // adds static scroller
-    new StaticScroller('sidebarSelection',{offset:1});
-  }
+  $$('.staticScroller').each(function(element){
+    new StaticScroller(element,{offset:1});
+  });
 
 
   // *** ->> SIDEBAR MENU -----------------------------------------------------------------------------------------------------------------------
@@ -686,7 +690,7 @@ window.addEvent('domready', function() {
 
   // BLOCK SLIDE IN/OUT
   blockSlider();
-  inBlockTableSlider();
+  inBlockSlider();
 
   // ADDs SMOOTHSCROLL to ANCHORS
   var smoothAnchorScroll = new Fx.SmoothScroll({
@@ -785,7 +789,6 @@ window.addEvent('domready', function() {
 
     // move the cursor to select pages
     if(typeOf(e.key) != 'null' && (e.key == 'up' || e.key == 'down' ||  e.key == 'enter')) {
-      e.preventDefault();
 
       var pageBefore = null;
       var pageAfter = null;
@@ -803,7 +806,8 @@ window.addEvent('domready', function() {
       });
 
       // OPEN the page on ENTER
-      if(e.key == 'enter' && selectedPage !== null) {
+      if(typeOf(e.key) != 'null' && e.key == 'enter' && selectedPage !== null) {
+        // e.preventDefault();
         window.location.href = 'index.php?category='+selectedPage.get('data-categoryId')+'&page='+selectedPage.get('data-pageId');
         return;
       }
@@ -994,7 +998,7 @@ window.addEvent('domready', function() {
       // if the subCategory is under the category with the parent page
       if(subCategory.getPosition(listPagesBlock).y > category.getPosition(listPagesBlock).y) {
         top = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y + 22): (parentPage.getPosition(listPagesBlock).y + 19);
-        height = subCategory.getPosition(listPagesBlock).y - top + 4;
+        height = subCategory.getPosition(listPagesBlock).y - top + 32;
 
         arrowEnd.removeClass('arrowBottom');
         arrowEnd.addClass('arrowTop');
@@ -1007,8 +1011,8 @@ window.addEvent('domready', function() {
 
       // if the category with the parent page is under the subCategory
       } else {
-        top = subCategory.getPosition(listPagesBlock).y + 13;
-        height = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y - subCategory.getPosition(listPagesBlock).y ): (parentPage.getPosition(listPagesBlock).y  - subCategory.getPosition(listPagesBlock).y + 6);
+        top = subCategory.getPosition(listPagesBlock).y + 23;
+        height = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y - subCategory.getPosition(listPagesBlock).y ): (parentPage.getPosition(listPagesBlock).y  - subCategory.getPosition(listPagesBlock).y - 6);
 
         arrowEnd.removeClass('arrowTop');
         arrowEnd.addClass('arrowBottom');
@@ -1575,25 +1579,22 @@ window.addEvent('domready', function() {
   if($('HTMLEditor') !== null) {
 
     // vars
-    var editorStartHeight = window.getSize().y * 0.30;
+    var editorStartHeight   = window.getSize().y * 0.30;
     var editorTweenToHeight = (window.getSize().y * 0.60 > 420) ? window.getSize().y * 0.60 : 420;
-    var editorHasFocus = false;
-    var editorIsClicked = false;
-    var editorSubmited = false;
-    var editorSubmitHeight = $('HTMLEditorSubmit').getSize().y;
-    //$('HTMLEditorSubmit').setStyle('height',0);
+    var editorHasFocus      = false;
+    var editorIsClicked     = false;
+    var editorSubmited      = false;
+    var editorSubmitHeight  = $('HTMLEditorSubmit').getSize().y;
+
     $$('.mainContent .editor .content').setStyle('display','block'); // shows the hot keys
 
     // ------------------------------
     // CONFIG the HTMlEditor
     CKEDITOR.config.dialog_backgroundCoverColor        = '#333333';
     CKEDITOR.config.uiColor                            = '#cccccc';
-    CKEDITOR.config.width                              = 792;
-    if($('documentSaved')                              !== null && $('documentSaved').hasClass('saved'))
-    CKEDITOR.config.height                             = editorTweenToHeight;
-    else
-    CKEDITOR.config.height                             = editorStartHeight;
-    CKEDITOR.config.resize_minWidth                    = 792;
+    CKEDITOR.config.width                              = 800;
+    CKEDITOR.config.height = ($('documentSaved') !== null && $('documentSaved').hasClass('saved')) ? editorTweenToHeight : editorStartHeight;
+    CKEDITOR.config.resize_minWidth                    = 800;
     CKEDITOR.config.resize_maxWidth                    = 1400;
     CKEDITOR.config.resize_minHeight                   = (editorStartHeight+136);
     CKEDITOR.config.resize_maxHeight                   = 900;

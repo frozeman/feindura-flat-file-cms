@@ -265,7 +265,7 @@ $langFile['ERROR_FOLDER_PART2']                                           = '&qu
 
 // -> WARNINGS
 $langFile['WARNING_TITLE_STARTPAGE']                                      = 'Die Startseite ist nicht festgelegt!';
-$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Bitte lege eine Seite als Startseite fest.<br>Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="startPageIcon"></span> Symbol';
+$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Bitte lege eine Seite als Startseite fest.<br>Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="icon startpage"></span> Symbol';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Das Dokumenten-Wurzelverzeichnis konnte nicht automatisch bestimmt werden!';
 $langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Um das Dokumenten-Wurzelverzeichnis korrekt auflösen zu können, trage bitte den &quot;echten feindura Pfad&quot; deines <span class="feinduraName">fein<span>dura</span></span> CMS in den <a href="?site=adminSetup#adminSettings">Administrator-Einstellungen</a> ein.';

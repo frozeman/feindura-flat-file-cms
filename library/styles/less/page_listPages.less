@@ -10,18 +10,16 @@
 
     > h1 {
         z-index: -1;
-       #shadow > .drop(0,0,5px,0.2);
-       padding-bottom: 30px;
-       margin-bottom: -20px;
+        padding-bottom: 30px;
+        margin-bottom: -20px;
+        #shadow > .drop(0,0,5px,0.2);
+        // #gradient > .none();
     }
 
     span.toolTip {
         background: none;
         padding: 0;
     }
-
-    // .content {
-    // }
 
 
     // BLOCK INSIDE LISTPAGES
@@ -69,6 +67,20 @@
                 top: 0;
                 height: 27px;
             }
+
+            a.createPage {
+                display: block;
+                width: 27px;
+                height: 27px;
+                background-image: url("../images/buttons/listPages_createPage.png");
+                background-repeat: no-repeat;
+                background-position: 0 0;
+
+                &:hover,
+                &:focus {
+                    background-position: 0px -27px;
+                }
+            }
         }
 
 
@@ -90,14 +102,15 @@
                 #border > .rounded(@blockBorderRadius);
                 #shadow > .drop(0,0,5px,0.3);
 
+                &.hasSubCategory {
+                    #border > .radius(25px,25px,@blockBorderRadius,@blockBorderRadius);
+                    background: url('../images/bg/listPages_pageBar_blue.png') repeat-x;
+                }
                 &:hover {
-                    background: url('../images/bg/listPages_pageBar.png') repeat-x;
+                    background: url('../images/bg/listPages_pageBar_brown.png') repeat-x;
                 }
                 &.active {
                     border-color: @colorBrown;
-                }
-                &.hasSubCategory {
-                    #border > .radius(25px,25px,@blockBorderRadius,@blockBorderRadius);
                 }
 
 
@@ -194,21 +207,6 @@
 
     }
 
-    // > h1 a span {
-    //     position: relative;
-    //     top: -12px;
-    //     line-height: 15px;
-    //     font-weight: bold;
-    //     background: none;
-    //     padding: 0px;
-    //     font-size:15px;
-    // }
-
-    // > h1 img.listPagesH1Icon {
-    //   position: relative;
-    //   top: -4px !important;
-    //   left: -2px;
-    // }
 
     // LISTPAGES HEADER
     div.listPagesHead {
@@ -247,6 +245,121 @@
                 }
             }
         }
+    }
+
+
+    // SUBCATEGORY ARROWS
+    div.subCategoryArrowLine {
+        position: absolute;
+        z-index: 99;
+        display: none;
+        left: 803px;
+        width: 0;
+        height: 0;
+        top: 0;
+        border: 1px solid #ccc;
+        border-left: none;
+        #border > .radius(4px,4px,0,0);
+
+        &:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 1px;
+            bottom: 1px;
+            left: 1px;
+            right: 1px;
+            border: 1px solid #ccc;
+            border-left: none;
+            #border > .radius(3px,3px,0,0);
+        }
+        &:after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            border: 1px solid #ccc;
+            border-left: none;
+            #border > .radius(3px,3px,0,0);
+        }
+        &.nonCategory {
+            border-color: #EAC78C;
+        }
+        &.nonCategory:before {
+            border-color: #EAC78C;
+        }
+        &.nonCategory:after {
+            border-color: #EAC78C;
+        }
+        &.categories {
+            border-color: #AAC9E1;
+        }
+        &.categories:before {
+            border-color: #AAC9E1;
+        }
+        &.categories:after {
+            border-color: #AAC9E1;
+        }
+    }
+
+
+    div.subCategoryArrowStart {
+        position: absolute;
+        width: 5px;
+        height: 9px;
+        left: 0px;
+
+        &.arrowBottom {
+            bottom: -4px;
+        }
+        &.arrowTop {
+            top: -4px;
+        }
+    }
+    .nonCategory div.subCategoryArrowStart {
+        background-image: url("../images/bg/listPages_parentPage_inLineArrow_brown_start.png");
+    }
+    .categories div.subCategoryArrowStart {
+        background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_start.png");
+    }
+
+    div.subCategoryArrowEnd {
+        position: absolute;
+        width: 5px;
+        height: 9px;
+        left: 0px;
+
+        &.arrowTop {
+            bottom: -4px;
+        }
+        &.arrowBottom {
+            top: -4px;
+        }
+    }
+    .nonCategory div.subCategoryArrowEnd {
+        background-image: url("../images/bg/listPages_parentPage_inLineArrow_brown_end.png");
+    }
+    .categories div.subCategoryArrowEnd {
+        background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_end.png");
+    }
+
+    div.subCategoryInLineArrow {
+        position: absolute;
+        width: 9px;
+        height: 6px;
+        top: 50%;
+        margin-top: -3px;
+        right: -4px;
+        background-image: url("../images/bg/listPages_parentPage_inLineArrow_brown_down.png");
+    }
+    .categories div.subCategoryInLineArrow.arrowUp {
+        background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_up.png");
+    }
+    .categories div.subCategoryInLineArrow.arrowDown {
+        background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_down.png");
     }
 
 }

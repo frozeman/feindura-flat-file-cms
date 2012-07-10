@@ -57,11 +57,12 @@
         img {
             position: relative;
             top: -1px;
+            vertical-align: top;
         }
         img.blockH1Icon {
             position: relative;
-            top: 0px;
-            left: 4px;
+            top: 6px;
+            left: 2px;
         }
 
         // HEADER LINKS
@@ -174,6 +175,7 @@
         }
         h1 {
             color: #CA5C00;
+            #gradient > .vertical(#fff,#fff,#FFECDD,0,1);
         }
         h2 {
             margin-left: 65px;
@@ -188,7 +190,8 @@
             background-image: url("../images/icons/info.png");
         }
         h1 {
-            color: #DFB300;
+            color: @colorBrown;
+            #gradient > .vertical(#fff,#fff,#FEEC92,0,1);
         }
         h2 {
             margin-top: 20px;
@@ -196,7 +199,7 @@
             border-bottom: 1px dotted #DFB300;
         }
         p {
-            color: #957700;
+            color: @colorBrown;
         }
     }
 
@@ -213,20 +216,22 @@
 
     // OPEN BLOCK
     &.open {
-        z-index: 0;
+        // z-index: 0;
         border-bottom: transparent;
         #shadow > .none();
         #border > .radius(@blockBorderRadius,0,0,@blockBorderRadius);
 
         .content {
             margin-top: -10px;
+            padding-top: 0;
+            padding-bottom: 10px;
             background-color: #fff;
         }
 
         > h1,
         > h1:hover,
         > h1.hidden {
-            // padding-bottom: 20px;
+            padding-bottom: 25px;
             #shadow > .drop(0,0,5px,0.2);
             #border > .radius(@blockBorderRadius,0,0,@blockBorderRadius);
         }
