@@ -235,7 +235,7 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
       ?>
       <form action="<?php echo $currentURL; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="startLoadingCircle();">
         <div id="inputsDiv">
-          <input value="<?php echo $_POST['username']; ?>" name="username" id="username" placeholder="<?php echo $langFile['LOGIN_INPUT_USERNAME']; ?>" title="<?php echo $langFile['LOGIN_INPUT_USERNAME']; ?>" autofocus="autofocus"><br>
+          <input type="text" value="<?php echo $_POST['username']; ?>" name="username" id="username" placeholder="<?php echo $langFile['LOGIN_INPUT_USERNAME']; ?>" title="<?php echo $langFile['LOGIN_INPUT_USERNAME']; ?>" autofocus="autofocus"><br>
         <?php if(!isset($_GET['resetpassword'])) { ?>
           <input type="password" value="<?php echo $_POST['password']; ?>" name="password" id="password" placeholder="<?php echo $langFile['LOGIN_INPUT_PASSWORD']; ?>" title="<?php echo $langFile['LOGIN_INPUT_PASSWORD']; ?>"><br>
         <?php }

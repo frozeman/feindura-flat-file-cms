@@ -123,23 +123,15 @@
 #windowBox > a.close {
     z-index: 2;
     position: absolute;
-    top: 9px;
-    right: 9px;
+    top: 15px;
+    right: 15px;
     padding: 0px !important;
-    width: 30px;
-    height: 30px;
-    background: url("../images/buttons/windowBox_close.png") no-repeat;
-    -moz-opacity: 0.3;
-    -khtml-opacity: 0.3;
-    -webkit-opacity: 0.3;
-    opacity: 0.3;
+    width: 18px;
+    height: 18px;
+    background: url("../images/buttons/close_gray.png") no-repeat;
     }
 #windowBox > a.close:hover {
-    background-position: -30px 0px;
-    -moz-opacity: 1;
-    -khtml-opacity: 1;
-    -webkit-opacity: 1;
-    opacity: 1;
+    /*background-position: -30px 0px;*/
     }
 
 /****************/

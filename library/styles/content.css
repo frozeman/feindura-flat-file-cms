@@ -15,140 +15,13 @@
 
 content.css version 0.5 */
 
-/********************/
-/* - PAGE-THUMBNAIL */
-
-
-
-/****************/
-/* - info text */
-
-/****************/
-/* - VISIT-TIME */
-
-
-
-/**********************/
-/* - BACKUP / RESTORE */
-
-
-
-
-/* --- DASHBORAD STATISTICS ------------------------------------------------------------------------------------------------------------------- */
-
-/* --------------------- */
-/* -------> TABLE CHART */
-
-table.tableChart {
-    width: 100%;
-    font-size: 10px;
-    color: #000000;
-    border: 1px solid #fff;
-    border-left: none;
-    padding: 0px;
-    margin: 0px;
-    }
-
-table.tableChart td {
-    vertical-align: middle;
-    padding: 0px 5px !important;
-    border-left: 2px solid #fff;
-    height: 40px;
-    max-height: 40px;
-    overflow: hidden;
-    }
-
-
-/* --------------------- */
-/* -------> VISIT COUNT */
-
-
-/* --------------------- */
-/* -------> REFERER LOG */
-
-
-
-
-/* --- SEARCH ------------------------------------------------------------------------------------------------------------------- */
-
-.block.open.search {
-  margin-bottom: -23px !important;
-  padding-bottom: 20px !important;
-}
-
-.search h1 {
-  z-index: 0;
-  position: absolute !important;
-  width: 100%;
-}
-
-.search .resultHeadline {
-  z-index: 1;
-  position: relative;
-  top: -5px;
-  font-size: 18px;
-}
-
-.search .matchingID {
-  font-weight: bold;
-}
-
-.search .keywords {
-  position: relative;
-  top: -5px;
-  font-size: 15px;
-}
-
-.search .category {
-  color: #999;
-}
-
-.search .description {
-  display: block;
-  font-style: italic;
-}
-
-/* --------------------- */
-/* -------> TAG CLOUD */
-
-
 
 
 /* --- TOOLTIPS ------------------------------------------------------------------------------------------------------------------- */
 
 /* --- TOOLTIP in the text */
 
-.toolTip {
-    cursor: help;
-    }
-/* textarea toolTip */
-input.toolTip, textarea.toolTip {
-    cursor: text;
-    }
-/* checkbox toolTip */
-input.toolTip[type=checkbox] {
-    cursor: help;
-    }
-/* button toolTip */
-input.button.toolTip {
-    cursor: pointer;
-    }
-/* link toolTip */
-a.toolTip {
-    cursor: pointer;
-    }
-/* text toolTip */
-span.toolTip, label.toolTip {
-    /*color: #B46F00;*/
-    background: url("../images/icons/hint_toolTipInfo.png") no-repeat right center;
-    padding-right: 15px;
-    }
 
-span.toolTip.noMark {
-  background: none;
-  padding-right: 0;
-  cursor: auto;
-}
 
 
 /* --- NOTIFICATIONS ------------------------------------------------------------------------------------------------------------------- */
@@ -156,132 +29,18 @@ span.toolTip.noMark {
 /* -----------------------*/
 /* *** MESSAGEBOX */
 
-.messageBox {
-    min-height: 25px;
-    padding: 20px 0px;
-    padding-left: 75px;
-    margin-bottom: 15px;
-    vertical-align: middle;
-    background: url("../images/icons/hintIcon.png") no-repeat center left;
-    /*font-weight:bold;*/
-    font-size:18px;
-    line-height: 28px;
-    }
 
 /****************/
 /* - INLINE HINTs */
-
-span.hint {
-    display: inline-block;
-    padding-left: 16px;
-    background: url("../images/icons/hint_toolTipInfo.png") no-repeat !important;
-    background-position: 0px 2px !important;
-    font-size: 12px;
-    color: #947342;
-    }
-
-/****************/
-/* - INLINE WARNINGs */
-
-span.warning {
-    display: inline-block;
-    padding: 3px 0px;
-    padding-left: 20px;
-    background: url("../images/icons/warning.gif") no-repeat 0px 6px !important;
-    font-size: 12px;
-    color: #990000;
-    }
 
 /****************/
 /* *** BUTTONS */
 
 /* createCategory */
-a.createCategory {
-    position: relative;
-    display: block;
-    width: 75px;
-    height: 54px;
-    padding: 0px !important; /* overwrites the #mainBody a*/
-    float: right;
-    background: url("../images/buttons/pageSetup_createCategory.png") no-repeat 0px 0px !important;
-    }
-a.createCategory:hover, a.createCategory:focus {
-    background-position: 0px -54px !important;
-    }
 
-/* deleteCategory */
-a.deleteCategory {
-    position: absolute;
-    display: block;
-    top: -8px; /* -28px */
-    right: 30px;
-    width: 75px;
-    height: 54px;
-    padding: 0px !important; /* overwrites the #mainBody a*/
-    float: right;
-    background: url("../images/buttons/pageSetup_deleteCategory.png") no-repeat  0px 0px !important;
-    }
-a.deleteCategory:hover, a.deleteCategory:focus {
-    background-position: 0px -54px !important;
-    }
-
-/* categoryUp */
-a.categoryUp {
-    position: absolute;
-    right: 45px;
-    display: block;
-    width: 43px;
-    height: 31px;
-    margin-top: -40px;
-    padding: 0px !important; /* overwrites the #mainBody a*/
-    background: url("../images/buttons/pageSetup_categoryUp.png") no-repeat 0px 0px !important;
-    }
-a.categoryUp:hover, a.categoryUp:focus {
-    background-position: 0px -32px !important;
-    }
-
-/* categoryUp */
-a.categoryDown {
-    position: absolute;
-    right: 45px;
-    display: block;
-    width: 43px;
-    height: 31px;
-    padding: 0px !important; /* overwrites the #mainBody a*/
-    background: url("../images/buttons/pageSetup_categoryDown.png") no-repeat 0px 0px !important;
-    }
-a.categoryDown:hover, a.categoryDown:focus {
-    background-position: 0px -32px !important;
-    }
 
 /* createUser */
-a.createUser {
-    position: relative;
-    display: block;
-    width: 75px;
-    height: 54px;
-    padding: 0px !important; /* overwrites the #mainBody a*/
-    float: right;
-    background: url("../images/buttons/userSetup_createUser.png") no-repeat 0px 0px !important;
-    }
-a.createUser:hover, a.createUser:focus {
-    background-position: 0px -54px !important;
-    }
 
-/* deleteUser */
-a.deleteUser {
-    position: absolute;
-    right: 50px;
-    display: block;
-    width: 75px;
-    height: 54px;
-    padding: 0px !important; /* overwrites the #mainBody a*/
-    float: right;
-    background: url("../images/buttons/userSetup_deleteUser.png") no-repeat 0px 0px !important;
-    }
-a.deleteUser:hover, a.deleteUser:focus {
-    background-position: 0px -54px !important;
-    }
 
 
 /* --- THUMBNAIL ------------------------------------------------------------------------------------------------------------------- */
@@ -289,34 +48,13 @@ a.deleteUser:hover, a.deleteUser:focus {
 /****************/
 /* *** THUMB SCALE */
 
-.scale {
-    height:10px;
-    border:1px solid #BE8500;
-    border-top:0px;
-    border-bottom:0px;
-    }
-.scale div {
-    position:relative;
-    top:4px;
-    border-top:1px solid #BE8500;
-    }
-
-/****************/
-/* *** thumbSize - change Thumbnail Size table */
-
-#thumbSize {
-    position: relative;
-    width: 100%;
-    margin-top: 5px;
-    }
-
 
 /* --- FORMS ------------------------------------------------------------------------------------------------------------------- */
 
 /****************/
 /* *** INPUTs */
 
-input, input[type="text"], textarea, select, div.CodeMirror {
+/*input, input[type="text"], textarea, select, div.CodeMirror {
     background-color: #fff;
     -moz-box-shadow:inset 1px 1px 5px #ccc;
     -webkit-box-shadow:inset 1px 1px 5px #ccc;
@@ -358,145 +96,37 @@ input[type="search"] { -webkit-appearance:textfield; -webkit-box-sizing:content-
 select {
     padding: 1px;
     }
+*/
 
-select[multiple="multiple"] {
-    width: 250px;
-    max-height: 130px;
-    vertical-align: top;
-}
 
-textarea, div.CodeMirror-gutter-text, div.CodeMirror-lines {
-    line-height: 18px;
-    padding: 10px;
-    }
 
-label {
-  cursor: pointer;
-}
 
-/* fancy form */
-.fancyform_checked{cursor: pointer;border-bottom:1px solid transparent;position:relative;display:inline-block;top:2px;width:16px;height:16px;background-image:url("../images/icons/checkbox_on.png");}
-.fancyform_checked.fancyform_disabled {cursor: default;background-image:url("../images/icons/checkbox_on_disabled.png");}
-.fancyform_unchecked{cursor: pointer;border-bottom:1px solid transparent;position:relative;display:inline-block;top:2px;width:16px;height:16px;background-image:url("../images/icons/checkbox_off.png");}
-.fancyform_unchecked.fancyform_disabled {cursor: default;background-image:url("../images/icons/checkbox_off_disabled.png");}
-.fancyform_selected{cursor: pointer;border-bottom:1px solid transparent;position:relative;display:inline-block;top:4px;width:16px;height:16px;background-image:url("../images/icons/radio_on.png");}
-.fancyform_selected.fancyform_disabled {cursor: default;background-image:url("../images/icons/radio_on_disabled.png");}
-.fancyform_unselected{cursor: pointer;border-bottom:1px solid transparent;position:relative;display:inline-block;top:4px;width:16px;height:16px;background-image:url("../images/icons/radio_off.png");}
-.fancyform_unselected.fancyform_disabled {cursor: default;background-image:url("../images/icons/radio_off_disabled.png");}
-.fancyform_focus{cursor: pointer;border-bottom:1px dotted #CF974D;}
 
-/* autogrow */
-textarea.autogrow {
-  overflow-y: hidden;
-  resize: none;
-  -moz-transition-duration: 250ms;
-  -webkit-transition-duration: 250ms;
-  -o-transition-duration: 250ms;
-  transition-duration: 250ms;
-  -webkit-transition-property: height;
-  -moz-transition-property: height;
-  -o-transition-property: height;
-  transition-property: height;
-}
-
-/****************/
-/* *** INPUT TYPES */
-
-input.short {
-    width: 60px !important;
-    text-align: center;
-    }
-
-input[type="checkbox"], .checkboxes input {
-    cursor: pointer;
-    }
-
-input[type="radio"]{ /* works only in safari*/
-    position: relative;
-    top: 3px;
-    width: 18px !important;
-    }
-
-input[type="file"]{ /* works only in safari*/
-    width: 300px;
-    }
-
-/* CKEditor HACKS for input */
-div.cke_dialog_ui_input_text {
-  padding: 0px !important;
-  overflow: hidden;
-}
-input.cke_dialog_ui_input_text {
-  padding: 2px !important;
-  margin: 0 !important;
-}
-label.cke_dialog_ui_labeled_label {
-  display: inline-block;
-  margin-bottom: 8px !important;
-}
-
-/* CKEditor browser button fix */
-.cke_dialog_ui_vbox_child a.cke_dialog_ui_button {
-  margin-top: 20px !important;
-}
-
-.cke_dialog {
-  -moz-box-shadow: 0px 1px 15px rgba(0,0,0,0.3);
-  -webkit-box-shadow: 0px 1px 15px rgba(0,0,0,0.3);
-  box-shadow: 0px 1px 15px rgba(0,0,0,0.3);
-}
-.cke_dialog_tab,.cke_dialog {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-
-/* CKEditor HACKS for CodeMirror */
-.cke_skin_kama textarea.cke_source { /* Hack to be able to fullscreen the CKEditor when in CodeMirror */
-  display: block !important;
-  position: absolute !important;
-  visibility: hidden;
-}
-#cke_contents_HTMLEditor {
-  display: block;
-}
-.cke_skin_kama .CodeMirror {
-  height: 100%;
-}
-.cke_skin_kama .CodeMirror-scroll {
-  height: 100%;
-  _position: relative; /* IE6 hack */
-}
-.cke_skin_kama .CodeMirror-scroll * {
+/*.cke_skin_kama .CodeMirror-scroll * {
   font-size: 14px;
   white-space:pre;
-  max-width: 750px; /* Hack to prevent oversizeing of the "textarea" */
-}
+  max-width: 750px; /* Hack to prevent oversizeing of the "textarea" *
+}*/
 
 /* HACKS for CodeMirror */
-textarea.editFiles, .CodeMirror-scroll  {
-  width: 758px;
-  height: 550px;
-}
-.CodeMirrorActiveline {
-  background-color: #E8EEF9 !important;
-}
+
 
 /****************/
 /* *** TEXTAREA */
 
-div.content.editFiles textarea {
+/*.editFiles textarea {
   margin-top: 15px !important;
 }
-div.content.editFiles div.CodeMirror {
+.editFiles div.CodeMirror {
   margin-top: 75px !important;
 }
-textarea#fckStyleFile, textarea#fckStyleFile + div.CodeMirror {
+textarea#fckStyleFile,
+textarea#fckStyleFile + div.CodeMirror {
   margin-top: -40px;
 }
 textarea#fckStyleFile + div.CodeMirror {
   margin-top: 30px;
-}
+}*/
 
 /****************/
 /* *** FORM BUTTONS */
@@ -582,17 +212,7 @@ a.cancel:active {
     }
 
 /* SEARCH FIELD */
-input.search {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    padding: 0px !important; /* overwrites the #mainBody a*/
-    background: url("../images/buttons/form_search.png") no-repeat  0px 0px !important;
-    }
-input.search:hover, input.search:focus {
-    background-position: 0px -50px !important;
-    }
+
 
 /* EDITFILES new file */
 textarea.editFiles, div.CodeMirror-wrapping {

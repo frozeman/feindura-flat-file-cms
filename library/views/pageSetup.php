@@ -16,7 +16,7 @@
  *
  * sites/pageSetup.php
  *
- * @version 1.3
+ * @version 1.4
  */
 
 /**
@@ -35,8 +35,8 @@ unset($newPlugins);
 ?>
 <form action="index.php?site=pageSetup" id="pageSettingsForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div>
-  <input type="hidden" name="send" value="pageConfig">
-  <input type="hidden" name="savedBlock" id="savedBlock" value="">
+    <input type="hidden" name="send" value="pageConfig">
+    <input type="hidden" name="savedBlock" id="savedBlock" value="">
   </div>
 
 
@@ -48,92 +48,90 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><?php echo $langFile['adminSetup_thumbnailSettings_h1']; ?></a></h1>
-  <div class="content">
-    <table>
+  <div class="content form">
 
-      <colgroup>
-      <col class="left">
-      </colgroup>
-
-      <tbody>
-        <tr><td class="leftTop"></td><td></td></tr>
-
-        <!-- THUMB WIDTH -->
-        <tr><td class="left">
+    <!-- THUMB WIDTH -->
+    <div class="row">
+      <div class="span3 formLeft">
         <label for="cfg_thumbWidth"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_WIDTH'] ?>">
         <?php echo $langFile['THUMBNAIL_TEXT_WIDTH'] ?></span></label>
-        </td><td class="right">
+      </div>
+      <div class="span5">
           <input type="number" step="1" min="0" id="cfg_thumbWidth" name="cfg_thumbWidth" class="short" value="<?php echo $adminConfig['pageThumbnail']['width']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' disabled="disabled"'; ?>>
           <?php echo $langFile['THUMBNAIL_TEXT_UNIT']; ?>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <input type="radio" id="ratioX" name="cfg_thumbRatio" value="x"<?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' checked="checked"'; ?>>
-          <label for="ratioX" class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></label>
-        </td></tr>
+          <label for="ratioX"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></span></label>
+      </div>
+    </div>
 
-        <!-- shows the width in a scale -->
-        <?php
-        if(!empty($adminConfig['pageThumbnail']['width']))
-          $style_thumbWidth = 'width:'.$adminConfig['pageThumbnail']['width'].'px;';
-        else
-          $style_thumbWidth = 'width:0px;';
-        ?>
-        <tr><td class="left">
-        </td><td class="right">
-        <div id="thumbWidthScale" class="scale" style="<?php echo $style_thumbWidth; ?>max-width:520px;">
+    <!-- shows the width in a scale -->
+    <?php
+    if(!empty($adminConfig['pageThumbnail']['width']))
+      $style_thumbWidth = 'width:'.$adminConfig['pageThumbnail']['width'].'px;';
+    else
+      $style_thumbWidth = 'width:0px;';
+    ?>
+    <div class="row">
+      <div class="offset3 span5">
+        <div id="thumbWidthScale" class="thumbnailScale" style="<?php echo $style_thumbWidth; ?>max-width:520px;">
           <div></div>
         </div>
-        </td></tr>
+      </div>
+    </div>
 
-        <!-- THUMB HEIGHT -->
-        <tr><td class="left">
+    <!-- THUMB HEIGHT -->
+    <div class="row">
+      <div class="span3 formLeft">
         <label for="cfg_thumbHeight"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_HEIGHT'] ?>">
         <?php echo $langFile['THUMBNAIL_TEXT_HEIGHT'] ?></span></label>
-        </td><td class="right">
+      </div>
+      <div class="span5">
           <input type="number" step="1" min="0" id="cfg_thumbHeight" name="cfg_thumbHeight" class="short" value="<?php echo $adminConfig['pageThumbnail']['height']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' disabled="disabled"'; ?>>
           <?php echo $langFile['THUMBNAIL_TEXT_UNIT']; ?>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <input type="radio" id="ratioY" name="cfg_thumbRatio" value="y"<?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' checked="checked"'; ?>>
-          <label for="ratioY" class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></label>
-        </td></tr>
+          <label for="ratioY"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></span></label>
+      </div>
+    </div>
 
-        <!-- shows the height in a scale -->
-        <?php
-        if(!empty($adminConfig['pageThumbnail']['height']))
-          $style_thumbHeight = 'width:'.$adminConfig['pageThumbnail']['height'].'px;';
-        else
-          $style_thumbHeight = 'width:0px;';
-        ?>
-        <tr><td class="left leftBottom">
-        </td><td class="right">
-        <div id="thumbHeightScale" class="scale" style="<?php echo $style_thumbHeight; ?>max-width:520px;"><div></div></div>
-        </td></tr>
+    <!-- shows the height in a scale -->
+    <?php
+    if(!empty($adminConfig['pageThumbnail']['height']))
+      $style_thumbHeight = 'width:'.$adminConfig['pageThumbnail']['height'].'px;';
+    else
+      $style_thumbHeight = 'width:0px;';
+    ?>
+    <div class="row">
+      <div class="offset3 span5">
+        <div id="thumbHeightScale" class="thumbnailScale" style="<?php echo $style_thumbHeight; ?>max-width:520px;"><div></div></div>
+      </div>
+    </div>
 
-        <!-- NO THUMB RATIO -->
-        <tr><td class="left checkboxes">
+    <!-- NO THUMB RATIO -->
+    <div class="row">
+      <div class="span3 formLeft">
         <input type="radio" id="noRatio" name="cfg_thumbRatio" value=""<?php if($adminConfig['pageThumbnail']['ratio'] == '') echo ' checked="checked"'; ?>>
-        </td><td class="right checkboxes">
-        <label for="noRatio" class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_FIXEDRATIO']; ?></label>
-        </td></tr>
+      </div>
+      <div class="span5">
+        <label for="noRatio"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_FIXEDRATIO']; ?></span></label>
+      </div>
+    </div>
 
-        <tr><td class="spacer checkboxes"></td><td>
+    <div class="spacer"></div>
 
-        <tr><td class="leftTop"></td><td>
-
-        <!-- THUMB PATH -->
-        <tr><td class="left">
+    <!-- THUMB PATH -->
+    <div class="row">
+      <div class="span3 formLeft">
         <label for="cfg_thumbPath"><span class="toolTip" title="::<?php echo $langFile['adminSetup_thumbnailSettings_field3_tip'] ?>">
         <?php echo $langFile['adminSetup_thumbnailSettings_field3'] ?></span></label>
-        </td><td class="right">
-        <input style="width:auto;" readonly="readonly" size="<?php echo strlen($adminConfig['uploadPath'])+5; ?>" value="<?php echo $adminConfig['uploadPath']; ?>" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip1']; ?>">
-        <input id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo $adminConfig['pageThumbnail']['path']; ?>" class="toolTip" title="<?php echo sprintf($langFile['adminSetup_thumbnailSettings_field3_inputTip2'],$adminConfig['uploadPath']); ?>">
-        </td></tr>
+      </div>
+      <div class="span5">
+        <input type="text" style="width:auto;" readonly="readonly" size="<?php echo strlen($adminConfig['uploadPath'])+5; ?>" value="<?php echo $adminConfig['uploadPath']; ?>" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip1']; ?>">
+        <input type="text" id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo $adminConfig['pageThumbnail']['path']; ?>" class="toolTip" title="<?php echo sprintf($langFile['adminSetup_thumbnailSettings_field3_inputTip2'],$adminConfig['uploadPath']); ?>">
+      </div>
+    </div>
 
-
-        <tr><td class="leftBottom"></td><td></td></tr>
-      </tbody>
-    </table>
-
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
     <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'thumbnailSettings'; submitAnchor('pageSettingsForm','thumbnailSettings');">
   </div>
 </div>
@@ -142,12 +140,12 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
 
 
 <form action="index.php?site=pageSetup" id="categoriesForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<div>
-  <input type="hidden" name="send" value="categorySetup">
-  <input type="hidden" name="savedCategory" id="savedCategory" value="">
-  <input type="hidden" name="websiteLanguage" value="<?php echo $_SESSION['feinduraSession']['websiteLanguage']; ?>">
-  <input type="hidden" name="categories[0][id]" value="0">
-</div>
+  <div>
+    <input type="hidden" name="send" value="categorySetup">
+    <input type="hidden" name="savedCategory" id="savedCategory" value="">
+    <input type="hidden" name="websiteLanguage" value="<?php echo $_SESSION['feinduraSession']['websiteLanguage']; ?>">
+    <input type="hidden" name="categories[0][id]" value="0">
+  </div>
 
 <!-- NON CATEGORY PAGES CONFIG -->
 <a id="nonCategoryPages" class="anchorTarget"></a>
@@ -156,87 +154,115 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
 $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><?php echo $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']; ?></a></h1>
-  <div class="content">
-    <table>
+  <h1><a href="#"><img src="library/images/icons/pageIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']; ?></a></h1>
+  <div class="content form">
 
-      <colgroup>
-      <col class="left">
-      </colgroup>
+    <div class="row">
+      <div class="span4">
 
-      <tbody>
-        <tr><td class="left checkboxes">
-        <input type="checkbox" id="nonCategoryCreateDelete" name="categories[0][createDelete]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']; ?>"<?php if($categoryConfig[0]['createDelete']) echo ' checked="checked"'; ?>><br>
-        </td><td class="right checkboxes">
-        <label for="nonCategoryCreateDelete"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']; ?></span></label><br>
-        </td></tr>
+        <div class="row">
+          <div class="span1 formLeft">
+            <input type="checkbox" id="nonCategoryCreateDelete" name="categories[0][createDelete]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']; ?>"<?php if($categoryConfig[0]['createDelete']) echo ' checked="checked"'; ?>><br>
+          </div>
+          <div class="span3">
+            <label for="nonCategoryCreateDelete"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']; ?></span></label><br>
+          </div>
+        </div>
 
-        <tr><td class="left checkboxes">
-        <input type="checkbox" id="nonCategoryThumbnails" name="categories[0][thumbnails]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']; ?>"<?php if($categoryConfig[0]['thumbnails']) echo ' checked="checked"'; ?>><br>
-        </td><td class="right checkboxes">
-        <label for="nonCategoryThumbnails"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS']; ?></span></label><br>
-        </td></tr>
+        <div class="row">
+          <div class="span1 formLeft">
+            <input type="checkbox" id="nonCategoryThumbnails" name="categories[0][thumbnails]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']; ?>"<?php if($categoryConfig[0]['thumbnails']) echo ' checked="checked"'; ?>><br>
+          </div>
+          <div class="span3">
+            <label for="nonCategoryThumbnails"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS']; ?></span></label><br>
+          </div>
+        </div>
 
-        <tr><td class="left checkboxes">
-        <input type="checkbox" id="nonCategoryShowTags" name="categories[0][showTags]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_EDITTAGS']; ?>"<?php if($categoryConfig[0]['showTags']) echo ' checked="checked"'; ?>>
-        </td><td class="right checkboxes">
-        <label for="nonCategoryShowTags"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_EDITTAGS']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS']; ?></span></label>
-        </td></tr>
+        <div class="row">
+          <div class="span1 formLeft">
+            <input type="checkbox" id="nonCategoryShowTags" name="categories[0][showTags]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_EDITTAGS']; ?>"<?php if($categoryConfig[0]['showTags']) echo ' checked="checked"'; ?>>
+          </div>
+          <div class="span3">
+            <label for="nonCategoryShowTags"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_EDITTAGS']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS']; ?></span></label>
+          </div>
+        </div>
 
-        <tr><td class="left checkboxes">
-        <input type="checkbox" id="nonCategoryShowPageDate" name="categories[0][showPageDate]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"<?php if($categoryConfig[0]['showPageDate']) echo ' checked="checked"'; ?>>
-        </td><td class="right checkboxes">
-        <label for="nonCategoryShowPageDate"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"><?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE']; ?></span></label>
-        </td></tr>
+        <div class="row">
+          <div class="span1 formLeft">
+            <input type="checkbox" id="nonCategoryShowPageDate" name="categories[0][showPageDate]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"<?php if($categoryConfig[0]['showPageDate']) echo ' checked="checked"'; ?>>
+          </div>
+          <div class="span3">
+            <label for="nonCategoryShowPageDate"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"><?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE']; ?></span></label>
+          </div>
+        </div>
 
-        <tr><td class="left checkboxes">
-        <input type="checkbox" id="nonCategoryShowSubCategory" name="categories[0][showSubCategory]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SUBCATEGORY']; ?>"<?php if($categoryConfig[0]['showSubCategory']) echo ' checked="checked"'; ?>>
-        </td><td class="right checkboxes">
-        <label for="nonCategoryShowSubCategory"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SUBCATEGORY']; ?>"><?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY']; ?></span></label>
-        </td></tr>
+        <div class="row">
+          <div class="span1 formLeft">
+            <input type="checkbox" id="nonCategoryShowSubCategory" name="categories[0][showSubCategory]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SUBCATEGORY']; ?>"<?php if($categoryConfig[0]['showSubCategory']) echo ' checked="checked"'; ?>>
+          </div>
+          <div class="span3">
+            <label for="nonCategoryShowSubCategory"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SUBCATEGORY']; ?>"><?php echo $langFile['PAGESETUP_TEXT_SUBCATEGORY']; ?></span></label>
+          </div>
+        </div>
 
-        <tr><td class="left checkboxes">
-        <input type="checkbox" id="nonCategoryFeeds" name="categories[0][feeds]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_FEEDS']; ?>"<?php if($categoryConfig[0]['feeds']) echo ' checked="checked"'; ?>>
-        </td><td class="right checkboxes">
-        <label for="nonCategoryFeeds"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_FEEDS']; ?>"><?php echo $langFile['PAGESETUP_TEXT_FEEDS']; ?></span></label>
-        </td></tr>
+        <div class="row">
+          <div class="span1 formLeft">
+            <input type="checkbox" id="nonCategoryFeeds" name="categories[0][feeds]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_FEEDS']; ?>"<?php if($categoryConfig[0]['feeds']) echo ' checked="checked"'; ?>>
+          </div>
+          <div class="span3">
+            <label for="nonCategoryFeeds"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_FEEDS']; ?>"><?php echo $langFile['PAGESETUP_TEXT_FEEDS']; ?></span></label>
+          </div>
+        </div>
 
-        <tr><td class="spacer checkboxes"></td><td></td></tr>
-
+      </div>
+      <div class="span4">
         <!-- SORTING -->
         <!-- manually -->
-        <tr><td class="left checkboxes">
-        <input type="radio" id="nonCategorySortManually" name="categories[0][sorting]" value="manually" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTMANUALLY']; ?>"<?php if($categoryConfig[0]['sorting'] == 'manually' || empty($categoryConfig[0]['sorting'])) echo ' checked="checked"'; ?>>
-        </td><td class="right checkboxes">
-        <label for="nonCategorySortManually"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTMANUALLY'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTMANUALLY']; ?></span></label>
-        </td></tr>
+        <div class="row">
+          <div class="span1 formLeft">
+            <input type="radio" id="nonCategorySortManually" name="categories[0][sorting]" value="manually" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTMANUALLY']; ?>"<?php if($categoryConfig[0]['sorting'] == 'manually' || empty($categoryConfig[0]['sorting'])) echo ' checked="checked"'; ?>>
+          </div>
+          <div class="span3">
+            <label for="nonCategorySortManually"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTMANUALLY'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTMANUALLY']; ?></span></label>
+          </div>
+        </div>
         <!-- sort by date    -->
-        <tr><td class="left checkboxes">
-        <input type="radio" id="nonCategorySortByPageDate" name="categories[0][sorting]" value="byPageDate" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTBYDATE']; ?>"<?php if($categoryConfig[0]['sorting'] == 'byPageDate') echo ' checked="checked"'; ?>>
-        </td><td class="right checkboxes">
-        <label for="nonCategorySortByPageDate"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTBYDATE'] ?>"><?php echo $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']; ?></span></label>
-        </td></tr>
+        <div class="row">
+          <div class="span1 formLeft">
+            <input type="radio" id="nonCategorySortByPageDate" name="categories[0][sorting]" value="byPageDate" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTBYDATE']; ?>"<?php if($categoryConfig[0]['sorting'] == 'byPageDate') echo ' checked="checked"'; ?>>
+          </div>
+          <div class="span3">
+            <label for="nonCategorySortByPageDate"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTBYDATE'] ?>"><?php echo $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']; ?></span></label>
+          </div>
+        </div>
         <!-- sort alphabetical -->
-        <tr><td class="left checkboxes">
-        <input type="radio" id="nonCategorySortAlphabetical" name="categories[0][sorting]" value="alphabetical" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTALPHABETICAL']; ?>"<?php if($categoryConfig[0]['sorting'] == 'alphabetical') echo ' checked="checked"'; ?>>
-        </td><td class="right checkboxes">
-        <label for="nonCategorySortAlphabetical"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTALPHABETICAL'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTALPHABETICAL']; ?></span></label>
-        </td></tr>
-
+        <div class="row">
+          <div class="span1 formLeft">
+            <input type="radio" id="nonCategorySortAlphabetical" name="categories[0][sorting]" value="alphabetical" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTALPHABETICAL']; ?>"<?php if($categoryConfig[0]['sorting'] == 'alphabetical') echo ' checked="checked"'; ?>>
+          </div>
+          <div class="span3">
+            <label for="nonCategorySortAlphabetical"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTALPHABETICAL'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTALPHABETICAL']; ?></span></label>
+          </div>
+        </div>
         <!-- sortReverse -->
-        <tr><td class="left checkboxes">
-        <input type="checkbox" id="nonCategorySortReverse" name="categories[0][sortReverse]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTREVERSE']; ?>"<?php if($categoryConfig[0]['sortReverse']) echo ' checked="checked"'; ?>>
-        </td><td class="right checkboxes">
-        <label for="nonCategorySortReverse"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTREVERSE'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTREVERSE']; ?></span></label>
-        </td></tr>
+        <div class="row">
+          <div class="span1 formLeft">
+            <input type="checkbox" id="nonCategorySortReverse" name="categories[0][sortReverse]" value="true" class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTREVERSE']; ?>"<?php if($categoryConfig[0]['sortReverse']) echo ' checked="checked"'; ?>>
+          </div>
+          <div class="span3">
+            <label for="nonCategorySortReverse"><span class="toolTip" title="::<?php echo $langFile['PAGESETUP_TIP_SORTREVERSE'] ?>"><?php echo $langFile['PAGESETUP_TEXT_SORTREVERSE']; ?></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <?php if(!empty($plugins)) { ?>
-        <tr><td class="leftTop"></td><td>
+    <div class="spacer"></div>
 
-        <tr><td class="left">
+    <?php if(!empty($plugins)) { ?>
+    <div class="row">
+      <div class="offset1 span3">
         <label for="cfg_pagePlugins">
-        <?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] ?></label>
-        </td><td class="right">
+        <h4><?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] ?></h4></label>
         <select id="nonCategoryPlugins" name="categories[0][plugins][]" multiple="multiple">
           <?php
           foreach($plugins as $pluginName) {
@@ -245,14 +271,13 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
           }
           ?>
         </select>
-        &nbsp;
-        <span class="hint"><?php echo $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'] ?></span>
-        </td></tr>
-
-        <tr><td class="leftBottom"></td><td>
-        <?php } ?>
-      </tbody>
-    </table>
+        </div>
+        <div class="span3">
+          <div class="spacerH4"></div>
+          <div class="alert"><?php echo $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'] ?></div>
+        </div>
+    </div>
+    <?php } ?>
 
     <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedCategory').value = 0; submitAnchor('categoriesForm','nonCategoryPages');">
   </div>
@@ -261,32 +286,23 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
 <!-- CATEGORIES SETTINGS -->
 <div class="block">
-  <h1><?php echo $langFile['PAGESETUP_CATEGORY_TITLE_CATEGORIES']; ?></h1>
-  <div class="content">
+  <h1><img src="library/images/icons/categoryIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_CATEGORY_TITLE_CATEGORIES']; ?></h1>
+  <div class="content form">
 
-    <table>
-      <colgroup>
-      <col class="left">
-      </colgroup>
-
-      <tbody>
-        <tr><td class="leftTop"></td><td></td></tr>
-
-        <tr><td class="left">
+    <div class="row">
+      <div class="span3 formLeft">
           <a href="?site=pageSetup&amp;status=createCategory#category<?php echo getNewCatgoryId(); ?>" class="createCategory toolTip" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY']; ?>::"></a>
-        </td><td class="right">
+      </div>
+      <div class="span5">
         <br>
         <?php
         // user info
         if($categoryInfo)
-          echo '<span class="hint"><b>'.$categoryInfo.'</b></span>';
+          echo '<span class="badge badge-warning"><b>'.$categoryInfo.'</b></span>';
         ?>
-        </td></tr>
+      </div>
+    </div>
 
-        <tr><td class="leftBottom"></td><td></td></tr>
-
-      </tbody>
-    </table>
     <?php
 
 
@@ -349,16 +365,9 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
           // --------------------------------------
           // first TABLE (normal category settings)
-          echo '<table>
-                <colgroup>
-                <col class="left">
-                </colgroup>
-                <tbody>';
 
           // category anchor
-          echo '<tr><td class="leftTop">
-                <a name="category'.$category['id'].'" id="categoryAnchor'.$category['id'].'" class="anchorTarget"></a>
-                </td><td></td></tr>';
+          echo '<a name="category'.$category['id'].'" id="categoryAnchor'.$category['id'].'" class="anchorTarget"></a>';
 
           // category NAME
           $categoryName = GeneralFunctions::getLocalized($category,'name',true);
@@ -372,24 +381,27 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
             }
           }
 
-          echo '<tr><td class="left">';
-          echo '<span style="font-size:20px;font-weight:bold;">'.$categoryName.'</span>';
-          echo '<input type="hidden" name="categories['.$category['id'].'][id]" value="'.$category['id'].'">';
-          echo '</td>';
+          echo '<div class="row">
+                  <div class="span3 formLeft">';
+              echo '<h2>'.$categoryName.'</h2>';
+              echo '<input type="hidden" name="categories['.$category['id'].'][id]" value="'.$category['id'].'">';
+            echo '</div>';
 
                 // deleteCategory
-          echo '<td class="right" style="width:525px;">
-                <span style="font-size:20px;font-weight:bold;" class="gray">ID '.$category['id'].'</span>
-                <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTip" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.GeneralFunctions::getLocalized($category,'name',true).'[br][br][span style=color:#990000;]'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'[/span]"></a>';
-          echo '</td></tr>';
+            echo '<div class="span5" style="position:relative;">
+                    <h2 class="gray">ID '.$category['id'].'</h2>
+                    <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTip" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.GeneralFunctions::getLocalized($category,'name',true).'[br][br][span style=color:#990000;]'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'[/span]"></a>';
+          echo '  </div>
+                </div>';
                 // category name
-          echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'name">'.$langFile['PAGESETUP_CATEGORY_TEXT_CATEGORYNAME'].'</label>
-                </td><td class="right">
-                <input id="categories'.$category['id'].'name" name="categories['.$category['id'].'][name]" value="'.GeneralFunctions::getLocalized($category,'name',true).'"'.$autofocus.'>
-                </td></tr>';
-
-          echo '<tr><td class="leftBottom"></td><td>';
+          echo '<div class="row">
+                  <div class="span3 formLeft">
+                    <label for="categories'.$category['id'].'name">'.$langFile['PAGESETUP_CATEGORY_TEXT_CATEGORYNAME'].'</label>
+                  </div>
+                  <div class="span5">
+                    <input type="text" id="categories'.$category['id'].'name" name="categories['.$category['id'].'][name]" value="'.GeneralFunctions::getLocalized($category,'name',true).'"'.$autofocus.'>
+                  </div>
+                </div>';
 
           // category up / down
           if(count($categoryConfig) > 1) {
@@ -400,220 +412,283 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
               echo '<a href="?site=pageSetup&amp;status=moveCategoryDown&amp;category='.$category['id'].'&amp;load='.rand(0,999).'#category'.$category['id'].'" class="categoryDown toolTip" title="'.$langFile['PAGESETUP_CATEGORY_TIP_MOVECATEGORY_DOWN'].'::"></a>';
           }
 
-          echo '</td></tr>';
+          // CATEGORY STATUS
+          echo '<div class="row">
+                  <div class="span3 formLeft">
+                    <input type="checkbox" id="categories'.$category['id'].'public" name="categories['.$category['id'].'][public]" value="true" '.$checked[1].' class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_CATEGORYSTATUS'].'"><br>
+                  </div>
+                  <div class="span5">
+                    <label for="categories'.$category['id'].'public">';
+                    $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';
+                    // shows the public or unpublic picture
+                    if($checked[1])
+                      echo '<img src="library/images/icons/category_public.png" class="toolTip" title="'.$langFile['STATUS_CATEGORY_PUBLIC'].'"'.$publicSignStyle.' alt="public" width="27" height="27">&nbsp;';
+                    else
+                      echo '<img src="library/images/icons/category_nonpublic.png" class="toolTip" title="'.$langFile['STATUS_CATEGORY_NONPUBLIC'].'"'.$publicSignStyle.' alt="nonpublic" width="27" height="27">&nbsp;';
 
-               // category SETTINGS
-          echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="categories'.$category['id'].'public" name="categories['.$category['id'].'][public]" value="true" '.$checked[1].' class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_CATEGORYSTATUS'].'"><br>
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'public">';
-                $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';
-                // shows the public or unpublic picture
-                if($checked[1])
-                  echo '<img src="library/images/icons/category_public.png" class="toolTip" title="'.$langFile['STATUS_CATEGORY_PUBLIC'].'"'.$publicSignStyle.' alt="public" width="27" height="27">&nbsp;';
-                else
-                  echo '<img src="library/images/icons/category_nonpublic.png" class="toolTip" title="'.$langFile['STATUS_CATEGORY_NONPUBLIC'].'"'.$publicSignStyle.' alt="nonpublic" width="27" height="27">&nbsp;';
+                    echo '<span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_CATEGORYSTATUS'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_CATEGORYSTATUS'].'</span></label>
+                  </div>
+                </div>';
 
-                echo '<span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_CATEGORYSTATUS'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_CATEGORYSTATUS'].'</span></label>
-                </td></tr>';
+          echo '<div class="spacer"></div>';
 
-          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
 
-          echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="categories'.$category['id'].'createDelete" name="categories['.$category['id'].'][createDelete]" value="true" '.$checked[2].' class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_CREATEPAGES'].'"><br>
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'createDelete"><span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_CREATEPAGES'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATEPAGES'].'</span></label>
-                </td></tr>';
+          // CATEGORY SETTINGS
+          echo '<div class="row">';
+            echo '<div class="span4">';
 
-          echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="categories'.$category['id'].'thumbnails" name="categories['.$category['id'].'][thumbnails]" value="true" '.$checked[3].' class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS'].'"><br>
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'thumbnails"><span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS'].'</span></label>
-                </td></tr>';
+              echo '<div class="row">
+                      <div class="span1 formLeft">
+                        <input type="checkbox" id="categories'.$category['id'].'createDelete" name="categories['.$category['id'].'][createDelete]" value="true" '.$checked[2].' class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_CREATEPAGES'].'"><br>
+                      </div>
+                      <div class="span3">
+                        <label for="categories'.$category['id'].'createDelete"><span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_CREATEPAGES'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATEPAGES'].'</span></label>
+                      </div>
+                    </div>';
 
-          echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="categories'.$category['id'].'showTags" name="categories['.$category['id'].'][showTags]" value="true" '.$checked[4].' class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS'].'"><br>
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'showTags"><span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS'].'</span></label>
-                </td></tr>';
+              echo '<div class="row">
+                      <div class="span1 formLeft">
+                        <input type="checkbox" id="categories'.$category['id'].'thumbnails" name="categories['.$category['id'].'][thumbnails]" value="true" '.$checked[3].' class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS'].'"><br>
+                      </div>
+                      <div class="span3">
+                        <label for="categories'.$category['id'].'thumbnails"><span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS'].'</span></label>
+                      </div>
+                    </div>';
 
-          echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="categories'.$category['id'].'showPageDate" name="categories['.$category['id'].'][showPageDate]" value="true" '.$checked[5].' class="toolTip" title="::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE'].'"><br>
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'showPageDate"><span class="toolTip" title="::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE'].'">'.$langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'</span></label>
-                </td></tr>';
+              echo '<div class="row">
+                      <div class="span1 formLeft">
+                        <input type="checkbox" id="categories'.$category['id'].'showTags" name="categories['.$category['id'].'][showTags]" value="true" '.$checked[4].' class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS'].'"><br>
+                      </div>
+                      <div class="span3">
+                        <label for="categories'.$category['id'].'showTags"><span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS'].'</span></label>
+                      </div>
+                    </div>';
 
-          echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="categories'.$category['id'].'showSubCategory" name="categories['.$category['id'].'][showSubCategory]" value="true" '.$checked[13].' class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SUBCATEGORY'].'">
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'showSubCategory"><span class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SUBCATEGORY'].'">'.$langFile['PAGESETUP_TEXT_SUBCATEGORY'].'</span></label>
-                </td></tr>';
+              echo '<div class="row">
+                      <div class="span1 formLeft">
+                        <input type="checkbox" id="categories'.$category['id'].'showPageDate" name="categories['.$category['id'].'][showPageDate]" value="true" '.$checked[5].' class="toolTip" title="::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE'].'"><br>
+                      </div>
+                      <div class="span3">
+                        <label for="categories'.$category['id'].'showPageDate"><span class="toolTip" title="::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE'].'">'.$langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'</span></label>
+                      </div>
+                    </div>';
 
-          echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="categories'.$category['id'].'feeds" name="categories['.$category['id'].'][feeds]" value="true" '.$checked[12].' class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'].'"><br>
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'feeds"><span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'].'">'.$langFile['PAGESETUP_TEXT_FEEDS'].'</span></label>
-                </td></tr>';
+              echo '<div class="row">
+                      <div class="span1 formLeft">
+                        <input type="checkbox" id="categories'.$category['id'].'showSubCategory" name="categories['.$category['id'].'][showSubCategory]" value="true" '.$checked[13].' class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SUBCATEGORY'].'">
+                      </div>
+                      <div class="span3">
+                        <label for="categories'.$category['id'].'showSubCategory"><span class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SUBCATEGORY'].'">'.$langFile['PAGESETUP_TEXT_SUBCATEGORY'].'</span></label>
+                      </div>
+                    </div>';
 
-          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
+              echo '<div class="row">
+                      <div class="span1 formLeft">
+                        <input type="checkbox" id="categories'.$category['id'].'feeds" name="categories['.$category['id'].'][feeds]" value="true" '.$checked[12].' class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'].'"><br>
+                      </div>
+                      <div class="span3">
+                        <label for="categories'.$category['id'].'feeds"><span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'].'">'.$langFile['PAGESETUP_TEXT_FEEDS'].'</span></label>
+                      </div>
+                    </div>';
 
-          // SORTING
-          // manually
-          echo '<tr><td class="left checkboxes">
-                <input type="radio" id="categories'.$category['id'].'sortManually" name="categories['.$category['id'].'][sorting]" value="manually" '.$checked[71].' class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTMANUALLY'].'">
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'sortManually"><span class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTMANUALLY'].'">'.$langFile['PAGESETUP_TEXT_SORTMANUALLY'].'</span></label>
-                </td></tr>';
-          // sort by date
-          echo '<tr><td class="left checkboxes">
-                <input type="radio" id="categories'.$category['id'].'sortByPageDate" name="categories['.$category['id'].'][sorting]" value="byPageDate" '.$checked[72].' class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTBYDATE'].'">
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'sortByPageDate"><span class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTBYDATE'].'">'.$langFile['PAGESETUP_TIP_SORTBYPAGEDATE'].'</span></label>
-                </td></tr>';
-          // sort alphabetical
-          echo '<tr><td class="left checkboxes">
-                <input type="radio" id="categories'.$category['id'].'sortAlphabetical" name="categories['.$category['id'].'][sorting]" value="alphabetical" '.$checked[73].' class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTALPHABETICAL'].'">
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'sortAlphabetical"><span class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTALPHABETICAL'].'">'.$langFile['PAGESETUP_TEXT_SORTALPHABETICAL'].'</span></label>
-                </td></tr>';
+            echo '</div>';
 
-          // sortReverse
-          echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="categories'.$category['id'].'sortReverse" name="categories['.$category['id'].'][sortReverse]" value="true" '.$checked[6].' class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTREVERSE'].'">
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'sortReverse"><span class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTREVERSE'].'">'.$langFile['PAGESETUP_TEXT_SORTREVERSE'].'</span></label>
-                </td></tr>';
+            // SORTING
+            echo '<div class="span4">';
+
+              // manually
+              echo '<div class="row">
+                      <div class="span1 formLeft">
+                        <input type="radio" id="categories'.$category['id'].'sortManually" name="categories['.$category['id'].'][sorting]" value="manually" '.$checked[71].' class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTMANUALLY'].'">
+                      </div>
+                      <div class="span3">
+                        <label for="categories'.$category['id'].'sortManually"><span class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTMANUALLY'].'">'.$langFile['PAGESETUP_TEXT_SORTMANUALLY'].'</span></label>
+                      </div>
+                    </div>';
+              // sort by date
+              echo '<div class="row">
+                      <div class="span1 formLeft">
+                        <input type="radio" id="categories'.$category['id'].'sortByPageDate" name="categories['.$category['id'].'][sorting]" value="byPageDate" '.$checked[72].' class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTBYDATE'].'">
+                      </div>
+                      <div class="span3">
+                        <label for="categories'.$category['id'].'sortByPageDate"><span class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTBYDATE'].'">'.$langFile['PAGESETUP_TIP_SORTBYPAGEDATE'].'</span></label>
+                      </div>
+                    </div>';
+              // sort alphabetical
+              echo '<div class="row">
+                      <div class="span1 formLeft">
+                        <input type="radio" id="categories'.$category['id'].'sortAlphabetical" name="categories['.$category['id'].'][sorting]" value="alphabetical" '.$checked[73].' class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTALPHABETICAL'].'">
+                      </div>
+                      <div class="span3">
+                        <label for="categories'.$category['id'].'sortAlphabetical"><span class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTALPHABETICAL'].'">'.$langFile['PAGESETUP_TEXT_SORTALPHABETICAL'].'</span></label>
+                      </div>
+                    </div>';
+
+              // sortReverse
+              echo '<div class="row">
+                      <div class="span1 formLeft">
+                        <input type="checkbox" id="categories'.$category['id'].'sortReverse" name="categories['.$category['id'].'][sortReverse]" value="true" '.$checked[6].' class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTREVERSE'].'">
+                      </div>
+                      <div class="span3">
+                        <label for="categories'.$category['id'].'sortReverse"><span class="toolTip" title="::'.$langFile['PAGESETUP_TIP_SORTREVERSE'].'">'.$langFile['PAGESETUP_TEXT_SORTREVERSE'].'</span></label>
+                      </div>
+                    </div>';
+
+            echo '</div>';
+          echo '</div>';
+
+          echo '<div class="spacer"></div>';
 
           if(!empty($plugins)) {
-            echo '<tr><td class="leftTop"></td><td>';
 
-            echo '<tr><td class="left">';
-            echo '<label for="categories'.$category['id'].'plugins"><span class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">';
-            echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</span></label>';
-            echo '</td><td class="right">';
-            echo '<select id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins][]" multiple="multiple">';
-              foreach($plugins as $pluginName) {
-                $categoryPlugins = unserialize($category['plugins']);
-                $selected = (is_array($categoryPlugins) && in_array($pluginName,$categoryPlugins)) ? ' selected="selected"' : '' ;
-                echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';
-              }
-            echo '</select>';
-            echo '&nbsp;<span class="hint">'.$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'].'</span>';
-            echo '</td></tr>';
+            echo '<div class="row">
+                    <div class="offset1 span3">';
+                echo '<label for="categories'.$category['id'].'plugins"><h4 class="toolTip" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">';
+                echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</h4></label><br>';
+                echo '<select id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins][]" multiple="multiple">';
+                  foreach($plugins as $pluginName) {
+                    $categoryPlugins = unserialize($category['plugins']);
+                    $selected = (is_array($categoryPlugins) && in_array($pluginName,$categoryPlugins)) ? ' selected="selected"' : '' ;
+                    echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';
+                  }
+                echo '</select>';
+                echo '</div>
+                      <div class="span3">
+                        <div class="spacerH4"></div>
+                        <div class="alert">'.$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'].'</div>';
+            echo '  </div>
+                  </div>';
 
-            echo '<tr><td class="leftBottom"></td><td>';
           }
 
           $advancedSettingsEdited = ((!empty($category['styleFile']) && $category['styleFile'] != 'a:0:{}') ||
                                      (!empty($category['styleId']) &&  $category['styleId'] != 'a:0:{}') ||
                                      (!empty($category['styleClass']) && $category['styleClass'] != 'a:0:{}') ||
                                       !empty($category['thumbWidth']) || !empty($category['thumbHeight']) || !empty($category['thumbRatio']))
-            ? '&nbsp;<img src="library/images/icons/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" style="position:absolute;margin-top:-2px;width:27px;height:23px;">'
+            ? '&nbsp;<img src="library/images/icons/edited_small.png" class="toolTip" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" style="position:absolute;margin-top:-2px;width:27px;height:23px;">'
             : '';
 
-          echo '<tr><td class="left checkboxes"></td>
-                <td><a href="#" class="down inBlockSliderLink" style="position:relative; left:-20px; bottom: -10px;">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].$advancedSettingsEdited.'</a>
-                </td></tr>';
-            echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
+          echo '<div class="row">
+                  <div class="span8 center">
+                      <a href="#" class="down inBlockSliderLink" style="position:relative; bottom: -10px;">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].$advancedSettingsEdited.'</a>
+                  </div>
+                </div>';
 
-          // end of the TABLE for one category
-          echo '</tbody></table>';
+          echo '<div class="spacer"></div>';
 
           // -----------------------------------------------
           // second TABLE (advanced settings) (with slide in)
           $hidden = ($_POST['savedCategory'] != $category['id']) ? ' hidden' : '';
 
-          echo '<table id="advancedConfigTable'.$category['id'].'" class="inBlockSlider'.$hidden.'">
-                <colgroup>
-                <col class="left">
-                </colgroup>
+          echo '<div id="advancedConfigTable'.$category['id'].'" class="inBlockSlider inBlockFrame'.$hidden.'">
 
-                <tbody>
-                <tr><td class="leftTop"></td><td><span class="hint">'.$langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS'].'</span></td></tr>';
+                <div class="row">
+                    <div class="span8">
+                      <div class="alert" style="margin-top: -10px;">'.$langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS'].'</div>
+                    </div>
+                </div>';
 
-          echo '<tr><td class="left">
-                <span class="toolTip" title="::'.$langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
-                '.$langFile['STYLESHEETS_TEXT_STYLEFILE'].'</span>
-                </td><td class="right">
-                <div id="categoryStyleFilesInputs'.$category['id'].'" class="inputToolTip" title="'.$langFile['PATHS_TOOLTIP_ABSOLUTE'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
-                <span class="hint" style="float:right;width:190px;">'.$langFile['STYLESHEETS_EXAMPLE_STYLEFILE'].'</span>';
+          echo '<div class="row">
+                  <div class="span3 formLeft">
+                    <span class="toolTip" title="::'.$langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
+                    '.$langFile['STYLESHEETS_TEXT_STYLEFILE'].'</span>
+                  </div>
+                  <div class="span5">
+                    <div id="categoryStyleFilesInputs'.$category['id'].'" class="inputToolTip" title="'.$langFile['PATHS_TOOLTIP_ABSOLUTE'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">';
 
-          echo showStyleFileInputs(getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']),'categories['.$category['id'].'][styleFile]');
+                        echo showStyleFileInputs(getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']),'categories['.$category['id'].'][styleFile]');
 
-          echo '</div>
-                <a href="#" class="addStyleFilePath toolTip" title="'.$langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE'].'::"></a>
-                </td></tr>';
+          echo '    </div>
+                    <a href="#" class="addStyleFilePath addButton toolTip" style="margin-right: 10px;float:left;" title="'.$langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE'].'::"></a>
+                    <span class="badge" style="position:relative; top: 8px;">'.$langFile['STYLESHEETS_EXAMPLE_STYLEFILE'].'</span>
+                  </div>
+                </div>';
 
-          echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'styleId"><span class="toolTip" title="::'.$langFile['STYLESHEETS_TOOLTIP_ID'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
-                '.$langFile['STYLESHEETS_TEXT_ID'].'</span></label>
-                </td><td class="right">
-                <input id="categories'.$category['id'].'styleId" name="categories['.$category['id'].'][styleId]" value="'.getStylesByPriority($category['styleId'],'styleId',$category['id']).'" class="inputToolTip" title="'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'">
-                </td></tr>';
+          echo '<div class="row">
+                  <div class="span3 formLeft">
+                    <label for="categories'.$category['id'].'styleId"><span class="toolTip" title="::'.$langFile['STYLESHEETS_TOOLTIP_ID'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
+                    '.$langFile['STYLESHEETS_TEXT_ID'].'</span></label>
+                  </div>
+                  <div class="span5">
+                    <input type="text" id="categories'.$category['id'].'styleId" name="categories['.$category['id'].'][styleId]" value="'.getStylesByPriority($category['styleId'],'styleId',$category['id']).'" class="inputToolTip" title="'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'">
+                  </div>
+                </div>';
 
-          echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'styleClass"><span class="toolTip" title="::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
-                '.$langFile['STYLESHEETS_TEXT_CLASS'].'</span></label>
-                </td><td class="right">
-                <input id="categories'.$category['id'].'styleClass" name="categories['.$category['id'].'][styleClass]" value="'.getStylesByPriority($category['styleClass'],'styleClass',$category['id']).'" class="inputToolTip" title="'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'">
-                </td></tr>';
+          echo '<div class="row">
+                  <div class="span3 formLeft">
+                    <label for="categories'.$category['id'].'styleClass"><span class="toolTip" title="::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
+                    '.$langFile['STYLESHEETS_TEXT_CLASS'].'</span></label>
+                  </div>
+                  <div class="span5">
+                    <input type="text" id="categories'.$category['id'].'styleClass" name="categories['.$category['id'].'][styleClass]" value="'.getStylesByPriority($category['styleClass'],'styleClass',$category['id']).'" class="inputToolTip" title="'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'">
+                  </div>
+                </div>';
 
-          echo '<tr><td class="spacer"></td><td></td></tr>';
+          echo '<div class="spacer"></div>';
 
                // category thumbSize
-          echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'thumbWidth"><span class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_WIDTH'].'">
-                '.$langFile['THUMBNAIL_TEXT_WIDTH'].'</span></label>
-                </td><td class="right">
-                <input type="number" step="1" min="0" id="categories'.$category['id'].'thumbWidth" name="categories['.$category['id'].'][thumbWidth]" class="short" value="'.$category['thumbWidth'].'" '.$disabled[9].'>
-                '.$langFile['THUMBNAIL_TEXT_UNIT'].'
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="radio" id="categories'.$category['id'].'ratioX" name="categories['.$category['id'].'][thumbRatio]" value="x" '.$checked[9].'>
-                  <label for="categories'.$category['id'].'ratioX" class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X'].'"> '.$langFile['THUMBNAIL_TEXT_KEEPRATIO'].'</label>
-                </td></tr>';
+          echo '<div class="row">
+                  <div class="span3 formLeft">
+                    <label for="categories'.$category['id'].'thumbWidth"><span class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_WIDTH'].'">
+                    '.$langFile['THUMBNAIL_TEXT_WIDTH'].'</span></label>
+                  </div>
+                  <div class="span5">
+                    <input type="number" step="1" min="0" id="categories'.$category['id'].'thumbWidth" name="categories['.$category['id'].'][thumbWidth]" class="short" value="'.$category['thumbWidth'].'" '.$disabled[9].'>
+                    '.$langFile['THUMBNAIL_TEXT_UNIT'].'
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="categories'.$category['id'].'ratioX" name="categories['.$category['id'].'][thumbRatio]" value="x" '.$checked[9].'>
+                    <label for="categories'.$category['id'].'ratioX" class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X'].'"> '.$langFile['THUMBNAIL_TEXT_KEEPRATIO'].'</label>
+                  </div>
+                </div>';
 
                 // <!-- shows the width in a scale -->
                 if(!empty($category['thumbWidth']))
                   $catThumbWidth = 'width:'.$category['thumbWidth'].'px;';
                 else
                   $catThumbWidth = 'width:0px;';
-          echo '<tr><td class="left">
-                </td><td class="right">
-                <div id="categories'.$category['id'].'thumbWidthScale" class="scale" style="'.$catThumbWidth.'max-width:520px;"><div></div></div>
-                </td></tr>';
+          echo '<div class="row">
+                  <div class="offset3 span5">
+                    <div id="categories'.$category['id'].'thumbWidthScale" class="thumbnailScale" style="'.$catThumbWidth.'max-width:520px;"><div></div></div>
+                  </div>
+                </div>';
 
-          echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'thumbHeight"><span class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_HEIGHT'].'">
-                '.$langFile['THUMBNAIL_TEXT_HEIGHT'].'</span></label>
-                </td><td class="right">
-                <input type="number" step="1" min="0" id="categories'.$category['id'].'thumbHeight" name="categories['.$category['id'].'][thumbHeight]" class="short" value="'.$category['thumbHeight'].'" '.$disabled[10].'>
-                '.$langFile['THUMBNAIL_TEXT_UNIT'].'
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="radio" id="categories'.$category['id'].'ratioY" name="categories['.$category['id'].'][thumbRatio]" value="y" '.$checked[10].'>
-                  <label for="categories'.$category['id'].'ratioY" class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y'].'"> '.$langFile['THUMBNAIL_TEXT_KEEPRATIO'].'</label>
-                </td></tr>';
+          echo '<div class="row">
+                  <div class="span3 formLeft">
+                    <label for="categories'.$category['id'].'thumbHeight"><span class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_HEIGHT'].'">
+                    '.$langFile['THUMBNAIL_TEXT_HEIGHT'].'</span></label>
+                  </div>
+                  <div class="span5">
+                    <input type="number" step="1" min="0" id="categories'.$category['id'].'thumbHeight" name="categories['.$category['id'].'][thumbHeight]" class="short" value="'.$category['thumbHeight'].'" '.$disabled[10].'>
+                    '.$langFile['THUMBNAIL_TEXT_UNIT'].'
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="categories'.$category['id'].'ratioY" name="categories['.$category['id'].'][thumbRatio]" value="y" '.$checked[10].'>
+                    <label for="categories'.$category['id'].'ratioY" class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y'].'"> '.$langFile['THUMBNAIL_TEXT_KEEPRATIO'].'</label>
+                  </div>
+                </div>';
 
                 // <!-- shows the height in a scale -->
                 if(!empty($category['thumbHeight']))
                   $catThumbHeight = 'width:'.$category['thumbHeight'].'px;';
                 else
                   $catThumbHeight = 'width:0px;';
-          echo '<tr><td class="left">
-                </td><td class="right">
-                <div id="categories'.$category['id'].'thumbHeightScale" class="scale"  style="'.$catThumbHeight.'max-width:520px;"><div></div></div>
-                </td></tr>';
+          echo '<div class="row">
+                  <div class="offset3 span5">
+                    <div id="categories'.$category['id'].'thumbHeightScale" class="thumbnailScale"  style="'.$catThumbHeight.'max-width:520px;"><div></div></div>
+                  </div>
+                </div>';
 
           echo '<!-- NO THUMB RATIO -->
-                <tr><td class="left">
-                <input type="radio" id="categories'.$category['id'].'noRatio" name="categories['.$category['id'].'][thumbRatio]" value="" '.$checked[8].'>
-                </td><td class="right">
-                <label for="categories'.$category['id'].'noRatio" class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO'].'"> '.$langFile['THUMBNAIL_TEXT_FIXEDRATIO'].'</label>
-                </td></tr>';
+                <div class="row">
+                  <div class="span3 formLeft">
+                    <input type="radio" id="categories'.$category['id'].'noRatio" name="categories['.$category['id'].'][thumbRatio]" value="" '.$checked[8].'>
+                  </div>
+                  <div class="span5">
+                    <label for="categories'.$category['id'].'noRatio" class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO'].'"> '.$langFile['THUMBNAIL_TEXT_FIXEDRATIO'].'</label>
+                  </div>
+                </div>';
 
           // finish the TABLE for one category
-          echo '<tr><td class="leftBottom"></td><td></td></tr>
-                </tbody>
-                </table>';
+          echo '</div>';
 
           // SUBMIT: If advancedConfigTable has not Class "hidden" it stores the categoryId in the savedCategory input
           // and gives the submit anchor to the FORM

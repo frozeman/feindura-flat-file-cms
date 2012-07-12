@@ -18,6 +18,9 @@
  *
  */
 .feindura {
+  -moz-transition-duration: 0;
+  -webkit-transition-duration: 0;
+  transition-duration: 0;
   /*! ---------------------------------------------------
     LESS Elements 0.8
 
@@ -34,9 +37,6 @@
     More info at: http://lesselements.com
 -----------------------------------------------------*/
 
-  -moz-transition-duration: 0;
-  -webkit-transition-duration: 0;
-  transition-duration: 0;
   /*!
  * Bootstrap v2.0.4
  *
@@ -46,6 +46,10 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
+
+  /* CKEditor HACKS for input */
+
+  /* deleteUser */
 
 }
 .feindura article,
@@ -4267,6 +4271,177 @@
 .feindura .invisible {
   visibility: hidden;
 }
+.feindura .cke_dialog_background_cover {
+  background: url("../images/bg/dimmContainer.png") repeat !important;
+  background-color: transparent !important;
+}
+.feindura.cke_skin_kama textarea.cke_source {
+  display: block !important;
+  position: absolute !important;
+  visibility: hidden;
+}
+.feindura div.cke_dialog_ui_input_text {
+  padding: 0px !important;
+  overflow: hidden;
+}
+.feindura input.cke_dialog_ui_input_text {
+  padding: 2px !important;
+  margin: 0 !important;
+}
+.feindura label.cke_dialog_ui_labeled_label {
+  display: inline-block;
+  margin-bottom: 8px !important;
+}
+.feindura .cke_contents {
+  display: block;
+}
+.feindura .cke_contents iframe {
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+}
+.feindura .cke_dialog_ui_vbox_child a.cke_dialog_ui_button {
+  margin-top: 24px !important;
+}
+.feindura .cke_dialog {
+  -webkit-box-shadow: 0 1 15px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: 0 1 15px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: 0 1 15px rgba(0, 0, 0, 0.30000000000000004);
+}
+.feindura .cke_dialog_tab,
+.feindura .cke_dialog {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura div.CodeMirror-gutter-text,
+.feindura div.CodeMirror-lines {
+  line-height: 20px;
+  padding: 10px;
+}
+.feindura div.CodeMirror {
+  border: 1px solid #c1c1c1;
+  -webkit-text-shadow: none !important;
+  -moz-text-shadow: none !important;
+  text-shadow: none !important;
+  -ms-text-shadow: none !important;
+  -o-text-shadow: none !important;
+  -khtml-text-shadow: none !important;
+  background-color: #fff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  transition: border 200ms linear;
+  -moz-transition: border 200ms linear;
+  -webkit-transition: border 200ms linear;
+  -o-transition: border 200ms linear;
+  -moz-transition-duration: 200ms;
+  -webkit-transition-duration: 200ms;
+  transition-duration: 200ms;
+}
+.feindura div.CodeMirror:hover {
+  border-color: rgba(82, 168, 236, 0.8) !important;
+  outline: 0 !important;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+}
+.feindura div.CodeMirror .CodeMirror-scroll * {
+  font: 14px 'Lucida Sans Unicode', Helvetica, Verdana, Arial !important;
+}
+.feindura div.CodeMirror .CodeMirrorActiveline {
+  background-color: #E8EEF9 !important;
+}
+.feindura textarea.editFiles,
+.feindura .CodeMirror-scroll {
+  height: 550px;
+}
+.feindura.cke_skin_kama .CodeMirror {
+  height: 100%;
+  border: 1px solid #b3b3b3;
+}
+.feindura.cke_skin_kama .CodeMirror-scroll {
+  height: 100%;
+  _position: relative;
+  /* IE6 hack */
+
+}
+.feindura.cke_skin_kama .CodeMirror-scroll * {
+  white-space: pre !important;
+  max-width: 750px;
+}
+.feindura.cke_skin_kama .cke_maximized .CodeMirror-scroll * {
+  max-width: none;
+}
+.feindura .fancyform_checked {
+  ursor: pointer;
+  border-bottom: 1px solid transparent;
+  position: relative;
+  display: inline-block;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  background-image: url("../images/icons/checkbox_on.png");
+}
+.feindura .fancyform_checked.fancyform_disabled {
+  cursor: default;
+  background-image: url("../images/icons/checkbox_on_disabled.png");
+}
+.feindura .fancyform_unchecked {
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  position: relative;
+  display: inline-block;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  background-image: url("../images/icons/checkbox_off.png");
+}
+.feindura .fancyform_unchecked.fancyform_disabled {
+  cursor: default;
+  background-image: url("../images/icons/checkbox_off_disabled.png");
+}
+.feindura .fancyform_selected {
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  position: relative;
+  display: inline-block;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  background-image: url("../images/icons/radio_on.png");
+}
+.feindura .fancyform_selected.fancyform_disabled {
+  cursor: default;
+  background-image: url("../images/icons/radio_on_disabled.png");
+}
+.feindura .fancyform_unselected {
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  position: relative;
+  display: inline-block;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  background-image: url("../images/icons/radio_off.png");
+}
+.feindura .fancyform_unselected.fancyform_disabled {
+  cursor: default;
+  background-image: url("../images/icons/radio_off_disabled.png");
+}
+.feindura .fancyform_focus {
+  cursor: pointer;
+  border-bottom: 1px dotted #CF974D;
+}
 .feindura #boxShadows {
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 40px rgba(0, 0, 0, 0.050000000000000044);
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 40px rgba(0, 0, 0, 0.050000000000000044);
@@ -4309,11 +4484,29 @@
 .feindura .right {
   text-align: right;
 }
+.feindura [class^="spacer"] {
+  clear: both;
+}
 .feindura .spacer {
   height: 16px;
 }
 .feindura .spacer2x {
   height: 32px;
+}
+.feindura .spacer4x {
+  height: 64px;
+}
+.feindura .spacerH1 {
+  height: 40px;
+}
+.feindura .spacerH2 {
+  height: 40px;
+}
+.feindura .spacerH3 {
+  height: 60px;
+}
+.feindura .spacerH4 {
+  height: 48px;
 }
 .feindura div.blockSpacer {
   position: relative;
@@ -4321,6 +4514,49 @@
   height: 28px;
   margin: 25px -8px;
   background: url("../images/bg/content_blockSpacer.png") no-repeat;
+}
+.feindura .toolTip,
+.feindura input.toolTip[type=checkbox] {
+  cursor: help;
+}
+.feindura input.toolTip,
+.feindura textarea.toolTip {
+  cursor: text;
+}
+.feindura input.button.toolTip,
+.feindura a.toolTip {
+  cursor: pointer;
+}
+.feindura span.toolTip:not(.badge),
+.feindura label.toolTip {
+  background: url("../images/icons/hint_toolTipInfo.png") no-repeat right center;
+  padding-right: 15px;
+}
+.feindura span.toolTip.noMark {
+  background: none;
+  padding-right: 0;
+  cursor: auto;
+}
+.feindura span.warning {
+  display: inline-block;
+  padding: 3px 0px;
+  padding-left: 20px;
+  background: url("../images/icons/warning.gif") no-repeat 0px 7px !important;
+  font-size: 12px;
+  color: #990000;
+}
+.feindura span.hint {
+  display: inline-block;
+  padding-left: 16px;
+  background: url("../images/icons/hint_toolTipInfo.png") no-repeat;
+  background-position: 0px 4px;
+  font-size: 12px;
+  color: #947342;
+}
+.feindura div.alert {
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
 }
 .feindura mark {
   background-color: #fef086;
@@ -4341,8 +4577,15 @@
   border: none;
   border-top: 1px solid #f0f0f0;
 }
-.feindura span.hint {
-  background-position: 0px 4px !important;
+.feindura label,
+.feindura label span {
+  cursor: pointer !important;
+}
+.feindura h1 {
+  font-size: 20px;
+}
+.feindura h2 {
+  font-size: 18px;
 }
 .feindura a,
 .feindura a.link {
@@ -4618,9 +4861,35 @@
   margin-top: -15px;
   margin-left: -15px;
 }
-.feindura .cke_dialog_background_cover {
-  background: url("../images/bg/dimmContainer.png") repeat !important;
-  background-color: transparent !important;
+.feindura input.short {
+  width: 70px !important;
+  text-align: center;
+}
+.feindura textarea.autogrow {
+  overflow-y: hidden;
+  resize: none;
+  transition: height 100ms ease-out;
+  -moz-transition: height 100ms ease-out;
+  -webkit-transition: height 100ms ease-out;
+  -o-transition: height 100ms ease-out;
+}
+.feindura select[multiple="multiple"] {
+  width: 250px;
+  max-height: 150px;
+  vertical-align: top;
+  border-color: #ccc;
+  background: #fdfdfd;
+  font-size: 16px;
+  font-family: Calibri, Helvetica, Sans-Serif;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
 }
 .feindura body {
   height: 100%;
@@ -4800,6 +5069,9 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
 }
 .feindura #adminMenu h2 {
   display: inline-block;
@@ -5441,19 +5713,19 @@
 .feindura footer.main a:active {
   color: #ffffff;
 }
-.feindura .icon {
+.feindura .icons {
   position: relative;
   display: inline-block;
   top: 4px;
   padding: 0;
   background: none;
 }
-.feindura .icon.startpage {
+.feindura .icons.startpage {
   width: 27px;
   height: 23px;
   background: url("../images/buttons/listPages_startPage.png") no-repeat;
 }
-.feindura .icon.codeSnippets {
+.feindura .icons.codeSnippets {
   width: 16px;
   height: 16px;
   margin-left: 2px;
@@ -5470,33 +5742,43 @@
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 10px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
 .feindura .mainContent .block.hidden {
   display: block;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
 }
 .feindura .mainContent .block:hover {
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
 }
+.feindura .mainContent .block > div {
+  z-index: 1;
+}
 .feindura .mainContent .block .content {
+  z-index: 1;
   position: relative;
   width: 760px;
   margin: 0;
-  padding: 20px 20px;
-  padding-top: 10px;
+  padding: 20px;
   overflow: hidden;
 }
 .feindura .mainContent .block > h1 {
+  z-index: 2;
   padding: 0;
   padding-bottom: 2px;
   min-height: 35px;
@@ -5504,9 +5786,18 @@
   font-size: 18px;
   line-height: 26px;
   border: 1px solid #fff;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 10px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
@@ -5515,6 +5806,9 @@
   background: -moz-linear-gradient(center bottom, #ffffff 0%, #f0f0f0 100%);
   background: -ms-linear-gradient(bottom, #ffffff 0%, #f0f0f0 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#ffffff',GradientType=0);
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
 }
 .feindura .mainContent .block > h1 > span {
   max-width: 695px;
@@ -5528,12 +5822,13 @@
 .feindura .mainContent .block > h1 img {
   position: relative;
   top: -1px;
-  vertical-align: top;
+  left: 2px;
 }
 .feindura .mainContent .block > h1 img.blockH1Icon {
-  position: relative;
-  top: 6px;
-  left: 2px;
+  top: -3px;
+  vertical-align: top;
+  margin-left: -10px;
+  margin-right: 8px;
 }
 .feindura .mainContent .block > h1 a {
   z-index: 1;
@@ -5554,17 +5849,6 @@
 .feindura .mainContent .block > h1 a:focus {
   color: #536068;
   background-image: url("../images/buttons/content_h1_up_on.png");
-}
-.feindura .mainContent .block.hidden > h1 {
-  background: none;
-  filter: none;
-}
-.feindura .mainContent .block:hover > h1 {
-  background: #ffffff;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #f0f0f0));
-  background: -moz-linear-gradient(center bottom, #ffffff 0%, #f0f0f0 100%);
-  background: -ms-linear-gradient(bottom, #ffffff 0%, #f0f0f0 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#ffffff',GradientType=0);
 }
 .feindura .mainContent .block:hover > h1 > span {
   max-width: 695px;
@@ -5736,6 +6020,14 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
+.feindura .mainContent .block.plain {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.feindura .mainContent .block.plain .content {
+  padding: 0 20px;
+  overflow: visible;
+}
 .feindura .mainContent .block .innerBlock {
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
   -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
@@ -5747,6 +6039,7 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   padding: 20px;
+  background-color: #fdfdfd;
 }
 .feindura .mainContent .block .innerBlock .innerBlocklistPages {
   position: relative;
@@ -5813,6 +6106,20 @@
 .feindura .mainContent .block .innerBlock hr.small {
   margin: 10px -14px;
 }
+.feindura .mainContent .block .inBlockFrame {
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 10px;
+  margin: -10px;
+  background-color: #fdfdfd;
+}
 .feindura .mainContent .block .form .row {
   padding: 10px 0;
 }
@@ -5823,11 +6130,11 @@
   margin: 1px 0;
 }
 .feindura .mainContent .block .form input,
-.feindura .mainContent .block .form textarea,
-.feindura .mainContent .block .form select {
+.feindura .mainContent .block .form textarea {
   width: 70%;
 }
 .feindura .mainContent .block .form label {
+  display: inline-block;
   width: auto;
 }
 .feindura .refererBox {
@@ -5853,6 +6160,230 @@
   background: none !important;
   padding-right: 0px !important;
   color: #668CA6 !important;
+}
+.feindura table.tableChart {
+  width: 100%;
+  font-size: 10px;
+  color: #000000;
+  border: 1px solid #fff;
+  border-left: none;
+  padding: 0px;
+  margin: 0px;
+}
+.feindura table.tableChart td {
+  vertical-align: middle;
+  padding: 0px 5px !important;
+  border-left: 2px solid #fff;
+  height: 30px;
+  max-height: 30px;
+  overflow: hidden;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura table.tableChart td.unknown {
+  background: #cccccc;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #666666), color-stop(1, #cccccc));
+  background: -moz-linear-gradient(center bottom, #666666 0%, #cccccc 100%);
+  background: -ms-linear-gradient(bottom, #666666 0%, #cccccc 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#666666',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.safari {
+  background: #ececec;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #cfcfdc), color-stop(1, #ececec));
+  background: -moz-linear-gradient(center bottom, #cfcfdc 0%, #ececec 100%);
+  background: -ms-linear-gradient(bottom, #cfcfdc 0%, #ececec 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ececec', endColorstr='#cfcfdc',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.opera {
+  background: #fb9393;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #d50404), color-stop(1, #fb9393));
+  background: -moz-linear-gradient(center bottom, #d50404 0%, #fb9393 100%);
+  background: -ms-linear-gradient(bottom, #d50404 0%, #fb9393 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fb9393', endColorstr='#d50404',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.netscape.navigator {
+  background: #188e9c;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #002c30), color-stop(1, #188e9c));
+  background: -moz-linear-gradient(center bottom, #002c30 0%, #188e9c 100%);
+  background: -ms-linear-gradient(bottom, #002c30 0%, #188e9c 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#188e9c', endColorstr='#002c30',GradientType=0);
+  color: #fff;
+}
+.feindura table.tableChart td.firefox {
+  background: #3e5d78;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #143551), color-stop(1, #3e5d78));
+  background: -moz-linear-gradient(center bottom, #143551 0%, #3e5d78 100%);
+  background: -ms-linear-gradient(bottom, #143551 0%, #3e5d78 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e5d78', endColorstr='#143551',GradientType=0);
+  color: #fff;
+}
+.feindura table.tableChart td.chrome {
+  background: #a0c2ef;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #4b92e4), color-stop(1, #a0c2ef));
+  background: -moz-linear-gradient(center bottom, #4b92e4 0%, #a0c2ef 100%);
+  background: -ms-linear-gradient(bottom, #4b92e4 0%, #a0c2ef 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a0c2ef', endColorstr='#4b92e4',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.internet.explorer {
+  background: #e3eefb;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #c5defb), color-stop(1, #e3eefb));
+  background: -moz-linear-gradient(center bottom, #c5defb 0%, #e3eefb 100%);
+  background: -ms-linear-gradient(bottom, #c5defb 0%, #e3eefb 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3eefb', endColorstr='#c5defb',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.internet.explorer.old {
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #d5d2cd), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #d5d2cd 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #d5d2cd 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d5d2cd',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.konqueror {
+  background: #286cbf;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #04478e), color-stop(1, #286cbf));
+  background: -moz-linear-gradient(center bottom, #04478e 0%, #286cbf 100%);
+  background: -ms-linear-gradient(bottom, #04478e 0%, #286cbf 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#286cbf', endColorstr='#04478e',GradientType=0);
+  color: #fff;
+}
+.feindura table.tableChart td.lynx {
+  background: #666666;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #000000), color-stop(1, #666666));
+  background: -moz-linear-gradient(center bottom, #000000 0%, #666666 100%);
+  background: -ms-linear-gradient(bottom, #000000 0%, #666666 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666666', endColorstr='#000000',GradientType=0);
+  color: #fff;
+}
+.feindura table.tableChart td.mozilla {
+  background: #a5151e;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #2a2a2a), color-stop(1, #a5151e));
+  background: -moz-linear-gradient(center bottom, #2a2a2a 0%, #a5151e 100%);
+  background: -ms-linear-gradient(bottom, #2a2a2a 0%, #a5151e 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a5151e', endColorstr='#2a2a2a',GradientType=0);
+  color: #fff;
+}
+.feindura table.tableChart td.iphone {
+  background: #5e5e5e;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #000000), color-stop(1, #5e5e5e));
+  background: -moz-linear-gradient(center bottom, #000000 0%, #5e5e5e 100%);
+  background: -ms-linear-gradient(bottom, #000000 0%, #5e5e5e 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e5e5e', endColorstr='#000000',GradientType=0);
+  color: #fff;
+}
+.feindura table.tableChart td.ipod {
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #cccccc), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #cccccc 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #cccccc 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cccccc',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.ipad {
+  background: #bcbcbc;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #7c7c7c), color-stop(1, #bcbcbc));
+  background: -moz-linear-gradient(center bottom, #7c7c7c 0%, #bcbcbc 100%);
+  background: -ms-linear-gradient(bottom, #7c7c7c 0%, #bcbcbc 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bcbcbc', endColorstr='#7c7c7c',GradientType=0);
+  color: #fff;
+}
+.feindura table.tableChart td.amaya {
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #a0d6ef), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #a0d6ef 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #a0d6ef 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#a0d6ef',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.phoenix {
+  background: #f4caca;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #d66869), color-stop(1, #f4caca));
+  background: -moz-linear-gradient(center bottom, #d66869 0%, #f4caca 100%);
+  background: -ms-linear-gradient(bottom, #d66869 0%, #f4caca 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4caca', endColorstr='#d66869',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.icab {
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffeec0), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #ffeec0 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #ffeec0 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffeec0',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.omniweb {
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #0093d0), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #0093d0 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #0093d0 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#0093d0',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.galeon {
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #cdcdcd), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #cdcdcd 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #cdcdcd 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cdcdcd',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.netpositive {
+  background: #ffdc01;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #a10001), color-stop(1, #ffdc01));
+  background: -moz-linear-gradient(center bottom, #a10001 0%, #ffdc01 100%);
+  background: -ms-linear-gradient(bottom, #a10001 0%, #ffdc01 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffdc01', endColorstr='#a10001',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.opera.mini {
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #da0e0e), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #da0e0e 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #da0e0e 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#da0e0e',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.blackberry {
+  background: #5d5d5d;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #000000), color-stop(1, #5d5d5d));
+  background: -moz-linear-gradient(center bottom, #000000 0%, #5d5d5d 100%);
+  background: -ms-linear-gradient(bottom, #000000 0%, #5d5d5d 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5d5d5d', endColorstr='#000000',GradientType=0);
+  color: #fff;
+}
+.feindura table.tableChart td.icecat {
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #3465a4), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #3465a4 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #3465a4 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#3465a4',GradientType=0);
+  color: #000000;
+}
+.feindura table.tableChart td.android {
+  background: #5d5d5d;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #000000), color-stop(1, #5d5d5d));
+  background: -moz-linear-gradient(center bottom, #000000 0%, #5d5d5d 100%);
+  background: -ms-linear-gradient(bottom, #000000 0%, #5d5d5d 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5d5d5d', endColorstr='#000000',GradientType=0);
+  color: #fff;
+}
+.feindura table.tableChart td.nokia.browser,
+.feindura table.tableChart td.Nokia.S60.OSS.Browser {
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #cbcbcb), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #cbcbcb 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #cbcbcb 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cbcbcb',GradientType=0);
+  color: #000000;
 }
 .feindura a.createBackup {
   display: inline-block;
@@ -5927,13 +6458,13 @@
   background-position: right 8px;
   width: 100%;
 }
-.feindura .block.listPages .block > h1 span > img {
-  position: relative;
-  top: -4px;
-}
 .feindura .block.listPages .block > h1:hover {
   background: none;
   filter: none;
+}
+.feindura .block.listPages .block > h1 img.blockH1Icon {
+  margin-left: 0px;
+  margin-right: 5px;
 }
 .feindura .block.listPages .block div.categoryHeader {
   z-index: 2;
@@ -6087,12 +6618,12 @@
 }
 .feindura .block.listPages div.listPagesHead {
   z-index: 0;
-  height: 50px;
-  margin-bottom: -20px;
+  height: 31px;
+  margin-bottom: 0px;
   padding: 5px 16px;
   border-top: 1px solid #d7943c;
   font-size: 15px;
-  line-height: 30px;
+  line-height: 32px;
   background: url("../images/bg/listPages_headBg.png") repeat-x;
   color: 3C5E91;
 }
@@ -6100,21 +6631,20 @@
   white-space: nowrap;
 }
 .feindura .block.listPages div.listPagesHead div.name input {
+  position: relative;
+  top: 2px;
   width: 170px;
   padding-right: 23px;
 }
 .feindura .block.listPages div.listPagesHead div.name a#listPagesFilterCancel {
   display: none;
   position: absolute;
-  top: 12px;
-  right: 15px;
+  top: 7px;
+  right: 5px;
   width: 18px;
   height: 18px;
-  background: url("../images/buttons/listPages_filterCancel.png") no-repeat;
-}
-.feindura .block.listPages div.listPagesHead div.name a#listPagesFilterCancel:hover,
-.feindura .block.listPages div.listPagesHead div.name a#listPagesFilterCancel:focus {
-  background-position: 1px -17px;
+  padding: 0;
+  background: url("../images/buttons/close_gray.png") no-repeat;
 }
 .feindura .block.listPages div.subCategoryArrowLine {
   position: absolute;
@@ -6330,4 +6860,148 @@
 }
 .feindura .block.pageHeader .formLeft span strong {
   color: #71A1BD !important;
+}
+.feindura input.searchSubmit {
+  position: relative;
+  display: inline-block;
+  top: -3px;
+  width: 50px;
+  height: 50px;
+  padding: 0px;
+  background: url("../images/buttons/form_search.png") no-repeat 0px 0px;
+}
+.feindura input.searchSubmit:hover,
+.feindura input.searchSubmit:focus {
+  background-position: 0px -50px;
+}
+.feindura .searchResults .resultHeadline {
+  z-index: 1;
+  position: relative;
+  font-size: 18px;
+  line-height: 20px;
+}
+.feindura .searchResults .matchingID {
+  position: relative;
+  font-weight: bold;
+  top: 5px;
+}
+.feindura .searchResults .keywords {
+  position: relative;
+  font-size: 15px;
+  top: 5px;
+}
+.feindura .searchResults .category {
+  color: #999;
+}
+.feindura .searchResults .description {
+  display: block;
+  font-style: italic;
+}
+.feindura .searchResults p {
+  margin-bottom: 0 !important;
+}
+.feindura a.createCategory {
+  position: relative;
+  display: block;
+  width: 75px;
+  height: 54px;
+  padding: 0;
+  float: right;
+  background: url("../images/buttons/pageSetup_createCategory.png") no-repeat 0px 0px;
+}
+.feindura a.createCategory:hover,
+.feindura a.createCategory:focus {
+  background-position: 0px -54px;
+}
+.feindura a.deleteCategory {
+  position: absolute;
+  display: block;
+  top: -10px;
+  right: 30px;
+  width: 75px;
+  height: 54px;
+  padding: 0;
+  float: right;
+  background: url("../images/buttons/pageSetup_deleteCategory.png") no-repeat 0px 0px;
+}
+.feindura a.deleteCategory:hover,
+.feindura a.deleteCategory:focus {
+  background-position: 0px -54px;
+}
+.feindura a.categoryUp {
+  position: absolute;
+  right: 63px;
+  display: block;
+  width: 43px;
+  height: 31px;
+  margin-top: -40px;
+  padding: 0;
+  background: url("../images/buttons/pageSetup_categoryUp.png") no-repeat 0px 0px;
+}
+.feindura a.categoryUp:hover,
+.feindura a.categoryUp:focus {
+  background-position: 0px -32px;
+}
+.feindura a.categoryDown {
+  position: absolute;
+  right: 63px;
+  display: block;
+  width: 43px;
+  height: 31px;
+  padding: 0;
+  background: url("../images/buttons/pageSetup_categoryDown.png") no-repeat 0px 0px;
+}
+.feindura a.categoryDown:hover,
+.feindura a.categoryDown:focus {
+  background-position: 0px -32px;
+}
+.feindura .thumbnailScale {
+  height: 10px;
+  border: 1px solid #BE8500;
+  border-top: 0px;
+  border-bottom: 0px;
+}
+.feindura .thumbnailScale > div {
+  position: relative;
+  top: 4px;
+  border-top: 1px solid #BE8500;
+}
+.feindura #thumbnailSizeBox {
+  display: block;
+  position: relative;
+  width: 670px;
+  margin-top: 5px;
+  padding: 15px;
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+  background-color: #f7f7f7;
+}
+.feindura a.createUser {
+  position: relative;
+  display: block;
+  width: 75px;
+  height: 54px;
+  padding: 0;
+  float: right;
+  background: url("../images/buttons/userSetup_createUser.png") no-repeat 0px 0px;
+}
+.feindura a.createUser:hover,
+.feindura a.createUser:focus {
+  background-position: 0px -54px;
+}
+.feindura a.deleteUser {
+  position: absolute;
+  top: -10px;
+  right: 30px;
+  display: block;
+  width: 75px;
+  height: 54px;
+  padding: 0;
+  float: right;
+  background: url("../images/buttons/userSetup_deleteUser.png") no-repeat 0px 0px;
+}
+.feindura a.deleteUser:hover,
+.feindura a.deleteUser:focus {
+  background-position: 0px -54px;
 }

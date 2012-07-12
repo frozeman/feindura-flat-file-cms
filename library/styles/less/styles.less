@@ -22,6 +22,7 @@
 
 // VARS
 @blockBorderRadius: 10px;
+@innerBlockColor: #fdfdfd;
 
 
 // FEINDURA CLASS
@@ -29,12 +30,13 @@
 // Will be add to the <html> in the backend and to each element containing feindura objects in the frontend.
 .feindura {
 
-    // LESS Elements are useful mixins for CSS3 effects
-    @import "elements.less";
-
 
     // .feindura class styles
     #transition > .duration(0);
+
+
+    // LESS Elements are useful mixins for CSS3 effects
+    @import "elements.less";
 
 
     // DELETE these LINES FROM the "bootstrap/less/variables.less", to allow these rules to apply
@@ -48,17 +50,19 @@
     @import "../bootstrap/less/bootstrap.less";
 
 
+
+    // THIRDPARTY FIXES
+    // ================
+    // Add thirdparty fixes (like for CKEditor, CodeMirror, etc)
+    // Have to be outside the feindura class, so the CKEditor fullscreen works
+    @import "thirdpartyFixes.less";
+
+
+
     // GENERAL
     // =======
     // Contains the main variables and other general elements
     @import "general.less";
-
-
-    // THIRDPARTY FIXES
-    // ================
-    // add thirdparty fixes (like for CKEditor, CodeMirror, etc)
-    @import "thirpartyFixes.less";
-
 
     // LAYOUT
     // ======
@@ -93,5 +97,14 @@
 
     // EDITOR
     @import "page_editor.less";
+
+    // SEARCH
+    @import "page_search.less";
+
+    // PAGE SETUP
+    @import "page_pageSetup.less";
+
+    // USER SETUP
+    @import "page_userSetup.less";
 
 }

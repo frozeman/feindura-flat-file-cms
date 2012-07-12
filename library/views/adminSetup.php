@@ -66,7 +66,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$GLOBALS['adminConfig']['url']);
         $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$_SERVER["SERVER_NAME"]);
         ?>
-        <input id="cfg_url" name="cfg_url"<?php if($baseUrl != $checkUrl) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>">
+        <input type="text" id="cfg_url" name="cfg_url"<?php if($baseUrl != $checkUrl) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>">
       </div>
     </div>
 
@@ -79,7 +79,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php
         $checkPath = GeneralFunctions::URI2Path(GeneralFunctions::getDirname($_SERVER['PHP_SELF']));
         ?>
-        <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field2_inputTip']; ?>">
+        <input type="text" id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field2_inputTip']; ?>">
       </div>
     </div>
 
@@ -89,8 +89,8 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php echo $langFile['ADMINSETUP_GENERAL_field8'] ?></span></label>
       </div>
       <div class="span5">
-        <input id="cfg_websitePath" name="cfg_websitePath" value="<?php echo $adminConfig['websitePath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
-        <span class="hint toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        <input type="text" id="cfg_websitePath" name="cfg_websitePath" value="<?php echo $adminConfig['websitePath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
+        <span class="badge badge-warning toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </div>
     </div>
 
@@ -100,8 +100,8 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php echo $langFile['ADMINSETUP_GENERAL_field4'] ?></span></label>
       </div>
       <div class="span5">
-        <input id="cfg_uploadPath" name="cfg_uploadPath" value="<?php echo $adminConfig['uploadPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
-        <span class="hint toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        <input type="text" id="cfg_uploadPath" name="cfg_uploadPath" value="<?php echo $adminConfig['uploadPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
+        <span class="badge badge-warning toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </div>
     </div>
 
@@ -111,8 +111,8 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php echo $langFile['ADMINSETUP_GENERAL_field6'] ?></span></label>
       </div>
       <div class="span5">
-        <input id="cfg_stylesheetPath" name="cfg_stylesheetPath" value="<?php echo $adminConfig['stylesheetPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
-        <span class="hint toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        <input type="text" id="cfg_stylesheetPath" name="cfg_stylesheetPath" value="<?php echo $adminConfig['stylesheetPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
+        <span class="badge badge-warning toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </div>
     </div>
 
@@ -122,8 +122,8 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php echo $langFile['ADMINSETUP_GENERAL_field5'] ?></span></label>
       </div>
       <div class="span5">
-        <input id="cfg_websiteFilesPath" name="cfg_websiteFilesPath" value="<?php echo $adminConfig['websiteFilesPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
-        <span class="hint toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        <input type="text" id="cfg_websiteFilesPath" name="cfg_websiteFilesPath" value="<?php echo $adminConfig['websiteFilesPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
+        <span class="badge badge-warning toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </div>
     </div>
 
@@ -211,7 +211,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
           <option value="true"<?php if($adminConfig['speakingUrl'] == 'true') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_true'].' -> '.$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'];?></option>
           <option value=""<?php if($adminConfig['speakingUrl'] == '') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_false'].' -> '.sprintf($langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'],$adminConfig['varName']['category'],$adminConfig['varName']['page']);?></option>
         </select>
-        <!-- <span class="hint">
+        <!-- <span class="badge badge-warning">
         <?php
           echo '<strong>'.$langFile['TEXT_EXAMPLE'].':</strong> ';
 
@@ -235,7 +235,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php echo $langFile['ADMINSETUP_GENERAL_varName1'] ?></span></label>
       </div>
       <div class="span5">
-        <input id="cfg_varNamePage" name="cfg_varNamePage" value=<?php echo '"'.$adminConfig['varName']['page'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName1'].'::'.$langFile['ADMINSETUP_GENERAL_varName1_inputTip']; ?>">
+        <input type="text" id="cfg_varNamePage" name="cfg_varNamePage" value=<?php echo '"'.$adminConfig['varName']['page'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName1'].'::'.$langFile['ADMINSETUP_GENERAL_varName1_inputTip']; ?>">
       </div>
     </div>
 
@@ -245,7 +245,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php echo $langFile['ADMINSETUP_GENERAL_varName2'] ?></span></label>
       </div>
       <div class="span5">
-        <input id="cfg_varNameCategory" name="cfg_varNameCategory" value=<?php echo '"'.$adminConfig['varName']['category'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName2'].'::'.$langFile['ADMINSETUP_GENERAL_varName2_inputTip']; ?>">
+        <input type="text" id="cfg_varNameCategory" name="cfg_varNameCategory" value=<?php echo '"'.$adminConfig['varName']['category'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName2'].'::'.$langFile['ADMINSETUP_GENERAL_varName2_inputTip']; ?>">
       </div>
     </div>
 
@@ -256,7 +256,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php echo $langFile['ADMINSETUP_GENERAL_varName3'] ?></span></label>
       </div>
       <div class="span5">
-        <input id="cfg_varNameModul" name="cfg_varNameModul" value=<?php echo '"'.$adminConfig['varName']['modul'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName3'].'::'.$langFile['ADMINSETUP_GENERAL_varName3_inputTip']; ?>">
+        <input type="text" id="cfg_varNameModul" name="cfg_varNameModul" value=<?php echo '"'.$adminConfig['varName']['modul'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName3'].'::'.$langFile['ADMINSETUP_GENERAL_varName3_inputTip']; ?>">
       </div>
     </div>
         -->
@@ -278,7 +278,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="number" step="0.5" id="cfg_cacheTimeout" name="cfg_cacheTimeout" value=<?php echo '"'.$adminConfig['cache']['timeout'].'"'; ?> class="inputToolTip short" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'].'::'.$langFile['ADMINSETUP_TIP_CACHETIMEOUT']; ?>"><span class="hint"><?php echo $langFile['ADMINSETUP_HINT_CACHETIMEOUT']; ?></span>
+        <input type="number" step="0.5" id="cfg_cacheTimeout" name="cfg_cacheTimeout" value=<?php echo '"'.$adminConfig['cache']['timeout'].'"'; ?> class="inputToolTip short" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'].'::'.$langFile['ADMINSETUP_TIP_CACHETIMEOUT']; ?>"><span class="badge badge-warning"><?php echo $langFile['ADMINSETUP_HINT_CACHETIMEOUT']; ?></span>
       </div>
     </div>
 
@@ -332,6 +332,8 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
       </div>
     </div>
 
+    <div class="spacer"></div>
+
     <div class="row">
       <div class="span3 formLeft">
         <label for="cfg_editorEnterMode"><span class="toolTip" title="::<?php echo $langFile['adminSetup_editorSettings_field1_tip'] ?>">
@@ -345,9 +347,11 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         <?php
         $enterMode = ($adminConfig['editor']['enterMode'] == 'p') ? '&lt;br&gt;': '&lt;p&gt;';
         ?>
-        &nbsp;<span class="hint"><?php echo sprintf($langFile['adminSetup_editorSettings_field1_hint'],'<span id="enterModeOpposite" style="font-weight:bold;">'.$enterMode.'</span>'); ?></span>
+        <div class="alert"><?php echo sprintf($langFile['adminSetup_editorSettings_field1_hint'],'<span id="enterModeOpposite" style="font-weight:bold;">'.$enterMode.'</span>'); ?></div>
       </div>
     </div>
+
+    <div class="spacer"></div>
 
     <div class="row">
       <div class="span3 formLeft">
@@ -363,7 +367,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         ?>
         </div>
         <a href="#" class="addStyleFilePath addButton toolTip" style="margin-right: 10px;float:left;" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
-        <span class="hint" style="margin-top: 10px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
+        <span class="badge" style="position:relative; top: 8px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
       </div>
     </div>
 
@@ -373,7 +377,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         <?php echo $langFile['STYLESHEETS_TEXT_ID'] ?></span></label>
       </div>
       <div class="span5">
-        <input id="cfg_editorStyleId" name="cfg_editorStyleId" class="inputToolTip" value="<?php echo $categoryConfig[0]['styleId']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field3_inputTip']; ?>">
+        <input type="text" id="cfg_editorStyleId" name="cfg_editorStyleId" class="inputToolTip" value="<?php echo $categoryConfig[0]['styleId']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field3_inputTip']; ?>">
       </div>
     </div>
 
@@ -383,7 +387,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         <?php echo $langFile['STYLESHEETS_TEXT_CLASS'] ?></span></label>
       </div>
       <div class="span5">
-        <input id="cfg_editorStyleClass" name="cfg_editorStyleClass" class="inputToolTip" value="<?php echo $categoryConfig[0]['styleClass']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field4_inputTip']; ?>">
+        <input type="text" id="cfg_editorStyleClass" name="cfg_editorStyleClass" class="inputToolTip" value="<?php echo $categoryConfig[0]['styleClass']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field4_inputTip']; ?>">
       </div>
     </div>
 
@@ -417,7 +421,9 @@ if(!empty($adminConfig['websiteFilesPath']))
 <?php if($adminConfig['editor']['editorStyles']) { ?>
 <!-- EDIT editor-styles -->
 <form action="index.php?site=adminSetup#fckstyleFileAnchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<div><input type="hidden" name="saveFckStyleFile" value="true"></div>
+<div>
+  <input type="hidden" name="saveFckStyleFile" value="true">
+</div>
 <?php
 
 $htmlEditorStyleFilePath = "config/EditorStyles.js";
@@ -460,10 +466,11 @@ $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#" id="fckstyleFileAnchor"><?php echo $langFile['adminSetup_styleFileSettings_h1']; ?></a></h1>
   <div class="content">
-    <span style="font-size:10px">&nbsp;&nbsp;Details: <a href="http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Styles" target="_blank">http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Styles</a></span>
+    <div class="alert">
+      Details: <a href="http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Styles" target="_blank">http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Styles</a>
+    </div>
     <textarea name="fckStyleFile" cols="90" rows="30" spellcheck="false" class="editFiles js" id="fckStyleFile"><?php echo $htmlEditorStyleContent; ?></textarea>
     <br><br>
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
     <input type="submit" value="" name="saveFckStyles" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
   </div>
 </div>

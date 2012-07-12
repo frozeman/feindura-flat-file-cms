@@ -30,9 +30,10 @@
 *
 * @package [Backend]
 *
-* @version 1.1
+* @version 1.2
 * <br>
 * <b>ChangeLog</b><br>
+*    - 1.2 fixed search word pattern
 *    - 1.1 add localization and $language + $searchAllLanguages property
 *    - 1.0 initial release
 *
@@ -268,12 +269,12 @@ class Search {
     	$priority = 0;
 
       // generate search pattern
-      $pattern = str_replace($changeChars,'|',$searchwords);
-      $pattern = trim($searchwords,'|');
-      $pattern = XssFilter::text($searchwords);
-      $pattern = preg_quote($searchwords); // escape regex pattern
+      $pattern = preg_replace('# +#', ' ', $searchwords);
+      $pattern = preg_quote($pattern); // escape regex pattern
+      $pattern = str_replace($changeChars,'|',$pattern);
+      $pattern = trim($pattern,'|');
+      $pattern = XssFilter::text($pattern);
       $pattern = ($pattern != '') ? '#'.$pattern.'#i' : '#a^#';
-
 
 
       // ->> GET LANGUAGE ot SEARCH

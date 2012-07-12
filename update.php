@@ -868,6 +868,33 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/images/bg/content_block_table_left_middle.png';
     $deleteFiles[] = 'library/images/bg/content_block_table_left_top.png';
     $deleteFiles[] = 'library/images/bg/listPages_pageBar.png';
+    $deleteFiles[] = 'library/images/bg/listPages_filterCancel.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_amaya.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_android.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_blackberry.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_chrome.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_firefox.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_galeon.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_icab.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_icecat.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_ie_old.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_ie.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_ipad.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_iphone.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_ipod.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_konqueror.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_lynx.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_mozilla.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_netpositive.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_netscape.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_nokia.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_omniweb.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_opera_mini.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_opera.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_others.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_phoenix.png';
+    $deleteFiles[] = 'library/images/bg/browserBg_safari.png';
+
 
     // CHECK if files could be deleted
     $checkFiles = array();

@@ -27,9 +27,9 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 ?>
 <a id="editorAnchor" class="anchorTarget"></a>
 <div class="block editor">
-<textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
-<?php echo htmlspecialchars(GeneralFunctions::getLocalized($pageContent,'content',true),ENT_NOQUOTES,'UTF-8'); ?>
-</textarea>
+  <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
+    <?php echo htmlspecialchars(GeneralFunctions::getLocalized($pageContent,'content',true),ENT_NOQUOTES,'UTF-8'); ?>
+  </textarea>
 <?php
 
 // -> CHOOSES the RIGHT EDITOR ID and/or CLASS

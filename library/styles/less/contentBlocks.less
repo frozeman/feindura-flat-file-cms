@@ -3,6 +3,9 @@
 //
 // Published under the GNU General Public License
 
+// vars
+@blockContentPadding: 20px;
+
 .block {
     z-index: 1;
     position: relative;
@@ -12,27 +15,35 @@
     padding: 0;
     overflow: visible;
     #shadow > .drop(0,0,5px,0.2);
-    #border > .rounded(@blockBorderRadius);
+    // #border > .rounded(@blockBorderRadius);
+    #border > .radius(@blockBorderRadius,0,0,@blockBorderRadius);
 
     &.hidden {
         display: block; // overwrites the class .hidden in general.less
-        #shadow > .none();
+        // #shadow > .none();
     }
     &:hover {
         #shadow > .drop(0,0,5px,0.2);
     }
 
+    // content wrapper div
+    > div {
+        z-index: 1;
+    }
+
     .content {
+        z-index: 1;
         position: relative;
         width: @gridRowWidth;
         margin: 0;
-        padding: 20px 20px; // content size is 800 - 40 = 760px
-        padding-top: 10px;
+        padding: @blockContentPadding; // content size is 800 - 40 = 760px
+        // padding-top: 10px;
         overflow: hidden;
     }
 
 
     > h1 {
+        z-index: 2;
         padding: 0;
         padding-bottom: 2px;
         min-height: 35px;
@@ -40,8 +51,10 @@
         font-size: 18px;
         line-height: 26px;
         border: 1px solid #fff;
-        #border > .rounded(@blockBorderRadius);
+        // #border > .rounded(@blockBorderRadius);
+        #border > .radius(@blockBorderRadius,0,0,@blockBorderRadius);
         #gradient > .vertical(#fff,#fff,#f0f0f0,0,1);
+        #shadow > .drop(0,1px,4px,0.2);
 
         > span {
             max-width: 695px;
@@ -57,12 +70,13 @@
         img {
             position: relative;
             top: -1px;
-            vertical-align: top;
+            left: 2px;
         }
         img.blockH1Icon {
-            position: relative;
-            top: 6px;
-            left: 2px;
+            top: -3px;
+            vertical-align: top;
+            margin-left: -10px;
+            margin-right: 8px;
         }
 
         // HEADER LINKS
@@ -88,10 +102,10 @@
         }
     }
     &.hidden > h1 {
-        #gradient > .none();
+        // #gradient > .none();
     }
     &:hover > h1{
-        #gradient > .vertical(#fff,#fff,#f0f0f0,0,1);
+        // #gradient > .vertical(#fff,#fff,#f0f0f0,0,1);
 
         > span {
             max-width: 695px;
@@ -237,12 +251,24 @@
         }
     }
 
+    // PLAIN BLOCK
+    &.plain {
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        .content {
+            padding: 0 @blockContentPadding;
+            overflow: visible;
+        }
+    }
+
     // INNER BLOCKS
 
     .innerBlock {
         #shadow > .inner(0,0,5px,0.3);
         #border > .rounded(10px);
         padding: 20px;
+        background-color: @innerBlockColor;
 
         @innerBlockMargin: -14px;
         @innerBlockRoundBorder: 6px;
@@ -278,6 +304,14 @@
         }
     }
 
+    .inBlockFrame {
+        #shadow > .inner(0,0,5px,0.3);
+        #border > .rounded(10px);
+        padding: 10px;
+        margin: -10px;
+        background-color: @innerBlockColor;
+    }
+
 
     // FORM SPANS
     .form {
@@ -292,10 +326,11 @@
         input {
             margin: 1px 0;
         }
-        input, textarea, select {
+        input, textarea {
             width: 70%;
         }
         label {
+            display: inline-block;
             width: auto;
         }
     }

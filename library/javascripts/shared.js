@@ -11,7 +11,7 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
-    
+
 *
 *
 * shared.php version 0.1 (requires raphael)  */
@@ -26,7 +26,7 @@ function feindura_loadingCircle(holderid, R1, R2, count, stroke_width, colour) {
         cx = r2 + width,
         cy = r2 + width,
         r = Raphael(holderid, r2 * 2 + width * 2, r2 * 2 + width * 2),
-        
+
         sectors = [],
         opacity = [],
         beta = 2 * Math.PI / sectorsCount,
@@ -82,14 +82,14 @@ function feindura_displayError(title,errorText) {
   errorWindowContent.grab(errorWindowOkButton);
   errorWindow.grab(errorWindowContent);
   errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));
-  
+
   // add functionality to the ok button
   errorWindowOkButton.addEvent('click',feindura_closeErrorWindow);
   document.addEvent('keypress',function(e){
     if(e.key == 'esc' || e.key == 'enter')
       feindura_closeErrorWindow(e);
   });
-  
+
   return errorWindow;
 }
 function feindura_closeErrorWindow(e) {
@@ -106,14 +106,14 @@ function feindura_storeTipTexts(elements) {
 
     if(element.get('title')) {
       var content = element.get('title').split('::');
-		
+
       // converts "[" , "]" in "<" , ">"  but BEFORE it changes "<" and ">" in "&lt;","&gt;"
       if(content[1])
         content[1] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[1]);
 
       if(content[0])
         content[0] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[0]);
-      
+
       element.store('tip:title', content[0]);
       element.store('tip:text', content[1]);
     }

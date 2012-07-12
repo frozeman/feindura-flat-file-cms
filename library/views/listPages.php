@@ -30,7 +30,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 <div class="listPagesHead">
   <div class="row">
-    <div class="span4 left name"><?php echo $langFile['SORTABLEPAGELIST_headText1']; ?> <input type="text" value="" id="listPagesFilter" autofocus="autofocus"><a href="#" id="listPagesFilterCancel"></a></div>
+    <div class="span4 left name"><label style="font-size:inherit; position:relative; display: inline-block;"><?php echo $langFile['SORTABLEPAGELIST_headText1']; ?> <input type="text" value="" id="listPagesFilter" autofocus="autofocus"><a href="#" id="listPagesFilterCancel"></a></label></div>
     <div class="span1 center">
       <?php echo $langFile['SORTABLEPAGELIST_headText3']; ?>
     </div>
@@ -81,9 +81,9 @@ foreach($categoryConfig as $category) {
 
   // shows the text of the sorting of a CATEGORY
   if($category['sorting'] == 'byPageDate')
-    $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23">';
+    $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23">';
   elseif($category['sorting'] == 'alphabetical')
-    $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="blockH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23">';
+    $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23">';
   else
     $sorting = '';
 
@@ -132,7 +132,7 @@ foreach($categoryConfig as $category) {
   // -> CATEGORY HEADLINE
   echo "\n\n".'<div class="block open listPagesBlock'.$hidden.'">';
   	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
-    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="'.$categoryName.'::'.$categoryClass.$categoryTitle.'"><img src="'.$categoryIcon.'" alt="category icon" width="35" height="35"> '.$categoryName.'</span> '.$sorting.'</a></h1>
+    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="'.$categoryName.'::'.$categoryClass.$categoryTitle.'"><img src="'.$categoryIcon.'" class="blockH1Icon" alt="category icon" width="35" height="35"> '.$categoryName.'</span> '.$sorting.'</a></h1>
           <div class="categoryHeader">';
 
       // CATEGORY STATUS

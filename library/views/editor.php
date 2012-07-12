@@ -81,20 +81,20 @@ $titleIsEditable = (!$newPage)
 
 // -> show NEWPAGE ICON
 if($newPage) {
-  $newPageIcon = '<img src="library/images/icons/newPageIcon_middle.png" width="33" height="30" alt="icon">';
+  $newPageIcon = '<img src="library/images/icons/newPageIcon_middle.png" class="blockH1Icon" width="33" height="30" alt="icon">';
 }
 
 // -> checks for startpage, and show STARTPAGE ICON
 if($websiteConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
-  $startPageIcon = '<img src="library/images/icons/startPageIcon_middle.png" width="33" height="30" alt="icon">';
+  $startPageIcon = '<img src="library/images/icons/startPageIcon_middle.png" class="blockH1Icon" width="33" height="30" alt="icon">';
   $startPageTitle = ' toolTip" title="'.$langFile['SORTABLEPAGELIST_functions_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }
 
 // shows the text of the sorting of a CATEGORY
 if($categoryConfig[$_GET['category']]['sorting'] == 'byPageDate')
-  $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23">';
+  $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23">';
 elseif($categoryConfig[$_GET['category']]['sorting'] == 'alphabetical')
-  $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="blockH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23">';
+  $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23">';
 else
   $sorting = '';
 
@@ -301,7 +301,7 @@ $hidden = '';
         <?php echo $langFile['EDITOR_pageSettings_title'] ?></span></label>
       </div>
       <div class="span5">
-        <input id="edit_title" name="title" value="<?php echo str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent,'title',true)); ?>"<?php echo $autofocus; ?> class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">
+        <input type="text" id="edit_title" name="title" value="<?php echo str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent,'title',true)); ?>"<?php echo $autofocus; ?> class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">
       </div>
     </div>
 
@@ -358,7 +358,7 @@ $hidden = '';
           <?php
           $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent,'pageDate',true);
           ?>
-          <input name="pageDate[before]" id="pageDate[before]" value="<?php echo $pageDateBeforeAfter['before']; ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;">
+          <input type="text" name="pageDate[before]" id="pageDate[before]" value="<?php echo $pageDateBeforeAfter['before']; ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;">
 
           <?php
 
@@ -403,7 +403,7 @@ $hidden = '';
           else
             $year = null;
 
-          $pageDateTags['year'] = '<input class="short toolTip" name="pageDate[year]" title="'.$langFile['EDITOR_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4">'."\n";
+          $pageDateTags['year'] = '<input type="number" step="1" class="short toolTip" name="pageDate[year]" title="'.$langFile['EDITOR_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4">'."\n";
 
           // -> SHOWS the PAGE DATE INPUTS
           switch ($adminConfig['dateFormat']) {
@@ -424,7 +424,7 @@ $hidden = '';
 
           ?>
 
-          <input name="pageDate[after]" value="<?php echo $pageDateBeforeAfter['after']; ?>" class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_after_inputTip']; ?>" style="width:122px;">
+          <input type="number" step="1" name="pageDate[after]" value="<?php echo $pageDateBeforeAfter['after']; ?>" class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_after_inputTip']; ?>" style="width:122px;">
       </div>
     </div>
 
@@ -440,7 +440,7 @@ $hidden = '';
         <?php echo $langFile['EDITOR_pageSettings_field2'] ?></span></label>
       </div>
       <div class="span5">
-          <input id="edit_tags" name="tags" class="inputToolTip" style="width:492px;" value="<?php echo GeneralFunctions::getLocalized($pageContent,'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>">
+          <input type="text" id="edit_tags" name="tags" class="inputToolTip" style="width:492px;" value="<?php echo GeneralFunctions::getLocalized($pageContent,'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>">
       </div>
     </div>
     <?php } ?>
@@ -522,13 +522,13 @@ if(is_array($activatedPlugins) && count($activatedPlugins) >= 1) {
 // shows the block below if it is the ones which is saved before
 $hidden = ($newPage || $savedForm == 'pluginSettings') ? '' : ' hidden';
 $blockContentEdited = (isset($pageContent['plugins']))
-  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['EDITOR_pluginSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" width="27" height="23">'
+  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="toolTip" title="'.$langFile['EDITOR_pluginSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" width="27" height="23">'
   : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><?php echo $langFile['EDITOR_pluginSettings_h1'].$blockContentEdited; ?></a></h1>
   <div class="content form">
-    <p><?php echo sprintf($langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR'],'<a href="#editorAnchor" class="icon codeSnippets"></a>'); ?></p>
+    <p><?php echo sprintf($langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR'],'<a href="#editorAnchor" class="icons codeSnippets"></a>'); ?></p>
     <!-- <div class="verticalSeparator"></div> --><br><br>
       <?php
 
@@ -856,7 +856,7 @@ $hidden = ($savedForm == 'advancedPageSettings') ? '' : ' hidden';
 $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['styleFile'] != 'a:0:{}') ||
                        (!empty($pageContent['styleId']) &&  $pageContent['styleId'] != 'a:0:{}') ||
                        (!empty($pageContent['styleClass']) && $pageContent['styleClass'] != 'a:0:{}'))
-  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" style="width:27px;height:23px;">'
+  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="toolTip" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" style="width:27px;height:23px;">'
   : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
@@ -876,7 +876,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
         ?>
         </div>
         <a href="#" class="addStyleFilePath addButton toolTip" style="margin-right: 10px;float:left;" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
-        <span class="hint" style="margin-top: 10px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
+        <span class="badge" style="position:relative; top: 8px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
       </div>
     </div>
 
@@ -885,7 +885,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
         <span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_ID'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_ID']; ?></span>
       </div>
       <div class="span5">
-        <input name="styleId" value="<?php echo getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
+        <input type="text" name="styleId" value="<?php echo getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
       </div>
     </div>
 
@@ -894,7 +894,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
         <span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
       </div>
       <div class="span5">
-        <input name="styleClass" value="<?php echo getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
+        <input type="text" name="styleClass" value="<?php echo getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
       </div>
     </div>
 

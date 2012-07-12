@@ -35,17 +35,21 @@
             padding: 5px 20px;
         }
 
-        > h1 > a {
-            margin-left: -35px;
-            background-position: right 8px; // overwrites the slide in link in contentBlock.less
-            width: 100%;
-        }
-        > h1 span > img {
-            position: relative;
-            top: -4px;
-        }
-        > h1:hover {
-            #gradient > .none();
+        > h1 {
+            > a {
+                margin-left: -35px;
+                background-position: right 8px; // overwrites the slide in link in contentBlock.less
+                width: 100%;
+            }
+
+            &:hover {
+                #gradient > .none();
+            }
+
+            img.blockH1Icon {
+                margin-left: 0px;
+                margin-right: 5px;
+            }
         }
 
         // CATEGORY HEADER
@@ -207,12 +211,12 @@
     // LISTPAGES HEADER
     div.listPagesHead {
         z-index: 0;
-        height: 50px;
-        margin-bottom: -20px;
+        height: 31px;
+        margin-bottom: 0px;
         padding: 5px @gridGutterWidth;
         border-top: 1px solid @colorBrown;
         font-size: 15px;
-        line-height: 30px;
+        line-height: 32px;
         background: url("../images/bg/listPages_headBg.png") repeat-x;
         color:3C5E91;
 
@@ -222,6 +226,8 @@
 
         div.name {
             input {
+                position: relative;
+                top: 2px;
                 width: 170px;
                 padding-right: 23px;
             }
@@ -229,16 +235,12 @@
             a#listPagesFilterCancel {
                 display: none;
                 position: absolute;
-                top: 12px;
-                right: 15px;
+                top: 7px;
+                right: 5px;
                 width: 18px;
                 height: 18px;
-                background: url("../images/buttons/listPages_filterCancel.png") no-repeat;
-
-                &:hover,
-                &:focus {
-                    background-position: 1px -17px;
-                }
+                padding: 0;
+                background: url("../images/buttons/close_gray.png") no-repeat;
             }
         }
     }

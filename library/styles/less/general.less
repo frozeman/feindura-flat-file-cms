@@ -55,11 +55,30 @@ a.gray:hover, a.gray:focus {
     text-align: right;
 }
 
+
+[class^="spacer"] {
+    clear: both;
+}
 .spacer {
     height: @gridGutterWidth;
 }
 .spacer2x {
     height: @gridGutterWidth * 2;
+}
+.spacer4x {
+    height: @gridGutterWidth * 4;
+}
+.spacerH1 {
+    height: 40px;
+}
+.spacerH2 {
+    height: 40px;
+}
+.spacerH3 {
+    height: 60px;
+}
+.spacerH4 {
+    height: 48px;
 }
 
 div.blockSpacer {
@@ -68,6 +87,52 @@ div.blockSpacer {
     height: 28px;
     margin: 25px -8px;
     background: url("../images/bg/content_blockSpacer.png") no-repeat;
+}
+
+// mark tooltip text
+.toolTip,
+input.toolTip[type=checkbox] {
+    cursor: help;
+}
+input.toolTip,
+textarea.toolTip {
+    cursor: text;
+}
+input.button.toolTip,
+a.toolTip {
+    cursor: pointer;
+}
+span.toolTip:not(.badge),
+label.toolTip {
+    background: url("../images/icons/hint_toolTipInfo.png") no-repeat right center;
+    padding-right: 15px;
+}
+span.toolTip.noMark {
+    background: none;
+    padding-right: 0;
+    cursor: auto;
+}
+
+span.warning {
+    display: inline-block;
+    padding: 3px 0px;
+    padding-left: 20px;
+    background: url("../images/icons/warning.gif") no-repeat 0px 7px !important;
+    font-size: 12px;
+    color: #990000;
+}
+
+span.hint {
+    display: inline-block;
+    padding-left: 16px;
+    background: url("../images/icons/hint_toolTipInfo.png") no-repeat;
+    background-position: 0px 4px;
+    font-size: 12px;
+    color: #947342;
+}
+
+div.alert {
+    #shadow > .drop(0,1px,4px,0.1);
 }
 
 
@@ -95,9 +160,18 @@ hr {
     }
 }
 
-span.hint {
-    background-position: 0px 4px !important;
+label,
+label span {
+  cursor: pointer !important;
 }
+
+h1 {
+    font-size: 20px;
+}
+h2 {
+    font-size: 18px;
+}
+
 
 // LINKS
 
@@ -384,11 +458,42 @@ div.leftSidebarLoadingCircle {
 }
 
 div.smallLoadingCircle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 50px;
-  height: 20px;
-  margin-top: -15px;
-  margin-left: -15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 20px;
+    margin-top: -15px;
+    margin-left: -15px;
+}
+
+
+// FORMS
+
+input.short {
+    width: 70px !important;
+    text-align: center;
+}
+
+textarea {
+    // line-height: 20px;
+}
+
+// autogrow
+textarea.autogrow {
+  overflow-y: hidden;
+  resize: none;
+  #transition > .property(height,100ms, ease-out)
+}
+
+select[multiple="multiple"] {
+    width: 250px;
+    max-height: 150px;
+    vertical-align: top;
+    border-color: #ccc;
+    background: #fdfdfd;
+    font-size: 16px;
+    font-family: Calibri, Helvetica, Sans-Serif;
+    #border > .rounded(5px);
+    #shadow > .inner(0,0,5px,0.2);
 }

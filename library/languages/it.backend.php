@@ -268,7 +268,7 @@ $langFile['ERROR_FOLDER_PART2']                                           = '&qu
 
 // -> WARNINGS
 $langFile['WARNING_TITLE_STARTPAGE']                                      = 'La pagina iniziale non è impostata!';
-$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Si prega di impostare una pagina come pagina iniziale.<br>Vai a <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> e fare clic sull\' <span class="icon startpage"></span> icona della pagina desiderata.';
+$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Si prega di impostare una pagina come pagina iniziale.<br>Vai a <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> e fare clic sull\' <span class="icons startpage"></span> icona della pagina desiderata.';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'La root del documento non può essere risolta automaticamente!';
 $langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Per risolvere correttamente la root del documento, andare su <a href="?site=adminSetup#adminSettings">impostazioni-amministratore</a> e settare il &quot;percorso reale&quot; del tuo <span class="feinduraName">fein<span>dura</span></span> CMS manualmente.';

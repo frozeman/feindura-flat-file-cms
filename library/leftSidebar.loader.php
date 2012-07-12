@@ -42,7 +42,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       $hidden = ' hidden';
 
     echo '<div class="sidebarMenu fixed brown'.$hidden.'">
-    <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
+    <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
     <div class="menuWrapper">
       <menu class="vertical">';
 
@@ -83,7 +83,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       else $hidden = '';
 
       echo '<div class="sidebarMenu free blue'.$hidden.'">
-      <div class="top"><img src="library/images/icons/categoryIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
+      <div class="top"><img src="library/images/icons/categoryIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
       <div class="menuWrapper">
         <menu class="vertical">';
 
@@ -117,7 +117,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       echo '<div class="spacer arrow"></div>';
 
       echo '<div class="sidebarMenu free gray">
-      <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</span><a href="#" class="toolTip" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'::">&nbsp;</a></div>
+      <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</span><a href="#" class="toolTip" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'::">&nbsp;</a></div>
       <div class="menuWrapper">
         <menu class="vertical">';
 
@@ -245,7 +245,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       if(!empty($categoryConfig) && is_array($categoryConfig)) {
 
         echo '<div class="sidebarMenu fixed blue">
-            <div class="top"><img src="library/images/icons/categoryIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
+            <div class="top"><img src="library/images/icons/categoryIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
             <div class="menuWrapper">
               <menu class="vertical">';
 
@@ -299,7 +299,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       if(!empty($userConfig) && is_array($userConfig)) {
 
         echo '<div class="sidebarMenu fixed gray">
-            <div class="top"><img src="library/images/icons/userIcon_middle.png" class="icon" alt="icon" width="35" height="35"><span>'.$langFile['USERSETUP_userSelection'].'</span><a href="#">&nbsp;</a></div>
+            <div class="top"><img src="library/images/icons/userIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['USERSETUP_userSelection'].'</span><a href="#">&nbsp;</a></div>
             <div class="menuWrapper">
               <menu class="vertical">';
 

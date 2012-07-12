@@ -1908,10 +1908,10 @@ function showStyleFileInputs($styleFiles,$inputNames) {
      $styleFiles != 'a:0:{}' &&
      ($styleFileInputs = unserialize($styleFiles)) !== false) {
     foreach($styleFileInputs as $styleFileInput) {
-      $return .= '<input name="'.$inputNames.'[]" value="'.$styleFileInput.'">';
+      $return .= '<input type="text" name="'.$inputNames.'[]" value="'.$styleFileInput.'">';
     }
   } else
-    $return = '<input class="noResize" name="'.$inputNames.'[]" value="">';
+    $return = '<input type="text" class="noResize" name="'.$inputNames.'[]" value="">';
 
   // return the result
   return $return;
@@ -2249,18 +2249,20 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
 
   echo '<form action="index.php?site='.$_GET['site'].'#'.$anchorName.'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
         <div>
-        <input type="hidden" name="send" value="saveEditedFiles">
-        <input type="hidden" name="status" value="'.$status.'">
-        <input type="hidden" name="filesPath" value="'.$filesPath.'">';
-  if($fileType)
-    echo '<input type="hidden" name="fileType" value=".'.$fileType.'">';
+          <input type="hidden" name="send" value="saveEditedFiles">
+          <input type="hidden" name="status" value="'.$status.'">
+          <input type="hidden" name="filesPath" value="'.$filesPath.'">';
+          if($fileType)
+            echo '<input type="hidden" name="fileType" value=".'.$fileType.'">';
   echo '</div>';
 
   echo '<a href="#" id="'.$anchorName.'" class="anchorTarget"></a>';
 
   echo '<div class="block'.$hidden.'">
           <h1><a href="#">'.$titleText.'</a></h1>
-          <div class="content editFiles"><br>';
+          <div class="content editFiles">';
+
+    echo '<div class="spacer"></div>';
 
   //echo $filesPath.'<br>';
   // gets the files out of the directory --------------
@@ -2329,41 +2331,53 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
     $editFile = str_replace($filesPath,'',$files[0]);
   }
 
+  echo '<div class="row">';
+
+
   // ->> CHECK DIR
   if($isDir) {
 
+
     // FILE SELECTION ------------------------------------
     if($isFiles && isset($files)) {
-      echo '<div class="editFiles left">
-            <h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CHOOSEFILE'].'</h2>
-            <input value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'">'."\n";
-      echo '<select onchange="changeEditFile(\''.$_GET['site'].'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
 
-            // listet die Dateien aus dem Ordner als Mehrfachauswahl auf
-            foreach($files as $cFile) {
-              $onlyFile = str_replace($filesPath,'',$cFile);
-              if($editFile == $onlyFile)
-                echo '<option value="'.$onlyFile.'" selected="selected">'.$onlyFile.'</option>'."\n";
-              else
-                echo '<option value="'.$onlyFile.'">'.$onlyFile.'</option>'."\n";
-            }
-      echo '</select></div>'."\n\n";
+      echo '<div class="span5">';
+        //<div class="editFiles left">
+        echo '<h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CHOOSEFILE'].'</h2>
+              <input type="text" value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'">'."\n";
+        echo '<select onchange="changeEditFile(\''.$_GET['site'].'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
+
+              // listet die Dateien aus dem Ordner als Mehrfachauswahl auf
+              foreach($files as $cFile) {
+                $onlyFile = str_replace($filesPath,'',$cFile);
+                if($editFile == $onlyFile)
+                  echo '<option value="'.$onlyFile.'" selected="selected">'.$onlyFile.'</option>'."\n";
+                else
+                  echo '<option value="'.$onlyFile.'">'.$onlyFile.'</option>'."\n";
+              }
+        echo '</select>';
+
+      echo '</div>';
 
     // NO FILES
     } else {
-      echo '<div class="editFiles left">';
-      echo '<h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_NOFILE'].'</h2>';
+      echo '<div class="span5">';
+        echo '<h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_NOFILE'].'</h2>';
       echo '</div>';
     }
+
 
     // create a NEW FILE ---------------------------------
     if($fileType)
       $fileTypeText = '<b>.'.$fileType.'</b>';
-    echo '<div class="editFiles right">
-          <h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'</h2>
-          <input name="newFile" style="width:200px;" class="inputToolTipLeft" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'::'.$GLOBALS['langFile']['EDITFILESSETTINGS_TIP_CREATEFILE'].'"> '.$fileTypeText.'
-          </div>';
+
+    echo '<div class="span3">';
+      echo '<h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'</h2>
+            <input type="text" name="newFile" class="inputToolTipLeft" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'::'.$GLOBALS['langFile']['EDITFILESSETTINGS_TIP_CREATEFILE'].'"> '.$fileTypeText;
+    echo '</div>';
   }
+
+  echo '</div>'; // end .row
 
   // OPEN THE FILE -------------------------------------
   if(@is_file(DOCUMENTROOT.$filesPath.$editFile)) {
@@ -2840,175 +2854,122 @@ function createBrowserChart($browserString) {
         switch($browser['data']) {
           case 'firefox':
             $browserName = 'Firefox';
-            $browserColor = 'url(library/images/bg/browserBg_firefox.png)';
             $browserLogo = 'browser_firefox.png';
             $browserTextColor = '#ffffff';
             break;
           case 'firefox':
             $browserName = 'Firefox';
-            $browserColor = 'url(library/images/bg/browserBg_firefox.png)';
             $browserLogo = 'browser_firefox.png';
-            $browserTextColor = '#ffffff';
             break;
           case 'netscape navigator':
             $browserName = 'Netscape Navigator';
-            $browserColor = 'url(library/images/bg/browserBg_netscape.png)';
             $browserLogo = 'browser_netscape.png';
-            $browserTextColor = '#ffffff';
             break;
           case 'chrome':
             $browserName = 'Google Chrome';
-            $browserColor = 'url(library/images/bg/browserBg_chrome.png)';
             $browserLogo = 'browser_chrome.png';
-            $browserTextColor = '#000000';
             break;
           case 'internet explorer':
             $browserName = 'Internet Explorer';
-            $browserColor = 'url(library/images/bg/browserBg_ie.png)';
             $browserLogo = 'browser_ie.png';
-            $browserTextColor = '#000000';
             break;
           case 'internet explorer old':
             $browserName = 'Internet Explorer 1-6';
-            $browserColor = 'url(library/images/bg/browserBg_ie_old.png)';
             $browserLogo = 'browser_ie_old.png';
-            $browserTextColor = '#000000';
             break;
           case 'opera':
             $browserName = 'Opera';
-            $browserColor = 'url(library/images/bg/browserBg_opera.png)';
             $browserLogo = 'browser_opera.png';
-            $browserTextColor = '#000000';
             break;
           case 'konqueror':
             $browserName = 'Konqueror';
-            $browserColor = 'url(library/images/bg/browserBg_konqueror.png)';
             $browserLogo = 'browser_konqueror.png';
-            $browserTextColor = '#ffffff';
             break;
           case 'lynx':
             $browserName = 'Lynx';
-            $browserColor = 'url(library/images/bg/browserBg_lynx.png)';
             $browserLogo = 'browser_lynx.png';
-            $browserTextColor = '#ffffff';
             break;
           case 'safari':
             $browserName = 'Safari';
-            $browserColor = 'url(library/images/bg/browserBg_safari.png)';
             $browserLogo = 'browser_safari.png';
-            $browserTextColor = '#000000';
             break;
           case 'mozilla':
             $browserName = 'Mozilla';
-            $browserColor = 'url(library/images/bg/browserBg_mozilla.png)';
             $browserLogo = 'browser_mozilla.png';
-            $browserTextColor = '#ffffff';
             break;
           case 'iphone':
             $browserName = 'iPhone';
-            $browserColor = 'url(library/images/bg/browserBg_iphone.png)';
             $browserLogo = 'browser_iphone.png';
-            $browserTextColor = '#ffffff';
             break;
           case 'ipad':
             $browserName = 'iPad';
-            $browserColor = 'url(library/images/bg/browserBg_ipad.png)';
             $browserLogo = 'browser_ipad.png';
-            $browserTextColor = '#000000';
             break;
           case 'ipod':
             $browserName = 'iPod';
-            $browserColor = 'url(library/images/bg/browserBg_ipod.png)';
             $browserLogo = 'browser_ipod.png';
-            $browserTextColor = '#000000';
             break;
           case 'amaya':
             $browserName = 'Amaya';
-            $browserColor = 'url(library/images/bg/browserBg_amaya.png)';
             $browserLogo = 'browser_amaya.png';
-            $browserTextColor = '#000000';
             break;
           case 'phoenix':
             $browserName = 'Phoenix';
-            $browserColor = 'url(library/images/bg/browserBg_phoenix.png)';
             $browserLogo = 'browser_phoenix.png';
-            $browserTextColor = '#000000';
             break;
           case 'icab':
             $browserName = 'iCab';
-            $browserColor = 'url(library/images/bg/browserBg_icab.png)';
             $browserLogo = 'browser_icab.png';
-            $browserTextColor = '#000000';
             break;
           case 'omniweb':
             $browserName = 'OmniWeb';
-            $browserColor = 'url(library/images/bg/browserBg_omniweb.png)';
             $browserLogo = 'browser_omniweb.png';
-            $browserTextColor = '#000000';
             break;
           case 'galeon':
             $browserName = 'Galeon';
-            $browserColor = 'url(library/images/bg/browserBg_galeon.png)';
             $browserLogo = 'browser_galeon.png';
-            $browserTextColor = '#000000';
             break;
           case 'netpositive':
             $browserName = 'NetPositive';
-            $browserColor = 'url(library/images/bg/browserBg_netpositive.png)';
             $browserLogo = 'browser_netpositive.png';
-            $browserTextColor = '#000000';
             break;
           case 'opera mini':
             $browserName = 'Opera Mini';
-            $browserColor = 'url(library/images/bg/browserBg_opera_mini.png)';
-            $browserLogo = 'browser_opera_mini.png';
             $browserTextColor = '#000000';
             break;
           case 'blackberry':
             $browserName = 'BlackBerry';
-            $browserColor = 'url(library/images/bg/browserBg_blackberry.png)';
             $browserLogo = 'browser_blackberry.png';
-            $browserTextColor = '#000000';
             break;
           case 'android':
             $browserName = 'Android';
-            $browserColor = 'url(library/images/bg/browserBg_android.png)';
             $browserLogo = 'browser_android.png';
-            $browserTextColor = '#ffffff';
             break;
           case 'icecat':
             $browserName = 'IceCat';
-            $browserColor = 'url(library/images/bg/browserBg_icecat.png)';
             $browserLogo = 'browser_icecat.png';
-            $browserTextColor = '#000000';
             break;
           case 'nokia browser': case 'Nokia S60 OSS Browser':
             $browserName = 'Nokia Browser';
-            $browserColor = 'url(library/images/bg/browserBg_nokia.png)';
             $browserLogo = 'browser_nokia.png';
-            $browserTextColor = '#000000';
             break;
           default:
             $default = true;
             $browserName = $GLOBALS['langFile']['STATISTICS_TEXT_BROWSERCHART_OTHERS'];
-            $browserColor = 'url(library/images/bg/browserBg_others.png)';
             $browserLogo = 'browser_others.png';
-            $browserTextColor = '#000000';
             break;
         }
 
         if($default) {
           $listBrowser['unknown']['name'] = $browserName;
-          $listBrowser['unknown']['bgImage'] = $browserColor;
+          $listBrowser['unknown']['class'] = 'unknown';
           $listBrowser['unknown']['logo'] = $browserLogo;
-          $listBrowser['unknown']['textColor'] = $browserTextColor;
           $listBrowser['unknown']['percent'] = round((($browser['number'] + $listBrowser['unknown']['number'])  / $sumOfNumbers) * 100);
           $listBrowser['unknown']['number'] += $browser['number'];
         } else {
           $listBrowser[$browser['data']]['name'] = $browserName;
-          $listBrowser[$browser['data']]['bgImage'] = $browserColor;
+          $listBrowser[$browser['data']]['class'] = $browser['data'];
           $listBrowser[$browser['data']]['logo'] = $browserLogo;
-          $listBrowser[$browser['data']]['textColor'] = $browserTextColor;
           $listBrowser[$browser['data']]['percent'] = round(($browser['number'] / $sumOfNumbers) * 100);
           $listBrowser[$browser['data']]['number'] = $browser['number'];
         }
@@ -3059,7 +3020,7 @@ function createBrowserChart($browserString) {
         }
 
         // SHOW the table cell with the right browser and color
-        $return .= '<td style="vertical-align:middle;padding: '.$cellpadding.'; color: '.$displayBrowser['textColor'].'; width: '.$displayBrowser['percent'].'%; background: '.$displayBrowser['bgImage'].' repeat-x;" class="toolTip" title="[span]'.$displayBrowser['name'].'[/span] ('.$displayBrowser['percent'].'%)::'.$displayBrowser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
+        $return .= '<td style="padding: '.$cellpadding.'; width: '.$displayBrowser['percent'].'%;" class="toolTip '.$displayBrowser['class'].'" title="[span]'.$displayBrowser['name'].'[/span] ('.$displayBrowser['percent'].'%)::'.$displayBrowser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
                     <div style="position: relative;">
                     <img src="library/images/icons/'.$displayBrowser['logo'].'" style="float: left;'.$logoSize.';" alt="browser logo">'.$cellText.'
                     </div>

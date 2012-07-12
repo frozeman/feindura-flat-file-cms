@@ -83,14 +83,14 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- thirdparty/CodeMirror -->
   <link rel="stylesheet" type="text/css" href="library/thirdparty/CodeMirror/codemirror-unified.css">
 
-<?php
-if($_GET['site'] == 'addons') {
-  if($addonStyles = GeneralFunctions::createStyleTags(dirname(__FILE__).'/addons/')) {
-    echo "\n  <!-- addons stylesheets -->\n";
-    echo $addonStyles;
+  <?php
+  if($_GET['site'] == 'addons') {
+    if($addonStyles = GeneralFunctions::createStyleTags(dirname(__FILE__).'/addons/')) {
+      echo "\n  <!-- addons stylesheets -->\n";
+      echo $addonStyles;
+    }
   }
-}
-?>
+  ?>
   <!--[if IE 7]><link rel="stylesheet" type="text/css" href="library/styles/ie7.css"><![endif]-->
 
   <noscript>
@@ -118,16 +118,16 @@ if($_GET['site'] == 'addons') {
 
   <!-- thirdparty/FancyForm (need MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/fancyform.js"></script>
-<?php if(!empty($userConfig)) { ?>
+  <?php if(!empty($userConfig)) { ?>
 
   <!-- thirdparty/CountDown (need MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/CountDown.js"></script>
 
-<?php } ?>
+  <?php } ?>
   <!-- thirdparty/CodeMirror -->
   <script type="text/javascript" src="library/thirdparty/CodeMirror/codemirror-compressed.js"></script>
   <script type="text/javascript" src="library/thirdparty/CodeMirror/modes-compressed.js"></script>
-<?php
+  <?php
   if(!empty($_GET['page'])) { ?>
 
   <!-- thirdparty/CKEditor -->
@@ -135,7 +135,7 @@ if($_GET['site'] == 'addons') {
 
   <!-- thirdparty/MooRTE -->
   <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.min.js<?php echo '?v='.BUILD; ?>"></script>
-<?php
+  <?php
   }
   if($adminConfig['user']['fileManager'] && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
 
@@ -145,7 +145,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>.js"></script>
-<?php } ?>
+  <?php } ?>
 
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascripts/shared.js<?php echo '?v='.BUILD; ?>"></script>

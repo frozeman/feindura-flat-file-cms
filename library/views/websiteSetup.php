@@ -50,7 +50,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
         <?php echo $langFile['websiteSetup_websiteConfig_field1']; ?></span></label>
       </div>
       <div class="span5">
-        <input id="title" name="title" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'title',true); ?>">
+        <input type="text" id="title" name="title" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'title',true); ?>">
       </div>
     </div>
 
@@ -60,7 +60,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
         <?php echo $langFile['websiteSetup_websiteConfig_field2']; ?></span></label>
       </div>
       <div class="span5">
-        <input id="publisher" name="publisher" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'publisher',true); ?>">
+        <input type="text" id="publisher" name="publisher" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'publisher',true); ?>">
       </div>
     </div>
 
@@ -70,7 +70,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
         <?php echo $langFile['websiteSetup_websiteConfig_field3']; ?></span></label>
       </div>
       <div class="span5">
-        <input id="websiteConfig_copyright" name="websiteConfig_copyright" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'copyright',true); ?>">
+        <input type="text" id="websiteConfig_copyright" name="websiteConfig_copyright" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'copyright',true); ?>">
       </div>
     </div>
 
@@ -80,7 +80,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
         <?php echo $langFile['websiteSetup_websiteConfig_field4']; ?></span></label>
       </div>
       <div class="span5">
-        <input id="keywords" name="keywords" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'keywords',true); ?>" class="inputToolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field4_inputTip']; ?>">
+        <input type="text" id="keywords" name="keywords" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'keywords',true); ?>" class="inputToolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field4_inputTip']; ?>">
       </div>
     </div>
 

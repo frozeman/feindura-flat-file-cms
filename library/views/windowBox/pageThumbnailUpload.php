@@ -2,20 +2,20 @@
 /**
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
- * 
+ *
  * This program is free software;
  * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
- * 
+ *
  * pageThumbnailUpload.php
- * 
+ *
  * @version 1.04
  */
 
@@ -59,7 +59,7 @@ if(!empty($categoryConfig[$category]['thumbHeight'])) {
   $categoryRatio = true;
 } else
   $thumbHeight = $adminConfig['pageThumbnail']['height'];
-  
+
 // THUMB RATIO X
 if($categoryRatio) {
   if($categoryConfig[$category]['thumbRatio'] == 'y' ||
@@ -104,8 +104,8 @@ else
   <li><?php echo $langFile['pagethumbnail_thumbinfo_formats']; ?><br><b>JPG</b>, <b>JPEG</b>, <b>GIF</b>, <b>PNG</b></li>
   <li><?php echo $langFile['pagethumbnail_thumbinfo_filesize'].' <b>'.ini_get('upload_max_filesize').'B</b>'; ?></li>
   <li><b><?php echo $langFile['pagethumbnail_thumbinfo_standardthumbsize']; ?></b><br>
-  <?php 
-  
+  <?php
+
     if($thumbRatioY) echo $langFile['pagethumbnail_thumbsize_width'].' = <b>'.$thumbWidth.'</b> '.$langFile['THUMBNAIL_TEXT_UNIT'].'<br>';
     if($thumbRatioX) echo $langFile['pagethumbnail_thumbsize_height'].' = <b>'.$thumbHeight.'</b> '.$langFile['THUMBNAIL_TEXT_UNIT'];
   ?>
@@ -122,15 +122,15 @@ else
 
 	<!-- file selection -->
   <h3><?php echo $langFile['pagethumbnail_field1']; ?></h3>
-  
+
 	<input type="file" name="thumbFile">
-  <br>	
+  <br>
 	<br>
-  
+
 	<a href="#" id="thumbSizeToogle" class="down"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?></a><br>
 	<br clear="all"/>
-	
-  <table id="thumbSize">
+
+  <table id="thumbnailSizeBox">
   <tbody>
     <?php
     // -> THUMB-WIDTH
@@ -140,10 +140,10 @@ else
     <label for="windowBox_thumbWidth">
     <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></label>
     </td><td>
-    <input id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?>>
+    <input type="text" id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?>>
     <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
     </td></tr>
-    
+
     <!-- shows the width in a scale -->
     <?php
     if($thumbWidth)
@@ -153,21 +153,21 @@ else
     ?>
     <tr><td>
     </td><td style="height:40px;">
-    <div id="windowBox_thumbWidthScale" class="scale" style="<?php echo $styleThumbWidth; ?>"><div></div></div>
+    <div id="windowBox_thumbWidthScale" class="thumbnailScale" style="<?php echo $styleThumbWidth; ?>"><div></div></div>
     </td></tr>
     <?php
     }
     // -> THUMB-HEIGHT
     if($thumbRatioX) {
-    ?>  
+    ?>
     <tr><td style="width: 80px">
     <label for="windowBox_thumbHeight">
     <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></label>
     </td><td>
-    <input id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?>>
+    <input type="text" id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?>>
     <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
     </td></tr>
-    
+
     <!-- shows the height in a scale -->
     <?php
     if($thumbHeight)
@@ -177,29 +177,29 @@ else
     ?>
     <tr><td>
     </td><td style="height:40px;">
-    <div id="windowBox_thumbHeightScale" class="scale" style="<?php echo $styleThumbHeight; ?>"><div></div></div>
+    <div id="windowBox_thumbHeightScale" class="thumbnailScale" style="<?php echo $styleThumbHeight; ?>"><div></div></div>
     </td></tr>
     <?php
     }
     ?>
   </tbody>
   </table>
-  
+
   <!-- show a PREVIEW of the current THUMBNAIL -->
-  <?php 
+  <?php
   // show thumbnail if the page has one
   if(!empty($pageContent['thumbnail'])) {
-    
+
     $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
-    
+
     if($thumbnailWidth[0] <= 250)
       $thumbnailWidth = ' width="'.$thumbnailWidth[0].'"';
     else
       $thumbnailWidth = ' width="250"';
-    
+
     // generates a random number to put on the end of the image, to prevent caching
     $randomImage = '?'.md5(uniqid(rand(),1));
-    
+
     echo '<div style="z-index:0; position:relative; width: 280px; margin-bottom: 10px; margin-top: 20px; float:right; text-align: center;">';
     echo '<img src="'.GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
     echo '</div>';
@@ -234,7 +234,7 @@ else
       $('thumbnailPreviewImage').setProperty('data-width',imageWidth);
       if(imageWidth >= 200)
         $('thumbnailPreviewImage').setStyle('width',200);
-    
+
     }
 
     if($('thumbnailUploadButtonInPreviewArea') != null) {

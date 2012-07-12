@@ -267,10 +267,10 @@ window.addEvent('domready', function() {
 
       // -----------------------------------------
       // ADD SLIDE TO THE THUMB-SIZE
-      if($('thumbSize') !== null && !navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
+      if($('thumbnailSizeBox') !== null && !navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
 
         // creates the slide effect
-        var slideThumbSize = new Fx.Slide($('thumbSize'),{duration: '750', transition: Fx.Transitions.Pow.easeOut});
+        var slideThumbSize = new Fx.Slide($('thumbnailSizeBox'),{duration: '750', transition: Fx.Transitions.Pow.easeOut});
 
         // slides the hotky div in, on start
         slideThumbSize.hide();

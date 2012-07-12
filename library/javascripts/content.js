@@ -52,7 +52,7 @@ function setToolTips() {
   var toolTipsInput;
 
   //store titles and text
-  feindura_storeTipTexts('.toolTip, .inputToolTip, .thumbnailToolTip');
+  feindura_storeTipTexts('.toolTip, .inputToolTip, .inputToolTipLeft');
 
   /* add Tooltips */
   toolTips = new Tips('.toolTip',{
@@ -1583,8 +1583,19 @@ window.addEvent('domready', function() {
     // -> CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
     HTMLEditor = CKEDITOR.replace('HTMLEditor');
 
+    // // ADD FEINDURA CLASS back to the <html> element, ON MAXIMIZE
+    // HTMLEditor.on('beforeCommandExec',function(e){
+    //   if (e.data.name != 'maximize')
+    //     return;
+
+    //   // if(e.data.command.state != CKEDITOR.TRISTATE_ON)
+    //     $$('html').addClass('feindura');
+    // });
+
     // -> add TOOLTIPS to ckeditor
     HTMLEditor.on('instanceReady',function() {
+      $('cke_HTMLEditor').addClass('feindura');
+
       $$('.cke_button').each(function(button) {
         var link = button.getChildren('a');
         if(link !== null) {

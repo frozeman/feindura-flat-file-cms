@@ -254,7 +254,7 @@ $langFile['ERROR_FOLDER_PART2']                                           = '&qu
 
 // -> WARNINGS
 $langFile['WARNING_TITLE_STARTPAGE']                                      = 'La page d\'acceuil n\'est pas définie.';
-$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Svp définissez une page d\'acceuil.<br>Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="icon startpage"></span> Symbol';
+$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Svp définissez une page d\'acceuil.<br>Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="icons startpage"></span> Symbol';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Le Document Root ne pouvait pas être résolus automatiquement!';
 $langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Pour résoudre correctement le Document Root, allez à la <a href="?site=adminSetup#adminSettings">administrator-settings</a> et définir le "chemin réel du feindura" de votre <span class="feinduraName">fein<span>dura</span></span> CMS.';

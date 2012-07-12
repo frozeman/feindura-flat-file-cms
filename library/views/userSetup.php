@@ -46,7 +46,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
         <?php
         // user info
         if($userInfo)
-          echo '<span class="hint"><b>'.$userInfo.'</b></span>';
+          echo '<span class="badge badge-warning"><b>'.$userInfo.'</b></span>';
         ?>
       </div>
     </div>
@@ -76,25 +76,31 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
           $userName = (empty($user['username']))
             ? '<i>'.$langFile['USERSETUP_createUser_unnamed'].'</i>'
             : $user['username'];
-          echo '<div class="row"><div class="offset3 span5">';
-          echo '<h2>'.$userName.'</h2><!--<br>ID '.$user['id'].'-->';
-          echo '<input type="hidden" name="users['.$user['id'].'][id]" value="'.$user['id'].'">';
+
+          echo '<div class="row">
+                  <div class="span3 formLeft">';
+              echo '<h2>'.$userName.'</h2>';
+              echo '<input type="hidden" name="users['.$user['id'].'][id]" value="'.$user['id'].'">';
+            echo '</div>';
 
                 // deleteUser
-          echo '<a href="?site=userSetup&amp;status=deleteUser&amp;userId='.$user['id'].'#top" class="deleteUser toolTip" title="'.$langFile['USERSETUP_deleteUser'].'::'.$user['username'].'"></a>';
-          echo '</div></div>';
+            echo '<div class="span5" style="position:relative;">
+                    <h2 class="gray">ID '.$user['id'].'</h2>';
+              echo '<a href="?site=userSetup&amp;status=deleteUser&amp;userId='.$user['id'].'#top" class="deleteUser toolTip" title="'.$langFile['USERSETUP_deleteUser'].'::'.$user['username'].'"></a>';
+          echo '  </div>
+                </div>';
 
-                // user name
-                $markUsername = (empty($user['username']))
-                  ? ' class="toolTip red" title="'.$langFile['USERSETUP_username_missing'].'::"'
-                  : '';
-                $autofocus = (empty($user['username']))
-                  ? ' autofocus="autofocus"'
-                  : '';
+              // user name
+              $markUsername = (empty($user['username']))
+                ? ' class="toolTip red" title="'.$langFile['USERSETUP_username_missing'].'::"'
+                : '';
+              $autofocus = (empty($user['username']))
+                ? ' autofocus="autofocus"'
+                : '';
           echo '<div class="row"><div class="span3 formLeft">';
           echo '<label for="users'.$user['id'].'username"'.$markUsername.'>'.$langFile['USERSETUP_username'].'</label>
                 </div><div class="span5">
-                <input id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" autocomplete="off"'.$autofocus.' required="required">
+                <input type="text" id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" autocomplete="off"'.$autofocus.' required="required">
                 </div></div>';
 
                 // user email

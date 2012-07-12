@@ -289,7 +289,7 @@ if(!empty($adminConfig['user']['info'])) {
     echo '</div>'; // <- inBlockSlider End
 
     //  spacer
-    echo '<div class="spacer2x"></div>';
+    echo '<div class="spacer4x"></div>';
 
     // ---------------------------------
     // ->> SEARCHWORD CLOUD
@@ -305,7 +305,8 @@ if(!empty($adminConfig['user']['info'])) {
 
     // SHOW tag CLOUD
     if($tagCloud = createTagCloud($allSearchwords)) {
-      echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h2>';
+      echo '<h2>'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h2>';
+      echo '<div class="verticalSeparator"></div>';
       echo '<div class="tagCloud">'.$tagCloud.'</div>';
     }
 
@@ -314,8 +315,9 @@ if(!empty($adminConfig['user']['info'])) {
 
     if($browserChart = createBrowserChart($websiteStatistic['browser'])) {
       // echo '<div class="verticalSeparator"></div>';
-      echo '<div class="spacer2x"></div>';
-      echo '<h2 class="center">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
+      echo '<div class="spacer4x"></div>';
+      echo '<h2>'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
+      echo '<div class="verticalSeparator"></div>';
       echo $browserChart;
     }
 
@@ -325,9 +327,9 @@ if(!empty($adminConfig['user']['info'])) {
        $logContent = file(dirname(__FILE__).'/../../statistic/referer.statistic.log')) {
 
       // echo '<div class="verticalSeparator"></div>';
-      echo '<div class="spacer2x"></div>';
+      echo '<div class="spacer4x"></div>';
 
-      echo '<h2 class="center">'.$langFile['DASHBOARD_TITLE_REFERER'].'</h2>';
+      echo '<h2>'.$langFile['DASHBOARD_TITLE_REFERER'].'</h2>';
 
       echo '<div class="row">';
         echo '<div class="span8 refererBox">';
