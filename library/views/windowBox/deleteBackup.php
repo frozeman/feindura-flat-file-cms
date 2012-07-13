@@ -38,6 +38,6 @@ echo '<h2 class="red">'.sprintf($langFile['BACKUP_TEXT_DELETE_QUESTION'],'<span 
 
 ?>
 <div>
-<a href="?site=backup&amp;status=<?php echo $_GET['status']; ?>&amp;file=<?php echo $_GET['file']; ?>" class="ok left" onclick="closeWindowBox('index.php?site=backup&amp;status=<?php echo $_GET['status']; ?>&amp;file=<?php echo $_GET['file']; ?>');return false;">&nbsp;</a>
-<a href="?site=backup" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+<a href="?site=backup&amp;status=<?php echo $_GET['status']; ?>&amp;file=<?php echo $_GET['file']; ?>" class="button ok left" onclick="closeWindowBox('index.php?site=backup&amp;status=<?php echo $_GET['status']; ?>&amp;file=<?php echo $_GET['file']; ?>');return false;">&nbsp;</a>
+<a href="?site=backup" class="button cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 </div>

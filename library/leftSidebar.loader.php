@@ -157,15 +157,16 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
     // ***** DASHBOARD -------------------------------------------- **********
     case 'dashboard': case 'pages': case '':
 
-      echo '<div class="sidebarInfo"><div class="content">';
+      echo '<div class="sidebarInfo">';
 
       // -> SHOW TASK LOG
       echo '<h2>'.$langFile['DASHBOARD_TITLE_ACTIVITY'].'</h2>';
+      echo '<div class="content">';
 
       if(file_exists(dirname(__FILE__).'/../statistic/activity.statistic.log') &&
          $logContent = file(dirname(__FILE__).'/../statistic/activity.statistic.log')) {
 
-         echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat; top: 40px;"></div>';
+         echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat; top: 0px;"></div>';
          echo '<div id="sidebarTaskLog"><br><br>';
 
               // ->> LIST the tasks
@@ -177,10 +178,13 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       } else
         echo $langFile['DASHBOARD_TEXT_ACTIVITY_NONE'];
 
-      echo '<hr>';
+      echo '</div></div>';
+
+      echo '<div class="spacer"></div>';
 
       // -> SHOW USERs
-      echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" width="22" height="21"> '.$langFile['DASHBOARD_TITLE_USER'].'</h2><br>';
+      echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" width="22" height="21"> '.$langFile['DASHBOARD_TITLE_USER'].'</h2>';
+      echo '<div class="content">';
         if(!empty($userConfig)) {
 
           // list user
@@ -207,20 +211,21 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
           echo '</ul>';
         // no users
         } else
-          echo '<span style="color:#9E0000;">'.$langFile['USER_TEXT_NOUSER'].'</span>';
+          echo '<span style="red">'.$langFile['USER_TEXT_NOUSER'].'</span>';
 
-      echo '</div></div>';
+      echo '</div>';
 
       break;
     // ***** ADMIN SETUP sideBar -------------------------------------------- **********
     case 'adminSetup':
       if(!isAdmin()) break;
 
-      echo '<div class="sidebarInfo"><div class="content">';
+      echo '<div class="sidebarInfo">';
 
       // FEINDURA INFO
-      echo '<h2>'.$langFile['ADMINSETUP_TEXT_VERSION'].'</h2>
-            <p>'.VERSION.' - Build '.BUILD.'</p>';
+      echo '<h2>'.$langFile['ADMINSETUP_TEXT_VERSION'].'</h2>';
+      echo '<div class="content">';
+            '<p>'.VERSION.' - Build '.BUILD.'</p>';
       echo '<a href="README.md" class="link">README</a><br>';
       echo '<a href="CHANGELOG" class="link">CHANGELOG</a><br>';
       echo '<a href="LICENSE" class="link">LICENSE</a>';
@@ -267,24 +272,6 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
       echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY'].'::"></a><br>';
 
-        // echo '<h2>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</h2>';
-        // echo '<div class="content">';
-        // echo '<ul class="nav nav-tabs nav-stacked">';
-
-        //   echo '<li><a href="#top"><i class="icon icon-arrow-up"></i></a></li>';
-        //   echo '<li><a href="#nonCategoryPages">'.GeneralFunctions::getLocalized($categoryConfig[0],'name').'</a></li>';
-
-        //   // -> show a anchor link to each category
-	       //  foreach($categoryConfig as $category) {
-        //     // overjump the non-category
-        //     if($category['id'] == 0) continue;
-
-        //     echo '<li><a href="#categoryAnchor'.$category['id'].'">'.GeneralFunctions::getLocalized($category,'name').'</a></li>';
-
-        //   }
-        // echo '</ul>';
-        // echo '</div>';
-        // echo '</div>';
       }
       echo '</div>';
 
@@ -318,19 +305,6 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
       echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['USERSETUP_createUser'].'::"></a><br>';
 
-       //  echo '<div class="content">';
-       //      echo '<h2>'.$langFile['USERSETUP_userSelection'].'</h2>';
-       //      echo '<ul class="nav nav-tabs nav-stacked">';
-
-       //        echo '<li><a href="#top"><i class="icon icon-arrow-up"></i></a></li>';
-
-       //      // -> show a anchor link to each user
-  	    //     foreach($userConfig as $user) {
-  	    //       $userIsAdmin = ($user['admin']) ? ' toolTip" style="font-weight:bold" title="'.$langFile['USERSETUP_admin'].'::"' : '"';
-       //        echo '<li><a href="#userId'.$user['id'].'" class="'.$userIsAdmin.'>'.$user['username'].'</a></li>';
-
-       //      } echo '</ul>';
-	      // echo '</div>';
       } echo '</div>';
 
       break;
@@ -339,7 +313,8 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       if(!isAdmin()) break;
 
       echo '<div id="sidebarSelection">';
-      echo '<div class="sidebarInfo"><div class="content">';
+      echo '<div class="sidebarInfo">';
+      echo '<div class="content">';
 
       // link the backup files
       $backups = GeneralFunctions::readFolder(dirname(__FILE__).'/../backups/');

@@ -34,6 +34,6 @@ echo '<h2 class="red">'.$langFile['UNSAVEDPAGE_QUESTION_CONTINUE'].'</h2>';
 
 ?>
 <div>
-<a href="#" class="ok left" onclick="closeWindowBox('<?php echo $target; ?>');return false;">&nbsp;</a> <!-- $('editorForm').submit();return false; -->
-<a href="<?php echo $target; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+<a href="#" class="button ok left" onclick="closeWindowBox('<?php echo $target; ?>');return false;">&nbsp;</a> <!-- $('editorForm').submit();return false; -->
+<a href="<?php echo $target; ?>" class="button cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 </div>

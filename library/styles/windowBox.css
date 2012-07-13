@@ -14,161 +14,53 @@
 /****************/
 /* *** windowBox */
 
-#windowBoxContainer {
-    position: absolute;
-    z-index: 20006; /* display: none; */
-    visibility: hidden;
-    width: 100%;
-    height: 100%;
-    }
 
-#windowBox {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    margin-left: -390px;
-    padding: 40px 40px;
-    padding-bottom: 30px;
-    width: 700px;
-    border: 1px solid #fff;
-    -webkit-border-radius:20px;
-    -moz-border-radius:20px;
-    border-radius:20px;
-    background-color: #fff;
-    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 40px rgba(0,0,0,0.15);
-    -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 40px rgba(0,0,0,0.15);
-    box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 40px rgba(0,0,0,0.15);
-    }
-#windowBox > h1 {
-    position: relative;
-    top: -30px;
-    left: -30px;
-    z-index: 2;
-    padding: 0px 5px;
-    padding-bottom: 12px;
-    width: 750px;
-    height: 25px;
-    border-bottom: 1px dashed #ddd;
-    color: #a3b9d2;
-    text-align: center;
 
-    text-shadow: 0px 1px 2px #ccc;
-    font-weight: normal !important;
-    font-size: 20px;
-
-    }
-#windowBox > h1:before {
-    position: absolute;
-    left: -0;
-    width: 760px;
-    height: 38px;
-    border-bottom: 1px dashed #f3f3f3;
-    content: '';
-}
-
-#windowRequestBox {
-    position: relative;
-    z-index: 1;
-    width: 705px;
-    min-height: 140px;
-    }
-
-#windowBoxDimmer {
-    position: absolute;
-    z-index: 3;
-    margin-top: -30px;
-    padding: 50px 0px;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    background-color: #fff;
-    opacity: 0.7;
-    -moz-opacity: 0.7;
-    -webkit-opacity: 0.7;
-    -o-opacity: 0.7;
-    filter:alpha(opacity= 70);
-    }
 
 /****************/
 /* *** HEADLINES */
 
-#windowBox h2 {
-    margin-bottom: 10px;
-    padding-bottom: 18px;
-    width: 685px;
-    color: #668CA6;
-    text-align: center;
-    font-weight: normal;
-    font-size: 18px;
-    }
 
-#windowBox h3 {
-    margin-bottom: 10px;
-    color: #888888;
-    font-weight: normal;
-    font-size: 15px;
-    }
-
-/****************/
-/* *** ELEMENTS */
-
-#windowBox p {
-    margin: 5px 10px;
-    font-size: 14px;
-}
 
 /****************/
 /* *** CLOSE */
 
-#windowBox > a.close {
-    z-index: 2;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    padding: 0px !important;
-    width: 18px;
-    height: 18px;
-    background: url("../images/buttons/close_gray.png") no-repeat;
-    }
-#windowBox > a.close:hover {
-    /*background-position: -30px 0px;*/
-    }
 
 /****************/
 /* *** SUBMIT/CANCEL */
 
-#windowRequestBox .cancel { /* link on the left */
+/*#windowRequestBox .cancel {
     right: 10px;
     float: right;
     margin: 10px 0px;
     }
 
-#windowRequestBox input.submit { /* form submit */
+#windowRequestBox input.submit {
     left: 10px;
     float: left;
     margin: 10px 0px;
     }
-#windowRequestBox a.submit { /* link on the center */
+#windowRequestBox a.submit {
     bottom: 0px;
     left: 315px;
     }
 
-#windowRequestBox a.ok { /* link on the right, example: ok */
+#windowRequestBox a.ok {
     right: 10px;
     float: right;
     margin: 10px 0px;
     }
-#windowRequestBox a.ok.center { /* link on the right, example: ok */
+#windowRequestBox a.ok.center {
     right: auto !important;
     left: 315px;
     float: left !important;
     margin: 10px auto;
     }
-#windowRequestBox a.ok.left { /* link on the right, example: ok */
+#windowRequestBox a.ok.left {
     left: 10px;
     float: left !important;
     margin: 10px 0px;
-    }
+    }*/
 
 
 /* --- THUMBNAIL UPLOAD ------------------------------------------------------------------------------------------------------------------- */
@@ -204,9 +96,9 @@
     }
 
 /****************/
-/* *** pageThumbnailUploadForm */
+/* *** uploadPageThumbnailForm */
 
-#pageThumbnailUploadForm {
+#uploadPageThumbnailForm {
     position: relative;
     overflow: visible;
     }

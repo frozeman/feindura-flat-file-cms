@@ -32,6 +32,6 @@ echo '<h3 style="color:#A02F00; text-align:center;">'.$langFile['PAGESETUP_CATEG
 
 ?>
 <div>
-<a href="?site=pageSetup&amp;status=<?php echo $_GET['status']; ?>&amp;category=<?php echo $_GET['category']; ?>" class="ok left" onclick="closeWindowBox('index.php?site=pageSetup&amp;status=<?php echo $_GET['status']; ?>&amp;category=<?php echo $_GET['category']; ?>');return false;">&nbsp;</a>
-<a href="?site=pageSetup" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+<a href="?site=pageSetup&amp;status=<?php echo $_GET['status']; ?>&amp;category=<?php echo $_GET['category']; ?>" class="button ok left" onclick="closeWindowBox('index.php?site=pageSetup&amp;status=<?php echo $_GET['status']; ?>&amp;category=<?php echo $_GET['category']; ?>');return false;">&nbsp;</a>
+<a href="?site=pageSetup" class="button cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 </div>

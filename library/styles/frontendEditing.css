@@ -118,11 +118,11 @@ div.feindura_pageBar {
 .feindura_pageBar a.feindura_deletePage {
   background: url("../images/buttons/listPages_deletePage.png") no-repeat;
 }
-.feindura_pageBar a.feindura_pageThumbnailUpload {
-  background: url("../images/buttons/listPages_pageThumbnailUpload.png") no-repeat;
+.feindura_pageBar a.feindura_uploadPageThumbnail {
+  background: url("../images/buttons/listPages_uploadPageThumbnail.png") no-repeat;
 }
-.feindura_pageBar a.feindura_pageThumbnailDelete {
-  background: url("../images/buttons/listPages_pageThumbnailDelete.png") no-repeat;
+.feindura_pageBar a.feindura_deletePageThumbnail {
+  background: url("../images/buttons/listPages_deletePageThumbnail.png") no-repeat;
 }
 
 .feindura_pageBar a:hover, .feindura_pageBar a.feindura_startPage.active {

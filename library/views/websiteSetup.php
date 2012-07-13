@@ -27,9 +27,9 @@ require_once(dirname(__FILE__).'/../includes/secure.include.php');
 ?>
 <form action="index.php?site=websiteSetup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="websiteSettingsForm">
   <div>
-  <input type="hidden" name="send" value="websiteSetup">
-  <input type="hidden" name="websiteLanguage" value="<?php echo $_SESSION['feinduraSession']['websiteLanguage']; ?>">
-  <input type="hidden" name="savedBlock" id="savedBlock" value="">
+    <input type="hidden" name="send" value="websiteSetup">
+    <input type="hidden" name="websiteLanguage" value="<?php echo $_SESSION['feinduraSession']['websiteLanguage']; ?>">
+    <input type="hidden" name="savedBlock" id="savedBlock" value="">
   </div>
 
 <!-- WEBSITE SETTINGS -->
@@ -186,23 +186,28 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
 
 </form>
 
-<?php if(!empty($adminConfig['websiteFilesPath']) || !empty($adminConfig['stylesheetPath'])) { ?>
+<?php if((!empty($adminConfig['websiteFilesPath']) || !empty($adminConfig['stylesheetPath'])) &&
+          isAdmin() ||
+         ($userConfig[USERID]['editWebsiteFiles'] ||
+          $userConfig[USERID]['editStyleSheets'] ||
+          $userConfig[USERID]['editSnippets'])) { ?>
 <div class="blockSpacer"></div>
 <?php
 
-  // EDIT stylesheets
-  if($adminConfig['user']['editStyleSheets']) {
-    editFiles($adminConfig['stylesheetPath'], 'cssFiles', $langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS'], 'cssFilesAnchor', 'css');
-  }
 
   // EDIT snippets
-  if($adminConfig['user']['editSnippets']) {
+  if($adminConfig['editor']['snippets'] && (isAdmin() || $userConfig[USERID]['editSnippets'])) {
     if(!is_dir(dirname(__FILE__).'/../../snippets/')) mkdir(dirname(__FILE__).'/../../snippets/');
     editFiles(dirname(__FILE__).'/../../snippets/', 'snippetFiles', $langFile['EDITFILESSETTINGS_TITLE_SNIPPETS'], 'snippetsFilesAnchor', 'php');
   }
 
+  // EDIT stylesheets
+  if(isAdmin() || $userConfig[USERID]['editStyleSheets']) {
+    editFiles($adminConfig['stylesheetPath'], 'cssFiles', $langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS'], 'cssFilesAnchor', 'css');
+  }
+
   // EDIT websitefiles
-  if($adminConfig['user']['editWebsiteFiles']) {
+  if(isAdmin() || $userConfig[USERID]['editWebsiteFiles']) {
     editFiles($adminConfig['websiteFilesPath'], 'websiteFiles',  $langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES'], 'websiteFilesAnchor');
   }
 

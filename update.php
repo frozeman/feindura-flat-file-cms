@@ -894,6 +894,13 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/images/bg/browserBg_others.png';
     $deleteFiles[] = 'library/images/bg/browserBg_phoenix.png';
     $deleteFiles[] = 'library/images/bg/browserBg_safari.png';
+    $deleteFiles[] = 'library/images/bg/content_block_verticalSeparator.png';
+    $deleteFiles[] = 'library/images/buttons/listPages_pageThumbnailUpload.png';
+    $deleteFiles[] = 'library/images/buttons/listPages_pageThumbnailDelete.png';
+
+    $deleteFiles[] = 'library/styles/reset.css';
+    $deleteFiles[] = 'library/styles/layout.css';
+    $deleteFiles[] = 'library/styles/content.css';
 
 
     // CHECK if files could be deleted

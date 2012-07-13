@@ -11,10 +11,16 @@
     background: url("../images/bg/dimmContainer.png") repeat !important;
     background-color: transparent !important;
 }
-&.cke_skin_kama textarea.cke_source {
-    display: block !important;
-    position: absolute !important;
-    visibility: hidden;
+&.cke_skin_kama {
+    a {
+        padding-left: 0;
+        background: none;
+    }
+    textarea.cke_source { // the & is beacuse of the "feindura" class which gets add to the CKEditor container
+        display: block !important;
+        position: absolute !important;
+        visibility: hidden;
+    }
 }
 
 /* CKEditor HACKS for input */

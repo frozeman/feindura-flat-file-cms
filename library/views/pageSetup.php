@@ -47,7 +47,7 @@ unset($newPlugins);
 $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><?php echo $langFile['adminSetup_thumbnailSettings_h1']; ?></a></h1>
+  <h1><a href="#"><img src="library/images/icons/thumbnailIcon_middle.png" class="blockH1Icon" alt="thumbnail icon" width="35" height="35"><?php echo $langFile['adminSetup_thumbnailSettings_h1']; ?></a></h1>
   <div class="content form">
 
     <!-- THUMB WIDTH -->

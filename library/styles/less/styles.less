@@ -21,6 +21,7 @@
 // @import "bootstrap/css/bootstrap.min.css";
 
 // VARS
+@blockContentPadding: 20px;
 @blockBorderRadius: 10px;
 @innerBlockColor: #fdfdfd;
 
@@ -51,18 +52,18 @@
 
 
 
+    // GENERAL
+    // =======
+    // Contains the main variables and other general elements
+    @import "general.less";
+
+
     // THIRDPARTY FIXES
     // ================
     // Add thirdparty fixes (like for CKEditor, CodeMirror, etc)
     // Have to be outside the feindura class, so the CKEditor fullscreen works
     @import "thirdpartyFixes.less";
 
-
-
-    // GENERAL
-    // =======
-    // Contains the main variables and other general elements
-    @import "general.less";
 
     // LAYOUT
     // ======
@@ -107,4 +108,9 @@
     // USER SETUP
     @import "page_userSetup.less";
 
+
+    // WINDOW BOX
+    // ==============
+    // the content of the window boxes
+    @import "windowBox.less";
 }

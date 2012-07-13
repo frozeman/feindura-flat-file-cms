@@ -31,6 +31,6 @@ echo '<h2 class="red">'.sprintf($langFile['EDITFILESSETTINGS_TEXT_DELETEFILE_QUE
 
 ?>
 <div>
-<a href="<?php echo '?site='.$_GET['site'].'&amp;status='.$_GET['status'].'&amp;editFilesStatus='.$_GET['editFilesStatus'].'&amp;file='.$_GET['file'].'#'.$_GET['anchorName']; ?>" class="ok left" onclick="closeWindowBox('index.php?<?php echo 'site='.$_GET['site'].'&amp;status='.$_GET['status'].'&amp;editFilesStatus='.$_GET['editFilesStatus'].'&amp;file='.$_GET['file'].'#'.$_GET['anchorName']; ?>');return false;">&nbsp;</a>
-<a href="?site=<?php echo $_GET['site']; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+<a href="<?php echo '?site='.$_GET['site'].'&amp;status='.$_GET['status'].'&amp;editFilesStatus='.$_GET['editFilesStatus'].'&amp;file='.$_GET['file'].'#'.$_GET['anchorName']; ?>" class="button ok left" onclick="closeWindowBox('index.php?<?php echo 'site='.$_GET['site'].'&amp;status='.$_GET['status'].'&amp;editFilesStatus='.$_GET['editFilesStatus'].'&amp;file='.$_GET['file'].'#'.$_GET['anchorName']; ?>');return false;">&nbsp;</a>
+<a href="?site=<?php echo $_GET['site']; ?>" class="button cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 </div>

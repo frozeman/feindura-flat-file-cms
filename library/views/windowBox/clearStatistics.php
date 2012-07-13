@@ -31,6 +31,6 @@ echo '<h2 class="red">'.$langFile['statisticSetup_clearStatistics_question_h1'].
 
 ?>
 <div>
-<a href="?site=statisticSetup#clearStatistics" class="ok left" onclick="$('clearStatisticsForm').submit();return false;">&nbsp;</a>
-<a href="?site=statisticSetup#clearStatistics" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+<a href="?site=statisticSetup#clearStatistics" class="button ok left" onclick="$('clearStatisticsForm').submit();return false;">&nbsp;</a>
+<a href="?site=statisticSetup#clearStatistics" class="button cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 </div>

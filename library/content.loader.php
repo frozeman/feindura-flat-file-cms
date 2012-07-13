@@ -114,12 +114,12 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       include (dirname(__FILE__).'/views/windowBox/deletePage.php');
       break;
     // PAGE THUMBNAIL UPLOAD
-    case 'pageThumbnailUpload':
-      include (dirname(__FILE__).'/views/windowBox/pageThumbnailUpload.php');
+    case 'uploadPageThumbnail':
+      include (dirname(__FILE__).'/views/windowBox/uploadPageThumbnail.php');
       break;
     // PAGE THUMBNAIL DELETE
-    case 'pageThumbnailDelete':
-      include (dirname(__FILE__).'/views/windowBox/pageThumbnailDelete.php');
+    case 'deletePageThumbnail':
+      include (dirname(__FILE__).'/views/windowBox/deletePageThumbnail.php');
       break;
     // ADD PAGE LANGUAGE
     // case 'addPageLanguage':

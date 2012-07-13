@@ -402,19 +402,17 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 <?php }
 
 
-// EDIT stylesheets
-if(!empty($adminConfig['stylesheetPath']))
-  editFiles($adminConfig['stylesheetPath'], 'cssFiles', $langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS'], 'cssFilesAnchor', 'css');
-
 // EDIT snippets
 if($adminConfig['editor']['snippets']) {
   if(!is_dir(dirname(__FILE__).'/../../snippets/')) mkdir(dirname(__FILE__).'/../../snippets/');
   editFiles(dirname(__FILE__).'/../../snippets/', 'snippetFiles', $langFile['EDITFILESSETTINGS_TITLE_SNIPPETS'], 'snippetsFilesAnchor', 'php');
 }
 
+// EDIT stylesheets
+editFiles($adminConfig['stylesheetPath'], 'cssFiles', $langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS'], 'cssFilesAnchor', 'css');
+
 // EDIT websitefiles
-if(!empty($adminConfig['websiteFilesPath']))
-  editFiles($adminConfig['websiteFilesPath'], 'websiteFiles',  $langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES'], 'websiteFilesAnchor');
+editFiles($adminConfig['websiteFilesPath'], 'websiteFiles',  $langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES'], 'websiteFilesAnchor');
 
 ?>
 

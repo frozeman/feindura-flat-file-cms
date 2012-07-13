@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
  *
- * pageThumbnailUpload.php
+ * uploadPageThumbnail.php
  *
  * @version 1.04
  */
@@ -114,7 +114,7 @@ else
 </div>
 
 <div style="position: relative">
-<form action="library/controllers/thumbnailUpload.controller.php" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="startUploadAnimation();" target="uploadTargetFrame" accept-charset="UTF-8">
+<form action="library/controllers/thumbnailUpload.controller.php" id="uploadPageThumbnailForm" enctype="multipart/form-data" method="post" onsubmit="startUploadAnimation();" target="uploadTargetFrame" accept-charset="UTF-8">
 	<input type="hidden" name="upload" value="true">
 	<input type="hidden" name="category" value="<?php echo $category; ?>">
   <input type="hidden" name="id" value="<?php echo $page; ?>">

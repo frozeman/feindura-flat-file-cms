@@ -74,7 +74,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- feindura styles -->
   <!-- <link rel="stylesheet" type="text/css" href="library/styles/reset.css<?php echo '?v='.BUILD; ?>"> -->
   <!-- <link rel="stylesheet" type="text/css" href="library/styles/layout.css<?php echo '?v='.BUILD; ?>"> -->
-  <link rel="stylesheet" type="text/css" href="library/styles/content.css<?php echo '?v='.BUILD; ?>">
+  <!-- <link rel="stylesheet" type="text/css" href="library/styles/content.css<?php echo '?v='.BUILD; ?>"> -->
   <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css<?php echo '?v='.BUILD; ?>">
   <link rel="stylesheet" type="text/css" href="library/styles/shared.css<?php echo '?v='.BUILD; ?>">
 
@@ -409,13 +409,13 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     // ->CHECK frontend editing
     $showFrontendEditing = ($isInPageEditor && $adminConfig['user']['frontendEditing']) ? true : false;
 
-    // -> CHECK for pageThumbnailUpload
+    // -> CHECK for uploadPageThumbnail
     $showPageThumbnailUpload = (!$newPage &&
                                 empty($_GET['site']) && !empty($_GET['page']) &&
                                 $categoryConfig[$_GET['category']]['thumbnails']) ? true : false;
 
 
-    // -> CHECK for pageThumbnailDelete
+    // -> CHECK for deletePageThumbnail
     $showPageThumbnailDelete = (empty($_GET['site']) && !empty($pageContent['thumbnail'])) ? true : false;
 
     // -> CHECK if show SUBMENU
@@ -515,11 +515,11 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                 if($showSpacer) { ?>
                 <li class="spacer"></li>
                 <?php } ?>
-                <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'"'; ?> tabindex="33" class="pageThumbnailUpload toolTip"></a></li>
+                <li><a <?php echo 'href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'"'; ?> tabindex="33" class="uploadPageThumbnail toolTip"></a></li>
               <?php
               // PAGETHUMBNAILDELETE
               if($showPageThumbnailDelete) { ?>
-                <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_THUMBNAIL_DELETE'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'"'; ?> tabindex="34" class="pageThumbnailDelete toolTip"></a></li>
+                <li><a <?php echo 'href="?site=deletePageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_THUMBNAIL_DELETE'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'"'; ?> tabindex="34" class="deletePageThumbnail toolTip"></a></li>
               <?php }
               $showSpacer = true;
               }

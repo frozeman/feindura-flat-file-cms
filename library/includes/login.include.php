@@ -127,7 +127,14 @@ if(isset($_GET['logout']) || (isset($_SESSION['feinduraSession']['login']['end']
 // *****************************************************
 if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
    $_SESSION['feinduraSession']['login']['host'] === HOST) {
-   // does nothing :-)
+
+
+  // ->> USERID
+  /**
+   * The ID of the current user
+   */
+  define('USERID',$_SESSION['feinduraSession']['login']['user']);
+
 
 // ->> SHOW LOGIN FORM
 } else {

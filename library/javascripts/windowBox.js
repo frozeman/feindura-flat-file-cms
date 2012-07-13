@@ -27,7 +27,7 @@ function openWindowBox(site,siteTitle) {
   if(site) {
 
     // place window in the useres sight
-    $('windowBox').setStyle('top',window.getScroll().y + 150);
+    $('windowBox').setStyle('top',window.getScroll().y + 100);
 
     loadingText = $$('#windowBox > h1').get('html');
 
@@ -236,7 +236,7 @@ function finishThumbnailUpload(frameHeight,newImage,ImageWidth) {
   refreshThumbnailImage(newImage,ImageWidth);
 
   // hides the from and the thumbInfo
-  $('pageThumbnailUploadForm').setStyle('display','none');
+  $('uploadPageThumbnailForm').setStyle('display','none');
   $('thumbInfo').setStyle('display','none');
 }
 
@@ -256,8 +256,8 @@ window.addEvent('domready', function() {
   // run the script if the windowBox is loaded with content
   $('windowBox').addEvent('loaded',function(windowContent) {
 
-    // checks if the pageThumbnailUpload site is opend
-    if($('pageThumbnailUploadForm') !== null) {
+    // checks if the uploadPageThumbnail site is opend
+    if($('uploadPageThumbnailForm') !== null) {
       // hides the iframe on startup
       $('uploadTargetFrame').setStyle('width','0px');
       $('uploadTargetFrame').setStyle('height','0px');

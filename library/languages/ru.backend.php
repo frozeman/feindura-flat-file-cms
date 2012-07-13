@@ -796,7 +796,7 @@ $langFile['WINDOWBOX_TEXT_DELETEWEBSITELANGUAGES_QUESTION']               = '–ú—
 
 
 /*
-* pageThumbnailDelete.php
+* deletePageThumbnail.php
 */
 
 // ---------- PAGE THUMBNAIL DELETE
@@ -806,7 +806,7 @@ $langFile['PAGETHUMBNAIL_ERROR_DELETE']                                   = '–û–
 
 
 /*
-* pageThumbnailUpload.php
+* uploadPageThumbnail.php
 */
 
 // ---------- PAGE THUMBNAIL UPLOAD

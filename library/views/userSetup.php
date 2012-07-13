@@ -34,7 +34,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
   </div>
 
 <div class="block">
-  <h1><?php echo $langFile['USERSETUP_h1']; ?></h1>
+  <h1><img src="library/images/icons/userIcon_middle.png" class="blockH1Icon" alt="user icon" width="35" height="35"><?php echo $langFile['USERSETUP_h1']; ?></h1>
   <div class="content form">
 
     <div class="row">

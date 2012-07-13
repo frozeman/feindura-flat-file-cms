@@ -4271,9 +4271,553 @@
 .feindura .invisible {
   visibility: hidden;
 }
+.feindura #boxBasics {
+  border: 1px solid #fff;
+  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura #boxHeadlineBasics {
+  border: 1px solid #fff;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #f0f0f0));
+  background: -moz-linear-gradient(center bottom, #ffffff 0%, #f0f0f0 100%);
+  background: -ms-linear-gradient(bottom, #ffffff 0%, #f0f0f0 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#ffffff',GradientType=0);
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura #PIE {
+  behavior: url('library/thirdparty/javascripts/PIE.htc');
+}
+.feindura .blue {
+  color: #3a79a5 !important;
+}
+.feindura .brown {
+  color: #d7943c !important;
+}
+.feindura .red {
+  color: #a02f00 !important;
+}
+.feindura .gray {
+  color: #999999 !important;
+}
+.feindura a.gray:hover,
+.feindura a.gray:focus {
+  color: #dd6e1f !important;
+}
+.feindura .hidden {
+  display: none;
+}
+.feindura .center {
+  text-align: center;
+}
+.feindura .left {
+  text-align: left;
+}
+.feindura .right {
+  text-align: right;
+}
+.feindura [class^="spacer"] {
+  clear: both;
+}
+.feindura .spacer {
+  height: 16px;
+}
+.feindura .spacer2x {
+  height: 32px;
+}
+.feindura .spacer4x {
+  height: 64px;
+}
+.feindura .spacerH1 {
+  height: 40px;
+}
+.feindura .spacerH2 {
+  height: 40px;
+}
+.feindura .spacerH3 {
+  height: 60px;
+}
+.feindura .spacerH4 {
+  height: 48px;
+}
+.feindura div.blockSpacer {
+  position: relative;
+  width: 788px;
+  height: 28px;
+  margin: 25px -8px;
+  background: url("../images/bg/content_blockSpacer.png") no-repeat;
+}
+.feindura .toolTip,
+.feindura input.toolTip[type=checkbox] {
+  cursor: help;
+}
+.feindura input.toolTip,
+.feindura textarea.toolTip {
+  cursor: text;
+}
+.feindura input.button.toolTip,
+.feindura a.toolTip {
+  cursor: pointer;
+}
+.feindura span.toolTip:not(.badge),
+.feindura label.toolTip {
+  background: url("../images/icons/hint_toolTipInfo.png") no-repeat right center;
+  padding-right: 15px;
+}
+.feindura span.toolTip.noMark {
+  background: none;
+  padding-right: 0;
+  cursor: auto;
+}
+.feindura span.warning {
+  display: inline-block;
+  padding: 3px 0px;
+  padding-left: 20px;
+  background: url("../images/icons/warning.gif") no-repeat 0px 7px !important;
+  font-size: 12px;
+  color: #990000;
+}
+.feindura span.hint {
+  display: inline-block;
+  padding-left: 16px;
+  background: url("../images/icons/hint_toolTipInfo.png") no-repeat;
+  background-position: 0px 4px;
+  font-size: 12px;
+  color: #947342;
+}
+.feindura div.alert {
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
+}
+.feindura img.thumbnail {
+  position: relative;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #DDD;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+}
+.feindura mark {
+  background-color: #fef086;
+  color: inherit;
+}
+.feindura hr {
+  position: relative;
+  height: 0px;
+  margin: 15px 0px;
+  border: none;
+  border-top: 10px dotted #cccccc;
+  clear: both;
+}
+.feindura hr.small {
+  position: relative;
+  height: 0px;
+  margin: 10px 0px;
+  border: none;
+  border-top: 1px solid #f0f0f0;
+}
+.feindura label,
+.feindura label span {
+  cursor: pointer !important;
+}
+.feindura h1 {
+  font-size: 20px;
+}
+.feindura h2 {
+  font-size: 18px;
+}
+.feindura a,
+.feindura a.link {
+  padding-left: 18px;
+  color: #dd6e1f;
+  text-decoration: none;
+  background: url("../images/icons/link.gif") no-repeat left center;
+  cursor: pointer !important;
+  outline: none !important;
+}
+.feindura a:hover,
+.feindura a:focus,
+.feindura a.link:hover,
+.feindura a.link:focus {
+  color: #536068;
+  text-decoration: none;
+}
+.feindura a:active,
+.feindura a.active,
+.feindura a.link:active,
+.feindura a.link.active {
+  color: #dd6e1f;
+  text-decoration: none;
+}
+.feindura p a {
+  background-position: 0px 4px;
+}
+.feindura a.image {
+  display: inline-block;
+  padding-left: 0px;
+  background: none;
+}
+.feindura a.anchorTarget {
+  position: relative;
+  display: block;
+  visibility: hidden;
+  padding-left: 0px;
+  height: 0px;
+  top: -30px;
+  background: none;
+}
+.feindura a.deleteIcon {
+  display: block;
+  position: absolute;
+  width: 18px;
+  height: 17px;
+  padding-left: 0;
+  background: url("../images/buttons/content_deleteIcon.png") no-repeat;
+}
+.feindura a.deleteIcon:hover,
+.feindura a.deleteIcon:focus {
+  background-position: 0px -16px;
+}
+.feindura a.addButton {
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin: 6px 0;
+  background: url("../images/buttons/addButton.png") no-repeat;
+}
+.feindura a.addButton:hover,
+.feindura a.addButton:focus {
+  background-position: 0px -24px;
+}
+.feindura a.addButton:active {
+  background-position: 0px -48px;
+}
+.feindura a.down {
+  font-weight: bold;
+  padding-left: 16px;
+  background: url("../images/buttons/down.gif") no-repeat 0px 3px !important;
+}
+.feindura a.up {
+  font-weight: bold;
+  padding-left: 16px;
+  background: url("../images/buttons/up.gif") no-repeat 0px 3px !important;
+}
+.feindura a.status {
+  display: inline-block;
+  width: 27px;
+  height: 27px;
+  text-decoration: none;
+  padding-left: 0px;
+}
+.feindura a.status.public {
+  background: url("../images/icons/page_public.png") no-repeat;
+}
+.feindura a.status.nonpublic {
+  background: url("../images/icons/page_nonpublic.png") no-repeat;
+}
+.feindura .categoryHeader a.status.public {
+  background: url("../images/icons/category_public.png") no-repeat;
+}
+.feindura .categoryHeader a.status.nonpublic {
+  background: url("../images/icons/category_nonpublic.png") no-repeat;
+}
+.feindura ul.nav-tabs a {
+  background: none;
+  font-weight: bold;
+  color: #3a79a5;
+}
+.feindura ul.nav-tabs a.active {
+  background-color: #f0f0f0;
+  color: #3a79a5;
+}
+.feindura ul.nav-tabs a:hover,
+.feindura ul.nav-tabs a:focus {
+  background-color: #3a79a5;
+  color: #fff;
+  -webkit-text-shadow: none;
+  -moz-text-shadow: none;
+  text-shadow: none;
+  -ms-text-shadow: none;
+  -o-text-shadow: none;
+  -khtml-text-shadow: none;
+}
+.feindura menu.horizontal {
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+}
+.feindura menu.horizontal li {
+  display: inline-block;
+  position: relative;
+  margin: 0px auto;
+  padding: 0px;
+  list-style: none;
+}
+.feindura menu.vertical {
+  margin: 0;
+  padding: 0;
+}
+.feindura menu.vertical li {
+  position: relative;
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 35px;
+  list-style: none;
+  white-space: nowrap;
+}
+.feindura .coloredList {
+  font-size: 11px;
+}
+.feindura .coloredList a {
+  background-position: 1px 1px;
+}
+.feindura .coloredList li:nth-child(even),
+.feindura .coloredList tr:nth-child(even) {
+  background-color: #eef7f7;
+}
+.feindura .coloredList li:nth-child(odd),
+.feindura .coloredList tr:nth-child(odd) {
+  background-color: #e2eeef;
+}
+.feindura .coloredList li {
+  padding: 5px 10px;
+  margin: 0px;
+  list-style: none;
+}
+.feindura .coloredList td {
+  padding: 5px 0px;
+  padding-left: 5px;
+  padding-right: 2px;
+}
+.feindura .coloredList li:hover,
+.feindura .coloredList tr:hover {
+  background-color: #fff;
+}
+.feindura ul.coloredList {
+  padding: 0px;
+  margin: 0px;
+}
+.feindura table.coloredList {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+.feindura #dimmContainer {
+  position: fixed;
+  z-index: 5;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: url("../images/bg/dimmContainer.png") repeat;
+}
+.feindura #documentSaved {
+  position: fixed;
+  top: 50%;
+  left: 480px;
+  z-index: 17;
+  display: none;
+  margin-top: -132px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 246px;
+  height: 264px;
+  background: url("../images/icons/documentSaved.png") no-repeat;
+}
+.feindura div#contentBlocked {
+  z-index: 7;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: -20px;
+  background-color: #fff;
+  /* IE 8 */
+
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+  /* IE 5-7 */
+
+  filter: alpha(opacity=70);
+  /* Netscape */
+
+  -moz-opacity: 0.7;
+  /* Safari 1.x */
+
+  -khtml-opacity: 0.7;
+  /* Webkit */
+
+  -webkit-opacity: 0.7;
+  /* Good browsers */
+
+  opacity: 0.7;
+}
+.feindura div#contentBlocked > div {
+  position: fixed;
+  top: 200px;
+  width: 800px;
+  margin-left: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+}
+.feindura #loadingBox {
+  position: fixed;
+  top: 40%;
+  left: 470px;
+  z-index: 16;
+  display: none;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 30px 20px;
+  width: 330px;
+  background-color: #fff;
+  border: 1px solid #fff;
+  text-align: center;
+  border: 1px solid #fff;
+  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  behavior: url('library/thirdparty/javascripts/PIE.htc');
+}
+.feindura div.leftSidebarLoadingCircle {
+  position: absolute;
+  top: 75px;
+  left: 60px;
+  z-index: 0;
+}
+.feindura div.smallLoadingCircle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 20px;
+  margin-top: -15px;
+  margin-left: -15px;
+}
+.feindura input.short {
+  width: 70px !important;
+  text-align: center;
+}
+.feindura textarea.autogrow {
+  overflow-y: hidden;
+  resize: none;
+  transition: height 100ms ease-out;
+  -moz-transition: height 100ms ease-out;
+  -webkit-transition: height 100ms ease-out;
+  -o-transition: height 100ms ease-out;
+}
+.feindura select[multiple="multiple"] {
+  width: 250px;
+  max-height: 150px;
+  vertical-align: top;
+  border-color: #ccc;
+  background: #fdfdfd;
+  font-size: 16px;
+  font-family: Calibri, Helvetica, Sans-Serif;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+}
+.feindura input.button,
+.feindura a.button {
+  position: relative;
+  display: inline-block;
+  border: none;
+  text-decoration: none;
+}
+.feindura input.submit,
+.feindura a.submit,
+.feindura a.ok {
+  width: 55px !important;
+  height: 55px !important;
+  background: url("../images/buttons/form_submit.png") no-repeat;
+  cursor: pointer;
+}
+.feindura input.submit:hover,
+.feindura a.submit:hover,
+.feindura a.ok:hover,
+.feindura input.submit:focus,
+.feindura a.submit:focus,
+.feindura a.ok:focus {
+  background-position: 0 -55px;
+}
+.feindura input.submit:active,
+.feindura a.submit:active,
+.feindura a.ok:active {
+  background-position: 0 0;
+}
+.feindura input.cancel,
+.feindura a.cancel {
+  width: 55px !important;
+  height: 55px !important;
+  background: url("../images/buttons/form_cancel.png") no-repeat;
+  cursor: pointer;
+}
+.feindura input.cancel:hover,
+.feindura a.cancel:hover,
+.feindura input.cancel:focus,
+.feindura a.cancel:focus {
+  background-position: 0 -55px;
+}
+.feindura input.cancel:active,
+.feindura a.cancel:active {
+  background-position: 0 0;
+}
 .feindura .cke_dialog_background_cover {
   background: url("../images/bg/dimmContainer.png") repeat !important;
   background-color: transparent !important;
+}
+.feindura.cke_skin_kama a {
+  padding-left: 0;
+  background: none;
 }
 .feindura.cke_skin_kama textarea.cke_source {
   display: block !important;
@@ -4441,455 +4985,6 @@
 .feindura .fancyform_focus {
   cursor: pointer;
   border-bottom: 1px dotted #CF974D;
-}
-.feindura #boxShadows {
-  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 40px rgba(0, 0, 0, 0.050000000000000044);
-  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 40px rgba(0, 0, 0, 0.050000000000000044);
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 40px rgba(0, 0, 0, 0.050000000000000044);
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  border-radius: 20px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-}
-.feindura #PIE {
-  behavior: url('library/thirdparty/javascripts/PIE.htc');
-}
-.feindura .blue {
-  color: #3a79a5 !important;
-}
-.feindura .brown {
-  color: #d7943c !important;
-}
-.feindura .red {
-  color: #a02f00 !important;
-}
-.feindura .gray {
-  color: #999999 !important;
-}
-.feindura a.gray:hover,
-.feindura a.gray:focus {
-  color: #dd6e1f !important;
-}
-.feindura .hidden {
-  display: none;
-}
-.feindura .center {
-  text-align: center;
-}
-.feindura .left {
-  text-align: left;
-}
-.feindura .right {
-  text-align: right;
-}
-.feindura [class^="spacer"] {
-  clear: both;
-}
-.feindura .spacer {
-  height: 16px;
-}
-.feindura .spacer2x {
-  height: 32px;
-}
-.feindura .spacer4x {
-  height: 64px;
-}
-.feindura .spacerH1 {
-  height: 40px;
-}
-.feindura .spacerH2 {
-  height: 40px;
-}
-.feindura .spacerH3 {
-  height: 60px;
-}
-.feindura .spacerH4 {
-  height: 48px;
-}
-.feindura div.blockSpacer {
-  position: relative;
-  width: 788px;
-  height: 28px;
-  margin: 25px -8px;
-  background: url("../images/bg/content_blockSpacer.png") no-repeat;
-}
-.feindura .toolTip,
-.feindura input.toolTip[type=checkbox] {
-  cursor: help;
-}
-.feindura input.toolTip,
-.feindura textarea.toolTip {
-  cursor: text;
-}
-.feindura input.button.toolTip,
-.feindura a.toolTip {
-  cursor: pointer;
-}
-.feindura span.toolTip:not(.badge),
-.feindura label.toolTip {
-  background: url("../images/icons/hint_toolTipInfo.png") no-repeat right center;
-  padding-right: 15px;
-}
-.feindura span.toolTip.noMark {
-  background: none;
-  padding-right: 0;
-  cursor: auto;
-}
-.feindura span.warning {
-  display: inline-block;
-  padding: 3px 0px;
-  padding-left: 20px;
-  background: url("../images/icons/warning.gif") no-repeat 0px 7px !important;
-  font-size: 12px;
-  color: #990000;
-}
-.feindura span.hint {
-  display: inline-block;
-  padding-left: 16px;
-  background: url("../images/icons/hint_toolTipInfo.png") no-repeat;
-  background-position: 0px 4px;
-  font-size: 12px;
-  color: #947342;
-}
-.feindura div.alert {
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
-  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
-}
-.feindura mark {
-  background-color: #fef086;
-  color: inherit;
-}
-.feindura hr {
-  position: relative;
-  height: 0px;
-  margin: 15px 0px;
-  border: none;
-  border-top: 10px dotted #cccccc;
-  clear: both;
-}
-.feindura hr.small {
-  position: relative;
-  height: 0px;
-  margin: 10px 0px;
-  border: none;
-  border-top: 1px solid #f0f0f0;
-}
-.feindura label,
-.feindura label span {
-  cursor: pointer !important;
-}
-.feindura h1 {
-  font-size: 20px;
-}
-.feindura h2 {
-  font-size: 18px;
-}
-.feindura a,
-.feindura a.link {
-  padding-left: 18px;
-  color: #dd6e1f;
-  text-decoration: none;
-  background: url("../images/icons/link.gif") no-repeat left center;
-  cursor: pointer !important;
-  outline: none !important;
-}
-.feindura a:hover,
-.feindura a:focus,
-.feindura a.link:hover,
-.feindura a.link:focus {
-  color: #536068;
-  text-decoration: none;
-}
-.feindura a:active,
-.feindura a.active,
-.feindura a.link:active,
-.feindura a.link.active {
-  color: #dd6e1f;
-  text-decoration: none;
-}
-.feindura p a {
-  background-position: 0px 4px;
-}
-.feindura a.image {
-  display: inline-block;
-  padding-left: 0px;
-  background: none;
-}
-.feindura a.anchorTarget {
-  position: relative;
-  display: block;
-  visibility: hidden;
-  padding-left: 0px;
-  height: 0px;
-  top: -30px;
-  background: none;
-}
-.feindura a.deleteIcon {
-  display: block;
-  position: absolute;
-  width: 18px;
-  height: 17px;
-  padding-left: 0;
-  background: url("../images/buttons/content_deleteIcon.png") no-repeat;
-}
-.feindura a.deleteIcon:hover,
-.feindura a.deleteIcon:focus {
-  background-position: 0px -16px;
-}
-.feindura a.addButton {
-  position: relative;
-  display: block;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  margin: 6px 0;
-  background: url("../images/buttons/addButton.png") no-repeat;
-}
-.feindura a.addButton:hover,
-.feindura a.addButton:focus {
-  background-position: 0px -24px;
-}
-.feindura a.addButton:active {
-  background-position: 0px -48px;
-}
-.feindura a.down {
-  font-weight: bold;
-  padding-left: 16px;
-  background: url("../images/buttons/down.gif") no-repeat 0px 3px !important;
-}
-.feindura a.up {
-  font-weight: bold;
-  padding-left: 16px;
-  background: url("../images/buttons/up.gif") no-repeat 0px 3px !important;
-}
-.feindura a.status {
-  display: inline-block;
-  width: 27px;
-  height: 27px;
-  text-decoration: none;
-  padding-left: 0px;
-}
-.feindura a.status.public {
-  background: url("../images/icons/page_public.png") no-repeat;
-}
-.feindura a.status.nonpublic {
-  background: url("../images/icons/page_nonpublic.png") no-repeat;
-}
-.feindura .categoryHeader a.status.public {
-  background: url("../images/icons/category_public.png") no-repeat;
-}
-.feindura .categoryHeader a.status.nonpublic {
-  background: url("../images/icons/category_nonpublic.png") no-repeat;
-}
-.feindura ul.nav-tabs a {
-  background: none;
-  font-weight: bold;
-  color: #3a79a5;
-}
-.feindura ul.nav-tabs a.active {
-  background-color: #f0f0f0;
-  color: #3a79a5;
-}
-.feindura ul.nav-tabs a:hover,
-.feindura ul.nav-tabs a:focus {
-  background-color: #3a79a5;
-  color: #fff;
-  -webkit-text-shadow: none;
-  -moz-text-shadow: none;
-  text-shadow: none;
-  -ms-text-shadow: none;
-  -o-text-shadow: none;
-  -khtml-text-shadow: none;
-}
-.feindura menu.horizontal {
-  position: relative;
-  margin: 0 auto;
-  padding: 0;
-}
-.feindura menu.horizontal li {
-  position: relative;
-  float: left;
-  display: block;
-  margin: 0px auto;
-  padding: 0px;
-  list-style: none;
-}
-.feindura menu.vertical {
-  margin: 0;
-  padding: 0;
-}
-.feindura menu.vertical li {
-  position: relative;
-  overflow: hidden;
-  margin: 0px;
-  padding: 0px;
-  width: 100%;
-  height: 35px;
-  list-style: none;
-  white-space: nowrap;
-}
-.feindura .coloredList {
-  font-size: 11px;
-}
-.feindura .coloredList a {
-  background-position: 1px 1px;
-}
-.feindura .coloredList li:nth-child(even),
-.feindura .coloredList tr:nth-child(even) {
-  background-color: #eef7f7;
-}
-.feindura .coloredList li:nth-child(odd),
-.feindura .coloredList tr:nth-child(odd) {
-  background-color: #e2eeef;
-}
-.feindura .coloredList li {
-  padding: 5px 10px;
-  margin: 0px;
-  list-style: none;
-}
-.feindura .coloredList td {
-  padding: 5px 0px;
-  padding-left: 5px;
-  padding-right: 2px;
-}
-.feindura .coloredList li:hover,
-.feindura .coloredList tr:hover {
-  background-color: #fff;
-}
-.feindura ul.coloredList {
-  padding: 0px;
-  margin: 0px;
-}
-.feindura table.coloredList {
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
-}
-.feindura #dimmContainer {
-  position: fixed;
-  z-index: 5;
-  display: none;
-  width: 100%;
-  height: 100%;
-  background: url("../images/bg/dimmContainer.png") repeat;
-}
-.feindura #documentSaved {
-  position: fixed;
-  top: 50%;
-  left: 480px;
-  z-index: 17;
-  display: none;
-  margin-top: -132px;
-  margin-right: auto;
-  margin-left: auto;
-  width: 246px;
-  height: 264px;
-  background: url("../images/icons/documentSaved.png") no-repeat;
-}
-.feindura div#contentBlocked {
-  z-index: 7;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  margin: -20px;
-  /*padding-top: 405px;*/
-
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  color: #000;
-  background-color: #fff;
-  /* IE 8 */
-
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
-  /* IE 5-7 */
-
-  filter: alpha(opacity=60);
-  /* Netscape */
-
-  -moz-opacity: 0.6;
-  /* Safari 1.x */
-
-  -khtml-opacity: 0.6;
-  /* Webkit */
-
-  -webkit-opacity: 0.6;
-  /* Good browsers */
-
-  opacity: 0.6;
-}
-.feindura #loadingBox {
-  position: fixed;
-  top: 40%;
-  left: 470px;
-  z-index: 16;
-  display: none;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 30px 20px;
-  width: 330px;
-  background-color: #fff;
-  border: 1px solid #fff;
-  text-align: center;
-  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 40px rgba(0, 0, 0, 0.050000000000000044);
-  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 40px rgba(0, 0, 0, 0.050000000000000044);
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 40px rgba(0, 0, 0, 0.050000000000000044);
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  border-radius: 20px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  behavior: url('library/thirdparty/javascripts/PIE.htc');
-}
-.feindura div.leftSidebarLoadingCircle {
-  position: absolute;
-  top: 75px;
-  left: 60px;
-  z-index: 0;
-}
-.feindura div.smallLoadingCircle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 50px;
-  height: 20px;
-  margin-top: -15px;
-  margin-left: -15px;
-}
-.feindura input.short {
-  width: 70px !important;
-  text-align: center;
-}
-.feindura textarea.autogrow {
-  overflow-y: hidden;
-  resize: none;
-  transition: height 100ms ease-out;
-  -moz-transition: height 100ms ease-out;
-  -webkit-transition: height 100ms ease-out;
-  -o-transition: height 100ms ease-out;
-}
-.feindura select[multiple="multiple"] {
-  width: 250px;
-  max-height: 150px;
-  vertical-align: top;
-  border-color: #ccc;
-  background: #fdfdfd;
-  font-size: 16px;
-  font-family: Calibri, Helvetica, Sans-Serif;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
 }
 .feindura body {
   height: 100%;
@@ -5191,7 +5286,6 @@
   -o-text-shadow: 0 1px 1px #ffffff;
   -khtml-text-shadow: 0 1px 1px #ffffff;
 }
-.feindura .mainBody #leftSidebar h2,
 .feindura .mainBody #leftSidebar h3 {
   margin: 0px;
   margin-top: 3px;
@@ -5204,6 +5298,7 @@
 .feindura .mainBody #leftSidebar h2 img {
   position: relative;
   margin-top: -5px;
+  margin-right: 5px;
 }
 .feindura .mainBody #leftSidebar h3 {
   font-size: 10px;
@@ -5213,9 +5308,26 @@
   margin-bottom: 12px;
   color: #C57F3D;
 }
-.feindura .mainBody #leftSidebar .content {
+.feindura .mainBody #leftSidebar h2 {
+  z-index: 2;
   position: relative;
-  overflow: hidden;
+  width: 183px;
+  padding: 2px 10px;
+  margin: 15px 0;
+  border-bottom: 1px solid #fff;
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f0f0f0), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #f0f0f0 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #f0f0f0 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f0f0f0',GradientType=0);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
+  font-size: 12px;
+}
+.feindura .mainBody #leftSidebar .content {
+  z-index: 1;
+  position: relative;
   margin: 10px 10px;
   width: 170px;
   padding: 0 5px;
@@ -5437,6 +5549,7 @@
 .feindura .mainBody #leftSidebar .sidebarInfo .content {
   margin: 10px 20px;
   width: 150px;
+  overflow: hidden;
 }
 .feindura .mainBody #leftSidebar .sidebarInfo hr {
   margin: 15px 0px;
@@ -5445,7 +5558,15 @@
   border-top: 1px dotted #E2E3E3;
 }
 .feindura .mainBody #leftSidebar .sidebarInfo h2 {
+  margin: 10px 0;
+  margin-bottom: -8px;
   text-align: center;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background: none;
+  filter: none;
+  border: none;
 }
 .feindura .mainBody #leftSidebar #sidebarTaskLog {
   position: relative;
@@ -5485,15 +5606,25 @@
 }
 .feindura .mainBody #leftSidebar ul.sidebarListUsers {
   margin-top: -15px;
-  margin-left: 27px;
 }
 .feindura .mainBody #leftSidebar ul.sidebarListUsers li {
-  padding: 4px 0px;
-  list-style-image: url("../images/icons/user_offline.png");
+  margin: 0 -14px;
+  padding: 8px 0;
+  padding-left: 25px;
+  width: 177px;
+  background-color: #fff;
+  background-image: url("../images/icons/user_offline.png");
+  background-repeat: no-repeat;
+  background-position: 5px 9px;
   font-weight: bold;
+  border-bottom: 1px solid #f0f0f0;
 }
 .feindura .mainBody #leftSidebar ul.sidebarListUsers li.online {
-  list-style-image: url("../images/icons/user_online.png");
+  background-image: url("../images/icons/user_online.png");
+  background-position: 5px 10px;
+}
+.feindura .mainBody #leftSidebar ul.sidebarListUsers li:hover {
+  background-color: #f0f0f0;
 }
 .feindura .mainBody #leftSidebar ul.backupDownload li {
   position: relative;
@@ -5663,10 +5794,10 @@
 .feindura .mainBody .subMenu a.editPage {
   background: url("../images/buttons/subMenu_editPage.png") no-repeat;
 }
-.feindura .mainBody .subMenu a.pageThumbnailUpload {
+.feindura .mainBody .subMenu a.uploadPageThumbnail {
   background: url("../images/buttons/subMenu_uploadThumb.png") no-repeat;
 }
-.feindura .mainBody .subMenu a.pageThumbnailDelete {
+.feindura .mainBody .subMenu a.deletePageThumbnail {
   background: url("../images/buttons/subMenu_deleteThumb.png") no-repeat;
 }
 .feindura .mainBody .subMenu a.addPageLanguage {
@@ -5761,11 +5892,6 @@
 .feindura .mainContent .block.hidden {
   display: block;
 }
-.feindura .mainContent .block:hover {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-}
 .feindura .mainContent .block > div {
   z-index: 1;
 }
@@ -5786,6 +5912,14 @@
   font-size: 18px;
   line-height: 26px;
   border: 1px solid #fff;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #f0f0f0));
+  background: -moz-linear-gradient(center bottom, #ffffff 0%, #f0f0f0 100%);
+  background: -ms-linear-gradient(bottom, #ffffff 0%, #f0f0f0 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#ffffff',GradientType=0);
   -webkit-border-top-right-radius: 10px;
   -webkit-border-bottom-right-radius: 0;
   -webkit-border-bottom-left-radius: 0;
@@ -5801,14 +5935,6 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  background: #ffffff;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #f0f0f0));
-  background: -moz-linear-gradient(center bottom, #ffffff 0%, #f0f0f0 100%);
-  background: -ms-linear-gradient(bottom, #ffffff 0%, #f0f0f0 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#ffffff',GradientType=0);
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
-  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
 }
 .feindura .mainContent .block > h1 > span {
   max-width: 695px;
@@ -5884,13 +6010,18 @@
   color: #536068;
 }
 .feindura .mainContent .block .verticalSeparator {
-  background: url('../images/bg/content_block_verticalSeparator.png') no-repeat bottom center;
   height: 5px;
-  margin: 16px -16px;
+  margin: 16px -20px;
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15000000000000002);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15000000000000002);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15000000000000002);
   clear: both;
 }
 .feindura .mainContent .block h2 + .verticalSeparator {
   margin-top: 0px !important;
+}
+.feindura .mainContent .block input.submit.center {
+  margin-left: 353px;
 }
 .feindura .mainContent .block.alert {
   border: none;
@@ -5902,6 +6033,9 @@
   -ms-text-shadow: 0 1px 1px #c1c1c1;
   -o-text-shadow: 0 1px 1px #c1c1c1;
   -khtml-text-shadow: 0 1px 1px #c1c1c1;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 .feindura .mainContent .block.alert p {
   display: block;
@@ -5950,10 +6084,10 @@
 .feindura .mainContent .block.info h1 {
   color: #d7943c;
   background: #ffffff;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #feec92));
-  background: -moz-linear-gradient(center bottom, #ffffff 0%, #feec92 100%);
-  background: -ms-linear-gradient(bottom, #ffffff 0%, #feec92 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feec92', endColorstr='#ffffff',GradientType=0);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #feefb1));
+  background: -moz-linear-gradient(center bottom, #ffffff 0%, #feefb1 100%);
+  background: -ms-linear-gradient(bottom, #ffffff 0%, #feefb1 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feefb1', endColorstr='#ffffff',GradientType=0);
 }
 .feindura .mainContent .block.info h2 {
   margin-top: 20px;
@@ -6118,10 +6252,11 @@
   background-clip: padding-box;
   padding: 10px;
   margin: -10px;
+  margin-bottom: 10px;
   background-color: #fdfdfd;
 }
 .feindura .mainContent .block .form .row {
-  padding: 10px 0;
+  padding: 8px 0;
 }
 .feindura .mainContent .block .form .formLeft {
   text-align: right;
@@ -6136,6 +6271,10 @@
 .feindura .mainContent .block .form label {
   display: inline-block;
   width: auto;
+}
+.feindura .mainContent .block .form input.submit,
+.feindura .mainContent .block .form a.submit {
+  margin-top: 20px;
 }
 .feindura .refererBox {
   max-height: 300px;
@@ -6607,11 +6746,11 @@
 .feindura .block.listPages .block ul li .functions a.deletePage {
   background-image: url("../images/buttons/listPages_deletePage.png");
 }
-.feindura .block.listPages .block ul li .functions a.pageThumbnailUpload {
-  background-image: url("../images/buttons/listPages_pageThumbnailUpload.png");
+.feindura .block.listPages .block ul li .functions a.uploadPageThumbnail {
+  background-image: url("../images/buttons/listPages_uploadPageThumbnail.png");
 }
-.feindura .block.listPages .block ul li .functions a.pageThumbnailDelete {
-  background-image: url("../images/buttons/listPages_pageThumbnailDelete.png");
+.feindura .block.listPages .block ul li .functions a.deletePageThumbnail {
+  background-image: url("../images/buttons/listPages_deletePageThumbnail.png");
 }
 .feindura .block.listPages .block ul.sortablePageList li {
   cursor: move;
@@ -6798,7 +6937,7 @@
 }
 .feindura .editor {
   position: relative;
-  margin-bottom: -40px !important;
+  margin-bottom: -30px !important;
   overflow: visible;
 }
 .feindura .editor .content {
@@ -6811,6 +6950,10 @@
   width: 778px;
   height: 360px;
   padding: 10px;
+}
+.feindura .editor input.submit {
+  margin-top: -20px;
+  margin-bottom: 10px;
 }
 .feindura .editor table.hotKeys {
   width: 100%;
@@ -6825,17 +6968,17 @@
 .feindura .editor a#hotKeysToogle:hover {
   color: #879095;
 }
-.feindura .editor a.pageThumbnailUpload {
+.feindura .editor a.uploadPageThumbnail {
   display: block;
   position: absolute;
   top: 25px;
   right: 100px;
   width: 90px;
   height: 75px;
-  background: url("../images/buttons/content_pageThumbnailUpload.png") no-repeat;
+  background: url("../images/buttons/content_uploadPageThumbnail.png") no-repeat;
 }
-.feindura .editor a.pageThumbnailUpload:hover,
-.feindura .editor a.pageThumbnailUpload:focus {
+.feindura .editor a.uploadPageThumbnail:hover,
+.feindura .editor a.uploadPageThumbnail:focus {
   background-position: 0px -76px;
 }
 .feindura #editablePageTitle {
@@ -7004,4 +7147,171 @@
 .feindura a.deleteUser:hover,
 .feindura a.deleteUser:focus {
   background-position: 0px -54px;
+}
+.feindura #windowBoxContainer {
+  z-index: 20006;
+  position: absolute;
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+}
+.feindura #windowBoxContainer #windowBox {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  margin-left: -400px;
+  width: 760px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #fff;
+  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura #windowBoxContainer #windowBox > h1 {
+  position: relative;
+  top: -21px;
+  left: -21px;
+  z-index: 2;
+  padding: 10px 20px;
+  width: 760px;
+  text-align: center;
+  color: #3a79a5;
+  font-weight: normal !important;
+  font-size: 20px;
+  -webkit-text-shadow: 0px 1px 2px #cccccc;
+  -moz-text-shadow: 0px 1px 2px #cccccc;
+  text-shadow: 0px 1px 2px #cccccc;
+  -ms-text-shadow: 0px 1px 2px #cccccc;
+  -o-text-shadow: 0px 1px 2px #cccccc;
+  -khtml-text-shadow: 0px 1px 2px #cccccc;
+  border: 1px solid #fff;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #f0f0f0));
+  background: -moz-linear-gradient(center bottom, #ffffff 0%, #f0f0f0 100%);
+  background: -ms-linear-gradient(bottom, #ffffff 0%, #f0f0f0 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#ffffff',GradientType=0);
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura #windowBoxContainer #windowBox h2 {
+  margin-bottom: 10px;
+  padding-bottom: 18px;
+  color: #668CA6;
+  text-align: center;
+  font-weight: normal;
+  font-size: 18px;
+}
+.feindura #windowBoxContainer #windowBox h3 {
+  margin-bottom: 10px;
+  color: #888888;
+  font-weight: normal;
+  font-size: 15px;
+}
+.feindura #windowBoxContainer #windowBox p {
+  margin: 5px 10px;
+  font-size: 14px;
+}
+.feindura #windowBoxContainer a.close {
+  z-index: 2;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 0px !important;
+  width: 18px;
+  height: 18px;
+  background: url("../images/buttons/close_gray.png") no-repeat !important;
+  /* IE 8 */
+
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+  /* IE 5-7 */
+
+  filter: alpha(opacity=80);
+  /* Netscape */
+
+  -moz-opacity: 0.8;
+  /* Safari 1.x */
+
+  -khtml-opacity: 0.8;
+  /* Webkit */
+
+  -webkit-opacity: 0.8;
+  /* Good browsers */
+
+  opacity: 0.8;
+}
+.feindura #windowBoxContainer a.close:hover {
+  /* IE 8 */
+
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+  /* IE 5-7 */
+
+  filter: alpha(opacity=100);
+  /* Netscape */
+
+  -moz-opacity: 1;
+  /* Safari 1.x */
+
+  -khtml-opacity: 1;
+  /* Webkit */
+
+  -webkit-opacity: 1;
+  /* Good browsers */
+
+  opacity: 1;
+}
+.feindura #windowBoxContainer #windowRequestBox {
+  position: relative;
+  width: 760px;
+  min-height: 140px;
+}
+.feindura #windowBoxContainer #windowBoxDimmer {
+  position: absolute;
+  z-index: 10;
+  margin-top: -20px;
+  padding: 50px 0px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: #fff;
+  /* IE 8 */
+
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+  /* IE 5-7 */
+
+  filter: alpha(opacity=50);
+  /* Netscape */
+
+  -moz-opacity: 0.5;
+  /* Safari 1.x */
+
+  -khtml-opacity: 0.5;
+  /* Webkit */
+
+  -webkit-opacity: 0.5;
+  /* Good browsers */
+
+  opacity: 0.5;
 }

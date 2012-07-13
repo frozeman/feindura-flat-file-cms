@@ -104,6 +104,11 @@ function isAdmin() {
   // var
   $otherUsers = false;
 
+  // if no user exist, make the logged in one an admin
+  if(USERID === false)
+    return true;
+
+  // check the users
   if(!empty($GLOBALS['userConfig'])) {
 
     $user = $_SESSION['feinduraSession']['login']['user'];
@@ -152,9 +157,9 @@ function isBlocked($returnBool = false) {
        $cachedUser['edit'] &&
        $location != 'new' && // dont block when createing a new page (multiple user can do that)
        ($location == $_GET['page'] || $location == $_GET['site'])) {
-      $return = ($returnBool) ? true : '<div id="contentBlocked"><br><br><br><br><br><br>'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'];
+      $return = ($returnBool) ? true : '<div id="contentBlocked"><div>'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'];
       if(!empty($cachedUser['username'])) $return .= '<br><span style="font-size:15px;">'.$GLOBALS['langFile']['DASHBOARD_TITLE_USER'].': <span class="blue">'.$cachedUser['username'].'</span></span>';
-      $return .= '</div>';
+      $return .= '</div></div>';
       return $return;
     }
   }
@@ -2214,6 +2219,9 @@ function formatHighNumber($number,$decimalsNumber = 0) {
  */
 function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = false, $excluded = false) {
 
+  if(empty($filesPath))
+    return;
+
   // var
   $fileTypeText = '';
   $fileType = str_replace('.', '', $fileType); // remove . from the given extension
@@ -2390,13 +2398,18 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
     echo '<textarea name="fileContent" cols="90" rows="30" spellcheck="false" class="editFiles '.substr($filesPath.$editFile, strrpos($filesPath.$editFile, '.') + 1).'" id="editFiles'.uniqid().'">'.$file.'</textarea>';
   }
 
-
+  // SAVE/DELETE BUTTONS
   if($isDir) {
-    if($isFiles)
-      echo '<a href="?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/views/windowBox/deleteEditFiles.php?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_DELETEFILE'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_DELETEFILE'].'::" style="float:left;"></a>';
-    else
-      echo '<br><br><br><br>';
-    echo '<br><br><input type="submit" value="" name="saveEditedFiles" class="button submit right" title="'.$GLOBALS['langFile']['FORM_BUTTON_SUBMIT'].'">';
+    echo '<div class="spacer"></div>';
+    echo '<div class="row">';
+      echo '<div class="span4 center">';
+          if($isFiles)
+            echo '<a href="?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/views/windowBox/deleteEditFiles.php?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_DELETEFILE'].'\');return false;" class="button cancel toolTip" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_DELETEFILE'].'::"></a>';
+      echo '</div>';
+      echo '<div class="span4 center">';
+          echo '<input type="submit" value="" name="saveEditedFiles" class="button submit right" title="'.$GLOBALS['langFile']['FORM_BUTTON_SUBMIT'].'">';
+      echo '</div>';
+    echo '</div>';
   }
   echo '</div>
     </div>

@@ -750,7 +750,7 @@ $langFile['WINDOWBOX_TEXT_DELETEWEBSITELANGUAGES_QUESTION']               = 'Sit
 
 
 /*
-* pageThumbnailDelete.php
+* deletePageThumbnail.php
 */
 
 // ---------- PAGE THUMBNAIL DELETE
@@ -759,7 +759,7 @@ $langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_END']                       = 'éf
 $langFile['PAGETHUMBNAIL_ERROR_DELETE']                                   = 'ERREUR: Le thumbnail ne pouvait pas être éffacée!';
 
 /*
-* pageThumbnailUpload.php
+* uploadPageThumbnail.php
 */
 
 // ---------- PAGE THUMBNAIL UPLOAD

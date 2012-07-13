@@ -86,6 +86,5 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
       </tbody>
     </table>
 
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
     <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'userSettings'; submitAnchor('adminSettingsForm','userSettings');">
   </div>

@@ -325,7 +325,6 @@ header.main {
         width: 208px;
         #shadow > .text(0 1px 1px #fff);
 
-        h2,
         h3 {
           margin: 0px;
           margin-top: 3px;
@@ -338,6 +337,7 @@ header.main {
         h2 img {
             position: relative;
             margin-top: -5px;
+            margin-right: 5px;
         }
         h3 {
           font-size: 10px;
@@ -348,14 +348,28 @@ header.main {
           color: #C57F3D;
         }
 
-        .content {
+        // speacial headline
+        h2 {
+            z-index: 2;
             position: relative;
-            overflow: hidden;
+            width: 183px;
+            padding: 2px 10px;
+            margin: 15px 0;
+            border-bottom: 1px solid #fff;
+            #gradient > .vertical(#fff,@colorLightGray,#fff);
+            #shadow > .drop(0,2px,2px,0.2);
+            font-size: 12px;
+        }
+
+        .content {
+            z-index: 1;
+            position: relative;
             margin: 10px 10px;
             width: 170px;
             padding: 0 5px;
             word-wrap: break-word;
             font-size: 10px;
+
         }
 
 
@@ -612,6 +626,7 @@ header.main {
             .content {
                 margin: 10px 20px;
                 width: 150px;
+                overflow: hidden;
             }
 
             hr {
@@ -622,7 +637,12 @@ header.main {
             }
 
             h2 {
+                margin: 10px 0;
+                margin-bottom: -8px;
                 text-align: center;
+                #shadow > .none();
+                #gradient > .none();
+                border: none;
             }
 
         }
@@ -674,16 +694,27 @@ header.main {
 
         ul.sidebarListUsers {
             margin-top: -15px;
-            margin-left: 27px;
 
             li {
-                padding: 4px 0px;
-                list-style-image: url("../images/icons/user_offline.png");
+                margin: 0 -14px;
+                padding: 8px 0;
+                padding-left: 25px;
+                width: 177px;
+                background-color: #fff;
+                background-image: url("../images/icons/user_offline.png");
+                background-repeat: no-repeat;
+                background-position: 5px 9px;
                 font-weight:bold;
-            }
+                // #shadow > .drop(0,0,2px,0.3);
+                border-bottom: 1px solid @colorLightGray;
 
-            li.online {
-                list-style-image: url("../images/icons/user_online.png");
+                &.online {
+                    background-image: url("../images/icons/user_online.png");
+                    background-position: 5px 10px;
+                }
+                &:hover {
+                    background-color: @colorLightGray;
+                }
             }
         }
 
@@ -854,10 +885,10 @@ header.main {
         a.editPage {
             background: url("../images/buttons/subMenu_editPage.png") no-repeat;
         }
-        a.pageThumbnailUpload {
+        a.uploadPageThumbnail {
             background: url("../images/buttons/subMenu_uploadThumb.png") no-repeat;
         }
-        a.pageThumbnailDelete {
+        a.deletePageThumbnail {
             background: url("../images/buttons/subMenu_deleteThumb.png") no-repeat;
         }
         a.addPageLanguage {

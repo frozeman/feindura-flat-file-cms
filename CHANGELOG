@@ -932,7 +932,7 @@ ChangeLog:
   build 125: toolTips.js: removed arrow like corner of the toolTip an repositioned the toolTip box
   build 124: editor.php: add category selection at creating a page
   build 123: editor.php: fixed thumbnail resize bug (small thumbnail were resized to 200px)
-  build 122: pageThumbnailUpload.php: fixed thumbsize none ratio bug
+  build 122: uploadPageThumbnail.php: fixed thumbsize none ratio bug
   build 121: fixed error text issue, now returns false if showError == false; title renamed in showTitle; content renamed in showContent; error renamed in showError
   build 120: changed text and var: sprachdateien in websitefiles
   build 119: removed toolTip from editor.php show max/min time visit

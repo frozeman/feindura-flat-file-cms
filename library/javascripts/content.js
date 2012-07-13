@@ -1624,7 +1624,7 @@ window.addEvent('domready', function() {
         $$('.cke_toolbox_collapser').setStyles({
           'position':'absolute',
           'right': 25,
-          'top': 17
+          'top': 8
         });
 
         var editorTweenTimeout;

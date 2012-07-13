@@ -101,7 +101,7 @@ if(!$asking) {
 echo $question;
 ?>
 
-<a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+<a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="button cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 <input type="submit" value="" class="button submit">
 </form>
 </div>
