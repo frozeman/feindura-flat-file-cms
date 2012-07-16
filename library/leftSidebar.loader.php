@@ -50,7 +50,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
         foreach($pages as $page) {
 
           // -> show page ID
-          $pageId = (isAdmin())
+          $pageId = (GeneralFunctions::isAdmin())
             ? ' class="toolTip noMark" title="ID '.$page['id'].'"'
             : '';
 
@@ -93,7 +93,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
           if($category['id'] == 0) continue;
 
           // -> show category ID
-          $categoryId = (isAdmin())
+          $categoryId = (GeneralFunctions::isAdmin())
             ? ' class="toolTip noMark" title="ID '.$category['id'].'"'
             : '';
 
@@ -126,7 +126,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
           foreach($pages as $page) {
 
             // -> show page ID
-            $pageId = (isAdmin())
+            $pageId = (GeneralFunctions::isAdmin())
               ? ' class="toolTip noMark" title="ID '.$page['id'].'"'
               : '';
 
@@ -185,7 +185,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       // -> SHOW USERs
       echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" width="22" height="21"> '.$langFile['DASHBOARD_TITLE_USER'].'</h2>';
       echo '<div class="content">';
-        if(!empty($userConfig)) {
+        if(is_array($userConfig)) {
 
           // list user
           echo '<ul class="sidebarListUsers unstyled">';
@@ -218,7 +218,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       break;
     // ***** ADMIN SETUP sideBar -------------------------------------------- **********
     case 'adminSetup':
-      if(!isAdmin()) break;
+      if(!GeneralFunctions::isAdmin()) break;
 
       echo '<div class="sidebarInfo">';
 
@@ -242,7 +242,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
     // ***** PAGESETUP -------------------------------------------- **********
     case 'pageSetup':
-      if(!isAdmin()) break;
+      if(!GeneralFunctions::isAdmin()) break;
 
       // -> CATEGORY ANCHOR LINKS
       echo '<div id="sidebarSelection" class="staticScroller">';
@@ -278,7 +278,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       break;
     // ***** USERSETUP -------------------------------------------- **********
     case 'userSetup':
-      if(!isAdmin()) break;
+      if(!GeneralFunctions::isAdmin()) break;
 
       // -> USER ANCHOR LINKS
       echo '<div id="sidebarSelection" class="staticScroller">';
@@ -310,7 +310,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       break;
     // ***** BACKUP sideBar -------------------------------------------- **********
     case 'backup':
-      if(!isAdmin()) break;
+      if(!GeneralFunctions::isAdmin()) break;
 
       echo '<div id="sidebarSelection">';
       echo '<div class="sidebarInfo">';

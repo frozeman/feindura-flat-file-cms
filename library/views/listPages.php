@@ -108,7 +108,7 @@ foreach($categoryConfig as $category) {
   }
 
   // show category id
-  $categoryTitle .= (isAdmin())
+  $categoryTitle .= (GeneralFunctions::isAdmin())
     ? '[strong]ID:[/strong] '.$category['id']
     : '';
 
@@ -203,7 +203,7 @@ foreach($categoryConfig as $category) {
           : '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].':[/strong] '.$lastSaveDate.'[br]';
 
       // -> show page ID
-      $pageTitle_Id = (isAdmin())
+      $pageTitle_Id = (GeneralFunctions::isAdmin())
         ? '[strong]ID:[/strong] '.$pageContent['id'].'[br]'
         : '';
 

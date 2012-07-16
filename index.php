@@ -198,7 +198,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     } ?>
   ];
   var feindura_snippets_editInWebsiteSettings = <?php echo ($adminConfig['user']['editSnippets']) ? 'true' : 'false' ?>;
-  var feindura_snippets_isAdmin               = <?php echo (isAdmin()) ? 'true' : 'false' ?>;
+  var feindura_snippets_isAdmin               = <?php echo (GeneralFunctions::isAdmin()) ? 'true' : 'false' ?>;
 
   window.addEvent('domready', function () {
 
@@ -292,12 +292,10 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
   <!-- ************************************************************************* -->
   <!-- ** WINDOW BOX *********************************************************** -->
-  <div id="windowBoxContainer">
-    <div id="windowBox">
-      <!-- <h1><?php echo $langFile['LOADING_TEXT_LOAD']; ?></h1> -->
-      <a href="#" class="close" onclick="closeWindowBox(false);return false;"></a>
-      <div id="windowRequestBox"></div>
-    </div>
+  <div id="windowBox">
+    <!-- <h1><?php echo $langFile['LOADING_TEXT_LOAD']; ?></h1> -->
+    <a href="#" class="close" onclick="closeWindowBox(false);return false;"></a>
+    <div id="windowRequestBox"></div>
   </div>
 
   <!-- ************************************************************************* -->
@@ -331,7 +329,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       <a href="http://feindura.org" class="feinduraLogo" target="_blank"></a>
       <div class="feinduraVersion toolTip" title="<?php echo $langFile['LOGO_TEXT'].' '.VERSION.' - Build '.BUILD; ?>::"><?php echo VERSION; ?></div>
 
-      <nav class="mainMenu"<?php if(!isAdmin()) echo ' style="width:830px"'; ?>>
+      <nav class="mainMenu"<?php if(!GeneralFunctions::isAdmin()) echo ' style="width:830px"'; ?>>
         <table>
           <tbody>
             <tr>
@@ -351,7 +349,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     </div>
 
     <!-- ADMIN MENU -->
-    <?php if(isAdmin()) { ?>
+    <?php if(GeneralFunctions::isAdmin()) { ?>
     <div id="adminMenu">
       <h2><?php echo $langFile['HEADER_TITLE_ADMINMENU']; ?></h2>
       <table>

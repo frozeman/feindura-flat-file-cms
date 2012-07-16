@@ -79,62 +79,6 @@ function showErrorsInWindow($errorCode, $errorText, $errorFile, $errorLine) {
 }
 
 /**
- * <b>Name</b> isAdmin()<br>
- *
- * Check if the current user is an admin. If no users exist everyone is an admin.
- *
- *
- * <b>Used Global Variables</b><br>
- *    - <var>$userConfig</var> the user-settings config (included in the {@link general.include.php})
- *
- * @return bool TRUE if the current user is an admin, or no admins exist, otherwise FALSE
- *
- *
- * @version 1.2
- * <br>
- * <b>ChangeLog</b><br>
- *    - 1.2 returns now also TRUE when no user is admin
- *    - 1.1 changed user managament system, it now get the users from the user.config.php
- *    - 1.01 add immediately return true if no remote_user exists
- *    - 1.0 initial release
- *
- */
-function isAdmin() {
-
-  // var
-  $otherUsers = false;
-
-  // if no user exist, make the logged in one an admin
-  if(USERID === false)
-    return true;
-
-  // check the users
-  if(!empty($GLOBALS['userConfig'])) {
-
-    $user = $_SESSION['feinduraSession']['login']['user'];
-
-    // check if the user exists
-    if(!empty($user)) {
-      foreach($GLOBALS['userConfig'] as $configUser) {
-        if($configUser['id'] == $user) {
-          // check if the user is admin
-          if($configUser['admin'])
-            return true;
-        } else {
-          if($configUser['admin'])
-            $otherUsers = true;
-        }
-      }
-    }
-  }
-  // if no user is admin or no user exists, all are Admins
-  if(!$otherUsers)
-    return true;
-  else
-    return false;
-}
-
-/**
  * <b>Name</b> isBlocked()<br>
  *
  * Check if an other user is on the current site.

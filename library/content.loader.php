@@ -137,31 +137,31 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     // ADMIN SETUP
     case 'adminSetup':
       echo isBlocked();
-      if(isAdmin()) include (dirname(__FILE__).'/views/adminSetup.php');
+      if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/views/adminSetup.php');
       break;
     // PAGE SETUP
     case 'pageSetup':
       echo isBlocked();
-      if(isAdmin()) include (dirname(__FILE__).'/views/pageSetup.php');
+      if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/views/pageSetup.php');
       break;
     // STATISTIC SETUP
     case 'statisticSetup':
       echo isBlocked();
-      if(isAdmin()) include (dirname(__FILE__).'/views/statisticSetup.php');
+      if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/views/statisticSetup.php');
       break;
     // USER SETUP
     case 'userSetup':
       echo isBlocked();
-      if(isAdmin()) include (dirname(__FILE__).'/views/userSetup.php');
+      if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/views/userSetup.php');
       break;
     // MODUL SETUP
     case 'modulSetup':
       echo isBlocked();
-      if(isAdmin()) include (dirname(__FILE__).'/views/modulSetup.php');
+      if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/views/modulSetup.php');
       break;
     // BACKUP
     case 'backup':
-      if(isAdmin()) include (dirname(__FILE__).'/views/backup.php');
+      if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/views/backup.php');
       break;
   } //switch END
 

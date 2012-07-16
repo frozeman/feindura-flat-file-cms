@@ -26,6 +26,7 @@ require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
+// vars
 $error = false;
 $response = false;
 $site = $_GET['site'];
@@ -34,7 +35,7 @@ $category = $_GET['category'];
 
 // ->> CHECK if the upload folder exists and is writeable
 if(empty($adminConfig['uploadPath']) || !is_dir(DOCUMENTROOT.$adminConfig['uploadPath']))
-  die('<h2>'.$langFile['PAGETHUMBNAIL_ERROR_NODIR_START'].' &quot;<b>'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].'</b>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_NODIR_END'].'</h2>');
+  die('<h2>'.$langFile['PAGETHUMBNAIL_ERROR_NODIR_START'].' &quot;<strong>'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].'</strong>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_NODIR_END'].'</h2>');
 if($warning = isWritableWarning(DOCUMENTROOT.$adminConfig['uploadPath']))
   die('<h2>'.$warning.'</h2>');
 
@@ -97,121 +98,116 @@ else
   $thumbRatio = $adminConfig['pageThumbnail']['ratio'];
 
 ?>
-<h2><?php echo $langFile['pagethumbnail_h1_part1'].' &quot;<span style="color:#000000;">'.strip_tags(GeneralFunctions::getLocalized($pageContent,'title')).'</span>&quot; '.$langFile['pagethumbnail_h1_part2']; ?></h2>
-
-<div id="thumbInfo">
-<ul>
-  <li><?php echo $langFile['pagethumbnail_thumbinfo_formats']; ?><br><b>JPG</b>, <b>JPEG</b>, <b>GIF</b>, <b>PNG</b></li>
-  <li><?php echo $langFile['pagethumbnail_thumbinfo_filesize'].' <b>'.ini_get('upload_max_filesize').'B</b>'; ?></li>
-  <li><b><?php echo $langFile['pagethumbnail_thumbinfo_standardthumbsize']; ?></b><br>
-  <?php
-
-    if($thumbRatioY) echo $langFile['pagethumbnail_thumbsize_width'].' = <b>'.$thumbWidth.'</b> '.$langFile['THUMBNAIL_TEXT_UNIT'].'<br>';
-    if($thumbRatioX) echo $langFile['pagethumbnail_thumbsize_height'].' = <b>'.$thumbHeight.'</b> '.$langFile['THUMBNAIL_TEXT_UNIT'];
-  ?>
-  </li>
-</ul>
-</div>
-
-<div style="position: relative">
 <form action="library/controllers/thumbnailUpload.controller.php" id="uploadPageThumbnailForm" enctype="multipart/form-data" method="post" onsubmit="startUploadAnimation();" target="uploadTargetFrame" accept-charset="UTF-8">
-	<input type="hidden" name="upload" value="true">
-	<input type="hidden" name="category" value="<?php echo $category; ?>">
-  <input type="hidden" name="id" value="<?php echo $page; ?>">
-  <input type="hidden" name="thumbRatio" value="<?php echo $thumbRatio; ?>">
+  <div>
+    <input type="hidden" name="upload" value="true">
+    <input type="hidden" name="category" value="<?php echo $category; ?>">
+    <input type="hidden" name="id" value="<?php echo $page; ?>">
+    <input type="hidden" name="thumbRatio" value="<?php echo $thumbRatio; ?>">
+  </div>
 
-	<!-- file selection -->
-  <h3><?php echo $langFile['pagethumbnail_field1']; ?></h3>
 
-	<input type="file" name="thumbFile">
-  <br>
-	<br>
+  <h2><?php echo $langFile['pagethumbnail_h1_part1'].' &quot;<span style="color:#000000;">'.strip_tags(GeneralFunctions::getLocalized($pageContent,'title')).'</span>&quot; '.$langFile['pagethumbnail_h1_part2']; ?></h2>
 
-	<a href="#" id="thumbSizeToogle" class="down"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?></a><br>
-	<br clear="all"/>
+  <div class="row">
+    <div class="span4">
 
-  <table id="thumbnailSizeBox">
-  <tbody>
-    <?php
-    // -> THUMB-WIDTH
-    if($thumbRatioY) {
-    ?>
-    <tr><td style="width: 80px">
-    <label for="windowBox_thumbWidth">
-    <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></label>
-    </td><td>
-    <input type="text" id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?>>
-    <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
-    </td></tr>
+      <!-- file selection -->
+      <h3 style="margin-bottom: -20px;"><?php echo $langFile['pagethumbnail_field1']; ?></h3>
 
-    <!-- shows the width in a scale -->
-    <?php
-    if($thumbWidth)
-      $styleThumbWidth = 'width:'.$thumbWidth.'px';
-    else
-      $styleThumbWidth = 'width:0px';
-    ?>
-    <tr><td>
-    </td><td style="height:40px;">
-    <div id="windowBox_thumbWidthScale" class="thumbnailScale" style="<?php echo $styleThumbWidth; ?>"><div></div></div>
-    </td></tr>
-    <?php
-    }
-    // -> THUMB-HEIGHT
-    if($thumbRatioX) {
-    ?>
-    <tr><td style="width: 80px">
-    <label for="windowBox_thumbHeight">
-    <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></label>
-    </td><td>
-    <input type="text" id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?>>
-    <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
-    </td></tr>
+      <input type="file" name="thumbFile" class="btn">
+      <input type="submit" value="" class="button thumbnailUpload toolTip" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>">
 
-    <!-- shows the height in a scale -->
-    <?php
-    if($thumbHeight)
-      $styleThumbHeight = 'width:'.$thumbHeight.'px';
-    else
-      $styleThumbHeight = 'width:0px';
-    ?>
-    <tr><td>
-    </td><td style="height:40px;">
-    <div id="windowBox_thumbHeightScale" class="thumbnailScale" style="<?php echo $styleThumbHeight; ?>"><div></div></div>
-    </td></tr>
-    <?php
-    }
-    ?>
-  </tbody>
-  </table>
+    </div>
+    <div class="span4">
+      <div class="well">
+        <ul>
+          <li><?php echo $langFile['pagethumbnail_thumbinfo_formats']; ?><br><strong>JPG</strong>, <strong>JPEG</strong>, <strong>GIF</strong>, <strong>PNG</strong></li>
+          <li><?php echo $langFile['pagethumbnail_thumbinfo_filesize'].' <strong>'.ini_get('upload_max_filesize').'B</strong>'; ?></li>
+          <li><strong><?php echo $langFile['pagethumbnail_thumbinfo_standardthumbsize']; ?></strong><br>
+          <?php
 
-  <!-- show a PREVIEW of the current THUMBNAIL -->
-  <?php
-  // show thumbnail if the page has one
-  if(!empty($pageContent['thumbnail'])) {
+            if($thumbRatioY) echo $langFile['pagethumbnail_thumbsize_width'].' = <strong>'.$thumbWidth.'</strong> '.$langFile['THUMBNAIL_TEXT_UNIT'].'<br>';
+            if($thumbRatioX) echo $langFile['pagethumbnail_thumbsize_height'].' = <strong>'.$thumbHeight.'</strong> '.$langFile['THUMBNAIL_TEXT_UNIT'];
+          ?>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-    $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+  <?php if($thumbRatioY || $thumbRatioX) { ?>
+  <div style="margin-top: -25px;">
+    <a href="#" id="thumbSizeToogle" class="down"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?></a>
 
-    if($thumbnailWidth[0] <= 250)
-      $thumbnailWidth = ' width="'.$thumbnailWidth[0].'"';
-    else
-      $thumbnailWidth = ' width="250"';
+    <div id="thumbnailSizeBox" class="insetBlock">
+      <?php
+      // -> THUMB-WIDTH
+      if($thumbRatioY) {
+      ?>
+        <div class="row">
+          <div class="span1">
+            <label for="windowBox_thumbWidth">
+            <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></label>
+          </div>
+          <div class="span1">
+            <input type="number" id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?>>
+            <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
+          </div>
+          <!-- shows the width in a scale -->
+          <?php
+          if($thumbWidth)
+            $styleThumbWidth = 'width:'.$thumbWidth.'px';
+          else
+            $styleThumbWidth = 'width:0px';
+          ?>
+          <div class="span5">
+            <div id="windowBox_thumbWidthScale" class="thumbnailScale" style="top:8px; <?php echo $styleThumbWidth; ?>"><div></div></div>
+          </div>
+        </div>
 
-    // generates a random number to put on the end of the image, to prevent caching
-    $randomImage = '?'.md5(uniqid(rand(),1));
 
-    echo '<div style="z-index:0; position:relative; width: 280px; margin-bottom: 10px; margin-top: 20px; float:right; text-align: center;">';
-    echo '<img src="'.GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
-    echo '</div>';
-  }
-  ?>
-	<input type="submit" value="" class="button thumbnailUpload toolTip" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>">
+      <?php
+      }
+      // -> THUMB-HEIGHT
+      if($thumbRatioX) {
+      ?>
+        <div class="row">
+          <div class="span1">
+            <label for="windowBox_thumbHeight">
+            <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></label>
+          </div>
+          <div class="span6">
+            <input type="number" id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?>>
+            <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
+          </div>
+        </div>
+
+        <!-- shows the height in a scale -->
+        <?php
+        if($thumbHeight)
+          $styleThumbHeight = 'width:'.$thumbHeight.'px';
+        else
+          $styleThumbHeight = 'width:0px';
+        ?>
+        <div class="row">
+          <div class="span8">
+            <div id="windowBox_thumbHeightScale" class="thumbnailScale" style="<?php echo $styleThumbHeight; ?>"><div></div></div>
+          </div>
+        </div>
+      <?php
+      }
+      ?>
+    </div>
+  </div>
+  <?php } ?>
 </form>
-</div>
 
+
+<!-- ok button, after upload -->
 <?php
 
-// create redirect
+// CREATE REDIRECT
 $redirect = (empty($site))
   ? '?category='.$category.'&page='.$page.'&status=reload'.rand(1,99).'#pageInformation'
   : '?site='.$site.'&category='.$category;
@@ -225,12 +221,41 @@ else
 
 
 ?>
-<!-- Update the image -->
+<div class="center">
+  <a href="index.php<?php echo $redirect; ?>" onclick="closeWindowBox(<?php echo $redirect; ?>);return false;" id="pageThumbnailOkButton" class="ok button"></a>
+</div>
+
+<!-- UPLOAD IFRAME -->
+<iframe id="uploadTargetFrame" name="uploadTargetFrame" src="library/controllers/thumbnailUpload.controller.php"></iframe>
+
+
+<!-- show a PREVIEW of the current THUMBNAIL -->
+<?php
+// show thumbnail if the page has one
+if(!empty($pageContent['thumbnail'])) {
+
+  $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+
+  if($thumbnailWidth[0] <= 700)
+    $thumbnailWidth = ' style="width: '.$thumbnailWidth[0].'px;"';
+  else
+    $thumbnailWidth = ' style="width: 700px;"';
+
+  // generates a random number to put on the end of the image, to prevent caching
+  $randomImage = '?'.md5(uniqid(rand(),1));
+
+  echo '<div class="center" id="windowBoxThumbnailPreview">';
+    echo '<img src="'.GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnail toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
+  echo '</div>';
+}
+
+?>
+<!-- UPDATE THE IMAGE -->
 <script type="text/javascript">
 /* <![CDATA[ */
   function refreshThumbnailImage(newImage,imageWidth) {
     if($('thumbnailPreviewImage') != null) {
-      $$('img.thumbnailPreview').setProperty('src','<?php echo GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path']; ?>'+newImage);
+      $$('img.thumbnail').setProperty('src','<?php echo GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path']; ?>'+newImage);
       $('thumbnailPreviewImage').setProperty('data-width',imageWidth);
       if(imageWidth >= 200)
         $('thumbnailPreviewImage').setStyle('width',200);
@@ -244,9 +269,3 @@ else
   }
 /* ]]> */
 </script>
-
-<!-- ok button, after upload -->
-<a href="index.php<?php echo $redirect; ?>" onclick="closeWindowBox(<?php echo $redirect; ?>);return false;" id="pageThumbnailOkButton" class="ok center">&nbsp;</a>
-
-<!-- UPLOAD IFRAME -->
-<iframe id="uploadTargetFrame" name="uploadTargetFrame" src="library/controllers/thumbnailUpload.controller.php"></iframe>

@@ -143,6 +143,7 @@ div.alert {
 }
 
 img.thumbnail {
+    display: inline-block;
     position: relative;
     padding: 5px;
     background-color: #fff;
@@ -178,7 +179,9 @@ hr {
 
 label,
 label span {
-  cursor: pointer !important;
+    cursor: pointer !important;
+    line-height: 24px !important;
+
 }
 
 h1 {
@@ -472,6 +475,14 @@ div#contentBlocked {
     #PIE;
 }
 
+.insetBlock {
+    #shadow > .inner(0,0,5px,0.3);
+    #border > .rounded(10px);
+    padding: 10px;
+    margin: 10px 0;
+    background-color: @innerBlockColor;
+}
+
 div.leftSidebarLoadingCircle {
     position: absolute;
     top: 75px;
@@ -528,6 +539,7 @@ a.button {
     position: relative;
     display: inline-block;
     border: none;
+    padding: 0;
     text-decoration: none;
 }
 
@@ -571,4 +583,15 @@ a.cancel:focus {
 input.cancel:active,
 a.cancel:active {
     background-position: 0 0;
+}
+
+input.thumbnailUpload {
+    position: relative;
+    width: 75px;
+    height: 90px;
+    background: url("../images/buttons/thumbnailUpload.png") no-repeat;
+
+    &:hover {
+        background-position: 0px -90px !important;
+    }
 }

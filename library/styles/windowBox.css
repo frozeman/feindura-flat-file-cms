@@ -68,32 +68,12 @@
 /****************/
 /* *** thumbInfo */
 
-#thumbInfo {
-    position: absolute;
-    right: 5px;
-    float: right;
-    padding: 5px;
-    width: 300px;
-    border: 1px solid #cccccc;
-    background-color: #EDF1E1;
-    }
-#thumbInfo ul {
-    margin: 0px;
-    margin-left: 10px;
-    color: #666666;
-    }
-#thumbInfo ul li {
-    margin: 3px 10px;
-    list-style-type: circle;
-    }
+
 
 /****************/
 /* *** THUMB PREVIEW */
 
-.thumbnailPreview {
-    margin: 10px;
-    border: 5px solid #cccccc;
-    }
+
 
 /****************/
 /* *** uploadPageThumbnailForm */
@@ -104,16 +84,7 @@
     }
 
 /* thumbnailUpload BUTTON */
-input.thumbnailUpload {
-    position: relative;
-    left: 305px;
-    width: 75px;
-    height: 90px;
-    background: url("../images/buttons/thumbnailUpload.png") no-repeat !important;
-    }
-input.thumbnailUpload:hover {
-    background-position: 0px -90px !important;
-    }
+
 
 /****************/
 /* *** UPLOAD IFRAME */
@@ -130,36 +101,7 @@ iframe#uploadTargetFrame {
 /****************/
 /* *** UPLOAD IFRAME INNERHTML */
 
-body#thumbnailUploadFrame {
-    color: #666666;
-    vertical-align: middle;
-    text-align: center;
-    font: bold 15px Verdana, Arial, Sans-serif, Serif;
-    }
 
-#thumbnailUploadFrame ul {
-    margin: 0px;
-    margin-left: 10px;
-    padding: 5px 0px;
-    }
-#thumbnailUploadFrame ul li {
-    margin: 3px 10px;
-    padding: 5px 0px;
-    list-style-type: none;
-    }
-
-/* response texts */
-#thumbnailUploadFrame .response {
-    color: #71A1BD;
-    }
-#thumbnailUploadFrame .response b {
-    color: #666666;
-    }
-
-/* error texts */
-#thumbnailUploadFrame .error {
-    color: #9C0000;
-    }
 
 /* --- FILEMANAGER ------------------------------------------------------------------------------------------------------------------- */
 

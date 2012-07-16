@@ -72,6 +72,16 @@ class GeneralFunctions {
   public static $categoryConfig;
 
   /**
+  * Contains the user config <var>array</var>
+  *
+  * @static
+  * @var array
+  * @see GeneralFunctions()
+  *
+  */
+  public static $userConfig;
+
+  /**
   * Contains the website-settings config <var>array</var>
   *
   * @static
@@ -181,6 +191,7 @@ class GeneralFunctions {
     self::$adminConfig    = $GLOBALS["adminConfig"];
     self::$categoryConfig = $GLOBALS["categoryConfig"];
     self::$websiteConfig  = $GLOBALS["websiteConfig"];
+    self::$userConfig     = $GLOBALS["userConfig"];
     self::$pagesMetaData  = $GLOBALS["pagesMetaData"];
 
     // set local for the url encode transliteration
@@ -368,6 +379,84 @@ class GeneralFunctions {
       date_default_timezone_set($_SESSION['feinduraSession']['timezone']);
 
     return $return;
+  }
+
+  /**
+   * <b>Name</b> isAdmin()<br>
+   *
+   * Check if the current user is an admin. If no users exist everyone is an admin.
+   *
+   *
+   * <b>Used Global Variables</b><br>
+   *    - <var>$userConfig</var> the user-settings config (included in the {@link general.include.php})
+   *
+   * @return bool TRUE if the current user is an admin, or no admins exist, otherwise FALSE
+   *
+   *
+   * @version 1.3
+   * <br>
+   * <b>ChangeLog</b><br>
+   *    - 1.3 moved to GeneralFunctions
+   *    - 1.2 returns now also TRUE when no user is admin
+   *    - 1.1 changed user managament system, it now get the users from the user.config.php
+   *    - 1.01 add immediately return true if no remote_user exists
+   *    - 1.0 initial release
+   *
+   */
+  public static function isAdmin() {
+
+    // var
+    $otherUserIsAdmin = false;
+
+    // if no user exist, make the logged in one an admin
+    if(USERID === false || self::$userConfig[USERID]['admin'])
+      return true;
+
+    // check if there is no other users which is admin
+    if(is_array(self::$userConfig)) {
+      // check if the user exists
+      foreach(self::$userConfig as $configUser) {
+        if($configUser['id'] !== USERID && $configUser['admin']) {
+          $otherUserIsAdmin = true;
+        }
+      }
+    }
+
+    // if no user is admin or no user exists, all are Admins
+    if($otherUserIsAdmin === false)
+      return true;
+    else
+      return false;
+  }
+
+ /**
+  * <b>Name</b> hasPermission()<br>
+  *
+  * Check if the user has the permissions of the given <var>$permission</var> parameter.
+  *
+  * @param string    $permission the array key of the permission to check
+  * @param int|bool  $userId     (optional) a user id which should be used as the current user
+  *
+  * @return bool TRUE if the current user has the permission, FALSE if not
+  *
+  * @see GeneralFunctions::isAdmin()
+  *
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public static function hasPermission($permission, $userId = false) {
+
+    if(!is_numeric($userId))
+      $userId = USERID;
+
+    if(self::isAdmin())
+      return true;
+    else
+      return self::$userConfig[$userId][$permission];
   }
 
   /**

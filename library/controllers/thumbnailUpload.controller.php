@@ -33,10 +33,10 @@ $category = $_POST['category'];
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>">
+<html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>" class="feindura">
 <head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" type="text/css" href="../styles/windowBox.css" media="screen">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../styles/styles.css">
 </head>
 <body id="thumbnailUploadFrame">
 <?php
@@ -128,7 +128,7 @@ if($_POST['upload']) {
       	if(is_file($filePath))	{
       		$fileCounter++;
       		$fileName = substr($originalFileName, 0, strrpos($originalFileName, '.')).'('.$fileCounter.').'.$fileExtension;
-      		$response[] = $langFile['PAGETHUMBNAIL_TEXT_fileexists'].' $quot;<b>'.$fileName.'</b>&quot;';
+      		$response[] = '<div class="alert alert-info">'.$langFile['PAGETHUMBNAIL_TEXT_fileexists'].' $quot;<b>'.$fileName.'</b>&quot;</div>';
 
       	// if not move the uploaded file
       	}	else	{
@@ -209,17 +209,28 @@ if($_POST['upload']) {
                 $error[] = $langFile['PAGETHUMBNAIL_ERROR_deleteoldfile'];
             }
 
+            // image size
+            $thumbSize = @getimagesize(DOCUMENTROOT.$newFilePath);
+
             // saves the new thumbnail in the flatfile ---------------------
             $pageContent['thumbnail'] = $newFileName;
             if(GeneralFunctions::savePage($pageContent)) {
+
+              if($thumbSize[0] <= 700)
+                $thumbnailWidth = ' style="width: '.$thumbSize[0].'px;"';
+              else
+                $thumbnailWidth = ' style="width: 700px;"';
+
               // generates a random number to put on the end of the image, to prevent caching
               $randomImage = '?'.md5(uniqid(rand(),1));
-              $response[] = $langFile['PAGETHUMBNAIL_TEXT_finish'].'<br><br><img src="'.$uploadPath.$newFileName.$randomImage.'">';
+              $response[] = '<div class="alert alert-success">'.$langFile['PAGETHUMBNAIL_TEXT_finish'].'</div>
+                <img src="'.$uploadPath.$newFileName.$randomImage.'" class="thumbnail"'.$thumbnailWidth.'>';
               saveActivityLog(6,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
             }
 
-            $thumbSize = @getimagesize(DOCUMENTROOT.$newFilePath);
-            $frameHeight = (isset($thumbSize[1]) && $thumbSize[1] > 0) ? $thumbSize[1] + 100 : 0;
+            $frameHeight = (isset($thumbSize[1]) && $thumbSize[1] > 0) ? $thumbSize[1] + 120 : 0;
+            $frameHeight = ($frameHeight > 700) ? 650 : $frameHeight;
+
 
             // call this javascript, on the succesfull finish of the upload
             echo '<script type="text/javascript">
@@ -228,7 +239,7 @@ if($_POST['upload']) {
                   /* ]]> */
                   </script>';
           	}
-        	}
+          }
 
           // clean up the $pageContent array
           unset($pageContent);
@@ -237,22 +248,24 @@ if($_POST['upload']) {
     }
   }
 
+  echo '<br>';
+
   // displays the erros if one ocurred
   if($error) {
-    echo '<ul  class="error">';
-    foreach($error as $errorText) {
-      echo '<li>'.$errorText.'</li>';
-    }
-    echo '<ul>';
+    echo '<div class="alert alert-error">';
+      echo '<ul class="unstyled">';
+      foreach($error as $errorText) {
+        echo '<li>'.$errorText.'</li>';
+      }
+      echo '</ul>';
+    echo '</div>';
   }
 
   // displays the responseText if the upload worked
   if($error === false && $response) {
-    echo '<ul class="response">';
-    foreach($response as $responseText) {
-      echo '<li>'.$responseText.'</li>';
-    }
-    echo '<ul>';
+      foreach ($response as $responseText) {
+        echo $responseText;
+      }
   }
 }
 ?>

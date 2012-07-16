@@ -580,7 +580,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
           // second TABLE (advanced settings) (with slide in)
           $hidden = ($_POST['savedCategory'] != $category['id']) ? ' hidden' : '';
 
-          echo '<div id="advancedConfigTable'.$category['id'].'" class="inBlockSlider inBlockFrame'.$hidden.'">
+          echo '<div id="advancedConfigTable'.$category['id'].'" class="inBlockSlider insetBlock'.$hidden.'">
 
                 <div class="row">
                     <div class="span8">

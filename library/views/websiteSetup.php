@@ -187,7 +187,7 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
 </form>
 
 <?php if((!empty($adminConfig['websiteFilesPath']) || !empty($adminConfig['stylesheetPath'])) &&
-          isAdmin() ||
+          GeneralFunctions::isAdmin() ||
          ($userConfig[USERID]['editWebsiteFiles'] ||
           $userConfig[USERID]['editStyleSheets'] ||
           $userConfig[USERID]['editSnippets'])) { ?>
@@ -196,18 +196,18 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
 
 
   // EDIT snippets
-  if($adminConfig['editor']['snippets'] && (isAdmin() || $userConfig[USERID]['editSnippets'])) {
+  if($adminConfig['editor']['snippets'] && GeneralFunctions::hasPermission('editSnippets')) {
     if(!is_dir(dirname(__FILE__).'/../../snippets/')) mkdir(dirname(__FILE__).'/../../snippets/');
     editFiles(dirname(__FILE__).'/../../snippets/', 'snippetFiles', $langFile['EDITFILESSETTINGS_TITLE_SNIPPETS'], 'snippetsFilesAnchor', 'php');
   }
 
   // EDIT stylesheets
-  if(isAdmin() || $userConfig[USERID]['editStyleSheets']) {
+  if(GeneralFunctions::hasPermission('editStyleSheets')) {
     editFiles($adminConfig['stylesheetPath'], 'cssFiles', $langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS'], 'cssFilesAnchor', 'css');
   }
 
   // EDIT websitefiles
-  if(isAdmin() || $userConfig[USERID]['editWebsiteFiles']) {
+  if(GeneralFunctions::hasPermission('editWebsiteFiles')) {
     editFiles($adminConfig['websiteFilesPath'], 'websiteFiles',  $langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES'], 'websiteFilesAnchor');
   }
 

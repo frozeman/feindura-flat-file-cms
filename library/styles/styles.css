@@ -4415,6 +4415,7 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
 }
 .feindura img.thumbnail {
+  display: inline-block;
   position: relative;
   padding: 5px;
   background-color: #fff;
@@ -4451,6 +4452,7 @@
 .feindura label,
 .feindura label span {
   cursor: pointer !important;
+  line-height: 24px !important;
 }
 .feindura h1 {
   font-size: 20px;
@@ -4721,6 +4723,20 @@
   background-clip: padding-box;
   behavior: url('library/thirdparty/javascripts/PIE.htc');
 }
+.feindura .insetBlock {
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #fdfdfd;
+}
 .feindura div.leftSidebarLoadingCircle {
   position: absolute;
   top: 75px;
@@ -4771,6 +4787,7 @@
   position: relative;
   display: inline-block;
   border: none;
+  padding: 0;
   text-decoration: none;
 }
 .feindura input.submit,
@@ -4810,6 +4827,15 @@
 .feindura input.cancel:active,
 .feindura a.cancel:active {
   background-position: 0 0;
+}
+.feindura input.thumbnailUpload {
+  position: relative;
+  width: 75px;
+  height: 90px;
+  background: url("../images/buttons/thumbnailUpload.png") no-repeat;
+}
+.feindura input.thumbnailUpload:hover {
+  background-position: 0px -90px !important;
 }
 .feindura .cke_dialog_background_cover {
   background: url("../images/bg/dimmContainer.png") repeat !important;
@@ -5251,7 +5277,7 @@
   font-size: 14px;
 }
 .feindura .mainBody div.mainContent.hasSubMenu {
-  padding-top: 60px;
+  padding-top: 58px;
 }
 .feindura .mainBody div.mainContent p {
   margin: 10px 0px;
@@ -6240,20 +6266,8 @@
 .feindura .mainContent .block .innerBlock hr.small {
   margin: 10px -14px;
 }
-.feindura .mainContent .block .inBlockFrame {
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  padding: 10px;
+.feindura .mainContent .block .insetBlock {
   margin: -10px;
-  margin-bottom: 10px;
-  background-color: #fdfdfd;
 }
 .feindura .mainContent .block .form .row {
   padding: 8px 0;
@@ -6540,8 +6554,6 @@
 .feindura a.restoreBackup {
   display: inline-block;
   height: 48px;
-  /* org: 78px */
-
   padding-left: 80px;
   padding-top: 30px;
   background: url("../images/buttons/backup_restore.png") no-repeat;
@@ -7099,6 +7111,7 @@
   background-position: 0px -32px;
 }
 .feindura .thumbnailScale {
+  position: relative;
   height: 10px;
   border: 1px solid #BE8500;
   border-top: 0px;
@@ -7108,17 +7121,6 @@
   position: relative;
   top: 4px;
   border-top: 1px solid #BE8500;
-}
-.feindura #thumbnailSizeBox {
-  display: block;
-  position: relative;
-  width: 670px;
-  margin-top: 5px;
-  padding: 15px;
-  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
-  background-color: #f7f7f7;
 }
 .feindura a.createUser {
   position: relative;
@@ -7148,14 +7150,9 @@
 .feindura a.deleteUser:focus {
   background-position: 0px -54px;
 }
-.feindura #windowBoxContainer {
+.feindura #windowBox {
   z-index: 20006;
-  position: absolute;
-  visibility: hidden;
-  width: 100%;
-  height: 100%;
-}
-.feindura #windowBoxContainer #windowBox {
+  display: none;
   position: absolute;
   top: 10%;
   left: 50%;
@@ -7174,7 +7171,7 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
-.feindura #windowBoxContainer #windowBox > h1 {
+.feindura #windowBox > h1 {
   position: relative;
   top: -21px;
   left: -21px;
@@ -7216,7 +7213,7 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
-.feindura #windowBoxContainer #windowBox h2 {
+.feindura #windowBox h2 {
   margin-bottom: 10px;
   padding-bottom: 18px;
   color: #668CA6;
@@ -7224,17 +7221,27 @@
   font-weight: normal;
   font-size: 18px;
 }
-.feindura #windowBoxContainer #windowBox h3 {
+.feindura #windowBox h3 {
   margin-bottom: 10px;
   color: #888888;
   font-weight: normal;
   font-size: 15px;
 }
-.feindura #windowBoxContainer #windowBox p {
+.feindura #windowBox p {
   margin: 5px 10px;
   font-size: 14px;
 }
-.feindura #windowBoxContainer a.close {
+.feindura #windowBox form {
+  margin: 0;
+}
+.feindura #windowBox .insetBlock {
+  padding-bottom: 0;
+}
+.feindura #windowBox .well {
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+.feindura a.close {
   z-index: 2;
   position: absolute;
   top: 20px;
@@ -7262,7 +7269,7 @@
 
   opacity: 0.8;
 }
-.feindura #windowBoxContainer a.close:hover {
+.feindura a.close:hover {
   /* IE 8 */
 
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
@@ -7282,12 +7289,12 @@
 
   opacity: 1;
 }
-.feindura #windowBoxContainer #windowRequestBox {
+.feindura #windowRequestBox {
   position: relative;
   width: 760px;
   min-height: 140px;
 }
-.feindura #windowBoxContainer #windowBoxDimmer {
+.feindura #windowBoxDimmer {
   position: absolute;
   z-index: 10;
   margin-top: -20px;
@@ -7314,4 +7321,19 @@
   /* Good browsers */
 
   opacity: 0.5;
+}
+.feindura #windowBox input.thumbnailUpload {
+  margin-left: 30px;
+}
+.feindura #windowBox img.thumbnail {
+  margin-bottom: 5px;
+}
+.feindura body#thumbnailUploadFrame {
+  padding: 0;
+  margin-bottom: -10px;
+  text-align: center;
+  background: #fff;
+}
+.feindura body#thumbnailUploadFrame ul.unstyled {
+  margin: 0;
 }

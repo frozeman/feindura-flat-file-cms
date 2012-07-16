@@ -794,6 +794,22 @@ class Feindura extends FeinduraBase {
     parent::__construct($language);
 
 
+    // get LOGOUT?
+    if(isset($_GET['feinduraLogout']))
+      unset($_SESSION['feinduraSession']['login']);
+
+    // CHECK if logged in
+    if($_SESSION['feinduraSession']['login']['loggedIn'] === true && $_SESSION['feinduraSession']['login']['host'] === HOST)
+      $this->loggedIn = true;
+    else
+      $this->loggedIn = false;
+
+    // -> CHECKS if cookies, means the cookie in the feindura.include.php file was set
+    if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'] != 'true') {
+      $this->sessionId = htmlspecialchars(session_name().'='.session_id()); //SID
+    }
+
+
     // saves the current GET vars in the PROPERTIES
     // ********************************************
     $this->setCurrentPageId(true);           // get $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable

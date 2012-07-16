@@ -98,25 +98,40 @@ echo $question;
 if(!$asking) {
 
 ?>
-<div>
 <form action="?site=deletePage" method="post" enctype="multipart/form-data" id="deletePageForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','deletePageForm');return false;" accept-charset="UTF-8">
-<input type="hidden" name="category" value="<?php echo $category; ?>">
-<input type="hidden" name="id" value="<?php echo $page; ?>">
-<input type="hidden" name="site" value="<?php echo $site; ?>">
-<input type="hidden" name="asking" value="true">
+  <div>
+    <input type="hidden" name="category" value="<?php echo $category; ?>">
+    <input type="hidden" name="id" value="<?php echo $page; ?>">
+    <input type="hidden" name="site" value="<?php echo $site; ?>">
+    <input type="hidden" name="asking" value="true">
+  </div>
 
-<a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="button cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
-<input type="submit" value="" class="button submit">
+  <div class="row">
+    <div class="span4 center">
+      <a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="button cancel" onclick="closeWindowBox();return false;"></a>
+    </div>
+    <div class="span4 center">
+      <input type="submit" value="" class="button submit">
+    </div>
+  </div>
 </form>
 
+<div class="spacer"></div>
+
 <!-- show a preview of the thumbnail -->
-<div style="width:100%; text-align:center; padding-top:20px;">
-<?php
-  // generates a random number to put on the end of the image, to prevent caching
-  $randomImage = '?'.md5(uniqid(rand(),1));
-?>
-<img src="<?php echo GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$thumbnail.$randomImage; ?>" class="thumbnail" alt="thumbnail" title="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail; ?>">
-</div>
+<div class="center">
+  <?php
+    $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+
+    if($thumbnailWidth[0] <= 700)
+      $thumbnailWidth = ' style="width: '.$thumbnailWidth[0].'px;"';
+    else
+      $thumbnailWidth = ' style="width: 700px;"';
+
+    // generates a random number to put on the end of the image, to prevent caching
+    $randomImage = '?'.md5(uniqid(rand(),1));
+  ?>
+  <img src="<?php echo GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$thumbnail.$randomImage; ?>" class="thumbnail"<?php echo $thumbnailWidth;?> alt="thumbnail" title="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail; ?>">
 </div>
 <?php
 }

@@ -84,20 +84,6 @@ if(PHP_VERSION < REQUIREDPHPVERSION) {
 // PHP VERSION CHECK *** END
 // *************************
 
-
-// ->> get CONFIGS
-/**
- * The user-settings config
- *
- * This config <var>array</var> is included from: <i>"feindura-CMS/config/user.config.php"</i>
- *
- * @global array $GLOBALS['userConfig']
- */
-if(!$userConfig = @include(dirname(__FILE__)."/../../config/user.config.php"))
-  $userConfig = array();
-$GLOBALS['userConfig'] = $userConfig;
-
-
 // -> INCLUDE FUNCTIONS
 require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 

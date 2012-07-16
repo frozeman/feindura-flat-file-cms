@@ -167,6 +167,19 @@ if(!$categoryConfig = @include(dirname(__FILE__)."/../../config/category.config.
   $categoryConfig = array();
 $GLOBALS['categoryConfig'] = $categoryConfig;
 
+
+/**
+ * The user-settings config
+ *
+ * This config <var>array</var> is included from: <i>"feindura-CMS/config/user.config.php"</i>
+ *
+ * @global array $GLOBALS['userConfig']
+ */
+if(!$userConfig = @include(dirname(__FILE__)."/../../config/user.config.php"))
+  $userConfig = array();
+$GLOBALS['userConfig'] = $userConfig;
+
+
 /**
  * The languages array
  *

@@ -129,7 +129,7 @@ if(!$newPage) {
 
 
     // PAGE ID
-    if(!$newPage && isAdmin())
+    if(!$newPage && GeneralFunctions::isAdmin())
       echo '<div class="row">
               <div class="span3 formLeft">
                 <span class="info toolTip" title="::'.$langFile['EDITOR_pageinfo_id_tip'].'"><strong>'.$langFile['EDITOR_pageinfo_id'].'</strong></span>
@@ -161,7 +161,7 @@ if(!$newPage) {
                   }
 
                   $selected = ($listCategory['id'] == $_GET['category']) ? ' selected="selected"' : $selected = '';
-                  $categoryId = (isAdmin()) ? ' (ID '.$listCategory['id'].')' : '';
+                  $categoryId = (GeneralFunctions::isAdmin()) ? ' (ID '.$listCategory['id'].')' : '';
 
                   // -> shows category selection if create pages is allowed
                   if($listCategory['createDelete'])
@@ -199,11 +199,11 @@ if(!$newPage) {
 
       if($_GET['category'] == 0) {// show only if categories exist
         $categoryName = $langFile['EDITOR_pageinfo_category_noCategory'];
-        if(isAdmin())
+        if(GeneralFunctions::isAdmin())
           $categoryName .= ' <span style="color:#A6A6A6;">(ID 0)</span>';
       } else {
         $categoryName = GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name');
-        if(isAdmin())
+        if(GeneralFunctions::isAdmin())
           $categoryName .= ' <span style="color:#A6A6A6;">(ID '.$_GET['category'].')</span>';
       }
 
@@ -846,7 +846,7 @@ $hidden = ' hidden';
 <?php
 }
 
-if(isAdmin()) {
+if(GeneralFunctions::isAdmin()) {
 ?>
 <!-- ***** ADVANCED PAGE SETTINGS -->
 <a id="advancedPageSettingsAnchor" class="anchorTarget"></a>

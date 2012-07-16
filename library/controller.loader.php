@@ -26,25 +26,25 @@ require_once(dirname(__FILE__)."/includes/secure.include.php");
 // -------------------------------------------------------------------------------------------------------------
 // ->> CHANGE PAGE STATUS
 if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
-    
+
     if($contentArray = GeneralFunctions::readPage($_GET['page'],$_GET['category'])) {
       // change the status
       $contentArray['public'] = ($_GET['public']) ? false : true;
-      
+
       // save the new status
       if(GeneralFunctions::savePage($contentArray)) {
-        $documentSaved = true;        
+        $documentSaved = true;
         // ->> save the FEEDS, if activated
         saveFeeds($_GET['category']);
         // ->> save the SITEMAP
         saveSitemap();
-        
+
       } else
         $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['basePath']);
-        
+
     } else
       $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['basePath']);
-  
+
   // shows the category open, after saving
   $opendCategory = $_GET['category'];
 }
@@ -54,18 +54,18 @@ if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
 // when PAGE ID is given, it loads EDITOR CONTROLLER
 // --------------------------------------------
 if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category'])) && !empty($_GET['page'])) {
-  
+
   // set the category 0 if there are no categories in the categoriesSettings.php
   if(empty($categoryConfig))
     $_GET['category'] = 0;
-  
+
   include (dirname(__FILE__).'/controllers/editor.controller.php'); // isBlocked() is inside editor.controller.php
 
 
 // OTHERWISE, load the controllers
 // -------------------------------------------------------------------------------------------------------------
 } else {
-  
+
   // SWITCHES the &_GET['site'] var
   switch($_GET['site']) {
     // PAGES
@@ -82,17 +82,17 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     // ADMIN SETUP
     case 'adminSetup':
       if(isBlocked()) break;
-      if(isAdmin()) include (dirname(__FILE__).'/controllers/adminSetup.controller.php');
+      if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/controllers/adminSetup.controller.php');
       break;
     // PAGE SETUP
     case 'pageSetup':
       if(isBlocked()) break;
-      if(isAdmin()) include (dirname(__FILE__).'/controllers/pageSetup.controller.php');
+      if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/controllers/pageSetup.controller.php');
       break;
     // STATISTIC SETUP
     case 'statisticSetup':
       if(isBlocked()) break;
-      if(isAdmin()) include (dirname(__FILE__).'/controllers/statisticSetup.controller.php');
+      if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/controllers/statisticSetup.controller.php');
       break;
     // USER SETUP
     case 'userSetup':
@@ -102,11 +102,11 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     // MODUL SETUP
     case 'modulSetup':
       if(isBlocked()) break;
-      if(isAdmin()) include (dirname(__FILE__).'/controllers/modulSetup.controller.php');
+      if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/controllers/modulSetup.controller.php');
       break;
     // BACKUP
     case 'backup':
-      if(isAdmin()) include (dirname(__FILE__).'/controllers/backup.controller.php');
+      if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/controllers/backup.controller.php');
       break;
   } //switch END
 

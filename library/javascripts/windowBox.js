@@ -26,8 +26,13 @@ function openWindowBox(site,siteTitle) {
 
   if(site) {
 
+    var windowBox = $('windowBox');
+
     // place window in the useres sight
-    $('windowBox').setStyle('top',window.getScroll().y + 100);
+    windowBox.setStyle('top',window.getScroll().y + 100);
+    windowBox.setStyle('display','block');
+    windowBox.fade('hide');
+    windowBox.fade(1);
 
     loadingText = $$('#windowBox > h1').get('html');
 
@@ -40,10 +45,6 @@ function openWindowBox(site,siteTitle) {
     $('windowRequestBox').set('slide',{duration: 200, transition: Fx.Transitions.Pow.easeOut});
     $('windowRequestBox').slide('show');
 
-    // window box
-    $('windowBoxContainer').fade('hide');
-    $('windowBoxContainer').fade(1);
-
     windowBoxIsVisible = true;
 
 		// send HTML request
@@ -53,9 +54,11 @@ function openWindowBox(site,siteTitle) {
 }
 
 /* ---------------------------------------------------------------------------------- */
-// fades all windows out and set windowBoxContainer to display:none;
+// fades all windows out
 // and remove alle Events from dimmContainer, windowBox, windowRequestBox
 function closeWindowBox(redirectAfter) {
+
+  var windowBox = $('windowBox');
 
   if(!windowBoxIsVisible)
     return;
@@ -64,21 +67,23 @@ function closeWindowBox(redirectAfter) {
 	$('dimmContainer').set('tween', {duration: 300, transition: Fx.Transitions.Pow.easeOut});
 
 	// fades the windowBox
-  $('windowBoxContainer').fade('show');
-	$('windowBoxContainer').fade(0);
+  windowBox.fade('show');
+	windowBox.fade(0);
 
 	// fades the dimmContainer
   $('dimmContainer').fade('show');
   $('dimmContainer').fade(0);
 
   // slides the windowRequestBox out
-  $('windowBoxContainer').get('tween').chain(function() {
+  windowBox.get('tween').chain(function() {
     // set the html inside the windowRequestBox div back.
     $('windowRequestBox').empty();
     $('windowRequestBox').setStyle('height', 'auto');
 
     $('dimmContainer').setStyle('display','none');
     $$('#windowBox > h1').set('html',loadingText);
+
+    windowBox.setStyle('display','none');
 
     windowBoxIsVisible = false;
 
@@ -198,7 +203,7 @@ function stopUploadAnimation() {
 
   // shows the iframe content
   $('uploadTargetFrame').setStyle('width','100%');
-  $('uploadTargetFrame').tween('height','100px');
+  $('uploadTargetFrame').setStyle('height','100px');
 
   // removes the loading animation
   if(uploadAnimationElement !== null) {
@@ -227,17 +232,20 @@ function stopUploadAnimation() {
 // called on the SUCCESFULL end of the upload
 function finishThumbnailUpload(frameHeight,newImage,ImageWidth) {
 
+  // delete the previous preview image
+  if($('windowBoxThumbnailPreview') !== null)
+    $('windowBoxThumbnailPreview').destroy();
+
   // shows the iframe content
   if($('uploadTargetFrame').tween('height',frameHeight))
 
   // show the ok button
-  $('pageThumbnailOkButton').setStyle('display','block');
+  $('pageThumbnailOkButton').setStyle('display','inline-block');
 
   refreshThumbnailImage(newImage,ImageWidth);
 
   // hides the from and the thumbInfo
   $('uploadPageThumbnailForm').setStyle('display','none');
-  $('thumbInfo').setStyle('display','none');
 }
 
 // *---------------------------------------------------------------------------------------------------*
@@ -245,9 +253,9 @@ function finishThumbnailUpload(frameHeight,newImage,ImageWidth) {
 // *---------------------------------------------------------------------------------------------------*
 window.addEvent('domready', function() {
 
-    // -> CLOSE WINDOW BOX by clicking the dimmContainer or windowBoxContainer
-  $$('#dimmContainer, #windowBoxContainer').addEvent('click',function(e) {
-    if(e.target.getProperty('id') == 'dimmContainer' || e.target.getProperty('id') == 'windowBoxContainer')
+    // -> CLOSE WINDOW BOX by clicking the dimmContainer
+  $$('#dimmContainer').addEvent('click',function(e) {
+    if(e.target.getProperty('id') == 'dimmContainer')
     closeWindowBox();
   });
 
