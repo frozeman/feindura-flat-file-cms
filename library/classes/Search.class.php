@@ -279,12 +279,12 @@ class Search {
 
       // ->> GET LANGUAGE ot SEARCH
       // -> get ALL LANGUAGES
-      if($this->searchAllLanguages) {
+      if($this->searchAllLanguages && is_array($pageContent['localized'])) {
         $languages = array_keys($pageContent['localized']);
 
       // -> get specified LANGUAGE
       } else {
-        $languages = (array_key_exists($this->language, $pageContent['localized'])) ? $this->language : $this->websiteConfig['multiLanguageWebsite']['mainLanguage'];
+        $languages = (is_array($pageContent['localized']) && array_key_exists($this->language, $pageContent['localized'])) ? $this->language : $this->websiteConfig['multiLanguageWebsite']['mainLanguage'];
       }
 
 
@@ -330,66 +330,68 @@ class Search {
         }
 
         // ->> GO THROUGH every LANGUAGE and SEARCH
-        foreach ($languages as $langCode) {
+        if(is_array($languages)) {
+          foreach ($languages as $langCode) {
 
-          // LOCALIZATION
-          $search['categoryName'] = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']],'name',$langCode);
-          $search['title']        = strip_tags(GeneralFunctions::getLocalized($pageContent,'title',$langCode));
-          $search['description']  = GeneralFunctions::getLocalized($pageContent,'description',$langCode);
-          $search['content']      = strip_tags(GeneralFunctions::getLocalized($pageContent,'content',$langCode));
-          $search['tags']         = GeneralFunctions::getLocalized($pageContent,'tags',$langCode);
-          $searchPageDate         = GeneralFunctions::getLocalized($pageContent,'pageDate',$langCode);
-          $search['beforeDate']   = $searchPageDate['before'];
-          $search['afterDate']    = $searchPageDate['after'];
-
-
-          // -> DATE BEFORE/AFTER
-          if(preg_match_all($pattern,$search['beforeDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-            $pageResults['beforeDate'][$langCode] = $matches[0];
-            $priority += 15;
-            $priority *= count($matches[0]);
-          }
-          if(preg_match_all($pattern,$search['afterDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-            $pageResults['afterDate'][$langCode] = $matches[0];
-            $priority += 15;
-            $priority *= count($matches[0]);
-          }
+            // LOCALIZATION
+            $search['categoryName'] = GeneralFunctions::getLocalized($this->categoryConfig[$pageContent['category']],'name',$langCode);
+            $search['title']        = strip_tags(GeneralFunctions::getLocalized($pageContent,'title',$langCode));
+            $search['description']  = GeneralFunctions::getLocalized($pageContent,'description',$langCode);
+            $search['content']      = strip_tags(GeneralFunctions::getLocalized($pageContent,'content',$langCode));
+            $search['tags']         = GeneralFunctions::getLocalized($pageContent,'tags',$langCode);
+            $searchPageDate         = GeneralFunctions::getLocalized($pageContent,'pageDate',$langCode);
+            $search['beforeDate']   = $searchPageDate['before'];
+            $search['afterDate']    = $searchPageDate['after'];
 
 
-          // -> TAGS
-          if(preg_match_all($pattern,$search['tags'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-            $pageResults['tags'][$langCode] = $matches[0];
-            $priority += 20;
-            $priority *= count($matches[0]);
-          }
+            // -> DATE BEFORE/AFTER
+            if(preg_match_all($pattern,$search['beforeDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+              $pageResults['beforeDate'][$langCode] = $matches[0];
+              $priority += 15;
+              $priority *= count($matches[0]);
+            }
+            if(preg_match_all($pattern,$search['afterDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+              $pageResults['afterDate'][$langCode] = $matches[0];
+              $priority += 15;
+              $priority *= count($matches[0]);
+            }
 
-          // -> CATEGORY
-          if(preg_match_all($pattern,$search['categoryName'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-            $pageResults['category'][$langCode] = $matches[0];
-            $priority += 10;
-            $priority *= count($matches[0]);
-          }
 
-          // -> TITLE
-          if(preg_match_all($pattern,$search['title'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-            $pageResults['title'][$langCode] = $matches[0];
-            $priority += 12;
-            $priority *= count($matches[0]);
-          }
+            // -> TAGS
+            if(preg_match_all($pattern,$search['tags'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+              $pageResults['tags'][$langCode] = $matches[0];
+              $priority += 20;
+              $priority *= count($matches[0]);
+            }
 
-          // -> DESCRIPTION
-          if(preg_match_all($pattern,$search['description'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+            // -> CATEGORY
+            if(preg_match_all($pattern,$search['categoryName'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+              $pageResults['category'][$langCode] = $matches[0];
+              $priority += 10;
+              $priority *= count($matches[0]);
+            }
 
-            $pageResults['description'][$langCode] = $matches[0];
-            $priority += 9;
-            $priority *= count($matches[0]);
-          }
+            // -> TITLE
+            if(preg_match_all($pattern,$search['title'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+              $pageResults['title'][$langCode] = $matches[0];
+              $priority += 12;
+              $priority *= count($matches[0]);
+            }
 
-          // -> WORDS
-          if(preg_match_all($pattern,$search['content'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-            $pageResults['content'][$langCode] = $matches[0];
-            $priority += 7;
-            $priority *= count($matches[0]);
+            // -> DESCRIPTION
+            if(preg_match_all($pattern,$search['description'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+
+              $pageResults['description'][$langCode] = $matches[0];
+              $priority += 9;
+              $priority *= count($matches[0]);
+            }
+
+            // -> WORDS
+            if(preg_match_all($pattern,$search['content'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+              $pageResults['content'][$langCode] = $matches[0];
+              $priority += 7;
+              $priority *= count($matches[0]);
+            }
           }
         }
       }

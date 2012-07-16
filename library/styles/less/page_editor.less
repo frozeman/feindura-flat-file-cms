@@ -57,11 +57,19 @@ div.rteHide {
         width: 90px;
         height: 75px;
         background: url("../images/buttons/content_uploadPageThumbnail.png") no-repeat;
-
+        background-position: 0 0;
         &:hover,
         &:focus {
             background-position: 0px -76px;
         }
+    }
+    a.deleteButton {
+        z-index: 2;
+        top: 24px;
+        right: 1px;
+    }
+    img.thumbnail {
+        z-index: 1;
     }
 }
 

@@ -49,12 +49,9 @@ if($_POST['asking']) {
     saveFeeds($pageContent['category']);
 
     $question = '';
-    echo 'DONTSHOW';
-    // create redirect
     $redirect = '?category='.$category.'&page='.$page.'&status=reload'.rand(1,99).'&websiteLanguage='.key($pageContent['localized']).'#pageInformation';
-
-    // redirect
-    echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php'.$redirect.'\');/* ]]> */</script>';
+    // CLOSE the windowBox and REDIRECT, if the first part of the response is '#REDIRECT#'
+    die('#REDIRECT#'.$redirect);
 
   } else
     $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
@@ -66,18 +63,23 @@ echo $question;
 if(!$asking) {
 
 ?>
-<div>
 <form action="?site=deletePageLanguage" method="post" enctype="multipart/form-data" id="deletePageLanguageForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','deletePageLanguageForm');return false;" accept-charset="UTF-8">
-<input type="hidden" name="category" value="<?php echo $category; ?>">
-<input type="hidden" name="page" value="<?php echo $page; ?>">
-<input type="hidden" name="language" value="<?php echo $language; ?>">
-<input type="hidden" name="asking" value="true">
+  <div>
+    <input type="hidden" name="category" value="<?php echo $category; ?>">
+    <input type="hidden" name="page" value="<?php echo $page; ?>">
+    <input type="hidden" name="language" value="<?php echo $language; ?>">
+    <input type="hidden" name="asking" value="true">
+  </div>
 
-
-<a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="button cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
-<input type="submit" value="" class="button submit">
+  <div class="row buttons">
+    <div class="span4 center">
+      <a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="button cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+    </div>
+    <div class="span4 center">
+      <input type="submit" value="" class="button submit">
+    </div>
+  </div>
 </form>
-</div>
 <?php
 }
 ?>

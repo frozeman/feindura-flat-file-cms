@@ -225,8 +225,10 @@ foreach($categoryConfig as $category) {
       // -> generate page languages for toolTip
       if(!isset($pageContent['localized'][0])) {
         $pageTitle_pageLanguages .= '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].':[/strong][br]';
-        foreach ($pageContent['localized'] as $langCode => $values) {
-          $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
+        if(is_array($pageContent['localized'][0])) {
+          foreach ($pageContent['localized'] as $langCode => $values) {
+            $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
+          }
         }
         // list not yet existing languages of the page
         if(is_array($websiteConfig['multiLanguageWebsite']['languages'])) {

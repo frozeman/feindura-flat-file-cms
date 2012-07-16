@@ -254,7 +254,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
             <div class="menuWrapper">
               <menu class="vertical">';
 
-              echo '<li><a href="#top"><i class="icon icon-arrow-up"></i></a></li>';
+              echo '<li><a href="#top"><i class="icon icon-arrow-up icon-white"></i></a></li>';
               echo '<li><a href="#nonCategoryPages"><span>'.GeneralFunctions::getLocalized($categoryConfig[0],'name').'</span></a></li>';
 
                 foreach($categoryConfig as $category) {
@@ -270,7 +270,11 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
           <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
         </div>';
 
-      echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY'].'::"></a><br>';
+        echo '<div class="spacer"></div>';
+
+        echo '<div class="center">';
+          echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY'].'::"></a>';
+        echo '</div>';
 
       }
       echo '</div>';
@@ -290,7 +294,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
             <div class="menuWrapper">
               <menu class="vertical">';
 
-              echo '<li><a href="#top"><i class="icon icon-arrow-up"></i></a></li>';
+              echo '<li><a href="#top"><i class="icon icon-arrow-up icon-white"></i></a></li>';
 
                 // -> show a anchor link to each user
                 foreach($userConfig as $user) {
@@ -303,7 +307,11 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
           <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
         </div>';
 
-      echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['USERSETUP_createUser'].'::"></a><br>';
+        echo '<div class="spacer"></div>';
+
+        echo '<div class="center">';
+          echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTip" title="'.$langFile['USERSETUP_createUser'].'::"></a>';
+        echo '</div>';
 
       } echo '</div>';
 
@@ -330,7 +338,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
             ? $langFile['BACKUP_TITLE_BACKUP']
             : $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'];
           $lastBackups .= '<br>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($backupTime)).' '.formatTime($backupTime).'</a>';
-          $lastBackups .= '<a href="?site=backup&amp;status=deleteBackup&amp;file='.basename($backupFile).'" onclick="openWindowBox(\'library/views/windowBox/deleteBackup.php?status=deleteBackup&amp;file='.basename($backupFile).'\',\''.$langFile['BACKUP_TITLE_BACKUP'].'\');return false;" class="deleteIcon toolTip" title="'.$langFile['BACKUP_TOOLTIP_DELETE'].'::"></a></li>';
+          $lastBackups .= '<a href="?site=backup&amp;status=deleteBackup&amp;file='.basename($backupFile).'" onclick="openWindowBox(\'library/views/windowBox/deleteBackup.php?status=deleteBackup&amp;file='.basename($backupFile).'\',\''.$langFile['BACKUP_TITLE_BACKUP'].'\');return false;" class="deleteButton toolTip" title="'.$langFile['BACKUP_TOOLTIP_DELETE'].'::"></a></li>';
         }
         $lastBackups .= '</ul>';
       } else

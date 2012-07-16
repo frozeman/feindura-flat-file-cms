@@ -456,7 +456,7 @@ class GeneralFunctions {
     if(self::isAdmin())
       return true;
     else
-      return self::$userConfig[$userId][$permission];
+      return self::$userConfig[$userId]['permissions'][$permission];
   }
 
   /**
@@ -2136,12 +2136,12 @@ class GeneralFunctions {
 
     // default
     $htmlLawedConfig = array(
-      'comment' => 2,
-      'clean_ms_char'=> 0,
-      'tidy' => -1, // will be made tidy in the FeinduraBase::generatePage() method
-      'no_deprecated_attr' => 0,
+      'comment' => 2, // allows comments, but transform < >
+      'clean_ms_char'=> 0, // dont replace ms word tags (also stops messing up code at one point)
+      'tidy' => -1, // compact
+      'no_deprecated_attr' => 0, // allow deprecated attributes or transform them
       'and_mark' => 1, // change & to \x06
-      'unique_ids' => 0,
+      'unique_ids' => 0, // no id attribute value checks
       'schemes' => 'href:aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, telnet;
       action, cite, codebase, data, href, longdesc, model, pluginspage, pluginurl, src, style, usemap:file, http, https;
       classid: file, http, https,clsid;'
@@ -2629,9 +2629,9 @@ class GeneralFunctions {
 
     if(is_array($values)) {
       $return  .= 'Array:<br>';
-      foreach ($values as $key => $value) {
-        $return .= "['".$key."'] => '".$value."'<br>";
-      }
+      $return .= '<pre>';
+      $return .= print_r($values,true);
+      $return .= '</pre>';
     } elseif(is_bool($values)) {
       $values = ($values) ? 'TRUE' : 'FALSE';
       $return = "Bool: ".$values."<br>";
@@ -2640,7 +2640,7 @@ class GeneralFunctions {
     } elseif(!empty($values)) {
       $return = "'".$values."'<br>";
     } elseif(empty($values)) {
-      $return = "EMPTY'<br>";
+      $return = "EMPTY<br>";
     } else
       $return = "'".$values."'<br>";
 

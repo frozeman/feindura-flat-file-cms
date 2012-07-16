@@ -101,12 +101,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $adminConfig['varName']['category']      = $_POST['cfg_varNameCategory'];
   $adminConfig['varName']['modul']         = $_POST['cfg_varNameModul'];
 
-  $adminConfig['user']['frontendEditing']  = $_POST['cfg_userFrontendEditing'];
-  $adminConfig['user']['fileManager']      = (empty($adminConfig['uploadPath'])) ? false : $_POST['cfg_userFileManager'];
-  $adminConfig['user']['editWebsiteFiles'] = $_POST['cfg_userWebsiteFiles'];
-  $adminConfig['user']['editStyleSheets']  = $_POST['cfg_userStylesheets'];
-  $adminConfig['user']['editSnippets']     = $_POST['cfg_userSnippets'];
-  $adminConfig['user']['info']             = $_POST['cfg_userInfo'];
   $adminConfig['editor']['htmlLawed']      = $_POST['cfg_editorHtmlLawed'];
   $adminConfig['editor']['safeHtml']       = $_POST['cfg_editorSafeHtml'];
   $adminConfig['editor']['editorStyles']   = $_POST['cfg_editorStyles'];

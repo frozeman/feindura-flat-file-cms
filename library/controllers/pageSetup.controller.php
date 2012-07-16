@@ -24,6 +24,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // VARs
 $categoryInfo = false;
+$categoryDeleted= false;
 
 // ---------------------------------------------------------------------------------------------------
 // ****** ---------- SAVE PAGE CONFIG in config/admin.config.php
@@ -98,7 +99,7 @@ if((isset($_POST['send']) && $_POST['send'] == 'categorySetup' && isset($_POST['
       // add a new id to the category array
       $categoryConfig[$newId] = array('id' => $newId); // gives the new category a id
       if(saveCategories($categoryConfig)) {
-         $categoryInfo = $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED'];
+         $categoryInfo[$newId] = '<div class="alert alert-success center">'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED'].'</div>';
          saveActivityLog(15); // <- SAVE the task in a LOG FILE
       } else { // throw error
         $errorWindow .= ($errorWindow) // if there is allready an warning
@@ -126,7 +127,8 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
   if(saveCategories($categoryConfig)) {
 
     // Hinweis für den Benutzer welche Gruppe gelöscht wurde
-    $categoryInfo = $langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_DELETED'].': '.$storedCategoryName;
+    $categoryDeleted = true;
+    $categoryInfo = '<div class="alert alert-info center">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_DELETED'].': <strong>'.$storedCategoryName.'</strong></div>';
 
     // if there is a category dir, trys to delete it !important deletes all files in it
     if(is_dir(dirname(__FILE__).'/../../pages/'.$_GET['category'])) {
@@ -170,7 +172,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 
   if(moveCategories($categoryConfig,$_GET['category'],$direction)) {
 
-    $categoryInfo = $langFile['PAGESETUP_CATEGORY_TEXT_MOVECATEGORY_MOVED'];
+    $categoryInfo[$_GET['category']] = '<div class="alert alert-success center">'.$langFile['PAGESETUP_CATEGORY_TEXT_MOVECATEGORY_MOVED'].'</div>';
 
     // save the categories array
     if(saveCategories($categoryConfig)) {
@@ -226,6 +228,10 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
 if($savedSettings) {
   unset($adminConfig); $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
   unset($categoryConfig); $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
+
+  // ADD NON-CATEGORY name from the current language file AGAIN (before in backend.include.php)
+  $categoryConfig[0]['localized'][0]['name'] = $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'];
+
   // reload the $pagesMetaData array
   GeneralFunctions::savePagesMetaData();
   // RESET of the vars in the classes

@@ -289,26 +289,24 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
   <h1><img src="library/images/icons/categoryIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_CATEGORY_TITLE_CATEGORIES']; ?></h1>
   <div class="content form">
 
-    <div class="row">
-      <div class="span3 formLeft">
-          <a href="?site=pageSetup&amp;status=createCategory#category<?php echo getNewCatgoryId(); ?>" class="createCategory toolTip" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY']; ?>::"></a>
-      </div>
-      <div class="span5">
-        <br>
-        <?php
-        // user info
-        if($categoryInfo)
-          echo '<span class="badge badge-warning"><b>'.$categoryInfo.'</b></span>';
-        ?>
-      </div>
-    </div>
-
     <?php
 
+    // USER INFO
+    if($categoryDeleted)
+      echo $categoryInfo;
+
+    ?>
+
+    <div class="row">
+      <div class="span8 center">
+          <a href="?site=pageSetup&amp;status=createCategory#category<?php echo getNewCatgoryId(); ?>" class="createCategory toolTip" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY']; ?>::"></a>
+      </div>
+    </div>
+    <?php
 
       // draw separator line
       if(count($categoryConfig) > 0)
-        echo '<div class="verticalSeparator"></div><br>';
+        echo '<div class="verticalSeparator"></div>';
 
       // lists the categories
       if(is_array($categoryConfig)) {
@@ -368,6 +366,11 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
           // category anchor
           echo '<a name="category'.$category['id'].'" id="categoryAnchor'.$category['id'].'" class="anchorTarget"></a>';
+
+
+          // USER INFO
+          if(is_array($categoryInfo))
+            echo $categoryInfo[$category['id']];
 
           // category NAME
           $categoryName = GeneralFunctions::getLocalized($category,'name',true);
@@ -700,8 +703,6 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
         }
       }
       ?>
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>">-->
-
   </div>
 </div>
 

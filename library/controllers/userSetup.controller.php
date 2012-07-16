@@ -83,14 +83,20 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['de
 // ****** ---------- SAVE USERS
 if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
 
+// GeneralFunctions::dump($_POST);
+
   // var
   $userPassChanged = false;
-
   $newUserConfig = $_POST['users'];
+
   // prepare user POST data
   foreach($newUserConfig as $user => $configs) {
-    //$newUserConfig[$configs['id']] = $configs;
-    //unset($newUserConfig[$user]);
+
+    // transfer the permssions
+    $newUserConfig[$configs['id']]['permissions'] = $userConfig[$configs['id']]['permissions'];
+    $newUserConfig[$configs['id']]['info']       = GeneralFunctions::htmLawed($configs['info'],array('tidy'=>1));
+
+    // filter password
     $configs['password'] = XssFilter::text($configs['password']);
     $configs['password_confirm'] = XssFilter::text($configs['password_confirm']);
 
@@ -100,12 +106,15 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
       if($configs['password'] == $configs['password_confirm']) {
         $newUserConfig[$configs['id']]['password'] = md5($newUserConfig[$configs['id']]['password']);
         $userPassChanged = true;
-        $userInfoPassword[$configs['id']] = '<tr><td clas="left"></td><td><span class="blue">'.$langFile['USERSETUP_password_success'].'</span></td></tr>';
+        $userInfoPassword[$configs['id']] = '<div class="alert alert-success center">'.$langFile['USERSETUP_password_success'].'</div>';
       } else {
-        $userInfo = $langFile['USERSETUP_password_confirm_wrong'];
-        $userInfoPassword[$configs['id']] = '<tr><td clas="left"></td><td><span class="red">'.$userInfo.'</span></td></tr>';
         $newUserConfig[$configs['id']]['password'] = $userConfig[$configs['id']]['password'];
+        $userInfoPassword[$configs['id']] = '<div class="alert alert-error center">'.$langFile['USERSETUP_password_confirm_wrong'].'</div>';
       }
+
+      // add spacer to the user info
+      $userInfoPassword[$configs['id']] = '<div class="spacer"></div>'.$userInfoPassword[$configs['id']];
+
     } else
       $newUserConfig[$configs['id']]['password'] = $userConfig[$configs['id']]['password'];
 
@@ -117,6 +126,8 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
   }
 
   ksort($newUserConfig);
+
+// GeneralFunctions::dump($newUserConfig);
 
   if(saveUserConfig($newUserConfig)) {
     $documentSaved = true; // set documentSaved status

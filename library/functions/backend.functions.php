@@ -923,13 +923,6 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['cache']['active']      = ".XssFilter::bool($adminConfig['cache']['active'],true).";\n";
     $fileContent .= "\$adminConfig['cache']['timeout']     = ".XssFilter::number($adminConfig['cache']['timeout'],5).";\n\n";
 
-    $fileContent .= "\$adminConfig['user']['frontendEditing']   = ".XssFilter::bool($adminConfig['user']['frontendEditing'],true).";\n";
-    $fileContent .= "\$adminConfig['user']['fileManager']       = ".XssFilter::bool($adminConfig['user']['fileManager'],true).";\n";
-    $fileContent .= "\$adminConfig['user']['editWebsiteFiles']  = ".XssFilter::bool($adminConfig['user']['editWebsiteFiles'],true).";\n";
-    $fileContent .= "\$adminConfig['user']['editStyleSheets']   = ".XssFilter::bool($adminConfig['user']['editStyleSheets'],true).";\n";
-    $fileContent .= "\$adminConfig['user']['editSnippets']      = ".XssFilter::bool($adminConfig['user']['editSnippets'],true).";\n";
-    $fileContent .= "\$adminConfig['user']['info']              = '".$adminConfig['user']['info']."';\n\n"; // htmLawed in adminSetup.controller.php
-
     $fileContent .= "\$adminConfig['editor']['htmlLawed']    = ".XssFilter::bool($adminConfig['editor']['htmlLawed'],true).";\n";
     $fileContent .= "\$adminConfig['editor']['safeHtml']     = ".XssFilter::bool($adminConfig['editor']['safeHtml'],true).";\n";
     $fileContent .= "\$adminConfig['editor']['editorStyles'] = ".XssFilter::bool($adminConfig['editor']['editorStyles'],true).";\n";
@@ -995,6 +988,14 @@ function saveUserConfig($userConfig) {
       $fileContent .= "\$userConfig[".$user."]['username'] = '".XssFilter::text($configs['username'])."';\n";
       $fileContent .= "\$userConfig[".$user."]['email']    = '".XssFilter::string($configs['email'])."';\n";
       $fileContent .= "\$userConfig[".$user."]['password'] = '".XssFilter::text($configs['password'])."';\n";
+      $fileContent .= "\$userConfig[".$user."]['info']     = '".$configs['info']."';\n\n";// htmLawed in userSetup.controller.php
+
+      $fileContent .= "\$userConfig[".$user."]['permissions']['frontendEditing']      = ".XssFilter::bool($configs['permissions']['frontendEditing'],true).";\n";
+      $fileContent .= "\$userConfig[".$user."]['permissions']['fileManager']          = ".XssFilter::bool($configs['permissions']['fileManager'],true).";\n";
+      $fileContent .= "\$userConfig[".$user."]['permissions']['editWebsiteFiles']     = ".XssFilter::bool($configs['permissions']['editWebsiteFiles'],true).";\n";
+      $fileContent .= "\$userConfig[".$user."]['permissions']['editStyleSheets']      = ".XssFilter::bool($configs['permissions']['editStyleSheets'],true).";\n";
+      $fileContent .= "\$userConfig[".$user."]['permissions']['editSnippets']         = ".XssFilter::bool($configs['permissions']['editSnippets'],true).";\n";
+
 
       $fileContent .= "\n";
     }

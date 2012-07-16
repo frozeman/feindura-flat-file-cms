@@ -96,6 +96,11 @@ div.blockSpacer {
     background: url("../images/bg/content_blockSpacer.png") no-repeat;
 }
 
+.row {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
 // mark tooltip text
 .toolTip,
 input.toolTip[type=checkbox] {
@@ -150,6 +155,11 @@ img.thumbnail {
     border: 1px solid #DDD;
     #border > .rounded(5px);
     #shadow > .drop(0,0,5px,0.2);
+}
+
+img.flag {
+    position: relative;
+    margin-top: -5px;
 }
 
 
@@ -238,22 +248,22 @@ a.anchorTarget {
     background: none;
 }
 
-// delete icon
-a.deleteIcon {
+// delete button
+a.deleteButton {
   display: block;
   position: absolute;
   width: 18px;
   height: 17px;
   padding-left: 0;
-  background: url("../images/buttons/content_deleteIcon.png") no-repeat;
+  background: url("../images/buttons/content_deleteButton.png") no-repeat;
 }
-a.deleteIcon:hover,
-a.deleteIcon:focus {
+a.deleteButton:hover,
+a.deleteButton:focus {
   background-position: 0px -16px;
 }
 
 
-// add icon
+// add button
 a.addButton {
     position: relative;
     display: block;
@@ -340,8 +350,8 @@ menu.horizontal {
         display: inline-block;
         position: relative;
         // float: left;
-        margin: 0px auto;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
         list-style: none;
     }
 }
@@ -500,6 +510,12 @@ div.smallLoadingCircle {
     margin-left: -15px;
 }
 
+iframe#fileManagerFrame {
+    margin: -20px -14px;
+    width: 732px;
+    height: 470px;
+}
+
 
 // FORMS
 
@@ -541,6 +557,11 @@ a.button {
     border: none;
     padding: 0;
     text-decoration: none;
+}
+
+a.button.center {
+    left: 50%;
+    margin-left: -26px;
 }
 
 // SUBMIT

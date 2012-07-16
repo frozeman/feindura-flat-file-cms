@@ -39,16 +39,22 @@ foreach ($languages as $langCode) {
   }
 }
 
+$languageString = trim($languageString,', ');
+
 // QUESTION
 if(!empty($languageString))
   echo '<h2 class="red">'.sprintf($langFile['WINDOWBOX_TITLE_DELETEWEBSITELANGUAGES_QUESTION'],'<span style="color:#000000;">'.$languageString.'</span>').'</h2>';
 
 if($_GET['status'] == 'deactivated')
-  echo '<p>'.sprintf($langFile['WINDOWBOX_TEXT_DELETEWEBSITELANGUAGES_QUESTION'],$languageNames[$_GET['mainLanguage']]).'</p>';
+  echo '<div class="alert alert-info">'.sprintf($langFile['WINDOWBOX_TEXT_DELETEWEBSITELANGUAGES_QUESTION'],$languageNames[$_GET['mainLanguage']]).'</div>';
 
 ?>
-<div>
 
-<a href="?site=<?php echo $site ?>" class="button cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
-<a href="#" class="button ok left" onclick="$('websiteSettingsForm').submit();return false;">&nbsp;</a>
+<div class="row buttons">
+  <div class="span4 center">
+    <a href="?site=<?php echo $site ?>" class="button cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+  </div>
+  <div class="span4 center">
+    <a href="#" class="button ok" onclick="$('websiteSettingsForm').submit();return false;">&nbsp;</a>
+  </div>
 </div>

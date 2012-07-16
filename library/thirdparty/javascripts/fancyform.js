@@ -80,7 +80,7 @@ var FancyForm = new Class ({
 		var filteredElements = [];
 		var self = this;
 		var newChks = this.elements.filter(function(chk){
-			if(typeOf(chk) != 'element' || chk.inputElement || (chk.get('tag') == 'input' && chk.getParent().inputElement))
+			if(typeOf(chk) != 'element' || chk.inputElement || (chk.get('tag') == 'input' && chk.getParent().inputElement) || chk.retrieve('fancyform_replacment'))
 				return false;
 			if(chk.get('tag') == 'input' && (self.options.onClasses[chk.getProperty('type')])){
 				var el = new Element('div');

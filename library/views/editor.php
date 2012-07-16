@@ -232,10 +232,12 @@ if(!$newPage) {
                   <span><strong>'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].'</strong></span>
                 </div>
                 <div class="span5">';
-                  foreach ($pageContent['localized'] as $langCode => $values) {
-                    echo '<a href="'.GeneralFunctions::addParameterToUrl(array('websiteLanguage','status'),array($langCode,'')).'" class="image" style="font-size:12px;"><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag" alt="flag icon"> '.$languageNames[$langCode].'</a>';
-                    if($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) echo '<img src="library/images/icons/edited_small.png" style="position:absolute; margin-top:1px;" alt="icon">';
-                    echo '<br>';
+                  if(is_array($pageContent['localized'])) {
+                    foreach ($pageContent['localized'] as $langCode => $values) {
+                      echo '<a href="'.GeneralFunctions::addParameterToUrl(array('websiteLanguage','status'),array($langCode,'')).'" class="image" style="font-size:12px;"><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag" alt="flag icon"> '.$languageNames[$langCode].'</a>';
+                      if($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) echo '<img src="library/images/icons/edited_small.png" style="position:absolute; margin-top:1px;" alt="icon">';
+                      echo '<br>';
+                    }
                   }
                   // list not yet existing languages of the page
                   if($missingLanguages) {
@@ -269,8 +271,9 @@ if(!$newPage) {
 /**
  * Include the editor
  */
-if(!$newPage)
+if(!$newPage) {
   include_once(dirname(__FILE__).'/../includes/editor.include.php');
+}
 
 
 ?>
@@ -509,8 +512,10 @@ $hidden = '';
 /**
  * Include the editor when newpage
  */
-if($newPage)
+if($newPage) {
   include_once(dirname(__FILE__).'/../includes/editor.include.php');
+  echo '<div class="spacer2x"></div>';
+}
 
 // $activatedPlugins is on the top of the page
 

@@ -16,7 +16,7 @@
  *
  * sites/statisticSetup.php
  *
- * @version 0.12
+ * @version 0.2
  */
 
 /**

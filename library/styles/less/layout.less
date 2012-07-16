@@ -445,6 +445,10 @@ header.main {
                 a:focus {
                     background-position: right -36px;
                 }
+
+                img.icons {
+                    top: 1px;
+                }
             }
             &.hidden .top a {
                 background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
@@ -480,6 +484,15 @@ header.main {
                     text-decoration: none;
                     font-weight: bold;
                     font-size: 11px;
+                    background-repeat: repeat-x;
+                    background-position: 0 0;
+                }
+                a:hover,
+                a:focus {
+                    background-position: 0px -35px;
+                }
+                a.active {
+                    background-position: 0px -70px;
                 }
             }
 
@@ -501,16 +514,14 @@ header.main {
                     border-right: 1px solid #BDBDB9;
 
                     a {
-                        background: url("../images/buttons/sidebarMenu_key_gray.png") repeat-x;
+                        background-image: url("../images/buttons/sidebarMenu_key_gray.png");
                         color: #707F81;
                     }
                     a.active {
-                        background-position: 0px -70px;
                         color: #ffffff;
                     }
                     a:hover,
                     a:focus {
-                        background-position: 0px -35px;
                         color: #ffffff;
                     }
                 }
@@ -535,16 +546,14 @@ header.main {
                     border-right: 1px solid #E6BF7C;
 
                     a {
-                        background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x;
+                        background-image: url("../images/buttons/sidebarMenu_key_brown.png");
                         color: #9B6B1D;
                     }
                     a.active {
-                        background-position: 0px -70px;
                         color: #ffffff !important;
                     }
                     a:hover,
                     a:focus {
-                        background-position: 0px -35px;
                         color: #ffffff;
                     }
                 }
@@ -567,16 +576,14 @@ header.main {
                     border-right: 1px solid #89B5D6;
 
                     a {
-                        background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x;
+                        background-image: url("../images/buttons/sidebarMenu_key_blue.png");
                         color: #457A96;
                     }
                     a.active {
-                        background-position: 0px -70px;
                         color: #ffffff !important;
                     }
                     a:hover,
                     a:focus {
-                        background-position: 0px -35px;
                         color: #ffffff;
                     }
                 }
@@ -730,7 +737,7 @@ header.main {
                 padding-left: 25px;
                 background: url("../images/buttons/backup_download_small.png") no-repeat left center;
             }
-            a.deleteIcon {
+            a.deleteButton {
                 top: 15px;
                 right: 0px;
             }
@@ -801,7 +808,7 @@ header.main {
             ul.flags img {
                 position: absolute;
                 left: 0px;
-                margin-top: 2px;
+                margin-top: 3px;
             }
             ul.flags a.link {
                 padding-left: 0px;
@@ -822,7 +829,6 @@ header.main {
         padding-top: 7px;
         z-index: 7;
         overflow: visible;
-        width: auto;
         height: 48px;
         border: 1px solid #f4f4f4;
         background: #eaeaea;
@@ -836,10 +842,6 @@ header.main {
         #shadow > .drop(0, 1px, 5px, 0.35);
         #border > .rounded(8px);
         #PIE;
-
-        menu {
-            width: 120%;
-        }
 
         // submenu selection
         select {

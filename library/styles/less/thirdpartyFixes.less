@@ -48,7 +48,7 @@ label.cke_dialog_ui_labeled_label {
 
 // CKEditor dialog
 .cke_dialog_ui_vbox_child a.cke_dialog_ui_button {
-    margin-top: 24px !important;
+    margin-top: 30px !important;
 }
 .cke_dialog {
     #shadow > .drop(0, 1, 15px,0.3);
@@ -119,8 +119,12 @@ textarea.editFiles, .CodeMirror-scroll  {
 
 // FancyForm FIXES
 
+[class^="span"] > [class^="fancyform"] {
+    top: 5px;
+}
+
 .fancyform_checked {
-    ursor: pointer;
+    cursor: pointer;
     border-bottom:1px solid transparent;
     position:relative;
     display:inline-block;

@@ -22,7 +22,7 @@ var windowBoxIsVisible = false;
 
 /* ---------------------------------------------------------------------------------- */
 // dimms the background and calls: requestSite(site,siteTitle);
-function openWindowBox(site,siteTitle) {
+function openWindowBox(site,siteTitle,data) {
 
   if(site) {
 
@@ -48,7 +48,7 @@ function openWindowBox(site,siteTitle) {
     windowBoxIsVisible = true;
 
 		// send HTML request
-    requestSite(site,siteTitle);
+    requestSite(site,siteTitle,data);
 	}
   return false;
 }
@@ -76,7 +76,7 @@ function closeWindowBox(redirectAfter) {
 
   // slides the windowRequestBox out
   windowBox.get('tween').chain(function() {
-    // set the html inside the windowRequestBox div back.
+    // clear the html inside the windowRequestBox.
     $('windowRequestBox').empty();
     $('windowRequestBox').setStyle('height', 'auto');
 
@@ -97,22 +97,20 @@ function closeWindowBox(redirectAfter) {
 /* ---------------------------------------------------------------------------------- */
 // AJAX REQUEST
 // send a HTML request and put the outcome in the windowRequestBox
-function requestSite(site,siteTitle,formId) {
+function requestSite(site,siteTitle,dataOrFormId) {
 
   // vars
-  var formular = $(formId);
+  var data = (typeOf(dataOrFormId) == 'object') ? dataOrFormId : $(dataOrFormId);
   var removeLoadingCircle;
   var windowRequestBox = $('windowRequestBox');
   var windowBox = $('windowBox');
 
   // creates the request Object
-  new Request.HTML({url:site,
+  new Request.HTML({
+    url:site,
+    evalScripts: true,
     //-----------------------------------------------------------------------------
     onRequest: function() { //-----------------------------------------------------
-
-        // Clear the title <div>
-        if(typeOf($$('#windowBox > h1')[0]) !== 'null')
-          $$('#windowBox > h1')[0].destroy();
 
         // shows the LOADING
         if(navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
@@ -125,13 +123,19 @@ function requestSite(site,siteTitle,formId) {
     //-----------------------------------------------------------------------------
 		onSuccess: function(html,childs,rawText) { //-------------------------------------------------
 
-      // slide the content out
-      windowRequestBox.slide('out');
+      //  CLOSE the windowBox AND REDIRECT, if the first part of the response is '#REDIRECT#'
+      if(rawText.substring(1,11) == '#REDIRECT#') {
+        closeWindowBox(rawText.substring(11));
+        return;
 
-      //slide out and quit, if the text of the window is "DONTSHOW"
-      if(rawText.substring(1,9) == 'DONTSHOW') {
+      // CLOSE the windowBox, if the first part of the response is '#CLOSE#'
+      } else if(rawText.substring(1,8) == '#CLOSE#') {
+        closeWindowBox();
         return;
       }
+
+      // slide the content out
+      windowRequestBox.slide('out');
 
       windowRequestBox.get('slide').chain(function() {
       // (function() {
@@ -151,6 +155,11 @@ function requestSite(site,siteTitle,formId) {
 
         // first fill in the title
         if(siteTitle) {
+
+          // Clear the title <div>
+          if(typeOf($$('#windowBox > h1')[0]) !== 'null')
+            $$('#windowBox > h1')[0].destroy();
+
           // Inject the new DOM elements into the h1.
           windowBox.grab(new Element('h1',{'text':siteTitle}),'top');
         }
@@ -177,7 +186,7 @@ function requestSite(site,siteTitle,formId) {
 		onFailure: function() { //-----------------------------------------------------
 			$('windowRequestBox').set('text', 'The request failed.');
     }
-  }).post(formular);
+  }).post(data);
 }
 
 // *** ->> THUMBNAIL - functions -----------------------------------------------------------------------------------------------------------------------

@@ -57,36 +57,37 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
     if(@unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && GeneralFunctions::savePage($pageContent)) {
         saveActivityLog(5,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
 
-        $question = '';
-        echo 'DONTSHOW';
+        $question = false;
 
-        // create redirect
-        $redirect = (empty($site))
-          ? '?category='.$category.'&page='.$page.'&status=reload'.rand(1,99).'#pageInformation'
-          : '?site='.$site.'&category='.$category;
-
-        // redirect, when on listPages
+        // on listPages REDIRECT
         if($site == 'pages') {
-          $redirect .= '&status=reload'.rand(1,99).'#categoryAnchor'.$category;
-          echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php'.$redirect.'\');/* ]]> */</script>';
 
-        // remove the thumbnail preview
-        } else { ?>
+          // create redirect
+          $redirect = '?site='.$site.'&category='.$category.'&status=reload'.rand(1,99).'#categoryAnchor'.$category;
+          // CLOSE the windowBox and REDIRECT, if the first part of the response is '#REDIRECT#'
+          die('#REDIRECT#'.$redirect);
+
+        // on page REMOVE the THUMBNAIL PREVIEW
+        } else {
+
+          // CLOSE the windowBox, if the first part of the response is '#CLOSE#'
+          echo '#CLOSE#'; // echo not die(), so it executes the javascript below, before closing
+          ?>
+
           <script type="text/javascript">
           /* <![CDATA[ */
-            if($('thumbnailUploadButtonInPreviewArea') != null) {
+            if($('thumbnailUploadButtonInPreviewArea') != null)
               $('thumbnailUploadButtonInPreviewArea').setStyle('display','block');
+            if($('thumbnailPreviewContainer') != null)
               $('thumbnailPreviewContainer').setStyle('display','none');
-              closeWindowBox();
-            }
           /* ]]> */
-          </script>';
+          </script>
  <?php  }
 
     } else {
       // DELETING ERROR --------------
-      $question = '<h2>'.$langFile['PAGETHUMBNAIL_ERROR_DELETE'].'</h2>
-      <a href="?category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>'."\n";
+      $question = '<div class="alert alert-error">'.$langFile['PAGETHUMBNAIL_ERROR_DELETE'].'</div>
+      <a href="?category='.$category.'&amp;page='.$page.'" class="button ok center" onclick="closeWindowBox();return false;"></a>'."\n";
     }
 } elseif(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
   $pageContent['thumbnail'] = '';
@@ -106,7 +107,7 @@ if(!$asking) {
     <input type="hidden" name="asking" value="true">
   </div>
 
-  <div class="row">
+  <div class="row buttons">
     <div class="span4 center">
       <a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="button cancel" onclick="closeWindowBox();return false;"></a>
     </div>
@@ -115,8 +116,6 @@ if(!$asking) {
     </div>
   </div>
 </form>
-
-<div class="spacer"></div>
 
 <!-- show a preview of the thumbnail -->
 <div class="center">

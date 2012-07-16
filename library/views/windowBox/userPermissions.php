@@ -26,65 +26,114 @@ require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
+// vars
+$post = (isset($_POST)) ? $_POST : $_GET;
+$error = false;
+
+// WHEN THE FORM WAS SEND
+if($post['send'] == 'true') {
+
+  $newUserConfig = $userConfig;
+  $newUserConfig[$post['userId']]['permissions']['frontendEditing']  = $post['frontendEditing'];
+  $newUserConfig[$post['userId']]['permissions']['fileManager']      = (empty($adminConfig['uploadPath'])) ? false : $post['fileManager'];
+  $newUserConfig[$post['userId']]['permissions']['editWebsiteFiles'] = $post['editWebsiteFiles'];
+  $newUserConfig[$post['userId']]['permissions']['editStyleSheets']  = $post['editStyleSheets'];
+  $newUserConfig[$post['userId']]['permissions']['editSnippets']     = $post['editSnippets'];
+
+  if(saveUserConfig($newUserConfig)) {
+    saveActivityLog(28,$savedUsername); // <- SAVE the task in a LOG FILE
+
+    // CLOSE the windowBox, if the first part of the response is '#CLOSE#'
+    die('#CLOSE#');
+
+  } else
+    echo '<div class="alert alert-error">'.sprintf($langFile['USERSETUP_error_save'],$adminConfig['basePath']).'</div>';
+    echo '<a href="?site=userSetup" class="button ok center" onclick="closeWindowBox();return false;"></a>';
+
+// SHOW THE FORM
+} else {
+
 ?>
 
-<h1><a href="#"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TITLE']; ?></a></h1>
-<div class="content">
-    <table>
-
-      <colgroup>
-      <col class="left">
-      </colgroup>
-
-      <tbody>
-        <tr><td class="left checkboxes">
-        <input type="checkbox" id="cfg_userFrontendEditing" name="cfg_userFrontendEditing" value="true"<?php if(!isset($adminConfig['user']['frontendEditing']) || $adminConfig['user']['frontendEditing']) echo ' checked="checked"'; echo $fmDisabled; ?>><br>
-        </td><td class="right checkboxes">
-        <label for="cfg_userFrontendEditing"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']; ?></label><br>
-        </td></tr>
-
-        <tr><td class="left checkboxes">
-        <?php $fmDisabled = (empty($adminConfig['uploadPath'])) ? ' disabled="disabled"' : ''; ?>
-        <input type="checkbox" id="cfg_userFileManager" name="cfg_userFileManager" value="true"<?php if($adminConfig['user']['fileManager']) echo ' checked="checked"'; echo $fmDisabled; ?>><br>
-        </td><td class="right checkboxes">
-        <label for="cfg_userFileManager"<?php echo ($fmDisabled) ? 'class="toolTip disabled" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label><br>
-        </td></tr>
-
-        <?php if(!empty($adminConfig['websiteFilesPath'])) { ?>
-        <tr><td class="left checkboxes">
-        <input type="checkbox" id="cfg_userWebsiteFiles" name="cfg_userWebsiteFiles" value="true"<?php if($adminConfig['user']['editWebsiteFiles']) echo ' checked="checked"'; ?>><br>
-        </td><td class="right checkboxes">
-        <label for="cfg_userWebsiteFiles"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check1']; ?></label><br>
-        </td></tr>
-        <?php } ?>
-
-        <?php if(!empty($adminConfig['stylesheetPath'])) { ?>
-        <tr><td class="left checkboxes">
-        <input type="checkbox" id="cfg_userStylesheets" name="cfg_userStylesheets" value="true"<?php if($adminConfig['user']['editStyleSheets']) echo ' checked="checked"'; ?>>
-        </td><td class="right checkboxes">
-        <label for="cfg_userStylesheets"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']; ?></label>
-        </td></tr>
-        <?php } ?>
-
-        <?php if(!empty($adminConfig['editor']['snippets'])) { ?>
-        <tr><td class="left checkboxes">
-        <input type="checkbox" id="cfg_userSnippets" name="cfg_userSnippets" value="true"<?php if($adminConfig['user']['editSnippets']) echo ' checked="checked"'; ?>><br>
-        </td><td class="right checkboxes">
-        <label for="cfg_userSnippets"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']; ?></label><br>
-        </td></tr>
-        <?php } ?>
-
-        <tr><td class="leftTop"></td><td></td></tr>
-
-        <tr><td class="left">
-        <label for="cfg_userInfo"><span class="toolTip" title="<?php echo $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']; ?>"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']; ?></span></label>
-        </td><td class="right">
-        <textarea id="cfg_userInfo" name="cfg_userInfo" cols="50" rows="2" style="white-space:normal;width:500px;" class="inputToolTip autogrow" title="<?php echo $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']; ?>"><?php echo str_replace(array('<br>','<br>','<br/>'),'',$adminConfig['user']['info']); ?></textarea>
-        </td></tr>
-
-        <tr><td class="leftBottom"></td><td></td></tr>
-      </tbody>
-    </table>
-
-    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'userSettings'; submitAnchor('adminSettingsForm','userSettings');">
+<form action="?site=userSetup" method="post" enctype="multipart/form-data" id="userPermissionsForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','userPermissionsForm');return false;" accept-charset="UTF-8">
+  <div>
+    <input type="hidden" name="send" value="true">
+    <input type="hidden" name="userId" value="<?php echo $post['userId']; ?>">
   </div>
+
+  <div class="row">
+    <div class="span3 right">
+      <input type="checkbox" id="frontendEditing" name="frontendEditing" value="true"<?php if($userConfig[$post['userId']]['permissions']['frontendEditing']) echo ' checked="checked"'; echo $fmDisabled; ?>>
+    </div>
+    <div class="span5">
+      <label for="frontendEditing"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']; ?></label>
+    </div>
+  </div>
+
+  <?php $fmDisabled = (empty($adminConfig['uploadPath'])) ? ' disabled="disabled"' : ''; ?>
+  <div class="row">
+    <div class="span3 right">
+      <input type="checkbox" id="fileManager" name="fileManager" value="true"<?php if($userConfig[$post['userId']]['permissions']['fileManager']) echo ' checked="checked"'; echo $fmDisabled; ?>>
+    </div>
+    <div class="span5">
+      <label for="fileManager"<?php echo ($fmDisabled) ? 'class="toolTip disabled" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label>
+    </div>
+  </div>
+
+  <?php if(!empty($adminConfig['websiteFilesPath'])) { ?>
+  <div class="row">
+    <div class="span3 right">
+      <input type="checkbox" id="editWebsiteFiles" name="editWebsiteFiles" value="true"<?php if($userConfig[$post['userId']]['permissions']['editWebsiteFiles']) echo ' checked="checked"'; ?>>
+    </div>
+    <div class="span5">
+      <label for="editWebsiteFiles"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check1']; ?></label>
+    </div>
+  </div>
+  <?php } ?>
+
+  <?php if(!empty($adminConfig['stylesheetPath'])) { ?>
+  <div class="row">
+    <div class="span3 right">
+      <input type="checkbox" id="editStyleSheets" name="editStyleSheets" value="true"<?php if($userConfig[$post['userId']]['permissions']['editStyleSheets']) echo ' checked="checked"'; ?>>
+    </div>
+    <div class="span5">
+      <label for="editStyleSheets"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']; ?></label>
+    </div>
+  </div>
+  <?php } ?>
+
+  <?php if(!empty($adminConfig['editor']['snippets'])) { ?>
+  <div class="row">
+    <div class="span3 right">
+      <input type="checkbox" id="editSnippets" name="editSnippets" value="true"<?php if($userConfig[$post['userId']]['permissions']['editSnippets']) echo ' checked="checked"'; ?>>
+    </div>
+    <div class="span5">
+      <label for="editSnippets"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']; ?></label>
+    </div>
+  </div>
+  <?php } ?>
+
+  <div class="row buttons">
+    <div class="span4 center">
+      <a href="?site=userSetup" class="button cancel" onclick="closeWindowBox();return false;"></a>
+    </div>
+    <div class="span4 center">
+      <input type="submit" value="" class="button submit">
+    </div>
+  </div>
+
+</form>
+
+<!-- PAGE SCRIPTS -->
+<script type="text/javascript">
+/* <![CDATA[ */
+  $('windowBox').addEvent('loaded',function(){
+    new FancyForm('#windowBox input[type="checkbox"], #windowBox input[type="radio"]');
+    $$('#windowBox textarea.autogrow').each(function(textarea){
+      new Form.AutoGrow(textarea);
+    });
+  });
+/* ]]> */
+</script>
+
+<?php } ?>

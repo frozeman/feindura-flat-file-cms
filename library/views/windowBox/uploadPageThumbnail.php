@@ -262,10 +262,10 @@ if(!empty($pageContent['thumbnail'])) {
 
     }
 
-    if($('thumbnailUploadButtonInPreviewArea') != null) {
+    if($('thumbnailUploadButtonInPreviewArea') != null)
       $('thumbnailUploadButtonInPreviewArea').setStyle('display','none');
+    if($('thumbnailPreviewContainer') != null)
       $('thumbnailPreviewContainer').setStyle('display','block');
-    }
   }
 /* ]]> */
 </script>

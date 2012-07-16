@@ -211,6 +211,7 @@ if($_POST['upload']) {
 
             // image size
             $thumbSize = @getimagesize(DOCUMENTROOT.$newFilePath);
+            $randomImage = '?'.md5(uniqid(rand(),1));
 
             // saves the new thumbnail in the flatfile ---------------------
             $pageContent['thumbnail'] = $newFileName;
@@ -222,7 +223,6 @@ if($_POST['upload']) {
                 $thumbnailWidth = ' style="width: 700px;"';
 
               // generates a random number to put on the end of the image, to prevent caching
-              $randomImage = '?'.md5(uniqid(rand(),1));
               $response[] = '<div class="alert alert-success">'.$langFile['PAGETHUMBNAIL_TEXT_finish'].'</div>
                 <img src="'.$uploadPath.$newFileName.$randomImage.'" class="thumbnail"'.$thumbnailWidth.'>';
               saveActivityLog(6,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
@@ -235,7 +235,7 @@ if($_POST['upload']) {
             // call this javascript, on the succesfull finish of the upload
             echo '<script type="text/javascript">
                   /* <![CDATA[ */
-                    window.top.window.finishThumbnailUpload('.$frameHeight.',"'.$newFileName.'",'.$thumbSize[0].');
+                    window.top.window.finishThumbnailUpload('.$frameHeight.',"'.$newFileName.$randomImage.'",'.$thumbSize[0].');
                   /* ]]> */
                   </script>';
           	}

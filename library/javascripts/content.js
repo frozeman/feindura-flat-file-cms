@@ -104,7 +104,7 @@ function addField(containerId,inputName) {
   //var newInput = new Element('input', {name: inputName});
 
   if(containerId && $(containerId) !== null) {
-    var newInput  = new Element('input', {name: inputName});
+    var newInput  = new Element('input', {type:'text',name: inputName});
     $(containerId).grab(newInput,'bottom');
     return true;
   } else
@@ -595,10 +595,10 @@ window.addEvent('load', function() {
 window.addEvent('domready', function() {
 
   // ADD .active to links which get clicked
-  $$('a').addEvent('click',function(){
+  $$('#leftSidebar a').addEvent('click',function(){
     if(this.hasClass('btn'))
       return;
-    $$('a').removeClass('active');
+    $$('#leftSidebar a').removeClass('active');
     this.addClass('active');
   });
 
@@ -793,6 +793,7 @@ window.addEvent('domready', function() {
       var pageAfter = null;
       var selectedPage = false;
 
+
       // get the selected page
       listPagesBars.each(function(page){
         if(page.retrieve('selected') === true) {
@@ -805,7 +806,7 @@ window.addEvent('domready', function() {
       });
 
       // OPEN the page on ENTER
-      if(typeOf(e.key) != 'null' && e.key == 'enter' && selectedPage !== null) {
+      if(typeOf(e.key) != 'null' && e.key == 'enter' && typeOf(selectedPage) !== 'null' && selectedPage !== false) {
         // e.preventDefault();
         window.location.href = 'index.php?category='+selectedPage.get('data-categoryId')+'&page='+selectedPage.get('data-pageId');
         return;
@@ -1345,7 +1346,7 @@ window.addEvent('domready', function() {
       if(this.checked) {
         this.getParent('div.row').getNext('div.userPermissionsRow').setStyle('display','none');
       } else
-        this.getParent('div.row').getNext('div.userPermissionsRow').setStyle('display','table-row');
+        this.getParent('div.row').getNext('div.userPermissionsRow').setStyle('display','block');
     });
 
   }

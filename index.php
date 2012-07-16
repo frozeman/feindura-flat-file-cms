@@ -75,7 +75,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- <link rel="stylesheet" type="text/css" href="library/styles/reset.css<?php echo '?v='.BUILD; ?>"> -->
   <!-- <link rel="stylesheet" type="text/css" href="library/styles/layout.css<?php echo '?v='.BUILD; ?>"> -->
   <!-- <link rel="stylesheet" type="text/css" href="library/styles/content.css<?php echo '?v='.BUILD; ?>"> -->
-  <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css<?php echo '?v='.BUILD; ?>">
+  <!-- <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css<?php echo '?v='.BUILD; ?>"> -->
   <link rel="stylesheet" type="text/css" href="library/styles/shared.css<?php echo '?v='.BUILD; ?>">
 
   <link rel="stylesheet" type="text/css" href="library/styles/styles.css<?php echo '?v='.BUILD; ?>">
@@ -428,8 +428,8 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       $currentlanguageSlection = (isset($pageContent['localized'])) ? array_keys($pageContent['localized']) : $websiteConfig['multiLanguageWebsite']['languages'];
 
       // -> add new language to the page languages selection, if $_GET['status'] = "addLanguage"
-      if($_GET['status'] == 'addLanguage')
-        $currentlanguageSlection = array_unique(array_merge($websiteConfig['multiLanguageWebsite']['languages'],array_keys($pageContent['localized'])));
+      if($_GET['status'] == 'addLanguage' && is_array($pageContent['localized']))
+          $currentlanguageSlection = array_unique(array_merge($websiteConfig['multiLanguageWebsite']['languages'],array_keys($pageContent['localized'])));
       $_SESSION['feinduraSession']['websiteLanguage'] = (in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection)) ? $_SESSION['feinduraSession']['websiteLanguage']: current($currentlanguageSlection);
 
       // if NEW PAGE, overwrite with the mainLanguage
@@ -546,8 +546,8 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                 if(!empty($websiteConfig['multiLanguageWebsite']['languages']) && (empty($pageContent) || !empty($pageContent['localized']))) {
                   ?>
                   <li class="spacer"></li>
-                  <li>
-                    <img src="<?php echo GeneralFunctions::getFlagHref($_SESSION['feinduraSession']['websiteLanguage']); ?>" class="flag" title="<?php echo $languageNames[$_SESSION['feinduraSession']['websiteLanguage']]; ?>">
+                  <li style="top: -20px;">
+                    <img src="<?php echo GeneralFunctions::getFlagHref($_SESSION['feinduraSession']['websiteLanguage']); ?>" title="<?php echo $languageNames[$_SESSION['feinduraSession']['websiteLanguage']]; ?>">
                     <select name="websiteLanguageSelection" id="websiteLanguageSelection" tabindex="37">
                     <?php
                       // create language selection

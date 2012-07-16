@@ -211,15 +211,15 @@ if($adminConfig['user']['fileManager']) {
       if(!$newPage && $categoryConfig[$pageContent['category']]['thumbnails'] && !empty($pageContent['thumbnail'])) {
 
         $displayThumbnailContainer = '';
-
-        // vars
-        $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
-        $thumbnailWidth = $thumbnailWidth[0];
-
-        if($thumbnailWidth >= 200)
-          $thumbnailWidthStyle = ' style="width:200px;"';
-
       }
+
+      // thumb width
+      $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+      $thumbnailWidth = $thumbnailWidth[0];
+
+      if($thumbnailWidth >= 200)
+        $thumbnailWidthStyle = ' style="width:200px;"';
+
 
       // generates a random number to put on the end of the image, to prevent caching
       // $randomImage = '?'.md5(uniqid(rand(),1));
@@ -227,19 +227,19 @@ if($adminConfig['user']['fileManager']) {
       // thumbnailPreviewContainer
       echo '<div id="thumbnailPreviewContainer" style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;'.$displayThumbnailContainer.'">';
       echo $langFile['THUMBNAIL_TEXT_NAME'].'<br>';
-      echo '<span class="deleteIcon">';
 
-      // see if the thumbnails are activated, add upload/delete buttons
-      if($categoryConfig[$pageContent['category']]['thumbnails']) {
-        echo '<a href="?site=deletePageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"" class="deleteIcon toolTip"></a>';
-        echo '<a href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" class="image">';
-        echo '<img src="'.$thumbnailPath.'" id="thumbnailPreviewImage" class="thumbnail"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail">';
-        echo '</a>';
-      // if not only show the thumbnailPreviewImage
-      } else
-        echo '<img src="'.$thumbnailPath.'" id="thumbnailPreviewImage" class="thumbnail"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail">';
+        echo '<div>';
+        // see if the thumbnails are activated, add upload/delete buttons
+        if($categoryConfig[$pageContent['category']]['thumbnails']) {
+          echo '<a href="?site=deletePageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"" class="deleteButton toolTip"></a>';
+          echo '<a href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" class="image">';
+          echo '<img src="'.$thumbnailPath.'" id="thumbnailPreviewImage" class="thumbnail"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail">';
+          echo '</a>';
+        // if not only show the thumbnailPreviewImage
+        } else
+          echo '<img src="'.$thumbnailPath.'" id="thumbnailPreviewImage" class="thumbnail"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail">';
 
-      echo '</span>';
+        echo '</div>';
       echo '</div>';
 
       // -> show the thumbnail upload button if there is no thumbnail yet

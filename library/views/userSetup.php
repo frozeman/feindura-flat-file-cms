@@ -37,21 +37,15 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
   <h1><img src="library/images/icons/userIcon_middle.png" class="blockH1Icon" alt="user icon" width="35" height="35"><?php echo $langFile['USERSETUP_h1']; ?></h1>
   <div class="content form">
 
+    <div class="spacer"></div>
+
     <div class="row">
-      <div class="span3 formLeft">
+      <div class="span8 center">
           <a href="?site=userSetup&amp;status=createUser#userId<?php echo getNewUserId(); ?>" class="createUser toolTip" title="<?php echo $langFile['USERSETUP_createUser']; ?>::"></a>
-      </div>
-      <div class="span5">
-        <br>
-        <?php
-        // user info
-        if($userInfo)
-          echo '<span class="badge badge-warning"><b>'.$userInfo.'</b></span>';
-        ?>
       </div>
     </div>
 
-    <div class="spacer2x"></div>
+    <div class="spacer"></div>
 
     <?php
 
@@ -67,12 +61,13 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 
           echo '<div class="verticalSeparator"></div>';
+          echo '<div class="spacer"></div>';
 
-          // user anchor
+          // user ANCHOR
           echo '<a id="userId'.$user['id'].'" class="anchorTarget"></a>';
 
 
-          // user NAME
+          // USER NAME
           $userName = (empty($user['username']))
             ? '<i>'.$langFile['USERSETUP_createUser_unnamed'].'</i>'
             : $user['username'];
@@ -83,27 +78,27 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
               echo '<input type="hidden" name="users['.$user['id'].'][id]" value="'.$user['id'].'">';
             echo '</div>';
 
-                // deleteUser
+            // DELETEUSER
             echo '<div class="span5" style="position:relative;">
                     <h2 class="gray">ID '.$user['id'].'</h2>';
               echo '<a href="?site=userSetup&amp;status=deleteUser&amp;userId='.$user['id'].'#top" class="deleteUser toolTip" title="'.$langFile['USERSETUP_deleteUser'].'::'.$user['username'].'"></a>';
           echo '  </div>
                 </div>';
 
-              // user name
-              $markUsername = (empty($user['username']))
-                ? ' class="toolTip red" title="'.$langFile['USERSETUP_username_missing'].'::"'
-                : '';
-              $autofocus = (empty($user['username']))
-                ? ' autofocus="autofocus"'
-                : '';
+          // USER NAME
+          $markUsername = (empty($user['username']))
+            ? ' class="toolTip red" title="'.$langFile['USERSETUP_username_missing'].'::"'
+            : '';
+          $autofocus = (empty($user['username']))
+            ? ' autofocus="autofocus"'
+            : '';
           echo '<div class="row"><div class="span3 formLeft">';
           echo '<label for="users'.$user['id'].'username"'.$markUsername.'>'.$langFile['USERSETUP_username'].'</label>
                 </div><div class="span5">
                 <input type="text" id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" autocomplete="off"'.$autofocus.' required="required">
                 </div></div>';
 
-                // user email
+          // USER EMAIL
           echo '<div class="row"><div class="span3 formLeft">';
           echo '<label for="users'.$user['id'].'email" class="toolTip" title="::'.$langFile['USERSETUP_email_tip'].'">'.$langFile['USERSETUP_email'].'</label>
                 </div><div class="span5">
@@ -112,14 +107,13 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
           echo '<div class="spacer"></div>';
 
-                // user password
-                $passwordTitle = (empty($user['password']))
-                  ? $langFile['USERSETUP_password']
-                  : $langFile['USERSETUP_password_change'];
-                $markPassword = (empty($user['password']))
-                  ? ' class="toolTip red" title="'.$langFile['USERSETUP_password_missing'].'::"'
-                  : '';
-          echo $userInfoPassword[$user['id']];
+          // USER PASSWORD
+          $passwordTitle = (empty($user['password']))
+            ? $langFile['USERSETUP_password']
+            : $langFile['USERSETUP_password_change'];
+          $markPassword = (empty($user['password']))
+            ? ' class="toolTip red" title="'.$langFile['USERSETUP_password_missing'].'::"'
+            : '';
 
           echo '<div class="row"><div class="span3 formLeft">';
           echo '<label for="users'.$user['id'].'password"'.$markPassword.'>'.$passwordTitle.'</label>
@@ -127,12 +121,27 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
                 <input type="password" id="users'.$user['id'].'password" name="users['.$user['id'].'][password]" value="" autocomplete="off" required="required">
                 </div></div>';
 
-                // user password confirm
+          // USER PASSWORD CONFIRM
           echo '<div class="row"><div class="span3 formLeft">';
           echo '<label for="users'.$user['id'].'passwordConfirm"'.$markPassword.'>'.$langFile['USERSETUP_password_confirm'].'</label>
                 </div><div class="span5">
                 <input type="password" id="users'.$user['id'].'passwordConfirm" name="users['.$user['id'].'][password_confirm]" value="" required="required">
                 </div></div>';
+
+          echo $userInfoPassword[$user['id']];
+
+          echo '<div class="spacer"></div>';
+
+          // USER INFORMATION
+          echo '<div class="row">
+                  <div class="span3 formLeft">
+                    <label for="users'.$user['id'].'info"><span class="toolTip" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION'].'">'.$langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION'].'</span></label>
+                  </div>
+                  <div class="span5">
+                    <textarea id="users'.$user['id'].'info" name="users['.$user['id'].'][info]" style="white-space:normal;" class="inputToolTip autogrow" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO'].'">'.str_replace(array('<br>','<br>','<br/>'),'',$userConfig[$user['id']]['info']).'</textarea>
+                  </div>
+                </div>';
+
 
           // USER PERMISSIONS
           echo '<div class="row"><div class="span3 formLeft">';
@@ -145,9 +154,11 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
           $hidden = ($checked[1]) ? ' hidden' : '';
 
-          echo '<div class="row userPermissionsRow'.$hidden.'"><div class="offset3 span5 buttons">
-                  <a href="?site=userPermissions" class="btn btn-large" onclick="openWindowBox(\'library/views/windowBox/userPermissions.php\',\''.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'\');return false;"'.$keyTip.'>'.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'</a>
-                </div></div>';
+          echo '<div class="row userPermissionsRow'.$hidden.'">
+                  <div class="span8 center">
+                    <a href="?site=userPermissions?userId='.$user['id'].'" class="btn btn-large" onclick="openWindowBox(\'library/views/windowBox/userPermissions.php\',\''.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'\',{userId:'.$user['id'].'});return false;"'.$keyTip.'>'.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'</a>
+                  </div>
+                </div>';
 
           echo '<input type="submit" value="" name="saveUserSetup" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="$(\'savedUserId\').value = \''.$user['id'].'\'; submitAnchor(\'userForm\',\'userId'.$user['id'].'\');">'; // end slide in box
 
