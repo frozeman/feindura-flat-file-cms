@@ -839,6 +839,70 @@ class GeneralFunctions {
     return $localizedValues[$value];
   }
 
+/**
+  * <b>Name</b> compareTags()<br>
+  *
+  * Compares the given tags with the tags in the given <var>$pageData</var> array.
+  *
+  * If the given <var>$pageData</var> array has one or more tags from the <var>$tags</var> parameter,
+  * it returns TRUE otherwise it FALSE.
+  *
+  * <b>Note</b>: the tags will be compared case insensitive.
+  *
+  * @param array        $pageData       the <var>$pageContent</var> or <var>$pageMetaData</var> array of a page
+  * @param array|string $tags           an array or string with tags to compare
+  *
+  *
+  * @return bool TRUE or FALSE if the $pageContent['localized'][...]['tags'] doesn't match with any of the given tags
+  *
+  * @see Feindura::listPagesByTags()
+  * @see Feindura::createMenuByTags()
+  *
+  * @access protected
+  * @version 1.2
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.2 moved to GeneralFunctions
+  *    - 1.1.1 go through all pages tags not only the english ones
+  *    - 1.1 add localization
+  *    - 1.0.1 fixed comparision, beacause i changed separarion of tags from whitespace to ,
+  *    - 1.0 initial release
+  *
+  */
+  public static function compareTags($pageData, $tags) {
+
+    // var
+    // $pageTags = $this->getLocalized($pageContent,'tags');
+    if(is_string($tags))
+      $tags = explode(',', $tags);
+
+    // ->> go through all the pages tags
+    if(is_array($pageData['localized'])) {
+      foreach ($pageData['localized'] as $langCode => $localized) {
+        $pageTags = $localized['tags'];
+
+        // CHECKS if the $tags are in an array,
+        // and the pageContent['tags'] var exists and is not empty
+        if(is_array($tags) && isset($pageTags) && !empty($pageTags)) {
+          // lowercase
+          $pageTags = strtolower($pageTags);
+
+          // goes trough the given TAG Array, and look of one tga is in the pageContent['tags'} var
+          foreach($tags as $tag) {
+            // lowercase
+            $tag = strtolower($tag);
+            if(strpos(','.$pageTags.',',','.$tag.',') !== false) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+
+    // if nothing has been found return FALSE
+    return false;
+  }
+
  /**
   * <b>Name</b> readPage()<br>
   *

@@ -9,11 +9,11 @@
     #border > .radius(@blockBorderRadius,0,0,@blockBorderRadius);
 
     > h1 {
-        z-index: -1;
+        position: relative;
+        z-index: 0;
         padding-bottom: 30px;
         margin-bottom: -20px;
         #shadow > .drop(0,0,5px,0.2);
-        // #gradient > .none();
     }
 
     span.toolTip {
@@ -40,10 +40,6 @@
                 margin-left: -35px;
                 background-position: right 8px; // overwrites the slide in link in contentBlock.less
                 width: 100%;
-            }
-
-            &:hover {
-                #gradient > .none();
             }
 
             img.blockH1Icon {
@@ -210,7 +206,8 @@
 
     // LISTPAGES HEADER
     div.listPagesHead {
-        z-index: 0;
+        position: relative;
+        z-index: 1;
         height: 31px;
         margin-bottom: 0px;
         padding: 5px @gridGutterWidth;
@@ -323,7 +320,6 @@
     .categories div.subCategoryArrowStart {
         background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_start.png");
     }
-
     div.subCategoryArrowEnd {
         position: absolute;
         width: 5px;
@@ -343,7 +339,6 @@
     .categories div.subCategoryArrowEnd {
         background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_end.png");
     }
-
     div.subCategoryInLineArrow {
         position: absolute;
         width: 9px;

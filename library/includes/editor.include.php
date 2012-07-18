@@ -117,9 +117,9 @@ if($adminConfig['editor']['enterMode'] == 'br') { ?>
   CKEDITOR.config.shiftEnterMode            = CKEDITOR.ENTER_BR;
 
 // CUSTOM STYLES
-<? } if(!$adminConfig['editor']['editorStyles']) { ?>
+<?php } if(!$adminConfig['editor']['editorStyles']) { ?>
   CKEDITOR.config.removePlugins = 'stylescombo';
-<?php } if($adminConfig['editor']['editorStyles'] && file_exists(dirname(__FILE__)."/../../config/EditorStyles.js")) { ?>
+<?php } if(GeneralFunctions::hasPermission('editorStyles') && file_exists(dirname(__FILE__)."/../../config/EditorStyles.js")) { ?>
   CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/EditorStyles.js?<?php echo md5(uniqid(rand(),1)); ?>';
 <?php }
 

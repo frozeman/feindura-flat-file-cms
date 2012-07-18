@@ -36,10 +36,9 @@
 
     > h1 {
         z-index: 2;
-        padding: 0;
-        padding-bottom: 2px;
         min-height: 35px;
         padding: 15px 25px;
+        width: @gridRowWidth - 12px;
         font-size: 18px;
         line-height: 26px;
         #boxHeadlineBasics;
@@ -49,10 +48,14 @@
         }
 
         &.brown {
-            background: url("../images/bg/block_h1_brown.png") repeat-x !important;
+            #gradient > .none();
+            background-image: url("../images/bg/block_h1_brown.png") !important;
+            background-repeat: repeat-x !important;
         }
         &.blue {
-            background: url("../images/bg/block_h1_blue.png") repeat-x !important;
+            #gradient > .none();
+            background-image: url("../images/bg/block_h1_blue.png") !important;
+            background-repeat: repeat-x !important;
         }
 
         img {
@@ -87,16 +90,6 @@
         a:focus {
             color: #536068;
             background-image: url("../images/buttons/content_h1_up_on.png");
-        }
-    }
-    &.hidden > h1 {
-        // #gradient > .none();
-    }
-    &:hover > h1{
-        // #gradient > .vertical(#fff,#fff,#f0f0f0,0,1);
-
-        > span {
-            max-width: 695px;
         }
     }
     &.hidden > h1 a {
@@ -172,6 +165,7 @@
             overflow: auto;
             background-position: 20px 50%;
             background-repeat: no-repeat;
+            #shadow > .text(0 1px 1px #fff);
         }
     }
 
@@ -332,9 +326,6 @@
         .span5 .alert {
             width: 60%;
         }
-        // .buttons .btn {
-        //     width: 66%;
-        // }
     }
 
 

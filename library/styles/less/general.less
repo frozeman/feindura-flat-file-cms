@@ -14,6 +14,11 @@
 // Measures
 @appWidth: 1255px;
 
+// IE fixes
+#PIE {
+    behavior: url('library/thirdparty/javascripts/PIE.htc');
+}
+
 // Effects
 #boxBasics {
     border: 1px solid #fff;
@@ -25,9 +30,6 @@
     #shadow > .drop(0,1px,4px,0.2);
     #gradient > .vertical(#fff,#fff,#f0f0f0,0,1);
     #border > .radius(@blockBorderRadius,0,0,@blockBorderRadius);
-}
-#PIE {
-    behavior: url('library/thirdparty/javascripts/PIE.htc');
 }
 
 // ELEMENT FORMAT
@@ -162,6 +164,13 @@ img.flag {
     margin-top: -5px;
 }
 
+
+.btn {
+    // font-weight: bold;
+    color: #666;
+    #shadow > .drop(0,2px,4px,0.3);
+    #shadow > .text(0 1px 1px #fff);
+}
 
 // GENERAL ELEMENTS
 

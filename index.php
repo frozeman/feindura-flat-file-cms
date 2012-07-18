@@ -38,8 +38,7 @@ $_SESSION['feinduraSession']['login']['currentBackendLocation'] = (strpos($_SERV
 if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   $_GET['site'] = 'dashboard';
 
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>" class="feindura">
 <head>
   <meta charset="UTF-8">
@@ -72,10 +71,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- STYLESHEETS -->
 
   <!-- feindura styles -->
-  <!-- <link rel="stylesheet" type="text/css" href="library/styles/reset.css<?php echo '?v='.BUILD; ?>"> -->
-  <!-- <link rel="stylesheet" type="text/css" href="library/styles/layout.css<?php echo '?v='.BUILD; ?>"> -->
-  <!-- <link rel="stylesheet" type="text/css" href="library/styles/content.css<?php echo '?v='.BUILD; ?>"> -->
-  <!-- <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css<?php echo '?v='.BUILD; ?>"> -->
   <link rel="stylesheet" type="text/css" href="library/styles/shared.css<?php echo '?v='.BUILD; ?>">
 
   <link rel="stylesheet" type="text/css" href="library/styles/styles.css<?php echo '?v='.BUILD; ?>">
@@ -137,7 +132,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.min.js<?php echo '?v='.BUILD; ?>"></script>
   <?php
   }
-  if($adminConfig['user']['fileManager'] && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
+  if(GeneralFunctions::hasPermission('fileManager') && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
 
   <!-- thirdparty/MooTools-FileManager -->
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js<?php echo '?v='.BUILD; ?>"></script>
@@ -145,6 +140,12 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>.js"></script>
+  <?php } ?>
+
+  <?php if(isset($_GET['page']) && $categoryConfig[$_GET['category']]['showTags']) { ?>
+  <!-- thirdparty/TextboxList -->
+  <script type="text/javascript" src="library/thirdparty/TextboxList/TextboxList.js<?php echo '?v='.BUILD; ?>"></script>
+  <script type="text/javascript" src="library/thirdparty/TextboxList/TextboxList.Autocomplete.js<?php echo '?v='.BUILD; ?>"></script>
   <?php } ?>
 
   <!-- javascripts -->
@@ -156,130 +157,171 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <script type="text/javascript">
   /* <![CDATA[ */
 
-  // -> TRANSPORT feindura PHP VARS to JAVASCRIPT
-  var feindura_basePath    = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath']); ?>';
-  var feindura_websitePath = '<?php echo GeneralFunctions::Path2URI(GeneralFunctions::getDirname($adminConfig['websitePath'])); ?>';
+    // -> TRANSPORT feindura PHP VARS to JAVASCRIPT
+    var feindura_basePath    = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath']); ?>';
+    var feindura_websitePath = '<?php echo GeneralFunctions::Path2URI(GeneralFunctions::getDirname($adminConfig['websitePath'])); ?>';
 
-  var feindura_langFile    = {
-    ERRORWINDOW_TITLE:              "<?php echo $langFile['errorWindow_h1']; ?>",
-    ERROR_SAVE:                     "<?php echo sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']); ?>",
-    CKEDITOR_TITLE_LINKS:           "<?php echo (!empty($langFile['CKEDITOR_TITLE_LINKS'])) ? $langFile['CKEDITOR_TITLE_LINKS'] : 'feindura pages'; ?>",
-    CKEDITOR_TITLE_SNIPPETS:        "<?php echo (!empty($langFile['CKEDITOR_TITLE_SNIPPETS'])) ? $langFile['CKEDITOR_TITLE_SNIPPETS'] : 'Snippets'; ?>",
-    CKEDITOR_TEXT_SNIPPETS:         "<?php echo (!empty($langFile['CKEDITOR_TEXT_SNIPPETS'])) ? $langFile['CKEDITOR_TEXT_SNIPPETS'] : ''; ?>",
-    CKEDITOR_BUTTON_EDITSNIPPET:    "<?php echo (!empty($langFile['CKEDITOR_BUTTON_EDITSNIPPET'])) ? $langFile['CKEDITOR_BUTTON_EDITSNIPPET'] : 'edit snippet'; ?>",
-    CKEDITOR_TITLE_PLUGINS:         "<?php echo (!empty($langFile['CKEDITOR_TITLE_PLUGINS'])) ? $langFile['CKEDITOR_TITLE_PLUGINS'] : 'Plugins'; ?>",
-    CKEDITOR_TEXT_PLUGINS:          "<?php echo (!empty($langFile['CKEDITOR_TEXT_PLUGINS'])) ? $langFile['CKEDITOR_TEXT_PLUGINS'] : ''; ?>"
-  };
-  var currentSite = '<?php echo $_GET["site"]; ?>';
-  var currentPage = '<?php echo $_GET["page"]; ?>';
+    var feindura_langFile    = {
+      ERRORWINDOW_TITLE:              "<?php echo $langFile['errorWindow_h1']; ?>",
+      ERROR_SAVE:                     "<?php echo sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']); ?>",
+      CKEDITOR_TITLE_LINKS:           "<?php echo (!empty($langFile['CKEDITOR_TITLE_LINKS'])) ? $langFile['CKEDITOR_TITLE_LINKS'] : 'feindura pages'; ?>",
+      CKEDITOR_TITLE_SNIPPETS:        "<?php echo (!empty($langFile['CKEDITOR_TITLE_SNIPPETS'])) ? $langFile['CKEDITOR_TITLE_SNIPPETS'] : 'Snippets'; ?>",
+      CKEDITOR_TEXT_SNIPPETS:         "<?php echo (!empty($langFile['CKEDITOR_TEXT_SNIPPETS'])) ? $langFile['CKEDITOR_TEXT_SNIPPETS'] : ''; ?>",
+      CKEDITOR_BUTTON_EDITSNIPPET:    "<?php echo (!empty($langFile['CKEDITOR_BUTTON_EDITSNIPPET'])) ? $langFile['CKEDITOR_BUTTON_EDITSNIPPET'] : 'edit snippet'; ?>",
+      CKEDITOR_TITLE_PLUGINS:         "<?php echo (!empty($langFile['CKEDITOR_TITLE_PLUGINS'])) ? $langFile['CKEDITOR_TITLE_PLUGINS'] : 'Plugins'; ?>",
+      CKEDITOR_TEXT_PLUGINS:          "<?php echo (!empty($langFile['CKEDITOR_TEXT_PLUGINS'])) ? $langFile['CKEDITOR_TEXT_PLUGINS'] : ''; ?>"
+    };
+    var currentSite = '<?php echo $_GET["site"]; ?>';
+    var currentPage = '<?php echo $_GET["page"]; ?>';
 
-  // -> TRANSPORT pages for CKEditor FEINDURA LINKS
-  <?php
-  if(!empty($_GET['page'])) {
-    $getPages = GeneralFunctions::loadPages(true);
-  ?>
-  var feindura_pages = [
-    ['-',''],
-    <?php foreach($getPages as $getPage) {
-    $categoryText = ($getPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$getPage['category']],'name').' » ' : '';
-    echo "['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($getPage,'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
-    } ?>  ];
-  <?php } ?>
-
-  // -> TRANSPORT Snippets to CKEditor feinduraSnippets plugin
-  var feindura_snippets = [
-    <?php if($adminConfig['editor']['snippets'] && !empty($_GET['page'])) {
-      $snippets = GeneralFunctions::readFolderRecursive(dirname(__FILE__).'/snippets/');
-      foreach($snippets['files'] as $snippet) {
-        $snippetShort = str_replace($adminConfig['basePath'].'snippets/', '', $snippet);
-        echo '["'.$snippetShort.'","'.$snippetShort.'"],';
-      }
-      unset($snippets,$snippet,$snippetShort);
-    } ?>
-  ];
-  var feindura_snippets_editInWebsiteSettings = <?php echo ($adminConfig['user']['editSnippets']) ? 'true' : 'false' ?>;
-  var feindura_snippets_isAdmin               = <?php echo (GeneralFunctions::isAdmin()) ? 'true' : 'false' ?>;
-
-  window.addEvent('domready', function () {
-
-    // ->> include FILEMANAGER
-    <?php if($adminConfig['user']['fileManager'] && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
-    var hideFileManager = function(){this.hide();}
-    var fileManager = new FileManager({
-        url: 'library/controllers/filemanager.controller.php',
-        assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
-        documentRootPath: '<?php echo DOCUMENTROOT; ?>',
-        language: '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>',
-        propagateData: {'<?php echo session_name(); ?>':'<?php echo session_id(); ?>'},
-        destroy: true,
-        upload: true,
-        move_or_copy: true,
-        rename: true,
-        createFolders: true,
-        download: true,
-        hideOnClick: true,
-        hideOverlay: true,
-        hideOnDelete: false,
-        listType: 'thumb',
-        listPaginationSize: 100,
-        onShow: function() {
-            window.location.hash = '#none';
-            $('dimmContainer').setStyle('opacity',0);
-            $('dimmContainer').setStyle('display','block');
-            $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-            $('dimmContainer').fade('in');
-            $('dimmContainer').addEvent('click',hideFileManager.bind(this));
-          },
-        onHide: function() {
-            $('dimmContainer').removeEvent('click',hideFileManager);
-            $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-            $('dimmContainer').fade('out');
-            $('dimmContainer').get('tween').chain(function() {
-              $('dimmContainer').setStyle('display','none');
-            });
-          }
-    });
-    fileManager.filemanager.setStyle('width','75%');
-    fileManager.filemanager.setStyle('height','70%');
-
-    // -> OPEN FILEMANAGER when button get clicked
-    $$('a.fileManager').each(function(fileManagerButton){
-      fileManagerButton.addEvent('click',function(e){
-        e.stop();
-        fileManager.show();
-      });
-    });
-    <?php }
-
-    // ->> STARTS the session COUNTER
-    if(!empty($userConfig) && isset($_SESSION['feinduraSession']['login']['end'])) {
+    // -> TRANSPORT pages for CKEditor FEINDURA LINKS
+    <?php
+    if(isset($_GET['page'])) {
+      $getPages = GeneralFunctions::loadPages(true);
     ?>
-    var div = $('sessionTimout'),
-    coundown = new CountDown({
-      //initialized 30s from now
-      date: new Date(<?php echo $_SESSION['feinduraSession']['login']['end'].'000'; ?>),
-      //update every 100ms
-      frequency: 1000,
-      //update the div#counter
-      onChange: function(counter) {
-        var text = '';
-        if(counter.hours < 1 && counter.minutes < 10) {
-          div.removeClass('blue');
-          div.addClass('red');
-          div.setStyle('font-weight','bold');
-        }
-        text += (counter.hours > 9 ? '' : '0') + counter.hours + ':';
-        text += (counter.minutes > 9 ? '' : '0') + counter.minutes + ':';
-        text += (counter.second > 9 ? '' : '0') + counter.second;
-        div.set('text', text);
-      },
-      //complete
-      onComplete: function () {
-        window.location = 'index.php?logout';
-      }
-    })
+    var feindura_pages = [
+      ['-',''],
+      <?php foreach($getPages as $getPage) {
+      $categoryText = ($getPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$getPage['category']],'name').' » ' : '';
+      echo "['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($getPage,'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
+      } ?>  ];
     <?php } ?>
-  })
+
+    // -> TRANSPORT Snippets to CKEditor feinduraSnippets plugin
+    var feindura_snippets = [
+      <?php if($adminConfig['editor']['snippets'] && !empty($_GET['page'])) {
+        $snippets = GeneralFunctions::readFolderRecursive(dirname(__FILE__).'/snippets/');
+        foreach($snippets['files'] as $snippet) {
+          $snippetShort = str_replace($adminConfig['basePath'].'snippets/', '', $snippet);
+          echo '["'.$snippetShort.'","'.$snippetShort.'"],';
+        }
+        unset($snippets,$snippet,$snippetShort);
+      } ?>
+    ];
+    var feindura_snippets_editInWebsiteSettings = <?php echo (GeneralFunctions::hasPermission('editSnippets')) ? 'true' : 'false' ?>;
+    var feindura_snippets_isAdmin               = <?php echo (GeneralFunctions::isAdmin()) ? 'true' : 'false' ?>;
+
+    window.addEvent('domready', function () {
+
+      // ->> include FILEMANAGER
+      <?php if(GeneralFunctions::hasPermission('fileManager') && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
+      var hideFileManager = function(){this.hide();}
+      var fileManager = new FileManager({
+          url: 'library/controllers/filemanager.controller.php',
+          assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
+          documentRootPath: '<?php echo DOCUMENTROOT; ?>',
+          language: '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>',
+          propagateData: {'<?php echo session_name(); ?>':'<?php echo session_id(); ?>'},
+          destroy: true,
+          upload: true,
+          move_or_copy: true,
+          rename: true,
+          createFolders: true,
+          download: true,
+          hideOnClick: true,
+          hideOverlay: true,
+          hideOnDelete: false,
+          listType: 'thumb',
+          listPaginationSize: 100,
+          onShow: function() {
+              window.location.hash = '#none';
+              $('dimmContainer').setStyle('opacity',0);
+              $('dimmContainer').setStyle('display','block');
+              $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
+              $('dimmContainer').fade('in');
+              $('dimmContainer').addEvent('click',hideFileManager.bind(this));
+            },
+          onHide: function() {
+              $('dimmContainer').removeEvent('click',hideFileManager);
+              $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
+              $('dimmContainer').fade('out');
+              $('dimmContainer').get('tween').chain(function() {
+                $('dimmContainer').setStyle('display','none');
+              });
+            }
+      });
+      fileManager.filemanager.setStyle('width','75%');
+      fileManager.filemanager.setStyle('height','70%');
+
+      // -> OPEN FILEMANAGER when button get clicked
+      $$('a.fileManager').each(function(fileManagerButton){
+        fileManagerButton.addEvent('click',function(e){
+          e.stop();
+          fileManager.show();
+        });
+      });
+      <?php } ?>
+
+      <?php if(isset($_GET['page']) && $categoryConfig[$_GET['category']]['showTags']) { ?>
+      // TEXTBOX LIST (TAG AUTOCOMPLETION)
+      if($('edit_tags') !== null) {
+        var editableTags = new TextboxList('edit_tags', {
+          unique: true,
+          inBetweenEditableBits: false,
+          // startEditableBit: false,
+          bitsOptions: {
+            editable: {
+              addOnBlur: true,
+              stopEnter: true
+              // addKeys: [188, 32, 13]
+            }
+          },
+          plugins: {
+            autocomplete: {
+              placeholder: false,
+              showAllValues: true
+            }
+          }
+        });
+        editableTags.plugins['autocomplete'].setValues(
+          [
+          <?php
+          foreach ($pagesMetaData as $pageMetaData) {
+            foreach ($pageMetaData['localized'] as $langCode => $pageMetaDataLocalized) {
+              $tags = explode(',', $pageMetaDataLocalized['tags']);
+              foreach($tags as $tag) {
+                // add tag only when the current page dont have them
+                if(!empty($tag) && !GeneralFunctions::compareTags($pageContent, $tag))
+                  echo '["'.$tag.'","'.$tag.'"],';
+              }
+            }
+          }
+          ?>
+          ]
+        );
+      }
+      <?php } ?>
+
+      <?php
+      // ->> STARTS the session COUNTER
+      if(!empty($userConfig) && isset($_SESSION['feinduraSession']['login']['end'])) {
+      ?>
+      var div = $('sessionTimout'),
+      coundown = new CountDown({
+        //initialized 30s from now
+        date: new Date(<?php echo $_SESSION['feinduraSession']['login']['end'].'000'; ?>),
+        //update every 100ms
+        frequency: 1000,
+        //update the div#counter
+        onChange: function(counter) {
+          var text = '';
+          if(counter.hours < 1 && counter.minutes < 10) {
+            div.removeClass('blue');
+            div.addClass('red');
+            div.setStyle('font-weight','bold');
+          }
+          text += (counter.hours > 9 ? '' : '0') + counter.hours + ':';
+          text += (counter.minutes > 9 ? '' : '0') + counter.minutes + ':';
+          text += (counter.second > 9 ? '' : '0') + counter.second;
+          div.set('text', text);
+        },
+        //complete
+        onComplete: function () {
+          window.location = 'index.php?logout';
+        }
+      })
+      <?php } ?>
+    })
   /* ]]> */
   </script>
 </head>
@@ -313,7 +355,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     <div class="menuBlock">
 
       <a href="index.php?logout"  tabindex="1" class="logout toolTip" title="<?php echo $langFile['HEADER_BUTTON_LOGOUT']; ?>"></a>
-      <?php if($adminConfig['user']['frontendEditing']) { ?>
+      <?php if(GeneralFunctions::hasPermission('frontendEditing')) { ?>
       <a href="<?php echo $adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']); ?>"  tabindex="2" class="toWebsite toolTip" title="<?php echo $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']; ?>"></a>
       <?php } ?>
 
@@ -405,7 +447,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     $isInPageEditor = (isset($_GET['page']) && !$newPage) ? true : false;
 
     // ->CHECK frontend editing
-    $showFrontendEditing = ($isInPageEditor && $adminConfig['user']['frontendEditing']) ? true : false;
+    $showFrontendEditing = ($isInPageEditor && GeneralFunctions::hasPermission('frontendEditing')) ? true : false;
 
     // -> CHECK for uploadPageThumbnail
     $showPageThumbnailUpload = (!$newPage &&
@@ -418,7 +460,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
     // -> CHECK if show SUBMENU
     $showSubMenu = ((isset($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup') &&
-       ($showPageThumbnailUpload || $showCreatePage || $showPageThumbnailUpload || $adminConfig['user']['fileManager'] || $showDeletePage)) ? true : false;
+       ($showPageThumbnailUpload || $showCreatePage || $showPageThumbnailUpload || GeneralFunctions::hasPermission('fileManager') || $showDeletePage)) ? true : false;
 
 
     // ->> RE-SET CURRENT WEBSITE LANGUAGE based on the pages languages
@@ -475,7 +517,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
               $showSpacer = false;
 
               // FILE MANAGER
-              if($adminConfig['user']['fileManager']) { ?>
+              if(GeneralFunctions::hasPermission('fileManager')) { ?>
                 <li><a href="?site=fileManager" tabindex="29" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_FILEMANAGER'].'::'.$langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>"></a></li>
               <?php
                 $showSpacer = true;

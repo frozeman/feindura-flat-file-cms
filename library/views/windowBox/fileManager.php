@@ -24,7 +24,7 @@
  */
 require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
-if(!$adminConfig['user']['fileManager'])
+if(!GeneralFunctions::hasPermission('fileManager'))
   die('MooTools FileManager is deactivated');
 
 ?>

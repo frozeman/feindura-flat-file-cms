@@ -997,7 +997,7 @@ function saveUserConfig($userConfig) {
       $fileContent .= "\$userConfig[".$user."]['permissions']['editSnippets']         = ".XssFilter::bool($configs['permissions']['editSnippets'],true).";\n";
 
 
-      $fileContent .= "\n";
+      $fileContent .= "\n\n";
     }
     $fileContent .= "return \$userConfig;";
 

@@ -4271,6 +4271,9 @@
 .feindura .invisible {
   visibility: hidden;
 }
+.feindura #PIE {
+  behavior: url('library/thirdparty/javascripts/PIE.htc');
+}
 .feindura #boxBasics {
   border: 1px solid #fff;
   -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
@@ -4308,9 +4311,6 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-}
-.feindura #PIE {
-  behavior: url('library/thirdparty/javascripts/PIE.htc');
 }
 .feindura .blue {
   color: #3a79a5 !important;
@@ -4437,6 +4437,18 @@
 .feindura img.flag {
   position: relative;
   margin-top: -5px;
+}
+.feindura .btn {
+  color: #666;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.30000000000000004);
+  -webkit-text-shadow: 0 1px 1px #ffffff;
+  -moz-text-shadow: 0 1px 1px #ffffff;
+  text-shadow: 0 1px 1px #ffffff;
+  -ms-text-shadow: 0 1px 1px #ffffff;
+  -o-text-shadow: 0 1px 1px #ffffff;
+  -khtml-text-shadow: 0 1px 1px #ffffff;
 }
 .feindura mark {
   background-color: #fef086;
@@ -5031,6 +5043,250 @@
 .feindura .fancyform_focus {
   cursor: pointer;
   border-bottom: 1px dotted #CF974D;
+}
+.feindura .textboxlist {
+  width: 70%;
+  padding: 0px 4px;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+.feindura .textboxlist:hover {
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+}
+.feindura .textboxlist input {
+  position: relative;
+  top: -2px;
+  border: none;
+  padding: 0;
+  margin: 0;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.feindura .textboxlist-bits {
+  position: relative;
+  margin: 0;
+  margin-bottom: 1px;
+  overflow: hidden;
+  padding: 3px 4px 0;
+  zoom: 1;
+  *padding-bottom: 3px;
+  border: none;
+  top: 2px;
+}
+.feindura .textboxlist-bit {
+  cursor: default;
+  display: block;
+  float: left;
+  list-style-type: none;
+  margin: 0 5px 3px 0;
+  padding: 0;
+}
+.feindura .textboxlist-bit-editable {
+  border: 1px solid #fff;
+}
+.feindura .textboxlist-bit-editable-input {
+  border: 0;
+  font: inherit;
+  height: 14px;
+  padding: 2px 0;
+  *padding-bottom: 0;
+}
+.feindura .textboxlist-bit-editable-input:focus {
+  outline: 0;
+}
+.feindura .textboxlist-bit-box {
+  position: relative;
+  background: #dee7f8;
+  background: #dee7f8;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #cad8f3), color-stop(1, #dee7f8));
+  background: -moz-linear-gradient(center bottom, #cad8f3 0%, #dee7f8 100%);
+  background: -ms-linear-gradient(bottom, #cad8f3 0%, #dee7f8 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dee7f8', endColorstr='#cad8f3',GradientType=0);
+  border: 1px solid #cad8f3;
+  cursor: default;
+  line-height: 18px;
+  font-size: 12px;
+  padding: 0 10px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura .textboxlist-bit-box-deletable {
+  padding-right: 18px;
+}
+.feindura .textboxlist-bit-box-deletebutton {
+  z-index: 1;
+  position: absolute;
+  display: block;
+  background: url("../thirdparty/TextboxList/close.gif");
+  height: 7px;
+  right: 5px;
+  top: 4px;
+  width: 7px;
+  padding-left: 0;
+  border: 2px solid #dee7f8;
+}
+.feindura .textboxlist-bit-box-deletebutton:hover {
+  border: 2px solid #dee7f8 !important;
+  background-color: #dee7f8 !important;
+  text-decoration: none;
+}
+.feindura .textboxlist-bit-box-hover {
+  background: #bbcef1;
+  border: 1px solid #6d95e0;
+}
+.feindura .textboxlist-bit-box-hover .textboxlist-bit-box-deletebutton {
+  border: 2px solid #bbcef1;
+  background-color: #bbcef1;
+}
+.feindura .textboxlist-bit-box-focus {
+  background: #598bec;
+  border-color: #598bec;
+  color: #fff;
+}
+.feindura .textboxlist-bit-box-focus .textboxlist-bit-box-deletebutton {
+  background-position: bottom;
+  border: 2px solid #bbcef1;
+  background-color: #bbcef1;
+}
+.feindura .textboxlist-bit-box-focus .textboxlist-bit-box-deletebutton:hover {
+  background-position: top;
+  border: 2px solid #dee7f8;
+  background-color: #dee7f8;
+}
+.feindura .textboxlist-autocomplete {
+  z-index: 10;
+  display: none;
+  position: absolute;
+  margin-top: 2px;
+  font-size: 12px;
+  max-height: 300px;
+  overflow: auto;
+  border: 1px solid #999;
+  border-top: none;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.30000000000000004);
+}
+.feindura .textboxlist-autocomplete-placeholder,
+.feindura .textboxlist-autocomplete-results {
+  display: none;
+  padding: 0 4px;
+  background: #fff;
+  border: none;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  /* IE 8 */
+
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+  /* IE 5-7 */
+
+  filter: alpha(opacity=100);
+  /* Netscape */
+
+  -moz-opacity: 1;
+  /* Safari 1.x */
+
+  -khtml-opacity: 1;
+  /* Webkit */
+
+  -webkit-opacity: 1;
+  /* Good browsers */
+
+  opacity: 1;
+}
+.feindura .textboxlist-autocomplete-placeholder {
+  padding: 5px 7px;
+}
+.feindura .textboxlist-autocomplete-results {
+  margin: 0;
+  padding: 0;
+}
+.feindura .textboxlist-autocomplete-result {
+  background: #fff;
+  list-style-type: none;
+  margin: 0;
+  padding: 5px;
+}
+.feindura .textboxlist-autocomplete-result:last-child {
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura .textboxlist-autocomplete-result-focus {
+  background: #bbcef1;
+  color: #fff;
+}
+.feindura .textboxlist-autocomplete-highlight {
+  background: #6d95e0;
+  font-weight: normal;
+  color: #fff;
+  padding: 4px 0;
+}
+.feindura .filemanager a {
+  padding: 0;
+  background-image: none;
 }
 .feindura body {
   height: 100%;
@@ -5953,10 +6209,9 @@
 }
 .feindura .mainContent .block > h1 {
   z-index: 2;
-  padding: 0;
-  padding-bottom: 2px;
   min-height: 35px;
   padding: 15px 25px;
+  width: 748px;
   font-size: 18px;
   line-height: 26px;
   border: 1px solid #fff;
@@ -5988,10 +6243,16 @@
   max-width: 695px;
 }
 .feindura .mainContent .block > h1.brown {
-  background: url("../images/bg/block_h1_brown.png") repeat-x !important;
+  background: none;
+  filter: none;
+  background-image: url("../images/bg/block_h1_brown.png") !important;
+  background-repeat: repeat-x !important;
 }
 .feindura .mainContent .block > h1.blue {
-  background: url("../images/bg/block_h1_blue.png") repeat-x !important;
+  background: none;
+  filter: none;
+  background-image: url("../images/bg/block_h1_blue.png") !important;
+  background-repeat: repeat-x !important;
 }
 .feindura .mainContent .block > h1 img {
   position: relative;
@@ -6023,9 +6284,6 @@
 .feindura .mainContent .block > h1 a:focus {
   color: #536068;
   background-image: url("../images/buttons/content_h1_up_on.png");
-}
-.feindura .mainContent .block:hover > h1 > span {
-  max-width: 695px;
 }
 .feindura .mainContent .block.hidden > h1 a {
   background-image: url("../images/buttons/content_h1_down_off.png");
@@ -6097,6 +6355,12 @@
   overflow: auto;
   background-position: 20px 50%;
   background-repeat: no-repeat;
+  -webkit-text-shadow: 0 1px 1px #ffffff;
+  -moz-text-shadow: 0 1px 1px #ffffff;
+  text-shadow: 0 1px 1px #ffffff;
+  -ms-text-shadow: 0 1px 1px #ffffff;
+  -o-text-shadow: 0 1px 1px #ffffff;
+  -khtml-text-shadow: 0 1px 1px #ffffff;
 }
 .feindura .mainContent .block.warning {
   background: #ffecdd;
@@ -6606,7 +6870,8 @@
   background-clip: padding-box;
 }
 .feindura .block.listPages > h1 {
-  z-index: -1;
+  position: relative;
+  z-index: 0;
   padding-bottom: 30px;
   margin-bottom: -20px;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
@@ -6633,10 +6898,6 @@
   margin-left: -35px;
   background-position: right 8px;
   width: 100%;
-}
-.feindura .block.listPages .block > h1:hover {
-  background: none;
-  filter: none;
 }
 .feindura .block.listPages .block > h1 img.blockH1Icon {
   margin-left: 0px;
@@ -6793,7 +7054,8 @@
   cursor: move;
 }
 .feindura .block.listPages div.listPagesHead {
-  z-index: 0;
+  position: relative;
+  z-index: 1;
   height: 31px;
   margin-bottom: 0px;
   padding: 5px 16px;

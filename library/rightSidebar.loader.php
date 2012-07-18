@@ -45,28 +45,30 @@ switch($_GET['site']) {
 
   // ***** websiteSetup sideBar -------------------------------------------- *********
   case 'websiteSetup':
-    $websiteConfigLanguages = array_keys($websiteConfig['localized']);
-    if(is_array($websiteConfigLanguages) && is_array($websiteConfig['multiLanguageWebsite']['languages']))
-      $websiteConfigLanguagesDiff = array_diff($websiteConfig['multiLanguageWebsite']['languages'],$websiteConfigLanguages);
-    if($websiteConfig['multiLanguageWebsite']['active'] && !empty($websiteConfigLanguagesDiff)) {
-      echo '<div class="box">';
-        echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
-        echo '<h1>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>';
-        echo '<ul class="flags">';
-        foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
-          if(!isset($websiteConfig['localized'][$langCode])) {
-            echo '<li><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="link gray">'.$languageNames[$langCode].'</a></li>';
+    if(is_array($websiteConfig['localized'])) {
+      $websiteConfigLanguages = array_keys($websiteConfig['localized']);
+      if(is_array($websiteConfigLanguages) && is_array($websiteConfig['multiLanguageWebsite']['languages']))
+        $websiteConfigLanguagesDiff = array_diff($websiteConfig['multiLanguageWebsite']['languages'],$websiteConfigLanguages);
+      if($websiteConfig['multiLanguageWebsite']['active'] && !empty($websiteConfigLanguagesDiff)) {
+        echo '<div class="box">';
+          echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
+          echo '<h1>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>';
+          echo '<ul class="flags">';
+          foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
+            if(!isset($websiteConfig['localized'][$langCode])) {
+              echo '<li><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="link gray">'.$languageNames[$langCode].'</a></li>';
+            }
           }
-        }
-        echo '</ul>';
-      echo '</div>';
-    } else {
-      $currentVisitorFullDetail = false;
-      $currentVisitors = include('library/includes/currentVisitors.include.php');
-      if($currentVisitors) {
-        echo '<div class="box currentVisitorsSideBar">';
-          echo $currentVisitors;
+          echo '</ul>';
         echo '</div>';
+      } else {
+        $currentVisitorFullDetail = false;
+        $currentVisitors = include('library/includes/currentVisitors.include.php');
+        if($currentVisitors) {
+          echo '<div class="box currentVisitorsSideBar">';
+            echo $currentVisitors;
+          echo '</div>';
+        }
       }
     }
     unset($websiteConfigLanguages,$websiteConfigLanguagesDiff);

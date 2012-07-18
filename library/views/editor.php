@@ -443,7 +443,7 @@ $hidden = '';
         <?php echo $langFile['EDITOR_pageSettings_field2'] ?></span></label>
       </div>
       <div class="span5">
-          <input type="text" id="edit_tags" name="tags" class="inputToolTip" style="width:492px;" value="<?php echo GeneralFunctions::getLocalized($pageContent,'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>">
+          <input type="text" id="edit_tags" name="tags" class="inputToolTip" value="<?php echo GeneralFunctions::getLocalized($pageContent,'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>">
       </div>
     </div>
     <?php } ?>

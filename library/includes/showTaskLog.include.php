@@ -16,15 +16,15 @@
  */
 /**
 * showTaksLog.php
-* 
+*
 * Lists all tasks in an unorderd list (<ul><li></li></ul>).
-* 
+*
 * log Data
 *    - $logRow[0] = date and time
 *    - $logRow[1] = username
 *    - $logRow[2] = log text (can also be an serialized array with [logTextNumber,LogFormatStringValue])
 *    - $logRow[3] = log data
-* 
+*
 * @version 0.2
 */
 
@@ -37,15 +37,15 @@ echo '<ul>';
 // ->> LIST the tasks
 $count = 100;
 foreach($logContent as $logRow) {
-  
+
   //vars
   $maxLength = 30;
   $taskObject = null;
   $logUser = null;
-  
+
   $logRow = explode('|#|',$logRow);
   $logDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($logRow[0]));
-  $logTime = formatTime($logRow[0]);  
+  $logTime = formatTime($logRow[0]);
   if(!empty($logRow[1])) {
     if(is_numeric($logRow[1]))
       $logUser = '<br><span>'.$langFile['DASHBOARD_TITLE_USER'].': <b>'.$userConfig[$logRow[1]]['username'].'</b></span>';
@@ -53,7 +53,7 @@ foreach($logContent as $logRow) {
       $logUser = '<br><span>'.$langFile['DASHBOARD_TITLE_USER'].': <b>'.$logRow[1].'</b></span>';
   } else
     $logUser = '';
-  
+
   // LOGTEXT NUMBER can also be an array with: [logText,logTextValue]
   // legacy Fallback
   $logTextNumber = (is_numeric($logRow[2])) ? $logRow[2] : unserialize($logRow[2]);
@@ -169,61 +169,63 @@ foreach($logContent as $logRow) {
         $logText = sprintf($langFile['LOG_PAGELANGUAGE_ADD'],$logTextValue);
         break;
   }
-  
+
   // ->> PROCESS LOG DATA
   if(isset($logRow[3])) {
-    
+
     //vars
     $taskObject = '';
     $foundObject = false;
     $logObject = explode('|-|',$logRow[3]);
-                     
+
     // -> IF there is a PAGE
     if(substr($logObject[0],0,5) == 'page=') {
-      
+
       $pageId = substr($logObject[0],5);
       $pageId = GeneralFunctions::cleanSpecialChars($pageId); // removes \n\r
       $pageContent = GeneralFunctions::readPage($pageId,GeneralFunctions::getPageCategory($pageId));
-      
+
       $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" tabindex="'.$count.'" title="'.strip_tags(GeneralFunctions::getLocalized($pageContent,'title')).'">'.GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent,'title')), $maxLength).'</a>';
-      
+
       $foundObject = true;
     }
-    
+
     // -> IF there is a TEXT BETWEEN page and category
     if(isset($logObject[2]) == 'moved') {
       $taskObject .= '<br>'.$langFile['LOG_PAGE_MOVEDINCATEGORY_CATEGORY'].'<br>';
-      
+
       $foundObject = true;
     }
-    
+
     // COUNT the tabindex here
     $count++;
-    
+
     // -> IF there is an CATEGORY set also
     if(substr($logObject[0],0,9) == 'category=' || substr($logObject[1],0,9) == 'category=') {
-      
+
       $categoryId = (substr($logObject[0],0,9) == 'category=') ? substr($logObject[0],9) : substr($logObject[1],9);
       $categoryId = GeneralFunctions::cleanSpecialChars($categoryId); // removes \n\r
-      
+
       $categoryName = GeneralFunctions::getLocalized($categoryConfig[$categoryId],'name');
-      
+
       $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" tabindex="'.$count.'" title="'.$categoryName.'">'.GeneralFunctions::shortenString($categoryName, $maxLength).'</a>';
-      
-      $foundObject = true;                  
+      $taskObject .= '<br>';
+
+      $foundObject = true;
     }
-    
+
     // -> OTHERWISE just use the task object name/text
     if($foundObject === false)
-      $taskObject = '<span title="'.strip_tags($logObject[0]).'">'.GeneralFunctions::shortenString(strip_tags($logObject[0]), $maxLength).'</span>';
-  }                  
-  
-  
-  
+      $taskObject = '<span title="'.strip_tags($logObject[0]).'">'.GeneralFunctions::shortenString(strip_tags($logObject[0]), $maxLength).'</span><br>';
+
+  }
+
+
+
   // displays 2 or 3 rows
   echo ($taskObject)
-  ? '<li><span class="blue" style="font-weight:bold;">'.$logText.'</span><br><span>'.$taskObject.'</span><br><span class="brown">'.$logDate.' '.$logTime.'</span>'.$logUser.'</li>'."\n"
-  : '<li><span class="blue" style="font-weight:bold;">'.$logText.'</span><br><span class="brown">'.$logDate.' '.$logTime.'</span>'.$logUser.'</li>'."\n";
+  ? '<li><span class="brown">'.$logDate.' '.$logTime.'</span><br><span class="blue" style="font-weight:bold;">'.$logText.'</span><br>'.$taskObject.$logUser.'</li>'."\n"
+  : '<li><span class="brown">'.$logDate.' '.$logTime.'</span><br><span class="blue" style="font-weight:bold;">'.$logText.'</span><br>'.$logUser.'</li>'."\n";
 }
 echo '</ul>';
 

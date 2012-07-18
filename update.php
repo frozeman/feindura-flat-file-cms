@@ -31,7 +31,7 @@ $wrongDirectory = (include("library/includes/backend.include.php"))
 error_reporting(E_ALL ^ E_NOTICE);
 
 $NEWVERSION = '2.0';
-$NEWBUILD = 953;
+$NEWBUILD = 954;
 
 // gets the version of the feindura CMS
 if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
@@ -972,6 +972,13 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       $newUserConfig = array();
       foreach($userConfig as $user) {
         $newUserConfig[$user['id']] = $user;
+
+        // add the user permissions from the adminConfig to the userConfig
+        // only if was until build 953
+        if(until('953') && !isset($newUserConfig[$user['id']]['info'])) {
+          $newUserConfig[$user['id']]['info'] = $adminConfig['user']['info'];
+        if(until('953') && !isset($newUserConfig[$user['id']]['permissions'])) {
+          $newUserConfig[$user['id']]['permissions'] = $adminConfig['user'];
       }
 
       if(saveUserConfig($newUserConfig))

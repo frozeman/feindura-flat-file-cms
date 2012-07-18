@@ -58,12 +58,12 @@ if(preg_match("/MSIE [0-8]/", $_SERVER['HTTP_USER_AGENT']) &&
 <?php }
 
 // SHOW the USER HINTs
-if(!empty($adminConfig['user']['info'])) {
+if(!empty($userConfig[USERID]['info'])) {
 ?>
 <div class="block alert info">
   <h1><a href="#"><?php echo $langFile['DASHBOARD_TITLE_USERINFO']; ?></a></h1>
   <div class="content">
-    <p><?php echo $adminConfig['user']['info']; ?></p>
+    <p><?php echo $userConfig[USERID]['info']; ?></p>
   </div>
 </div>
 <?php } ?>

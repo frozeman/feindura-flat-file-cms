@@ -187,10 +187,9 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
 </form>
 
 <?php if((!empty($adminConfig['websiteFilesPath']) || !empty($adminConfig['stylesheetPath'])) &&
-          GeneralFunctions::isAdmin() ||
-         ($userConfig[USERID]['editWebsiteFiles'] ||
-          $userConfig[USERID]['editStyleSheets'] ||
-          $userConfig[USERID]['editSnippets'])) { ?>
+         (GeneralFunctions::hasPermission('editWebsiteFiles') ||
+          GeneralFunctions::hasPermission('editStyleSheets') ||
+          ($adminConfig['editor']['snippets'] && GeneralFunctions::hasPermission('editSnippets')))) { ?>
 <div class="blockSpacer"></div>
 <?php
 

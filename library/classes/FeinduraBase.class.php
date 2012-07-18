@@ -978,7 +978,7 @@ class FeinduraBase {
     $localizedPageContent = $this->getLocalized($pageContent,'content',$langCode);
 
     // -> ADD the FRONTEND EDITING CONTAINER
-    if(!$shortenText && !$GLOBALS['ISSNIPPET'] && $useHtml && $this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) {
+    if(!$shortenText && !$GLOBALS['ISSNIPPET'] && $useHtml && $this->loggedIn && GeneralFunctions::hasPermission('frontendEditing') && PHP_VERSION >= REQUIREDPHPVERSION) {
 
       $uniqueId = uniqid();
 
@@ -1152,7 +1152,7 @@ class FeinduraBase {
         $titleShowCategory = '';
 
       // ACTIVATE FRONTEND EDITING
-      if($allowFrontendEditing && !$GLOBALS['ISSNIPPET'] && !$titleAsLink && $this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION)  {// data-feindura="pageID categoryID language"
+      if($allowFrontendEditing && !$GLOBALS['ISSNIPPET'] && !$titleAsLink && $this->loggedIn && GeneralFunctions::hasPermission('frontendEditing') && PHP_VERSION >= REQUIREDPHPVERSION)  {// data-feindura="pageID categoryID language"
         if($this->websiteConfig['multiLanguageWebsite']['active'])
           $langCode = $this->language;
         else
@@ -1657,66 +1657,6 @@ class FeinduraBase {
   }
 
  /**
-  * <b>Name</b> compareTags()<br>
-  *
-  * Compares the given tags with the tags in the given <var>$pageContent</var> array.
-  *
-  * If the given <var>$pageContent</var> array has one or more tags from the <var>$tags</var> parameter,
-  * it returns the <var>$pageContent</var> array otherwise it FALSE.
-  *
-  * <b>Note</b>: the tags will be compared case insensitive.
-  *
-  * @param array $pageContent    the <var>$pageContent</var> or <var>$pageMetaData</var> array of a page
-  * @param array $tags           an array with tags to compare
-  *
-  *
-  * @return array|false the $pageContent array or FALSE if the $pageContent['localized'][...]['tags'] doesn't match with any of the given tags
-  *
-  * @see Feindura::listPagesByTags()
-  * @see Feindura::createMenuByTags()
-  *
-  * @access protected
-  * @version 1.1.1
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.1.1 go through all pages tags not only the english ones
-  *    - 1.1 add localization
-  *    - 1.0.1 fixed comparision, beacause i changed separarion of tags from whitespace to ,
-  *    - 1.0 initial release
-  *
-  */
-  protected function compareTags($pageContent, $tags) {
-
-    // var
-    // $pageTags = $this->getLocalized($pageContent,'tags');
-
-    // ->> go through all the pages tags
-    foreach ($pageContent['localized'] as $langCode => $pageContentLocalized) {
-      $pageTags = $pageContentLocalized['tags'];
-
-      // CHECKS if the $tags are in an array,
-      // and the pageContent['tags'] var exists and is not empty
-      if(is_array($tags) && isset($pageTags) && !empty($pageTags)) {
-        // lowercase
-        $pageTags = strtolower($pageTags);
-        //$pageTags = str_replace(',',' ',$pageTags);
-
-        // goes trough the given TAG Array, and look of one tga is in the pageContent['tags'} var
-        foreach($tags as $tag) {
-          // lowercase
-          $tag = strtolower($tag);
-          if(strpos(','.$pageTags.',',','.$tag.',') !== false) {
-            return $pageContent;
-          }
-        }
-      }
-    }
-
-    // if nothing has been found return FALSE
-    return false;
-  }
-
- /**
   * <b>Name</b> checkPagesForTags()<br>
   *
   * Load the <var>$pageContent</var> array of pages, only if the page(s) have one or more tags from the given <var>$tags</var> parameter.
@@ -1776,7 +1716,7 @@ class FeinduraBase {
 
       // goes trough every page and compares the tags
       foreach($pagesMetaData as $pageMetaData) {
-        if($this->compareTags($pageMetaData, $tags)) {
+        if(GeneralFunctions::compareTags($pageMetaData, $tags)) {
           if(!$loadPageContent)
             $return[] = $pageMetaData;
           elseif($pageContent = GeneralFunctions::readPage($pageMetaData['id'],$pageMetaData['category']))

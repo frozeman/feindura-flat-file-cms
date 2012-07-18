@@ -28,7 +28,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 define("FILEMANAGER_CODE", true);
 
-if(!$adminConfig['user']['fileManager'] || empty($adminConfig['uploadPath']) || empty($adminConfig['basePath']))
+if(!GeneralFunctions::hasPermission('fileManager') || empty($adminConfig['uploadPath']) || empty($adminConfig['basePath']))
   die('MooTools FileManager is deactivated');
 
 if(!empty($adminConfig['uploadPath']) && !is_dir(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path']))
