@@ -4316,7 +4316,7 @@
   color: #3a79a5 !important;
 }
 .feindura .brown {
-  color: #d7943c !important;
+  color: #d49c5c !important;
 }
 .feindura .red {
   color: #a02f00 !important;
@@ -4375,24 +4375,47 @@
   padding-top: 2px;
   padding-bottom: 2px;
 }
-.feindura .toolTip,
-.feindura input.toolTip[type=checkbox] {
+.feindura .toolTipLeft,
+.feindura .toolTipRight,
+.feindura .toolTipTop,
+.feindura .toolTipBottom {
   cursor: help;
 }
-.feindura input.toolTip,
-.feindura textarea.toolTip {
+.feindura input.toolTipLeft,
+.feindura input.toolTipRight,
+.feindura input.toolTipTop,
+.feindura input.toolTipBottom,
+.feindura textarea.toolTipLeft,
+.feindura textarea.toolTipRight,
+.feindura textarea.toolTipTop,
+.feindura textarea.toolTipBottom {
   cursor: text;
 }
-.feindura input.button.toolTip,
-.feindura a.toolTip {
+.feindura .button.toolTipLeft,
+.feindura .button.toolTipRight,
+.feindura .button.toolTipTop,
+.feindura .button.toolTipBottom,
+.feindura a.toolTipLeft,
+.feindura a.toolTipRight,
+.feindura a.toolTipTop,
+.feindura a.toolTipBottom {
   cursor: pointer;
 }
-.feindura span.toolTip:not(.badge),
-.feindura label.toolTip {
+.feindura span.toolTipLeft:not(.badge),
+.feindura span.toolTipRight:not(.badge),
+.feindura span.toolTipTop:not(.badge),
+.feindura span.toolTipBottom:not(.badge),
+.feindura label.toolTipLeft,
+.feindura label.toolTipRight,
+.feindura label.toolTipTop,
+.feindura label.toolTipBottom {
   background: url("../images/icons/hint_toolTipInfo.png") no-repeat right center;
   padding-right: 15px;
 }
-.feindura span.toolTip.noMark {
+.feindura span.toolTipLeft.noMark,
+.feindura span.toolTipRight.noMark,
+.feindura span.toolTipTop.noMark,
+.feindura span.toolTipBottom.noMark {
   background: none;
   padding-right: 0;
   cursor: auto;
@@ -4403,7 +4426,7 @@
   padding-left: 20px;
   background: url("../images/icons/warning.gif") no-repeat 0px 7px !important;
   font-size: 12px;
-  color: #990000;
+  color: #a02f00;
 }
 .feindura span.hint {
   display: inline-block;
@@ -4411,7 +4434,7 @@
   background: url("../images/icons/hint_toolTipInfo.png") no-repeat;
   background-position: 0px 4px;
   font-size: 12px;
-  color: #947342;
+  color: #d49c5c;
 }
 .feindura div.alert {
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
@@ -4440,15 +4463,22 @@
 }
 .feindura .btn {
   color: #666;
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.30000000000000004);
-  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.30000000000000004);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.30000000000000004);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.19999999999999996);
   -webkit-text-shadow: 0 1px 1px #ffffff;
   -moz-text-shadow: 0 1px 1px #ffffff;
   text-shadow: 0 1px 1px #ffffff;
   -ms-text-shadow: 0 1px 1px #ffffff;
   -o-text-shadow: 0 1px 1px #ffffff;
   -khtml-text-shadow: 0 1px 1px #ffffff;
+}
+.feindura span.feinduraInline {
+  color: #dd6e1f !important;
+}
+.feindura span.feinduraInline em {
+  font-style: normal;
+  color: #3a79a5 !important;
 }
 .feindura mark {
   background-color: #fef086;
@@ -4557,6 +4587,47 @@
   font-weight: bold;
   padding-left: 16px;
   background: url("../images/buttons/up.gif") no-repeat 0px 3px !important;
+}
+.feindura .headerCornerButtons {
+  z-index: 2;
+  position: absolute;
+  top: -5px;
+  left: -4px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09999999999999998);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09999999999999998);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09999999999999998);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura a.logout,
+.feindura a.frontend,
+.feindura a.backend {
+  z-index: 2;
+  font-family: 'Comic Sans MS', "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 7px;
+  padding-bottom: 6px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.feindura a.logout:hover,
+.feindura a.frontend:hover,
+.feindura a.backend:hover,
+.feindura a.logout:focus,
+.feindura a.frontend:focus,
+.feindura a.backend:focus {
+  background: #f2c4a3;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f2c4a3), color-stop(1, #f8e1d0));
+  background: -moz-linear-gradient(center bottom, #f2c4a3 0%, #f8e1d0 100%);
+  background: -ms-linear-gradient(bottom, #f2c4a3 0%, #f8e1d0 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8e1d0', endColorstr='#f2c4a3',GradientType=0);
 }
 .feindura a.status {
   display: inline-block;
@@ -4866,6 +4937,52 @@
 .feindura input.thumbnailUpload:hover {
   background-position: 0px -90px !important;
 }
+.feindura .floating-tip-wrapper {
+  z-index: 20020;
+}
+.feindura .floating-tip {
+  padding: 10px 15px;
+  max-width: 200px;
+  font-size: 12px;
+  color: #fff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 30px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 30px rgba(0, 0, 0, 0.4);
+  background-color: #666;
+}
+.feindura .floating-tip h2 {
+  font-size: 13px;
+  line-height: 16px;
+  margin-top: 0;
+  margin-bottom: 3px;
+  padding-top: 0;
+  color: #e9cdad;
+}
+.feindura .floating-tip span.hint {
+  color: #e9cdad;
+}
+.feindura .floating-tip span.red {
+  color: #ff986d !important;
+}
+.feindura .floating-tip span.feinduraInline {
+  color: #eca776 !important;
+}
+.feindura .floating-tip span.feinduraInline em {
+  color: #5093c2 !important;
+}
+.feindura .floating-tip img {
+  position: relative;
+  top: -6px;
+}
+.feindura .floating-tip img.icons {
+  top: -2px;
+}
 .feindura .cke_dialog_background_cover {
   background: url("../images/bg/dimmContainer.png") repeat !important;
   background-color: transparent !important;
@@ -5133,7 +5250,7 @@
   background-clip: padding-box;
 }
 .feindura .textboxlist-bit-box-deletable {
-  padding-right: 18px;
+  padding-right: 20px;
 }
 .feindura .textboxlist-bit-box-deletebutton {
   z-index: 1;
@@ -5387,12 +5504,13 @@
 }
 .feindura header.main #sessionTimout {
   position: absolute;
-  top: 8px;
+  top: 6px;
   left: 140px;
   z-index: 3;
   font-size: 11px;
 }
 .feindura header.main a.feinduraLogo {
+  z-index: 0;
   position: absolute;
   top: 25px;
   left: 15px;
@@ -5424,6 +5542,7 @@
   display: block;
   width: 30px;
   height: 21px;
+  padding-left: 0;
 }
 .feindura header.main .languageSelection a:hover,
 .feindura header.main .languageSelection a:focus {
@@ -5613,9 +5732,9 @@
 .feindura .mainBody #leftSidebar h2 {
   z-index: 2;
   position: relative;
-  width: 183px;
   padding: 2px 10px;
   margin: 15px 0;
+  width: 183px;
   border-bottom: 1px solid #fff;
   background: #ffffff;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f0f0f0), color-stop(1, #ffffff));
@@ -5626,6 +5745,10 @@
   -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
   font-size: 12px;
+  line-height: 18px;
+}
+.feindura .mainBody #leftSidebar h3 {
+  line-height: 18px;
 }
 .feindura .mainBody #leftSidebar .content {
   z-index: 1;
@@ -5849,6 +5972,7 @@
   top: 2px;
   left: 1px;
   padding: 0px;
+  padding-top: 10px;
   width: 198px;
   min-height: 260px;
   border-top: 1px solid #ffffff;
@@ -5867,7 +5991,7 @@
 }
 .feindura .mainBody #leftSidebar .sidebarInfo h2 {
   margin: 10px 0;
-  margin-bottom: -8px;
+  width: auto;
   text-align: center;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -6394,7 +6518,7 @@
   background-image: url("../images/icons/info.png");
 }
 .feindura .mainContent .block.info h1 {
-  color: #d7943c;
+  color: #d49c5c;
   background: #ffffff;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #feefb1));
   background: -moz-linear-gradient(center bottom, #ffffff 0%, #feefb1 100%);
@@ -6407,7 +6531,7 @@
   border-bottom: 1px dotted #DFB300;
 }
 .feindura .mainContent .block.info p {
-  color: #d7943c;
+  color: #d49c5c;
 }
 .feindura .mainContent .block.info.missingLanguages .content {
   background-image: url("../images/icons/missingLanguages_big.png");
@@ -6878,7 +7002,10 @@
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
 }
-.feindura .block.listPages span.toolTip {
+.feindura .block.listPages span.toolTipTop,
+.feindura .block.listPages span.toolTipBottom,
+.feindura .block.listPages span.toolTipLeft,
+.feindura .block.listPages span.toolTipRight {
   background: none;
   padding: 0;
 }
@@ -6977,7 +7104,7 @@
   background: url('../images/bg/listPages_pageBar_brown.png') repeat-x;
 }
 .feindura .block.listPages .block ul li.active {
-  border-color: #d7943c;
+  border-color: #d49c5c;
 }
 .feindura .block.listPages .block ul li > div {
   padding: 3px 0px;
@@ -7059,7 +7186,7 @@
   height: 31px;
   margin-bottom: 0px;
   padding: 5px 16px;
-  border-top: 1px solid #d7943c;
+  border-top: 1px solid #d49c5c;
   font-size: 15px;
   line-height: 32px;
   background: url("../images/bg/listPages_headBg.png") repeat-x;
@@ -7253,13 +7380,6 @@
 .feindura .editor input.submit {
   margin-top: -20px;
   margin-bottom: 10px;
-}
-.feindura .editor table.hotKeys {
-  width: 100%;
-  font-size: 10px;
-  padding: 8px;
-  border-spacing: 0;
-  border: 1px solid #B3B3B4;
 }
 .feindura .editor a#hotKeysToogle {
   color: #F8A75D;

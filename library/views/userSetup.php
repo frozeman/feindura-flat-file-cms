@@ -41,7 +41,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
     <div class="row">
       <div class="span8 center">
-          <a href="?site=userSetup&amp;status=createUser#userId<?php echo getNewUserId(); ?>" class="createUser toolTip" title="<?php echo $langFile['USERSETUP_createUser']; ?>::"></a>
+          <a href="?site=userSetup&amp;status=createUser#userId<?php echo getNewUserId(); ?>" class="createUser toolTipLeft" title="<?php echo $langFile['USERSETUP_createUser']; ?>::"></a>
       </div>
     </div>
 
@@ -81,13 +81,13 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
             // DELETEUSER
             echo '<div class="span5" style="position:relative;">
                     <h2 class="gray">ID '.$user['id'].'</h2>';
-              echo '<a href="?site=userSetup&amp;status=deleteUser&amp;userId='.$user['id'].'#top" class="deleteUser toolTip" title="'.$langFile['USERSETUP_deleteUser'].'::'.$user['username'].'"></a>';
+              echo '<a href="?site=userSetup&amp;status=deleteUser&amp;userId='.$user['id'].'#top" class="deleteUser toolTipTop" title="'.$langFile['USERSETUP_deleteUser'].'::'.$user['username'].'"></a>';
           echo '  </div>
                 </div>';
 
           // USER NAME
           $markUsername = (empty($user['username']))
-            ? ' class="toolTip red" title="'.$langFile['USERSETUP_username_missing'].'::"'
+            ? ' class="toolTipLeft red" title="'.$langFile['USERSETUP_username_missing'].'::"'
             : '';
           $autofocus = (empty($user['username']))
             ? ' autofocus="autofocus"'
@@ -100,9 +100,9 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
           // USER EMAIL
           echo '<div class="row"><div class="span3 formLeft">';
-          echo '<label for="users'.$user['id'].'email" class="toolTip" title="::'.$langFile['USERSETUP_email_tip'].'">'.$langFile['USERSETUP_email'].'</label>
+          echo '<label for="users'.$user['id'].'email" class="toolTipLeft" title="::'.$langFile['USERSETUP_email_tip'].'">'.$langFile['USERSETUP_email'].'</label>
                 </div><div class="span5">
-                <input type="email" id="users'.$user['id'].'email" name="users['.$user['id'].'][email]" value="'.$user['email'].'" class="toolTip" title="'.$langFile['USERSETUP_email'].'::'.$langFile['USERSETUP_email_tip'].'" autocomplete="off">
+                <input type="email" id="users'.$user['id'].'email" name="users['.$user['id'].'][email]" value="'.$user['email'].'" class="toolTipLeft" title="'.$langFile['USERSETUP_email'].'::'.$langFile['USERSETUP_email_tip'].'" autocomplete="off">
                 </div></div>';
 
           echo '<div class="spacer"></div>';
@@ -112,7 +112,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
             ? $langFile['USERSETUP_password']
             : $langFile['USERSETUP_password_change'];
           $markPassword = (empty($user['password']))
-            ? ' class="toolTip red" title="'.$langFile['USERSETUP_password_missing'].'::"'
+            ? ' class="toolTipLeft red" title="'.$langFile['USERSETUP_password_missing'].'::"'
             : '';
 
           echo '<div class="row"><div class="span3 formLeft">';
@@ -135,20 +135,20 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
           // USER INFORMATION
           echo '<div class="row">
                   <div class="span3 formLeft">
-                    <label for="users'.$user['id'].'info"><span class="toolTip" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION'].'">'.$langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION'].'</span></label>
+                    <label for="users'.$user['id'].'info"><span class="toolTipLeft" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION'].'">'.$langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION'].'</span></label>
                   </div>
                   <div class="span5">
-                    <textarea id="users'.$user['id'].'info" name="users['.$user['id'].'][info]" style="white-space:normal;" class="inputToolTip autogrow" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO'].'">'.str_replace(array('<br>','<br>','<br/>'),'',$userConfig[$user['id']]['info']).'</textarea>
+                    <textarea id="users'.$user['id'].'info" name="users['.$user['id'].'][info]" style="white-space:normal;" class="toolTipRight autogrow" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO'].'">'.str_replace(array('<br>','<br>','<br/>'),'',$userConfig[$user['id']]['info']).'</textarea>
                   </div>
                 </div>';
 
 
           // USER PERMISSIONS
           echo '<div class="row"><div class="span3 formLeft">';
-          echo '<input type="checkbox" id="users'.$user['id'].'admin" name="users['.$user['id'].'][admin]" class="toolTip userAdminCheckbox" value="true" '.$checked[1].' title="'.$langFile['USERSETUP_admin'].'::'.$langFile['USERSETUP_admin_tip'].'"><br>
+          echo '<input type="checkbox" id="users'.$user['id'].'admin" name="users['.$user['id'].'][admin]" class="toolTipLeft userAdminCheckbox" value="true" '.$checked[1].' title="'.$langFile['USERSETUP_admin'].'::'.$langFile['USERSETUP_admin_tip'].'"><br>
                 </div><div class="span5">
                 <label for="users'.$user['id'].'admin">';
-                echo '<span class="toolTip" title="::'.$langFile['USERSETUP_admin_tip'].'">'.$langFile['USERSETUP_admin'].'</span></label>
+                echo '<span class="toolTipRight" title="::'.$langFile['USERSETUP_admin_tip'].'">'.$langFile['USERSETUP_admin'].'</span></label>
                 </div></div>';
 
 

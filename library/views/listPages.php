@@ -81,9 +81,9 @@ foreach($categoryConfig as $category) {
 
   // shows the text of the sorting of a CATEGORY
   if($category['sorting'] == 'byPageDate')
-    $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23">';
+    $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="toolTipTop" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23">';
   elseif($category['sorting'] == 'alphabetical')
-    $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23">';
+    $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="toolTipTop" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23">';
   else
     $sorting = '';
 
@@ -132,20 +132,20 @@ foreach($categoryConfig as $category) {
   // -> CATEGORY HEADLINE
   echo "\n\n".'<div class="block open listPagesBlock'.$hidden.'">';
   	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
-    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="'.$categoryName.'::'.$categoryClass.$categoryTitle.'"><img src="'.$categoryIcon.'" class="blockH1Icon" alt="category icon" width="35" height="35"> '.$categoryName.'</span> '.$sorting.'</a></h1>
+    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTipLeft" title="'.$categoryName.'::'.$categoryClass.$categoryTitle.'"><img src="'.$categoryIcon.'" class="blockH1Icon" alt="category icon" width="35" height="35"> '.$categoryName.'</span> '.$sorting.'</a></h1>
           <div class="categoryHeader">';
 
       // CATEGORY STATUS
       // show category status only if its a category (0 is non-category)
       if($category['id'] != 0)
-        echo '<a href="?site='.$_GET['site'].'&amp;status=changeCategoryStatus&amp;public='.$category['public'].'&amp;category='.$category['id'].'#categoryAnchor'.$category['id'].'" class="toolTip status'.$publicClass.'" title="'.$publicText.'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkCategory'].'">&nbsp;</a>';
+        echo '<a href="?site='.$_GET['site'].'&amp;status=changeCategoryStatus&amp;public='.$category['public'].'&amp;category='.$category['id'].'#categoryAnchor'.$category['id'].'" class="toolTipLeft status'.$publicClass.'" title="'.$publicText.'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkCategory'].'">&nbsp;</a>';
 
       // CATEGORY FUNCTIONS
       echo '<div class="functions right">';
 
       // create page
       if($category['createDelete'])
-        echo '<a href="?category='.$category['id'].'&amp;page=new" title="'.$langFile['BUTTON_TOOLTIP_CREATEPAGE'].'::" class="createPage toolTip">&nbsp;</a>';
+        echo '<a href="?category='.$category['id'].'&amp;page=new" title="'.$langFile['BUTTON_TOOLTIP_CREATEPAGE'].'::" class="createPage toolTipLeft">&nbsp;</a>';
 
   echo '  </div>
         </div>
@@ -199,17 +199,17 @@ foreach($categoryConfig as $category) {
       // -> show lastSaveDate
       $lastSaveDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.formatTime($pageContent['lastSaveDate']);
       $lastSaveDate = ($pageContent['lastSaveAuthor'])
-          ? '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].':[/strong][br]'.$lastSaveDate.' ('.$userConfig[$pageContent['lastSaveAuthor']]['username'].')[br]'
-          : '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].':[/strong] '.$lastSaveDate.'[br]';
+          ? '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong][br]'.$lastSaveDate.' ('.$userConfig[$pageContent['lastSaveAuthor']]['username'].')[br]'
+          : '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong] '.$lastSaveDate.'[br]';
 
       // -> show page ID
       $pageTitle_Id = (GeneralFunctions::isAdmin())
-        ? '[strong]ID:[/strong] '.$pageContent['id'].'[br]'
+        ? '[strong]ID[/strong] '.$pageContent['id'].'[br]'
         : '';
 
       // -> show subcategory in toolTip
       $pageTitle_subCategory = ($pageContent['subCategory'] && $categoryConfig[$pageContent['category']]['showSubCategory'])
-        ? '[strong]'.$langFile['EDITOR_TEXT_SUBCATEGORY'].':[/strong][br][img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($categoryConfig[$pageContent['subCategory']],'name').'[br]'
+        ? '[strong]'.$langFile['EDITOR_TEXT_SUBCATEGORY'].'[/strong][br][img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($categoryConfig[$pageContent['subCategory']],'name').'[br]'
         : '';
 
       // -> generate pageDate for toolTip
@@ -219,12 +219,12 @@ foreach($categoryConfig as $category) {
       // -> generate tags for toolTip
       $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
       if(!empty($localizedTags) && $categoryConfig[$pageContent['category']]['showTags']) {
-        $pageTitle_tags = '[strong]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].':[/strong] '.$localizedTags.'[br]';
+        $pageTitle_tags = '[strong]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].'[/strong] '.$localizedTags.'[br]';
       }
 
       // -> generate page languages for toolTip
       if(!isset($pageContent['localized'][0])) {
-        $pageTitle_pageLanguages .= '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].':[/strong][br]';
+        $pageTitle_pageLanguages .= '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].'[/strong][br]';
         if(is_array($pageContent['localized'][0])) {
           foreach ($pageContent['localized'] as $langCode => $values) {
             $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
@@ -262,7 +262,7 @@ foreach($categoryConfig as $category) {
       echo '<div class="row">';
 
         echo '<div class="span4 name left">
-                <a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$subCategoryIcon.$startPageIcon.'"
+                <a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTipLeft'.$subCategoryIcon.$startPageIcon.'"
                 title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))).'::
                 '.trim(' '.$pageTitle_startPageText.$pageTitle_Id.$lastSaveDate.$pageTitle_subCategory.$pageTitle_pageDate.$pageTitle_tags.$pageTitle_pageLanguages,'[br]').'">
                   <strong>'.$title.'</strong>
@@ -270,14 +270,14 @@ foreach($categoryConfig as $category) {
               </div>';
         echo '<div class="span1 center">';
           // VISITOR COUNT
-          echo '<span class="toolTip" title="'.formatHighNumber($pageStatistics['visitorCount']).'">'.$visitorCount.'</span>';
+          echo '<span class="toolTipTop" title="'.formatHighNumber($pageStatistics['visitorCount']).'">'.$visitorCount.'</span>';
         echo '</div>';
         echo '<div class="span1">';
           // PAGE and LANGUAGE STATUS
-          echo ' <a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" class="toolTip status'.$publicClass.'" title="'.$publicText.'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'"></a>';
+          echo ' <a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" class="toolTipTop status'.$publicClass.'" title="'.$publicText.'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'"></a>';
           // show language status (is everything translated)
           if($websiteConfig['multiLanguageWebsite']['active'] && !empty($missingLanguages))
-            echo ' <span class="toolTip missingLanguages" title="'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'] .'::'.$missingLanguages.'"></span>';
+            echo ' <span class="toolTipTop missingLanguages" title="'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'] .'::'.$missingLanguages.'"></span>';
         echo '</div>';
 
         // PAGE FUNCTIONS
@@ -285,21 +285,21 @@ foreach($categoryConfig as $category) {
 
           // thumbnail upload
           if($category['thumbnails'])
-            echo '<a href="?site=uploadPageThumbnail&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="uploadPageThumbnail toolTip"></a>';
+            echo '<a href="?site=uploadPageThumbnail&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="uploadPageThumbnail toolTipTop"></a>';
 
           // thumbnail upload delete
           if($category['thumbnails'] && !empty($pageContent['thumbnail']))
-            echo '<a href="?site=deletePageThumbnail&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::" class="deletePageThumbnail toolTip"></a>';
+            echo '<a href="?site=deletePageThumbnail&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::" class="deletePageThumbnail toolTipTop"></a>';
 
           // frontend editing
-          echo '<a href="'.$adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']).'?'.$adminConfig['varName']['category'].'='.$category['id'].'&amp;'.$adminConfig['varName']['page'].'='.$pageContent['id'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::" class="frontendEditing toolTip"></a>';
+          echo '<a href="'.$adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']).'?'.$adminConfig['varName']['category'].'='.$category['id'].'&amp;'.$adminConfig['varName']['page'].'='.$pageContent['id'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::" class="frontendEditing toolTipTop"></a>';
 
           // edit page
-          echo '<a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$langFile['SORTABLEPAGELIST_functions_editPage'].'::" class="editPage toolTip"></a>';
+          echo '<a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$langFile['SORTABLEPAGELIST_functions_editPage'].'::" class="editPage toolTipTop"></a>';
 
           // delete page
           if($category['createDelete'])
-            echo '<a href="?site=deletePage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_DELETEPAGE'].'::" class="deletePage toolTip"></a>';
+            echo '<a href="?site=deletePage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_DELETEPAGE'].'::" class="deletePage toolTipTop"></a>';
 
           // startpage
           if($websiteConfig['setStartPage']) {
@@ -310,7 +310,7 @@ foreach($categoryConfig as $category) {
               $activeStartPage = '';
               $startPageTitle = $langFile['SORTABLEPAGELIST_functions_startPage'];
             }
-            echo '<a href="?site='.$_GET['site'].'&amp;status=setStartPage&amp;refresh='.uniqid().'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" title="'.$startPageTitle.'::" class="startPage'.$activeStartPage.' toolTip"></a>';
+            echo '<a href="?site='.$_GET['site'].'&amp;status=setStartPage&amp;refresh='.uniqid().'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" title="'.$startPageTitle.'::" class="startPage'.$activeStartPage.' toolTipTop"></a>';
           }
 
         echo '</div>';

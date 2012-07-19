@@ -140,68 +140,64 @@ if($adminConfig['user']['fileManager']) {
   <div class="content">
 
     <div class="row">
-      <div class="span3">
-        <a href="#" id="hotKeysToogle" class="down link"><?php echo $langFile['EDITOR_htmleditor_hotkeys_h1']; ?></a>
-        <div id="hotKeys">
-        <br>
-        <table class="hotKeys">
-          <tbody>
-            <tr>
-              <td style="background-color:#EDECEC;">
-                <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field1']; ?></b></td>
-              <td style="background-color:#EDECEC;"> STRG + A</td>
-            </tr><tr>
-              <td style="background-color:#E3E3E3;">
-                <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field2']; ?></b></td>
-              <td style="background-color:#E3E3E3;"> STRG + C</td>
-            </tr><tr>
-              <td style="background-color:#EDECEC;">
-                <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field3']; ?></b></td>
-              <td style="background-color:#EDECEC;">
-                STRG + V</td>
-            </tr><tr>
-              <td style="background-color:#E3E3E3;">
-                <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field4']; ?></b></td>
-              <td style="background-color:#E3E3E3;">
+      <div class="span2">
+        <span href="#" id="hotKeysToogle" class="down link toolTipRight" title="[table]
+          [tbody]
+            [tr]
+              [td]
+                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field1']; ?>[/strong][/td]
+              [td] STRG + A[/td]
+            [/tr][tr]
+              [td]
+                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field2']; ?>[/strong][/td]
+              [td] STRG + C[/td]
+            [/tr][tr]
+              [td]
+                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field3']; ?>[/strong][/td]
+              [td]
+                STRG + V[/td]
+            [/tr][tr]
+              [td]
+                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field4']; ?>[/strong][/td]
+              [td]
                 STRG + X
-                <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_or']; ?></b> SHIFT + Del</td>
-            </tr><tr>
-              <td colspan="2" style="height: 10px;background-color:#fff;"> </td>
-            </tr><tr>
-              <td style="background-color:#EDECEC;">
-                <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field5']; ?></b></td>
-              <td style="background-color:#EDECEC;"> STRG + Z</td>
-            </tr><tr>
-              <td style="background-color:#E3E3E3;">
-                <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field6']; ?></b></td>
-              <td style="background-color:#E3E3E3;">
+                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_or']; ?>[/strong] SHIFT + Del[/td]
+            [/tr][tr]
+              [td colspan=2 style=height: 10px;background-color:#fff;] [/td]
+            [/tr][tr]
+              [td]
+                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field5']; ?>[/strong][/td]
+              [td] STRG + Z[/td]
+            [/tr][tr]
+              [td]
+                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field6']; ?>[/strong][/td]
+              [td]
                 STRG + Y
-                <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_or']; ?></b> STRG + SHIFT + Z</td>
-            </tr><tr>
-              <td colspan="2" style="height: 10px;background-color:#fff;"> </td>
-            </tr><tr>
-              <td style="background-color:#EDECEC;">
-                <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field7']; ?></b></td>
-              <td style="background-color:#EDECEC;"> STRG + L</td>
-            </tr><tr>
-              <td style="background-color:#E3E3E3;">
-                <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field8']; ?></b></td>
-              <td style="background-color:#E3E3E3;"> STRG + B</td>
-            </tr><tr>
-              <td style="background-color:#EDECEC;">
-                <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field9']; ?></b></td>
-              <td style="background-color:#EDECEC;"> STRG + I</td>
-            </tr><tr>
-              <td style="background-color:#E3E3E3;">
-                <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field10']; ?></b></td>
-              <td style="background-color:#E3E3E3;"> STRG + U</td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
+                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_or']; ?>[/strong] STRG + SHIFT + Z[/td]
+            [/tr][tr]
+              [td colspan=2 style=height: 10px;background-color:#fff;] [/td]
+            [/tr][tr]
+              [td]
+                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field7']; ?>[/strong][/td]
+              [td] STRG + L[/td]
+            [/tr][tr]
+              [td]
+                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field8']; ?>[/strong][/td]
+              [td] STRG + B[/td]
+            [/tr][tr]
+              [td]
+                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field9']; ?>[/strong][/td]
+              [td] STRG + I[/td]
+            [/tr][tr]
+              [td]
+                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field10']; ?>[/strong][/td]
+              [td] STRG + U[/td]
+            [/tr]
+          [/tbody]
+        [/table]"><?php echo $langFile['EDITOR_htmleditor_hotkeys_h1']; ?></span>
       </div>
 
-      <div class="span5">
+      <div class="span6">
       <?php
 
       $thumbnailPath = (!empty($pageContent['thumbnail'] )) ? GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'] : '#';
@@ -231,7 +227,7 @@ if($adminConfig['user']['fileManager']) {
         echo '<div>';
         // see if the thumbnails are activated, add upload/delete buttons
         if($categoryConfig[$pageContent['category']]['thumbnails']) {
-          echo '<a href="?site=deletePageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"" class="deleteButton toolTip"></a>';
+          echo '<a href="?site=deletePageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"" class="deleteButton toolTipLeft"></a>';
           echo '<a href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" class="image">';
           echo '<img src="'.$thumbnailPath.'" id="thumbnailPreviewImage" class="thumbnail"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail">';
           echo '</a>';
@@ -247,7 +243,7 @@ if($adminConfig['user']['fileManager']) {
          ? '' : ' style="display:none;"';
 
       // thumbnailUploadButtonInPreviewArea
-      echo '<a href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" id="thumbnailUploadButtonInPreviewArea" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="uploadPageThumbnail toolTip"'.$displayThumbnailUploadButton.'></a>';
+      echo '<a href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" id="thumbnailUploadButtonInPreviewArea" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="uploadPageThumbnail toolTipLeft"'.$displayThumbnailUploadButton.'></a>';
 
 
       ?>

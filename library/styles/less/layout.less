@@ -110,7 +110,7 @@ header.main {
 
     #sessionTimout {
         position: absolute;
-        top: 8px;
+        top: 6px;
         left: 140px;
         z-index: 3;
         font-size: 11px;
@@ -118,6 +118,7 @@ header.main {
 
     // LOGO
     a.feinduraLogo {
+        z-index: 0;
         position: absolute;
         top: 25px;
         left: 15px;
@@ -140,43 +141,44 @@ header.main {
     }
 
     // LANGUAGE SELECTION
-
     .languageSelection {
         position: absolute;
         bottom: 21px;
         left: 15px;
         z-index: 2;
-    }
-    .languageSelection a {
-        position: absolute;
-        display: block;
-        width: 30px;
-        height: 21px;
-    }
-    .languageSelection a:hover,
-    .languageSelection a:focus {
-        background-position: 0px -21px !important;
-    }
 
-    .languageSelection a.de {
-        left: 0px;
-        background: url("../images/buttons/langSelection_de.png") no-repeat;
-    }
-    .languageSelection a.en {
-        left: 30px;
-        background: url("../images/buttons/langSelection_en.png") no-repeat;
-    }
-    .languageSelection a.fr {
-        left: 60px;
-        background: url("../images/buttons/langSelection_fr.png") no-repeat;
-    }
-    .languageSelection a.it {
-        left: 90px;
-        background: url("../images/buttons/langSelection_it.png") no-repeat;
-    }
-    .languageSelection a.ru {
-        left: 120px;
-        background: url("../images/buttons/langSelection_ru.png") no-repeat;
+        a {
+            position: absolute;
+            display: block;
+            width: 30px;
+            height: 21px;
+            padding-left: 0;
+        }
+        a:hover,
+        a:focus {
+            background-position: 0px -21px !important;
+        }
+
+        a.de {
+            left: 0px;
+            background: url("../images/buttons/langSelection_de.png") no-repeat;
+        }
+        a.en {
+            left: 30px;
+            background: url("../images/buttons/langSelection_en.png") no-repeat;
+        }
+        a.fr {
+            left: 60px;
+            background: url("../images/buttons/langSelection_fr.png") no-repeat;
+        }
+        a.it {
+            left: 90px;
+            background: url("../images/buttons/langSelection_it.png") no-repeat;
+        }
+        a.ru {
+            left: 120px;
+            background: url("../images/buttons/langSelection_ru.png") no-repeat;
+        }
     }
 }
 
@@ -352,13 +354,17 @@ header.main {
         h2 {
             z-index: 2;
             position: relative;
-            width: 183px;
             padding: 2px 10px;
             margin: 15px 0;
+            width: 183px;
             border-bottom: 1px solid #fff;
             #gradient > .vertical(#fff,@colorLightGray,#fff);
             #shadow > .drop(0,2px,2px,0.2);
             font-size: 12px;
+            line-height: 18px;
+        }
+        h3 {
+            line-height: 18px;
         }
 
         .content {
@@ -625,6 +631,7 @@ header.main {
             top: 2px;
             left: 1px;
             padding: 0px;
+            padding-top: 10px;
             width: 198px;
             min-height: 260px;
             border-top: 1px solid #ffffff;
@@ -645,7 +652,7 @@ header.main {
 
             h2 {
                 margin: 10px 0;
-                margin-bottom: -8px;
+                width: auto;
                 text-align: center;
                 #shadow > .none();
                 #gradient > .none();
@@ -946,3 +953,4 @@ footer.main {
         color: #ffffff;
     }
 }
+

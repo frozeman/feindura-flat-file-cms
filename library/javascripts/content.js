@@ -17,9 +17,8 @@
 */
 
 // vars
-var toolTips; // holds the instance of the tooltips
+var toolTipsTop, toolTipsBottom, toolTipsLeft, toolTipsRight;
 var deactivateType = 'disabled'; // disabled/readonly
-var myCfe;
 var pageContentChanged = false; // used to give a warning, if a page in the editor.php has been changed and not saved
 var HTMLEditor;
 var subCategoryArrows;
@@ -49,50 +48,37 @@ function addParameterToUrl(key,value) {
 /* set toolTips to all objects with a toolTip class */
 function setToolTips() {
 
-  var toolTipsInput;
-
   //store titles and text
-  feindura_storeTipTexts('.toolTip, .inputToolTip, .inputToolTipLeft');
+  feindura_storeTipTexts('.toolTipLeft, .toolTipRight, .toolTipTop, .toolTipBottom');
 
-  /* add Tooltips */
-  toolTips = new Tips('.toolTip',{
-    className: 'feindura_toolTipBox',
-    //onShow: function(tip){ tip.tween('right','200px');}, //tip.fade('hide'); tip.fade('in');
-    //onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');
-    offset: {'x': 10,'y': 15},
-    fixed: false,
-    showDelay: 300,
-    hideDelay: 0 });
+  var tipOptions = {
+    content: function(e){
+      var content = '';
+      if(e.retrieve('tip:title'))
+        content = e.retrieve('tip:title');
+      if(e.retrieve('tip:text'))
+        content += e.retrieve('tip:text');
+      return content;
+    },
+    html: true,
+    arrowSize: 10,
+    distance: 10,
+    motionOnHide: false,
+    showDelay: 300
+  };
 
-  /* thumbnailToolTip */
-  toolTipsThumbnail = new Tips('.inputToolTipLeft',{
-    className: 'feindura_toolTipBox inputTipLeft',
-    offset: {'x': -320,'y': -20},
-    fixed: true,
-    showDelay: 300,
-    hideDelay: 100 });
-
-  // -> window is smaller 1255px
-  if(window.getSize().x < 1255) {
-    /* inputToolTip */
-    toolTipsInput = new Tips('.inputToolTip',{
-      className: 'feindura_toolTipBox inputTip',
-      offset: {'x': -275,'y': -20},
-      fixed: true,
-      showDelay: 300,
-      hideDelay: 100 });
-
-  // -> window is larger 1255px
-  } else {
-    /* inputToolTip */
-    toolTipsInput = new Tips('.inputToolTip',{
-      className: 'feindura_toolTipBox inputTip',
-      offset: {'x': 500,'y': -20},
-      fixed: true,
-      showDelay: 300,
-      hideDelay: 100 });
-
-  }
+  toolTipsTop = new FloatingTips('.toolTipTop',Object.merge(tipOptions,{
+    position: 'top'
+  }));
+  toolTipsBottom = new FloatingTips('.toolTipBottom',Object.merge(tipOptions,{
+    position: 'bottom'
+  }));
+  toolTipsLeft = new FloatingTips('.toolTipLeft',Object.merge(tipOptions,{
+    position: 'left'
+  }));
+  toolTipsRight = new FloatingTips('.toolTipRight',Object.merge(tipOptions,{
+    position: 'right'
+  }));
 }
 
 // *** ->> SETUP - functions -----------------------------------------------------------------------------------------------------------------------
@@ -710,10 +696,10 @@ window.addEvent('domready', function() {
         url:'library/includes/currentVisitors.include.php',
         onSuccess: function(html) {
           if(html) {
-            toolTips.detach('a.toolTip');
+            toolTipsLeft.detach('a.toolTipLeft');
             $('rightSidebar').getChildren('.currentVisitorsSideBar')[0].set('html',html);
-            feindura_storeTipTexts('a.toolTip');
-            toolTips.attach('a.toolTip');
+            feindura_storeTipTexts('a.toolTipLeft');
+            toolTipsLeft.attach('a.toolTipLeft');
           } else
             $('rightSidebar').set('html','');
         }
@@ -1602,7 +1588,7 @@ window.addEvent('domready', function() {
         if(link !== null) {
           // store tip text
           link.store('tip:text', link.get('title'));
-          toolTips.attach(link);
+          toolTipsBottom.attach(link);
         }
       });
     });

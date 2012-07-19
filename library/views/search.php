@@ -126,7 +126,7 @@ if(!empty($searchWords)) {
 
       // first TITLE
       echo '<span class="resultHeadline">';
-      echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),strip_tags(GeneralFunctions::getLocalized($page,'title'))).'::'.$startPageText.'[strong]ID[/strong] '.$page['id'].$pageDate.$pageTags.'">';
+      echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTipLeft" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),strip_tags(GeneralFunctions::getLocalized($page,'title'))).'::'.$startPageText.'[strong]ID[/strong] '.$page['id'].$pageDate.$pageTags.'">';
       echo ($result['title']) ? $result['title'] : strip_tags(GeneralFunctions::getLocalized($page,'title'));
       echo '</a>';
       echo '</span>';

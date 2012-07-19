@@ -93,7 +93,7 @@ if(!empty($userConfig[USERID]['info'])) {
         echo '<h2>'.$langFile['STATISTICS_TEXT_VISITORCOUNT'].'</h2>';
         echo '<div class="center">';
           echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br>';
-            echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'].'">'.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.formatHighNumber($websiteStatistic['robotVisitCount']).'</span><br>';
+            echo '<span class="toolTipLeft blue" title="'.$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'].'">'.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.formatHighNumber($websiteStatistic['robotVisitCount']).'</span><br>';
             // CURRENT VISITORS
             $currentVisitors = StatisticFunctions::getCurrentVisitors();
             $countVisitor = 0;
@@ -111,9 +111,9 @@ if(!empty($userConfig[USERID]['info'])) {
         if(!empty($websiteStatistic['firstVisit'])) {
           echo '<div style="width:100%; text-align:right;">';
             // FIRST VISIT
-            echo '<span class="toolTip" title="'.formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.GeneralFunctions::formatDate($websiteStatistic['firstVisit']).'</span></span><br>';
+            echo '<span class="toolTipLeft" title="'.formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.GeneralFunctions::formatDate($websiteStatistic['firstVisit']).'</span></span><br>';
             // LADST VISIT
-            echo '<span class="toolTip" title="'.formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['STATISTICS_TEXT_LASTVISIT'].' <span class="blue"><strong>'.GeneralFunctions::formatDate($websiteStatistic['lastVisit']).'</strong></span></span>';
+            echo '<span class="toolTipLeft" title="'.formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['STATISTICS_TEXT_LASTVISIT'].' <span class="blue"><strong>'.GeneralFunctions::formatDate($websiteStatistic['lastVisit']).'</strong></span></span>';
           echo '</div>';
         }
         echo '</div>';

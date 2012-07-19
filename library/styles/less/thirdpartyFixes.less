@@ -3,6 +3,52 @@
 //
 // Published under the GNU General Public License
 
+// TOOLTIP (FloatingTip)
+.floating-tip-wrapper {
+    z-index: 20020;
+}
+.floating-tip {
+    padding: 10px 15px;
+    max-width: 200px;
+    font-size: 12px;
+    color: #fff;
+    #border > .rounded(5px);
+    #shadow > .both(0, 1px, 8px, 0.3, #000, 0, 0px, 30px, 0.4,#000);
+    background-color: #666;
+
+    h2 {
+        font-size: 13px;
+        line-height: 16px;
+        margin-top: 0;
+        margin-bottom: 3px;
+        padding-top: 0;
+        // font-weight: normal;
+        color: lighten(@colorBrown,20%)
+    }
+
+    span.hint {
+        color: lighten(@colorBrown,20%);
+    }
+    span.red {
+        color: lighten(@colorRed, 40%) !important;
+    }
+    span.feinduraInline {
+        color: lighten(@logoColorOrange,20%) !important;
+
+        em {
+            color: lighten(@logoColorBlue,10%) !important;
+        }
+    }
+    img {
+        position: relative;
+        top: -6px;
+
+        &.icons {
+            top: -2px;
+        }
+    }
+}
+
 
 // CKEditor FIXES
 
@@ -239,7 +285,7 @@ textarea.editFiles, .CodeMirror-scroll  {
     padding: 0 10px;
     #border > .rounded(9px);
 }
-.textboxlist-bit-box-deletable { padding-right: 18px; }
+.textboxlist-bit-box-deletable { padding-right: 20px; }
 .textboxlist-bit-box-deletebutton {
     z-index: 1;
     position: absolute;

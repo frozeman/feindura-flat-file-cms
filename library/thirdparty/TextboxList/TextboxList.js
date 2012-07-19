@@ -41,7 +41,7 @@ var TextboxList = new Class({
 		**/
 		bitsOptions: {editable: {}, box: {}},
 		check: function(s) {
-			return s.clean().replace(/,/g, '') != '';
+			return s.clean().replace(/,/g, '') !== '';
 		},
 		decode: function(o) {
 			return o.split(',');
@@ -109,7 +109,7 @@ var TextboxList = new Class({
 							return this.current.remove();
 						}
 					case this.options.keys.previous:
-						if (this.current.is('box') || ((caret == 0 || !value.length) && ! custom)) {
+						if (this.current.is('box') || ((caret === 0 || !value.length) && ! custom)) {
 							ev.stop();
 							this.focusRelative('previous');
 						}
@@ -141,8 +141,8 @@ var TextboxList = new Class({
 
 	create: function(klass, value, options) {
 		if (klass == 'box') {
-			if (( ! value[0] && ! value[1]) || ($chk(value[1]) && ! this.options.check(value[1]))) return false;
-			if ($chk(this.options.max) && this.list.getChildren('.'+this.options.prefix+'-bit-box').length + 1 > this.options.max) return false;
+			if (( ! value[0] && ! value[1]) || (value[1] !== null && ! this.options.check(value[1]))) return false;
+			if (this.options.max !== null && this.list.getChildren('.'+this.options.prefix+'-bit-box').length + 1 > this.options.max) return false;
 			if (this.options.unique && this.index.contains(this.uniqueValue(value))) return false;
 		}
 		return new TextboxListBit[klass.capitalize()](value, this, Object.merge(this.options.bitsOptions[klass], options));
@@ -232,7 +232,7 @@ var TextboxList = new Class({
 	},
 
 	onRemove: function(bit) {
-		if ( ! this.focused) return;
+		// if ( ! this.focused) return;
 		if (this.options.unique && bit.is('box')) {
 			this.index.erase(this.uniqueValue(bit.value));
 		}
@@ -329,7 +329,7 @@ var TextboxListBit = new Class({
 	remove: function(event) {
 		if(event)
 			event.preventDefault();
-		this.blur();		
+		this.blur();
 		this.textboxlist.onRemove(this);
 		this.bit.destroy();
 		return this.fireBitEvent('remove');

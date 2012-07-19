@@ -116,7 +116,7 @@ else
       <h3 style="margin-bottom: -20px;"><?php echo $langFile['pagethumbnail_field1']; ?></h3>
 
       <input type="file" name="thumbFile" class="btn">
-      <input type="submit" value="" class="button thumbnailUpload toolTip" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>">
+      <input type="submit" value="" class="button thumbnailUpload toolTipLeft" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>">
 
     </div>
     <div class="span4">
@@ -245,7 +245,7 @@ if(!empty($pageContent['thumbnail'])) {
   $randomImage = '?'.md5(uniqid(rand(),1));
 
   echo '<div class="center" id="windowBoxThumbnailPreview">';
-    echo '<img src="'.GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnail toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
+    echo '<img src="'.GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnail toolTipLeft"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
   echo '</div>';
 }
 

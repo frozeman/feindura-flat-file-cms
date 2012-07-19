@@ -1858,10 +1858,10 @@ function showStyleFileInputs($styleFiles,$inputNames) {
      $styleFiles != 'a:0:{}' &&
      ($styleFileInputs = unserialize($styleFiles)) !== false) {
     foreach($styleFileInputs as $styleFileInput) {
-      $return .= '<input type="text" name="'.$inputNames.'[]" value="'.$styleFileInput.'">';
+      $return .= '<input type="text" name="'.$inputNames.'[]" value="'.$styleFileInput.'" class="toolTipRight" title="'.$GLOBALS['langFile']['PATHS_TOOLTIP_ABSOLUTE'].'">';
     }
   } else
-    $return = '<input type="text" class="noResize" name="'.$inputNames.'[]" value="">';
+    $return = '<input type="text" name="'.$inputNames.'[]" value="" class="noResize inputToolTip" title="'.$GLOBALS['langFile']['PATHS_TOOLTIP_ABSOLUTE'].'">';
 
   // return the result
   return $return;
@@ -2326,7 +2326,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
 
     echo '<div class="span3">';
       echo '<h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'</h2>
-            <input type="text" name="newFile" class="inputToolTipLeft" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'::'.$GLOBALS['langFile']['EDITFILESSETTINGS_TIP_CREATEFILE'].'"> '.$fileTypeText;
+            <input type="text" name="newFile" class="toolTipLeft" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'::'.$GLOBALS['langFile']['EDITFILESSETTINGS_TIP_CREATEFILE'].'"> '.$fileTypeText;
     echo '</div>';
   }
 
@@ -2349,7 +2349,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
     echo '<div class="row">';
       echo '<div class="span4 center">';
           if($isFiles)
-            echo '<a href="?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/views/windowBox/deleteEditFiles.php?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_DELETEFILE'].'\');return false;" class="button cancel toolTip" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_DELETEFILE'].'::"></a>';
+            echo '<a href="?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/views/windowBox/deleteEditFiles.php?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_DELETEFILE'].'\');return false;" class="button cancel toolTipLeft" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_DELETEFILE'].'::"></a>';
       echo '</div>';
       echo '<div class="span4 center">';
           echo '<input type="submit" value="" name="saveEditedFiles" class="button submit right" title="'.$GLOBALS['langFile']['FORM_BUTTON_SUBMIT'].'">';
@@ -2499,7 +2499,7 @@ function isWritableWarning($fileFolder) {
   $fileFolder = GeneralFunctions::getRealPath($fileFolder);
 
   if(file_exists($fileFolder) && is_writable($fileFolder) === false) {
-    return '<span class="warning toolTip" title="'.$fileFolder.'::'.sprintf($GLOBALS['langFile']['ADMINSETUP_TOOLTIP_WRITEACCESSERROR'],$GLOBALS['adminConfig']['permissions']).'"><b>&quot;'.$fileFolder.'&quot;</b> -> '.$GLOBALS['langFile']['ADMINSETUP_TEXT_WRITEACCESSERROR'].'</span><br>';
+    return '<span class="warning toolTipLeft" title="'.$fileFolder.'::'.sprintf($GLOBALS['langFile']['ADMINSETUP_TOOLTIP_WRITEACCESSERROR'],$GLOBALS['adminConfig']['permissions']).'"><b>&quot;'.$fileFolder.'&quot;</b> -> '.$GLOBALS['langFile']['ADMINSETUP_TEXT_WRITEACCESSERROR'].'</span><br>';
   } else
     return false;
 }
@@ -2978,7 +2978,7 @@ function createBrowserChart($browserString) {
         }
 
         // SHOW the table cell with the right browser and color
-        $return .= '<td style="padding: '.$cellpadding.'; width: '.$displayBrowser['percent'].'%;" class="toolTip '.$displayBrowser['class'].'" title="[span]'.$displayBrowser['name'].'[/span] ('.$displayBrowser['percent'].'%)::'.$displayBrowser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
+        $return .= '<td style="padding: '.$cellpadding.'; width: '.$displayBrowser['percent'].'%;" class="toolTipLeft '.$displayBrowser['class'].'" title="[span]'.$displayBrowser['name'].'[/span] ('.$displayBrowser['percent'].'%)::'.$displayBrowser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
                     <div style="position: relative;">
                     <img src="library/images/icons/'.$displayBrowser['logo'].'" style="float: left;'.$logoSize.';" alt="browser logo">'.$cellText.'
                     </div>
@@ -3035,7 +3035,7 @@ function createTagCloud($serializedTags,$minFontSize = 10,$maxFontSize = 20) {
       // create href
       $tagsHref = urlencode(html_entity_decode($tag['data'],ENT_QUOTES,'UTF-8'));
 
-      $return .= '<a href="?site=search&amp;search='.$tagsHref.'" style="font-size:'.$fontSize.'px;" class="toolTip" title="[span]&quot;'.$tag['data'].'&quot;[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART1'].' [span]'.$tag['number'].'[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART2'].'::'.$GLOBALS['langFile']['STATISTICS_TOOLTIP_SEARCHWORD'].'">'.$tag['data'].'</a>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$tag['number'].')</span>
+      $return .= '<a href="?site=search&amp;search='.$tagsHref.'" style="font-size:'.$fontSize.'px;" class="toolTipLeft" title="[span]&quot;'.$tag['data'].'&quot;[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART1'].' [span]'.$tag['number'].'[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART2'].'::'.$GLOBALS['langFile']['STATISTICS_TOOLTIP_SEARCHWORD'].'">'.$tag['data'].'</a>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$tag['number'].')</span>
 
     }
   }

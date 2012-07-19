@@ -29,6 +29,7 @@ TextboxList.Autocomplete = new Class({
 		mouseInteraction: true,
 		onlyFromValues: false,
 		showAllValues: false,
+		reAddValues: false,
 		placeholder: 'Type to receive suggestions',
 		queryRemote: false,
 		remote: {
@@ -136,6 +137,17 @@ TextboxList.Autocomplete = new Class({
 		}
 	},
 
+	reAddValue: function(bit) {
+		// var
+		var addValue = true;
+		this.values.each(function(value){
+			if(value[1] === bit.value[1])
+				addValue = false;
+		});
+		if(addValue)
+			this.values.push([bit.value[1],bit.value[1]]);
+	},
+
 	initialize: function(textboxlist, options) {
 		this.setOptions(options);
 		this.textboxlist = textboxlist;
@@ -145,11 +157,14 @@ TextboxList.Autocomplete = new Class({
 		if (Browser.ie) {
 			this.textboxlist.setOptions({bitsOptions: {editable: {addOnBlur: false}}});
 		}
-		if (this.textboxlist.options.unique) {
+		if (this.textboxlist.options.unique || this.options.reAddValues) {
 			this.index = [];
 			this.textboxlist.addEvent('bitBoxRemove', function(bit) {
-				if (bit.autoValue) {
+				if (this.textboxlist.options.unique && bit.autoValue) {
 					this.index.erase(bit.autoValue);
+				}
+				if(this.options.reAddValues) {
+					this.reAddValue(bit);
 				}
 			}.bind(this), true);
 		}

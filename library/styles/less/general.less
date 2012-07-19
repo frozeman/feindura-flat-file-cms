@@ -7,7 +7,7 @@
 @logoColorBlue: #3A79A5;
 @logoColorOrange: #DD6E1F;
 @colorRed: #A02F00;
-@colorBrown: #D7943C;
+@colorBrown: #d49c5c;
 @colorGray: #999999;
 @colorLightGray: #f0f0f0;
 
@@ -104,24 +104,47 @@ div.blockSpacer {
 }
 
 // mark tooltip text
-.toolTip,
-input.toolTip[type=checkbox] {
+.toolTipLeft,
+.toolTipRight,
+.toolTipTop,
+.toolTipBottom {
     cursor: help;
 }
-input.toolTip,
-textarea.toolTip {
+input.toolTipLeft,
+input.toolTipRight,
+input.toolTipTop,
+input.toolTipBottom,
+textarea.toolTipLeft,
+textarea.toolTipRight,
+textarea.toolTipTop,
+textarea.toolTipBottom {
     cursor: text;
 }
-input.button.toolTip,
-a.toolTip {
+.button.toolTipLeft,
+.button.toolTipRight,
+.button.toolTipTop,
+.button.toolTipBottom,
+a.toolTipLeft,
+a.toolTipRight,
+a.toolTipTop,
+a.toolTipBottom {
     cursor: pointer;
 }
-span.toolTip:not(.badge),
-label.toolTip {
+span.toolTipLeft:not(.badge),
+span.toolTipRight:not(.badge),
+span.toolTipTop:not(.badge),
+span.toolTipBottom:not(.badge),
+label.toolTipLeft,
+label.toolTipRight,
+label.toolTipTop,
+label.toolTipBottom {
     background: url("../images/icons/hint_toolTipInfo.png") no-repeat right center;
     padding-right: 15px;
 }
-span.toolTip.noMark {
+span.toolTipLeft.noMark,
+span.toolTipRight.noMark,
+span.toolTipTop.noMark,
+span.toolTipBottom.noMark {
     background: none;
     padding-right: 0;
     cursor: auto;
@@ -133,7 +156,7 @@ span.warning {
     padding-left: 20px;
     background: url("../images/icons/warning.gif") no-repeat 0px 7px !important;
     font-size: 12px;
-    color: #990000;
+    color: @colorRed;
 }
 
 span.hint {
@@ -142,12 +165,13 @@ span.hint {
     background: url("../images/icons/hint_toolTipInfo.png") no-repeat;
     background-position: 0px 4px;
     font-size: 12px;
-    color: #947342;
+    color: @colorBrown;
 }
 
 div.alert {
     #shadow > .drop(0,1px,4px,0.1);
 }
+
 
 img.thumbnail {
     display: inline-block;
@@ -168,9 +192,22 @@ img.flag {
 .btn {
     // font-weight: bold;
     color: #666;
-    #shadow > .drop(0,2px,4px,0.3);
+    #shadow > .drop(0,1px,3px,0.2);
     #shadow > .text(0 1px 1px #fff);
 }
+
+
+// SHARED between frontend and backend
+
+span.feinduraInline {
+    color: @logoColorOrange !important;
+
+    em {
+        font-style: normal;
+        color: @logoColorBlue !important;
+    }
+}
+
 
 // GENERAL ELEMENTS
 
@@ -300,6 +337,35 @@ a.up {
     font-weight: bold;
     padding-left: 16px;
     background: url("../images/buttons/up.gif") no-repeat 0px 3px !important;
+}
+
+
+// SHARED between frontend and backend
+
+
+.headerCornerButtons {
+    z-index: 2;
+    position: absolute;
+    top: -5px;
+    left: -4px;
+    #shadow > .drop(0,1px,2px,0.1);
+    #border > .rounded(5px);
+}
+a.logout, a.frontend, a.backend  {
+    @buttonColor: lighten(@logoColorOrange,30%);
+    z-index: 2;
+    font-family: 'Comic Sans MS',"Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 7px;
+    padding-bottom: 6px;
+    #shadow > .none();
+
+    &:hover,
+    &:focus {
+        #gradient > .vertical(@buttonColor,@buttonColor,lighten(@buttonColor,10%));
+    }
 }
 
 

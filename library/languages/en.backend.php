@@ -269,19 +269,19 @@ $langFile['WARNING_TITLE_STARTPAGE']                                      = 'The
 $langFile['WARNING_TEXT_STARTPAGE']                                       = 'Please set a page as start page.<br>Go to <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> and click on the <span class="icons startpage"></span> icon on the desired page.';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Your Document Root couldn\'t be resolved automatically!';
-$langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'To correctly resolve the Document Root, go to the <a href="?site=adminSetup#adminSettings">administrator-settings</a> and set the &quot;real feindura path&quot; of your <span class="feinduraName">fein<span>dura</span></span> CMS manually.';
+$langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'To correctly resolve the Document Root, go to the <a href="?site=adminSetup#adminSettings">administrator-settings</a> and set the &quot;real feindura path&quot; of your <span class="feinduraInline">fein<em>dura</em></span> CMS manually.';
 
-$langFile['WARNING_TITLE_BASEPATH']                                       = '<span class="feinduraName">fein<span>dura</span></span> is not configurated!';
+$langFile['WARNING_TITLE_BASEPATH']                                       = '<span class="feinduraInline">fein<em>dura</em></span> is not configurated!';
 $langFile['WARNING_TEXT_BASEPATH']                                        = 'The <i>base path</i> of the CMS doesn\'t match the one in the administrator-settings.<br>
-Please go to the <a href                                                  ="?site=adminSetup#adminSettings">administrator-settings</a> and configure your <span class="feinduraName">fein<span>dura</span></span> CMS.';
+Please go to the <a href                                                  ="?site=adminSetup#adminSettings">administrator-settings</a> and configure your <span class="feinduraInline">fein<em>dura</em></span> CMS.';
 
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Please activate Javascript';
-$langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>To fully use <span class="feinduraName">fein<span>dura</span></span>, you need to activate  Javascript!</strong>';
+$langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>To fully use <span class="feinduraInline">fein<em>dura</em></span>, you need to activate  Javascript!</strong>';
 
 $langFile['WARNING_TITLE_UNTITLEDCATEGORIES']                             = 'Missing category names';
 
-$langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="feinduraName">fein<span>dura</span></span> is not made for older versions of the Internet Explorer';
-$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'To completely use  <span class="feinduraName">fein<span>dura</span></span> CMS you need at leats Internet Explorer 9.<br><br>Please install a newer version of the Internet Explorer,<br> or install the <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> for Internet Explorer,<br>or download and install the free <a href="http://www.mozilla.org/firefox/">Firefox</a> or <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
+$langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="feinduraInline">fein<em>dura</em></span> is not made for older versions of the Internet Explorer';
+$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'To completely use  <span class="feinduraInline">fein<em>dura</em></span> CMS you need at leats Internet Explorer 9.<br><br>Please install a newer version of the Internet Explorer,<br> or install the <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> for Internet Explorer,<br>or download and install the free <a href="http://www.mozilla.org/firefox/">Firefox</a> or <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
 
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Page is currently being edited...';
 
@@ -302,8 +302,8 @@ $langFile['SIDEBARMENU_TITLE_PAGES']                                      = 'Pag
 // ---------- DASHBOARD
 $langFile['DASHBOARD_TITLE_USERINFO']                                     = 'User Information';
 
-$langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Welcome in <span class="feinduraName">fein<span>dura</span></span>,<br>the Content Management System of your website';
-$langFile['DASHBOARD_TEXT_WELCOME']                                       = '<span class="feinduraName">fein<span>dura</span></span> is a <span class="toolTip" title="flat files::That are files on the server, in which the content of the website is stored.">flat file</span> based Content Management System.<br>Here you can manage the content of your website.';
+$langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Welcome in <span class="feinduraInline">fein<em>dura</em></span>,<br>the Content Management System of your website';
+$langFile['DASHBOARD_TEXT_WELCOME']                                       = '<span class="feinduraInline">fein<em>dura</em></span> is a <span class="toolTipLeft" title="flat files::That are files on the server, in which the content of the website is stored.">flat file</span> based Content Management System.<br>Here you can manage the content of your website.';
 
 $langFile['DASHBOARD_TITLE_STATISTICS']                                   = 'Website-Statistic';
 
@@ -371,7 +371,7 @@ $langFile['FORM_BUTTON_CANCEL']                                           = 'Res
 */
 
 // ---------- ADMIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the title attribute to "<" ">")
-$langFile['ADMINSETUP_TEXT_VERSION']                                      = '<span class="feinduraName">fein<span>dura</span></span> version';
+$langFile['ADMINSETUP_TEXT_VERSION']                                      = '<span class="feinduraInline">fein<em>dura</em></span> version';
 $langFile['ADMINSETUP_TEXT_PHPVERSION']                                   = 'PHP version';
 $langFile['ADMINSETUP_TITLE_DOCUMENTROOT']                                = ' Document Root';
 
@@ -400,11 +400,11 @@ $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Upl
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br][br][span class=hint]The files can be uploaded on the Link button > Upload in the HTML-Editor or in the file manager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]This files can be edited further down, or in the website-settings (if it\'s activated in the user-settings).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Path for website files';
-$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Here you can add a path to website-specific files, which should be editable in [span class=feinduraName]fein[span]dura[/span][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Here you can add a path to website-specific files, which should be editable in [span class=feinduraInline]fein[em]dura[/em][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'Path for stylesheets';
-$langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Here you can add a path to stylesheet files, which should be editable in [span class=feinduraName]fein[span]dura[/span][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Here you can add a path to stylesheet files, which should be editable in [span class=feinduraInline]fein[em]dura[/em][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'Permissions for files and folders';
-$langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS']                           = 'Every file or folder created by [span class=feinduraName]fein[span]dura[/span][/span] will get these permissions.';
+$langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS']                           = 'Every file or folder created by [span class=feinduraInline]fein[em]dura[/em][/span] will get these permissions.';
 $langFile['ADMINSETUP_GENERAL_varName_ifempty']                           = 'If the field is empty the standard name for the GET-Variablen will be used: ';
 $langFile['ADMINSETUP_GENERAL_varName1']                                  = 'Page variable name';
 $langFile['ADMINSETUP_GENERAL_varName1_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]page[/strong]&quot;';
@@ -414,9 +414,9 @@ $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'Mod
 $langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]modul[/strong]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'The name of the [strong]$_GET Variable[/strong] which will be used to link the pages.';
 $langFile['ADMINSETUP_GENERAL_field7']                                    = 'Date format';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Will be used in the [span class=feinduraName]fein[span]dura[/span][/span] Backend and the Website.';
+$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Will be used in the [span class=feinduraInline]fein[em]dura[/em][/span] Backend and the Website.';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Time zone';
-$langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Will only be used by the [span class=feinduraName]fein[span]dura[/span][/span] Backend.';
+$langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Will only be used by the [span class=feinduraInline]fein[em]dura[/em][/span] Backend.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'URL format';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'Speaking URLs';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/example-category/example-page';
@@ -445,7 +445,7 @@ $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'The
 $langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']                          = 'activate Style-Selection';
 $langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'The Styles-Selection allows you to use custom HTML-Elements in the HTML-Editor.[br][br][span class=hint]If this option is activated, you can edit/create HTML-Elements further down.[/span]';
 $langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']                              = 'activate code snippets';
-$langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Makes it possible to place code snippets in the pages.[br]Click on the icon in the HTML-Editor: [img src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png][br][br][span class=hint]If this option is activated, you can edit/create code snippets further down.[/span]';
+$langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Makes it possible to place code snippets in the pages.[br]Click on the icon in the HTML-Editor: [img class=icons src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png][br][br][span class=hint]If this option is activated, you can edit/create code snippets further down.[/span]';
 $langFile['adminSetup_editorSettings_field1']                             = 'ENTER-Key mode';
 $langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER generates a &quot;%s&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Sets which HTML-Tag will be add when pressing the ENTER-Key in the HTML-Editor.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
@@ -666,7 +666,7 @@ $langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'Fil
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'Activate frontend editing';
 
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>User information</strong> in <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
-$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'User Information::This text will be shown in the '.$langFile['BUTTON_DASHBOARD'].' page of [span class=feinduraName]fein[span]dura[/span][/span].';
+$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'User Information::This text will be shown in the '.$langFile['BUTTON_DASHBOARD'].' page of [span class=feinduraInline]fein[em]dura[/em][/span].';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'If you don\'t want to display an information for the user, leave this field empty';
 
 

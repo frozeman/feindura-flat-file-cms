@@ -58,7 +58,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_url"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field1_tip'] ?>">
+        <label for="cfg_url"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field1_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field1'] ?></span></label>
       </div>
       <div class="span5">
@@ -66,70 +66,70 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$GLOBALS['adminConfig']['url']);
         $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$_SERVER["SERVER_NAME"]);
         ?>
-        <input type="text" id="cfg_url" name="cfg_url"<?php if($baseUrl != $checkUrl) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>">
+        <input type="text" id="cfg_url" name="cfg_url"<?php if($baseUrl != $checkUrl) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>">
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_basePath"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field2_tip'] ?>">
+        <label for="cfg_basePath"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field2_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field2'] ?></span></label>
       </div>
       <div class="span5">
         <?php
         $checkPath = GeneralFunctions::URI2Path(GeneralFunctions::getDirname($_SERVER['PHP_SELF']));
         ?>
-        <input type="text" id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field2_inputTip']; ?>">
+        <input type="text" id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_field2_inputTip']; ?>">
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_websitePath"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field8_tip'] ?>">
+        <label for="cfg_websitePath"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field8_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field8'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="cfg_websitePath" name="cfg_websitePath" value="<?php echo $adminConfig['websitePath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
-        <span class="badge badge-warning toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        <input type="text" id="cfg_websitePath" name="cfg_websitePath" value="<?php echo $adminConfig['websitePath']; ?>" class="toolTipRight" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
+        <span class="badge badge-warning toolTipTop" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_uploadPath"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field4_tip'] ?>">
+        <label for="cfg_uploadPath"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field4_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field4'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="cfg_uploadPath" name="cfg_uploadPath" value="<?php echo $adminConfig['uploadPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
-        <span class="badge badge-warning toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        <input type="text" id="cfg_uploadPath" name="cfg_uploadPath" value="<?php echo $adminConfig['uploadPath']; ?>" class="toolTipRight" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
+        <span class="badge badge-warning toolTipTop" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_stylesheetPath"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field6_tip'] ?>">
+        <label for="cfg_stylesheetPath"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field6_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field6'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="cfg_stylesheetPath" name="cfg_stylesheetPath" value="<?php echo $adminConfig['stylesheetPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
-        <span class="badge badge-warning toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        <input type="text" id="cfg_stylesheetPath" name="cfg_stylesheetPath" value="<?php echo $adminConfig['stylesheetPath']; ?>" class="toolTipRight" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
+        <span class="badge badge-warning toolTipTop" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_websiteFilesPath"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field5_tip'] ?>">
+        <label for="cfg_websiteFilesPath"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field5_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field5'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="cfg_websiteFilesPath" name="cfg_websiteFilesPath" value="<?php echo $adminConfig['websiteFilesPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
-        <span class="badge badge-warning toolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
+        <input type="text" id="cfg_websiteFilesPath" name="cfg_websiteFilesPath" value="<?php echo $adminConfig['websiteFilesPath']; ?>" class="toolTipRight" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
+        <span class="badge badge-warning toolTipTop" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_permissions"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS'] ?>">
+        <label for="cfg_permissions"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] ?></span></label>
       </div>
       <div class="span5">
@@ -146,7 +146,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_timeZone"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_TIP_TIMEZONE'] ?>">
+        <label for="cfg_timeZone"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_TIP_TIMEZONE'] ?>">
         <?php echo $langFile['ADMINSETUP_TEXT_TIMEZONE'] ?></span></label>
       </div>
       <div class="span5">
@@ -183,7 +183,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_dateFormat"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field7_tip'] ?>">
+        <label for="cfg_dateFormat"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field7_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field7'] ?></span></label>
       </div>
       <div class="span5">
@@ -198,7 +198,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <!-- URL FORMAT -> SPEAKING URLS -->
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_speakingUrl"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_tip'] ?>">
+        <label for="cfg_speakingUrl"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl'] ?></span></label>
       </div>
       <div class="span5">
@@ -207,9 +207,9 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
           ? apache_get_modules()
           : array('mod_rewrite');
         ?>
-        <select id="cfg_speakingUrl" name="cfg_speakingUrl" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_warning'] ?>"<?php if(!in_array('mod_rewrite',$apacheModules)) echo ' disabled="disabled"'; ?>>
-          <option value="true"<?php if($adminConfig['speakingUrl'] == 'true') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_true'].' -> '.$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'];?></option>
-          <option value=""<?php if($adminConfig['speakingUrl'] == '') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_false'].' -> '.sprintf($langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'],$adminConfig['varName']['category'],$adminConfig['varName']['page']);?></option>
+        <select id="cfg_speakingUrl" name="cfg_speakingUrl" class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_warning'] ?>"<?php if(!in_array('mod_rewrite',$apacheModules)) echo ' disabled="disabled"'; ?>>
+          <option value="true"<?php if($adminConfig['speakingUrl'] == 'true') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_true'].' -> &quot;'.$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'].'&quot;';?></option>
+          <option value=""<?php if($adminConfig['speakingUrl'] == '') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_false'].' -> &quot;'.sprintf($langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'],$adminConfig['varName']['category'],$adminConfig['varName']['page']).'&quot;';?></option>
         </select>
         <!-- <span class="badge badge-warning">
         <?php
@@ -231,32 +231,32 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_varNamePage"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_varName_tip'] ?>">
+        <label for="cfg_varNamePage"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_varName_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_varName1'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="cfg_varNamePage" name="cfg_varNamePage" value=<?php echo '"'.$adminConfig['varName']['page'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName1'].'::'.$langFile['ADMINSETUP_GENERAL_varName1_inputTip']; ?>">
+        <input type="text" id="cfg_varNamePage" name="cfg_varNamePage" value=<?php echo '"'.$adminConfig['varName']['page'].'"'.$varNamesStyle; ?> class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName1'].'::'.$langFile['ADMINSETUP_GENERAL_varName1_inputTip']; ?>">
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_varNameCategory"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_varName_tip'] ?>">
+        <label for="cfg_varNameCategory"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_varName_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_varName2'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="cfg_varNameCategory" name="cfg_varNameCategory" value=<?php echo '"'.$adminConfig['varName']['category'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName2'].'::'.$langFile['ADMINSETUP_GENERAL_varName2_inputTip']; ?>">
+        <input type="text" id="cfg_varNameCategory" name="cfg_varNameCategory" value=<?php echo '"'.$adminConfig['varName']['category'].'"'.$varNamesStyle; ?> class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName2'].'::'.$langFile['ADMINSETUP_GENERAL_varName2_inputTip']; ?>">
       </div>
     </div>
 
         <!--
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_varNameModul"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_GENERAL_varName_tip'] ?>">
+        <label for="cfg_varNameModul"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_varName_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_varName3'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="cfg_varNameModul" name="cfg_varNameModul" value=<?php echo '"'.$adminConfig['varName']['modul'].'"'.$varNamesStyle; ?> class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName3'].'::'.$langFile['ADMINSETUP_GENERAL_varName3_inputTip']; ?>">
+        <input type="text" id="cfg_varNameModul" name="cfg_varNameModul" value=<?php echo '"'.$adminConfig['varName']['modul'].'"'.$varNamesStyle; ?> class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_varName3'].'::'.$langFile['ADMINSETUP_GENERAL_varName3_inputTip']; ?>">
       </div>
     </div>
         -->
@@ -265,20 +265,20 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
 
     <div class="row">
       <div class="span3 formLeft">
-        <input type="checkbox" id="cfg_cache" name="cfg_cache" value="true"<?php if($adminConfig['cache']['active']) echo ' checked="checked"'; ?> class="toolTip" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHE'].'::'.$langFile['ADMINSETUP_TIP_CACHE']; ?>"><br>
+        <input type="checkbox" id="cfg_cache" name="cfg_cache" value="true"<?php if($adminConfig['cache']['active']) echo ' checked="checked"'; ?> class="toolTipLeft" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHE'].'::'.$langFile['ADMINSETUP_TIP_CACHE']; ?>"><br>
       </div>
       <div class="span5">
-        <label for="cfg_cache"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_TIP_CACHE']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_CACHE']; ?></span></label>
+        <label for="cfg_cache"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_TIP_CACHE']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_CACHE']; ?></span></label>
       </div>
     </div>
 
     <div class="row" id="cacheTimeoutRow"<?php if(!$adminConfig['cache']['active']) echo ' style="display:none"'; ?>>
       <div class="span3 formLeft">
-        <label for="cfg_cacheTimeout"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_TIP_CACHETIMEOUT'] ?>">
+        <label for="cfg_cacheTimeout"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_TIP_CACHETIMEOUT'] ?>">
         <?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="number" step="0.5" id="cfg_cacheTimeout" name="cfg_cacheTimeout" value=<?php echo '"'.$adminConfig['cache']['timeout'].'"'; ?> class="inputToolTip short" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'].'::'.$langFile['ADMINSETUP_TIP_CACHETIMEOUT']; ?>"><span class="badge badge-warning"><?php echo $langFile['ADMINSETUP_HINT_CACHETIMEOUT']; ?></span>
+        <input type="number" step="0.5" id="cfg_cacheTimeout" name="cfg_cacheTimeout" value=<?php echo '"'.$adminConfig['cache']['timeout'].'"'; ?> class="toolTipRight short" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'].'::'.$langFile['ADMINSETUP_TIP_CACHETIMEOUT']; ?>"><span class="badge badge-warning"><?php echo $langFile['ADMINSETUP_HINT_CACHETIMEOUT']; ?></span>
       </div>
     </div>
 
@@ -301,7 +301,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         <input type="checkbox" id="cfg_editorHtmlLawed" name="cfg_editorHtmlLawed" onclick="disableSafeHtml(this);" value="true"<?php if($adminConfig['editor']['htmlLawed']) echo ' checked="checked"'; ?>>
       </div>
       <div class="span5">
-        <label for="cfg_editorHtmlLawed"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']; ?></span></label>
+        <label for="cfg_editorHtmlLawed"><span class="toolTipRight" title="::<?php echo $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']; ?></span></label>
       </div>
     </div>
 
@@ -310,7 +310,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         <input type="checkbox" id="cfg_editorSafeHtml" name="cfg_editorSafeHtml" value="true"<?php if(!$adminConfig['editor']['htmlLawed']) echo ' disabled="disabled"';if($adminConfig['editor']['safeHtml']) echo ' checked="checked"'; ?>>
       </div>
       <div class="span5">
-        <label for="cfg_editorSafeHtml"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']; ?></span></label>
+        <label for="cfg_editorSafeHtml"><span class="toolTipRight" title="::<?php echo $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']; ?></span></label>
       </div>
     </div>
 
@@ -319,7 +319,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         <input type="checkbox" id="cfg_editorStyles" name="cfg_editorStyles" value="true"<?php if($adminConfig['editor']['editorStyles']) echo ' checked="checked"'; ?>>
       </div>
       <div class="span5">
-        <label for="cfg_editorStyles"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']; ?></span></label>
+        <label for="cfg_editorStyles"><span class="toolTipRight" title="::<?php echo $langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']; ?></span></label>
       </div>
     </div>
 
@@ -328,7 +328,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
         <input type="checkbox" id="cfg_snippets" name="cfg_snippets" value="true"<?php if($adminConfig['editor']['snippets']) echo ' checked="checked"'; ?>>
       </div>
       <div class="span5">
-        <label for="cfg_snippets"><span class="toolTip" title="::<?php echo $langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']; ?></span></label>
+        <label for="cfg_snippets"><span class="toolTipRight" title="::<?php echo $langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']; ?></span></label>
       </div>
     </div>
 
@@ -336,7 +336,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_editorEnterMode"><span class="toolTip" title="::<?php echo $langFile['adminSetup_editorSettings_field1_tip'] ?>">
+        <label for="cfg_editorEnterMode"><span class="toolTipLeft" title="::<?php echo $langFile['adminSetup_editorSettings_field1_tip'] ?>">
         <?php echo $langFile['adminSetup_editorSettings_field1'] ?></span></label>
       </div>
       <div class="span5">
@@ -355,39 +355,39 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 
     <div class="row">
       <div class="span3 formLeft">
-        <span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_STYLEFILE'] ?>">
+        <span class="toolTipLeft" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_STYLEFILE'] ?>">
         <?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE'] ?></span>
       </div>
       <div class="span5">
-        <div id="adminStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>">
+        <div id="adminStyleFilesInputs">
         <?php
 
           echo showStyleFileInputs($categoryConfig[0]['styleFile'],'cfg_editorStyleFile');
 
         ?>
         </div>
-        <a href="#" class="addStyleFilePath addButton toolTip" style="margin-right: 10px;float:left;" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
+        <a href="#" class="addStyleFilePath addButton toolTipLeft" style="margin-right: 10px;float:left;" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
         <span class="badge" style="position:relative; top: 8px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_editorStyleId"><span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_ID'] ?>">
+        <label for="cfg_editorStyleId"><span class="toolTipLeft" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_ID'] ?>">
         <?php echo $langFile['STYLESHEETS_TEXT_ID'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="cfg_editorStyleId" name="cfg_editorStyleId" class="inputToolTip" value="<?php echo $categoryConfig[0]['styleId']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field3_inputTip']; ?>">
+        <input type="text" id="cfg_editorStyleId" name="cfg_editorStyleId" class="toolTipRight" value="<?php echo $categoryConfig[0]['styleId']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field3_inputTip']; ?>">
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_editorStyleClass"><span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_CLASS'] ?>">
+        <label for="cfg_editorStyleClass"><span class="toolTipLeft" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_CLASS'] ?>">
         <?php echo $langFile['STYLESHEETS_TEXT_CLASS'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="cfg_editorStyleClass" name="cfg_editorStyleClass" class="inputToolTip" value="<?php echo $categoryConfig[0]['styleClass']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field4_inputTip']; ?>">
+        <input type="text" id="cfg_editorStyleClass" name="cfg_editorStyleClass" class="toolTipRight" value="<?php echo $categoryConfig[0]['styleClass']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field4_inputTip']; ?>">
       </div>
     </div>
 

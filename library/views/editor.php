@@ -87,27 +87,27 @@ if($newPage) {
 // -> checks for startpage, and show STARTPAGE ICON
 if($websiteConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
   $startPageIcon = '<img src="library/images/icons/startPageIcon_middle.png" class="blockH1Icon" width="33" height="30" alt="icon">';
-  $startPageTitle = ' toolTip" title="'.$langFile['SORTABLEPAGELIST_functions_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
+  $startPageTitle = ' toolTipTop" title="'.$langFile['SORTABLEPAGELIST_functions_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }
 
 // shows the text of the sorting of a CATEGORY
 if($categoryConfig[$_GET['category']]['sorting'] == 'byPageDate')
-  $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23">';
+  $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="toolTipTop" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23">';
 elseif($categoryConfig[$_GET['category']]['sorting'] == 'alphabetical')
-  $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23">';
+  $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="toolTipTop" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23">';
 else
   $sorting = '';
 
 // -> show the page PAGE HEADLINE
-echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColorClasses.'"'.$titleIsEditable.$titleData.'>'.$pageTitle.'</span>'.$sorting.'<span style="display:none;" class="toolTip noMark notSavedSignPage'.$pageContent['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></h1>';
+echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColorClasses.'"'.$titleIsEditable.$titleData.'>'.$pageTitle.'</span>'.$sorting.'<span style="display:none;" class="toolTipRight noMark notSavedSignPage'.$pageContent['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></h1>';
 
 // shows the PUBLIC OR UNPUBLIC in headline
 if(!$newPage) {
   echo '<div style="z-index: 2;position:absolute;top: 10px; right:15px;">';
   if($pageContent['public'])
-    echo ' <a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=changePageStatus&amp;public=1&amp;reload='.rand(0,999).'#pageInformation" class="toolTip noMark image" title="'.$langFile['STATUS_PAGE_PUBLIC'].'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'"><img src="library/images/icons/page_public.png" '.$publicSignStyle.' alt="icon public" width="27" height="27"></a>';
+    echo ' <a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=changePageStatus&amp;public=1&amp;reload='.rand(0,999).'#pageInformation" class="toolTipTop noMark image" title="'.$langFile['STATUS_PAGE_PUBLIC'].'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'"><img src="library/images/icons/page_public.png" '.$publicSignStyle.' alt="icon public" width="27" height="27"></a>';
   else
-    echo ' <a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=changePageStatus&amp;reload='.rand(0,999).'#pageInformation" class="toolTip noMark image" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'"><img src="library/images/icons/page_nonpublic.png"'.$publicSignStyle.' alt="icon nonpublic" width="27" height="27"></a>';
+    echo ' <a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=changePageStatus&amp;reload='.rand(0,999).'#pageInformation" class="toolTipTop noMark image" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'"><img src="library/images/icons/page_nonpublic.png"'.$publicSignStyle.' alt="icon nonpublic" width="27" height="27"></a>';
   echo '</div>';
 }
 
@@ -132,7 +132,7 @@ if(!$newPage) {
     if(!$newPage && GeneralFunctions::isAdmin())
       echo '<div class="row">
               <div class="span3 formLeft">
-                <span class="info toolTip" title="::'.$langFile['EDITOR_pageinfo_id_tip'].'"><strong>'.$langFile['EDITOR_pageinfo_id'].'</strong></span>
+                <span class="info toolTipLeft" title="::'.$langFile['EDITOR_pageinfo_id_tip'].'"><strong>'.$langFile['EDITOR_pageinfo_id'].'</strong></span>
               </div>
               <div class="span5">
                 <span>'.$_GET['page'].'</span>
@@ -300,22 +300,22 @@ $hidden = '';
       ?>
     <div class="row">
       <div class="span3 formLeft">
-        <label for="edit_title"><span class="toolTip" title="::<?php echo $langFile['EDITOR_pageSettings_title_tip'] ?>">
+        <label for="edit_title"><span class="toolTipLeft" title="::<?php echo $langFile['EDITOR_pageSettings_title_tip'] ?>">
         <?php echo $langFile['EDITOR_pageSettings_title'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="edit_title" name="title" value="<?php echo str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent,'title',true)); ?>"<?php echo $autofocus; ?> class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">
+        <input type="text" id="edit_title" name="title" value="<?php echo str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent,'title',true)); ?>"<?php echo $autofocus; ?> class="toolTipRight" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">
       </div>
     </div>
 
     <!-- ***** PAGE DESCRIPTION -->
     <div class="row">
       <div class="span3 formLeft">
-        <label for="edit_description"><span class="toolTip" title="::<?php echo $langFile['EDITOR_pageSettings_field1_tip']; ?>">
+        <label for="edit_description"><span class="toolTipLeft" title="::<?php echo $langFile['EDITOR_pageSettings_field1_tip']; ?>">
         <?php echo $langFile['EDITOR_pageSettings_field1']; ?></span></label>
       </div>
       <div class="span5">
-        <textarea id="edit_description" name="description" style="white-space:normal;" class="inputToolTip autogrow" title="<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($pageContent,'description',true); ?></textarea>
+        <textarea id="edit_description" name="description" style="white-space:normal;" class="toolTipRight autogrow" title="<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($pageContent,'description',true); ?></textarea>
       </div>
     </div>
     <?php
@@ -352,21 +352,21 @@ $hidden = '';
 
           // CHECKs the DATE FORMAT
           if(empty($pageDate) || validateDateString($pageDate) === false)
-            echo '<label for="pageDate[before]" class="toolTip red" title="'.$langFile['EDITOR_pageSettings_pagedate_error'].'::'.$langFile['EDITOR_pageSettings_pagedate_error_tip'].'[br][strong]'.$dateFormat.'[/strong]"><strong>'.$langFile['EDITOR_pageSettings_pagedate_error'].'</strong></label>';
+            echo '<label for="pageDate[before]" class="toolTipLeft red" title="'.$langFile['EDITOR_pageSettings_pagedate_error'].'::'.$langFile['EDITOR_pageSettings_pagedate_error_tip'].'[br][strong]'.$dateFormat.'[/strong]"><strong>'.$langFile['EDITOR_pageSettings_pagedate_error'].'</strong></label>';
           else
-            echo '<label for="pageDate[before]" class="toolTip" title="'.$langFile['EDITOR_pageSettings_field3'].'::'.$langFile['EDITOR_pageSettings_field3_tip'].'">'.$langFile['EDITOR_pageSettings_field3'].'</label>';
+            echo '<label for="pageDate[before]" class="toolTipLeft" title="'.$langFile['EDITOR_pageSettings_field3'].'::'.$langFile['EDITOR_pageSettings_field3_tip'].'">'.$langFile['EDITOR_pageSettings_field3'].'</label>';
         ?>
       </div>
       <div class="span5">
           <?php
           $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent,'pageDate',true);
           ?>
-          <input type="text" name="pageDate[before]" id="pageDate[before]" value="<?php echo $pageDateBeforeAfter['before']; ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;">
+          <input type="text" name="pageDate[before]" id="pageDate[before]" value="<?php echo $pageDateBeforeAfter['before']; ?>" class="toolTipTop" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;">
 
           <?php
 
           // -> creates DAY selection
-          $pageDateTags['day'] = '<select name="pageDate[day]" class="toolTip" title="'.$langFile['EDITOR_pageSettings_pagedate_day_inputTip'].'">'."\n";
+          $pageDateTags['day'] = '<select name="pageDate[day]" class="toolTipTop" title="'.$langFile['EDITOR_pageSettings_pagedate_day_inputTip'].'">'."\n";
           for($i = 1; $i <= 31; $i++) {
             // adds following zero
             if(strlen($i) == 1)
@@ -382,7 +382,7 @@ $hidden = '';
           $pageDateTags['day'] .= '</select>'."\n";
 
           // -> creates MONTH selection
-          $pageDateTags['month'] = '<select name="pageDate[month]" class="toolTip" title="'.$langFile['EDITOR_pageSettings_pagedate_month_inputTip'].'">'."\n";
+          $pageDateTags['month'] = '<select name="pageDate[month]" class="toolTipTop" title="'.$langFile['EDITOR_pageSettings_pagedate_month_inputTip'].'">'."\n";
           for($i = 1; $i <= 12; $i++) {
             // adds following zero
             if(strlen($i) == 1)
@@ -406,7 +406,7 @@ $hidden = '';
           else
             $year = null;
 
-          $pageDateTags['year'] = '<input type="number" step="1" class="short toolTip" name="pageDate[year]" title="'.$langFile['EDITOR_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4">'."\n";
+          $pageDateTags['year'] = '<input type="number" step="1" class="short toolTipTop" name="pageDate[year]" title="'.$langFile['EDITOR_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4">'."\n";
 
           // -> SHOWS the PAGE DATE INPUTS
           switch ($adminConfig['dateFormat']) {
@@ -427,7 +427,7 @@ $hidden = '';
 
           ?>
 
-          <input type="number" step="1" name="pageDate[after]" value="<?php echo $pageDateBeforeAfter['after']; ?>" class="toolTip" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_after_inputTip']; ?>" style="width:122px;">
+          <input type="number" step="1" name="pageDate[after]" value="<?php echo $pageDateBeforeAfter['after']; ?>" class="toolTipTop" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_after_inputTip']; ?>" style="width:122px;">
       </div>
     </div>
 
@@ -439,11 +439,11 @@ $hidden = '';
     <!-- ***** TAGS -->
     <div class="row">
       <div class="span3 formLeft">
-        <label for="edit_tags"><span class="toolTip" title="::<?php echo $langFile['EDITOR_pageSettings_field2_tip'] ?>">
+        <label for="edit_tags"><span class="toolTipLeft" title="::<?php echo $langFile['EDITOR_pageSettings_field2_tip'] ?>">
         <?php echo $langFile['EDITOR_pageSettings_field2'] ?></span></label>
       </div>
       <div class="span5">
-          <input type="text" id="edit_tags" name="tags" class="inputToolTip" value="<?php echo GeneralFunctions::getLocalized($pageContent,'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>">
+          <input type="text" id="edit_tags" name="tags" class="toolTipRight" value="<?php echo GeneralFunctions::getLocalized($pageContent,'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>">
       </div>
     </div>
     <?php } ?>
@@ -456,12 +456,12 @@ $hidden = '';
     <!-- ***** Subcategory selection -->
     <div class="row">
       <div class="span3 formLeft">
-        <label for="subCategory" class="toolTip" title="::<?php echo $langFile['EDITOR_TIP_SUBCATEGORY']; ?>"><strong><?php echo $langFile['EDITOR_TEXT_SUBCATEGORY']; ?></strong>
+        <label for="subCategory" class="toolTipLeft" title="::<?php echo $langFile['EDITOR_TIP_SUBCATEGORY']; ?>"><strong><?php echo $langFile['EDITOR_TEXT_SUBCATEGORY']; ?></strong>
         <img src="library/images/icons/categoryIcon_subCategory_middle.png" style="margin-top: -5px;" alt="icon">
         </label>
       </div>
       <div class="span5">
-        <select name="subCategory" id="subCategory" class="toolTip" title="<?php echo $langFile['EDITOR_TEXT_SUBCATEGORY'].'::'.$langFile['EDITOR_TIP_SUBCATEGORY']; ?>">';
+        <select name="subCategory" id="subCategory" class="toolTipRight" title="<?php echo $langFile['EDITOR_TEXT_SUBCATEGORY'].'::'.$langFile['EDITOR_TIP_SUBCATEGORY']; ?>">';
         <?php
           echo '<option>-</option>';
           // ->> goes trough categories and list them
@@ -493,12 +493,12 @@ $hidden = '';
 
           // shows the public or unpublic picture
           if($pageContent['public'])
-            echo '<img src="library/images/icons/page_public.png" class="toolTip" title="'.$langFile['STATUS_PAGE_PUBLIC'].'"'.$publicSignStyle.' alt="icon public" width="27" height="27">';
+            echo '<img src="library/images/icons/page_public.png" class="toolTipBottom" title="'.$langFile['STATUS_PAGE_PUBLIC'].'"'.$publicSignStyle.' alt="icon public" width="27" height="27">';
           else
-            echo '<img src="library/images/icons/page_nonpublic.png" class="toolTip" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'"'.$publicSignStyle.' alt="icon nonpublic" width="27" height="27">';
+            echo '<img src="library/images/icons/page_nonpublic.png" class="toolTipBottom" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'"'.$publicSignStyle.' alt="icon nonpublic" width="27" height="27">';
 
           ?>
-          &nbsp;<span class="toolTip" title="::<?php echo $langFile['EDITOR_pageSettings_field4_tip'] ?>">
+          &nbsp;<span class="toolTipRight" title="::<?php echo $langFile['EDITOR_pageSettings_field4_tip'] ?>">
           <?php echo $langFile['EDITOR_pageSettings_field4']; ?></span></label>
         </div>
       </div>
@@ -527,7 +527,7 @@ if(is_array($activatedPlugins) && count($activatedPlugins) >= 1) {
 // shows the block below if it is the ones which is saved before
 $hidden = ($newPage || $savedForm == 'pluginSettings') ? '' : ' hidden';
 $blockContentEdited = (isset($pageContent['plugins']))
-  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="toolTip" title="'.$langFile['EDITOR_pluginSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" width="27" height="23">'
+  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="toolTipLeft" title="'.$langFile['EDITOR_pluginSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" width="27" height="23">'
   : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
@@ -592,7 +592,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
                 ? $pluginLangFile[$key]
                 : $key ;
               $inputLength = (strpos(strtolower($key),'number') !== false || is_numeric($value)) ? ' short' : '';
-              $keyTip = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTip'.$inputLength.'" title="'.$pluginLangFile[$key.'_tip'].'::"' : '';
+              $keyTip = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTipLeft'.$inputLength.'" title="'.$pluginLangFile[$key.'_tip'].'::"' : '';
 
 
               // BOOL
@@ -744,7 +744,7 @@ $hidden = ' hidden';
     <div class="span5" style="font-size:15px;">
       <?php
       // -> FIRST VISIT
-      echo '<span class="info brown toolTip" title="'.$firstVisitTime.'::">'.$firstVisitDate.'</span> ';
+      echo '<span class="info brown toolTipLeft" title="'.$firstVisitTime.'::">'.$firstVisitDate.'</span> ';
       ?>
     </div>
   </div>
@@ -756,7 +756,7 @@ $hidden = ' hidden';
     <div class="span5" style="font-size:15px;">
       <?php
       // -> LAST VISIT
-      echo '<span class="info blue toolTip" title="'.$lastVisitTime.'::">'.$lastVisitDate.'</span> ';
+      echo '<span class="info blue toolTipLeft" title="'.$lastVisitTime.'::">'.$lastVisitDate.'</span> ';
       ?>
     </div>
   </div>
@@ -861,7 +861,7 @@ $hidden = ($savedForm == 'advancedPageSettings') ? '' : ' hidden';
 $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['styleFile'] != 'a:0:{}') ||
                        (!empty($pageContent['styleId']) &&  $pageContent['styleId'] != 'a:0:{}') ||
                        (!empty($pageContent['styleClass']) && $pageContent['styleClass'] != 'a:0:{}'))
-  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="toolTip" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" style="width:27px;height:23px;">'
+  ? '&nbsp;<img src="library/images/icons/edited_small.png" class="toolTipLeft" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" style="width:27px;height:23px;">'
   : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
@@ -870,36 +870,36 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
 
     <div class="row">
       <div class="span3 formLeft">
-        <span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE']; ?></span>
+        <span class="toolTipLeft" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE']; ?></span>
       </div>
       <div class="span5">
-        <div id="pageStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>">
+        <div id="pageStyleFilesInputs" class="toolTipTop" title="::<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
         <?php
 
-        echo showStyleFileInputs(getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']),'styleFile');
+          echo showStyleFileInputs(getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']),'styleFile');
 
         ?>
         </div>
-        <a href="#" class="addStyleFilePath addButton toolTip" style="margin-right: 10px;float:left;" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
+        <a href="#" class="addStyleFilePath addButton toolTipLeft" style="margin-right: 10px;float:left;" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
         <span class="badge" style="position:relative; top: 8px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_ID'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_ID']; ?></span>
+        <span class="toolTipLeft" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_ID'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_ID']; ?></span>
       </div>
       <div class="span5">
-        <input type="text" name="styleId" value="<?php echo getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
+        <input type="text" name="styleId" value="<?php echo getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="toolTipRight" title="::<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <span class="toolTip" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
+        <span class="toolTipLeft" title="::<?php echo $langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
       </div>
       <div class="span5">
-        <input type="text" name="styleClass" value="<?php echo getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
+        <input type="text" name="styleClass" value="<?php echo getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="toolTipRight" title="::<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>">
       </div>
     </div>
 

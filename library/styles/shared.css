@@ -10,95 +10,17 @@
     You should have received a copy of the GNU General Public License along with this program;
 */
 
-.feinduraName {
-    color: #DD6C1D !important;
-    }
-.feinduraName span {
-    color: #3979A5 !important;
-    }
+
 
 /****************/
 /* --- LOGOUT */
 
-a.logout, a.feindura_logout {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 2;
-  display: block;
-  width: 28px;
-  height: 26px;
-  background: url("../images/buttons/header_out.png") no-repeat;
-}
-a.logout:hover, a.feindura_logout:hover, a.logout:focus, a.feindura_logout:focus {
-  background-position: 0px -26px;
-}
 
-a.toWebsite, a.feindura_toBackend {
-  position: absolute;
-  top: 0px;
-  left: 28px;
-  z-index: 2;
-  display: block;
-  width: 28px;
-  height: 26px;
-}
-a.toWebsite {
-  background: url("../images/buttons/header_toWebsite.png") no-repeat;
-}
-a.feindura_toBackend {
-  background: url("../images/buttons/header_toBackend.png") no-repeat;
-}
-a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toBackend:focus {
-  background-position: 0px -26px;
-}
 
 /* --- TOOLTIP BOX */
 
 /* format of the toolTip box */
-.feindura_toolTipBox {
-  z-index: 20020;
-  padding: 15px 20px;
-  max-width: 250px;
-  min-width: 100px;
-  border: 1px solid #F7F7F7;
-  -webkit-border-radius:0 10px 10px 10px;
-  -moz-border-radius:0 10px 10px 10px;
-  border-radius:0 10px 10px 10px;
-  background-color: #fdfdfd;
-  -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.1);
-  -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.1);
-  box-shadow: 0 1px 10px rgba(0,0,0,0.4), inset 0 0px 10px rgba(0,0,0,0.1);
-  font: 12px Verdana, Arial, Sans-serif, Serif !important;
-}
 
-.feindura_toolTipBox .tip-title {
-  position: relative;
-  z-index: 2;
-  margin: 0px 0px;
-  margin-bottom: 2px;
-  color:#947342;
-  text-align: center;
-  word-wrap: break-word;
-  font-size: 12px !important;
-}
-.feindura_toolTipBox .tip-title span  {
-  color: #666666;
-}
-.feindura_toolTipBox .tip-text  {
-  position: relative;
-  z-index: 2;
-  color: #666666;
-  word-wrap: break-word;
-  font-size: 11px !important;
-}
-
-.feindura_toolTipBox .tip {
-  position: relative;
-  z-index: 1;
-  border: none;
-  line-height: 20px;
-}
 .feindura_toolTipBox .tip ul {
   margin: 0px;
   margin-left: 15px;
@@ -108,10 +30,6 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
 .feindura_toolTipBox .tip ul li {
   margin: 0px;
   padding: 2px 0px;
-}
-
-.feindura_toolTipBox span.hint {
-  background-position: 0px 4px !important;
 }
 
     

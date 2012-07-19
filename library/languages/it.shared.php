@@ -23,7 +23,7 @@
 
 // -> GENERAL <-
 
-$sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Disconnetti::Clicca qui per uscire da feindura e rifare il login.';
+$sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Clicca qui per uscire da feindura e rifare il login.';
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'Imposta Come Pagina Iniziale';
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage_set'] = 'Pagina Iniziale';
 
@@ -52,7 +52,7 @@ $sharedLangFile['SEARCH_TEXT_TIME_2']                       = 'secondi';
 $sharedLangFile['errorWindow_h1']                           = 'Si &#232; verificato un errore!';
 $sharedLangFile['SORTABLEPAGELIST_setStartPage_error_save'] = '<b>Impossibile impostare la pagina iniziale.</b>';
 $sharedLangFile['EDITOR_savepage_error_save']               = '<b>La pagina non può essere salvata.</b>';
-$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'ERRORE<br><br><span class="feinduraName">fein<span>dura</span></span> richiede almeno la versione PHP 5.2.3'; // PHP 5.2.3
+$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'ERRORE<br><br><span class="feinduraInline">fein<em>dura</em></span> richiede almeno la versione PHP 5.2.3'; // PHP 5.2.3
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

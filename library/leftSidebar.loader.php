@@ -42,7 +42,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       $hidden = ' hidden';
 
     echo '<div class="sidebarMenu fixed brown'.$hidden.'">
-    <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
+    <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTipRight" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
     <div class="menuWrapper">
       <menu class="vertical">';
 
@@ -51,7 +51,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
           // -> show page ID
           $pageId = (GeneralFunctions::isAdmin())
-            ? ' class="toolTip noMark" title="ID '.$page['id'].'"'
+            ? ' class="toolTipRight noMark" title="ID '.$page['id'].'"'
             : '';
 
           if($_GET['page'] == $page['id'])
@@ -59,7 +59,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
           else
             $pageSelected = '';
 
-          echo '<li><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span'.$pageId.'>'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+          echo '<li><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span'.$pageId.'>'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'</span><span style="display:none;" class="toolTipRight noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
           $tabIndex++;
         }
       } else {
@@ -94,7 +94,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
           // -> show category ID
           $categoryId = (GeneralFunctions::isAdmin())
-            ? ' class="toolTip noMark" title="ID '.$category['id'].'"'
+            ? ' class="toolTipRight noMark" title="ID '.$category['id'].'"'
             : '';
 
           if($_GET['category'] == $category['id'])
@@ -117,7 +117,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       echo '<div class="spacer arrow"></div>';
 
       echo '<div class="sidebarMenu free gray">
-      <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</span><a href="#" class="toolTip" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'::">&nbsp;</a></div>
+      <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</span><a href="#" class="toolTipRight" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'::">&nbsp;</a></div>
       <div class="menuWrapper">
         <menu class="vertical">';
 
@@ -127,7 +127,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
             // -> show page ID
             $pageId = (GeneralFunctions::isAdmin())
-              ? ' class="toolTip noMark" title="ID '.$page['id'].'"'
+              ? ' class="toolTipRight noMark" title="ID '.$page['id'].'"'
               : '';
 
             if($_GET['page'] == $page['id'])
@@ -135,7 +135,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
             else
               $pageSelected = '';
 
-            echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span'.$pageId.'>'.GeneralFunctions::getLocalized($page,'title').'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+            echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span'.$pageId.'>'.GeneralFunctions::getLocalized($page,'title').'</span><span style="display:none;" class="toolTipRight noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
             $tabIndex++;
           }
         } else {
@@ -194,12 +194,12 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
             echo '<li';
             // your own user
             if($_SESSION['feinduraSession']['login']['user'] == $user['id'])
-              echo ' class="toolTip online brown" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
+              echo ' class="toolTipRight online brown" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
             // users who are online too
             else {
               foreach($userCache as $cachedUser) {
                 if($user['username'] == $cachedUser['username']) {
-                  echo ' class="toolTip online" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$cachedUser["timestamp"]).'"';
+                  echo ' class="toolTipRight online" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$cachedUser["timestamp"]).'"';
                     break;
                 }
               }
@@ -235,7 +235,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       <p>'.PHP_VERSION.'</p>';
 
       echo '<h3>'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'</h3>';
-      echo '<p class="toolTip" title="'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'::'.DOCUMENTROOT.'">'.DOCUMENTROOT.'</p>
+      echo '<p class="toolTipRight" title="'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'::'.DOCUMENTROOT.'">'.DOCUMENTROOT.'</p>
           </div></div>';
 
       break;
@@ -273,7 +273,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
         echo '<div class="spacer"></div>';
 
         echo '<div class="center">';
-          echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY'].'::"></a>';
+          echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTipBottom" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY'].'::"></a>';
         echo '</div>';
 
       }
@@ -298,7 +298,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
                 // -> show a anchor link to each user
                 foreach($userConfig as $user) {
-                  $userIsAdmin = ($user['admin']) ? ' toolTip" style="font-weight:bold" title="'.$langFile['USERSETUP_admin'].'::"' : '"';
+                  $userIsAdmin = ($user['admin']) ? ' toolTipRight" title="'.$langFile['USERSETUP_admin'].'::"' : '"';
                   echo '<li><a href="#userId'.$user['id'].'" class="'.$userIsAdmin.' tabindex="'.$tabIndex.'"><span>'.$user['username'].'</span></a></li>';
                   $tabIndex++;
                 }
@@ -310,7 +310,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
         echo '<div class="spacer"></div>';
 
         echo '<div class="center">';
-          echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTip" title="'.$langFile['USERSETUP_createUser'].'::"></a>';
+          echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTipBottom" title="'.$langFile['USERSETUP_createUser'].'::"></a>';
         echo '</div>';
 
       } echo '</div>';
@@ -322,7 +322,6 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
       echo '<div id="sidebarSelection">';
       echo '<div class="sidebarInfo">';
-      echo '<div class="content">';
 
       // link the backup files
       $backups = GeneralFunctions::readFolder(dirname(__FILE__).'/../backups/');
@@ -338,7 +337,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
             ? $langFile['BACKUP_TITLE_BACKUP']
             : $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'];
           $lastBackups .= '<br>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($backupTime)).' '.formatTime($backupTime).'</a>';
-          $lastBackups .= '<a href="?site=backup&amp;status=deleteBackup&amp;file='.basename($backupFile).'" onclick="openWindowBox(\'library/views/windowBox/deleteBackup.php?status=deleteBackup&amp;file='.basename($backupFile).'\',\''.$langFile['BACKUP_TITLE_BACKUP'].'\');return false;" class="deleteButton toolTip" title="'.$langFile['BACKUP_TOOLTIP_DELETE'].'::"></a></li>';
+          $lastBackups .= '<a href="?site=backup&amp;status=deleteBackup&amp;file='.basename($backupFile).'" onclick="openWindowBox(\'library/views/windowBox/deleteBackup.php?status=deleteBackup&amp;file='.basename($backupFile).'\',\''.$langFile['BACKUP_TITLE_BACKUP'].'\');return false;" class="deleteButton toolTipTop" title="'.$langFile['BACKUP_TOOLTIP_DELETE'].'::"></a></li>';
         }
         $lastBackups .= '</ul>';
       } else
@@ -346,6 +345,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
       // BACKUP DOWNLOADS
       echo '<h2>'.$langFile['BACKUP_TITLE_LASTBACKUPS'].'</h2>';
+      echo '<div class="content">';
       echo $lastBackups;
       echo '</div></div>';
       echo '</div>';

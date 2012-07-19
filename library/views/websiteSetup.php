@@ -46,7 +46,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="title"><span class="toolTip" title="::<?php echo $langFile['websiteSetup_websiteConfig_field1_tip']; ?>">
+        <label for="title"><span class="toolTipLeft" title="::<?php echo $langFile['websiteSetup_websiteConfig_field1_tip']; ?>">
         <?php echo $langFile['websiteSetup_websiteConfig_field1']; ?></span></label>
       </div>
       <div class="span5">
@@ -56,7 +56,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="publisher"><span class="toolTip" title="::<?php echo $langFile['websiteSetup_websiteConfig_field2_tip']; ?>">
+        <label for="publisher"><span class="toolTipLeft" title="::<?php echo $langFile['websiteSetup_websiteConfig_field2_tip']; ?>">
         <?php echo $langFile['websiteSetup_websiteConfig_field2']; ?></span></label>
       </div>
       <div class="span5">
@@ -66,7 +66,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="websiteConfig_copyright"><span class="toolTip" title="::<?php echo $langFile['websiteSetup_websiteConfig_field3_tip']; ?>">
+        <label for="websiteConfig_copyright"><span class="toolTipLeft" title="::<?php echo $langFile['websiteSetup_websiteConfig_field3_tip']; ?>">
         <?php echo $langFile['websiteSetup_websiteConfig_field3']; ?></span></label>
       </div>
       <div class="span5">
@@ -76,21 +76,21 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="keywords"><span class="toolTip" title="::<?php echo $langFile['websiteSetup_websiteConfig_field4_tip']; ?>">
+        <label for="keywords"><span class="toolTipLeft" title="::<?php echo $langFile['websiteSetup_websiteConfig_field4_tip']; ?>">
         <?php echo $langFile['websiteSetup_websiteConfig_field4']; ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="keywords" name="keywords" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'keywords',true); ?>" class="inputToolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field4_inputTip']; ?>">
+        <input type="text" id="keywords" name="keywords" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'keywords',true); ?>" class="toolTipRight" title="<?php echo $langFile['websiteSetup_websiteConfig_field4_inputTip']; ?>">
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="description"><span class="toolTip" title="::<?php echo $langFile['websiteSetup_websiteConfig_field5_tip']; ?>">
+        <label for="description"><span class="toolTipLeft" title="::<?php echo $langFile['websiteSetup_websiteConfig_field5_tip']; ?>">
         <?php echo $langFile['websiteSetup_websiteConfig_field5']; ?></span></label>
       </div>
       <div class="span5">
-        <textarea id="description" name="description" class="inputToolTip autogrow" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($websiteConfig,'description',true); ?></textarea>
+        <textarea id="description" name="description" class="toolTipRight autogrow" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($websiteConfig,'description',true); ?></textarea>
       </div>
     </div>
 
@@ -111,28 +111,28 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
 
     <div class="row">
       <div class="span3 formLeft">
-        <input type="checkbox" id="maintenance" name="maintenance" value="true" class="toolTip" title="::<?php echo $langFile['WEBSITESETUP_TIP_MAINTENANCE']; ?>"<?php if($websiteConfig['maintenance']) echo ' checked="checked"'; ?>>
+        <input type="checkbox" id="maintenance" name="maintenance" value="true" class="toolTipLeft" title="::<?php echo $langFile['WEBSITESETUP_TIP_MAINTENANCE']; ?>"<?php if($websiteConfig['maintenance']) echo ' checked="checked"'; ?>>
       </div>
       <div class="span5">
-        <label for="maintenance"><span class="toolTip" title="::<?php echo $langFile['WEBSITESETUP_TIP_MAINTENANCE']; ?>"><?php echo $langFile['WEBSITESETUP_TEXT_MAINTENANCE']; ?></span></label>
+        <label for="maintenance"><span class="toolTipRight" title="::<?php echo $langFile['WEBSITESETUP_TIP_MAINTENANCE']; ?>"><?php echo $langFile['WEBSITESETUP_TEXT_MAINTENANCE']; ?></span></label>
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <input type="checkbox" id="setStartPage" name="setStartPage" value="true" class="toolTip" title="::<?php echo $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']; ?>"<?php if($websiteConfig['setStartPage']) echo ' checked="checked"'; ?>>
+        <input type="checkbox" id="setStartPage" name="setStartPage" value="true" class="toolTipLeft" title="::<?php echo $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']; ?>"<?php if($websiteConfig['setStartPage']) echo ' checked="checked"'; ?>>
       </div>
       <div class="span5">
-        <label for="setStartPage"><span class="toolTip" title="::<?php echo $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']; ?>"><?php echo $langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']; ?></span></label>
+        <label for="setStartPage"><span class="toolTipRight" title="::<?php echo $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']; ?>"><?php echo $langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']; ?></span></label>
       </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <input type="checkbox" id="multiLanguageWebsite" name="multiLanguageWebsite" value="true" <?php if($websiteConfig['multiLanguageWebsite']['active']) echo ' checked="checked"'; ?> class="toolTip" title="::<?php echo $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE'] ; ?>">
+        <input type="checkbox" id="multiLanguageWebsite" name="multiLanguageWebsite" value="true" <?php if($websiteConfig['multiLanguageWebsite']['active']) echo ' checked="checked"'; ?> class="toolTipLeft" title="::<?php echo $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE'] ; ?>">
       </div>
       <div class="span5">
-        <label for="multiLanguageWebsite"><span class="toolTip" title="::<?php echo $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE'] ; ?>"><?php echo $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']; ?></span></label>
+        <label for="multiLanguageWebsite"><span class="toolTipRight" title="::<?php echo $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE'] ; ?>"><?php echo $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']; ?></span></label>
       </div>
     </div>
 
@@ -141,7 +141,7 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
       <!-- Website Language Selection -->
       <div class="row">
         <div class="offset3 span5">
-          <select id="websiteLanguageChoices" name="websiteLanguageChoices[]" multiple="multiple" class="toolTip" title="::<?php echo $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE'] ; ?>">
+          <select id="websiteLanguageChoices" name="websiteLanguageChoices[]" multiple="multiple" class="toolTipLeft" title="::<?php echo $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE'] ; ?>">
           <?php
             foreach($languageNames as $langKey => $langValue) {
               if((is_array($websiteConfig['multiLanguageWebsite']['languages']) && !in_array($langKey, $websiteConfig['multiLanguageWebsite']['languages'])) || empty($websiteConfig['multiLanguageWebsite']['languages']))
@@ -164,10 +164,10 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
       <!-- Websites Main Language -->
       <div class="row" id="websiteMainLanguageRow"<?php if(empty($websiteConfig['multiLanguageWebsite']['languages'])) echo ' style="display:none;"'; ?>>
         <div class="span3 formLeft">
-          <label for="websiteMainLanguage"><span class="toolTip" title="::<?php echo $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']; ?>"><?php echo $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']; ?></span></label>
+          <label for="websiteMainLanguage"><span class="toolTipLeft" title="::<?php echo $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']; ?>"><?php echo $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']; ?></span></label>
         </div>
         <div class="span5">
-          <select id="websiteMainLanguage" name="websiteMainLanguage"<?php if(!$websiteConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?> class="toolTip" title="::<?php echo $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']; ?>">
+          <select id="websiteMainLanguage" name="websiteMainLanguage"<?php if(!$websiteConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?> class="toolTipLeft" title="::<?php echo $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']; ?>">
           <?php
             if(is_array($websiteConfig['multiLanguageWebsite']['languages'])) {
               foreach($websiteConfig['multiLanguageWebsite']['languages'] as $langKey) {

@@ -114,8 +114,9 @@ function feindura_storeTipTexts(elements) {
       if(content[0])
         content[0] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[0]);
 
-      element.store('tip:title', content[0]);
+      element.store('tip:title', '<h2>'+content[0]+'</h2>');
       element.store('tip:text', content[1]);
+      element.removeProperty('title');
     }
 	});
 }

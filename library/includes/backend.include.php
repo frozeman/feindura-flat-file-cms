@@ -72,7 +72,7 @@ if(PHP_VERSION < REQUIREDPHPVERSION) {
       <div class="top"></div>
       <div class="middle">
       <?php
-      echo 'ERROR<br><br><span class="feinduraName">fein<span>dura</span></span> requires at least PHP version '.REQUIREDPHPVERSION;
+      echo 'ERROR<br><br><span class="feinduraInline">fein<em>dura</em></span> requires at least PHP version '.REQUIREDPHPVERSION;
       ?>
       </div>
     </div>

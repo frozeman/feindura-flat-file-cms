@@ -43,7 +43,7 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="numberRefererLog"><span class="toolTip" title="<?php echo '::'.$langFile['STATISTICSSETUP_TIP_REFERERNUMBER']; ?>">
+        <label for="numberRefererLog"><span class="toolTipLeft" title="<?php echo '::'.$langFile['STATISTICSSETUP_TIP_REFERERNUMBER']; ?>">
         <?php echo $langFile['STATISTICSSETUP_TEXT_REFERERNUMBER']; ?></span></label>
       </div>
       <div class="span5">
@@ -53,7 +53,7 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="numberTaskLog"><span class="toolTip" title="<?php echo '::'.$langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER']; ?>">
+        <label for="numberTaskLog"><span class="toolTipLeft" title="<?php echo '::'.$langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER']; ?>">
         <?php echo $langFile['STATISTICSSETUP_TEXT_ACTIVITYNUMBER']; ?></span></label>
       </div>
       <div class="span5">
@@ -86,19 +86,19 @@ if($savedForm == 'clearStatistics')
 
     <div class="row">
       <div class="span3 formLeft">
-        <input type="checkbox" id="clearStatistics_websiteStatistic" name="clearStatistics_websiteStatistic" value="true" class="toolTip" title="::<?php echo $langFile['statisticSetup_clearStatistics_websiteStatistic_tip']; ?>">
+        <input type="checkbox" id="clearStatistics_websiteStatistic" name="clearStatistics_websiteStatistic" value="true" class="toolTipLeft" title="::<?php echo $langFile['statisticSetup_clearStatistics_websiteStatistic_tip']; ?>">
       </div>
       <div class="span5">
-        <label for="clearStatistics_websiteStatistic"><span class="toolTip" title="::<?php echo $langFile['statisticSetup_clearStatistics_websiteStatistic_tip']; ?>"><?php echo $langFile['statisticSetup_clearStatistics_websiteStatistic']; ?></span></label>
+        <label for="clearStatistics_websiteStatistic"><span class="toolTipRight" title="::<?php echo $langFile['statisticSetup_clearStatistics_websiteStatistic_tip']; ?>"><?php echo $langFile['statisticSetup_clearStatistics_websiteStatistic']; ?></span></label>
         </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <input type="checkbox" id="clearStatistics_pagesStatistics" name="clearStatistics_pagesStatistics" value="true" class="toolTip" title="::<?php echo $langFile['statisticSetup_clearStatistics_pagesStatistic_tip']; ?>">
+        <input type="checkbox" id="clearStatistics_pagesStatistics" name="clearStatistics_pagesStatistics" value="true" class="toolTipLeft" title="::<?php echo $langFile['statisticSetup_clearStatistics_pagesStatistic_tip']; ?>">
       </div>
       <div class="span5">
-        <label for="clearStatistics_pagesStatistics"><span class="toolTip" title="::<?php echo $langFile['statisticSetup_clearStatistics_pagesStatistic_tip']; ?>"><?php echo $langFile['statisticSetup_clearStatistics_pagesStatistic']; ?></span></label>
+        <label for="clearStatistics_pagesStatistics"><span class="toolTipRight" title="::<?php echo $langFile['statisticSetup_clearStatistics_pagesStatistic_tip']; ?>"><?php echo $langFile['statisticSetup_clearStatistics_pagesStatistic']; ?></span></label>
         </div>
     </div>
 
@@ -113,19 +113,19 @@ if($savedForm == 'clearStatistics')
 
     <div class="row">
       <div class="span3 formLeft">
-        <input type="checkbox" id="clearStatistics_refererLog" name="clearStatistics_refererLog" value="true" class="toolTip" title="::<?php echo $langFile['statisticSetup_clearStatistics_refererLog_tip']; ?>">
+        <input type="checkbox" id="clearStatistics_refererLog" name="clearStatistics_refererLog" value="true" class="toolTipLeft" title="::<?php echo $langFile['statisticSetup_clearStatistics_refererLog_tip']; ?>">
       </div>
       <div class="span5">
-        <label for="clearStatistics_refererLog"><span class="toolTip" title="::<?php echo $langFile['statisticSetup_clearStatistics_refererLog_tip']; ?>"><?php echo $langFile['statisticSetup_clearStatistics_refererLog']; ?></span></label>
+        <label for="clearStatistics_refererLog"><span class="toolTipRight" title="::<?php echo $langFile['statisticSetup_clearStatistics_refererLog_tip']; ?>"><?php echo $langFile['statisticSetup_clearStatistics_refererLog']; ?></span></label>
         </div>
     </div>
 
     <div class="row">
       <div class="span3 formLeft">
-        <input type="checkbox" id="clearStatistics_taskLog" name="clearStatistics_taskLog" value="true" class="toolTip" title="::<?php echo $langFile['statisticSetup_clearStatistics_taskLog_tip']; ?>">
+        <input type="checkbox" id="clearStatistics_taskLog" name="clearStatistics_taskLog" value="true" class="toolTipLeft" title="::<?php echo $langFile['statisticSetup_clearStatistics_taskLog_tip']; ?>">
       </div>
       <div class="span5">
-        <label for="clearStatistics_taskLog"><span class="toolTip" title="::<?php echo $langFile['statisticSetup_clearStatistics_taskLog_tip']; ?>"><?php echo $langFile['statisticSetup_clearStatistics_taskLog']; ?></span></label>
+        <label for="clearStatistics_taskLog"><span class="toolTipRight" title="::<?php echo $langFile['statisticSetup_clearStatistics_taskLog_tip']; ?>"><?php echo $langFile['statisticSetup_clearStatistics_taskLog']; ?></span></label>
         </div>
     </div>
 

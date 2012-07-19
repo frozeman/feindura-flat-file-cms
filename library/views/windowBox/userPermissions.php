@@ -76,7 +76,7 @@ if($post['send'] == 'true') {
       <input type="checkbox" id="fileManager" name="fileManager" value="true"<?php if($userConfig[$post['userId']]['permissions']['fileManager']) echo ' checked="checked"'; echo $fmDisabled; ?>>
     </div>
     <div class="span5">
-      <label for="fileManager"<?php echo ($fmDisabled) ? 'class="toolTip disabled" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label>
+      <label for="fileManager"<?php echo ($fmDisabled) ? 'class="toolTipLeft disabled" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label>
     </div>
   </div>
 
