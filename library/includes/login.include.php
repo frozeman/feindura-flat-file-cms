@@ -151,6 +151,8 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 <!DOCTYPE html>
 <html>
 <head>
+
+  <meta charset="UTF-8">
   <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
   <meta http-equiv="content-language" content="en">
 

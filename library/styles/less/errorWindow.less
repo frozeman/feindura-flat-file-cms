@@ -1,0 +1,58 @@
+// feindura - Flat File Content Management System
+// Copyright (C) Fabian Vogelsteller [frozeman.de]
+//
+// Published under the GNU General Public License
+
+.errorWindow {
+    z-index: @zindexInFrontend + 10;
+    position: absolute;
+    top: 25%;
+    left: 370px;
+    padding: 30px 40px;
+    width: 450px;
+    #shadow > .text(0 1px 1px #fff);
+
+    font: 12px Verdana, Arial, Sans-serif, Serif !important;
+    @errorWindowColor: lighten(@colorRed,55%);
+    #gradient >  .vertical(@errorWindowColor,@errorWindowColor,lighten(@errorWindowColor,8%));
+    #boxBasics;
+    border: 1px solid lighten(@errorWindowColor,12%);
+
+    h1 {
+        color: @colorRed;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .content {
+        z-index: 0;
+        padding-left: 70px;
+
+        &.warning {
+            min-height: 48px;
+            background: url("../images/icons/warning.png") no-repeat center left;
+        }
+
+        div.scroll {
+            display: block;
+            overflow: auto;
+            padding: 5px;
+            max-height: 300px;
+            #shadow > .inner(0,0,5px,0.3);
+            #border > .rounded(5px);
+            margin-bottom: 20px;
+        }
+    }
+
+    .rawError {
+        display: block;
+        padding: 30px 10px;
+        color: #333;
+        word-wrap: break-word;
+        border-bottom: 1px dotted @colorGray;
+    }
+
+    // ok button
+    .ok {
+        background-image: url('../images/buttons/errorWindow_ok.png');
+    }
+}

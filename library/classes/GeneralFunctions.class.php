@@ -1166,29 +1166,26 @@ class GeneralFunctions {
   *
   */
   public static function savePagesMetaData() {
-
     // vars
     // self::$storedPages = null;
     self::$websiteConfig = $GLOBALS['websiteConfig'];
     $pages = array();
+    $resavePages = array();
 
     // ->> GET ALL PAGES, which are inside the /pages/ folder
     $files = self::readFolderRecursive(dirname(__FILE__).'/../../pages/');
     if(is_array($files['files'])) {
-      $countFiles = 0;
       foreach ($files['files'] as $file) {
         // load category pages
-        if(preg_match('#^.*\/([0-9]+)/([0-9]+)\.php$#',$file,$match)) {
-          $pages[$countFiles] = self::readPage($match[2],$match[1]);
-          $pages[$countFiles]['realCategory'] = $match[1];
-          $pages[$countFiles]['modified'] = @filemtime(DOCUMENTROOT.$file);
-          $countFiles++;
+        if(preg_match('#^.*\/pages/([0-9]+)/([0-9]+)\.php$#',$file,$match)) {
+          $pages[$match[2]] = self::readPage($match[2],$match[1]);
+          $pages[$match[2]]['realCategory'] = $match[1];
+          $pages[$match[2]]['modified'] = @filemtime(DOCUMENTROOT.$file);
         // load non category pages
-        } elseif(preg_match('#^.*/([0-9]+)\.php$#',$file,$match)) {
-          $pages[$countFiles] = self::readPage($match[1]);
-          $pages[$countFiles]['realCategory'] = 0;
-          $pages[$countFiles]['modified'] = @filemtime(DOCUMENTROOT.$file);
-          $countFiles++;
+        } elseif(preg_match('#^.*/pages/([0-9]+)\.php$#',$file,$match)) {
+          $pages[$match[1]] = self::readPage($match[1]);
+          $pages[$match[1]]['realCategory'] = 0;
+          $pages[$match[1]]['modified'] = @filemtime(DOCUMENTROOT.$file);
         }
       }
     }
@@ -1201,7 +1198,7 @@ class GeneralFunctions {
 
     $fileContent = "<?php\n";
 
-    foreach ($pages as $pageContent) {
+    foreach($pages as $pageContent) {
 
       // CREATE file content
       $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['id']       = ".XssFilter::int($pageContent['id'],0).";\n";
@@ -1226,7 +1223,7 @@ class GeneralFunctions {
       // check if the page was moved, then change the category
       if($pageContent['category'] != $pageContent['realCategory']) {
         $pageContent['category'] = $pageContent['realCategory'];
-        GeneralFunctions::savePage($pageContent);
+        $resavePages[] = $pageContent;
       }
     }
     $fileContent .= "return \$pagesMetaData;";
@@ -1236,9 +1233,15 @@ class GeneralFunctions {
     if(file_put_contents(dirname(__FILE__).'/../../pages/pagesMetaData.array.php', $fileContent, LOCK_EX)) {
       @chmod($filePath,self::$adminConfig['permissions']);
       // reload the $pagesMetaData array
-      unset($GLOBALS['pagesMetaData']); $GLOBALS['pagesMetaData'] = include(dirname(__FILE__)."/../../pages/pagesMetaData.array.php");
+      unset($GLOBALS['pagesMetaData']);
+      $GLOBALS['pagesMetaData'] = include(dirname(__FILE__)."/../../pages/pagesMetaData.array.php");
       self::$pagesMetaData               = $GLOBALS['pagesMetaData'];
       StatisticFunctions::$pagesMetaData = $GLOBALS['pagesMetaData'];
+
+      foreach ($resavePages as $resavePage) {
+        self::savePage($resavePage);
+      }
+
       return true;
     } else
       return false;

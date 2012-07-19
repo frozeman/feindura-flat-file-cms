@@ -64,7 +64,6 @@ a.gray:hover, a.gray:focus {
     text-align: right;
 }
 
-
 [class^="spacer"] {
     clear: both;
 }
@@ -600,12 +599,13 @@ input.short {
 }
 
 textarea {
-    // line-height: 20px;
+    line-height: 25px;
+    font-size: 14px;
 }
 
 // autogrow
 textarea.autogrow {
-  overflow-y: hidden;
+  overflow-y: auto;
   resize: none;
   #transition > .property(height,100ms, ease-out)
 }

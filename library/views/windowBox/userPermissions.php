@@ -27,7 +27,7 @@ require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
 // vars
-$post = (isset($_POST)) ? $_POST : $_GET;
+$post = (!empty($_POST)) ? $_POST : $_GET;
 $error = false;
 
 // WHEN THE FORM WAS SEND
@@ -55,7 +55,7 @@ if($post['send'] == 'true') {
 
 ?>
 
-<form action="?site=userSetup" method="post" enctype="multipart/form-data" id="userPermissionsForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','userPermissionsForm');return false;" accept-charset="UTF-8">
+<form action="?site=userPermissions" method="post" enctype="multipart/form-data" id="userPermissionsForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','userPermissionsForm');return false;" accept-charset="UTF-8">
   <div>
     <input type="hidden" name="send" value="true">
     <input type="hidden" name="userId" value="<?php echo $post['userId']; ?>">

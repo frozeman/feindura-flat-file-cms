@@ -616,8 +616,8 @@ window.addEvent('domready', function() {
   sidebarMenu();
 
   // let the errorWindow get closed by ESC or ENTER keys
-  if($('feindura_errorWindow') !== null) {
-    $('feindura_errorWindow').setStyle('top',window.getScroll().y + 150);
+  if(typeOf($$('.errorWindow')[0]) !== 'null') {
+    $$('.errorWindow').setStyle('top',window.getScroll().y + 150);
 
     document.addEvent('keyup',function(e){
       if(e.key == 'esc' || e.key == 'enter')
@@ -1201,6 +1201,7 @@ window.addEvent('domready', function() {
 
   // -> ADD auto grow to textareas which have the "autogrow" class
   $$('textarea.autogrow').each(function(textarea){
+    textarea.setStyle('overflow-y','hidden');
     new Form.AutoGrow(textarea);
   });
 

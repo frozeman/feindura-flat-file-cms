@@ -27,8 +27,10 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // LOAD PLUGINS
 $plugins = GeneralFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
 $newPlugins = array();
-foreach($plugins['folders'] as $pluginFolder)
-  $newPlugins[] = basename($pluginFolder);
+if(is_array($plugins['folders'])) {
+  foreach($plugins['folders'] as $pluginFolder)
+    $newPlugins[] = basename($pluginFolder);
+}
 $plugins = $newPlugins;
 unset($newPlugins);
 

@@ -129,6 +129,10 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     case 'deletePageLanguage':
       include (dirname(__FILE__).'/views/windowBox/deletePageLanguage.php');
       break;
+    // USER PERMISSIONS
+    case 'userPermissions':
+      include (dirname(__FILE__).'/views/windowBox/userPermissions.php');
+      break;
     // WEBSITE SETUP
     case 'websiteSetup':
       echo isBlocked();

@@ -906,6 +906,9 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/styles/layout.css';
     $deleteFiles[] = 'library/styles/content.css';
     $deleteFiles[] = 'library/styles/windowBox.css';
+    $deleteFiles[] = 'library/styles/shared.css';
+    $deleteFiles[] = 'library/styles/noJavascript.css';
+    $deleteFiles[] = 'library/styles/ie7.css';
 
 
     // CHECK if files could be deleted
