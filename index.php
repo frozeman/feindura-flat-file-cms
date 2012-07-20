@@ -647,12 +647,20 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <?php if($errorWindow !== false) { ?>
   <!-- ************************************************************************* -->
   <!-- ** ERROR WINDOW ********************************************************* -->
-  <div class="errorWindow">
+  <div id="errorWindow" class="feindura">
     <h1><?php echo $langFile['errorWindow_h1'];?></h1>
     <div class="content warning">
       <div class="scroll"><?php echo $errorWindow; ?></div>
     </div>
     <a href="?site=<?php echo $_GET['site'] ?>" onclick="feindura_closeErrorWindow();return false;" class="button ok center"></a>
+  </div>
+  <?php } ?>
+
+  <?php if($messagePopUp !== false) { ?>
+  <!-- ************************************************************************* -->
+  <!-- ** MESSAGE POPUP ********************************************************* -->
+  <div id="messagePopUp" class="feindura">
+    <?php echo $messagePopUp; ?>
   </div>
   <?php } ?>
 

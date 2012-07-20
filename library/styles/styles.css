@@ -4828,6 +4828,18 @@
   margin: 10px 0;
   background-color: #fdfdfd;
 }
+.feindura #messagePopUp.feindura {
+  z-index: 20030;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin-left: -300px;
+  width: 600px;
+}
+.feindura #messagePopUp.feindura .alert {
+  margin: 20px 0;
+}
 .feindura div.leftSidebarLoadingCircle {
   position: absolute;
   top: 75px;
@@ -4978,7 +4990,7 @@
   color: #eca776 !important;
 }
 .feindura .floating-tip span.feinduraInline em {
-  color: #5093c2 !important;
+  color: #76aacf !important;
 }
 .feindura .floating-tip img {
   position: relative;
@@ -7776,7 +7788,7 @@
 .feindura body#thumbnailUploadFrame ul.unstyled {
   margin: 0;
 }
-.feindura .errorWindow {
+.feindura #errorWindow.feindura {
   z-index: 20010;
   position: absolute;
   top: 25%;
@@ -7807,20 +7819,20 @@
   background-clip: padding-box;
   border: 1px solid #fff9f7;
 }
-.feindura .errorWindow h1 {
+.feindura #errorWindow.feindura h1 {
   color: #a02f00;
   text-align: center;
   margin-bottom: 20px;
 }
-.feindura .errorWindow .content {
+.feindura #errorWindow.feindura .content {
   z-index: 0;
   padding-left: 70px;
 }
-.feindura .errorWindow .content.warning {
+.feindura #errorWindow.feindura .content.warning {
   min-height: 48px;
   background: url("../images/icons/warning.png") no-repeat center left;
 }
-.feindura .errorWindow .content div.scroll {
+.feindura #errorWindow.feindura .content div.scroll {
   display: block;
   overflow: auto;
   padding: 5px;
@@ -7836,13 +7848,13 @@
   background-clip: padding-box;
   margin-bottom: 20px;
 }
-.feindura .errorWindow .rawError {
+.feindura #errorWindow.feindura .rawError {
   display: block;
   padding: 30px 10px;
   color: #333;
   word-wrap: break-word;
   border-bottom: 1px dotted #999999;
 }
-.feindura .errorWindow .ok {
+.feindura #errorWindow.feindura .ok {
   background-image: url('../images/buttons/errorWindow_ok.png');
 }

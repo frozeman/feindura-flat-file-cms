@@ -290,15 +290,6 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 <div class="block">
   <h1><img src="library/images/icons/categoryIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_CATEGORY_TITLE_CATEGORIES']; ?></h1>
   <div class="content form">
-
-    <?php
-
-    // USER INFO
-    if($categoryDeleted)
-      echo $categoryInfo;
-
-    ?>
-
     <div class="row">
       <div class="span8 center">
           <a href="?site=pageSetup&amp;status=createCategory#category<?php echo getNewCatgoryId(); ?>" class="createCategory toolTipLeft" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY']; ?>::"></a>
@@ -369,11 +360,6 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
           // category anchor
           echo '<a name="category'.$category['id'].'" id="categoryAnchor'.$category['id'].'" class="anchorTarget"></a>';
 
-
-          // USER INFO
-          if(is_array($categoryInfo))
-            echo $categoryInfo[$category['id']];
-
           // category NAME
           $categoryName = GeneralFunctions::getLocalized($category,'name',true);
           $autofocus = '';
@@ -395,7 +381,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
                 // deleteCategory
             echo '<div class="span5" style="position:relative;">
                     <h2 class="gray">ID '.$category['id'].'</h2>
-                    <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTipLeft" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.GeneralFunctions::getLocalized($category,'name',true).'[br][br][span style=color:#990000;]'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'[/span]"></a>';
+                    <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTipRight" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.GeneralFunctions::getLocalized($category,'name',true).'[br][span class=red]'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'[/span]"></a>';
           echo '  </div>
                 </div>';
                 // category name
@@ -424,12 +410,12 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
                   </div>
                   <div class="span5">
                     <label for="categories'.$category['id'].'public">';
-                    $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';
+                    $publicSignStyle = ' style="position:relative; top:-1px; float:left;"';
                     // shows the public or unpublic picture
                     if($checked[1])
-                      echo '<img src="library/images/icons/category_public.png" class="toolTipLeft" title="'.$langFile['STATUS_CATEGORY_PUBLIC'].'"'.$publicSignStyle.' alt="public" width="27" height="27">&nbsp;';
+                      echo '<img src="library/images/icons/category_public.png" class="toolTipBottom" title="'.$langFile['STATUS_CATEGORY_PUBLIC'].'"'.$publicSignStyle.' alt="public" width="27" height="27">&nbsp;';
                     else
-                      echo '<img src="library/images/icons/category_nonpublic.png" class="toolTipLeft" title="'.$langFile['STATUS_CATEGORY_NONPUBLIC'].'"'.$publicSignStyle.' alt="nonpublic" width="27" height="27">&nbsp;';
+                      echo '<img src="library/images/icons/category_nonpublic.png" class="toolTipBottom" title="'.$langFile['STATUS_CATEGORY_NONPUBLIC'].'"'.$publicSignStyle.' alt="nonpublic" width="27" height="27">&nbsp;';
 
                     echo '<span class="toolTipRight" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_CATEGORYSTATUS'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_CATEGORYSTATUS'].'</span></label>
                   </div>

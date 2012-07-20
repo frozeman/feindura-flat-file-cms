@@ -580,13 +580,6 @@ window.addEvent('load', function() {
 // *---------------------------------------------------------------------------------------------------*
 window.addEvent('domready', function() {
 
-  // ADD .active to links which get clicked
-  $$('#leftSidebar a').addEvent('click',function(){
-    if(this.hasClass('btn'))
-      return;
-    $$('#leftSidebar a').removeClass('active');
-    this.addClass('active');
-  });
 
   // STORES all pages LI ELEMENTS
   listPagesBars = $$('div.block.listPagesBlock li');
@@ -603,22 +596,41 @@ window.addEvent('domready', function() {
     }).send('status=updateUserCache&site='+currentSite+'&page='+currentPage);
   }).periodical(180000);
 
+  // DISAPPEAR ALERT MESSAGES
+  if($('messagePopUp') !== null) {
+    $('messagePopUp').setStyle('top',-$('messagePopUp').getSize().y);
+    $('messagePopUp').setStyle('visibility','visible');
+    $('messagePopUp').tween('top',0);
+    (function(){
+      $('messagePopUp').tween('top',-$('messagePopUp').getSize().y);
+      $('messagePopUp').get('tween').chain(function(){
+        alert.setStyle('display','none');
+      });
+    }).delay(3000);
+  }
+
+  // *** ->> SIDEBAR MENU -----------------------------------------------------------------------------------------------------------------------
+
   // ->> SIDEBAR SCROLLES LIKE FIXED
   // ---------------------------
   $$('.staticScroller').each(function(element){
     new StaticScroller(element,{offset:1});
   });
 
-
-  // *** ->> SIDEBAR MENU -----------------------------------------------------------------------------------------------------------------------
+  // ADD .active to links which get clicked
+  $$('#leftSidebar a').addEvent('click',function(){
+    if(this.hasClass('btn'))
+      return;
+    $$('#leftSidebar a').removeClass('active');
+    this.addClass('active');
+  });
 
   // makes sidebarmenu dynamic
   sidebarMenu();
 
-  // let the errorWindow get closed by ESC or ENTER keys
-  if(typeOf($$('.errorWindow')[0]) !== 'null') {
-    $$('.errorWindow').setStyle('top',window.getScroll().y + 150);
-
+  // let the ERRORWINDOW get closed by ESC or ENTER keys
+  if($('errorWindow') !== null) {
+    $('errorWindow').setStyle('top',window.getScroll().y + 150);
     document.addEvent('keyup',function(e){
       if(e.key == 'esc' || e.key == 'enter')
         feindura_closeErrorWindow(e);

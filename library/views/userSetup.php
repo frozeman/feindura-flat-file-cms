@@ -114,21 +114,22 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
           $markPassword = (empty($user['password']))
             ? ' class="toolTipLeft red" title="'.$langFile['USERSETUP_password_missing'].'::"'
             : '';
+          $requirePassword = (empty($user['password']))
+            ? ' required="required"'
+            : '';
 
           echo '<div class="row"><div class="span3 formLeft">';
           echo '<label for="users'.$user['id'].'password"'.$markPassword.'>'.$passwordTitle.'</label>
                 </div><div class="span5">
-                <input type="password" id="users'.$user['id'].'password" name="users['.$user['id'].'][password]" value="" autocomplete="off" required="required">
+                <input type="password" id="users'.$user['id'].'password" name="users['.$user['id'].'][password]" value="" autocomplete="off"'.$requirePassword.'>
                 </div></div>';
 
           // USER PASSWORD CONFIRM
           echo '<div class="row"><div class="span3 formLeft">';
           echo '<label for="users'.$user['id'].'passwordConfirm"'.$markPassword.'>'.$langFile['USERSETUP_password_confirm'].'</label>
                 </div><div class="span5">
-                <input type="password" id="users'.$user['id'].'passwordConfirm" name="users['.$user['id'].'][password_confirm]" value="" required="required">
+                <input type="password" id="users'.$user['id'].'passwordConfirm" name="users['.$user['id'].'][password_confirm]" value=""'.$requirePassword.'>
                 </div></div>';
-
-          echo $userInfoPassword[$user['id']];
 
           echo '<div class="spacer"></div>';
 

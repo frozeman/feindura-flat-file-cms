@@ -75,13 +75,12 @@ function feindura_str_replace(s, r, c) {
 // ->> DISPLAY ERROR
 function feindura_displayError(title,errorText) {
   // creates the errorWindow
-  var errorWindow = new Element('div',{id:'feindura_errorWindow', 'style':'left:50%;margin-left:-260px;'});
+  var errorWindow = new Element('div',{id:'errorWindow','class':'feindura', 'style':'left:50%;margin-left:-260px;'});
   errorWindow.grab(new Element('div',{'class':'feindura_top', 'html': title}));
-  var errorWindowContent = new Element('div',{'class':'feindura_content feindura_warning', 'html':'<div class="scroll">'+errorText+'</div>'});
-  var errorWindowOkButton = new Element('a',{'class':'feindura_ok', 'href':'#'});
+  var errorWindowContent = new Element('div',{'class':'content warning', 'html':'<div class="scroll">'+errorText+'</div>'});
+  var errorWindowOkButton = new Element('a',{'class':'ok button center', 'href':'#'});
   errorWindowContent.grab(errorWindowOkButton);
   errorWindow.grab(errorWindowContent);
-  errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));
 
   // add functionality to the ok button
   errorWindowOkButton.addEvent('click',feindura_closeErrorWindow);
@@ -94,13 +93,11 @@ function feindura_displayError(title,errorText) {
 }
 function feindura_closeErrorWindow(e) {
   if(e) e.stop();
-  if(typeOf($$('.errorWindow')[0]) === 'null')
+  if($('errorWindow') === null || !$('errorWindow').hasClass('feindura'))
     return;
-  $$('.errorWindow').fade('out');
-  $$('.errorWindow').each(function(errorWindow){
-    errorWindow.get('tween').chain(function(){
-      errorWindow.destroy();
-    });
+  $('errorWindow').fade('out');
+  $('errorWindow').get('tween').chain(function(){
+    $('errorWindow').destroy();
   });
 }
 

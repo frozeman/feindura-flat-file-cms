@@ -141,7 +141,7 @@ if($adminConfig['user']['fileManager']) {
 
     <div class="row">
       <div class="span2">
-        <span href="#" id="hotKeysToogle" class="down link toolTipRight" title="[table]
+        <span href="#" id="hotKeysToogle" class="down link toolTipRight" title="::[table]
           [tbody]
             [tr]
               [td]

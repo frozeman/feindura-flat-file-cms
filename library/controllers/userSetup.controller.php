@@ -24,8 +24,6 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // VARs
 // ---------------------------------------------------------------------------
-$userInfo = false;
-$userInfoPassword = false;
 $newUserConfig = array();
 
 
@@ -43,7 +41,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['cre
   // add a new user to the user array
   $userConfig[$newId] = array('id' => $newId);
   if(saveUserConfig($userConfig)) {
-     $userInfo = $langFile['USERSETUP_createUser_created'];
+     $messagePopUp .= '<div class="alert alert-success center">'.$langFile['USERSETUP_createUser_created'].'</div>';
      saveActivityLog(25); // <- SAVE the task in a LOG FILE
   } else { // throw error
     $errorWindow .= ($errorWindow) // if there is already an warning
@@ -71,7 +69,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['de
   }
 
   if(saveUserConfig($newUserConfig)) {
-    $userInfo = $langFile['USERSETUP_deleteUser_deleted'].': '.$storedUserName;
+    $messagePopUp .= '<div class="alert alert-info center">'.$langFile['USERSETUP_deleteUser_deleted'].'<br><strong>'.$storedUserName.'</strong></div>';
     $documentSaved = true; // set documentSaved status
     saveActivityLog(26,$storedUserName); // <- SAVE the task in a LOG FILE
   } else
@@ -106,15 +104,11 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
       if($configs['password'] == $configs['password_confirm']) {
         $newUserConfig[$configs['id']]['password'] = md5($newUserConfig[$configs['id']]['password']);
         $userPassChanged = true;
-        $userInfoPassword[$configs['id']] = '<div class="alert alert-success center">'.$langFile['USERSETUP_password_success'].'</div>';
+        $messagePopUp .= '<div class="alert alert-success center disappear">'.$langFile['USERSETUP_password_success'].'</div>';
       } else {
         $newUserConfig[$configs['id']]['password'] = $userConfig[$configs['id']]['password'];
-        $userInfoPassword[$configs['id']] = '<div class="alert alert-error center">'.$langFile['USERSETUP_password_confirm_wrong'].'</div>';
+        $messagePopUp .= '<div class="alert alert-error center disappear">'.$langFile['USERSETUP_password_confirm_wrong'].'</div>';
       }
-
-      // add spacer to the user info
-      $userInfoPassword[$configs['id']] = '<div class="spacer"></div>'.$userInfoPassword[$configs['id']];
-
     } else
       $newUserConfig[$configs['id']]['password'] = $userConfig[$configs['id']]['password'];
 
