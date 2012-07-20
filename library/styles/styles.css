@@ -6726,6 +6726,77 @@
   width: 100%;
   height: 600px;
 }
+.feindura .container {
+  position: relative;
+  top: 15%;
+  width: 330px;
+}
+.feindura .loginBox {
+  position: relative;
+  padding: 30px;
+  padding-top: 60px;
+  margin-top: 80px;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #fff;
+  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura .loginBox img.logo {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  margin-left: -82px;
+  clip: rect(0px, 163px, 75px, 0px);
+}
+.feindura .loginBox form {
+  margin: 0;
+}
+.feindura .loginBox input[type="text"],
+.feindura .loginBox input[type="password"],
+.feindura .loginBox input[type="email"] {
+  padding: 10px;
+  font-size: 20px;
+  width: 90%;
+}
+.feindura .loginBox input.btn {
+  margin-top: 15px;
+  padding: 12px 25px;
+}
+.feindura .loginBox input.btn[name="loginSubmit"] {
+  text-transform: uppercase;
+}
+.feindura .loginBox .overTxtLabel {
+  color: #999999;
+  padding: 6px 10px;
+  font-size: 20px;
+}
+.feindura .loginBox #loginLoadingCircle {
+  margin-top: 15px;
+}
+.feindura footer.info {
+  margin-top: 10px;
+  padding-bottom: 20%;
+  text-align: center;
+  color: #f0f0f0;
+  font-size: 10px;
+  line-height: 20px;
+}
+.feindura footer.info a {
+  text-decoration: none;
+  color: #FBC06E;
+}
+.feindura footer.info a:hover {
+  text-decoration: none;
+  color: #DF893B;
+}
 .feindura .refererBox {
   max-height: 300px;
   overflow: auto;

@@ -192,7 +192,7 @@ foreach($logContent as $logRow) {
 
     // -> IF there is a TEXT BETWEEN page and category
     if(isset($logObject[2]) == 'moved') {
-      $taskObject .= '<br>'.$langFile['LOG_PAGE_MOVEDINCATEGORY_CATEGORY'].'<br>';
+      $taskObject .= $langFile['LOG_PAGE_MOVEDINCATEGORY_CATEGORY'];
 
       $foundObject = true;
     }
@@ -209,23 +209,23 @@ foreach($logContent as $logRow) {
       $categoryName = GeneralFunctions::getLocalized($categoryConfig[$categoryId],'name');
 
       $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" tabindex="'.$count.'" title="'.$categoryName.'">'.GeneralFunctions::shortenString($categoryName, $maxLength).'</a>';
-      $taskObject .= '<br>';
 
       $foundObject = true;
     }
 
     // -> OTHERWISE just use the task object name/text
     if($foundObject === false)
-      $taskObject = '<span title="'.strip_tags($logObject[0]).'">'.GeneralFunctions::shortenString(strip_tags($logObject[0]), $maxLength).'</span><br>';
+      $taskObject = '<span title="'.strip_tags($logObject[0]).'">'.GeneralFunctions::shortenString(strip_tags($logObject[0]), $maxLength).'</span>';
 
+    $taskObject = '<br>'.$taskObject;
   }
 
 
 
   // displays 2 or 3 rows
   echo ($taskObject)
-  ? '<li><span class="brown">'.$logDate.' '.$logTime.'</span><br><span class="blue" style="font-weight:bold;">'.$logText.'</span><br>'.$taskObject.$logUser.'</li>'."\n"
-  : '<li><span class="brown">'.$logDate.' '.$logTime.'</span><br><span class="blue" style="font-weight:bold;">'.$logText.'</span><br>'.$logUser.'</li>'."\n";
+  ? '<li><span class="brown" style="font-weight:bold;">'.$logDate.' '.$logTime.'</span><br><span class="blue" style="font-weight:bold;">'.$logText.'</span>'.$taskObject.$logUser.'</li>'."\n"
+  : '<li><span class="brown" style="font-weight:bold;">'.$logDate.' '.$logTime.'</span><br><span class="blue" style="font-weight:bold;">'.$logText.'</span>'.$logUser.'</li>'."\n";
 }
 echo '</ul>';
 

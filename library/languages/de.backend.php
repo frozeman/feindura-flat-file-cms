@@ -42,12 +42,12 @@
 
 $langFile['LOGIN_INPUT_USERNAME']                                         = 'Benutzername';
 $langFile['LOGIN_INPUT_PASSWORD']                                         = 'Passwort';
-$langFile['LOGIN_BUTTON_LOGIN']                                           = 'LOGIN';
+$langFile['LOGIN_BUTTON_LOGIN']                                           = 'Login';
 $langFile['LOGIN_TEXT_COOKIESNEEDED']                                     = 'Cookies müssen aktivert sein!';
 
 $langFile['LOGIN_LINK_FORGOTPASSWORD']                                    = 'Passwort vergessen?';
 $langFile['LOGIN_LINK_BACKTOLOGIN']                                       = 'zurück zum Login';
-$langFile['LOGIN_BUTTON_SENDNEWPASSWORD']                                 = 'HOLEN';
+$langFile['LOGIN_BUTTON_SENDNEWPASSWORD']                                 = 'Passwort zurücksetzen';
 $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_SUBJECT']                          = 'feindura CMS Passwort angefordert von';
 $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_MESSAGE']                          = 'Du hast ein neues Passwort für dein feindura - Flat File CMS angefordert.
 Dein Benutzername und dein neues Passwort lauten:';

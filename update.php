@@ -31,7 +31,7 @@ $wrongDirectory = (include("library/includes/backend.include.php"))
 error_reporting(E_ALL ^ E_NOTICE);
 
 $NEWVERSION = '2.0';
-$NEWBUILD = 955;
+$NEWBUILD = 956;
 
 // gets the version of the feindura CMS
 if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
@@ -901,6 +901,13 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/images/buttons/header_out.png';
     $deleteFiles[] = 'library/images/buttons/header_toWebsite.png';
     $deleteFiles[] = 'library/images/buttons/header_toBackend.png';
+    $deleteFiles[] = 'library/images/bg/loginBox.png';
+    $deleteFiles[] = 'library/images/bg/loginErrorBox_bottom.png';
+    $deleteFiles[] = 'library/images/bg/loginErrorBox_middle.png';
+    $deleteFiles[] = 'library/images/bg/loginErrorBox_top.png';
+    $deleteFiles[] = 'library/images/bg/loginSuccessBox_bottom.png';
+    $deleteFiles[] = 'library/images/bg/loginSuccessBox_middle.png';
+    $deleteFiles[] = 'library/images/bg/loginSuccessBox_top.png';
 
     $deleteFiles[] = 'library/styles/reset.css';
     $deleteFiles[] = 'library/styles/layout.css';
@@ -909,6 +916,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/styles/shared.css';
     $deleteFiles[] = 'library/styles/noJavascript.css';
     $deleteFiles[] = 'library/styles/ie7.css';
+    $deleteFiles[] = 'library/styles/login.css';
 
 
     // CHECK if files could be deleted

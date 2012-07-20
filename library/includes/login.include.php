@@ -16,7 +16,7 @@
  *
  * This file is inlcuded in the index.php and all standalone files
  *
- * @version 0.2
+ * @version 1.0
  */
 
 // var
@@ -149,34 +149,30 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 
   ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>" class="feindura">
 <head>
-
   <meta charset="UTF-8">
-  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
-  <meta http-equiv="content-language" content="en">
 
   <title>feindura login</title>
 
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
 
   <meta name="robots" content="no-index,nofollow">
   <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
   <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate">
 
-  <meta name="title" content="feindura login">
   <meta name="author" content="Fabian Vogelsteller [frozeman.de]">
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
   <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">
   <meta name="description" content="A flat file based Content Management System, written in PHP">
-  <meta name="keywords" content="cms,content,management,system,flat,file">
+  <meta name="keywords" content="cms,flat,file,content,management,system">
 
   <link rel="shortcut icon" href="favicon.ico">
 
-  <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all">
-  <link rel="stylesheet" type="text/css" href="library/styles/login.css" media="all">
+  <!-- feindura styles -->
+  <link rel="stylesheet" type="text/css" href="library/styles/styles.css<?php echo '?v='.BUILD; ?>">
 
   <!-- thirdparty/MooTools -->
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.4.5.js"></script>
@@ -184,6 +180,9 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 
   <!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
+
+  <!-- thirdparty/Html5Shiv -->
+  <!--[if lt IE 9]><script type="text/javascript" src="library/thirdparty/javascripts/html5shiv.min.js"></script><![endif]-->
 
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascripts/shared.js"></script>
@@ -196,76 +195,70 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 
   window.addEvent('load',function() {
     if(!supports_input_placeholder()) {
-      new OverText('username',{positionOptions: {offset: {x: 12,y: 5}}});
-<?php if(!isset($_GET['resetpassword'])) { ?>
-      new OverText('password',{positionOptions: {offset: {x: 12,y: 5}}});
-<?php } ?>
+      new OverText('username',{positionOptions: {offset: {x: 0,y: 0}}});
+      <?php if(!isset($_GET['resetpassword'])) { ?>
+      new OverText('password',{positionOptions: {offset: {x: 0,y: 0}}});
+      <?php } ?>
     }
   });
 
   function startLoadingCircle() {
-    $('submitButton').dispose();
     // create loading circle element
     var loginLoadingCircle = new Element('div', {id: 'loginLoadingCircle'});
-    $('inputsDiv').grab(loginLoadingCircle,'bottom');
+    loginLoadingCircle.replaces('submitButton');
     var removeLoadingCircle = feindura_loadingCircle('loginLoadingCircle', 12, 20, 12, 3, "#000");
   }
 
   </script>
 </head>
 <body>
-  <div id="container">
-  <?php if($loggedOut === true || $resetPassword === true) {  ?>
-    <div id="loginSuccessBox">
-      <div class="top"></div>
-      <div class="middle">
+  <div class="container">
+  <?php if($loggedOut) {  ?>
+    <div class="alert center">
       <?php
-
-      if($loggedOut)
-        echo '<h1>'.$langFile['LOGIN_TEXT_LOGOUT_PART1'].'</h1><a href="'.$adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']).'">&rArr; '.$langFile['LOGIN_TEXT_LOGOUT_PART2'].'</a>';
-      if($resetPassword)
-        echo '<h1>'.$langFile['LOGIN_ERROR_FORGOTPASSWORD_SUCCESS'].'</h1>'.$userEmail;
+        echo '<strong>'.$langFile['LOGIN_TEXT_LOGOUT_PART1'].'</strong><br><a href="'.$adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']).'">'.$langFile['LOGIN_TEXT_LOGOUT_PART2'].'</a>';
       ?>
-      </div>
-      <div class="bottom"></div>
     </div>
   <?php } ?>
-    <div id="loginBox">
+  <?php if($resetPassword) {  ?>
+    <div class="alert alert-success center">
       <?php
-      $currentURL = $_SERVER['REQUEST_URI'];
+        echo '<strong>'.$langFile['LOGIN_ERROR_FORGOTPASSWORD_SUCCESS'].'</strong><br>'.$userEmail;
+      ?>
+    </div>
+  <?php } ?>
+  <?php if($loginError) { ?>
+    <div class="alert alert-error center">
+      <?php echo $loginError; ?>
+    </div>
+  <?php } ?>
+    <div class="loginBox">
+      <img class="logo" src="library/images/icons/logo.png" alt="logo">
+      <?php
 
-      if(isset($_GET['resetpassword']))
-        $currentURL = (strpos($currentURL,'?') === false)
-          ? $_SERVER['REQUEST_URI'].'?resetpassword'
-          : $_SERVER['REQUEST_URI'].'&resetpassword';
-
-      $currentURL = str_replace('logout','',$currentURL);
+      if(isset($_GET['resetpassword']) && !$resetPassword)
+        $currentURL = GeneralFunctions::addParameterToUrl('resetpassword','true');
+      else
+        $currentURL = $_SERVER['PHP_SELF'];
 
       ?>
       <form action="<?php echo $currentURL; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="startLoadingCircle();">
-        <div id="inputsDiv">
+        <div>
           <input type="text" value="<?php echo $_POST['username']; ?>" name="username" id="username" placeholder="<?php echo $langFile['LOGIN_INPUT_USERNAME']; ?>" title="<?php echo $langFile['LOGIN_INPUT_USERNAME']; ?>" autofocus="autofocus"><br>
         <?php if(!isset($_GET['resetpassword'])) { ?>
           <input type="password" value="<?php echo $_POST['password']; ?>" name="password" id="password" placeholder="<?php echo $langFile['LOGIN_INPUT_PASSWORD']; ?>" title="<?php echo $langFile['LOGIN_INPUT_PASSWORD']; ?>"><br>
         <?php }
         if(!isset($_GET['resetpassword'])) {
           echo '<input type="hidden" name="action" value="login">';
-          echo '<input type="submit" id="submitButton" class="button" name="loginSubmit" value="'.$langFile['LOGIN_BUTTON_LOGIN'].'">';
+          echo '<input type="submit" id="submitButton" class="btn btn-large" name="loginSubmit" value="'.$langFile['LOGIN_BUTTON_LOGIN'].'">';
         } else {
           echo '<input type="hidden" name="action" value="resetPassword">';
-          echo '<br><br><input type="submit" id="submitButton" class="button" name="resetPasswordSubmit" value="'.$langFile['LOGIN_BUTTON_SENDNEWPASSWORD'].'">';
+          echo '<input type="submit" id="submitButton" class="btn btn-large" name="resetPasswordSubmit" value="'.$langFile['LOGIN_BUTTON_SENDNEWPASSWORD'].'">';
         } ?>
         </div>
       </form>
     </div>
-  <?php if($loginError) { ?>
-    <div id="loginErrorBox">
-      <div class="top"></div>
-      <div class="middle"><?php echo $loginError; ?></div>
-      <div class="bottom"></div>
-    </div>
-    <?php } ?>
-    <div class="info">
+    <footer class="info">
     <?php
       echo $langFile['LOGIN_TEXT_COOKIESNEEDED'].'<br>';
 
@@ -273,7 +266,7 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
         ? '<a href="index.php">'.$langFile['LOGIN_LINK_BACKTOLOGIN'].'</a>'
         : '<a href="index.php?resetpassword">'.$langFile['LOGIN_LINK_FORGOTPASSWORD'].'</a>';
     ?>
-    </div>
+    </footer>
   </div>
 </body>
 </html>

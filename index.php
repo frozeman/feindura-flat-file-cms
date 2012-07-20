@@ -71,8 +71,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- STYLESHEETS -->
 
   <!-- feindura styles -->
-  <link rel="stylesheet" type="text/css" href="library/styles/shared.css<?php echo '?v='.BUILD; ?>">
-
   <link rel="stylesheet" type="text/css" href="library/styles/styles.css<?php echo '?v='.BUILD; ?>">
 
   <!-- thirdparty/CodeMirror -->
@@ -86,7 +84,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     }
   }
   ?>
-  <!--[if IE 7]><link rel="stylesheet" type="text/css" href="library/styles/ie7.css"><![endif]-->
 
   <noscript>
   <link rel="stylesheet" type="text/css" href="library/styles/noJavascript.css">

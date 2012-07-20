@@ -44,12 +44,12 @@
 
 $langFile['LOGIN_INPUT_USERNAME']                                         = 'Логин';
 $langFile['LOGIN_INPUT_PASSWORD']                                         = 'Пароль';
-$langFile['LOGIN_BUTTON_LOGIN']                                           = 'ВОЙТИ';
+$langFile['LOGIN_BUTTON_LOGIN']                                           = 'Войти';
 $langFile['LOGIN_TEXT_COOKIESNEEDED']                                     = 'Cookie должны быть включены!';
 
 $langFile['LOGIN_LINK_FORGOTPASSWORD']                                    = 'Забыли пароль?';
 $langFile['LOGIN_LINK_BACKTOLOGIN']                                       = 'к форме входа';
-$langFile['LOGIN_BUTTON_SENDNEWPASSWORD']                                 = 'ВЫСЛАТЬ';
+$langFile['LOGIN_BUTTON_SENDNEWPASSWORD']                                 = 'Сброс пароля';
 $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_SUBJECT']                          = 'Вы запросили восстановление пароля';
 $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_MESSAGE']                          = 'Вы запросили новый пароль.
 Ваш логин и новый пароль:';

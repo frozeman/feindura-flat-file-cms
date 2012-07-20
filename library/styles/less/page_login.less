@@ -1,0 +1,75 @@
+// feindura - Flat File Content Management System
+// Copyright (C) Fabian Vogelsteller [frozeman.de]
+//
+// Published under the GNU General Public License
+
+.container {
+    position: relative;
+    top: 15%;
+    width: 330px;
+}
+
+.loginBox {
+    position: relative;
+    padding: 30px;
+    padding-top: 60px;
+    margin-top: 80px;
+    text-align: center;
+
+    background-color: #fff;
+    #boxBasics;
+
+    img.logo {
+        position: absolute;
+        top: -50px;
+        left: 50%;
+        margin-left: -82px;
+        clip: rect(0px, 163px, 75px, 0px);
+    }
+
+    form {
+        margin: 0;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        padding: 10px;
+        font-size: 20px;
+        width: 90%;
+    }
+    input.btn {
+        margin-top: 15px;
+        padding: 12px 25px;
+    }
+    input.btn[name="loginSubmit"] {
+        text-transform:uppercase;
+    }
+    .overTxtLabel {
+        color: @colorGray;
+        padding: 6px 10px;
+        font-size: 20px;
+    }
+
+    #loginLoadingCircle {
+      margin-top: 15px;
+    }
+
+}
+
+footer.info {
+    margin-top: 10px;
+    padding-bottom: 20%;
+    text-align: center;
+    color: @colorLightGray;
+    font-size: 10px;
+    line-height: 20px;
+
+    a {
+        text-decoration: none;
+        color: #FBC06E;
+        &:hover {
+          text-decoration: none;
+          color: #DF893B;
+        }
+    }
+}
