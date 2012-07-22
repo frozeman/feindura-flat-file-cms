@@ -7,7 +7,7 @@ body {
     height: 100%;
     background: #5b5b5b url("../images/bg/body.png") repeat;
     color: #666;
-    font: 14px Verdana, Arial, Sans-serif, Serif;
+    font: 14px "Helvetica Neue",Helvetica, Verdana, Arial, Sans-serif, Serif;
     line-height: 20px;
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
@@ -347,7 +347,6 @@ header.main {
         p {
           margin: 2px 0px;
           margin-bottom: 12px;
-          color: #C57F3D;
         }
 
         // speacial headline
@@ -686,13 +685,17 @@ header.main {
 
             ul {
                 margin: 0px;
-                margin-left: 15px;
+                margin-left: 5px;
             }
             ul li {
                 display: block;
-                margin: 3px 0px;
-                margin-bottom: 20px;
-                width: 150px;
+                margin: 10px 0;
+                padding: 15px 10px;
+                width: 140px !important;
+                // border-bottom: 1px solid #dedede;
+                // border-top: 1px solid @colorLightGray;
+                #shadow > .drop(0,0,5px);
+                #shadow > .text(0 1px 1px #ccc);
             }
         }
         // the arrows inside the #sidebarTaskLog, the picture is add in inline in the leftSidebar.loader.php

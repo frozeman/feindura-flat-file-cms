@@ -30,7 +30,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 <div class="listPagesHead">
   <div class="row">
-    <div class="span4 left name"><label style="font-size:inherit; position:relative; display: inline-block;"><?php echo $langFile['SORTABLEPAGELIST_headText1']; ?> <input type="text" value="" id="listPagesFilter" autofocus="autofocus"><a href="#" id="listPagesFilterCancel"></a></label></div>
+    <div class="span4 left name"><div><input type="text" value="" id="listPagesFilter" placeholder="<?php echo $langFile['SORTABLEPAGELIST_headText1']; ?>" autofocus="autofocus"><a href="#" id="listPagesFilterCancel">&#215;</a></div></div>
     <div class="span1 center">
       <?php echo $langFile['SORTABLEPAGELIST_headText3']; ?>
     </div>

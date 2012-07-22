@@ -202,4 +202,15 @@ if($_GET['status'] == 'addLanguage') {
     $pageContent['localized'][$_SESSION['feinduraSession']['websiteLanguage']] = $pageContent['localized'][$_GET['template']];
 }
 
+// LOAD PAGE as TEMPLATE
+if($newPage && isset($_GET['template']) && is_numeric($_GET['template'])) {
+  $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
+
+  foreach ($pageContent['localized'] as $langCode => $localized) {
+    $pageContent['localized'][$langCode]['title'] = $localized['title'].' ('.$langFile['EDITOR_TEXT_TEMPALATECOPYADDITION'].')';
+  }
+
+  unset($localized,$langCode);
+}
+
 ?>

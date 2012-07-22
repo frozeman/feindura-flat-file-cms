@@ -1,0 +1,84 @@
+// feindura - Flat File Content Management System
+// Copyright (C) Fabian Vogelsteller [frozeman.de]
+//
+// Published under the GNU General Public License
+
+ul.jsMultipleSelect,
+ul.jsMultipleSelectContainer {
+    position: relative;
+    margin: 0;
+    padding: 3px 5px;
+    list-style: none;
+    min-height: 50px;
+    max-height: 200px;
+    overflow: auto;
+    border: 1px solid @innerBlockBorderColor;
+    #shadow > .inner(0,0,5px,0.3);
+    #border > .rounded(5px);
+
+    li.jsMultipleSelectItem, {
+        position: relative;
+        display: block;
+        margin: 3px 0;
+        text-align: left;
+        cursor: pointer; // move
+
+        padding-left: 30px;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 1px;
+        }
+    }
+    li.filter {
+        input {
+            width: 93.5%;
+            margin-left: -4px;
+            margin-top: -2px;
+            margin-bottom: 0;
+            padding-right: 20px;
+            font-size: 14px;
+        }
+        a {
+            position: absolute;
+            top: 3px;
+            right: 8px;
+            padding: 0;
+            background: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+}
+
+ul.jsMultipleSelectContainer {
+    max-height: 350px;
+    min-height: 150px;
+    background: lighten(@logoColorBlue,50%) url("../images/icons/dropHere.png") no-repeat center center;
+    border-color: @logoColorBlue;
+
+    li {
+        cursor: auto !important;
+
+        a {
+            position: relative;
+            display: none;
+            margin-top: -2px;
+            padding: 0;
+            background: none;
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        &:active {
+            #shadow >.drop(0,1px,4px,0.2);
+        }
+        &:hover a {
+            display: inline;
+        }
+        span {
+            color: @logoColorBlue;
+        }
+    }
+}

@@ -85,6 +85,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
 
   // var
   $userPassChanged = false;
+  $userPassError = false;
   $newUserConfig = $_POST['users'];
 
   // prepare user POST data
@@ -108,6 +109,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
       } else {
         $newUserConfig[$configs['id']]['password'] = $userConfig[$configs['id']]['password'];
         $messagePopUp .= '<div class="alert alert-error center disappear">'.$langFile['USERSETUP_password_confirm_wrong'].'</div>';
+        $userPassError = true;
       }
     } else
       $newUserConfig[$configs['id']]['password'] = $userConfig[$configs['id']]['password'];
@@ -124,7 +126,9 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
 // GeneralFunctions::dump($newUserConfig);
 
   if(saveUserConfig($newUserConfig)) {
-    $documentSaved = true; // set documentSaved status
+
+    if(!$userPassError)
+      $documentSaved = true; // set documentSaved status
     if($userPassChanged)
       saveActivityLog(27,$savedUsername); // <- SAVE the task in a LOG FILE
     else

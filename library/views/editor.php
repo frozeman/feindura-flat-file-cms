@@ -52,10 +52,6 @@ echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['p
 <div class="block open pageHeader">
 <?php
 
-// LOAD PAGE as TEMPLATE
-if($newPage && isset($_GET['template']) && is_numeric($_GET['template']))
-  $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
-
 
 // shows ID and different header color if its a CATEGORY
 $headerColorClass = ($_GET['category'] != 0)

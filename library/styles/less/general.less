@@ -83,7 +83,7 @@ a.gray:hover, a.gray:focus {
     height: 40px;
 }
 .spacerH3 {
-    height: 60px;
+    height: 38px;
 }
 .spacerH4 {
     height: 48px;
@@ -509,7 +509,7 @@ table.coloredList {
 #documentSaved {
     position: fixed;
     top: 50%;
-    left: 480px;
+    left: 510px;
     z-index: 17;
     display: none;
     margin-top: -132px;
@@ -560,11 +560,12 @@ div#contentBlocked {
 }
 
 .insetBlock {
-    #shadow > .inner(0,0,5px,0.3);
-    #border > .rounded(10px);
-    padding: 10px;
+    padding: 9px;
     margin: 10px 0;
     background-color: @innerBlockColor;
+    border: 1px solid @innerBlockBorderColor;
+    #shadow > .inner(0,0,5px,0.3);
+    #border > .rounded(10px);
 }
 
 #messagePopUp.feindura {

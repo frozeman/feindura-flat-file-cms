@@ -78,9 +78,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
     $_POST[$postKey] = str_replace(array('\"',"\'"),'',$post);
 
   // -> PREPARE CONFIG VARs
-  $serverProtocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos($_SERVER["SERVER_PROTOCOL"],'/'))).((empty($_SERVER["HTTPS"])) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "");
-
-  $adminConfig['url']                      = $serverProtocol."://".$_SERVER['SERVER_NAME'];
+  $adminConfig['url']                      = generateCurrentUrl();
   $adminConfig['basePath']                 = GeneralFunctions::URI2Path(GeneralFunctions::getDirname($_SERVER['PHP_SELF']));
 
   $adminConfig['websitePath']              = GeneralFunctions::URI2Path($_POST['cfg_websitePath']);

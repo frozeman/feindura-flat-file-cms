@@ -144,15 +144,9 @@
                     display: inline-block;
                     height: 27px;
                     margin-left: 4px;
-                    margin-top: 2px;
                     background-image: url("../images/icons/pageIcon_small.png");
                     background-repeat: no-repeat;
                     padding-left: 31px;
-
-                    strong {
-                        position: relative;
-                        top: -2px;
-                    }
 
                     &.hasSubCategory {
                         background-image: url("../images/icons/pageIcon_subCategory_small.png");
@@ -227,22 +221,27 @@
         }
 
         div.name {
+            > div {
+                position: relative;
+                display: inline-block;
+            }
             input {
                 position: relative;
                 top: 2px;
-                width: 170px;
+                width: 230px;
                 padding-right: 23px;
+                font-size: 15px;
             }
 
             a#listPagesFilterCancel {
-                display: none;
                 position: absolute;
-                top: 7px;
-                right: 5px;
-                width: 18px;
-                height: 18px;
+                display: none;
+                top: -2px;
+                right: 8px;
                 padding: 0;
-                background: url("../images/buttons/close_gray.png") no-repeat;
+                background: none;
+                font-size: 22px;
+                font-weight: bold;
             }
         }
     }

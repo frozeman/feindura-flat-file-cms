@@ -2553,6 +2553,26 @@ function isWritableWarningRecursive($folders) {
 }
 
 /**
+ * <b>Name</b> generateCurrentUrl()<br>
+ *
+ * Generates the current URL.
+ *
+ *
+ * @return string the current url
+ *
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ *
+ */
+function generateCurrentUrl() {
+  $serverProtocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos($_SERVER["SERVER_PROTOCOL"],'/')));//.((empty($_SERVER["HTTPS"])) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "");
+  $serverPort = ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) ? '' : ':'.$_SERVER['SERVER_PORT'];
+  return $serverProtocol."://".$_SERVER['SERVER_NAME'].$serverPort;
+}
+
+/**
  * <b>Name</b> checkBasePathAndURL()<br>
  *
  * Check if the current path of the CMS is matching the <var>$adminConfig['basePath']</var>
@@ -2570,13 +2590,10 @@ function isWritableWarningRecursive($folders) {
  *
  */
 function checkBasePathAndURL() {
-  $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$GLOBALS['adminConfig']['url']);
-  $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$_SERVER["SERVER_NAME"]);
-
   $checkPath = GeneralFunctions::URI2Path(GeneralFunctions::getDirname($_SERVER['PHP_SELF']));
 
   if($GLOBALS['adminConfig']['basePath'] == $checkPath &&
-     $baseUrl == $checkUrl)
+     $GLOBALS['adminConfig']['url'] == generateCurrentUrl())
     return true;
   else
     return false;

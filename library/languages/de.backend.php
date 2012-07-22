@@ -21,6 +21,8 @@
  * if you want to write html-code in the toolTip texts (the $langFile which have "_TOOLTIP_")
  * uses only "[" and "]" instead of "<" and ">" for the HTML-tags and use no " (write instead "), this would end the title="" tag which contains the toolTip text.
  *
+ * Also dont use " or ' use &quot; and &#145; instead.
+ *
  * <samp>
  * $langFile['GROUP_TYPE_NAME'] = 'langfile example text';
  * </samp>
@@ -33,7 +35,7 @@
  *    - TEXT
  *    - EXAMPLE
  *    - ERROR
- *    - TOOLTIP
+ *    - TOOLTIP / TIP
  *
  * need a RETURN $langFile; at the END
  */
@@ -666,6 +668,8 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<st
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'Benutzerinformationen::Dieser Text wird auf der [span class=feinduraInline]fein[em]dura[/em][/span] '.$langFile['BUTTON_DASHBOARD'].' angezeigt.';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'Wenn Du keine Informationen für den Benutzer anzeigen möchtest lasse das Feld leer';
 
+$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Wähle Kategorien und Seiten aus die der Benutzer bearbeiten kann';
+
 /*
 * editor.php
 */
@@ -682,6 +686,7 @@ $langFile['EDITOR_pageinfo_category']                                     = 'Kat
 $langFile['EDITOR_pageinfo_category_noCategory']                          = 'keine Kategorie';
 
 $langFile['EDITOR_TEXT_CHOOSETEMPLATE']                                   = 'Benutze Vorlage';
+$langFile['EDITOR_TEXT_TEMPALATECOPYADDITION']                            = 'Kopie';
 
 $langFile['EDITOR_block_edited']                                          = 'wurden bearbeitet';
 $langFile['EDITOR_pageNotSaved']                                          = 'noch nicht gespeichert';

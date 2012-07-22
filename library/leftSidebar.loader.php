@@ -167,12 +167,12 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
          $logContent = file(dirname(__FILE__).'/../statistic/activity.statistic.log')) {
 
          echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat; top: 0px;"></div>';
-         echo '<div id="sidebarTaskLog"><br><br>';
+         echo '<div id="sidebarTaskLog">';
 
               // ->> LIST the tasks
               include(dirname(__FILE__).'/includes/showTaskLog.include.php');
 
-         echo '<br><br></div>';
+         echo '</div>';
          echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(\'library/images/bg/sidebarScrollDown.png\') no-repeat; margin-top:-30px;"></div>';
       // no log
       } else
@@ -225,7 +225,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       // FEINDURA INFO
       echo '<h2>'.$langFile['ADMINSETUP_TEXT_VERSION'].'</h2>';
       echo '<div class="content">';
-            '<p>'.VERSION.' - Build '.BUILD.'</p>';
+      echo '<p>'.VERSION.' - Build '.BUILD.'</p>';
       echo '<a href="README.md" class="link">README</a><br>';
       echo '<a href="CHANGELOG" class="link">CHANGELOG</a><br>';
       echo '<a href="LICENSE" class="link">LICENSE</a>';
