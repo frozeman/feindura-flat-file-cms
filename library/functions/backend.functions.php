@@ -994,8 +994,22 @@ function saveUserConfig($userConfig) {
       $fileContent .= "\$userConfig[".$user."]['permissions']['fileManager']          = ".XssFilter::bool($configs['permissions']['fileManager'],true).";\n";
       $fileContent .= "\$userConfig[".$user."]['permissions']['editWebsiteFiles']     = ".XssFilter::bool($configs['permissions']['editWebsiteFiles'],true).";\n";
       $fileContent .= "\$userConfig[".$user."]['permissions']['editStyleSheets']      = ".XssFilter::bool($configs['permissions']['editStyleSheets'],true).";\n";
-      $fileContent .= "\$userConfig[".$user."]['permissions']['editSnippets']         = ".XssFilter::bool($configs['permissions']['editSnippets'],true).";\n";
+      $fileContent .= "\$userConfig[".$user."]['permissions']['editSnippets']         = ".XssFilter::bool($configs['permissions']['editSnippets'],true).";\n\n";
 
+      // editable categories
+      if(is_array($configs['permissions']['editableCategories'])) {
+        foreach ($configs['permissions']['editableCategories'] as $editableCategory) {
+          $fileContent .= "\$userConfig[".$user."]['permissions']['editableCategories'][]  = ".XssFilter::int($editableCategory).";\n";
+        }
+      }
+      // editable pages
+      if(is_array($configs['permissions']['editablePages'])) {
+        foreach ($configs['permissions']['editablePages'] as $editablePage) {
+          // check that the add page is not already in one of the activated categories (prevent double adding)
+          if(!in_array($GLOBALS['pagesMetaData'][$editablePage]['category'], $configs['permissions']['editableCategories']))
+            $fileContent .= "\$userConfig[".$user."]['permissions']['editablePages'][]  = ".XssFilter::int($editablePage).";\n";
+        }
+      }
 
       $fileContent .= "\n\n";
     }

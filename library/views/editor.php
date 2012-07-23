@@ -771,8 +771,8 @@ $hidden = ' hidden';
         foreach($visitTimes_max as $visitTime_max) {
           if($visitTime_max_formated = showVisitTime($visitTime_max)) {
             if($showTimeHead)
-              echo '<span class="blue" id="visitTimeMax">'.$visitTime_max_formated.'</span><br>
-              <div id="visitTimeMaxContainer">';
+              echo '<span class="blue" id="visitTimeMax">'.$visitTime_max_formated.'</span><br>';
+              // <div id="visitTimeMaxContainer">';
             else
               echo '<span class="blue">'.$visitTime_max_formated.'</span><br>';
 
@@ -780,7 +780,7 @@ $hidden = ' hidden';
           }
         }
       }
-      echo '</div>';
+      // echo '</div>';
       ?>
     </div>
   </div>
@@ -798,8 +798,8 @@ $hidden = ' hidden';
         foreach($visitTimes_min as $visitTime_min) {
           if($visitTime_min_formated = showVisitTime($visitTime_min)) {
             if($showTimeHead)
-              echo '<span class="blue" id="visitTimeMin">'.$visitTime_min_formated.'</span><br>
-              <div id="visitTimeMinContainer">';
+              echo '<span class="blue" id="visitTimeMin">'.$visitTime_min_formated.'</span><br>';
+              // <div id="visitTimeMinContainer">';
             else
               echo '<span class="blue">'.$visitTime_min_formated.'</span><br>';
 
@@ -807,7 +807,7 @@ $hidden = ' hidden';
           }
         }
       }
-      echo '</div>';
+      // echo '</div>';
       ?>
     </div>
   </div>

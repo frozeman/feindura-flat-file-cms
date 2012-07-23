@@ -102,6 +102,9 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- thirdparty/PlaceholderSupport -->
   <script type="text/javascript" src="library/thirdparty/javascripts/PlaceholderSupport.js"></script>
 
+  <!-- thirdparty/jsMultipleSelect -->
+  <script type="text/javascript" src="library/thirdparty/javascripts/jsMultipleSelect.js"></script>
+
   <!-- thirdparty/FloatingTips -->
   <script type="text/javascript" src="library/thirdparty/javascripts/FloatingTips.js"></script>
 

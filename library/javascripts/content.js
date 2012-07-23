@@ -136,158 +136,6 @@ function setThumbScale(thumbWidth,thumbWidthScale,thumbHeight,thumbHeightScale) 
 }
 
 
- /** ------------------------------------------------------------------------------
-  * JS MULTIPLE SELECTION
-  *
-  * needs at least one
-  * <ul class="jsMultipleSelect" data-name="myValueName" data-jsMultipleSelect="1">
-  *   <li class="jsMultipleSelectItem" data-value="value">Value Name</li>
-  * </ul>
-  * and a
-  * <ul class="jsMultipleSelectContainer" data-jsMultipleSelect="1">
-  *
-  * You can add also the classes "duplicates" and or "remove" to either the ul.jsMultipleSelect or li.jsMultipleSelectItem
-  * remove - removes the original element from the list
-  * duplicate - allows duplicate entries in the ul.jsMultipleSelectContainer
-  */
-function jsMultipleSelect() {
-  $$('.jsMultipleSelect').each(function(jsMultipleSelect){
-
-    // vars
-    var jsMultipleSelectId = jsMultipleSelect.getProperty('data-jsMultipleSelect'); // to allocate the selection boxes
-    var name = jsMultipleSelect.getProperty('data-name'); // later the inputs anme attribute
-    var items = [];
-    var removedItems = [];
-
-    // add selections
-    jsMultipleSelect.getChildren('li.jsMultipleSelectItem').each(function(item){
-
-        // item can be cloned or will be removed
-        var remove =  (item.hasClass('remove') || item.getParent('ul.jsMultipleSelect').hasClass('remove'));
-        // item can be add multiple times
-        var duplicate =  (item.hasClass('duplicates') || item.getParent('ul.jsMultipleSelect').hasClass('duplicates'));
-        var duplicateCount = 1;
-
-        // vars
-        items.push(item);
-        var dropBox;
-        var value = item.getProperty('data-value');
-        var clone = item.clone();
-        var closeFunction = function() {
-          this.getParent('li').dispose();
-          if(remove) {
-            removedItems.erase(item);
-            item.setStyle('display','block');
-          }
-          if(duplicate)
-            duplicateCount--;
-        };
-        var close = new Element('a',{'html':'&#215;'});
-        close.addEvent('click',closeFunction);
-        var input = new Element('input',{
-          'type':'hidden',
-          'name':name+'[]',
-          'value':value
-        });
-        clone.grab(input,'bottom');
-        clone.grab(close,'bottom');
-
-        // dropBox
-        $$('.jsMultipleSelectContainer').each(function(box){
-          if(box.getProperty('data-jsMultipleSelect') == jsMultipleSelectId) {
-            dropBox = box;
-            return;
-          }
-        });
-
-        if(dropBox === null)
-          return;
-
-        // get dropBox bg color
-        var dropBoxBg = dropBox.getStyle('background-color');
-
-        // add click event
-        item.addEvent('click',function() {
-          var injectItem = (duplicate) ? clone.clone() : clone;
-
-          // add event to the cloned item
-          if(duplicate) {
-            injectItem.getChildren('a').addEvent('click',closeFunction);
-            if(duplicateCount > 1) {
-              injectItem.grab(new Element('span',{'text':' #'+duplicateCount}));
-            }
-            duplicateCount++;
-          }
-
-          if(!dropBox.contains(clone) || duplicate) {
-            injectItem.inject(dropBox);
-            dropBox.highlight('#cedee6', dropBoxBg);
-
-            if(remove) {
-              removedItems.push(item);
-              item.setStyle('display','none');
-            }
-          }
-        });
-    });
-
-    // add filter
-    jsMultipleSelect.getChildren('li.filter input').each(function(filter){
-      var close = new Element('a',{
-        'html': '&#215;',
-        styles:{'display':'none'},
-        events:{
-          'click':function(){
-            filter.setProperty('value','');
-            filter.fireEvent('keyup');
-          }
-        }
-      });
-      close.inject(filter.getParent('li.filter'),'bottom');
-
-      // prevent form submit on ENTER
-      filter.addEvent('keydown',function(e){
-        if(typeOf(e) != 'null' && e.key == 'enter')
-          return false;
-      });
-
-      // filter
-      filter.addEvent('keyup',function(e){
-        // clear on ESC
-        if(typeOf(e) != 'null' && e.key == 'esc')
-          filter.setProperty('value','');
-
-        // vars
-        var filterValue = filter.getProperty('value');
-
-        // ->> FILTER the PAGES
-        if(filterValue.length > 0) {
-          close.setStyle('display','inline');
-          items.each(function(item) {
-            var itemName = item.get('text');
-            if(typeOf(itemName) !== 'null' && itemName.toLowerCase().contains(filterValue.toLowerCase())) {
-              if(!removedItems.contains(item))
-                item.setStyle('display','block');
-            } else {
-              item.setStyle('display','none');
-            }
-          });
-
-        // else SHOW ALL ITEMS AGAIN
-        } else {
-          close.setStyle('display','none');
-
-          items.each(function(item) {
-            if(!removedItems.contains(item))
-              item.setStyle('display','block');
-          });
-        }
-      });
-    });
-
-  });
-}
-
 // ------------------------------------------------------------------------------
 // DISABLE THUMBNAIL SIZE IF RATIO is ON, all given vars are the object IDs
 function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,thumbNoRatio) {
@@ -737,7 +585,7 @@ window.addEvent('domready', function() {
   new PlaceholderSupport();
 
   // enable drag selections
-  jsMultipleSelect();
+  new jsMultipleSelect();
 
   // STORES all pages LI ELEMENTS
   listPagesBars = $$('div.block.listPagesBlock li');
@@ -987,7 +835,7 @@ window.addEvent('domready', function() {
       }
 
 
-      // mark the selcted page
+      // mark the selected page
       if(selectedPage !== null && typeOf(selectedPage) !== 'null') {
         selectedPage.addClass('active');
         selectedPage.store('selected',true);

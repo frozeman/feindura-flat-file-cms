@@ -192,7 +192,9 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 
   <script type="text/javascript">
 
-  new PlaceholderSupport();
+  window.addEvent('domready',function(){
+    new PlaceholderSupport();
+  });
 
   function startLoadingCircle() {
     // create loading circle element

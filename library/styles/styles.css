@@ -4956,8 +4956,10 @@
 }
 .feindura .floating-tip-wrapper {
   z-index: 20020;
+  pointer-events: none;
 }
 .feindura .floating-tip {
+  pointer-events: none;
   padding: 10px 15px;
   max-width: 200px;
   font-size: 12px;
@@ -5503,7 +5505,7 @@
   width: 106px;
   height: 40px;
   vertical-align: middle;
-  font-size: 12px;
+  font-size: 13px;
 }
 .feindura header.main div.menuBlock nav.mainMenu a.dashboard {
   background: url("../images/buttons/mainMenu_dashboard.png") no-repeat;
@@ -5636,7 +5638,7 @@
   color: #666666;
   text-align: center;
   text-decoration: none;
-  font-size: 9px;
+  font-size: 10px;
   line-height: 11px;
 }
 .feindura #adminMenu a:hover,
@@ -7302,6 +7304,7 @@
 .feindura .block.listPages div.listPagesHead div.name > div {
   position: relative;
   display: inline-block;
+  padding: 0;
 }
 .feindura .block.listPages div.listPagesHead div.name input {
   position: relative;
@@ -7941,7 +7944,7 @@
   background-image: url('../images/buttons/errorWindow_ok.png');
 }
 .feindura ul.jsMultipleSelect,
-.feindura ul.jsMultipleSelectContainer {
+.feindura ul.jsMultipleSelectDestination {
   position: relative;
   margin: 0;
   padding: 3px 5px;
@@ -7961,7 +7964,7 @@
   background-clip: padding-box;
 }
 .feindura ul.jsMultipleSelect li.jsMultipleSelectItem,
-.feindura ul.jsMultipleSelectContainer li.jsMultipleSelectItem {
+.feindura ul.jsMultipleSelectDestination li.jsMultipleSelectItem {
   position: relative;
   display: block;
   margin: 3px 0;
@@ -7970,13 +7973,13 @@
   padding-left: 30px;
 }
 .feindura ul.jsMultipleSelect li.jsMultipleSelectItem img,
-.feindura ul.jsMultipleSelectContainer li.jsMultipleSelectItem img {
+.feindura ul.jsMultipleSelectDestination li.jsMultipleSelectItem img {
   position: absolute;
   top: 0;
   left: 1px;
 }
 .feindura ul.jsMultipleSelect li.filter input,
-.feindura ul.jsMultipleSelectContainer li.filter input {
+.feindura ul.jsMultipleSelectDestination li.filter input {
   width: 93.5%;
   margin-left: -4px;
   margin-top: -2px;
@@ -7985,7 +7988,7 @@
   font-size: 14px;
 }
 .feindura ul.jsMultipleSelect li.filter a,
-.feindura ul.jsMultipleSelectContainer li.filter a {
+.feindura ul.jsMultipleSelectDestination li.filter a {
   position: absolute;
   top: 3px;
   right: 8px;
@@ -7994,16 +7997,16 @@
   font-size: 20px;
   font-weight: bold;
 }
-.feindura ul.jsMultipleSelectContainer {
+.feindura ul.jsMultipleSelectDestination {
   max-height: 350px;
   min-height: 150px;
   background: #e7f0f7 url("../images/icons/dropHere.png") no-repeat center center;
   border-color: #3a79a5;
 }
-.feindura ul.jsMultipleSelectContainer li {
+.feindura ul.jsMultipleSelectDestination li {
   cursor: auto !important;
 }
-.feindura ul.jsMultipleSelectContainer li a {
+.feindura ul.jsMultipleSelectDestination li a {
   position: relative;
   display: none;
   margin-top: -2px;
@@ -8013,14 +8016,14 @@
   font-size: 20px;
   font-weight: bold;
 }
-.feindura ul.jsMultipleSelectContainer li:active {
+.feindura ul.jsMultipleSelectDestination li:active {
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
 }
-.feindura ul.jsMultipleSelectContainer li:hover a {
+.feindura ul.jsMultipleSelectDestination li:hover a {
   display: inline;
 }
-.feindura ul.jsMultipleSelectContainer li span {
+.feindura ul.jsMultipleSelectDestination li span {
   color: #3a79a5;
 }
