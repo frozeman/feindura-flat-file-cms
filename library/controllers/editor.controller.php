@@ -29,7 +29,7 @@ $category = $_GET['category'];
 
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
-if($_POST['save'] && isBlocked() === false) {
+if($_POST['save'] && isBlocked() === false && GeneralFunctions::hasPermission('editablePages',$page)) {
 
   // vars
   $page	= $_POST['id'];
@@ -174,9 +174,11 @@ if($_POST['save'] && isBlocked() === false) {
   $savedForm = $_POST['savedBlock'];
 }
 
-// ->> LOAD PAGE and CHECK for NEW PAGE
-if($pageContent = GeneralFunctions::readPage($page,$category))
+
+// -> LOAD PAGE only if USER have PERMISSION for that PAGE or CATEGORY
+if(GeneralFunctions::hasPermission('editablePages',$page) && $pageContent = GeneralFunctions::readPage($page,$category))
   $newPage = false;
+// otherwise offer NEW PAGE
 else
   $newPage = true;
 

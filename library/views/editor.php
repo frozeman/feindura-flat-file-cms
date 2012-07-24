@@ -141,7 +141,7 @@ if(!$newPage) {
       // -> show a CATEGORY SELECTION
       echo '<div class="row">
               <div class="span3 formLeft">
-                <label for="categorySelection"><strong>'.$langFile['EDITOR_pageinfo_category'].'</strong></label>
+                <label for="categorySelection"><span><strong>'.$langFile['EDITOR_pageinfo_category'].'</strong></span></label>
               </div>
               <div class="span5">
                 <select name="categorySelection" id="categorySelection">';
@@ -149,18 +149,11 @@ if(!$newPage) {
                 // ->> goes trough categories and list them
                 foreach($categoryConfig as $listCategory) {
 
-                  if($listCategory['id'] == 0) {
-                    // -> shows non-category selection if create pages is allowed
-                    if($listCategory['createDelete'])
-                      echo '<option value="0">'.$langFile['EDITOR_pageinfo_category_noCategory'].'</option>';
-                    continue;
-                  }
-
                   $selected = ($listCategory['id'] == $_GET['category']) ? ' selected="selected"' : $selected = '';
                   $categoryId = (GeneralFunctions::isAdmin()) ? ' (ID '.$listCategory['id'].')' : '';
 
                   // -> shows category selection if create pages is allowed
-                  if($listCategory['createDelete'])
+                  if($listCategory['createDelete'] && GeneralFunctions::hasPermission('editableCategories',$listCategory['id']))
                     echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.GeneralFunctions::getLocalized($listCategory,'name').$categoryId.'</option>'."\n";
                 }
 

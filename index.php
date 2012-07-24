@@ -439,15 +439,14 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     // CHECK if one category can create pages
     if(!empty($categoryConfig)) {
       foreach($categoryConfig as $category) {
-        if($category['createDelete'])
+        if($category['createDelete'] && GeneralFunctions::hasPermission('editableCategories',$category['id']))
           $generallyCreatePages = true;
       }
       unset($category);
     }
 
 
-    $showCreatePage = ($generallyCreatePages || //&& $_GET['site'] == 'pages'
-                       (!empty($_GET['page']) && $categoryConfig[$_GET['category']]['createDelete'])) ? true : false;
+    $showCreatePage = ($generallyCreatePages) ? true : false;
 
      // -> CHECK for DELETE PAGE
     $showDeletePage = ($generallyCreatePages && !$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new' &&

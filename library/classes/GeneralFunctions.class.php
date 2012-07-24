@@ -434,8 +434,9 @@ class GeneralFunctions {
   *
   * Check if the user has the permissions of the given <var>$permission</var> parameter.
   *
-  * @param string    $permission the array key of the permission to check
-  * @param int|bool  $userId     (optional) a user id which should be used as the current user
+  * @param string     $permission the array key of the permission to check
+  * @param string|int $data       (optional) some data which is required so some checks (like category or page IDs)
+  * @param int|bool   $userId     (optional) a user id which should be used as the current user
   *
   * @return bool TRUE if the current user has the permission, FALSE if not
   *
@@ -448,15 +449,46 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function hasPermission($permission, $userId = false) {
+  public static function hasPermission($permission, $data = false, $userId = false) {
 
     if(!is_numeric($userId))
       $userId = USERID;
 
+    // the admin can always do everything
     if(self::isAdmin())
       return true;
-    else
-      return self::$userConfig[$userId]['permissions'][$permission];
+    else {
+
+      // var
+      $checkCategory = false;
+
+      // check if  PAGE and CATEGORY permissions are set (if not the user can edit all pages)
+      if(($permission == 'editablePages' || $permission == 'editableCategories') &&
+         !is_array(self::$userConfig[$userId]['permissions']['editablePages']) &&
+         !is_array(self::$userConfig[$userId]['permissions']['editableCategories']))
+        return true;
+
+      // check for allowed PAGE
+      if($permission == 'editablePages') {
+        if(is_array(self::$userConfig[$userId]['permissions']['editablePages']) && in_array($data, self::$userConfig[$userId]['permissions']['editablePages']))
+          return true;
+        else {
+          $checkCategory = true;
+          $data = GeneralFunctions::getPageCategory($data);
+        }
+      }
+
+      // check for allowed CATEGORY
+      if($checkCategory || $permission == 'editableCategories') {
+        if(is_array(self::$userConfig[$userId]['permissions']['editableCategories']) && in_array($data, self::$userConfig[$userId]['permissions']['editableCategories']))
+          return true;
+        else
+          return false;
+
+      // check anything else
+      } else
+        return self::$userConfig[$userId]['permissions'][$permission];
+    }
   }
 
   /**

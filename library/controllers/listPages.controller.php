@@ -25,7 +25,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 $opendCategory = false;
 
 // ->> CHANGE CATEGORY STATUS
-if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus') {
+if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus' && GeneralFunctions::hasPermission('editableCategories',$_GET['category'])) {
 
   // change the status
   $categoryConfig[$_GET['category']]['public'] = ($_GET['public']) ? false : true;

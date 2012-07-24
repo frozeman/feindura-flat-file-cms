@@ -667,7 +667,7 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                   = 'Act
 $langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'File manager deactivated::You must set the upload path in the basic-settings, before you can activate the file manager.';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'Activate frontend editing';
 
-$langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>User information</strong> in <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>User information</strong> in the <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'User Information::This text will be shown in the '.$langFile['BUTTON_DASHBOARD'].' page of [span class=feinduraInline]fein[em]dura[/em][/span].';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'If you don&#145;t want to display an information for the user, leave this field empty';
 

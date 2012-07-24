@@ -111,6 +111,40 @@ function isBlocked($returnBool = false) {
 }
 
 /**
+ * <b>Name</b> showCategory()<br>
+ *
+ * Check the current category has the permission to be displayed.
+ *
+ * It checks the category permission and then if at least on page inside the category has the permission to be edited.
+ *
+ * @param int $categoryId the ID of the category to check
+ *
+ * @return bool whether or not the category has permission
+ *
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ *
+ */
+function showCategory($categoryId){
+  // vars
+  $return = false;
+
+  if(GeneralFunctions::hasPermission('editableCategories',$categoryId))
+    return true;
+
+  // if not check the pages in it, if one has permission
+  foreach($GLOBALS['pagesMetaData'] as $pageMetaData) {
+    if($pageMetaData['category'] == $categoryId &&
+       GeneralFunctions::hasPermission('editablePages',$pageMetaData['id']))
+      $return = true;
+  }
+
+  return $return;
+}
+
+/**
  * <b>Name</b> userCache()<br>
  *
  * Creates a <var>user.statistic.cache</var> file and store the username and the currently visited site/page.

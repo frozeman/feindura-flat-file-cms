@@ -5429,12 +5429,8 @@
   height: 100%;
   background: #5b5b5b url("../images/bg/body.png") repeat;
   color: #666;
-  font: 14px "Helvetica Neue", Helvetica, Verdana, Arial, Sans-serif, Serif;
+  font: 14px 'century gothic', 'helvetica neue', Helvetica, Verdana, Arial, Sans-serif, Serif;
   line-height: 20px;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
-  font-smoothing: antialiased;
 }
 .feindura header.main {
   position: relative;
@@ -7316,12 +7312,19 @@
 .feindura .block.listPages div.listPagesHead div.name a#listPagesFilterCancel {
   position: absolute;
   display: none;
-  top: -2px;
+  top: 0px;
   right: 8px;
   padding: 0;
   background: none;
   font-size: 22px;
   font-weight: bold;
+  font-family: 'neue helvetica', helvetica, arial;
+  -webkit-text-shadow: none;
+  -moz-text-shadow: none;
+  text-shadow: none;
+  -ms-text-shadow: none;
+  -o-text-shadow: none;
+  -khtml-text-shadow: none;
 }
 .feindura .block.listPages div.subCategoryArrowLine {
   position: absolute;
@@ -7990,12 +7993,13 @@
 .feindura ul.jsMultipleSelect li.filter a,
 .feindura ul.jsMultipleSelectDestination li.filter a {
   position: absolute;
-  top: 3px;
+  top: 4px;
   right: 8px;
   padding: 0;
   background: none;
   font-size: 20px;
   font-weight: bold;
+  font-family: 'neue helvetica', helvetica, arial;
 }
 .feindura ul.jsMultipleSelectDestination {
   max-height: 350px;
@@ -8009,12 +8013,13 @@
 .feindura ul.jsMultipleSelectDestination li a {
   position: relative;
   display: none;
-  margin-top: -2px;
+  margin-top: -1px;
   padding: 0;
   background: none;
   float: right;
   font-size: 20px;
   font-weight: bold;
+  font-family: 'neue helvetica', helvetica, arial;
 }
 .feindura ul.jsMultipleSelectDestination li:active {
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
