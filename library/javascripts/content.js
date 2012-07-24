@@ -135,6 +135,7 @@ function setThumbScale(thumbWidth,thumbWidthScale,thumbHeight,thumbHeightScale) 
   }
 }
 
+
 // ------------------------------------------------------------------------------
 // DISABLE THUMBNAIL SIZE IF RATIO is ON, all given vars are the object IDs
 function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,thumbNoRatio) {
@@ -580,6 +581,11 @@ window.addEvent('load', function() {
 // *---------------------------------------------------------------------------------------------------*
 window.addEvent('domready', function() {
 
+  // adds cross browser placeholder support
+  new PlaceholderSupport();
+
+  // enable drag selections
+  new jsMultipleSelect();
 
   // STORES all pages LI ELEMENTS
   listPagesBars = $$('div.block.listPagesBlock li');
@@ -829,7 +835,7 @@ window.addEvent('domready', function() {
       }
 
 
-      // mark the selcted page
+      // mark the selected page
       if(selectedPage !== null && typeOf(selectedPage) !== 'null') {
         selectedPage.addClass('active');
         selectedPage.store('selected',true);
@@ -853,7 +859,7 @@ window.addEvent('domready', function() {
 
       listPagesBars = $$('div.block.listPagesBlock li');
 
-      $('listPagesFilter').set('value','');
+      $('listPagesFilter').setProperty('value','');
       $('listPagesFilter').fireEvent('keyup');
       $$('.subCategoryArrowLine').setStyle('display','block');
     };
@@ -873,10 +879,10 @@ window.addEvent('domready', function() {
 
       // clear on ESC
       if(typeOf(e) != 'null' && e.key == 'esc')
-        this.set('value','');
+        this.setProperty('value','');
 
       // vars
-      var filter = this.get('value');
+      var filter = this.getProperty('value');
 
       // clear the listPagesBars, to add filtered pages
       if(filter.length > 0) {
@@ -927,7 +933,7 @@ window.addEvent('domready', function() {
         // hide subCategory arrows
         $$('.subCategoryArrowLine').setStyle('display','none');
 
-        $('listPagesFilterCancel').setStyle('display','block');
+        $('listPagesFilterCancel').setStyle('display','inline');
 
         $$('div.block.listPagesBlock').each(function(block){
           if(block.hasClass('hidden')) {
@@ -969,7 +975,7 @@ window.addEvent('domready', function() {
     });
   }
 
-  // -------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------
   // SHOW SUBCATEGORY ARROW PAGES ---------------------------------------------------------------
   subCategoryArrows = function() {
       $$('div.subCategoryArrowLine').each(function(arrow){

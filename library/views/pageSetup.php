@@ -263,8 +263,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
     <?php if(!empty($plugins)) { ?>
     <div class="row">
       <div class="offset1 span3">
-        <label for="cfg_pagePlugins">
-        <h4><?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] ?></h4></label>
+        <h3><?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] ?></h3>
         <select id="nonCategoryPlugins" name="categories[0][plugins][]" multiple="multiple">
           <?php
           foreach($plugins as $pluginName) {
@@ -275,7 +274,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
         </select>
         </div>
         <div class="span3">
-          <div class="spacerH4"></div>
+          <div class="spacerH3"></div>
           <div class="alert"><?php echo $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'] ?></div>
         </div>
     </div>

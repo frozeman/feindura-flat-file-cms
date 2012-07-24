@@ -4359,7 +4359,7 @@
   height: 40px;
 }
 .feindura .spacerH3 {
-  height: 60px;
+  height: 38px;
 }
 .feindura .spacerH4 {
   height: 48px;
@@ -4742,7 +4742,7 @@
 .feindura #documentSaved {
   position: fixed;
   top: 50%;
-  left: 480px;
+  left: 510px;
   z-index: 17;
   display: none;
   margin-top: -132px;
@@ -4815,6 +4815,10 @@
   behavior: url('library/thirdparty/javascripts/PIE.htc');
 }
 .feindura .insetBlock {
+  padding: 9px;
+  margin: 10px 0;
+  background-color: #fdfdfd;
+  border: 1px solid #c0c0c0;
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
   -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
@@ -4824,9 +4828,6 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  padding: 10px;
-  margin: 10px 0;
-  background-color: #fdfdfd;
 }
 .feindura #messagePopUp.feindura {
   z-index: 20030;
@@ -4955,8 +4956,10 @@
 }
 .feindura .floating-tip-wrapper {
   z-index: 20020;
+  pointer-events: none;
 }
 .feindura .floating-tip {
+  pointer-events: none;
   padding: 10px 15px;
   max-width: 200px;
   font-size: 12px;
@@ -4971,6 +4974,7 @@
   -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 30px rgba(0, 0, 0, 0.4);
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 30px rgba(0, 0, 0, 0.4);
   background-color: #666;
+  word-wrap: break-word;
 }
 .feindura .floating-tip h2 {
   font-size: 13px;
@@ -5425,12 +5429,8 @@
   height: 100%;
   background: #5b5b5b url("../images/bg/body.png") repeat;
   color: #666;
-  font: 14px Verdana, Arial, Sans-serif, Serif;
+  font: 14px 'century gothic', 'helvetica neue', Helvetica, Verdana, Arial, Sans-serif, Serif;
   line-height: 20px;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
-  font-smoothing: antialiased;
 }
 .feindura header.main {
   position: relative;
@@ -5501,7 +5501,7 @@
   width: 106px;
   height: 40px;
   vertical-align: middle;
-  font-size: 12px;
+  font-size: 13px;
 }
 .feindura header.main div.menuBlock nav.mainMenu a.dashboard {
   background: url("../images/buttons/mainMenu_dashboard.png") no-repeat;
@@ -5634,7 +5634,7 @@
   color: #666666;
   text-align: center;
   text-decoration: none;
-  font-size: 9px;
+  font-size: 10px;
   line-height: 11px;
 }
 .feindura #adminMenu a:hover,
@@ -5743,7 +5743,6 @@
 .feindura .mainBody #leftSidebar p {
   margin: 2px 0px;
   margin-bottom: 12px;
-  color: #C57F3D;
 }
 .feindura .mainBody #leftSidebar h2 {
   z-index: 2;
@@ -6038,13 +6037,22 @@
 }
 .feindura .mainBody #leftSidebar #sidebarTaskLog ul {
   margin: 0px;
-  margin-left: 15px;
+  margin-left: 5px;
 }
 .feindura .mainBody #leftSidebar #sidebarTaskLog ul li {
   display: block;
-  margin: 3px 0px;
-  margin-bottom: 20px;
-  width: 150px;
+  margin: 10px 0;
+  padding: 15px 10px;
+  width: 140px !important;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.09999999999999998);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.09999999999999998);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.09999999999999998);
+  -webkit-text-shadow: 0 1px 1px #cccccc;
+  -moz-text-shadow: 0 1px 1px #cccccc;
+  text-shadow: 0 1px 1px #cccccc;
+  -ms-text-shadow: 0 1px 1px #cccccc;
+  -o-text-shadow: 0 1px 1px #cccccc;
+  -khtml-text-shadow: 0 1px 1px #cccccc;
 }
 .feindura .mainBody #leftSidebar .scrollUpDown {
   position: absolute;
@@ -6441,10 +6449,10 @@
   font-size: 16px;
 }
 .feindura .mainContent .block h3 {
-  margin: 10px;
-  padding: 5px 7px;
+  margin-bottom: 10px;
+  color: #888888;
+  font-weight: normal;
   font-size: 15px;
-  color: #536068;
 }
 .feindura .mainContent .block h3 span {
   color: #BAB8B6;
@@ -6626,6 +6634,7 @@
   background-clip: padding-box;
   padding: 20px;
   background-color: #fdfdfd;
+  border: 1px solid #c0c0c0;
 }
 .feindura .mainContent .block .innerBlock .innerBlocklistPages {
   position: relative;
@@ -6728,7 +6737,7 @@
 }
 .feindura .container {
   position: relative;
-  top: 15%;
+  top: 100px;
   width: 330px;
 }
 .feindura .loginBox {
@@ -7225,14 +7234,9 @@
   display: inline-block;
   height: 27px;
   margin-left: 4px;
-  margin-top: 2px;
   background-image: url("../images/icons/pageIcon_small.png");
   background-repeat: no-repeat;
   padding-left: 31px;
-}
-.feindura .block.listPages .block ul li .name a strong {
-  position: relative;
-  top: -2px;
 }
 .feindura .block.listPages .block ul li .name a.hasSubCategory {
   background-image: url("../images/icons/pageIcon_subCategory_small.png");
@@ -7293,21 +7297,34 @@
 .feindura .block.listPages div.listPagesHead > div {
   white-space: nowrap;
 }
+.feindura .block.listPages div.listPagesHead div.name > div {
+  position: relative;
+  display: inline-block;
+  padding: 0;
+}
 .feindura .block.listPages div.listPagesHead div.name input {
   position: relative;
   top: 2px;
-  width: 170px;
+  width: 230px;
   padding-right: 23px;
+  font-size: 15px;
 }
 .feindura .block.listPages div.listPagesHead div.name a#listPagesFilterCancel {
-  display: none;
   position: absolute;
-  top: 7px;
-  right: 5px;
-  width: 18px;
-  height: 18px;
+  display: none;
+  top: 0px;
+  right: 8px;
   padding: 0;
-  background: url("../images/buttons/close_gray.png") no-repeat;
+  background: none;
+  font-size: 22px;
+  font-weight: bold;
+  font-family: 'neue helvetica', helvetica, arial;
+  -webkit-text-shadow: none;
+  -moz-text-shadow: none;
+  text-shadow: none;
+  -ms-text-shadow: none;
+  -o-text-shadow: none;
+  -khtml-text-shadow: none;
 }
 .feindura .block.listPages div.subCategoryArrowLine {
   position: absolute;
@@ -7928,4 +7945,90 @@
 }
 .feindura #errorWindow.feindura .ok {
   background-image: url('../images/buttons/errorWindow_ok.png');
+}
+.feindura ul.jsMultipleSelect,
+.feindura ul.jsMultipleSelectDestination {
+  position: relative;
+  margin: 0;
+  padding: 3px 5px;
+  list-style: none;
+  min-height: 50px;
+  max-height: 200px;
+  overflow: auto;
+  border: 1px solid #c0c0c0;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura ul.jsMultipleSelect li.jsMultipleSelectItem,
+.feindura ul.jsMultipleSelectDestination li.jsMultipleSelectItem {
+  position: relative;
+  display: block;
+  margin: 3px 0;
+  text-align: left;
+  cursor: pointer;
+  padding-left: 30px;
+}
+.feindura ul.jsMultipleSelect li.jsMultipleSelectItem img,
+.feindura ul.jsMultipleSelectDestination li.jsMultipleSelectItem img {
+  position: absolute;
+  top: 0;
+  left: 1px;
+}
+.feindura ul.jsMultipleSelect li.filter input,
+.feindura ul.jsMultipleSelectDestination li.filter input {
+  width: 93.5%;
+  margin-left: -4px;
+  margin-top: -2px;
+  margin-bottom: 0;
+  padding-right: 20px;
+  font-size: 14px;
+}
+.feindura ul.jsMultipleSelect li.filter a,
+.feindura ul.jsMultipleSelectDestination li.filter a {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  padding: 0;
+  background: none;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'neue helvetica', helvetica, arial;
+}
+.feindura ul.jsMultipleSelectDestination {
+  max-height: 350px;
+  min-height: 150px;
+  background: #e7f0f7 url("../images/icons/dropHere.png") no-repeat center center;
+  border-color: #3a79a5;
+}
+.feindura ul.jsMultipleSelectDestination li {
+  cursor: auto !important;
+}
+.feindura ul.jsMultipleSelectDestination li a {
+  position: relative;
+  display: none;
+  margin-top: -1px;
+  padding: 0;
+  background: none;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'neue helvetica', helvetica, arial;
+}
+.feindura ul.jsMultipleSelectDestination li:active {
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
+}
+.feindura ul.jsMultipleSelectDestination li:hover a {
+  display: inline;
+}
+.feindura ul.jsMultipleSelectDestination li span {
+  color: #3a79a5;
 }

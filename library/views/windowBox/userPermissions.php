@@ -34,11 +34,14 @@ $error = false;
 if($post['send'] == 'true') {
 
   $newUserConfig = $userConfig;
-  $newUserConfig[$post['userId']]['permissions']['frontendEditing']  = $post['frontendEditing'];
-  $newUserConfig[$post['userId']]['permissions']['fileManager']      = (empty($adminConfig['uploadPath'])) ? false : $post['fileManager'];
-  $newUserConfig[$post['userId']]['permissions']['editWebsiteFiles'] = $post['editWebsiteFiles'];
-  $newUserConfig[$post['userId']]['permissions']['editStyleSheets']  = $post['editStyleSheets'];
-  $newUserConfig[$post['userId']]['permissions']['editSnippets']     = $post['editSnippets'];
+  $newUserConfig[$post['userId']]['permissions']['frontendEditing']    = $post['frontendEditing'];
+  $newUserConfig[$post['userId']]['permissions']['fileManager']        = (empty($adminConfig['uploadPath'])) ? false : $post['fileManager'];
+  $newUserConfig[$post['userId']]['permissions']['editWebsiteFiles']   = $post['editWebsiteFiles'];
+  $newUserConfig[$post['userId']]['permissions']['editStyleSheets']    = $post['editStyleSheets'];
+  $newUserConfig[$post['userId']]['permissions']['editSnippets']       = $post['editSnippets'];
+
+  $newUserConfig[$post['userId']]['permissions']['editableCategories'] = $post['editableCategories'];
+  $newUserConfig[$post['userId']]['permissions']['editablePages']      = $post['editablePages'];
 
   if(saveUserConfig($newUserConfig)) {
     saveActivityLog(28,$savedUsername); // <- SAVE the task in a LOG FILE
@@ -113,6 +116,59 @@ if($post['send'] == 'true') {
   </div>
   <?php } ?>
 
+  <div class="spacer2x"></div>
+
+  <div class="row">
+    <div class="offset1 span6"><h3 class="center"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']; ?></h3></div>
+  </div>
+  <div class="row">
+    <div class="offset1 span3">
+      <ul class="jsMultipleSelect" data-jsMultipleSelect="1" data-name="editableCategories" data-type="remove">
+        <li class="filter"><input type="text" placeholder="<?php echo $langFile['SORTABLEPAGELIST_headText1']; ?>"></li>
+        <?php
+          foreach ($categoryConfig as $config) {
+            echo '<li class="jsMultipleSelectItem btn" data-value="'.$config['id'].'"><img src="library/images/icons/categoryIcon_small.png" alt="category icon"><strong>'.GeneralFunctions::getLocalized($config,'name').'</strong></li>';
+          }
+        ?>
+      </ul>
+      <?php
+      $pages = GeneralFunctions::loadPages(true);
+
+      if(!empty($pages) && is_array($pages)) {
+      ?>
+      <div class="spacer"></div>
+      <ul class="jsMultipleSelect" data-jsMultipleSelect="1" data-name="editablePages" data-type="remove">
+        <li class="filter"><input type="text" placeholder="<?php echo $langFile['SORTABLEPAGELIST_headText1']; ?>"></li>
+        <?php
+          foreach ($pages as $page) {
+            if($page['category'] != 0)
+              $category = '<strong>'.GeneralFunctions::getLocalized($categoryConfig[$page['category']],'name').'</strong> » ';
+            echo '<li class="jsMultipleSelectItem btn" data-value="'.$page['id'].'"><img src="library/images/icons/pageIcon_small.png" alt="page icon">'.$category.GeneralFunctions::getLocalized($page,'title').'</li>';
+          }
+        ?>
+      </ul>
+      <?php } ?>
+    </div>
+    <div class="span3">
+      <ul class="jsMultipleSelectDestination" data-jsMultipleSelect="1">
+        <?php
+          // add selected editableCategories
+          if(is_array($userConfig[$post['userId']]['permissions']['editableCategories'])) {
+            foreach ($userConfig[$post['userId']]['permissions']['editableCategories'] as $editableCategory) {
+              echo '<li data-value="'.$editableCategory.'" data-name="editableCategories"></li>';
+            }
+          }
+          // add selected editablePages
+          if(is_array($userConfig[$post['userId']]['permissions']['editablePages'])) {
+            foreach ($userConfig[$post['userId']]['permissions']['editablePages'] as $editablePage) {
+              echo '<li data-value="'.$editablePage.'" data-name="editablePages"></li>';
+            }
+          }
+        ?>
+      </ul>
+    </div>
+  </div>
+
   <div class="row buttons">
     <div class="span4 center">
       <a href="?site=userSetup" class="button cancel" onclick="closeWindowBox();return false;"></a>
@@ -128,6 +184,14 @@ if($post['send'] == 'true') {
 <script type="text/javascript">
 /* <![CDATA[ */
   $('windowBox').addEvent('loaded',function(){
+
+    // adds cross browser placeholder support
+    new PlaceholderSupport();
+
+    // enable drag selection
+    new jsMultipleSelect();
+
+    // add fancy forms
     new FancyForm('#windowBox input[type="checkbox"], #windowBox input[type="radio"]');
     $$('#windowBox textarea.autogrow').each(function(textarea){
       new Form.AutoGrow(textarea);
@@ -135,5 +199,4 @@ if($post['send'] == 'true') {
   });
 /* ]]> */
 </script>
-
 <?php } ?>

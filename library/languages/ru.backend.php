@@ -23,6 +23,8 @@
  * if you want to write html-code in the toolTip texts (mostly they end with ".._tip" or ".._inputTip")
  * use only "[" and "]" instead of "<" and ">" for the HTML-tags and use no " this would end the title="" tag where the toolTip text is in.
  *
+ * Also dont use " or ' use &quot; and &#145; instead.
+ *
  * <samp>
  * $langFile['GROUP_TYPE_NAME'] = 'langfile example text';
  * </samp>
@@ -35,7 +37,7 @@
  *    - TEXT
  *    - EXAMPLE
  *    - ERROR
- *    - TOOLTIP
+ *    - TOOLTIP / TIP
  *
  * need a RETURN $langFile; at the END
  */
@@ -674,6 +676,8 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<st
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'Инфо-блок::Это короткий ифнормационный текст для пользователей который будет отображаться на странице '.$langFile['BUTTON_DASHBOARD'].'.';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'Если у вас нет информации для пользователей - оставьте поле пустым.';
 
+$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Выберите категорию и страницы которой пользователь должен иметь возможность редактировать';
+
 
 /*
 * editor.php
@@ -691,6 +695,7 @@ $langFile['EDITOR_pageinfo_category']                                     = 'К�
 $langFile['EDITOR_pageinfo_category_noCategory']                          = 'без категории';
 
 $langFile['EDITOR_TEXT_CHOOSETEMPLATE']                                   = 'использование шаблонов';
+$langFile['EDITOR_TEXT_TEMPALATECOPYADDITION']                            = 'скопировать';
 
 $langFile['EDITOR_block_edited']                                          = 'изменены';
 $langFile['EDITOR_pageNotSaved']                                          = 'не сохранено';

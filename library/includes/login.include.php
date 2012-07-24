@@ -178,6 +178,9 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.4.5.js"></script>
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.4.0.1.js"></script>
 
+  <!-- thirdparty/PlaceholderSupport -->
+  <script type="text/javascript" src="library/thirdparty/javascripts/PlaceholderSupport.js"></script>
+
   <!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
 
@@ -188,18 +191,9 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
   <script type="text/javascript" src="library/javascripts/shared.js"></script>
 
   <script type="text/javascript">
-  function supports_input_placeholder() {
-    var i = document.createElement('input');
-    return 'placeholder' in i;
-  }
 
-  window.addEvent('load',function() {
-    if(!supports_input_placeholder()) {
-      new OverText('username',{positionOptions: {offset: {x: 0,y: 0}}});
-      <?php if(!isset($_GET['resetpassword'])) { ?>
-      new OverText('password',{positionOptions: {offset: {x: 0,y: 0}}});
-      <?php } ?>
-    }
+  window.addEvent('domready',function(){
+    new PlaceholderSupport();
   });
 
   function startLoadingCircle() {

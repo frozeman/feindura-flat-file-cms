@@ -21,6 +21,8 @@
  * if you want to write html-code in the toolTip texts (mostly they end with ".._tip" or ".._inputTip")
  * use only "[" and "]" instead of "<" and ">" for the HTML-tags and use no " this would end the title="" tag where the toolTip text is in.
  *
+ * Also dont use " or ' use &quot; and &#145; instead.
+ *
  * <samp>
  * $langFile['GROUP_TYPE_NAME'] = 'langfile example text';
  * </samp>
@@ -33,14 +35,14 @@
  *    - TEXT
  *    - EXAMPLE
  *    - ERROR
- *    - TOOLTIP
+ *    - TOOLTIP / TIP
  *
  * need a RETURN $langFile; at the END
  */
 
 // -> LOGIN <-
 
-$langFile['LOGIN_INPUT_USERNAME']                                         = 'nom d\'utilisateur';
+$langFile['LOGIN_INPUT_USERNAME']                                         = 'nom d&#145;utilisateur';
 $langFile['LOGIN_INPUT_PASSWORD']                                         = 'mot de passe';
 $langFile['LOGIN_BUTTON_LOGIN']                                           = 'Login';
 $langFile['LOGIN_TEXT_COOKIESNEEDED']                                     = 'Cookies doivent être activés!';
@@ -75,15 +77,15 @@ $langFile['CATEGORIES_TEXT_NONCATEGORY']                                  = 'pag
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']                               = 'pages sans catégorie';
 $langFile['TEXT_EXAMPLE']                                                 = 'par exemple';
 
-$langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Feindura::S\'il vous plaît cliquez ici pour éditer les pages directement sur votre site web.';
+$langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Feindura::S&#145;il vous plaît cliquez ici pour éditer les pages directement sur votre site web.';
 
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT']                                          = 'pixel';
 $langFile['THUMBNAIL_TEXT_NAME']                                          = 'miniature de la page';
 $langFile['THUMBNAIL_TEXT_WIDTH']                                         = 'thumbnail <b>largeur</b>';
 $langFile['THUMBNAIL_TEXT_HEIGHT']                                        = 'thumbnail <b>hauteur</b>';
-$langFile['THUMBNAIL_TOOLTIP_WIDTH']                                      = 'largeur standard::La largeur du thumbnail en pixels.[br][br]L\'image téléchargée sera mise à l\'échelle normée.';
-$langFile['THUMBNAIL_TOOLTIP_HEIGHT']                                     = 'hauteur standard::La hauteur du thumbnail en pixels.[br][br]L\'image téléchargée sera mise à l\'échelle normée.';
+$langFile['THUMBNAIL_TOOLTIP_WIDTH']                                      = 'largeur standard::La largeur du thumbnail en pixels.[br][br]L&#145;image téléchargée sera mise à l&#145;échelle normée.';
+$langFile['THUMBNAIL_TOOLTIP_HEIGHT']                                     = 'hauteur standard::La hauteur du thumbnail en pixels.[br][br]L&#145;image téléchargée sera mise à l&#145;échelle normée.';
 $langFile['THUMBNAIL_TEXT_RATIO']                                         = 'rapport largeur/hauteur';
 $langFile['THUMBNAIL_TEXT_KEEPRATIO']                                     = 'garder le rapport largeur/hauteur';
 $langFile['THUMBNAIL_TEXT_FIXEDRATIO']                                    = 'rapport largeur/hauteur fix';
@@ -96,9 +98,9 @@ $langFile['STYLESHEETS_TEXT_STYLEFILE']                                   = 'fic
 $langFile['STYLESHEETS_TEXT_ID']                                          = 'Id feuille de style';
 $langFile['STYLESHEETS_TEXT_CLASS']                                       = 'classement de feuille de style';
 
-$langFile['STYLESHEETS_TOOLTIP_STYLEFILE']                                = 'Ici des feuilles de style peuvent être indiquées pour l\'utilisation dans le html éditeur afin de former le contenu.';
-$langFile['STYLESHEETS_TOOLTIP_ID']                                       = 'Ici un attribut ID peut être indiqué pour l\'attribuer au tag de l\'éditeur HTML-Editor <body>.';
-$langFile['STYLESHEETS_TOOLTIP_CLASS']                                    = 'Ici un attribut class peut être indiqué pour l\'attribuer au tag de l\'éditeur HTML-Editor <body>.';
+$langFile['STYLESHEETS_TOOLTIP_STYLEFILE']                                = 'Ici des feuilles de style peuvent être indiquées pour l&#145;utilisation dans le html éditeur afin de former le contenu.';
+$langFile['STYLESHEETS_TOOLTIP_ID']                                       = 'Ici un attribut ID peut être indiqué pour l&#145;attribuer au tag de l&#145;éditeur HTML-Editor <body>.';
+$langFile['STYLESHEETS_TOOLTIP_CLASS']                                    = 'Ici un attribut class peut être indiqué pour l&#145;attribuer au tag de l&#145;éditeur HTML-Editor <body>.';
 
 $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']                             = 'ajouter fichier feuille de style';
 $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>par exemple</b> &quot;/style/layout.css&quot;';
@@ -107,12 +109,12 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'chemin absolue';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'chemin relative';
 $langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'chemin absolue::Chemin de système de fichiers absolu. (Mais par rapport à la DocumentRoot)[br][br][span class=hint]/server/htdocs[strong]/chemin/[/strong][/span]';
-$langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'chemin relative::Chemin de l\'URI relative, signifie par rapport au document courant.';
+$langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'chemin relative::Chemin de l&#145;URI relative, signifie par rapport au document courant.';
 
 // STATISTICS
 $langFile['STATISTICS_TITLE_BROWSERCHART']                                = 'spectre des navigateurs des visiteurs';
 $langFile['STATISTICS_TEXT_ROBOTCOUNT']                                   = 'web-crawler';
-$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT']                                = 'web-crawler::Aussi nommé robot d\'indexation sont des scripts des moteurs de recherche qui analysent et indicent des sites web.';
+$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT']                                = 'web-crawler::Aussi nommé robot d&#145;indexation sont des scripts des moteurs de recherche qui analysent et indicent des sites web.';
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'a'; // "exampleword" led 20 times to this website
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'mèné sur ce site';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Cliquez dessus pour chercher le mot de recherche dans toutes les pages.';
@@ -146,7 +148,7 @@ $langFile['LOG_PAGE_NEW']                                                 = 'pag
 $langFile['LOG_PAGE_DELETE']                                              = 'page éffacée';
 $langFile['LOG_PAGE_MOVEDINCATEGORY']                                     = 'page mise dans catégorie';
 $langFile['LOG_PAGE_MOVEDINCATEGORY_CATEGORY']                            = 'dans la catégorie'; // Example Page in Category
-$langFile['LOG_PAGE_SORTED']                                              = 'page mis à l\'lordre';
+$langFile['LOG_PAGE_SORTED']                                              = 'page mis à l&#145;lordre';
 $langFile['LOG_THUMBNAIL_UPLOAD']                                         = 'téléchargé nouveau thumbnail';
 $langFile['LOG_THUMBNAIL_DELETE']                                         = 'thumbnail éffacé';
 $langFile['LOG_USER_ADD']                                                 = 'nouveau utilisateur crée';
@@ -154,8 +156,8 @@ $langFile['LOG_USER_DELETED']                                             = 'uti
 $langFile['LOG_USER_PASSWORD_CHANGED']                                    = 'mot de passe changé';
 $langFile['LOG_USER_SAVED']                                               = 'utilisateur sauvegardé';
 
-$langFile['LOG_ADMINSETUP_SAVED']                                         = 'nouveaux préférences l\'administrateur sauvegardé';
-$langFile['LOG_ADMINSETUP_CKSTYLES']                                      = '&quot;choix des syles&quot; de l\'éditeur HTML sauvegardé';
+$langFile['LOG_ADMINSETUP_SAVED']                                         = 'nouveaux préférences l&#145;administrateur sauvegardé';
+$langFile['LOG_ADMINSETUP_CKSTYLES']                                      = '&quot;choix des syles&quot; de l&#145;éditeur HTML sauvegardé';
 $langFile['LOG_WEBSITESETUP_SAVED']                                       = 'préférences site web sauvegardé';
 $langFile['LOG_STATISTICSETUP_SAVED']                                     = 'préférences statistiques sauvegardé';
 $langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC']                         = 'préférences statistiques éffacé';
@@ -188,8 +190,8 @@ $langFile['STATUS_CATEGORY_PUBLIC']                                       = 'cat
 $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'catégorie est cachée';
 
 // USER LIST
-$langFile['USER_TEXT_NOUSER']                                             = 'il n\'y a pas d\'utilisateurs';
-$langFile['USER_TEXT_CURRENTUSER']                                        = 'Tu es connecté en tant qu\'utilisateurs';
+$langFile['USER_TEXT_NOUSER']                                             = 'il n&#145;y a pas d&#145;utilisateurs';
+$langFile['USER_TEXT_CURRENTUSER']                                        = 'Tu es connecté en tant qu&#145;utilisateurs';
 $langFile['USER_TEXT_USERSONLINE']                                        = 'Cet utilisateur est également connecté:: Dernières activités';
 
 $langFile['LOGO_TEXT']                                                    = 'version';
@@ -245,22 +247,22 @@ $langFile['BUTTON_UP']                                                    = 'ver
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>Les préférences ne peuvent pas être sauvegardés.</b>';
-$langFile['ERROR_SAVE_FILE']                                              = '<br><br>Svp contrôlez les droits d\'écriture du fichier:';
+$langFile['ERROR_SAVE_FILE']                                              = '<br><br>Svp contrôlez les droits d&#145;écriture du fichier:';
 
 $langFile['ERROR_READ_FOLDER_PART1']                                      = '<br><br>Svp contrôlez les droits de lecture des &quot;';
-$langFile['ERROR_SAVE_FOLDER_PART1']                                      = '<br><br>Svp contrôlez les droits d\'écriture des &quot;';
+$langFile['ERROR_SAVE_FOLDER_PART1']                                      = '<br><br>Svp contrôlez les droits d&#145;écriture des &quot;';
 
 $langFile['ERROR_FOLDER_PART2']                                           = '&quot; fichiers, du sous-fichier et des dossier.';
 
 // -> WARNINGS
-$langFile['WARNING_TITLE_STARTPAGE']                                      = 'La page d\'acceuil n\'est pas définie.';
-$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Svp définissez une page d\'acceuil.<br>Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="icons startpage"></span> Symbol';
+$langFile['WARNING_TITLE_STARTPAGE']                                      = 'La page d&#145;acceuil n&#145;est pas définie.';
+$langFile['WARNING_TEXT_STARTPAGE']                                       = 'Svp définissez une page d&#145;acceuil.<br>Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="icons startpage"></span> Symbol';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Le Document Root ne pouvait pas être résolus automatiquement!';
 $langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Pour résoudre correctement le Document Root, allez à la <a href="?site=adminSetup#adminSettings">administrator-settings</a> et définir le "chemin réel du feindura" de votre <span class="feinduraInline">fein<em>dura</em></span> CMS.';
 
-$langFile['WARNING_TITLE_BASEPATH']                                       = '<span class="feinduraInline">fein<em>dura</em></span> n\'a pas encore été configuré!';
-$langFile['WARNING_TEXT_BASEPATH']                                        = 'La <i>chemin de base</i>ne correspond pas avec les préférences l\'administrateur.<br>
+$langFile['WARNING_TITLE_BASEPATH']                                       = '<span class="feinduraInline">fein<em>dura</em></span> n&#145;a pas encore été configuré!';
+$langFile['WARNING_TEXT_BASEPATH']                                        = 'La <i>chemin de base</i>ne correspond pas avec les préférences l&#145;administrateur.<br>
 Cliquez sur <a href                                                       ="?site=adminSetup#adminSettings">préférences administrateur</a> et met en service ton <span class="feinduraInline">fein<em>dura</em></span> CMS';
 
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Activer le javascript';
@@ -268,8 +270,8 @@ $langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<st
 
 $langFile['WARNING_TITLE_UNTITLEDCATEGORIES']                             = 'Manquant les noms des catégories';
 
-$langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="feinduraInline">fein<em>dura</em></span> ne fonctionne pas avec une ancienne version de l\'Internet Explorer.';
-$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Pour <span class="feinduraInline">fein<em>dura</em></span> utiliser le CMS entièrement, version 9 de l\'IE est nécessaire.<br><br>Svp installez une nouvelle version de l\'Internet Explorer,<br> ou bien installez <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> pour l\'IE,<br> ou bien téléchargez <a href="http://www.mozilla.org/firefox/">Firefox</a> ou <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
+$langFile['DASHBOARD_TITLE_IEWARNING']                                    = '<span class="feinduraInline">fein<em>dura</em></span> ne fonctionne pas avec une ancienne version de l&#145;Internet Explorer.';
+$langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Pour <span class="feinduraInline">fein<em>dura</em></span> utiliser le CMS entièrement, version 9 de l&#145;IE est nécessaire.<br><br>Svp installez une nouvelle version de l&#145;Internet Explorer,<br> ou bien installez <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> pour l&#145;IE,<br> ou bien téléchargez <a href="http://www.mozilla.org/firefox/">Firefox</a> ou <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
 
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Page est actuellement en cours de modification...';
 
@@ -298,7 +300,7 @@ $langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED']                       = 'pag
 $langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED']                       = 'dernières pages visitées';
 $langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED']                        = 'dernières pages rédigées';
 $langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED']                     = 'pages les plus regardés';
-$langFile['DASHBOARD_TITLE_REFERER']                                      = 'sites web d\'où viennent les derniers visiteurs';
+$langFile['DASHBOARD_TITLE_REFERER']                                      = 'sites web d&#145;où viennent les derniers visiteurs';
 
 /*
 * listPages.php
@@ -329,7 +331,7 @@ $langFile['file_error_read']                                              = '<b>
 $langFile['SORTABLEPAGELIST_setStartPage_error_save']                     .= $langFile['ERROR_SAVE_FILE'].' &quot;%sconfig/website.config.php&quot;'; // also in fr.shared.php
 $langFile['SORTABLEPAGELIST_changeStatusPage_error_save']                 = '<b>le status du site web ne pouvé pas être changé.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_changeStatusCategory_error_save']             = '<b>le status de la catégorie ne pouvé pas être changé.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['SORTABLEPAGELIST_info']                                        = 'L\'ordre du site web peut être changé <b>ordre site web</b> par <b>Drag and Drop</b> ainsi que les pages peuvent être interchangées entre les catégories différentes.';
+$langFile['SORTABLEPAGELIST_info']                                        = 'L&#145;ordre du site web peut être changé <b>ordre site web</b> par <b>Drag and Drop</b> ainsi que les pages peuvent être interchangées entre les catégories différentes.';
 $langFile['SORTABLEPAGELIST_save']                                        = 'sauvegarder le nouvel ordre ...';
 $langFile['SORTABLEPAGELIST_save_finished']                               = 'nouvel ordre sauvegardé!';
 $langFile['SORTABLEPAGELIST_error_save']                                  = '<b>les pages ne pouvaient pas être sauvgardées.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
@@ -355,16 +357,16 @@ $langFile['ADMINSETUP_TEXT_PHPVERSION']                                   = 'PHP
 $langFile['ADMINSETUP_TITLE_DOCUMENTROOT']                                = 'Document Root';
 $langFile['ADMINSETUP_TITLE_ERROR']                                       = 'des erreurs se sont produites';
 $langFile['ADMINSETUP_TOOLTIP_WRITEACCESSERROR']                          = 'Pour les fichiers et les dossiers les droits de lecture doivent être mis sur %o.';
-$langFile['ADMINSETUP_TEXT_WRITEACCESSERROR']                             = 'n\'est pas descriptible';
-$langFile['ADMINSETUP_TEXT_ISFOLDERERROR']                                = 'n\'est pas un dossier';
+$langFile['ADMINSETUP_TEXT_WRITEACCESSERROR']                             = 'n&#145;est pas descriptible';
+$langFile['ADMINSETUP_TEXT_ISFOLDERERROR']                                = 'n&#145;est pas un dossier';
 
 // ---------- general Settings
 $langFile['ADMINSETUP_GENERAL_error_save']                                = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/admin.config.php';
 $langFile['ADMINSETUP_GENERAL_h1']                                        = 'configuration de base';
 
 $langFile['ADMINSETUP_GENERAL_field1']                                    = 'URL site web';
-$langFile['ADMINSETUP_GENERAL_field1_tip']                                = 'L\'URL de votre site web sera mise automatiquement.';
-$langFile['ADMINSETUP_GENERAL_field1_inputTip']                           = 'L\'URL sera mise automatiquement';
+$langFile['ADMINSETUP_GENERAL_field1_tip']                                = 'L&#145;URL de votre site web sera mise automatiquement.';
+$langFile['ADMINSETUP_GENERAL_field1_inputTip']                           = 'L&#145;URL sera mise automatiquement';
 $langFile['ADMINSETUP_GENERAL_field1_inputWarningText']                   = 'Svp sauvegardez la configuration!';
 $langFile['ADMINSETUP_GENERAL_field2']                                    = 'chemin du feindura';
 $langFile['ADMINSETUP_GENERAL_field2_tip']                                = 'La chemin principale sera estimé automatiquement et sauvegardé avec la configuration.';
@@ -375,7 +377,7 @@ $langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Le 
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'chemin upload';
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Ici des fichiers comme des images, animations flashs ou documents vont être téléchargés.[br][br][span class=hint]pour insérer des fichiers, cliquez dans le HTML-Editor insérer lien > upload transféré ou dans le gestionnaire de fichiers.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]ces fichiers peuvent être rédigés plus bas ou dans le paramètrages du site web (si cette option est activé pour le site web).[br][br]';
-$langFile['ADMINSETUP_GENERAL_field5']                                    = 'chemin d\'un dossier des fichiers';
+$langFile['ADMINSETUP_GENERAL_field5']                                    = 'chemin d&#145;un dossier des fichiers';
 $langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Ici, vous pouvez ajouter un chemin vers les fichiers spécifiques pour la site web, ce qui devrait être modifiable dans [span class=feinduraInline]fein[em]dura[/em][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'chemin des feuilles de style';
 $langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Ici, vous pouvez ajouter un chemin vers les fichiers stylesheet, ce qui devrait être modifiable dans [span class=feinduraInline]fein[em]dura[/em][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
@@ -398,8 +400,8 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'spe
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/category-name/example-page';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URL avec variables';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Le format de d\'URL pour le référencement du site web.[br][br]Speaking URLs fonctionnent seulement si [strong]Apache[/strong] le [strong]mod_rewrite[/strong] module est disponible.';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'Attention!::[span class=red]Si des erreurs se produisent pendant l\'utilisation des speaking URLs, le fichier [strong].htaccess[/strong] dans la chemin documentaire root du serveur doit être éffacé.[/span][br][br](dans certains logiciels FTP les fichiers cachés doivent être indiqués pour montrer le fichier .htaccess)';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Le format de d&#145;URL pour le référencement du site web.[br][br]Speaking URLs fonctionnent seulement si [strong]Apache[/strong] le [strong]mod_rewrite[/strong] module est disponible.';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'Attention!::[span class=red]Si des erreurs se produisent pendant l&#145;utilisation des speaking URLs, le fichier [strong].htaccess[/strong] dans la chemin documentaire root du serveur doit être éffacé.[/span][br][br](dans certains logiciels FTP les fichiers cachés doivent être indiqués pour montrer le fichier .htaccess)';
 
 // ---------- speaking url ERRORs
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_save']                    = '<b>Speaking URLs</b> ne pouvaient pas être activés'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
@@ -407,21 +409,21 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>
 
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'activer le cache';
-$langFile['ADMINSETUP_TIP_CACHE']                                         = 'Si active, toutes les pages seront mises en cache. Cela peut graine jusqu\'à le site, mais conduit également à pas de contenu réel.[br][br][span class=hint]La mise en cache sera rafraîchi, lors de l\'édition des pages.[/span]';
+$langFile['ADMINSETUP_TIP_CACHE']                                         = 'Si active, toutes les pages seront mises en cache. Cela peut graine jusqu&#145;à le site, mais conduit également à pas de contenu réel.[br][br][span class=hint]La mise en cache sera rafraîchi, lors de l&#145;édition des pages.[/span]';
 $langFile['ADMINSETUP_TEXT_CACHETIMEOUT']                                 = 'cache expiration';
 $langFile['ADMINSETUP_TIP_CACHETIMEOUT']                                  = 'Indique le délai après lequel le cache sera rafraîchi.';
 $langFile['ADMINSETUP_HINT_CACHETIMEOUT']                                 = 'heures';
 
 // ---------- editor Settings
-$langFile['adminSetup_editorSettings_h1']                                 = 'paramètres de l\'éditeur HTML';
+$langFile['adminSetup_editorSettings_h1']                                 = 'paramètres de l&#145;éditeur HTML';
 $langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']                             = 'filtre HTML (utilise <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/" target="_blank">htmlLawed</a>)';
-$langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']                              = 'Filtres du code HTML avant d\'enregistrer. Cela peut causer des problèmes dans le code HTML avec beaucoup de Javascript.';
+$langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']                              = 'Filtres du code HTML avant d&#145;enregistrer. Cela peut causer des problèmes dans le code HTML avec beaucoup de Javascript.';
 $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'secure HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6" target="_blank">détails</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'Le code HTML sera filtrée avec la plus sûre paramètres. Cela signifie par exemple &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; et &lt;script&gt; tags ne sont pas autorisés.';
 $langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']                          = 'activer style-sélection';
-$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Le styles-sélection vous permet d\'utiliser personnalisé des éléments HTML dans l\'éditeur HTML.[br][br][span class=hint]Si cette option est activée, vous pouvez éditer/créer des éléments HTML plus bas.[/span]';
+$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'Le styles-sélection vous permet d&#145;utiliser personnalisé des éléments HTML dans l&#145;éditeur HTML.[br][br][span class=hint]Si cette option est activée, vous pouvez éditer/créer des éléments HTML plus bas.[/span]';
 $langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']                              = 'activer fragments de code';
-$langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Permettent de placer fragments de code dans les pages.[br]Cliquez sur l\'icône dans la l\'éditeur HTML: [img class=icons src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png][br][br][span class=hint]Si cette option est activée, vous pouvez éditer/créer des fragments de code plus bas.[/span]';
+$langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Permettent de placer fragments de code dans les pages.[br]Cliquez sur l&#145;icône dans la l&#145;éditeur HTML: [img class=icons src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png][br][br][span class=hint]Si cette option est activée, vous pouvez éditer/créer des fragments de code plus bas.[/span]';
 $langFile['adminSetup_editorSettings_field1']                             = 'modus ENTER-touche';
 $langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER va créer un &quot;%s&quot;';
 $langFile['adminSetup_editorSettings_field1_tip']                         = 'Va définir le HTML-tag en touchant la touche entrée[br]wird.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
@@ -437,7 +439,7 @@ $langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'che
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
-$langFile['adminSetup_styleFileSettings_h1']                              = 'Modifier les styles-sélection de l\'éditeur HTML';
+$langFile['adminSetup_styleFileSettings_h1']                              = 'Modifier les styles-sélection de l&#145;éditeur HTML';
 $langFile['adminSetup_styleFileSettings_error_save']                      = '<b>le fichier &quot;EditorStyles.js&quot; ne pouvait pas être sauvegardé.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings
@@ -447,7 +449,7 @@ $langFile['EDITFILESSETTINGS_TITLE_SNIPPETS']                             = 'Mod
 $langFile['EDITFILESSETTINGS_TEXT_NODIR']                                 = 'pas de dossier valable!';
 $langFile['EDITFILESSETTINGS_TEXT_CHOOSEFILE']                            = 'choisir fichier';
 $langFile['EDITFILESSETTINGS_TEXT_CREATEFILE']                            = 'créer nouveau fichier';
-$langFile['EDITFILESSETTINGS_TIP_CREATEFILE']                             = 'Si vous mettez le nom d\'un fichier ici, un nouveau fichier sera crée,[br]et [strong]le donnée choisi actuellement ne sera pas sauvegardé![/strong]';
+$langFile['EDITFILESSETTINGS_TIP_CREATEFILE']                             = 'Si vous mettez le nom d&#145;un fichier ici, un nouveau fichier sera crée,[br]et [strong]le donnée choisi actuellement ne sera pas sauvegardé![/strong]';
 $langFile['EDITFILESSETTINGS_TEXT_NOFILE']                                = 'Actuellement pas de dossiers';
 $langFile['EDITFILESSETTINGS_TEXT_DELETEFILE']                            = 'éffacer fichier';
 $langFile['EDITFILESSETTINGS_TEXT_DELETEFILE_QUESTION']                   = 'voulez-vous supprimer le fichier $s?';
@@ -465,20 +467,20 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Les
 // ---------- page settings
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'pages sans catégories';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'créer/éffacer des pages';
-$langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']                              = 'Définit si l\'utilisateur peut créer/éffacer une page sans catégorie.';
+$langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']                              = 'Définit si l&#145;utilisateur peut créer/éffacer une page sans catégorie.';
 $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS']                        = 'télécharger thumbnails';
-$langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']                         = 'Définit si l\'utilisateur peut télécharger des thumbnails au sein des pages sans catégories.';
+$langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']                         = 'Définit si l&#145;utilisateur peut télécharger des thumbnails au sein des pages sans catégories.';
 $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS']                                = 'traiter tags';
-$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']                                 = 'Définit si l\'utilisateur peut traiter des tags au sein des pages sans catégories.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
+$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']                                 = 'Définit si l&#145;utilisateur peut traiter des tags au sein des pages sans catégories.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_PAGES_TEXT_ACTIVATEPLUGINS']                         = 'activer plugins';
-$langFile['PAGESETUP_PAGES_TIP_ACTIVATEPLUGINS']                          = 'Définit si l\'utilisateur peut utiliser des plugins au sein des pages.';
+$langFile['PAGESETUP_PAGES_TIP_ACTIVATEPLUGINS']                          = 'Définit si l&#145;utilisateur peut utiliser des plugins au sein des pages.';
 
 // ---------- category settings
 $langFile['PAGESETUP_CATEGORY_TITLE_CATEGORIES']                          = 'gestion des catégories';
 $langFile['PAGESETUP_CATEGORY_TEXT_CATEGORYNAME']                         = 'nom';
 $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY']                       = 'créer nouvelle catégorie';
 $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED']               = 'nouvelle catégorie crée';
-$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_UNNAMED']               = 'catégorie n\'est pas nommé';
+$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_UNNAMED']               = 'catégorie n&#145;est pas nommé';
 
 $langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY']                       = 'éffacer la catégorie';
 $langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING']               = 'ATTENTION: Toutes les pages au sein de cette catégorie seront éffacées!';
@@ -522,16 +524,16 @@ $langFile['PAGESETUP_TEXT_SUBCATEGORY']                                   = 'tra
 $langFile['PAGESETUP_TIP_SUBCATEGORY']                                    = 'Permet de choisir une sous-catégorie pour chaque page.';
 
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'pages triée par date de pages';
-$langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Pages avec un plus jeune date apparaissent à la [strong]top[/strong].[br][br][span class=hint]Manuellement trier n\'est plus possible.[/span]';
+$langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Pages avec un plus jeune date apparaissent à la [strong]top[/strong].[br][br][span class=hint]Manuellement trier n&#145;est plus possible.[/span]';
 
 $langFile['PAGESETUP_TEXT_SORTMANUALLY']                                  = 'trier les pages manuellement';
 $langFile['PAGESETUP_TIP_SORTMANUALLY']                                   = 'Nouvellement créé la pages apparaissent à la [strong]top[/strong].';
 
 $langFile['PAGESETUP_TEXT_SORTALPHABETICAL']                              = 'trier les pages par ordre alphabétique';
-$langFile['PAGESETUP_TIP_SORTALPHABETICAL']                               = '[span class=hint]Manuellement trier n\'est plus possible.[/span]';
+$langFile['PAGESETUP_TIP_SORTALPHABETICAL']                               = '[span class=hint]Manuellement trier n&#145;est plus possible.[/span]';
 
-$langFile['PAGESETUP_TEXT_SORTREVERSE']                                   = 'inverti l\' ordre de tri';
-$langFile['PAGESETUP_TIP_SORTREVERSE']                                    = 'Inverti l\' ordre de tris de les pages.';
+$langFile['PAGESETUP_TEXT_SORTREVERSE']                                   = 'inverti l&#145; ordre de tri';
+$langFile['PAGESETUP_TIP_SORTREVERSE']                                    = 'Inverti l&#145; ordre de tris de les pages.';
 
 
 /*
@@ -544,21 +546,21 @@ $langFile['websiteSetup_websiteConfig_h1']                                = 'par
 $langFile['websiteSetup_websiteConfig_field1']                            = 'titre du site web';
 $langFile['websiteSetup_websiteConfig_field1_tip']                        = 'Le titre du site web sera indiqué dans le navigateur.';
 $langFile['websiteSetup_websiteConfig_field2']                            = 'publisher';
-$langFile['websiteSetup_websiteConfig_field2_tip']                        = 'Le nom de l\'organisation/entreprise/personne publiant ce site.';
+$langFile['websiteSetup_websiteConfig_field2_tip']                        = 'Le nom de l&#145;organisation/entreprise/personne publiant ce site.';
 $langFile['websiteSetup_websiteConfig_field3']                            = 'copyright';
 $langFile['websiteSetup_websiteConfig_field3_tip']                        = 'Le propriétaire du copyright du site web.';
 $langFile['websiteSetup_websiteConfig_field4']                            = 'mots clés des moteurs de recherche';
 $langFile['websiteSetup_websiteConfig_field4_tip']                        = 'La plupart des moteurs de recherche fouillent le contenu des pages selon des mots clés. Mettez des mots clés qui seront utilisez dans <meta> les tags du site web.';
 $langFile['websiteSetup_websiteConfig_field4_inputTip']                   = 'Les mots clés doivent être séparées en &quot;,&quot; ::'.$langFile['TEXT_EXAMPLE'].':[br]mot-clé1,mot-clé2,etc';
 $langFile['websiteSetup_websiteConfig_field5']                            = 'description du site web';
-$langFile['websiteSetup_websiteConfig_field5_tip']                        = 'Une courte description de votre site web utilisé par les moteurs de recherche. Les mots-clé se trouveront dans l\'URL du site web mais dans le contenu.';
+$langFile['websiteSetup_websiteConfig_field5_tip']                        = 'Une courte description de votre site web utilisé par les moteurs de recherche. Les mots-clé se trouveront dans l&#145;URL du site web mais dans le contenu.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Un texte court en 3 lignes.';
 
 $langFile['WEBSITESETUP_TITLE_PAGESETTINGS']                              = 'paramètres avancés du site web';
-$langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'la page d\'acceuil peut être définie';
-$langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'La page d\'acceuil peut être définie par l\'utilisateur.[br][br]La page d\'acceuil définie sera publié, si aucune variable du site web sera transmise ou bien la page ne sera pas éxecutée.';
+$langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'la page d&#145;acceuil peut être définie';
+$langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'La page d&#145;acceuil peut être définie par l&#145;utilisateur.[br][br]La page d&#145;acceuil définie sera publié, si aucune variable du site web sera transmise ou bien la page ne sera pas éxecutée.';
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'désactiver site web';
-$langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Affiche un message au lieu du site, qui dit que le site est actuellement en cours d\'édition.';
+$langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Affiche un message au lieu du site, qui dit que le site est actuellement en cours d&#145;édition.';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'site web multi-langues';
 $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[strong]double clic[/strong] pour sélectionner les langues.';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'La langue principale';
@@ -589,7 +591,7 @@ $langFile['statisticSetup_clearStatistics_refererLog_tip']                = 'Une
 $langFile['statisticSetup_clearStatistics_taskLog']                       = 'Logs des dernièrses activités';
 $langFile['statisticSetup_clearStatistics_taskLog_tip']                   = 'Contient une liste des dernières activités.';
 $langFile['statisticSetup_clearStatistics_question_h1']                   = 'Voulez vous vraiment éffacer ces statistiques?';
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'une erreur s\'est produite pendant l\'éffacement des statistiques du site web.'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%sstatistic/pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'une erreur s&#145;est produite pendant l&#145;éffacement des statistiques du site web.'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%sstatistic/pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 /*
 * userSetup.php
@@ -623,7 +625,7 @@ $langFile['USERSETUP_error_create']                                       = '<b>
 $langFile['USERSETUP_error_save']                                         = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/user.config.php';
 
 // ---------- USER PERMISSION
-$langFile['USERSETUP_USERPERMISSIONS_TITLE']                              = 'permissions de l\'utilisateur';
+$langFile['USERSETUP_USERPERMISSIONS_TITLE']                              = 'permissions de l&#145;utilisateur';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'modifier les fichiers du site web au sein du <a href="index.php?site=websiteSetup">paramétrage du site web</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'modifier les fichiers de style au sein du <a href="index.php?site=websiteSetup">paramétrage du site web</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'modifier fragments de code au sein du <a href="index.php?site=websiteSetup">paramétrage du site web</a>';
@@ -633,7 +635,9 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'act
 
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>informations utilisateur</strong> in der <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'Information utilisateur::Ce texte va être publié sur [span class=feinduraInline]fein[em]dura[/em][/span] '.$langFile['BUTTON_DASHBOARD'].'.';
-$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'N\'ecrivez rien dans la case, si vous ne voulez pas montrer des informations sur l\'utilisateur';
+$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'N&#145;ecrivez rien dans la case, si vous ne voulez pas montrer des informations sur l&#145;utilisateur';
+
+$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Sélectionnez Catégories et Pages que l&#145;utilisateur devrait être capable d&#145;éditer';
 
 
 /*
@@ -652,6 +656,7 @@ $langFile['EDITOR_pageinfo_category']                                     = 'cat
 $langFile['EDITOR_pageinfo_category_noCategory']                          = 'aucune catégorie';
 
 $langFile['EDITOR_TEXT_CHOOSETEMPLATE']                                   = 'utiliser le modèle';
+$langFile['EDITOR_TEXT_TEMPALATECOPYADDITION']                            = 'copier';
 
 $langFile['EDITOR_block_edited']                                          = 'ont été édité';
 $langFile['EDITOR_pageNotSaved']                                          = 'pas sauvegardé';
@@ -668,7 +673,7 @@ $langFile['EDITOR_pageSettings_field2']                                   = 'tag
 $langFile['EDITOR_pageSettings_field2_tip']                               = 'Tags sont des mots-clé de ce site web.';
 $langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Les tags doivent être séparés par la &quot;,&quot; (virgule).';
 $langFile['EDITOR_pageSettings_field3']                                   = 'date du site web';
-$langFile['EDITOR_pageSettings_field3_tip']                               = 'La date peut être utilisée pour trier les pages dans l\'ordre chronologique. (par ex. des évenements)';
+$langFile['EDITOR_pageSettings_field3_tip']                               = 'La date peut être utilisée pour trier les pages dans l&#145;ordre chronologique. (par ex. des évenements)';
 $langFile['EDITOR_pageSettings_pagedate_before_inputTip']                 = 'texte avant la date::Par ex. &quot;du 31. juin&quot;.';
 $langFile['EDITOR_pageSettings_pagedate_after_inputTip']                  = 'texte après la date::';
 $langFile['EDITOR_pageSettings_pagedate_day_inputTip']                    = 'jour::';
@@ -677,7 +682,7 @@ $langFile['EDITOR_pageSettings_pagedate_year_inputTip']                   = 'an:
 $langFile['EDITOR_pageSettings_field4']                                   = 'status de la page';
 $langFile['EDITOR_pageSettings_field4_tip']                               = '[strong]Une page sera visible sur le site web seulement quand elle est publiée![/strong]';
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'format de date incorrect';
-$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'Ce mois n\'a peut être pas 31 jours.[br]La date devrait avoir le format suivant:';
+$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'Ce mois n&#145;a peut être pas 31 jours.[br]La date devrait avoir le format suivant:';
 
 $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Sous-catégorie';
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Permet de créer un sous-menu pour cette page sur le site.';
@@ -685,7 +690,7 @@ $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Per
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'paramètres avancés';
 $langFile['EDITOR_advancedpageSettings_field1']                           = 'page fichier feuille de style';
-$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']               = 'Quand toutes les cases sont vides, les paramètres des feuilles de style de la catégorie seront utilisés. Si ceux-ci sont vides aussi, les paramètres de l\'éditeur HTML seront utlisés.';
+$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']               = 'Quand toutes les cases sont vides, les paramètres des feuilles de style de la catégorie seront utilisés. Si ceux-ci sont vides aussi, les paramètres de l&#145;éditeur HTML seront utlisés.';
 $langFile['EDITOR_htmleditor_hotkeys_h1']                                 = 'touches-clés';
 $langFile['EDITOR_htmleditor_hotkeys_field1']                             = 'tout sélectionner';
 $langFile['EDITOR_htmleditor_hotkeys_field2']                             = 'copier';
@@ -703,7 +708,7 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'préférence plugin';
-$langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'Après l\'activation d\'un plugin, vous pouvez le placer directement dans la page, dans l\'éditeur, en utilisant l\'icône %s.';
+$langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'Après l&#145;activation d&#145;un plugin, vous pouvez le placer directement dans la page, dans l&#145;éditeur, en utilisant l&#145;icône %s.';
 
 /*
 * unsavedPage.php
@@ -719,7 +724,7 @@ $langFile['UNSAVEDPAGE_QUESTION_CONTINUE']                                 = 'La
 $langFile['deletePage_question_part1']                                    = 'Vous êtes sur de vraiment';
 $langFile['deletePage_question_part2']                                    = 'vouloir éffacer le site?';
 $langFile['deletePage_notexisting_part1']                                 = 'le site web';
-$langFile['deletePage_notexisting_part2']                                 = 'n\'existe pas';
+$langFile['deletePage_notexisting_part2']                                 = 'n&#145;existe pas';
 $langFile['deletePage_finish_error']                                      = 'ERREUR: La page ne pouvait pas être éffacée!';
 
 /*
@@ -769,22 +774,22 @@ $langFile['pagethumbnail_field1']                                         = 'cho
 $langFile['pagethumbnail_thumbinfo_formats']                              = 'Seulement les formats suiovant seront acceptés'; //<br><b>JPG</b>, <b>JPEG</b>, <b>GIF</b>, <b>PNG</b>
 $langFile['pagethumbnail_thumbinfo_filesize']                             = 'taille maximale';
 $langFile['pagethumbnail_thumbinfo_standardthumbsize']                    = 'taille standard';
-$langFile['pagethumbnail_thumbsize_h1']                                   = 'définir la taille de l\'image';
-$langFile['pagethumbnail_thumbsize_width']                                = 'largeur de l\'image';
-$langFile['pagethumbnail_thumbsize_height']                               = 'hauteur de l\'image';
-$langFile['pagethumbnail_submit_tip']                                     = 'Télécharger l\'image.';
-$langFile['PAGETHUMBNAIL_ERROR_nofile']                                   = 'Vous n\'avez pas choisi d\'image.';
+$langFile['pagethumbnail_thumbsize_h1']                                   = 'définir la taille de l&#145;image';
+$langFile['pagethumbnail_thumbsize_width']                                = 'largeur de l&#145;image';
+$langFile['pagethumbnail_thumbsize_height']                               = 'hauteur de l&#145;image';
+$langFile['pagethumbnail_submit_tip']                                     = 'Télécharger l&#145;image.';
+$langFile['PAGETHUMBNAIL_ERROR_nofile']                                   = 'Vous n&#145;avez pas choisi d&#145;image.';
 $langFile['PAGETHUMBNAIL_ERROR_nouploadedfile']                           = 'Aucun fichier pouvait être téléchargé.';
 $langFile['PAGETHUMBNAIL_ERROR_filesize']                                 = 'Le fichier télécharge est probablement trop grand.<br>Die maximal erlaubte Dateigröße beträgt';
-$langFile['PAGETHUMBNAIL_ERROR_wrongformat']                              = 'Le fichier choisi n\'est pas dans le bon format.';
+$langFile['PAGETHUMBNAIL_ERROR_wrongformat']                              = 'Le fichier choisi n&#145;est pas dans le bon format.';
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_START']                              = 'le répertoire des thumbnails'; // ..thumbnail-folder..
-$langFile['PAGETHUMBNAIL_ERROR_NODIR_END']                                = 'e\'existe pas.';
+$langFile['PAGETHUMBNAIL_ERROR_NODIR_END']                                = 'e&#145;existe pas.';
 $langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END']                            = 'il ne pouvait pas être crée.';
 $langFile['PAGETHUMBNAIL_ERROR_COULDNTMOVEFILE']                          = 'Le fichier téléchargé ne pouvait pas être déplacé dans le dossier des thumbnails %s.';
-$langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE']                          = 'La taille de l\'image ne pouvait pas être changée.';
+$langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE']                          = 'La taille de l&#145;image ne pouvait pas être changée.';
 $langFile['PAGETHUMBNAIL_ERROR_deleteoldfile']                            = 'Le thumbnail récent ne pouvait pas être éffacé.';
 $langFile['PAGETHUMBNAIL_TEXT_fileexists']                                = 'Il existe dèjà un fichier avec ce nom.<br>Le nom du fichier a été changé en';
-$langFile['PAGETHUMBNAIL_TEXT_finish']                                    = 'L\'image a été télécharge avec succès';
+$langFile['PAGETHUMBNAIL_TEXT_finish']                                    = 'L&#145;image a été télécharge avec succès';
 
 // -> BACKUP
 
@@ -805,8 +810,8 @@ $langFile['BACKUP_TEXT_DELETE_QUESTION']                                  = '%s 
 $langFile['BACKUP_TITLE_LASTBACKUPS']                                     = 'télécharger sauvegardes';
 $langFile['BACKUP_TEXT_NOBACKUP']                                         = 'Pas de sauvegarde a été créé pour le moment.';
 
-$langFile['BACKUP_ERROR_FILENOTFOUND']                                    = 'Sauvegarde n\'a pas été trouvé au chemin d\'accès:';
-$langFile['BACKUP_ERROR_NORESTROEFILE']                                   = 'Il n\'y a pas de fichier de sauvegarde pour restaurer sélectionné.';
+$langFile['BACKUP_ERROR_FILENOTFOUND']                                    = 'Sauvegarde n&#145;a pas été trouvé au chemin d&#145;accès:';
+$langFile['BACKUP_ERROR_NORESTROEFILE']                                   = 'Il n&#145;y a pas de fichier de sauvegarde pour restaurer sélectionné.';
 $langFile['BACKUP_ERROR_DELETE']                                          = 'Sauvegarde ne peut pas être supprimé!';
 
 // -----------------------------------------------------------------------------------------------

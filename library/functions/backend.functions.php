@@ -111,6 +111,40 @@ function isBlocked($returnBool = false) {
 }
 
 /**
+ * <b>Name</b> showCategory()<br>
+ *
+ * Check the current category has the permission to be displayed.
+ *
+ * It checks the category permission and then if at least on page inside the category has the permission to be edited.
+ *
+ * @param int $categoryId the ID of the category to check
+ *
+ * @return bool whether or not the category has permission
+ *
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ *
+ */
+function showCategory($categoryId){
+  // vars
+  $return = false;
+
+  if(GeneralFunctions::hasPermission('editableCategories',$categoryId))
+    return true;
+
+  // if not check the pages in it, if one has permission
+  foreach($GLOBALS['pagesMetaData'] as $pageMetaData) {
+    if($pageMetaData['category'] == $categoryId &&
+       GeneralFunctions::hasPermission('editablePages',$pageMetaData['id']))
+      $return = true;
+  }
+
+  return $return;
+}
+
+/**
  * <b>Name</b> userCache()<br>
  *
  * Creates a <var>user.statistic.cache</var> file and store the username and the currently visited site/page.
@@ -994,8 +1028,22 @@ function saveUserConfig($userConfig) {
       $fileContent .= "\$userConfig[".$user."]['permissions']['fileManager']          = ".XssFilter::bool($configs['permissions']['fileManager'],true).";\n";
       $fileContent .= "\$userConfig[".$user."]['permissions']['editWebsiteFiles']     = ".XssFilter::bool($configs['permissions']['editWebsiteFiles'],true).";\n";
       $fileContent .= "\$userConfig[".$user."]['permissions']['editStyleSheets']      = ".XssFilter::bool($configs['permissions']['editStyleSheets'],true).";\n";
-      $fileContent .= "\$userConfig[".$user."]['permissions']['editSnippets']         = ".XssFilter::bool($configs['permissions']['editSnippets'],true).";\n";
+      $fileContent .= "\$userConfig[".$user."]['permissions']['editSnippets']         = ".XssFilter::bool($configs['permissions']['editSnippets'],true).";\n\n";
 
+      // editable categories
+      if(is_array($configs['permissions']['editableCategories'])) {
+        foreach ($configs['permissions']['editableCategories'] as $editableCategory) {
+          $fileContent .= "\$userConfig[".$user."]['permissions']['editableCategories'][]  = ".XssFilter::int($editableCategory).";\n";
+        }
+      }
+      // editable pages
+      if(is_array($configs['permissions']['editablePages'])) {
+        foreach ($configs['permissions']['editablePages'] as $editablePage) {
+          // check that the add page is not already in one of the activated categories (prevent double adding)
+          if(!in_array($GLOBALS['pagesMetaData'][$editablePage]['category'], $configs['permissions']['editableCategories']))
+            $fileContent .= "\$userConfig[".$user."]['permissions']['editablePages'][]  = ".XssFilter::int($editablePage).";\n";
+        }
+      }
 
       $fileContent .= "\n\n";
     }
@@ -2553,6 +2601,26 @@ function isWritableWarningRecursive($folders) {
 }
 
 /**
+ * <b>Name</b> generateCurrentUrl()<br>
+ *
+ * Generates the current URL.
+ *
+ *
+ * @return string the current url
+ *
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ *
+ */
+function generateCurrentUrl() {
+  $serverProtocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos($_SERVER["SERVER_PROTOCOL"],'/')));//.((empty($_SERVER["HTTPS"])) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "");
+  $serverPort = ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) ? '' : ':'.$_SERVER['SERVER_PORT'];
+  return $serverProtocol."://".$_SERVER['SERVER_NAME'].$serverPort;
+}
+
+/**
  * <b>Name</b> checkBasePathAndURL()<br>
  *
  * Check if the current path of the CMS is matching the <var>$adminConfig['basePath']</var>
@@ -2570,13 +2638,10 @@ function isWritableWarningRecursive($folders) {
  *
  */
 function checkBasePathAndURL() {
-  $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$GLOBALS['adminConfig']['url']);
-  $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$_SERVER["SERVER_NAME"]);
-
   $checkPath = GeneralFunctions::URI2Path(GeneralFunctions::getDirname($_SERVER['PHP_SELF']));
 
   if($GLOBALS['adminConfig']['basePath'] == $checkPath &&
-     $baseUrl == $checkUrl)
+     $GLOBALS['adminConfig']['url'] == generateCurrentUrl())
     return true;
   else
     return false;

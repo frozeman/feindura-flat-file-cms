@@ -52,10 +52,6 @@ echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['p
 <div class="block open pageHeader">
 <?php
 
-// LOAD PAGE as TEMPLATE
-if($newPage && isset($_GET['template']) && is_numeric($_GET['template']))
-  $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
-
 
 // shows ID and different header color if its a CATEGORY
 $headerColorClass = ($_GET['category'] != 0)
@@ -145,7 +141,7 @@ if(!$newPage) {
       // -> show a CATEGORY SELECTION
       echo '<div class="row">
               <div class="span3 formLeft">
-                <label for="categorySelection"><strong>'.$langFile['EDITOR_pageinfo_category'].'</strong></label>
+                <label for="categorySelection"><span><strong>'.$langFile['EDITOR_pageinfo_category'].'</strong></span></label>
               </div>
               <div class="span5">
                 <select name="categorySelection" id="categorySelection">';
@@ -153,18 +149,11 @@ if(!$newPage) {
                 // ->> goes trough categories and list them
                 foreach($categoryConfig as $listCategory) {
 
-                  if($listCategory['id'] == 0) {
-                    // -> shows non-category selection if create pages is allowed
-                    if($listCategory['createDelete'])
-                      echo '<option value="0">'.$langFile['EDITOR_pageinfo_category_noCategory'].'</option>';
-                    continue;
-                  }
-
                   $selected = ($listCategory['id'] == $_GET['category']) ? ' selected="selected"' : $selected = '';
                   $categoryId = (GeneralFunctions::isAdmin()) ? ' (ID '.$listCategory['id'].')' : '';
 
                   // -> shows category selection if create pages is allowed
-                  if($listCategory['createDelete'])
+                  if($listCategory['createDelete'] && GeneralFunctions::hasPermission('editableCategories',$listCategory['id']))
                     echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.GeneralFunctions::getLocalized($listCategory,'name').$categoryId.'</option>'."\n";
                 }
 
@@ -775,8 +764,8 @@ $hidden = ' hidden';
         foreach($visitTimes_max as $visitTime_max) {
           if($visitTime_max_formated = showVisitTime($visitTime_max)) {
             if($showTimeHead)
-              echo '<span class="blue" id="visitTimeMax">'.$visitTime_max_formated.'</span><br>
-              <div id="visitTimeMaxContainer">';
+              echo '<span class="blue" id="visitTimeMax">'.$visitTime_max_formated.'</span><br>';
+              // <div id="visitTimeMaxContainer">';
             else
               echo '<span class="blue">'.$visitTime_max_formated.'</span><br>';
 
@@ -784,7 +773,7 @@ $hidden = ' hidden';
           }
         }
       }
-      echo '</div>';
+      // echo '</div>';
       ?>
     </div>
   </div>
@@ -802,8 +791,8 @@ $hidden = ' hidden';
         foreach($visitTimes_min as $visitTime_min) {
           if($visitTime_min_formated = showVisitTime($visitTime_min)) {
             if($showTimeHead)
-              echo '<span class="blue" id="visitTimeMin">'.$visitTime_min_formated.'</span><br>
-              <div id="visitTimeMinContainer">';
+              echo '<span class="blue" id="visitTimeMin">'.$visitTime_min_formated.'</span><br>';
+              // <div id="visitTimeMinContainer">';
             else
               echo '<span class="blue">'.$visitTime_min_formated.'</span><br>';
 
@@ -811,7 +800,7 @@ $hidden = ' hidden';
           }
         }
       }
-      echo '</div>';
+      // echo '</div>';
       ?>
     </div>
   </div>

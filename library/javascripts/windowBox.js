@@ -184,7 +184,7 @@ function requestSite(site,siteTitle,dataOrFormId) {
 		//Our request will most likely succeed, but just in case, we'll add an
 		//onFailure method which will let the user know what happened.
 		onFailure: function() { //-----------------------------------------------------
-			$('windowRequestBox').set('text', 'The request failed.');
+			$('windowRequestBox').set('html', '<div class="alert alert-error center">The request failed.</div>');
     }
   }).post(data);
 }

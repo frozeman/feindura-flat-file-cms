@@ -99,6 +99,13 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.4.5.js"></script>
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.4.0.1.js"></script>
 
+  <!-- thirdparty/PlaceholderSupport -->
+  <script type="text/javascript" src="library/thirdparty/javascripts/PlaceholderSupport.js"></script>
+
+  <!-- thirdparty/jsMultipleSelect -->
+  <script type="text/javascript" src="library/thirdparty/javascripts/jsMultipleSelect.js"></script>
+
+  <!-- thirdparty/FloatingTips -->
   <script type="text/javascript" src="library/thirdparty/javascripts/FloatingTips.js"></script>
 
   <!-- thirdparty/Raphael -->
@@ -355,7 +362,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     <div class="menuBlock">
 
       <div class="btn-group headerCornerButtons">
-        <a href="index.php?logout" tabindex="1" class="btn btn-small logout toolTipRight" title="<?php echo $langFile['HEADER_BUTTON_LOGOUT']; ?>">×</a>
+        <a href="index.php?logout" tabindex="1" class="btn btn-small logout toolTipRight" title="::<?php echo $langFile['HEADER_BUTTON_LOGOUT']; ?>">&#215;</a>
         <?php if(GeneralFunctions::hasPermission('frontendEditing')) { ?>
         <a href="<?php echo $adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']); ?>"  tabindex="2" class="btn btn-small frontend toolTipRight" title="<?php echo $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']; ?>">&lt;</a>
         <?php } ?>
@@ -432,15 +439,14 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     // CHECK if one category can create pages
     if(!empty($categoryConfig)) {
       foreach($categoryConfig as $category) {
-        if($category['createDelete'])
+        if($category['createDelete'] && GeneralFunctions::hasPermission('editableCategories',$category['id']))
           $generallyCreatePages = true;
       }
       unset($category);
     }
 
 
-    $showCreatePage = ($generallyCreatePages || //&& $_GET['site'] == 'pages'
-                       (!empty($_GET['page']) && $categoryConfig[$_GET['category']]['createDelete'])) ? true : false;
+    $showCreatePage = ($generallyCreatePages) ? true : false;
 
      // -> CHECK for DELETE PAGE
     $showDeletePage = ($generallyCreatePages && !$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new' &&

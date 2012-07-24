@@ -21,6 +21,8 @@
  * if you want to write html-code in the toolTip texts (mostly they end with ".._tip" or ".._inputTip")
  * use only "[" and "]" instead of "<" and ">" for the HTML-tags and use no " this would end the title="" tag where the toolTip text is in.
  *
+ * Also dont use " or ' use &quot; and &#145; instead.
+ *
  * <samp>
  * $langFile['GROUP_TYPE_NAME'] = 'langfile example text';
  * </samp>
@@ -33,7 +35,7 @@
  *    - TEXT
  *    - EXAMPLE
  *    - ERROR
- *    - TOOLTIP
+ *    - TOOLTIP / TIP
  *
  * need a RETURN $langFile; at the END
  */
@@ -201,7 +203,7 @@ $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'Cat
 
 // USER LIST
 $langFile['USER_TEXT_NOUSER']                                             = 'No users';
-$langFile['USER_TEXT_CURRENTUSER']                                        = 'The user under which you\'re logged in';
+$langFile['USER_TEXT_CURRENTUSER']                                        = 'The user under which you&#145;re logged in';
 $langFile['USER_TEXT_USERSONLINE']                                        = 'This user is also logged in::Latest activity';
 
 $langFile['LOGO_TEXT']                                                    = 'Version';
@@ -262,17 +264,17 @@ $langFile['ERROR_SAVE_FILE']                                              = '<br
 $langFile['ERROR_READ_FOLDER_PART1']                                      = '<br><br>Please check the read permissions of the &quot;';
 $langFile['ERROR_SAVE_FOLDER_PART1']                                      = '<br><br>Please check the write permissions of the &quot;';
 
-$langFile['ERROR_FOLDER_PART2']                                           = '&quot; Folder, it\'s subfolders and files.';
+$langFile['ERROR_FOLDER_PART2']                                           = '&quot; Folder, it&#145;s subfolders and files.';
 
 // -> WARNINGS
 $langFile['WARNING_TITLE_STARTPAGE']                                      = 'The start page is not set!';
 $langFile['WARNING_TEXT_STARTPAGE']                                       = 'Please set a page as start page.<br>Go to <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> and click on the <span class="icons startpage"></span> icon on the desired page.';
 
-$langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Your Document Root couldn\'t be resolved automatically!';
+$langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Your Document Root couldn&#145;t be resolved automatically!';
 $langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'To correctly resolve the Document Root, go to the <a href="?site=adminSetup#adminSettings">administrator-settings</a> and set the &quot;real feindura path&quot; of your <span class="feinduraInline">fein<em>dura</em></span> CMS manually.';
 
 $langFile['WARNING_TITLE_BASEPATH']                                       = '<span class="feinduraInline">fein<em>dura</em></span> is not configurated!';
-$langFile['WARNING_TEXT_BASEPATH']                                        = 'The <i>base path</i> of the CMS doesn\'t match the one in the administrator-settings.<br>
+$langFile['WARNING_TEXT_BASEPATH']                                        = 'The <i>base path</i> of the CMS doesn&#145;t match the one in the administrator-settings.<br>
 Please go to the <a href                                                  ="?site=adminSetup#adminSettings">administrator-settings</a> and configure your <span class="feinduraInline">fein<em>dura</em></span> CMS.';
 
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Please activate Javascript';
@@ -398,7 +400,7 @@ $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Web
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'The [strong]absolute path[/strong] where the website is situated.[br][br][span class=hint]Can also contain filenames e.g &quot;/website/index.php&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Upload path';
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br][br][span class=hint]The files can be uploaded on the Link button > Upload in the HTML-Editor or in the file manager.[/span]';
-$langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]This files can be edited further down, or in the website-settings (if it\'s activated in the user-settings).[br][br]';
+$langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]This files can be edited further down, or in the website-settings (if it&#145;s activated in the user-settings).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Path for website files';
 $langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Here you can add a path to website-specific files, which should be editable in [span class=feinduraInline]fein[em]dura[/em][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'Path for stylesheets';
@@ -665,9 +667,11 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                   = 'Act
 $langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'File manager deactivated::You must set the upload path in the basic-settings, before you can activate the file manager.';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'Activate frontend editing';
 
-$langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>User information</strong> in <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>User information</strong> in the <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'User Information::This text will be shown in the '.$langFile['BUTTON_DASHBOARD'].' page of [span class=feinduraInline]fein[em]dura[/em][/span].';
-$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'If you don\'t want to display an information for the user, leave this field empty';
+$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'If you don&#145;t want to display an information for the user, leave this field empty';
+
+$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Select Categories and Pages which the user should be able to edit';
 
 
 /*
@@ -686,6 +690,7 @@ $langFile['EDITOR_pageinfo_category']                                     = 'Cat
 $langFile['EDITOR_pageinfo_category_noCategory']                          = 'no category';
 
 $langFile['EDITOR_TEXT_CHOOSETEMPLATE']                                   = 'Use template';
+$langFile['EDITOR_TEXT_TEMPALATECOPYADDITION']                            = 'copy';
 
 $langFile['EDITOR_block_edited']                                          = 'were edited';
 $langFile['EDITOR_pageNotSaved']                                          = 'not saved';
@@ -759,7 +764,7 @@ $langFile['deletePage_question_part1']                                    = 'You
 $langFile['deletePage_question_part2']                                    = '?';
 
 $langFile['deletePage_notexisting_part1']                                 = 'The page';
-$langFile['deletePage_notexisting_part2']                                 = 'doesn \'t exist';
+$langFile['deletePage_notexisting_part2']                                 = 'doesn &#145;t exist';
 
 $langFile['deletePage_finish_error']                                      = 'ERROR: The page could not be deleted!';
 
@@ -819,16 +824,16 @@ $langFile['pagethumbnail_thumbsize_height']                               = 'Hei
 
 $langFile['pagethumbnail_submit_tip']                                     = 'Upload image';
 
-$langFile['PAGETHUMBNAIL_ERROR_nofile']                                   = 'You didn\'t select any file.';
+$langFile['PAGETHUMBNAIL_ERROR_nofile']                                   = 'You didn&#145;t select any file.';
 $langFile['PAGETHUMBNAIL_ERROR_nouploadedfile']                           = 'No file was uploaded.';
 $langFile['PAGETHUMBNAIL_ERROR_filesize']                                 = 'The filesize of the uploaded image is probably to big.<br>The maximum filesize is';
 $langFile['PAGETHUMBNAIL_ERROR_wrongformat']                              = 'The selecet file has a not supported format';
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_START']                              = 'The thumbnail folder'; // The thumbnail-folder..
-$langFile['PAGETHUMBNAIL_ERROR_NODIR_END']                                = 'doesn\'t exist.';
-$langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END']                            = 'couldn\'t be created.';
+$langFile['PAGETHUMBNAIL_ERROR_NODIR_END']                                = 'doesn&#145;t exist.';
+$langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END']                            = 'couldn&#145;t be created.';
 $langFile['PAGETHUMBNAIL_ERROR_COULDNTMOVEFILE']                          = 'Could not move the uploaded file to the thumbnail folder %s.';
-$langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE']                          = 'Couldn\'t resize the image.';
-$langFile['PAGETHUMBNAIL_ERROR_deleteoldfile']                            = 'Couldn\'t delete the old thumbnail.';
+$langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE']                          = 'Couldn&#145;t resize the image.';
+$langFile['PAGETHUMBNAIL_ERROR_deleteoldfile']                            = 'Couldn&#145;t delete the old thumbnail.';
 $langFile['PAGETHUMBNAIL_TEXT_fileexists']                                = 'A image with this filename already exists.<br>The uploaded file was renamed to';
 $langFile['PAGETHUMBNAIL_TEXT_finish']                                    = 'Succesfully uploaded the image.';
 

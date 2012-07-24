@@ -29,7 +29,7 @@ $category = $_GET['category'];
 
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
-if($_POST['save'] && isBlocked() === false) {
+if($_POST['save'] && isBlocked() === false && GeneralFunctions::hasPermission('editablePages',$page)) {
 
   // vars
   $page	= $_POST['id'];
@@ -174,9 +174,11 @@ if($_POST['save'] && isBlocked() === false) {
   $savedForm = $_POST['savedBlock'];
 }
 
-// ->> LOAD PAGE and CHECK for NEW PAGE
-if($pageContent = GeneralFunctions::readPage($page,$category))
+
+// -> LOAD PAGE only if USER have PERMISSION for that PAGE or CATEGORY
+if(GeneralFunctions::hasPermission('editablePages',$page) && $pageContent = GeneralFunctions::readPage($page,$category))
   $newPage = false;
+// otherwise offer NEW PAGE
 else
   $newPage = true;
 
@@ -200,6 +202,17 @@ if($_GET['status'] == 'addLanguage') {
   // LOAD LANGUAGE as template
   if(isset($_GET['template']) && is_string($_GET['template']) && strlen($_GET['template']) == 2)
     $pageContent['localized'][$_SESSION['feinduraSession']['websiteLanguage']] = $pageContent['localized'][$_GET['template']];
+}
+
+// LOAD PAGE as TEMPLATE
+if($newPage && isset($_GET['template']) && is_numeric($_GET['template'])) {
+  $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
+
+  foreach ($pageContent['localized'] as $langCode => $localized) {
+    $pageContent['localized'][$langCode]['title'] = $localized['title'].' ('.$langFile['EDITOR_TEXT_TEMPALATECOPYADDITION'].')';
+  }
+
+  unset($localized,$langCode);
 }
 
 ?>
