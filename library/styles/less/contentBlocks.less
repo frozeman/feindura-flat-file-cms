@@ -51,11 +51,13 @@
             #gradient > .none();
             background-image: url("../images/bg/block_h1_brown.png") !important;
             background-repeat: repeat-x !important;
+            background-color: #fff;
         }
         &.blue {
             #gradient > .none();
             background-image: url("../images/bg/block_h1_blue.png") !important;
             background-repeat: repeat-x !important;
+            background-color: #fff;
         }
 
         img {
@@ -251,52 +253,15 @@
     }
 
     // INNER BLOCKS
-
-    .innerBlock {
-        #shadow > .inner(0,0,5px,0.3);
-        #border > .rounded(10px);
-        padding: 20px;
-        background-color: @innerBlockColor;
-        border: 1px solid @innerBlockBorderColor;
-
-        @innerBlockMargin: -14px;
-        @innerBlockRoundBorder: 6px;
-
-        .innerBlocklistPages {
-            position: relative;
-            max-height: 150px;
-            min-height: 2px;
-            padding: 0px;
-            margin: 0 @innerBlockMargin;
-            margin-top: -16px;
-            margin-bottom: -14px;
-            border: 1px solid #cccccc;
-            border-left: none;
-            border-right: none;
-            overflow: auto;
-            #border > .radius(0,@innerBlockRoundBorder,@innerBlockRoundBorder,0);
-        }
-
-        h2 {
-            border-bottom: 1px solid #c4c4c4;
-            margin: -15px @innerBlockMargin;
-            margin-bottom: 15px;
-            padding: 10px 20px;
-            text-align: center;
-            color: #a3a3a3;
-            #shadow > .text(0 1px 1px #fff);
-            #border > .radius(@innerBlockRoundBorder,0,0,@innerBlockRoundBorder);
-            #gradient > .vertical(#f3f3f3,#f3f3f3,#fff,0,1);
-        }
-        hr.small {
-            margin: 10px @innerBlockMargin;
-        }
-    }
-
     .insetBlock { // original is in general.less
-        margin: -10px;
+        margin: 10px -10px;
     }
 
+    .inBlockSlider {
+        &.hidden {
+            display: block; // overwrites the class .hidden in general.less
+        }
+    }
 
 
     // FORM SPANS

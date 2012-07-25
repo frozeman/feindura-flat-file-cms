@@ -993,6 +993,10 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
           $newUserConfig[$user['id']]['info'] = $adminConfig['user']['info'];
         if(until('953') && !isset($newUserConfig[$user['id']]['permissions'])) {
           $newUserConfig[$user['id']]['permissions'] = $adminConfig['user'];
+
+        // only if was until build 957
+        if(until('957') && !isset($newUserConfig[$user['id']]['permissions']['websiteSettings']))
+          $newUserConfig[$user['id']]['permissions']['websiteSettings'] = true;
       }
 
       if(saveUserConfig($newUserConfig))

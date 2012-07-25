@@ -79,6 +79,9 @@ $langFile['TEXT_EXAMPLE']                                                 = 'par
 
 $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Feindura::S&#145;il vous plaît cliquez ici pour éditer les pages directement sur votre site web.';
 
+// PERMISSIONS
+$langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION']                          = 'Vous n&#145;êtes pas autorisé à changer cette situation.';
+
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT']                                          = 'pixel';
 $langFile['THUMBNAIL_TEXT_NAME']                                          = 'miniature de la page';
@@ -626,6 +629,7 @@ $langFile['USERSETUP_error_save']                                         = $lan
 
 // ---------- USER PERMISSION
 $langFile['USERSETUP_USERPERMISSIONS_TITLE']                              = 'permissions de l&#145;utilisateur';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_ACTIVATEWEBSITESETTINGS']       = 'modifier paramètres du site web';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'modifier les fichiers du site web au sein du <a href="index.php?site=websiteSetup">paramétrage du site web</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'modifier les fichiers de style au sein du <a href="index.php?site=websiteSetup">paramétrage du site web</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'modifier fragments de code au sein du <a href="index.php?site=websiteSetup">paramétrage du site web</a>';
@@ -637,8 +641,8 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<st
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'Information utilisateur::Ce texte va être publié sur [span class=feinduraInline]fein[em]dura[/em][/span] '.$langFile['BUTTON_DASHBOARD'].'.';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'N&#145;ecrivez rien dans la case, si vous ne voulez pas montrer des informations sur l&#145;utilisateur';
 
-$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Sélectionnez Catégories et Pages que l&#145;utilisateur devrait être capable d&#145;éditer';
-
+$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Sélectionnez Catégories et Pages que l&#145;utilisateur devrait être capable d&#145;éditer. (Si rien n&#145;est sélectionné, tout peut être modifié)';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']                = 'Effacer la sélection';
 
 /*
 * editor.php
@@ -688,7 +692,7 @@ $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Sou
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Permet de créer un sous-menu pour cette page sur le site.';
 
 // ---------- page advanced settings
-$langFile['EDITOR_advancedpageSettings_h1']                               = 'paramètres avancés';
+$langFile['EDITOR_advancedpageSettings_h1']                               = 'paramètres spécifique de la page de l&#145;éditor HTML';
 $langFile['EDITOR_advancedpageSettings_field1']                           = 'page fichier feuille de style';
 $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']               = 'Quand toutes les cases sont vides, les paramètres des feuilles de style de la catégorie seront utilisés. Si ceux-ci sont vides aussi, les paramètres de l&#145;éditeur HTML seront utlisés.';
 $langFile['EDITOR_htmleditor_hotkeys_h1']                                 = 'touches-clés';

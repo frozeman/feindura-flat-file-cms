@@ -65,6 +65,27 @@ var jsMultipleSelect = new Class({
       // get DROPBOX BGCOLOR
       var dropBoxBg = dropBox.getStyle('background-color');
 
+      // setup CLEAR DESTINATION
+      $$('a.clearJsMultipleSelect').each(function(clearButton){
+        if(clearButton.getProperty('data-jsMultipleSelect') == jsMultipleSelectId) {
+          clearButton.addEvent('click',function(e){
+            e.stop();
+            dropBox.getElements('li.jsMultipleSelectItem').dispose();
+
+            items.each(function(item){
+              var duplicateCount = item.retrieve('duplicateCount');
+              if(item.retrieve('remove')) {
+                removedItems.erase(item);
+                item.setStyle('display','block');
+              }
+              if(item.retrieve('duplicate'))
+                item.store('duplicateCount',1);
+
+            });
+          });
+        }
+      });
+
       // CLOSE FUNCTION
       var closeFunction = function() {
         var clone          = this.getParent('li');
@@ -151,7 +172,8 @@ var jsMultipleSelect = new Class({
 
 
       // PARSE already SELECTED ITEMS (which are in the jsMultipleSelectDestination)
-      dropBox.getChildren('li').each(function(selected){
+      dropBox.getChildren('li').each(function(selected) {
+
         var value = selected.getProperty('data-value');
         var item = jsMultipleSelect.getChildren('li.jsMultipleSelectItem[data-value="'+value+'"]');
         item = (typeOf(item[0]) !== 'null') ? item[0] : null;

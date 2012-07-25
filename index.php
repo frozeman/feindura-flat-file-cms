@@ -342,7 +342,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- ************************************************************************* -->
   <!-- ** WINDOW BOX *********************************************************** -->
   <div id="windowBox">
-    <!-- <h1><?php echo $langFile['LOADING_TEXT_LOAD']; ?></h1> -->
+    <h1><?php echo $langFile['LOADING_TEXT_LOAD']; ?></h1>
     <a href="#" class="close" onclick="closeWindowBox(false);return false;"></a>
     <div id="windowRequestBox"></div>
   </div>

@@ -40,6 +40,10 @@ if((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['cre
 
   // add a new user to the user array
   $userConfig[$newId] = array('id' => $newId);
+
+  // default user settings
+  $userConfig[$newId]['permissions']['websiteSettings'] = true;
+
   if(saveUserConfig($userConfig)) {
      $messagePopUp .= '<div class="alert alert-success center">'.$langFile['USERSETUP_createUser_created'].'</div>';
      saveActivityLog(25); // <- SAVE the task in a LOG FILE

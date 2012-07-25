@@ -36,6 +36,7 @@ if($post['send'] == 'true') {
   $newUserConfig = $userConfig;
   $newUserConfig[$post['userId']]['permissions']['frontendEditing']    = $post['frontendEditing'];
   $newUserConfig[$post['userId']]['permissions']['fileManager']        = (empty($adminConfig['uploadPath'])) ? false : $post['fileManager'];
+  $newUserConfig[$post['userId']]['permissions']['websiteSettings']    = $post['websiteSettings'];
   $newUserConfig[$post['userId']]['permissions']['editWebsiteFiles']   = $post['editWebsiteFiles'];
   $newUserConfig[$post['userId']]['permissions']['editStyleSheets']    = $post['editStyleSheets'];
   $newUserConfig[$post['userId']]['permissions']['editSnippets']       = $post['editSnippets'];
@@ -83,38 +84,53 @@ if($post['send'] == 'true') {
     </div>
   </div>
 
-  <?php if(!empty($adminConfig['websiteFilesPath'])) { ?>
-  <div class="row">
-    <div class="span3 right">
-      <input type="checkbox" id="editWebsiteFiles" name="editWebsiteFiles" value="true"<?php if($userConfig[$post['userId']]['permissions']['editWebsiteFiles']) echo ' checked="checked"'; ?>>
-    </div>
-    <div class="span5">
-      <label for="editWebsiteFiles"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check1']; ?></label>
-    </div>
-  </div>
-  <?php } ?>
+  <div class="spacer"></div>
 
-  <?php if(!empty($adminConfig['stylesheetPath'])) { ?>
   <div class="row">
     <div class="span3 right">
-      <input type="checkbox" id="editStyleSheets" name="editStyleSheets" value="true"<?php if($userConfig[$post['userId']]['permissions']['editStyleSheets']) echo ' checked="checked"'; ?>>
+      <input type="checkbox" id="websiteSettings" name="websiteSettings" value="true"<?php if($userConfig[$post['userId']]['permissions']['websiteSettings']) echo ' checked="checked"'; ?>>
     </div>
     <div class="span5">
-      <label for="editStyleSheets"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']; ?></label>
+      <label for="websiteSettings"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_ACTIVATEWEBSITESETTINGS']; ?></label>
     </div>
   </div>
-  <?php } ?>
 
-  <?php if(!empty($adminConfig['editor']['snippets'])) { ?>
-  <div class="row">
-    <div class="span3 right">
-      <input type="checkbox" id="editSnippets" name="editSnippets" value="true"<?php if($userConfig[$post['userId']]['permissions']['editSnippets']) echo ' checked="checked"'; ?>>
+  <div id="additionalWebsiteSettings" <?php if(!$userConfig[$post['userId']]['permissions']['websiteSettings']) echo ' style="display:none;"'; ?>>
+
+    <?php if(!empty($adminConfig['websiteFilesPath'])) { ?>
+    <div class="row">
+      <div class="span3 right">
+        <input type="checkbox" id="editWebsiteFiles" name="editWebsiteFiles" value="true"<?php if($userConfig[$post['userId']]['permissions']['editWebsiteFiles']) echo ' checked="checked"'; ?>>
+      </div>
+      <div class="span5">
+        <label for="editWebsiteFiles"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check1']; ?></label>
+      </div>
     </div>
-    <div class="span5">
-      <label for="editSnippets"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']; ?></label>
+    <?php } ?>
+
+    <?php if(!empty($adminConfig['stylesheetPath'])) { ?>
+    <div class="row">
+      <div class="span3 right">
+        <input type="checkbox" id="editStyleSheets" name="editStyleSheets" value="true"<?php if($userConfig[$post['userId']]['permissions']['editStyleSheets']) echo ' checked="checked"'; ?>>
+      </div>
+      <div class="span5">
+        <label for="editStyleSheets"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']; ?></label>
+      </div>
     </div>
+    <?php } ?>
+
+    <?php if(!empty($adminConfig['editor']['snippets'])) { ?>
+    <div class="row">
+      <div class="span3 right">
+        <input type="checkbox" id="editSnippets" name="editSnippets" value="true"<?php if($userConfig[$post['userId']]['permissions']['editSnippets']) echo ' checked="checked"'; ?>>
+      </div>
+      <div class="span5">
+        <label for="editSnippets"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']; ?></label>
+      </div>
+    </div>
+    <?php } ?>
+
   </div>
-  <?php } ?>
 
   <div class="spacer2x"></div>
 
@@ -149,7 +165,7 @@ if($post['send'] == 'true') {
       </ul>
       <?php } ?>
     </div>
-    <div class="span3">
+    <div class="span3 right">
       <ul class="jsMultipleSelectDestination" data-jsMultipleSelect="1">
         <?php
           // add selected editableCategories
@@ -166,6 +182,7 @@ if($post['send'] == 'true') {
           }
         ?>
       </ul>
+      <a class="clearJsMultipleSelect btn btn-mini" data-jsMultipleSelect="1"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']; ?></a>
     </div>
   </div>
 
@@ -195,6 +212,13 @@ if($post['send'] == 'true') {
     new FancyForm('#windowBox input[type="checkbox"], #windowBox input[type="radio"]');
     $$('#windowBox textarea.autogrow').each(function(textarea){
       new Form.AutoGrow(textarea);
+    });
+
+    $$('input#websiteSettings').addEvent('change',function(){
+      if(this.checked && $('additionalWebsiteSettings') !== null)
+        $('additionalWebsiteSettings').setStyle('display','block');
+      else
+        $('additionalWebsiteSettings').setStyle('display','none');
     });
   });
 /* ]]> */

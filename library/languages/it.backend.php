@@ -79,6 +79,9 @@ $langFile['TEXT_EXAMPLE']                                                 = 'Ese
 
 $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Editing Frontale::Clicca qui per modificare le pagine direttamente nel tuo sito web.';
 
+// PERMISSIONS
+$langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION']                          = 'Non sei autorizzato a cambiare questa situazione.';
+
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT']                                          = 'pixel';
 
@@ -226,14 +229,14 @@ $langFile['CKEDITOR_TEXT_PLUGINS']                                        = 'Sce
 $langFile['BUTTON_DASHBOARD']                                             = 'Cruscotto';
 $langFile['BUTTON_PAGES']                                                 = 'Pagine';
 $langFile['BUTTON_ADDONS']                                                = 'Addons';
-$langFile['BUTTON_WEBSITESETTINGS']                                       = 'Impostazioni';
+$langFile['BUTTON_WEBSITESETTINGS']                                       = 'Impostazioni SitoWeb';
 $langFile['BUTTON_SEARCH']                                                = 'Ricerca Pagine';
 
 // ADMIN MENU
-$langFile['HEADER_TITLE_ADMINMENU']                                       = 'Amministrazione';
-$langFile['BUTTON_ADMINSETUP']                                            = 'Generale';
-$langFile['BUTTON_PAGESETUP']                                             = 'Pagine';
-$langFile['BUTTON_STATISTICSETUP']                                        = 'Statistiche';
+$langFile['HEADER_TITLE_ADMINMENU']                                       = 'Impostazioni Amministrazione';
+$langFile['BUTTON_ADMINSETUP']                                            = 'Impostazioni Generale';
+$langFile['BUTTON_PAGESETUP']                                             = 'Impostazioni Pagine';
+$langFile['BUTTON_STATISTICSETUP']                                        = 'Impostazioni Statistiche';
 $langFile['BUTTON_USERSETUP']                                             = 'Utenti';
 $langFile['BUTTON_BACKUP']                                                = 'Backups';
 
@@ -660,6 +663,7 @@ $langFile['USERSETUP_error_save']                                         = $lan
 
 // ---------- USER PERMISSION
 $langFile['USERSETUP_USERPERMISSIONS_TITLE']                              = 'Autorizzazioni-Utente';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_ACTIVATEWEBSITESETTINGS']       = 'Modificare Impostazioni-SitoWeb';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Modificare i files dalle <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Modificare i files fogli di stile in <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Modifica frammenti di codice nel <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
@@ -671,8 +675,8 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<st
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'Informazioni Utente::Questo testo verrà visualizzato nel '.$langFile['BUTTON_DASHBOARD'].' della pagina di [span class=feinduraInline]fein[em]dura[/em][/span].';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'Se non si desidera visualizzare le informazioni per l&#145;utente, lasciare questo campo vuoto';
 
-$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Selezionare Categorie e pagine che l&#145;utente dovrebbe essere grado di modificare';
-
+$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Selezionare Categorie e pagine che l&#145;utente dovrebbe essere grado di modificare. (Se non è selezionata, tutto può essere modificato)';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']                = 'Cancella selezione';
 
 /*
 * editor.php
@@ -724,7 +728,7 @@ $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Sot
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Permette di creare un menù secondario per questa pagina nel sito.';
 
 // ---------- page advanced settings
-$langFile['EDITOR_advancedpageSettings_h1']                               = 'Impostazioni Avanzate';
+$langFile['EDITOR_advancedpageSettings_h1']                               = 'Pagina specifica impostazioni-Editor-HTML';
 
 $langFile['EDITOR_advancedpageSettings_field1']                           = 'Pagina stylesheet-file';
 $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']               = 'Quando tutti i campi sono vuoti, verra utilizzato la prima impostazione del foglio di stile, la categoria sarà utilizzata anche se il foglo di stile è vuoto e potra essere editato con l&#145;editor HTML delle impostazioni.';

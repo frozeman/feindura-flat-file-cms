@@ -718,7 +718,7 @@ ChangeLog:
   build 334: changes in sidebartasklog layout
   build 333: fixes with stylefilepath, when including an url
   build 332: fixes in file manager & add new CKEditor build 5813
-  build 331: changed .innerBlockListPages layout
+  build 331: changed .insetBlockListPages layout
   build 330: add separate delete of length-of-stay statistics
   build 329: small change on slide in arrows
   build 328: add arrow over category pages menu in the left sidebar

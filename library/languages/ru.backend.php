@@ -81,6 +81,9 @@ $langFile['TEXT_EXAMPLE']                                                 = 'П�
 
 $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Редактировать на сайте::Нажмите что бы редактировать страницы на сайте.';
 
+// PERMISSIONS
+$langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION']                          = 'Вы не авторизованы, чтобы изменить это.';
+
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT']                                          = 'пикселей';
 
@@ -665,6 +668,7 @@ $langFile['USERSETUP_error_save']                                         = $lan
 
 // ---------- USER PERMISSION
 $langFile['USERSETUP_USERPERMISSIONS_TITLE']                              = 'Пользовательские настройки';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_ACTIVATEWEBSITESETTINGS']       = 'Редактирование Настройки сайта';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Редактирование файлов сайта в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Редактирование файлов стилей в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Редактировать фрагменты кода в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
@@ -676,8 +680,8 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<st
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'Инфо-блок::Это короткий ифнормационный текст для пользователей который будет отображаться на странице '.$langFile['BUTTON_DASHBOARD'].'.';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'Если у вас нет информации для пользователей - оставьте поле пустым.';
 
-$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Выберите категорию и страницы которой пользователь должен иметь возможность редактировать';
-
+$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Выберите категорию и страницы которой пользователь должен иметь возможность редактировать<br>(Если ничего не выбрано, то все может быть отредактирован)';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']                = 'Снять выделение';
 
 /*
 * editor.php
@@ -729,7 +733,7 @@ $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'п�
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Позволяет создавать подменю для этой страницы на сайте.';
 
 // ---------- page advanced settings
-$langFile['EDITOR_advancedpageSettings_h1']                               = 'Дополнительные настройки';
+$langFile['EDITOR_advancedpageSettings_h1']                               = 'Страница конкретной HTML-редактор Настройка';
 
 $langFile['EDITOR_advancedpageSettings_field1']                           = 'Индивидуальный файл стилей';
 $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']               = 'Если поле пусто будут использованы настройки категории, если в настройках категории пусто - будут использованы стандартные стили.';

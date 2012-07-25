@@ -142,8 +142,10 @@ foreach($categoryConfig as $category) {
 
           // CATEGORY STATUS
           // show category status only if its a category (0 is non-category)
-          if($category['id'] != 0)
-            echo '<a href="?site='.$_GET['site'].'&amp;status=changeCategoryStatus&amp;public='.$category['public'].'&amp;category='.$category['id'].'&amp;reload='.rand(0,999).'#categoryAnchor'.$category['id'].'" class="toolTipTop status'.$publicClass.'" title="'.$publicText.'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkCategory'].'">&nbsp;</a>';
+          if($category['id'] != 0) {
+            $categoryStatusTitle = (GeneralFunctions::hasPermission('editableCategories',$category['id'])) ? $langFile['SORTABLEPAGELIST_changeStatus_linkCategory']: $langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION'];
+            echo '<a href="?site='.$_GET['site'].'&amp;status=changeCategoryStatus&amp;public='.$category['public'].'&amp;category='.$category['id'].'&amp;reload='.rand(0,999).'#categoryAnchor'.$category['id'].'" class="toolTipTop status'.$publicClass.'" title="'.$publicText.'::'.$categoryStatusTitle.'">&nbsp;</a>';
+          }
 
         if(GeneralFunctions::hasPermission('editableCategories',$category['id'])) {
           // CATEGORY FUNCTIONS

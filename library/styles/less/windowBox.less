@@ -10,15 +10,15 @@
     top: 10%;
     left: 50%;
     margin-left: -400px;
-    width: @gridRowWidth;
-    padding: @blockContentPadding;
+    width: @gridRowWidth + 2 * @blockContentPadding;
     background-color: #fff;
+    overflow: hidden;
     #boxBasics;
 
     > h1 {
         position: relative;
-        top: -@blockContentPadding - 1;
-        left: -@blockContentPadding - 1;
+        top: -1;
+        left: -1;
         z-index: 2;
         padding: @blockContentPadding / 2 @blockContentPadding;
         width: @gridRowWidth;
@@ -56,8 +56,9 @@
         margin: 0;
     }
 
-    .insetBlock {
+    .insetBlock { // original in general.less
         padding-bottom: 0;
+        margin: 10px -10px;
     }
 
     .well {
@@ -90,6 +91,7 @@ a.close {
 #windowRequestBox {
     position: relative;
     width: @gridRowWidth;
+    padding: @blockContentPadding;
     min-height: 140px;
 }
 
@@ -98,7 +100,7 @@ a.close {
     z-index: 10;
     margin-top: -@blockContentPadding;
     padding: 50px 0px;
-    width: 100%;
+    width: @gridRowWidth;
     height: 100%;
     text-align: center;
     background-color: #fff;

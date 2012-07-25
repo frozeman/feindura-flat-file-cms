@@ -318,55 +318,49 @@ function blockSlider(givenId) {
 // BLOCK SLIDE IN/OUT
 function inBlockSlider() {
 
-  var count = 0;
-  var slideLinks = [];
+  $$('.inBlockSlider').each(function(inBlockSlider) {
 
-  // -> GO TROUGH every CATEGORY
-  if($$('.block .inBlockSlider') !== null && $$('.block .inBlockSliderLink') !== null) {
-
-    // -----------------------------------------
-    // ADD SLIDE TO TABLEs inside a BLOCK
-    $$('.block').each(function(block) {
-
-      // gets the SLIDE links
-      block.getElements('.inBlockSliderLink').each(function(insideBlockLinks) {
-        slideLinks.push(insideBlockLinks);
-      });
-
-      block.getElements('.inBlockSlider').each(function(insideBlock) {
-
-         // ON COMPLETE
-         // insideBlock.get('slide').addEvent('complete', function(el) {
-         //      // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-         //      if(this.open) {
-         //        this.wrapper.fade('show');
-         //        this.wrapper.setStyle('height','auto');
-         //      } else {
-         //        this.wrapper.fade('hide');
-         //        this.wrapper.setStyle('height',insideBlock.getChildren('tbody').getSize().y);
-         //      }
-         //  });
-
-         // slides the hotky div in, on start
-         if(insideBlock.hasClass('hidden')) {
-           //hides the wrapper on start
-           // insideBlock.setStyle('display','block');
-           // insideBlock.slide('hide');
-           // insideBlock.get('slide').wrapper.fade('hide');
-         }
-
-         // sets the SLIDE effect to the SLIDE links
-         slideLinks[count].addEvent('click', function(e) {
-            if(e.target.match('a')) e.stop();
-            // insideBlock.get('slide').toggle();
-            // insideBlock.get('slide').wrapper.fade('show');
-            insideBlock.toggleClass('hidden');
-          });
-
-         count++;
-      });
+    var inBlockSliderLink;
+    $$('.inBlockSliderLink').each(function(sliderLink) {
+      if(sliderLink.getProperty('data-inBlockSlider') == inBlockSlider.getProperty('data-inBlockSlider')) {
+        inBlockSliderLink = sliderLink;
+        return;
+      }
     });
-  }
+
+    if(typeOf(inBlockSliderLink) == 'null')
+      return;
+
+    var slide = inBlockSlider.get('slide');
+    var wrapper = slide.wrapper;
+
+    // transfer insetBlock class to the wrapper
+    if(inBlockSlider.hasClass('insetBlock')) {
+      inBlockSlider.removeClass('insetBlock');
+      wrapper.addClass('insetBlock');
+      wrapper.set('fade',{duration:'short'});
+    }
+
+    // slides the hotky div in, on start
+    if(inBlockSlider.hasClass('hidden')) {
+      // hides the wrapper on start
+      wrapper.fade('hide');
+     slide.hide();
+    }
+
+    // sets the SLIDE effect to the SLIDE links
+    inBlockSliderLink.addEvent('click', function(e) {
+      if(e.target.match('a')) e.stop();
+
+      if(inBlockSlider.hasClass('hidden'))
+        wrapper.fade(1);
+      else
+        wrapper.fade(0);
+
+      inBlockSlider.toggleClass('hidden');
+      slide.toggle();
+    });
+  });
 }
 
 /* pageChangedSign function
@@ -471,6 +465,7 @@ function requestLeftSidebar(site,page,category) {
   // vars
   if(!page) page = 0;
   if(!category) category = 0;
+  var leftSideBar = $('leftSidebar');
 
   var jsLoadingCircleContainer = new Element('div', {'class':'leftSidebarLoadingCircle'});
   var removeLoadingCircle;
@@ -480,18 +475,17 @@ function requestLeftSidebar(site,page,category) {
     url:'library/leftSidebar.loader.php',
     method: 'get',
     data: 'site=' + site + '&category=' + category + '&page=' + page,
-    update: $('leftSidebar'),
+    update: leftSideBar,
 
     //-----------------------------------------------------------------------------
     onRequest: function() { //-----------------------------------------------------
 
         // -> TWEEN leftSidebar
-        $('leftSidebar').set('tween',{duration: 150});
-        $('leftSidebar').tween('left','-200px');
-        //$('leftSidebar').tween('opacity',0);
+        leftSideBar.set('tween',{duration: 150});
+        leftSideBar.tween('left',-200);
 
         // -> ADD the LOADING CIRCLE
-        $('leftSidebar').grab(jsLoadingCircleContainer,'before');
+        leftSideBar.grab(jsLoadingCircleContainer,'before');
         removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 25, 40, 12, 4, "#999");
 
     },
@@ -499,11 +493,10 @@ function requestLeftSidebar(site,page,category) {
     onSuccess: function(html) { //-------------------------------------------------
 
       // -> TWEEN leftSidebar
-      $('leftSidebar').set('tween',{duration: 300});
-      $('leftSidebar').tween('left','0px');
-      //$('leftSidebar').tween('opacity',1);
+      leftSideBar.set('tween',{duration: 300});
+      leftSideBar.tween('left',0);
 
-      $('leftSidebar').get('tween').chain(function(){
+      leftSideBar.get('tween').chain(function(){
         // -> REMOVE the LOADING CIRCLE
         jsLoadingCircleContainer.destroy();
         removeLoadingCircle();
@@ -522,9 +515,7 @@ function requestLeftSidebar(site,page,category) {
     //Our request will most likely succeed, but just in case, we'll add an
     //onFailure method which will let the user know what happened.
     onFailure: function() { //-----------------------------------------------------
-      var failureText = new Element('p');
-      failureText.set('text','Couldn\'t load the sidebar?');
-      $('leftSidebar').set('html',failureText);
+      leftSideBar.set('html','<div class="alert alert-error">Couldn\'t load the sidebar?</div>');
     }
   });
 
@@ -610,7 +601,7 @@ window.addEvent('domready', function() {
     (function(){
       $('messagePopUp').tween('top',-$('messagePopUp').getSize().y);
       $('messagePopUp').get('tween').chain(function(){
-        alert.setStyle('display','none');
+        $('messagePopUp').setStyle('display','none');
       });
     }).delay(3000);
   }
@@ -648,7 +639,7 @@ window.addEvent('domready', function() {
   if($('sidebarTaskLog') !== null) {
 
     // vars
-    var minHeight = 200;
+    var minHeight = 140;
     var maxHeight = 450;
 
     var myScroller = new Scroller('sidebarTaskLog', {area: 150, velocity: 0.1});

@@ -79,6 +79,9 @@ $langFile['TEXT_EXAMPLE']                                                 = 'Exa
 
 $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Frontend Editing::Click here to edit the pages directly in your website.';
 
+// PERMISSIONS
+$langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION']                          = 'You are not authorized to change this.';
+
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT']                                          = 'pixel';
 
@@ -660,9 +663,10 @@ $langFile['USERSETUP_error_save']                                         = $lan
 
 // ---------- USER PERMISSION
 $langFile['USERSETUP_USERPERMISSIONS_TITLE']                              = 'User permissions';
-$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Edit website files in the <a href="index.php?site=websiteSetup">website-settings</a>';
-$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Edit stylesheet files in the <a href="index.php?site=websiteSetup">website-settings</a>';
-$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Edit code snippets in the <a href="index.php?site=websiteSetup">website-settings</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_ACTIVATEWEBSITESETTINGS']       = 'Edit Website-Settings';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Edit website files in the <a href="index.php?site=websiteSetup">Website-Settings</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Edit stylesheet files in the <a href="index.php?site=websiteSetup">Website-Settings</a>';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Edit code snippets in the <a href="index.php?site=websiteSetup">Website-Settings</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                   = 'Activate file manager';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'File manager deactivated::You must set the upload path in the basic-settings, before you can activate the file manager.';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'Activate frontend editing';
@@ -671,8 +675,8 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<st
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'User Information::This text will be shown in the '.$langFile['BUTTON_DASHBOARD'].' page of [span class=feinduraInline]fein[em]dura[/em][/span].';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'If you don&#145;t want to display an information for the user, leave this field empty';
 
-$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Select Categories and Pages which the user should be able to edit';
-
+$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Select Categories and Pages which the user should be able to edit<br>(If nothing is selected, everything can be edited)';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']                = 'Clear selection';
 
 /*
 * editor.php
@@ -725,7 +729,7 @@ $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'All
 
 
 // ---------- page advanced settings
-$langFile['EDITOR_advancedpageSettings_h1']                               = 'Advanced Settings';
+$langFile['EDITOR_advancedpageSettings_h1']                               = 'Page specific HTML-Editor-Settings';
 
 $langFile['EDITOR_advancedpageSettings_field1']                           = 'Page stylesheet-file';
 $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']               = 'If the fields are empty, then the Stylesheet-Settings of the category will be used and if they are also empty then the one from the HTML-Editor-Settings.';

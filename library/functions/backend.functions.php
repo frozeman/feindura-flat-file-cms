@@ -1026,6 +1026,7 @@ function saveUserConfig($userConfig) {
 
       $fileContent .= "\$userConfig[".$user."]['permissions']['frontendEditing']      = ".XssFilter::bool($configs['permissions']['frontendEditing'],true).";\n";
       $fileContent .= "\$userConfig[".$user."]['permissions']['fileManager']          = ".XssFilter::bool($configs['permissions']['fileManager'],true).";\n";
+      $fileContent .= "\$userConfig[".$user."]['permissions']['websiteSettings']      = ".XssFilter::bool($configs['permissions']['websiteSettings'],true).";\n";
       $fileContent .= "\$userConfig[".$user."]['permissions']['editWebsiteFiles']     = ".XssFilter::bool($configs['permissions']['editWebsiteFiles'],true).";\n";
       $fileContent .= "\$userConfig[".$user."]['permissions']['editStyleSheets']      = ".XssFilter::bool($configs['permissions']['editStyleSheets'],true).";\n";
       $fileContent .= "\$userConfig[".$user."]['permissions']['editSnippets']         = ".XssFilter::bool($configs['permissions']['editSnippets'],true).";\n\n";

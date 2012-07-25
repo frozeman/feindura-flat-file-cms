@@ -545,7 +545,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
           ?>
           <div class="row">
             <div class="span3 formLeft">
-              <input type="checkbox" class="inBlockSliderLink" id="feinduraPlugin_<?php echo $pluginFolderName; ?>" name="plugins[<?php echo $pluginFolderName; ?>][active]" value="true" <?php echo ($pageContent['plugins'][$pluginFolderName]['active']) ? 'checked' : ''; ?>>
+              <input type="checkbox" class="inBlockSliderLink" data-inBlockSlider="<?php echo $pluginName; ?>" id="feinduraPlugin_<?php echo $pluginFolderName; ?>" name="plugins[<?php echo $pluginFolderName; ?>][active]" value="true" <?php echo ($pageContent['plugins'][$pluginFolderName]['active']) ? 'checked' : ''; ?>>
             </div>
             <div class="span5">
               <label for="feinduraPlugin_<?php echo $pluginFolderName; ?>"><b><?php echo $pluginName; ?></b></label>
@@ -565,7 +565,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
           }
 
           ?>
-          <div class="inBlockSlider<?php echo $hidden; ?>">
+          <div class="inBlockSlider insetBlock<?php echo $hidden; ?>" data-inBlockSlider="<?php echo $pluginName; ?>">
           <?php
           // var
           $checkboxes = true;

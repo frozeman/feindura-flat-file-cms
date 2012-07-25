@@ -79,6 +79,9 @@ $langFile['TEXT_EXAMPLE']                                                 = 'Bei
 
 $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Frontend-Bearbeitung::Klick hier um die Seiten direkt in der Webseite zu bearbeiten.';
 
+// PERMISSIONS
+$langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION']                          = 'Du bist nicht berechtigt dies zu verändern.';
+
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT']                                          = 'Pixel';
 
@@ -209,6 +212,7 @@ $langFile['USER_TEXT_USERSONLINE']                                        = 'Die
 
 $langFile['LOGO_TEXT']                                                    = 'Version';
 $langFile['LOADING_TEXT_LOAD']                                            = 'Seite wird geladen..';
+
 
 // CKEDITOR transport
 $langFile['CKEDITOR_TITLE_LINKS']                                         = 'feindura Seiten';
@@ -658,6 +662,7 @@ $langFile['USERSETUP_error_save']                                         = $lan
 
 // ---------- USER PERMISSION
 $langFile['USERSETUP_USERPERMISSIONS_TITLE']                              = 'Benutzerrechte';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_ACTIVATEWEBSITESETTINGS']       = 'Webseiten-Einstellungen bearbeiten';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Webseitendateien in den <a href="index.php?site=websiteSetup">Webseiten-Einstellungen</a> bearbeiten';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Stylesheetdateien in den <a href="index.php?site=websiteSetup">Webseiten-Einstellungen</a> bearbeiten';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Codeschnipsel in den <a href="index.php?site=websiteSetup">Webseiten-Einstellungen</a> bearbeiten';
@@ -668,7 +673,9 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<st
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'Benutzerinformationen::Dieser Text wird auf der [span class=feinduraInline]fein[em]dura[/em][/span] '.$langFile['BUTTON_DASHBOARD'].' angezeigt.';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'Wenn Du keine Informationen für den Benutzer anzeigen möchtest lasse das Feld leer';
 
-$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Wähle Kategorien und Seiten aus die der Benutzer bearbeiten kann';
+$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Wähle Kategorien und Seiten aus die der Benutzer bearbeiten kann<br>(Wenn nichts ausgewählt wurde kann alles bearbeitet werden)';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']                = 'Auswahl löschen';
+
 
 /*
 * editor.php
@@ -721,7 +728,7 @@ $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Erl
 
 
 // ---------- page advanced settings
-$langFile['EDITOR_advancedpageSettings_h1']                               = 'Erweiterte Einstellungen';
+$langFile['EDITOR_advancedpageSettings_h1']                               = 'Seitenspezifische HTML-Editor-Einstellungen';
 
 $langFile['EDITOR_advancedpageSettings_field1']                           = 'Seiten Stylesheet-Datei';
 $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']               = 'Wenn alle Felder leer sind, dann werden zuerst die Stylesheet-Einstellungen der Kategorie verwendet, wenn diese auch leer sind dann die aus den HTML-Editor-Einstellungen.';

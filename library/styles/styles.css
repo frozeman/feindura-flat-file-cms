@@ -52,6 +52,14 @@
   /* deleteUser */
 
 }
+.feindura #content .noTextSelection {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .feindura article,
 .feindura aside,
 .feindura details,
@@ -4816,7 +4824,8 @@
 }
 .feindura .insetBlock {
   padding: 9px;
-  margin: 10px 0;
+  margin-top: 16px;
+  margin-bottom: 16px;
   background-color: #fdfdfd;
   border: 1px solid #c0c0c0;
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
@@ -4825,6 +4834,68 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura .insetBlock h2 {
+  border-bottom: 1px solid #c4c4c4;
+  margin: -5px -5px !important;
+  margin-bottom: 15px !important;
+  padding: 10px 20px !important;
+  text-align: center;
+  color: #a3a3a3;
+  -webkit-text-shadow: 0 1px 1px #ffffff;
+  -moz-text-shadow: 0 1px 1px #ffffff;
+  text-shadow: 0 1px 1px #ffffff;
+  -ms-text-shadow: 0 1px 1px #ffffff;
+  -o-text-shadow: 0 1px 1px #ffffff;
+  -khtml-text-shadow: 0 1px 1px #ffffff;
+  -webkit-border-top-right-radius: 6px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 6px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background: #f3f3f3;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f3f3f3), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #f3f3f3 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #f3f3f3 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f3f3f3',GradientType=0);
+}
+.feindura .insetBlock hr.small {
+  margin: 20px -5px;
+}
+.feindura .insetBlock .insetBlockListPages {
+  position: relative;
+  max-height: 150px;
+  min-height: 2px;
+  padding: 0px;
+  margin: 0 -5px;
+  margin-top: -16px;
+  border-top: 1px solid #cccccc;
+  overflow: auto;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomright: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-top-left-radius: 0;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
@@ -5634,7 +5705,7 @@
   color: #666666;
   text-align: center;
   text-decoration: none;
-  font-size: 10px;
+  font-size: 9px;
   line-height: 11px;
 }
 .feindura #adminMenu a:hover,
@@ -6395,12 +6466,14 @@
   filter: none;
   background-image: url("../images/bg/block_h1_brown.png") !important;
   background-repeat: repeat-x !important;
+  background-color: #fff;
 }
 .feindura .mainContent .block > h1.blue {
   background: none;
   filter: none;
   background-image: url("../images/bg/block_h1_blue.png") !important;
   background-repeat: repeat-x !important;
+  background-color: #fff;
 }
 .feindura .mainContent .block > h1 img {
   position: relative;
@@ -6622,87 +6695,11 @@
   padding: 0 20px;
   overflow: visible;
 }
-.feindura .mainContent .block .innerBlock {
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  padding: 20px;
-  background-color: #fdfdfd;
-  border: 1px solid #c0c0c0;
-}
-.feindura .mainContent .block .innerBlock .innerBlocklistPages {
-  position: relative;
-  max-height: 150px;
-  min-height: 2px;
-  padding: 0px;
-  margin: 0 -14px;
-  margin-top: -16px;
-  margin-bottom: -14px;
-  border: 1px solid #cccccc;
-  border-left: none;
-  border-right: none;
-  overflow: auto;
-  -webkit-border-top-right-radius: 0;
-  -webkit-border-bottom-right-radius: 6px;
-  -webkit-border-bottom-left-radius: 6px;
-  -webkit-border-top-left-radius: 0;
-  -moz-border-radius-topright: 0;
-  -moz-border-radius-bottomright: 6px;
-  -moz-border-radius-bottomleft: 6px;
-  -moz-border-radius-topleft: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 6px;
-  border-bottom-left-radius: 6px;
-  border-top-left-radius: 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-}
-.feindura .mainContent .block .innerBlock h2 {
-  border-bottom: 1px solid #c4c4c4;
-  margin: -15px -14px;
-  margin-bottom: 15px;
-  padding: 10px 20px;
-  text-align: center;
-  color: #a3a3a3;
-  -webkit-text-shadow: 0 1px 1px #ffffff;
-  -moz-text-shadow: 0 1px 1px #ffffff;
-  text-shadow: 0 1px 1px #ffffff;
-  -ms-text-shadow: 0 1px 1px #ffffff;
-  -o-text-shadow: 0 1px 1px #ffffff;
-  -khtml-text-shadow: 0 1px 1px #ffffff;
-  -webkit-border-top-right-radius: 6px;
-  -webkit-border-bottom-right-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
-  -webkit-border-top-left-radius: 6px;
-  -moz-border-radius-topright: 6px;
-  -moz-border-radius-bottomright: 0;
-  -moz-border-radius-bottomleft: 0;
-  -moz-border-radius-topleft: 6px;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 6px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  background: #f3f3f3;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f3f3f3), color-stop(1, #ffffff));
-  background: -moz-linear-gradient(center bottom, #f3f3f3 0%, #ffffff 100%);
-  background: -ms-linear-gradient(bottom, #f3f3f3 0%, #ffffff 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f3f3f3',GradientType=0);
-}
-.feindura .mainContent .block .innerBlock hr.small {
-  margin: 10px -14px;
-}
 .feindura .mainContent .block .insetBlock {
-  margin: -10px;
+  margin: 10px -10px;
+}
+.feindura .mainContent .block .inBlockSlider.hidden {
+  display: block;
 }
 .feindura .mainContent .block .form .row {
   padding: 5px 0;
@@ -6805,6 +6802,9 @@
 .feindura footer.info a:hover {
   text-decoration: none;
   color: #DF893B;
+}
+.feindura .dashboard .insetBlock {
+  margin: 8px !important;
 }
 .feindura .refererBox {
   max-height: 300px;
@@ -7125,7 +7125,8 @@
   padding: 5px 20px;
 }
 .feindura .block.listPages .block > h1 {
-  margin-bottom: -15px;
+  padding-bottom: 10px !important;
+  margin-bottom: 10px;
 }
 .feindura .block.listPages .block > h1 > a {
   margin-left: -35px;
@@ -7686,9 +7687,9 @@
   top: 10%;
   left: 50%;
   margin-left: -400px;
-  width: 760px;
-  padding: 20px;
+  width: 800px;
   background-color: #fff;
+  overflow: hidden;
   border: 1px solid #fff;
   -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
@@ -7702,8 +7703,8 @@
 }
 .feindura #windowBox > h1 {
   position: relative;
-  top: -21px;
-  left: -21px;
+  top: -1;
+  left: -1;
   z-index: 2;
   padding: 10px 20px;
   width: 760px;
@@ -7765,6 +7766,7 @@
 }
 .feindura #windowBox .insetBlock {
   padding-bottom: 0;
+  margin: 10px -10px;
 }
 .feindura #windowBox .well {
   font-size: 11px;
@@ -7825,6 +7827,7 @@
 .feindura #windowRequestBox {
   position: relative;
   width: 760px;
+  padding: 20px;
   min-height: 140px;
 }
 .feindura #windowBoxDimmer {
@@ -7832,7 +7835,7 @@
   z-index: 10;
   margin-top: -20px;
   padding: 50px 0px;
-  width: 100%;
+  width: 760px;
   height: 100%;
   text-align: center;
   background-color: #fff;
@@ -8031,4 +8034,7 @@
 }
 .feindura ul.jsMultipleSelectDestination li span {
   color: #3a79a5;
+}
+.feindura a.clearJsMultipleSelect {
+  margin-top: 5px;
 }

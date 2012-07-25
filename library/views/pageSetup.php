@@ -533,8 +533,8 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
             echo '<div class="row">
                     <div class="offset1 span3">';
-                echo '<label for="categories'.$category['id'].'plugins"><h4 class="toolTipLeft" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">';
-                echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</h4></label><br>';
+                echo '<h3 class="toolTipLeft" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">';
+                echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</h3>';
                 echo '<select id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins][]" multiple="multiple">';
                   foreach($plugins as $pluginName) {
                     $categoryPlugins = unserialize($category['plugins']);
@@ -544,12 +544,14 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
                 echo '</select>';
                 echo '</div>
                       <div class="span3">
-                        <div class="spacerH4"></div>
+                        <div class="spacerH3"></div>
                         <div class="alert">'.$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'].'</div>';
             echo '  </div>
                   </div>';
 
           }
+
+          echo '<div class="spacer"></div>';
 
           $advancedSettingsEdited = ((!empty($category['styleFile']) && $category['styleFile'] != 'a:0:{}') ||
                                      (!empty($category['styleId']) &&  $category['styleId'] != 'a:0:{}') ||
@@ -560,17 +562,15 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
           echo '<div class="row">
                   <div class="span8 center">
-                      <a href="#" class="down inBlockSliderLink" style="position:relative; bottom: -10px;">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].$advancedSettingsEdited.'</a>
+                      <a href="#" class="down inBlockSliderLink" data-inBlockSlider="'.$category['id'].'">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].$advancedSettingsEdited.'</a>
                   </div>
                 </div>';
-
-          echo '<div class="spacer"></div>';
 
           // -----------------------------------------------
           // second TABLE (advanced settings) (with slide in)
           $hidden = ($_POST['savedCategory'] != $category['id']) ? ' hidden' : '';
 
-          echo '<div id="advancedConfigTable'.$category['id'].'" class="inBlockSlider insetBlock'.$hidden.'">
+          echo '<div id="advancedConfigTable'.$category['id'].'" class="inBlockSlider insetBlock'.$hidden.'" data-inBlockSlider="'.$category['id'].'">
 
                 <div class="row">
                     <div class="span8">

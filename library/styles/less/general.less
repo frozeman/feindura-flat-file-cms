@@ -561,11 +561,41 @@ div#contentBlocked {
 
 .insetBlock {
     padding: 9px;
-    margin: 10px 0;
-    background-color: @innerBlockColor;
-    border: 1px solid @innerBlockBorderColor;
+    margin-top: @gridGutterWidth;
+    margin-bottom: @gridGutterWidth;
+    background-color: @insetBlockColor;
+    border: 1px solid @insetBlockBorderColor;
     #shadow > .inner(0,0,5px,0.3);
     #border > .rounded(10px);
+
+    @insetBlockMargin: -5px;
+    @insetBlockRoundBorder: 6px;
+
+    h2 {
+        border-bottom: 1px solid #c4c4c4;
+        margin: @insetBlockMargin @insetBlockMargin !important;
+        margin-bottom: 15px !important;
+        padding: 10px 20px !important;
+        text-align: center;
+        color: #a3a3a3;
+        #shadow > .text(0 1px 1px #fff);
+        #border > .radius(@insetBlockRoundBorder,0,0,@insetBlockRoundBorder);
+        #gradient > .vertical(#f3f3f3,#f3f3f3,#fff,0,1);
+    }
+    hr.small {
+        margin: 20px @insetBlockMargin;
+    }
+    .insetBlockListPages {
+        position: relative;
+        max-height: 150px;
+        min-height: 2px;
+        padding: 0px;
+        margin: 0 @insetBlockMargin;
+        margin-top: -16px;
+        border-top: 1px solid #cccccc;
+        overflow: auto;
+        #border > .radius(0,@insetBlockRoundBorder,@insetBlockRoundBorder,0);
+    }
 }
 
 #messagePopUp.feindura {

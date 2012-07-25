@@ -71,7 +71,7 @@ if(!empty($userConfig[USERID]['info'])) {
 
 <!-- WEBSITE STATISTIC -->
 
-<div class="block">
+<div class="block dashboard">
   <h1><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27"><?php echo $langFile['DASHBOARD_TITLE_STATISTICS']; ?></h1>
   <div class="content">
     <?php
@@ -89,7 +89,7 @@ if(!empty($userConfig[USERID]['info'])) {
     // USER COUNTER
     echo '<div class="row">';
       echo '<div class="span4">';
-        echo '<div class="innerBlock">';
+        echo '<div class="insetBlock">';
         echo '<h2>'.$langFile['STATISTICS_TEXT_VISITORCOUNT'].'</h2>';
         echo '<div class="center">';
           echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br>';
@@ -125,9 +125,9 @@ if(!empty($userConfig[USERID]['info'])) {
     $currentVisitors = include('library/includes/currentVisitors.include.php');
     if($currentVisitors) {
       echo '<div class="span4">';
-        echo '<div class="innerBlock">';
+        echo '<div class="insetBlock">';
         echo '<h2>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h2>';
-          echo '<div class="innerBlocklistPages">';
+          echo '<div class="insetBlockListPages">';
           echo $currentVisitors;
           echo '</div>';
         echo '</div>';
@@ -138,19 +138,19 @@ if(!empty($userConfig[USERID]['info'])) {
     echo '<div class="spacer2x"></div>';
 
     // -> inBlockSlider
-    echo '<h2 class="center"><a href="#" tabindex="30" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></h2>';
+    echo '<h2 class="center"><a href="#" tabindex="30" class="inBlockSliderLink down" data-inBlockSlider="1">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></h2>';
     echo '<div class="verticalSeparator"></div>';
 
-    echo '<div class="inBlockSlider hidden">';
+    echo '<div class="inBlockSlider hidden" data-inBlockSlider="1">';
 
     echo '<div class="row">';
       echo '<div class="span4">';
 
         // ---------------------------------
         // -> MOST VISITED PAGE
-        echo '<div class="innerBlock">';
+        echo '<div class="insetBlock">';
         echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'].'</h2>';
-          echo '<div class="innerBlocklistPages">
+          echo '<div class="insetBlockListPages">
                 <table class="coloredList"><tbody>';
           // SORT the Pages by VISIT COUNT
           usort($pagesStats, 'sortByVisitCount');
@@ -183,9 +183,9 @@ if(!empty($userConfig[USERID]['info'])) {
 
         // ---------------------------------
         // -> LAST VISITED PAGES
-        echo '<div class="innerBlock">';
+        echo '<div class="insetBlock">';
         echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'].'</h2>';
-          echo '<div class="innerBlocklistPages">
+          echo '<div class="insetBlockListPages">
                 <table class="coloredList"><tbody>';
           // SORT the Pages by VISIT SAVEDATE
           usort($pagesStats, 'sortByLastVisitDate');
@@ -222,9 +222,9 @@ if(!empty($userConfig[USERID]['info'])) {
 
         // ---------------------------------
         // -> LONGEST VIEWED PAGE
-        echo '<div class="innerBlock">';
+        echo '<div class="insetBlock">';
         echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'].'</h2>';
-          echo '<div class="innerBlocklistPages">
+          echo '<div class="insetBlockListPages">
                 <table class="coloredList"><tbody>';
           // SORT the Pages by MAX VISIT TIME
           usort($pagesStats, 'sortByVisitTimeMax');
@@ -260,9 +260,9 @@ if(!empty($userConfig[USERID]['info'])) {
 
         // ---------------------------------
         // -> LAST EDITED PAGES
-        echo '<div class="innerBlock">';
+        echo '<div class="insetBlock">';
         echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'].'</h2>';
-          echo '<div class="innerBlocklistPages">
+          echo '<div class="insetBlockListPages">
                 <table class="coloredList"><tbody>';
           // SORT the Pages by VISIT SAVEDATE
           usort($pages, 'sortByLastSaveDate');
