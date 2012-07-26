@@ -101,9 +101,9 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
 if(!$newPage) {
   echo '<div style="z-index: 2;position:absolute;top: 10px; right:15px;">';
   if($pageContent['public'])
-    echo ' <a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=changePageStatus&amp;public=1&amp;reload='.rand(0,999).'#pageInformation" class="toolTipTop noMark image" title="'.$langFile['STATUS_PAGE_PUBLIC'].'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'"><img src="library/images/icons/page_public.png" '.$publicSignStyle.' alt="icon public" width="27" height="27"></a>';
+    echo ' <a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=changePageStatus&amp;public=1&amp;reload='.rand(0,999).'#pageInformation" class="toolTipTop noMark image" title="'.$langFile['STATUS_PAGE_PUBLIC'].'::'.$langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS'].'"><img src="library/images/icons/page_public.png" '.$publicSignStyle.' alt="icon public" width="27" height="27"></a>';
   else
-    echo ' <a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=changePageStatus&amp;reload='.rand(0,999).'#pageInformation" class="toolTipTop noMark image" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'"><img src="library/images/icons/page_nonpublic.png"'.$publicSignStyle.' alt="icon nonpublic" width="27" height="27"></a>';
+    echo ' <a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=changePageStatus&amp;reload='.rand(0,999).'#pageInformation" class="toolTipTop noMark image" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'::'.$langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS'].'"><img src="library/images/icons/page_nonpublic.png"'.$publicSignStyle.' alt="icon nonpublic" width="27" height="27"></a>';
   echo '</div>';
 }
 
@@ -121,7 +121,7 @@ if(!$newPage) {
 
     echo ($newPage)
       ? ''
-      : '<div style="font-size:11px; text-align:right;">'.$langFile['EDITOR_pageinfo_lastsavedate'].': <b>'.$lastSaveDate.' '.$lastSaveTime.$editedByUser.'</b></div>';
+      : '<div style="font-size:11px; text-align:right;">'.$langFile['EDITOR_pageinfo_lastsavedate'].' <b>'.$lastSaveDate.' '.$lastSaveTime.$editedByUser.'</b></div>';
 
 
     // PAGE ID
@@ -685,156 +685,6 @@ $blockContentEdited = (isset($pageContent['plugins']))
 
     <br>
     <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pluginSettings'; submitAnchor('editorForm','pluginSettings');">
-  </div>
-</div>
-<?php
-}
-
-if(!$newPage) {
-?>
-<!-- ***** PAGE STATISTICS -->
-<?php
-// dont shows the block below if pageSettings is saved
-//$hidden = ($savedForm) ? ' hidden' : '';
-$hidden = ' hidden';
-?>
-<div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27"><?php echo $langFile['EDITOR_pagestatistics_h1']; ?></a></h1>
-  <div class="content form">
-  <?php
-  $pageStatistics = StatisticFunctions::readPageStatistics($pageContent['id']);
-  // -> statistic vars
-  // --------------
-  $firstVisitDate = GeneralFunctions::formatDate($pageStatistics['firstVisit']);
-  $firstVisitTime = formatTime($pageStatistics['firstVisit']);
-  $lastVisitDate = GeneralFunctions::formatDate($pageStatistics['lastVisit']);
-  $lastVisitTime = formatTime($pageStatistics['lastVisit']);
-
-  $visitTimes_max = unserialize($pageStatistics['visitTimeMax']);
-  $visitTimes_min = unserialize($pageStatistics['visitTimeMin']);
-
-  if($pageStatistics['firstVisit']) {
-  ?>
-  <div class="row">
-    <div class="span3 formLeft">
-      <?php echo $langFile['STATISTICS_TEXT_VISITORCOUNT']; ?>
-    </div>
-    <div class="span5" style="font-size:15px;">
-      <?php
-      // -> VISIT COUNT
-      echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.formatHighNumber($pageStatistics['visitorCount']).'</span>';
-      ?>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span3 formLeft">
-      <?php echo $langFile['STATISTICS_TEXT_FIRSTVISIT']; ?>
-    </div>
-    <div class="span5" style="font-size:15px;">
-      <?php
-      // -> FIRST VISIT
-      echo '<span class="info brown toolTipLeft" title="'.$firstVisitTime.'::">'.$firstVisitDate.'</span> ';
-      ?>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="span3 formLeft">
-      <?php echo $langFile['STATISTICS_TEXT_LASTVISIT']; ?>
-    </div>
-    <div class="span5" style="font-size:15px;">
-      <?php
-      // -> LAST VISIT
-      echo '<span class="info blue toolTipLeft" title="'.$lastVisitTime.'::">'.$lastVisitDate.'</span> ';
-      ?>
-    </div>
-  </div>
-
-  <div class="spacer"></div>
-
-  <div class="row">
-    <div class="span3 formLeft">
-      <?php echo $langFile['STATISTICS_TEXT_VISITTIME_MAX']; ?>
-    </div>
-    <div class="span5">
-      <?php
-      // -> VISIT TIME MAX
-      $showTimeHead = true;
-      if(is_array($visitTimes_max)) {
-        foreach($visitTimes_max as $visitTime_max) {
-          if($visitTime_max_formated = showVisitTime($visitTime_max)) {
-            if($showTimeHead)
-              echo '<span class="blue" id="visitTimeMax">'.$visitTime_max_formated.'</span><br>';
-              // <div id="visitTimeMaxContainer">';
-            else
-              echo '<span class="blue">'.$visitTime_max_formated.'</span><br>';
-
-            $showTimeHead = false;
-          }
-        }
-      }
-      // echo '</div>';
-      ?>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="span3 formLeft">
-      <?php echo $langFile['STATISTICS_TEXT_VISITTIME_MIN']; ?>
-    </div>
-    <div class="span5">
-      <?php
-      // -> VISIT TIME MIN
-      $showTimeHead = true;
-      if(is_array($visitTimes_max)) {
-        $visitTimes_min = array_reverse($visitTimes_min);
-        foreach($visitTimes_min as $visitTime_min) {
-          if($visitTime_min_formated = showVisitTime($visitTime_min)) {
-            if($showTimeHead)
-              echo '<span class="blue" id="visitTimeMin">'.$visitTime_min_formated.'</span><br>';
-              // <div id="visitTimeMinContainer">';
-            else
-              echo '<span class="blue">'.$visitTime_min_formated.'</span><br>';
-
-            $showTimeHead = false;
-          }
-        }
-      }
-      // echo '</div>';
-      ?>
-    </div>
-  </div>
-  <?php
-  // -> show NO VISIT
-  } else {
-    echo '<div class="row">
-            <div class="offset3 span5" style="font-size:15px;">
-              '.$langFile['STATISTICS_TEXT_NOVISIT'].'
-            </div>
-          </div>';
-  }
-  ?>
-
-  <div class="spacer"></div>
-
-  <div class="row">
-    <div class="span3 formLeft">
-      <span><?php echo $langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']; ?></span>
-    </div>
-    <div class="span5">
-      <div style="width:95%;max-height:160px;border:0px solid #cccccc;padding:0px 10px;">
-      <?php
-
-      // -> show TAG CLOUD
-      echo '<div class="tagCloud">';
-      echo createTagCloud($pageStatistics['searchWords']);
-      echo '</div>';
-
-      ?>
-      </div>
-    </div>
-  </div>
-
   </div>
 </div>
 <?php

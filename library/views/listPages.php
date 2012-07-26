@@ -143,7 +143,7 @@ foreach($categoryConfig as $category) {
           // CATEGORY STATUS
           // show category status only if its a category (0 is non-category)
           if($category['id'] != 0) {
-            $categoryStatusTitle = (GeneralFunctions::hasPermission('editableCategories',$category['id'])) ? $langFile['SORTABLEPAGELIST_changeStatus_linkCategory']: $langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION'];
+            $categoryStatusTitle = (GeneralFunctions::hasPermission('editableCategories',$category['id'])) ? $langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS']: $langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION'];
             echo '<a href="?site='.$_GET['site'].'&amp;status=changeCategoryStatus&amp;public='.$category['public'].'&amp;category='.$category['id'].'&amp;reload='.rand(0,999).'#categoryAnchor'.$category['id'].'" class="toolTipTop status'.$publicClass.'" title="'.$publicText.'::'.$categoryStatusTitle.'">&nbsp;</a>';
           }
 
@@ -287,7 +287,7 @@ foreach($categoryConfig as $category) {
             echo '</div>';
             echo '<div class="span1">';
               // PAGE and LANGUAGE STATUS
-              echo ' <a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" class="toolTipTop status'.$publicClass.'" title="'.$publicText.'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'"></a>';
+              echo ' <a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" class="toolTipTop status'.$publicClass.'" title="'.$publicText.'::'.$langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS'].'"></a>';
               // show language status (is everything translated)
               if($websiteConfig['multiLanguageWebsite']['active'] && !empty($missingLanguages))
                 echo ' <span class="toolTipTop missingLanguages" title="'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'] .'::'.$missingLanguages.'"></span>';

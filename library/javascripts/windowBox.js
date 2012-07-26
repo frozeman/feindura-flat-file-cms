@@ -239,22 +239,25 @@ function stopUploadAnimation() {
 }
 //--------------------------------------------------
 // called on the SUCCESFULL end of the upload
-function finishThumbnailUpload(frameHeight,newImage,ImageWidth) {
+function finishThumbnailUpload(frameHeight,newImage) {
 
   // delete the previous preview image
   if($('windowBoxThumbnailPreview') !== null)
     $('windowBoxThumbnailPreview').destroy();
 
   // shows the iframe content
-  if($('uploadTargetFrame').tween('height',frameHeight))
+  $('uploadTargetFrame').tween('height',frameHeight);
 
   // show the ok button
   $('pageThumbnailOkButton').setStyle('display','inline-block');
 
-  refreshThumbnailImage(newImage,ImageWidth);
+  refreshThumbnailImage(newImage);
 
   // hides the from and the thumbInfo
   $('uploadPageThumbnailForm').setStyle('display','none');
+
+  // automatically close
+  // (function(){closeWindowBox()}).delay(1000);
 }
 
 // *---------------------------------------------------------------------------------------------------*
@@ -303,9 +306,6 @@ window.addEvent('domready', function() {
 
       // sets the realtime
       setThumbScale('windowBox_thumbWidth','windowBox_thumbWidthScale','windowBox_thumbHeight','windowBox_thumbHeightScale');
-
-      /* set autoresize to THUMBNAIL PREVIEW */
-			//autoResizeThumbnailPreview();
     }
   });
 });

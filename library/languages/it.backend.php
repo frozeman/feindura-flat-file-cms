@@ -79,6 +79,8 @@ $langFile['TEXT_EXAMPLE']                                                 = 'Ese
 
 $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Editing Frontale::Clicca qui per modificare le pagine direttamente nel tuo sito web.';
 
+$langFile['BUTTON_MORE']                                                  = 'altro';
+
 // PERMISSIONS
 $langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION']                          = 'Non sei autorizzato a cambiare questa situazione.';
 
@@ -126,7 +128,7 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'ha 
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'volte a questo sito';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Clicca qui per la ricerca di questa parola nelle pagine.';
 
-$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'visitatori totali';
+$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'visitatori';
 $langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'visitatori correnti';
 $langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'ultima attività';
 
@@ -137,10 +139,8 @@ $langFile['STATISTICS_TEXT_VISITTIME_MIN']                                = 'per
 $langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'prima visita';
 $langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'ultima visita';
 $langFile['STATISTICS_TEXT_NOVISIT']                                      = 'Nessuno mai ancora ha visito questo sito.';
-$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = 'Parole di ricerca che hanno portato da
-<a href                                                                   ="http://www.google.de">Google</a>,
-<a href                                                                   ="http://www.yahoo.de">Yahoo</a> or
-<a href                                                                   ="http://www.bing.com">Bing (MSN)</a> a questo sito.';
+$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = '<span class="toolTipTop" title="::Che hanno portato da
+Google, Yahoo o Bing (MSN) a questo sito.">Parole di ricerca</span>';
 
 $langFile['STATISTICS_TEXT_HOUR_SINGULAR']                                = 'ora';
 $langFile['STATISTICS_TEXT_HOUR_PLURAL']                                  = 'ore';
@@ -346,8 +346,7 @@ $langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE']                          = 'in 
 
 $langFile['SORTABLEPAGELIST_functions_editPage']                          = 'Modifica Pagina';
 
-$langFile['SORTABLEPAGELIST_changeStatus_linkPage']                       = 'Clicca qui per cambiare lo stato della pagina.';
-$langFile['SORTABLEPAGELIST_changeStatus_linkCategory']                   = 'Clicca qui per cambiare lo stato della categoria.';
+$langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS']                            = 'Clicca qui per cambiare lo stato.';
 
 $langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING']                     = 'Lingue mancanti';
 
@@ -685,7 +684,7 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']                = 'Can
 // ---------- page info
 $langFile['EDITOR_TITLE_CREATEPAGE']                                      = 'Crea una nuova pagina';
 $langFile['EDITOR_TITLE_ADDLANGUAGE']                                     = 'Aggiungi lingua &quot;%s&quot; alla pagina';
-$langFile['EDITOR_pageinfo_lastsavedate']                                 = 'ultima modifica';
+$langFile['EDITOR_pageinfo_lastsavedate']                                 = 'Ultima modifica al';
 $langFile['EDITOR_pageinfo_lastsaveauthor']                               = 'di';
 $langFile['EDITOR_pageinfo_linktothispage']                               = 'Collegamento a questa pagina';
 $langFile['EDITOR_pageinfo_id']                                           = 'ID Pagina';

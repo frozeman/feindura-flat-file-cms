@@ -79,6 +79,8 @@ $langFile['TEXT_EXAMPLE']                                                 = 'par
 
 $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Feindura::S&#145;il vous plaît cliquez ici pour éditer les pages directement sur votre site web.';
 
+$langFile['BUTTON_MORE']                                                  = 'plus';
+
 // PERMISSIONS
 $langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION']                          = 'Vous n&#145;êtes pas autorisé à changer cette situation.';
 
@@ -132,10 +134,8 @@ $langFile['STATISTICS_TEXT_VISITTIME_MIN']                                = 'tem
 $langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'première visite';
 $langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'dernière visite';
 $langFile['STATISTICS_TEXT_NOVISIT']                                      = 'Personne a visité ce site web.';
-$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = 'Mot de recherche qui ont mèné
-<a href                                                                   ="http://www.google.de">Google</a>,
-<a href                                                                   ="http://www.yahoo.de">Yahoo</a> ou
-<a href                                                                   ="http://www.bing.com">Bing (MSN)</a> sur ce site web';
+$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = '<span class="toolTipTop" title="::Qui ont mèné
+Google, Yahoo ou Bing (MSN) sur ce site web">Mot de recherche</span>';
 
 $langFile['STATISTICS_TEXT_HOUR_SINGULAR']                                = 'heur';
 $langFile['STATISTICS_TEXT_HOUR_PLURAL']                                  = 'heures';
@@ -325,8 +325,7 @@ $langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL']                        = 'tri
 $langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE']                          = 'trié par ordre chronologique';
 
 $langFile['SORTABLEPAGELIST_functions_editPage']                          = 'rédiger la page';
-$langFile['SORTABLEPAGELIST_changeStatus_linkPage']                       = 'Cliquer ici pour changer le status du site web.';
-$langFile['SORTABLEPAGELIST_changeStatus_linkCategory']                   = 'Cliquer ici pour changer le status de la catégorie.';
+$langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS']                            = 'Cliquer ici pour changer le status.';
 
 $langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING']                     = 'langues disparues';
 
@@ -651,7 +650,7 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']                = 'Eff
 // ---------- page info
 $langFile['EDITOR_TITLE_CREATEPAGE']                                      = 'créer nouvelle page';
 $langFile['EDITOR_TITLE_ADDLANGUAGE']                                     = 'Ajouter la langue &quot;%s&quot; à la page';
-$langFile['EDITOR_pageinfo_lastsavedate']                                 = 'dernièrement traité';
+$langFile['EDITOR_pageinfo_lastsavedate']                                 = 'Dernière modification du';
 $langFile['EDITOR_pageinfo_lastsaveauthor']                               = 'de';
 $langFile['EDITOR_pageinfo_linktothispage']                               = 'lien mènant sur le site web';
 $langFile['EDITOR_pageinfo_id']                                           = 'ID de la page';

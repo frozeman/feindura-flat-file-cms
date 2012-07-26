@@ -278,10 +278,10 @@ header.main {
     // CONTENT
 
     div.mainContent {
+        z-index: 3;
         position: relative;
         top: 0px;
         left: 10px;
-        z-index: 0;
         float: left;
         overflow: visible;
         padding: 10px 10px;
@@ -297,22 +297,6 @@ header.main {
         p {
             margin: 10px 0px;
         }
-
-        // FAST UP LINK
-        a.fastUp {
-            z-index: 4;
-            position: fixed;
-            left: 1108px;
-            top: 80px;
-            display: block;
-            width: 66px;
-            height: 65px;
-            text-decoration: none;
-            background: url("../images/buttons/content_fastUp.png") no-repeat;
-            }
-        a.fastUp:hover, .mainContent a.fastUp:focus {
-            background-position: 0px -68px;
-            }
     }
 
     // SIDEBARS
@@ -766,8 +750,10 @@ header.main {
             z-index: 2;
             margin: 30px 0;
             padding: 20px 20px;
+            width: 168px;
             border: 1px solid #cdcdcd;
             line-height: 18px;
+            word-break: break-word;
             #gradient > .horizontal(#fff,#fff,#e2e2e2);
             #border > .rounded(10px);
             #shadow > .both(0,0,8px,0.1,#000,0,0,15px,0.05);
@@ -777,7 +763,20 @@ header.main {
                 margin-top: -10px;
             }
 
-            h1 {
+            .statistics {
+                font-size: 11px;
+                word-break: break-word;
+            }
+
+            .row {
+                margin-left: 0;
+            }
+
+            [class^="span"] {
+                margin-left: 3px;
+            }
+
+            h1,h2,h3 {
                 margin: 2px -13px;
                 margin-bottom: 15px;
                 padding-bottom: 8px;
@@ -785,6 +784,17 @@ header.main {
                 text-align: center;
                 font-size: 14px;
                 line-height: 20px;
+            }
+            h2 {
+                font-size: 13px;
+                margin-bottom: 5px;
+                // border: none;
+            }
+            h3 {
+                margin: 2px -5px;
+                font-size: 12px;
+                border: none;
+                padding: 0;
             }
 
             .hintIcon {
@@ -823,6 +833,10 @@ header.main {
             ul.flags a.link {
                 padding-left: 0px;
                 background: none;
+            }
+
+            .tagCloud {
+                max-height: 150px;
             }
         }
     }

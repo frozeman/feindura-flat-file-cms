@@ -30,9 +30,10 @@
 *
 * @package [Backend]
 *
-* @version 1.2
+* @version 1.3
 * <br>
 * <b>ChangeLog</b><br>
+*    - 1.3 add {@link Search::$checkPermissions}
 *    - 1.2 fixed search word pattern
 *    - 1.1 add localization and $language + $searchAllLanguages property
 *    - 1.0 initial release
@@ -117,6 +118,14 @@ class Search {
   * @access public
   */
   public $checkIfPublic = true;
+
+  /**
+  * If TRUE it will check if the current user has the right to edit the searched page.
+  *
+  * @var bool
+  * @access public
+  */
+  public $checkPermissions = false;
 
   /**
   * if TRUE it also search in the category names.
@@ -220,7 +229,7 @@ class Search {
   * @param string          $searchwords  one or more searchwords to fing
   * @param bool|int|array  $category     the ID or an array with IDs of the category(ies) in which should be searched, if TRUE it searches in all categories, if FALSE it searches only in the non category
   *
-  * @uses $checkPages                           if TRUE it searches only in pages which are public
+  * @uses Search::$checkIfPublic                if TRUE it searches only in pages which are public
   * @uses sortByPriority()                      to sort the page array
   * @uses GeneralFunctions::isPublicCategory()  to check if the category is public
   * @uses GeneralFunctions::loadPages()         to load the pages
@@ -247,18 +256,24 @@ class Search {
     // -> load the pages
     $pages = GeneralFunctions::loadPages($category);
 
-    // -> check if the pages are public
+    // -> CHECK if the pages are PUBLIC
     if($this->checkIfPublic) {
-      $checkPages = array();
-      foreach($pages as $page) {
-        if($page['public'] == true)
-          $checkPages[] = $page;
+      foreach($pages as $key => $page) {
+        if(!$page['public'])
+          unset($pages[$key]);
       }
-    } else
-      $checkPages = $pages;
+    }
+
+    // -> CHECK if the user has PERMISSIONS to edit these pages
+    if($this->checkPermissions) {
+      foreach($pages as $key => $page) {
+        if(!GeneralFunctions::hasPermission('editablePages',$page['id']))
+          unset($pages[$key]);
+      }
+    }
 
     // ->> goes through all pages and search for the keywords
-    foreach($checkPages as $pageContent)  {
+    foreach($pages as $pageContent)  {
 
       // var
       $changeChars = array(' ','.','-','/');

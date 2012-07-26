@@ -81,6 +81,8 @@ $langFile['TEXT_EXAMPLE']                                                 = 'П�
 
 $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Редактировать на сайте::Нажмите что бы редактировать страницы на сайте.';
 
+$langFile['BUTTON_MORE']                                                  = 'гораздо';
+
 // PERMISSIONS
 $langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION']                          = 'Вы не авторизованы, чтобы изменить это.';
 
@@ -128,9 +130,9 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'п�
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'раз на сайт';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Нажмите для поиска слова на странице.';
 
-$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'посетителей';
-$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'текущие посетители';
-$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'последняя активность';
+$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Посетителей';
+$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Текущие посетители';
+$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Последняя активность';
 
 $langFile['STATISTICS_TITLE_PAGESTATISTICS']                              = 'Статистика по страницам';
 
@@ -139,10 +141,8 @@ $langFile['STATISTICS_TEXT_VISITTIME_MIN']                                = 'с�
 $langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'первое посещение';
 $langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'последнее посещение';
 $langFile['STATISTICS_TEXT_NOVISIT']                                      = 'Еще никто не посещал сайт.';
-$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = 'Ключевые слова по которым приходят из
-<a href                                                                   ="http://www.google.de">Google</a>,
-<a href                                                                   ="http://www.yahoo.de">Yahoo</a> или
-<a href                                                                   ="http://www.bing.com">Bing (MSN)</a> на сайт.';
+$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = '<span class="toolTipTop" title="::По которым приходят из
+Google, Yahoo или Bing (MSN) на сайт.">Ключевые слова</span>';
 
 $langFile['STATISTICS_TEXT_HOUR_SINGULAR']                                = 'час';
 $langFile['STATISTICS_TEXT_HOUR_PLURAL']                                  = 'часов';
@@ -349,8 +349,7 @@ $langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE']                          = 'с�
 
 $langFile['SORTABLEPAGELIST_functions_editPage']                          = 'Редактировать';
 
-$langFile['SORTABLEPAGELIST_changeStatus_linkPage']                       = 'Нажмите что бы изменить статус страницы.';
-$langFile['SORTABLEPAGELIST_changeStatus_linkCategory']                   = 'Нажмите что бы изменить статус категории';
+$langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS']                            = 'Нажмите что бы изменить.';
 
 $langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING']                     = 'Отсутствует языках';
 
@@ -690,8 +689,8 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']                = 'С�
 // ---------- page info
 $langFile['EDITOR_TITLE_CREATEPAGE']                                      = 'Создание новой страницы';
 $langFile['EDITOR_TITLE_ADDLANGUAGE']                                     = 'Добавить язык &quot;%s&quot; на странице';
-$langFile['EDITOR_pageinfo_lastsavedate']                                 = 'последняя редакция';
-$langFile['EDITOR_pageinfo_lastsaveauthor']                               = '-';
+$langFile['EDITOR_pageinfo_lastsavedate']                                 = 'В последний раз редактировали';
+$langFile['EDITOR_pageinfo_lastsaveauthor']                               = 'с';
 $langFile['EDITOR_pageinfo_linktothispage']                               = 'Ссылка на страницу';
 $langFile['EDITOR_pageinfo_id']                                           = 'ID страницы';
 $langFile['EDITOR_pageinfo_id_tip']                                       = 'С этим ID страница хранится на сервере.';

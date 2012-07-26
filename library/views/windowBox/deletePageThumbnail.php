@@ -77,7 +77,7 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
           <script type="text/javascript">
           /* <![CDATA[ */
             if($('thumbnailUploadButtonInPreviewArea') != null)
-              $('thumbnailUploadButtonInPreviewArea').setStyle('display','block');
+              $('thumbnailUploadButtonInPreviewArea').setStyle('display','inline-block');
             if($('thumbnailPreviewContainer') != null)
               $('thumbnailPreviewContainer').setStyle('display','none');
           /* ]]> */

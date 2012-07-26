@@ -4339,6 +4339,9 @@
 .feindura .hidden {
   display: none;
 }
+.feindura .inBlockSlider.hidden {
+  display: block;
+}
 .feindura .center {
   text-align: center;
 }
@@ -4595,6 +4598,21 @@
   font-weight: bold;
   padding-left: 16px;
   background: url("../images/buttons/up.gif") no-repeat 0px 3px !important;
+}
+.feindura a.fastUp {
+  z-index: 1;
+  position: fixed;
+  left: 1125px;
+  top: 80px;
+  display: block;
+  width: 66px;
+  height: 65px;
+  text-decoration: none;
+  background: url("../images/buttons/content_fastUp.png") no-repeat;
+}
+.feindura a.fastUp:hover,
+.feindura .mainContent a.fastUp:focus {
+  background-position: 0px -68px;
 }
 .feindura .headerCornerButtons {
   z-index: 2;
@@ -4932,6 +4950,18 @@
   width: 732px;
   height: 470px;
 }
+.feindura .tagCloud {
+  max-height: 450px;
+  padding: 5px 0;
+  text-align: center;
+  overflow: auto;
+}
+.feindura .tagCloud span,
+.feindura .tagCloud a {
+  background: none !important;
+  padding: 0 !important;
+  color: #668CA6 !important;
+}
 .feindura input.short {
   width: 70px !important;
   text-align: center;
@@ -5053,6 +5083,7 @@
   margin-top: 0;
   margin-bottom: 3px;
   padding-top: 0;
+  text-align: center;
   color: #e9cdad;
 }
 .feindura .floating-tip span.hint {
@@ -5746,10 +5777,10 @@
   -khtml-text-shadow: 0 1px 1px #dfdfdf;
 }
 .feindura .mainBody div.mainContent {
+  z-index: 3;
   position: relative;
   top: 0px;
   left: 10px;
-  z-index: 0;
   float: left;
   overflow: visible;
   padding: 10px 10px;
@@ -5763,21 +5794,6 @@
 }
 .feindura .mainBody div.mainContent p {
   margin: 10px 0px;
-}
-.feindura .mainBody div.mainContent a.fastUp {
-  z-index: 4;
-  position: fixed;
-  left: 1108px;
-  top: 80px;
-  display: block;
-  width: 66px;
-  height: 65px;
-  text-decoration: none;
-  background: url("../images/buttons/content_fastUp.png") no-repeat;
-}
-.feindura .mainBody div.mainContent a.fastUp:hover,
-.feindura .mainBody div.mainContent .mainContent a.fastUp:focus {
-  background-position: 0px -68px;
 }
 .feindura .mainBody #leftSidebar {
   position: relative;
@@ -6178,8 +6194,10 @@
   z-index: 2;
   margin: 30px 0;
   padding: 20px 20px;
+  width: 168px;
   border: 1px solid #cdcdcd;
   line-height: 18px;
+  word-break: break-word;
   background: #ffffff;
   background-image: linear-gradient(right, #e2e2e2 0%, #ffffff 100%);
   background-image: -o-linear-gradient(right, #e2e2e2 0%, #ffffff 100%);
@@ -6203,7 +6221,19 @@
 .feindura .mainBody #rightSidebar .box:first-child {
   margin-top: -10px;
 }
-.feindura .mainBody #rightSidebar .box h1 {
+.feindura .mainBody #rightSidebar .box .statistics {
+  font-size: 11px;
+  word-break: break-word;
+}
+.feindura .mainBody #rightSidebar .box .row {
+  margin-left: 0;
+}
+.feindura .mainBody #rightSidebar .box [class^="span"] {
+  margin-left: 3px;
+}
+.feindura .mainBody #rightSidebar .box h1,
+.feindura .mainBody #rightSidebar .box h2,
+.feindura .mainBody #rightSidebar .box h3 {
   margin: 2px -13px;
   margin-bottom: 15px;
   padding-bottom: 8px;
@@ -6211,6 +6241,16 @@
   text-align: center;
   font-size: 14px;
   line-height: 20px;
+}
+.feindura .mainBody #rightSidebar .box h2 {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.feindura .mainBody #rightSidebar .box h3 {
+  margin: 2px -5px;
+  font-size: 12px;
+  border: none;
+  padding: 0;
 }
 .feindura .mainBody #rightSidebar .box .hintIcon {
   position: relative;
@@ -6248,6 +6288,9 @@
 .feindura .mainBody #rightSidebar .box ul.flags a.link {
   padding-left: 0px;
   background: none;
+}
+.feindura .mainBody #rightSidebar .box .tagCloud {
+  max-height: 150px;
 }
 .feindura .mainBody .subMenu {
   position: absolute;
@@ -6698,9 +6741,6 @@
 .feindura .mainContent .block .insetBlock {
   margin: 10px -10px;
 }
-.feindura .mainContent .block .inBlockSlider.hidden {
-  display: block;
-}
 .feindura .mainContent .block .form .row {
   padding: 5px 0;
 }
@@ -6817,18 +6857,6 @@
   position: relative;
   font-size: 33px;
   font-weight: bold;
-}
-.feindura .tagCloud {
-  max-height: 450px;
-  padding: 5px 0;
-  text-align: center;
-  overflow: auto;
-}
-.feindura .tagCloud span,
-.feindura .tagCloud a {
-  background: none !important;
-  padding-right: 0px !important;
-  color: #668CA6 !important;
 }
 .feindura table.tableChart {
   width: 100%;
@@ -7494,36 +7522,29 @@
   padding: 10px;
 }
 .feindura .editor input.submit {
-  margin-top: -20px;
+  float: right;
+  margin-top: -30px;
   margin-bottom: 10px;
+  margin-right: 353px;
 }
-.feindura .editor a#hotKeysToogle {
-  color: #F8A75D;
-}
-.feindura .editor a#hotKeysToogle:hover {
-  color: #879095;
-}
-.feindura .editor a.uploadPageThumbnail {
-  display: block;
-  position: absolute;
-  top: 25px;
-  right: 100px;
+.feindura #rightSidebar a.uploadPageThumbnail {
+  display: inline-block;
   width: 90px;
   height: 75px;
   background: url("../images/buttons/content_uploadPageThumbnail.png") no-repeat;
   background-position: 0 0;
 }
-.feindura .editor a.uploadPageThumbnail:hover,
-.feindura .editor a.uploadPageThumbnail:focus {
+.feindura #rightSidebar a.uploadPageThumbnail:hover,
+.feindura #rightSidebar a.uploadPageThumbnail:focus {
   background-position: 0px -76px;
 }
-.feindura .editor a.deleteButton {
+.feindura #rightSidebar a.deleteButton {
   z-index: 2;
-  top: 24px;
-  right: 1px;
+  top: -5px;
+  right: -7px;
 }
-.feindura .editor img.thumbnail {
-  z-index: 1;
+.feindura #rightSidebar img.thumbnail {
+  max-width: 150px;
 }
 .feindura #editablePageTitle {
   position: relative;

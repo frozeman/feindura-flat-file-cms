@@ -116,7 +116,7 @@ else
       <h3 style="margin-bottom: -20px;"><?php echo $langFile['pagethumbnail_field1']; ?></h3>
 
       <input type="file" name="thumbFile" class="btn">
-      <input type="submit" value="" class="button thumbnailUpload toolTipLeft" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>">
+      <input type="submit" value="" class="button thumbnailUpload toolTipTop" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>">
 
     </div>
     <div class="span4">
@@ -245,7 +245,7 @@ if(!empty($pageContent['thumbnail'])) {
   $randomImage = '?'.md5(uniqid(rand(),1));
 
   echo '<div class="center" id="windowBoxThumbnailPreview">';
-    echo '<img src="'.GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnail toolTipLeft"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
+    echo '<img src="'.GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnail toolTipLeft"'.$thumbnailWidth.' alt="thumbnail" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
   echo '</div>';
 }
 
@@ -253,19 +253,15 @@ if(!empty($pageContent['thumbnail'])) {
 <!-- UPDATE THE IMAGE -->
 <script type="text/javascript">
 /* <![CDATA[ */
-  function refreshThumbnailImage(newImage,imageWidth) {
+  function refreshThumbnailImage(newImage) {
     if($('thumbnailPreviewImage') != null) {
       $$('img.thumbnail').setProperty('src','<?php echo GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path']; ?>'+newImage);
-      $('thumbnailPreviewImage').setProperty('data-width',imageWidth);
-      if(imageWidth >= 200)
-        $('thumbnailPreviewImage').setStyle('width',200);
-
     }
 
     if($('thumbnailUploadButtonInPreviewArea') != null)
       $('thumbnailUploadButtonInPreviewArea').setStyle('display','none');
     if($('thumbnailPreviewContainer') != null)
-      $('thumbnailPreviewContainer').setStyle('display','block');
+      $('thumbnailPreviewContainer').setStyle('display','inline-block');
   }
 /* ]]> */
 </script>

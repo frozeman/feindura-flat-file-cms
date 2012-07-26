@@ -203,30 +203,6 @@ function removeChecked(selector) {
 }
 
 // -------------------------------------------------
-// auto resize of the THUMBNAIL-PREVIEW
-function autoResizeThumbnailPreview() {
-  var thumbnail = $('thumbnailPreviewImage');
-  if(thumbnail !== null) {
-
-    // set tween
-    thumbnail.set('tween',{duration: 500, transition: Fx.Transitions.Pow.easeOut});
-
-    //mouseover
-    thumbnail.addEvent('mouseenter',function() {
-      if(thumbnail.getProperty('data-width') >= 200)
-        thumbnail.tween('width',thumbnail.getProperty('data-width'));
-    });
-
-    // mouseout
-    thumbnail.addEvent('mouseleave',function() {
-      if(thumbnail.getProperty('data-width') >= 200)
-        thumbnail.tween('width',200);
-    });
-
-  }
-}
-
-// -------------------------------------------------
 // BLOCK SLIDE IN/OUT
 function blockSlider(givenId) {
 
@@ -320,15 +296,12 @@ function inBlockSlider() {
 
   $$('.inBlockSlider').each(function(inBlockSlider) {
 
-    var inBlockSliderLink;
-    $$('.inBlockSliderLink').each(function(sliderLink) {
-      if(sliderLink.getProperty('data-inBlockSlider') == inBlockSlider.getProperty('data-inBlockSlider')) {
-        inBlockSliderLink = sliderLink;
-        return;
-      }
+    var inBlockSliderLinks = [];
+    $$('.inBlockSliderLink[data-inBlockSlider="'+inBlockSlider.getProperty('data-inBlockSlider')+'"]').each(function(sliderLink) {
+        inBlockSliderLinks.push(sliderLink);
     });
 
-    if(typeOf(inBlockSliderLink) == 'null')
+    if(typeOf(inBlockSliderLinks[0]) === 'null')
       return;
 
     var slide = inBlockSlider.get('slide');
@@ -349,16 +322,18 @@ function inBlockSlider() {
     }
 
     // sets the SLIDE effect to the SLIDE links
-    inBlockSliderLink.addEvent('click', function(e) {
-      if(e.target.match('a')) e.stop();
+    inBlockSliderLinks.each(function(inBlockSliderLink){
+      inBlockSliderLink.addEvent('click', function(e) {
+        if(e.target.match('a')) e.stop();
 
-      if(inBlockSlider.hasClass('hidden'))
-        wrapper.fade(1);
-      else
-        wrapper.fade(0);
+        if(inBlockSlider.hasClass('hidden'))
+          wrapper.fade(1);
+        else
+          wrapper.fade(0);
 
-      inBlockSlider.toggleClass('hidden');
-      slide.toggle();
+        inBlockSlider.toggleClass('hidden');
+        slide.toggle();
+      });
     });
   });
 }
@@ -460,7 +435,7 @@ function sidebarMenu() {
 /* ---------------------------------------------------------------------------------- */
 // SIDEBAR AJAX REQUEST
 // send a HTML request to load the new Sidebar content
-function requestLeftSidebar(site,page,category) {
+function loadSideBarMenu(site,page,category) {
 
   // vars
   if(!page) page = 0;
@@ -474,8 +449,8 @@ function requestLeftSidebar(site,page,category) {
   var requestCategory = new Request.HTML({
     url:'library/leftSidebar.loader.php',
     method: 'get',
-    data: 'site=' + site + '&category=' + category + '&page=' + page,
-    update: leftSideBar,
+    data: 'site=' + site + '&category=' + category + '&page=' + page + '&loadSideBarMenu=true',
+    update: $('sidebarSelection'),
 
     //-----------------------------------------------------------------------------
     onRequest: function() { //-----------------------------------------------------
@@ -505,17 +480,12 @@ function requestLeftSidebar(site,page,category) {
       LeavingWithoutSavingWarning();
       sidebarMenu();
       setToolTips();
-
-      // adds static scroller
-      $$('.staticScroller').each(function(element){
-        new StaticScroller(element,{offset:1});
-      });
     },
     //-----------------------------------------------------------------------------
     //Our request will most likely succeed, but just in case, we'll add an
     //onFailure method which will let the user know what happened.
     onFailure: function() { //-----------------------------------------------------
-      leftSideBar.set('html','<div class="alert alert-error">Couldn\'t load the sidebar?</div>');
+      sideBarMenus.set('html','<div class="alert alert-error">Couldn\'t load the sidebar?</div>');
     }
   });
 
@@ -538,7 +508,7 @@ function LeavingWithoutSavingWarning() {
     if((onclick === null ||
        (onclick !== null &&
         onclick.toString().substr(0,13) !== 'openWindowBox' &&
-        onclick.toString().substr(0,18) !== 'requestLeftSidebar')) &&
+        onclick.toString().substr(0,18) !== 'loadSideBarMenu')) &&
         href !== null &&
         href.toString().indexOf('#') == -1) {
 
@@ -557,8 +527,6 @@ function LeavingWithoutSavingWarning() {
 //  LOAD (if all pics are loaded)
 // *---------------------------------------------------------------------------------------------------*
 window.addEvent('load', function() {
-
-    autoResizeThumbnailPreview();
 
     // SCROLL to ANCHORS after loading the pages (should fix problems with slided in blocks)
     var anchorId = window.location.hash.substring(1);

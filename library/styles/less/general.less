@@ -53,6 +53,9 @@ a.gray:hover, a.gray:focus {
 .hidden {
     display: none;
 }
+.inBlockSlider.hidden {
+    display: block;
+}
 
 .center {
     text-align: center;
@@ -338,9 +341,24 @@ a.up {
     background: url("../images/buttons/up.gif") no-repeat 0px 3px !important;
 }
 
+// fast up link
+a.fastUp {
+    z-index: 1;
+    position: fixed;
+    left: 1125px;
+    top: 80px;
+    display: block;
+    width: 66px;
+    height: 65px;
+    text-decoration: none;
+    background: url("../images/buttons/content_fastUp.png") no-repeat;
+    }
+a.fastUp:hover, .mainContent a.fastUp:focus {
+    background-position: 0px -68px;
+    }
+
 
 // SHARED between frontend and backend
-
 
 .headerCornerButtons {
     z-index: 2;
@@ -633,6 +651,20 @@ iframe#fileManagerFrame {
     margin: -20px -14px;
     width: 732px;
     height: 470px;
+}
+
+.tagCloud {
+    max-height: 450px;
+    padding: 5px 0;
+    text-align: center;
+    overflow: auto;
+
+    span, a {
+        background: none !important;
+        padding: 0 !important;
+        color: #668CA6 !important;
+        // text-transform:capitalize;
+    }
 }
 
 

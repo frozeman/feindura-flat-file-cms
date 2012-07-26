@@ -380,7 +380,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       <a href="http://feindura.org" class="feinduraLogo" target="_blank"></a>
       <div class="feinduraVersion toolTipRight" title="<?php echo $langFile['LOGO_TEXT'].' '.VERSION.' - Build '.BUILD; ?>::"><?php echo VERSION; ?></div>
 
-      <nav class="mainMenu"<?php if(!GeneralFunctions::isAdmin()) echo ' style="width:830px"'; ?>>
+      <nav class="mainMenu">
         <table>
           <tbody>
             <tr>
@@ -390,8 +390,10 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
             // CHECKS if the addons/ folder is empty
             if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/addons/')) { ?>
             <td><a href="?site=addons" tabindex="5" accesskey="a" class="addons<?php if($_GET['site'] == 'addons') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_ADDONS']; ?> (A)"><span><?php echo $langFile['BUTTON_ADDONS']; ?></span></a></td>
-            <?php } ?>
+            <?php }
+            if(GeneralFunctions::hasPermission('websiteSettings')) { ?>
             <td><a href="?site=websiteSetup" tabindex="6" accesskey="w" class="websiteSetup<?php if($_GET['site'] == 'websiteSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?> (W)"><span><?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?></span></a></td>
+            <?php } ?>
             <td><a href="?site=search" tabindex="7" accesskey="s" class="search<?php if($_GET['site'] == 'search') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_SEARCH']; ?> (S)"><span><?php echo $langFile['BUTTON_SEARCH']; ?></span></a></td>
             </tr>
           </tbody>
@@ -621,7 +623,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
         include('library/content.loader.php');
 
         ?>
-        <a href="#top" class="fastUp" title="<?php echo $langFile['BUTTON_UP']; ?>"></a>
       </div>
 
 
@@ -635,7 +636,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
         ?>
       </div>
-
+      <a href="#top" class="fastUp" title="<?php echo $langFile['BUTTON_UP']; ?>"></a>
   </div>
 
   <!-- ******************************************************************************************* -->

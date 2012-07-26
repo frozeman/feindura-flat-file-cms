@@ -32,7 +32,8 @@ $tabIndex = 40;
 // or if $_GET['site'] == 'pages'
 if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pages'
 
-  echo '<div id="sidebarSelection" class="staticScroller">';
+  if(!$_GET['loadSideBarMenu'])
+    echo '<div id="sidebarSelection" class="staticScroller">';
 
     // ----  show QUICKMENU for the NONE-CATEGORY PAGES
     // slide the categories menu IN, when a category is open
@@ -116,7 +117,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
                 $categorySelected = ' class="active"';
               else
                 $categorySelected = '';
-            echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="requestLeftSidebar(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span'.$categoryId.'>'.GeneralFunctions::getLocalized($category,'name').'</span></a></li>';
+            echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="loadSideBarMenu(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span'.$categoryId.'>'.GeneralFunctions::getLocalized($category,'name').'</span></a></li>';
             $tabIndex++;
           }
         echo '</menu>
@@ -165,7 +166,9 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       </div>';
     }
 
-    echo '</div>';
+    // sidebarSelection end
+    if(!$_GET['loadSideBarMenu'])
+      echo '</div>';
 // -----------------------------------------------------------------------------------
 // SWITCH SITE
 } else {

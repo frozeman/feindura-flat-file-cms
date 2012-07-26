@@ -235,7 +235,7 @@ if($_POST['upload']) {
             // call this javascript, on the succesfull finish of the upload
             echo '<script type="text/javascript">
                   /* <![CDATA[ */
-                    window.top.window.finishThumbnailUpload('.$frameHeight.',"'.$newFileName.$randomImage.'",'.$thumbSize[0].');
+                    window.top.window.finishThumbnailUpload('.$frameHeight.',"'.$newFileName.$randomImage.'");
                   /* ]]> */
                   </script>';
           	}
