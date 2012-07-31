@@ -33,6 +33,8 @@ if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus' && Genera
   // save the new status
   if(saveCategories($categoryConfig)) {
     $documentSaved = true;
+    $messagePopUp .= '<div class="alert alert-success center">'.$langFile['MESSAGE_TEXT_CHANGEDSTATUS'].'</div>';
+
     // ->> save the FEEDS, if activated
     GeneralFunctions::$categoryConfig = $categoryConfig;
     saveFeeds($_GET['category']);

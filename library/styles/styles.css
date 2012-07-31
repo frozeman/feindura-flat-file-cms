@@ -6188,6 +6188,7 @@
   left: 1050px;
   z-index: 2;
   width: 210px;
+  font-size: 13px;
 }
 .feindura .mainBody #rightSidebar .box {
   position: relative;
@@ -7546,6 +7547,31 @@
 .feindura #rightSidebar img.thumbnail {
   max-width: 150px;
 }
+.feindura #rightSidebar ul.jsMultipleSelect,
+.feindura #rightSidebar ul.jsMultipleSelectDestination {
+  padding: 2px 5px !important;
+  margin: 20px 0 !important;
+}
+.feindura #rightSidebar ul.jsMultipleSelect {
+  overflow: auto;
+}
+.feindura #rightSidebar li.jsMultipleSelectOption,
+.feindura #rightSidebar li.filter {
+  margin: 2px 0 !important;
+  padding: 4px 10px !important;
+}
+.feindura #rightSidebar li.jsMultipleSelectOption:last-child {
+  margin-bottom: 0 !important;
+}
+.feindura #rightSidebar li.filter {
+  margin-bottom: 5px !important;
+}
+.feindura #rightSidebar li.filter input {
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  width: 83%;
+}
 .feindura #editablePageTitle {
   position: relative;
   display: inline-block;
@@ -7990,24 +8016,30 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
-.feindura ul.jsMultipleSelect li.jsMultipleSelectItem,
-.feindura ul.jsMultipleSelectDestination li.jsMultipleSelectItem {
+.feindura ul.jsMultipleSelect li.jsMultipleSelectOption,
+.feindura ul.jsMultipleSelectDestination li.jsMultipleSelectOption {
   position: relative;
   display: block;
   margin: 3px 0;
   text-align: left;
   cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   padding-left: 30px;
 }
-.feindura ul.jsMultipleSelect li.jsMultipleSelectItem img,
-.feindura ul.jsMultipleSelectDestination li.jsMultipleSelectItem img {
+.feindura ul.jsMultipleSelect li.jsMultipleSelectOption img,
+.feindura ul.jsMultipleSelectDestination li.jsMultipleSelectOption img {
   position: absolute;
   top: 0;
   left: 1px;
 }
 .feindura ul.jsMultipleSelect li.filter input,
 .feindura ul.jsMultipleSelectDestination li.filter input {
-  width: 93.5%;
+  width: 93%;
   margin-left: -4px;
   margin-top: -2px;
   margin-bottom: 0;
@@ -8017,7 +8049,7 @@
 .feindura ul.jsMultipleSelect li.filter a,
 .feindura ul.jsMultipleSelectDestination li.filter a {
   position: absolute;
-  top: 4px;
+  top: 5px;
   right: 8px;
   padding: 0;
   background: none;

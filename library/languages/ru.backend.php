@@ -293,6 +293,10 @@ $langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Д�
 
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Страница в данный момент редактируется...';
 
+// MESSAGES
+$langFile['MESSAGE_TEXT_CHANGEDSTATUS']                                   = 'Статус был успешно изменен.';
+
+
 /*
 * leftSidebar.loader.php
 */

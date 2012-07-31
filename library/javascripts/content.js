@@ -203,6 +203,28 @@ function removeChecked(selector) {
 }
 
 // -------------------------------------------------
+// RESIZE ELEMENTS ON HOVER
+function resizeElementsOnHover() {
+
+  // vars
+  var startSize = 80;
+
+  $$('.resizeOnHover').each(function(element){
+    var orgSize = element.getSize().y;
+
+    element.setStyle('height',startSize);
+    element.addEvents({
+      'mouseenter': function(){
+        element.tween('height',orgSize);
+      },
+      'mouseleave': function(){
+        element.tween('height',startSize);
+      }
+    })
+  });
+}
+
+// -------------------------------------------------
 // BLOCK SLIDE IN/OUT
 function blockSlider(givenId) {
 
@@ -501,16 +523,17 @@ function loadSideBarMenu(site,page,category) {
 // -> THROW a WARNING when user want to LEAVE THE PAGE WITHOUT SAVING
 function LeavingWithoutSavingWarning() {
   $$('a').each(function(link) {
-    var href = link.get('href');
-    var onclick = link.get('onclick');
+    var href = link.getProperty('href');
+    var onclick = link.getProperty('onclick');
 
     // only on external links (not the sideBarMenu page selection or links which open the windowBox)
     if((onclick === null ||
        (onclick !== null &&
-        onclick.toString().substr(0,13) !== 'openWindowBox' &&
-        onclick.toString().substr(0,18) !== 'loadSideBarMenu')) &&
-        href !== null &&
-        href.toString().indexOf('#') == -1) {
+        onclick.toString().indexOf('openWindowBox') == -1 &&
+        onclick.toString().indexOf('loadSideBarMenu') == -1)) &&
+        (href === null ||
+        href.toString().indexOf('#') == -1)) {
+
 
       link.addEvent('click',function(e) {
         if(pageContentChanged) {
@@ -546,6 +569,9 @@ window.addEvent('domready', function() {
   // enable drag selections
   new jsMultipleSelect();
 
+  // slide out elements on hover
+  new resizeElementsOnHover();
+
   // STORES all pages LI ELEMENTS
   listPagesBars = $$('div.block.listPagesBlock li');
 
@@ -571,7 +597,7 @@ window.addEvent('domready', function() {
       $('messagePopUp').get('tween').chain(function(){
         $('messagePopUp').setStyle('display','none');
       });
-    }).delay(3000);
+    }).delay(4000);
   }
 
   // *** ->> SIDEBAR MENU -----------------------------------------------------------------------------------------------------------------------

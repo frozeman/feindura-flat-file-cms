@@ -57,6 +57,35 @@ div.rteHide {
     img.thumbnail {
         max-width: 150px;
     }
+
+    // PLUGIN MULTIPLE SELECT
+    ul.jsMultipleSelect,
+    ul.jsMultipleSelectDestination {
+        padding: 2px 5px !important;
+        margin: @blockContentPadding 0 !important;
+    }
+    ul.jsMultipleSelect {
+        // max-height: 200px !important;
+        overflow: auto;
+    }
+    li.jsMultipleSelectOption,
+    li.filter {
+        // position: relative;
+        margin: 2px 0 !important;
+        padding: 4px 10px !important;
+    }
+    li.jsMultipleSelectOption:last-child {
+        margin-bottom: 0 !important;
+    }
+    li.filter {
+        margin-bottom: 5px !important;
+    }
+    li.filter input {
+        position: absolute;
+        top: 3px;
+        left: 5px;
+        width: 83%;
+    }
 }
 
 

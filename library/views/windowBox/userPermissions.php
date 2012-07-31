@@ -139,11 +139,11 @@ if($post['send'] == 'true') {
   </div>
   <div class="row">
     <div class="offset1 span3">
-      <ul class="jsMultipleSelect" data-jsMultipleSelect="1" data-name="editableCategories" data-type="remove">
+      <ul class="jsMultipleSelect" data-jsMultipleSelect="editables" data-name="editableCategories" data-type="remove">
         <li class="filter"><input type="text" placeholder="<?php echo $langFile['SORTABLEPAGELIST_headText1']; ?>"></li>
         <?php
           foreach ($categoryConfig as $config) {
-            echo '<li class="jsMultipleSelectItem btn" data-value="'.$config['id'].'"><img src="library/images/icons/categoryIcon_small.png" alt="category icon"><strong>'.GeneralFunctions::getLocalized($config,'name').'</strong></li>';
+            echo '<li class="jsMultipleSelectOption btn" data-value="'.$config['id'].'"><img src="library/images/icons/categoryIcon_small.png" alt="category icon"><strong>'.GeneralFunctions::getLocalized($config,'name').'</strong></li>';
           }
         ?>
       </ul>
@@ -153,20 +153,20 @@ if($post['send'] == 'true') {
       if(!empty($pages) && is_array($pages)) {
       ?>
       <div class="spacer"></div>
-      <ul class="jsMultipleSelect" data-jsMultipleSelect="1" data-name="editablePages" data-type="remove">
+      <ul class="jsMultipleSelect" data-jsMultipleSelect="editables" data-name="editablePages" data-type="remove">
         <li class="filter"><input type="text" placeholder="<?php echo $langFile['SORTABLEPAGELIST_headText1']; ?>"></li>
         <?php
           foreach ($pages as $page) {
             if($page['category'] != 0)
               $category = '<strong>'.GeneralFunctions::getLocalized($categoryConfig[$page['category']],'name').'</strong> » ';
-            echo '<li class="jsMultipleSelectItem btn" data-value="'.$page['id'].'"><img src="library/images/icons/pageIcon_small.png" alt="page icon">'.$category.GeneralFunctions::getLocalized($page,'title').'</li>';
+            echo '<li class="jsMultipleSelectOption btn" data-value="'.$page['id'].'"><img src="library/images/icons/pageIcon_small.png" alt="page icon">'.$category.GeneralFunctions::getLocalized($page,'title').'</li>';
           }
         ?>
       </ul>
       <?php } ?>
     </div>
     <div class="span3 right">
-      <ul class="jsMultipleSelectDestination" data-jsMultipleSelect="1">
+      <ul class="jsMultipleSelectDestination" data-jsMultipleSelect="editables">
         <?php
           // add selected editableCategories
           if(is_array($userConfig[$post['userId']]['permissions']['editableCategories'])) {
@@ -182,7 +182,7 @@ if($post['send'] == 'true') {
           }
         ?>
       </ul>
-      <a class="clearJsMultipleSelect btn btn-mini" data-jsMultipleSelect="1"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']; ?></a>
+      <a class="clearJsMultipleSelect btn btn-mini" data-jsMultipleSelect="editables"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']; ?></a>
     </div>
   </div>
 

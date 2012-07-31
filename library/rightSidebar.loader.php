@@ -192,6 +192,10 @@ if(!empty($_GET['page']) && is_numeric($_GET['page'])) {
     </div>
     <?php
     }
+
+    // PLUGINS
+    if(is_array($activatedPlugins) && count($activatedPlugins) >= 1)
+      include(dirname(__FILE__).'/includes/editPlugins.rightSideBar.include.php');
   }
 
 // SITES

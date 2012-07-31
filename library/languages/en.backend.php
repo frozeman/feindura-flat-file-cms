@@ -290,6 +290,9 @@ $langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'To 
 
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Page is currently being edited...';
 
+// MESSAGES
+$langFile['MESSAGE_TEXT_CHANGEDSTATUS']                                   = 'The status was successfully changed.';
+
 
 /*
 * leftSidebar.loader.php

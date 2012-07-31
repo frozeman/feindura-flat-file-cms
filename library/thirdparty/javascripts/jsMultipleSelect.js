@@ -74,7 +74,7 @@ var jsMultipleSelect = new Class({
           if(clearButton.getProperty('data-jsMultipleSelect') == jsMultipleSelectId) {
             clearButton.addEvent('click',function(e){
               e.stop();
-              jsMultipleSelectDestination.getElements('li.jsMultipleSelectItem').dispose();
+              jsMultipleSelectDestination.getElements('li.jsMultipleSelectOption').dispose();
 
               items.each(function(item){
                 var duplicateCount = item.retrieve('duplicateCount');
@@ -91,7 +91,7 @@ var jsMultipleSelect = new Class({
         });
 
         // ADD SELECTIONS
-        jsMultipleSelect.getChildren('li.jsMultipleSelectItem').each(function(item){
+        jsMultipleSelect.getChildren('li.jsMultipleSelectOption').each(function(item){
 
             // vars
             var duplicateCount = 1;
@@ -211,15 +211,16 @@ var jsMultipleSelect = new Class({
       });
 
       // PARSE already SELECTED ITEMS (which are in the jsMultipleSelectDestination)
-      jsMultipleSelectDestination.getChildren('li').each(function(selected) {
+      jsMultipleSelectDestination.getChildren('li[data-name]').each(function(selected) {
 
         var value = selected.getProperty('data-value');
         var name = selected.getProperty('data-name');
 
-        $$('ul[data-name="'+name+'"] > li.jsMultipleSelectItem[data-value="'+value+'"]').each(function(item){
+        $$('ul[data-name="'+name+'"] > li.jsMultipleSelectOption[data-value="'+value+'"]').each(function(item){
 
           var clone          = item.retrieve('clone');
           var duplicateCount = item.retrieve('duplicateCount');
+          if(clone === null) return;
 
           var injectItem = (item.retrieve('duplicate')) ? clone.clone() : clone;
           // give the injected item a reference to the original item

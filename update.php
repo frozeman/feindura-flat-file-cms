@@ -289,7 +289,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     }
 
     // save the $pagesMetaData array
-    GeneralFunctions::savePagesMetaData();
+    // GeneralFunctions::savePagesMetaData();
 
     // ->> LOAD PAGES
     $pages = GeneralFunctions::loadPages(true);
