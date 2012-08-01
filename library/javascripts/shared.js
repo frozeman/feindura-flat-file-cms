@@ -76,7 +76,8 @@ function feindura_str_replace(s, r, c) {
 function feindura_displayError(title,errorText) {
   // creates the errorWindow
   var errorWindow = new Element('div',{id:'errorWindow','class':'feindura', 'style':'left:50%;margin-left:-260px;'});
-  errorWindow.grab(new Element('div',{'class':'feindura_top', 'html': title}));
+  errorWindow.setStyle('top',window.getScroll().y + 100);
+  errorWindow.grab(new Element('h1',{'text': title}));
   var errorWindowContent = new Element('div',{'class':'content warning', 'html':'<div class="scroll">'+errorText+'</div>'});
   var errorWindowOkButton = new Element('a',{'class':'ok button center', 'href':'#'});
   errorWindowContent.grab(errorWindowOkButton);

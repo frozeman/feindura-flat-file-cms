@@ -17,6 +17,7 @@ provides: [jsMultipleSelect]
 */
 var jsMultipleSelect = new Class({
   Implements: [Options,Events],
+
   options: {
     highlightColor: '#cedee6',
     removeButton: new Element('a',{'html':'&#215;'}),
@@ -42,72 +43,131 @@ var jsMultipleSelect = new Class({
 
       // vars
       var jsMultipleSelectId = jsMultipleSelectDestination.getProperty('data-jsMultipleSelect'); // to allocate the selection boxes
+      var removedOptions     = [];// removed from the option boxes
+      var selectedOptions    = [];
+
+      jsMultipleSelectDestination.store('removedOptions',removedOptions);
+      jsMultipleSelectDestination.store('selectedOptions',selectedOptions);
+
       var jsMultipleSelectDestinationBg = jsMultipleSelectDestination.getStyle('background-color');
-      var removedItems = [];
 
 
       // CLOSE FUNCTION
       var closeFunction = function() {
         var clone          = this.getParent('li');
-        var item           = clone.retrieve('item');
-        var duplicateCount = item.retrieve('duplicateCount');
+        var option         = clone.retrieve('option');
 
-        if(item.retrieve('remove')) {
-          removedItems.erase(item);
-          item.setStyle('display','block');
+        if(option.retrieve('remove')) {
+          removedOptions.erase(option);
+          option.setStyle('display','block');
         }
-        if(item.retrieve('duplicate'))
-          item.store('duplicateCount',--duplicateCount);
 
         clone.dispose();
+
+        selectedOptions.erase(clone);
+
+        // fire event
+        jsMultipleSelectDestination.fireEvent('remove',[option.getProperty('data-value'),option.getParent('ul.jsMultipleSelect').getProperty('data-name'),clone,option,option.getParent('ul.jsMultipleSelect')]);
       };
+
+      // GET DUPLICATE NUMBER
+      // gets the next higher number of an already injected option, is one option number missing, it will fill thsi one first
+      var getDuplicateNumber = function(orgOption) {
+        var highestNumber = 0;
+        var storedNumbers = [];
+        var countedNumbers = [];
+        var count = 1;
+
+        jsMultipleSelectDestination.getChildren('li.jsMultipleSelectOption').each(function(clone){
+          if(orgOption == clone.retrieve('option')) {
+            storedNumbers.push(clone.retrieve('number'));
+            countedNumbers.push(count++);
+            if(clone.retrieve('number') >= highestNumber) {
+              highestNumber = clone.retrieve('number');
+            }
+          }
+        });
+
+        // get the missing numbers
+        for (var i = 0; i < storedNumbers.length; i++) {
+          countedNumbers.erase(storedNumbers[i]);
+        }
+        // use either a missing number or the next highest number
+        if(countedNumbers.length > 0)
+          return countedNumbers[0];
+        else
+          return ++highestNumber;
+      };
+
+
+      // PREPARE the OPTION to INJECT
+      var prepareInjectOption = function(option,clone,number) {
+
+        var injectOption = (option.retrieve('duplicate')) ? clone.clone() : clone;
+        var duplicateNumber = (number) ? Number(number) : getDuplicateNumber(option);
+
+        injectOption.setProperty('data-number',duplicateNumber);
+
+        injectOption.store('number',duplicateNumber);
+        injectOption.store('value',injectOption.getProperty('data-value'));
+        injectOption.store('name',injectOption.getProperty('data-name'));
+        injectOption.store('option',option);
+
+        if(option.retrieve('duplicate')) {
+          // add the remove function to the cloned option
+          injectOption.getChildren('a.'+self.options.removeButtonClass).addEvent('click',closeFunction);
+
+          // add a number to the duplicated option
+          if(duplicateNumber > 1)
+            injectOption.grab(new Element('span',{'text':' #'+duplicateNumber}));
+        }
+
+        return injectOption;
+      };
+
+      // CLEAR DESTINATION
+      $$('a.clearJsMultipleSelect[data-jsMultipleSelect="'+jsMultipleSelectId+'"]').each(function(clearButton){
+        clearButton.addEvent('click',function(e){
+          e.stop();
+          jsMultipleSelectDestination.getElements('li.jsMultipleSelectOption').dispose();
+
+          $$('.jsMultipleSelect[data-jsMultipleSelect="'+jsMultipleSelectId+'"] li.jsMultipleSelectOption').each(function(option){
+            if(option.retrieve('remove')) {
+              removedOptions.erase(option);
+              option.setStyle('display','block');
+            }
+            if(option.retrieve('duplicate'))
+              option.store('number',0);
+
+            selectedOptions = [];
+          });
+        });
+      });
 
 
       // GO THROUGH ALL OPTION BOXES
       $$('.jsMultipleSelect[data-jsMultipleSelect="'+jsMultipleSelectId+'"]').each(function(jsMultipleSelect){
         // vars
-        var items = [];
+        var options = [];
         var name = jsMultipleSelect.getProperty('data-name'); // later the inputs anme attribute
 
-        // setup CLEAR DESTINATION
-        $$('a.clearJsMultipleSelect').each(function(clearButton){
-          if(clearButton.getProperty('data-jsMultipleSelect') == jsMultipleSelectId) {
-            clearButton.addEvent('click',function(e){
-              e.stop();
-              jsMultipleSelectDestination.getElements('li.jsMultipleSelectOption').dispose();
-
-              items.each(function(item){
-                var duplicateCount = item.retrieve('duplicateCount');
-                if(item.retrieve('remove')) {
-                  removedItems.erase(item);
-                  item.setStyle('display','block');
-                }
-                if(item.retrieve('duplicate'))
-                  item.store('duplicateCount',1);
-
-              });
-            });
-          }
-        });
 
         // ADD SELECTIONS
-        jsMultipleSelect.getChildren('li.jsMultipleSelectOption').each(function(item){
+        jsMultipleSelect.getChildren('li.jsMultipleSelectOption').each(function(option){
 
             // vars
-            var duplicateCount = 1;
-            items.push(item);
-            item.setStyle('cursor','pointer');
-            var value = item.getProperty('data-value');
+            options.push(option);
+            option.setStyle('cursor','pointer');
+            var value = option.getProperty('data-value');
 
             // store values
-            item.store('duplicateCount',duplicateCount);
-            // item can be cloned or will be removed
-            item.store('remove',(item.getProperty('data-type') === 'remove' || item.getParent('ul.jsMultipleSelect').getProperty('data-type') === 'remove'));
-            // item can be add multiple times
-            item.store('duplicate',(item.getProperty('data-type') === 'duplicates' || item.getParent('ul.jsMultipleSelect').getProperty('data-type') === 'duplicates'));
+            // option can be cloned or will be removed
+            option.store('remove',(option.getProperty('data-type') === 'remove' || option.getParent('ul.jsMultipleSelect').getProperty('data-type') === 'remove'));
+            // option can be add multiple times
+            option.store('duplicate',(option.getProperty('data-type') === 'duplicates' || option.getParent('ul.jsMultipleSelect').getProperty('data-type') === 'duplicates'));
 
             // create clone, which will be add to the ul.jsMultipleSelectDestination
-            var clone = item.clone();
+            var clone = option.clone();
             clone.setStyle('cursor','auto');
 
             // add close button
@@ -124,36 +184,26 @@ var jsMultipleSelect = new Class({
             clone.grab(close,'bottom');
 
             // store a reference to the clone
-            item.store('clone',clone);
+            option.store('clone',clone);
 
             // add click event
-            item.addEvent('click',function() {
-              duplicateCount = item.retrieve('duplicateCount');
+            option.addEvent('click',function() {
+              if(!jsMultipleSelectDestination.contains(clone) || option.retrieve('duplicate')) {
 
-              var injectItem = (item.retrieve('duplicate')) ? clone.clone() : clone;
-              // give the injected item a reference to the original item
-              injectItem.store('item',item);
+                var injectOption = prepareInjectOption(option,clone);
+                injectOption.inject(jsMultipleSelectDestination);
 
-              // add event to the duplicated item
-              if(item.retrieve('duplicate')) {
-                injectItem.getChildren('a.'+self.options.removeButtonClass).addEvent('click',closeFunction);
-                if(duplicateCount > 1) {
-                  injectItem.grab(new Element('span',{'text':' #'+duplicateCount}));
-                }
-                item.store('duplicateCount',++duplicateCount);
-              }
-
-              if(!jsMultipleSelectDestination.contains(clone) || item.retrieve('duplicate')) {
-                injectItem.inject(jsMultipleSelectDestination);
                 jsMultipleSelectDestination.highlight(self.options.highlightColor, jsMultipleSelectDestinationBg);
 
-                if(item.retrieve('remove')) {
-                  removedItems.push(item);
-                  item.setStyle('display','none');
+                if(option.retrieve('remove')) {
+                  removedOptions.push(option);
+                  option.setStyle('display','none');
                 }
 
+                selectedOptions.push(injectOption);
+
                 // fire event
-                jsMultipleSelectDestination.fireEvent('select',[value,name,item,injectItem,jsMultipleSelect]);
+                jsMultipleSelectDestination.fireEvent('select',[value,name,injectOption,option,jsMultipleSelect]);
               }
             });
         });
@@ -187,63 +237,53 @@ var jsMultipleSelect = new Class({
             // ->> FILTER the PAGES
             if(filterValue.length > 0) {
               close.setStyle('display','block');
-              items.each(function(item) {
-                var itemName = item.get('text');
-                if(typeOf(itemName) !== 'null' && itemName.toLowerCase().contains(filterValue.toLowerCase())) {
-                  if(!removedItems.contains(item))
-                    item.setStyle('display','block');
+              options.each(function(option) {
+                var optionName = option.get('text');
+                if(typeOf(optionName) !== 'null' && optionName.toLowerCase().contains(filterValue.toLowerCase())) {
+                  if(!removedOptions.contains(option))
+                    option.setStyle('display','block');
                 } else {
-                  item.setStyle('display','none');
+                  option.setStyle('display','none');
                 }
               });
 
-            // else SHOW ALL ITEMS AGAIN
+            // else SHOW ALL OPTIONS AGAIN
             } else {
               close.setStyle('display','none');
 
-              items.each(function(item) {
-                if(!removedItems.contains(item))
-                  item.setStyle('display','block');
+              options.each(function(option) {
+                if(!removedOptions.contains(option))
+                  option.setStyle('display','block');
               });
             }
           });
         });
       });
 
-      // PARSE already SELECTED ITEMS (which are in the jsMultipleSelectDestination)
+      // PARSE already SELECTED OPTIONS (which are in the jsMultipleSelectDestination)
       jsMultipleSelectDestination.getChildren('li[data-name]').each(function(selected) {
 
         var value = selected.getProperty('data-value');
         var name = selected.getProperty('data-name');
+        var number = selected.getProperty('data-number');
 
-        $$('ul[data-name="'+name+'"] > li.jsMultipleSelectOption[data-value="'+value+'"]').each(function(item){
+        $$('ul[data-name="'+name+'"] > li.jsMultipleSelectOption[data-value="'+value+'"]').each(function(option){
 
-          var clone          = item.retrieve('clone');
-          var duplicateCount = item.retrieve('duplicateCount');
+          var clone = option.retrieve('clone');
           if(clone === null) return;
 
-          var injectItem = (item.retrieve('duplicate')) ? clone.clone() : clone;
-          // give the injected item a reference to the original item
-          injectItem.store('item',item);
+          var injectOption = prepareInjectOption(option,clone,number);
+          injectOption.replaces(selected);
 
-          // add event to the cloned item
-          if(item.retrieve('duplicate')) {
-            injectItem.getChildren('a.'+self.options.removeButtonClass).addEvent('click',closeFunction);
-            if(duplicateCount > 1)
-              injectItem.grab(new Element('span',{'text':' #'+duplicateCount}));
-
-            item.store('duplicateCount',++duplicateCount);
+          if(option.retrieve('remove')) {
+            removedOptions.push(option);
+            option.setStyle('display','none');
           }
 
-          injectItem.replaces(selected);
-
-          if(item.retrieve('remove')) {
-            removedItems.push(item);
-            item.setStyle('display','none');
-          }
+          selectedOptions.push(injectOption);
 
           // fire event
-          jsMultipleSelectDestination.fireEvent('parsed',[value,name,item,injectItem,item.getParent('ul.jsMultipleSelect')]);
+          jsMultipleSelectDestination.fireEvent('parsed',[value,name,injectOption,option,option.getParent('ul.jsMultipleSelect')]);
 
         });
       });

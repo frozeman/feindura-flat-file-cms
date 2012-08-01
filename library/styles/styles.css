@@ -187,7 +187,7 @@
 .feindura body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
   color: #333333;
   background-color: #ffffff;
@@ -358,7 +358,7 @@
   margin: 0 0 9px;
 }
 .feindura p small {
-  font-size: 11px;
+  font-size: 12px;
   color: #999999;
 }
 .feindura .lead {
@@ -562,7 +562,7 @@
 .feindura pre {
   padding: 0 3px 2px;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: 12px;
+  font-size: 13px;
   color: #333333;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -578,7 +578,7 @@
   display: block;
   padding: 8.5px;
   margin: 0 0 9px;
-  font-size: 12.025px;
+  font-size: 12.950000000000001px;
   line-height: 18px;
   word-break: break-all;
   word-wrap: break-word;
@@ -617,7 +617,7 @@
   width: 100%;
   padding: 0;
   margin-bottom: 27px;
-  font-size: 19.5px;
+  font-size: 21px;
   line-height: 36px;
   color: #333333;
   border: 0;
@@ -632,7 +632,7 @@
 .feindura button,
 .feindura select,
 .feindura textarea {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: normal;
   line-height: 18px;
 }
@@ -667,7 +667,7 @@
   height: 18px;
   padding: 4px;
   margin-bottom: 9px;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
   color: #555555;
 }
@@ -2116,7 +2116,7 @@
   *zoom: 1;
   padding: 4px 10px 4px;
   margin-bottom: 0;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
   *line-height: 20px;
   color: #333333;
@@ -2212,7 +2212,7 @@
 }
 .feindura .btn-large {
   padding: 9px 14px;
-  font-size: 15px;
+  font-size: 16px;
   line-height: normal;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -2223,7 +2223,7 @@
 }
 .feindura .btn-small {
   padding: 5px 9px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 16px;
 }
 .feindura .btn-small [class^="icon-"] {
@@ -2231,7 +2231,7 @@
 }
 .feindura .btn-mini {
   padding: 2px 6px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 14px;
 }
 .feindura .btn-primary,
@@ -3837,7 +3837,7 @@
 }
 .feindura .label,
 .feindura .badge {
-  font-size: 10.998px;
+  font-size: 11.844px;
   font-weight: bold;
   line-height: 14px;
   color: #ffffff;
@@ -4421,7 +4421,7 @@
 .feindura label.toolTipTop,
 .feindura label.toolTipBottom {
   background: url("../images/icons/hint_toolTipInfo.png") no-repeat right center;
-  padding-right: 15px;
+  padding-right: 18px;
 }
 .feindura span.toolTipLeft.noMark,
 .feindura span.toolTipRight.noMark,
@@ -4441,9 +4441,9 @@
 }
 .feindura span.hint {
   display: inline-block;
-  padding-left: 16px;
+  padding-left: 18px;
   background: url("../images/icons/hint_toolTipInfo.png") no-repeat;
-  background-position: 0px 4px;
+  background-position: left center;
   font-size: 12px;
   color: #d49c5c;
 }
@@ -5004,9 +5004,10 @@
   padding: 0;
   text-decoration: none;
 }
-.feindura a.button.center {
+.feindura a.button.center,
+.feindura input.submit.button.center {
   left: 50%;
-  margin-left: -26px;
+  margin-left: -26px !important;
 }
 .feindura input.submit,
 .feindura a.submit,
@@ -6591,9 +6592,6 @@
 .feindura .mainContent .block h2 + .verticalSeparator {
   margin-top: 0px !important;
 }
-.feindura .mainContent .block input.submit.center {
-  margin-left: 353px;
-}
 .feindura .mainContent .block.alert {
   border: none;
 }
@@ -7524,7 +7522,8 @@
 }
 .feindura .editor input.submit {
   float: right;
-  margin-top: -30px;
+  left: 0 !important;
+  margin-top: -10px;
   margin-bottom: 10px;
   margin-right: 353px;
 }
@@ -7559,6 +7558,17 @@
 .feindura #rightSidebar li.filter {
   margin: 2px 0 !important;
   padding: 4px 10px !important;
+}
+.feindura #rightSidebar li.jsMultipleSelectOption a.editSelection,
+.feindura #rightSidebar li.filter a.editSelection {
+  padding-left: 0;
+  background-image: none;
+}
+.feindura #rightSidebar li.jsMultipleSelectOption:active,
+.feindura #rightSidebar li.filter:active {
+  -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.30000000000000004);
 }
 .feindura #rightSidebar li.jsMultipleSelectOption:last-child {
   margin-bottom: 0 !important;
@@ -8065,11 +8075,13 @@
 }
 .feindura ul.jsMultipleSelectDestination li {
   cursor: auto !important;
+  padding-right: 18px;
 }
-.feindura ul.jsMultipleSelectDestination li a {
-  position: relative;
+.feindura ul.jsMultipleSelectDestination li a.remove {
+  position: absolute;
   display: none;
-  margin-top: -1px;
+  top: 3px;
+  right: 6px;
   padding: 0;
   background: none;
   float: right;

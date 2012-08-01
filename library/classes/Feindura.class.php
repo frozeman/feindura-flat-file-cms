@@ -1295,7 +1295,7 @@ class Feindura extends FeinduraBase {
   var feindura_deactivateFrontendEditing = '".$_SESSION['feinduraSession']['login']['deactivateFrontendEditing']."';
   var feindura_langFile = {
     ERRORWINDOW_TITLE:                    \"".$this->languageFile['errorWindow_h1']."\",
-    ERROR_SAVE:                           \"".$this->languageFile['EDITOR_savepage_error_save']."\",
+    ERROR_SAVE:                           \"".$this->languageFile['ERROR_SAVEPAGE']."\",
     ERROR_SETSTARTPAGE:                   \"".$this->languageFile['SORTABLEPAGELIST_setStartPage_error_save']."\",
     FUNCTIONS_STARTPAGE_SET:              \"".$this->languageFile['SORTABLEPAGELIST_functions_startPage_set']."\",
     FUNCTIONS_STARTPAGE:                  \"".$this->languageFile['SORTABLEPAGELIST_functions_startPage']."\",

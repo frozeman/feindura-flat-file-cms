@@ -162,7 +162,11 @@ function requestSite(site,siteTitle,dataOrFormId) {
 
           // Inject the new DOM elements into the h1.
           windowBox.grab(new Element('h1',{'text':siteTitle}),'top');
+        } else {
+          if(typeOf($$('#windowBox > h1')[0]) !== 'null')
+            $$('#windowBox > h1')[0].destroy();
         }
+
 
         /* set toolTips to all objects with a toolTip class */
         setToolTips();

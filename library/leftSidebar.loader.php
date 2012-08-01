@@ -201,12 +201,13 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
       echo '</div></div>';
 
+
       echo '<div class="spacer"></div>';
 
       // -> SHOW USERs
       echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" width="22" height="21"> '.$langFile['DASHBOARD_TITLE_USER'].'</h2>';
       echo '<div class="content">';
-        if(is_array($userConfig)) {
+        if(!empty($userConfig) && is_array($userConfig)) {
 
           // list user
           echo '<ul class="sidebarListUsers unstyled">';

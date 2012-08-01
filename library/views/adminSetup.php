@@ -62,11 +62,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php echo $langFile['ADMINSETUP_GENERAL_field1'] ?></span></label>
       </div>
       <div class="span5">
-        <?php
-        $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$GLOBALS['adminConfig']['url']);
-        $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$_SERVER["SERVER_NAME"]);
-        ?>
-        <input type="text" id="cfg_url" name="cfg_url"<?php if($baseUrl != $checkUrl) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>">
+        <input type="text" id="cfg_url" name="cfg_url"<?php if($GLOBALS['adminConfig']['url'] != generateCurrentUrl()) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>">
       </div>
     </div>
 

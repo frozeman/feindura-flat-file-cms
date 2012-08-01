@@ -491,6 +491,14 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
           : 'fade';
       }
 
+      // if below  build 958
+      if(until(958)) {
+        foreach ($pageContent['plugins'] as $pluginName => $pluginData) {
+          unset($pageContent['plugins'][$pluginName]);
+          $pageContent['plugins'][$pluginName][1] = $pluginData;
+        }
+      }
+
       // -> change such a date: 2010-03-20 17:50:27 to unix timestamp
       // mktime(hour,minute,seconds,month,day,year)
 

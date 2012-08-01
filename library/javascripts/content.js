@@ -213,6 +213,7 @@ function resizeElementsOnHover() {
     var orgSize = element.getSize().y;
 
     element.setStyle('height',startSize);
+    element.set('tween',{transition: Fx.Transitions.Quint.easeInOut})
     element.addEvents({
       'mouseenter': function(){
         element.tween('height',orgSize);

@@ -1104,26 +1104,28 @@ class GeneralFunctions {
 
     // write the plugins
     if(is_array($pageContent['plugins'])) {
-      foreach($pageContent['plugins'] as $key => $value) {
+      foreach($pageContent['plugins'] as $pluginName => $plugins) {
         // save plugin settings only if plugin is activated
-        if($pageContent['plugins'][$key]['active']) {
-          foreach($value as $insideKey => $finalValue) {
-            // CHECK BOOL VALUES and change to FALSE
-            if(strpos(strtolower($insideKey),'bool') !== false ||
-               is_bool($pageContent['plugins'][$key][$insideKey]) ||
-               $pageContent['plugins'][$key][$insideKey] == 'true' ||
-               $pageContent['plugins'][$key][$insideKey] == 'false')
-              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = ".XssFilter::bool($pageContent['plugins'][$key][$insideKey],true).";\n";
-            elseif(strpos(strtolower($insideKey),'url') !== false)
-              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::url($pageContent['plugins'][$key][$insideKey])."';\n";
-            elseif(strpos(strtolower($insideKey),'path') !== false)
-              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::path($pageContent['plugins'][$key][$insideKey])."';\n";
-            elseif(strpos(strtolower($insideKey),'number') !== false)
-              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::number($pageContent['plugins'][$key][$insideKey])."';\n";
-            else
-              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::text($pageContent['plugins'][$key][$insideKey])."';\n";
+        foreach($plugins as $pluginNumber => $plugin) {
+          if($plugin['active']) {
+            foreach($plugin as $insideKey => $finalValue) {
+              // CHECK BOOL VALUES and change to FALSE
+              if(strpos(strtolower($insideKey),'bool') !== false ||
+                 is_bool($plugin[$insideKey]) ||
+                 $plugin[$insideKey] == 'true' ||
+                 $plugin[$insideKey] == 'false')
+                $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = ".XssFilter::bool($plugin[$insideKey],true).";\n";
+              elseif(strpos(strtolower($insideKey),'url') !== false)
+                $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = '".XssFilter::url($plugin[$insideKey])."';\n";
+              elseif(strpos(strtolower($insideKey),'path') !== false)
+                $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = '".XssFilter::path($plugin[$insideKey])."';\n";
+              elseif(strpos(strtolower($insideKey),'number') !== false)
+                $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = '".XssFilter::number($plugin[$insideKey])."';\n";
+              else
+                $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = '".XssFilter::text($plugin[$insideKey])."';\n";
+            }
+            $fileContent .= "\n";
           }
-          $fileContent .= "\n";
         }
       }
     }

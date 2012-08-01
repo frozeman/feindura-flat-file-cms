@@ -354,7 +354,9 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- ***************************************************************************************** -->
   <!-- ** HEADER ******************************************************************************* -->
   <header class="main">
+    <?php if(!empty($userConfig)) { ?>
     <div id="sessionTimout" class="toolTipBottom blue" title="<?php echo $langFile['LOGIN_TIP_AUTOLOGOUT']; ?>::">00:00:00</div>
+    <?php } ?>
 
     <!-- Top Anchor -->
     <a id="top"></a>
