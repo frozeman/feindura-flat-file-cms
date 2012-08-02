@@ -101,7 +101,7 @@ function isBlocked($returnBool = false) {
        $cachedUser['edit'] &&
        $location != 'new' && // dont block when createing a new page (multiple user can do that)
        ($location == $_GET['page'] || $location == $_GET['site'])) {
-      $return = ($returnBool) ? true : '<div id="contentBlocked"><div>'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'];
+      $return = ($returnBool) ? true : '<div id="contentBlocked" class="divBlocked"><div>'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'];
       if(!empty($cachedUser['username'])) $return .= '<br><span style="font-size:15px;">'.$GLOBALS['langFile']['DASHBOARD_TITLE_USER'].': <span class="blue">'.$cachedUser['username'].'</span></span>';
       $return .= '</div></div>';
       return $return;
@@ -3044,7 +3044,7 @@ function createBrowserChart($browserString) {
         }
 
         // SHOW the table cell with the right browser and color
-        $return .= '<td style="padding: '.$cellpadding.'; width: '.$displayBrowser['percent'].'%;" class="toolTipLeft '.$displayBrowser['class'].'" title="[span]'.$displayBrowser['name'].'[/span] ('.$displayBrowser['percent'].'%)::'.$displayBrowser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
+        $return .= '<td style="padding: '.$cellpadding.'; width: '.$displayBrowser['percent'].'%;" class="toolTipTop '.$displayBrowser['class'].'" title="[span]'.$displayBrowser['name'].'[/span] ('.$displayBrowser['percent'].'%)::'.$displayBrowser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
                     <div style="position: relative;">
                     <img src="library/images/icons/'.$displayBrowser['logo'].'" style="float: left;'.$logoSize.';" alt="browser logo">'.$cellText.'
                     </div>

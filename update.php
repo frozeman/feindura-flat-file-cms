@@ -916,7 +916,6 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/images/bg/loginSuccessBox_bottom.png';
     $deleteFiles[] = 'library/images/bg/loginSuccessBox_middle.png';
     $deleteFiles[] = 'library/images/bg/loginSuccessBox_top.png';
-    $deleteFiles[] = 'library/images/buttons/content_uploadPageThumbnail.png';
 
     $deleteFiles[] = 'library/styles/reset.css';
     $deleteFiles[] = 'library/styles/layout.css';

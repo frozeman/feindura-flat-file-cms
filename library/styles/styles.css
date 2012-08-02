@@ -4778,34 +4778,40 @@
   height: 264px;
   background: url("../images/icons/documentSaved.png") no-repeat;
 }
-.feindura div#contentBlocked {
+.feindura div.divBlocked {
   z-index: 7;
   position: absolute;
   top: 0;
   width: 100%;
   height: 100%;
-  margin: -20px;
+  margin: 0 -20px;
   background-color: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
   /* IE 8 */
 
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
   /* IE 5-7 */
 
-  filter: alpha(opacity=70);
+  filter: alpha(opacity=60);
   /* Netscape */
 
-  -moz-opacity: 0.7;
+  -moz-opacity: 0.6;
   /* Safari 1.x */
 
-  -khtml-opacity: 0.7;
+  -khtml-opacity: 0.6;
   /* Webkit */
 
-  -webkit-opacity: 0.7;
+  -webkit-opacity: 0.6;
   /* Good browsers */
 
-  opacity: 0.7;
+  opacity: 0.6;
 }
-.feindura div#contentBlocked > div {
+.feindura div.divBlocked > div {
   position: fixed;
   top: 200px;
   width: 800px;
@@ -4814,6 +4820,9 @@
   font-weight: bold;
   color: #000;
   text-align: center;
+}
+.feindura #contentBlocked {
+  width: 1052px;
 }
 .feindura #loadingBox {
   position: fixed;
@@ -6195,7 +6204,7 @@
   position: relative;
   z-index: 2;
   margin: 30px 0;
-  padding: 20px 20px;
+  padding: 20px;
   width: 168px;
   border: 1px solid #cdcdcd;
   line-height: 18px;

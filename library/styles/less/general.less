@@ -538,15 +538,16 @@ table.coloredList {
     background: url("../images/icons/documentSaved.png") no-repeat;
 }
 
-div#contentBlocked {
+div.divBlocked {
     z-index: 7;
     position: absolute;
     top: 0;
     width: 100%;
     height: 100%;
-    margin: -20px;
+    margin: 0 -@blockContentPadding;
     background-color: #fff;
-    #transform > .opacity(0.7);
+    #border > .rounded(@blockBorderRadius);
+    #transform > .opacity(0.6);
 
     > div {
         position: fixed;
@@ -558,6 +559,9 @@ div#contentBlocked {
         color: #000;
         text-align: center;
     }
+}
+#contentBlocked {
+    width: 1052px;
 }
 
 #loadingBox {

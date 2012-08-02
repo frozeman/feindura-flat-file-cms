@@ -70,6 +70,8 @@
   </ul>
 
   <a href="#" class="ok button center" id="savePluginSelectionSubmit" style="display:none"></a>
+  <div id="savePluginSelectionLoadingCircleHolder" class="center" style="z-index: 10;"></div>
+  <div id="savePluginSelectionDivBlocked" class="divBlocked" style="display:none"></div>
 
   <!-- EDIT PLUGINS SCRIPTS -->
   <script type="text/javascript">
@@ -100,7 +102,7 @@
         modifyOption(value,name,clone);
 
         // show the save button
-        $('savePluginSelectionSubmit').show();
+        $('savePluginSelectionSubmit').setStyle('display','inline-block');
 
       });
 
@@ -110,7 +112,7 @@
       // REMOVE
       $('pluginMultipleSelect').addEvent('remove',function(value,name,clone,option,select){
         // show the save button
-        $('savePluginSelectionSubmit').show();
+        $('savePluginSelectionSubmit').setStyle('display','inline-block');
       });
 
 
@@ -118,6 +120,8 @@
       $('savePluginSelectionSubmit').addEvent('click',function(e){
         e.stop();
 
+        // vars
+        var removeLoadingCircle;
         var selectedOptions = $('pluginMultipleSelect').retrieve('selectedOptions');
         var selectedJson = {
           'page': <?php echo $pageContent['id']; ?>,
@@ -127,6 +131,7 @@
           'data':[]
         };
 
+        // prepare post data
         selectedOptions.each(function(option){
 
           var value = option.retrieve('value');
@@ -143,10 +148,16 @@
           data: selectedJson,
           evalScripts: true,
           onRequest: function(){
-
+            $('savePluginSelectionSubmit').setStyle('display','none');
+            $('savePluginSelectionDivBlocked').show();
+            // add loading circle
+            removeLoadingCircle = feindura_loadingCircle('savePluginSelectionLoadingCircleHolder', 14, 23, 12, 3, "#000");
           },
           onSuccess: function(responseText){
+            $('savePluginSelectionDivBlocked').hide();
+            removeLoadingCircle();
             console.log(responseText);
+            // needs now a message pop box which says, 'plugins saved'
           }
         }).send();
 

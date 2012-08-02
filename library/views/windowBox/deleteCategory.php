@@ -28,7 +28,7 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 
 // QUESTION
 echo '<h2 class="red">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_QUESTION_START'].' <span style="color:#000000;">'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</span> '.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_QUESTION_END'].'</h2>';
-echo '<div class="alert alert-error">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'</div>';
+echo '<div class="alert alert-error center">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'</div>';
 
 ?>
 

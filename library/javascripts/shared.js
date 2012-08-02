@@ -16,6 +16,44 @@
 *
 * shared.php version 0.1 (requires raphael)  */
 
+// EXTEND MOOTOOLS ELEMENTS
+Element.implement({
+  show: function(){
+    var element = this;
+
+    if(!element.retrieve('opacityStyle'))
+      element.store('opacityStyle',element.getStyle('opacity'));
+
+    // store the display style, if not available
+    if(!element.retrieve('displayStyle') && element.getStyle('display') !== 'none')
+      element.store('displayStyle',element.getStyle('display'));
+    else if(!element.retrieve('displayStyle'))
+      element.store('displayStyle','block');
+
+    element.fade('hide');
+    element.setStyle('display',element.retrieve('displayStyle'));
+    element.fade(element.retrieve('opacityStyle'));
+    return element;
+  },
+  hide: function(){
+    var element = this;
+
+    if(!element.retrieve('displayStyle'))
+      element.store('displayStyle',element.getStyle('display'));
+
+    if(!element.retrieve('opacityStyle') && element.getStyle('opacity') !== 0)
+      element.store('opacityStyle',element.getStyle('opacity'));
+    else if(!element.retrieve('opacityStyle'))
+      element.store('opacityStyle',1);
+
+    element.fade(0);
+    element.get('tween').chain(function(){
+      element.setStyle('display','none');
+    });
+    return element;
+  }
+});
+
 // create the JS LOADING-CIRCLE
 function feindura_loadingCircle(holderid, R1, R2, count, stroke_width, colour) {
     var sectorsCount = count || 12,
