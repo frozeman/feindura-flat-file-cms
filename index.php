@@ -207,6 +207,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     var feindura_snippets_editInWebsiteSettings = <?php echo (GeneralFunctions::hasPermission('editSnippets')) ? 'true' : 'false' ?>;
     var feindura_snippets_isAdmin               = <?php echo (GeneralFunctions::isAdmin()) ? 'true' : 'false' ?>;
 
+
     window.addEvent('domready', function () {
 
       // ->> include FILEMANAGER
@@ -333,23 +334,12 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   </script>
 </head>
 <body>
-  <div id="dimmContainer">
-  </div>
+
+  <!-- dimmContainer -->
+  <div id="dimmContainer"></div>
 
   <!-- loadingBox -->
   <div id="loadingBox"></div>
-
-  <!-- ************************************************************************* -->
-  <!-- ** WINDOW BOX *********************************************************** -->
-  <div id="windowBox">
-    <h1><?php echo $langFile['LOADING_TEXT_LOAD']; ?></h1>
-    <a href="#" class="close" onclick="closeWindowBox(false);return false;"></a>
-    <div id="windowRequestBox"></div>
-  </div>
-
-  <!-- ************************************************************************* -->
-  <!-- ** DOCUMENT SAVED ******************************************************* -->
-  <div id="documentSaved"<?php if($documentSaved === true) echo ' class="saved"'; ?>></div>
 
   <!-- ***************************************************************************************** -->
   <!-- ** HEADER ******************************************************************************* -->
@@ -650,24 +640,33 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       </div>
   </footer>
 
+
+  <!-- ************************************************************************* -->
+  <!-- ** WINDOW BOX *********************************************************** -->
+  <div id="windowBox">
+    <h1><?php echo $langFile['LOADING_TEXT_LOAD']; ?></h1>
+    <a href="#" class="close" onclick="closeWindowBox(false);return false;"></a>
+    <div id="windowRequestBox"></div>
+  </div>
+
+  <!-- ************************************************************************* -->
+  <!-- ** DOCUMENT SAVED ******************************************************* -->
+  <div id="documentSaved"<?php if($documentSaved === true) echo ' class="saved"'; ?>></div>
+
   <?php if($errorWindow !== false) { ?>
   <!-- ************************************************************************* -->
   <!-- ** ERROR WINDOW ********************************************************* -->
-  <div id="errorWindow" class="feindura">
-    <h1><?php echo $langFile['errorWindow_h1'];?></h1>
-    <div class="content warning">
-      <div class="scroll"><?php echo $errorWindow; ?></div>
-    </div>
-    <a href="?site=<?php echo $_GET['site'] ?>" onclick="feindura_closeErrorWindow();return false;" class="button ok center"></a>
-  </div>
+  <script type="text/javascript">
+    feindura_showError('<?php echo $langFile['errorWindow_h1']; ?>','<?php echo $errorWindow; ?>')
+  </script>
   <?php } ?>
 
   <?php if($messagePopUp !== false) { ?>
   <!-- ************************************************************************* -->
   <!-- ** MESSAGE POPUP ********************************************************* -->
-  <div id="messagePopUp" class="feindura">
-    <?php echo $messagePopUp; ?>
-  </div>
+  <script type="text/javascript">
+    feindura_showMessage('<?php echo $messagePopUp; ?>');
+  </script>
   <?php } ?>
 
 </body>

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
  *
- * deletePageLanguage.php
+ * userPermissions.php
  *
  * @version 0.1
  */
@@ -28,7 +28,6 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 
 // vars
 $post = (!empty($_POST)) ? $_POST : $_GET;
-$error = false;
 
 // WHEN THE FORM WAS SEND
 if($post['send'] == 'true') {
@@ -200,19 +199,13 @@ if($post['send'] == 'true') {
 <!-- PAGE SCRIPTS -->
 <script type="text/javascript">
 /* <![CDATA[ */
-  $('windowBox').addEvent('loaded',function(){
+  $('windowBox').addEvent('loaded',function(){ // event is fired when the windowBox is ready
 
     // adds cross browser placeholder support
     new PlaceholderSupport();
 
     // enable drag selection
     new jsMultipleSelect();
-
-    // add fancy forms
-    new FancyForm('#windowBox input[type="checkbox"], #windowBox input[type="radio"]');
-    $$('#windowBox textarea.autogrow').each(function(textarea){
-      new Form.AutoGrow(textarea);
-    });
 
     $$('input#websiteSettings').addEvent('change',function(){
       if(this.checked && $('additionalWebsiteSettings') !== null)

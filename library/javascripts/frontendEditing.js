@@ -116,7 +116,7 @@
       onSuccess: function(html) { //-------------------------------------------------
 
         if(html.contains('####SAVING-ERROR####'))
-          document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
+          document.body.grab(feindura_showError(errorTexts.title,errorTexts.text),'top');
         else {
           // display finish picture
           document.body.grab(finishPicture,'bottom');
@@ -144,7 +144,7 @@
           return;
 
         // add errorWindow
-        document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
+        document.body.grab(feindura_showError(errorTexts.title,errorTexts.text),'top');
       }
     }).send(data);
   }

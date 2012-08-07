@@ -14,7 +14,7 @@
  * - "...JsFunction"                 Creates a button, which will call a javascript function with this value as name, like <a href="#" onclick="exampleFunction(); return false;">
  * - "...Hidden"                     It will create a hidden text input field, with the setting value as input value
  * - "...Script"                     It will create a <script> tag with the value as content, before the plugin settings <table> tag.
- * - "...Echo"                       It will just display this string after the last plugin setting ..</td></tr> and before the next <tr><td>... This could be used to create custom config settings in the plugin settings table.
+ * - "...Print"                      It will just display this string after the last plugin setting ..</td></tr> and before the next <tr><td>... This could be used to create custom config settings in the plugin settings table.
  * - if the value is a boolean       It will create a checkbox and will check this value against {@link XssFilter::bool()}<br>
  *
  *
@@ -30,8 +30,8 @@
  * @see XssFilter::text()
  */
 
+$pluginConfig['selectImagesJsFunction'] = 'imageGallerySelectImage()';
 $pluginConfig['imagesHidden']           = '';
-$pluginConfig['selectImagesJsFunction'] = 'imageGallerySelectImage';
 $pluginConfig['imageWidthNumber']       = 800;
 $pluginConfig['imageHeightNumber']      = null;
 $pluginConfig['thumbnailWidthNumber']   = 160;
@@ -42,65 +42,72 @@ $pluginConfig['tagSelection'][]         = 'table';
 $pluginConfig['tagSelection'][]         = 'menu';
 $pluginConfig['tagSelection'][]         = 'ul';
 $pluginConfig['breakAfterNumber']       = 3;
-$pluginConfig['loadGalleryScript']      = ' /* <![CDATA[ */document.write(unescape(\'<script src="library/thirdparty/MooTools-FileManager/Source/Gallery.js"><\/script>\'))/* ]]> */';
 $pluginConfig['selectImagesScript']     = '
- /* <![CDATA[ */
+
+// vars
+var fileManagerGallery;
+
 // -> open filemanager when link get clicked
-function imageGallerySelectImage() {
+imageGallerySelectImage = function() {
   fileManagerGallery.show();
 }
 
-// ->> include filemanager gallery
-var hideFileManager = function(){this.hide();}
-var fileManagerGallery = new FileManager.Gallery({
-    url: "library/controllers/filemanager.controller.php",
-    assetBasePath: "library/thirdparty/MooTools-FileManager/Assets",
-    documentRootPath: "'.DOCUMENTROOT.'",
-    language: "'.$_SESSION["feinduraSession"]["backendLanguage"].'",
-    propagateData: {"'.session_name().'":"'.session_id().'"},
-    filter: "image",
-    deliverPathAsLegalURL: true,
-    destroy: true,
-    upload: true,
-    move_or_copy: true,
-    rename: true,
-    createFolders: true,
-    download: true,
-    hideOnClick: true,
-    hideOverlay: true,
-    hideOnDelete: false,
-    listPaginationSize: 100,
-    onShow: function(mgr) {
-        // poulate with the current gallery
-        var obj;
-        Function.attempt(function(){
-          var gallist = $("feinduraPlugin_imageGallery_config_imagesHidden").get("value");
-          obj = JSON.decode(gallist);
-        });
-        mgr.populate(obj, false);
+// loads the gallery javascript
+Asset.javascript("library/thirdparty/MooTools-FileManager/Source/Gallery.js",{
+    onLoad: function(){
 
-        window.location.hash = "#none";
-        $("dimmContainer").setStyle("opacity",0);
-        $("dimmContainer").setStyle("display","block");
-        $("dimmContainer").set("tween", {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-        $("dimmContainer").fade("in");
-        $("dimmContainer").addEvent("click",hideFileManager.bind(this));
-      },
-    onHide: function() {
-        $("dimmContainer").removeEvent("click",hideFileManager);
-        $("dimmContainer").set("tween", {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-        $("dimmContainer").fade("out");
-        $("dimmContainer").get("tween").chain(function() {
-          $("dimmContainer").setStyle("display","none");
+        // vars
+        var filemanagerDimmer = new Element("div",{styles:{"z-index":20008,"position":"fixed", top: 0, "width": "100%","height": "100%"}});
+
+        // get the current gallery
+        var galleryItems = JSON.decode($("feinduraPlugin_imageGallery_config_imagesHidden").get("value"));
+        var galleryDir = (typeOf(galleryItems) == "object") ? Object.keys(galleryItems)[0] : "";
+
+        // ->> include filemanager gallery
+        var hideFileManager = function(){this.hide();};
+
+        fileManagerGallery = new FileManager.Gallery({
+            directory: galleryDir,
+            url: "library/controllers/filemanager.controller.php",
+            assetBasePath: "library/thirdparty/MooTools-FileManager/Assets",
+            documentRootPath: "'.DOCUMENTROOT.'",
+            language: "'.$_SESSION["feinduraSession"]["backendLanguage"].'",
+            propagateData: {"'.session_name().'":"'.session_id().'"},
+            filter: "image",
+            deliverPathAsLegalURL: true,
+            destroy: true,
+            upload: true,
+            move_or_copy: true,
+            rename: true,
+            createFolders: true,
+            download: true,
+            hideOnClick: true,
+            hideOverlay: true,
+            hideOnDelete: false,
+            listPaginationSize: 100,
+            zIndex: 20020,
+            onShow: function(mgr) {
+                mgr.populate(galleryItems, false);
+
+                window.location.hash = "#none";
+
+                filemanagerDimmer.inject(document.body);
+                filemanagerDimmer.addEvent("click",hideFileManager.bind(this));
+              },
+            onHide: function() {
+                filemanagerDimmer.removeEvent("click",hideFileManager);
+                filemanagerDimmer.dispose();
+              },
+            onComplete: function(serialized, files, legal_root_dir, mgr) {
+                $("feinduraPlugin_imageGallery_config_imagesHidden").set("value", decodeURIComponent(JSON.encode(serialized)));
+              }
         });
-      },
-    onComplete: function(serialized, files, legal_root_dir, mgr) {
-        $("feinduraPlugin_imageGallery_config_imagesHidden").set("value", decodeURIComponent(JSON.encode(serialized)));
-      }
+        fileManagerGallery.filemanager.setStyle("width","75%");
+        fileManagerGallery.filemanager.setStyle("height","70%");
+
+    }
 });
-fileManagerGallery.filemanager.setStyle("width","75%");
-fileManagerGallery.filemanager.setStyle("height","70%");
-/* ]]> */';
+';
 
 
 

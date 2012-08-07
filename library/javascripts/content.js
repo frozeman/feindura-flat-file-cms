@@ -588,18 +588,6 @@ window.addEvent('domready', function() {
     }).send('status=updateUserCache&site='+currentSite+'&page='+currentPage);
   }).periodical(180000);
 
-  // DISAPPEAR ALERT MESSAGES
-  if($('messagePopUp') !== null) {
-    $('messagePopUp').setStyle('top',-$('messagePopUp').getSize().y);
-    $('messagePopUp').setStyle('visibility','visible');
-    $('messagePopUp').tween('top',0);
-    (function(){
-      $('messagePopUp').tween('top',-$('messagePopUp').getSize().y);
-      $('messagePopUp').get('tween').chain(function(){
-        $('messagePopUp').setStyle('display','none');
-      });
-    }).delay(4000);
-  }
 
   // *** ->> SIDEBAR MENU -----------------------------------------------------------------------------------------------------------------------
 
@@ -620,14 +608,6 @@ window.addEvent('domready', function() {
   // makes sidebarmenu dynamic
   sidebarMenu();
 
-  // let the ERRORWINDOW get closed by ESC or ENTER keys
-  if($('errorWindow') !== null) {
-    $('errorWindow').setStyle('top',window.getScroll().y + 150);
-    document.addEvent('keyup',function(e){
-      if(e.key == 'esc' || e.key == 'enter')
-        feindura_closeErrorWindow(e);
-    });
-  }
 
   // ->> LOG LIST
   // ------------
@@ -1606,7 +1586,7 @@ window.addEvent('domready', function() {
       HTMLEditor.on('instanceReady',function() {
         var windowScroll = new Fx.Scroll(window.document,{duration:'normal'});
         var ckeditorContent = $('cke_contents_HTMLEditor');
-        ckeditorContent.set('tween',{duration:400, transition: Fx.Transitions.Pow.easeOut});
+        ckeditorContent.set('tween',{duration:400, transition: Fx.Transitions.Pow.easeIn});
         var ckeditorToolBar = $$("#cke_top_HTMLEditor .cke_toolbox")[0];
         // fixes the ckeditor to use slide ins
         $$('.cke_top').setStyles({
@@ -1719,7 +1699,7 @@ window.addEvent('domready', function() {
         jsLoadingCircle.dispose();
 
         if(html.contains('####SAVING-ERROR####'))
-          document.body.grab(feindura_displayError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
+          document.body.grab(feindura_showError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
         else {
           // -> UPDATE the TITLE everywhere
           title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
@@ -1747,7 +1727,7 @@ window.addEvent('domready', function() {
             removeLoadingCircle();
             jsLoadingCircle.dispose();
             // add errorWindow
-            document.body.grab(feindura_displayError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
+            document.body.grab(feindura_showError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
           });
 
         }

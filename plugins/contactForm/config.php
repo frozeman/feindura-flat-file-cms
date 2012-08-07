@@ -14,7 +14,7 @@
  * - "...JsFunction"                 Creates a button, which will call a javascript function with this value as name, like <a href="#" onclick="exampleFunction(); return false;">
  * - "...Hidden"                     It will create a hidden text input field, with the setting value as input value
  * - "...Script"                     It will create a <script> tag with the value as content, before the plugin settings <table> tag.
- * - "...Echo"                       It will just display this string after the last plugin setting ..</td></tr> and before the next <tr><td>... This could be used to create custom config settings in the plugin settings table.
+ * - "...Print"                      It will just display this string after the last plugin setting ..</td></tr> and before the next <tr><td>... This could be used to create custom config settings in the plugin settings table.
  * - if the value is a boolean       It will create a checkbox and will check this value against {@link XssFilter::bool()}<br>
  * 
  *  

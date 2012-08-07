@@ -4473,16 +4473,9 @@
   margin-top: -5px;
 }
 .feindura .btn {
-  color: #666;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.19999999999999996);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.19999999999999996);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.19999999999999996);
-  -webkit-text-shadow: 0 1px 1px #ffffff;
-  -moz-text-shadow: 0 1px 1px #ffffff;
-  text-shadow: 0 1px 1px #ffffff;
-  -ms-text-shadow: 0 1px 1px #ffffff;
-  -o-text-shadow: 0 1px 1px #ffffff;
-  -khtml-text-shadow: 0 1px 1px #ffffff;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.30000000000000004);
 }
 .feindura span.feinduraInline {
   color: #dd6e1f !important;
@@ -4937,7 +4930,13 @@
   width: 600px;
 }
 .feindura #messagePopUp.feindura .alert {
-  margin: 20px 0;
+  padding: 20px;
+  margin: 0;
+  margin-top: 20px;
+  text-align: center;
+  -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.19999999999999996);
 }
 .feindura div.leftSidebarLoadingCircle {
   position: absolute;
@@ -5364,6 +5363,7 @@
 .feindura .textboxlist-bit-box {
   position: relative;
   background: #dee7f8;
+  padding-left: 15px;
   background: #dee7f8;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #cad8f3), color-stop(1, #dee7f8));
   background: -moz-linear-gradient(center bottom, #cad8f3 0%, #dee7f8 100%);

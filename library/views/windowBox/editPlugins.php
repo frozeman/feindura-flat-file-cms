@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
  *
- * deletePageLanguage.php
+ * editPlugins.php
  *
  * @version 0.1
  */
@@ -28,24 +28,22 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 
 // vars
 $post = (!empty($_POST)) ? $_POST : $_GET;
-$error = false;
+
+if(!($pageContent = GeneralFunctions::readPage($post['page'],$post['category']))) {
+  die('#CLOSE#
+  <script type="text/javascript">
+    feindura_showError("'.$langFile['errorWindow_h1'].'","'.sprintf($langFile['file_error_read'],$adminConfig['basePath']).'")
+  </script>');
+}
+
 
 // WHEN THE FORM WAS SEND
 if($post['send'] == 'true') {
 
-  $newUserConfig = $userConfig;
-  $newUserConfig[$post['userId']]['permissions']['frontendEditing']    = $post['frontendEditing'];
-  $newUserConfig[$post['userId']]['permissions']['fileManager']        = (empty($adminConfig['uploadPath'])) ? false : $post['fileManager'];
-  $newUserConfig[$post['userId']]['permissions']['websiteSettings']    = $post['websiteSettings'];
-  $newUserConfig[$post['userId']]['permissions']['editWebsiteFiles']   = $post['editWebsiteFiles'];
-  $newUserConfig[$post['userId']]['permissions']['editStyleSheets']    = $post['editStyleSheets'];
-  $newUserConfig[$post['userId']]['permissions']['editSnippets']       = $post['editSnippets'];
+  $pageContent['plugins'][$post['plugin']][$post['number']] = $post['pluginConfig'];
 
-  $newUserConfig[$post['userId']]['permissions']['editableCategories'] = $post['editableCategories'];
-  $newUserConfig[$post['userId']]['permissions']['editablePages']      = $post['editablePages'];
-
-  if(saveUserConfig($newUserConfig)) {
-    saveActivityLog(28,$savedUsername); // <- SAVE the task in a LOG FILE
+  if(GeneralFunctions::savePage($pageContent)) {
+    // saveActivityLog(28,$savedUsername); // <- SAVE the task in a LOG FILE
 
     // CLOSE the windowBox, if the first part of the response is '#CLOSE#'
     die('#CLOSE#');
@@ -63,44 +61,163 @@ if($post['send'] == 'true') {
   <div>
     <input type="hidden" name="send" value="true">
     <input type="hidden" name="plugin" value="<?php echo $post['plugin']; ?>">
+    <input type="hidden" name="number" value="<?php echo $post['number']; ?>">
+    <input type="hidden" name="page" value="<?php echo $post['page']; ?>">
+    <input type="hidden" name="category" value="<?php echo $post['category']; ?>">
   </div>
+  <?php
 
-  <div class="row">
-    <div class="span3 right">
-      <!-- <input type="checkbox" id="frontendEditing" name="frontendEditing" value="true"<?php if($userConfig[$post['userId']]['permissions']['frontendEditing']) echo ' checked="checked"'; echo $fmDisabled; ?>> -->
-      <?php echo $post['plugin'].$post['count']; ?>
+    // vars
+    $pluginCountryCode = (file_exists(dirname(__FILE__).'/../../../plugins/'.$post['plugin'].'/languages/'.$_SESSION['feinduraSession']['backendLanguage'].'.php'))
+      ? $_SESSION['feinduraSession']['backendLanguage']
+      : 'en';
+    unset($pluginConfig,$pluginLangFile);
+    $pluginConfig = @include(dirname(__FILE__).'/../../../plugins/'.$post['plugin'].'/config.php');
+    $pluginLangFile = @include(dirname(__FILE__).'/../../../plugins/'.$post['plugin'].'/languages/'.$pluginCountryCode.'.php');
+    $pluginName = (isset($pluginLangFile['feinduraPlugin_title'])) ? $pluginLangFile['feinduraPlugin_title'] : $post['plugin'];
+
+    // LIST PLUGINS
+
+    echo '<p>'.$pluginLangFile['feinduraPlugin_description'].'</p>';
+
+    echo '<div class="spacer"></div>';
+
+    // ->> LIST PLUGIN SETTINGS
+    if(!empty($pluginConfig) && is_array($pluginConfig)) {
+
+      // active field
+      echo '<input type="hidden" name="pluginConfig[active]" value="true">';
+
+      foreach($pluginConfig as $key => $orgValue) {
+
+        $value = (!isset($pageContent['plugins'][$post['plugin']][$post['number']][$key]) && $pageContent['plugins'][$post['plugin']][$post['number']][$key] !== false)
+          ? $orgValue
+          : $pageContent['plugins'][$post['plugin']][$post['number']][$key];
+        $keyName = (isset($pluginLangFile[$key]))
+          ? $pluginLangFile[$key]
+          : $key ;
+        $inputLength = (strpos(strtolower($key),'number') !== false || is_numeric($value)) ? ' short' : '';
+        $keyTip = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTipRight'.$inputLength.'" title="::'.$pluginLangFile[$key.'_tip'].'::"' : '';
+
+
+        // BOOL
+        if(is_bool($value)) {
+          $checked = ($value) ? ' checked' : '';
+          echo '<div class="row">
+                  <div class="span3 right">
+                    <input type="hidden" name="pluginConfig['.$key.']" value="false">
+                    <input type="checkbox" id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']" value="true"'.$keyTip.$checked.'>
+                  </div>
+                  <div class="span5">
+                    <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"><span'.$keyTip.'>'.$keyName.'</span></label>
+                  </div>
+                </div>';
+
+        // SCRIPT
+        } elseif(strpos(strtolower($key),'script') !== false) {
+          // will show nothing, it is already displayed before the settings
+
+        // HIDDEN
+        } elseif(strpos(strtolower($key),'hidden') !== false) {
+          echo '<input type="hidden" id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']" value="'.$value.'">';
+
+        // SELECTION
+        } elseif(strpos(strtolower($key),'selection') !== false) {
+          echo '<div class="row">
+                  <div class="span3 right">
+                    <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
+                  </div>
+                  <div class="span5">
+                    <select id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']"'.$keyTip.'>';
+                    foreach ($orgValue as $optionkey => $option) {
+                      if($value == $option)
+                        echo '<option value="'.$option.'" selected="selected">'.$option.'</option>';
+                      else
+                        echo '<option value="'.$option.'">'.$option.'</option>';
+                    }
+
+          echo '    </select>
+                  </div>
+                </div>';
+
+        // JS FUNCTION
+        } elseif(strpos(strtolower($key),'jsfunction') !== false) {
+
+          if(strpos($value,'(') === false)
+            $value .= '()';
+          if(strpos($value,';') === false)
+            $value .= ';';
+
+          echo '<div class="spacer2x"></div>';
+          echo '<div class="row">
+                  <div class="offset3 span5">
+                    <a href="#" class="btn btn-large btn-primary" onclick="'.$value.'return false;"'.$keyTip.'>'.$keyName.'</a>
+                  </div>
+                </div>';
+          echo '<div class="spacer2x"></div>';
+
+        // ECHO/PRINT
+        } elseif(strpos(strtolower($key),'print') !== false || strpos(strtolower($key),'echo') !== false) {
+
+          echo $value;
+
+        // JS NUMBER
+        } elseif(strpos(strtolower($key),'number') !== false || is_numeric($value)) {
+
+          if($keyTip == '')
+            $keyTip = ' class="short"';
+
+          echo '<div class="row">
+                  <div class="span3 right">
+                    <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
+                  </div>
+                  <div class="span5">
+                    <input type="number" id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']" value="'.$value.'"'.$keyTip.'>
+                  </div>
+                </div>';
+
+        // XSSFILTER VALUE
+        } else {
+
+          echo '<div class="row">
+                  <div class="span3 right">
+                    <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
+                  </div>
+                  <div class="span5">
+                    <input type="text" id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']" value="'.$value.'"'.$keyTip.'>
+                  </div>
+                </div>';
+        }
+      }
+    }
+
+  ?>
+
+  <div class="row buttons">
+    <div class="span4 center">
+      <a href="?site=userSetup" class="button cancel" onclick="closeWindowBox();return false;"></a>
     </div>
-    <div class="span5">
-      <label for="frontendEditing"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']; ?></label>
+    <div class="span4 center">
+      <input type="submit" value="" class="button submit">
     </div>
   </div>
-
-
 </form>
 
 <!-- PAGE SCRIPTS -->
 <script type="text/javascript">
 /* <![CDATA[ */
-  $('windowBox').addEvent('loaded',function(){
-
+  $('windowBox').addEvent('loaded',function(){ // event is fired when the windowBox is ready
     // adds cross browser placeholder support
     // new PlaceholderSupport();
 
-    // // enable drag selection
-    // new jsMultipleSelect();
-
-    // // add fancy forms
-    // new FancyForm('#windowBox input[type="checkbox"], #windowBox input[type="radio"]');
-    // $$('#windowBox textarea.autogrow').each(function(textarea){
-    //   new Form.AutoGrow(textarea);
-    // });
-
-    // $$('input#websiteSettings').addEvent('change',function(){
-    //   if(this.checked && $('additionalWebsiteSettings') !== null)
-    //     $('additionalWebsiteSettings').setStyle('display','block');
-    //   else
-    //     $('additionalWebsiteSettings').setStyle('display','none');
-    // });
+    <?php
+    if(!empty($pluginConfig) && is_array($pluginConfig)) {
+      foreach($pluginConfig as $key => $value) {
+        if(strpos(strtolower($key),'script') !== false)
+          echo $value;
+      }
+    }
+    ?>
   });
 /* ]]> */
 </script>

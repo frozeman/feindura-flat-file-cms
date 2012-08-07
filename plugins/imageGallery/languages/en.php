@@ -20,7 +20,7 @@
 /* PLUGIN ************************************************************************************ */
 
 $pluginLangFile['feinduraPlugin_title']        = 'Image Gallery';
-$pluginLangFile['feinduraPlugin_description']  = 'Lists images as gallery. It automatically creates a thumbnail for every image. When you click on a image, it will be shown in full size in a <a href="http://reghellin.com/milkbox/">lightbox</a>.';
+$pluginLangFile['feinduraPlugin_description']  = 'Lists images as gallery. It automatically creates a thumbnail for every image. When you click on a image, it will be shown in full size in a <a href="http://reghellin.com/milkbox/" target="_blank">lightbox</a>.';
 
 /* CONFIG ************************************************************************************ */
 

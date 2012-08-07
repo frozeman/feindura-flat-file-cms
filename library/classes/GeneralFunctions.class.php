@@ -503,9 +503,10 @@ class GeneralFunctions {
    * @return string the new url with add parameter
    *
    *
-   * @version 2.0
+   * @version 2.1
    * <br>
    * <b>ChangeLog</b><br>
+   *    - 2.1 changed &amp; to &
    *    - 2.0 complete rewrite based on {@link http://stackoverflow.com/questions/909193/is-there-a-php-library-that-handles-url-parameters-adding-removing-or-replacin}
    *    - 1.0.1 moved to GeneralFunctions class
    *    - 1.0 initial release
@@ -526,7 +527,7 @@ class GeneralFunctions {
       $params[$key] = $value;
 
     $query = http_build_query($params);
-    return '?'.str_replace('&','&amp;',$query);
+    return '?'.$query;
   }
 
  /**

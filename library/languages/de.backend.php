@@ -36,6 +36,7 @@
  *    - EXAMPLE
  *    - ERROR
  *    - TOOLTIP / TIP
+ *    - MESSAGE // should contain <div class="alert"></div>
  *
  * need a RETURN $langFile; at the END
  */
@@ -754,6 +755,7 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'Plugin Einstellungen';
 $langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'Nach dem du ein plugin aktiviert hast, kannst du es im Editor direkt in die Seite integrieren (%s).';
+$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins gespeichert!</div><div class="alert">Klicken Sie auf ein Plugin, um es zu bearbeiten.</div>';
 
 /*
 * unsavedPage.php

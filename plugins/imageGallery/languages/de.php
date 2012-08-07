@@ -20,7 +20,7 @@
 /* PLUGIN ************************************************************************************ */
 
 $pluginLangFile['feinduraPlugin_title']        = 'Bildergalerie';
-$pluginLangFile['feinduraPlugin_description']  = 'Listet Bilder als Galerie auf. Dabei wird für jedes Bild im Ordner automatisch ein Vorschaubild erstellt. Beim anklicken werden die Bilder in einer <a href="http://reghellin.com/milkbox/">Lightbox</a> vergr&ouml;&szlig;ert.';
+$pluginLangFile['feinduraPlugin_description']  = 'Listet Bilder als Galerie auf. Dabei wird für jedes Bild im Ordner automatisch ein Vorschaubild erstellt. Beim anklicken werden die Bilder in einer <a href="http://reghellin.com/milkbox/" target="_blank">Lightbox</a> vergr&ouml;&szlig;ert.';
 
 /* CONFIG ************************************************************************************ */
 

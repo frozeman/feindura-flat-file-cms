@@ -468,8 +468,8 @@ var FileManager = new Class({
 
 		this.browser = new Element('ul', {'class': 'filemanager-browser'}).inject(this.browserScroll);
 
-		if (this.options.createFolders) this.addMenuButton('create');
 		if (this.options.download) this.addMenuButton('download');
+		if (this.options.createFolders) this.addMenuButton('create');
 		if (this.options.selectable) this.addMenuButton('open');
 
 		this.info = new Element('div', {'class': 'filemanager-infos'});

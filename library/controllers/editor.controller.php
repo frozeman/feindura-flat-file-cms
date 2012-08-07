@@ -77,6 +77,9 @@ if($_POST['save'] && isBlocked() === false) {
 
     // get OTHER LOCALIZED content
     $_POST['localized'] = $pageContent['localized'];
+
+    // transfer plugins
+    $_POST['plugins'] = $pageContent['plugins'];
   }
 
   // -> only save page if no error occured

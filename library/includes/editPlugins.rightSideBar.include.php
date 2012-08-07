@@ -30,7 +30,7 @@
 ?>
 
 <div class="box">
-  <h1><?php echo $langFile['EDITOR_pluginSettings_h1']; ?></h1>
+  <h1 class="toolTipTop" title="::<?php echo sprintf($langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR'],'[i class=\'icons codeSnippets\'][/i]'); ?>"><?php echo $langFile['EDITOR_pluginSettings_h1']; ?></h1>
   <ul class="jsMultipleSelect resizeOnHover" data-jsMultipleSelect="plugins" data-name="plugins" data-type="duplicates">
     <li class="filter"><input type="text" placeholder="<?php echo $langFile['SORTABLEPAGELIST_headText1']; ?>"></li>
     <?php
@@ -88,7 +88,7 @@
 
             // vars
             number = clone.retrieve('number');
-            openWindowBox('library/views/windowBox/editPlugins.php?plugin='+value+'&number='+number,newLink.get('text'));
+            openWindowBox('library/views/windowBox/editPlugins.php?page='+<?php echo $pageContent['id']; ?>+'&category='+<?php echo $pageContent['category']; ?>+'&plugin='+value+'&number='+number,newLink.get('text'));
           }
         }});
         clone.set('html','');
@@ -156,8 +156,7 @@
           onSuccess: function(responseText){
             $('savePluginSelectionDivBlocked').hide();
             removeLoadingCircle();
-            console.log(responseText);
-            // needs now a message pop box which says, 'plugins saved'
+            feindura_showMessage('<?php echo $langFile['EDITOR_MESSAGE_PLUGINSSAVED']; ?>');
           }
         }).send();
 

@@ -121,7 +121,7 @@ function requestSite(site,siteTitle,dataOrFormId) {
         }
     },
     //-----------------------------------------------------------------------------
-		onSuccess: function(html,childs,rawText) { //-------------------------------------------------
+		onSuccess: function(html,childs,rawText,responseJavaScript) { //-------------------------------------------------
 
       //  CLOSE the windowBox AND REDIRECT, if the first part of the response is '#REDIRECT#'
       if(rawText.substring(1,11) == '#REDIRECT#') {
@@ -153,7 +153,7 @@ function requestSite(site,siteTitle,dataOrFormId) {
         // fire a event if the page is loaded
         windowBox.fireEvent('loaded',windowRequestBox);
 
-        // first fill in the title
+        // fill in the TITLE
         if(siteTitle) {
 
           // Clear the title <div>
@@ -275,11 +275,19 @@ window.addEvent('domready', function() {
     closeWindowBox();
   });
 
-  // *** ->> THUMBNAIL -----------------------------------------------------------------------------------------------------------------------
 
-  // run the script if the windowBox is loaded with content
+  // run the scripts if the windowBox is loaded with content
   $('windowBox').addEvent('loaded',function(windowContent) {
 
+    // ADD FANCY FORMS
+    new FancyForm('#windowBox input[type="checkbox"], #windowBox input[type="radio"]');
+
+    // ADD FORM AUTOGROW
+    $$('#windowBox textarea.autogrow').each(function(textarea){
+      new Form.AutoGrow(textarea);
+    });
+
+    // THUMBNAIL SCALE
     // checks if the uploadPageThumbnail site is opend
     if($('uploadPageThumbnailForm') !== null) {
       // hides the iframe on startup

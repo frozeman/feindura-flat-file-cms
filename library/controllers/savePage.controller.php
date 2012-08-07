@@ -54,19 +54,27 @@ if(is_numeric($_POST['page']) && !empty($_POST['type']) && is_array($_POST['data
 
   // switch the types
   switch ($_POST['type']) {
-    // save the plugins
+
+    // save the PLUGINS
     case 'plugins':
       $pluginsBefore = $pageContent['plugins'];
       unset($pageContent['plugins']);
       foreach ($_POST['data'] as $plugins) {
         $pluginNumber = substr($plugins, strpos($plugins, '#')+1);
         $pluginName = substr($plugins, 0 ,strpos($plugins, '#'));
+        $pluginConfig = @include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/config.php');
+
+        // GeneralFunctions::dump($pluginConfig);
 
         // add new plugins, but prevent to overwrite existing ones
         if(is_array($pluginsBefore[$pluginName][$pluginNumber]))
           $pageContent['plugins'][$pluginName][$pluginNumber] = $pluginsBefore[$pluginName][$pluginNumber];
-        else
+        else {
+          $pageContent['plugins'][$pluginName][$pluginNumber] = $pluginConfig;
           $pageContent['plugins'][$pluginName][$pluginNumber]['active'] = true;
+        }
+
+        unset($pluginConfig,$pluginName,$pluginNumber);
       }
       break;
 
@@ -97,7 +105,7 @@ if(is_numeric($_POST['page']) && !empty($_POST['type']) && is_array($_POST['data
     ?>
     <script type="text/javascript">
     /* <![CDATA[ */
-      var errorWindow = feindura_displayError('<?php echo $langFile['errorWindow_h1']; ?>','<?php echo $langFile['ERROR_SAVEPAGE']; ?>');
+      var errorWindow = feindura_showError('<?php echo $langFile['errorWindow_h1']; ?>','<?php echo $langFile['ERROR_SAVEPAGE']; ?>');
       errorWindow.fade('hide');
       errorWindow.inject(document.body);
       errorWindow.fade(1);

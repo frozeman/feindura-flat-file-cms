@@ -38,6 +38,7 @@
  *    - EXAMPLE
  *    - ERROR
  *    - TOOLTIP / TIP
+ *    - MESSAGE // should contain <div class="alert"></div>
  *
  * need a RETURN $langFile; at the END
  */
@@ -759,6 +760,7 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'Настройки расширений';
 $langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'После активации плагина, вы можете разместить его непосредственно в страницу, в редакторе при помощи значка %s.';
+$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Плагины спасены!</div><div class="alert">Нажмите на плагин для редактирования свойств.</div>';
 
 /*
 * unsavedPage.php
