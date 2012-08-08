@@ -152,7 +152,7 @@ if($post['send'] == 'true') {
           echo '<div class="spacer2x"></div>';
           echo '<div class="row">
                   <div class="offset3 span5">
-                    <a href="#" class="btn btn-large btn-primary" onclick="'.$value.'return false;"'.$keyTipRight.'>'.$keyName.'</a>
+                    <a href="#" class="btn btn-large btn-warning" onclick="'.$value.'return false;"'.$keyTipRight.'>'.$keyName.'</a>
                   </div>
                 </div>';
           echo '<div class="spacer2x"></div>';

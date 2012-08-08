@@ -1517,11 +1517,10 @@ window.addEvent('domready', function() {
     // ------------------------------
     // CONFIG the HTMlEditor
     CKEDITOR.config.skin                               = 'BootstrapCK-Skin';
-    // CKEDITOR.config.uiColor                            = 'white';
     CKEDITOR.config.width                              = 771;
     CKEDITOR.config.height = ($('documentSaved') !== null && $('documentSaved').hasClass('saved')) ? editorTweenToHeight : editorStartHeight;
     CKEDITOR.config.resize_minWidth                    = 831;
-    CKEDITOR.config.resize_maxWidth                    = 1400;
+    CKEDITOR.config.resize_maxWidth                    = 1200;
     CKEDITOR.config.resize_minHeight                   = (editorStartHeight+136);
     CKEDITOR.config.resize_maxHeight                   = 900;
     CKEDITOR.config.forcePasteAsPlainText              = false; // was true
@@ -1532,7 +1531,7 @@ window.addEvent('domready', function() {
     CKEDITOR.config.protectedSource.push( /<\?[\s\S]*?\?>/g ); // protect php code
     //CKEDITOR.config.disableNativeSpellChecker = false;
     if($('documentSaved') === null || !$('documentSaved').hasClass('saved'))
-      CKEDITOR.config.toolbarStartupExpanded        = false;
+      CKEDITOR.config.toolbarStartupExpanded = false;
 
 
     CKEDITOR.config.toolbar = [
@@ -1540,15 +1539,15 @@ window.addEvent('domready', function() {
       { name: 'clipboard', items : [ 'Undo','Redo','-','Cut','Copy','Paste','PasteText','PasteFromWord'] },
       { name: 'editing', items : [ 'Find','Replace','-','SelectAll'] }, //,'-','SpellChecker', 'Scayt' ] },
       '/',
+      { name: 'colors', items : [ 'TextColor','BGColor' ] },
       { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
       { name: 'align', items : [ 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] }, //,'-','BidiLtr','BidiRtl' ] },
       { name: 'paragraph', items : [ 'Outdent','Indent','-','NumberedList','BulletedList','-','Blockquote','CreateDiv'] },
-      { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
-      { name: 'insert', items : [ 'Image','Flash','Iframe','Table','HorizontalRule','SpecialChar'] },
-      { name: 'feindura', items : [ 'Snippets'] },
       '/',
       { name: 'styles', items : [ 'Styles','Format','FontSize' ] }, //'Font'
-      { name: 'colors', items : [ 'TextColor','BGColor' ] },
+      { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+      { name: 'insert', items : [ 'Image','Flash','Iframe','-','Table','HorizontalRule','SpecialChar'] },
+      { name: 'feindura', items : [ 'Snippets'] },
       { name: 'tools', items : [ 'ShowBlocks','-','About' ] }
     ];
 

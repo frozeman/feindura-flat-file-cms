@@ -5151,13 +5151,32 @@
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
 }
+.feindura .cke_button_iframe .cke_icon {
+  background-position: 0 -1280px !important;
+}
 .feindura .cke_dialog {
   position: absolute !important;
+}
+.feindura .cke_dialog_title {
+  padding-right: 20px !important;
+  color: #3a79a5 !important;
+  font-weight: normal !important;
+  font-size: 16px !important;
+  line-height: 32px !important;
+  -webkit-text-shadow: 0px 1px 2px #cccccc;
+  -moz-text-shadow: 0px 1px 2px #cccccc;
+  text-shadow: 0px 1px 2px #cccccc;
+  -ms-text-shadow: 0px 1px 2px #cccccc;
+  -o-text-shadow: 0px 1px 2px #cccccc;
+  -khtml-text-shadow: 0px 1px 2px #cccccc;
 }
 .feindura .cke_dialog_body {
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004) !important;
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004) !important;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004) !important;
+}
+.feindura .cke_dialog_footer {
+  min-width: 270px;
 }
 .feindura .cke_dialog,
 .feindura .cke_dialog label {
@@ -5214,8 +5233,7 @@
 }
 .feindura .cke_dialog .FlashPreviewBox,
 .feindura .cke_dialog iframe.cke_pasteframe,
-.feindura .cke_dialog .cke_dialog_ui_input_textarea,
-.feindura .cke_dialog .cke_dialog_ui_html {
+.feindura .cke_dialog .cke_dialog_ui_input_textarea {
   width: 100% !important;
 }
 .feindura .cke_dialog .cke_dialog_ui_html {

@@ -198,6 +198,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
     // -> TRANSPORT Snippets to CKEditor feinduraSnippets plugin
     var feindura_snippets = [
+      ['-',''],
       <?php if($adminConfig['editor']['snippets'] && !empty($_GET['page'])) {
         $transportSnippets = '';
         $snippets = GeneralFunctions::readFolderRecursive(dirname(__FILE__).'/snippets/');

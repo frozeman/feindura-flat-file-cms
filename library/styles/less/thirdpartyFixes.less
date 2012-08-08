@@ -76,14 +76,29 @@ textarea.cke_source {
     #shadow > .drop(0, 0, 5px, 0.3);
     // border: 1px solid #cdcdcd !important;
 }
+.cke_button_iframe .cke_icon {
+    background-position: 0 -1280px !important;
+}
 
 // CKEditor dialog
 .cke_dialog {
     position: absolute !important;
 }
+.cke_dialog_title {
+    padding-right: 20px !important;
+    color: @logoColorBlue !important;
+    font-weight: normal !important;
+    font-size: 16px !important;
+    line-height: 32px !important;
+    #shadow > .text(0px 1px 2px #ccc);
+}
 .cke_dialog_body {
     #shadow > .drop(0, 1px, 10px, 0.3) !important;
 }
+.cke_dialog_footer {
+    min-width: 270px;
+}
+
 .cke_dialog,
 .cke_dialog label {
     font-size: 12px !important;
@@ -108,8 +123,7 @@ select.cke_dialog_ui_input_select {
 }
 .cke_dialog .FlashPreviewBox,
 .cke_dialog iframe.cke_pasteframe,
-.cke_dialog .cke_dialog_ui_input_textarea,
-.cke_dialog .cke_dialog_ui_html {
+.cke_dialog .cke_dialog_ui_input_textarea {
     width: 100% !important;
 }
 .cke_dialog .cke_dialog_ui_html {

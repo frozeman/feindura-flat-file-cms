@@ -50,6 +50,7 @@ $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',
 
   // -> TRANSPORT Snippets to CKEditor feinduraSnippets plugin
   var feindura_plugins = [
+    ['-',''],
 <?php
       // check if plugins are activated
       if(is_array($pageContent['plugins']) && is_array($activatedPlugins) && count($activatedPlugins) >= 1) {
