@@ -1516,11 +1516,11 @@ window.addEvent('domready', function() {
 
     // ------------------------------
     // CONFIG the HTMlEditor
-    CKEDITOR.config.dialog_backgroundCoverColor        = '#333333';
-    CKEDITOR.config.uiColor                            = '#cccccc';
-    CKEDITOR.config.width                              = 800;
+    CKEDITOR.config.skin                               = 'BootstrapCK-Skin';
+    // CKEDITOR.config.uiColor                            = 'white';
+    CKEDITOR.config.width                              = 771;
     CKEDITOR.config.height = ($('documentSaved') !== null && $('documentSaved').hasClass('saved')) ? editorTweenToHeight : editorStartHeight;
-    CKEDITOR.config.resize_minWidth                    = 800;
+    CKEDITOR.config.resize_minWidth                    = 831;
     CKEDITOR.config.resize_maxWidth                    = 1400;
     CKEDITOR.config.resize_minHeight                   = (editorStartHeight+136);
     CKEDITOR.config.resize_maxHeight                   = 900;

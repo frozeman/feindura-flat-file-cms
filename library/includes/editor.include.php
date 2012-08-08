@@ -50,24 +50,28 @@ $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',
 
   // -> TRANSPORT Snippets to CKEditor feinduraSnippets plugin
   var feindura_plugins = [
-    <?php
+<?php
       // check if plugins are activated
       if(is_array($pageContent['plugins']) && is_array($activatedPlugins) && count($activatedPlugins) >= 1) {
+        $transportPlugins = '';
         $hasPlugins = false;
-        foreach ($pageContent['plugins'] as $pluginName => $pluginValues) {
-          if(in_array($pluginName,$activatedPlugins)) {
-            $pluginFolder = $adminConfig['basePath'].'plugins/'.$pluginName;
-            $pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['feinduraSession']['backendLanguage'].'.php'))
-              ? $_SESSION['feinduraSession']['backendLanguage']
-              : 'en';
-            $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/languages/'.$pluginCountryCode.'.php');
-            $hasPlugins = true;
-            echo '["'.str_replace('"','',$pluginLangFile['feinduraPlugin_title']).'","'.$pluginName.'"],';
+        foreach ($pageContent['plugins'] as $pluginName => $plugins) {
+          foreach ($plugins as $pluginNumber => $pluginValues) {
+            if(in_array($pluginName,$activatedPlugins)) {
+              $pluginFolder = $adminConfig['basePath'].'plugins/'.$pluginName;
+              $pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['feinduraSession']['backendLanguage'].'.php'))
+                ? $_SESSION['feinduraSession']['backendLanguage']
+                : 'en';
+              $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/languages/'.$pluginCountryCode.'.php');
+              $hasPlugins = true;
+              $transportPlugins .= '    ["'.str_replace('"','',$pluginLangFile['feinduraPlugin_title']).' #'.$pluginNumber.'","'.$pluginName.'#'.$pluginNumber.'"],'."\n";
+            }
           }
         }
+        echo trim($transportPlugins,",\n")."\n";
       }
-      unset($pluginLangFile);
-    ?>
+      unset($pluginLangFile,$plugins,$pluginValues,$pluginNumber);
+?>
   ];
 
 window.addEvent('domready',function() {
@@ -124,7 +128,7 @@ if($adminConfig['editor']['enterMode'] == 'br') { ?>
 <?php }
 
 // FILEMANAGER
-if($adminConfig['user']['fileManager']) {
+if(GeneralFunctions::hasPermission('fileManager')) {
 ?>
   CKEDITOR.config.filebrowserBrowseUrl      = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath'])."library/views/windowBox/fileManager.php"; ?>';
   CKEDITOR.config.filebrowserImageBrowseUrl = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath'])."library/views/windowBox/fileManager.php?mimType=image"; ?>';

@@ -97,7 +97,8 @@ if($post['send'] == 'true') {
           ? $pluginLangFile[$key]
           : $key ;
         $inputLength = (strpos(strtolower($key),'number') !== false || is_numeric($value)) ? ' short' : '';
-        $keyTip = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTipRight'.$inputLength.'" title="::'.$pluginLangFile[$key.'_tip'].'::"' : '';
+        $keyTipLeft  = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTipLeft'.$inputLength.'" title="::'.$pluginLangFile[$key.'_tip'].'::"' : '';
+        $keyTipRight = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTipRight'.$inputLength.'" title="::'.$pluginLangFile[$key.'_tip'].'::"' : '';
 
 
         // BOOL
@@ -106,10 +107,10 @@ if($post['send'] == 'true') {
           echo '<div class="row">
                   <div class="span3 right">
                     <input type="hidden" name="pluginConfig['.$key.']" value="false">
-                    <input type="checkbox" id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']" value="true"'.$keyTip.$checked.'>
+                    <input type="checkbox" id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']" value="true"'.$keyTipRight.$checked.'>
                   </div>
                   <div class="span5">
-                    <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"><span'.$keyTip.'>'.$keyName.'</span></label>
+                    <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"><span'.$keyTipRight.'>'.$keyName.'</span></label>
                   </div>
                 </div>';
 
@@ -125,10 +126,10 @@ if($post['send'] == 'true') {
         } elseif(strpos(strtolower($key),'selection') !== false) {
           echo '<div class="row">
                   <div class="span3 right">
-                    <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
+                    <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"><span'.$keyTipLeft.'>'.$keyName.'</span></label>
                   </div>
                   <div class="span5">
-                    <select id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']"'.$keyTip.'>';
+                    <select id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']"'.$keyTipRight.'>';
                     foreach ($orgValue as $optionkey => $option) {
                       if($value == $option)
                         echo '<option value="'.$option.'" selected="selected">'.$option.'</option>';
@@ -151,7 +152,7 @@ if($post['send'] == 'true') {
           echo '<div class="spacer2x"></div>';
           echo '<div class="row">
                   <div class="offset3 span5">
-                    <a href="#" class="btn btn-large btn-primary" onclick="'.$value.'return false;"'.$keyTip.'>'.$keyName.'</a>
+                    <a href="#" class="btn btn-large btn-primary" onclick="'.$value.'return false;"'.$keyTipRight.'>'.$keyName.'</a>
                   </div>
                 </div>';
           echo '<div class="spacer2x"></div>';
@@ -164,15 +165,15 @@ if($post['send'] == 'true') {
         // JS NUMBER
         } elseif(strpos(strtolower($key),'number') !== false || is_numeric($value)) {
 
-          if($keyTip == '')
-            $keyTip = ' class="short"';
+          if($keyTipRight == '')
+            $keyTipRight = ' class="short"';
 
           echo '<div class="row">
                   <div class="span3 right">
-                    <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
+                    <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"><span'.$keyTipLeft.'>'.$keyName.'</span></label>
                   </div>
                   <div class="span5">
-                    <input type="number" id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']" value="'.$value.'"'.$keyTip.'>
+                    <input type="number" id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']" value="'.$value.'"'.$keyTipRight.'>
                   </div>
                 </div>';
 
@@ -181,10 +182,10 @@ if($post['send'] == 'true') {
 
           echo '<div class="row">
                   <div class="span3 right">
-                    <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
+                    <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"><span'.$keyTipLeft.'>'.$keyName.'</span></label>
                   </div>
                   <div class="span5">
-                    <input type="text" id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']" value="'.$value.'"'.$keyTip.'>
+                    <input type="text" id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']" value="'.$value.'"'.$keyTipRight.'>
                   </div>
                 </div>';
         }

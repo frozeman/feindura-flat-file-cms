@@ -21,34 +21,53 @@ Element.implement({
   show: function(){
     var element = this;
 
-    if(!element.retrieve('opacityStyle'))
-      element.store('opacityStyle',element.getStyle('opacity'));
+    // store the opacity style, if not available
+    if(!element.retrieve('opacityStyle')) {
+      if(element.getStyle('opacity') !== 0)
+        element.store('opacityStyle',element.getStyle('opacity'));
+      else
+        element.store('opacityStyle',1);
+    }
 
     // store the display style, if not available
-    if(!element.retrieve('displayStyle') && element.getStyle('display') !== 'none')
-      element.store('displayStyle',element.getStyle('display'));
-    else if(!element.retrieve('displayStyle'))
-      element.store('displayStyle','block');
+    if(!element.retrieve('displayStyle')) {
+      if(element.getStyle('display') && element.getStyle('display') !== 'none')
+        element.store('displayStyle',element.getStyle('display'));
+      else
+        element.store('displayStyle','block');
+    }
 
-    element.fade('hide');
+    // element.fade('hide');
     element.setStyle('display',element.retrieve('displayStyle'));
     element.fade(element.retrieve('opacityStyle'));
+    element.get('tween').chain(function(){
+      element.fireEvent('show');
+    });
     return element;
   },
   hide: function(){
     var element = this;
 
-    if(!element.retrieve('displayStyle'))
-      element.store('displayStyle',element.getStyle('display'));
+    // store the opacity style, if not available
+    if(!element.retrieve('opacityStyle')) {
+      if(element.getStyle('opacity') !== 0)
+        element.store('opacityStyle',element.getStyle('opacity'));
+      else
+        element.store('opacityStyle',1);
+    }
 
-    if(!element.retrieve('opacityStyle') && element.getStyle('opacity') !== 0)
-      element.store('opacityStyle',element.getStyle('opacity'));
-    else if(!element.retrieve('opacityStyle'))
-      element.store('opacityStyle',1);
+    // store the display style, if not available
+    if(!element.retrieve('displayStyle')) {
+      if(element.getStyle('display') && element.getStyle('display') !== 'none')
+        element.store('displayStyle',element.getStyle('display'));
+      else
+        element.store('displayStyle','block');
+    }
 
     element.fade(0);
     element.get('tween').chain(function(){
       element.setStyle('display','none');
+      element.fireEvent('hide');
     });
     return element;
   }

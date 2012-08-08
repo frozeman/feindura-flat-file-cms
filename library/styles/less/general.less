@@ -22,7 +22,7 @@
 // Effects
 #boxBasics {
     border: 1px solid #fff;
-    #shadow > .both(0, 1px, 8px, 0.3, #000, 0, 0px, 50px, 0.05);
+    #shadow > .both(0, 1px, 10px, 0.3, #000, 0, 0px, 50px, 0.05);
     #border > .rounded(@blockBorderRadius);
 }
 #boxHeadlineBasics {
@@ -519,6 +519,8 @@ table.coloredList {
     width: 100%;
     height: 100%;
     background: url("../images/bg/dimmContainer.png") repeat;
+    background-color: transparent;
+    #transform > .opacity(0.5);
 }
 
 #documentSaved {

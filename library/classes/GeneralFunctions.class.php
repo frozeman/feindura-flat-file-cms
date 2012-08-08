@@ -1786,9 +1786,10 @@ class GeneralFunctions {
   * @see saveFeeds()
   *
   * @access protected
-  * @version 1.1
+  * @version 1.2
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.2 improved the reg ex to be able to catch multiple plugins of the same type.
   *    - 1.1 add empty code snippet replacement
   *    - 1.0 initial release
   *
@@ -1812,7 +1813,9 @@ class GeneralFunctions {
     $feindura_pageContentString = $pageContentString;
 
 
-    if(preg_match_all ('#<img.*class\=\"(feinduraSnippet|feinduraPlugin)\"[^>]*(?:style\=\"((?:(?:width|height)\:\s?(?:[0-9]*(?:%|px))\;\s?){0,2})\")?[^>]*title\="([^\"]+)?"[^>]*>#i', $feindura_pageContentString, $matches,PREG_SET_ORDER)) {
+    if(preg_match_all ('#<img(?:(?!class).)*class\=\"(feinduraSnippet|feinduraPlugin)\"(?:(?!style).)*(?:style\=\"((?:(?!").)*)")?(?:(?!title).)*title\="((?:(?!").)*)"(?:(?!>).)*>#i', $feindura_pageContentString, $matches,PREG_SET_ORDER)) {
+      // self::dump($matches);
+
       // replace each link
       foreach($matches as $feindura_match) {
 

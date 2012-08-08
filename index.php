@@ -181,27 +181,32 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     var currentPage = '<?php echo $_GET["page"]; ?>';
 
     // -> TRANSPORT pages for CKEditor FEINDURA LINKS
-    <?php
-    if(isset($_GET['page'])) {
-      $getPages = GeneralFunctions::loadPages(true);
-    ?>
     var feindura_pages = [
       ['-',''],
-      <?php foreach($getPages as $getPage) {
-      $categoryText = ($getPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$getPage['category']],'name').' » ' : '';
-      echo "['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($getPage,'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
-      } ?>  ];
-    <?php } ?>
+<?php
+      if(isset($_GET['page'])) {
+        $getPages = GeneralFunctions::loadPages(true);
+        $transportPages = '';
+        foreach($getPages as $getPage) {
+          $categoryText = ($getPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$getPage['category']],'name').' » ' : '';
+          $transportPages .= "      ['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($getPage,'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
+        }
+        echo trim($transportPages,",\n")."\n";
+        unset($getPages,$getPage);
+      } ?>
+    ];
 
     // -> TRANSPORT Snippets to CKEditor feinduraSnippets plugin
     var feindura_snippets = [
       <?php if($adminConfig['editor']['snippets'] && !empty($_GET['page'])) {
+        $transportSnippets = '';
         $snippets = GeneralFunctions::readFolderRecursive(dirname(__FILE__).'/snippets/');
         foreach($snippets['files'] as $snippet) {
           $snippetShort = str_replace($adminConfig['basePath'].'snippets/', '', $snippet);
-          echo '["'.$snippetShort.'","'.$snippetShort.'"],';
+          $transportSnippets .= '["'.$snippetShort.'","'.$snippetShort.'"],'."\n";
         }
-        unset($snippets,$snippet,$snippetShort);
+        echo trim($transportSnippets,",\n")."\n";
+        unset($transportSnippets,$snippets,$snippet,$snippetShort);
       } ?>
     ];
     var feindura_snippets_editInWebsiteSettings = <?php echo (GeneralFunctions::hasPermission('editSnippets')) ? 'true' : 'false' ?>;

@@ -27,19 +27,13 @@ function openWindowBox(site,siteTitle,data) {
   if(site) {
 
     var windowBox = $('windowBox');
+    loadingText = $$('#windowBox > h1').get('html');
 
     // place window in the useres sight
     windowBox.setStyle('top',window.getScroll().y + 100);
-    windowBox.setStyle('display','block');
-    windowBox.fade('hide');
-    windowBox.fade(1);
-
-    loadingText = $$('#windowBox > h1').get('html');
-
+    windowBox.show();
     // dim container
-    $('dimmContainer').setStyle('display','block');
-    $('dimmContainer').fade('hide');
-    $('dimmContainer').fade(1);
+    $('dimmContainer').show();
 
     // setting up the slidecontent
     $('windowRequestBox').set('slide',{duration: 200, transition: Fx.Transitions.Pow.easeOut});
@@ -58,32 +52,28 @@ function openWindowBox(site,siteTitle,data) {
 // and remove alle Events from dimmContainer, windowBox, windowRequestBox
 function closeWindowBox(redirectAfter) {
 
-  var windowBox = $('windowBox');
-
   if(!windowBoxIsVisible)
     return;
+
+  var windowBox = $('windowBox');
 
 	// resize the box by a slide
 	$('dimmContainer').set('tween', {duration: 300, transition: Fx.Transitions.Pow.easeOut});
 
 	// fades the windowBox
-  windowBox.fade('show');
-	windowBox.fade(0);
-
+  windowBox.hide();
 	// fades the dimmContainer
-  $('dimmContainer').fade('show');
-  $('dimmContainer').fade(0);
+  $('dimmContainer').hide();
 
+  windowBox.removeEvents('hide');
   // slides the windowRequestBox out
-  windowBox.get('tween').chain(function() {
+  windowBox.addEvent('hide',function() {
+
     // clear the html inside the windowRequestBox.
     $('windowRequestBox').empty();
     $('windowRequestBox').setStyle('height', 'auto');
 
-    $('dimmContainer').setStyle('display','none');
     $$('#windowBox > h1').set('html',loadingText);
-
-    windowBox.setStyle('display','none');
 
     windowBoxIsVisible = false;
 

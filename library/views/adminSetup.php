@@ -264,7 +264,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <input type="checkbox" id="cfg_cache" name="cfg_cache" value="true"<?php if($adminConfig['cache']['active']) echo ' checked="checked"'; ?> class="toolTipLeft" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHE'].'::'.$langFile['ADMINSETUP_TIP_CACHE']; ?>"><br>
       </div>
       <div class="span5">
-        <label for="cfg_cache"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_TIP_CACHE']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_CACHE']; ?></span></label>
+        <label for="cfg_cache"><span class="toolTipRight" title="::<?php echo $langFile['ADMINSETUP_TIP_CACHE']; ?>"><?php echo $langFile['ADMINSETUP_TEXT_CACHE']; ?></span></label>
       </div>
     </div>
 
@@ -274,7 +274,8 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
         <?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="number" step="0.5" id="cfg_cacheTimeout" name="cfg_cacheTimeout" value=<?php echo '"'.$adminConfig['cache']['timeout'].'"'; ?> class="toolTipRight short" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'].'::'.$langFile['ADMINSETUP_TIP_CACHETIMEOUT']; ?>"><span class="badge badge-warning"><?php echo $langFile['ADMINSETUP_HINT_CACHETIMEOUT']; ?></span>
+        <input type="number" step="0.5" id="cfg_cacheTimeout" name="cfg_cacheTimeout" value=<?php echo '"'.$adminConfig['cache']['timeout'].'"'; ?> class="toolTipRight short" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'].'::'.$langFile['ADMINSETUP_TIP_CACHETIMEOUT']; ?>">
+        <span class="badge badge-warning"><?php echo $langFile['ADMINSETUP_HINT_CACHETIMEOUT']; ?></span>
       </div>
     </div>
 

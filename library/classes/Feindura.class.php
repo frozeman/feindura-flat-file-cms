@@ -2854,7 +2854,7 @@ class Feindura extends FeinduraBase {
   * {@example showPlugins.array.example.php}
   *
   *
-  * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
+  * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins. If its a plugin name and you want the plugin number 2. etc, you need to add the plugin number like "imageGallery#2".
   * @param int|string|array|bool  $id           (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param string|false           $divStyles    (optional) a string with styles, which will be add to the warapping div of the plugin. In the format: "witdh: 200px; height: 100px;"
   * @param bool									  $returnPlugin (optional) whether the plugin is returned, or only a boolean to check if the plugin is available for that page (used by {@link Feindura::hasPlugins()})
@@ -2866,7 +2866,7 @@ class Feindura extends FeinduraBase {
   *
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page
   *
-  * @return array|string|false with the plugin(s) HTML-code, ready to display in a HTML-page, or an empty Array, or FALSE if the plugin(s) or page doesn't exist or the page is not public
+  * @return array|string|false If a single plugin name is given it returns the plugins HTML-code, ready to display in a HTML-page, otherwise array with plugins, an empty array, or FALSE if the plugin(s) or page doesn't exist or the page is not public
   *
   * @see getPageTitle()
   * @see FeinduraBase::generatePage()
@@ -2874,9 +2874,10 @@ class Feindura extends FeinduraBase {
   * @example id.parameter.example.php $id parameter example
   *
   * @access public
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 add plugin numbers, to be able to add multile plugins of the same type
   *    - 1.0 initial release
   *
   */
@@ -2905,49 +2906,50 @@ class Feindura extends FeinduraBase {
             // get the activated plugins
             $activatedPlugins = unserialize($this->categoryConfig[$pageContent['category']]['plugins']);
 
-            foreach($pageContent['plugins'] as $pluginName => $pluginContent) {
+            foreach($pageContent['plugins'] as $pluginName => $pagePlugins) {
+              foreach($pagePlugins as $pluginNumber => $pluginContent) {
+                // go through all plugins and load the required ones
+                if($pluginContent['active'] && // check if activated in the page
+                   (is_bool($plugins) || ($pluginNumber == 1 && in_array($pluginName,$plugins)) || in_array($pluginName.'#'.$pluginNumber,$plugins)) && // is in the requested plugins array
+                   is_array($activatedPlugins) && in_array($pluginName,$activatedPlugins)) { // activated in the adminConfig or categoryConfig
 
-              // go through all plugins and load the required ones
-              if($pluginContent['active'] && // check if activated in the page
-                 (is_bool($plugins) || in_array($pluginName,$plugins)) && // is in the requested plugins array
-                 is_array($activatedPlugins) && in_array($pluginName,$activatedPlugins)) { // activated in the adminConfig or categoryConfig
+                  if($returnPlugin) {
 
-                if($returnPlugin) {
-
-                  // -> PROVIDE VARS for INSIDE the PLUGIN
-                  $pluginConfig     = $pluginContent;
-                  $feindura         = $this;
-                  $feinduraBaseURL  = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']);
-                  $feinduraBasePath = $this->adminConfig['basePath'];
-                  $pluginBaseURL    = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']).'plugins/'.$pluginName.'/';
-                  $pluginBasePath   = $this->adminConfig['basePath'].'plugins/'.$pluginName.'/';
-
-
-                  // remove the active value from the plugin config
-                  unset($pluginConfig['active'],$pluginContent,$plugin);
+                    // -> PROVIDE VARS for INSIDE the PLUGIN
+                    $pluginConfig     = $pluginContent;
+                    $feindura         = $this;
+                    $feinduraBaseURL  = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']);
+                    $feinduraBasePath = $this->adminConfig['basePath'];
+                    $pluginBaseURL    = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']).'plugins/'.$pluginName.'/';
+                    $pluginBasePath   = $this->adminConfig['basePath'].'plugins/'.$pluginName.'/';
 
 
-                  // -> include the plugin
-                  ob_start();
-            		    include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/plugin.php');
-                    $pluginReturn = ob_get_contents();
-                  ob_end_clean();
+                    // remove the active value from the plugin config
+                    unset($pluginConfig['active'],$pluginContent,$plugin);
 
-                  // FALLBACK to support DEPRECATED plugins which use: return $plugin
-                  if(isset($plugin))
-                    $pluginReturn .= $plugin;
 
-                  // -> add div around the plugin
-                  $divStyles = (is_string($divStyles)) ? ' style="'.$divStyles.'"' : '';
-                  $pluginReturn = '<div class="feinduraPlugins feinduraPlugin_'.$pluginName.'" id="feinduraPlugin_'.$pluginName.'_'.$pageContent['id'].'"'.$divStyles.'>'.$pluginReturn.'</div>';
+                    // -> include the plugin
+                    ob_start();
+              		    include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/plugin.php');
+                      $pluginReturn = ob_get_contents();
+                    ob_end_clean();
 
-                  if($singlePlugin) {
-                    return $pluginReturn;
-            		  } else
-                    $pluginsReturn[$pluginName] = $pluginReturn;
+                    // FALLBACK to support DEPRECATED plugins which use: return $plugin
+                    if(isset($plugin))
+                      $pluginReturn .= $plugin;
 
-                } else
-                  $pluginsReturn = true;
+                    // -> add div around the plugin
+                    $divStyles = (is_string($divStyles)) ? ' style="'.$divStyles.'"' : '';
+                    $pluginReturn = '<div class="feinduraPlugins feinduraPlugin_'.$pluginName.'" id="feinduraPlugin_'.$pluginName.'_'.$pageContent['id'].'"'.$divStyles.'>'.$pluginReturn.'</div>';
+
+                    if($singlePlugin) {
+                      return $pluginReturn;
+              		  } else
+                      $pluginsReturn[$pluginName] = $pluginReturn;
+
+                  } else
+                    $pluginsReturn = true;
+                }
               }
             }
           }

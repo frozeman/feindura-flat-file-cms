@@ -61,50 +61,64 @@
     background: url("../images/bg/dimmContainer.png") repeat !important;
     background-color: transparent !important;
 }
-&.cke_skin_kama {
-    a {
-        padding-left: 0;
-        background: none;
-    }
-    textarea.cke_source { // the & is beacuse of the "feindura" class which gets add to the CKEditor container
-        display: block !important;
-        position: absolute !important;
-        visibility: hidden;
-    }
+.cke_maximized {
+    background: whitesmoke;
 }
-
-/* CKEditor HACKS for input */
-div.cke_dialog_ui_input_text {
-    padding: 0px !important;
-    overflow: hidden;
+textarea.cke_source {
+    display: block !important;
+    position: absolute !important;
+    visibility: hidden;
 }
-input.cke_dialog_ui_input_text {
-    padding: 2px !important;
-    margin: 0 !important;
-}
-label.cke_dialog_ui_labeled_label {
-    display: inline-block;
-    margin-bottom: 8px !important;
-}
-
-// CKEditor HACKS for CodeMirror
-// Hack to be able to fullscreen the CKEditor when in CodeMirror
 .cke_contents {
     display: block;
 }
-.cke_contents iframe {
-    #shadow > .drop(0, 0, 5px, 0.2);
+.cke_contents iframe  {
+    #shadow > .drop(0, 0, 5px, 0.3);
+    // border: 1px solid #cdcdcd !important;
 }
 
 // CKEditor dialog
-.cke_dialog_ui_vbox_child a.cke_dialog_ui_button {
-    margin-top: 30px !important;
-}
 .cke_dialog {
-    #shadow > .drop(0, 1, 15px,0.3);
+    position: absolute !important;
 }
-.cke_dialog_tab, .cke_dialog {
-    #border > .rounded(5px);
+.cke_dialog_body {
+    #shadow > .drop(0, 1px, 10px, 0.3) !important;
+}
+.cke_dialog,
+.cke_dialog label {
+    font-size: 12px !important;
+}
+.cke_dialog label {
+    display: inline !important;
+}
+.cke_dialog_ui_vbox_child {
+    padding: 0 !important;
+}
+select.cke_dialog_ui_input_select {
+    width: auto;
+}
+.cke_dialog_ui_vbox_child input {
+    margin: 0 !important;
+}
+.cke_dialog_ui_vbox_child a.cke_dialog_ui_button {
+    .buttonBackground(@btnWarningBackground, @btnWarningBackgroundHighlight);
+    span.cke_dialog_ui_button {
+        color: #fff !important;
+    }
+}
+.cke_dialog .FlashPreviewBox,
+.cke_dialog iframe.cke_pasteframe,
+.cke_dialog .cke_dialog_ui_input_textarea,
+.cke_dialog .cke_dialog_ui_html {
+    width: 100% !important;
+}
+.cke_dialog .cke_dialog_ui_html {
+    margin-bottom: 10px;
+}
+.cke_dialog a.cke_btn_locked,
+.cke_dialog a.cke_btn_unlocked,
+.cke_dialog a.cke_btn_reset {
+    margin-top: 2px !important;
 }
 
 
@@ -139,7 +153,7 @@ div.CodeMirror {
     }
 
     .CodeMirrorActiveline {
-        background-color: #E8EEF9 !important;
+        background-color: #f5f7fc !important;
     }
 }
 textarea.editFiles, .CodeMirror-scroll  {
@@ -148,22 +162,22 @@ textarea.editFiles, .CodeMirror-scroll  {
 }
 
 // CKEDITOR implementation
-&.cke_skin_kama {
+.cke_contents {
     .CodeMirror {
         height: 100%;
         border: 1px solid #b3b3b3;
     }
     .CodeMirror-scroll {
         height: 100%;
-        _position: relative; /* IE6 hack */
+        _position: relative;
     }
     .CodeMirror-scroll * {
         white-space: pre !important;
-        max-width: 750px;
+        max-width: 730px;
     }
-    .cke_maximized .CodeMirror-scroll * {
-        max-width: none;
-    }
+}
+.cke_maximized .CodeMirror-scroll * {
+    max-width: none;
 }
 
 

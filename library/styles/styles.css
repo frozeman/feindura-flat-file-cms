@@ -47,8 +47,6 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
 
-  /* CKEditor HACKS for input */
-
   /* deleteUser */
 
 }
@@ -4284,9 +4282,9 @@
 }
 .feindura #boxBasics {
   border: 1px solid #fff;
-  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -4757,6 +4755,25 @@
   width: 100%;
   height: 100%;
   background: url("../images/bg/dimmContainer.png") repeat;
+  background-color: transparent;
+  /* IE 8 */
+
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+  /* IE 5-7 */
+
+  filter: alpha(opacity=50);
+  /* Netscape */
+
+  -moz-opacity: 0.5;
+  /* Safari 1.x */
+
+  -khtml-opacity: 0.5;
+  /* Webkit */
+
+  -webkit-opacity: 0.5;
+  /* Good browsers */
+
+  opacity: 0.5;
 }
 .feindura #documentSaved {
   position: fixed;
@@ -4831,9 +4848,9 @@
   border: 1px solid #fff;
   text-align: center;
   border: 1px solid #fff;
-  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -5118,51 +5135,96 @@
   background: url("../images/bg/dimmContainer.png") repeat !important;
   background-color: transparent !important;
 }
-.feindura.cke_skin_kama a {
-  padding-left: 0;
-  background: none;
+.feindura .cke_maximized {
+  background: whitesmoke;
 }
-.feindura.cke_skin_kama textarea.cke_source {
+.feindura textarea.cke_source {
   display: block !important;
   position: absolute !important;
   visibility: hidden;
-}
-.feindura div.cke_dialog_ui_input_text {
-  padding: 0px !important;
-  overflow: hidden;
-}
-.feindura input.cke_dialog_ui_input_text {
-  padding: 2px !important;
-  margin: 0 !important;
-}
-.feindura label.cke_dialog_ui_labeled_label {
-  display: inline-block;
-  margin-bottom: 8px !important;
 }
 .feindura .cke_contents {
   display: block;
 }
 .feindura .cke_contents iframe {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
+}
+.feindura .cke_dialog {
+  position: absolute !important;
+}
+.feindura .cke_dialog_body {
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004) !important;
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004) !important;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004) !important;
+}
+.feindura .cke_dialog,
+.feindura .cke_dialog label {
+  font-size: 12px !important;
+}
+.feindura .cke_dialog label {
+  display: inline !important;
+}
+.feindura .cke_dialog_ui_vbox_child {
+  padding: 0 !important;
+}
+.feindura select.cke_dialog_ui_input_select {
+  width: auto;
+}
+.feindura .cke_dialog_ui_vbox_child input {
+  margin: 0 !important;
 }
 .feindura .cke_dialog_ui_vbox_child a.cke_dialog_ui_button {
-  margin-top: 30px !important;
+  background: #fbb450;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f89406), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #f89406 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #f89406 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f89406',GradientType=0);
+  background-color: #faa732;
+  background-image: -moz-linear-gradient(top, #fbb450, #f89406);
+  background-image: -ms-linear-gradient(top, #fbb450, #f89406);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+  background-image: -o-linear-gradient(top, #fbb450, #f89406);
+  background-image: linear-gradient(top, #fbb450, #f89406);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fbb450', endColorstr='#f89406', GradientType=0);
+  border-color: #f89406 #f89406 #ad6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #f89406;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
-.feindura .cke_dialog {
-  -webkit-box-shadow: 0 1 15px rgba(0, 0, 0, 0.30000000000000004);
-  -moz-box-shadow: 0 1 15px rgba(0, 0, 0, 0.30000000000000004);
-  box-shadow: 0 1 15px rgba(0, 0, 0, 0.30000000000000004);
+.feindura .cke_dialog_ui_vbox_child a.cke_dialog_ui_button:hover,
+.feindura .cke_dialog_ui_vbox_child a.cke_dialog_ui_button:active,
+.feindura .cke_dialog_ui_vbox_child a.cke_dialog_ui_button.active,
+.feindura .cke_dialog_ui_vbox_child a.cke_dialog_ui_button.disabled,
+.feindura .cke_dialog_ui_vbox_child a.cke_dialog_ui_button[disabled] {
+  background-color: #f89406;
+  *background-color: #df8505;
 }
-.feindura .cke_dialog_tab,
-.feindura .cke_dialog {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
+.feindura .cke_dialog_ui_vbox_child a.cke_dialog_ui_button:active,
+.feindura .cke_dialog_ui_vbox_child a.cke_dialog_ui_button.active {
+  background-color: #c67605 \9;
+}
+.feindura .cke_dialog_ui_vbox_child a.cke_dialog_ui_button span.cke_dialog_ui_button {
+  color: #fff !important;
+}
+.feindura .cke_dialog .FlashPreviewBox,
+.feindura .cke_dialog iframe.cke_pasteframe,
+.feindura .cke_dialog .cke_dialog_ui_input_textarea,
+.feindura .cke_dialog .cke_dialog_ui_html {
+  width: 100% !important;
+}
+.feindura .cke_dialog .cke_dialog_ui_html {
+  margin-bottom: 10px;
+}
+.feindura .cke_dialog a.cke_btn_locked,
+.feindura .cke_dialog a.cke_btn_unlocked,
+.feindura .cke_dialog a.cke_btn_reset {
+  margin-top: 2px !important;
 }
 .feindura div.CodeMirror-gutter-text,
 .feindura div.CodeMirror-lines {
@@ -5206,27 +5268,25 @@
   font: 14px 'Lucida Sans Unicode', Helvetica, Verdana, Arial !important;
 }
 .feindura div.CodeMirror .CodeMirrorActiveline {
-  background-color: #E8EEF9 !important;
+  background-color: #f5f7fc !important;
 }
 .feindura textarea.editFiles,
 .feindura .CodeMirror-scroll {
   height: 550px;
 }
-.feindura.cke_skin_kama .CodeMirror {
+.feindura .cke_contents .CodeMirror {
   height: 100%;
   border: 1px solid #b3b3b3;
 }
-.feindura.cke_skin_kama .CodeMirror-scroll {
+.feindura .cke_contents .CodeMirror-scroll {
   height: 100%;
   _position: relative;
-  /* IE6 hack */
-
 }
-.feindura.cke_skin_kama .CodeMirror-scroll * {
+.feindura .cke_contents .CodeMirror-scroll * {
   white-space: pre !important;
-  max-width: 750px;
+  max-width: 730px;
 }
-.feindura.cke_skin_kama .cke_maximized .CodeMirror-scroll * {
+.feindura .cke_maximized .CodeMirror-scroll * {
   max-width: none;
 }
 .feindura [class^="span"] > [class^="fancyform"] {
@@ -6793,9 +6853,9 @@
   text-align: center;
   background-color: #fff;
   border: 1px solid #fff;
-  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -7517,6 +7577,14 @@
   position: relative;
   margin-bottom: -30px !important;
   overflow: visible;
+  padding-top: 1px !important;
+  padding-left: 1px !important;
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  border-radius: 5px !important;
+  -moz-background-clip: padding !important;
+  -webkit-background-clip: padding-box !important;
+  background-clip: padding-box !important;
 }
 .feindura .editor .content {
   min-height: 50px;
@@ -7757,9 +7825,9 @@
   background-color: #fff;
   overflow: hidden;
   border: 1px solid #fff;
-  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -7769,8 +7837,8 @@
 }
 .feindura #windowBox > h1 {
   position: relative;
-  top: -1;
-  left: -1;
+  top: -1px;
+  left: -1px;
   z-index: 2;
   padding: 10px 20px;
   width: 760px;
@@ -7965,9 +8033,9 @@
   background: -ms-linear-gradient(bottom, #ffceba 0%, #ffebe2 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffebe2', endColorstr='#ffceba',GradientType=0);
   border: 1px solid #fff;
-  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
