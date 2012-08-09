@@ -759,8 +759,9 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'Настройки расширений';
-$langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'После активации плагина, вы можете разместить его непосредственно в страницу, в редакторе при помощи значка %s.';
+$langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'После того как вы активировали плагин, наведите курсор мыши на плагин, чтобы иметь возможность перетащить его в редакторе, или разместить его непосредственно в редакторе при помощи значка %s.';
 $langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Плагины спасены!</div><div class="alert">Нажмите на плагин для редактирования свойств.</div>';
+$langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Перетащите модуль в редакторе.';
 
 /*
 * unsavedPage.php

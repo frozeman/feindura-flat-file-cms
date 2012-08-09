@@ -27,6 +27,7 @@
  *     - $pluginBasePath            -> the base path of this plugins folder, e.g. "/cms/plugins/examplePlugin/". Be aware that this is a file system path and could differ from an URI path.
  *     - $pluginConfig              -> contains the changed settings from the "config.php" from this plugin
  *     - $pluginName                -> the folder name of this plugin
+ *     - $pluginNumber              -> the number of the plugin (to differ multiple plugins on the same page)
  *     - $pageContent               -> the pageContent array of the page which contains this plugin
  *     - the GeneralFunctions class -> for advanced methods. It's a static class so use "GeneralFunctions::exampleMethod(..);"
  *
@@ -101,7 +102,7 @@ echo '<script type="text/javascript">
     // save the rating
     new Request({
       url: "'.$pluginBaseURL.'saveRating.php",
-      data: "page=" + pageIds[0] + "&category=" + pageIds[1] + "&rating="+this.getProperty("data-pageRating"),
+      data: "page=" + pageIds[0] + "&category=" + pageIds[1] + "&pluginNumber="+'.$pluginNumber.'+"&rating="+this.getProperty("data-pageRating"),
       onRequest: function() {
         feinduraPlugin_pageRating.set("tween",{duration:300});
       },

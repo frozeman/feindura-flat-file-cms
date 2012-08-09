@@ -985,7 +985,7 @@ class FeinduraBase {
       $pageContentEdited = "\n".'<div class="feindura_editPage" id="feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
       $pageContentEdited .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").store("editContent",$("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
 
-    // ->> ADD modified CONTENT (replaceLinks,replaceCodeSnippets,..)
+    // ->> ADD modified CONTENT (replaceLinks,replaceSnippets,..)
     } else {
       $pageContentEdited = GeneralFunctions::generateContent($localizedPageContent, $pageContent['id'], $this->sessionId, $this->language);
 

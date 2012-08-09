@@ -102,7 +102,9 @@ if($post['send'] == 'true') {
 
 
         // BOOL
-        if(is_bool($value)) {
+        if(!is_numeric($value) &&
+           (is_bool($value) ||
+            strpos(strtolower($key),'bool') !== false)) {
           $checked = ($value) ? ' checked' : '';
           echo '<div class="row">
                   <div class="span3 right">
@@ -113,10 +115,6 @@ if($post['send'] == 'true') {
                     <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"><span'.$keyTipRight.'>'.$keyName.'</span></label>
                   </div>
                 </div>';
-
-        // SCRIPT
-        } elseif(strpos(strtolower($key),'script') !== false) {
-          // will show nothing, it is already displayed before the settings
 
         // HIDDEN
         } elseif(strpos(strtolower($key),'hidden') !== false) {
@@ -208,10 +206,9 @@ if($post['send'] == 'true') {
 <script type="text/javascript">
 /* <![CDATA[ */
   $('windowBox').addEvent('loaded',function(){ // event is fired when the windowBox is ready
-    // adds cross browser placeholder support
-    // new PlaceholderSupport();
-
     <?php
+
+    // LOAD PLUGIN SCRIPT
     if(!empty($pluginConfig) && is_array($pluginConfig)) {
       foreach($pluginConfig as $key => $value) {
         if(strpos(strtolower($key),'script') !== false)

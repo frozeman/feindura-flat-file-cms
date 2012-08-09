@@ -5154,6 +5154,12 @@
 .feindura .cke_button_iframe .cke_icon {
   background-position: 0 -1280px !important;
 }
+.feindura .cke_toolbox_collapser {
+  padding: 0 !important;
+}
+.feindura .cke_button a {
+  background-image: none !important;
+}
 .feindura .cke_dialog {
   position: absolute !important;
 }
@@ -5887,7 +5893,7 @@
   position: relative;
   top: 0px;
   left: 0px;
-  z-index: 2;
+  z-index: 8;
   float: left;
   padding-bottom: 20px;
   width: 208px;
@@ -7247,6 +7253,9 @@
   background-position: right 8px;
   width: 100%;
 }
+.feindura .block.listPages .block > h1 > a > span {
+  cursor: pointer;
+}
 .feindura .block.listPages .block > h1 img.blockH1Icon {
   margin-left: 0px;
   margin-right: 5px;
@@ -7651,8 +7660,9 @@
 }
 .feindura #rightSidebar li.jsMultipleSelectOption,
 .feindura #rightSidebar li.filter {
+  position: relative;
   margin: 2px 0 !important;
-  padding: 4px 10px !important;
+  padding-left: 10px;
 }
 .feindura #rightSidebar li.jsMultipleSelectOption a.editSelection,
 .feindura #rightSidebar li.filter a.editSelection {
@@ -7669,13 +7679,20 @@
   margin-bottom: 0 !important;
 }
 .feindura #rightSidebar li.filter {
-  margin-bottom: 5px !important;
+  margin-bottom: 10px !important;
 }
 .feindura #rightSidebar li.filter input {
   position: absolute;
-  top: 3px;
-  left: 5px;
-  width: 83%;
+  top: -1px;
+  left: 0px;
+  width: 88%;
+}
+.feindura #rightSidebar ul.jsMultipleSelectDestination img.feinduraPlugin {
+  position: relative;
+  height: 95px;
+  width: 100%;
+  background: url('../thirdparty/ckeditor/plugins/feinduraSnippets/feinduraPluginPlaceholder.png') no-repeat center center;
+  cursor: move;
 }
 .feindura #editablePageTitle {
   position: relative;
@@ -8134,6 +8151,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  padding-right: 18px;
   padding-left: 30px;
 }
 .feindura ul.jsMultipleSelect li.jsMultipleSelectOption img,
@@ -8175,7 +8193,7 @@
 .feindura ul.jsMultipleSelectDestination li a.remove {
   position: absolute;
   display: none;
-  top: 3px;
+  top: 4px;
   right: 6px;
   padding: 0;
   background: none;

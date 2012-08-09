@@ -33,7 +33,7 @@
 * <br>
 *  <b>ChangeLog</b><br>
 *    - 1.4.1 add {@link GeneralFunctions::dump()}
-*    - 1.4 add {@link GeneralFunctions::replaceCodeSnippets()}
+*    - 1.4 add {@link GeneralFunctions::replaceSnippets()}
 *    - 1.3.1 add schemes to htmlLawed
 *    - 1.3 rewrite of checkLanguageFiles(), now loadLanguageFile()
 *    - 1.2 changed class to static class
@@ -123,10 +123,10 @@ class GeneralFunctions {
 
 
  /**
-  * Keeps an instance of the Feindura class to be used in the {@link GeneralFunctions::replaceCodeSnippets()} method.
+  * Keeps an instance of the Feindura class to be used in the {@link GeneralFunctions::replaceSnippets()} method.
   *
   *
-  * @see GeneralFunctions::replaceCodeSnippets()
+  * @see GeneralFunctions::replaceSnippets()
   *
   * @static
   * @var array
@@ -1111,17 +1111,18 @@ class GeneralFunctions {
           if($plugin['active']) {
             foreach($plugin as $insideKey => $finalValue) {
               // CHECK BOOL VALUES and change to FALSE
-              if(strpos(strtolower($insideKey),'bool') !== false ||
+              if(!is_numeric($plugin[$insideKey]) &&
+                 (strpos(strtolower($insideKey),'bool') !== false ||
                  is_bool($plugin[$insideKey]) ||
                  $plugin[$insideKey] == 'true' ||
-                 $plugin[$insideKey] == 'false')
+                 $plugin[$insideKey] == 'false'))
                 $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = ".XssFilter::bool($plugin[$insideKey],true).";\n";
               elseif(strpos(strtolower($insideKey),'url') !== false)
                 $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = '".XssFilter::url($plugin[$insideKey])."';\n";
               elseif(strpos(strtolower($insideKey),'path') !== false)
                 $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = '".XssFilter::path($plugin[$insideKey])."';\n";
               elseif(strpos(strtolower($insideKey),'number') !== false)
-                $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = '".XssFilter::number($plugin[$insideKey])."';\n";
+                $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = ".XssFilter::number($plugin[$insideKey]).";\n";
               else
                 $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = '".XssFilter::text($plugin[$insideKey])."';\n";
             }
@@ -1150,6 +1151,7 @@ class GeneralFunctions {
         $fileContent .= "\$pageContent['localized'][".$langCode."]['description']        = '".XssFilter::text($pageContentLocalized['description'])."';\n";
 
         $content = (self::$adminConfig['editor']['htmlLawed']) ? self::htmLawed($pageContentLocalized['content']) : $pageContentLocalized['content'];
+        $content = self::cleanPluginPlaceholders($content);
         $fileContent .= "\$pageContent['localized'][".$langCode."]['content']            = '".trim($content)."';\n\n";
       }
     }
@@ -1770,7 +1772,7 @@ class GeneralFunctions {
   }
 
 /**
-  * <b>Name</b> replaceCodeSnippets()<br>
+  * <b>Name</b> replaceSnippets()<br>
   *
   * Replaces all feindura code snippets (e.g. "<img class="feinduraSnippet"...>) inside the given <var>$pageContentString</var> parameter, with either a code snippet or a plugin.
   *
@@ -1794,7 +1796,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public function replaceCodeSnippets($pageContentString, $pageId, $removeSnippets = false) {
+  public function replaceSnippets($pageContentString, $pageId, $removeSnippets = false) {
 
     // get the Feindura class to be used inside the snippets/plugins
     if(!$removeSnippets) {
@@ -2019,7 +2021,7 @@ class GeneralFunctions {
   *
   * @uses GeneralFunctions::htmLawed()
   * @uses GeneralFunctions::replaceLinks()
-  * @uses GeneralFunctions::replaceCodeSnippets()
+  * @uses GeneralFunctions::replaceSnippets()
   * @uses GeneralFunctions::shortenHtmlText()
   *
   *
@@ -2051,7 +2053,7 @@ class GeneralFunctions {
 
       // replace feindura links
       $pageContentEdited = self::replaceLinks($pageContentEdited,$sessionId,$language);
-      $pageContentEdited = self::replaceCodeSnippets($pageContentEdited,$pageId);
+      $pageContentEdited = self::replaceSnippets($pageContentEdited,$pageId);
 
     // -> show no content
     } else
@@ -2157,6 +2159,35 @@ class GeneralFunctions {
       return $newPageContentArray;
     } else
       return $pageContentArrays;
+  }
+
+ /**
+  * <b>Name</b> cleanPluginPlaceholders()<br>
+  *
+  * Removes the src attribute and adds back the draggable=true attribute.
+  *
+  * @param string    $content         a string with pluginPlaceholders
+  *
+  * @return string the changed $content parameter
+  *
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public static function cleanPluginPlaceholders($content) {
+    // remove the src attribute
+    $content = preg_replace('#src\=\"((?:(?!").)*library\/thirdparty\/ckeditor\/plugins\/feinduraSnippets\/snippetFill\.gif?)\"#i', 'src="#"', $content);
+
+    // add the draggable=true back again
+    // $content = str_replace('class="feinduraPlugin"', 'class="feinduraPlugin" draggable="true"', $content);
+
+    // remove the draggable=true attribute
+    $content = str_replace('class="feinduraPlugin" draggable="true"','class="feinduraPlugin"', $content);
+
+    return $content;
   }
 
  /**

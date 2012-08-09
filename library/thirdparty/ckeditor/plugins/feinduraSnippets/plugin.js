@@ -82,7 +82,9 @@ CKEDITOR.plugins.add('feinduraSnippets',
                 var editor = this.getParentEditor();
 
                 elem = editor.document.createElement('img'); //set inital values for the input.supNote element
-                elem.setAttribute('src',feindura_basePath.replace(feindura_websitePath,'')+'library/thirdparty/ckeditor/plugins/feinduraSnippets/snippetFill.gif');
+                // elem.setAttribute('src',feindura_basePath.replace(feindura_websitePath,'')+'library/thirdparty/ckeditor/plugins/feinduraSnippets/snippetFill.gif');
+                elem.setAttribute('src','#');
+                elem.setAttribute('draggable','true');
                 editor.insertElement(elem);
                 this.snippet = elem;
 
@@ -144,13 +146,37 @@ CKEDITOR.plugins.add('feinduraSnippets',
                   'default' : '',
                   items: feindura_plugins,
                   setup: function(element){
+                    var select = this;
+                    // update the plugins selection
+                    select.clear();
+                    feindura_plugins.each(function(feindura_plugin){
+                      select.add(feindura_plugin[0],feindura_plugin[1]);
+                    });
+                    // select the current value
                     if(element !== null && element.hasClass('feinduraPlugin') && this.getDialog().tabs == 'plugins')
                       this.setValue(element.getAttribute('title'));
                   },
                   commit: function(element) {
                     if(this.getDialog().tabs == 'plugins') {
-                      element.addClass('feinduraPlugin');
-                      element.setAttribute('title',this.getValue()); // is used as the data storage
+                      // remove element if "-" is selected
+                      if(this.getValue() === '') {
+                        element.remove();
+                      // otherwise add data to element
+                      } else {
+                        var select = this;
+                        element.addClass('feinduraPlugin');
+
+                        // get the plugin name
+                        var pluginName;
+                        feindura_plugins.each(function(plugin){
+                          if(plugin.contains(select.getValue())){
+                            pluginName = plugin[0];
+                          }
+                        });
+
+                        element.setAttribute('title',select.getValue()); // is used as the data storage
+                        element.setAttribute('alt',pluginName); // is used to show the plugin name
+                      }
                     }
                   }
                 },
@@ -235,8 +261,15 @@ CKEDITOR.plugins.add('feinduraSnippets',
                   },
                   commit: function(element){
                     if(this.getDialog().tabs == 'snippets') {
-                      element.addClass('feinduraSnippet');
-                      element.setAttribute('title',this.getValue()); // is used as the data storage
+                      // remove element if "-" is selected
+                      if(this.getValue() === '') {
+                        element.remove();
+                      // otherwise add data to element
+                      } else {
+                        element.addClass('feinduraSnippet');
+                        element.setAttribute('title',this.getValue()); // is used as the data storage
+                        element.setAttribute('alt',this.getValue()); // is used to show the snippet path
+                      }
                     }
                   }
                 },

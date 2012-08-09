@@ -62,9 +62,9 @@ function setToolTips() {
     },
     html: true,
     arrowSize: 10,
-    distance: 10,
+    distance: 5,
     motionOnHide: false,
-    showDelay: 300
+    showDelay: 250
   };
 
   toolTipsTop = new FloatingTips('.toolTipTop',Object.merge(tipOptions,{
@@ -213,7 +213,7 @@ function resizeElementsOnHover() {
     var orgSize = element.getSize().y;
 
     element.setStyle('height',startSize);
-    element.set('tween',{transition: Fx.Transitions.Quint.easeInOut})
+    element.set('tween',{transition: Fx.Transitions.Quint.easeIn});
     element.addEvents({
       'mouseenter': function(){
         element.tween('height',orgSize);
@@ -221,7 +221,7 @@ function resizeElementsOnHover() {
       'mouseleave': function(){
         element.tween('height',startSize);
       }
-    })
+    });
   });
 }
 
@@ -1505,14 +1505,12 @@ window.addEvent('domready', function() {
   if($('HTMLEditor') !== null) {
 
     // vars
-    var editorStartHeight   = window.getSize().y * 0.30;
+    var editorStartHeight   = window.getSize().y * 0.60;
     var editorTweenToHeight = (window.getSize().y * 0.60 > 420) ? window.getSize().y * 0.60 : 420;
     var editorHasFocus      = false;
     var editorIsClicked     = false;
     var editorSubmited      = false;
     var editorSubmitHeight  = $('HTMLEditorSubmit').getSize().y;
-
-    $$('.mainContent .editor .content').setStyle('display','block'); // shows the hot keys
 
     // ------------------------------
     // CONFIG the HTMlEditor
@@ -1595,13 +1593,13 @@ window.addEvent('domready', function() {
         $$('.cke_toolbox_collapser').setStyles({
           'position':'absolute',
           'right': 25,
-          'top': 8
+          'top': 10
         });
 
-        var editorTweenTimeout;
+        // var editorTweenTimeout;
 
         $$('div.editor #cke_HTMLEditor').addEvent('click',function(e){
-          clearTimeout(editorTweenTimeout);
+          // clearTimeout(editorTweenTimeout);
 
           if(!editorHasFocus && !editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20))
             ckeditorContent.tween('height',editorTweenToHeight);
@@ -1620,19 +1618,19 @@ window.addEvent('domready', function() {
 
           editorHasFocus = true;
         });
-        $$('div.editor #cke_HTMLEditor').addEvent('mouseenter',function(e){
-          if(!editorIsClicked && !editorSubmited && !editorHasFocus && ckeditorContent.getHeight() <= (editorStartHeight+20))
-            editorTweenTimeout = (function(){ckeditorContent.tween('height',editorTweenToHeight);}).delay(1000);
-        });
-        $$('div.editor #cke_HTMLEditor').addEvent('mouseleave',function(e){
-          clearTimeout(editorTweenTimeout);
-          if(!editorIsClicked && !editorSubmited && !editorHasFocus && ckeditorContent.getHeight() <= (editorTweenToHeight+5) && ckeditorContent.getHeight() >= (editorTweenToHeight-5))
-            ckeditorContent.tween('height',editorStartHeight);
-            //editorIsClicked = false;
-        });
+        // $$('div.editor #cke_HTMLEditor').addEvent('mouseenter',function(e){
+        //   if(!editorIsClicked && !editorSubmited && !editorHasFocus && ckeditorContent.getHeight() <= (editorStartHeight+20))
+        //     editorTweenTimeout = (function(){ckeditorContent.tween('height',editorTweenToHeight);}).delay(1000);
+        // });
+        // $$('div.editor #cke_HTMLEditor').addEvent('mouseleave',function(e){
+        //   clearTimeout(editorTweenTimeout);
+        //   if(!editorIsClicked && !editorSubmited && !editorHasFocus && ckeditorContent.getHeight() <= (editorTweenToHeight+5) && ckeditorContent.getHeight() >= (editorTweenToHeight-5))
+        //     ckeditorContent.tween('height',editorStartHeight);
+        //     //editorIsClicked = false;
+        // });
 
         HTMLEditor.on('focus',function() {
-          clearTimeout(editorTweenTimeout);
+          // clearTimeout(editorTweenTimeout);
 
           if(!editorHasFocus && !editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20)) {
             ckeditorContent.tween('height',editorTweenToHeight);

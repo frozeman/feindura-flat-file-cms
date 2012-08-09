@@ -65,6 +65,7 @@ function closeWindowBox(redirectAfter) {
 	// fades the dimmContainer
   $('dimmContainer').hide();
 
+  windowBox.removeEvents('loaded'); // prevent the page scripts from the last windowBox beeing executed again
   windowBox.removeEvents('hide');
   // slides the windowRequestBox out
   windowBox.addEvent('hide',function() {

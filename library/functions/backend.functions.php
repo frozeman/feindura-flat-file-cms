@@ -1616,7 +1616,7 @@ function saveFeeds($category) {
         $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.$GLOBALS['adminConfig']['url'].$GLOBALS['adminConfig']['uploadPath'].$GLOBALS['adminConfig']['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
 
         $content = GeneralFunctions::replaceLinks(GeneralFunctions::getLocalized($feedsPage,'content',$langCode),false,$langCode,true);
-        $content = GeneralFunctions::replaceCodeSnippets($content,$feedsPage['id']); // Has to create a new Feindura class instance inside
+        $content = GeneralFunctions::replaceSnippets($content,$feedsPage['id']); // Has to create a new Feindura class instance inside
         $content = preg_replace('#<script\b[^>]*>[\s\S]*?<\/script>#i', '', $content); // remove script tags
         $content = GeneralFunctions::htmLawed($content,array(
           'comment'=> 1,
@@ -2025,19 +2025,19 @@ function showVisitTime($time) {
   // get the time together
   if($hour) {
     if($hour == 1)
-      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_HOUR_SINGULAR'].'</b>';
+      $printTime = $printTime.' '.$GLOBALS['langFile']['STATISTICS_TEXT_HOUR_SINGULAR'].'';
     else
-      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_HOUR_PLURAL'].'</b>';
+      $printTime = $printTime.' '.$GLOBALS['langFile']['STATISTICS_TEXT_HOUR_PLURAL'].'';
   } elseif($minute) {
     if($minute == 1)
-      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_MINUTE_SINGULAR'].'</b>';
+      $printTime = $printTime.' '.$GLOBALS['langFile']['STATISTICS_TEXT_MINUTE_SINGULAR'].'';
     else
-      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_MINUTE_PLURAL'].'</b>';
+      $printTime = $printTime.' '.$GLOBALS['langFile']['STATISTICS_TEXT_MINUTE_PLURAL'].'';
   } elseif($second) {
     if($second == 1)
-      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_SECOND_SINGULAR'].'</b>';
+      $printTime = $printTime.' '.$GLOBALS['langFile']['STATISTICS_TEXT_SECOND_SINGULAR'].'';
     else
-      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_SECOND_PLURAL'].'</b>';
+      $printTime = $printTime.' '.$GLOBALS['langFile']['STATISTICS_TEXT_SECOND_PLURAL'].'';
   }
 
   // RETURN formated time

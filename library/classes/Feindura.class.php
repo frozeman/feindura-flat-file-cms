@@ -2916,12 +2916,15 @@ class Feindura extends FeinduraBase {
                   if($returnPlugin) {
 
                     // -> PROVIDE VARS for INSIDE the PLUGIN
-                    $pluginConfig     = $pluginContent;
                     $feindura         = $this;
                     $feinduraBaseURL  = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']);
                     $feinduraBasePath = $this->adminConfig['basePath'];
                     $pluginBaseURL    = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']).'plugins/'.$pluginName.'/';
                     $pluginBasePath   = $this->adminConfig['basePath'].'plugins/'.$pluginName.'/';
+                    $pluginConfig     = $pluginContent;
+                    //$pluginName
+                    //$pluginNumber
+                    //$pageContent
 
 
                     // remove the active value from the plugin config

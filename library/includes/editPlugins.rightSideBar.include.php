@@ -30,7 +30,7 @@
 ?>
 
 <div class="box">
-  <h1 class="toolTipTop" title="::<?php echo sprintf($langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR'],'[i class=\'icons codeSnippets\'][/i]'); ?>"><?php echo $langFile['EDITOR_pluginSettings_h1']; ?></h1>
+  <h1 class="toolTipTop" title="::<?php echo sprintf($langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR'],'[i class=\'icons codeSnippets\'][/i]'); ?>"><img src="library/images/icons/pluginsIcon_middle.png" alt="icon" style="position:relative; top:-2px; margin-right:0px;"><?php echo $langFile['EDITOR_pluginSettings_h1']; ?></h1>
   <ul class="jsMultipleSelect resizeOnHover" data-jsMultipleSelect="plugins" data-name="plugins" data-type="duplicates">
     <li class="filter"><input type="text" placeholder="<?php echo $langFile['SORTABLEPAGELIST_headText1']; ?>"></li>
     <?php
@@ -80,19 +80,66 @@
 
       // ADD the LINK to EDIT THE PLUGIN TO the OPTION
       var modifyOption = function(value,name,clone){
+
+        // vars
+        var holdTimeout;
+        var pluginName = clone.get('text').replace('×','');
+        var number = clone.retrieve('number');
+
         // modify the selected plugin
         var closeButton = clone.getChildren('a')[0];
-        var newLink     = new Element('a',{'text':clone.get('text').replace('×',''), 'class':'editSelection', 'href': '#', events:{
+        var newLink     = new Element('a',{'text':pluginName, 'class':'editSelection', 'href': '#', events:{
           click: function(e){
             e.stop();
-
-            // vars
-            number = clone.retrieve('number');
             openWindowBox('library/views/windowBox/editPlugins.php?page='+<?php echo $pageContent['id']; ?>+'&category='+<?php echo $pageContent['category']; ?>+'&plugin='+value+'&number='+number,newLink.get('text'));
           }
         }});
         clone.set('html','');
         clone.grab(newLink).grab(closeButton);
+
+
+        // MAKE the OPTION DRAGGABLE
+        var pluginPlaceholder = new Element('img',{
+          'src':'library/thirdparty/ckeditor/plugins/feinduraSnippets/snippetFill.gif',
+          'class':'feinduraPlugin',
+          'draggable':true,
+          styles: {
+            'width':'100%'
+          },
+          'alt':pluginName,
+          'title':value+'#'+number
+        });
+
+        // ADD TOOLTIP TEXT
+        clone.setProperty('title','::<?php echo $langFile['EDITOR_TIP_DRAGPLUGIN']; ?>');
+        feindura_storeTipTexts(clone);
+        clone.removeProperty('title');
+
+        var clearPluginPlacholder = function(){
+          clearTimeout(holdTimeout);
+          if(pluginPlaceholder.getParent('body') !== null) {
+            newLink.replaces(pluginPlaceholder);
+
+            // remove toolTips
+            toolTipsBottom.detach(clone);
+          }
+        };
+
+        clone.addEvent('mouseenter',function(e){
+          holdTimeout = (function(){
+            clearTimeout(holdTimeout);
+            if(newLink.getParent('body') !== null) {
+              pluginPlaceholder.replaces(newLink);
+
+              // add tooltips
+              toolTipsBottom.show(clone);
+            }
+          }).delay(800);
+        });
+        clone.addEvent('mouseup',clearPluginPlacholder);
+        clone.addEvent('mouseleave',clearPluginPlacholder);
+        $('pluginMultipleSelect').addEvent('mouseleave',clearPluginPlacholder);
+
       };
 
 
@@ -104,6 +151,8 @@
         // show the save button
         $('savePluginSelectionSubmit').setStyle('display','inline-block');
 
+        // UPDATE the feindura_plugins array
+        feindura_plugins.push([clone.get('text').replace('×',''),value+'#'+clone.retrieve('number')]);
       });
 
       // PARESED
@@ -113,6 +162,12 @@
       $('pluginMultipleSelect').addEvent('remove',function(value,name,clone,option,select){
         // show the save button
         $('savePluginSelectionSubmit').setStyle('display','inline-block');
+
+        // UPDATE the feindura_plugins array
+        feindura_plugins.each(function(feindura_plugin,i){
+          if(feindura_plugin.contains(value+'#'+clone.retrieve('number')))
+            feindura_plugins.erase(feindura_plugin);
+        });
       });
 
 
