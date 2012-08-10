@@ -37,7 +37,7 @@ Element.implement({
         element.store('displayStyle','block');
     }
 
-    // element.fade('hide');
+    element.fade('hide');
     element.setStyle('display',element.retrieve('displayStyle'));
     element.fade(element.retrieve('opacityStyle'));
     element.get('tween').chain(function(){
@@ -140,16 +140,19 @@ function feindura_showMessage(html) {
 
   // var
   var messageBox;
+  var hideMessageBox = function(){
+    messageBox.tween('top',-messageBox.getSize().y);
+    messageBox.get('tween').chain(function(){
+      messageBox.destroy();
+    });
+  };
   var showHideMessageBox = function(messageBox) {
     messageBox.setStyle('top',-messageBox.getSize().y);
     messageBox.setStyle('visibility','visible');
     messageBox.tween('top',0);
-    (function(){
-      messageBox.tween('top',-messageBox.getSize().y);
-      messageBox.get('tween').chain(function(){
-        messageBox.destroy();
-      });
-    }).delay(5000);
+
+    messageBox.addEvent('mouseover',hideMessageBox);
+    hideMessageBox.delay(5000);
   };
 
   // -> create NEW MESSAGE BOX

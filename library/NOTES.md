@@ -41,7 +41,7 @@ MooTools more needs the following packages:
 - Array.Extras, String.QueryString, Hash, Element.Delegation, Fx.Scroll, Fx.SmoothScroll, Drag, Drag.Move
 - Events.Pseudos
 - Element.Event.Pseudos, Element.Event.Pseudos.Keys
-- Fx.Slide, Fx.SmoothScroll
+- Fx.Slide, Fx.SmoothScroll, Fx.Reveal
 - Elements.from, Element.Pin, Element.Measure
 - Sortables
 - Scroller

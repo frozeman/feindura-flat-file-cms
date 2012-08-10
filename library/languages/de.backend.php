@@ -601,7 +601,6 @@ $langFile['WEBSITESETUP_TIP_MAINTENANCE']                              = 'Zeigt 
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                            = 'Sitemap-Dateien erzeugen (<a href="http://www.sitemaps.org/" target="_blank">Details</a>)';
 $langFile['WEBSITESETUP_TIP_SITEMAPFILES']                             = 'Die Sitemap-Dateien vereinfachen Suchmaschinen das Indizieren der Webseite.';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                    = 'Mehrsprachige Webseite';
-$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                     = '[strong]Doppel-klicken[/strong] um Sprachen auszuwählen.';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                            = 'Hauptsprache';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                             = 'Die Hauptsprache wird verwendet, wenn nicht automatisch eine passende Sprache erfasst werden konnte.';
 

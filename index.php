@@ -238,19 +238,12 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
           listPaginationSize: 100,
           onShow: function() {
               window.location.hash = '#none';
-              $('dimmContainer').setStyle('opacity',0);
-              $('dimmContainer').setStyle('display','block');
-              $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-              $('dimmContainer').fade('in');
+              $('dimmContainer').show();
               $('dimmContainer').addEvent('click',hideFileManager.bind(this));
             },
           onHide: function() {
               $('dimmContainer').removeEvent('click',hideFileManager);
-              $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-              $('dimmContainer').fade('out');
-              $('dimmContainer').get('tween').chain(function() {
-                $('dimmContainer').setStyle('display','none');
-              });
+              $('dimmContainer').hide();
             }
       });
       fileManager.filemanager.setStyle('width','75%');
@@ -597,7 +590,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                   ?>
                   <li class="spacer"></li>
                   <li style="top: -20px;">
-                    <img src="<?php echo GeneralFunctions::getFlagHref($_SESSION['feinduraSession']['websiteLanguage']); ?>" title="<?php echo $languageNames[$_SESSION['feinduraSession']['websiteLanguage']]; ?>">
+                    <img src="<?php echo GeneralFunctions::getFlagSrc($_SESSION['feinduraSession']['websiteLanguage']); ?>" title="<?php echo $languageNames[$_SESSION['feinduraSession']['websiteLanguage']]; ?>">
                     <select name="websiteLanguageSelection" id="websiteLanguageSelection" tabindex="37">
                     <?php
                       // create language selection

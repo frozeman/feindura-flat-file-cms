@@ -2369,7 +2369,7 @@ class Feindura extends FeinduraBase {
           $link['active']   = ($orgLanguage == $langCode) ? true : false;
           $link['href']     = $this->createHref(false);
           $link['language'] = $langCode;
-          $link['flag']     = GeneralFunctions::getFlagHref($langCode, false);
+          $link['flag']     = GeneralFunctions::getFlagSrc($langCode, false);
           $links[] = $link;
         }
       }

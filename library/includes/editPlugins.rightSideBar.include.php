@@ -54,7 +54,7 @@
   </ul>
 
 
-  <ul id="pluginMultipleSelect" class="jsMultipleSelectDestination" data-jsMultipleSelect="plugins">
+  <ul id="pluginMultipleDestination" class="jsMultipleSelectDestination" data-jsMultipleSelect="plugins">
     <?php
       if(is_array($pageContent['plugins'])) {
         foreach ($pageContent['plugins'] as $pluginName => $plugins) {
@@ -143,7 +143,7 @@
         });
         clone.addEvent('mouseup',clearPluginPlacholder);
         clone.addEvent('mouseleave',clearPluginPlacholder);
-        $('pluginMultipleSelect').addEvent('mouseleave',clearPluginPlacholder);
+        $('pluginMultipleDestination').addEvent('mouseleave',clearPluginPlacholder);
 
       };
 
@@ -151,10 +151,10 @@
       // ->> EVENTS
 
       // PARSED
-      $('pluginMultipleSelect').addEvent('parsed',modifyOption);
+      $('pluginMultipleDestination').addEvent('parsed',modifyOption);
 
       // SELECT
-      $('pluginMultipleSelect').addEvent('select',function(value,name,clone,option){
+      $('pluginMultipleDestination').addEvent('select',function(value,name,clone,option){
         modifyOption(value,name,clone);
 
         // UPDATE the feindura_plugins array
@@ -171,7 +171,7 @@
       });
 
       // REMOVE
-      $('pluginMultipleSelect').addEvent('remove',function(value,name,clone,option,select){
+      $('pluginMultipleDestination').addEvent('remove',function(value,name,clone,option,select){
 
         // UPDATE the feindura_plugins array
         feindura_plugins.each(function(feindura_plugin,i){
@@ -195,48 +195,48 @@
       });
 
 
-      var savePlugins = function(){
+      // var savePlugins = function(){
 
-        // vars
-        var removeLoadingCircle;
-        var selectedOptions = $('pluginMultipleSelect').retrieve('selectedOptions');
-        var selectedJson = {
-          'page': <?php echo $pageContent['id']; ?>,
-          'category': <?php echo $pageContent['category']; ?>,
-          'return':false,
-          'type':'plugins',
-          'data':[]
-        };
+      //   // vars
+      //   var removeLoadingCircle;
+      //   var selectedOptions = $('pluginMultipleDestination').retrieve('selectedOptions');
+      //   var selectedJson = {
+      //     'page': <?php echo $pageContent['id']; ?>,
+      //     'category': <?php echo $pageContent['category']; ?>,
+      //     'return':false,
+      //     'type':'plugins',
+      //     'data':[]
+      //   };
 
-        // prepare post data
-        selectedOptions.each(function(option){
+      //   // prepare post data
+      //   selectedOptions.each(function(option){
 
-          var value = option.retrieve('value');
-          var number = option.retrieve('number');
-          value += '#'+ number;
+      //     var value = option.retrieve('value');
+      //     var number = option.retrieve('number');
+      //     value += '#'+ number;
 
-          if(typeOf(value) !== 'null')
-          selectedJson.data.push(value);
-        });
+      //     if(typeOf(value) !== 'null')
+      //     selectedJson.data.push(value);
+      //   });
 
-        new Request({
-          url: 'library/controllers/savePage.controller.php',
-          method: 'post',
-          data: selectedJson,
-          evalScripts: true,
-          onRequest: function(){
-            $('savePluginSelectionSubmit').setStyle('display','none');
-            $('savePluginSelectionDivBlocked').show();
-            // add loading circle
-            removeLoadingCircle = feindura_loadingCircle('savePluginSelectionLoadingCircleHolder', 14, 23, 12, 3, "#000");
-          },
-          onSuccess: function(responseText){
-            $('savePluginSelectionDivBlocked').hide();
-            removeLoadingCircle();
-            feindura_showMessage('<?php echo $langFile['EDITOR_MESSAGE_PLUGINSSAVED']; ?>');
-          }
-        }).send();
-      };
+      //   new Request({
+      //     url: 'library/controllers/savePage.controller.php',
+      //     method: 'post',
+      //     data: selectedJson,
+      //     evalScripts: true,
+      //     onRequest: function(){
+      //       $('savePluginSelectionSubmit').setStyle('display','none');
+      //       $('savePluginSelectionDivBlocked').reveal();
+      //       // add loading circle
+      //       removeLoadingCircle = feindura_loadingCircle('savePluginSelectionLoadingCircleHolder', 14, 23, 12, 3, "#000");
+      //     },
+      //     onSuccess: function(responseText){
+      //       $('savePluginSelectionDivBlocked').dissolve();
+      //       removeLoadingCircle();
+      //       feindura_showMessage('<?php echo $langFile['EDITOR_MESSAGE_PLUGINSSAVED']; ?>');
+      //     }
+      //   }).send();
+      // };
 
     })();
   /* ]]> */

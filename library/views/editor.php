@@ -223,7 +223,7 @@ if(!$newPage) {
                 <div class="span5">';
                   if(is_array($pageContent['localized'])) {
                     foreach ($pageContent['localized'] as $langCode => $values) {
-                      echo '<a href="'.GeneralFunctions::addParameterToUrl(array('websiteLanguage','status'),array($langCode,'')).'" class="image" style="font-size:12px;"><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag" alt="flag icon"> '.$languageNames[$langCode].'</a>';
+                      echo '<a href="'.GeneralFunctions::addParameterToUrl(array('websiteLanguage','status'),array($langCode,'')).'" class="image" style="font-size:12px;"><img src="'.GeneralFunctions::getFlagSrc($langCode).'" class="flag" alt="flag icon"> '.$languageNames[$langCode].'</a>';
                       if($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) echo '<img src="library/images/icons/edited_small.png" style="position:absolute; margin-top:1px;" alt="icon">';
                       echo '<br>';
                     }
@@ -231,7 +231,7 @@ if(!$newPage) {
                   // list not yet existing languages of the page
                   if($missingLanguages) {
                     foreach ($missingLanguages as $langCode) {
-                        echo '<a href="'.GeneralFunctions::addParameterToUrl(array('websiteLanguage','status'),array($langCode,'addLanguage')).'" class="image gray" style="font-size:12px;"><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag" alt="flag icon"> <s>'.$languageNames[$langCode].'</s></a>';
+                        echo '<a href="'.GeneralFunctions::addParameterToUrl(array('websiteLanguage','status'),array($langCode,'addLanguage')).'" class="image gray" style="font-size:12px;"><img src="'.GeneralFunctions::getFlagSrc($langCode).'" class="flag" alt="flag icon"> <s>'.$languageNames[$langCode].'</s></a>';
                         if($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) echo '<img src="library/images/icons/edited_small.png" style="position:absolute; margin-top:1px;" alt="icon">';
                         echo '<br>';
                     }

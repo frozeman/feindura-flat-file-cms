@@ -608,7 +608,6 @@ $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'П�
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Карта сайта Файлы создать (<a href="http://www.sitemaps.org/" target="_blank">детали</a>)';
 $langFile['WEBSITESETUP_TIP_SITEMAPFILES']                                = 'Карта сайта файлы упростить поисковые системы для индексации сайта.';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Мульти язык сайта';
-$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[strong]двойной клик[/strong] для выбора языка.';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Основной язык';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'Основной язык будет выбран, если нет соответствующего языка может быть определен автоматически.';
 

@@ -572,7 +572,6 @@ $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Aff
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Créer des fichiers Sitemap (<a href="http://www.sitemaps.org/" target="_blank">détails</a>)';
 $langFile['WEBSITESETUP_TIP_SITEMAPFILES']                                = 'Les fichiers sitemap simplifier les moteurs de recherche à l&#145;index de ce site.';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'site web multi-langues';
-$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[strong]double clic[/strong] pour sélectionner les langues.';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'La langue principale';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'La langue principale sera choisi, si aucune langue correspondante pourrait être déterminé automatiquement.';
 

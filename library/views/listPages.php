@@ -240,15 +240,15 @@ foreach($categoryConfig as $category) {
             $pageTitle_pageLanguages .= '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].'[/strong][br]';
             if(is_array($pageContent['localized'][0])) {
               foreach ($pageContent['localized'] as $langCode => $values) {
-                $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
+                $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
               }
             }
             // list not yet existing languages of the page
             if(is_array($websiteConfig['multiLanguageWebsite']['languages'])) {
               foreach($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
                 if(!isset($pageContent['localized'][$langCode])) {
-                  $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] [span class=gray][s]'.$languageNames[$langCode].'[/s][/span][br]';
-                  $missingLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
+                  $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] [span class=gray][s]'.$languageNames[$langCode].'[/s][/span][br]';
+                  $missingLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
                 }
               }
             }

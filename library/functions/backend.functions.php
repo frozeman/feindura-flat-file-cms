@@ -2788,7 +2788,7 @@ function missingLanguageWarning() {
   if($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'] != array_keys($GLOBALS['websiteConfig']['localized'])) {
     foreach ($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'] as $langCode) {
       if(!isset($GLOBALS['websiteConfig']['localized'][$langCode])) {
-        $websiteConfig .= '<span><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> <a href="?site=websiteSetup&amp;websiteLanguage='.$langCode.'" class="link gray">'.$GLOBALS['languageNames'][$langCode].'</a></span><br>';
+        $websiteConfig .= '<span><img src="'.GeneralFunctions::getFlagSrc($langCode).'" class="flag"> <a href="?site=websiteSetup&amp;websiteLanguage='.$langCode.'" class="link gray">'.$GLOBALS['languageNames'][$langCode].'</a></span><br>';
       }
     }
   }
@@ -2812,7 +2812,7 @@ function missingLanguageWarning() {
           if(!isset($category['localized'][$langCode])) {
             $categoryName = GeneralFunctions::getLocalized($category,'name');
             $categoryName = (!empty($categoryName)) ? ' &rArr; '.$categoryName : '';
-            $categoryConfig .= '<span><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> '.$GLOBALS['languageNames'][$langCode].'<a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="link gray">'.$categoryName.'</a></span><br>';
+            $categoryConfig .= '<span><img src="'.GeneralFunctions::getFlagSrc($langCode).'" class="flag"> '.$GLOBALS['languageNames'][$langCode].'<a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="link gray">'.$categoryName.'</a></span><br>';
           }
         }
       }

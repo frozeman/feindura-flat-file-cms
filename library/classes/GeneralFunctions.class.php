@@ -1706,7 +1706,7 @@ class GeneralFunctions {
   }
 
  /**
-  * <b>Name</b> getFlagHref()<br>
+  * <b>Name</b> getFlagSrc()<br>
   *
   * Returns the right flag from the <var>library/images/icons/flags</var> folder.
   * If no flag with the given <var>$countryCode</var> parameter exists, it returns a generic flag (<var>library/images/icons/flags/none.png</var>).
@@ -1723,7 +1723,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function getFlagHref($countryCode, $backend = true) {
+  public static function getFlagSrc($countryCode, $backend = true) {
 
     // var
     $countryCode = strtolower($countryCode);
