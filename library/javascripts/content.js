@@ -754,69 +754,74 @@ window.addEvent('domready', function() {
   }
 
   // SELECT PAGES ------------------------------------------------------------------------------
-  window.addEvent('keydown',function(e){
+  if($('listPagesBlock') !== null) {
+    window.addEvent('keydown',function(e){
 
-    // move the cursor to select pages
-    if(typeOf(e.key) != 'null' && (e.key == 'up' || e.key == 'down' ||  e.key == 'enter')) {
+      // move the cursor to select pages
+      if(typeOf(e.key) != 'null' && (e.key == 'up' || e.key == 'down' ||  e.key == 'enter')) {
+        e.stop();
 
-      var pageBefore = null;
-      var pageAfter = null;
-      var selectedPage = false;
+        var pageBefore = null;
+        var pageAfter = null;
+        var selectedPage = false;
 
+        if($('listPagesFilter').getProperty('value').length === 0)
+          listPagesBars = $$('div.block.listPagesBlock li');
 
-      // get the selected page
-      listPagesBars.each(function(page){
-        if(page.retrieve('selected') === true) {
-          selectedPage = page;
-          // deselect the old page
-          selectedPage.removeClass('active');
-          // remove: is selected page
-          selectedPage.eliminate('selected');
+        // get the selected page
+        listPagesBars.each(function(page){
+          if(page.retrieve('selected') === true) {
+            selectedPage = page;
+            // deselect the old page
+            selectedPage.removeClass('active');
+            // remove: is selected page
+            selectedPage.eliminate('selected');
+          }
+        });
+
+        // OPEN the page on ENTER
+        if(typeOf(e.key) != 'null' && e.key == 'enter' && typeOf(selectedPage) !== 'null' && selectedPage !== false) {
+          // e.preventDefault();
+          window.location.href = 'index.php?category='+selectedPage.get('data-categoryId')+'&page='+selectedPage.get('data-pageId');
+          return;
         }
-      });
 
-      // OPEN the page on ENTER
-      if(typeOf(e.key) != 'null' && e.key == 'enter' && typeOf(selectedPage) !== 'null' && selectedPage !== false) {
-        // e.preventDefault();
-        window.location.href = 'index.php?category='+selectedPage.get('data-categoryId')+'&page='+selectedPage.get('data-pageId');
-        return;
-      }
+        // move the selection up or down
+        listPagesBars.each(function(curPage,index) {
+          if(curPage === selectedPage) {
+            pageBefore = listPagesBars[index-1];
+            pageAfter = listPagesBars[index+1];
+          }
+        });
+        // move the cursor
+        if(typeOf(e) != 'null' && e.key == 'up' && typeOf(pageBefore) !== 'null')
+          selectedPage = pageBefore;
+        else if(typeOf(e) != 'null' && e.key == 'down' && typeOf(pageAfter) !== 'null')
+          selectedPage = pageAfter;
 
-      // move the selection up or down
-      listPagesBars.each(function(curPage,index) {
-        if(curPage === selectedPage) {
-          pageBefore = listPagesBars[index-1];
-          pageAfter = listPagesBars[index+1];
+        // select the first if no page was selected
+        if(selectedPage === false) {
+          selectedPage = listPagesBars[0];
         }
-      });
-      // move the cursor
-      if(typeOf(e) != 'null' && e.key == 'up' && typeOf(pageBefore) !== 'null')
-        selectedPage = pageBefore;
-      else if(typeOf(e) != 'null' && e.key == 'down' && typeOf(pageAfter) !== 'null')
-        selectedPage = pageAfter;
-
-      // select the first if no page was selected
-      if(selectedPage === false) {
-        selectedPage = listPagesBars[0];
-      }
 
 
-      // mark the selected page
-      if(selectedPage !== null && typeOf(selectedPage) !== 'null') {
-        selectedPage.addClass('active');
-        selectedPage.store('selected',true);
+        // mark the selected page
+        if(selectedPage !== null && typeOf(selectedPage) !== 'null') {
+          selectedPage.addClass('active');
+          selectedPage.store('selected',true);
 
-        // slide the current category
-        var categoryBlock =  $('category' + selectedPage.get('data-categoryId')).getParent('div.listPagesBlock');
-        if(categoryBlock.hasClass('hidden')) {
-          categoryBlock.removeClass('hidden'); // change the arrow
-          categoryBlock.getElement('div.content').setStyle('display','block'); // to allow sorting above the slided in box (reset)
-          categoryBlock.getElement('div.content').slide('show');
-          categoryBlock.getElement('div.content').get('slide').wrapper.setStyle('height','auto');
+          // slide the current category
+          var categoryBlock =  $('category' + selectedPage.get('data-categoryId')).getParent('div.listPagesBlock');
+          if(categoryBlock.hasClass('hidden')) {
+            categoryBlock.removeClass('hidden'); // change the arrow
+            categoryBlock.getElement('div.content').setStyle('display','block'); // to allow sorting above the slided in box (reset)
+            categoryBlock.getElement('div.content').slide('show');
+            categoryBlock.getElement('div.content').get('slide').wrapper.setStyle('height','auto');
+          }
         }
       }
-    }
-  });
+    });
+  }
 
   // FILTER LIST PAGES -------------------------------------------------------------------------
   if($('listPagesFilter') !== null) {

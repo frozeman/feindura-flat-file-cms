@@ -20,7 +20,7 @@ var jsMultipleSelect = new Class({
 
   options: {
     highlightColor: '#cedee6',
-    removeButton: new Element('a',{'html':'&#215;'}),
+    removeButton: new Element('a',{'html':'&#215;','href':'#'}),
     removeButtonClass: 'remove'
   },
   initialize : function(options){
@@ -53,7 +53,9 @@ var jsMultipleSelect = new Class({
 
 
       // CLOSE FUNCTION
-      var closeFunction = function() {
+      var closeFunction = function(e) {
+        if(e) e.stop();
+
         var clone          = this.getParent('li');
         var option         = clone.retrieve('option');
 

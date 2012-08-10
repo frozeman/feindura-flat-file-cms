@@ -85,6 +85,31 @@ if($_POST['save'] && isBlocked() === false) {
   // -> only save page if no error occured
   if($errorWindow === false) {
 
+
+    // SAVE NEW PLUGINS and REMOVE OLD ONES
+    $pluginsBefore = $_POST['plugins'];
+    unset($_POST['plugins']);
+    if(is_array($_POST['newPlugins'])){
+      foreach($_POST['newPlugins'] as $plugins) {
+        $pluginNumber = substr($plugins, strpos($plugins, '#')+1);
+        $pluginName = substr($plugins, 0 ,strpos($plugins, '#'));
+        $pluginConfig = @include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/config.php');
+
+        // GeneralFunctions::dump($pluginConfig);
+
+        // add new plugins, but prevent to overwrite existing ones
+        if(is_array($pluginsBefore[$pluginName][$pluginNumber]))
+          $_POST['plugins'][$pluginName][$pluginNumber] = $pluginsBefore[$pluginName][$pluginNumber];
+        else {
+          $_POST['plugins'][$pluginName][$pluginNumber] = $pluginConfig;
+          $_POST['plugins'][$pluginName][$pluginNumber]['active'] = true;
+        }
+
+        unset($pluginConfig,$pluginName,$pluginNumber);
+      }
+    }
+
+
     // STORE LOCALIZED CONTENT
     $_POST['localized'][$_POST['websiteLanguage']]['pageDate']['before'] = $_POST['pageDate']['before'];
     $_POST['localized'][$_POST['websiteLanguage']]['pageDate']['after'] = $_POST['pageDate']['after'];

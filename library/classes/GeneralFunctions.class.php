@@ -1815,7 +1815,7 @@ class GeneralFunctions {
     $feindura_pageContentString = $pageContentString;
 
 
-    if(preg_match_all ('#<img(?:(?!class).)*class\=\"(feinduraSnippet|feinduraPlugin)\"(?:(?!style).)*(?:style\=\"((?:(?!").)*)")?(?:(?!title).)*title\="((?:(?!").)*)"(?:(?!>).)*>#i', $feindura_pageContentString, $matches,PREG_SET_ORDER)) {
+    if(preg_match_all ('#<img(?:(?!class).)*class\=\"(feinduraSnippet|feinduraPlugin)\"(?:(?:(?!style).)*style\=\"((?:(?!").)*)")?(?:(?!title).)*title\="((?:(?!").)*)"(?:(?!>).)*>#i', $feindura_pageContentString, $matches,PREG_SET_ORDER)) {
       // self::dump($matches);
 
       // replace each link
@@ -2182,10 +2182,11 @@ class GeneralFunctions {
     $content = preg_replace('#src\=\"((?:(?!").)*library\/thirdparty\/ckeditor\/plugins\/feinduraSnippets\/snippetFill\.gif?)\"#i', 'src="#"', $content);
 
     // add the draggable=true back again
-    // $content = str_replace('class="feinduraPlugin"', 'class="feinduraPlugin" draggable="true"', $content);
+    if(strpos($content, 'class="feinduraPlugin" draggable="true"') === false)
+      $content = str_replace('class="feinduraPlugin"', 'class="feinduraPlugin" draggable="true"', $content);
 
     // remove the draggable=true attribute
-    $content = str_replace('class="feinduraPlugin" draggable="true"','class="feinduraPlugin"', $content);
+    // $content = str_replace('class="feinduraPlugin" draggable="true"','class="feinduraPlugin"', $content);
 
     return $content;
   }

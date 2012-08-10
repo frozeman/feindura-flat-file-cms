@@ -70,6 +70,12 @@ Element.implement({
       element.fireEvent('hide');
     });
     return element;
+  },
+  getString: function() {
+      var tmp = new Element('div');
+      this.inject(tmp);
+
+      return tmp.get('html');
   }
 });
 

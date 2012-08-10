@@ -1076,9 +1076,10 @@ function saveUserConfig($userConfig) {
  *
  * @example backend/websiteConfig.array.example.php of the $websiteConfig array
  *
- * @version 1.2
+ * @version 1.3
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.3 add sitemap files option
  *    - 1.2 add localization
  *    - 1.1 change from fopen() to file_put_contents()
  *    - 1.0.3 add prevent resetting check
@@ -1100,6 +1101,7 @@ function saveWebsiteConfig($websiteConfig) {
     $fileContent .= "<?php\n"; //< ?php
 
     $fileContent .= "\$websiteConfig['maintenance']                          = ".XssFilter::bool($websiteConfig['maintenance'],true).";\n";
+    $fileContent .= "\$websiteConfig['sitemapFiles']                         = ".XssFilter::bool($websiteConfig['sitemapFiles'],true).";\n";
     $fileContent .= "\$websiteConfig['setStartPage']                         = ".XssFilter::bool($websiteConfig['setStartPage'],true).";\n";
     $fileContent .= "\$websiteConfig['startPage']                            = ".XssFilter::int($websiteConfig['startPage'],0).";\n\n";
 
@@ -1433,6 +1435,9 @@ function saveActivityLog($task, $object = false) {
 *
 */
 function saveSitemap() {
+
+  if(!$GLOBALS['websiteConfig']['sitemapFiles'])
+    return false;
 
   // vars
   $websitePath = GeneralFunctions::getDirname($GLOBALS['adminConfig']['websitePath']);

@@ -663,7 +663,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- ************************************************************************* -->
   <!-- ** ERROR WINDOW ********************************************************* -->
   <script type="text/javascript">
-    feindura_showError('<?php echo $langFile['errorWindow_h1']; ?>','<?php echo $errorWindow; ?>')
+    feindura_showError('<?php echo $langFile['errorWindow_h1']; ?>','<?php echo str_replace(array("\n","\t"),'',$errorWindow); ?>');
   </script>
   <?php } ?>
 

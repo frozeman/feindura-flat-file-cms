@@ -129,6 +129,15 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
 
     <div class="row">
       <div class="span3 formLeft">
+        <input type="checkbox" id="sitemapFiles" name="sitemapFiles" value="true" class="toolTipLeft" title="::<?php echo $langFile['WEBSITESETUP_TIP_SITEMAPFILES']; ?>"<?php if($websiteConfig['sitemapFiles']) echo ' checked="checked"'; ?>>
+      </div>
+      <div class="span5">
+        <label for="sitemapFiles"><span class="toolTipRight" title="::<?php echo $langFile['WEBSITESETUP_TIP_SITEMAPFILES']; ?>"><?php echo $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']; ?></span></label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span3 formLeft">
         <input type="checkbox" id="multiLanguageWebsite" name="multiLanguageWebsite" value="true" <?php if($websiteConfig['multiLanguageWebsite']['active']) echo ' checked="checked"'; ?> class="toolTipLeft" title="::<?php echo $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE'] ; ?>">
       </div>
       <div class="span5">

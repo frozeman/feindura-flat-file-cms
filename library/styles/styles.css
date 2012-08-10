@@ -4291,6 +4291,7 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+  background-color: #fff;
 }
 .feindura #boxHeadlineBasics {
   border: 1px solid #fff;
@@ -4844,7 +4845,6 @@
   margin-left: auto;
   padding: 30px 20px;
   width: 330px;
-  background-color: #fff;
   border: 1px solid #fff;
   text-align: center;
   border: 1px solid #fff;
@@ -4857,6 +4857,7 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+  background-color: #fff;
   behavior: url('library/thirdparty/javascripts/PIE.htc');
 }
 .feindura .insetBlock {
@@ -4945,8 +4946,28 @@
   left: 50%;
   margin-left: -300px;
   width: 600px;
+  -webkit-perspective: 300px;
+  -moz-perspective: 300px;
+  -o-perspective: 300px;
+  perspective: 300px;
 }
 .feindura #messagePopUp.feindura .alert {
+  -webkit-animation-duration: 1.1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-name: messagePopUpPerspective;
+  -moz-animation-duration: 1.1s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-name: messagePopUpPerspective;
+  -o-animation-duration: 1.1s;
+  -o-animation-iteration-count: 1;
+  -o-animation-name: messagePopUpPerspective;
+  animation-duration: 1.1s;
+  animation-iteration-count: 1;
+  animation-name: messagePopUpPerspective;
+  -webkit-transform: rotatex(0.1deg);
+  -moz-transform: rotatex(0.1deg);
+  -o-transform: rotatex(0.1deg);
+  transform: rotatex(0.1deg);
   padding: 20px;
   margin: 0;
   margin-top: 20px;
@@ -4954,6 +4975,78 @@
   -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.19999999999999996);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.19999999999999996);
+}
+@-webkit-keyframes messagePopUpPerspective {
+  0% {
+    -webkit-transform: rotatex(-90deg);
+    -moz-transform: rotatex(-90deg);
+    -o-transform: rotatex(-90deg);
+    transform: rotatex(-90deg);
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-timing-function: ease-in-out;
+    -o-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+  }
+  10% {
+    -webkit-transform: rotatex(-50deg);
+    -moz-transform: rotatex(-50deg);
+    -o-transform: rotatex(-50deg);
+    transform: rotatex(-50deg);
+  }
+  100% {
+    -webkit-transform: rotatex(0.1deg);
+    -moz-transform: rotatex(0.1deg);
+    -o-transform: rotatex(0.1deg);
+    transform: rotatex(0.1deg);
+  }
+}
+@-moz-keyframes messagePopUpPerspective {
+  0% {
+    -webkit-transform: rotatex(-90deg);
+    -moz-transform: rotatex(-90deg);
+    -o-transform: rotatex(-90deg);
+    transform: rotatex(-90deg);
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-timing-function: ease-in-out;
+    -o-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+  }
+  10% {
+    -webkit-transform: rotatex(-50deg);
+    -moz-transform: rotatex(-50deg);
+    -o-transform: rotatex(-50deg);
+    transform: rotatex(-50deg);
+  }
+  100% {
+    -webkit-transform: rotatex(0.1deg);
+    -moz-transform: rotatex(0.1deg);
+    -o-transform: rotatex(0.1deg);
+    transform: rotatex(0.1deg);
+  }
+}
+@-o-keyframes messagePopUpPerspective {
+  0% {
+    -webkit-transform: rotatex(-90deg);
+    -moz-transform: rotatex(-90deg);
+    -o-transform: rotatex(-90deg);
+    transform: rotatex(-90deg);
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-timing-function: ease-in-out;
+    -o-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+  }
+  10% {
+    -webkit-transform: rotatex(-50deg);
+    -moz-transform: rotatex(-50deg);
+    -o-transform: rotatex(-50deg);
+    transform: rotatex(-50deg);
+  }
+  100% {
+    -webkit-transform: rotatex(0.1deg);
+    -moz-transform: rotatex(0.1deg);
+    -o-transform: rotatex(0.1deg);
+    transform: rotatex(0.1deg);
+  }
 }
 .feindura div.leftSidebarLoadingCircle {
   position: absolute;
@@ -5997,7 +6090,7 @@
 .feindura .mainBody #leftSidebar .sidebarMenu .top span {
   position: absolute;
   top: 10px;
-  left: 43px;
+  left: 41px;
 }
 .feindura .mainBody #leftSidebar .sidebarMenu .top.blue span {
   color: #536068;
@@ -6011,6 +6104,7 @@
 .feindura .mainBody #leftSidebar .sidebarMenu .top img {
   display: inline-block;
   height: 35px;
+  margin-left: 3px;
 }
 .feindura .mainBody #leftSidebar .sidebarMenu .top a {
   position: absolute;
@@ -6293,24 +6387,17 @@
   border: 1px solid #cdcdcd;
   line-height: 18px;
   word-break: break-word;
-  background: #ffffff;
-  background-image: linear-gradient(right, #e2e2e2 0%, #ffffff 100%);
-  background-image: -o-linear-gradient(right, #e2e2e2 0%, #ffffff 100%);
-  background-image: -moz-linear-gradient(right, #e2e2e2 0%, #ffffff 100%);
-  background-image: -webkit-linear-gradient(right, #e2e2e2 0%, #ffffff 100%);
-  background-image: -ms-linear-gradient(right, #e2e2e2 0%, #ffffff 100%);
-  background-image: -webkit-gradient(linear, right top, left top, color-stop(0, #e2e2e2), color-stop(0.5, #ffffff));
-  background: -ms-linear-gradient(left, #ffffff 0%, #e2e2e2 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#ffffff',GradientType=1);
+  border: 1px solid #fff;
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.09999999999999998), inset 0 0 15px rgba(0, 0, 0, 0.050000000000000044);
-  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.09999999999999998), inset 0 0 15px rgba(0, 0, 0, 0.050000000000000044);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.09999999999999998), inset 0 0 15px rgba(0, 0, 0, 0.050000000000000044);
+  background-color: #fff;
   behavior: url('library/thirdparty/javascripts/PIE.htc');
 }
 .feindura .mainBody #rightSidebar .box:first-child {
@@ -6875,7 +6962,6 @@
   padding-top: 60px;
   margin-top: 80px;
   text-align: center;
-  background-color: #fff;
   border: 1px solid #fff;
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
@@ -6886,6 +6972,7 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+  background-color: #fff;
 }
 .feindura .loginBox img.logo {
   position: absolute;
@@ -7257,8 +7344,9 @@
   cursor: pointer;
 }
 .feindura .block.listPages .block > h1 img.blockH1Icon {
+  margin-top: 2px;
   margin-left: 0px;
-  margin-right: 5px;
+  margin-right: 3px;
 }
 .feindura .block.listPages .block div.categoryHeader {
   z-index: 2;
@@ -7336,6 +7424,53 @@
 .feindura .block.listPages .block ul li.active {
   border-color: #d49c5c;
 }
+.feindura .block.listPages .block ul li div.grabBar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 35px;
+  width: 35px;
+  background: url('../images/bg/listPages_grabBar.png') no-repeat;
+  /* IE 8 */
+
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=30);
+  /* IE 5-7 */
+
+  filter: alpha(opacity=30);
+  /* Netscape */
+
+  -moz-opacity: 0.3;
+  /* Safari 1.x */
+
+  -khtml-opacity: 0.3;
+  /* Webkit */
+
+  -webkit-opacity: 0.3;
+  /* Good browsers */
+
+  opacity: 0.3;
+  cursor: move;
+}
+.feindura .block.listPages .block ul li div.grabBar:hover {
+  /* IE 8 */
+
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+  /* IE 5-7 */
+
+  filter: alpha(opacity=70);
+  /* Netscape */
+
+  -moz-opacity: 0.7;
+  /* Safari 1.x */
+
+  -khtml-opacity: 0.7;
+  /* Webkit */
+
+  -webkit-opacity: 0.7;
+  /* Good browsers */
+
+  opacity: 0.7;
+}
 .feindura .block.listPages .block ul li > div {
   padding: 3px 0px;
   height: 27px;
@@ -7370,6 +7505,10 @@
 }
 .feindura .block.listPages .block ul li .name a.hasSubCategory.isStartPage {
   background-image: url("../images/icons/pageIcon_startPage_subCategory_small.png");
+}
+.feindura .block.listPages .block ul li div.functions {
+  width: 160px;
+  margin-left: 0;
 }
 .feindura .block.listPages .block ul li .functions a {
   display: inline-block;
@@ -7657,6 +7796,7 @@
 }
 .feindura #rightSidebar ul.jsMultipleSelect {
   overflow: auto;
+  max-height: 250px !important;
 }
 .feindura #rightSidebar li.jsMultipleSelectOption,
 .feindura #rightSidebar li.filter {
@@ -7686,6 +7826,10 @@
   top: -1px;
   left: 0px;
   width: 88%;
+}
+.feindura #rightSidebar li.filter a {
+  top: 1px;
+  right: 4px;
 }
 .feindura #rightSidebar ul.jsMultipleSelectDestination img.feinduraPlugin {
   position: relative;
@@ -7857,7 +8001,6 @@
   left: 50%;
   margin-left: -400px;
   width: 800px;
-  background-color: #fff;
   overflow: hidden;
   border: 1px solid #fff;
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
@@ -7869,6 +8012,7 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+  background-color: #fff;
 }
 .feindura #windowBox > h1 {
   position: relative;
@@ -8062,11 +8206,6 @@
   -o-text-shadow: 0 1px 1px #ffffff;
   -khtml-text-shadow: 0 1px 1px #ffffff;
   font: 12px Verdana, Arial, Sans-serif, Serif !important;
-  background: #ffceba;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffceba), color-stop(1, #ffebe2));
-  background: -moz-linear-gradient(center bottom, #ffceba 0%, #ffebe2 100%);
-  background: -ms-linear-gradient(bottom, #ffceba 0%, #ffebe2 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffebe2', endColorstr='#ffceba',GradientType=0);
   border: 1px solid #fff;
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
@@ -8077,6 +8216,12 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+  background-color: #fff;
+  background: #ffceba;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffceba), color-stop(1, #ffebe2));
+  background: -moz-linear-gradient(center bottom, #ffceba 0%, #ffebe2 100%);
+  background: -ms-linear-gradient(bottom, #ffceba 0%, #ffebe2 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffebe2', endColorstr='#ffceba',GradientType=0);
   border: 1px solid #fff9f7;
 }
 .feindura #errorWindow.feindura h1 {

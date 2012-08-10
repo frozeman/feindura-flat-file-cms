@@ -363,13 +363,14 @@ $langFile['SORTABLEPAGELIST_setStartPage_error_save']                     .= $la
 $langFile['SORTABLEPAGELIST_changeStatusPage_error_save']                 = '<b>Не удается изменить статус страницы.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_changeStatusCategory_error_save']             = '<b>Не удается изменить статус категории.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 
-$langFile['SORTABLEPAGELIST_info']                                        = 'Вы можете менять порядок <b>сортировки</b> используя принцип <b>Нажми & Тащи</b> :)';
+$langFile['SORTABLEPAGELIST_info']                                        = 'Вы можете менять порядок <b>соглашение</b> используя принцип <b>Нажми & Тащи</b> :)';
 $langFile['SORTABLEPAGELIST_save']                                        = 'Сохранение сортировки ...';
 $langFile['SORTABLEPAGELIST_save_finished']                               = 'Порядок сортировки изменен!';
 $langFile['SORTABLEPAGELIST_error_save']                                  = '<b>Не удается сохранить страницу.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_error_read']                                  = '<b>Страницы не читаются!</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>Не удается переместить страницу в новую категорию.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'Нет страниц';
+$langFile['SORTABLEPAGELIST_TIP_DRATOREARRANGE']                          = 'Перетащите для перегруппировки.';
 
 $langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR']             = 'Подкатегория на странице:';
 $langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL']               = 'Подкатегория из страниц:';
@@ -604,6 +605,8 @@ $langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'У�
 $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'Дает возможность установить любую страницу в качестве главной (стартовой).[br][br]Стартовая страница выводится если запрос в [i]$_GET[/i] пуст.';
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Отключить сайта';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Показывает сообщение, а не на сайт, в котором говорится, что сайт в настоящее время редактируется.';
+$langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Карта сайта Файлы создать (<a href="http://www.sitemaps.org/" target="_blank">детали</a>)';
+$langFile['WEBSITESETUP_TIP_SITEMAPFILES']                                = 'Карта сайта файлы упростить поисковые системы для индексации сайта.';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Мульти язык сайта';
 $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[strong]двойной клик[/strong] для выбора языка.';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Основной язык';
@@ -760,7 +763,7 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'Настройки расширений';
 $langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'После того как вы активировали плагин, наведите курсор мыши на плагин, чтобы иметь возможность перетащить его в редакторе, или разместить его непосредственно в редакторе при помощи значка %s.';
-$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Плагины спасены!</div><div class="alert">Нажмите на плагин для редактирования свойств.</div>';
+$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Плагины спасены!</div>';//<div class="alert">Нажмите на плагин для редактирования свойств.</div>';
 $langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Перетащите модуль в редакторе.';
 
 /*

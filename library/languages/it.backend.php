@@ -367,6 +367,7 @@ $langFile['SORTABLEPAGELIST_error_save']                                  = '<b>
 $langFile['SORTABLEPAGELIST_error_read']                                  = '<b>Non è stato possibile leggere le pagine.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>Impossibile spostare la pagina nella nuova categoria.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'Non ci sono pagine disponibili';
+$langFile['SORTABLEPAGELIST_TIP_DRATOREARRANGE']                          = 'Trascina per riorganizzare.';
 
 $langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR']             = 'Sottocategoria della pagina:';
 $langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL']               = 'Sottocategoria delle pagine:';
@@ -599,6 +600,8 @@ $langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'Imp
 $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'L&#145;utente può impostare una pagina come pagina iniziale.[br][br]Se selezionata questa impostazione l&#145;utente può decidere la pagina da visualizzare all&#145;entrata nel sito. Quando nessuna variabile [i]$_GET[/i] di altre pagine vengono passate nel sito o in qualunque pagina che è stata già visualizzata, sarà quella selezionata la Home Page.';
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Disattivare sito web';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Mostra un messaggio invece del sito, che dice che il sito è attualmente in fase di modifica.';
+$langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Creare file Sitemap (<a href="http://www.sitemaps.org/" target="_blank">Dettagli</a>)';
+$langFile['WEBSITESETUP_TIP_SITEMAPFILES']                                = 'I file sitemap semplificare i motori di ricerca di indicizzare il sito.';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Sito web multi lingua';
 $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[strong]doppio click[/strong] per selezionare le lingue.';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Lingua principale';
@@ -755,7 +758,7 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'Impostazioni Plugin';
 $langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'Dopo aver attivato un plugin, passa il mouse sopra il plugin di essere possibile trascinare nell&#145;editor HTML, o posizionare direttamente nell&#145;editor HTML, usando l&#145;icona %s.';
-$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins salvato!</div><div class="alert">Click on un plugin per modificarne le proprietà.</div>';
+$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins salvato!</div>';//<div class="alert">Click on un plugin per modificarne le proprietà.</div>';
 $langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Trascinare il plugin nell&#145;editor.';
 
 /*

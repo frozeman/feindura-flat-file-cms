@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 961
+Build 962
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 2.0
 
+  build 962: add new CKEditor 3.6.4 and grabbar to the listpages
   build 961: add drag n drop for plugins
   build 960: add new CKEditor bootstrap skin
   build 959: plugins are now multiple and editable, but not integrated into the website... and user permissions are missing

@@ -24,6 +24,7 @@
     border: 1px solid #fff;
     #shadow > .both(0, 1px, 10px, 0.3, #000, 0, 0px, 50px, 0.05);
     #border > .rounded(@blockBorderRadius);
+    background-color: #fff;
 }
 #boxHeadlineBasics {
     border: 1px solid #fff;
@@ -573,7 +574,6 @@ div.divBlocked {
     margin-left: auto;
     padding: 30px 20px;
     width: 330px;
-    background-color: #fff;
     border: 1px solid #fff;
     text-align: center;
     #boxBasics;
@@ -628,7 +628,14 @@ div.divBlocked {
     margin-left: -300px;
     width: 600px;
 
+    #3Dtransform > .perspective(300px);
+
+
     .alert {
+        #3Dtransform > .animation(1.1s,1,messagePopUpPerspective);
+        #3Dtransform > .transform(rotateX(0.1deg));
+
+
         padding: 20px;
         margin: 0;
         margin-top: 20px;
@@ -636,6 +643,28 @@ div.divBlocked {
         #shadow > .drop(0,3px,12px,0.2);
     }
 }
+
+@-webkit-keyframes messagePopUpPerspective {
+    0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .transition(); }
+    10% { #3Dtransform > .transform(rotateX(-50deg));}
+    100% { #3Dtransform > .transform(rotateX(0.1deg));}
+}
+@-moz-keyframes messagePopUpPerspective {
+    0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .transition(); }
+    10% { #3Dtransform > .transform(rotateX(-50deg));}
+    100% { #3Dtransform > .transform(rotateX(0.1deg));}
+}
+@-o-keyframes messagePopUpPerspective {
+    0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .transition(); }
+    10% { #3Dtransform > .transform(rotateX(-50deg));}
+    100% { #3Dtransform > .transform(rotateX(0.1deg));}
+}
+// @-keyframes messagePopUpPerspective {
+//     0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .transition(); }
+//     10% { #3Dtransform > .transform(rotateX(-50deg));}
+//     100% { #3Dtransform > .transform(rotateX(0.1deg));}
+// }
+
 
 div.leftSidebarLoadingCircle {
     position: absolute;

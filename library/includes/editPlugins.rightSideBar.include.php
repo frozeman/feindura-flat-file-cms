@@ -22,16 +22,11 @@
 // AVAILABLE VARS
 // $activatedPlugins from editor.php
 
-// vars
-// $blockContentEdited = (isset($pageContent['plugins']))
-//   ? '&nbsp;<img src="library/images/icons/edited_small.png" class="toolTipLeft" title="'.$langFile['EDITOR_pluginSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" width="27" height="23">'
-//   : '';
-
 ?>
 
 <div class="box">
   <h1 class="toolTipTop" title="::<?php echo sprintf($langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR'],'[i class=\'icons codeSnippets\'][/i]'); ?>"><img src="library/images/icons/pluginsIcon_middle.png" alt="icon" style="position:relative; top:-2px; margin-right:0px;"><?php echo $langFile['EDITOR_pluginSettings_h1']; ?></h1>
-  <ul class="jsMultipleSelect resizeOnHover" data-jsMultipleSelect="plugins" data-name="plugins" data-type="duplicates">
+  <ul class="jsMultipleSelect resizeOnHover" data-jsMultipleSelect="plugins" data-name="newPlugins" data-type="duplicates">
     <li class="filter"><input type="text" placeholder="<?php echo $langFile['SORTABLEPAGELIST_headText1']; ?>"></li>
     <?php
 
@@ -53,7 +48,7 @@
         // $pluginName = (isset($pluginLangFile['feinduraPlugin_title'])) ? $pluginLangFile['feinduraPlugin_title'] : $pluginFolderName;
 
 
-        echo '<li class="jsMultipleSelectOption btn" data-value="'.$pluginFolderName.'" data-name="plugins">'.$pluginLangFile['feinduraPlugin_title'].'</li>';
+        echo '<li class="jsMultipleSelectOption btn" data-value="'.$pluginFolderName.'">'.$pluginLangFile['feinduraPlugin_title'].'</li>';
       }
     ?>
   </ul>
@@ -61,9 +56,11 @@
 
   <ul id="pluginMultipleSelect" class="jsMultipleSelectDestination" data-jsMultipleSelect="plugins">
     <?php
-      foreach ($pageContent['plugins'] as $pluginName => $plugins) {
-        foreach ($plugins as $pluginNumber => $plugin) {
-          echo '<li data-name="plugins" data-value="'.$pluginName.'" data-number="'.$pluginNumber.'"></li>';
+      if(is_array($pageContent['plugins'])) {
+        foreach ($pageContent['plugins'] as $pluginName => $plugins) {
+          foreach ($plugins as $pluginNumber => $plugin) {
+            echo '<li data-name="newPlugins" data-value="'.$pluginName.'" data-number="'.$pluginNumber.'"></li>';
+          }
         }
       }
     ?>
@@ -71,7 +68,6 @@
 
   <a href="#" class="ok button center" id="savePluginSelectionSubmit" style="display:none"></a>
   <div id="savePluginSelectionLoadingCircleHolder" class="center" style="z-index: 10;"></div>
-  <div id="savePluginSelectionDivBlocked" class="divBlocked" style="display:none"></div>
 
   <!-- EDIT PLUGINS SCRIPTS -->
   <script type="text/javascript">
@@ -84,7 +80,9 @@
         // vars
         var holdTimeout;
         var pluginName = clone.get('text').replace('×','');
-        var number = clone.retrieve('number');
+        var number     = clone.retrieve('number');
+        var input      = clone.getChildren('input')[0];
+        input.setProperty('value',value+'#'+number);
 
         // modify the selected plugin
         var closeButton = clone.getChildren('a')[0];
@@ -96,6 +94,12 @@
         }});
         clone.set('html','');
         clone.grab(newLink).grab(closeButton);
+
+        // STORE INPUT in the CLONE
+        clone.store('input',input);
+
+        // MOVE INPUT to the EDITOR FORM
+        $('editorForm').grab(clone.retrieve('input'));
 
 
         // MAKE the OPTION DRAGGABLE
@@ -109,6 +113,7 @@
           'alt':pluginName,
           'title':value+'#'+number
         });
+        clone.store('pluginPlaceholder',pluginPlaceholder.clone().setProperty('src','#'));
 
         // ADD TOOLTIP TEXT
         clone.setProperty('title','::<?php echo $langFile['EDITOR_TIP_DRAGPLUGIN']; ?>');
@@ -144,36 +149,53 @@
 
 
       // ->> EVENTS
+
+      // PARSED
+      $('pluginMultipleSelect').addEvent('parsed',modifyOption);
+
       // SELECT
       $('pluginMultipleSelect').addEvent('select',function(value,name,clone,option){
         modifyOption(value,name,clone);
 
-        // show the save button
-        $('savePluginSelectionSubmit').setStyle('display','inline-block');
-
         // UPDATE the feindura_plugins array
         feindura_plugins.push([clone.get('text').replace('×',''),value+'#'+clone.retrieve('number')]);
-      });
 
-      // PARESED
-      $('pluginMultipleSelect').addEvent('parsed',modifyOption);
+        // mark page as unsaved
+        pageContentChangedSign();
+        pageContentChanged = true;
+
+        // savePlugins();
+
+        // ADD PLUGIN to the EDITOR
+        HTMLEditor.insertHtml(clone.retrieve('pluginPlaceholder').getString());
+      });
 
       // REMOVE
       $('pluginMultipleSelect').addEvent('remove',function(value,name,clone,option,select){
-        // show the save button
-        $('savePluginSelectionSubmit').setStyle('display','inline-block');
 
         // UPDATE the feindura_plugins array
         feindura_plugins.each(function(feindura_plugin,i){
           if(feindura_plugin.contains(value+'#'+clone.retrieve('number')))
             feindura_plugins.erase(feindura_plugin);
         });
+
+        // mark page as unsaved
+        pageContentChangedSign();
+        pageContentChanged = true;
+
+        // remove input from the form
+        clone.retrieve('input').dispose();
+
+        // savePlugins();
+
+        // REMOVE PLUGIN from EDITOR
+        // almost the same regex like in GeneralFunctions::replaceSnippets()
+        var pluginPlaceholderRegEx = new RegExp('<img(?:(?!class).)*class\=\"feinduraPlugin\"(?:(?:(?!style).)*style\=\"((?:(?!").)*)")?(?:(?!title).)*title\="'+value+'\#'+clone.retrieve('number')+'"(?:(?!>).)*>');
+        HTMLEditor.setData(HTMLEditor.getData().replace(pluginPlaceholderRegEx,''));
       });
 
 
-      // ON SAVE
-      $('savePluginSelectionSubmit').addEvent('click',function(e){
-        e.stop();
+      var savePlugins = function(){
 
         // vars
         var removeLoadingCircle;
@@ -214,8 +236,7 @@
             feindura_showMessage('<?php echo $langFile['EDITOR_MESSAGE_PLUGINSSAVED']; ?>');
           }
         }).send();
-
-      });
+      };
 
     })();
   /* ]]> */

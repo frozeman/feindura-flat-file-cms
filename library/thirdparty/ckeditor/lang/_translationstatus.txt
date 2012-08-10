@@ -3,11 +3,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 af.js      Found: 548 Missing: 29
 ar.js      Found: 470 Missing: 107
-bg.js      Found: 393 Missing: 184
+bg.js      Found: 394 Missing: 183
 bn.js      Found: 292 Missing: 285
 bs.js      Found: 175 Missing: 402
 ca.js      Found: 549 Missing: 28
-cs.js      Found: 575 Missing: 2
+cs.js      Found: 577 Missing: 0
 cy.js      Found: 575 Missing: 2
 da.js      Found: 575 Missing: 2
 de.js      Found: 575 Missing: 2
@@ -15,9 +15,9 @@ el.js      Found: 391 Missing: 186
 en-au.js   Found: 347 Missing: 230
 en-ca.js   Found: 345 Missing: 232
 en-gb.js   Found: 517 Missing: 60
-eo.js      Found: 575 Missing: 2
+eo.js      Found: 577 Missing: 0
 es.js      Found: 575 Missing: 2
-et.js      Found: 575 Missing: 2
+et.js      Found: 577 Missing: 0
 eu.js      Found: 417 Missing: 160
 fa.js      Found: 575 Missing: 2
 fi.js      Found: 575 Missing: 2
@@ -32,7 +32,7 @@ hr.js      Found: 575 Missing: 2
 hu.js      Found: 572 Missing: 5
 id.js      Found: 1 Missing: 576
 is.js      Found: 326 Missing: 251
-it.js      Found: 575 Missing: 2
+it.js      Found: 577 Missing: 0
 ja.js      Found: 493 Missing: 84
 ka.js      Found: 568 Missing: 9
 km.js      Found: 286 Missing: 291
@@ -42,11 +42,11 @@ lv.js      Found: 294 Missing: 283
 mk.js      Found: 0 Missing: 577
 mn.js      Found: 320 Missing: 257
 ms.js      Found: 276 Missing: 301
-nb.js      Found: 575 Missing: 2
+nb.js      Found: 577 Missing: 0
 nl.js      Found: 575 Missing: 2
-no.js      Found: 575 Missing: 2
+no.js      Found: 577 Missing: 0
 pl.js      Found: 575 Missing: 2
-pt-br.js   Found: 575 Missing: 2
+pt-br.js   Found: 577 Missing: 0
 pt.js      Found: 326 Missing: 251
 ro.js      Found: 432 Missing: 145
 ru.js      Found: 575 Missing: 2

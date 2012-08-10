@@ -134,8 +134,8 @@ if(GeneralFunctions::hasPermission('fileManager')) {
   CKEDITOR.config.filebrowserBrowseUrl      = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath'])."library/views/windowBox/fileManager.php"; ?>';
   CKEDITOR.config.filebrowserImageBrowseUrl = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath'])."library/views/windowBox/fileManager.php?mimType=image"; ?>';
   CKEDITOR.config.filebrowserFlashBrowseUrl = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath'])."library/views/windowBox/fileManager.php?mimType=application"; ?>';
-  CKEDITOR.config.filebrowserWindowWidth    = 960;
-  CKEDITOR.config.filebrowserWindowHeight   = 600;
+  CKEDITOR.config.filebrowserWindowWidth    = 1000;
+  CKEDITOR.config.filebrowserWindowHeight   = 650;
   CKEDITOR.config.filebrowserWindowFeatures = 'scrollbars=no,center=yes,status=no';
 <?php } ?>
 });

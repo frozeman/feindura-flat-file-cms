@@ -143,6 +143,7 @@ function requestSite(site,siteTitle,dataOrFormId) {
 
         // fire a event if the page is loaded
         windowBox.fireEvent('loaded',windowRequestBox);
+        windowBox.fireEvent('loadDefaults',windowRequestBox);
 
         // fill in the TITLE
         if(siteTitle) {
@@ -268,7 +269,7 @@ window.addEvent('domready', function() {
 
 
   // run the scripts if the windowBox is loaded with content
-  $('windowBox').addEvent('loaded',function(windowContent) {
+  $('windowBox').addEvent('loadDefaults',function(windowContent) {
 
     // ADD FANCY FORMS
     new FancyForm('#windowBox input[type="checkbox"], #windowBox input[type="radio"]');

@@ -364,6 +364,7 @@ $langFile['SORTABLEPAGELIST_error_save']                                  = '<b>
 $langFile['SORTABLEPAGELIST_error_read']                                  = '<b>Die Seiten konnten nicht gelesen werden.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>Konnte die Seite nicht in die neue Kategorie verschieben.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'Keine Seiten vorhanden';
+$langFile['SORTABLEPAGELIST_TIP_DRATOREARRANGE']                          = 'Zum sortieren ziehen.';
 
 $langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR']             = 'Unterkategorie der Seite:';
 $langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL']               = 'Unterkategorie der Seiten:';
@@ -597,6 +598,8 @@ $langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                            = 'Starts
 $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                             = 'Startseite ist vom Benutzer selbst einstellbar.[br][br]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine bestimmte Seite aufgerufen wurde.';
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                             = 'Webseite deaktivieren';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                              = 'Zeigt anstatt der Webseite eine Meldung, dass diese derzeit bearbeitet wird.';
+$langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                            = 'Sitemap-Dateien erzeugen (<a href="http://www.sitemaps.org/" target="_blank">Details</a>)';
+$langFile['WEBSITESETUP_TIP_SITEMAPFILES']                             = 'Die Sitemap-Dateien vereinfachen Suchmaschinen das Indizieren der Webseite.';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                    = 'Mehrsprachige Webseite';
 $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                     = '[strong]Doppel-klicken[/strong] um Sprachen auszuwählen.';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                            = 'Hauptsprache';
@@ -755,7 +758,7 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'Plugin Einstellungen';
 $langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'Nach dem du ein Plugin aktiviert hast, bleib mit der Maus darüber um es in den Editor ziehen zu können, oder nutze im Editor das Icon %s.';
-$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins gespeichert!</div><div class="alert">Klicken Sie auf ein Plugin, um es zu bearbeiten.</div>';
+$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins gespeichert!</div>';//<div class="alert">Klicken Sie auf ein Plugin, um es zu bearbeiten.</div>';
 $langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Ziehe das Plugin in den Editor um es zu platzieren.';
 
 /*

@@ -101,6 +101,8 @@ var FileManager = new Class({
 		listPaginationSize: 100,          // add pagination per N items for huge directories (speed up interaction)
 		listPaginationAvgWaitTime: 2000,  // adaptive pagination: strive to, on average, not spend more than this on rendering a directory chunk
 
+		positionFixed: false,							// if true, the filemanager will always stay in the middle of the window
+
 		standalone: true,                 // (boolean). Default to true. If set to false, returns the Filemanager without enclosing window / overlay.
 		parentContainer: null,            // (string). ID of the parent container. If not set, FM will consider its first container parent for fitSizes();
 		propagateData: {},                // extra query parameters sent with every request to the backend
@@ -1000,10 +1002,17 @@ var FileManager = new Class({
 				display: 'block'
 			});
 
-		window.addEvents({
-			'scroll': this.bound.scroll,
-			'resize': this.bound.scroll
-		});
+		if(this.options.positionFixed) {
+			window.addEvents({
+				'scroll': this.bound.scroll,
+				'resize': this.bound.scroll
+			});
+		} else {
+			window.addEvents({
+				'resize': this.bound.scroll
+			});
+		}
+
 		// add keyboard navigation
 		this.diag.log('add keyboard nav on show file = ', loaddir);
 		document.addEvent('keydown', this.bound.keydown);

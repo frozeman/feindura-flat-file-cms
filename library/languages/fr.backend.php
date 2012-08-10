@@ -345,6 +345,7 @@ $langFile['SORTABLEPAGELIST_error_save']                                  = '<b>
 $langFile['SORTABLEPAGELIST_error_read']                                  = '<b>les pages ne pouvaient pas être lus.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>la page ne pouvait pas être mise dans la nouvelle catégorie.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'Keine Seiten vorhanden';
+$langFile['SORTABLEPAGELIST_TIP_DRATOREARRANGE']                          = 'Faites glisser pour réorganiser.';
 
 $langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR']             = 'Sous-catégorie de la page:';
 $langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL']               = 'Sous-catégorie des pages:';
@@ -568,6 +569,8 @@ $langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'la 
 $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'La page d&#145;acceuil peut être définie par l&#145;utilisateur.[br][br]La page d&#145;acceuil définie sera publié, si aucune variable du site web sera transmise ou bien la page ne sera pas éxecutée.';
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'désactiver site web';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Affiche un message au lieu du site, qui dit que le site est actuellement en cours d&#145;édition.';
+$langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Créer des fichiers Sitemap (<a href="http://www.sitemaps.org/" target="_blank">détails</a>)';
+$langFile['WEBSITESETUP_TIP_SITEMAPFILES']                                = 'Les fichiers sitemap simplifier les moteurs de recherche à l&#145;index de ce site.';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'site web multi-langues';
 $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[strong]double clic[/strong] pour sélectionner les langues.';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'La langue principale';
@@ -717,7 +720,7 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'préférence plugin';
 $langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'Après avoir activé un plugin, survolez le plugin pour pouvoir le faire glisser dans l&#145;éditeur HTML, ou le placer directement dans l&#145;éditeur HTML, en utilisant l&#145;icône %s.';
-$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins sauvé!</div><div class="alert">Cliquez sur un plugin pour modifier ses propriétés.</div>';
+$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins sauvé!</div>';//<div class="alert">Cliquez sur un plugin pour modifier ses propriétés.</div>';
 $langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Faites glisser le plugin dans l&#145;éditeur.';
 
 /*

@@ -80,7 +80,7 @@ if($post['send'] == 'true') {
 
     echo '<p>'.$pluginLangFile['feinduraPlugin_description'].'</p>';
 
-    echo '<div class="spacer"></div>';
+    echo '<div class="spacer2x"></div>';
 
     // ->> LIST PLUGIN SETTINGS
     if(!empty($pluginConfig) && is_array($pluginConfig)) {
@@ -174,6 +174,10 @@ if($post['send'] == 'true') {
                     <input type="number" id="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'" name="pluginConfig['.$key.']" value="'.$value.'"'.$keyTipRight.'>
                   </div>
                 </div>';
+
+        // SCRIPT
+        } elseif(strpos(strtolower($key),'script') !== false) {
+          // prevent script from beeing add to an input, its add in the page scripts on the end
 
         // XSSFILTER VALUE
         } else {

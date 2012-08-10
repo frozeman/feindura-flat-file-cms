@@ -169,6 +169,41 @@
   }
 }
 
+#3Dtransform {
+  .perspective(@perspective: 600px) {
+    -webkit-perspective: @perspective;
+    -moz-perspective: @perspective;
+    -o-perspective: @perspective;
+    perspective: @perspective;
+  }
+  .transform(@transform: rotateX(180deg)) {
+    -webkit-transform: @transform;
+    -moz-transform: @transform;
+    -o-transform: @transform;
+    transform: @transform;
+  }
+  .transition(@transition: ease-in-out) {
+    -webkit-animation-timing-function: @transition;
+    -moz-animation-timing-function: @transition;
+    -o-animation-timing-function: @transition;
+    animation-timing-function: @transition;
+  }
+  .animation(@duration: 2s,@iteration: 1,@name: none) {
+    -webkit-animation-duration: @duration;
+    -webkit-animation-iteration-count: @iteration;
+    -webkit-animation-name: @name;
+    -moz-animation-duration: @duration;
+    -moz-animation-iteration-count: @iteration;
+    -moz-animation-name: @name;
+    -o-animation-duration: @duration;
+    -o-animation-iteration-count: @iteration;
+    -o-animation-name: @name;
+    animation-duration: @duration;
+    animation-iteration-count: @iteration;
+    animation-name: @name;
+  }
+}
+
 #transition {
   .all(@duration:0.2s, @ease:ease-out) {
     -webkit-transition: all @duration @ease;

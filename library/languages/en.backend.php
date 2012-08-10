@@ -357,13 +357,14 @@ $langFile['SORTABLEPAGELIST_setStartPage_error_save']                     .= $la
 $langFile['SORTABLEPAGELIST_changeStatusPage_error_save']                 = '<b>Could not change the status of the page.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_changeStatusCategory_error_save']             = '<b>Could not change the status of the category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 
-$langFile['SORTABLEPAGELIST_info']                                        = 'You can change the <b>sorting</b> of the pages and move pages between categories by <b>Drag and Drop</b>.';
+$langFile['SORTABLEPAGELIST_info']                                        = 'You can change the <b>arrangement</b> of the pages and move pages between categories by <b>Drag and Drop</b>.';
 $langFile['SORTABLEPAGELIST_save']                                        = 'Save new sorting ...';
 $langFile['SORTABLEPAGELIST_save_finished']                               = 'Successfully saved new sorting!';
 $langFile['SORTABLEPAGELIST_error_save']                                  = '<b>Could not save the page.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_error_read']                                  = '<b>The pages could not be read.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>Could not move the page into the new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'No pages available';
+$langFile['SORTABLEPAGELIST_TIP_DRATOREARRANGE']                          = 'Drag to rearrange.';
 
 $langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR']             = 'Subcategory of the page:';
 $langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL']               = 'Subcategory of the pages:';
@@ -597,6 +598,8 @@ $langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'Set
 $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'The user can set a page as the start page.[br][br]The start page will be used if no page variable is given through the [i]$_GET[/i] variable in the website.';
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Deactivate Website';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Shows a message instead of the website, which says that the website is currently being edited.';
+$langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Create Sitemap-Files (<a href="http://www.sitemaps.org/" target="_blank">Details</a>)';
+$langFile['WEBSITESETUP_TIP_SITEMAPFILES']                                = 'The sitemap files simplify search engines to index this site.';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Multi language Website';
 $langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[strong]double click[/strong] to select languages.';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Main language';
@@ -755,7 +758,7 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'Plugin Settings';
 $langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'After you activated a plugin, hover over the plugin to be able to drag it into the Editor, or place it directly in the editor, using the %s icon.';
-$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins saved!</div><div class="alert">Click on a plugin to edit its properties.</div>';
+$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins saved!</div>';//<div class="alert">Click on a plugin to edit its properties.</div>';
 $langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Drag the plugin into the Editor.';
 
 /*

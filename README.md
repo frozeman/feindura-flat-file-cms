@@ -51,15 +51,15 @@ It's basic requirements is a web server with PHP running, however for using the 
 #### FUTURE FEATURES
 * modul system (like search)
 * addon system, build your own application running in the feindura-CMS backend
- 
+
 ### REQUIREMENTS
 * PHP >= 5.1 (PHP as FastCGI)
 * apache with mod_rewrite modul if you want to have speaking URLs like: "domain.com/pages/welcome.html"
 
-### APPROPRIATE USES  
+### APPROPRIATE USES
 It's not tested yet, but it should work well on websites with up to 100 vistiors per Minute.
 The feinduraPages::$storedPages array can have up to 30 000 Pages if the php memory limit is 16MB (means you website can have up to 30 000 pages)
-  
+
 ### INSTALLATION
 Just copy the feindura folder on your webserver in a folder, like e.g. "/cms/".
 Iimplement the feindura class in your websites index.php and use the feindura class methods to get your websites content from feindura.
@@ -72,11 +72,11 @@ before the header is sent, which means before any HTML tag:
     <?php
 
     include('cms/feindura.include.php');
-    
+
     $myCms = new Feindura();
-    
+
     ?>
-    
+
 After this you can refer to the feindura class an it's methods through the $mycms->... instance.
 
 Read first: <http://feindura.org/?site=gettingstarted>.
@@ -100,6 +100,6 @@ If you want to use the MooTools framework in your website and you have activated
 you should include the script at the end of your page (before the closing </body> tag) as follow.
 
      <script>!window.MooTools && document.write(unescape('%3Cscript src="your/path/mootools-core-1.4.5.js"%3E%3C/script%3E'))</script>
-     
+
 Otherwise you will have problems with the frontend editing.
 If don't care about that, you can deactivate the frontendediting mode inside the admin setup > user permissions.
