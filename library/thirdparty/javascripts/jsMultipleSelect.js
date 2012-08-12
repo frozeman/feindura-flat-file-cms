@@ -26,7 +26,7 @@ var jsMultipleSelect = new Class({
   initialize : function(options){
 
     // vars
-    self = this;
+    thisInstance = this;
     this.setOptions(options);
 
     // setup the remove button
@@ -117,7 +117,7 @@ var jsMultipleSelect = new Class({
 
         if(option.retrieve('duplicate')) {
           // add the remove function to the cloned option
-          injectOption.getChildren('a.'+self.options.removeButtonClass).addEvent('click',closeFunction);
+          injectOption.getChildren('a.'+thisInstance.options.removeButtonClass).addEvent('click',closeFunction);
 
           // add a number to the duplicated option
           if(duplicateNumber > 1)
@@ -173,8 +173,8 @@ var jsMultipleSelect = new Class({
             clone.setStyle('cursor','auto');
 
             // add close button
-            var close = self.options.removeButton.clone();
-            close.addClass(self.options.removeButtonClass);
+            var close = thisInstance.options.removeButton.clone();
+            close.addClass(thisInstance.options.removeButtonClass);
             close.addEvent('click',closeFunction);
             // form input element
             var input = new Element('input',{
@@ -195,7 +195,7 @@ var jsMultipleSelect = new Class({
                 var injectOption = prepareInjectOption(option,clone);
                 injectOption.inject(jsMultipleSelectDestination);
 
-                jsMultipleSelectDestination.highlight(self.options.highlightColor, jsMultipleSelectDestinationBg);
+                jsMultipleSelectDestination.highlight(thisInstance.options.highlightColor, jsMultipleSelectDestinationBg);
 
                 if(option.retrieve('remove')) {
                   removedOptions.push(option);
@@ -212,8 +212,8 @@ var jsMultipleSelect = new Class({
 
         // ADD FILTER
         jsMultipleSelect.getChildren('li.filter input').each(function(filter){
-          var close = self.options.removeButton.clone();
-          close.addClass(self.options.removeButtonClass);
+          var close = thisInstance.options.removeButton.clone();
+          close.addClass(thisInstance.options.removeButtonClass);
           close.setStyle('display','none');
           close.addEvent('click',function(e){
             e.stop();

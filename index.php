@@ -41,9 +41,8 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 ?><!DOCTYPE html>
 <html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>" class="feindura">
 <head>
-  <meta charset="UTF-8">
 
-  <title>feindura &gt; <?php
+  <title>[feindura] <?php
   echo GeneralFunctions::getLocalized($websiteConfig,'title');
   if(isset($_GET['page']) && is_numeric($_GET['page']) && ($pageTitle = GeneralFunctions::readPage($_GET['page'],GeneralFunctions::getPageCategory($_GET['page']))) != false) {
     echo ' | '.GeneralFunctions::getLocalized($pageTitle,'title');
@@ -51,114 +50,9 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   unset($pageTitle);
   ?></title>
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=0.5">
-
-  <meta name="robots" content="no-index,nofollow">
-  <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
-  <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
-  <meta http-equiv="accept-encoding" content="gzip, deflate">
-
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="description" content="A flat file based Content Management System, written in PHP">
-  <meta name="keywords" content="cms,flat,file,content,management,system">
-
-  <link rel="shortcut icon" href="favicon.ico">
-
-  <!-- ************************************************************************************************************ -->
-  <!-- STYLESHEETS -->
-
-  <!-- feindura styles -->
-  <link rel="stylesheet" type="text/css" href="library/styles/styles.css<?php echo '?v='.BUILD; ?>">
-
-  <!-- thirdparty/CodeMirror -->
-  <link rel="stylesheet" type="text/css" href="library/thirdparty/CodeMirror/codemirror-unified.css">
-
   <?php
-  if($_GET['site'] == 'addons') {
-    if($addonStyles = GeneralFunctions::createStyleTags(dirname(__FILE__).'/addons/')) {
-      echo "\n  <!-- addons stylesheets -->\n";
-      echo $addonStyles;
-    }
-  }
+  include(dirname(__FILE__).'/library/includes/metaTags.include.php');
   ?>
-
-  <noscript>
-  <link rel="stylesheet" type="text/css" href="library/styles/noJavascript.css">
-  </noscript>
-
-  <!-- ************************************************************************************************************ -->
-  <!-- JAVASCRIPT -->
-
-  <!-- thirdparty/Html5Shiv -->
-  <!--[if lt IE 9]><script type="text/javascript" src="library/thirdparty/javascripts/html5shiv.min.js"></script><![endif]-->
-
-  <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.4.5.js"></script>
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.4.0.1.js"></script>
-
-  <!-- thirdparty/PlaceholderSupport -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/PlaceholderSupport.js"></script>
-
-  <!-- thirdparty/jsMultipleSelect -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/jsMultipleSelect.js"></script>
-
-  <!-- thirdparty/FloatingTips -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/FloatingTips.js"></script>
-
-  <!-- thirdparty/Raphael -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
-
-  <!-- thirdparty/AutoGrow [http://cpojer.net/PowerTools/] (need MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/powertools-1.0.1.js"></script>
-
-  <!-- thirdparty/StaticScroller (need MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/StaticScroller.js"></script>
-
-  <!-- thirdparty/FancyForm (need MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/fancyform.js"></script>
-
-  <?php if(!empty($userConfig)) { ?>
-  <!-- thirdparty/CountDown (need MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/CountDown.js"></script>
-  <?php } ?>
-
-  <!-- thirdparty/CodeMirror -->
-  <script type="text/javascript" src="library/thirdparty/CodeMirror/codemirror-compressed.js"></script>
-  <script type="text/javascript" src="library/thirdparty/CodeMirror/modes-compressed.js"></script>
-  <?php
-  if(!empty($_GET['page'])) { ?>
-
-  <!-- thirdparty/CKEditor -->
-  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js<?php echo '?v='.BUILD; ?>"></script>
-
-  <!-- thirdparty/MooRTE -->
-  <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.min.js<?php echo '?v='.BUILD; ?>"></script>
-  <?php
-  }
-  if(GeneralFunctions::hasPermission('fileManager') && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
-
-  <!-- thirdparty/MooTools-FileManager -->
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js<?php echo '?v='.BUILD; ?>"></script>
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>.js"></script>
-  <?php } ?>
-
-  <?php if(isset($_GET['page']) && $categoryConfig[$_GET['category']]['showTags']) { ?>
-  <!-- thirdparty/TextboxList -->
-  <script type="text/javascript" src="library/thirdparty/TextboxList/TextboxList.js<?php echo '?v='.BUILD; ?>"></script>
-  <script type="text/javascript" src="library/thirdparty/TextboxList/TextboxList.Autocomplete.js<?php echo '?v='.BUILD; ?>"></script>
-  <?php } ?>
-
-  <!-- javascripts -->
-  <script type="text/javascript" src="library/javascripts/shared.js<?php echo '?v='.BUILD; ?>"></script>
-  <script type="text/javascript" src="library/javascripts/loading.js<?php echo '?v='.BUILD; ?>"></script>
-  <script type="text/javascript" src="library/javascripts/windowBox.js<?php echo '?v='.BUILD; ?>"></script>
-  <script type="text/javascript" src="library/javascripts/content.js<?php echo '?v='.BUILD; ?>"></script>
 
   <script type="text/javascript">
   /* <![CDATA[ */
@@ -174,11 +68,13 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       CKEDITOR_TITLE_SNIPPETS:        "<?php echo (!empty($langFile['CKEDITOR_TITLE_SNIPPETS'])) ? $langFile['CKEDITOR_TITLE_SNIPPETS'] : 'Snippets'; ?>",
       CKEDITOR_TEXT_SNIPPETS:         "<?php echo (!empty($langFile['CKEDITOR_TEXT_SNIPPETS'])) ? $langFile['CKEDITOR_TEXT_SNIPPETS'] : ''; ?>",
       CKEDITOR_BUTTON_EDITSNIPPET:    "<?php echo (!empty($langFile['CKEDITOR_BUTTON_EDITSNIPPET'])) ? $langFile['CKEDITOR_BUTTON_EDITSNIPPET'] : 'edit snippet'; ?>",
+      CKEDITOR_BUTTON_EDITPLUGIN:     "<?php echo (!empty($langFile['CKEDITOR_BUTTON_EDITPLUGIN'])) ? $langFile['CKEDITOR_BUTTON_EDITPLUGIN'] : 'edit plugin'; ?>",
       CKEDITOR_TITLE_PLUGINS:         "<?php echo (!empty($langFile['CKEDITOR_TITLE_PLUGINS'])) ? $langFile['CKEDITOR_TITLE_PLUGINS'] : 'Plugins'; ?>",
       CKEDITOR_TEXT_PLUGINS:          "<?php echo (!empty($langFile['CKEDITOR_TEXT_PLUGINS'])) ? $langFile['CKEDITOR_TEXT_PLUGINS'] : ''; ?>"
     };
-    var currentSite = '<?php echo $_GET["site"]; ?>';
-    var currentPage = '<?php echo $_GET["page"]; ?>';
+    var currentSite     = '<?php echo $_GET["site"]; ?>';
+    var currentPage     = '<?php echo $_GET["page"]; ?>';
+    var currentCategory = '<?php echo $_GET["category"]; ?>';
 
     // -> TRANSPORT pages for CKEditor FEINDURA LINKS
     var feindura_pages = [

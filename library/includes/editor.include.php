@@ -56,16 +56,19 @@ $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',
       if(is_array($pageContent['plugins']) && is_array($activatedPlugins) && count($activatedPlugins) >= 1) {
         $transportPlugins = '';
         $hasPlugins = false;
-        foreach ($pageContent['plugins'] as $pluginName => $plugins) {
+        foreach ($pageContent['plugins'] as $pluginFolderName => $plugins) {
           foreach ($plugins as $pluginNumber => $pluginValues) {
-            if(in_array($pluginName,$activatedPlugins)) {
-              $pluginFolder = $adminConfig['basePath'].'plugins/'.$pluginName;
+            if(in_array($pluginFolderName,$activatedPlugins)) {
+              $pluginFolder = $adminConfig['basePath'].'plugins/'.$pluginFolderName;
               $pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['feinduraSession']['backendLanguage'].'.php'))
                 ? $_SESSION['feinduraSession']['backendLanguage']
                 : 'en';
               $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/languages/'.$pluginCountryCode.'.php');
               $hasPlugins = true;
-              $transportPlugins .= '    ["'.str_replace('"','',$pluginLangFile['feinduraPlugin_title']).' #'.$pluginNumber.'","'.$pluginName.'#'.$pluginNumber.'"],'."\n";
+
+              $pluginName = str_replace('"','',$pluginLangFile['feinduraPlugin_title']) ;
+              $pluginName .= ($pluginNumber > 1) ? ' #'.$pluginNumber : '';
+              $transportPlugins .= '    ["'.$pluginName.'","'.$pluginFolderName.'#'.$pluginNumber.'"],'."\n";
             }
           }
         }
@@ -142,7 +145,7 @@ if(GeneralFunctions::hasPermission('fileManager')) {
 /* ]]> */
 </script>
 
-  <div class="content">
+  <div class="content form">
     <span id="hotKeysToogle" class="down link toolTipRight" title="::[table]
       [tbody]
         [tr]
@@ -198,8 +201,16 @@ if(GeneralFunctions::hasPermission('fileManager')) {
       [/tbody]
     [/table]">
     <?php echo $langFile['EDITOR_htmleditor_hotkeys_h1']; ?>
-  </span>
+    </span>
+    <br class="clear">
+    <!-- page settings anchor is here -->
+    <a id="pageSettings" class="anchorTarget"></a>
+    <?php
 
-  <input type="submit" value="" id="HTMLEditorSubmit" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
+    if(!$newPage)
+      include(dirname(__FILE__).'/pageMetaData.include.php');
+
+    ?>
+    <input type="submit" value="" id="HTMLEditorSubmit" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','pageSettings');">
   </div>
 </div>

@@ -207,6 +207,7 @@ $langFile['STATUS_CATEGORY_PUBLIC']                                       = 'Cat
 $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'Categoria Nascosta';
 
 // USER LIST
+$langFile['USER_TEXT_USER']                                               = 'Utente';
 $langFile['USER_TEXT_NOUSER']                                             = 'Nessun Utente';
 $langFile['USER_TEXT_CURRENTUSER']                                        = 'Nome Utente Registrato';
 $langFile['USER_TEXT_USERSONLINE']                                        = 'Questo utente è loggato::Ultime attività';
@@ -221,6 +222,8 @@ $langFile['CKEDITOR_TITLE_SNIPPETS']                                      = 'Fra
 $langFile['CKEDITOR_TEXT_SNIPPETS']                                       = 'Scegli un frammento di codice per inserirlo nella pagina.';
 $langFile['CKEDITOR_BUTTON_EDITSNIPPET']                                  = 'Modifica frammento di codice';
 $langFile['CKEDITOR_TITLE_PLUGINS']                                       = 'Plugins';
+$langFile['CKEDITOR_BUTTON_EDITPLUGIN']                                   = 'Modifica Plugin';
+
 $langFile['CKEDITOR_TEXT_PLUGINS']                                        = 'Scegli un plugin per inserirlo nella pagina.';
 
 
@@ -706,7 +709,6 @@ $langFile['EDITOR_block_edited']                                          = 'son
 $langFile['EDITOR_pageNotSaved']                                          = 'non è stata salvata';
 
 // ---------- page settings
-$langFile['EDITOR_pageSettings_h1']                                       = 'Impostazioni';
 $langFile['EDITOR_pagestatistics_h1']                                     = 'Statistiche';
 
 $langFile['EDITOR_pageSettings_title']                                    = 'Titolo';
@@ -877,5 +879,3 @@ $langFile['BACKUP_ERROR_DELETE']                                          = 'Il 
 // RETURN ****************************************************************************************
 // -----------------------------------------------------------------------------------------------
 return $langFile;
-
-?>

@@ -56,6 +56,11 @@
 
 // CKEditor FIXES
 
+#cke_HTMLEditor {
+    margin: 1px;
+    margin-top: 0;
+}
+
 // add the feindura background cover
 .cke_dialog_background_cover {
     background: url("../images/bg/dimmContainer.png") repeat !important;
@@ -63,6 +68,7 @@
 }
 .cke_maximized {
     background: whitesmoke;
+    padding: 10px;
 }
 textarea.cke_source {
     display: block !important;
@@ -76,6 +82,9 @@ textarea.cke_source {
     #shadow > .drop(0, 0, 5px, 0.3);
     // border: 1px solid #cdcdcd !important;
 }
+.cke_maximized  iframe  {
+    width: 99.5% !important;
+}
 .cke_button_iframe .cke_icon {
     background-position: 0 -1280px !important;
 }
@@ -84,6 +93,10 @@ textarea.cke_source {
 }
 .cke_button a {
     background-image: none !important;
+
+    > span {
+        cursor: pointer !important;
+    }
 }
 
 // CKEditor dialog

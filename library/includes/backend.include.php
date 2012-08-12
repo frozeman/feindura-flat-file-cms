@@ -40,41 +40,20 @@ if(PHP_VERSION < REQUIREDPHPVERSION) {
 <!DOCTYPE html>
 <html class="feindura">
 <head>
-  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
-  <meta http-equiv="content-language" content="en">
 
-  <title>feindura PHP Error</title>
+  <title>feindura | PHP Error</title>
 
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-  <meta name="robots" content="no-index,nofollow">
-  <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
-  <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
-  <meta http-equiv="accept-encoding" content="gzip, deflate">
-
-  <meta name="title" content="feindura login">
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="description" content="A flat file based Content Management System, written in PHP">
-  <meta name="keywords" content="cms,content,management,system,flat,file">
-
-  <link rel="shortcut icon" href="favicon.ico">
-
-  <!-- <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all"> -->
-  <!-- <link rel="stylesheet" type="text/css" href="library/styles/login.css" media="all"> -->
-  <link rel="stylesheet" type="text/css" href="library/styles/styles.css" media="all">
+  <?php
+  include(dirname(__FILE__).'/metaTags.include.php');
+  ?>
 
 </head>
 <body>
-  <div id="container">
-    <div class="alert alert-error">
-      <div class="top"></div>
-      <div class="middle">
+  <div class="container">
+    <div class="alert alert-error center">
       <?php
-      echo 'ERROR<br><br><span class="feinduraInline">fein<em>dura</em></span> requires at least PHP version '.REQUIREDPHPVERSION;
+      echo '<h1>PHP ERROR</h1><span class="feinduraInline">fein<em>dura</em></span> requires at least PHP version '.REQUIREDPHPVERSION;
       ?>
-      </div>
     </div>
 </body>
 </html>

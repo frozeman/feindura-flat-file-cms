@@ -515,7 +515,7 @@ table.coloredList {
 
 #dimmContainer {
     position: fixed;
-    z-index: 5;
+    z-index: @zindexInFrontend;
     display: none;
     width: 100%;
     height: 100%;
@@ -528,7 +528,7 @@ table.coloredList {
     position: fixed;
     top: 50%;
     left: 510px;
-    z-index: 17;
+    z-index: @zindexInFrontend + 1;
     display: none;
     margin-top: -132px;
     margin-right: auto;
@@ -551,7 +551,7 @@ div.divBlocked {
 
     > div {
         position: fixed;
-        top: 200px;
+        top: 250px;
         width: @gridRowWidth + 2 * @blockContentPadding;
         margin-left: 30px;
         font-size: 20px;
@@ -568,7 +568,7 @@ div.divBlocked {
     position: fixed;
     top: 40%;
     left: 470px;
-    z-index: 16;
+    z-index: @zindexInFrontend + 20;
     display: none;
     margin-right: auto;
     margin-left: auto;
@@ -645,22 +645,22 @@ div.divBlocked {
 }
 
 @-webkit-keyframes messagePopUpPerspective {
-    0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .transition(); }
+    0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .animation-timing-function(); }
     15% { #3Dtransform > .transform(rotateX(-50deg));}
     100% { #3Dtransform > .transform(rotateX(0.1deg));}
 }
 @-moz-keyframes messagePopUpPerspective {
-    0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .transition(); }
+    0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .animation-timing-function(); }
     15% { #3Dtransform > .transform(rotateX(-50deg));}
     100% { #3Dtransform > .transform(rotateX(0.1deg));}
 }
 @-o-keyframes messagePopUpPerspective {
-    0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .transition(); }
+    0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .animation-timing-function(); }
     15% { #3Dtransform > .transform(rotateX(-50deg));}
     100% { #3Dtransform > .transform(rotateX(0.1deg));}
 }
 // @-keyframes messagePopUpPerspective {
-//     0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .transition(); }
+//     0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .animation-timing-function(); }
 //     10% { #3Dtransform > .transform(rotateX(-50deg));}
 //     100% { #3Dtransform > .transform(rotateX(0.1deg));}
 // }

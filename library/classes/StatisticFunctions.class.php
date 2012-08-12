@@ -118,6 +118,16 @@ class StatisticFunctions {
   */
   public static $pagesMetaData = array();
 
+ /**
+  * The current Browser name
+  *
+  *
+  * @static
+  * @var string|false
+  * @see StatisticFunctions::getBrowser()
+  */
+  public static $browser = false;
+
 
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** CONSTRUCTOR *** */
@@ -507,6 +517,7 @@ class StatisticFunctions {
   * Returns the right browser name.
   *
   * @uses Browser::getBrowser to get the right browser
+  * @uses StatisticFunctions::$browser
   *
   * @return string|false the right browser name or FALSE if no useragent is available
   *
@@ -520,20 +531,24 @@ class StatisticFunctions {
   */
   public static function getBrowser() {
 
-    require_once(dirname(__FILE__).'/../thirdparty/PHP/BrowserDetection.php');
+    if(!self::$browser) {
+      require_once(dirname(__FILE__).'/../thirdparty/PHP/BrowserDetection.php');
 
-    $browser = new Browser();
-	  $return = $browser->getBrowser();
+      $browser = new Browser();
+      $return = $browser->getBrowser();
 
-	  // check if older IE
-	  if($return == 'Internet Explorer' && $browser->getVersion() <= 6)
-	   $return = 'Internet Explorer old';
+      // check if older IE
+      if($return == 'Internet Explorer' && $browser->getVersion() <= 6)
+       $return = 'Internet Explorer old';
 
-    if($return == 'Shiretoko')// || $return == 'Mozilla')
-      $return = 'Firefox';
+      if($return == 'Shiretoko')// || $return == 'Mozilla')
+        $return = 'Firefox';
 
-    // -> return
-	  return strtolower($return);
+      // -> return
+      self::$browser = strtolower($return);
+    }
+
+    return self::$browser;
   }
 
  /**
@@ -1267,5 +1282,3 @@ class StatisticFunctions {
       return false;
   }
 }
-
-?>

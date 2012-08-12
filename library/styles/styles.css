@@ -4751,7 +4751,7 @@
 }
 .feindura #dimmContainer {
   position: fixed;
-  z-index: 5;
+  z-index: 20000;
   display: none;
   width: 100%;
   height: 100%;
@@ -4780,7 +4780,7 @@
   position: fixed;
   top: 50%;
   left: 510px;
-  z-index: 17;
+  z-index: 20001;
   display: none;
   margin-top: -132px;
   margin-right: auto;
@@ -4824,7 +4824,7 @@
 }
 .feindura div.divBlocked > div {
   position: fixed;
-  top: 200px;
+  top: 250px;
   width: 800px;
   margin-left: 30px;
   font-size: 20px;
@@ -4839,7 +4839,7 @@
   position: fixed;
   top: 40%;
   left: 470px;
-  z-index: 16;
+  z-index: 20020;
   display: none;
   margin-right: auto;
   margin-left: auto;
@@ -5224,12 +5224,17 @@
 .feindura .floating-tip img.icons {
   top: -2px;
 }
+.feindura #cke_HTMLEditor {
+  margin: 1px;
+  margin-top: 0;
+}
 .feindura .cke_dialog_background_cover {
   background: url("../images/bg/dimmContainer.png") repeat !important;
   background-color: transparent !important;
 }
 .feindura .cke_maximized {
   background: whitesmoke;
+  padding: 10px;
 }
 .feindura textarea.cke_source {
   display: block !important;
@@ -5244,6 +5249,9 @@
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
 }
+.feindura .cke_maximized iframe {
+  width: 99.5% !important;
+}
 .feindura .cke_button_iframe .cke_icon {
   background-position: 0 -1280px !important;
 }
@@ -5252,6 +5260,9 @@
 }
 .feindura .cke_button a {
   background-image: none !important;
+}
+.feindura .cke_button a > span {
+  cursor: pointer !important;
 }
 .feindura .cke_dialog {
   position: absolute !important;
@@ -7740,20 +7751,25 @@
   display: none;
 }
 .feindura .editor {
-  position: relative;
-  margin-bottom: -30px !important;
-  overflow: visible;
   padding-top: 1px !important;
-  padding-left: 1px !important;
-  -webkit-border-radius: 5px !important;
-  -moz-border-radius: 5px !important;
-  border-radius: 5px !important;
+  overflow: visible;
+  -webkit-border-top-right-radius: 5px !important;
+  -webkit-border-bottom-right-radius: 0 !important;
+  -webkit-border-bottom-left-radius: 0 !important;
+  -webkit-border-top-left-radius: 5px !important;
+  -moz-border-radius-topright: 5px !important;
+  -moz-border-radius-bottomright: 0 !important;
+  -moz-border-radius-bottomleft: 0 !important;
+  -moz-border-radius-topleft: 5px !important;
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-left-radius: 5px !important;
   -moz-background-clip: padding !important;
   -webkit-background-clip: padding-box !important;
   background-clip: padding-box !important;
 }
 .feindura .editor .content {
-  min-height: 50px;
   overflow: visible !important;
 }
 .feindura .editor textarea {
@@ -7762,13 +7778,6 @@
   width: 778px;
   height: 360px;
   padding: 10px;
-}
-.feindura .editor input.submit {
-  float: right;
-  left: 0 !important;
-  margin-top: -10px;
-  margin-bottom: 10px;
-  margin-right: 353px;
 }
 .feindura #rightSidebar a.uploadPageThumbnail {
   display: inline-block;
@@ -7994,7 +8003,7 @@
   background-position: 0px -54px;
 }
 .feindura #windowBox {
-  z-index: 20006;
+  z-index: 20010;
   display: none;
   position: absolute;
   top: 10%;
@@ -8333,11 +8342,12 @@
   border-color: #3a79a5;
 }
 .feindura ul.jsMultipleSelectDestination li {
+  position: relative;
   cursor: auto !important;
   padding-right: 18px;
 }
 .feindura ul.jsMultipleSelectDestination li a.remove {
-  position: absolute;
+  position: absolute !important;
   display: none;
   top: 4px;
   right: 6px;

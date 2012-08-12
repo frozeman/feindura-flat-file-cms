@@ -209,7 +209,9 @@ if($post['send'] == 'true') {
 <!-- PAGE SCRIPTS -->
 <script type="text/javascript">
 /* <![CDATA[ */
-  $('windowBox').addEvent('loaded',function(){ // event is fired when the windowBox is ready
+
+  // event is fired when the windowBox is ready
+  $('windowBox').addEvent('loaded',function(){
     <?php
 
     // LOAD PLUGIN SCRIPT

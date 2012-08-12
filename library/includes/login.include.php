@@ -151,44 +151,12 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 <!DOCTYPE html>
 <html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>" class="feindura">
 <head>
-  <meta charset="UTF-8">
 
-  <title>feindura login</title>
+  <title>feindura | login</title>
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=0.5">
-
-  <meta name="robots" content="no-index,nofollow">
-  <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
-  <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
-  <meta http-equiv="accept-encoding" content="gzip, deflate">
-
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="description" content="A flat file based Content Management System, written in PHP">
-  <meta name="keywords" content="cms,flat,file,content,management,system">
-
-  <link rel="shortcut icon" href="favicon.ico">
-
-  <!-- feindura styles -->
-  <link rel="stylesheet" type="text/css" href="library/styles/styles.css<?php echo '?v='.BUILD; ?>">
-
-  <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.4.5.js"></script>
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.4.0.1.js"></script>
-
-  <!-- thirdparty/PlaceholderSupport -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/PlaceholderSupport.js"></script>
-
-  <!-- thirdparty/Raphael -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
-
-  <!-- thirdparty/Html5Shiv -->
-  <!--[if lt IE 9]><script type="text/javascript" src="library/thirdparty/javascripts/html5shiv.min.js"></script><![endif]-->
-
-  <!-- javascripts -->
-  <script type="text/javascript" src="library/javascripts/shared.js"></script>
+  <?php
+  include(dirname(__FILE__).'/metaTags.include.php');
+  ?>
 
   <script type="text/javascript">
 

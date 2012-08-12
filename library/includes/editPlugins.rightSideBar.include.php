@@ -85,7 +85,7 @@
         input.setProperty('value',value+'#'+number);
 
         // modify the selected plugin
-        var closeButton = clone.getChildren('a')[0];
+        var closeButton = clone.getChildren('a.remove')[0];
         var newLink     = new Element('a',{'text':pluginName, 'class':'editSelection', 'href': '#', events:{
           click: function(e){
             e.stop();
@@ -94,6 +94,7 @@
         }});
         clone.set('html','');
         clone.grab(newLink).grab(closeButton);
+        closeButton.set('text','×'); // ie fix
 
         // STORE INPUT in the CLONE
         clone.store('input',input);
@@ -162,7 +163,6 @@
 
         // mark page as unsaved
         pageContentChangedSign();
-        pageContentChanged = true;
 
         // savePlugins();
 
@@ -181,7 +181,6 @@
 
         // mark page as unsaved
         pageContentChangedSign();
-        pageContentChanged = true;
 
         // remove input from the form
         clone.retrieve('input').dispose();

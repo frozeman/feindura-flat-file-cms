@@ -194,11 +194,12 @@ $langFile['STATUS_CATEGORY_PUBLIC']                                       = 'cat
 $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'catégorie est cachée';
 
 // USER LIST
+$langFile['USER_TEXT_USER']                                               = 'Utilisateur';
 $langFile['USER_TEXT_NOUSER']                                             = 'il n&#145;y a pas d&#145;utilisateurs';
 $langFile['USER_TEXT_CURRENTUSER']                                        = 'Tu es connecté en tant qu&#145;utilisateurs';
 $langFile['USER_TEXT_USERSONLINE']                                        = 'Cet utilisateur est également connecté:: Dernières activités';
 
-$langFile['LOGO_TEXT']                                                    = 'version';
+$langFile['LOGO_TEXT']                                                    = 'Version';
 $langFile['txt_logo_gotowebsite']                                         = 'Cliquez ici pour accéder à votre site Web.';
 $langFile['LOADING_TEXT_LOAD']                                            = 'site en connexion...';
 
@@ -208,6 +209,8 @@ $langFile['CKEDITOR_TITLE_SNIPPETS']                                      = 'fra
 $langFile['CKEDITOR_TEXT_SNIPPETS']                                       = 'Choisissez un fragments de code pour le placer dans la page.';
 $langFile['CKEDITOR_BUTTON_EDITSNIPPET']                                  = 'Modifier fragment de code';
 $langFile['CKEDITOR_TITLE_PLUGINS']                                       = 'plugins';
+$langFile['CKEDITOR_BUTTON_EDITPLUGIN']                                   = 'Modifier le plugin';
+
 $langFile['CKEDITOR_TEXT_PLUGINS']                                        = 'Choisissez un plugin pour le placer dans la page.';
 
 // -> BUTTON TEXTS
@@ -672,7 +675,6 @@ $langFile['EDITOR_block_edited']                                          = 'ont
 $langFile['EDITOR_pageNotSaved']                                          = 'pas sauvegardé';
 
 // ---------- page settings
-$langFile['EDITOR_pageSettings_h1']                                       = 'paramètres';
 $langFile['EDITOR_pagestatistics_h1']                                     = 'statistiques';
 $langFile['EDITOR_pageSettings_title']                                    = 'titre';
 $langFile['EDITOR_pageSettings_title_tip']                                = 'Titre de la page, peut contenir les balises HTML suivantes:[br]<a> <span> <em> <strong> <i> <b> <abbr> <code> <samp> <kbd> <var>';
@@ -830,4 +832,3 @@ $langFile['BACKUP_ERROR_DELETE']                                          = 'Sau
 // RETURN ****************************************************************************************
 // -----------------------------------------------------------------------------------------------
 return $langFile;
-?>

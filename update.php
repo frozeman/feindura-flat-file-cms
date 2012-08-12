@@ -31,7 +31,7 @@ $wrongDirectory = (include("library/includes/backend.include.php"))
 error_reporting(E_ALL ^ E_NOTICE);
 
 $NEWVERSION = '2.0';
-$NEWBUILD = 963;
+$NEWBUILD = 964;
 
 // gets the version of the feindura CMS
 if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
@@ -1018,7 +1018,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
     // -> final success text or failure warning
     if($succesfullUpdate) {
-      file_put_contents(dirname(__FILE__).'/VERSION', "This file is necessary for the next feindura update. Do not delete it!\n".$NEWVERSION."\n".$NEWBUILD);
+      file_put_contents(dirname(__FILE__).'/VERSION', "feindura - Flat File CMS (Version,Build)\n".$NEWVERSION."\n".$NEWBUILD);
       echo '<br>NOTE: If you had Speaking URL activated, you have to activate it again in the admin settings. But before delete the speaking URL code from you .htaccess file manually!<br>';
       echo '<br><h1>You can now delete the "update.php" file.</h1>';
     } else

@@ -102,7 +102,7 @@ function isBlocked($returnBool = false) {
        $location != 'new' && // dont block when createing a new page (multiple user can do that)
        ($location == $_GET['page'] || $location == $_GET['site'])) {
       $return = ($returnBool) ? true : '<div id="contentBlocked" class="divBlocked"><div>'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'];
-      if(!empty($cachedUser['username'])) $return .= '<br><span style="font-size:15px;">'.$GLOBALS['langFile']['DASHBOARD_TITLE_USER'].': <span class="blue">'.$cachedUser['username'].'</span></span>';
+      if(!empty($cachedUser['username'])) $return .= '<br><span style="font-size:15px;">'.$GLOBALS['langFile']['USER_TEXT_USER'].': <span class="blue toolTipBottom noMark" title="::'.ucfirst($cachedUser['browser']).'">'.$cachedUser['username'].'</span></span>';
       $return .= '</div></div>';
       return $return;
     }
@@ -173,6 +173,7 @@ function userCache() {
   $stored = false;
   $maxTime = 200; // 2min+, 3600 seconds = 1 hour
   $timeStamp = time();
+  $browser = StatisticFunctions::getBrowser();
   $cacheFile = dirname(__FILE__)."/../../statistic/user.statistic.cache";
   $newLines = array();
   $cachedLines = false;
@@ -193,7 +194,10 @@ function userCache() {
     $free = true;
     foreach($cachedLines as $cachedLine) {
       $cachedLineArray = explode('|#|', $cachedLine);
-      if(isset($cachedLineArray[4]) && IDENTITY != trim($cachedLineArray[0]) && trim($cachedLineArray[3]) == $location) $free = false;
+      if(IDENTITY != trim($cachedLineArray[0]) &&
+         trim($cachedLineArray[4]) == $location &&
+         isset($cachedLineArray[5]))
+        $free = false;
     }
 
     foreach($cachedLines as $cachedLine) {
@@ -206,8 +210,8 @@ function userCache() {
         if($cachedLineArray[0] == IDENTITY) {
           $edit = ($free) ? '|#|edit' : false;
 
-          $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'].'|#|'.$location.$edit;
-          $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'], 'location' => $location);
+          $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$browser.'|#|'.$GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'].'|#|'.$location.$edit;
+          $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'browser' => $browser, 'username' => $GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'], 'location' => $location);
 
           if($free) $addArray['edit'] = true;
           $return[] = $addArray;
@@ -215,9 +219,9 @@ function userCache() {
         } elseif(!empty($cachedLineArray[0])) {
           $newLines[] = $cachedLine;
 
-          $addArray = array('identity' => $cachedLineArray[0], 'timestamp' => $cachedLineArray[1], 'username' => $cachedLineArray[2], 'location' => trim($cachedLineArray[3]));
+          $addArray = array('identity' => $cachedLineArray[0], 'timestamp' => $cachedLineArray[1], 'browser' => $cachedLineArray[2], 'username' => $cachedLineArray[3], 'location' => trim($cachedLineArray[4]));
 
-          if(isset($cachedLineArray[4])) $addArray['edit'] = true;
+          if(isset($cachedLineArray[5])) $addArray['edit'] = true;
           $return[] = $addArray;
         }
       }
@@ -227,8 +231,8 @@ function userCache() {
   // STORE NEW CACHE LINE
   if($stored === false && !empty($location)) {
     $edit = ($free) ? '|#|edit' : false;
-    $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'].'|#|'.$location.$edit;
-    $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'], 'location' => $location);
+    $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$browser.'|#|'.$GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'].'|#|'.$location.$edit;
+    $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'browser' => $browser, 'username' => $GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'], 'location' => $location);
     if($free) $addArray['edit'] = true;
     $return[] = $addArray;
   }
@@ -3114,5 +3118,3 @@ function createTagCloud($serializedTags,$minFontSize = 10,$maxFontSize = 20) {
   // return the tag-cloud or false
   return $return;
 }
-
-?>

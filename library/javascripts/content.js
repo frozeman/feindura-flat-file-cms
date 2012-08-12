@@ -364,11 +364,16 @@ function inBlockSlider() {
 /* pageChangedSign function
 adds a * to the head and the sideBarMenu link of the page, to show that the page was modified, but not saved yet */
 function pageContentChangedSign() {
+
+  submitAnchor('editorForm','editorAnchor');
+
   if($('editorForm') !== null && !pageContentChanged) {
     $$('.notSavedSign' + $('editorForm').get('class')).each(function(notSavedSign) {
       notSavedSign.setStyle('display','inline');
     });
   }
+
+  pageContentChanged = true;
 }
 
 // *** ->> SIDEBARS - functions -----------------------------------------------------------------------------------------------------------------------
@@ -1378,7 +1383,7 @@ window.addEvent('domready', function() {
 
     // vars
     var editorStartHeight   = window.getSize().y * 0.60;
-    var editorTweenToHeight = (window.getSize().y * 0.60 > 420) ? window.getSize().y * 0.60 : 420;
+    var editorToHeight      = (window.getSize().y * 0.60 > 420) ? window.getSize().y * 0.60 : 420;
     var editorHasFocus      = false;
     var editorIsClicked     = false;
     var editorSubmited      = false;
@@ -1387,8 +1392,8 @@ window.addEvent('domready', function() {
     // ------------------------------
     // CONFIG the HTMlEditor
     CKEDITOR.config.skin                               = 'BootstrapCK-Skin';
-    CKEDITOR.config.width                              = 771;
-    CKEDITOR.config.height = ($('documentSaved') !== null && $('documentSaved').hasClass('saved')) ? editorTweenToHeight : editorStartHeight;
+    CKEDITOR.config.width                              = 770;
+    CKEDITOR.config.height = ($('documentSaved') !== null && $('documentSaved').hasClass('saved')) ? editorToHeight : editorStartHeight;
     CKEDITOR.config.resize_minWidth                    = 831;
     CKEDITOR.config.resize_maxWidth                    = 1200;
     CKEDITOR.config.resize_minHeight                   = (editorStartHeight+136);
@@ -1406,6 +1411,7 @@ window.addEvent('domready', function() {
 
     CKEDITOR.config.toolbar = [
       { name: 'document', items : ['Save','-','Maximize','-','Source'] },
+      { name: 'tools', items : ['ShowBlocks'] },
       { name: 'clipboard', items : [ 'Undo','Redo','-','Cut','Copy','Paste','PasteText','PasteFromWord'] },
       { name: 'editing', items : [ 'Find','Replace','-','SelectAll'] }, //,'-','SpellChecker', 'Scayt' ] },
       '/',
@@ -1418,31 +1424,46 @@ window.addEvent('domready', function() {
       { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
       { name: 'insert', items : [ 'Image','Flash','Iframe','-','Table','HorizontalRule','SpecialChar'] },
       { name: 'feindura', items : [ 'Snippets'] },
-      { name: 'tools', items : [ 'ShowBlocks','-','About' ] }
+      { name: 'tools', items : [ 'About' ] }
     ];
 
     // -> CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
     HTMLEditor = CKEDITOR.replace('HTMLEditor');
 
-    // // ADD FEINDURA CLASS back to the <html> element, ON MAXIMIZE
-    // HTMLEditor.on('beforeCommandExec',function(e){
-    //   if (e.data.name != 'maximize')
-    //     return;
+    // ADD FEINDURA CLASS back to the <html> element, ON MAXIMIZE
+    // also FIXES the height of the editor content
+    HTMLEditor.on('afterCommandExec',function(e){
+      if(e.data.name === 'maximize' && e.data.command.state == CKEDITOR.TRISTATE_ON) {
+        $$('html').addClass('feindura');
+        $$('html, body').setStyles({
+          'position': 'static',
+          'width': '100%',
+          'overflow':null
+        });
 
-    //   // if(e.data.command.state != CKEDITOR.TRISTATE_ON)
-    //     $$('html').addClass('feindura');
-    // });
+        // fix editor size
+        $('cke_contents_HTMLEditor').setStyle('height',$('cke_contents_HTMLEditor').getStyle('height').replace('px','') - 30);
+        $$('.cke_maximized').setStyle('width',window.getSize().x - 20);
+
+        // also hide some divs
+        $$('header.main, footer.main, div.pageHeader, #leftSidebar, #rightSidebar, div.content, a.fastUp').setStyle('display','none');
+
+      } else if(e.data.name === 'maximize' ) {
+
+        // let them reapear again
+        $$('header.main, footer.main, div.pageHeader, #leftSidebar, #rightSidebar, div.content, a.fastUp').setStyle('display',null);
+      }
+    });
 
     // -> add TOOLTIPS to ckeditor
     HTMLEditor.on('instanceReady',function() {
-      $('cke_HTMLEditor').addClass('feindura');
-
       $$('.cke_button').each(function(button) {
         var link = button.getChildren('a');
         if(link !== null) {
           // store tip text
           link.store('tip:text', link.get('title'));
           toolTipsBottom.attach(link);
+          link.removeProperty('title');
         }
       });
     });
@@ -1474,7 +1495,7 @@ window.addEvent('domready', function() {
           // clearTimeout(editorTweenTimeout);
 
           if(!editorHasFocus && !editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20))
-            ckeditorContent.tween('height',editorTweenToHeight);
+            HTMLEditor.resize(798,editorToHeight + 100);
 
           if(!editorHasFocus && typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') === 'none') {
             editorHasFocus = true;
@@ -1492,11 +1513,11 @@ window.addEvent('domready', function() {
         });
         // $$('div.editor #cke_HTMLEditor').addEvent('mouseenter',function(e){
         //   if(!editorIsClicked && !editorSubmited && !editorHasFocus && ckeditorContent.getHeight() <= (editorStartHeight+20))
-        //     editorTweenTimeout = (function(){ckeditorContent.tween('height',editorTweenToHeight);}).delay(1000);
+        //     editorTweenTimeout = (function(){ckeditorContent.tween('height',editorToHeight);}).delay(1000);
         // });
         // $$('div.editor #cke_HTMLEditor').addEvent('mouseleave',function(e){
         //   clearTimeout(editorTweenTimeout);
-        //   if(!editorIsClicked && !editorSubmited && !editorHasFocus && ckeditorContent.getHeight() <= (editorTweenToHeight+5) && ckeditorContent.getHeight() >= (editorTweenToHeight-5))
+        //   if(!editorIsClicked && !editorSubmited && !editorHasFocus && ckeditorContent.getHeight() <= (editorToHeight+5) && ckeditorContent.getHeight() >= (editorToHeight-5))
         //     ckeditorContent.tween('height',editorStartHeight);
         //     //editorIsClicked = false;
         // });
@@ -1505,8 +1526,7 @@ window.addEvent('domready', function() {
           // clearTimeout(editorTweenTimeout);
 
           if(!editorHasFocus && !editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20)) {
-            ckeditorContent.tween('height',editorTweenToHeight);
-            //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
+            HTMLEditor.resize(798,editorToHeight + 100);
           }
 
           // show toolbar directly
@@ -1745,7 +1765,6 @@ window.addEvent('domready', function() {
   $$('#editorForm input, #editorForm textarea').each(function(formfields){
     formfields.addEvent('change',function() {
       pageContentChangedSign();
-      pageContentChanged = true;
     });
   });
   // CHECK if the HTMLeditor content was changed
@@ -1753,18 +1772,15 @@ window.addEvent('domready', function() {
     HTMLEditor.on('blur',function() {
       if(HTMLEditor.checkDirty()) {
         pageContentChangedSign();
-        pageContentChanged = true;
       }
     });
     // on typing
     HTMLEditor.on("instanceReady", function() {
         this.document.on("keyup", function(){
           pageContentChangedSign();
-          pageContentChanged = true;
         });
         this.document.on("paste", function(){
           pageContentChangedSign();
-          pageContentChanged = true;
         });
       }
     );
@@ -1772,7 +1788,6 @@ window.addEvent('domready', function() {
     HTMLEditor.on('mode', function(e) {
       if(e.editor.mode === 'source' && HTMLEditor.checkDirty()) {
         pageContentChangedSign();
-        pageContentChanged = true;
       }
       }
     );

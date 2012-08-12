@@ -181,6 +181,28 @@ CKEDITOR.plugins.add('feinduraSnippets',
                   }
                 },
                 {
+                  id : 'editPlugin',
+                  type : 'button',
+                  label : feindura_langFile['CKEDITOR_BUTTON_EDITPLUGIN'],
+                  onClick : function() {
+                    // vars
+                    var select              = this.getDialog().getContentElement('plugins','pluginsList');
+                    var currentPluginRaw    = select.getValue();
+                    var currentPlugin       = currentPluginRaw.substr(0,currentPluginRaw.indexOf('#'));
+                    var currentPluginNumber = currentPluginRaw.substr(currentPluginRaw.indexOf('#')+1);
+
+                    // get the plugin name
+                    var pluginName;
+                    feindura_plugins.each(function(plugin){
+                      if(plugin.contains(select.getValue())){
+                        pluginName = plugin[0];
+                      }
+                    });
+
+                    openWindowBox('library/views/windowBox/editPlugins.php?page='+currentPage+'&category='+currentCategory+'&plugin='+currentPlugin+'&number='+currentPluginNumber,pluginName);
+                  }
+                },
+                {
                   type: 'hbox',
                   widths : [ '25%', '75%' ],
                   children: [{
@@ -284,7 +306,6 @@ CKEDITOR.plugins.add('feinduraSnippets',
                     // warn when pagecontent was changed
                     if(pageContentChanged || this.getDialog().getParentEditor().checkDirty()) {
                       pageContentChangedSign();
-                      pageContentChanged = true;
                       openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(href),false);
 
                     } else

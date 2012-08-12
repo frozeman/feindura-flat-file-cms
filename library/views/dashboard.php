@@ -80,8 +80,6 @@ if(!empty($userConfig[USERID]['info'])) {
     $maxListEntries = 50;
 
     // ->> LOAD all PAGES
-    $orgPages = GeneralFunctions::loadPages(true);
-    $pages = $orgPages;
     $orgPagesStats = GeneralFunctions::loadPagesStatistics(true);
     $pagesStats = $orgPagesStats;
 
@@ -143,6 +141,8 @@ if(!empty($userConfig[USERID]['info'])) {
 
     echo '<div class="inBlockSlider hidden" data-inBlockSlider="1">';
 
+    $pagesStats = $orgPagesStats;
+
     echo '<div class="row">';
       echo '<div class="span4">';
 
@@ -159,12 +159,8 @@ if(!empty($userConfig[USERID]['info'])) {
           foreach($pagesStats as $pageStats) {
             if(!empty($pageStats['visitorCount'])) {
               // get page category and title
-              foreach($pages as $page) {
-                if($pageStats['id'] == $page['id']) {
-                  $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
-                  $pageStats['category'] = $page['category'];
-                }
-              }
+              $pageStats['title'] = GeneralFunctions::getLocalized($pagesMetaData[$pageStats['id']],'title');
+              $pageStats['category'] = $pagesMetaData[$pageStats['id']]['category'];
               echo '<tr><td style="font-size:11px;text-align:center;"><strong>'.$pageStats['visitorCount'].'</strong></td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
               // count
               if($count == $maxListEntries) break;
@@ -194,12 +190,8 @@ if(!empty($userConfig[USERID]['info'])) {
           foreach($pagesStats as $pageStats) {
             if($pageStats['lastVisit'] != 0) {
               // get page category and title
-              foreach($pages as $page) {
-                if($pageStats['id'] == $page['id']) {
-                  $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
-                  $pageStats['category'] = $page['category'];
-                }
-              }
+              $pageStats['title'] = GeneralFunctions::getLocalized($pagesMetaData[$pageStats['id']],'title');
+              $pageStats['category'] = $pagesMetaData[$pageStats['id']]['category'];
               echo '<tr><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageStats['lastVisit'])).'</strong> '.formatTime($pageStats['lastVisit']).'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
               // count
               if($count == $maxListEntries) break;
@@ -232,12 +224,8 @@ if(!empty($userConfig[USERID]['info'])) {
           $count = 1;
           foreach($pagesStats as $pageStats) {
             // get page category and title
-            foreach($pages as $page) {
-              if($pageStats['id'] == $page['id']) {
-                $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
-                $pageStats['category'] = $page['category'];
-              }
-            }
+            $pageStats['title'] = GeneralFunctions::getLocalized($pagesMetaData[$pageStats['id']],'title');
+            $pageStats['category'] = $pagesMetaData[$pageStats['id']]['category'];
 
             // get highest time
             $highestTime = unserialize($pageStats['visitTimeMax']);
@@ -264,6 +252,7 @@ if(!empty($userConfig[USERID]['info'])) {
         echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'].'</h2>';
           echo '<div class="insetBlockListPages">
                 <table class="coloredList"><tbody>';
+          $pages = GeneralFunctions::loadPages(true);
           // SORT the Pages by VISIT SAVEDATE
           usort($pages, 'sortByLastSaveDate');
 
@@ -282,8 +271,6 @@ if(!empty($userConfig[USERID]['info'])) {
 
         echo '</div>';
     echo '</div>';
-
-    $pages = $orgPages;
 
     echo '<div class="verticalSeparator"></div>';
     echo '</div>'; // <- inBlockSlider End
