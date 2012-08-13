@@ -124,9 +124,11 @@ $langFile['STATISTICS_TOOLTIP_ROBOTCOUNT']                                = 'web
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'a'; // "exampleword" led 20 times to this website
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'mèné sur ce site';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Cliquez dessus pour chercher le mot de recherche dans toutes les pages.';
-$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'visiteurs';
+
+$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'visiteurs à ce jour';
 $langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'visiteurs présents';
-$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'visiteurs présents';
+$langFile['STATISTICS_TEXT_CURRENT']                                      = 'Actuellement';
+$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Ultima attività';
 
 $langFile['STATISTICS_TITLE_PAGESTATISTICS']                              = 'statistiques du pages';
 
@@ -195,7 +197,7 @@ $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'cat
 
 // USER LIST
 $langFile['USER_TEXT_USER']                                               = 'Utilisateur';
-$langFile['USER_TEXT_NOUSER']                                             = 'il n&#145;y a pas d&#145;utilisateurs';
+$langFile['USER_TEXT_NOUSER']                                             = 'Il n&#145;y avait pas les utilisateurs.';
 $langFile['USER_TEXT_CURRENTUSER']                                        = 'Tu es connecté en tant qu&#145;utilisateurs';
 $langFile['USER_TEXT_USERSONLINE']                                        = 'Cet utilisateur est également connecté:: Dernières activités';
 

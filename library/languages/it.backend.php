@@ -129,9 +129,10 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'ha 
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'volte a questo sito';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Clicca qui per la ricerca di questa parola nelle pagine.';
 
-$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'visitatori';
-$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'visitatori correnti';
-$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'ultima attività';
+$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Visitatori finora';
+$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Visitatori correnti';
+$langFile['STATISTICS_TEXT_CURRENT']                                      = 'Attualmente';
+$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Altima attività';
 
 $langFile['STATISTICS_TITLE_PAGESTATISTICS']                              = 'Statistiche Pagine';
 
@@ -208,7 +209,7 @@ $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'Cat
 
 // USER LIST
 $langFile['USER_TEXT_USER']                                               = 'Utente';
-$langFile['USER_TEXT_NOUSER']                                             = 'Nessun Utente';
+$langFile['USER_TEXT_NOUSER']                                             = 'Non c&#145;erano utenti.';
 $langFile['USER_TEXT_CURRENTUSER']                                        = 'Nome Utente Registrato';
 $langFile['USER_TEXT_USERSONLINE']                                        = 'Questo utente è loggato::Ultime attività';
 

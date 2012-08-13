@@ -212,6 +212,9 @@ function resizeElementsOnHover() {
   $$('.resizeOnHover').each(function(element){
     var orgSize = element.getSize().y;
 
+    if(orgSize < startSize)
+      return;
+
     element.setStyle('height',startSize);
     element.set('tween',{transition: Fx.Transitions.Quint.easeIn});
     element.addEvents({
@@ -576,7 +579,7 @@ window.addEvent('domready', function() {
   new jsMultipleSelect();
 
   // slide out elements on hover
-  new resizeElementsOnHover();
+  resizeElementsOnHover();
 
   // STORES all pages LI ELEMENTS
   listPagesBars = $$('div.block.listPagesBlock li');
@@ -587,7 +590,7 @@ window.addEvent('domready', function() {
       url:'library/includes/backend.include.php',
       method: 'get',
       onSuccess: function(html) {
-        if(html == 'releaseBlock' && $('contentBlocked') !== null)
+        if(html == '###RELEASEBLOCK###' && $('contentBlocked') !== null)
           $('contentBlocked').destroy();
       }
     }).send('status=updateUserCache&site='+currentSite+'&page='+currentPage);
@@ -636,47 +639,8 @@ window.addEvent('domready', function() {
   // ->> LOG LIST
   // ------------
   if($('sideBarActivityLog') !== null) {
-
-    // vars
-    var minHeight = 140;
-    var maxHeight = $('sideBarActivityLog').getStyle('height');
-
     // var activityScroller = new Scroller('sideBarActivityLog', {area: 150, velocity: 0.1});
     // activityScroller.start();
-
-    // -> adds the TWEEN to the LOG-list
-    $('sideBarActivityLog').setStyle('height',minHeight);
-
-    // TWEEN OUT
-    $('sideBarActivityLog').addEvent('mouseenter', function() {
-      $('sideBarActivityLog').tween('height',maxHeight);
-    });
-    // TWEEN IN
-    $('sideBarActivityLog').addEvent('mouseleave', function() {
-      $('sideBarActivityLog').tween('height',minHeight);
-    });
-
-    if($('sidbarTaskLogScrollUp') !== null) {
-      // TWEEN OUT sidebarScrollUp
-      $('sidbarTaskLogScrollUp').addEvent('mouseenter', function() {
-        $('sideBarActivityLog').tween('height',maxHeight);
-      });
-      // TWEEN IN sidebarScrollUp
-      $('sidbarTaskLogScrollUp').addEvent('mouseleave', function() {
-        $('sideBarActivityLog').tween('height',minHeight);
-      });
-    }
-
-    if($('sidbarTaskLogScrollDown') !== null) {
-      // TWEEN OUT sidebarScrollDown
-      $('sidbarTaskLogScrollDown').addEvent('mouseenter', function() {
-        $('sideBarActivityLog').tween('height',maxHeight);
-      });
-      // TWEEN IN sidebarScrollDown
-      $('sidbarTaskLogScrollDown').addEvent('mouseleave', function() {
-        $('sideBarActivityLog').tween('height',minHeight);
-      });
-    }
    }
 
   // *** ->> CONTENT -----------------------------------------------------------------------------------------------------------------------
@@ -697,21 +661,41 @@ window.addEvent('domready', function() {
 
 
   // -> RELOAD THE CURRENTVISITORS statistic every 1 minute
-  if($('rightSidebar') !== null &&
-     typeOf($('rightSidebar').getChildren('.currentVisitorsSideBar')[0]) !== 'null') {
+  if($('currentVisitorsSideBar') !== null) {
     (function(){
       new Request({
         url:'library/includes/currentVisitors.include.php',
         onSuccess: function(html) {
           if(html) {
-            toolTipsLeft.detach('a.toolTipLeft');
-            $('rightSidebar').getChildren('.currentVisitorsSideBar')[0].set('html',html);
-            feindura_storeTipTexts('a.toolTipLeft');
-            toolTipsLeft.attach('a.toolTipLeft');
+            toolTipsLeft.detach('#currentVisitorsSideBar .toolTipLeft');
+            toolTipsRight.detach('#currentVisitorsSideBar .toolTipRight');
+            $('currentVisitorsSideBar').set('html',html);
+            feindura_storeTipTexts('#currentVisitorsSideBar .toolTipLeft, #currentVisitorsSideBar .toolTipRight');
+            toolTipsLeft.attach('#currentVisitorsSideBar .toolTipLeft');
+            toolTipsRight.attach('#currentVisitorsSideBar .toolTipRight');
+            resizeElementsOnHover();
           } else
-            $('rightSidebar').set('html','');
+            $('currentVisitorsSideBar').empty();
         }
       }).send('status=getCurrentVisitors&request=true'); // getCurrentVisitors status prevents userCache overwriting
+    }).periodical(58000);
+  }
+  if($('currentVisitorsDashboard') !== null) {
+    (function(){
+      new Request({
+        url:'library/includes/currentVisitors.include.php',
+        onSuccess: function(html) {
+          if(html) {
+            toolTipsLeft.detach('#currentVisitorsDashboard .toolTipLeft');
+            toolTipsRight.detach('#currentVisitorsDashboard .toolTipRight');
+            $('currentVisitorsDashboard').set('html',html);
+            feindura_storeTipTexts('#currentVisitorsDashboard .toolTipLeft, #currentVisitorsSideBar .toolTipRight');
+            toolTipsLeft.attach('#currentVisitorsDashboard .toolTipLeft');
+            toolTipsRight.attach('#currentVisitorsDashboard .toolTipRight');
+          } else
+            $('currentVisitorsDashboard').empty();
+        }
+      }).send('status=getCurrentVisitors&request=true&mode=dashboard'); // getCurrentVisitors status prevents userCache overwriting
     }).periodical(60000);
   }
 

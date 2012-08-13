@@ -13,304 +13,370 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
+
+* sidebar.loader.php version 0.60
+*
+* The leftSideBar shows always websiteand cms relevant information. like users, visitors, last activity etc.
 */
-// sidebar.loader.php version 0.8
+
+/**
+ * Includes the login.include.php and backend.include.php and filter the basic data
+ */
+require_once(dirname(__FILE__)."/includes/secure.include.php");
+
+echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
+
+// vars
+$tabIndex = 40;
 
 
-// PAGES
-if(!empty($_GET['page']) && is_numeric($_GET['page'])) {
+// -----------------------------------------------------------------------------------
+// if page ID is given, it LOAD THE EDITOR
+// or if $_GET['site'] == 'pages'
+if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pages'
 
-  if(is_numeric($pageContent['id'])) {
+  if(!$_GET['loadSideBarMenu'])
+    echo '<div id="sidebarSelection" class="staticScroller">';
 
-    // vars
-    $pageStatistics = StatisticFunctions::readPageStatistics($pageContent['id']);
+    // ----  show QUICKMENU for the NONE-CATEGORY PAGES
+    // slide the categories menu IN, when a category is open
+    if(empty($_GET['category']))
+      $hidden = '';
+    else
+      $hidden = ' hidden';
 
-    $firstVisitDate = GeneralFunctions::formatDate($pageStatistics['firstVisit']);
-    $firstVisitTime = formatTime($pageStatistics['firstVisit']);
-    $lastVisitDate = GeneralFunctions::formatDate($pageStatistics['lastVisit']);
-    $lastVisitTime = formatTime($pageStatistics['lastVisit']);
+    // SHOW only if the USER has PERMISSION for that CATEGORY (or any of the pages in it)
+    if(showCategory(0)) {
 
-    $visitTimes_max = unserialize($pageStatistics['visitTimeMax']);
-    $visitTimes_min = unserialize($pageStatistics['visitTimeMin']);
+      echo '<div class="sidebarMenu fixed brown'.$hidden.'">
+      <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTipRight" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
+      <div class="menuWrapper">
+        <menu class="vertical">';
 
-    if($pageStatistics['firstVisit']) {
-    ?>
+        if($pages = GeneralFunctions::loadPages(0)) {
+          foreach($pages as $page) {
+            if(!GeneralFunctions::hasPermission('editablePages',$page['id']))
+              continue;
 
-    <div class="box">
-      <h1><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27"><?php echo $langFile['EDITOR_pagestatistics_h1']; ?></h1>
-      <!-- VISITOR COUNT -->
-      <div class="row">
-        <div class="span1">
-          <strong><?php echo $langFile['STATISTICS_TEXT_VISITORCOUNT']; ?></strong>
+            // -> show page ID
+            $pageId = (GeneralFunctions::isAdmin())
+              ? ' class="toolTipRight noMark" title="ID '.$page['id'].'"'
+              : '';
+
+            if($_GET['page'] == $page['id'])
+              $pageSelected = ' class="active"';
+            else
+              $pageSelected = '';
+
+            echo '<li><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span'.$pageId.'>'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'</span><span style="display:none;" class="toolTipRight noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+            $tabIndex++;
+          }
+        } else {
+          echo '<li><a href="#" onclick="return false;"><span>'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'</span></a></li>';
+        }
+
+      echo '</menu>
         </div>
-        <div class="span1">
-          <?php echo formatHighNumber($pageStatistics['visitorCount']); ?>
-          <a href="#" class="down inBlockSliderLink toolTipRight" style="position:absolute;right: 10px;" data-inBlockSlider="moreStatistics" title="::<?php echo $langFile['BUTTON_MORE']; ?>">&nbsp;</a>
-        </div>
-      </div>
-
-      <div class="statistics inBlockSlider hidden" data-inBlockSlider="moreStatistics">
-        <div class="spacer"></div>
-        <!-- FIRST VISIT -->
-        <div class="row">
-          <div class="span1">
-            <strong><?php echo $langFile['STATISTICS_TEXT_FIRSTVISIT']; ?></strong>
-          </div>
-          <div class="span1">
-            <?php echo '<span class="toolTipRight" title="'.$firstVisitTime.'::">'.$firstVisitDate.'</span>'; ?>
-          </div>
-        </div>
-        <!-- LAST VISIT -->
-        <div class="row">
-          <div class="span1">
-            <strong><?php echo $langFile['STATISTICS_TEXT_LASTVISIT']; ?></strong>
-          </div>
-          <div class="span1">
-            <?php echo '<span class="toolTipRight" title="'.$lastVisitTime.'::">'.$lastVisitDate.'</span>'; ?>
-          </div>
-        </div>
-
-        <div class="spacer"></div>
-
-        <!-- VISIT TIME MAX -->
-        <div class="row">
-          <div class="span1">
-            <strong><?php echo $langFile['STATISTICS_TEXT_VISITTIME_MAX']; ?></strong>
-          </div>
-          <div class="span1">
-            <?php
-            $showTimeHead = true;
-            if(is_array($visitTimes_max)) {
-              foreach($visitTimes_max as $visitTime_max) {
-                if($visitTimeFormated = showVisitTime($visitTime_max)) {
-                  if($showTimeHead) {
-                    echo '<span class="toolTipRight" title="::';
-                    $visitTimeHead = $visitTimeFormated;
-                    $showTimeHead = false;
-                  } else {
-
-                    echo str_replace(array('<','>'),array('[',']'),$visitTimeFormated).'[br]';
-                  }
-                }
-              }
-              echo '">'.$visitTimeHead.'</span>';
-            }
-            ?>
-          </div>
-        </div>
-        <!-- VISIT TIME MIN -->
-        <div class="row">
-          <div class="span1">
-            <strong><?php echo $langFile['STATISTICS_TEXT_VISITTIME_MIN']; ?></strong>
-          </div>
-          <div class="span1">
-            <?php
-            $showTimeHead = true;
-            if(is_array($visitTimes_min)) {
-              foreach($visitTimes_min as $visitTime_min) {
-                if($visitTimeFormated = showVisitTime($visitTime_min)) {
-                  if($showTimeHead) {
-                    echo '<span class="toolTipRight" title="::';
-                    $visitTimeHead = $visitTimeFormated;
-                    $showTimeHead = false;
-                  } else {
-
-                    echo str_replace(array('<','>'),array('[',']'),$visitTimeFormated).'[br]';
-                  }
-                }
-              }
-              echo '">'.$visitTimeHead.'</span>';
-            }
-            ?>
-          </div>
-        </div>
-      </div>
-
-      <?php
-      $searchWords = createTagCloud($pageStatistics['searchWords'],6,9);
-
-      if($searchWords) {
-      ?>
-      <div class="spacer"></div>
-
-      <!-- SEARCHWORDS -->
-      <h2 class="center"><?php echo $langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']; ?></h2>
-      <?php
-        echo '<div class="tagCloud">';
-        echo createTagCloud($pageStatistics['searchWords'],6,9);
-        echo '</div>';
-
-      }
-      ?>
-    </div>
-
-    <?php
+        <div class="bottom"><a href="#">&nbsp;</a></div>
+      </div>';
     }
-    //$langFile['STATISTICS_TEXT_NOVISIT']
-    unset($searchWords,$pageStatistics,$firstVisitDate,$firstVisitTime,$lastVisitDate,$lastVisitTime,$visitTimes_max,$visitTimes_min,$showTimeHead,$visitTimeFormated);
 
+    // ----  show QUICKMENU for the CATEGORIES
+    if(!empty($categoryConfig)) {
 
-    // THUMBNAIL
-    if($categoryConfig[$pageContent['category']]['thumbnails'] || !empty($pageContent['thumbnail'])) {
-    ?>
-    <div class="box center">
-      <h1><img src="library/images/icons/thumbnailIcon_middle.png" alt="icon" style="position:relative; top:-4px; margin-right:5px;"><?php echo $langFile['THUMBNAIL_TEXT_NAME']; ?></h1>
-      <?php
-
-      $thumbnailPath = (!empty($pageContent['thumbnail'] )) ? GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'] : '#';
-
-      // -> show THUMBNAIL if the page has one
-      $displayThumbnailContainer = ' display:none;';
-      if(!$newPage && $categoryConfig[$pageContent['category']]['thumbnails'] && !empty($pageContent['thumbnail'])) {
-        $displayThumbnailContainer = '';
+      // vars
+      $showCategories = false;
+      foreach ($categoryConfig as $category) {
+        if(showCategory($category['id']) && $category['id'] !== 0)
+          $showCategories[] = $category;
       }
 
-      // generates a random number to put on the end of the image, to prevent caching
-      // $randomImage = '?'.md5(uniqid(rand(),1));
+      if($showCategories !== false) {
 
-      // thumbnailPreviewContainer
-      echo '<div id="thumbnailPreviewContainer" style="position:relative;display:inline-block;'.$displayThumbnailContainer.'">';
-        // see if the thumbnails are activated, add upload/delete buttons
-        if($categoryConfig[$pageContent['category']]['thumbnails']) {
-          echo '<a href="?site=deletePageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"" class="deleteButton toolTipLeft"></a>';
-          echo '<a href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" class="image">';
-          echo '<img src="'.$thumbnailPath.'" id="thumbnailPreviewImage" class="thumbnail" alt="thumbnail">';
-          echo '</a>';
-        // if not only show the thumbnailPreviewImage
-        } else
-          echo '<img src="'.$thumbnailPath.'" id="thumbnailPreviewImage" class="thumbnail" alt="thumbnail">';
+        // spacer
+        echo '<div class="spacer"></div>';
 
+        // slide the categories menu OUT, when a category is open
+        if($_GET['site'] != 'pages' && $_GET['category'] == 0) //
+          $hidden = ' hidden';
+        else $hidden = '';
+
+        echo '<div class="sidebarMenu free blue'.$hidden.'">
+        <div class="top"><img src="library/images/icons/categoryIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
+        <div class="menuWrapper">
+          <menu class="vertical">';
+
+          foreach($showCategories as $category) {
+
+            // overjump the non-category
+            if($category['id'] == 0) continue;
+
+            // -> show category ID
+            $categoryId = (GeneralFunctions::isAdmin())
+              ? ' class="toolTipRight noMark" title="ID '.$category['id'].'"'
+              : '';
+
+            if($_GET['category'] == $category['id'])
+                $categorySelected = ' class="active"';
+              else
+                $categorySelected = '';
+            echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="loadSideBarMenu(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span'.$categoryId.'>'.GeneralFunctions::getLocalized($category,'name').'</span></a></li>';
+            $tabIndex++;
+          }
+        echo '</menu>
+          </div>
+          <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
+        </div>';
+      }
+    }
+
+    // ----  show QUICKMENU for the CATEGORY PAGES
+    if(!empty($_GET['category']) && showCategory($_GET['category'])) {
+
+      // spacer
+      echo '<div class="spacer arrow"></div>';
+
+      echo '<div class="sidebarMenu free gray">
+      <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</span><a href="#" class="toolTipRight" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'::">&nbsp;</a></div>
+      <div class="menuWrapper">
+        <menu class="vertical">';
+
+        if($pages = GeneralFunctions::loadPages($_GET['category'])) {
+
+          foreach($pages as $page) {
+            if(!GeneralFunctions::hasPermission('editablePages',$page['id']))
+              continue;
+
+            // -> show page ID
+            $pageId = (GeneralFunctions::isAdmin())
+              ? ' class="toolTipRight noMark" title="ID '.$page['id'].'"'
+              : '';
+
+            if($_GET['page'] == $page['id'])
+              $pageSelected = ' class="active"';
+            else
+              $pageSelected = '';
+
+            echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span'.$pageId.'>'.GeneralFunctions::getLocalized($page,'title').'</span><span style="display:none;" class="toolTipRight noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+            $tabIndex++;
+          }
+        } else {
+          echo '<li><a href="#" onclick="return false;"><span>'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'</span></a></li>';
+        }
+      echo '</menu>
+        </div>
+        <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
+      </div>';
+    }
+
+    // sidebarSelection end
+    if(!$_GET['loadSideBarMenu'])
       echo '</div>';
-
-      // -> show the thumbnail upload button if there is no thumbnail yet
-      $displayThumbnailUploadButton = (!$newPage && $categoryConfig[$pageContent['category']]['thumbnails'] && empty($pageContent['thumbnail']))
-         ? '' : ' style="display:none;"';
-
-      // thumbnailUploadButtonInPreviewArea
-      echo '<a href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" id="thumbnailUploadButtonInPreviewArea" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="uploadPageThumbnail toolTipBottom"'.$displayThumbnailUploadButton.'></a>';
-      ?>
-    </div>
-    <?php
-    }
-
-    // PLUGINS
-    if(is_array($activatedPlugins) && count($activatedPlugins) >= 1)
-      include(dirname(__FILE__).'/includes/editPlugins.rightSideBar.include.php');
-  }
-
-// SITES
+// -----------------------------------------------------------------------------------
+// SWITCH SITE
 } else {
 
   // SWITCH the &_GET['site'] var
   switch($_GET['site']) {
+    // ***** LAST ACTIVITY -------------------------------------------- **********
+    case 'dashboard': case 'pages': case '':
 
-    // ***** dashboard sideBar -------------------------------------------------- *********
-    case 'dashboard':
-      break;
+      // -> SHOW TASK LOG
+      echo '<div class="box">';
+      echo '<h1><img src="library/images/icons/activityLogIcon.png" alt="icon" style="position:relative; top:-2px;margin-right: 4px;"> '.$langFile['DASHBOARD_TITLE_ACTIVITY'].'</h1>';
 
-    // ***** pages sideBar -------------------------------------------------- *********
-    case 'pages':
-        echo '<div id="messageBox_input" class="box">';
-          echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" alt="icon" style="width: 65px; height: 65px">'.$langFile['SORTABLEPAGELIST_info'];
-          // -> the javascript request of the sortable gets its error messages from this input
-          echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['SORTABLEPAGELIST_save'].'|'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'">';
-        echo '</div>';
-      break;
+      if(file_exists(dirname(__FILE__).'/../statistic/activity.statistic.log') &&
+         $logContent = file(dirname(__FILE__).'/../statistic/activity.statistic.log')) {
 
-    // ***** statisticSetup sideBar -------------------------------------------- *********
-    case 'statisticSetup':
-      if($deletedStatistics) {
+         // echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat; top: 0px;"></div>';
+         echo '<div class="resizeOnHover" id="sideBarActivityLog">';
+
+              // ->> LIST the tasks
+              include(dirname(__FILE__).'/includes/activityLog.include.php');
+
+         echo '</div>';
+         // echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(\'library/images/bg/sidebarScrollDown.png\') no-repeat; margin-top:-30px;"></div>';
+      // no log
+      } else
+        echo $langFile['DASHBOARD_TEXT_ACTIVITY_NONE'];
+
+      echo '</div>';
+
+
+      // -> SHOW USERs
+      if(empty($userConfig) || (is_array($userConfig) && count($userConfig) > 1)) {
         echo '<div class="box">';
-          echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" width="65" height="65">';
-          echo $deletedStatistics;
-        echo '</div>';
-      }
-      break;
+        echo '<h1><img src="library/images/icons/userIcon_small.png" alt="icon" style="position:relative; top:-3px;margin-right: 4px;"> '.$langFile['DASHBOARD_TITLE_USER'].'</h1>';
+          if(!empty($userConfig) && is_array($userConfig)) {
 
-    // ***** websiteSetup sideBar -------------------------------------------- *********
-    case 'websiteSetup':
-      if(is_array($websiteConfig['localized'])) {
-        $websiteConfigLanguages = array_keys($websiteConfig['localized']);
-        if(is_array($websiteConfigLanguages) && is_array($websiteConfig['multiLanguageWebsite']['languages']))
-          $websiteConfigLanguagesDiff = array_diff($websiteConfig['multiLanguageWebsite']['languages'],$websiteConfigLanguages);
-        if($websiteConfig['multiLanguageWebsite']['active'] && !empty($websiteConfigLanguagesDiff)) {
-          echo '<div class="box">';
-            echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
-            echo '<h1>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>';
-            echo '<ul class="flags">';
-            foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
-              if(!isset($websiteConfig['localized'][$langCode])) {
-                echo '<li><img src="'.GeneralFunctions::getFlagSrc($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="link gray">'.$languageNames[$langCode].'</a></li>';
+            // list user
+            echo '<ul class="sidebarListUsers unstyled">';
+            foreach($userConfig as $user) {
+              echo '<li';
+              // your own user
+              if($_SESSION['feinduraSession']['login']['user'] == $user['id'])
+                echo ' class="toolTipRight online brown" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
+              // users who are online too
+              else {
+                foreach($userCache as $cachedUser) {
+                  if($user['username'] == $cachedUser['username']) {
+                    echo ' class="toolTipRight online" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$cachedUser["timestamp"]).'"';
+                      break;
+                  }
+                }
               }
+
+              // list users
+              echo '>'.$user['username'].'</li>';
             }
             echo '</ul>';
-          echo '</div>';
-        } else {
-          $currentVisitorFullDetail = false;
-          $currentVisitors = include('library/includes/currentVisitors.include.php');
-          if($currentVisitors) {
-            echo '<div class="box currentVisitorsSideBar">';
-              echo $currentVisitors;
-            echo '</div>';
-          }
-        }
+          // no users
+          } else
+            echo '<span class="red">'.$langFile['USER_TEXT_NOUSER'].'</span>';
+
+        echo '</div>';
       }
-      unset($websiteConfigLanguages,$websiteConfigLanguagesDiff);
+
+      break;
+    // ***** ADMIN SETUP sideBar -------------------------------------------- **********
+    case 'adminSetup':
+      if(!GeneralFunctions::isAdmin()) break;
+
+      echo '<div class="box">';
+
+      // FEINDURA INFO
+      echo '<h1>'.$langFile['ADMINSETUP_TEXT_VERSION'].'</h1>';
+      echo '<p>'.VERSION.' - Build '.BUILD.'</p>';
+      echo '<a href="README.md" class="link">README</a><br>';
+      echo '<a href="CHANGELOG" class="link">CHANGELOG</a><br>';
+      echo '<a href="LICENSE" class="link">LICENSE</a>';
+
+      echo '<h3>'.$langFile['ADMINSETUP_TEXT_PHPVERSION'].'</h3>
+      <p class="center">'.PHP_VERSION.'</p>';
+
+      echo '<h3>'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'</h3>';
+      echo '<p class="toolTipRight" title="'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'::'.DOCUMENTROOT.'">'.DOCUMENTROOT.'</p>
+          </div>';
+
       break;
 
-    // ***** pageSetup sideBar -------------------------------------------- *********
+    // ***** PAGESETUP -------------------------------------------- **********
     case 'pageSetup':
-      $categoryHasMissingLanguages = false;
-      if(is_array($websiteConfig['multiLanguageWebsite']['languages'])) {
-        foreach ($categoryConfig as $category) {
-          if($category['id'] == 0)
-            continue;
-          $arrayDifferences = array_diff($websiteConfig['multiLanguageWebsite']['languages'],array_keys($category['localized']));
-          if(!empty($arrayDifferences)) {
-            $categoryHasMissingLanguages = true;
-            break;
-          }
-        }
-      }
-      if($categoryHasMissingLanguages) {
-        echo '<div class="box">';
-          echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
-          echo '<h1>'.$langFile['WARNING_TITLE_UNTITLEDCATEGORIES'].'</h1>';
-          echo '<ul class="flags">';
-          foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
-            foreach ($categoryConfig as $category) {
-              if($category['id'] == 0)
-                continue;
-              if(!isset($category['localized'][$langCode])) {
-                $categoryName = GeneralFunctions::getLocalized($category,'name');
-                $categoryName = (!empty($categoryName)) ? ' &rArr; '.$categoryName : '';
-                echo '<li><img src="'.GeneralFunctions::getFlagSrc($langCode).'" class="flag"> '.$languageNames[$langCode].'<a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="link gray">'.$categoryName.'</a></li>';
-              }
-            }
-          }
-          echo '</ul>';
-        echo '</div>';
-      } else {
-        $currentVisitorFullDetail = false;
-        $currentVisitors = include('library/includes/currentVisitors.include.php');
-        if($currentVisitors) {
-          echo '<div class="box">';
-            echo $currentVisitors;
-          echo '</div>';
-        }
-      }
-      break;
+      if(!GeneralFunctions::isAdmin()) break;
 
-    // ***** DEFAULT --------------------------------------------------------- *********
-    default:
-      $currentVisitorFullDetail = false;
-      $currentVisitors = include('library/includes/currentVisitors.include.php');
-      if($currentVisitors) {
-        echo '<div class="box currentVisitorsSideBar">';
-          echo $currentVisitors;
-        echo '</div>';
-      }
-      break;
+      // -> CATEGORY ANCHOR LINKS
+      echo '<div id="sidebarSelection" class="staticScroller">';
 
+      if(!empty($categoryConfig) && is_array($categoryConfig)) {
+
+        echo '<div class="sidebarMenu fixed blue">
+            <div class="top"><img src="library/images/icons/categoryIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
+            <div class="menuWrapper">
+              <menu class="vertical">';
+
+              echo '<li><a href="#top"><i class="icon icon-arrow-up icon-white"></i></a></li>';
+              echo '<li><a href="#nonCategoryPages"><span>'.GeneralFunctions::getLocalized($categoryConfig[0],'name').'</span></a></li>';
+
+                foreach($categoryConfig as $category) {
+
+                  // overjump the non-category
+                  if($category['id'] == 0) continue;
+
+                  echo '<li><a href="#categoryAnchor'.$category['id'].'" tabindex="'.$tabIndex.'"><span>'.GeneralFunctions::getLocalized($category,'name').'</span></a></li>';
+                  $tabIndex++;
+                }
+            echo '</menu>
+          </div>
+          <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
+        </div>';
+
+        echo '<div class="spacer"></div>';
+
+        echo '<div class="center">';
+          echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTipBottom" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY'].'::"></a>';
+        echo '</div>';
+
+      }
+      echo '</div>';
+
+      break;
+    // ***** USERSETUP -------------------------------------------- **********
+    case 'userSetup':
+      if(!GeneralFunctions::isAdmin()) break;
+
+      // -> USER ANCHOR LINKS
+      echo '<div id="sidebarSelection" class="staticScroller">';
+
+      if(!empty($userConfig) && is_array($userConfig)) {
+
+        echo '<div class="sidebarMenu fixed gray">
+            <div class="top"><img src="library/images/icons/userIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['USERSETUP_userSelection'].'</span><a href="#">&nbsp;</a></div>
+            <div class="menuWrapper">
+              <menu class="vertical">';
+
+              echo '<li><a href="#top"><i class="icon icon-arrow-up icon-white"></i></a></li>';
+
+                // -> show a anchor link to each user
+                foreach($userConfig as $user) {
+                  $userIsAdmin = ($user['admin']) ? ' toolTipRight" title="'.$langFile['USERSETUP_admin'].'::"' : '"';
+                  echo '<li><a href="#userId'.$user['id'].'" class="'.$userIsAdmin.' tabindex="'.$tabIndex.'"><span>'.$user['username'].'</span></a></li>';
+                  $tabIndex++;
+                }
+            echo '</menu>
+          </div>
+          <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
+        </div>';
+
+        echo '<div class="spacer"></div>';
+
+        echo '<div class="center">';
+          echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTipBottom" title="'.$langFile['USERSETUP_createUser'].'::"></a>';
+        echo '</div>';
+
+      } echo '</div>';
+
+      break;
+    // ***** BACKUP sideBar -------------------------------------------- **********
+    case 'backup':
+      if(!GeneralFunctions::isAdmin()) break;
+
+      echo '<div class="box">';
+
+      // link the backup files
+      $backups = GeneralFunctions::readFolder(dirname(__FILE__).'/../backups/');
+      if(!empty($backups['files'])) {
+        $lastBackups = '<ul class="unstyled backupDownload">';
+        natsort($backups['files']);
+        $backups['files'] = array_reverse($backups['files']);
+        foreach($backups['files'] as $backupFile) {
+          $backupTime = filemtime(DOCUMENTROOT.$backupFile);
+
+          $lastBackups .= '<li><a href="'.GeneralFunctions::Path2URI($backupFile).'" class="backup">';
+          $lastBackups .= (strpos($backupFile,'restore') === false)
+            ? $langFile['BACKUP_TITLE_BACKUP']
+            : $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'];
+          $lastBackups .= '<br>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($backupTime)).' '.formatTime($backupTime).'</a>';
+          $lastBackups .= '<a href="?site=backup&amp;status=deleteBackup&amp;file='.basename($backupFile).'" onclick="openWindowBox(\'library/views/windowBox/deleteBackup.php?status=deleteBackup&amp;file='.basename($backupFile).'\',\''.$langFile['BACKUP_TITLE_BACKUP'].'\');return false;" class="deleteButton toolTipTop" title="'.$langFile['BACKUP_TOOLTIP_DELETE'].'::"></a></li>';
+        }
+        $lastBackups .= '</ul>';
+      } else
+        $lastBackups = '<p>'.$langFile['BACKUP_TEXT_NOBACKUP'].'</p>';
+
+      // BACKUP DOWNLOADS
+      echo '<h2>'.$langFile['BACKUP_TITLE_LASTBACKUPS'].'</h2>';
+      echo $lastBackups;
+      echo '</div>';
+
+      break;
   } //switch END
 }
+
+// -> Show always the current visitors
+$currentVisitorDashboard = false;
+$currentVisitors = include('library/includes/currentVisitors.include.php');
+echo '<div id="currentVisitorsSideBar">';
+  echo $currentVisitors;
+echo '</div>';
+
+
+?>

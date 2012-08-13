@@ -27,6 +27,9 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // available VARs from dashboard.php
 // $currentVisitorDashboard
 
+if($_POST['mode'] == 'dashboard')
+  $currentVisitorDashboard = true;
+
 // ---------------------------------
 // -> CURRENT VISITORS
 // -> clear cache from visitors over the timelimit and load current visitors
@@ -42,11 +45,15 @@ if(!empty($currentVisitors) && $showVisitors) {
   $return = '';
 
   // ->> write before the listing
-  if($currentVisitorDashboard)
-    $return .= '<table class="coloredList"><tbody>';
-  else {
-    $return .= '<h1>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h1>';
-    $return .= '<ul class="flags">';
+  if($currentVisitorDashboard) {
+    $return .= '<div class="insetBlock">';
+      $return .= '<h2>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].' ('.count($currentVisitors).')</h2>';
+      $return .= '<div class="insetBlockListPages">';
+        $return .= '<table class="coloredList"><tbody>';
+  } else {
+    $return .= '<div class="box">';
+      $return .= '<h1>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].' ('.count($currentVisitors).')</h1>';
+      $return .= '<ul class="flags resizeOnHover">';
   }
 
   /* uses GeoIPLite
@@ -77,10 +84,13 @@ if(!empty($currentVisitors) && $showVisitors) {
   geoip_close($geoIP);
 
   // ->> write after the listing
-  if($currentVisitorDashboard)
-    $return .= '</tbody></table>';
-  else {
+  if($currentVisitorDashboard) {
+      $return .= '</tbody></table>';
+      $return .= '</div>';
+    $return .= '</div>';
+  } else {
     $return .= '</ul>';
+    $return .= '</div>';
   }
 
   if(isset($_POST['request']) && $_POST['request'] == true) echo $return;

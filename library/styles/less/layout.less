@@ -287,6 +287,9 @@ header.main {
     background: #565656 url("../images/bg/mainBody.png") repeat;
     #shadow > .text(0 1px 1px #dfdfdf);
 
+    .container {
+        background: transparent url("../images/bg/mainBodyContainer.png") repeat-y;
+    }
 
     // CONTENT
 
@@ -402,18 +405,20 @@ footer.main {
     position: relative;
     z-index: 1;
     width: 100%;
-    height: 176px;
+    height: 70px;
+    margin-top: 20px;
     min-width: @appWidth;
     clear: both;
     background: url("../images/bg/footer.png") repeat-x;
 
     div.copyright {
         position: relative;
-        top: 142px;
+        top: 25px;
         width: @appWidth;
         color: #979797;
         text-align: center;
         font-size: 11px;
+        #shadow > .text(0 1px 1px #000);
     }
 
     // - footer links

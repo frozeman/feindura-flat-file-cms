@@ -90,19 +90,15 @@ if(!empty($userConfig[USERID]['info'])) {
         echo '<div class="insetBlock">';
         echo '<h2>'.$langFile['STATISTICS_TEXT_VISITORCOUNT'].'</h2>';
         echo '<div class="center">';
-          echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br>';
-            echo '<span class="toolTipLeft blue" title="'.$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'].'">'.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.formatHighNumber($websiteStatistic['robotVisitCount']).'</span><br>';
-            // CURRENT VISITORS
-            $currentVisitors = StatisticFunctions::getCurrentVisitors();
-            $countVisitor = 0;
-            $countRobots = 0;
-            foreach($currentVisitors as $currentVisitor) {
-              if($currentVisitor['type'] == 'visitor')
-                $countVisitor++;
-              else
-                $countRobots++;
-            }
-            echo '<span class="blue"><strong>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</strong> '.$countVisitor.' ('.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.$countRobots.')</span>';
+          echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br><br>';
+          // CURRENT VISITORS
+          $currentVisitors = StatisticFunctions::getCurrentVisitors();
+          $countRobots = 0;
+          foreach($currentVisitors as $currentVisitor) {
+            if($currentVisitor['type'] != 'visitor')
+              $countRobots++;
+          }
+          echo '<span class="toolTipBottom blue" title="'.$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'].'">'.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.formatHighNumber($websiteStatistic['robotVisitCount']).'</span><br><span class="gray">('.$langFile['STATISTICS_TEXT_CURRENT'].' '.$countRobots.')</span>';
           echo '<hr class="small">';
         echo '</div>';
 
@@ -122,13 +118,8 @@ if(!empty($userConfig[USERID]['info'])) {
     $currentVisitorDashboard = true;
     $currentVisitors = include('library/includes/currentVisitors.include.php');
     if($currentVisitors) {
-      echo '<div class="span4">';
-        echo '<div class="insetBlock">';
-        echo '<h2>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h2>';
-          echo '<div class="insetBlockListPages">';
-          echo $currentVisitors;
-          echo '</div>';
-        echo '</div>';
+      echo '<div id="currentVisitorsDashboard" class="span4">';
+        echo $currentVisitors;
       echo '</div>';
     }
     echo '</div>';

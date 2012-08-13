@@ -131,8 +131,9 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'п�
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'раз на сайт';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Нажмите для поиска слова на странице.';
 
-$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Посетителей';
+$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Посетителей до сих пор';
 $langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Текущие посетители';
+$langFile['STATISTICS_TEXT_CURRENT']                                      = 'в настоящее время';
 $langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Последняя активность';
 
 $langFile['STATISTICS_TITLE_PAGESTATISTICS']                              = 'Статистика по страницам';
@@ -210,7 +211,7 @@ $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'К�
 
 // USER LIST
 $langFile['USER_TEXT_USER']                                               = 'Пользователь';
-$langFile['USER_TEXT_NOUSER']                                             = 'Нет пользователей';
+$langFile['USER_TEXT_NOUSER']                                             = 'Существовали не пользователей.';
 $langFile['USER_TEXT_CURRENTUSER']                                        = 'Вы зашли под этим пользователем';
 $langFile['USER_TEXT_USERSONLINE']                                        = 'Этот пользователь авторизовался::Последние действия';
 

@@ -129,9 +129,10 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'led
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'times to this site';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Click to search for this word in the pages.';
 
-$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Visitors';
+$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Visitors so far';
 $langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Current Visitors';
-$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Activity';
+$langFile['STATISTICS_TEXT_CURRENT']                                      = 'Currently';
+$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Last activity';
 
 $langFile['STATISTICS_TITLE_PAGESTATISTICS']                              = 'Page Statistics';
 
@@ -207,7 +208,7 @@ $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'Cat
 
 // USER LIST
 $langFile['USER_TEXT_USER']                                               = 'User';
-$langFile['USER_TEXT_NOUSER']                                             = 'No users';
+$langFile['USER_TEXT_NOUSER']                                             = 'No users were created.';
 $langFile['USER_TEXT_CURRENTUSER']                                        = 'The user under which you&#145;re logged in';
 $langFile['USER_TEXT_USERSONLINE']                                        = 'This user is also logged in::Latest activity';
 

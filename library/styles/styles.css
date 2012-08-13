@@ -5987,6 +5987,9 @@
   -o-text-shadow: 0 1px 1px #dfdfdf;
   -khtml-text-shadow: 0 1px 1px #dfdfdf;
 }
+.feindura .mainBody .container {
+  background: transparent url("../images/bg/mainBodyContainer.png") repeat-y;
+}
 .feindura .mainBody div.mainContent {
   z-index: 3;
   position: relative;
@@ -6090,18 +6093,25 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  height: 176px;
+  height: 70px;
+  margin-top: 20px;
   min-width: 1280px;
   clear: both;
   background: url("../images/bg/footer.png") repeat-x;
 }
 .feindura footer.main div.copyright {
   position: relative;
-  top: 142px;
+  top: 25px;
   width: 1280px;
   color: #979797;
   text-align: center;
   font-size: 11px;
+  -webkit-text-shadow: 0 1px 1px #000000;
+  -moz-text-shadow: 0 1px 1px #000000;
+  text-shadow: 0 1px 1px #000000;
+  -ms-text-shadow: 0 1px 1px #000000;
+  -o-text-shadow: 0 1px 1px #000000;
+  -khtml-text-shadow: 0 1px 1px #000000;
 }
 .feindura footer.main a {
   color: #cccccc;
@@ -6178,13 +6188,14 @@
 .feindura #leftSidebar .box h3,
 .feindura #rightSidebar .box h3 {
   padding: 2px 10px;
+  padding-top: 7px;
   margin: 15px -20px;
   width: 188px;
   border-bottom: 1px solid #fff;
   font-size: 12px;
   line-height: 18px;
   font-weight: normal;
-  color: #999999;
+  color: #8c8c8c;
   background: #ffffff;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f0f0f0), color-stop(1, #ffffff));
   background: -moz-linear-gradient(center bottom, #f0f0f0 0%, #ffffff 100%);
@@ -6231,7 +6242,8 @@
 .feindura #leftSidebar .box ul.flags li,
 .feindura #rightSidebar .box ul.flags li {
   position: relative;
-  padding-left: 22px;
+  padding-left: 28px;
+  margin-bottom: 10px;
 }
 .feindura #leftSidebar .box ul.flags img,
 .feindura #rightSidebar .box ul.flags img {
@@ -6241,21 +6253,16 @@
 }
 .feindura #leftSidebar .box ul.flags a.link,
 .feindura #rightSidebar .box ul.flags a.link {
-  padding-left: 0px;
+  padding-left: 0;
   background: none;
 }
-.feindura #leftSidebar .box .tagCloud,
-.feindura #rightSidebar .box .tagCloud {
-  max-height: 150px;
-}
-.feindura #leftSidebar {
-  z-index: 8;
+.feindura #rightSidebar {
+  z-index: 2;
   position: relative;
   top: 0px;
-  left: 0px;
+  float: right;
   width: 210px;
-  float: left;
-  padding-bottom: 20px;
+  font-size: 13px;
   -webkit-text-shadow: 0 1px 1px #ffffff;
   -moz-text-shadow: 0 1px 1px #ffffff;
   text-shadow: 0 1px 1px #ffffff;
@@ -6263,7 +6270,7 @@
   -o-text-shadow: 0 1px 1px #ffffff;
   -khtml-text-shadow: 0 1px 1px #ffffff;
 }
-.feindura #leftSidebar .sidebarMenu {
+.feindura #rightSidebar .sidebarMenu {
   position: relative;
   z-index: 0;
   overflow: hidden;
@@ -6279,13 +6286,13 @@
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
 }
-.feindura #leftSidebar .sidebarMenu.hidden {
+.feindura #rightSidebar .sidebarMenu.hidden {
   display: block;
 }
-.feindura #leftSidebar .sidebarMenu a:hover,
-.feindura #leftSidebar .sidebarMenu a:focus,
-.feindura #leftSidebar .sidebarMenu a:active,
-.feindura #leftSidebar .sidebarMenu a.active {
+.feindura #rightSidebar .sidebarMenu a:hover,
+.feindura #rightSidebar .sidebarMenu a:focus,
+.feindura #rightSidebar .sidebarMenu a:active,
+.feindura #rightSidebar .sidebarMenu a.active {
   -webkit-text-shadow: none;
   -moz-text-shadow: none;
   text-shadow: none;
@@ -6293,7 +6300,7 @@
   -o-text-shadow: none;
   -khtml-text-shadow: none;
 }
-.feindura #leftSidebar .sidebarMenu .top {
+.feindura #rightSidebar .sidebarMenu .top {
   position: relative;
   overflow: hidden;
   height: 35px;
@@ -6302,26 +6309,26 @@
   font-weight: bold;
   font-size: 13px;
 }
-.feindura #leftSidebar .sidebarMenu .top span {
+.feindura #rightSidebar .sidebarMenu .top span {
   position: absolute;
   top: 10px;
   left: 41px;
 }
-.feindura #leftSidebar .sidebarMenu .top.blue span {
+.feindura #rightSidebar .sidebarMenu .top.blue span {
   color: #536068;
 }
-.feindura #leftSidebar .sidebarMenu .top.brown span {
+.feindura #rightSidebar .sidebarMenu .top.brown span {
   color: #536068;
 }
-.feindura #leftSidebar .sidebarMenu .top.gray span {
+.feindura #rightSidebar .sidebarMenu .top.gray span {
   color: #666666;
 }
-.feindura #leftSidebar .sidebarMenu .top img {
+.feindura #rightSidebar .sidebarMenu .top img {
   display: inline-block;
   height: 35px;
   margin-left: 3px;
 }
-.feindura #leftSidebar .sidebarMenu .top a {
+.feindura #rightSidebar .sidebarMenu .top a {
   position: absolute;
   top: 0px;
   right: 0px;
@@ -6330,36 +6337,36 @@
   height: 35px;
   text-decoration: none;
 }
-.feindura #leftSidebar .sidebarMenu .top a {
+.feindura #rightSidebar .sidebarMenu .top a {
   background: url("../images/buttons/sidebarMenu_buttonUp.png") no-repeat right top;
 }
-.feindura #leftSidebar .sidebarMenu .top a:hover,
-.feindura #leftSidebar .sidebarMenu .top a:focus {
+.feindura #rightSidebar .sidebarMenu .top a:hover,
+.feindura #rightSidebar .sidebarMenu .top a:focus {
   background-position: right -36px;
 }
-.feindura #leftSidebar .sidebarMenu .top img.icons {
+.feindura #rightSidebar .sidebarMenu .top img.icons {
   top: 1px;
 }
-.feindura #leftSidebar .sidebarMenu.hidden .top a {
+.feindura #rightSidebar .sidebarMenu.hidden .top a {
   background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
 }
-.feindura #leftSidebar .sidebarMenu.free .top {
+.feindura #rightSidebar .sidebarMenu.free .top {
   border-right: 0px solid #ffffff;
 }
-.feindura #leftSidebar .sidebarMenu.fixed .top img.icon {
+.feindura #rightSidebar .sidebarMenu.fixed .top img.icon {
   margin-left: 5px;
 }
-.feindura #leftSidebar .sidebarMenu.free .top img.icon {
+.feindura #rightSidebar .sidebarMenu.free .top img.icon {
   margin-left: 4px;
 }
-.feindura #leftSidebar .sidebarMenu.fixed {
+.feindura #rightSidebar .sidebarMenu.fixed {
   margin-top: -1px;
 }
-.feindura #leftSidebar .sidebarMenu .menuWrapper {
+.feindura #rightSidebar .sidebarMenu .menuWrapper {
   position: relative;
   background-color: #ccc;
 }
-.feindura #leftSidebar .sidebarMenu .menuWrapper a {
+.feindura #rightSidebar .sidebarMenu .menuWrapper a {
   display: block;
   padding: 10px 0px;
   padding-left: 18px;
@@ -6371,88 +6378,88 @@
   background-repeat: repeat-x;
   background-position: 0 0;
 }
-.feindura #leftSidebar .sidebarMenu .menuWrapper a:hover,
-.feindura #leftSidebar .sidebarMenu .menuWrapper a:focus {
+.feindura #rightSidebar .sidebarMenu .menuWrapper a:hover,
+.feindura #rightSidebar .sidebarMenu .menuWrapper a:focus {
   background-position: 0px -35px;
 }
-.feindura #leftSidebar .sidebarMenu .menuWrapper a.active {
+.feindura #rightSidebar .sidebarMenu .menuWrapper a.active {
   background-position: 0px -70px;
 }
-.feindura #leftSidebar .sidebarMenu.gray .top {
+.feindura #rightSidebar .sidebarMenu.gray .top {
   background: url("../images/bg/sidebarMenu_top_gray.png") repeat-x;
   color: #666;
 }
-.feindura #leftSidebar .sidebarMenu.gray.free .top {
+.feindura #rightSidebar .sidebarMenu.gray.free .top {
   background-position: right top;
 }
-.feindura #leftSidebar .sidebarMenu.gray.fixed .top {
+.feindura #rightSidebar .sidebarMenu.gray.fixed .top {
   background-position: -10px top;
   border-right: 1px solid #BDBDB9;
 }
-.feindura #leftSidebar .sidebarMenu.gray .menuWrapper {
+.feindura #rightSidebar .sidebarMenu.gray .menuWrapper {
   border-right: 1px solid #BDBDB9;
 }
-.feindura #leftSidebar .sidebarMenu.gray .menuWrapper a {
+.feindura #rightSidebar .sidebarMenu.gray .menuWrapper a {
   background-image: url("../images/buttons/sidebarMenu_key_gray.png");
   color: #707F81;
 }
-.feindura #leftSidebar .sidebarMenu.gray .menuWrapper a.active {
+.feindura #rightSidebar .sidebarMenu.gray .menuWrapper a.active {
   color: #ffffff;
 }
-.feindura #leftSidebar .sidebarMenu.gray .menuWrapper a:hover,
-.feindura #leftSidebar .sidebarMenu.gray .menuWrapper a:focus {
+.feindura #rightSidebar .sidebarMenu.gray .menuWrapper a:hover,
+.feindura #rightSidebar .sidebarMenu.gray .menuWrapper a:focus {
   color: #ffffff;
 }
-.feindura #leftSidebar .sidebarMenu.brown .top {
+.feindura #rightSidebar .sidebarMenu.brown .top {
   background: url("../images/bg/sidebarMenu_top_brown.png") repeat-x;
   color: #9B6B1D;
 }
-.feindura #leftSidebar .sidebarMenu.brown.free .top {
+.feindura #rightSidebar .sidebarMenu.brown.free .top {
   background-position: right top;
 }
-.feindura #leftSidebar .sidebarMenu.brown.fixed .top {
+.feindura #rightSidebar .sidebarMenu.brown.fixed .top {
   background-position: -10px top;
   border-right: 1px solid #E6BF7C;
 }
-.feindura #leftSidebar .sidebarMenu.brown .menuWrapper {
+.feindura #rightSidebar .sidebarMenu.brown .menuWrapper {
   border-right: 1px solid #E6BF7C;
 }
-.feindura #leftSidebar .sidebarMenu.brown .menuWrapper a {
+.feindura #rightSidebar .sidebarMenu.brown .menuWrapper a {
   background-image: url("../images/buttons/sidebarMenu_key_brown.png");
   color: #9B6B1D;
 }
-.feindura #leftSidebar .sidebarMenu.brown .menuWrapper a.active {
+.feindura #rightSidebar .sidebarMenu.brown .menuWrapper a.active {
   color: #ffffff !important;
 }
-.feindura #leftSidebar .sidebarMenu.brown .menuWrapper a:hover,
-.feindura #leftSidebar .sidebarMenu.brown .menuWrapper a:focus {
+.feindura #rightSidebar .sidebarMenu.brown .menuWrapper a:hover,
+.feindura #rightSidebar .sidebarMenu.brown .menuWrapper a:focus {
   color: #ffffff;
 }
-.feindura #leftSidebar .sidebarMenu.blue .top {
+.feindura #rightSidebar .sidebarMenu.blue .top {
   background: url("../images/bg/sidebarMenu_top_blue.png") repeat-x;
 }
-.feindura #leftSidebar .sidebarMenu.blue.free .top {
+.feindura #rightSidebar .sidebarMenu.blue.free .top {
   background-position: right top;
 }
-.feindura #leftSidebar .sidebarMenu.blue.fixed .top {
+.feindura #rightSidebar .sidebarMenu.blue.fixed .top {
   background-position: -10px top;
   border-right: 1px solid #89B5D6;
 }
-.feindura #leftSidebar .sidebarMenu.blue .menuWrapper {
+.feindura #rightSidebar .sidebarMenu.blue .menuWrapper {
   border-right: 1px solid #89B5D6;
 }
-.feindura #leftSidebar .sidebarMenu.blue .menuWrapper a {
+.feindura #rightSidebar .sidebarMenu.blue .menuWrapper a {
   background-image: url("../images/buttons/sidebarMenu_key_blue.png");
   color: #457A96;
 }
-.feindura #leftSidebar .sidebarMenu.blue .menuWrapper a.active {
+.feindura #rightSidebar .sidebarMenu.blue .menuWrapper a.active {
   color: #ffffff !important;
 }
-.feindura #leftSidebar .sidebarMenu.blue .menuWrapper a:hover,
-.feindura #leftSidebar .sidebarMenu.blue .menuWrapper a:focus {
+.feindura #rightSidebar .sidebarMenu.blue .menuWrapper a:hover,
+.feindura #rightSidebar .sidebarMenu.blue .menuWrapper a:focus {
   color: #ffffff;
 }
-.feindura #leftSidebar .sidebarMenu .bottom a {
+.feindura #rightSidebar .sidebarMenu .bottom a {
   display: block;
   padding: 0;
   width: 100%;
@@ -6460,42 +6467,46 @@
   background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top;
   text-decoration: none;
 }
-.feindura #leftSidebar .sidebarMenu .bottom a:hover,
-.feindura #leftSidebar .sidebarMenu .bottom a:focus {
+.feindura #rightSidebar .sidebarMenu .bottom a:hover,
+.feindura #rightSidebar .sidebarMenu .bottom a:focus {
   background-position: right -14px;
 }
-.feindura #leftSidebar .spacer {
+.feindura #rightSidebar .spacer {
   position: relative;
   width: 202px;
   height: 26px;
 }
-.feindura #leftSidebar .spacer.arrow {
+.feindura #rightSidebar .spacer.arrow {
   background: url("../images/bg/sidebarMenu_spacer_arrow.png") no-repeat left center;
 }
-.feindura #leftSidebar #sideBarActivityLog {
+.feindura #rightSidebar #currentVisitorsSideBar {
+  position: relative;
+  margin: 30px 0;
+}
+.feindura #rightSidebar #sideBarActivityLog {
   position: relative;
   z-index: 10;
   overflow: auto;
-  margin: 20px -20px;
+  margin: 0 -20px;
   width: 208px;
   height: 400px;
   font-size: 9px;
 }
-.feindura #leftSidebar #sideBarActivityLog a {
+.feindura #rightSidebar #sideBarActivityLog a {
   color: #3A7AA5;
   text-decoration: none;
 }
-.feindura #leftSidebar #sideBarActivityLog a:hover,
-.feindura #leftSidebar #sideBarActivityLog a:focus,
-.feindura #leftSidebar #sideBarActivityLog a:active,
-.feindura #leftSidebar #sideBarActivityLog a.active {
+.feindura #rightSidebar #sideBarActivityLog a:hover,
+.feindura #rightSidebar #sideBarActivityLog a:focus,
+.feindura #rightSidebar #sideBarActivityLog a:active,
+.feindura #rightSidebar #sideBarActivityLog a.active {
   color: #666666;
 }
-.feindura #leftSidebar #sideBarActivityLog ul {
+.feindura #rightSidebar #sideBarActivityLog ul {
   margin: 0;
   padding: 0;
 }
-.feindura #leftSidebar #sideBarActivityLog ul li {
+.feindura #rightSidebar #sideBarActivityLog ul li {
   margin: 10px -5px;
   padding: 15px 20px;
   width: 140px;
@@ -6506,24 +6517,25 @@
   -o-text-shadow: 0 1px 1px #cccccc;
   -khtml-text-shadow: 0 1px 1px #cccccc;
 }
-.feindura #leftSidebar #sideBarActivityLog ul li h3 {
+.feindura #rightSidebar #sideBarActivityLog ul li h3 {
   margin-top: -20px;
   width: 193px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: normal;
+  padding-top: 7px;
 }
-.feindura #leftSidebar .scrollUpDown {
+.feindura #rightSidebar .scrollUpDown {
   position: absolute;
   z-index: 2;
   width: 165px;
   height: 30px;
 }
-.feindura #leftSidebar ul.sidebarListUsers {
+.feindura #rightSidebar ul.sidebarListUsers {
   margin-top: -15px;
   margin-left: -20px;
   font-size: 11px;
 }
-.feindura #leftSidebar ul.sidebarListUsers li {
+.feindura #rightSidebar ul.sidebarListUsers li {
   margin: 0 -14px;
   padding: 8px 0;
   padding-left: 25px;
@@ -6534,38 +6546,39 @@
   font-weight: bold;
   border-bottom: 1px solid #f0f0f0;
 }
-.feindura #leftSidebar ul.sidebarListUsers li.online {
+.feindura #rightSidebar ul.sidebarListUsers li.online {
   background-image: url("../images/icons/user_online.png");
   background-position: 5px 10px;
 }
-.feindura #leftSidebar ul.sidebarListUsers li:hover {
+.feindura #rightSidebar ul.sidebarListUsers li:hover {
   background-color: #f0f0f0;
 }
-.feindura #leftSidebar ul.backupDownload {
+.feindura #rightSidebar ul.backupDownload {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.feindura #leftSidebar ul.backupDownload li {
+.feindura #rightSidebar ul.backupDownload li {
   position: relative;
 }
-.feindura #leftSidebar ul.backupDownload a.backup {
+.feindura #rightSidebar ul.backupDownload a.backup {
   display: inline-block;
   padding: 5px 0;
   padding-left: 25px;
   background: url("../images/buttons/backup_download_small.png") no-repeat left center;
 }
-.feindura #leftSidebar ul.backupDownload a.deleteButton {
+.feindura #rightSidebar ul.backupDownload a.deleteButton {
   top: 15px;
   right: 0px;
 }
-.feindura #rightSidebar {
-  z-index: 2;
+.feindura #leftSidebar {
+  z-index: 8;
   position: relative;
   top: 0px;
-  float: right;
+  left: 0px;
   width: 210px;
-  font-size: 13px;
+  float: left;
+  padding-bottom: 20px;
 }
 .feindura .icons {
   position: relative;
@@ -7024,6 +7037,7 @@
 }
 .feindura .visitCountNumber {
   position: relative;
+  top: 10px;
   font-size: 33px;
   font-weight: bold;
 }
@@ -7764,68 +7778,74 @@
   height: 360px;
   padding: 10px;
 }
-.feindura #rightSidebar a.uploadPageThumbnail {
+.feindura #leftSidebar a.uploadPageThumbnail {
   display: inline-block;
   width: 90px;
   height: 75px;
   background: url("../images/buttons/content_uploadPageThumbnail.png") no-repeat;
   background-position: 0 0;
 }
-.feindura #rightSidebar a.uploadPageThumbnail:hover,
-.feindura #rightSidebar a.uploadPageThumbnail:focus {
+.feindura #leftSidebar a.uploadPageThumbnail:hover,
+.feindura #leftSidebar a.uploadPageThumbnail:focus {
   background-position: 0px -76px;
 }
-.feindura #rightSidebar a.deleteButton {
+.feindura #leftSidebar a.deleteButton {
   z-index: 2;
   top: -5px;
   right: -7px;
 }
-.feindura #rightSidebar img.thumbnail {
+.feindura #leftSidebar img.thumbnail {
   max-width: 150px;
 }
-.feindura #rightSidebar ul.jsMultipleSelect,
-.feindura #rightSidebar ul.jsMultipleSelectDestination {
+.feindura #leftSidebar .tagCloud {
+  max-height: 150px;
+  line-height: 22px;
+  padding: 0;
+  padding-top: 5px;
+}
+.feindura #leftSidebar ul.jsMultipleSelect,
+.feindura #leftSidebar ul.jsMultipleSelectDestination {
   padding: 2px 5px !important;
   margin: 20px 0 !important;
 }
-.feindura #rightSidebar ul.jsMultipleSelect {
+.feindura #leftSidebar ul.jsMultipleSelect {
   overflow: auto;
   max-height: 250px !important;
 }
-.feindura #rightSidebar li.jsMultipleSelectOption,
-.feindura #rightSidebar li.filter {
+.feindura #leftSidebar li.jsMultipleSelectOption,
+.feindura #leftSidebar li.filter {
   position: relative;
   margin: 2px 0 !important;
   padding-left: 10px;
 }
-.feindura #rightSidebar li.jsMultipleSelectOption a.editSelection,
-.feindura #rightSidebar li.filter a.editSelection {
+.feindura #leftSidebar li.jsMultipleSelectOption a.editSelection,
+.feindura #leftSidebar li.filter a.editSelection {
   padding-left: 0;
   background-image: none;
 }
-.feindura #rightSidebar li.jsMultipleSelectOption:active,
-.feindura #rightSidebar li.filter:active {
+.feindura #leftSidebar li.jsMultipleSelectOption:active,
+.feindura #leftSidebar li.filter:active {
   -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.30000000000000004);
   -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.30000000000000004);
   box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.30000000000000004);
 }
-.feindura #rightSidebar li.jsMultipleSelectOption:last-child {
+.feindura #leftSidebar li.jsMultipleSelectOption:last-child {
   margin-bottom: 0 !important;
 }
-.feindura #rightSidebar li.filter {
+.feindura #leftSidebar li.filter {
   margin-bottom: 10px !important;
 }
-.feindura #rightSidebar li.filter input {
+.feindura #leftSidebar li.filter input {
   position: absolute;
   top: -1px;
   left: 0px;
   width: 88% !important;
 }
-.feindura #rightSidebar li.filter a {
+.feindura #leftSidebar li.filter a {
   top: 1px;
   right: 4px;
 }
-.feindura #rightSidebar ul.jsMultipleSelectDestination img.feinduraPlugin {
+.feindura #leftSidebar ul.jsMultipleSelectDestination img.feinduraPlugin {
   position: relative;
   height: 95px;
   width: 100%;

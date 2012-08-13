@@ -79,11 +79,11 @@ $documentSaved    = false; // when true the document saved icon is displayed
 $savedForm        = false; // to tell wich part fo the form was saved
 $savedSettings    = false; // to tell wich settings were saved, to re-include the settings
 $newPage          = false; // tells the editor whether a new page is created
-$userCache        = ((!isset($_GET['status']) && !isset($_POST['status']) ) || $_GET['status'] == 'updateUserCache') ? userCache() : array();
+$userCache        = ((!isset($_GET['status']) && !isset($_POST['status'])) || $_GET['status'] == 'updateUserCache') ? userCache() : array();
 
 // ->> SEND INFO to CONTENT.JS, so when updated the user config and a page gets free, it can remove the "contentBlocked" DIV
 if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {
-  echo 'releaseBlock';
+  die('###RELEASEBLOCK###');
 }
 
 /**
