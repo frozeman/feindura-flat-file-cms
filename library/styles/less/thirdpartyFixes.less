@@ -15,7 +15,7 @@
     max-width: 200px;
     font-size: 12px;
     color: #fff;
-    #border > .rounded(5px);
+    #border > .rounded(@blockBorderRadiusMedium);
     #shadow > .both(0, 1px, 8px, 0.3, #000, 0, 0px, 30px, 0.4,#000);
     background-color: #666;
     word-wrap: break-word;
@@ -169,7 +169,7 @@ div.CodeMirror {
     #shadow > .text(none) !important;
 
     background-color: #fff;
-    #border > .rounded(5px);
+    #border > .rounded(@blockBorderRadiusMedium);
     #shadow > .inner(0, 0, 5px, 0.3);
     #transition > .property(border, 200ms, linear);
     #transition > .duration(200ms);
@@ -389,7 +389,7 @@ textarea.editFiles, .CodeMirror-scroll  {
     overflow: auto;
     border: 1px solid #999;
     border-top: none;
-    #border > .radius(0,5px,5px,0);
+    #border > .radius(0,@blockBorderRadiusMedium,@blockBorderRadiusMedium,0);
     #shadow > .drop(0,1px,5px,0.3);
 }
 .textboxlist-autocomplete-placeholder, .textboxlist-autocomplete-results {
@@ -397,7 +397,7 @@ textarea.editFiles, .CodeMirror-scroll  {
     padding: 0 4px;
     background: #fff;
     border: none;
-    #border > .radius(0,5px,5px,0);
+    #border > .radius(0,@blockBorderRadiusMedium,@blockBorderRadiusMedium,0);
     #transform > .opacity(1);
 }
 .textboxlist-autocomplete-placeholder {
@@ -408,7 +408,7 @@ textarea.editFiles, .CodeMirror-scroll  {
     background: #fff; list-style-type: none; margin: 0; padding: 5px;
 }
 .textboxlist-autocomplete-result:last-child {
-    #border > .radius(0,5px,5px,0);
+    #border > .radius(0,@blockBorderRadiusMedium,@blockBorderRadiusMedium,0);
 }
 .textboxlist-autocomplete-result-focus {
     background: #bbcef1;

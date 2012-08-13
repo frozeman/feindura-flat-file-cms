@@ -174,7 +174,7 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
   </script>
 </head>
 <body>
-  <div class="container">
+  <div class="loginContainer">
   <?php if($loggedOut) {  ?>
     <div class="alert center">
       <?php

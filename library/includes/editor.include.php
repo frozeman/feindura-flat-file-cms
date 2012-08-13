@@ -25,7 +25,9 @@
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 ?>
+<!-- editor anchor is here -->
 <a id="editorAnchor" class="anchorTarget"></a>
+
 <div class="block editor">
   <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
     <?php echo htmlspecialchars(GeneralFunctions::getLocalized($pageContent,'content',true),ENT_NOQUOTES,'UTF-8'); ?>
@@ -146,6 +148,9 @@ if(GeneralFunctions::hasPermission('fileManager')) {
 </script>
 
   <div class="content form">
+    <!-- page settings anchor is here -->
+    <a id="pageSettings" class="anchorTarget"></a>
+
     <span id="hotKeysToogle" class="down link toolTipRight" title="::[table]
       [tbody]
         [tr]
@@ -203,8 +208,6 @@ if(GeneralFunctions::hasPermission('fileManager')) {
     <?php echo $langFile['EDITOR_htmleditor_hotkeys_h1']; ?>
     </span>
     <br class="clear">
-    <!-- page settings anchor is here -->
-    <a id="pageSettings" class="anchorTarget"></a>
     <?php
 
     if(!$newPage)

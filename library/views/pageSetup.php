@@ -156,7 +156,7 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
 $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><img src="library/images/icons/pageIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']; ?></a></h1>
+  <h1 class="brown"><a href="#"><img src="library/images/icons/pageIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']; ?></a></h1>
   <div class="content form">
 
     <div class="row">
@@ -287,7 +287,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
 <!-- CATEGORIES SETTINGS -->
 <div class="block">
-  <h1><img src="library/images/icons/categoryIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_CATEGORY_TITLE_CATEGORIES']; ?></h1>
+  <h1 class="blue"><img src="library/images/icons/categoryIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_CATEGORY_TITLE_CATEGORIES']; ?></h1>
   <div class="content form">
     <div class="row">
       <div class="span8 center">

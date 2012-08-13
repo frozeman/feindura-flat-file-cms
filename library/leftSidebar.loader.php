@@ -175,38 +175,12 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
   // SWITCH the &_GET['site'] var
   switch($_GET['site']) {
-    // ***** DASHBOARD -------------------------------------------- **********
+    // ***** LAST ACTIVITY -------------------------------------------- **********
     case 'dashboard': case 'pages': case '':
 
-      echo '<div class="sidebarInfo">';
-
-      // -> SHOW TASK LOG
-      echo '<h2>'.$langFile['DASHBOARD_TITLE_ACTIVITY'].'</h2>';
-      echo '<div class="content">';
-
-      if(file_exists(dirname(__FILE__).'/../statistic/activity.statistic.log') &&
-         $logContent = file(dirname(__FILE__).'/../statistic/activity.statistic.log')) {
-
-         echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat; top: 0px;"></div>';
-         echo '<div id="sidebarTaskLog">';
-
-              // ->> LIST the tasks
-              include(dirname(__FILE__).'/includes/showTaskLog.include.php');
-
-         echo '</div>';
-         echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(\'library/images/bg/sidebarScrollDown.png\') no-repeat; margin-top:-30px;"></div>';
-      // no log
-      } else
-        echo $langFile['DASHBOARD_TEXT_ACTIVITY_NONE'];
-
-      echo '</div></div>';
-
-
-      echo '<div class="spacer"></div>';
-
       // -> SHOW USERs
-      echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" width="22" height="21"> '.$langFile['DASHBOARD_TITLE_USER'].'</h2>';
-      echo '<div class="content">';
+      echo '<div class="box">';
+      echo '<h1><img src="library/images/icons/userIcon_small.png" alt="icon" style="position:relative; top:-3px;margin-right: 4px;"> '.$langFile['DASHBOARD_TITLE_USER'].'</h1>';
         if(!empty($userConfig) && is_array($userConfig)) {
 
           // list user
@@ -237,28 +211,48 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
       echo '</div>';
 
+
+      // -> SHOW TASK LOG
+      echo '<div class="box">';
+      echo '<h1><img src="library/images/icons/activityLogIcon.png" alt="icon" style="position:relative; top:-2px;margin-right: 4px;"> '.$langFile['DASHBOARD_TITLE_ACTIVITY'].'</h1>';
+
+      if(file_exists(dirname(__FILE__).'/../statistic/activity.statistic.log') &&
+         $logContent = file(dirname(__FILE__).'/../statistic/activity.statistic.log')) {
+
+         // echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat; top: 0px;"></div>';
+         echo '<div id="sideBarActivityLog">';
+
+              // ->> LIST the tasks
+              include(dirname(__FILE__).'/includes/activityLog.include.php');
+
+         echo '</div>';
+         // echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(\'library/images/bg/sidebarScrollDown.png\') no-repeat; margin-top:-30px;"></div>';
+      // no log
+      } else
+        echo $langFile['DASHBOARD_TEXT_ACTIVITY_NONE'];
+
+      echo '</div>';
+
       break;
     // ***** ADMIN SETUP sideBar -------------------------------------------- **********
     case 'adminSetup':
       if(!GeneralFunctions::isAdmin()) break;
 
-      echo '<div class="sidebarInfo">';
+      echo '<div class="box">';
 
       // FEINDURA INFO
-      echo '<h2>'.$langFile['ADMINSETUP_TEXT_VERSION'].'</h2>';
-      echo '<div class="content">';
+      echo '<h1>'.$langFile['ADMINSETUP_TEXT_VERSION'].'</h1>';
       echo '<p>'.VERSION.' - Build '.BUILD.'</p>';
       echo '<a href="README.md" class="link">README</a><br>';
       echo '<a href="CHANGELOG" class="link">CHANGELOG</a><br>';
       echo '<a href="LICENSE" class="link">LICENSE</a>';
-      echo '<hr>';
 
       echo '<h3>'.$langFile['ADMINSETUP_TEXT_PHPVERSION'].'</h3>
-      <p>'.PHP_VERSION.'</p>';
+      <p class="center">'.PHP_VERSION.'</p>';
 
       echo '<h3>'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'</h3>';
       echo '<p class="toolTipRight" title="'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'::'.DOCUMENTROOT.'">'.DOCUMENTROOT.'</p>
-          </div></div>';
+          </div>';
 
       break;
 
@@ -342,8 +336,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
     case 'backup':
       if(!GeneralFunctions::isAdmin()) break;
 
-      echo '<div id="sidebarSelection">';
-      echo '<div class="sidebarInfo">';
+      echo '<div class="box">';
 
       // link the backup files
       $backups = GeneralFunctions::readFolder(dirname(__FILE__).'/../backups/');
@@ -367,9 +360,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
       // BACKUP DOWNLOADS
       echo '<h2>'.$langFile['BACKUP_TITLE_LASTBACKUPS'].'</h2>';
-      echo '<div class="content">';
       echo $lastBackups;
-      echo '</div></div>';
       echo '</div>';
 
       break;

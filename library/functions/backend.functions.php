@@ -3046,7 +3046,7 @@ function createBrowserChart($browserString) {
 
           $bigLogo = false;
         } else {
-          $cellText = '<span style="position: absolute; left: 45px; top: 13px;"><b>'.$displayBrowser['name'].'</b> ('.$displayBrowser['percent'].'%)</span>';
+          $cellText = '<span style="position: absolute; left: 45px; top: 11px;"><strong>'.$displayBrowser['name'].'</strong> ('.$displayBrowser['percent'].'%)</span>';
           $logoSize = '';
           $bigLogo = true;
           $cellpadding = '';

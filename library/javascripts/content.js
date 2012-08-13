@@ -614,7 +614,11 @@ window.addEvent('domready', function() {
   // ->> SIDEBAR SCROLLES LIKE FIXED
   // ---------------------------
   $$('.staticScroller').each(function(element){
-    new StaticScroller(element,{offset:1});
+    var offset = 1;
+    if(element.getProperty('data-offset'))
+      offset = element.getProperty('data-offset');
+
+    new StaticScroller(element,{offset:offset});
   });
 
   // ADD .active to links which get clicked
@@ -631,46 +635,46 @@ window.addEvent('domready', function() {
 
   // ->> LOG LIST
   // ------------
-  if($('sidebarTaskLog') !== null) {
+  if($('sideBarActivityLog') !== null) {
 
     // vars
     var minHeight = 140;
-    var maxHeight = 450;
+    var maxHeight = $('sideBarActivityLog').getStyle('height');
 
-    var myScroller = new Scroller('sidebarTaskLog', {area: 150, velocity: 0.1});
-    myScroller.start();
+    // var activityScroller = new Scroller('sideBarActivityLog', {area: 150, velocity: 0.1});
+    // activityScroller.start();
 
     // -> adds the TWEEN to the LOG-list
-    $('sidebarTaskLog').setStyle('height',minHeight);
+    $('sideBarActivityLog').setStyle('height',minHeight);
 
     // TWEEN OUT
-    $('sidebarTaskLog').addEvent('mouseenter', function() {
-      $('sidebarTaskLog').tween('height',maxHeight);
+    $('sideBarActivityLog').addEvent('mouseenter', function() {
+      $('sideBarActivityLog').tween('height',maxHeight);
     });
     // TWEEN IN
-    $('sidebarTaskLog').addEvent('mouseleave', function() {
-      $('sidebarTaskLog').tween('height',minHeight);
+    $('sideBarActivityLog').addEvent('mouseleave', function() {
+      $('sideBarActivityLog').tween('height',minHeight);
     });
 
     if($('sidbarTaskLogScrollUp') !== null) {
       // TWEEN OUT sidebarScrollUp
       $('sidbarTaskLogScrollUp').addEvent('mouseenter', function() {
-        $('sidebarTaskLog').tween('height',maxHeight);
+        $('sideBarActivityLog').tween('height',maxHeight);
       });
       // TWEEN IN sidebarScrollUp
       $('sidbarTaskLogScrollUp').addEvent('mouseleave', function() {
-        $('sidebarTaskLog').tween('height',minHeight);
+        $('sideBarActivityLog').tween('height',minHeight);
       });
     }
 
     if($('sidbarTaskLogScrollDown') !== null) {
       // TWEEN OUT sidebarScrollDown
       $('sidbarTaskLogScrollDown').addEvent('mouseenter', function() {
-        $('sidebarTaskLog').tween('height',maxHeight);
+        $('sideBarActivityLog').tween('height',maxHeight);
       });
       // TWEEN IN sidebarScrollDown
       $('sidbarTaskLogScrollDown').addEvent('mouseleave', function() {
-        $('sidebarTaskLog').tween('height',minHeight);
+        $('sideBarActivityLog').tween('height',minHeight);
       });
     }
    }
@@ -1455,7 +1459,7 @@ window.addEvent('domready', function() {
       }
     });
 
-    // -> add TOOLTIPS to ckeditor
+    // -> add TOOLTIPS for ckeditor
     HTMLEditor.on('instanceReady',function() {
       $$('.cke_button').each(function(button) {
         var link = button.getChildren('a');
@@ -1478,6 +1482,7 @@ window.addEvent('domready', function() {
         var ckeditorContent = $('cke_contents_HTMLEditor');
         ckeditorContent.set('tween',{duration:400, transition: Fx.Transitions.Pow.easeIn});
         var ckeditorToolBar = $$("#cke_top_HTMLEditor .cke_toolbox")[0];
+
         // fixes the ckeditor to use slide ins
         $$('.cke_top').setStyles({
           // 'position':'relative',
@@ -1506,8 +1511,8 @@ window.addEvent('domready', function() {
           }
 
           // scroll to editor
-          if(typeOf($$('div.editor')[0]) !== 'null')
-            windowScroll.toElement($$('div.editor')[0]);
+          // if($('editorAnchor') !== 'null')
+          //   windowScroll.toElement($('editorAnchor'));
 
           editorHasFocus = true;
         });
@@ -1538,8 +1543,8 @@ window.addEvent('domready', function() {
           }
 
           // scroll to editor
-          if(typeOf($$('div.editor')[0]) !== 'null')
-            windowScroll.toElement($$('div.editor')[0]);
+          if($('editorAnchor') !== 'null')
+            windowScroll.toElement($('editorAnchor'));
 
           editorHasFocus = true;
         });

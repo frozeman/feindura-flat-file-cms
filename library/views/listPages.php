@@ -213,7 +213,7 @@ foreach($categoryConfig as $category) {
           $lastSaveDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.formatTime($pageContent['lastSaveDate']);
           $lastSaveDate = ($pageContent['lastSaveAuthor'])
               ? '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong][br]'.$lastSaveDate.' ('.$userConfig[$pageContent['lastSaveAuthor']]['username'].')[br]'
-              : '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong] '.$lastSaveDate.'[br]';
+              : '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong][br]'.$lastSaveDate.'[br]';
 
           // -> show page ID
           $pageTitle_Id = (GeneralFunctions::isAdmin())
@@ -232,7 +232,7 @@ foreach($categoryConfig as $category) {
           // -> generate tags for toolTip
           $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
           if(!empty($localizedTags) && $categoryConfig[$pageContent['category']]['showTags']) {
-            $pageTitle_tags = '[strong]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].'[/strong] '.$localizedTags.'[br]';
+            $pageTitle_tags = '[strong]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].'[/strong][br]'.$localizedTags.'[br]';
           }
 
           // -> generate page languages for toolTip

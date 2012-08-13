@@ -3,17 +3,6 @@
 //
 // Published under the GNU General Public License
 
-// Colors
-@logoColorBlue: #3A79A5;
-@logoColorOrange: #DD6E1F;
-@colorRed: #A02F00;
-@colorBrown: #d49c5c;
-@colorGray: #999999;
-@colorLightGray: #f0f0f0;
-
-// Measures
-@appWidth: 1255px;
-
 // IE fixes
 #PIE {
     behavior: url('library/thirdparty/javascripts/PIE.htc');
@@ -30,7 +19,7 @@
     border: 1px solid #fff;
     #shadow > .drop(0,1px,4px,0.2);
     #gradient > .vertical(#fff,#fff,#f0f0f0,0,1);
-    #border > .radius(@blockBorderRadius,0,0,@blockBorderRadius);
+    #border > .radius(@blockBorderRadius,@blockBorderRadiusSmall,@blockBorderRadiusSmall,@blockBorderRadius);
 }
 
 // ELEMENT FORMAT
@@ -97,7 +86,7 @@ div.blockSpacer {
     position: relative;
     width: 788px;
     height: 28px;
-    margin: 25px -8px;
+    margin: 25px 5px;
     background: url("../images/bg/content_blockSpacer.png") no-repeat;
 }
 
@@ -343,7 +332,7 @@ a.up {
 a.fastUp {
     z-index: 1;
     position: fixed;
-    left: 1125px;
+    right: 9%;
     top: 80px;
     display: block;
     width: 66px;
@@ -359,12 +348,12 @@ a.fastUp:hover, .mainContent a.fastUp:focus {
 // SHARED between frontend and backend
 
 .headerCornerButtons {
-    z-index: 2;
+    z-index: 4;
     position: absolute;
     top: -5px;
     left: -4px;
     #shadow > .drop(0,1px,2px,0.1);
-    #border > .rounded(5px);
+    #border > .rounded(@blockBorderRadiusMedium);
 }
 a.logout, a.frontend, a.backend  {
     @buttonColor: lighten(@logoColorOrange,30%);
@@ -527,12 +516,11 @@ table.coloredList {
 #documentSaved {
     position: fixed;
     top: 50%;
-    left: 510px;
+    left: 50%;
     z-index: @zindexInFrontend + 1;
     display: none;
-    margin-top: -132px;
-    margin-right: auto;
-    margin-left: auto;
+    margin-top: -140px;
+    margin-left: -123px;
     width: 246px;
     height: 264px;
     background: url("../images/icons/documentSaved.png") no-repeat;
@@ -567,11 +555,10 @@ div.divBlocked {
 #loadingBox {
     position: fixed;
     top: 40%;
-    left: 470px;
+    left: 50%;
     z-index: @zindexInFrontend + 20;
     display: none;
-    margin-right: auto;
-    margin-left: auto;
+    margin-left: -165px;
     padding: 30px 20px;
     width: 330px;
     border: 1px solid #fff;
@@ -691,7 +678,8 @@ iframe#fileManagerFrame {
 
 .tagCloud {
     max-height: 450px;
-    padding: 5px 0;
+    line-height: 35px;
+    padding: 20px 15px;
     text-align: center;
     overflow: auto;
 
@@ -731,7 +719,7 @@ select[multiple="multiple"] {
     background: #fdfdfd;
     font-size: 16px;
     font-family: Calibri, Helvetica, Sans-Serif;
-    #border > .rounded(5px);
+    #border > .rounded(@blockBorderRadiusMedium);
     #shadow > .inner(0,0,5px,0.2);
 }
 

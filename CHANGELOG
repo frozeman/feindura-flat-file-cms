@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 964
+Build 965
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 2.0
 
+  build 965: pimped the user interface! still work to do..
   build 964: add edit plugin button to the plugin dialog, also fixed ckeditor
   build 963: add jsMultipleSelect to the multiLanguageWebsite Settings! :)
   build 962: add new CKEditor 3.6.4 and grabbar to the listpages
@@ -722,7 +723,7 @@ ChangeLog:
   build 337: fixes in layout pictures
   build 336: savePageStats(): prevent save searchwords to be counted miltuple times
   build 335: fixes in content.js with anchor scroll; add thumbnailToolTip style to editFiles -> create new file
-  build 334: changes in sidebartasklog layout
+  build 334: changes in sideBarActivityLog layout
   build 333: fixes with stylefilepath, when including an url
   build 332: fixes in file manager & add new CKEditor build 5813
   build 331: changed .insetBlockListPages layout

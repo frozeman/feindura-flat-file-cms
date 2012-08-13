@@ -4304,16 +4304,16 @@
   background: -ms-linear-gradient(bottom, #ffffff 0%, #f0f0f0 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#ffffff',GradientType=0);
   -webkit-border-top-right-radius: 10px;
-  -webkit-border-bottom-right-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
   -webkit-border-top-left-radius: 10px;
   -moz-border-radius-topright: 10px;
-  -moz-border-radius-bottomright: 0;
-  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-bottomright: 2px;
+  -moz-border-radius-bottomleft: 2px;
   -moz-border-radius-topleft: 10px;
   border-top-right-radius: 10px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
@@ -4378,7 +4378,7 @@
   position: relative;
   width: 788px;
   height: 28px;
-  margin: 25px -8px;
+  margin: 25px 5px;
   background: url("../images/bg/content_blockSpacer.png") no-repeat;
 }
 .feindura .row {
@@ -4594,7 +4594,7 @@
 .feindura a.fastUp {
   z-index: 1;
   position: fixed;
-  left: 1125px;
+  right: 9%;
   top: 80px;
   display: block;
   width: 66px;
@@ -4607,7 +4607,7 @@
   background-position: 0px -68px;
 }
 .feindura .headerCornerButtons {
-  z-index: 2;
+  z-index: 4;
   position: absolute;
   top: -5px;
   left: -4px;
@@ -4779,12 +4779,11 @@
 .feindura #documentSaved {
   position: fixed;
   top: 50%;
-  left: 510px;
+  left: 50%;
   z-index: 20001;
   display: none;
-  margin-top: -132px;
-  margin-right: auto;
-  margin-left: auto;
+  margin-top: -140px;
+  margin-left: -123px;
   width: 246px;
   height: 264px;
   background: url("../images/icons/documentSaved.png") no-repeat;
@@ -4838,11 +4837,10 @@
 .feindura #loadingBox {
   position: fixed;
   top: 40%;
-  left: 470px;
+  left: 50%;
   z-index: 20020;
   display: none;
-  margin-right: auto;
-  margin-left: auto;
+  margin-left: -165px;
   padding: 30px 20px;
   width: 330px;
   border: 1px solid #fff;
@@ -5070,7 +5068,8 @@
 }
 .feindura .tagCloud {
   max-height: 450px;
-  padding: 5px 0;
+  line-height: 35px;
+  padding: 20px 15px;
   text-align: center;
   overflow: auto;
 }
@@ -5728,17 +5727,20 @@
 .feindura body {
   height: 100%;
   background: #5b5b5b url("../images/bg/body.png") repeat;
-  color: #666;
+  color: #333333;
   font: 14px 'century gothic', 'helvetica neue', Helvetica, Verdana, Arial, Sans-serif, Serif;
   line-height: 20px;
 }
+.feindura .container {
+  width: 1280px;
+}
 .feindura header.main {
+  z-index: 3;
   position: relative;
   top: 0;
-  z-index: 3;
   width: 100%;
   height: 150px;
-  min-width: 1255px;
+  min-width: 1280px;
   background: url("../images/bg/header.png") repeat-x;
   -webkit-text-shadow: 0 1px 1px #ffffff;
   -moz-text-shadow: 0 1px 1px #ffffff;
@@ -5748,10 +5750,9 @@
   -khtml-text-shadow: 0 1px 1px #ffffff;
 }
 .feindura header.main div.menuBlock {
-  position: absolute;
-  top: 0;
-  left: 0;
   z-index: 2;
+  position: relative;
+  float: left;
   width: 860px;
   height: 140px;
   border-top: 1px solid #E5E5E5;
@@ -5819,28 +5820,27 @@
   background: url("../images/buttons/mainMenu_search.png") no-repeat;
 }
 .feindura header.main #sessionTimout {
+  z-index: 3;
   position: absolute;
   top: 6px;
-  left: 140px;
-  z-index: 3;
+  left: 80px;
   font-size: 11px;
 }
 .feindura header.main a.feinduraLogo {
-  z-index: 0;
+  z-index: 1;
   position: absolute;
   top: 25px;
-  left: 15px;
-  z-index: 1;
+  left: 25px;
   display: block;
   width: 163px;
   height: 94px;
   background: url("../images/icons/logo.png") no-repeat;
 }
 .feindura header.main .feinduraVersion {
+  z-index: 2;
   position: absolute;
   top: 48px;
-  left: 110px;
-  z-index: 2;
+  left: 120px;
   width: 60px;
   color: #3a79a5;
   text-align: right;
@@ -5850,7 +5850,7 @@
 .feindura header.main .languageSelection {
   position: absolute;
   bottom: 21px;
-  left: 15px;
+  left: 25px;
   z-index: 2;
 }
 .feindura header.main .languageSelection a {
@@ -5884,28 +5884,42 @@
   left: 120px;
   background: url("../images/buttons/langSelection_ru.png") no-repeat;
 }
-.feindura #adminMenu {
+.feindura header.main .adminMenuContainer {
+  z-index: 99;
+  position: relative;
+  top: 0;
+  left: -1px;
+  float: left;
+  overflow: visible;
+}
+.feindura header.main #adminMenu {
   position: absolute;
   top: 0;
-  left: 859px;
-  z-index: 1;
   overflow: auto;
   width: 190px;
   height: 140px;
-  border-bottom: 1px solid #BBB9B7;
-  background: url("../images/bg/adminMenu.png") no-repeat;
+  border: 1px solid #cccccc;
+  background-color: #e8e8e8;
   text-align: center;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
-  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996), inset 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996), inset 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996), inset 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #e8e8e8));
+  background: -moz-linear-gradient(center bottom, #ffffff 0%, #e8e8e8 100%);
+  background: -ms-linear-gradient(bottom, #ffffff 0%, #e8e8e8 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e8e8', endColorstr='#ffffff',GradientType=0);
 }
-.feindura #adminMenu h2 {
+.feindura header.main #adminMenu h2 {
   display: inline-block;
   margin-bottom: 3px;
   padding-top: 10px;
@@ -5917,13 +5931,13 @@
   font-size: 12px;
   line-height: 12px;
 }
-.feindura #adminMenu table {
+.feindura header.main #adminMenu table {
   position: absolute;
   top: 37px;
   left: 8px;
   z-index: 1;
 }
-.feindura #adminMenu a {
+.feindura header.main #adminMenu a {
   position: relative;
   display: block;
   margin: 0px 5px;
@@ -5937,25 +5951,25 @@
   font-size: 9px;
   line-height: 11px;
 }
-.feindura #adminMenu a:hover,
-.feindura #adminMenu a:focus,
-.feindura #adminMenu a.active {
+.feindura header.main #adminMenu a:hover,
+.feindura header.main #adminMenu a:focus,
+.feindura header.main #adminMenu a.active {
   background-position: -65px 0px !important;
   color: #CF7F52;
 }
-.feindura #adminMenu a.adminSetup {
+.feindura header.main #adminMenu a.adminSetup {
   background: url("../images/buttons/adminMenu_adminSetup.png") no-repeat;
 }
-.feindura #adminMenu a.pageSetup {
+.feindura header.main #adminMenu a.pageSetup {
   background: url("../images/buttons/adminMenu_pageSetup.png") no-repeat;
 }
-.feindura #adminMenu a.statisticSetup {
+.feindura header.main #adminMenu a.statisticSetup {
   background: url("../images/buttons/adminMenu_statisticSetup.png") no-repeat;
 }
-.feindura #adminMenu a.userSetup {
+.feindura header.main #adminMenu a.userSetup {
   background: url("../images/buttons/adminMenu_userSetup.png") no-repeat;
 }
-.feindura #adminMenu a.backup {
+.feindura header.main #adminMenu a.backup {
   background: url("../images/buttons/adminMenu_backup.png") no-repeat;
 }
 .feindura .mainBody {
@@ -5964,9 +5978,8 @@
   z-index: 0;
   overflow: auto;
   width: 100%;
-  min-width: 1255px;
   margin-bottom: -38px;
-  background: #d8d8d8 url("../images/bg/mainBody.png") repeat-y;
+  background: #565656 url("../images/bg/mainBody.png") repeat;
   -webkit-text-shadow: 0 1px 1px #dfdfdf;
   -moz-text-shadow: 0 1px 1px #dfdfdf;
   text-shadow: 0 1px 1px #dfdfdf;
@@ -5977,15 +5990,15 @@
 .feindura .mainBody div.mainContent {
   z-index: 3;
   position: relative;
-  top: 0px;
-  left: 10px;
   float: left;
   overflow: visible;
-  padding: 10px 10px;
+  padding: 10px;
   padding-bottom: 8px;
+  margin-left: 20px;
+  margin-right: 20px;
   width: 800px;
-  background-color: #fff;
   font-size: 14px;
+  color: #444;
 }
 .feindura .mainBody div.mainContent.hasSubMenu {
   padding-top: 58px;
@@ -5993,505 +6006,13 @@
 .feindura .mainBody div.mainContent p {
   margin: 10px 0px;
 }
-.feindura .mainBody #leftSidebar {
-  position: relative;
-  top: 0px;
-  left: 0px;
-  z-index: 8;
-  float: left;
-  padding-bottom: 20px;
-  width: 208px;
-  -webkit-text-shadow: 0 1px 1px #ffffff;
-  -moz-text-shadow: 0 1px 1px #ffffff;
-  text-shadow: 0 1px 1px #ffffff;
-  -ms-text-shadow: 0 1px 1px #ffffff;
-  -o-text-shadow: 0 1px 1px #ffffff;
-  -khtml-text-shadow: 0 1px 1px #ffffff;
-}
-.feindura .mainBody #leftSidebar h3 {
-  margin: 0px;
-  margin-top: 3px;
-  margin-bottom: 5px;
-  padding: 0px;
-  color: #666666;
-  font-weight: bold;
-  font-size: 11px;
-}
-.feindura .mainBody #leftSidebar h2 img {
-  position: relative;
-  margin-top: -5px;
-  margin-right: 5px;
-}
-.feindura .mainBody #leftSidebar h3 {
-  font-size: 10px;
-}
-.feindura .mainBody #leftSidebar p {
-  margin: 2px 0px;
-  margin-bottom: 12px;
-}
-.feindura .mainBody #leftSidebar h2 {
-  z-index: 2;
-  position: relative;
-  padding: 2px 10px;
-  margin: 15px 0;
-  width: 183px;
-  border-bottom: 1px solid #fff;
-  background: #ffffff;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f0f0f0), color-stop(1, #ffffff));
-  background: -moz-linear-gradient(center bottom, #f0f0f0 0%, #ffffff 100%);
-  background: -ms-linear-gradient(bottom, #f0f0f0 0%, #ffffff 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f0f0f0',GradientType=0);
-  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
-  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
-  font-size: 12px;
-  line-height: 18px;
-}
-.feindura .mainBody #leftSidebar h3 {
-  line-height: 18px;
-}
-.feindura .mainBody #leftSidebar .content {
-  z-index: 1;
-  position: relative;
-  margin: 10px 10px;
-  width: 170px;
-  padding: 0 5px;
-  word-wrap: break-word;
-  font-size: 10px;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu {
-  position: relative;
-  z-index: 0;
-  overflow: hidden;
-  width: 210px;
-  max-width: 1255px;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
-  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.hidden {
-  display: block;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu a:hover,
-.feindura .mainBody #leftSidebar .sidebarMenu a:focus,
-.feindura .mainBody #leftSidebar .sidebarMenu a:active,
-.feindura .mainBody #leftSidebar .sidebarMenu a.active {
-  -webkit-text-shadow: none;
-  -moz-text-shadow: none;
-  text-shadow: none;
-  -ms-text-shadow: none;
-  -o-text-shadow: none;
-  -khtml-text-shadow: none;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .top {
-  position: relative;
-  overflow: hidden;
-  height: 35px;
-  text-decoration: none;
-  white-space: nowrap;
-  font-weight: bold;
-  font-size: 13px;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .top span {
-  position: absolute;
-  top: 10px;
-  left: 41px;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .top.blue span {
-  color: #536068;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .top.brown span {
-  color: #536068;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .top.gray span {
-  color: #666666;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .top img {
-  display: inline-block;
-  height: 35px;
-  margin-left: 3px;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .top a {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  display: inline-block;
-  width: 208px;
-  height: 35px;
-  text-decoration: none;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .top a {
-  background: url("../images/buttons/sidebarMenu_buttonUp.png") no-repeat right top;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .top a:hover,
-.feindura .mainBody #leftSidebar .sidebarMenu .top a:focus {
-  background-position: right -36px;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .top img.icons {
-  top: 1px;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.hidden .top a {
-  background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.free .top {
-  border-right: 0px solid #ffffff;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.fixed .top img.icon {
-  margin-left: 5px;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.free .top img.icon {
-  margin-left: 4px;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.fixed {
-  margin-top: -1px;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .menuWrapper {
-  position: relative;
-  background-color: #ccc;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .menuWrapper a {
-  display: block;
-  padding: 10px 0px;
-  padding-left: 18px;
-  height: 15px;
-  color: #FBC279;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 11px;
-  background-repeat: repeat-x;
-  background-position: 0 0;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .menuWrapper a:hover,
-.feindura .mainBody #leftSidebar .sidebarMenu .menuWrapper a:focus {
-  background-position: 0px -35px;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .menuWrapper a.active {
-  background-position: 0px -70px;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.gray .top {
-  background: url("../images/bg/sidebarMenu_top_gray.png") repeat-x;
-  color: #666;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.gray.free .top {
-  background-position: right top;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.gray.fixed .top {
-  background-position: -10px top;
-  border-right: 1px solid #BDBDB9;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.gray .menuWrapper {
-  border-right: 1px solid #BDBDB9;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.gray .menuWrapper a {
-  background-image: url("../images/buttons/sidebarMenu_key_gray.png");
-  color: #707F81;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.gray .menuWrapper a.active {
-  color: #ffffff;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.gray .menuWrapper a:hover,
-.feindura .mainBody #leftSidebar .sidebarMenu.gray .menuWrapper a:focus {
-  color: #ffffff;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.brown .top {
-  background: url("../images/bg/sidebarMenu_top_brown.png") repeat-x;
-  color: #9B6B1D;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.brown.free .top {
-  background-position: right top;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.brown.fixed .top {
-  background-position: -10px top;
-  border-right: 1px solid #E6BF7C;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.brown .menuWrapper {
-  border-right: 1px solid #E6BF7C;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.brown .menuWrapper a {
-  background-image: url("../images/buttons/sidebarMenu_key_brown.png");
-  color: #9B6B1D;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.brown .menuWrapper a.active {
-  color: #ffffff !important;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.brown .menuWrapper a:hover,
-.feindura .mainBody #leftSidebar .sidebarMenu.brown .menuWrapper a:focus {
-  color: #ffffff;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.blue .top {
-  background: url("../images/bg/sidebarMenu_top_blue.png") repeat-x;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.blue.free .top {
-  background-position: right top;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.blue.fixed .top {
-  background-position: -10px top;
-  border-right: 1px solid #89B5D6;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.blue .menuWrapper {
-  border-right: 1px solid #89B5D6;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.blue .menuWrapper a {
-  background-image: url("../images/buttons/sidebarMenu_key_blue.png");
-  color: #457A96;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.blue .menuWrapper a.active {
-  color: #ffffff !important;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu.blue .menuWrapper a:hover,
-.feindura .mainBody #leftSidebar .sidebarMenu.blue .menuWrapper a:focus {
-  color: #ffffff;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .bottom a {
-  display: block;
-  padding: 0;
-  width: 100%;
-  height: 13px;
-  background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top;
-  text-decoration: none;
-}
-.feindura .mainBody #leftSidebar .sidebarMenu .bottom a:hover,
-.feindura .mainBody #leftSidebar .sidebarMenu .bottom a:focus {
-  background-position: right -14px;
-}
-.feindura .mainBody #leftSidebar .spacer {
-  position: relative;
-  width: 202px;
-  height: 26px;
-}
-.feindura .mainBody #leftSidebar .spacer.arrow {
-  background: url("../images/bg/sidebarMenu_spacer_arrow.png") no-repeat left center;
-}
-.feindura .mainBody #leftSidebar .sidebarInfo {
-  position: relative;
-  top: 2px;
-  left: 1px;
-  padding: 0px;
-  padding-top: 10px;
-  width: 198px;
-  min-height: 260px;
-  border-top: 1px solid #ffffff;
-  background: url("../images/bg/leftSidebarInfo_bg.png") no-repeat;
-}
-.feindura .mainBody #leftSidebar .sidebarInfo .content {
-  margin: 10px 20px;
-  width: 150px;
-  overflow: hidden;
-}
-.feindura .mainBody #leftSidebar .sidebarInfo hr {
-  margin: 15px 0px;
-  height: 0px;
-  border: none;
-  border-top: 1px dotted #E2E3E3;
-}
-.feindura .mainBody #leftSidebar .sidebarInfo h2 {
-  margin: 10px 0;
-  width: auto;
-  text-align: center;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  background: none;
-  filter: none;
-  border: none;
-}
-.feindura .mainBody #leftSidebar #sidebarTaskLog {
-  position: relative;
-  z-index: 1;
-  overflow: auto;
-  margin: 0px -10px;
-  width: 200px;
-  height: 450px;
-  border-bottom: 1px solid #ffffff;
-  font-size: 9px;
-}
-.feindura .mainBody #leftSidebar #sidebarTaskLog a {
-  color: #3A7AA5;
-  text-decoration: none;
-}
-.feindura .mainBody #leftSidebar #sidebarTaskLog a:hover,
-.feindura .mainBody #leftSidebar #sidebarTaskLog a:focus,
-.feindura .mainBody #leftSidebar #sidebarTaskLog a:active,
-.feindura .mainBody #leftSidebar #sidebarTaskLog a.active {
-  color: #666666;
-}
-.feindura .mainBody #leftSidebar #sidebarTaskLog ul {
-  margin: 0px;
-  margin-left: 5px;
-}
-.feindura .mainBody #leftSidebar #sidebarTaskLog ul li {
-  display: block;
-  margin: 10px 0;
-  padding: 15px 10px;
-  width: 140px !important;
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.09999999999999998);
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.09999999999999998);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.09999999999999998);
-  -webkit-text-shadow: 0 1px 1px #cccccc;
-  -moz-text-shadow: 0 1px 1px #cccccc;
-  text-shadow: 0 1px 1px #cccccc;
-  -ms-text-shadow: 0 1px 1px #cccccc;
-  -o-text-shadow: 0 1px 1px #cccccc;
-  -khtml-text-shadow: 0 1px 1px #cccccc;
-}
-.feindura .mainBody #leftSidebar .scrollUpDown {
-  position: absolute;
-  z-index: 2;
-  width: 165px;
-  height: 30px;
-}
-.feindura .mainBody #leftSidebar ul.sidebarListUsers {
-  margin-top: -15px;
-}
-.feindura .mainBody #leftSidebar ul.sidebarListUsers li {
-  margin: 0 -14px;
-  padding: 8px 0;
-  padding-left: 25px;
-  width: 177px;
-  background-color: #fff;
-  background-image: url("../images/icons/user_offline.png");
-  background-repeat: no-repeat;
-  background-position: 5px 9px;
-  font-weight: bold;
-  border-bottom: 1px solid #f0f0f0;
-}
-.feindura .mainBody #leftSidebar ul.sidebarListUsers li.online {
-  background-image: url("../images/icons/user_online.png");
-  background-position: 5px 10px;
-}
-.feindura .mainBody #leftSidebar ul.sidebarListUsers li:hover {
-  background-color: #f0f0f0;
-}
-.feindura .mainBody #leftSidebar ul.backupDownload li {
-  position: relative;
-}
-.feindura .mainBody #leftSidebar ul.backupDownload a.backup {
-  display: inline-block;
-  padding: 5px 0;
-  padding-left: 25px;
-  background: url("../images/buttons/backup_download_small.png") no-repeat left center;
-}
-.feindura .mainBody #leftSidebar ul.backupDownload a.deleteButton {
-  top: 15px;
-  right: 0px;
-}
-.feindura .mainBody #rightSidebar {
-  position: absolute;
-  top: 0px;
-  left: 1050px;
-  z-index: 2;
-  width: 210px;
-  font-size: 13px;
-}
-.feindura .mainBody #rightSidebar .box {
-  position: relative;
-  z-index: 2;
-  margin: 30px 0;
-  padding: 20px;
-  width: 168px;
-  border: 1px solid #cdcdcd;
-  line-height: 18px;
-  word-break: break-word;
-  border: 1px solid #fff;
-  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  background-color: #fff;
-  behavior: url('library/thirdparty/javascripts/PIE.htc');
-}
-.feindura .mainBody #rightSidebar .box:first-child {
-  margin-top: -10px;
-}
-.feindura .mainBody #rightSidebar .box .statistics {
-  font-size: 11px;
-  word-break: break-word;
-}
-.feindura .mainBody #rightSidebar .box .row {
-  margin-left: 0;
-}
-.feindura .mainBody #rightSidebar .box [class^="span"] {
-  margin-left: 3px;
-}
-.feindura .mainBody #rightSidebar .box h1,
-.feindura .mainBody #rightSidebar .box h2,
-.feindura .mainBody #rightSidebar .box h3 {
-  margin: 2px -13px;
-  margin-bottom: 15px;
-  padding-bottom: 8px;
-  border-bottom: 1px dotted #ccc;
-  text-align: center;
-  font-size: 14px;
-  line-height: 20px;
-}
-.feindura .mainBody #rightSidebar .box h2 {
-  font-size: 13px;
-  margin-bottom: 5px;
-}
-.feindura .mainBody #rightSidebar .box h3 {
-  margin: 2px -5px;
-  font-size: 12px;
-  border: none;
-  padding: 0;
-}
-.feindura .mainBody #rightSidebar .box .hintIcon {
-  position: relative;
-  left: 50px;
-  display: block;
-  margin-bottom: 13px;
-}
-.feindura .mainBody #rightSidebar .box ul {
-  overflow: auto;
-  margin: 0;
-  margin-right: -15px;
-  margin-left: 0px;
-  padding-left: 20px;
-  max-height: 400px;
-  list-style: circle;
-}
-.feindura .mainBody #rightSidebar .box ul li {
-  margin-right: 15px;
-  line-height: 18px;
-}
-.feindura .mainBody #rightSidebar .box ul.flags {
-  margin-left: -5px;
-  padding-left: 10px;
-  list-style: none;
-}
-.feindura .mainBody #rightSidebar .box ul.flags li {
-  position: relative;
-  padding-left: 22px;
-}
-.feindura .mainBody #rightSidebar .box ul.flags img {
-  position: absolute;
-  left: 0px;
-  margin-top: 3px;
-}
-.feindura .mainBody #rightSidebar .box ul.flags a.link {
-  padding-left: 0px;
-  background: none;
-}
-.feindura .mainBody #rightSidebar .box .tagCloud {
-  max-height: 150px;
-}
 .feindura .mainBody .subMenu {
+  z-index: 7;
   position: absolute;
   top: -8px;
   left: 10px;
   padding: 0 10px;
   padding-top: 7px;
-  z-index: 7;
   overflow: visible;
   height: 48px;
   border: 1px solid #f4f4f4;
@@ -6570,23 +6091,14 @@
   z-index: 1;
   width: 100%;
   height: 176px;
-  min-width: 1255px;
+  min-width: 1280px;
   clear: both;
   background: url("../images/bg/footer.png") repeat-x;
 }
-.feindura footer.main div.sideBarBottom {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1024px;
-  height: 168px;
-  background: url("../images/bg/footerBlock.png") no-repeat;
-}
 .feindura footer.main div.copyright {
-  position: absolute;
+  position: relative;
   top: 142px;
-  left: 0;
-  width: 1255px;
+  width: 1280px;
   color: #979797;
   text-align: center;
   font-size: 11px;
@@ -6602,6 +6114,458 @@
 }
 .feindura footer.main a:active {
   color: #ffffff;
+}
+.feindura #leftSidebar .box,
+.feindura #rightSidebar .box {
+  position: relative;
+  z-index: 2;
+  margin: 20px 0;
+  padding: 20px;
+  width: 168px;
+  border: 1px solid #cdcdcd;
+  line-height: 18px;
+  word-break: break-word;
+  font-size: 12px;
+  border: 1px solid #fff;
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #fff;
+  behavior: url('library/thirdparty/javascripts/PIE.htc');
+}
+.feindura #leftSidebar .box:first-child,
+.feindura #rightSidebar .box:first-child {
+  margin-top: -10px;
+}
+.feindura #leftSidebar .box .statistics,
+.feindura #rightSidebar .box .statistics {
+  font-size: 11px;
+  word-break: break-word;
+}
+.feindura #leftSidebar .box .row,
+.feindura #rightSidebar .box .row {
+  margin-left: 0;
+}
+.feindura #leftSidebar .box [class^="span"],
+.feindura #rightSidebar .box [class^="span"] {
+  margin-left: 3px;
+}
+.feindura #leftSidebar .box h1,
+.feindura #rightSidebar .box h1,
+.feindura #leftSidebar .box h2,
+.feindura #rightSidebar .box h2,
+.feindura #leftSidebar .box h3,
+.feindura #rightSidebar .box h3 {
+  margin: 2px -13px;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px dotted #ccc;
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+}
+.feindura #leftSidebar .box h2,
+.feindura #rightSidebar .box h2 {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.feindura #leftSidebar .box h3,
+.feindura #rightSidebar .box h3 {
+  padding: 2px 10px;
+  margin: 15px -20px;
+  width: 188px;
+  border-bottom: 1px solid #fff;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: normal;
+  color: #999999;
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f0f0f0), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #f0f0f0 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #f0f0f0 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f0f0f0',GradientType=0);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
+  -webkit-text-shadow: 0 1px 1px #ffffff;
+  -moz-text-shadow: 0 1px 1px #ffffff;
+  text-shadow: 0 1px 1px #ffffff;
+  -ms-text-shadow: 0 1px 1px #ffffff;
+  -o-text-shadow: 0 1px 1px #ffffff;
+  -khtml-text-shadow: 0 1px 1px #ffffff;
+}
+.feindura #leftSidebar .box .hintIcon,
+.feindura #rightSidebar .box .hintIcon {
+  position: relative;
+  left: 50px;
+  display: block;
+  margin-bottom: 13px;
+}
+.feindura #leftSidebar .box ul,
+.feindura #rightSidebar .box ul {
+  overflow: auto;
+  margin: 0;
+  margin-right: -15px;
+  margin-left: 0px;
+  padding-left: 20px;
+  max-height: 400px;
+  list-style: circle;
+}
+.feindura #leftSidebar .box ul li,
+.feindura #rightSidebar .box ul li {
+  margin-right: 15px;
+  line-height: 18px;
+}
+.feindura #leftSidebar .box ul.flags,
+.feindura #rightSidebar .box ul.flags {
+  margin-left: -5px;
+  padding-left: 10px;
+  list-style: none;
+}
+.feindura #leftSidebar .box ul.flags li,
+.feindura #rightSidebar .box ul.flags li {
+  position: relative;
+  padding-left: 22px;
+}
+.feindura #leftSidebar .box ul.flags img,
+.feindura #rightSidebar .box ul.flags img {
+  position: absolute;
+  left: 0px;
+  margin-top: 3px;
+}
+.feindura #leftSidebar .box ul.flags a.link,
+.feindura #rightSidebar .box ul.flags a.link {
+  padding-left: 0px;
+  background: none;
+}
+.feindura #leftSidebar .box .tagCloud,
+.feindura #rightSidebar .box .tagCloud {
+  max-height: 150px;
+}
+.feindura #leftSidebar {
+  z-index: 8;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  width: 210px;
+  float: left;
+  padding-bottom: 20px;
+  -webkit-text-shadow: 0 1px 1px #ffffff;
+  -moz-text-shadow: 0 1px 1px #ffffff;
+  text-shadow: 0 1px 1px #ffffff;
+  -ms-text-shadow: 0 1px 1px #ffffff;
+  -o-text-shadow: 0 1px 1px #ffffff;
+  -khtml-text-shadow: 0 1px 1px #ffffff;
+}
+.feindura #leftSidebar .sidebarMenu {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  width: 210px;
+  max-width: 1280px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
+}
+.feindura #leftSidebar .sidebarMenu.hidden {
+  display: block;
+}
+.feindura #leftSidebar .sidebarMenu a:hover,
+.feindura #leftSidebar .sidebarMenu a:focus,
+.feindura #leftSidebar .sidebarMenu a:active,
+.feindura #leftSidebar .sidebarMenu a.active {
+  -webkit-text-shadow: none;
+  -moz-text-shadow: none;
+  text-shadow: none;
+  -ms-text-shadow: none;
+  -o-text-shadow: none;
+  -khtml-text-shadow: none;
+}
+.feindura #leftSidebar .sidebarMenu .top {
+  position: relative;
+  overflow: hidden;
+  height: 35px;
+  text-decoration: none;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 13px;
+}
+.feindura #leftSidebar .sidebarMenu .top span {
+  position: absolute;
+  top: 10px;
+  left: 41px;
+}
+.feindura #leftSidebar .sidebarMenu .top.blue span {
+  color: #536068;
+}
+.feindura #leftSidebar .sidebarMenu .top.brown span {
+  color: #536068;
+}
+.feindura #leftSidebar .sidebarMenu .top.gray span {
+  color: #666666;
+}
+.feindura #leftSidebar .sidebarMenu .top img {
+  display: inline-block;
+  height: 35px;
+  margin-left: 3px;
+}
+.feindura #leftSidebar .sidebarMenu .top a {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: inline-block;
+  width: 208px;
+  height: 35px;
+  text-decoration: none;
+}
+.feindura #leftSidebar .sidebarMenu .top a {
+  background: url("../images/buttons/sidebarMenu_buttonUp.png") no-repeat right top;
+}
+.feindura #leftSidebar .sidebarMenu .top a:hover,
+.feindura #leftSidebar .sidebarMenu .top a:focus {
+  background-position: right -36px;
+}
+.feindura #leftSidebar .sidebarMenu .top img.icons {
+  top: 1px;
+}
+.feindura #leftSidebar .sidebarMenu.hidden .top a {
+  background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
+}
+.feindura #leftSidebar .sidebarMenu.free .top {
+  border-right: 0px solid #ffffff;
+}
+.feindura #leftSidebar .sidebarMenu.fixed .top img.icon {
+  margin-left: 5px;
+}
+.feindura #leftSidebar .sidebarMenu.free .top img.icon {
+  margin-left: 4px;
+}
+.feindura #leftSidebar .sidebarMenu.fixed {
+  margin-top: -1px;
+}
+.feindura #leftSidebar .sidebarMenu .menuWrapper {
+  position: relative;
+  background-color: #ccc;
+}
+.feindura #leftSidebar .sidebarMenu .menuWrapper a {
+  display: block;
+  padding: 10px 0px;
+  padding-left: 18px;
+  height: 15px;
+  color: #FBC279;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 11px;
+  background-repeat: repeat-x;
+  background-position: 0 0;
+}
+.feindura #leftSidebar .sidebarMenu .menuWrapper a:hover,
+.feindura #leftSidebar .sidebarMenu .menuWrapper a:focus {
+  background-position: 0px -35px;
+}
+.feindura #leftSidebar .sidebarMenu .menuWrapper a.active {
+  background-position: 0px -70px;
+}
+.feindura #leftSidebar .sidebarMenu.gray .top {
+  background: url("../images/bg/sidebarMenu_top_gray.png") repeat-x;
+  color: #666;
+}
+.feindura #leftSidebar .sidebarMenu.gray.free .top {
+  background-position: right top;
+}
+.feindura #leftSidebar .sidebarMenu.gray.fixed .top {
+  background-position: -10px top;
+  border-right: 1px solid #BDBDB9;
+}
+.feindura #leftSidebar .sidebarMenu.gray .menuWrapper {
+  border-right: 1px solid #BDBDB9;
+}
+.feindura #leftSidebar .sidebarMenu.gray .menuWrapper a {
+  background-image: url("../images/buttons/sidebarMenu_key_gray.png");
+  color: #707F81;
+}
+.feindura #leftSidebar .sidebarMenu.gray .menuWrapper a.active {
+  color: #ffffff;
+}
+.feindura #leftSidebar .sidebarMenu.gray .menuWrapper a:hover,
+.feindura #leftSidebar .sidebarMenu.gray .menuWrapper a:focus {
+  color: #ffffff;
+}
+.feindura #leftSidebar .sidebarMenu.brown .top {
+  background: url("../images/bg/sidebarMenu_top_brown.png") repeat-x;
+  color: #9B6B1D;
+}
+.feindura #leftSidebar .sidebarMenu.brown.free .top {
+  background-position: right top;
+}
+.feindura #leftSidebar .sidebarMenu.brown.fixed .top {
+  background-position: -10px top;
+  border-right: 1px solid #E6BF7C;
+}
+.feindura #leftSidebar .sidebarMenu.brown .menuWrapper {
+  border-right: 1px solid #E6BF7C;
+}
+.feindura #leftSidebar .sidebarMenu.brown .menuWrapper a {
+  background-image: url("../images/buttons/sidebarMenu_key_brown.png");
+  color: #9B6B1D;
+}
+.feindura #leftSidebar .sidebarMenu.brown .menuWrapper a.active {
+  color: #ffffff !important;
+}
+.feindura #leftSidebar .sidebarMenu.brown .menuWrapper a:hover,
+.feindura #leftSidebar .sidebarMenu.brown .menuWrapper a:focus {
+  color: #ffffff;
+}
+.feindura #leftSidebar .sidebarMenu.blue .top {
+  background: url("../images/bg/sidebarMenu_top_blue.png") repeat-x;
+}
+.feindura #leftSidebar .sidebarMenu.blue.free .top {
+  background-position: right top;
+}
+.feindura #leftSidebar .sidebarMenu.blue.fixed .top {
+  background-position: -10px top;
+  border-right: 1px solid #89B5D6;
+}
+.feindura #leftSidebar .sidebarMenu.blue .menuWrapper {
+  border-right: 1px solid #89B5D6;
+}
+.feindura #leftSidebar .sidebarMenu.blue .menuWrapper a {
+  background-image: url("../images/buttons/sidebarMenu_key_blue.png");
+  color: #457A96;
+}
+.feindura #leftSidebar .sidebarMenu.blue .menuWrapper a.active {
+  color: #ffffff !important;
+}
+.feindura #leftSidebar .sidebarMenu.blue .menuWrapper a:hover,
+.feindura #leftSidebar .sidebarMenu.blue .menuWrapper a:focus {
+  color: #ffffff;
+}
+.feindura #leftSidebar .sidebarMenu .bottom a {
+  display: block;
+  padding: 0;
+  width: 100%;
+  height: 13px;
+  background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top;
+  text-decoration: none;
+}
+.feindura #leftSidebar .sidebarMenu .bottom a:hover,
+.feindura #leftSidebar .sidebarMenu .bottom a:focus {
+  background-position: right -14px;
+}
+.feindura #leftSidebar .spacer {
+  position: relative;
+  width: 202px;
+  height: 26px;
+}
+.feindura #leftSidebar .spacer.arrow {
+  background: url("../images/bg/sidebarMenu_spacer_arrow.png") no-repeat left center;
+}
+.feindura #leftSidebar #sideBarActivityLog {
+  position: relative;
+  z-index: 10;
+  overflow: auto;
+  margin: 20px -20px;
+  width: 208px;
+  height: 400px;
+  font-size: 9px;
+}
+.feindura #leftSidebar #sideBarActivityLog a {
+  color: #3A7AA5;
+  text-decoration: none;
+}
+.feindura #leftSidebar #sideBarActivityLog a:hover,
+.feindura #leftSidebar #sideBarActivityLog a:focus,
+.feindura #leftSidebar #sideBarActivityLog a:active,
+.feindura #leftSidebar #sideBarActivityLog a.active {
+  color: #666666;
+}
+.feindura #leftSidebar #sideBarActivityLog ul {
+  margin: 0;
+  padding: 0;
+}
+.feindura #leftSidebar #sideBarActivityLog ul li {
+  margin: 10px -5px;
+  padding: 15px 20px;
+  width: 140px;
+  -webkit-text-shadow: 0 1px 1px #cccccc;
+  -moz-text-shadow: 0 1px 1px #cccccc;
+  text-shadow: 0 1px 1px #cccccc;
+  -ms-text-shadow: 0 1px 1px #cccccc;
+  -o-text-shadow: 0 1px 1px #cccccc;
+  -khtml-text-shadow: 0 1px 1px #cccccc;
+}
+.feindura #leftSidebar #sideBarActivityLog ul li h3 {
+  margin-top: -20px;
+  width: 193px;
+  font-size: 10px;
+  font-weight: normal;
+}
+.feindura #leftSidebar .scrollUpDown {
+  position: absolute;
+  z-index: 2;
+  width: 165px;
+  height: 30px;
+}
+.feindura #leftSidebar ul.sidebarListUsers {
+  margin-top: -15px;
+  margin-left: -20px;
+  font-size: 11px;
+}
+.feindura #leftSidebar ul.sidebarListUsers li {
+  margin: 0 -14px;
+  padding: 8px 0;
+  padding-left: 25px;
+  width: 174px;
+  background-image: url("../images/icons/user_offline.png");
+  background-repeat: no-repeat;
+  background-position: 5px 9px;
+  font-weight: bold;
+  border-bottom: 1px solid #f0f0f0;
+}
+.feindura #leftSidebar ul.sidebarListUsers li.online {
+  background-image: url("../images/icons/user_online.png");
+  background-position: 5px 10px;
+}
+.feindura #leftSidebar ul.sidebarListUsers li:hover {
+  background-color: #f0f0f0;
+}
+.feindura #leftSidebar ul.backupDownload {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.feindura #leftSidebar ul.backupDownload li {
+  position: relative;
+}
+.feindura #leftSidebar ul.backupDownload a.backup {
+  display: inline-block;
+  padding: 5px 0;
+  padding-left: 25px;
+  background: url("../images/buttons/backup_download_small.png") no-repeat left center;
+}
+.feindura #leftSidebar ul.backupDownload a.deleteButton {
+  top: 15px;
+  right: 0px;
+}
+.feindura #rightSidebar {
+  z-index: 2;
+  position: relative;
+  top: 0px;
+  float: right;
+  width: 210px;
+  font-size: 13px;
 }
 .feindura .icons {
   position: relative;
@@ -6629,20 +6593,22 @@
   margin: 20px 0;
   padding: 0;
   overflow: visible;
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  background-color: #fff;
+  color: #333333;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
   -webkit-border-top-right-radius: 10px;
-  -webkit-border-bottom-right-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
   -webkit-border-top-left-radius: 10px;
   -moz-border-radius-topright: 10px;
-  -moz-border-radius-bottomright: 0;
-  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-bottomright: 2px;
+  -moz-border-radius-bottomleft: 2px;
   -moz-border-radius-topleft: 10px;
   border-top-right-radius: 10px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
@@ -6665,10 +6631,10 @@
 .feindura .mainContent .block > h1 {
   z-index: 2;
   min-height: 35px;
-  padding: 15px 25px;
+  padding: 18px 25px;
   width: 748px;
   font-size: 18px;
-  line-height: 26px;
+  line-height: 35px;
   border: 1px solid #fff;
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
@@ -6679,16 +6645,16 @@
   background: -ms-linear-gradient(bottom, #ffffff 0%, #f0f0f0 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#ffffff',GradientType=0);
   -webkit-border-top-right-radius: 10px;
-  -webkit-border-bottom-right-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
   -webkit-border-top-left-radius: 10px;
   -moz-border-radius-topright: 10px;
-  -moz-border-radius-bottomright: 0;
-  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-bottomright: 2px;
+  -moz-border-radius-bottomleft: 2px;
   -moz-border-radius-topleft: 10px;
   border-top-right-radius: 10px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
@@ -6703,6 +6669,7 @@
   background-image: url("../images/bg/block_h1_brown.png") !important;
   background-repeat: repeat-x !important;
   background-color: #fff;
+  line-height: 26px;
 }
 .feindura .mainContent .block > h1.blue {
   background: none;
@@ -6710,10 +6677,11 @@
   background-image: url("../images/bg/block_h1_blue.png") !important;
   background-repeat: repeat-x !important;
   background-color: #fff;
+  line-height: 26px;
 }
 .feindura .mainContent .block > h1 img {
   position: relative;
-  top: -1px;
+  top: 1px;
   left: 2px;
 }
 .feindura .mainContent .block > h1 img.blockH1Icon {
@@ -6782,6 +6750,75 @@
 }
 .feindura .mainContent .block h2 + .verticalSeparator {
   margin-top: 0px !important;
+}
+.feindura .mainContent .block.open {
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  -moz-border-radius-topleft: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura .mainContent .block.open .content {
+  margin-top: -10px;
+  padding-top: 0;
+  padding-bottom: 10px;
+  background-color: #fff;
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  -moz-border-radius-topleft: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura .mainContent .block.open > h1,
+.feindura .mainContent .block.open > h1:hover,
+.feindura .mainContent .block.open > h1.hidden {
+  padding-bottom: 25px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura .mainContent .block.plain {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.feindura .mainContent .block.plain .content {
+  padding: 0 20px;
+  overflow: visible;
 }
 .feindura .mainContent .block.alert {
   border: none;
@@ -6870,64 +6907,6 @@
   background-image: none;
   padding-left: 0;
 }
-.feindura .mainContent .block.open {
-  border-bottom: transparent;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  -webkit-border-top-right-radius: 10px;
-  -webkit-border-bottom-right-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
-  -webkit-border-top-left-radius: 10px;
-  -moz-border-radius-topright: 10px;
-  -moz-border-radius-bottomright: 0;
-  -moz-border-radius-bottomleft: 0;
-  -moz-border-radius-topleft: 10px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-}
-.feindura .mainContent .block.open .content {
-  margin-top: -10px;
-  padding-top: 0;
-  padding-bottom: 10px;
-  background-color: #fff;
-}
-.feindura .mainContent .block.open > h1,
-.feindura .mainContent .block.open > h1:hover,
-.feindura .mainContent .block.open > h1.hidden {
-  padding-bottom: 25px;
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
-  -webkit-border-top-right-radius: 10px;
-  -webkit-border-bottom-right-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
-  -webkit-border-top-left-radius: 10px;
-  -moz-border-radius-topright: 10px;
-  -moz-border-radius-bottomright: 0;
-  -moz-border-radius-bottomleft: 0;
-  -moz-border-radius-topleft: 10px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-}
-.feindura .mainContent .block.plain {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-.feindura .mainContent .block.plain .content {
-  padding: 0 20px;
-  overflow: visible;
-}
 .feindura .mainContent .block .insetBlock {
   margin: 10px -10px;
 }
@@ -6962,7 +6941,7 @@
   width: 100%;
   height: 600px;
 }
-.feindura .container {
+.feindura .loginContainer {
   position: relative;
   top: 100px;
   width: 330px;
@@ -7056,6 +7035,12 @@
   border-left: none;
   padding: 0px;
   margin: 0px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
 }
 .feindura table.tableChart td {
   vertical-align: middle;
@@ -7754,16 +7739,16 @@
   padding-top: 1px !important;
   overflow: visible;
   -webkit-border-top-right-radius: 5px !important;
-  -webkit-border-bottom-right-radius: 0 !important;
-  -webkit-border-bottom-left-radius: 0 !important;
+  -webkit-border-bottom-right-radius: 2px !important;
+  -webkit-border-bottom-left-radius: 2px !important;
   -webkit-border-top-left-radius: 5px !important;
   -moz-border-radius-topright: 5px !important;
-  -moz-border-radius-bottomright: 0 !important;
-  -moz-border-radius-bottomleft: 0 !important;
+  -moz-border-radius-bottomright: 2px !important;
+  -moz-border-radius-bottomleft: 2px !important;
   -moz-border-radius-topleft: 5px !important;
   border-top-right-radius: 5px !important;
-  border-bottom-right-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 2px !important;
+  border-bottom-left-radius: 2px !important;
   border-top-left-radius: 5px !important;
   -moz-background-clip: padding !important;
   -webkit-background-clip: padding-box !important;
@@ -8011,6 +7996,7 @@
   margin-left: -400px;
   width: 800px;
   overflow: hidden;
+  color: #333333;
   border: 1px solid #fff;
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
@@ -8050,16 +8036,16 @@
   background: -ms-linear-gradient(bottom, #ffffff 0%, #f0f0f0 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#ffffff',GradientType=0);
   -webkit-border-top-right-radius: 10px;
-  -webkit-border-bottom-right-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
   -webkit-border-top-left-radius: 10px;
   -moz-border-radius-topright: 10px;
-  -moz-border-radius-bottomright: 0;
-  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-bottomright: 2px;
+  -moz-border-radius-bottomleft: 2px;
   -moz-border-radius-topleft: 10px;
   border-top-right-radius: 10px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;

@@ -224,8 +224,8 @@ foreach($logContent as $logRow) {
 
   // displays 2 or 3 rows
   echo ($taskObject)
-  ? '<li><span class="brown" style="font-weight:bold;">'.$logDate.' '.$logTime.'</span><br><span class="blue" style="font-weight:bold;">'.$logText.'</span>'.$taskObject.$logUser.'</li>'."\n"
-  : '<li><span class="brown" style="font-weight:bold;">'.$logDate.' '.$logTime.'</span><br><span class="blue" style="font-weight:bold;">'.$logText.'</span>'.$logUser.'</li>'."\n";
+  ? '<li><h3>'.$logDate.' '.$logTime.'</h3><span class="blue" style="font-weight:bold;">'.$logText.'</span>'.$taskObject.$logUser.'</li>'."\n"
+  : '<li><h3>'.$logDate.' '.$logTime.'</h3><span class="blue" style="font-weight:bold;">'.$logText.'</span>'.$logUser.'</li>'."\n";
 }
 echo '</ul>';
 

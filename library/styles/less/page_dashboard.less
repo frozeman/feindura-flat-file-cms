@@ -30,6 +30,7 @@ table.tableChart {
     border-left: none;
     padding: 0px;
     margin: 0px;
+    #border > .rounded(@blockBorderRadiusMedium);
 
     td {
         vertical-align: middle;
@@ -38,7 +39,7 @@ table.tableChart {
         height: 30px;
         max-height: 30px;
         overflow: hidden;
-        #border > .rounded(5px);
+        #border > .rounded(@blockBorderRadiusMedium);
 
         &.unknown {
             #gradient > .vertical(#CCCCCC,#666666,#CCCCCC);

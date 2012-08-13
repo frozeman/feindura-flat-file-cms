@@ -31,7 +31,7 @@ $wrongDirectory = (include("library/includes/backend.include.php"))
 error_reporting(E_ALL ^ E_NOTICE);
 
 $NEWVERSION = '2.0';
-$NEWBUILD = 964;
+$NEWBUILD = 965;
 
 // gets the version of the feindura CMS
 if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
@@ -925,6 +925,12 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/styles/noJavascript.css';
     $deleteFiles[] = 'library/styles/ie7.css';
     $deleteFiles[] = 'library/styles/login.css';
+
+    $deleteFiles[] = 'library/includes/showTaskLog.include.php';
+    $deleteFiles[] = 'library/images/bg/leftSidebarInfo_bg.png';
+    $deleteFiles[] = 'library/images/bg/footerBlock.png';
+    $deleteFiles[] = 'library/images/bg/sidebarScrollDown.png';
+    $deleteFiles[] = 'library/images/bg/sidebarScrollUp.png';
 
 
     // CHECK if files could be deleted

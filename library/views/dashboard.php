@@ -272,7 +272,6 @@ if(!empty($userConfig[USERID]['info'])) {
         echo '</div>';
     echo '</div>';
 
-    echo '<div class="verticalSeparator"></div>';
     echo '</div>'; // <- inBlockSlider End
 
     //  spacer
@@ -292,9 +291,8 @@ if(!empty($userConfig[USERID]['info'])) {
 
     // SHOW tag CLOUD
     if($tagCloud = createTagCloud($allSearchwords)) {
-      echo '<h2>'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h2>';
-      echo '<div class="verticalSeparator"></div>';
-      echo '<div class="tagCloud">'.$tagCloud.'</div>';
+      echo '<h2 class="center">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h2>';
+      echo '<div class="well tagCloud">'.$tagCloud.'</div>';
     }
 
     // ---------------------------------
@@ -303,8 +301,7 @@ if(!empty($userConfig[USERID]['info'])) {
     if($browserChart = createBrowserChart($websiteStatistic['browser'])) {
       // echo '<div class="verticalSeparator"></div>';
       echo '<div class="spacer4x"></div>';
-      echo '<h2>'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
-      echo '<div class="verticalSeparator"></div>';
+      echo '<h2 class="center">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
       echo $browserChart;
     }
 
@@ -316,7 +313,7 @@ if(!empty($userConfig[USERID]['info'])) {
       // echo '<div class="verticalSeparator"></div>';
       echo '<div class="spacer4x"></div>';
 
-      echo '<h2>'.$langFile['DASHBOARD_TITLE_REFERER'].'</h2>';
+      echo '<h2 class="center">'.$langFile['DASHBOARD_TITLE_REFERER'].'</h2>';
 
       echo '<div class="row">';
         echo '<div class="span8 refererBox">';
