@@ -27,15 +27,14 @@ header.main {
     position: relative;
     top: 0;
     width: 100%;
-    height: 155px;
     min-width: @appWidth;
+    height: 155px;
     background: url("../images/bg/header.png") repeat-x;
     #shadow > .text(0 1px 1px #fff);
 
     div.menuBlock {
         z-index: 2;
         position: relative;
-        // top: 0;
         left: 5px;
         float: left;
         width: 860px;
@@ -283,6 +282,7 @@ header.main {
     z-index: 0;
     overflow: auto;
     width: 100%;
+    min-width: @appWidth;
     margin-bottom: -38px;
     background: #565656 url("../images/bg/mainBody.png") repeat;
     #shadow > .text(0 1px 1px #dfdfdf);
@@ -415,16 +415,15 @@ footer.main {
     position: relative;
     z-index: 1;
     width: 100%;
+    min-width: @appWidth;
     height: 70px;
     margin-top: 10px;
-    min-width: @appWidth;
     clear: both;
     background: url("../images/bg/footer.png") repeat-x;
 
     div.copyright {
         position: relative;
         top: 25px;
-        width: @appWidth;
         color: #979797;
         text-align: center;
         font-size: 11px;

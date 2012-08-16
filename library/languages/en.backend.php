@@ -159,7 +159,7 @@ $langFile['LOG_PAGE_NEW']                                                 = 'New
 $langFile['LOG_PAGE_DELETE']                                              = 'Page deleted';
 
 $langFile['LOG_PAGE_MOVEDINCATEGORY']                                     = 'Moved page to category';
-$langFile['LOG_PAGE_MOVEDINCATEGORY_CATEGORY']                            = 'in category'; // Example Page in Category
+$langFile['LOG_PAGE_MOVEDTOCATEGORY_CATEGORY']                            = 'to category'; // Example Page in Category
 $langFile['LOG_PAGE_SORTED']                                              = 'Page sorting changed';
 
 $langFile['LOG_THUMBNAIL_UPLOAD']                                         = 'New thumbnail uploaded';

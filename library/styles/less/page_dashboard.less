@@ -8,11 +8,15 @@
 }
 
 .refererBox {
+    margin-top: -9px;
     max-height: 300px;
     overflow: auto;
-    border: 1px solid #ccc;
-    border-left: none;
-    border-right: none;
+    border-bottom: 1px solid #ccc;
+
+    li {
+        #content > .truncateText();
+        font-size: 13px;
+    }
 }
 
 .visitCountNumber {
@@ -28,19 +32,24 @@ table.tableChart {
     font-size: 10px;
     color: #000000;
     border: 1px solid #fff;
-    border-left: none;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
     #border > .rounded(@borderRadiusMedium);
+    #shadow > .drop(0,0,5px,0.2);
 
     td {
         vertical-align: middle;
         padding: 0px 5px !important;
-        border-left: 2px solid #fff;
+        border-left: 1px solid #fff;
         height: 30px;
         max-height: 30px;
         overflow: hidden;
-        #border > .rounded(@borderRadiusMedium);
+        // #shadow > .inner(0,0,10px,0.3);
+
+        &:first-child {
+            border-left: none;
+        }
 
         &.unknown {
             #gradient > .vertical(#CCCCCC,#666666,#CCCCCC);

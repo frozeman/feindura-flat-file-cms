@@ -161,7 +161,7 @@ $langFile['LOG_PAGE_NEW']                                                 = 'С�
 $langFile['LOG_PAGE_DELETE']                                              = 'Удалена страница';
 
 $langFile['LOG_PAGE_MOVEDINCATEGORY']                                     = 'Перемещение страницы в категорию';
-$langFile['LOG_PAGE_MOVEDINCATEGORY_CATEGORY']                            = 'в категории'; // Example Page in Category
+$langFile['LOG_PAGE_MOVEDTOCATEGORY_CATEGORY']                            = 'в категории'; // Example Page in Category
 $langFile['LOG_PAGE_SORTED']                                              = 'Сортировка страниц изменена';
 
 $langFile['LOG_THUMBNAIL_UPLOAD']                                         = 'Миниатюра загружена';

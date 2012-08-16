@@ -102,16 +102,24 @@ if(!empty($userConfig[USERID]['info'])) {
           echo '<hr class="small">';
         echo '</div>';
 
-        if(!empty($websiteStatistic['firstVisit'])) {
-          echo '<div style="width:100%; text-align:right;">';
-            // FIRST VISIT
-            echo '<span class="toolTipLeft" title="'.formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.GeneralFunctions::formatDate($websiteStatistic['firstVisit']).'</span></span><br>';
-            // LADST VISIT
-            echo '<span class="toolTipLeft" title="'.formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['STATISTICS_TEXT_LASTVISIT'].' <span class="blue"><strong>'.GeneralFunctions::formatDate($websiteStatistic['lastVisit']).'</strong></span></span>';
+        echo '<div class="row">';
+          echo '<div class="span center" style="width: 160px;">';
+
+            echo '<a href="#" tabindex="30" class="inBlockSliderLink btn" data-inBlockSlider="1">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].' <span class="caret" onclick="return false;"></span></a>';
           echo '</div>';
-        }
+
+          if(!empty($websiteStatistic['firstVisit'])) {
+            echo '<div class="span right" style="width: 160px;">';
+              // FIRST VISIT
+              echo '<span class="toolTipLeft" title="'.formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.GeneralFunctions::formatDate($websiteStatistic['firstVisit']).'</span></span><br>';
+              // LADST VISIT
+              echo '<span class="toolTipLeft" title="'.formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['STATISTICS_TEXT_LASTVISIT'].' <span class="blue"><strong>'.GeneralFunctions::formatDate($websiteStatistic['lastVisit']).'</strong></span></span>';
+            echo '</div>';
+          }
         echo '</div>';
+        // echo '<div class="spacer"></div>';
       echo '</div>';
+    echo '</div>';
 
     // ---------------------------------
     // -> CURRENT VISITORS
@@ -124,12 +132,9 @@ if(!empty($userConfig[USERID]['info'])) {
     }
     echo '</div>';
 
-    echo '<div class="spacer2x"></div>';
+    echo '<div class="spacer"></div>';
 
-    // -> inBlockSlider
-    echo '<h2 class="center"><a href="#" tabindex="30" class="inBlockSliderLink down" data-inBlockSlider="1">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></h2>';
-    echo '<div class="verticalSeparator"></div>';
-
+    // inblockslider link is in the main count
     echo '<div class="inBlockSlider hidden" data-inBlockSlider="1">';
 
     $pagesStats = $orgPagesStats;
@@ -266,12 +271,20 @@ if(!empty($userConfig[USERID]['info'])) {
     echo '</div>'; // <- inBlockSlider End
 
     //  spacer
-    echo '<div class="spacer4x"></div>';
+    echo '<div class="spacer2x"></div>';
+
+    // ---------------------------------
+    // -> BROWSER CHART
+    if($browserChart = createBrowserChart($websiteStatistic['browser'])) {
+      echo '<div class="spacer"></div>';
+      echo '<h2 class="center">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
+      echo '<div class="spacer2x"></div>';
+      echo $browserChart;
+    }
 
     // ---------------------------------
     // ->> SEARCHWORD CLOUD
-
-    // -> create SEARCHWORD DATASTRING of ALL PAGES
+    // -> create a DATASTRING of ALL PAGES
     $allSearchwords = false;
     foreach($pagesStats as $pageStats) {
       // if page has searchwords
@@ -279,21 +292,11 @@ if(!empty($userConfig[USERID]['info'])) {
         $allSearchwords = StatisticFunctions::addDataToDataString($allSearchwords,$pageStats['searchWords']);
       }
     }
-
-    // SHOW tag CLOUD
     if($tagCloud = createTagCloud($allSearchwords)) {
+      echo '<div class="spacer2x"></div>';
       echo '<h2 class="center">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h2>';
+      echo '<div class="spacer"></div>';
       echo '<div class="well tagCloud">'.$tagCloud.'</div>';
-    }
-
-    // ---------------------------------
-    // -> BROWSER CHART
-
-    if($browserChart = createBrowserChart($websiteStatistic['browser'])) {
-      // echo '<div class="verticalSeparator"></div>';
-      echo '<div class="spacer4x"></div>';
-      echo '<h2 class="center">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
-      echo $browserChart;
     }
 
     // ---------------------------------
@@ -302,20 +305,20 @@ if(!empty($userConfig[USERID]['info'])) {
        $logContent = file(dirname(__FILE__).'/../../statistic/referer.statistic.log')) {
 
       // echo '<div class="verticalSeparator"></div>';
-      echo '<div class="spacer4x"></div>';
+      echo '<div class="spacer"></div>';
 
       echo '<h2 class="center">'.$langFile['DASHBOARD_TITLE_REFERER'].'</h2>';
 
       echo '<div class="row">';
-        echo '<div class="span8 refererBox">';
+        echo '<div class="refererBox span8">';
           echo '<ul class="coloredList">';
             foreach($logContent as $logRow) {
               $logRow = explode('|#|',$logRow);
-              $logDate = GeneralFunctions::formatDate($logRow[0]);
+              $logDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($logRow[0]));
               $logTime = formatTime($logRow[0]);
               $logUrl = str_replace('&','&amp;',$logRow[1]);
 
-              echo '<li><strong>'.$logDate.'</strong>  '.$logTime.'<a href="'.$logUrl.'" class="blue">'.str_replace('http://','',$logUrl).'</a></li>';
+              echo '<li><strong>'.$logDate.'</strong>  '.$logTime.' <a href="'.$logUrl.'" class="blue" target="_blank">'.str_replace('http://','',$logUrl).'</a></li>';
             }
           echo '</ul>';
         echo '</div>';

@@ -192,7 +192,7 @@ foreach($logContent as $logRow) {
 
     // -> IF there is a TEXT BETWEEN page and category
     if(isset($logObject[2]) == 'moved') {
-      $taskObject .= $langFile['LOG_PAGE_MOVEDINCATEGORY_CATEGORY'];
+      $taskObject .= ' '.$langFile['LOG_PAGE_MOVEDTOCATEGORY_CATEGORY'].' ';
 
       $foundObject = true;
     }

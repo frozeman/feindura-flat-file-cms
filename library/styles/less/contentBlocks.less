@@ -131,6 +131,22 @@
         color: #536068;
     }
 
+    // special block headline
+    .content > h2 {
+        padding: 4px 10px;
+        padding-top: 7px;
+        margin: 10px -@blockContentPadding - 1px;
+        margin-top: 0;
+        border-bottom: 1px solid #fff;
+        line-height: 20px;
+        font-weight: normal;
+        font-size: 16px;
+        color: darken(@colorGray,5%);
+        #gradient > .vertical(#fff,@colorLightGray,#fff);
+        #shadow > .drop(0,2px,2px,0.2);
+        #shadow > .text(0 1px 1px #ffffff) !important;
+    }
+
 
     // VERTICAL SEPERATOR
     .verticalSeparator {

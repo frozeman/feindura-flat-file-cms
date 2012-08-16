@@ -76,7 +76,7 @@ if(!empty($currentVisitors) && $showVisitors) {
       ? '<img src="'.GeneralFunctions::getFlagSrc($geoIPCode).'" alt="flag" width="18" height="12">'
       : '<img src="'.GeneralFunctions::getFlagSrc($geoIPCode).'" alt="flag" class="toolTipLeft" width="18" height="12" title="'.geoip_country_name_by_addr($geoIP, $ip).'">';
     $return .= ($currentVisitorDashboard)
-      ? '<tr><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$ip.'" target="_blank">'.$ip.'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTipLeft" title="'.GeneralFunctions::formatDate($currentVisitor['time']).'">'.formatTime($currentVisitor['time']).'</b></td></tr>'
+      ? '<tr><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$ip.'" target="_blank">'.$ip.'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTipRight" title="'.GeneralFunctions::formatDate($currentVisitor['time']).'">'.formatTime($currentVisitor['time']).'</b></td></tr>'
       : '<li>'.$geoIPFlag.' <a href="http://www.ip2location.com/'.$ip.'" target="_blank" class="link toolTipRight" title="'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].'::'.GeneralFunctions::formatDate($currentVisitor['time']).' - '.formatTime($currentVisitor['time']).'">'.$ip.'</a></li>';
     // change row color
   }
