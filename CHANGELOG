@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 966
+Build 967
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 2.0
 
+  build 967: small header fixes
   build 966: pimped user interface ready..
   build 965: pimped the user interface! still work to do..
   build 964: add edit plugin button to the plugin dialog, also fixed ckeditor

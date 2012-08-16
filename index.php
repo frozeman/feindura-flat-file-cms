@@ -269,7 +269,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
         <a href="http://feindura.org" class="feinduraLogo" target="_blank"></a>
         <div class="feinduraVersion toolTipRight" title="<?php echo $langFile['LOGO_TEXT'].' '.VERSION.' - Build '.BUILD; ?>::"><?php echo VERSION; ?></div>
 
-        <nav class="mainMenu">
+        <nav class="mainMenu"<?php if(!GeneralFunctions::isAdmin()) echo ' style="width: 850px;"'; ?>>
           <table>
             <tbody>
               <tr>

@@ -7232,7 +7232,7 @@
 .feindura table.tableChart {
   width: 100%;
   font-size: 10px;
-  color: #000000;
+  color: #222;
   border: 1px solid #fff;
   padding: 0;
   margin: 0;
@@ -7264,7 +7264,7 @@
   background: -moz-linear-gradient(center bottom, #666666 0%, #cccccc 100%);
   background: -ms-linear-gradient(bottom, #666666 0%, #cccccc 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#666666',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.safari {
   background: #ececec;
@@ -7272,7 +7272,7 @@
   background: -moz-linear-gradient(center bottom, #cfcfdc 0%, #ececec 100%);
   background: -ms-linear-gradient(bottom, #cfcfdc 0%, #ececec 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ececec', endColorstr='#cfcfdc',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.opera {
   background: #fb9393;
@@ -7280,7 +7280,7 @@
   background: -moz-linear-gradient(center bottom, #d50404 0%, #fb9393 100%);
   background: -ms-linear-gradient(bottom, #d50404 0%, #fb9393 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fb9393', endColorstr='#d50404',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.netscape.navigator {
   background: #188e9c;
@@ -7304,7 +7304,7 @@
   background: -moz-linear-gradient(center bottom, #4b92e4 0%, #a0c2ef 100%);
   background: -ms-linear-gradient(bottom, #4b92e4 0%, #a0c2ef 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a0c2ef', endColorstr='#4b92e4',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.internet.explorer {
   background: #e3eefb;
@@ -7312,7 +7312,7 @@
   background: -moz-linear-gradient(center bottom, #c5defb 0%, #e3eefb 100%);
   background: -ms-linear-gradient(bottom, #c5defb 0%, #e3eefb 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3eefb', endColorstr='#c5defb',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.internet.explorer.old {
   background: #ffffff;
@@ -7320,7 +7320,7 @@
   background: -moz-linear-gradient(center bottom, #d5d2cd 0%, #ffffff 100%);
   background: -ms-linear-gradient(bottom, #d5d2cd 0%, #ffffff 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d5d2cd',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.konqueror {
   background: #286cbf;
@@ -7332,10 +7332,10 @@
 }
 .feindura table.tableChart td.lynx {
   background: #666666;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #000000), color-stop(1, #666666));
-  background: -moz-linear-gradient(center bottom, #000000 0%, #666666 100%);
-  background: -ms-linear-gradient(bottom, #000000 0%, #666666 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666666', endColorstr='#000000',GradientType=0);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #222222), color-stop(1, #666666));
+  background: -moz-linear-gradient(center bottom, #222222 0%, #666666 100%);
+  background: -ms-linear-gradient(bottom, #222222 0%, #666666 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666666', endColorstr='#222222',GradientType=0);
   color: #fff;
 }
 .feindura table.tableChart td.mozilla {
@@ -7348,10 +7348,10 @@
 }
 .feindura table.tableChart td.iphone {
   background: #5e5e5e;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #000000), color-stop(1, #5e5e5e));
-  background: -moz-linear-gradient(center bottom, #000000 0%, #5e5e5e 100%);
-  background: -ms-linear-gradient(bottom, #000000 0%, #5e5e5e 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e5e5e', endColorstr='#000000',GradientType=0);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #222222), color-stop(1, #5e5e5e));
+  background: -moz-linear-gradient(center bottom, #222222 0%, #5e5e5e 100%);
+  background: -ms-linear-gradient(bottom, #222222 0%, #5e5e5e 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e5e5e', endColorstr='#222222',GradientType=0);
   color: #fff;
 }
 .feindura table.tableChart td.ipod {
@@ -7360,7 +7360,7 @@
   background: -moz-linear-gradient(center bottom, #cccccc 0%, #ffffff 100%);
   background: -ms-linear-gradient(bottom, #cccccc 0%, #ffffff 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cccccc',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.ipad {
   background: #bcbcbc;
@@ -7376,7 +7376,7 @@
   background: -moz-linear-gradient(center bottom, #a0d6ef 0%, #ffffff 100%);
   background: -ms-linear-gradient(bottom, #a0d6ef 0%, #ffffff 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#a0d6ef',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.phoenix {
   background: #f4caca;
@@ -7384,7 +7384,7 @@
   background: -moz-linear-gradient(center bottom, #d66869 0%, #f4caca 100%);
   background: -ms-linear-gradient(bottom, #d66869 0%, #f4caca 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4caca', endColorstr='#d66869',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.icab {
   background: #ffffff;
@@ -7392,7 +7392,7 @@
   background: -moz-linear-gradient(center bottom, #ffeec0 0%, #ffffff 100%);
   background: -ms-linear-gradient(bottom, #ffeec0 0%, #ffffff 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffeec0',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.omniweb {
   background: #ffffff;
@@ -7400,7 +7400,7 @@
   background: -moz-linear-gradient(center bottom, #0093d0 0%, #ffffff 100%);
   background: -ms-linear-gradient(bottom, #0093d0 0%, #ffffff 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#0093d0',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.galeon {
   background: #ffffff;
@@ -7408,7 +7408,7 @@
   background: -moz-linear-gradient(center bottom, #cdcdcd 0%, #ffffff 100%);
   background: -ms-linear-gradient(bottom, #cdcdcd 0%, #ffffff 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cdcdcd',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.netpositive {
   background: #ffdc01;
@@ -7416,7 +7416,7 @@
   background: -moz-linear-gradient(center bottom, #a10001 0%, #ffdc01 100%);
   background: -ms-linear-gradient(bottom, #a10001 0%, #ffdc01 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffdc01', endColorstr='#a10001',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.opera.mini {
   background: #ffffff;
@@ -7424,14 +7424,14 @@
   background: -moz-linear-gradient(center bottom, #da0e0e 0%, #ffffff 100%);
   background: -ms-linear-gradient(bottom, #da0e0e 0%, #ffffff 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#da0e0e',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.blackberry {
   background: #5d5d5d;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #000000), color-stop(1, #5d5d5d));
-  background: -moz-linear-gradient(center bottom, #000000 0%, #5d5d5d 100%);
-  background: -ms-linear-gradient(bottom, #000000 0%, #5d5d5d 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5d5d5d', endColorstr='#000000',GradientType=0);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #222222), color-stop(1, #5d5d5d));
+  background: -moz-linear-gradient(center bottom, #222222 0%, #5d5d5d 100%);
+  background: -ms-linear-gradient(bottom, #222222 0%, #5d5d5d 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5d5d5d', endColorstr='#222222',GradientType=0);
   color: #fff;
 }
 .feindura table.tableChart td.icecat {
@@ -7440,14 +7440,14 @@
   background: -moz-linear-gradient(center bottom, #3465a4 0%, #ffffff 100%);
   background: -ms-linear-gradient(bottom, #3465a4 0%, #ffffff 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#3465a4',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura table.tableChart td.android {
   background: #5d5d5d;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #000000), color-stop(1, #5d5d5d));
-  background: -moz-linear-gradient(center bottom, #000000 0%, #5d5d5d 100%);
-  background: -ms-linear-gradient(bottom, #000000 0%, #5d5d5d 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5d5d5d', endColorstr='#000000',GradientType=0);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #222222), color-stop(1, #5d5d5d));
+  background: -moz-linear-gradient(center bottom, #222222 0%, #5d5d5d 100%);
+  background: -ms-linear-gradient(bottom, #222222 0%, #5d5d5d 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5d5d5d', endColorstr='#222222',GradientType=0);
   color: #fff;
 }
 .feindura table.tableChart td.nokia.browser,
@@ -7457,7 +7457,7 @@
   background: -moz-linear-gradient(center bottom, #cbcbcb 0%, #ffffff 100%);
   background: -ms-linear-gradient(bottom, #cbcbcb 0%, #ffffff 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cbcbcb',GradientType=0);
-  color: #000000;
+  color: #222;
 }
 .feindura a.createBackup {
   display: inline-block;
