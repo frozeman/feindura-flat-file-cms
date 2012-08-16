@@ -562,7 +562,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
           echo '<div class="row">
                   <div class="span8 center">
-                      <a href="#" class="down inBlockSliderLink" data-inBlockSlider="'.$category['id'].'">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].$advancedSettingsEdited.'</a>
+                      <a href="#" class="btn inBlockSliderLink" data-inBlockSlider="'.$category['id'].'">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].$advancedSettingsEdited.' <span class="caret" onclick="return false;"></span></a>
                   </div>
                 </div>';
 

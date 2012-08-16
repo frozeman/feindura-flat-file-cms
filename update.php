@@ -31,7 +31,7 @@ $wrongDirectory = (include("library/includes/backend.include.php"))
 error_reporting(E_ALL ^ E_NOTICE);
 
 $NEWVERSION = '2.0';
-$NEWBUILD = 965;
+$NEWBUILD = 966;
 
 // gets the version of the feindura CMS
 if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
@@ -931,6 +931,17 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/images/bg/footerBlock.png';
     $deleteFiles[] = 'library/images/bg/sidebarScrollDown.png';
     $deleteFiles[] = 'library/images/bg/sidebarScrollUp.png';
+    $deleteFiles[] = 'library/images/buttons/sidebarMenu_key_gray.png';
+    $deleteFiles[] = 'library/images/buttons/sidebarMenu_key_brown.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_blue_down.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_blue_up.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_blue_start.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_blue_end.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_brown_down.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_brown_up.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_brown_start.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_brown_end.png';
+
 
 
     // CHECK if files could be deleted

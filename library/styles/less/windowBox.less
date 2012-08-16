@@ -9,18 +9,18 @@
     position: absolute;
     top: 10%;
     left: 50%;
-    margin-left: -400px;
-    width: @gridRowWidth + 2 * @blockContentPadding;
+    margin-left: -390px;
+    width: @gridRowWidth + @blockContentPadding; // additional padding
     overflow: hidden;
     color: @textColor;
-    #boxBasics;
+    #windowBoxBasics;
 
     > h1 {
         position: relative;
         top: -1px;
         left: -1px;
         z-index: 2;
-        padding: @blockContentPadding / 2 @blockContentPadding;
+        padding: @blockContentPadding / 2;
         width: @gridRowWidth;
 
         text-align: center;
@@ -91,7 +91,7 @@ a.close {
 #windowRequestBox {
     position: relative;
     width: @gridRowWidth;
-    padding: @blockContentPadding;
+    padding: @blockContentPadding / 2;
     min-height: 140px;
 }
 

@@ -28,12 +28,16 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 
 // vars
 $tabIndex = 40;
+$showCurrentVisitors = true;
 
 
 // -----------------------------------------------------------------------------------
 // if page ID is given, it LOAD THE EDITOR
 // or if $_GET['site'] == 'pages'
 if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pages'
+
+  // dont show the current visitors when sidebarmenu
+  $showCurrentVisitors = false;
 
   if(!$_GET['loadSideBarMenu'])
     echo '<div id="sidebarSelection" class="staticScroller">';
@@ -48,8 +52,8 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
     // SHOW only if the USER has PERMISSION for that CATEGORY (or any of the pages in it)
     if(showCategory(0)) {
 
-      echo '<div class="sidebarMenu fixed brown'.$hidden.'">
-      <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTipRight" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
+      echo '<div class="sidebarMenu brown'.$hidden.'">
+      <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTipLeft" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
       <div class="menuWrapper">
         <menu class="vertical">';
 
@@ -59,8 +63,8 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
               continue;
 
             // -> show page ID
-            $pageId = (GeneralFunctions::isAdmin())
-              ? ' class="toolTipRight noMark" title="ID '.$page['id'].'"'
+            $showPageId = (GeneralFunctions::isAdmin())
+              ? ' class="toolTipLeft noMark" title="ID '.$page['id'].'"'
               : '';
 
             if($_GET['page'] == $page['id'])
@@ -68,7 +72,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
             else
               $pageSelected = '';
 
-            echo '<li><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span'.$pageId.'>'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'</span><span style="display:none;" class="toolTipRight noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+            echo '<li'.$showPageId.'><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'>'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'<span style="display:none;" class="toolTipLeft noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
             $tabIndex++;
           }
         } else {
@@ -101,7 +105,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
           $hidden = ' hidden';
         else $hidden = '';
 
-        echo '<div class="sidebarMenu free blue'.$hidden.'">
+        echo '<div class="sidebarMenu blue'.$hidden.'">
         <div class="top"><img src="library/images/icons/categoryIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
         <div class="menuWrapper">
           <menu class="vertical">';
@@ -113,7 +117,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
             // -> show category ID
             $categoryId = (GeneralFunctions::isAdmin())
-              ? ' class="toolTipRight noMark" title="ID '.$category['id'].'"'
+              ? ' class="toolTipLeft noMark" title="ID '.$category['id'].'"'
               : '';
 
             if($_GET['category'] == $category['id'])
@@ -136,8 +140,8 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       // spacer
       echo '<div class="spacer arrow"></div>';
 
-      echo '<div class="sidebarMenu free gray">
-      <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</span><a href="#" class="toolTipRight" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'::">&nbsp;</a></div>
+      echo '<div class="sidebarMenu gray">
+      <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</span><a href="#" class="toolTipLeft" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'::">&nbsp;</a></div>
       <div class="menuWrapper">
         <menu class="vertical">';
 
@@ -148,8 +152,8 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
               continue;
 
             // -> show page ID
-            $pageId = (GeneralFunctions::isAdmin())
-              ? ' class="toolTipRight noMark" title="ID '.$page['id'].'"'
+            $showPageId = (GeneralFunctions::isAdmin())
+              ? ' class="toolTipLeft noMark" title="ID '.$page['id'].'"'
               : '';
 
             if($_GET['page'] == $page['id'])
@@ -157,7 +161,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
             else
               $pageSelected = '';
 
-            echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span'.$pageId.'>'.GeneralFunctions::getLocalized($page,'title').'</span><span style="display:none;" class="toolTipRight noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+            echo '<li'.$showPageId.'><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'>'.GeneralFunctions::getLocalized($page,'title').'<span style="display:none;" class="toolTipLeft noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
             $tabIndex++;
           }
         } else {
@@ -215,12 +219,12 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
               echo '<li';
               // your own user
               if($_SESSION['feinduraSession']['login']['user'] == $user['id'])
-                echo ' class="toolTipRight online brown" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
+                echo ' class="toolTipLeft online brown" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
               // users who are online too
               else {
                 foreach($userCache as $cachedUser) {
                   if($user['username'] == $cachedUser['username']) {
-                    echo ' class="toolTipRight online" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$cachedUser["timestamp"]).'"';
+                    echo ' class="toolTipLeft online" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$cachedUser["timestamp"]).'"';
                       break;
                   }
                 }
@@ -251,11 +255,11 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       echo '<a href="CHANGELOG" class="link">CHANGELOG</a><br>';
       echo '<a href="LICENSE" class="link">LICENSE</a>';
 
-      echo '<h3>'.$langFile['ADMINSETUP_TEXT_PHPVERSION'].'</h3>
+      echo '<h2>'.$langFile['ADMINSETUP_TEXT_PHPVERSION'].'</h2>
       <p class="center">'.PHP_VERSION.'</p>';
 
-      echo '<h3>'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'</h3>';
-      echo '<p class="toolTipRight" title="'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'::'.DOCUMENTROOT.'">'.DOCUMENTROOT.'</p>
+      echo '<h2>'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'</h2>';
+      echo '<p class="toolTipLeft" title="'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'::'.DOCUMENTROOT.'">'.DOCUMENTROOT.'</p>
           </div>';
 
       break;
@@ -264,12 +268,15 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
     case 'pageSetup':
       if(!GeneralFunctions::isAdmin()) break;
 
+      // dont show the current visitors when sidebarmenu
+      $showCurrentVisitors = false;
+
       // -> CATEGORY ANCHOR LINKS
       echo '<div id="sidebarSelection" class="staticScroller">';
 
       if(!empty($categoryConfig) && is_array($categoryConfig)) {
 
-        echo '<div class="sidebarMenu fixed blue">
+        echo '<div class="sidebarMenu blue">
             <div class="top"><img src="library/images/icons/categoryIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
             <div class="menuWrapper">
               <menu class="vertical">';
@@ -304,12 +311,15 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
     case 'userSetup':
       if(!GeneralFunctions::isAdmin()) break;
 
+      // dont show the current visitors when sidebarmenu
+      $showCurrentVisitors = false;
+
       // -> USER ANCHOR LINKS
       echo '<div id="sidebarSelection" class="staticScroller">';
 
       if(!empty($userConfig) && is_array($userConfig)) {
 
-        echo '<div class="sidebarMenu fixed gray">
+        echo '<div class="sidebarMenu gray">
             <div class="top"><img src="library/images/icons/userIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['USERSETUP_userSelection'].'</span><a href="#">&nbsp;</a></div>
             <div class="menuWrapper">
               <menu class="vertical">';
@@ -318,7 +328,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
                 // -> show a anchor link to each user
                 foreach($userConfig as $user) {
-                  $userIsAdmin = ($user['admin']) ? ' toolTipRight" title="'.$langFile['USERSETUP_admin'].'::"' : '"';
+                  $userIsAdmin = ($user['admin']) ? ' toolTipLeft" title="'.$langFile['USERSETUP_admin'].'::"' : '"';
                   echo '<li><a href="#userId'.$user['id'].'" class="'.$userIsAdmin.' tabindex="'.$tabIndex.'"><span>'.$user['username'].'</span></a></li>';
                   $tabIndex++;
                 }
@@ -371,12 +381,14 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
   } //switch END
 }
 
-// -> Show always the current visitors
-$currentVisitorDashboard = false;
-$currentVisitors = include('library/includes/currentVisitors.include.php');
-echo '<div id="currentVisitorsSideBar">';
-  echo $currentVisitors;
-echo '</div>';
+// -> Show the current visitors
+if($showCurrentVisitors) {
+  $currentVisitorDashboard = false;
+  $currentVisitors = include('library/includes/currentVisitors.include.php');
+  echo '<div id="currentVisitorsSideBar">';
+    echo $currentVisitors;
+  echo '</div>';
+}
 
 
 ?>

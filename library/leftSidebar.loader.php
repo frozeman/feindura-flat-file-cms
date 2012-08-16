@@ -20,7 +20,7 @@
 */
 
 // PAGES
-if(!empty($_GET['page']) && is_numeric($_GET['page'])) {
+if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
 
   if(is_numeric($pageContent['id'])) {
 
@@ -197,7 +197,7 @@ if(!empty($_GET['page']) && is_numeric($_GET['page'])) {
 
     // PLUGINS
     if(is_array($activatedPlugins) && count($activatedPlugins) >= 1)
-      include(dirname(__FILE__).'/includes/editPlugins.rightSideBar.include.php');
+      include(dirname(__FILE__).'/includes/editPlugins.leftSideBar.include.php');
   }
 
 // SITES
@@ -212,7 +212,7 @@ if(!empty($_GET['page']) && is_numeric($_GET['page'])) {
 
     // ***** pages sideBar -------------------------------------------------- *********
     case 'pages':
-        echo '<div id="messageBox_input" class="box">';
+        echo '<div class="box">';
           echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" alt="icon" style="width: 65px; height: 65px">'.$langFile['SORTABLEPAGELIST_info'];
           // -> the javascript request of the sortable gets its error messages from this input
           echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['SORTABLEPAGELIST_save'].'|'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'">';

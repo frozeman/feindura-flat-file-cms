@@ -27,7 +27,7 @@ header.main {
     position: relative;
     top: 0;
     width: 100%;
-    height: 150px;
+    height: 155px;
     min-width: @appWidth;
     background: url("../images/bg/header.png") repeat-x;
     #shadow > .text(0 1px 1px #fff);
@@ -36,7 +36,7 @@ header.main {
         z-index: 2;
         position: relative;
         // top: 0;
-        // left: 0;
+        left: 5px;
         float: left;
         width: 860px;
         height: 140px;
@@ -192,7 +192,7 @@ header.main {
         z-index: 99;
         position: relative;
         top: 0;
-        left: -1px;
+        left: 10px;
         float: left;
         overflow: visible;
     }
@@ -206,7 +206,7 @@ header.main {
         // background: url("../images/bg/adminMenu.png") no-repeat;
         background-color: #e8e8e8;
         text-align: center;
-        #border > .rounded(@blockBorderRadiusMedium);
+        #border > .rounded(@borderRadiusMedium);
         #shadow > .both(0,0,5px,0.2,#000,0,0,10px,0.2);
         #shadow > .inner(0,0,10px,0.2);
         #gradient > .vertical(#fff,#fff,#e8e8e8);
@@ -279,7 +279,7 @@ header.main {
 
 .mainBody {
     position: relative;
-    top: -5px;
+    top: -10px;
     z-index: 0;
     overflow: auto;
     width: 100%;
@@ -293,13 +293,13 @@ header.main {
 
     // CONTENT
 
-    div.mainContent {
+    section.mainContent {
         z-index: 3;
         position: relative;
         float: left;
         overflow: visible;
         padding: 10px;
-        padding-bottom: 8px;
+        padding-bottom: 20px;
         margin-left: 20px;
         margin-right: 20px;
         width: 800px;
@@ -307,7 +307,7 @@ header.main {
         color: #444;
 
         &.hasSubMenu {
-            padding-top: 58px;
+            padding-top: 54px;
         }
 
         p {
@@ -320,32 +320,42 @@ header.main {
     .subMenu {
         z-index: 7;
         position: absolute;
+        width: 800px;
         top: -8px;
-        left: 10px;
-        padding:  0 10px;
-        padding-top: 7px;
+        // left: 10px;
+        padding-top: 1px;
+        margin-bottom: @blockContentMargin;
         overflow: visible;
-        height: 48px;
-        border: 1px solid #f4f4f4;
-        background: #eaeaea;
-        background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 58%,#eaeaea 59%, #e6e6e6 100%);
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(58%,#f6f6f6), color-stop(59%,#eaeaea), color-stop(100%,#e6e6e6));
-        background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
-        background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
-        background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
-        background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 );
-        #shadow > .drop(0, 1px, 5px, 0.35);
-        #border > .rounded(8px);
-        #PIE;
+        text-align: left;
+
+        menu {
+            display: inline-block;
+            height: 47px;
+            padding: 0 8px;
+            margin-right: 10px;
+            border: 1px solid #f4f4f4;
+            background: #eaeaea;
+            background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 58%,#eaeaea 59%, #e6e6e6 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(58%,#f6f6f6), color-stop(59%,#eaeaea), color-stop(100%,#e6e6e6));
+            background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
+            background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
+            background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
+            background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 );
+            #shadow > .drop(0, 1px, 10px, 0.35);
+            #border > .rounded(8px);
+            #PIE;
+        }
 
         // submenu selection
         select {
             position: relative;
-            margin: 12px 12px;
+            margin: 0 8px;
             margin-left: 1px;
             padding: 3px 3px;
             font-size: 14px;
+            width: auto;
+            max-width: 195px;
         }
         img.flag {
             margin-left: 8px;
@@ -361,14 +371,14 @@ header.main {
         // submenu buttons
         li a {
             display: block;
-            margin: 0px 5px;
+            margin: 0 2px;
             padding: 0;
-            width: 50px;
-            height: 48px;
+            width: 41px;
+            height: 40px;
         }
         a:hover,
         a:focus {
-            background-position: -50px 0px !important;
+            background-position: -42px 0px !important;
         }
 
         a.fileManager {
@@ -406,7 +416,7 @@ footer.main {
     z-index: 1;
     width: 100%;
     height: 70px;
-    margin-top: 20px;
+    margin-top: 10px;
     min-width: @appWidth;
     clear: both;
     background: url("../images/bg/footer.png") repeat-x;

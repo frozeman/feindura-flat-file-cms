@@ -12,14 +12,20 @@
 #boxBasics {
     border: 1px solid #fff;
     #shadow > .both(0, 1px, 10px, 0.3, #000, 0, 0px, 50px, 0.05);
-    #border > .rounded(@blockBorderRadius);
+    #border > .rounded(@borderRadius);
     background-color: #fff;
+}
+#windowBoxBasics {
+    #boxBasics;
+    #shadow > .both(0, 1px, 10px, 0.4, #000, 0, 0px, 50px, 0.05);
+    // #shadow > .drop(0, 1px, 10px, 0.4, #000);
+    // #shadow > .none();
 }
 #boxHeadlineBasics {
     border: 1px solid #fff;
     #shadow > .drop(0,1px,4px,0.2);
     #gradient > .vertical(#fff,#fff,#f0f0f0,0,1);
-    #border > .radius(@blockBorderRadius,@blockBorderRadiusSmall,@blockBorderRadiusSmall,@blockBorderRadius);
+    #border > .radius(@borderRadius,@borderRadiusSmall,@borderRadiusSmall,@borderRadius);
 }
 
 // ELEMENT FORMAT
@@ -353,7 +359,7 @@ a.fastUp:hover, .mainContent a.fastUp:focus {
     top: -5px;
     left: -4px;
     #shadow > .drop(0,1px,2px,0.1);
-    #border > .rounded(@blockBorderRadiusMedium);
+    #border > .rounded(@borderRadiusMedium);
 }
 a.logout, a.frontend, a.backend  {
     @buttonColor: lighten(@logoColorOrange,30%);
@@ -510,7 +516,6 @@ table.coloredList {
     height: 100%;
     background: url("../images/bg/dimmContainer.png") repeat;
     background-color: transparent;
-    #transform > .opacity(0.5);
 }
 
 #documentSaved {
@@ -534,7 +539,7 @@ div.divBlocked {
     height: 100%;
     margin: 0 -@blockContentPadding;
     background-color: #fff;
-    #border > .rounded(@blockBorderRadius);
+    #border > .rounded(@borderRadius);
     #transform > .opacity(0.6);
 
     > div {
@@ -606,7 +611,7 @@ div.divBlocked {
     }
 }
 
-#messagePopUp.feindura {
+.messagePopUp.feindura {
     z-index: @zindexInFrontend + 30;
     visibility: hidden;
     position: fixed;
@@ -627,23 +632,23 @@ div.divBlocked {
         margin: 0;
         margin-top: 20px;
         text-align: center;
-        #shadow > .drop(0,3px,12px,0.2);
+        #shadow > .drop(0,3px,15px,0.2);
     }
 }
 
 @-webkit-keyframes messagePopUpPerspective {
     0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .animation-timing-function(); }
-    15% { #3Dtransform > .transform(rotateX(-50deg));}
+    35% { #3Dtransform > .transform(rotateX(-50deg));}
     100% { #3Dtransform > .transform(rotateX(0.1deg));}
 }
 @-moz-keyframes messagePopUpPerspective {
     0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .animation-timing-function(); }
-    15% { #3Dtransform > .transform(rotateX(-50deg));}
+    35% { #3Dtransform > .transform(rotateX(-50deg));}
     100% { #3Dtransform > .transform(rotateX(0.1deg));}
 }
 @-o-keyframes messagePopUpPerspective {
     0% { #3Dtransform > .transform(rotateX(-90deg)); #3Dtransform > .animation-timing-function(); }
-    15% { #3Dtransform > .transform(rotateX(-50deg));}
+    35% { #3Dtransform > .transform(rotateX(-50deg));}
     100% { #3Dtransform > .transform(rotateX(0.1deg));}
 }
 // @-keyframes messagePopUpPerspective {
@@ -651,14 +656,6 @@ div.divBlocked {
 //     10% { #3Dtransform > .transform(rotateX(-50deg));}
 //     100% { #3Dtransform > .transform(rotateX(0.1deg));}
 // }
-
-
-div.leftSidebarLoadingCircle {
-    position: absolute;
-    top: 75px;
-    left: 60px;
-    z-index: 0;
-}
 
 div.smallLoadingCircle {
     position: absolute;
@@ -719,7 +716,7 @@ select[multiple="multiple"] {
     background: #fdfdfd;
     font-size: 16px;
     font-family: Calibri, Helvetica, Sans-Serif;
-    #border > .rounded(@blockBorderRadiusMedium);
+    #border > .rounded(@borderRadiusMedium);
     #shadow > .inner(0,0,5px,0.2);
 }
 

@@ -330,6 +330,9 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       // ---------------------------------------------------------------
       // ->> CHECK to show BUTTONs in subMenu and FooterMenu
 
+      // vars
+      $isInPageEditor = (!empty($_GET['page']) && empty($_GET['site']) && !$newPage) ? true : false;
+
       $generallyCreatePages = false;
       // CHECK if one category can create pages
       if(!empty($categoryConfig)) {
@@ -346,8 +349,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
        // -> CHECK for DELETE PAGE
       $showDeletePage = ($generallyCreatePages && !$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new' &&
                          $categoryConfig[$_GET['category']]['createDelete']) ? true : false;
-
-      $isInPageEditor = (isset($_GET['page']) && !$newPage) ? true : false;
 
       // ->CHECK frontend editing
       $showFrontendEditing = ($isInPageEditor && GeneralFunctions::hasPermission('frontendEditing')) ? true : false;
@@ -396,18 +397,18 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
         <!-- ************************************************************************* -->
         <!-- ** LEFT-SIDEBAR ************************************************************** -->
         <!-- requires the <span> tag inside the <li><a> tag for measure the text width -->
-        <div id="leftSidebar">
+        <section id="leftSidebar">
           <?php
 
           include('library/leftSidebar.loader.php');
 
           ?>
-        </div>
+        </section>
 
 
         <!-- ************************************************************************* -->
         <!-- ** CONTENT ************************************************************** -->
-        <div class="mainContent<?php if($showSubMenu) echo ' hasSubMenu'; ?>">
+        <section class="mainContent<?php if($showSubMenu) echo ' hasSubMenu'; ?>">
 
           <!-- ************************************************************************* -->
           <!-- ** SUBMENU ************************************************************** -->
@@ -436,6 +437,36 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                   $showSpacer = true;
                 }
 
+                // PAGE LANGUAGE SELECTION with
+                if($websiteConfig['multiLanguageWebsite']['active'] && !empty($websiteConfig['multiLanguageWebsite']['languages']) && (empty($pageContent) || !empty($pageContent['localized']))) {
+                  ?>
+                  <li class="spacer"></li>
+                  <li style="top: -17px;">
+                    <img src="<?php echo GeneralFunctions::getFlagSrc($_SESSION['feinduraSession']['websiteLanguage']); ?>" class="toolTipBottom" title="::<?php echo $languageNames[$_SESSION['feinduraSession']['websiteLanguage']]; ?>">
+                    <select name="websiteLanguageSelection" id="websiteLanguageSelection" tabindex="37">
+                    <?php
+                      // create language selection
+                      foreach($currentlanguageSlection as $langCode) {
+                        if($newPage || empty($pageContent) || isset($pageContent['localized'][$langCode]) || ($_GET['status'] == 'addLanguage' && $_SESSION['feinduraSession']['websiteLanguage'] == $langCode)) {
+                          $selected = ($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) ? ' selected="selected"' : '';
+                          echo '<option value="'.$langCode.'"'.$selected.'>'.$languageNames[$langCode].'</option>';
+                        }
+                      }
+                    ?>
+                    </select>
+                <?php
+                }
+                ?>
+              </menu>
+
+              <?php if($showFrontendEditing ||
+                       $showDeletePage ||
+                       $showPageThumbnailUpload ||
+                       $showPageThumbnailDelete ||
+                       ($websiteConfig['multiLanguageWebsite']['active'] && $isInPageEditor)) { ?>
+              <menu class="horizontal">
+                <?php
+                $showSpacer = false;
                 // FRONTEND EDITING
                 if($showFrontendEditing) {
                   if($showSpacer) { ?>
@@ -486,49 +517,29 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                   <?php }
                   $showSpacer = true;
                   }
-
-                  // PAGE LANGUAGE SELECTION with
-                  if(!empty($websiteConfig['multiLanguageWebsite']['languages']) && (empty($pageContent) || !empty($pageContent['localized']))) {
-                    ?>
-                    <li class="spacer"></li>
-                    <li style="top: -20px;">
-                      <img src="<?php echo GeneralFunctions::getFlagSrc($_SESSION['feinduraSession']['websiteLanguage']); ?>" title="<?php echo $languageNames[$_SESSION['feinduraSession']['websiteLanguage']]; ?>">
-                      <select name="websiteLanguageSelection" id="websiteLanguageSelection" tabindex="37">
-                      <?php
-                        // create language selection
-                        foreach($currentlanguageSlection as $langCode) {
-                          if($newPage || empty($pageContent) || isset($pageContent['localized'][$langCode]) || ($_GET['status'] == 'addLanguage' && $_SESSION['feinduraSession']['websiteLanguage'] == $langCode)) {
-                            $selected = ($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) ? ' selected="selected"' : '';
-                            echo '<option value="'.$langCode.'"'.$selected.'>'.$languageNames[$langCode].'</option>';
-                          }
-                        }
-                      ?>
-                      </select>
-                  <?php
-                  }
-
                 }
                 ?>
               </menu>
+              <?php } ?>
             </div>
           <?php }
 
           include('library/content.loader.php');
 
           ?>
-        </div>
+        </section>
 
 
         <!-- ************************************************************************* -->
         <!-- ** RIGHT-SIDEBAR ************************************************************** -->
         <!-- requires the <span> tag inside the <li><a> tag for measure the text width -->
-        <div id="rightSidebar">
+        <section id="rightSidebar">
           <?php
 
           include('library/rightSidebar.loader.php');
 
           ?>
-        </div>
+        </section>
         <a href="#top" class="fastUp" title="<?php echo $langFile['BUTTON_UP']; ?>"></a>
       </div>
   </div>

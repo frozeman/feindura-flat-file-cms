@@ -6,7 +6,7 @@
 
 .block.listPages {
     margin-bottom: 30px;
-    #border > .radius(@blockBorderRadius,0,0,@blockBorderRadius);
+    #border > .radius(@borderRadius,@borderRadiusSmall,@borderRadiusSmall,@borderRadius);
 
     > h1 {
         position: relative;
@@ -40,7 +40,12 @@
 
         > h1 {
             padding-bottom: 10px !important;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
+            #border > .radius(@borderRadius,@borderRadiusSmall,@borderRadiusSmall,@borderRadius);
+
+            &:hover {
+                #border > .radius(@borderRadius,@borderRadiusSmall,@borderRadiusSmall,@borderRadius);
+            }
 
             > a {
                 margin-left: -35px;
@@ -110,11 +115,11 @@
                 white-space: nowrap;
                 overflow: visible;
                 border: 1px solid #fff;
-                #border > .rounded(@blockBorderRadius);
+                #border > .rounded(@borderRadiusMedium);
                 #shadow > .drop(0,0,5px,0.3);
 
                 &.hasSubCategory {
-                    #border > .radius(25px,25px,@blockBorderRadius,@blockBorderRadius);
+                    #border > .radius(@borderRadius,@borderRadius,25px,25px);
                     background: url('../images/bg/listPages_pageBar_blue.png') repeat-x;
                 }
                 &:hover {
@@ -278,114 +283,98 @@
 
     // SUBCATEGORY ARROWS
     div.subCategoryArrowLine {
+        @listPagesArrowSize: 8px;
+
         position: absolute;
-        z-index: 99;
+        // z-index: 1;
         display: none;
-        left: 803px;
+        left: 0;
         width: 0;
         height: 0;
         top: 0;
-        border: 1px solid #ccc;
-        border-left: none;
-        #border > .radius(4px,4px,0,0);
+        border: 4px solid #ccc;
+        border-right: none;
+        #border > .radius(0,0,4px,4px);
 
-        &:before {
-            content: "";
+       &:after,
+       &:before {
             position: absolute;
-            z-index: -1;
-            top: 1px;
-            bottom: 1px;
-            left: 1px;
-            right: 1px;
-            border: 1px solid #ccc;
-            border-left: none;
-            #border > .radius(3px,3px,0,0);
+            border: solid transparent;
+            content: '';
+            height: 0;
+            width: 0;
+            pointer-events: none;
         }
-        &:after {
-            content: "";
-            position: absolute;
-            z-index: -1;
-            top: 0px;
-            bottom: 0px;
-            left: 0px;
-            right: 0px;
-            border: 1px solid #ccc;
-            border-left: none;
-            #border > .radius(3px,3px,0,0);
+
+        // top arrows
+        &.up:before {
+            border-left-color: inherit;
+            border-width: @listPagesArrowSize;
+            top: 0;
+            right: -10px;
+            margin-top: -10px;
         }
+        &.down:before {
+            border-right-color: inherit;
+            border-width: @listPagesArrowSize;
+            top: 0;
+            right: 0;
+            margin-top: -10px;
+        }
+        // bottom arrows
+        &.up:after {
+            border-right-color: inherit;
+            border-width: @listPagesArrowSize;
+            bottom: 0;
+            right: 0;
+            margin-bottom: -10px;
+        }
+        &.down:after {
+            border-left-color: inherit;
+            border-width: @listPagesArrowSize;
+            bottom: 0;
+            right: -10px;
+            margin-bottom: -10px;
+        }
+
+        // colors
         &.nonCategory {
-            border-color: #EAC78C;
-        }
-        &.nonCategory:before {
-            border-color: #EAC78C;
-        }
-        &.nonCategory:after {
-            border-color: #EAC78C;
+            border-color: #fff;
         }
         &.categories {
-            border-color: #AAC9E1;
+            border-color: #fff;
         }
-        &.categories:before {
-            border-color: #AAC9E1;
-        }
-        &.categories:after {
-            border-color: #AAC9E1;
-        }
-    }
 
-
-    div.subCategoryArrowStart {
-        position: absolute;
-        width: 5px;
-        height: 9px;
-        left: 0px;
-
-        &.arrowBottom {
-            bottom: -4px;
+        &.nonCategory.up div.subCategoryInLineArrow {
+            border-bottom-color: #ecb583;
         }
-        &.arrowTop {
-            top: -4px;
+        &.nonCategory.down div.subCategoryInLineArrow {
+            border-top-color: #ecb583;
         }
-    }
-    .nonCategory div.subCategoryArrowStart {
-        background-image: url("../images/bg/listPages_parentPage_inLineArrow_brown_start.png");
-    }
-    .categories div.subCategoryArrowStart {
-        background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_start.png");
-    }
-    div.subCategoryArrowEnd {
-        position: absolute;
-        width: 5px;
-        height: 9px;
-        left: 0px;
+        &.categories.up div.subCategoryInLineArrow {
+            border-bottom-color: #9abbf4;
+        }
+        &.categories.down div.subCategoryInLineArrow {
+            border-top-color: #9abbf4;
+        }
 
-        &.arrowTop {
-            bottom: -4px;
+        div.subCategoryInLineArrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 50%;
+            left: -10px;
+            border: solid transparent;
         }
-        &.arrowBottom {
-            top: -4px;
+        &.up div.subCategoryInLineArrow {
+            margin-top: -13px;
+            border-bottom-color: inherit;
+            border-width: @listPagesArrowSize;
+        }
+        &.down div.subCategoryInLineArrow {
+            margin-top: -3px;
+            border-top-color: inherit;
+            border-width: @listPagesArrowSize;
         }
     }
-    .nonCategory div.subCategoryArrowEnd {
-        background-image: url("../images/bg/listPages_parentPage_inLineArrow_brown_end.png");
-    }
-    .categories div.subCategoryArrowEnd {
-        background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_end.png");
-    }
-    div.subCategoryInLineArrow {
-        position: absolute;
-        width: 9px;
-        height: 6px;
-        top: 50%;
-        margin-top: -3px;
-        right: -4px;
-        background-image: url("../images/bg/listPages_parentPage_inLineArrow_brown_down.png");
-    }
-    .categories div.subCategoryInLineArrow.arrowUp {
-        background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_up.png");
-    }
-    .categories div.subCategoryInLineArrow.arrowDown {
-        background-image: url("../images/bg/listPages_parentPage_inLineArrow_blue_down.png");
-    }
-
 }

@@ -64,7 +64,7 @@ function setToolTips() {
     arrowSize: 10,
     distance: 5,
     motionOnHide: false,
-    showDelay: 250
+    showDelay: 400
   };
 
   toolTipsTop = new FloatingTips('.toolTipTop',Object.merge(tipOptions,{
@@ -207,7 +207,7 @@ function removeChecked(selector) {
 function resizeElementsOnHover() {
 
   // vars
-  var startSize = 80;
+  var startSize = 100;
 
   $$('.resizeOnHover').each(function(element){
     var orgSize = element.getSize().y;
@@ -381,30 +381,11 @@ function pageContentChangedSign() {
 
 // *** ->> SIDEBARS - functions -----------------------------------------------------------------------------------------------------------------------
 
-// vars
-var sidbarMenuTextLength;
-
-function setSidbarMenuTextLength() {
-  sidbarMenuTextLength = 0;
-  // gets the length of the longest text
-  // walk trough all <li> <a> ellements an messure the <span> length
-  $$('.sidebarMenu menu li').each(function(passedLi) {
-    if(typeOf(passedLi.getElement('a').getElement('span')) === 'null')
-      return;
-    var textLength = passedLi.getElement('a').getElement('span').offsetWidth;
-    if(sidbarMenuTextLength < textLength) {
-      sidbarMenuTextLength = textLength + 30; //+ 30 for padding
-    }
-  });
-}
-
 // -------------------------------------------------
 // SLIDE IN/OUT and MOUSEOVER RESIZE
 function sidebarMenu() {
 
-    setSidbarMenuTextLength();
-
-    $$('.sidebarMenu').each(function(sideBarMenu) {
+  $$('.sidebarMenu').each(function(sideBarMenu) {
 
     // ->> SLIDE IN/OUT on click -------------------------------------------------------------------------------------------
     // gets the <a> tag in the <div class="content"> container and <div class="bottom">
@@ -447,19 +428,7 @@ function sidebarMenu() {
     // -> sets the RESIZE-TWEEN to the sideBarMenu
     sideBarMenu.set('tween', {duration: '650', transition: Fx.Transitions.Pow.easeOut});
 
-    slideContent.addEvent('mouseover', function(e){
-    e.stop();
-
-    if(sidbarMenuTextLength > 210) {
-      sideBarMenu.tween('width', sidbarMenuTextLength);
-    } else {
-      sideBarMenu.tween('width', 210);
-    }
-    });
-    slideContent.addEvent('mouseout', function(e){
-    e.stop();
-    sideBarMenu.tween('width', '210');
-    });
+    
   });
 }
 
@@ -471,14 +440,14 @@ function loadSideBarMenu(site,page,category) {
   // vars
   if(!page) page = 0;
   if(!category) category = 0;
-  var leftSideBar = $('leftSidebar');
+  var rightSidebar = $('rightSidebar');
 
-  var jsLoadingCircleContainer = new Element('div', {'class':'leftSidebarLoadingCircle'});
+  var jsLoadingCircleContainer = new Element('div', {'class':'rightSidebarLoadingCircle'});
   var removeLoadingCircle;
 
   // creates the request Object
   var requestCategory = new Request.HTML({
-    url:'library/leftSidebar.loader.php',
+    url:'library/rightSidebar.loader.php',
     method: 'get',
     data: 'site=' + site + '&category=' + category + '&page=' + page + '&loadSideBarMenu=true',
     update: $('sidebarSelection'),
@@ -486,23 +455,23 @@ function loadSideBarMenu(site,page,category) {
     //-----------------------------------------------------------------------------
     onRequest: function() { //-----------------------------------------------------
 
-        // -> TWEEN leftSidebar
-        leftSideBar.set('tween',{duration: 150});
-        leftSideBar.tween('left',-200);
+        // -> TWEEN rightSidebar
+        rightSidebar.set('tween',{duration: 150});
+        rightSidebar.tween('top',-rightSidebar.getSize().y);
 
         // -> ADD the LOADING CIRCLE
-        leftSideBar.grab(jsLoadingCircleContainer,'before');
+        rightSidebar.grab(jsLoadingCircleContainer,'before');
         removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 25, 40, 12, 4, "#999");
 
     },
     //-----------------------------------------------------------------------------
     onSuccess: function(html) { //-------------------------------------------------
 
-      // -> TWEEN leftSidebar
-      leftSideBar.set('tween',{duration: 300});
-      leftSideBar.tween('left',0);
+      // -> TWEEN rightSidebar
+      rightSidebar.set('tween',{duration: 300});
+      rightSidebar.tween('top',0);
 
-      leftSideBar.get('tween').chain(function(){
+      rightSidebar.get('tween').chain(function(){
         // -> REMOVE the LOADING CIRCLE
         jsLoadingCircleContainer.destroy();
         removeLoadingCircle();
@@ -625,10 +594,10 @@ window.addEvent('domready', function() {
   });
 
   // ADD .active to links which get clicked
-  $$('#leftSidebar a').addEvent('click',function(){
+  $$('#rightSidebar a').addEvent('click',function(){
     if(this.hasClass('btn'))
       return;
-    $$('#leftSidebar a').removeClass('active');
+    $$('#rightSidebar a').removeClass('active');
     this.addClass('active');
   });
 
@@ -957,7 +926,10 @@ window.addEvent('domready', function() {
   // --------------------------------------------------------------------------------------------
   // SHOW SUBCATEGORY ARROW PAGES ---------------------------------------------------------------
   subCategoryArrows = function() {
-      $$('div.subCategoryArrowLine').each(function(arrow){
+    var subCategoryArrows = $$('div.subCategoryArrowLine');
+    subCategoryArrows.reverse(); // because the array is also in the dom reversed
+
+    subCategoryArrows.each(function(arrow){
       countSubCategoryArrows++;
 
       // vars
@@ -966,39 +938,23 @@ window.addEvent('domready', function() {
       var parentPage            = $(arrow.get('data-parentPage'));
       var category              = $(arrow.get('data-category')).getParent('div.block');
       var subCategory           = $(arrow.get('data-subCategory')).getParent('div.block');
-      var inLineArrow           = arrow.getChildren('.subCategoryInLineArrow')[0];
-      // var parentPageArrowStart  = arrow.getChildren('.parentPageArrowStart')[0];
-      var arrowStart = arrow.getChildren('.subCategoryArrowStart')[0];
-      var arrowEnd              = arrow.getChildren('.subCategoryArrowEnd')[0];
       var top,height = 0;
 
       // if the subCategory is under the category with the parent page
       if(subCategory.getPosition(listPagesBlock).y > category.getPosition(listPagesBlock).y) {
-        top = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y + 22): (parentPage.getPosition(listPagesBlock).y + 19);
+        top = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y + 22): (parentPage.getPosition(listPagesBlock).y + 16);
         height = subCategory.getPosition(listPagesBlock).y - top + 32;
 
-        arrowEnd.removeClass('arrowBottom');
-        arrowEnd.addClass('arrowTop');
-
-        arrowStart.removeClass('arrowBottom');
-        arrowStart.addClass('arrowTop');
-
-        inLineArrow.removeClass('arrowUp');
-        inLineArrow.addClass('arrowDown');
+        arrow.removeClass('up');
+        arrow.addClass('down');
 
       // if the category with the parent page is under the subCategory
       } else {
         top = subCategory.getPosition(listPagesBlock).y + 23;
-        height = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y - subCategory.getPosition(listPagesBlock).y ): (parentPage.getPosition(listPagesBlock).y  - subCategory.getPosition(listPagesBlock).y - 6);
+        height = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y - subCategory.getPosition(listPagesBlock).y ): (parentPage.getPosition(listPagesBlock).y  - subCategory.getPosition(listPagesBlock).y - 11);
 
-        arrowEnd.removeClass('arrowTop');
-        arrowEnd.addClass('arrowBottom');
-
-        arrowStart.removeClass('arrowTop');
-        arrowStart.addClass('arrowBottom');
-
-        inLineArrow.removeClass('arrowDown');
-        inLineArrow.addClass('arrowUp');
+        arrow.removeClass('down');
+        arrow.addClass('up');
       }
 
       // if category is slided in
@@ -1020,8 +976,12 @@ window.addEvent('domready', function() {
 
       // arrow.morph({'top': top, 'height': subCategory.getPosition(listPagesBlock).y - top + 10});
 
-      if(arrow.getStyle('width') === '0px')
-        arrow.setStyle('width',(countSubCategoryArrows * 10));
+      if(arrow.getStyle('width') === '0px') {
+        arrow.setStyles({
+          'width': (countSubCategoryArrows * 20),
+          'left': -(countSubCategoryArrows * 20) - 4
+        });
+      }
 
     });
   };
@@ -1127,60 +1087,58 @@ window.addEvent('domready', function() {
       }
 
       // --> sortiert die Seite mithilfe einer AJAX anfrage an library/controllers/sortPages.controller.php ------------------------------
-        var req = new Request({
-          url:'library/controllers/sortPages.controller.php',
-          method:'post',
-          //autoCancel:true,
-          data:'sort_order=' + sort_order + '&categoryOld=' + categoryOld +'&categoryNew=' + categoryNew + '&sortedPageId=' + sortedPageId , // + '&do_submit=1&byajax=1&ajax=' + $('auto_submit').checked
-          //-------------------------------------
-          onRequest: function() {
+      var req = new Request({
+        url:'library/controllers/sortPages.controller.php',
+        method:'post',
+        //autoCancel:true,
+        data:'sort_order=' + sort_order + '&categoryOld=' + categoryOld +'&categoryNew=' + categoryNew + '&sortedPageId=' + sortedPageId , // + '&do_submit=1&byajax=1&ajax=' + $('auto_submit').checked
+        //-------------------------------------
+        onRequest: function() {
 
-            // PUT the save new order - TEXT in the loadingBox AND SHOW the LOADINGBOX
-            $('loadingBox').set('html','<span style="color:#D36100;font-weight:bold;font-size:16px;">'+sortablePageList_status[0]+'</span>');
-            // set tween
-            $('loadingBox').set('tween',{duration: 200});
-            $('loadingBox').setStyle('display','block');
-            $('loadingBox').setStyle('opacity','1');
+          // PUT the save new order - TEXT in the loadingBox AND SHOW the LOADINGBOX
+          $('loadingBox').set('html','<span style="color:#D36100;font-weight:bold;font-size:16px;">'+sortablePageList_status[0]+'</span>');
+          // set tween
+          $('loadingBox').set('tween',{duration: 200});
+          $('loadingBox').setStyle('display','block');
+          $('loadingBox').setStyle('opacity','1');
 
-          },
-          //-------------------------------------
-          onSuccess: function(responseText) {
+        },
+        //-------------------------------------
+        onSuccess: function(responseText) {
 
-            // FINAL SORT MESSAGE
-            //puts the right message which is get from the sortablePageList_status array (hidden input) in the messageBox
-            //$('messageBox_input').set('html',sortablePageList_status[responseText.substr(6,1)]);
-            $('messageBox_input').set('html','<img src="library/images/icons/hintIcon.png" class="hintIcon"><span style="color:#407287;font-weight:bold;">' + responseText + '</span>');
+          // FINAL SORT MESSAGE
+          feindura_showMessage('<div class="alert alert-success">'+responseText+'</div>');
 
-            // remove prevent clicking the link on sort
-            $$('.sortablePageList a').each(function(a) { a.removeEvent('click',preventLink); });
+          // remove prevent clicking the link on sort
+          $$('.sortablePageList a').each(function(a) { a.removeEvent('click',preventLink); });
 
-            // remove the "no pages notice" li if there is a page put in this category
-            $$('.sortablePageList li').each(function(li) {
-              if(li.get('id') === null && li.getParent().get('id').substr(8) == categoryNew && responseText.substr(-1) != '4') {
-                li.destroy();
+          // remove the "no pages notice" li if there is a page put in this category
+          $$('.sortablePageList li').each(function(li) {
+            if(li.get('id') === null && li.getParent().get('id').substr(8) == categoryNew && responseText.substr(-1) != '4') {
+              li.destroy();
+            }
+          });
+
+          // adds the "no page - notice" li if the old category is empty
+          if(responseText.substr(0,13) == '<span></span>') {
+            $$('.sortablePageList').each(function(ul) {
+              if(ul.get('id').substr(8) == categoryOld) { // && responseText.substr(-1) != '4'
+                var newLi = new Element('li', {html: '<div class="emptyList">' + sortablePageList_status[1] + '</div>'});
+                newLi.setStyle('cursor','auto');
+                ul.grab(newLi,'top');
               }
             });
-
-            // adds the "no page - notice" li if the old category is empty
-            if(responseText.substr(0,13) == '<span></span>') {
-              $$('.sortablePageList').each(function(ul) {
-                if(ul.get('id').substr(8) == categoryOld) { // && responseText.substr(-1) != '4'
-                  var newLi = new Element('li', {html: '<div class="emptyList">' + sortablePageList_status[1] + '</div>'});
-                  newLi.setStyle('cursor','auto');
-                  ul.grab(newLi,'top');
-                }
-              });
-            }
-
-            // HIDE the LOADINGBOX
-            $('loadingBox').tween('opacity','0');
-            $('loadingBox').get('tween').chain(function(){
-              $('loadingBox').empty();
-              $('loadingBox').setStyle('display','none');
-            });
-
           }
-        }).send();
+
+          // HIDE the LOADINGBOX
+          $('loadingBox').tween('opacity','0');
+          $('loadingBox').get('tween').chain(function(){
+            $('loadingBox').empty();
+            $('loadingBox').setStyle('display','none');
+          });
+
+        }
+      }).send();
 
     } // <-- SAVE SORT -- END --------------------
   }
@@ -1582,7 +1540,7 @@ window.addEvent('domready', function() {
           // -> UPDATE the TITLE everywhere
           title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
           $('edit_title').set('value',html);
-          $$('#leftSidebar menu.vertical a.active').getLast().getChildren('span').set('html',html);
+          $$('#rightSidebar menu.vertical a.active').getLast().getChildren('span').set('html',html);
           setSidbarMenuTextLength();
           titleContent = $('editablePageTitle').get('html');
           // display document saved

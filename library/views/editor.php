@@ -26,13 +26,69 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // -> available VARs from the editor.controller.php
 // string   $pageTitle
+// array    $activatedPlugins
 
 // -> available VARs from index.php -> subMenu
 // array    $missingLanguages
 
-// VARS
-// get the activated plugins
-$activatedPlugins = unserialize($categoryConfig[$_GET['category']]['plugins']);
+
+// CREATE BREADCRUMB MENU
+// loads the $breadCrumbsArray
+$breadCrumbsArray = GeneralFunctions::createBreadCrumbsArray($page,$category);
+
+if(count($breadCrumbsArray) != 1)
+  unset($breadCrumbsArray[0]);
+
+if(is_array($breadCrumbsArray)) {//if(count($breadCrumbsArray) > 1) {
+
+  // vars
+  $breadCrumbPageIcon = ($keyNumber === 0) ? '<i class="icons breadCrumbStartPage" style="position:absolute;top: 1px;left: -3px;"></i>' : '<i class="icons breadCrumbPage" style="position:absolute;top: 1px;left: -2px;"></i>';
+  $breadCrumbCategoryIcon = '<i class="icons breadCrumbCategory" style="position:absolute;top: 1px;left: -3px;"></i>';
+  $breadCrumbSubCategoryIcon = '<i class="icons breadCrumbCategory" style="position:absolute;top: 1px;left: -3px;"></i>';
+
+
+  echo '<div class="breadCrumbs">';
+    echo '<div class="start"></div>';
+    foreach ($breadCrumbsArray as $keyNumber => $breadCrumb) {
+
+      $breadCrumbCategoryHref = 'href="index.php?site=pages&amp;category='.$breadCrumb['category'].'#categoryAnchor'.$breadCrumb['category'].'"';
+
+      $breadCrumbPageHref = ($breadCrumb == $pageContent)
+        ? 'href="#" onclick="return false;"'
+        : 'href="index.php?page='.$breadCrumb['id'].'&amp;category='.$breadCrumb['category'].'"';
+
+      $markBreadCrumb = ($breadCrumb['id'] == $pageContent['id']) ? ' class="currentPage"' : '';
+
+      echo '<div class="middle">';
+        if($breadCrumb['category'] !== 0) {
+          echo '<a '.$breadCrumbCategoryHref.'>'.$breadCrumbCategoryIcon.GeneralFunctions::getLocalized($categoryConfig[$breadCrumb['category']],'name').'</a>';
+          echo '<span class="separator"></span>';
+        }
+        // echo '</div>';
+        // echo '<div class="arrow"></div>';
+        // echo '<div class="middle">';
+        echo '<a '.$breadCrumbPageHref.$markBreadCrumb.'>'.$breadCrumbPageIcon.GeneralFunctions::getLocalized($breadCrumb,'title').'</a>';
+      echo '</div>';
+
+      if($breadCrumb !== end($breadCrumbsArray))
+        echo '<div class="arrow"></div>';
+    }
+
+    if($breadCrumb['subCategory']) {
+      $breadCrumbSubCategoryHref = 'href="index.php?site=pages&amp;category='.$breadCrumb['subCategory'].'#categoryAnchor'.$breadCrumb['subCategory'].'"';
+
+      echo '<div class="arrow"></div>';
+      echo '<div class="middle">';
+        echo '<a '.$breadCrumbSubCategoryHref.'>'.$breadCrumbSubCategoryIcon.GeneralFunctions::getLocalized($categoryConfig[$breadCrumb['subCategory']],'name').'</a>';
+      echo '</div>';
+    }
+
+    echo '<div class="end"></div>';
+  echo '</div>';
+  // echo '<div class="spacer"></div>';
+  echo '<br style="clear:both;">';
+}
+
 
 // ->> SHOW the FORM
 echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'" method="post" accept-charset="UTF-8" id="editorForm" class="Page'.$_GET['page'].'">
@@ -83,7 +139,7 @@ if($newPage) {
 // -> checks for startpage, and show STARTPAGE ICON
 if($websiteConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
   $startPageIcon = '<img src="library/images/icons/startPageIcon_middle.png" class="blockH1Icon" width="33" height="30" alt="icon">';
-  $startPageTitle = ' toolTipTop" title="'.$langFile['SORTABLEPAGELIST_functions_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
+  $startPageTitle = ' toolTipTop" style="cursor:text;" title="'.$langFile['SORTABLEPAGELIST_functions_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }
 
 // shows the text of the sorting of a CATEGORY

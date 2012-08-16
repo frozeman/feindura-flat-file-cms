@@ -16,6 +16,11 @@
 *
 * shared.php version 0.1 (requires raphael)  */
 
+// vars
+var messageBox = null;
+var messageBoxTimeout;
+
+
 // EXTEND MOOTOOLS ELEMENTS
 Element.implement({
   show: function(){
@@ -137,38 +142,44 @@ function feindura_str_replace(s, r, c) {
 /* ---------------------------------------------------------------------------------- */
 // ->> DISPLAY MESSAGE
 function feindura_showMessage(html) {
+  clearTimeout(messageBoxTimeout);
 
   // var
-  var messageBox;
   var hideMessageBox = function(){
     messageBox.tween('top',-messageBox.getSize().y);
+    messageBox.removeEvents('mouseover');
     messageBox.get('tween').chain(function(){
-      messageBox.destroy();
+      messageBox.dispose();
+      messageBox.empty();
     });
   };
-  var showHideMessageBox = function(messageBox) {
+  var showMessageBox = function(messageBox) {
+    messageBox.set('tween',{duration: 700});
     messageBox.setStyle('top',-messageBox.getSize().y);
     messageBox.setStyle('visibility','visible');
     messageBox.tween('top',0);
 
     messageBox.addEvent('mouseover',hideMessageBox);
-    hideMessageBox.delay(5000);
+    messageBoxTimeout = hideMessageBox.delay(5000);
   };
 
   // -> create NEW MESSAGE BOX
-  if($('messagePopUp') === null) {
+  if(!messageBox) {
     // creates the errorWindow
-    messageBox = new Element('div',{id:'messagePopUp','class':'feindura'});
+    messageBox = new Element('div',{'class':'messagePopUp feindura'});
     messageBox.set('html',html);
     document.body.grab(messageBox);
-    showHideMessageBox(messageBox);
+    showMessageBox(messageBox);
 
   // -> fade out and in EXISTING MESSAGE BOX
   } else {
-    messageBox = $('messagePopUp');
+    document.body.grab(messageBox);
+    messageBox.set('tween',{duration: 300});
     messageBox.tween('top',-messageBox.getSize().y);
-    messageBox.set('html',html);
-    showHideMessageBox(messageBox);
+    messageBox.get('tween').chain(function(){
+      messageBox.set('html',html);
+      showMessageBox(messageBox);
+    });
   }
 }
 
@@ -199,7 +210,7 @@ function feindura_showError(title,errorText) {
   errorWindow.grab(errorWindowOkButton);
 
   document.body.grab(errorWindow);
-  errorWindow.setStyle('top',window.getScroll().y + 100);
+  errorWindow.setStyle('top',window.getScroll().y + 150);
 
   // add functionality to the ok button
   errorWindowOkButton.addEvent('click',feindura_closeErrorWindow);
@@ -211,7 +222,7 @@ function feindura_showError(title,errorText) {
   });
 
   window.addEvent('load',function(){
-    errorWindow.setStyle('top',window.getScroll().y + 100); // do it again to make sure, its repositioned
+    errorWindow.setStyle('top',window.getScroll().y + 150); // do it again to make sure, its repositioned
   });
 }
 

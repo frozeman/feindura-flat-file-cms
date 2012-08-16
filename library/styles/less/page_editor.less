@@ -11,7 +11,7 @@ div.rteHide {
 .editor {
     padding-top: 1px !important;
     overflow: visible;
-    #border > .radius(@blockBorderRadiusMedium,@blockBorderRadiusSmall,@blockBorderRadiusSmall,@blockBorderRadiusMedium) !important;
+    #border > .radius(@borderRadiusMedium,@borderRadiusSmall,@borderRadiusSmall,@borderRadiusMedium) !important;
 
     .content {
         // min-height: 50px;
@@ -26,6 +26,74 @@ div.rteHide {
         padding: 10px;
     }
 }
+
+.breadCrumbs {
+    position: relative;
+    margin: 10px 0;
+
+    a {
+        position: relative;
+        display: inline-block;
+        background: none;
+        padding: 3px 0;
+        padding-left: 23px; /////// 0
+        padding-right: 5px;
+        margin-left: 3px;
+        float: left;
+        max-width: 150px;
+        color: #fff;
+        #shadow > .text(none);
+        #content > .truncateText();
+
+        &:hover {
+            color: lighten(@logoColorBlue,40%);
+        }
+
+        &.currentPage {
+            color: lighten(@logoColorOrange,40%);
+            cursor: default !important;
+        }
+
+        .icons {
+            // #transform > .opacity(0.4);
+        }
+    }
+
+    div {
+        display: inline-block;
+        font-size: 12px;
+        height: 26px;
+        float: left;
+    }
+    > .start {
+        width: 10px;
+        background-image: url('../images/bg/breadCrumbMenu_start.png');
+    }
+    > .middle {
+        padding-right: 0;
+        background-image: url('../images/bg/breadCrumbMenu_middle.png');
+
+        > span.separator {
+            position: relative;
+            display: inline-block;
+            width: 1px;
+            height: 26px;
+            margin: 0 1px;
+            margin-left: 2px;
+            float: left;
+            background-image: url('../images/bg/breadCrumbMenu_separator.png');
+        }
+    }
+    > .arrow {
+        width: 15px;
+        background-image: url('../images/bg/breadCrumbMenu_arrow.png');
+    }
+    > .end {
+        width: 15px;
+        background-image: url('../images/bg/breadCrumbMenu_end.png');
+    }
+}
+
 
 #leftSidebar {
 

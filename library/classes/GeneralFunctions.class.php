@@ -2161,6 +2161,57 @@ class GeneralFunctions {
       return $pageContentArrays;
   }
 
+/**
+  * <b>Name</b> createBreadCrumbsArray()<br>
+  *
+  * Creates an array with <var>$pageContent</var> arrays in the order of the navigation.
+  *
+  *
+  * @param int        $page           a page ID
+  * @param int        $category       a category ID
+  *
+  * @uses GeneralFunctions::getParentPages()           to get the parent pages in an array
+  *
+  * @return array the created breadcrumb navigation, or an empty array
+  *
+  * @example id.parameter.example.php $id parameter example
+  *
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  static function createBreadCrumbsArray($page,$category) {
+
+    // vars
+    $breadCrumbsArray = array();
+
+    if(($pageContent = GeneralFunctions::readPage($page,$category)) !== false) {
+
+      // start page
+      if(self::$websiteConfig['setStartPage'] && !empty(self::$websiteConfig['startPage']) && self::$websiteConfig['startPage'] != $pageContent['id'] && ($startPage = self::readPage(self::$websiteConfig['startPage'],self::getPageCategory(self::$websiteConfig['startPage'])))) {
+        $breadCrumbsArray[] = $startPage;
+        unset($startPage);
+      }
+
+      // parent pages
+      if($pageContent['category'] != 0 && self::$categoryConfig[$pageContent['category']]['isSubCategory'] && ($parentPages = self::getParentPages($pageContent['category']))) {
+        foreach ($parentPages as $parentPageContent) {
+          $breadCrumbsArray[] = $parentPageContent;
+          unset($parentPageContent);
+        }
+      }
+
+      $breadCrumbsArray[] = $pageContent;
+      unset($pageContent);
+
+    }
+
+    return $breadCrumbsArray;
+  }
+
  /**
   * <b>Name</b> cleanPluginPlaceholders()<br>
   *

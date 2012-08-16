@@ -216,6 +216,9 @@ if($newPage) {
   $page = 'new';
 }
 
+// get the activated plugins
+$activatedPlugins = unserialize($categoryConfig[$category]['plugins']);
+
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file
 if(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) && isBlocked() === false) {
   $pageContent['thumbnail'] = '';

@@ -157,7 +157,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
           echo '<div class="row userPermissionsRow'.$hidden.'">
                   <div class="span8 center">
-                    <a href="?site=userPermissions&amp;userId='.$user['id'].'" class="btn btn-large" onclick="openWindowBox(\'library/views/windowBox/userPermissions.php\',\''.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'\',{userId:'.$user['id'].'});return false;"'.$keyTip.'>'.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'</a>
+                    <a href="?site=userPermissions&amp;userId='.$user['id'].'" class="btn btn-warning btn-large" onclick="openWindowBox(\'library/views/windowBox/userPermissions.php\',\''.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'\',{userId:'.$user['id'].'});return false;"'.$keyTip.'>'.$langFile['USERSETUP_USERPERMISSIONS_TITLE'].'</a>
                   </div>
                 </div>';
 

@@ -2470,15 +2470,23 @@ class Feindura extends FeinduraBase {
       // unset($_SESSION['feinduraSession']['log']['visitedPagesOrder']);
       // print_r($_SESSION['feinduraSession']['log']['visitedPagesOrder']);
 
-      // loads the $pageContent array
-      if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
+      // loads the $breadCrumbsArray
+      $breadCrumbsArray = GeneralFunctions::createBreadCrumbsArray($ids[0],$ids[1]);
 
-        // start page
-        if($this->websiteConfig['setStartPage'] && !empty($this->websiteConfig['startPage']) && $this->websiteConfig['startPage'] != $pageContent['id'] && ($startPage = GeneralFunctions::readPage($this->websiteConfig['startPage'],GeneralFunctions::getPageCategory($this->websiteConfig['startPage'])))) {
-          $link['link']  = $this->createLink($startPage).$separator;
-          $link['href']  = $this->createHref($startPage);
-          $link['id']    = $startPage['id'];
-          $link['title'] = $this->createTitle($startPage,
+      if(!empty($breadCrumbsArray)) {
+
+        foreach ($breadCrumbsArray as $parentPageContent) {
+          $getLinkCategory = $this->linkShowCategory;
+
+          // only show the category, if the parents page category is not a sub category
+          if(!$this->categoryConfig[$parentPageContent['category']]['isSubCategory'] && $parentPageContent !== reset($breadCrumbsArray))
+            $this->linkShowCategory = true;
+
+          $link['link']     = $this->createLink($parentPageContent);
+          $link['href']     = $this->createHref($parentPageContent);
+          $link['id']       = $parentPageContent['id'];
+          $link['category'] = $parentPageContent['category'];
+          $link['title']    = $this->createTitle($parentPageContent,
                                               $this->linkLength,
                                               false, // $titleAsLink
                                               $this->linkShowPageDate,
@@ -2486,79 +2494,21 @@ class Feindura extends FeinduraBase {
                                               $this->linkPageDateSeparator,
                                               $this->linkCategorySeparator,
                                               false); // $allowFrontendEditing
+          $this->linkShowCategory = $getLinkCategory;
 
           // -> add Thumbnail
-          if($pageThumbnail = $this->createThumbnail($page)) {
+          if($pageThumbnail = $this->createThumbnail($parentPageContent)) {
             $link['thumbnail'] = $pageThumbnail['thumbnail'];
             $link['thumbnailPath'] = $pageThumbnail['thumbnailPath'];
           }
 
+          // add separator to the link
+          if($parentPageContent !== end($breadCrumbsArray))
+            $link['link'] .= $separator;
+
           $links[] = $link;
-          unset($link,$startPage);
+          unset($link);
         }
-
-        // parent pages
-        if($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['isSubCategory'] && ($parentPages = GeneralFunctions::getParentPages($pageContent['category']))) {
-          foreach ($parentPages as $parentPageContent) {
-            $getLinkCategory = $this->linkShowCategory;
-
-            // only show the category, if the parents page category is not a sub category
-            if(!$this->categoryConfig[$parentPageContent['category']]['isSubCategory'])
-              $this->linkShowCategory = true;
-
-            $link['link']  = $this->createLink($parentPageContent).$separator;
-            $link['href']  = $this->createHref($parentPageContent);
-            $link['id']    = $parentPageContent['id'];
-            $link['title'] = $this->createTitle($parentPageContent,
-                                                $this->linkLength,
-                                                false, // $titleAsLink
-                                                $this->linkShowPageDate,
-                                                $this->linkShowCategory,
-                                                $this->linkPageDateSeparator,
-                                                $this->linkCategorySeparator,
-                                                false); // $allowFrontendEditing
-            $this->linkShowCategory = $getLinkCategory;
-
-            // -> add Thumbnail
-            if($pageThumbnail = $this->createThumbnail($page)) {
-              $link['thumbnail'] = $pageThumbnail['thumbnail'];
-              $link['thumbnailPath'] = $pageThumbnail['thumbnailPath'];
-            }
-
-            $links[] = $link;
-            unset($link);
-          }
-        }
-
-        // add pagelink
-        $getLinkCategory = $this->linkShowCategory;
-        // only show the category in the link, if the category is not a sub category
-        if(!$this->categoryConfig[$pageContent['category']]['isSubCategory'])
-          $this->linkShowCategory = true;
-
-        $link['link']     = $this->createLink($pageContent);
-        $link['href']     = $this->createHref($pageContent);
-        $link['id']       = $pageContent['id'];
-        $link['category'] = $pageContent['category'];
-        $link['title']    = $this->createTitle($pageContent,
-                                              $this->linkLength,
-                                              false, // $titleAsLink
-                                              $this->linkShowPageDate,
-                                              $this->linkShowCategory,
-                                              $this->linkPageDateSeparator,
-                                              $this->linkCategorySeparator,
-                                              false); // $allowFrontendEditing
-        $this->linkShowCategory = $getLinkCategory;
-
-        // -> add Thumbnail
-        if($pageThumbnail = $this->createThumbnail($page)) {
-          $link['thumbnail'] = $pageThumbnail['thumbnail'];
-          $link['thumbnailPath'] = $pageThumbnail['thumbnailPath'];
-        }
-
-        $links[] = $link;
-        unset($link);
-
       }
     }
 

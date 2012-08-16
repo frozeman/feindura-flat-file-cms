@@ -30,7 +30,7 @@ function openWindowBox(site,siteTitle,data) {
     loadingText = $$('#windowBox > h1').get('html');
 
     // place window in the useres sight
-    windowBox.setStyle('top',window.getScroll().y + 100);
+    windowBox.setStyle('top',window.getScroll().y + 150);
     windowBox.show();
     // dim container
     $('dimmContainer').show();

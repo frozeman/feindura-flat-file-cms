@@ -122,7 +122,7 @@ foreach($categoryConfig as $category) {
         : '[br][strong]'.$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL'].'[/strong][br]';
       foreach($parentPages as $parentPage) {
         if($categoryConfig[$parentPage['category']]['showSubCategory']) {
-          $parentPageCategory = ($parentPage['category'] != 0 ) ? GeneralFunctions::getLocalized($categoryConfig[$pageOfSubCategory['category']],'name').' &rArr; ' : '';
+          $parentPageCategory = ($parentPage['category'] != 0 ) ? GeneralFunctions::getLocalized($categoryConfig[$parentPage['category']],'name').' &rArr; ' : '';
           $categoryTitle .= '[img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.$parentPageCategory.GeneralFunctions::getLocalized($parentPage,'title').'[br]';
         }
       }
@@ -356,12 +356,12 @@ foreach($categoryConfig as $category) {
 
 
 // arrows to the sub categories
+$pagesWithSubCategories = array_reverse($pagesWithSubCategories); // to be able to show the tooltip of above arrows
 foreach ($pagesWithSubCategories as $pageWithSubCategory) {
   $categoryClass = ($pageWithSubCategory['category'] != 0) ? ' categories' : ' nonCategory';
-  echo '<div class="subCategoryArrowLine'.$categoryClass.'" data-parentPage="page'.$pageWithSubCategory['id'].'" data-category="category'.$pageWithSubCategory['category'].'" data-subCategory="category'.$pageWithSubCategory['subCategory'].'">
+  $categoryNameInTitle = ($pageWithSubCategory['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$pageWithSubCategory['category']],'name').' &rArr; ' : '';
+  echo '<div class="subCategoryArrowLine toolTipLeft'.$categoryClass.'" data-parentPage="page'.$pageWithSubCategory['id'].'" data-category="category'.$pageWithSubCategory['category'].'" data-subCategory="category'.$pageWithSubCategory['subCategory'].'" title="::[div class=right][img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;]'.$categoryNameInTitle.GeneralFunctions::getLocalized($pageWithSubCategory,'title').'[br]&dArr;&nbsp;&nbsp;&nbsp;[br][img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;]'.GeneralFunctions::getLocalized($categoryConfig[$pageWithSubCategory['subCategory']],'name').'[/div]">
   <div class="subCategoryInLineArrow"></div>
-  <div class="subCategoryArrowStart"></div>
-  <div class="subCategoryArrowEnd"></div>
   </div>';
 }
 unset($pagesWithSubCategories);
