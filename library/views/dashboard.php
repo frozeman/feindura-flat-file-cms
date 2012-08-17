@@ -72,7 +72,7 @@ if(!empty($userConfig[USERID]['info'])) {
 <!-- WEBSITE STATISTIC -->
 
 <div class="block dashboard">
-  <h1><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27"><?php echo $langFile['DASHBOARD_TITLE_STATISTICS']; ?></h1>
+  <h1><img src="library/images/icons/statisticIcon_small.png" class="blockH1Icon" alt="icon" style="top:4px; left:5px;"><?php echo $langFile['DASHBOARD_TITLE_STATISTICS']; ?></h1>
   <div class="content">
     <?php
 

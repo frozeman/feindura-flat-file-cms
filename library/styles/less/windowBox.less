@@ -3,7 +3,7 @@
 //
 // Published under the GNU General Public License
 
-#windowBox {
+.windowBox {
     z-index: @zindexInFrontend + 10;
     display: none;
     position: absolute;
@@ -70,39 +70,40 @@
         margin-top: 25px;
         margin-bottom: 25px;
     }
-}
 
-a.close {
-    z-index: 2;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 0px !important;
-    width: 18px;
-    height: 18px;
-    background: url("../images/buttons/close_gray.png") no-repeat !important;
-    #transform > .opacity(0.8);
+    a.close {
+        z-index: 2;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 0px !important;
+        width: 18px;
+        height: 18px;
+        background: url("../images/buttons/close_gray.png") no-repeat !important;
+        #transform > .opacity(0.8);
 
-    &:hover {
-        #transform > .opacity(1);
+        &:hover {
+            #transform > .opacity(1);
+        }
+    }
+
+    .windowRequestBox {
+        position: relative;
+        width: @gridRowWidth;
+        padding: @blockContentPadding / 2;
+        min-height: 140px;
+    }
+
+    .windowBoxDimmer {
+        position: absolute;
+        z-index: 10;
+        margin-top: -@blockContentPadding;
+        padding: 50px 0px;
+        width: @gridRowWidth;
+        height: 100%;
+        text-align: center;
+        background-color: #fff;
+        #transform > .opacity(0.5);
     }
 }
 
-#windowRequestBox {
-    position: relative;
-    width: @gridRowWidth;
-    padding: @blockContentPadding / 2;
-    min-height: 140px;
-}
-
-#windowBoxDimmer {
-    position: absolute;
-    z-index: 10;
-    margin-top: -@blockContentPadding;
-    padding: 50px 0px;
-    width: @gridRowWidth;
-    height: 100%;
-    text-align: center;
-    background-color: #fff;
-    #transform > .opacity(0.5);
-}

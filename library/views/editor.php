@@ -39,7 +39,7 @@ $breadCrumbsArray = GeneralFunctions::createBreadCrumbsArray($page,$category);
 if(count($breadCrumbsArray) != 1)
   unset($breadCrumbsArray[0]);
 
-if(is_array($breadCrumbsArray)) {//if(count($breadCrumbsArray) > 1) {
+if(!$newPage && is_array($breadCrumbsArray)) {
 
   // vars
   $breadCrumbPageIcon = ($keyNumber === 0) ? '<i class="icons breadCrumbStartPage" style="position:absolute;top: 1px;left: -3px;"></i>' : '<i class="icons breadCrumbPage" style="position:absolute;top: 1px;left: -2px;"></i>';

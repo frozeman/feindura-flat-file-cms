@@ -4634,7 +4634,7 @@
   z-index: 4;
   position: absolute;
   top: -5px;
-  left: -4px;
+  right: 5px;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09999999999999998);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09999999999999998);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09999999999999998);
@@ -4649,6 +4649,7 @@
 .feindura a.frontend,
 .feindura a.backend {
   z-index: 2;
+  height: 31px;
   font-family: 'Comic Sans MS', "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   text-align: center;
   font-size: 20px;
@@ -4670,6 +4671,29 @@
   background: -moz-linear-gradient(center bottom, #f2c4a3 0%, #f8e1d0 100%);
   background: -ms-linear-gradient(bottom, #f2c4a3 0%, #f8e1d0 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8e1d0', endColorstr='#f2c4a3',GradientType=0);
+}
+.feindura a.frontend {
+  padding: 5px;
+  padding-top: 4px;
+  padding-bottom: 0;
+  height: 40px;
+}
+.feindura a.frontend img {
+  filter: url(filters.svg#grayscale);
+  /* Firefox 3.5+ */
+
+  filter: gray;
+  /* IE5+ */
+
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+  -o-filter: grayscale(1);
+}
+.feindura a.frontend:hover img {
+  filter: none;
+  -webkit-filter: grayscale(0);
+  -moz-filter: grayscale(0);
+  -o-filter: grayscale(0);
 }
 .feindura a.status {
   display: inline-block;
@@ -4773,7 +4797,7 @@
   padding: 0px;
   margin: 0px;
 }
-.feindura #dimmContainer {
+.feindura .dimmContainer {
   position: fixed;
   z-index: 20000;
   display: none;
@@ -4810,35 +4834,50 @@
   background-clip: padding-box;
   /* IE 8 */
 
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
   /* IE 5-7 */
 
-  filter: alpha(opacity=60);
+  filter: alpha(opacity=50);
   /* Netscape */
 
-  -moz-opacity: 0.6;
+  -moz-opacity: 0.5;
   /* Safari 1.x */
 
-  -khtml-opacity: 0.6;
+  -khtml-opacity: 0.5;
   /* Webkit */
 
-  -webkit-opacity: 0.6;
+  -webkit-opacity: 0.5;
   /* Good browsers */
 
-  opacity: 0.6;
+  opacity: 0.5;
 }
 .feindura div.divBlocked > div {
   position: fixed;
   top: 250px;
-  width: 800px;
-  margin-left: 30px;
+  left: 50%;
+  width: 500px;
+  margin-left: -250px;
   font-size: 20px;
   font-weight: bold;
-  color: #000;
+  color: #fff;
   text-align: center;
+  -webkit-text-shadow: 0 1px 1px #333333;
+  -moz-text-shadow: 0 1px 1px #333333;
+  text-shadow: 0 1px 1px #333333;
+  -ms-text-shadow: 0 1px 1px #333333;
+  -o-text-shadow: 0 1px 1px #333333;
+  -khtml-text-shadow: 0 1px 1px #333333;
 }
 .feindura #contentBlocked {
-  width: 1052px;
+  margin: 0;
+  width: 1280px;
+  background: transparent url("../images/bg/mainBody.png") repeat;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
 }
 .feindura #loadingBox {
   position: fixed;
@@ -5237,6 +5276,7 @@
   visibility: hidden;
 }
 .feindura .cke_contents {
+  position: relative;
   display: block;
 }
 .feindura .cke_contents iframe {
@@ -5738,6 +5778,7 @@
   line-height: 20px;
 }
 .feindura .container {
+  position: relative;
   width: 1280px;
 }
 .feindura header.main {
@@ -5760,7 +5801,7 @@
   position: relative;
   left: 5px;
   float: left;
-  width: 860px;
+  width: 865px;
   height: 140px;
   border-top: 1px solid #E5E5E5;
   background: url("../images/bg/headerBlock.png") no-repeat 0 -1px;
@@ -5826,18 +5867,94 @@
 .feindura header.main div.menuBlock nav.mainMenu a.search {
   background: url("../images/buttons/mainMenu_search.png") no-repeat;
 }
-.feindura header.main #sessionTimout {
+.feindura header.main .sideBar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 210px;
+}
+.feindura header.main .sideBar ul.userList {
+  position: absolute;
+  top: -4px;
+  max-height: 130px;
+  padding: 0;
+  padding-top: 14px;
+  margin: 0;
+  left: 0;
+  font-size: 12px;
+  overflow: auto;
+}
+.feindura header.main .sideBar ul.userList li {
+  padding: 3px 0;
+  padding-left: 22px;
+  width: 120px;
+  background-image: url("../images/icons/user_offline.png");
+  background-repeat: no-repeat;
+  background-position: 5px 4px;
+  color: #666;
+  /* IE 8 */
+
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+  /* IE 5-7 */
+
+  filter: alpha(opacity=50);
+  /* Netscape */
+
+  -moz-opacity: 0.5;
+  /* Safari 1.x */
+
+  -khtml-opacity: 0.5;
+  /* Webkit */
+
+  -webkit-opacity: 0.5;
+  /* Good browsers */
+
+  opacity: 0.5;
+}
+.feindura header.main .sideBar ul.userList li.online {
+  background-image: url("../images/icons/user_online.png");
+  background-position: 5px 5px;
+  /* IE 8 */
+
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+  /* IE 5-7 */
+
+  filter: alpha(opacity=100);
+  /* Netscape */
+
+  -moz-opacity: 1;
+  /* Safari 1.x */
+
+  -khtml-opacity: 1;
+  /* Webkit */
+
+  -webkit-opacity: 1;
+  /* Good browsers */
+
+  opacity: 1;
+}
+.feindura header.main .sideBar ul.userList li.current {
+  font-weight: bold;
+}
+.feindura header.main .sideBar #sessionTimout {
   z-index: 3;
   position: absolute;
-  top: 6px;
-  left: 80px;
+  top: 45px;
+  right: 5px;
   font-size: 11px;
+  color: #999;
+  -webkit-text-shadow: 0 1px 2px #ffffff;
+  -moz-text-shadow: 0 1px 2px #ffffff;
+  text-shadow: 0 1px 2px #ffffff;
+  -ms-text-shadow: 0 1px 2px #ffffff;
+  -o-text-shadow: 0 1px 2px #ffffff;
+  -khtml-text-shadow: 0 1px 2px #ffffff;
 }
 .feindura header.main a.feinduraLogo {
   z-index: 1;
   position: absolute;
-  top: 25px;
-  left: 25px;
+  top: 15px;
+  left: 20px;
   display: block;
   width: 163px;
   height: 94px;
@@ -5846,18 +5963,23 @@
 .feindura header.main .feinduraVersion {
   z-index: 2;
   position: absolute;
-  top: 48px;
+  top: 35px;
   left: 120px;
   width: 60px;
   color: #3a79a5;
   text-align: right;
-  font-weight: bold;
   font-size: 11px;
+  -webkit-text-shadow: 0 1px 1px #999999;
+  -moz-text-shadow: 0 1px 1px #999999;
+  text-shadow: 0 1px 1px #999999;
+  -ms-text-shadow: 0 1px 1px #999999;
+  -o-text-shadow: 0 1px 1px #999999;
+  -khtml-text-shadow: 0 1px 1px #999999;
 }
 .feindura header.main .languageSelection {
   position: absolute;
   bottom: 21px;
-  left: 25px;
+  left: 28px;
   z-index: 2;
 }
 .feindura header.main .languageSelection a {
@@ -5893,10 +6015,9 @@
 }
 .feindura header.main .adminMenuContainer {
   z-index: 99;
-  position: relative;
+  position: absolute;
   top: 0;
-  left: 10px;
-  float: left;
+  right: 0;
   overflow: visible;
 }
 .feindura header.main #adminMenu {
@@ -6020,8 +6141,9 @@
 .feindura .mainBody .subMenu {
   z-index: 7;
   position: absolute;
-  width: 800px;
+  max-width: 800px;
   top: -8px;
+  left: 10px;
   padding-top: 1px;
   margin-bottom: 20px;
   overflow: visible;
@@ -6029,8 +6151,11 @@
 }
 .feindura .mainBody .subMenu menu {
   display: inline-block;
-  height: 47px;
+  float: left;
+  height: 40px;
   padding: 0 8px;
+  padding-top: 7px;
+  margin: 0;
   margin-right: 10px;
   border: 1px solid #f4f4f4;
   background: #eaeaea;
@@ -6064,11 +6189,20 @@
 .feindura .mainBody .subMenu img.flag {
   margin-left: 8px;
 }
+.feindura .mainBody .subMenu li {
+  height: 40px;
+  margin: 0 4px;
+}
+.feindura .mainBody .subMenu li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .feindura .mainBody .subMenu li.spacer {
   display: inline-block;
-  width: 14px;
-  height: 47px;
-  background: url("../images/buttons/subMenu_spacer.png") no-repeat;
+  top: 0;
+  width: 6px;
+  height: 40px;
+  margin: 0 -4px;
+  background: url("../images/buttons/subMenu_spacer.png") no-repeat center center;
 }
 .feindura .mainBody .subMenu li a {
   display: block;
@@ -6076,10 +6210,6 @@
   padding: 0;
   width: 41px;
   height: 40px;
-}
-.feindura .mainBody .subMenu a:hover,
-.feindura .mainBody .subMenu a:focus {
-  background-position: -42px 0px !important;
 }
 .feindura .mainBody .subMenu a.fileManager {
   background: url("../images/buttons/subMenu_fileManager.png") no-repeat;
@@ -6104,6 +6234,12 @@
 }
 .feindura .mainBody .subMenu a.removePageLanguage {
   background: url("../images/buttons/subMenu_removePageLanguage.png") no-repeat;
+}
+.feindura .mainBody .subMenu a.createUser {
+  background: url("../images/buttons/subMenu_createUser.png") no-repeat;
+}
+.feindura .mainBody .subMenu a.createCategory {
+  background: url("../images/buttons/subMenu_createCategory.png") no-repeat;
 }
 .feindura footer.main {
   position: relative;
@@ -6230,7 +6366,7 @@
   padding: 2px 10px;
   padding-top: 7px;
   margin: 10px -21px;
-  margin-top: 0;
+  margin-top: 10px;
   width: 188px;
   border-bottom: 1px solid #fff;
   font-size: 12px;
@@ -6257,6 +6393,11 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+}
+.feindura #leftSidebar .box .spacer.arrow,
+.feindura #rightSidebar .box .spacer.arrow {
+  position: absolute;
+  left: 0;
 }
 .feindura #leftSidebar .box .hintIcon,
 .feindura #rightSidebar .box .hintIcon {
@@ -6310,7 +6451,7 @@
   z-index: 0;
 }
 .feindura #rightSidebar {
-  z-index: 2;
+  z-index: 8;
   position: relative;
   top: 0px;
   float: right;
@@ -6475,6 +6616,9 @@
 .feindura #rightSidebar .sidebarMenu .menuWrapper a.active {
   background-position: 0px -70px;
 }
+.feindura #rightSidebar .sidebarMenu .menuWrapper a.active:before {
+  content: '⟩ ';
+}
 .feindura #rightSidebar .sidebarMenu.gray .top {
   background: url("../images/bg/sidebarMenu_top_gray.png") repeat-x;
   background-color: #BDBDB9;
@@ -6587,7 +6731,7 @@
   background: -moz-linear-gradient(center bottom, #e0ebf8 0%, #75ade0 100%);
   background: -ms-linear-gradient(bottom, #e0ebf8 0%, #75ade0 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#75ade0', endColorstr='#e0ebf8',GradientType=0);
-  color: #114997;
+  color: #2b6ba8;
 }
 .feindura #rightSidebar .spacer {
   position: relative;
@@ -6639,7 +6783,7 @@
   padding: 0;
 }
 .feindura #rightSidebar #sideBarActivityLog ul li {
-  margin: 10px -5px;
+  margin: 5px -5px;
   padding: 15px 20px;
   width: 140px;
   -webkit-text-shadow: 0 1px 1px #cccccc;
@@ -6662,27 +6806,6 @@
   width: 165px;
   height: 30px;
 }
-.feindura #rightSidebar ul.sidebarListUsers {
-  padding: 0;
-  margin-top: -18px;
-  margin-left: -20px;
-  list-style: none;
-  font-size: 11px;
-}
-.feindura #rightSidebar ul.sidebarListUsers li {
-  padding: 8px 0;
-  padding-left: 35px;
-  width: 174px;
-  background-image: url("../images/icons/user_offline.png");
-  background-repeat: no-repeat;
-  background-position: 15px 9px;
-  font-weight: bold;
-  border-bottom: 1px solid #f0f0f0;
-}
-.feindura #rightSidebar ul.sidebarListUsers li.online {
-  background-image: url("../images/icons/user_online.png");
-  background-position: 15px 10px;
-}
 .feindura #rightSidebar ul.backupDownload {
   list-style: none;
   margin: 0;
@@ -6702,7 +6825,6 @@
   right: 0px;
 }
 .feindura #leftSidebar {
-  z-index: 8;
   position: relative;
   top: 0px;
   left: 0px;
@@ -6798,11 +6920,11 @@
 }
 .feindura .mainContent .block > h1 {
   z-index: 2;
-  min-height: 35px;
-  padding: 18px 25px;
+  min-height: 30px;
+  padding: 20px 25px;
   width: 748px;
   font-size: 18px;
-  line-height: 35px;
+  line-height: 30px;
   border: 1px solid #fff;
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
@@ -6854,23 +6976,21 @@
 }
 .feindura .mainContent .block > h1 img.blockH1Icon {
   top: -3px;
+  left: -4px;
   vertical-align: top;
-  margin-left: -10px;
-  margin-right: 8px;
 }
 .feindura .mainContent .block > h1 a {
   z-index: 1;
   position: relative;
   display: block;
   width: 97.5%;
-  min-height: 35px;
-  padding: 10px 25px;
-  padding-bottom: 11px;
-  margin: -10px -25px;
-  line-height: 32px;
+  min-height: 30px;
+  padding: 20px 25px;
+  margin: -20px -25px;
+  line-height: 30px;
   background-image: url("../images/buttons/content_h1_up_off.png");
   background-repeat: no-repeat;
-  background-position: right 12px;
+  background-position: right 18px;
   color: #536068;
 }
 .feindura .mainContent .block > h1 a:hover,
@@ -7505,7 +7625,16 @@
   position: relative;
   z-index: 0;
   padding-bottom: 30px;
-  margin-bottom: -20px;
+  margin-bottom: -13px;
+  color: #a4a4a4;
+  font-size: 20px;
+  font-weight: normal;
+  -webkit-text-shadow: 0 2px 0px #ffffff;
+  -moz-text-shadow: 0 2px 0px #ffffff;
+  text-shadow: 0 2px 0px #ffffff;
+  -ms-text-shadow: 0 2px 0px #ffffff;
+  -o-text-shadow: 0 2px 0px #ffffff;
+  -khtml-text-shadow: 0 2px 0px #ffffff;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
@@ -7574,8 +7703,8 @@
   cursor: pointer;
 }
 .feindura .block.listPages .block > h1 img.blockH1Icon {
-  margin-top: 2px;
-  margin-left: 0px;
+  top: -3px;
+  left: 3px;
   margin-right: 3px;
 }
 .feindura .block.listPages .block div.categoryHeader {
@@ -7942,11 +8071,12 @@
 .feindura .editor .content {
   overflow: visible !important;
 }
-.feindura .editor textarea {
+.feindura .editor textarea#HTMLEditor {
   z-index: 1;
   position: relative;
-  width: 778px;
+  width: 774px;
   height: 360px;
+  margin: 1px 2px;
   padding: 10px;
 }
 .feindura .breadCrumbs {
@@ -8245,7 +8375,7 @@
 .feindura a.deleteUser:focus {
   background-position: 0px -54px;
 }
-.feindura #windowBox {
+.feindura .windowBox {
   z-index: 20010;
   display: none;
   position: absolute;
@@ -8270,7 +8400,7 @@
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
 }
-.feindura #windowBox > h1 {
+.feindura .windowBox > h1 {
   position: relative;
   top: -1px;
   left: -1px;
@@ -8312,7 +8442,7 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
-.feindura #windowBox h2 {
+.feindura .windowBox h2 {
   margin-bottom: 10px;
   padding-bottom: 18px;
   color: #668CA6;
@@ -8320,32 +8450,32 @@
   font-weight: normal;
   font-size: 18px;
 }
-.feindura #windowBox h3 {
+.feindura .windowBox h3 {
   margin-bottom: 10px;
   color: #888888;
   font-weight: normal;
   font-size: 15px;
 }
-.feindura #windowBox p {
+.feindura .windowBox p {
   margin: 5px 10px;
   font-size: 14px;
 }
-.feindura #windowBox form {
+.feindura .windowBox form {
   margin: 0;
 }
-.feindura #windowBox .insetBlock {
+.feindura .windowBox .insetBlock {
   padding-bottom: 0;
   margin: 10px -10px;
 }
-.feindura #windowBox .well {
+.feindura .windowBox .well {
   font-size: 11px;
   margin-bottom: 5px;
 }
-.feindura #windowBox .row.buttons {
+.feindura .windowBox .row.buttons {
   margin-top: 25px;
   margin-bottom: 25px;
 }
-.feindura a.close {
+.feindura .windowBox a.close {
   z-index: 2;
   position: absolute;
   top: 20px;
@@ -8373,7 +8503,7 @@
 
   opacity: 0.8;
 }
-.feindura a.close:hover {
+.feindura .windowBox a.close:hover {
   /* IE 8 */
 
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
@@ -8393,13 +8523,13 @@
 
   opacity: 1;
 }
-.feindura #windowRequestBox {
+.feindura .windowBox .windowRequestBox {
   position: relative;
   width: 760px;
   padding: 10px;
   min-height: 140px;
 }
-.feindura #windowBoxDimmer {
+.feindura .windowBox .windowBoxDimmer {
   position: absolute;
   z-index: 10;
   margin-top: -20px;
@@ -8427,13 +8557,13 @@
 
   opacity: 0.5;
 }
-.feindura #windowBox input.thumbnailUpload {
+.feindura .windowBox input.thumbnailUpload {
   margin-left: 30px;
 }
-.feindura #windowBox img.thumbnail {
+.feindura .windowBox img.thumbnail {
   margin-bottom: 5px;
 }
-.feindura #windowBox iframe#uploadTargetFrame {
+.feindura .windowBox iframe#uploadTargetFrame {
   overflow: hidden;
   width: 100%;
   border: none;

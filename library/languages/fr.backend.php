@@ -198,12 +198,12 @@ $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'cat
 // USER LIST
 $langFile['USER_TEXT_USER']                                               = 'Utilisateur';
 $langFile['USER_TEXT_NOUSER']                                             = 'Il n&#145;y avait pas les utilisateurs.';
-$langFile['USER_TEXT_CURRENTUSER']                                        = 'Tu es connecté en tant qu&#145;utilisateurs';
-$langFile['USER_TEXT_USERSONLINE']                                        = 'Cet utilisateur est également connecté:: Dernières activités';
+$langFile['USER_TEXT_CURRENTUSER']                                        = 'C&#145;est vous!';
+$langFile['USER_TEXT_USERSONLINE']                                        = 'Cet utilisateur est connecté:: Dernières activités';
 
 $langFile['LOGO_TEXT']                                                    = 'Version';
 $langFile['txt_logo_gotowebsite']                                         = 'Cliquez ici pour accéder à votre site Web.';
-$langFile['LOADING_TEXT_LOAD']                                            = 'site en connexion...';
+
 
 // CKEDITOR transport
 $langFile['CKEDITOR_TITLE_LINKS']                                         = 'pages de feindura';

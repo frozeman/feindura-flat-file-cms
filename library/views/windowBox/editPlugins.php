@@ -211,7 +211,7 @@ if($post['send'] == 'true') {
 /* <![CDATA[ */
 
   // event is fired when the windowBox is ready
-  $('windowBox').addEvent('loaded',function(){
+  windowBox.addEvent('loaded',function(){
     <?php
 
     // LOAD PLUGIN SCRIPT

@@ -1297,6 +1297,7 @@ class Feindura extends FeinduraBase {
     ERRORWINDOW_TITLE:                    \"".$this->languageFile['errorWindow_h1']."\",
     ERROR_SAVE:                           \"".$this->languageFile['ERROR_SAVEPAGE']."\",
     ERROR_SETSTARTPAGE:                   \"".$this->languageFile['SORTABLEPAGELIST_setStartPage_error_save']."\",
+    LOADING_TEXT_LOAD:                    \"".$this->languageFile['LOADING_TEXT_LOAD']."\",
     FUNCTIONS_STARTPAGE_SET:              \"".$this->languageFile['SORTABLEPAGELIST_functions_startPage_set']."\",
     FUNCTIONS_STARTPAGE:                  \"".$this->languageFile['SORTABLEPAGELIST_functions_startPage']."\",
     FUNCTIONS_EDITPAGE:                   \"".$this->languageFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']."\",

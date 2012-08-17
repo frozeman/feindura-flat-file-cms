@@ -40,7 +40,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
   $showCurrentVisitors = false;
 
   if(!$_GET['loadSideBarMenu'])
-    echo '<div id="sidebarSelection" class="staticScroller">';
+    echo '<div id="sidebarSelection" class="staticScroller" data-offset="-2">';
 
     // ----  show QUICKMENU for the NONE-CATEGORY PAGES
     // slide the categories menu IN, when a category is open
@@ -207,40 +207,6 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       echo '</div>';
 
 
-      // -> SHOW USERs
-      if(empty($userConfig) || (is_array($userConfig) && count($userConfig) > 1)) {
-        echo '<div class="box">';
-        echo '<h1><img src="library/images/icons/userIcon_small.png" alt="icon" style="position:relative; top:-3px;margin-right: 4px;"> '.$langFile['DASHBOARD_TITLE_USER'].'</h1>';
-          if(!empty($userConfig) && is_array($userConfig)) {
-
-            // list user
-            echo '<ul class="sidebarListUsers unstyled">';
-            foreach($userConfig as $user) {
-              echo '<li';
-              // your own user
-              if($_SESSION['feinduraSession']['login']['user'] == $user['id'])
-                echo ' class="toolTipLeft online brown" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
-              // users who are online too
-              else {
-                foreach($userCache as $cachedUser) {
-                  if($user['username'] == $cachedUser['username']) {
-                    echo ' class="toolTipLeft online" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$cachedUser["timestamp"]).'"';
-                      break;
-                  }
-                }
-              }
-
-              // list users
-              echo '>'.$user['username'].'</li>';
-            }
-            echo '</ul>';
-          // no users
-          } else
-            echo '<span class="red">'.$langFile['USER_TEXT_NOUSER'].'</span>';
-
-        echo '</div>';
-      }
-
       break;
     // ***** ADMIN SETUP sideBar -------------------------------------------- **********
     case 'adminSetup':
@@ -272,7 +238,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       $showCurrentVisitors = false;
 
       // -> CATEGORY ANCHOR LINKS
-      echo '<div id="sidebarSelection" class="staticScroller">';
+      echo '<div id="sidebarSelection" class="staticScroller" data-offset="-2">';
 
       if(!empty($categoryConfig) && is_array($categoryConfig)) {
 
@@ -297,12 +263,6 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
           <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
         </div>';
 
-        echo '<div class="spacer"></div>';
-
-        echo '<div class="center">';
-          echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTipBottom" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY'].'::"></a>';
-        echo '</div>';
-
       }
       echo '</div>';
 
@@ -315,7 +275,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       $showCurrentVisitors = false;
 
       // -> USER ANCHOR LINKS
-      echo '<div id="sidebarSelection" class="staticScroller">';
+      echo '<div id="sidebarSelection" class="staticScroller" data-offset="-2">';
 
       if(!empty($userConfig) && is_array($userConfig)) {
 
@@ -336,12 +296,6 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
           </div>
           <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
         </div>';
-
-        echo '<div class="spacer"></div>';
-
-        echo '<div class="center">';
-          echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTipBottom" title="'.$langFile['USERSETUP_createUser'].'::"></a>';
-        echo '</div>';
 
       } echo '</div>';
 

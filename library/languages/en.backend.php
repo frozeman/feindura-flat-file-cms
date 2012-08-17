@@ -209,12 +209,11 @@ $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'Cat
 // USER LIST
 $langFile['USER_TEXT_USER']                                               = 'User';
 $langFile['USER_TEXT_NOUSER']                                             = 'No users were created.';
-$langFile['USER_TEXT_CURRENTUSER']                                        = 'The user under which you&#145;re logged in';
-$langFile['USER_TEXT_USERSONLINE']                                        = 'This user is also logged in::Latest activity';
+$langFile['USER_TEXT_CURRENTUSER']                                        = 'That&#145;s you!';
+$langFile['USER_TEXT_USERSONLINE']                                        = 'This user is online::Latest activity';
 
 $langFile['LOGO_TEXT']                                                    = 'Version';
 $langFile['txt_logo_gotowebsite']                                         = 'Click here to go to your website.';
-$langFile['LOADING_TEXT_LOAD']                                            = 'Page is loading..';
 
 // CKEDITOR transport
 $langFile['CKEDITOR_TITLE_LINKS']                                         = 'feindura pages';

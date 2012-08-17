@@ -215,6 +215,19 @@ function resizeElementsOnHover() {
     if(orgSize < startSize)
       return;
 
+    var parentBox = element.getParents('div.box');
+    if(typeOf(parentBox[0]) !== 'null') {
+      parentBox[0].grab(new Element('div',{'class':'spacer arrow'}));
+      parentBox[0].addEvents({
+        'mouseenter': function(){
+          element.tween('height',orgSize);
+        },
+        'mouseleave': function(){
+          element.tween('height',startSize);
+        }
+      });
+    }
+
     element.setStyle('height',startSize);
     element.set('tween',{transition: Fx.Transitions.Quint.easeIn});
     element.addEvents({
@@ -1281,21 +1294,8 @@ window.addEvent('domready', function() {
     $$('div.CodeMirror textarea').setProperty('spellcheck','false');
   });
 
-  // *** ->> USER SETUP -----------------------------------------------------------------------------------------------------------------------
-  if(typeOf($$('input.userAdminCheckbox')[0]) !== 'null') {
-
-    $$('input.userAdminCheckbox').addEvent('change',function(){
-      if(this.checked) {
-        this.getParent('div.row').getNext('div.userPermissionsRow').setStyle('display','none');
-      } else
-        this.getParent('div.row').getNext('div.userPermissionsRow').setStyle('display','block');
-    });
-
-  }
-
 
   // *** ->> FORMS -----------------------------------------------------------------------------------------------------------------------
-
 
   // ------------------------------------------------------------
   // ADD FANCY-FORM

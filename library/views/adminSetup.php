@@ -53,7 +53,7 @@ foreach ($tab as $buf) {
 $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePathAndURL() && !documentrootWarning()) ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><?php echo $langFile['ADMINSETUP_GENERAL_h1']; ?></a></h1>
+  <h1><a href="#"><img src="library/images/icons/setupIcon_middle.png" class="blockH1Icon" alt="icon"><?php echo $langFile['ADMINSETUP_GENERAL_h1']; ?></a></h1>
   <div class="content form">
 
     <div class="row">
@@ -290,7 +290,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
 $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><?php echo $langFile['adminSetup_editorSettings_h1']; ?></a></h1>
+  <h1><a href="#"><img src="library/images/icons/editorIcon_middle.png" class="blockH1Icon" alt="icon" style="margin-right: 5px;"><?php echo $langFile['adminSetup_editorSettings_h1']; ?></a></h1>
   <div class="content form">
 
     <div class="row">
@@ -402,14 +402,14 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 // EDIT snippets
 if($adminConfig['editor']['snippets']) {
   if(!is_dir(dirname(__FILE__).'/../../snippets/')) mkdir(dirname(__FILE__).'/../../snippets/');
-  editFiles(dirname(__FILE__).'/../../snippets/', 'snippetFiles', $langFile['EDITFILESSETTINGS_TITLE_SNIPPETS'], 'snippetsFilesAnchor', 'php');
+  editFiles(dirname(__FILE__).'/../../snippets/', 'snippetFiles', '<img src="library/images/icons/snippetsIcon_middle.png" class="blockH1Icon" alt="icon">'.$langFile['EDITFILESSETTINGS_TITLE_SNIPPETS'], 'snippetsFilesAnchor', 'php');
 }
 
 // EDIT stylesheets
-editFiles($adminConfig['stylesheetPath'], 'cssFiles', $langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS'], 'cssFilesAnchor', 'css');
+editFiles($adminConfig['stylesheetPath'], 'cssFiles', '<img src="library/images/icons/stylesheetsIcon_middle.png" class="blockH1Icon" alt="icon">'.$langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS'], 'cssFilesAnchor', 'css');
 
 // EDIT websitefiles
-editFiles($adminConfig['websiteFilesPath'], 'websiteFiles',  $langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES'], 'websiteFilesAnchor');
+editFiles($adminConfig['websiteFilesPath'], 'websiteFiles',  '<img src="library/images/icons/websitefilesIcon_middle.png" class="blockH1Icon" alt="icon">'.$langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES'], 'websiteFilesAnchor');
 
 ?>
 
@@ -459,7 +459,7 @@ if(strpos($htmlEditorStyleContent,'CKEDITOR.addStylesSet') === false)
 $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="fckstyleFileAnchor"><?php echo $langFile['adminSetup_styleFileSettings_h1']; ?></a></h1>
+  <h1><a href="#" id="fckstyleFileAnchor"><img src="library/images/icons/stylesSelectionIcon_middle.png" class="blockH1Icon" alt="icon" style="margin-right: 3px;"><?php echo $langFile['adminSetup_styleFileSettings_h1']; ?></a></h1>
   <div class="content">
     <div class="alert">
       Details: <a href="http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Styles" target="_blank">http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Styles</a>

@@ -29,6 +29,8 @@ $sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Déconnexion Cliq
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'définir cette page comme page d\'acceuil';
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage_set'] = 'cette page est la page d\'acceuil';
 
+$sharedLangFile['LOADING_TEXT_LOAD']                        = 'site en connexion...';
+
 /* date texts */
 
 $sharedLangFile['DATE_TEXT_YESTERDAY']                      = 'hier';

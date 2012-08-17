@@ -210,11 +210,10 @@ $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'Kat
 // USER LIST
 $langFile['USER_TEXT_USER']                                               = 'Benutzer';
 $langFile['USER_TEXT_NOUSER']                                             = 'Es wurden noch keine Benutzer angelegt.';
-$langFile['USER_TEXT_CURRENTUSER']                                        = 'Du bist unter diesem Benutzernamen eingeloggt';
-$langFile['USER_TEXT_USERSONLINE']                                        = 'Dieser Benutzer ist ebenfalls eingeloggt::Letzte Aktivität';
+$langFile['USER_TEXT_CURRENTUSER']                                        = 'Das bist du!';
+$langFile['USER_TEXT_USERSONLINE']                                        = 'Dieser Benutzer ist online::Letzte Aktivität';
 
 $langFile['LOGO_TEXT']                                                    = 'Version';
-$langFile['LOADING_TEXT_LOAD']                                            = 'Seite wird geladen..';
 
 
 // CKEDITOR transport

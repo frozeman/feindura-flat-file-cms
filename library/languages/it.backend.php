@@ -210,12 +210,12 @@ $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'Cat
 // USER LIST
 $langFile['USER_TEXT_USER']                                               = 'Utente';
 $langFile['USER_TEXT_NOUSER']                                             = 'Non c&#145;erano utenti.';
-$langFile['USER_TEXT_CURRENTUSER']                                        = 'Nome Utente Registrato';
-$langFile['USER_TEXT_USERSONLINE']                                        = 'Questo utente è loggato::Ultime attività';
+$langFile['USER_TEXT_CURRENTUSER']                                        = 'Che sei tu!';
+$langFile['USER_TEXT_USERSONLINE']                                        = 'Questo utente è online::Ultime attività';
 
 $langFile['LOGO_TEXT']                                                    = 'Versione';
 $langFile['txt_logo_gotowebsite']                                         = 'Clicca qui per entrare nel tuo sito web.';
-$langFile['LOADING_TEXT_LOAD']                                            = 'Attendi che la pagina venga caricata..';
+
 
 // CKEDITOR transport
 $langFile['CKEDITOR_TITLE_LINKS']                                         = 'Pagine feindura';

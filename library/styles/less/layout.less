@@ -16,6 +16,7 @@ body {
 }
 
 .container {
+    position: relative;
     width: @appWidth;
 }
 
@@ -32,15 +33,17 @@ header.main {
     background: url("../images/bg/header.png") repeat-x;
     #shadow > .text(0 1px 1px #fff);
 
+
     div.menuBlock {
         z-index: 2;
         position: relative;
         left: 5px;
         float: left;
-        width: 860px;
+        width: 865px;
         height: 140px;
         border-top: 1px solid #E5E5E5;
         background: url("../images/bg/headerBlock.png") no-repeat 0 -1px;
+
 
 
         // MAINMENU
@@ -112,20 +115,65 @@ header.main {
         }
     }
 
-    #sessionTimout {
-        z-index: 3;
+    // the sidebar on the right
+    .sideBar {
         position: absolute;
-        top: 6px;
-        left: 80px;
-        font-size: 11px;
+        top: 0;
+        right: 0;
+        width: 210px;
+
+        ul.userList {
+            position: absolute;
+            top: -4px;
+            max-height: 130px;
+            padding: 0;
+            padding-top: 14px;
+            margin: 0;
+            left: 0;
+            font-size: 12px;
+            overflow: auto;
+
+            li {
+                padding: 3px 0;
+                padding-left: 22px;
+                width: 120px;
+                background-image: url("../images/icons/user_offline.png");
+                background-repeat: no-repeat;
+                background-position: 5px 4px;
+                // border-bottom: 1px solid @colorLightGray;
+                color: #666;
+                #transform > .opacity(0.5);
+
+                &.online {
+                    background-image: url("../images/icons/user_online.png");
+                    background-position: 5px 5px;
+                    #transform > .opacity(1);
+                }
+                &.current {
+                    font-weight: bold;
+                    // color: @logoColorBlue;
+                }
+            }
+        }
+
+        #sessionTimout {
+            z-index: 3;
+            position: absolute;
+            top: 45px;
+            right: 5px;
+            font-size: 11px;
+            color: #999;
+            #shadow > .text(0 1px 2px #fff);
+        }
     }
+
 
     // LOGO
     a.feinduraLogo {
         z-index: 1;
         position: absolute;
-        top: 25px;
-        left: 25px;
+        top: 15px;
+        left: 20px;
         display: block;
         width: 163px;
         height: 94px;
@@ -134,20 +182,20 @@ header.main {
     .feinduraVersion {
         z-index: 2;
         position: absolute;
-        top: 48px;
+        top: 35px;
         left: 120px;
         width: 60px;
         color: @logoColorBlue;
         text-align: right;
-        font-weight: bold;
         font-size: 11px;
+        #shadow > .text(0 1px 1px #999);
     }
 
     // LANGUAGE SELECTION
     .languageSelection {
         position: absolute;
         bottom: 21px;
-        left: 25px;
+        left: 28px;
         z-index: 2;
 
         a {
@@ -189,10 +237,9 @@ header.main {
 
     .adminMenuContainer {
         z-index: 99;
-        position: relative;
+        position: absolute;
         top: 0;
-        left: 10px;
-        float: left;
+        right: 0;
         overflow: visible;
     }
     #adminMenu {
@@ -320,9 +367,9 @@ header.main {
     .subMenu {
         z-index: 7;
         position: absolute;
-        width: 800px;
+        max-width: 800px;
         top: -8px;
-        // left: 10px;
+        left: 10px;
         padding-top: 1px;
         margin-bottom: @blockContentMargin;
         overflow: visible;
@@ -330,8 +377,11 @@ header.main {
 
         menu {
             display: inline-block;
-            height: 47px;
+            float: left;
+            height: 40px;
             padding: 0 8px;
+            padding-top: 7px;
+            margin: 0;
             margin-right: 10px;
             border: 1px solid #f4f4f4;
             background: #eaeaea;
@@ -361,11 +411,22 @@ header.main {
             margin-left: 8px;
         }
 
+        li {
+            height: 40px;
+            margin: 0 4px;
+
+            &:hover {
+                background-color: rgba(0,0,0,0.1);
+            }
+        }
+
         li.spacer {
             display: inline-block;
-            width: 14px;
-            height: 47px;
-            background: url("../images/buttons/subMenu_spacer.png") no-repeat;
+            top: 0;
+            width: 6px;
+            height: 40px;
+            margin: 0 -4px;
+            background: url("../images/buttons/subMenu_spacer.png") no-repeat center center;
         }
 
         // submenu buttons
@@ -378,7 +439,7 @@ header.main {
         }
         a:hover,
         a:focus {
-            background-position: -42px 0px !important;
+            // background-position: -42px 0px !important;
         }
 
         a.fileManager {
@@ -404,6 +465,12 @@ header.main {
         }
         a.removePageLanguage {
             background: url("../images/buttons/subMenu_removePageLanguage.png") no-repeat;
+        }
+        a.createUser {
+            background: url("../images/buttons/subMenu_createUser.png") no-repeat;
+        }
+        a.createCategory {
+            background: url("../images/buttons/subMenu_createCategory.png") no-repeat;
         }
     }
 }

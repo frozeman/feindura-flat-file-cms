@@ -151,7 +151,6 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 <!DOCTYPE html>
 <html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>" class="feindura">
 <head>
-
   <title>feindura | login</title>
 
   <?php
@@ -159,18 +158,20 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
   ?>
 
   <script type="text/javascript">
+  /* <![CDATA[ */
+    window.addEvent('domready',function(){
+      new PlaceholderSupport();
+    });
 
-  window.addEvent('domready',function(){
-    new PlaceholderSupport();
-  });
-
-  function startLoadingCircle() {
-    // create loading circle element
+    // vars
     var loginLoadingCircle = new Element('div', {id: 'loginLoadingCircle'});
-    loginLoadingCircle.replaces('submitButton');
-    var removeLoadingCircle = feindura_loadingCircle('loginLoadingCircle', 12, 20, 12, 3, "#000");
-  }
 
+    function startLoadingCircle() {
+      // create loading circle element
+      loginLoadingCircle.replaces('submitButton');
+      feindura_loadingCircle('loginLoadingCircle', 12, 20, 12, 3, "#000");
+    }
+  /* ]]> */
   </script>
 </head>
 <body>

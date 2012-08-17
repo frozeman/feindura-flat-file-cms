@@ -64,6 +64,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     var feindura_langFile    = {
       ERRORWINDOW_TITLE:              "<?php echo $langFile['errorWindow_h1']; ?>",
       ERROR_SAVE:                     "<?php echo sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']); ?>",
+      LOADING_TEXT_LOAD:              "<?php echo $langFile['LOADING_TEXT_LOAD']; ?>",
       CKEDITOR_TITLE_LINKS:           "<?php echo (!empty($langFile['CKEDITOR_TITLE_LINKS'])) ? $langFile['CKEDITOR_TITLE_LINKS'] : 'feindura pages'; ?>",
       CKEDITOR_TITLE_SNIPPETS:        "<?php echo (!empty($langFile['CKEDITOR_TITLE_SNIPPETS'])) ? $langFile['CKEDITOR_TITLE_SNIPPETS'] : 'Snippets'; ?>",
       CKEDITOR_TEXT_SNIPPETS:         "<?php echo (!empty($langFile['CKEDITOR_TEXT_SNIPPETS'])) ? $langFile['CKEDITOR_TEXT_SNIPPETS'] : ''; ?>",
@@ -113,7 +114,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     window.addEvent('domready', function () {
 
       // ->> include FILEMANAGER
-      <?php if(GeneralFunctions::hasPermission('fileManager') && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
+      <?php if(GeneralFunctions::hasPermission('fileManager')) { ?>
       var hideFileManager = function(){this.hide();}
       var fileManager = new FileManager({
           url: 'library/controllers/filemanager.controller.php',
@@ -135,12 +136,12 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
           zIndex: 20020,
           onShow: function() {
               window.location.hash = '#none';
-              $('dimmContainer').show();
-              $('dimmContainer').addEvent('click',hideFileManager.bind(this));
+              dimmContainer.show();
+              dimmContainer.addEvent('click',hideFileManager.bind(this));
             },
           onHide: function() {
-              $('dimmContainer').removeEvent('click',hideFileManager);
-              $('dimmContainer').hide();
+              dimmContainer.removeEvent('click',hideFileManager);
+              dimmContainer.hide();
             }
       });
       fileManager.filemanager.setStyle('width','75%');
@@ -231,9 +232,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 </head>
 <body>
 
-  <!-- dimmContainer -->
-  <div id="dimmContainer"></div>
-
   <!-- loadingBox -->
   <div id="loadingBox"></div>
 
@@ -241,16 +239,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- ** HEADER ******************************************************************************* -->
   <header class="main">
     <div class="container">
-      <?php if(!empty($userConfig)) { ?>
-      <div id="sessionTimout" class="toolTipBottom blue" title="<?php echo $langFile['LOGIN_TIP_AUTOLOGOUT']; ?>::">00:00:00</div>
-      <?php } ?>
-
-      <div class="btn-group headerCornerButtons">
-        <a href="index.php?logout" tabindex="1" class="btn btn-small logout toolTipRight" title="::<?php echo $langFile['HEADER_BUTTON_LOGOUT']; ?>">&#215;</a>
-        <?php if(GeneralFunctions::hasPermission('frontendEditing')) { ?>
-        <a href="<?php echo $adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']); ?>"  tabindex="2" class="btn btn-small frontend toolTipRight" title="<?php echo $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']; ?>">&lt;</a>
-        <?php } ?>
-      </div>
 
       <!-- Top Anchor -->
       <a id="top" class="anchorTarget"></a>
@@ -267,7 +255,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
         <h1 style="display:none;">feindura - flat file cms</h1><!-- just for the outline of the HTML page -->
         <a href="http://feindura.org" class="feinduraLogo" target="_blank"></a>
-        <div class="feinduraVersion toolTipRight" title="<?php echo $langFile['LOGO_TEXT'].' '.VERSION.' - Build '.BUILD; ?>::"><?php echo VERSION; ?></div>
+        <div class="feinduraVersion toolTipRight" title="::<?php echo $langFile['LOGO_TEXT'].' '.VERSION.' - Build '.BUILD; ?>::"><?php echo VERSION; ?></div>
 
         <nav class="mainMenu"<?php if(!GeneralFunctions::isAdmin()) echo ' style="width: 850px;"'; ?>>
           <table>
@@ -288,36 +276,52 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
             </tbody>
           </table>
         </nav>
+
+        <!-- ADMIN MENU -->
+        <?php if(GeneralFunctions::isAdmin()) { ?>
+        <div class="adminMenuContainer">
+          <div id="adminMenu">
+            <h2><?php echo $langFile['HEADER_TITLE_ADMINMENU']; ?></h2>
+            <table>
+              <tbody>
+                <tr>
+                <td><a href="?site=pageSetup" tabindex="10" class="pageSetup<?php if($_GET['site'] == 'pageSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PAGESETUP']; ?>"><span><?php echo $langFile['BUTTON_PAGESETUP']; ?></span></a></td>
+                <td><a href="?site=adminSetup" tabindex="11" class="adminSetup<?php if($_GET['site'] == 'adminSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_ADMINSETUP']; ?>"><span><?php echo $langFile['BUTTON_ADMINSETUP']; ?></span></a></td>
+                </tr><tr>
+                <td><a href="?site=statisticSetup" tabindex="12" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_STATISTICSETUP']; ?>"><span><?php echo $langFile['BUTTON_STATISTICSETUP']; ?></span></a></td>
+                <td><a href="?site=userSetup" tabindex="13" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_USERSETUP']; ?>"><span><?php echo $langFile['BUTTON_USERSETUP']; ?></span></a></td>
+                </tr><tr>
+                <td><a href="?site=backup" tabindex="14" class="backup<?php if($_GET['site'] == 'backup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_BACKUP']; ?>"><span><?php echo $langFile['BUTTON_BACKUP']; ?></span></a></td>
+                <?php //}
+                // CHECKS if the modlues/ folder is empty
+                if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
+                <td><a href="?site=modulSetup" tabindex="15" class="modulSetup<?php if($_GET['site'] == 'modulSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
+                <?php } else { ?>
+                <td></td>
+                <?php } ?>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <?php } ?>
       </div>
 
-      <!-- ADMIN MENU -->
-      <?php if(GeneralFunctions::isAdmin()) { ?>
-      <div class="adminMenuContainer">
-        <div id="adminMenu">
-          <h2><?php echo $langFile['HEADER_TITLE_ADMINMENU']; ?></h2>
-          <table>
-            <tbody>
-              <tr>
-              <td><a href="?site=pageSetup" tabindex="10" class="pageSetup<?php if($_GET['site'] == 'pageSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PAGESETUP']; ?>"><span><?php echo $langFile['BUTTON_PAGESETUP']; ?></span></a></td>
-              <td><a href="?site=adminSetup" tabindex="11" class="adminSetup<?php if($_GET['site'] == 'adminSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_ADMINSETUP']; ?>"><span><?php echo $langFile['BUTTON_ADMINSETUP']; ?></span></a></td>
-              </tr><tr>
-              <td><a href="?site=statisticSetup" tabindex="12" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_STATISTICSETUP']; ?>"><span><?php echo $langFile['BUTTON_STATISTICSETUP']; ?></span></a></td>
-              <td><a href="?site=userSetup" tabindex="13" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_USERSETUP']; ?>"><span><?php echo $langFile['BUTTON_USERSETUP']; ?></span></a></td>
-              </tr><tr>
-              <td><a href="?site=backup" tabindex="14" class="backup<?php if($_GET['site'] == 'backup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_BACKUP']; ?>"><span><?php echo $langFile['BUTTON_BACKUP']; ?></span></a></td>
-              <?php //}
-              // CHECKS if the modlues/ folder is empty
-              if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
-              <td><a href="?site=modulSetup" tabindex="15" class="modulSetup<?php if($_GET['site'] == 'modulSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
-              <?php } else { ?>
-              <td></td>
-              <?php } ?>
-              </tr>
-            </tbody>
-          </table>
+      <div class="sideBar">
+        <?php if(!empty($userConfig)) { ?>
+        <div id="sessionTimout" class="toolTipBottom" title="<?php echo $langFile['LOGIN_TIP_AUTOLOGOUT']; ?>::">00:00:00</div>
+        <?php } ?>
+
+        <?php include(dirname(__FILE__).'/library/includes/userList.include.php'); ?>
+
+        <div class="btn-group headerCornerButtons">
+          <?php if(GeneralFunctions::hasPermission('frontendEditing')) { ?>
+          <a href="<?php echo $adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']); ?>"  tabindex="2" class="btn btn-large frontend toolTipBottom" title="<?php echo $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']; ?>"><img src="library/images/buttons/subMenu_editPage.png"></a>
+          <?php } ?>
+          <a href="index.php?logout" tabindex="1" class="btn btn-large logout toolTipBottom" title="::<?php echo $langFile['HEADER_BUTTON_LOGOUT']; ?>">&#215;</a>
         </div>
       </div>
-      <?php } ?>
+
     </div>
   </header>
 
@@ -363,8 +367,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       $showPageThumbnailDelete = (empty($_GET['site']) && !empty($pageContent['thumbnail'])) ? true : false;
 
       // -> CHECK if show SUBMENU
-      $showSubMenu = ((isset($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup') &&
-         ($showPageThumbnailUpload || $showCreatePage || $showPageThumbnailUpload || GeneralFunctions::hasPermission('fileManager') || $showDeletePage)) ? true : false;
+      $showSubMenu = (($showPageThumbnailUpload || $showCreatePage || $showPageThumbnailUpload || GeneralFunctions::hasPermission('fileManager') || $showDeletePage)) ? true : false;
 
 
       // ->> RE-SET CURRENT WEBSITE LANGUAGE based on the pages languages
@@ -413,6 +416,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
           <!-- ************************************************************************* -->
           <!-- ** SUBMENU ************************************************************** -->
           <?php if($showSubMenu) { ?>
+
             <div class="subMenu staticScroller" data-offset="-8">
               <menu class="horizontal">
                 <?php
@@ -422,7 +426,9 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
                 // FILE MANAGER
                 if(GeneralFunctions::hasPermission('fileManager')) { ?>
+
                   <li><a href="?site=fileManager" tabindex="29" class="fileManager toolTipBottom" title="<?php echo $langFile['BUTTON_FILEMANAGER'].'::'.$langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>"></a></li>
+
                 <?php
                   $showSpacer = true;
                 }
@@ -430,9 +436,13 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                 // CREATE NEW PAGE
                 if($showCreatePage) {
                   if($showSpacer) { ?>
+
                   <li class="spacer"></li>
+
                   <?php } ?>
+
                   <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" tabindex="31" class="createPage toolTipBottom" title="<?php echo $langFile['BUTTON_CREATEPAGE'].'::'.$langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>"></a></li>
+
                 <?php
                   $showSpacer = true;
                 }
@@ -440,6 +450,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                 // PAGE LANGUAGE SELECTION with
                 if($websiteConfig['multiLanguageWebsite']['active'] && !empty($websiteConfig['multiLanguageWebsite']['languages']) && (empty($pageContent) || !empty($pageContent['localized']))) {
                   ?>
+
                   <li class="spacer"></li>
                   <li style="top: -17px;">
                     <img src="<?php echo GeneralFunctions::getFlagSrc($_SESSION['feinduraSession']['websiteLanguage']); ?>" class="toolTipBottom" title="::<?php echo $languageNames[$_SESSION['feinduraSession']['websiteLanguage']]; ?>">
@@ -457,43 +468,77 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                 <?php
                 }
                 ?>
+
               </menu>
 
               <?php if($showFrontendEditing ||
                        $showDeletePage ||
                        $showPageThumbnailUpload ||
                        $showPageThumbnailDelete ||
-                       ($websiteConfig['multiLanguageWebsite']['active'] && $isInPageEditor)) { ?>
+                       ($websiteConfig['multiLanguageWebsite']['active'] && $isInPageEditor) ||
+                       $_GET['site'] == 'userSetup' ||
+                       $_GET['site'] == 'pageSetup') { ?>
+
               <menu class="horizontal">
+
+                <?php if($_GET['site'] == 'userSetup') { ?>
+
+                  <li><a href="?site=userSetup&amp;status=createUser#userId<?php echo getNewUserId(); ?>" tabindex="30" class="createUser toolTipBottom" title="<?php echo $langFile['USERSETUP_createUser']; ?>::"></a></li>
+
+                <?php $showSpacer = true;
+                } ?>
+
+                <?php if($_GET['site'] == 'pageSetup') { ?>
+
+                  <li><a href="?site=pageSetup&amp;status=createCategory#category<?php echo getNewCatgoryId(); ?>" tabindex="30" class="createCategory toolTipBottom" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY']; ?>::"></a></li>
+
+                <?php $showSpacer = true;
+                } ?>
+
+
                 <?php
                 $showSpacer = false;
                 // FRONTEND EDITING
                 if($showFrontendEditing) {
                   if($showSpacer) { ?>
+
                   <li class="spacer"></li>
+
                   <?php } ?>
+
                   <li><a <?php echo 'href="'.$adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']).'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'"'; ?> tabindex="30" class="editPage toolTipBottom"></a></li>
+
                 <?php $showSpacer = true;
                 }
                 // DELETEPAGE
                 if($showDeletePage) {
                   if($showSpacer) { ?>
+
                   <li class="spacer"></li>
+
                   <?php } ?>
+
                   <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_DELETEPAGE'].'::'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'"'; ?> tabindex="32" class="deletePage toolTipBottom"></a></li>
+
                 <?php $showSpacer = true;
                 }
 
                 // PAGETHUMBNAILUPLOAD
                 if($showPageThumbnailUpload) {
                   if($showSpacer) { ?>
+
                   <li class="spacer"></li>
+
                   <?php } ?>
+
                   <li><a <?php echo 'href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'"'; ?> tabindex="33" class="uploadPageThumbnail toolTipBottom"></a></li>
+
                 <?php
                 // PAGETHUMBNAILDELETE
                 if($showPageThumbnailDelete) { ?>
+
                   <li><a <?php echo 'href="?site=deletePageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_THUMBNAIL_DELETE'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'"'; ?> tabindex="34" class="deletePageThumbnail toolTipBottom"></a></li>
+
                 <?php }
                 $showSpacer = true;
                 }
@@ -504,23 +549,31 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                   // ADD PAGE LANGUAGE
                   if($isInPageEditor) {
                     if($showSpacer) { ?>
+
                     <li class="spacer"></li>
+
                     <?php }
                     if($missingLanguages) { ?>
+
                     <li><a <?php echo 'href="?site=addPageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/addPageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_ADD'].'\');return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_ADD'].'::'.$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD'].'"'; ?> tabindex="35" class="addPageLanguage toolTipBottom"></a></li>
+
                   <?php
                   }
                   // DELETE PAGE LANGUAGE
                   if(isset($_GET['page']) && !isset($pageContent['localized'][0]) && isset($pageContent['localized'][$_SESSION['feinduraSession']['websiteLanguage']])) { ?>
+
                     <!-- <li class="spacer"></li> -->
                     <li><a <?php echo 'href="?site=deletePageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'\');return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'::'.sprintf($langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE'],'[strong]'.$languageNames[$_SESSION['feinduraSession']['websiteLanguage']].'[/strong]').'"'; ?> tabindex="36" class="removePageLanguage toolTipBottom"></a></li>
+
                   <?php }
                   $showSpacer = true;
                   }
                 }
                 ?>
+
               </menu>
               <?php } ?>
+
             </div>
           <?php }
 
@@ -541,6 +594,8 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
           ?>
         </section>
         <a href="#top" class="fastUp" title="<?php echo $langFile['BUTTON_UP']; ?>"></a>
+
+        <?php echo isBlocked(); ?>
       </div>
   </div>
 
@@ -552,14 +607,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       </div>
   </footer>
 
-
-  <!-- ************************************************************************* -->
-  <!-- ** WINDOW BOX *********************************************************** -->
-  <div id="windowBox">
-    <h1><?php echo $langFile['LOADING_TEXT_LOAD']; ?></h1>
-    <a href="#" class="close" onclick="closeWindowBox(false);return false;"></a>
-    <div id="windowRequestBox"></div>
-  </div>
 
   <!-- ************************************************************************* -->
   <!-- ** DOCUMENT SAVED ******************************************************* -->

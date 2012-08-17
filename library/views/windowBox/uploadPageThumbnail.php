@@ -137,9 +137,10 @@ else
   </div>
 
   <?php if($thumbRatioY || $thumbRatioX) { ?>
-  <div style="margin-top: -25px;">
-    <a href="#" id="thumbSizeToogle" class="down"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?></a>
-
+  <div style="position:relative; top: -60px;">
+    <a href="#" id="thumbSizeToogle" class="btn"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?> <span class="caret" onclick="return false;"></span></a>
+  </div>
+  <div style="margin-top: -35px;">
     <div id="thumbnailSizeBox" class="insetBlock">
       <?php
       // -> THUMB-WIDTH

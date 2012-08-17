@@ -27,6 +27,8 @@ $sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Klicke hier um di
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'Diese Seite als Startseite festlegen';
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage_set'] = 'Diese Seite ist die Startseite';
 
+$sharedLangFile['LOADING_TEXT_LOAD']                        = 'Seite wird geladen..';
+
 /* date texts */
 
 $sharedLangFile['DATE_TEXT_YESTERDAY']                      = 'Gestern';

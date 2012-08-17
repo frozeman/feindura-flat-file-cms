@@ -11,10 +11,14 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
-    
+
 *
 *
 * loading.php version 2.0.1 (require mootools-core AND mootools-more)  */
+
+
+// vars
+var dimmContainer = new Element('div',{'class':'dimmContainer'});
 
 
 function showDocumentSaved() {
@@ -23,7 +27,7 @@ function showDocumentSaved() {
 
   // start tween
   documentSaved.setStyle('display','block').fade('hide').fade(1);
-  
+
   // hide the documentsaved, after blending in and out
   documentSaved.get('tween').chain(function() {
     documentSaved.fade(0);
@@ -47,16 +51,16 @@ function onStartLoadingCircle() {
 
   // -> add to the .mainContent div
   loadingBox.grab(jsLoadingCircleContainer,'top');
-  
+
   // set tween
  loadingBox.set('tween',{duration: 400});
   // show the loadingCircle
   loadingBox.setStyle('display','block');
-  
+
   // add the loading circle
   if(!removeLoadingCircle)
     removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
-  
+
   // blend out after page is loaded
   window.addEvent('load', function() {
     loadingBox.tween('opacity','0');
@@ -95,30 +99,31 @@ function onEndLoadingCircle() {
 */
 window.addEvent('domready', function() {
 
+  // inject the dimmContainer for the backend
+  dimmContainer.inject(document.body,'top');
+
   var loadingBox = $('loadingBox');
 
   // ->> SHOW the loading circle
   if(loadingBox !== null &&
      $('documentSaved') !== null && !$('documentSaved').hasClass('saved')) {
-    
+
     onStartLoadingCircle();
-    
+
   // ->> hide loading circle, when it was not animated
   } else if(loadingBox !== null) {
     loadingBox.empty();
     loadingBox.setStyle('display','none');
     // loadingBox.setStyle('opacity','1');
   }
-  
+
   // IE HACK for dimmContainer
-	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/) && $('dimmContainer') !== null) {
-		$('dimmContainer').setStyle('height',$(document.body).offsetHeight); //,$('window').getSize().y);
+	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/) && dimmContainer !== null) {
+		dimmContainer.setStyle('height',$(document.body).offsetHeight); //,$('window').getSize().y);
 	}
-  
+
   // ->> if DOCUMENT SAVED has given the class from the php script
   if($('documentSaved') !== null && $('documentSaved').hasClass('saved')) {
-    // set tween
-    $('dimmContainer').set('tween', {duration: 200, transition: Fx.Transitions.Pow.easeOut});
     // display document saved
     showDocumentSaved();
   }
@@ -130,6 +135,8 @@ window.addEvent('beforeunload',  function() {
 });
 // LOADING-CIRCLE when the website will is left
 window.addEvent('unload',  function() {
-  $('loadingBox').setStyle('display','none');
-  $('loadingBox').empty();
+  if($('loadingBox') !== null) {
+    $('loadingBox').setStyle('display','none');
+    $('loadingBox').empty();
+  }
 });

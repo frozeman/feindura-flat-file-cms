@@ -29,6 +29,9 @@ $sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Нажмите ч
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'Установить главной страницей';
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage_set'] = 'Эта страница отмечена как главная';
 
+$sharedLangFile['LOADING_TEXT_LOAD']                        = 'Загрузка страницы...';
+
+
 /* date texts */
 
 $sharedLangFile['DATE_TEXT_YESTERDAY']                      = 'Вчера';

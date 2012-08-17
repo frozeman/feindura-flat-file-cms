@@ -16,7 +16,7 @@
  *
  * update.php
  *
- * @version 2.1
+ * @version 2.2
  */
 
 /**
@@ -30,8 +30,8 @@ $wrongDirectory = (include("library/includes/backend.include.php"))
 // -----------------------------------------------------------------------------------
 error_reporting(E_ALL ^ E_NOTICE);
 
-$NEWVERSION = '2.0';
-$NEWBUILD = 967;
+$NEWVERSION = '2.0 beta';
+$NEWBUILD = 968;
 
 // gets the version of the feindura CMS
 if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
@@ -257,12 +257,9 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       return serialize($activatedPlugins);
     }
 
-    // check if the last version was until the given version number
-    function until($version) {
-      if(strlen($version) >= 3 && strpos($version, '.') === false)
-        return ($GLOBALS['PREVBUILD'] <= $version) ? true : false;
-      else
-        return ($GLOBALS['PREVVERSION'].$GLOBALS['PREVBUILD'] <= $version) ? true : false;
+    // check if the last version was until the given build number
+    function until($build) {
+        return ($GLOBALS['PREVBUILD'] <= $build) ? true : false;
     }
 
     // and start!
@@ -323,11 +320,11 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       $adminConfig['dateFormat'] = 'YMD';
 
     // only if was below 1.1.6
-    if(until('1.1.6'))
+    if(until(796))
       $adminConfig['speakingUrl'] = false; // beacuse i changed speaking url reg ex and createHref generation
 
     // only if was until build 947
-    if(until('946') && !isset($categoryConfig[0]['id'])) {
+    if(until(946) && !isset($categoryConfig[0]['id'])) {
 
       // delete the non-category, which only has the name (set in backend.include.php)
       unset($categoryConfig[0]);
@@ -415,7 +412,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
       // only if was until 1.1.6
       // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
-      if(until('1.1.6')) {
+      if(until(796)) {
         if(isset($pageContent['plugins']['imageGallery']) && !isset($pageContent['plugins']['imageGalleryFromFolder'])) {
           $pageContent['plugins']['imageGalleryFromFolder'] = $pageContent['plugins']['imageGallery'];
           unset($pageContent['plugins']['imageGallery']);
@@ -606,7 +603,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
       // only if was until 1.1.6
       // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
-      if(until('1.1.6')) {
+      if(until(796)) {
         $categoryPlugins = unserialize($category['plugins']);
         $newCategoryPlugins = array();
 
@@ -647,7 +644,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     }
 
     // only if was below 2.0 build 951
-    if(until('951')) {
+    if(until(951)) {
       // maintenance
       if(!isset($websiteConfig['maintenance']))
         $websiteConfig['maintenance'] = $adminConfig['maintenance'];
@@ -941,6 +938,8 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_brown_up.png';
     $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_brown_start.png';
     $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_brown_end.png';
+    $deleteFiles[] = 'library/images/buttons/login_button.png';
+    $deleteFiles[] = 'library/images/icons/mail.gif';
 
 
 
@@ -1014,13 +1013,13 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
         // add the user permissions from the adminConfig to the userConfig
         // only if was until build 953
-        if(until('953') && !isset($newUserConfig[$user['id']]['info']))
+        if(until(953) && !isset($newUserConfig[$user['id']]['info']))
           $newUserConfig[$user['id']]['info'] = $adminConfig['user']['info'];
-        if(until('953') && !isset($newUserConfig[$user['id']]['permissions']))
+        if(until(953) && !isset($newUserConfig[$user['id']]['permissions']))
           $newUserConfig[$user['id']]['permissions'] = $adminConfig['user'];
 
         // only if was until build 957
-        if(until('957') && !isset($newUserConfig[$user['id']]['permissions']['websiteSettings']))
+        if(until(957) && !isset($newUserConfig[$user['id']]['permissions']['websiteSettings']))
           $newUserConfig[$user['id']]['permissions']['websiteSettings'] = true;
       }
 

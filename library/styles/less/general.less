@@ -357,13 +357,14 @@ a.fastUp:hover, .mainContent a.fastUp:focus {
     z-index: 4;
     position: absolute;
     top: -5px;
-    left: -4px;
+    right: 5px;
     #shadow > .drop(0,1px,2px,0.1);
     #border > .rounded(@borderRadiusMedium);
 }
 a.logout, a.frontend, a.backend  {
     @buttonColor: lighten(@logoColorOrange,30%);
     z-index: 2;
+    height: 31px;
     font-family: 'Comic Sans MS',"Helvetica Neue", Helvetica, Arial, sans-serif !important;
     text-align: center;
     font-size: 20px;
@@ -375,6 +376,28 @@ a.logout, a.frontend, a.backend  {
     &:hover,
     &:focus {
         #gradient > .vertical(@buttonColor,@buttonColor,lighten(@buttonColor,10%));
+    }
+}
+a.frontend {
+    padding: 5px;
+    padding-top: 4px;
+    padding-bottom: 0;
+    height: 40px;
+
+    img {
+        // grayscale
+        filter: url(filters.svg#grayscale); /* Firefox 3.5+ */
+        filter: gray; /* IE5+ */
+        -webkit-filter: grayscale(1);
+        -moz-filter: grayscale(1);
+        -o-filter: grayscale(1);
+    }
+
+    &:hover img {
+        filter: none;
+        -webkit-filter: grayscale(0);
+        -moz-filter: grayscale(0);
+        -o-filter: grayscale(0);
     }
 }
 
@@ -508,7 +531,7 @@ table.coloredList {
 
 // ELEMENTS
 
-#dimmContainer {
+.dimmContainer {
     position: fixed;
     z-index: @zindexInFrontend;
     display: none;
@@ -540,21 +563,26 @@ div.divBlocked {
     margin: 0 -@blockContentPadding;
     background-color: #fff;
     #border > .rounded(@borderRadius);
-    #transform > .opacity(0.6);
+    #transform > .opacity(0.5);
 
     > div {
         position: fixed;
         top: 250px;
-        width: @gridRowWidth + 2 * @blockContentPadding;
-        margin-left: 30px;
+        left: 50%;
+        width: 500px;
+        margin-left: -250px;
         font-size: 20px;
         font-weight: bold;
-        color: #000;
+        color: #fff;
         text-align: center;
+        #shadow > .text(0 1px 1px #333);
     }
 }
 #contentBlocked {
-    width: 1052px;
+    margin: 0;
+    width: @appWidth;
+    background: transparent url("../images/bg/mainBody.png") repeat;
+    #border > .rounded(0);
 }
 
 #loadingBox {

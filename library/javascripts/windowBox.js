@@ -13,12 +13,19 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/windowBox.js version 0.39 (requires mootools-core and mootools-more)
+// java/windowBox.js version 0.5 (requires mootools-core and mootools-more)
 
 // vars
-var loadingText;
+var windowRequestBox = new Element('div',{'class':'windowRequestBox'});
+var windowBox = new Element('div',{'class':'windowBox feindura'}).adopt(new Element('h1'),new Element('a',{'class':'close','href':'#',events: {
+  'click': function(){closeWindowBox(false);return false;}
+}}),windowRequestBox);
+var windowBoxDimmer = new Element('div', {'class': 'windowBoxDimmer'});
+
 var uploadAnimationElement = null;
 var windowBoxIsVisible = false;
+
+
 
 /* ---------------------------------------------------------------------------------- */
 // dimms the background and calls: requestSite(site,siteTitle);
@@ -26,18 +33,25 @@ function openWindowBox(site,siteTitle,data) {
 
   if(site) {
 
-    var windowBox = $('windowBox');
-    loadingText = $$('#windowBox > h1').get('html');
+    // inject windowBox
+    if(typeOf(windowBox.getParent('body')) === 'null')
+      windowBox.inject(document.body);
+
+    // inject dimmContainer
+    if(typeOf(dimmContainer.getParent('body')) === 'null')
+      dimmContainer.inject(document.body,'top');
+
+    windowBox.getChildren('h1').set('html',feindura_langFile.LOADING_TEXT_LOAD);
 
     // place window in the useres sight
     windowBox.setStyle('top',window.getScroll().y + 150);
     windowBox.show();
     // dim container
-    $('dimmContainer').show();
+    dimmContainer.show();
 
     // setting up the slidecontent
-    $('windowRequestBox').set('slide',{duration: 200, transition: Fx.Transitions.Pow.easeOut});
-    $('windowRequestBox').slide('show');
+    windowRequestBox.set('slide',{duration: 200, transition: Fx.Transitions.Pow.easeOut});
+    windowRequestBox.slide('show');
 
     windowBoxIsVisible = true;
 
@@ -55,15 +69,13 @@ function closeWindowBox(redirectAfter) {
   if(!windowBoxIsVisible)
     return;
 
-  var windowBox = $('windowBox');
-
 	// resize the box by a slide
-	$('dimmContainer').set('tween', {duration: 300, transition: Fx.Transitions.Pow.easeOut});
+	dimmContainer.set('tween', {duration: 300, transition: Fx.Transitions.Pow.easeOut});
 
 	// fades the windowBox
   windowBox.hide();
 	// fades the dimmContainer
-  $('dimmContainer').hide();
+  dimmContainer.hide();
 
   windowBox.removeEvents('loaded'); // prevent the page scripts from the last windowBox beeing executed again
   windowBox.removeEvents('hide');
@@ -71,10 +83,11 @@ function closeWindowBox(redirectAfter) {
   windowBox.addEvent('hide',function() {
 
     // clear the html inside the windowRequestBox.
-    $('windowRequestBox').empty();
-    $('windowRequestBox').setStyle('height', 'auto');
+    windowRequestBox.empty();
+    windowRequestBox.setStyle('height', 'auto');
 
-    $$('#windowBox > h1').set('html',loadingText);
+    windowBox.getChildren('h1').set('html',feindura_langFile.LOADING_TEXT_LOAD);
+    windowBox.dispose();
 
     windowBoxIsVisible = false;
 
@@ -93,8 +106,6 @@ function requestSite(site,siteTitle,dataOrFormId) {
   // vars
   var data = (typeOf(dataOrFormId) == 'object') ? dataOrFormId : $(dataOrFormId);
   var removeLoadingCircle;
-  var windowRequestBox = $('windowRequestBox');
-  var windowBox = $('windowBox');
 
   // creates the request Object
   new Request.HTML({
@@ -104,12 +115,8 @@ function requestSite(site,siteTitle,dataOrFormId) {
     onRequest: function() { //-----------------------------------------------------
 
         // shows the LOADING
-        if(navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
-          windowRequestBox.grab(new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'}),'top');
-        } else {
-          windowRequestBox.grab(new Element('div', {id: 'windowBoxDimmer'}),'top');
-          removeLoadingCircle = feindura_loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#000");
-        }
+        windowRequestBox.grab(windowBoxDimmer,'top');
+        removeLoadingCircle = feindura_loadingCircle(windowBoxDimmer, 23, 35, 12, 5, "#000");
     },
     //-----------------------------------------------------------------------------
 		onSuccess: function(html,childs,rawText,responseJavaScript) { //-------------------------------------------------
@@ -129,7 +136,6 @@ function requestSite(site,siteTitle,dataOrFormId) {
       windowRequestBox.slide('out');
 
       windowRequestBox.get('slide').chain(function() {
-      // (function() {
 
         // fill in the content
         if(site) {
@@ -149,14 +155,14 @@ function requestSite(site,siteTitle,dataOrFormId) {
         if(siteTitle) {
 
           // Clear the title <div>
-          if(typeOf($$('#windowBox > h1')[0]) !== 'null')
-            $$('#windowBox > h1')[0].destroy();
+          if(typeOf(windowBox.getChildren('h1')[0]) !== 'null')
+            windowBox.getChildren('h1')[0].destroy();
 
           // Inject the new DOM elements into the h1.
           windowBox.grab(new Element('h1',{'text':siteTitle}),'top');
         } else {
-          if(typeOf($$('#windowBox > h1')[0]) !== 'null')
-            $$('#windowBox > h1')[0].destroy();
+          if(typeOf(windowBox.getChildren('h1')[0]) !== 'null')
+            windowBox.getChildren('h1')[0].destroy();
         }
 
 
@@ -180,7 +186,7 @@ function requestSite(site,siteTitle,dataOrFormId) {
 		//Our request will most likely succeed, but just in case, we'll add an
 		//onFailure method which will let the user know what happened.
 		onFailure: function() { //-----------------------------------------------------
-			$('windowRequestBox').set('html', '<div class="alert alert-error center">The request failed.</div><a href="#" class="ok button center" onclick="closeWindowBox();return false;"></a>');
+			windowRequestBox.set('html', '<div class="alert alert-error center">The request failed.</div><a href="#" class="ok button center" onclick="closeWindowBox();return false;"></a>');
     }
   }).post(data);
 }
@@ -192,14 +198,9 @@ function requestSite(site,siteTitle,dataOrFormId) {
 function startUploadAnimation() {
 
   // shows the LOADING
-  if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
-    $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer', style: 'padding-top: 100px;'}),'top');
-    $('windowBoxDimmer').setStyle('display','block');
-    uploadAnimationElement = feindura_loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#000");
-  } else {
-    uploadAnimationElement = new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'});
-    $('windowRequestBox').grab(uploadAnimationElement,'top');
-  }
+  windowRequestBox.grab(windowBoxDimmer.setStyle('padding-top','100px;'),'top');
+  windowBoxDimmer.setStyle('display','block');
+  uploadAnimationElement = feindura_loadingCircle(windowBoxDimmer, 23, 35, 12, 5, "#000");
   return true;
 }
 //--------------------------------------------------
@@ -218,11 +219,11 @@ function stopUploadAnimation() {
       //$('windowBoxDimmer').setStyle('padding',0);
       //$('windowBoxDimmer').tween('height',0);
       // slides in again
-        $('windowRequestBox').slide('out');
+        windowRequestBox.slide('out');
 
-        $('windowRequestBox').get('slide').chain(function() {
-          $('windowBoxDimmer').setStyle('display','none');
-          $('windowRequestBox').slide('in');
+        windowRequestBox.get('slide').chain(function() {
+          windowBoxDimmer.setStyle('display','none');
+          windowRequestBox.slide('in');
         });
 
     } else {
@@ -262,20 +263,20 @@ function finishThumbnailUpload(frameHeight,newImage) {
 window.addEvent('domready', function() {
 
     // -> CLOSE WINDOW BOX by clicking the dimmContainer
-  $$('#dimmContainer').addEvent('click',function(e) {
-    if(e.target.getProperty('id') == 'dimmContainer')
-    closeWindowBox();
+  dimmContainer.addEvent('click',function(e) {
+    if(e.target.hasClass('dimmContainer'))
+      closeWindowBox();
   });
 
 
   // run the scripts if the windowBox is loaded with content
-  $('windowBox').addEvent('loadDefaults',function(windowContent) {
+  windowBox.addEvent('loadDefaults',function(windowContent) {
 
     // ADD FANCY FORMS
-    new FancyForm('#windowBox input[type="checkbox"], #windowBox input[type="radio"]');
+    new FancyForm(windowBox.getElements('input[type="checkbox"], input[type="radio"]'));
 
     // ADD FORM AUTOGROW
-    $$('#windowBox textarea.autogrow').each(function(textarea){
+    windowBox.getElements('textarea.autogrow').each(function(textarea){
       new Form.AutoGrow(textarea);
     });
 

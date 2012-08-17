@@ -94,6 +94,12 @@ function showErrorsInWindow($errorCode, $errorText, $errorFile, $errorLine) {
  *
  */
 function isBlocked($returnBool = false) {
+
+  if($_GET['site'] == 'dashboard' ||
+     $_GET['site'] == 'pages' ||
+     $_GET['site'] == 'search')
+    return false;
+
   $return = '';
   foreach($GLOBALS['userCache'] as $cachedUser) {
     $location = trim($cachedUser['location']);
@@ -102,7 +108,7 @@ function isBlocked($returnBool = false) {
        $location != 'new' && // dont block when createing a new page (multiple user can do that)
        ($location == $_GET['page'] || $location == $_GET['site'])) {
       $return = ($returnBool) ? true : '<div id="contentBlocked" class="divBlocked"><div>'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'];
-      if(!empty($cachedUser['username'])) $return .= '<br><span style="font-size:15px;">'.$GLOBALS['langFile']['USER_TEXT_USER'].': <span class="blue toolTipBottom noMark" title="::'.ucfirst($cachedUser['browser']).'">'.$cachedUser['username'].'</span></span>';
+      if(!empty($cachedUser['username'])) $return .= '<br><span style="font-size:15px;">'.$GLOBALS['langFile']['USER_TEXT_USER'].': <span class="brown toolTipBottom noMark" title="::'.ucfirst($cachedUser['browser']).'">'.$cachedUser['username'].'</span></span>';
       $return .= '</div></div>';
       return $return;
     }
@@ -151,8 +157,8 @@ function showCategory($categoryId){
  *
  * An example of the saved cache lines
  * <samp>
- * c5b5533c8475801044fb7680059d5846|#|1306781298|#|frozeman|#|websiteSetup|#|edit
- * 4afe1d41e2f2edbf07086b1c2c492c10|#|1306781299|#|test|#|websiteSetup
+ * c5b5533c8475801044fb7680059d5846|#|1306781298|#|chrome|#|frozeman|#|websiteSetup|#|edit
+ * 4afe1d41e2f2edbf07086b1c2c492c10|#|1306781299|#|firefox|#|test|#|websiteSetup
  * </samp>
  *
  *

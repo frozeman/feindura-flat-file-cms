@@ -105,7 +105,7 @@
   <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.min.js<?php echo '?v='.BUILD; ?>"></script>
   <?php
   }
-  if(GeneralFunctions::hasPermission('fileManager') && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
+  if(GeneralFunctions::hasPermission('fileManager')) { ?>
 
   <!-- thirdparty/MooTools-FileManager -->
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js<?php echo '?v='.BUILD; ?>"></script>

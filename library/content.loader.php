@@ -82,7 +82,6 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   if(empty($categoryConfig))
     $_GET['category'] = 0;
 
-  echo isBlocked();
   include (dirname(__FILE__).'/views/editor.php');
 
 // otherwise, load the sites
@@ -135,32 +134,26 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       break;
     // WEBSITE SETUP
     case 'websiteSetup':
-      echo isBlocked();
       include (dirname(__FILE__).'/views/websiteSetup.php');
       break;
     // ADMIN SETUP
     case 'adminSetup':
-      echo isBlocked();
       if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/views/adminSetup.php');
       break;
     // PAGE SETUP
     case 'pageSetup':
-      echo isBlocked();
       if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/views/pageSetup.php');
       break;
     // STATISTIC SETUP
     case 'statisticSetup':
-      echo isBlocked();
       if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/views/statisticSetup.php');
       break;
     // USER SETUP
     case 'userSetup':
-      echo isBlocked();
       if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/views/userSetup.php');
       break;
     // MODUL SETUP
     case 'modulSetup':
-      echo isBlocked();
       if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/views/modulSetup.php');
       break;
     // BACKUP

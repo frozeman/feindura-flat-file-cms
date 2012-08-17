@@ -81,7 +81,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
             // DELETEUSER
             echo '<div class="span5" style="position:relative;">
                     <h2 class="gray">ID '.$user['id'].'</h2>';
-              echo '<a href="?site=userSetup&amp;status=deleteUser&amp;userId='.$user['id'].'#top" class="deleteUser toolTipTop" title="'.$langFile['USERSETUP_deleteUser'].'::'.$user['username'].'"></a>';
+              echo '<a href="?site=userSetup&amp;status=deleteUser&amp;userId='.$user['id'].'#top" class="deleteUser toolTipBottom" title="'.$langFile['USERSETUP_deleteUser'].'::'.$user['username'].'"></a>';
           echo '  </div>
                 </div>';
 
@@ -170,3 +170,19 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
   </div>
 </div>
 </form>
+
+<!-- PAGE SCRIPTS -->
+<script type="text/javascript">
+/* <![CDATA[ */
+  if(typeOf($$('input.userAdminCheckbox')[0]) !== 'null') {
+
+    $$('input.userAdminCheckbox').addEvent('change',function(){
+      if(this.checked) {
+        this.getParent('div.row').getNext('div.userPermissionsRow').hide();
+      } else
+        this.getParent('div.row').getNext('div.userPermissionsRow').show();
+    });
+
+  }
+/* ]]> */
+</script>

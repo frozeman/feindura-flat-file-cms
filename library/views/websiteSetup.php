@@ -209,17 +209,17 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
   // EDIT snippets
   if($adminConfig['editor']['snippets'] && GeneralFunctions::hasPermission('editSnippets')) {
     if(!is_dir(dirname(__FILE__).'/../../snippets/')) mkdir(dirname(__FILE__).'/../../snippets/');
-    editFiles(dirname(__FILE__).'/../../snippets/', 'snippetFiles', $langFile['EDITFILESSETTINGS_TITLE_SNIPPETS'], 'snippetsFilesAnchor', 'php');
+    editFiles(dirname(__FILE__).'/../../snippets/', 'snippetFiles', '<img src="library/images/icons/snippetsIcon_middle.png" class="blockH1Icon" alt="icon">'.$langFile['EDITFILESSETTINGS_TITLE_SNIPPETS'], 'snippetsFilesAnchor', 'php');
   }
 
   // EDIT stylesheets
   if(GeneralFunctions::hasPermission('editStyleSheets')) {
-    editFiles($adminConfig['stylesheetPath'], 'cssFiles', $langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS'], 'cssFilesAnchor', 'css');
+    editFiles($adminConfig['stylesheetPath'], 'cssFiles', '<img src="library/images/icons/stylesheetsIcon_middle.png" class="blockH1Icon" alt="icon">'.$langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS'], 'cssFilesAnchor', 'css');
   }
 
   // EDIT websitefiles
   if(GeneralFunctions::hasPermission('editWebsiteFiles')) {
-    editFiles($adminConfig['websiteFilesPath'], 'websiteFiles',  $langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES'], 'websiteFilesAnchor');
+    editFiles($adminConfig['websiteFilesPath'], 'websiteFiles',  '<img src="library/images/icons/websitefilesIcon_middle.png" class="blockH1Icon" alt="icon">'.$langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES'], 'websiteFilesAnchor');
   }
 
 }

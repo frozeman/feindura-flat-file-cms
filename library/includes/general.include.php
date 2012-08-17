@@ -16,7 +16,7 @@
  *
  * This file includes all necessary <var>classes</var> and configs for the use in the FRONTEND and the BACKEND
  *
- * @version 0.15
+ * @version 0.5
  */
 
 // BENCHMARK start
@@ -263,9 +263,9 @@ if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false) $_SERVER['REMOTE_ADDR'] = '1
 
 
 // -> GET VERSION and BUILD
-$changelogFile = file(dirname(__FILE__)."/../../CHANGELOG");
-$version = trim($changelogFile[2]);
-$buildNr = explode(' ',$changelogFile[3]);
+$changelogFile = file(dirname(__FILE__)."/../../VERSION");
+$version = trim($changelogFile[1]);
+$buildNr = trim($changelogFile[2]);
 
 
 /**
@@ -276,7 +276,7 @@ define('VERSION',$version);
 /**
  * The build number of feindura
  */
-define('BUILD',trim($buildNr[1]));
+define('BUILD',$buildNr);
 unset($changelogFile,$version,$buildNr);
 
 

@@ -212,12 +212,12 @@ $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'К�
 // USER LIST
 $langFile['USER_TEXT_USER']                                               = 'Пользователь';
 $langFile['USER_TEXT_NOUSER']                                             = 'Существовали не пользователей.';
-$langFile['USER_TEXT_CURRENTUSER']                                        = 'Вы зашли под этим пользователем';
-$langFile['USER_TEXT_USERSONLINE']                                        = 'Этот пользователь авторизовался::Последние действия';
+$langFile['USER_TEXT_CURRENTUSER']                                        = 'Что это ты!';
+$langFile['USER_TEXT_USERSONLINE']                                        = 'Этот пользователь есть онлайн::Последние действия';
 
 $langFile['LOGO_TEXT']                                                    = 'Версия';
 $langFile['txt_logo_gotowebsite']                                         = 'Нажмите что бы перейти на сайт.';
-$langFile['LOADING_TEXT_LOAD']                                            = 'Загрузка страницы...';
+
 
 // CKEDITOR transport
 $langFile['CKEDITOR_TITLE_LINKS']                                         = 'feindura страницы';
