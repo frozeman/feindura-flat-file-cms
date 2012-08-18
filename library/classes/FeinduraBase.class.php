@@ -245,7 +245,7 @@ class FeinduraBase {
   */
   public function getParentPages($categoryId = false) {
 
-    if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
+    if($ids = $this->getIdsFromString(array(false,$categoryId))) {
       $categoryId = $ids[1];
       return GeneralFunctions::getParentPages($categoryId);
     }
@@ -936,7 +936,7 @@ class FeinduraBase {
     	$titleDateAfter = '';
 
       // format pageDate
-      $pageDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile));
+      $pageDate = GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile);
 
       // add <time> tag
       if(!empty($pageContent['pageDate']['date']))
@@ -1124,7 +1124,7 @@ class FeinduraBase {
         $pageDateBeforeAfter = $this->getLocalized($pageContent,'pageDate');
 
         // format pageDate
-        $titleDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile));
+        $titleDate = GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile);
 
         // add <time> tag to the pageDate
         if(!empty($pageContent['pageDate']['date']))
@@ -1729,7 +1729,7 @@ class FeinduraBase {
   }
 
  /**
-  * <b>Name</b> getPropertyIdsByString()<br>
+  * <b>Name</b> getIdsFromString()<br>
   *
   * Gets the right page and category IDs. If the <var>$ids</var> parameter is a an array it uses the first value as page ID and the second as category ID.
   *
@@ -1750,9 +1750,9 @@ class FeinduraBase {
   *
   * @param int|string|array|bool $ids    a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". (See example) (can also be a $pageContent array)
   *
-  * @uses getPropertyPage()		                 to get the right {@link Feindura::$page} property
-  * @uses GeneralFunctions::getPageCategory()  to get the category ID of the given page
-  * @uses GeneralFunctions::loadPages()	       to load all pages in a category to find the right previous or next page and return it
+  * @uses getPropertyPage()		                           to get the right {@link Feindura::$page} property
+  * @uses GeneralFunctions::getPageCategory()            to get the category ID of the given page
+  * @uses GeneralFunctions::getPagesMetaDataOfCategory() to load all pages in a category to find the right previous or next page and return it
   *
   * @return array|false array with the page ID and category ID of the right page, or FALSE if no page could be resolved (e.g. last page and "next"). (will also pass through a given $pageContent array)
   *
@@ -1760,11 +1760,11 @@ class FeinduraBase {
   * @version 2.0
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 2.0 change name from loadPrevNextPage() to getPropertyIdsByString(), now handles also categories
+  *    - 2.0 change name from loadPrevNextPage() to getIdsFromString(), now handles also categories
   *    - 1.0 initial release
   *
   */
-  protected function getPropertyIdsByString($ids) {
+  protected function getIdsFromString($ids) {
 
     if($ids === null || $ids === '')
       return false;
@@ -1852,25 +1852,26 @@ class FeinduraBase {
     if($page == 'next' || $page == 'prev') {
       // get category of the current page
       $category = GeneralFunctions::getPageCategory($this->page);
-      // loads all pages in this category
-      if(($pages = GeneralFunctions::loadPages($category)) !== false) {
-        $pagesCopy = $pages;
+      // loads all pagesMetaData of this category
+      $pagesMetaData = GeneralFunctions::getPagesMetaDataOfCategory($category);
+      if(is_array($pagesMetaData)) {
+        $pagesMetaDataCopy = $pagesMetaData;
 
-        foreach($pages as $eachPage) {
+        foreach($pagesMetaData as $pageMetaData) {
           // if found current page
-          if($eachPage['id'] == $this->page) {
+          if($pageMetaData['id'] == $this->page) {
             // NEXT
-            if($page == 'next' && $next = next($pagesCopy)) {
-              while($next && !$next['public']) $next = next($pagesCopy); // prevent to pick a non public page
+            if($page == 'next' && $next = next($pagesMetaDataCopy)) {
+              while($next && !$next['public']) $next = next($pagesMetaDataCopy); // prevent to pick a non public page
               return array($next['id'],$next['category']);;
             // PREV
-            } elseif($page == 'prev' && $prev = prev($pagesCopy)) {
-              while($prev && !$prev['public']) $prev = prev($pagesCopy); // prevent to pick a non public page
+            } elseif($page == 'prev' && $prev = prev($pagesMetaDataCopy)) {
+              while($prev && !$prev['public']) $prev = prev($pagesMetaDataCopy); // prevent to pick a non public page
               return array($prev['id'],$prev['category']);
             // END of CATEGORY
             } else return false;
           }
-          next($pagesCopy); // move the pointer
+          next($pagesMetaDataCopy); // move the pointer
         }
       } else
         return false;
@@ -1941,25 +1942,26 @@ class FeinduraBase {
     // ******
     if(is_bool($page) || $page == 'first' || $page == 'last' || $page == 'rand') {
 
-      // loads all pages in this category
-      if(($pages = GeneralFunctions::loadPages($category)) !== false) {
+      // loads all pagesMetaData of this category
+      $pagesMetaData = GeneralFunctions::getPagesMetaDataOfCategory($category);
+      if(is_array($pagesMetaData)) {
 
         // FIRST PAGE (first or bool)
-        if(($page == 'first' || is_bool($page)) && $tmpPage = reset($pages)) {
-          while($tmpPage && !$tmpPage['public']) $tmpPage = next($pages); // prevent to pick a non public page
+        if(($page == 'first' || is_bool($page)) && $tmpPage = reset($pagesMetaData)) {
+          while($tmpPage && !$tmpPage['public']) $tmpPage = next($pagesMetaData); // prevent to pick a non public page
           return array($tmpPage['id'],$tmpPage['category']);
         // LAST PAGE
-        } elseif($page == 'last' && $tmpPage = end($pages)) {
-          while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pages); // prevent to pick a non public page
+        } elseif($page == 'last' && $tmpPage = end($pagesMetaData)) {
+          while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pagesMetaData); // prevent to pick a non public page
           return array($tmpPage['id'],$tmpPage['category']);
         // RANDOM PAGE
         } elseif($page == 'rand') {
-          $pagesCopy = $pages;
-          shuffle($pagesCopy);
-          if($tmpPage = reset($pagesCopy)) {
-            while($tmpPage && !$tmpPage['public']) $tmpPage = next($pagesCopy); // prevent to pick a non public category
+          $pagesMetaDataCopy = $pagesMetaData;
+          shuffle($pagesMetaDataCopy);
+          if($tmpPage = reset($pagesMetaDataCopy)) {
+            while($tmpPage && !$tmpPage['public']) $tmpPage = next($pagesMetaDataCopy); // prevent to pick a non public category
             // reached the end? go backwards
-            if(!$tmpPage) while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pagesCopy); // prevent to pick a non public category
+            if(!$tmpPage) while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pagesMetaDataCopy); // prevent to pick a non public category
             return array($tmpPage['id'],$tmpPage['category']);
           }
         }

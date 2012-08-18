@@ -381,6 +381,13 @@ function inBlockSlider() {
 adds a * to the head and the sideBarMenu link of the page, to show that the page was modified, but not saved yet */
 function pageContentChangedSign() {
 
+  // shows the submit in the submenu
+  if($('subMenuSubmit').getStyle('display') === 'none') {
+    $$('.subMenu').setStyle('width',810);
+    $('subMenuSubmit').show();
+  }
+
+  // adds the editorAnchor to the form
   submitAnchor('editorForm','editorAnchor');
 
   if($('editorForm') !== null && !pageContentChanged) {

@@ -86,7 +86,7 @@
         ul {
             overflow: auto;
             margin: 0;
-            margin-right: -15px;
+            margin-right: -@blockContentPadding;
             margin-left: 0px;
             padding-left: 20px;
             max-height: 400px;
@@ -395,7 +395,7 @@ div.rightSidebarLoadingCircle {
     }
 
 
-    // CURRENT VISITORS
+    // CURRENT xORS
 
     #currentVisitorsSideBar {
         position: relative;
@@ -425,7 +425,7 @@ div.rightSidebarLoadingCircle {
     #sideBarActivityLog {
         position: relative;
         z-index: 10;
-        overflow: auto;
+        overflow: hidden;
         margin: 0 -20px;
         margin-top: -18px;
         width: 208px;

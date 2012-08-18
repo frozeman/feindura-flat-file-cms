@@ -237,10 +237,10 @@ class StatisticFunctions {
   *
   * @param int $startPage the startPage, given when it comes from the {@link Feindura::__construct() Feindura class}
   *
-  * @uses $varNames                     for variable names which the $_GET will use for the page ID
-  * @uses $adminConfig                  to look if set startpage is allowed
-  * @uses Feindura::$startPage          if no $_GET variable exists it will try to get the {@link Feindura::$startPage} property
-  * @uses GeneralFunctions::loadPages() for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
+  * @uses $varNames                        for variable names which the $_GET will use for the page ID
+  * @uses $adminConfig                     to look if set startpage is allowed
+  * @uses Feindura::$startPage             if no $_GET variable exists it will try to get the {@link Feindura::$startPage} property
+  * @uses GeneralFunctions::$pagesMetaData to get all page titles, to get the right page ID, if the $_GET variable is not a ID but a page name
   *
   *
   * @return int|false the current page ID or FALSE

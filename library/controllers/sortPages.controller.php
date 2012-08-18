@@ -79,8 +79,8 @@ foreach($sortOrder as $sort) {
   }
 }
 // -> CHECKs if the category folder is empty,
-// if yes: the "&nbsp;" is read by the sortPages.js and it puts, a "no pages" - notice
-if(!GeneralFunctions::loadPages($_POST['categoryOld'],false))
+// if its empty: the "<span></span>" is read by the content.js sort request and puts, a "no pages" - notice into the listPages
+if(!GeneralFunctions::getPagesMetaDataOfCategory($_POST['categoryOld']))
   echo '<span></span>';
 
 // clean up the $pageContent array

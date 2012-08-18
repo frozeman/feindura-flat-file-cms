@@ -950,6 +950,7 @@ class GeneralFunctions {
   *
   * @param int|array  $page           a page ID or a $pageContent array (will then returned immediately)
   * @param int        $category       (optional) a category ID, if FALSE it will try to load this page from the non-category
+  * @param bool       $readPrevious   (optional) if TRUE it will read the previous state of the page instead of the current page
   *
   * @uses getStoredPages()		for getting the {@link $storedPages} property
   * @uses addStoredPage()		to store a new loaded $pageContent array in the {@link $storedPages} property
@@ -963,7 +964,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function readPage($page,$category = false) {
+  public static function readPage($page,$category = false,$readPrevious = false) {
     //echo 'PAGE: '.$page.' -> '.$category.'<br>';
 
     // var
@@ -975,7 +976,11 @@ class GeneralFunctions {
     elseif(!is_numeric($page))
       return false;
 
-    $storedPages = self::getStoredPages();
+    // dont try to load stored pages when reading the previous state
+    if(!$readPrevious)
+      $storedPages = self::getStoredPages();
+    else
+      $storedPages = array();
 
     // ->> IF the page is already loaded
     if(isset($storedPages[$page])) {
@@ -985,9 +990,11 @@ class GeneralFunctions {
     // ->> ELSE load the page and store it in the storePages PROPERTY
     } else {
 
+      $previous = ($readPrevious) ? '.previous' : '';
+
       // adds .php to the end if its missing
       if(substr($page,-4) != '.php')
-        $page .= '.php';
+        $page .= $previous.'.php';
 
       // adds a slash behind the $category / if she isn't empty
       if(!empty($category))
@@ -1018,7 +1025,11 @@ class GeneralFunctions {
         } else
           $pageContent['content'] = str_replace("\'", "'", $pageContent['content']);
 
-        return self::addStoredPage($pageContent);
+        // dont store the page when reading the previous state
+        if(!$readPrevious)
+          return self::addStoredPage($pageContent);
+        else
+          return $pageContent;
 
       // return failure while loading the content (file exists but couldn't be loaded)
       } elseif($pageContent === 1) {
@@ -1233,6 +1244,9 @@ class GeneralFunctions {
       return false;
     }
 
+    // sort the pages
+    $pages = self::sortPages($pages);
+
     $fileContent = "<?php\n";
 
     foreach($pages as $pageContent) {
@@ -1240,13 +1254,14 @@ class GeneralFunctions {
       // CREATE file content
       $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['id']       = ".XssFilter::int($pageContent['id'],0).";\n";
       $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['category'] = ".XssFilter::int($pageContent['realCategory'],0).";\n";
+      $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['public']   = ".XssFilter::bool($pageContent['public'],true).";\n";
       if(self::$websiteConfig['startPage'] == $pageContent['id'])
         $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['startPage'] = true;\n";
       if(!empty($pageContent['modified']))
         $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['modified'] = ".$pageContent['modified'].";\n";
 
 
-      // save localized titles
+      // save LOCALIZED TITLES
       if(is_array($pageContent['localized'])) {
         foreach ($pageContent['localized'] as $langCode => $pageContentLocalized) {
           // remove the '' when its 0 (for non localized pages)
@@ -1285,6 +1300,50 @@ class GeneralFunctions {
 
   }
 
+/**
+  * <b>Name</b> getPagesMetaDataOfCategory()<br>
+  *
+  * Filters the {@link GeneralFunctions::$pagesMetaData} array and retruns only the pages which have a specific category.
+  *
+  *
+  * @param bool|int|array  $category  (optional) a category ID, or an array with category IDs. TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
+  *
+  * @uses GeneralFunctions::$pagesMetaData
+  *
+  * @return array an array with the $pagesMetaData arrays of the pages in a specific category
+  *
+  * @example pagesMetaData.array.example.php
+  *
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public static function getPagesMetaDataOfCategory($category = false) {
+
+    // IF $category FALSE set $category to 0
+    if($category === false)
+      $category = 0;
+
+    // IF $category TRUE use all Categories
+    if($category === true)
+      $category = array_keys(self::$categoryConfig);
+
+    // change category into array
+    if(is_numeric($category))
+      $category = array($category);
+
+    $filteredPageMetaData = array();
+    if(is_array($category)) {
+      foreach(self::$pagesMetaData as $pageMetaData) {
+        if(in_array($pageMetaData['category'],$category))
+          $filteredPageMetaData[$pageMetaData['id']] = $pageMetaData;
+      }
+    }
+    return $filteredPageMetaData;
+  }
 
  /**
   * <b>Name</b> loadPages()<br>
@@ -1302,7 +1361,6 @@ class GeneralFunctions {
   * {@example loadPages.return.example.php}
   *
   * @param bool|int|array  $category           (optional) a category ID, or an array with category IDs. TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
-  * @param bool		         $loadPagesInArray   (optional) if TRUE it returns the $pageContent arrays of the pages in the categories, if FALSE it only returns the page IDs of the requested category(ies). See the <var>$pagesMetaData</var> example below
   *
   * @uses $categoryConfig     to get the sorting of the category
   * @uses getStoredPages()		for getting the {@link $storedPages} property
@@ -1321,66 +1379,52 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function loadPages($category = false, $loadPagesInArray = true) {
+  public static function loadPages($category = false) {
 
     // IF $category FALSE set $category to 0
     if($category === false)
       $category = 0;
 
+    // IF $category TRUE use all Categories
+    if($category === true)
+      $category = array_keys(self::$categoryConfig);
+
+    // change category into array
+    if(is_numeric($category))
+      $category = array($category);
+
+
     // ->> RETURN $pageContent arrays
-    if($loadPagesInArray === true) {
 
-      //vars
-      $pagesArray = array();
+    //vars
+    $pagesArray = array();
 
-      // IF $category TRUE use all Categories
-      if($category === true)
-        $category = array_keys(self::$categoryConfig);
+    // go trough all given CATEGORIES
+    if(is_array($category)) {
+      foreach($category as $categoryId) {
 
-      // change category into array
-      if(is_numeric($category))
-        $category = array($category);
-
-      // go trough all given CATEGORIES
-      if(is_array($category)) {
-        foreach($category as $categoryId) {
-
-          // go trough the $pagesMetaData and open the page in it
-          $newPageContentArrays = array();
-          foreach(self::$pagesMetaData as $pageMetaData) {
-            // use only pages from the right category
-            if($pageMetaData['category'] == $categoryId) {
-              //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br>';
-              $newPageContentArrays[] = self::readPage($pageMetaData['id'],$pageMetaData['category']);
-            }
-          }
-
-          // sorts the category
-          if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
-            $newPageContentArrays = self::sortPages($newPageContentArrays);
-          }
-
-          // adds the new sorted category to the return array
-          $pagesArray = array_merge($pagesArray,$newPageContentArrays);
-        }
-      }
-      //print_r($pagesArray);
-      return $pagesArray;
-
-    // ->> RETURN ONLY the page & category IDs
-    } else {
-      $newPageIds = false;
-      if($category === true)
-        $newPageIds = $pageMetaData;
-      else {
+        // go trough the $pagesMetaData and open the page in it
+        $newPageContentArrays = array();
         foreach(self::$pagesMetaData as $pageMetaData) {
-          if($category == $pageMetaData['category'] ||
-             (is_array($category) && in_array($pageMetaData['category'],$category)))
-            $newPageIds[] = $pageMetaData;
+          // use only pages from the right category
+          if($pageMetaData['category'] == $categoryId) {
+            //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br>';
+            $newPageContentArrays[] = self::readPage($pageMetaData['id'],$pageMetaData['category']);
+          }
         }
+
+        // sorts the category
+        if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
+          $newPageContentArrays = self::sortPages($newPageContentArrays);
+        }
+
+        // adds the new sorted category to the return array
+        $pagesArray = array_merge($pagesArray,$newPageContentArrays);
       }
-      return $newPageIds;
     }
+    //print_r($pagesArray);
+    return $pagesArray;
+
   }
 
  /**
@@ -1586,8 +1630,8 @@ class GeneralFunctions {
   *
   * Converst a given timestamp into the a specific format type.
   *
-  * @param int    $timeStamp a UNIX-Timestamp
-  * @param string $format    (optional) the format type can be "DMY" to format into: "DD-MM-YYYY", "YMD" to format into: "YYYYY-MM-DD" or "MDY" to format into: "MM-DD-YYYYY", if FALSE it uses the format set in the administrator-settings config
+  * @param int          $timeStamp a UNIX-Timestamp
+  * @param string|false $format    (optional) the format type can be "DMY" to format into: "DD.MM.YYYY", "YMD" to format into: "YYYYY-MM-DD" or "MDY" to format into: "MM/DD/YYYYY", if FALSE it uses the format set in the administrator-settings config
   *
   * @uses $adminConfig  to get the right date format, if no format is given
   *
@@ -1671,7 +1715,7 @@ class GeneralFunctions {
       return $langFile['DATE_TEXT_TOMORROW'];
 
     else
-      return $timestamp;
+      return self::formatDate($timestamp);
   }
 
  /**
@@ -2094,12 +2138,7 @@ class GeneralFunctions {
   */
   public static function sortPages($pageContentArrays, $sortBy = false) {
 
-    if(is_array($pageContentArrays) && isset($pageContentArrays[0])) {
-
-      // CHECK if the arrays are valid $pageContent arrays
-      // OTHER BUTTONSwise return the unchanged array
-      if(!self::isPageContentArray($pageContentArrays[0]))
-        return $pageContentArrays;
+    if(is_array($pageContentArrays) && self::isPageContentArray(reset($pageContentArrays))) {
 
       // sorts the array with the given sort public static function
       //natsort($pagesArray);
@@ -2126,7 +2165,7 @@ class GeneralFunctions {
       // adds the last $newPageContentArrays
       $categoriesArrays[] = $newPageContentArrays;
 
-      // -> SORTS every CATEGORY
+      // -> SORTS each CATEGORY
       $newPageContentArray = array();
       $category = false;
       foreach($categoriesArrays as $categoriesArray) {

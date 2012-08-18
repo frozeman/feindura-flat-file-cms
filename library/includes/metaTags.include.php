@@ -25,7 +25,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=0.5">
 
-  <meta name="robots" content="no-index,nofollow">
+  <meta name="robots" content="noindex,nofollow">
   <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
   <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate">

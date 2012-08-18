@@ -29,8 +29,8 @@ $_GET['file'] = XssFilter::path($_GET['file']);
 
 $backupTime = filemtime(dirname(__FILE__).'/../../../backups/'.$_GET['file']);
 $backupName .= (strpos($_GET['file'],'restore') === false)
-          ? $langFile['BACKUP_TITLE_BACKUP'].' '.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($backupTime)).' '.formatTime($backupTime)
-          : $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].' '.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($backupTime)).' '.formatTime($backupTime);
+          ? $langFile['BACKUP_TITLE_BACKUP'].' '.GeneralFunctions::dateDayBeforeAfter($backupTime).' '.formatTime($backupTime)
+          : $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].' '.GeneralFunctions::dateDayBeforeAfter($backupTime).' '.formatTime($backupTime);
 
 
 // QUESTION

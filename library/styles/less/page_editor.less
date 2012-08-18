@@ -5,10 +5,27 @@
 
 // hide MooRTE bar
 div.rteHide {
-  display:none;
+  display: none;
+}
+
+// PAGE HEADER
+.block.pageHeader {
+    z-index: 0;
+
+    .formLeft span {
+        font-size: 14px;
+        font-weight: bold;
+        color: #666666;
+
+        strong {
+            color: #71A1BD !important;
+        }
+    }
 }
 
 .editor {
+    z-index: 2;
+
     padding-top: 1px !important;
     overflow: visible;
     #border > .radius(@borderRadiusMedium,@borderRadiusSmall,@borderRadiusSmall,@borderRadiusMedium) !important;
@@ -95,6 +112,17 @@ div.rteHide {
     }
 }
 
+.revertPageToLastStateBox {
+    z-index: 1;
+    position: absolute;
+    right: 15px;
+    margin-top: -10px;
+    display: inline-block;
+    padding: 10px;
+    background-color: #333;
+    #border > .rounded(@borderRadiusMedium);
+    #shadow > .drop(0,0,10px,0.3);
+}
 
 #leftSidebar {
 
@@ -195,18 +223,5 @@ div.rteHide {
         margin: -7px;
         padding: 6px;
         #shadow > .drop(0,0,8px,0.2)
-    }
-}
-
-// PAGE HEADER
-.block.pageHeader {
-    .formLeft span {
-        font-size: 14px;
-        font-weight: bold;
-        color: #666666;
-
-        strong {
-            color: #71A1BD !important;
-        }
     }
 }

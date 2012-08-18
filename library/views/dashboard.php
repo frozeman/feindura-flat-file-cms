@@ -188,7 +188,7 @@ if(!empty($userConfig[USERID]['info'])) {
               // get page category and title
               $pageStats['title'] = GeneralFunctions::getLocalized($pagesMetaData[$pageStats['id']],'title');
               $pageStats['category'] = $pagesMetaData[$pageStats['id']]['category'];
-              echo '<tr><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageStats['lastVisit'])).'</strong> '.formatTime($pageStats['lastVisit']).'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
+              echo '<tr><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::dateDayBeforeAfter($pageStats['lastVisit']).'</strong> '.formatTime($pageStats['lastVisit']).'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
               // count
               if($count == $maxListEntries) break;
               else $count++;
@@ -255,7 +255,7 @@ if(!empty($userConfig[USERID]['info'])) {
           $count = 1;
           foreach($pages as $page) {
             if($page['lastSaveDate'] != 0) {
-              echo '<tr><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</strong> '.formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'</a></td></tr>';
+              echo '<tr><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::dateDayBeforeAfter($page['lastSaveDate']).'</strong> '.formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'</a></td></tr>';
               // count
               if($count == $maxListEntries) break;
               else $count++;
@@ -314,7 +314,7 @@ if(!empty($userConfig[USERID]['info'])) {
           echo '<ul class="coloredList">';
             foreach($logContent as $logRow) {
               $logRow = explode('|#|',$logRow);
-              $logDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($logRow[0]));
+              $logDate = GeneralFunctions::dateDayBeforeAfter($logRow[0]);
               $logTime = formatTime($logRow[0]);
               $logUrl = str_replace('&','&amp;',$logRow[1]);
 

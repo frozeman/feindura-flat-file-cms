@@ -57,24 +57,26 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       <div class="menuWrapper">
         <menu class="vertical">';
 
-        if($pages = GeneralFunctions::loadPages(0)) {
-          foreach($pages as $page) {
-            if(!GeneralFunctions::hasPermission('editablePages',$page['id']))
+        if(is_array($pagesMetaData)) {
+          $filteredPagesMetaData = GeneralFunctions::getPagesMetaDataOfCategory(0);
+          foreach($filteredPagesMetaData as $pageMetaData) {
+            if(!GeneralFunctions::hasPermission('editablePages',$pageMetaData['id']))
               continue;
 
             // -> show page ID
             $showPageId = (GeneralFunctions::isAdmin())
-              ? ' class="toolTipLeft noMark" title="ID '.$page['id'].'"'
+              ? ' class="toolTipLeft noMark" title="ID '.$pageMetaData['id'].'"'
               : '';
 
-            if($_GET['page'] == $page['id'])
+            if($_GET['page'] == $pageMetaData['id'])
               $pageSelected = ' class="active"';
             else
               $pageSelected = '';
 
-            echo '<li'.$showPageId.'><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'>'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'<span style="display:none;" class="toolTipLeft noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+            echo '<li'.$showPageId.'><a href="?category=0&amp;page='.$pageMetaData['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'>'.strip_tags(GeneralFunctions::getLocalized($pageMetaData,'title')).'<span style="display:none;" class="toolTipLeft noMark notSavedSignPage'.$pageMetaData['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
             $tabIndex++;
           }
+          unset($filteredPagesMetaData);
         } else {
           echo '<li><a href="#" onclick="return false;"><span>'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'</span></a></li>';
         }
@@ -145,25 +147,26 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       <div class="menuWrapper">
         <menu class="vertical">';
 
-        if($pages = GeneralFunctions::loadPages($_GET['category'])) {
-
-          foreach($pages as $page) {
-            if(!GeneralFunctions::hasPermission('editablePages',$page['id']))
+        if(is_array($pageMetaData)) {
+          $filteredPagesMetaData = GeneralFunctions::getPagesMetaDataOfCategory($_GET['category']);
+          foreach($filteredPagesMetaData as $pageMetaData) {
+            if(!GeneralFunctions::hasPermission('editablePages',$pageMetaData['id']))
               continue;
 
             // -> show page ID
             $showPageId = (GeneralFunctions::isAdmin())
-              ? ' class="toolTipLeft noMark" title="ID '.$page['id'].'"'
+              ? ' class="toolTipLeft noMark" title="ID '.$pageMetaData['id'].'"'
               : '';
 
-            if($_GET['page'] == $page['id'])
+            if($_GET['page'] == $pageMetaData['id'])
               $pageSelected = ' class="active"';
             else
               $pageSelected = '';
 
-            echo '<li'.$showPageId.'><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'>'.GeneralFunctions::getLocalized($page,'title').'<span style="display:none;" class="toolTipLeft noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+            echo '<li'.$showPageId.'><a href="?category='.$pageMetaData['category'].'&amp;page='.$pageMetaData['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'>'.GeneralFunctions::getLocalized($pageMetaData,'title').'<span style="display:none;" class="toolTipLeft noMark notSavedSignPage'.$pageMetaData['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
             $tabIndex++;
           }
+          unset($filteredPagesMetaData);
         } else {
           echo '<li><a href="#" onclick="return false;"><span>'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'</span></a></li>';
         }
@@ -319,7 +322,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
           $lastBackups .= (strpos($backupFile,'restore') === false)
             ? $langFile['BACKUP_TITLE_BACKUP']
             : $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'];
-          $lastBackups .= '<br>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($backupTime)).' '.formatTime($backupTime).'</a>';
+          $lastBackups .= '<br>'.GeneralFunctions::dateDayBeforeAfter($backupTime).' '.formatTime($backupTime).'</a>';
           $lastBackups .= '<a href="?site=backup&amp;status=deleteBackup&amp;file='.basename($backupFile).'" onclick="openWindowBox(\'library/views/windowBox/deleteBackup.php?status=deleteBackup&amp;file='.basename($backupFile).'\',\''.$langFile['BACKUP_TITLE_BACKUP'].'\');return false;" class="deleteButton toolTipTop" title="'.$langFile['BACKUP_TOOLTIP_DELETE'].'::"></a></li>';
         }
         $lastBackups .= '</ul>';

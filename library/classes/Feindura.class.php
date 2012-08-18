@@ -1355,7 +1355,7 @@ class Feindura extends FeinduraBase {
   *
   * @param int|string|array|bool $id  (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   *
-  * @uses FeinduraBase::getPropertyIdsByString()	to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()	to load the right page and category IDs depending on the $ids parameter
   * @uses GeneralFunctions::createHref()          call the right createHref functions in the GeneralFunctions class
   * @uses GeneralFunctions::getPageCategory()     to get the category of the page
   * @uses FeinduraBase::language
@@ -1375,7 +1375,7 @@ class Feindura extends FeinduraBase {
   */
   public function createHref($id = false) {
 
-    if($id = $this->getPropertyIdsByString($id)) {
+    if($id = $this->getIdsFromString($id)) {
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($id[0],$id[1])) !== false) {
           return GeneralFunctions::createHref($pageContent,$this->sessionId,$this->language);
@@ -1429,7 +1429,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailAfter
   *
   * @uses Feindura::createHref()                        to create the href-attribute
-  * @uses FeinduraBase::getPropertyIdsByString()        to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()        to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::createAttributes()              to create the attributes used by the link <a> tag
   * @uses FeinduraBase::createThumbnail()               to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
   * @uses FeinduraBase::shortenText()                   to shorten the linktext if the {@link $linkLength} property is set
@@ -1456,7 +1456,7 @@ class Feindura extends FeinduraBase {
     //echo 'PAGE: '.$id;
 
     // LOADS the right $pageContent array
-    if($ids = $this->getPropertyIdsByString($id)) {
+    if($ids = $this->getIdsFromString($id)) {
 
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
@@ -1655,7 +1655,7 @@ class Feindura extends FeinduraBase {
             $titleDateBefore = '';
             $titleDateAfter = '';
             // format pageDate
-            $pageDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($page['pageDate']['date'],$this->languageFile));
+            $pageDate = GeneralFunctions::dateDayBeforeAfter($page['pageDate']['date'],$this->languageFile);
             // add <time> tag
             if(!empty($page['pageDate']['date']))
               $pageDate = '<time datetime="'.GeneralFunctions::getDateTimeValue($page['pageDate']['date']).'">'.$pageDate.'</time>';
@@ -2019,7 +2019,7 @@ class Feindura extends FeinduraBase {
   *
   */
   public function isSubCategory($categoryId = false) {
-    if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
+    if($ids = $this->getIdsFromString(array(false,$categoryId))) {
       $categoryId = $ids[1];
       if($this->categoryConfig[$categoryId]['isSubCategory'])
         return true;
@@ -2055,10 +2055,10 @@ class Feindura extends FeinduraBase {
   */
   public function isSubCategoryOf($pageId = false,$categoryId = false) {
 
-    if($ids = $this->getPropertyIdsByString(array($pageId,false)))
+    if($ids = $this->getIdsFromString(array($pageId,false)))
       $pageId = $ids[0];
 
-    if($ids = $this->getPropertyIdsByString(array(false,$categoryId)))
+    if($ids = $this->getIdsFromString(array(false,$categoryId)))
       $categoryId = $ids[1];
 
     $subCategoryPages = unserialize($this->categoryConfig[$categoryId]['isSubCategoryOf']);
@@ -2143,7 +2143,7 @@ class Feindura extends FeinduraBase {
   */
   public function createSubMenu($id = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
 
-    if($ids = $this->getPropertyIdsByString($id)) {
+    if($ids = $this->getIdsFromString($id)) {
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
         // return subcategory
@@ -2245,7 +2245,7 @@ class Feindura extends FeinduraBase {
   */
   public function createMenuOfSubCategory($categoryId = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
 
-    if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
+    if($ids = $this->getIdsFromString(array(false,$categoryId))) {
       $categoryId = $ids[1];
       if($this->isSubCategory($categoryId)) {
 
@@ -2445,7 +2445,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailBefore
   * @uses Feindura::$thumbnailAfter
   *
-  * @uses FeinduraBase::getPropertyIdsByString()       to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()       to load the right page and category IDs depending on the $ids parameter
   * @uses Feindura::readPage()
   * @uses GeneralFunctions::getParentPages()           to get the parent pages in an array
   *
@@ -2467,7 +2467,7 @@ class Feindura extends FeinduraBase {
     $orgLinkActiveClass = $this->linkActiveClass;
     $this->linkActiveClass = false;
 
-    if($ids = $this->getPropertyIdsByString($id)) {
+    if($ids = $this->getIdsFromString($id)) {
       // unset($_SESSION['feinduraSession']['log']['visitedPagesOrder']);
       // print_r($_SESSION['feinduraSession']['log']['visitedPagesOrder']);
 
@@ -2568,7 +2568,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$titleShowCategory
   * @uses Feindura::$titleCategorySeparator
   *
-  * @uses FeinduraBase::getPropertyIdsByString()	     to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()	     to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::createTitle()                  to generate the page title with the right title properties
   *
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page
@@ -2589,7 +2589,7 @@ class Feindura extends FeinduraBase {
   */
   public function showTitle($id = false) {
 
-    if($ids = $this->getPropertyIdsByString($id)) {
+    if($ids = $this->getIdsFromString($id)) {
 
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
@@ -2678,7 +2678,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailBefore
   * @uses Feindura::$thumbnailAfter
   *
-  * @uses FeinduraBase::getPropertyIdsByString()	              to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()	              to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                          to generate the array with the page elements
   *
   * @uses GeneralFunctions::getPageCategory()      to get the category of the page
@@ -2700,7 +2700,7 @@ class Feindura extends FeinduraBase {
   */
   public function showPage($id = false, $shortenText = false, $useHtml = true) {
 
-    $ids = $this->getPropertyIdsByString($id);
+    $ids = $this->getIdsFromString($id);
     $page = $ids[0];
     $category = $ids[1];
 
@@ -2740,7 +2740,7 @@ class Feindura extends FeinduraBase {
   *
   * @uses Feindura::$page
   * @uses Feindura::showPlugins()											 to check for the activated plugins
-  * @uses FeinduraBase::getPropertyIdsByString()	     to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()	     to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                 to generate the array with the page elements
   *
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page
@@ -2812,7 +2812,7 @@ class Feindura extends FeinduraBase {
   *
   * @uses Feindura::$page
   *
-  * @uses FeinduraBase::getPropertyIdsByString()	     to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()	     to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                 to generate the array with the page elements
   *
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page
@@ -2846,7 +2846,7 @@ class Feindura extends FeinduraBase {
     if(!is_array($plugins) && !is_bool($plugins))
       $plugins = array($plugins);
 
-    if($ids = $this->getPropertyIdsByString($id)) {
+    if($ids = $this->getIdsFromString($id)) {
 
       // LOAD the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
@@ -3165,7 +3165,7 @@ class Feindura extends FeinduraBase {
   */
   public function listSubPages($id = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
 
-    if($ids = $this->getPropertyIdsByString($id)) {
+    if($ids = $this->getIdsFromString($id)) {
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
         // return subcategory
@@ -3266,7 +3266,7 @@ class Feindura extends FeinduraBase {
   */
   public function listPagesOfSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
 
-    if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
+    if($ids = $this->getIdsFromString(array(false,$categoryId))) {
       $categoryId = $ids[1];
       if($this->isSubCategory($categoryId)) {
         // create subcategory

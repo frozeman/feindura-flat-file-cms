@@ -210,7 +210,7 @@ foreach($categoryConfig as $category) {
           $visitorCount = GeneralFunctions::shortenString(formatHighNumber($pageStatistics['visitorCount']),12);
 
           // -> show lastSaveDate
-          $lastSaveDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.formatTime($pageContent['lastSaveDate']);
+          $lastSaveDate = GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile).' '.formatTime($pageContent['lastSaveDate']);
           $lastSaveDate = ($pageContent['lastSaveAuthor'])
               ? '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong][br]'.$lastSaveDate.' ('.$userConfig[$pageContent['lastSaveAuthor']]['username'].')[br]'
               : '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong][br]'.$lastSaveDate.'[br]';
@@ -369,3 +369,10 @@ unset($pagesWithSubCategories);
 ?>
 </form>
 </div>
+
+<!-- PAGE SCRIPTS -->
+<script type="text/javascript">
+/* <![CDATA[ */
+
+/* ]]> */
+</script>

@@ -44,7 +44,7 @@ foreach($logContent as $logRow) {
   $logUser = null;
 
   $logRow = explode('|#|',$logRow);
-  $logDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($logRow[0]));
+  $logDate = GeneralFunctions::dateDayBeforeAfter($logRow[0]);
   $logTime = formatTime($logRow[0]);
   if(!empty($logRow[1])) {
     if(is_numeric($logRow[1]))

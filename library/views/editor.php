@@ -168,7 +168,7 @@ if(!$newPage) {
     <?php
 
     // -> show LAST SAVE DATE TIME
-    $lastSaveDate =  GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile));
+    $lastSaveDate =  GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile);
     $lastSaveTime =  formatTime($pageContent['lastSaveDate']);
 
     $editedByUser = ($pageContent['lastSaveAuthor'])
@@ -226,13 +226,11 @@ if(!$newPage) {
                 <select name="templateSelection" id="templateSelection">
                   <option>-</option>'."\n";
 
-                // -> loads all pages
-                $allPages = GeneralFunctions::loadPages(true);
-                // -> goes trough categories and list them
-                foreach($allPages as $curPage) {
-                  $selected = ($curPage['id'] == $_GET['template']) ? ' selected="selected"' : $selected = '';
-                  $categoryText = ($curPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$curPage['category']],'name').' » ' : '';
-                  echo '<option value="'.$curPage['id'].'"'.$selected.'>'.$categoryText.GeneralFunctions::getLocalized($curPage,'title').'</option>'."\n";
+                // -> list all pages as template options
+                foreach($pagesMetaData as $pageMetaData) {
+                  $selected = ($pageMetaData['id'] == $_GET['template']) ? ' selected="selected"' : $selected = '';
+                  $categoryText = ($pageMetaData['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$pageMetaData['category']],'name').' » ' : '';
+                  echo '<option value="'.$pageMetaData['id'].'"'.$selected.'>'.$categoryText.GeneralFunctions::getLocalized($pageMetaData,'title').'</option>'."\n";
                 }
 
       echo '    </select>
@@ -318,6 +316,16 @@ if(!$newPage) {
  * Include the editor
  */
 if(!$newPage) {
+
+  // show the PREVIOUS STATE of the PAGE button
+  $categoryFolder = ($pageContent['category'] == 0) ? '' : $pageContent['category'].'/';
+  if(file_exists(dirname(__FILE__).'/../../pages/'.$categoryFolder.$pageContent['id'].'.previous.php')) {
+    $previousPageContent = GeneralFunctions::readPage($pageContent['id'],$pageContent['category'],true);
+    echo '<div class="revertPageToLastStateBox"><a href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=revertToPreviousState&amp;reload='.rand(0,999).'#editorAnchor" class="btn btn-inverse">Made a mistake? Go back to the last Page Version von '.GeneralFunctions::dateDayBeforeAfter($previousPageContent['lastSaveDate']).' '.formatTime($previousPageContent['lastSaveDate']).'</a></div>';
+    unset($previousPageContent);
+  }
+
+  // INCLUDE the EDITOR
   include_once(dirname(__FILE__).'/../includes/editor.include.php');
 }
 
@@ -403,3 +411,19 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
 <?php }
 ?>
 </form>
+
+<!-- PAGE SCRIPTS -->
+<script type="text/javascript">
+/* <![CDATA[ */
+
+  $$('.revertPageToLastStateBox').addEvents({
+    'mouseenter': function(){
+      this.tween('margin-top','-40px');
+    },
+    'mouseleave': function(){
+      this.tween('margin-top','-10px');
+    }
+  });
+
+/* ]]> */
+</script>

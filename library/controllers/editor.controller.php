@@ -27,9 +27,30 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 $page	= $_GET['page'];
 $category = $_GET['category'];
 
+// REVERT to a PREVIOUS STATE
+// -----------------------------------------------------------------------------
+if(isBlocked() === false && $_GET['status'] == 'revertToPreviousState') {
+  $categoryFolder = ($category == 0) ? '' : $category.'/';
+
+  GeneralFunctions::dump(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previous.php');
+
+  if(file_exists(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previous.php')) {
+    // rename the previous to a temp name
+    rename(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previous.php', dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previousTmp.php');
+    // rename the current state to ..previous.php
+    copy(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.php', dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previous.php');
+    // rename the previous to the current page
+    if(rename(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previousTmp.php', dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.php')) {
+      $messagePopUp .= '<div class="alert alert-info">Revert to the last State</div>';
+      GeneralFunctions::removeStoredPage($page);
+    }
+  }
+}
+
+
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
-if($_POST['save'] && isBlocked() === false) {
+if(isBlocked() === false && $_POST['save']) {
 
   // vars
   $page	= $_POST['id'];
@@ -66,10 +87,15 @@ if($_POST['save'] && isBlocked() === false) {
   // *** SAVE PAGE ----------------------
   } else {
 
-    // if flatfile exists, load $pageContent array
-    // (necessary for: thumbnail, sortOrder and logs)
-    if(!$pageContent = GeneralFunctions::readPage($page,$category))
+    // if flatfile exists, load the existing $pageContent array
+    if(!$pageContent = GeneralFunctions::readPage($page,$category)) {
       $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['basePath']);
+
+    // create a BACKUP of the PREVIOUS STATE
+    } else {
+      $categoryFolder = ($category == 0) ? '' : $category.'/';
+      copy(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.php', dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previous.php');
+    }
 
     $logText = ($_POST['status'] == 'addLanguage')
       ? 33

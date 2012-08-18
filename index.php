@@ -81,15 +81,13 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     var feindura_pages = [
       ['-',''],
 <?php
-      if(isset($_GET['page'])) {
-        $getPages = GeneralFunctions::loadPages(true);
+      if(isset($_GET['page']) && is_array($pagesMetaData)) {
         $transportPages = '';
-        foreach($getPages as $getPage) {
-          $categoryText = ($getPage['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$getPage['category']],'name').' » ' : '';
-          $transportPages .= "      ['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($getPage,'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
+        foreach($pagesMetaData as $pageMetaData) {
+          $categoryText = ($pageMetaData['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$pageMetaData['category']],'name').' » ' : '';
+          $transportPages .= "      ['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($pageMetaData,'title'))."','?feinduraPageID=".$pageMetaData['id']."'],\n";
         }
         echo trim($transportPages,",\n")."\n";
-        unset($getPages,$getPage);
       } ?>
     ];
 
@@ -316,7 +314,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
         <div class="btn-group headerCornerButtons">
           <?php if(GeneralFunctions::hasPermission('frontendEditing')) { ?>
-          <a href="<?php echo $adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']); ?>"  tabindex="2" class="btn btn-large frontend toolTipBottom" title="<?php echo $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']; ?>"><img src="library/images/buttons/subMenu_editPage.png"></a>
+          <a href="<?php echo $adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']); ?>"  tabindex="2" class="btn btn-large frontend toolTipBottom" title="<?php echo $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']; ?>"><img src="library/images/buttons/subMenu_frontendEditing.png"></a>
           <?php } ?>
           <a href="index.php?logout" tabindex="1" class="btn btn-large logout toolTipBottom" title="::<?php echo $langFile['HEADER_BUTTON_LOGOUT']; ?>">&#215;</a>
         </div>
@@ -506,7 +504,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
                   <?php } ?>
 
-                  <li><a <?php echo 'href="'.$adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']).'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'"'; ?> tabindex="30" class="editPage toolTipBottom"></a></li>
+                  <li><a <?php echo 'href="'.$adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']).'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'"'; ?> tabindex="30" class="frontendEditing toolTipBottom"></a></li>
 
                 <?php $showSpacer = true;
                 }
@@ -574,6 +572,13 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
               </menu>
               <?php } ?>
 
+              <?php if(!empty($_GET['page']) && empty($_GET['site'])) { ?>
+
+              <menu id="subMenuSubmit" class="horizontal right" style="display:none;">
+                <li><a href="#" class="submit" onclick="$('editorForm').submit(); return false;"></a></li>
+              </menu>
+
+              <?php } ?>
             </div>
           <?php }
 

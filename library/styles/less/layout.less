@@ -367,7 +367,7 @@ header.main {
     .subMenu {
         z-index: 7;
         position: absolute;
-        max-width: 800px;
+        max-width: 810px;
         top: -8px;
         left: 10px;
         padding-top: 1px;
@@ -379,7 +379,7 @@ header.main {
             display: inline-block;
             float: left;
             height: 40px;
-            padding: 0 8px;
+            padding: 0 3px;
             padding-top: 7px;
             margin: 0;
             margin-right: 10px;
@@ -395,6 +395,10 @@ header.main {
             #shadow > .drop(0, 1px, 10px, 0.35);
             #border > .rounded(8px);
             #PIE;
+
+            &.right {
+                float: right;
+            }
         }
 
         // submenu selection
@@ -434,7 +438,7 @@ header.main {
             display: block;
             margin: 0 2px;
             padding: 0;
-            width: 41px;
+            width: 42px !important;
             height: 40px;
         }
         a:hover,
@@ -451,8 +455,8 @@ header.main {
         a.deletePage {
             background: url("../images/buttons/subMenu_deletePage.png") no-repeat;
         }
-        a.editPage {
-            background: url("../images/buttons/subMenu_editPage.png") no-repeat;
+        a.frontendEditing {
+            background: url("../images/buttons/subMenu_frontendEditing.png") no-repeat;
         }
         a.uploadPageThumbnail {
             background: url("../images/buttons/subMenu_uploadThumb.png") no-repeat;
@@ -471,6 +475,9 @@ header.main {
         }
         a.createCategory {
             background: url("../images/buttons/subMenu_createCategory.png") no-repeat;
+        }
+        a.submit {
+            background: url("../images/buttons/subMenu_submit.png") no-repeat;
         }
     }
 }

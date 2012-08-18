@@ -147,18 +147,16 @@ if($post['send'] == 'true') {
         ?>
       </ul>
       <?php
-      $pages = GeneralFunctions::loadPages(true);
-
-      if(!empty($pages) && is_array($pages)) {
+      if(!empty($pagesMetaData) && is_array($pagesMetaData)) {
       ?>
       <div class="spacer"></div>
       <ul class="jsMultipleSelect" data-jsMultipleSelect="editables" data-name="editablePages" data-type="remove">
         <li class="filter"><input type="text" placeholder="<?php echo $langFile['SORTABLEPAGELIST_headText1']; ?>"></li>
         <?php
-          foreach ($pages as $page) {
-            if($page['category'] != 0)
-              $category = '<strong>'.GeneralFunctions::getLocalized($categoryConfig[$page['category']],'name').'</strong> » ';
-            echo '<li class="jsMultipleSelectOption btn" data-value="'.$page['id'].'"><img src="library/images/icons/pageIcon_small.png" alt="page icon">'.$category.GeneralFunctions::getLocalized($page,'title').'</li>';
+          foreach ($pagesMetaData as $pageMetaData) {
+            if($pageMetaData['category'] != 0)
+              $category = '<strong>'.GeneralFunctions::getLocalized($categoryConfig[$pageMetaData['category']],'name').'</strong> » ';
+            echo '<li class="jsMultipleSelectOption btn" data-value="'.$pageMetaData['id'].'"><img src="library/images/icons/pageIcon_small.png" alt="page icon">'.$category.GeneralFunctions::getLocalized($pageMetaData,'title').'</li>';
           }
         ?>
       </ul>

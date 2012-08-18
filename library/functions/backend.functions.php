@@ -1593,7 +1593,7 @@ function saveFeeds($category) {
     if(is_file($atomFileName)) unlink($atomFileName);
     if(is_file($rss2FileName)) unlink($rss2FileName);
 
-    $feedsPages = GeneralFunctions::loadPages($category,true);
+    $feedsPages = GeneralFunctions::loadPages($category);
     $channelTitle = ($category == 0)
       ? GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'title',$langCode)
       : GeneralFunctions::getLocalized($GLOBALS['categoryConfig'][$category],'name',$langCode).' - '.GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'title',$langCode);
@@ -1972,7 +1972,7 @@ function showPageDate($pageContent) {
     // CHECKs the DATE FORMAT
     $return = (GeneralFunctions::formatDate(validateDateString($pageContent['pageDate']['date'])) === false)
     ? '[br][strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong] '.$titleDateBefore.'[span style=color:#950300]'.$GLOBALS['langFile']['EDITOR_pageSettings_pagedate_error'].'[/span]'.$titleDateAfter
-    : '[br][strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong] '.$titleDateBefore.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$GLOBALS['langFile'])).$titleDateAfter;
+    : '[br][strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong] '.$titleDateBefore.GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$GLOBALS['langFile']).$titleDateAfter;
   }
   return $return;
 }
