@@ -47,7 +47,7 @@ div.rteHide {
 
 .breadCrumbs {
     position: relative;
-    margin: 10px 0;
+    margin: 10px;
 
     a {
         position: relative;
@@ -115,13 +115,28 @@ div.rteHide {
 .revertPageToLastStateBox {
     z-index: 1;
     position: absolute;
-    right: 15px;
-    margin-top: -10px;
     display: inline-block;
+    right: 5px;
+    margin-top: -20px;
     padding: 10px;
-    background-color: #333;
-    #border > .rounded(@borderRadiusMedium);
-    #shadow > .drop(0,0,10px,0.3);
+
+    > div {
+        padding: 10px;
+        background-color: #333;
+        #border > .rounded(@borderRadiusMedium);
+        #shadow > .drop(0,0,10px,0.3);
+    }
+
+    a.btn {
+        line-height: 25px;
+        padding-left: 30px;
+
+        i.revertState {
+            position: absolute;
+            top: 23px;
+            left: 22px;
+        }
+    }
 }
 
 #leftSidebar {

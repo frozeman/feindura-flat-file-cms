@@ -39,7 +39,7 @@ function showDocumentSaved() {
 }
 
 // create loading circle container
-var jsLoadingCircleContainer = new Element('div', {'style': 'position: relative;margin: auto;width: 100%;height: 100%;'});
+var jsLoadingCircleContainer = new Element('div', {'style': 'position: relative;top:4px;margin: auto;width: 100%;height: 100%;'});
 var removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
 
 // ->> LOADING CIRCLE FUNCTIONS

@@ -204,7 +204,7 @@ function removeChecked(selector) {
 
 // -------------------------------------------------
 // RESIZE ELEMENTS ON HOVER
-function resizeElementsOnHover() {
+function resizeOnHover() {
 
   // vars
   var startSize = 100;
@@ -217,8 +217,9 @@ function resizeElementsOnHover() {
 
     var parentBox = element.getParents('div.box');
     if(typeOf(parentBox[0]) !== 'null') {
-      parentBox[0].grab(new Element('div',{'class':'spacer arrow'}));
-      parentBox[0].addEvents({
+      var arrow = new Element('div',{'class':'spacer arrow'});
+      parentBox[0].grab(arrow);
+      arrow.addEvents({
         'mouseenter': function(){
           element.tween('height',orgSize);
         },
@@ -448,7 +449,6 @@ function sidebarMenu() {
     // -> sets the RESIZE-TWEEN to the sideBarMenu
     sideBarMenu.set('tween', {duration: '650', transition: Fx.Transitions.Pow.easeOut});
 
-    
   });
 }
 
@@ -568,7 +568,7 @@ window.addEvent('domready', function() {
   new jsMultipleSelect();
 
   // slide out elements on hover
-  resizeElementsOnHover();
+  resizeOnHover();
 
   // STORES all pages LI ELEMENTS
   listPagesBars = $$('div.block.listPagesBlock li');
@@ -614,7 +614,7 @@ window.addEvent('domready', function() {
   });
 
   // ADD .active to links which get clicked
-  $$('#rightSidebar a').addEvent('click',function(){
+  $$('#rightSidebar .menuWrapper a').addEvent('click',function(){
     if(this.hasClass('btn'))
       return;
     $$('#rightSidebar a').removeClass('active');
@@ -662,7 +662,7 @@ window.addEvent('domready', function() {
             feindura_storeTipTexts('#currentVisitorsSideBar .toolTipLeft, #currentVisitorsSideBar .toolTipRight');
             toolTipsLeft.attach('#currentVisitorsSideBar .toolTipLeft');
             toolTipsRight.attach('#currentVisitorsSideBar .toolTipRight');
-            resizeElementsOnHover();
+            resizeOnHover();
           } else
             $('currentVisitorsSideBar').empty();
         }
@@ -1339,8 +1339,6 @@ window.addEvent('domready', function() {
     var editorToHeight      = (window.getSize().y * 0.60 > 420) ? window.getSize().y * 0.60 : 420;
     var editorHasFocus      = false;
     var editorIsClicked     = false;
-    var editorSubmited      = false;
-    var editorSubmitHeight  = $('HTMLEditorSubmit').getSize().y;
 
     // ------------------------------
     // CONFIG the HTMlEditor
@@ -1448,7 +1446,7 @@ window.addEvent('domready', function() {
         $$('div.editor #cke_HTMLEditor').addEvent('click',function(e){
           // clearTimeout(editorTweenTimeout);
 
-          if(!editorHasFocus && !editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20))
+          if(!editorHasFocus && ckeditorContent.getHeight() <= (editorStartHeight+20))
             HTMLEditor.resize(798,editorToHeight + 100);
 
           if(!editorHasFocus && typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') === 'none') {
@@ -1460,26 +1458,18 @@ window.addEvent('domready', function() {
           }
 
           // scroll to editor
-          // if($('editorAnchor') !== 'null')
-          //   windowScroll.toElement($('editorAnchor'));
+          if($('editorAnchor') !== 'null')
+            windowScroll.toElement($('editorAnchor'));
 
           editorHasFocus = true;
         });
-        // $$('div.editor #cke_HTMLEditor').addEvent('mouseenter',function(e){
-        //   if(!editorIsClicked && !editorSubmited && !editorHasFocus && ckeditorContent.getHeight() <= (editorStartHeight+20))
-        //     editorTweenTimeout = (function(){ckeditorContent.tween('height',editorToHeight);}).delay(1000);
-        // });
-        // $$('div.editor #cke_HTMLEditor').addEvent('mouseleave',function(e){
-        //   clearTimeout(editorTweenTimeout);
-        //   if(!editorIsClicked && !editorSubmited && !editorHasFocus && ckeditorContent.getHeight() <= (editorToHeight+5) && ckeditorContent.getHeight() >= (editorToHeight-5))
-        //     ckeditorContent.tween('height',editorStartHeight);
-        //     //editorIsClicked = false;
-        // });
 
-        HTMLEditor.on('focus',function() {
+        HTMLEditor.on('focus',function(e) {
           // clearTimeout(editorTweenTimeout);
+          if(editorHasFocus)
+            return;
 
-          if(!editorHasFocus && !editorSubmited && ckeditorContent.getHeight() <= (editorStartHeight+20)) {
+          if(!editorHasFocus && ckeditorContent.getHeight() <= (editorStartHeight+20)) {
             HTMLEditor.resize(798,editorToHeight + 100);
           }
 
@@ -1496,10 +1486,6 @@ window.addEvent('domready', function() {
             windowScroll.toElement($('editorAnchor'));
 
           editorHasFocus = true;
-        });
-
-        $('HTMLEditorSubmit').addEvent('mousedown',function(e) {
-          editorSubmited = true;
         });
       });
     }

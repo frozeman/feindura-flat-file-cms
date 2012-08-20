@@ -990,6 +990,7 @@ class GeneralFunctions {
     // ->> ELSE load the page and store it in the storePages PROPERTY
     } else {
 
+      // add the previous name when reading the previous state
       $previous = ($readPrevious) ? '.previous' : '';
 
       // adds .php to the end if its missing
@@ -1008,7 +1009,7 @@ class GeneralFunctions {
       //echo 'CATEGORY: '.$category.'<br>';
 
       // ->> INCLUDE
-      if($fp = @fopen(dirname(__FILE__).'/../../pages/'.$category.$page,'r')) {
+      if($fp = @fopen(dirname(__FILE__).'/../../pages/'.$category.$page,'rb')) {
         flock($fp,LOCK_SH);
         $pageContent = @include(dirname(__FILE__).'/../../pages/'.$category.$page);
         flock($fp,LOCK_UN);
@@ -1017,6 +1018,7 @@ class GeneralFunctions {
 
       // return content array
       if(is_array($pageContent)) {
+
         // UNESCPAE the SINGLE QUOTES '
         if(is_array($pageContent['localized'])) {
           foreach ($pageContent['localized'] as $key => $value)
@@ -1055,6 +1057,7 @@ class GeneralFunctions {
   *    - <var>"\n?>"</var> the php end tag
   *
   * @param array        $pageContent       the $pageContent array of the page to save
+  * @param bool         $readPrevious      (optional) if TRUE it will save the given $pageContent as a previous state of the page
   *
   * @uses $adminConfig      for the save path of the flatfiles
   * @uses addStoredPage()  to store the saved file agiain, and overwrite th old stored page
@@ -1074,7 +1077,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function savePage($pageContent) {
+  public static function savePage($pageContent,$savePrevious = false) {
 
     // check if array is pageContent array
     if(!self::isPageContentArray($pageContent))
@@ -1093,8 +1096,11 @@ class GeneralFunctions {
 
     // get path
     $filePath = ($categoryId === false || $categoryId == 0)
-    ? dirname(__FILE__).'/../../pages/'.$pageId.'.php'
-    : dirname(__FILE__).'/../../pages/'.$categoryId.'/'.$pageId.'.php';
+    ? dirname(__FILE__).'/../../pages/'.$pageId
+    : dirname(__FILE__).'/../../pages/'.$categoryId.'/'.$pageId;
+
+    // previous or current state
+    $filePath .= ($savePrevious) ? '.previous.php' : '.php';
 
     // escape \ and '
     $pageContent = XssFilter::escapeBasics($pageContent);
@@ -1174,14 +1180,17 @@ class GeneralFunctions {
 
       @chmod($filePath,self::$adminConfig['permissions']);
 
-      // writes the new saved page to the $storedPages property
-      self::removeStoredPage($pageContent['id']); // remove the old one
-      unset($pageContent);
-      $pageContent = include($filePath);
-      self::addStoredPage($pageContent);
+      // only when current, reload the storedPages array and pagesMetaData
+      if(!$savePrevious) {
+        // writes the new saved page to the $storedPages property
+        self::removeStoredPage($pageContent['id']); // remove the old one
+        unset($pageContent);
+        $pageContent = include($filePath);
+        self::addStoredPage($pageContent);
 
-      // reload the $pagesMetaData array
-      self::savePagesMetaData();
+        // reload the $pagesMetaData array
+        self::savePagesMetaData();
+      }
 
       return true;
     } else
@@ -2269,7 +2278,7 @@ class GeneralFunctions {
   */
   public static function cleanPluginPlaceholders($content) {
     // remove the src attribute
-    $content = preg_replace('#src\=\"((?:(?!").)*library\/thirdparty\/ckeditor\/plugins\/feinduraSnippets\/snippetFill\.gif?)\"#i', 'src="#"', $content);
+    $content = preg_replace('#src\=\"((?:(?!").)*library\/thirdparty\/ckeditor\/plugins\/feinduraSnippets\/snippetFill\.gif?)\"#i', 'src="noImage.png"', $content);
 
     // add the draggable=true back again
     if(strpos($content, 'class="feinduraPlugin" draggable="true"') === false)

@@ -30,20 +30,21 @@ $category = $_GET['category'];
 // REVERT to a PREVIOUS STATE
 // -----------------------------------------------------------------------------
 if(isBlocked() === false && $_GET['status'] == 'revertToPreviousState') {
+
+  // vars
   $categoryFolder = ($category == 0) ? '' : $category.'/';
 
-  GeneralFunctions::dump(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previous.php');
-
   if(file_exists(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previous.php')) {
-    // rename the previous to a temp name
-    rename(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previous.php', dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previousTmp.php');
-    // rename the current state to ..previous.php
-    copy(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.php', dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previous.php');
-    // rename the previous to the current page
-    if(rename(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previousTmp.php', dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.php')) {
-      $messagePopUp .= '<div class="alert alert-info">Revert to the last State</div>';
-      GeneralFunctions::removeStoredPage($page);
+
+    $currentState = GeneralFunctions::readPage($page,$category);
+    if(($previousState = GeneralFunctions::readPage($page,$category,true)) !== false) {
+
+      GeneralFunctions::savePage($previousState);
+      GeneralFunctions::savePage($currentState,true);
+
+      $messagePopUp .= '<div class="alert alert-info">'.sprintf($langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousState['lastSaveDate']).' '.formatTime($previousState['lastSaveDate'])).'</div>';
     }
+    unset($currentState,$previousState);
   }
 }
 
@@ -230,8 +231,10 @@ if(isBlocked() === false && $_POST['save']) {
 
 
 // -> LOAD PAGE
-if($pageContent = GeneralFunctions::readPage($page,$category))
+if($pageContent = GeneralFunctions::readPage($page,$category)) {
   $newPage = false;
+  $previousStatePageContent = GeneralFunctions::readPage($pageContent['id'],$pageContent['category'],true);
+}
 // otherwise offer NEW PAGE
 else
   $newPage = true;
@@ -246,7 +249,7 @@ if($newPage) {
 $activatedPlugins = unserialize($categoryConfig[$category]['plugins']);
 
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file
-if(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) && isBlocked() === false) {
+if(!empty($pageContent['thumbnail']) && isBlocked() === false && !file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) {
   $pageContent['thumbnail'] = '';
   GeneralFunctions::savePage($pageContent);
 }

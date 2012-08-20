@@ -214,6 +214,6 @@ if(GeneralFunctions::hasPermission('fileManager')) {
       include(dirname(__FILE__).'/pageMetaData.include.php');
 
     ?>
-    <input type="submit" value="" id="HTMLEditorSubmit" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','pageSettings');">
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','pageSettings');">
   </div>
 </div>

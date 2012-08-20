@@ -24,7 +24,7 @@
 
 ?>
 
-<div class="box">
+<div class="box" id="selectPluginsBox">
   <h1 class="toolTipTop" title="::<?php echo sprintf($langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR'],'[i class=\'icons codeSnippets\'][/i]'); ?>"><img src="library/images/icons/pluginsIcon_middle.png" alt="icon" style="position:relative; top:-2px; margin-right:0px;"><?php echo $langFile['EDITOR_pluginSettings_h1']; ?></h1>
   <ul class="jsMultipleSelect resizeOnHover" data-jsMultipleSelect="plugins" data-name="newPlugins" data-type="duplicates">
     <li class="filter"><input type="text" placeholder="<?php echo $langFile['SORTABLEPAGELIST_headText1']; ?>"></li>
@@ -168,6 +168,10 @@
 
         // ADD PLUGIN to the EDITOR
         HTMLEditor.insertHtml(clone.retrieve('pluginPlaceholder').getString());
+
+        // fix the WEBKIT BUG, when selecting, that it scrolls
+        if(Browser.chrome || Browser.safari)
+          new Fx.Scroll(window.document,{duration:0}).toElement($('selectPluginsBox'));
       });
 
       // REMOVE

@@ -98,7 +98,7 @@ echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['p
         <input type="hidden" name="id" value="'.$_GET['page'].'">
         <input type="hidden" name="websiteLanguage" value="'.$_SESSION['feinduraSession']['websiteLanguage'].'">
         <input type="hidden" name="status" value="'.$_GET['status'].'">
-        <input type="hidden" name="savedBlock" id="savedBlock" value="">
+        <input type="hidden" name="savedBlock" id="savedBlock" value="editor">
       </div>';
 ?>
 
@@ -318,17 +318,14 @@ if(!$newPage) {
 if(!$newPage) {
 
   // show the PREVIOUS STATE of the PAGE button
-  $categoryFolder = ($pageContent['category'] == 0) ? '' : $pageContent['category'].'/';
-  if(file_exists(dirname(__FILE__).'/../../pages/'.$categoryFolder.$pageContent['id'].'.previous.php')) {
-    $previousPageContent = GeneralFunctions::readPage($pageContent['id'],$pageContent['category'],true);
-    echo '<div class="revertPageToLastStateBox"><a href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=revertToPreviousState&amp;reload='.rand(0,999).'#editorAnchor" class="btn btn-inverse">Made a mistake? Go back to the last Page Version von '.GeneralFunctions::dateDayBeforeAfter($previousPageContent['lastSaveDate']).' '.formatTime($previousPageContent['lastSaveDate']).'</a></div>';
-    unset($previousPageContent);
+  if($previousStatePageContent) {
+    $showPreviousStateBlock = ($savedForm) ? ' style="margin-top:-55px;"':'';
+    echo '<div class="revertPageToLastStateBox"'.$showPreviousStateBlock.'><div><a href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=revertToPreviousState&amp;reload='.rand(0,999).'#editorAnchor" class="btn btn-inverse"><i class="icons revertState"></i>'.sprintf($langFile['EDITOR_BUTTON_RESTORELASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousStatePageContent['lastSaveDate']).' '.formatTime($previousStatePageContent['lastSaveDate'])).'</a></div></div>';
   }
 
   // INCLUDE the EDITOR
   include_once(dirname(__FILE__).'/../includes/editor.include.php');
 }
-
 
 if($newPage) {
 ?>
@@ -418,10 +415,10 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
 
   $$('.revertPageToLastStateBox').addEvents({
     'mouseenter': function(){
-      this.tween('margin-top','-40px');
+      this.tween('margin-top','-55px');
     },
     'mouseleave': function(){
-      this.tween('margin-top','-10px');
+      this.tween('margin-top','-20px');
     }
   });
 

@@ -138,8 +138,8 @@ $langFile['STATISTICS_TITLE_PAGESTATISTICS']                              = 'Sei
 
 $langFile['STATISTICS_TEXT_VISITTIME_MAX']                                = 'Längste Verweildauer';
 $langFile['STATISTICS_TEXT_VISITTIME_MIN']                                = 'Kürzeste Verweildauer';
-$langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'Erster Besuch';
-$langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'Letzter Besuch';
+$langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'von';
+$langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'bis';
 $langFile['STATISTICS_TEXT_NOVISIT']                                      = 'Es hat noch niemand diese Seite besucht.';
 $langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = '<span class="toolTipTop" title="::Die von
 Google, Yahoo oder Bing (MSN) auf diese Seite geführt haben">Suchworte</span>';
@@ -692,7 +692,7 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']                = 'Aus
 // ---------- page info
 $langFile['EDITOR_TITLE_CREATEPAGE']                                      = 'Neue Seite erstellen';
 $langFile['EDITOR_TITLE_ADDLANGUAGE']                                     = 'Sprache &quot;%s&quot; zur Seite hinzufügen';
-$langFile['EDITOR_pageinfo_lastsavedate']                                 = 'zuletzt bearbeitet am';
+$langFile['EDITOR_pageinfo_lastsavedate']                                 = 'zuletzt bearbeitet';
 $langFile['EDITOR_pageinfo_lastsaveauthor']                               = 'von';
 $langFile['EDITOR_pageinfo_linktothispage']                               = 'Link zu dieser Seite';
 $langFile['EDITOR_pageinfo_id']                                           = 'Seiten ID';
@@ -733,6 +733,8 @@ $langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'Die
 $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Unterkategorie';
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Erlaubt, in der Webseite, das erstellen eines Untermenüs für diese Seite.';
 
+$langFile['EDITOR_BUTTON_RESTORELASTSTATE']                              = 'Version von %s wiederherstellen';
+$langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE']                           = 'Version von %s wiederhergestellt.';
 
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'Seitenspezifische HTML-Editor-Einstellungen';

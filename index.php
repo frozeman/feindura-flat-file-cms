@@ -29,6 +29,7 @@ require_once(dirname(__FILE__)."/library/includes/secure.include.php");
  */
 require_once(dirname(__FILE__)."/library/controller.loader.php");
 
+
 // VARs
 // -----------------------------------------------------------------------------------
 // store the current location, this will be used when the user comes back from the frontend
@@ -220,7 +221,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
         },
         //complete
         onComplete: function () {
-          window.location = 'index.php?logout';
+          window.location.href = 'index.php?logout';
         }
       })
       <?php } ?>
@@ -244,8 +245,8 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       <div class="menuBlock">
 
         <div class="languageSelection">
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','de'); ?>" tabindex="20" class="de toolTipBottom" title="Deutsch::"></a>
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','en'); ?>" tabindex="21" class="en toolTipBottom" title="English::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','en'); ?>" tabindex="20" class="en toolTipBottom" title="English::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','de'); ?>" tabindex="21" class="de toolTipBottom" title="Deutsch::"></a>
           <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','fr'); ?>" tabindex="22" class="fr toolTipBottom" title="français::"></a>
           <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','it'); ?>" tabindex="23" class="it toolTipBottom" title="italiano::"></a>
           <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','ru'); ?>" tabindex="24" class="ru toolTipBottom" title="русский::"></a>
@@ -364,6 +365,9 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       // -> CHECK for deletePageThumbnail
       $showPageThumbnailDelete = (empty($_GET['site']) && !empty($pageContent['thumbnail'])) ? true : false;
 
+      // -> CHECK for restore page (if and old state exists)
+      $showRestorePage = ($previousStatePageContent) ? true : false;
+
       // -> CHECK if show SUBMENU
       $showSubMenu = (($showPageThumbnailUpload || $showCreatePage || $showPageThumbnailUpload || GeneralFunctions::hasPermission('fileManager') || $showDeletePage)) ? true : false;
 
@@ -471,6 +475,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
               <?php if($showFrontendEditing ||
                        $showDeletePage ||
+                       $showRestorePage ||
                        $showPageThumbnailUpload ||
                        $showPageThumbnailDelete ||
                        ($websiteConfig['multiLanguageWebsite']['active'] && $isInPageEditor) ||
@@ -518,8 +523,21 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
                   <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_DELETEPAGE'].'::'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'"'; ?> tabindex="32" class="deletePage toolTipBottom"></a></li>
 
-                <?php $showSpacer = true;
+                <?php $showSpacer = false;
                 }
+
+                // RESTORE PAGE
+                if($showRestorePage) {
+                  if($showSpacer) { ?>
+
+                  <li class="spacer"></li>
+
+                  <?php } ?>
+
+                  <li><a <?php echo 'href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=revertToPreviousState&amp;reload='.rand(0,999).'" title="::'.sprintf($langFile['EDITOR_BUTTON_RESTORELASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousStatePageContent['lastSaveDate']).' '.formatTime($previousStatePageContent['lastSaveDate'])).'"'; ?> tabindex="33" class="restorePage toolTipBottom"></a></li>
+
+                <?php
+                } if($showDeletePage || $showRestorePage) $showSpacer = true;
 
                 // PAGETHUMBNAILUPLOAD
                 if($showPageThumbnailUpload) {
@@ -529,13 +547,13 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
                   <?php } ?>
 
-                  <li><a <?php echo 'href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'"'; ?> tabindex="33" class="uploadPageThumbnail toolTipBottom"></a></li>
+                  <li><a <?php echo 'href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'"'; ?> tabindex="34" class="uploadPageThumbnail toolTipBottom"></a></li>
 
                 <?php
                 // PAGETHUMBNAILDELETE
                 if($showPageThumbnailDelete) { ?>
 
-                  <li><a <?php echo 'href="?site=deletePageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_THUMBNAIL_DELETE'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'"'; ?> tabindex="34" class="deletePageThumbnail toolTipBottom"></a></li>
+                  <li><a <?php echo 'href="?site=deletePageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_THUMBNAIL_DELETE'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'"'; ?> tabindex="35" class="deletePageThumbnail toolTipBottom"></a></li>
 
                 <?php }
                 $showSpacer = true;
@@ -553,7 +571,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                     <?php }
                     if($missingLanguages) { ?>
 
-                    <li><a <?php echo 'href="?site=addPageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/addPageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_ADD'].'\');return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_ADD'].'::'.$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD'].'"'; ?> tabindex="35" class="addPageLanguage toolTipBottom"></a></li>
+                    <li><a <?php echo 'href="?site=addPageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/addPageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_ADD'].'\');return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_ADD'].'::'.$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD'].'"'; ?> tabindex="36" class="addPageLanguage toolTipBottom"></a></li>
 
                   <?php
                   }
@@ -561,7 +579,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                   if(isset($_GET['page']) && !isset($pageContent['localized'][0]) && isset($pageContent['localized'][$_SESSION['feinduraSession']['websiteLanguage']])) { ?>
 
                     <!-- <li class="spacer"></li> -->
-                    <li><a <?php echo 'href="?site=deletePageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'\');return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'::'.sprintf($langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE'],'[strong]'.$languageNames[$_SESSION['feinduraSession']['websiteLanguage']].'[/strong]').'"'; ?> tabindex="36" class="removePageLanguage toolTipBottom"></a></li>
+                    <li><a <?php echo 'href="?site=deletePageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'\');return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'::'.sprintf($langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE'],'[strong]'.$languageNames[$_SESSION['feinduraSession']['websiteLanguage']].'[/strong]').'"'; ?> tabindex="37" class="removePageLanguage toolTipBottom"></a></li>
 
                   <?php }
                   $showSpacer = true;

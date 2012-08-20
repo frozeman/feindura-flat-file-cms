@@ -134,8 +134,8 @@ $langFile['STATISTICS_TITLE_PAGESTATISTICS']                              = 'sta
 
 $langFile['STATISTICS_TEXT_VISITTIME_MAX']                                = 'temps de visite le plus longs';
 $langFile['STATISTICS_TEXT_VISITTIME_MIN']                                = 'temps de visite le plus court';
-$langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'première visite';
-$langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'dernière visite';
+$langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'de';
+$langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'à';
 $langFile['STATISTICS_TEXT_NOVISIT']                                      = 'Personne a visité ce site web.';
 $langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = '<span class="toolTipTop" title="::Qui ont mèné
 Google, Yahoo ou Bing (MSN) sur ce site web">Mot de recherche</span>';
@@ -700,6 +700,9 @@ $langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'Ce 
 
 $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Sous-catégorie';
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Permet de créer un sous-menu pour cette page sur le site.';
+
+$langFile['EDITOR_BUTTON_RESTORELASTSTATE']                              = 'Restaurer la version de %s';
+$langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE']                           = 'Version de %s restaurée.';
 
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'paramètres spécifique de la page de l&#145;éditor HTML';

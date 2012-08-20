@@ -210,13 +210,13 @@ header.main {
             background-position: 0px -21px !important;
         }
 
-        a.de {
-            left: 0px;
-            background: url("../images/buttons/langSelection_de.png") no-repeat;
-        }
         a.en {
-            left: 30px;
+            left: 0px;
             background: url("../images/buttons/langSelection_en.png") no-repeat;
+        }
+        a.de {
+            left: 30px;
+            background: url("../images/buttons/langSelection_de.png") no-repeat;
         }
         a.fr {
             left: 60px;
@@ -417,7 +417,7 @@ header.main {
 
         li {
             height: 40px;
-            margin: 0 4px;
+            margin: 0 2px;
 
             &:hover {
                 background-color: rgba(0,0,0,0.1);
@@ -429,14 +429,14 @@ header.main {
             top: 0;
             width: 6px;
             height: 40px;
-            margin: 0 -4px;
+            margin: 0 -2px;
             background: url("../images/buttons/subMenu_spacer.png") no-repeat center center;
         }
 
         // submenu buttons
         li a {
             display: block;
-            margin: 0 2px;
+            margin: 0;
             padding: 0;
             width: 42px !important;
             height: 40px;
@@ -478,6 +478,9 @@ header.main {
         }
         a.submit {
             background: url("../images/buttons/subMenu_submit.png") no-repeat;
+        }
+        a.restorePage {
+            background: url("../images/buttons/subMenu_restorePage.png") no-repeat;
         }
     }
 }

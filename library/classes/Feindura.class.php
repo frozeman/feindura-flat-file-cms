@@ -1632,7 +1632,7 @@ class Feindura extends FeinduraBase {
 
     // -> STOREs the LINKs in an Array
     $links = array();
-    if($pages !== false) {
+    if(!empty($pages)) {
       // create a link out of every page in the array
       foreach($pages as $page) {
         // creates the link
@@ -1688,7 +1688,7 @@ class Feindura extends FeinduraBase {
         }
       }
     } else
-      return array(false);
+      return array();
 
     return $this->generateMenu($links,$menuTag,$breakAfter);
   }
@@ -3061,7 +3061,7 @@ class Feindura extends FeinduraBase {
     if($sortByCategories === true)
       $pages = GeneralFunctions::sortPages($pages);
 
-    if($pages !== false) {
+    if(!empty($pages)) {
 
       // -> list a category(ies)
       // ------------------------------

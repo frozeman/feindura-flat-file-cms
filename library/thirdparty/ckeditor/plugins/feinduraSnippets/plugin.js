@@ -83,7 +83,7 @@ CKEDITOR.plugins.add('feinduraSnippets',
 
                 elem = editor.document.createElement('img'); //set inital values for the input.supNote element
                 // elem.setAttribute('src',feindura_basePath.replace(feindura_websitePath,'')+'library/thirdparty/ckeditor/plugins/feinduraSnippets/snippetFill.gif');
-                elem.setAttribute('src','#');
+                elem.setAttribute('src','noImage.png');
                 elem.setAttribute('draggable','true');
                 editor.insertElement(elem);
                 this.snippet = elem;

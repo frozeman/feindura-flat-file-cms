@@ -140,8 +140,8 @@ $langFile['STATISTICS_TITLE_PAGESTATISTICS']                              = 'С�
 
 $langFile['STATISTICS_TEXT_VISITTIME_MAX']                                = 'самые продолжительные визиты';
 $langFile['STATISTICS_TEXT_VISITTIME_MIN']                                = 'самые короткие визиты';
-$langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'первое посещение';
-$langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'последнее посещение';
+$langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'с';
+$langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'до';
 $langFile['STATISTICS_TEXT_NOVISIT']                                      = 'Еще никто не посещал сайт.';
 $langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = '<span class="toolTipTop" title="::По которым приходят из
 Google, Yahoo или Bing (MSN) на сайт.">Ключевые слова</span>';
@@ -740,6 +740,9 @@ $langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'В 
 
 $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'подкатегория';
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Позволяет создавать подменю для этой страницы на сайте.';
+
+$langFile['EDITOR_BUTTON_RESTORELASTSTATE']                              = 'Версия %s восстановление';
+$langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE']                           = 'Версия %s восстановлено.';
 
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'Страница конкретной HTML-редактор Настройка';
