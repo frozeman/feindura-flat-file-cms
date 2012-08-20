@@ -44,6 +44,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
   $newWebsiteConfig['maintenance']                          = $_POST['maintenance'];
   $newWebsiteConfig['setStartPage']                         = $_POST['setStartPage'];
   $newWebsiteConfig['sitemapFiles']                         = $_POST['sitemapFiles'];
+  $newWebsiteConfig['visitorTimezone']                      = $_POST['visitorTimezone'];
   $newWebsiteConfig['multiLanguageWebsite']['active']       = $_POST['multiLanguageWebsite'];
   $newWebsiteConfig['multiLanguageWebsite']['mainLanguage'] = $_POST['websiteMainLanguage'];
   $newWebsiteConfig['multiLanguageWebsite']['languages']    = $_POST['websiteLanguages'];

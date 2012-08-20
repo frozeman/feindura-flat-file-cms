@@ -320,7 +320,7 @@ if(!$newPage) {
   // show the PREVIOUS STATE of the PAGE button
   if($previousStatePageContent) {
     $showPreviousStateBlock = ($savedForm) ? ' style="margin-top:-55px;"':'';
-    echo '<div class="revertPageToLastStateBox"'.$showPreviousStateBlock.'><div><a href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=revertToPreviousState&amp;reload='.rand(0,999).'#editorAnchor" class="btn btn-inverse"><i class="icons revertState"></i>'.sprintf($langFile['EDITOR_BUTTON_RESTORELASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousStatePageContent['lastSaveDate']).' '.formatTime($previousStatePageContent['lastSaveDate'])).'</a></div></div>';
+    echo '<div class="restorePageButtonBox"'.$showPreviousStateBlock.'><div><a href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=restorePageToLastState&amp;reload='.rand(0,999).'#editorAnchor" class="btn btn-inverse"><i class="icons restorePage"></i>'.sprintf($langFile['EDITOR_BUTTON_RESTORELASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousStatePageContent['lastSaveDate']).' '.formatTime($previousStatePageContent['lastSaveDate'])).'</a></div></div>';
   }
 
   // INCLUDE the EDITOR
@@ -413,7 +413,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
 <script type="text/javascript">
 /* <![CDATA[ */
 
-  $$('.revertPageToLastStateBox').addEvents({
+  $$('.restorePageButtonBox').addEvents({
     'mouseenter': function(){
       this.tween('margin-top','-55px');
     },

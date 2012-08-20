@@ -93,7 +93,7 @@ function showErrorsInWindow($errorCode, $errorText, $errorFile, $errorLine) {
  *    - 1.0 initial release
  *
  */
-function isBlocked($returnBool = false) {
+function isBlocked($returnBool = true) {
 
   if($_GET['site'] == 'dashboard' ||
      $_GET['site'] == 'pages' ||
@@ -1112,6 +1112,8 @@ function saveWebsiteConfig($websiteConfig) {
 
     $fileContent .= "\$websiteConfig['maintenance']                          = ".XssFilter::bool($websiteConfig['maintenance'],true).";\n";
     $fileContent .= "\$websiteConfig['sitemapFiles']                         = ".XssFilter::bool($websiteConfig['sitemapFiles'],true).";\n";
+    $fileContent .= "\$websiteConfig['visitorTimezone']                      = ".XssFilter::bool($websiteConfig['visitorTimezone'],true).";\n\n";
+
     $fileContent .= "\$websiteConfig['setStartPage']                         = ".XssFilter::bool($websiteConfig['setStartPage'],true).";\n";
     $fileContent .= "\$websiteConfig['startPage']                            = ".XssFilter::int($websiteConfig['startPage'],0).";\n\n";
 

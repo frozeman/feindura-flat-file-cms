@@ -132,7 +132,10 @@ if(function_exists('date_default_timezone_set') && !empty($adminConfig['timezone
  */
 // $RECACHE = true;
 // constant UPDATE is defined in the update.php, to prevent caching
-if(!defined('FEINDURA_UPDATE') && $adminConfig['cache']['active'] && !$_SESSION['feinduraSession']['login']['loggedIn']) {
+if(!defined('FEINDURA_UPDATE') &&
+   $adminConfig['cache']['active'] &&
+   !$_SESSION['feinduraSession']['login']['loggedIn'] &&
+   !isset($_GET['localTimezone'])) { // don't cache if its requesting the visitors timezone
   require_once(dirname(__FILE__)."/../thirdparty/PHP/ACcache.php");
   // create cache folder
   if(!is_dir(dirname(__FILE__).'/../../pages/cache/')) {

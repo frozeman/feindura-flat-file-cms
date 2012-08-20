@@ -138,6 +138,15 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
 
     <div class="row">
       <div class="span3 formLeft">
+        <input type="checkbox" id="visitorTimezone" name="visitorTimezone" value="true" class="toolTipLeft" title="::<?php echo $langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']; ?>"<?php if($websiteConfig['visitorTimezone']) echo ' checked="checked"'; ?>>
+      </div>
+      <div class="span5">
+        <label for="visitorTimezone"><span class="toolTipRight" title="::<?php echo $langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']; ?>"><?php echo $langFile['WEBSITESETUP_TEXT_VISITORTIMEZONE']; ?></span></label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span3 formLeft">
         <input type="checkbox" id="multiLanguageWebsite" name="multiLanguageWebsite" value="true" <?php if($websiteConfig['multiLanguageWebsite']['active']) echo ' checked="checked"'; ?>>
       </div>
       <div class="span5">

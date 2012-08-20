@@ -345,16 +345,16 @@ class GeneralFunctions {
 
     // unset($_SESSION['feinduraSession']['timezone']);
 
-    if(!function_exists('date_default_timezone_set'))
+    if(!self::$websiteConfig['visitorTimezone'] || !function_exists('date_default_timezone_set'))
       return false;
 
     // var
     $return = false;
     //unset($_SESSION['feinduraSession']['timezone']);
 
-    if(!isset($_SESSION['feinduraSession']['timezone'])) {
+    if(empty($_SESSION['feinduraSession']['timezone'])) {
 
-        if(!isset($_GET['localTimezone'])) {
+        if(empty($_GET['localTimezone'])) {
           $return = '
   <!-- Get the Visitors Timezone -->
   <script>

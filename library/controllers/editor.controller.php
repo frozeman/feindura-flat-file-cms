@@ -29,7 +29,7 @@ $category = $_GET['category'];
 
 // REVERT to a PREVIOUS STATE
 // -----------------------------------------------------------------------------
-if(isBlocked() === false && $_GET['status'] == 'revertToPreviousState') {
+if(isBlocked() === false && $_GET['status'] == 'restorePageToLastState') {
 
   // vars
   $categoryFolder = ($category == 0) ? '' : $category.'/';

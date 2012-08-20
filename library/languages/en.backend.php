@@ -603,6 +603,8 @@ $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Dea
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Shows a message instead of the website, which says that the website is currently being edited.';
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Create Sitemap-Files (<a href="http://www.sitemaps.org/" target="_blank">Details</a>)';
 $langFile['WEBSITESETUP_TIP_SITEMAPFILES']                                = 'The sitemap files simplify search engines to index this site.';
+$langFile['WEBSITESETUP_TEXT_VISITORTIMEZONE']                            = 'Get Visitors Timezone';
+$langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                             = 'Try to get the timezone of the visitor. The website will be reloaded on the first visit.';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Multi language Website';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Main language';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'The main language will be selected, if no matching language could be determined automatically.';

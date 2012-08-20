@@ -534,7 +534,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
                   <?php } ?>
 
-                  <li><a <?php echo 'href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=revertToPreviousState&amp;reload='.rand(0,999).'" title="::'.sprintf($langFile['EDITOR_BUTTON_RESTORELASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousStatePageContent['lastSaveDate']).' '.formatTime($previousStatePageContent['lastSaveDate'])).'"'; ?> tabindex="33" class="restorePage toolTipBottom"></a></li>
+                  <li><a <?php echo 'href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=restorePageToLastState&amp;reload='.rand(0,999).'" title="::'.sprintf($langFile['EDITOR_BUTTON_RESTORELASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousStatePageContent['lastSaveDate']).' '.formatTime($previousStatePageContent['lastSaveDate'])).'"'; ?> tabindex="33" class="restorePage toolTipBottom"></a></li>
 
                 <?php
                 } if($showDeletePage || $showRestorePage) $showSpacer = true;
@@ -618,7 +618,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
         </section>
         <a href="#top" class="fastUp" title="<?php echo $langFile['BUTTON_UP']; ?>"></a>
 
-        <?php echo isBlocked(); ?>
+        <?php echo isBlocked(false); ?>
       </div>
   </div>
 

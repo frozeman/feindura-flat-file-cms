@@ -30,20 +30,19 @@ $wrongDirectory = (include("library/includes/backend.include.php"))
 // -----------------------------------------------------------------------------------
 error_reporting(E_ALL ^ E_NOTICE);
 
-$NEWVERSION = '2.0 beta';
-$NEWBUILD = 970;
-
 // gets the version of the feindura CMS
-if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
-  $PREVVERSION = trim($prevVersionFile[1]);
-  $PREVBUILD = trim($prevVersionFile[2]);
+if($prevVersionFile = file(dirname(__FILE__).'/CHANGELOG')) {
+  $CURVERSION = trim($prevVersionFile[2]);
+  $CURBUILD = trim($prevVersionFile[3]);
+  $CURBUILD = str_replace('Build ', '', $CURBUILD);
 } else
   $PREVVERSION = '1.0';
 
+$PREVVERSION = VERSION;
+$PREVBUILD = BUILD;
 
 $PREVVERSIONSTRING = $PREVVERSION.' <small>Build '.$PREVBUILD.'</small>';
-$CURVERSIONSTRING = VERSION.' <small>Build '.BUILD.'</small>';
-$NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
+$CURVERSIONSTRING = $CURVERSION.' <small>Build '.$CURBUILD.'</small>';
 
 ?>
 <!DOCTYPE html>
@@ -126,29 +125,29 @@ $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
   // ->> CHECK PHP VERSION
   // *********************
   if(PHP_VERSION < REQUIREDPHPVERSION)
-    die('You have the wrong PHP version for feindura '.$NEWVERSIONSTRING.'. You need at least PHP version'.REQUIREDPHPVERSION.'</body></html>');
+    die('You have the wrong PHP version for feindura '.$CURVERSIONSTRING.'. You need at least PHP version'.REQUIREDPHPVERSION.'</body></html>');
   ?>
 
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
-  <span style="font-size:25px;"><?php echo ($PREVVERSION == '1.0') ? $PREVVERSION.'>': $PREVVERSIONSTRING; ?> &rArr; <?php echo $NEWVERSIONSTRING; ?></span><br>
+  <span style="font-size:25px;"><?php echo ($PREVVERSION == '1.0') ? $PREVVERSION.'>': $PREVVERSIONSTRING; ?> &rArr; <?php echo $CURVERSIONSTRING; ?></span><br>
   <br>
   <?php
 
   // check version
-  if($PREVVERSION.$PREVBUILD == $NEWVERSION.$NEWBUILD)
+  if($PREVVERSION.$PREVBUILD == $CURVERSION.$CURBUILD)
     die('<span class="succesfull">You content is already up to date.</span><br>
       <small style="color:#999;">(If you don\'t think so, change the number to your previous version of feindura in the "/cms/VERSION" file and run this updater again.)</small>
       <br><br>
       <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a></body></html>');
 
   // check if cms is already updated
-  $updatePossible = (VERSION.BUILD == $NEWVERSION.$NEWBUILD) ? true : false;
+  $updatePossible = ($CURVERSION.$CURBUILD == $CURVERSION.$CURBUILD) ? true : false;
 
   // WARNING
   if(!$updatePossible) {
 
     echo 'hm... you current version is <b>'.$CURVERSIONSTRING.'</b> you cannot use this updater, :-(';
-    echo '<br><span class="warning">it\'s only for updating to <span class="feindura"><em>fein</em>dura</span> '.$NEWVERSIONSTRING.'!</span>';
+    echo '<br><span class="warning">it\'s only for updating to <span class="feindura"><em>fein</em>dura</span> '.$CURVERSIONSTRING.'!</span>';
   }
 
   // WRONG PATH WARNING
@@ -267,21 +266,34 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
     echo '<br>';
 
-    // try to move the pages folder
+    // try to MOVE the UPLOAD FOLDER to the new place
     $copyError = false;
-    $didntCopy = false;
-    if(!empty($adminConfig['savePath']) && is_dir($DOCUMENTROOT.$adminConfig['savePath'])) {
-      copyDir($DOCUMENTROOT.$adminConfig['savePath'],dirname(__FILE__).'/pages/',$copyError);
-    } else
-      $didntCopy = true;
+    $copySuccess = false;
+    if(!empty($adminConfig['uploadPath']) && is_dir(DOCUMENTROOT.$adminConfig['uploadPath'])) {
+      copyDir(DOCUMENTROOT.$adminConfig['uploadPath'],dirname(__FILE__).'/upload/',$copyError);
+      $copySuccess = true;
+    }
+    if(!$copyError && $copySuccess) {
+      GeneralFunctions::deleteFolder(DOCUMENTROOT.$adminConfig['uploadPath']);
+      echo 'pages <span class="succesfull">succesfully moved the upload folder to its location inside the feindura folder.</span><br>';
+    } elseif($copyError) {
+      echo 'pages <span class="notSuccesfull">upload folder could not be moved! Please move the "'.$adminConfig['uploadPath'].'" folder manually "feindura_folder/upload/" and run this updater again.</span><br>';
+      $succesfullUpdate = false;
+    }
 
-    if($copyError === false && $didntCopy === false) {
-      GeneralFunctions::deleteFolder($adminConfig['savePath']);
+
+    // try to MOVE the PAGES FOLDER
+    $copyError = false;
+    $copySuccess = false;
+    if(!empty($adminConfig['savePath']) && is_dir(DOCUMENTROOT.$adminConfig['savePath'])) {
+      copyDir(DOCUMENTROOT.$adminConfig['savePath'],dirname(__FILE__).'/pages/',$copyError);
+      $copySuccess = true;
+    }
+    if(!$copyError && $copySuccess) {
+      GeneralFunctions::deleteFolder(DOCUMENTROOT.$adminConfig['savePath']);
       echo 'pages <span class="succesfull">succesfully copied to "feindura_folder/pages/"</span><br>';
-    } elseif($didntCopy) {
-      echo 'old pages folder <span class="succesfull" style="color:#3A74AB;">already copied to "feindura_folder/pages/"? (<strong>You must copy the folder with your pages (set in the "save path" setting) to your feindura folder, e.g. "/pages/" -> "/feindura_folder/pages/"</strong>)</span><br>';
-    } else {
-      echo 'pages <span class="notSuccesfull">could not be copied! Please move the folder with your pages (1.php, 2.php, etc..) to "feindura_folder/pages/" manually and run this updater again.</span><br>';
+    } elseif($copyError) {
+      echo 'pages <span class="notSuccesfull">could not be copied! Please move the folder with your pages (1.php, 2.php, etc..) to manually "feindura_folder/pages/" and run this updater again.</span><br>';
       $succesfullUpdate = false;
     }
 
@@ -1035,7 +1047,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
     // -> final success text or failure warning
     if($succesfullUpdate) {
-      file_put_contents(dirname(__FILE__).'/VERSION', "feindura - Flat File CMS (Version,Build)\n".$NEWVERSION."\n".$NEWBUILD);
+      file_put_contents(dirname(__FILE__).'/VERSION', "feindura - Flat File CMS (Version,Build)\n".$CURVERSION."\n".$CURBUILD);
       echo '<br>NOTE: If you had Speaking URL activated, you have to activate it again in the admin settings. But before delete the speaking URL code from you .htaccess file manually!<br>';
       echo '<br><h1>You can now delete the "update.php" file.</h1>';
     } else

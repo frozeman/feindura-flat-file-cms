@@ -6902,10 +6902,10 @@
   height: 25px;
   background: url("../images/icons/breadCrumb_category.png") no-repeat;
 }
-.feindura .icons.revertState {
+.feindura .icons.restorePage {
   width: 27px;
   height: 27px;
-  background: url("../images/icons/revertStateIcon_small.png") no-repeat;
+  background: url("../images/icons/restorePageIcon_small.png") no-repeat;
 }
 .feindura .mainContent .block {
   z-index: 1;
@@ -8190,7 +8190,7 @@
   width: 15px;
   background-image: url('../images/bg/breadCrumbMenu_end.png');
 }
-.feindura .revertPageToLastStateBox {
+.feindura .restorePageButtonBox {
   z-index: 1;
   position: absolute;
   display: inline-block;
@@ -8198,7 +8198,7 @@
   margin-top: -20px;
   padding: 10px;
 }
-.feindura .revertPageToLastStateBox > div {
+.feindura .restorePageButtonBox > div {
   padding: 10px;
   background-color: #333;
   -webkit-border-radius: 5px;
@@ -8211,11 +8211,11 @@
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
 }
-.feindura .revertPageToLastStateBox a.btn {
+.feindura .restorePageButtonBox a.btn {
   line-height: 25px;
   padding-left: 30px;
 }
-.feindura .revertPageToLastStateBox a.btn i.revertState {
+.feindura .restorePageButtonBox a.btn i.restorePage {
   position: absolute;
   top: 23px;
   left: 22px;

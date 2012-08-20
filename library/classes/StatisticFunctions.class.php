@@ -1232,13 +1232,22 @@ class StatisticFunctions {
          !empty($_SERVER['HTTP_REFERER'])) {
 
         $searchWords = $_SERVER['HTTP_REFERER'];
-        // test search url strings:
-        //$searchWords = 'http://www.google.com/search?hl=de&q=hall%C3%B6fsdfs++ds%C3%B6%C3%A4&btnG=Suche&aq=f&aqi=&oq=#sclient=psy&hl=de&q=hall%C3%B6fsdfs++da%C3%B6+%C3%9Fddd&aq=f&aqi=&aql=&oq=&pbx=1&fp=59d7fcbbee5898f6';
-        //$searchWords = 'http://www.google.de/#sclient=psy&num=10&hl=de&safe=off&q=ich+suche+was&aq=f&aqi=g1&aql=&oq=&gs_rfai=&pbx=1&fp=bea9cbc9f7597291';
-        //$searchWords = 'http://www.bing.com/search?q=halo+wich+suche+was&go=&form=QBLH&filt=all';
-        //$searchWords = 'http://de.search.yahoo.com/search;_ylt=AoJmH5FT4CkRvDpo3RuiawIqrK5_?vc=&p=hallo+ich+suche+was&toggle=1&cop=mss&ei=UTF-8&fr=yfp-t-708';
-        //$searchWords = 'http://de.search.yahoo.com/search;_ylt=A03uv8f1RWxKvX8BGYMzCQx.?p=umlaute+fdgdfg&y=Suche&fr=yfp-t-501&fr2=sb-top&rd=r1&sao=1';
-        if(strpos($searchWords,'google') !== false || strpos($searchWords,'bing') !== false || strpos($searchWords,'yahoo') !== false) {
+        // test search querys strings:
+        // $searchWords = 'http://www.google.com.tr/url?sa=t&rct=j&q=php%20flat%20file%20image%20gallery%20example&source=web&cd=9&ved=0CGoQFjAI&url=http%3A%2F%2Ffeindura.org%2F&ei=S8csUJ3tMu344QTgpYDQBg&usg=AFQjCNFSegqEPP_sijaHfoj1xrQaXNt9zA';
+        // $searchWords = 'http://www.google.com/search?hl=de&q=hall%C3%B6fsdfs++ds%C3%B6%C3%A4&btnG=Suche&aq=f&aqi=&oq=#sclient=psy&hl=de&q=hall%C3%B6fsdfs++da%C3%B6+%C3%9Fddd&aq=f&aqi=&aql=&oq=&pbx=1&fp=59d7fcbbee5898f6';
+        // $searchWords = 'http://www.google.de/#sclient=psy&num=10&hl=de&safe=off&q=ich+suche+was&aq=f&aqi=g1&aql=&oq=&gs_rfai=&pbx=1&fp=bea9cbc9f7597291';
+        // $searchWords = 'https://www.google.de/search?q=fdsdf&sugexp=chrome,mod=16&sourceid=chrome&ie=UTF-8#hl=de&newwindow=1&sclient=psy-ab&q=fdsdffde&oq=fdsdffde&gs_l=serp.3..0i13i10.1496.2784.0.3553.3.3.0.0.0.0.93.260.3.3.0...0.0...1c.SClebHBDsAc&pbx=1&bav=on.2,or.r_gc.r_pw.r_cp.r_qf.&fp=9d6686a508016dbd&biw=1440&bih=739';
+        // $searchWords = 'http://www.bing.com/search?q=sdfsd&go=&qs=n&form=QBLH&filt=all&pq=sdfsd&sc=2-5&sp=-1&sk=';
+        // $searchWords = 'http://de.search.yahoo.com/search;_ylt=AoJmH5FT4CkRvDpo3RuiawIqrK5_?vc=&p=hallo+ich+suche+was&toggle=1&cop=mss&ei=UTF-8&fr=yfp-t-708';
+        // $searchWords = 'http://de.search.yahoo.com/search;_ylt=Aqok7GSHi2aTQWUyfd05pBkqrK5_;_ylc=X1MDMjE0MjE1Mzc3MARfcgMyBGZyA3lmcC10LTcwOARuX2dwcwMxMARvcmlnaW4DZGUueWFob28uY29tBHF1ZXJ5A3NkZnNkZgRzYW8DMQ--?p=sdfsdf&toggle=1&cop=mss&ei=UTF-8&fr=yfp-t-708';
+
+        $search_engines = array(
+          'bing' => 'q',
+          'google' => 'q',
+          'yahoo' => 'p'
+        );
+
+        if($searchWords && preg_match('#('.implode('|', array_keys($search_engines)).')#', $searchWords, $searchEngineMatches) === 1) {
 
           // gets the searchwords
           $parts = parse_url($searchWords);
@@ -1246,18 +1255,12 @@ class StatisticFunctions {
           parse_str($parts['fragment'], $query2);
           $query = array_merge($query1, $query2);
 
-          $search_engines = array(
-              'bing' => 'q',
-              'google' => 'q',
-              'yahoo' => 'p'
-          );
+          $searchEngineQueryName = $search_engines[$searchEngineMatches[0]];
 
-          preg_match('/('.implode('|', array_keys($search_engines)).')\./', $parts['host'], $matches);
-          $searchWords = '';
-          if(isset($matches[1]) && isset($query[$search_engines[$matches[1]]]))
-            $searchWords = $query[$search_engines[$matches[1]]];
-/*           echo '-> '.$searchWords; */
-          $searchWords = explode(' ',$searchWords);
+          // get searchwords
+          $searchWords = explode(' ',$query[$searchEngineQueryName]);
+
+          // GeneralFunctions::dump($searchWords);
 
           // gos through searchwords and check if there already saved
           $newSearchWords = array();
