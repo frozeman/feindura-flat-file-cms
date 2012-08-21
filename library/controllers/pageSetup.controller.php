@@ -45,7 +45,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   $newAdminConfig['pageThumbnail']['width']               = $_POST['cfg_thumbWidth'];
   $newAdminConfig['pageThumbnail']['height']              = $_POST['cfg_thumbHeight'];
   $newAdminConfig['pageThumbnail']['ratio']               = $_POST['cfg_thumbRatio'];
-  $newAdminConfig['pageThumbnail']['path']                = $_POST['cfg_thumbPath'];
 
 
   // -> save ADMIN SETTINGS
@@ -132,10 +131,10 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
 
         // deletes possible thumbnails before deleting the category
         foreach($pages as $page) {
-          if(!empty($page['thumbnail']) && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'])) {
-            @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], $adminConfig['permissions']);
+          if(!empty($page['thumbnail']) && is_file(dirname(__FILE__).'/../../upload/thumbnails/'.$page['thumbnail'])) {
+            @chmod(dirname(__FILE__).'/../../upload/thumbnails/'.$page['thumbnail'], $adminConfig['permissions']);
             // DELETING
-            @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail']);
+            @unlink(dirname(__FILE__).'/../../upload/thumbnails/'.$page['thumbnail']);
           }
         }
       }

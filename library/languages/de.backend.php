@@ -406,8 +406,6 @@ $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'Der
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Bitte speichere die Einstellungen!';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Webseitenpfad';
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Der [strong]absolute Pfad[/strong], unter dem sich die Webseite befindet.[br][br][span class=hint]Kann kann auch einen Dateinamen enthalten z.b &quot;/webseite/index.php&quot;[/span]';
-$langFile['ADMINSETUP_GENERAL_field4']                                    = 'Daten-Uploadpfad';
-$langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br][br][span class=hint]Dateien werden im HTML-Editor unter Link-einfügen > Upload hochgeladen oder im Dateimanager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Diese Dateien können dann weiter unten oder in den Webseiten-Einstellungen bearbeitet werden (sollte dies in den Benutzer-Einstellungen aktiviert sein).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Pfad für Webseitendateien';
 $langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Hier kann ein Pfad zu webseiten-spezifischen Dateien angeben werden, welche dann direkt in [span class=feinduraInline]fein[em]dura[/em][/span] bearbeitet werden können.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
@@ -464,11 +462,6 @@ $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Wen
 
 // THUMBNAILS Settings
 $langFile['adminSetup_thumbnailSettings_h1']                              = 'Seiten-Thumbnail-Einstellungen';
-$langFile['adminSetup_thumbnailSettings_field3']                          = 'Speicherpfad'; // Thumbnail-Speicherpfad
-$langFile['adminSetup_thumbnailSettings_field3_tip']                      = 'Der Pfad innerhalb des Daten-Upload Pfads, in dem die Thumbnails gespeichert werden.';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip1']                = 'Der Daten-Upload Pfad';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Relativer Pfad::Relativ zum &quot;[strong]%s[/strong]&quot; Pfad.[br][br]Beginnt ohne &quot;/&quot;';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
 $langFile['adminSetup_styleFileSettings_h1']                              = '&quot;Stil&quot;-Auswahl des HTML-Editors bearbeiten';
@@ -677,7 +670,6 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Web
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Stylesheetdateien in den <a href="index.php?site=websiteSetup">Webseiten-Einstellungen</a> bearbeiten';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Codeschnipsel in den <a href="index.php?site=websiteSetup">Webseiten-Einstellungen</a> bearbeiten';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                   = 'Dateimanager aktivieren';
-$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'Dateimanager deaktiviert::Du musst erst den Daten-Uploadpfad in den Grund-Einstellungen einstellen, bevor du den Dateimanager aktivieren kannst.';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'Frontend-Bearbeitung aktivieren';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>Benutzerinformation</strong> in der <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'Benutzerinformationen::Dieser Text wird auf der [span class=feinduraInline]fein[em]dura[/em][/span] '.$langFile['BUTTON_DASHBOARD'].' angezeigt.';
@@ -849,7 +841,7 @@ $langFile['PAGETHUMBNAIL_ERROR_NODIR_START']                              = 'Das
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_END']                                = 'existiert nicht.';
 $langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END']                            = 'konnte nicht erstellt werden.';
 $langFile['PAGETHUMBNAIL_ERROR_COULDNTMOVEFILE']                          = 'Konnte die hochgeladene Datei nicht in das Thumbnail-Verzeichnis %s verschieben.';
-$langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE']                          = 'Die Bildgröße konnt nicht geändert werden.';
+$langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE']                          = 'Die Bildgröße konnte nicht geändert werden.';
 $langFile['PAGETHUMBNAIL_ERROR_deleteoldfile']                            = 'Das alte Thumbnail-Bild konnte nicht gelöscht werden.';
 $langFile['PAGETHUMBNAIL_TEXT_fileexists']                                = 'Es existiert bereits eine Datei mit diesem Namen.<br>Die Hochgeladene Datei wurde umbenannt nach';
 $langFile['PAGETHUMBNAIL_TEXT_finish']                                    = 'Das Bild wurde erfolgreich hochgeladen.';

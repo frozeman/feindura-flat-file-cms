@@ -387,8 +387,6 @@ $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'La 
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Svp sauvegardez la configuration!';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'chemin du site web';
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Le [strong]chemin absolue[/strong], contenant les site web.[br][br][span class=hint]Peut également contenir des noms de fichiers, par exemple &quot;/siteweb/index.php&quot;[/span]';
-$langFile['ADMINSETUP_GENERAL_field4']                                    = 'chemin upload';
-$langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Ici des fichiers comme des images, animations flashs ou documents vont être téléchargés.[br][br][span class=hint]pour insérer des fichiers, cliquez dans le HTML-Editor insérer lien > upload transféré ou dans le gestionnaire de fichiers.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]ces fichiers peuvent être rédigés plus bas ou dans le paramètrages du site web (si cette option est activé pour le site web).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'chemin d&#145;un dossier des fichiers';
 $langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Ici, vous pouvez ajouter un chemin vers les fichiers spécifiques pour la site web, ce qui devrait être modifiable dans [span class=feinduraInline]fein[em]dura[/em][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
@@ -445,11 +443,6 @@ $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Si 
 
 // THUMBNAILS Settings
 $langFile['adminSetup_thumbnailSettings_h1']                              = 'paramètres thumbnail du site';
-$langFile['adminSetup_thumbnailSettings_field3']                          = 'chemin de sauvegarde'; // chemin de sauvegarde thumbnail
-$langFile['adminSetup_thumbnailSettings_field3_tip']                      = 'chemin au sein de la chemin upload des dossiers ou les thumbnails seront sauvegardés.';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip1']                = 'chemin upload des dossiers';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'chemin relative::Dépéndant de la &quot;[strong]%s[/strong]&quot; chemin.[br][br]Commence sans &quot;/&quot;';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
 $langFile['adminSetup_styleFileSettings_h1']                              = 'Modifier les styles-sélection de l&#145;éditeur HTML';
@@ -647,7 +640,6 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'mod
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'modifier les fichiers de style au sein du <a href="index.php?site=websiteSetup">paramétrage du site web</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'modifier fragments de code au sein du <a href="index.php?site=websiteSetup">paramétrage du site web</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                   = 'activer gestionnaire de fichiers';
-$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'gestionnaire de fichiers désactivé::Vous devez régler le chemin upload dans la configuration de base, avant de pouvoir activer le gestionnaire de fichiers.';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'activer pour modifier la page dans le frontend';
 
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>informations utilisateur</strong> in der <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';

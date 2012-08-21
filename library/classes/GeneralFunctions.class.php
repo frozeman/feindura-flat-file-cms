@@ -588,7 +588,7 @@ class GeneralFunctions {
   *
   * @param string $path the path to change
   *
-  * @return string the changed path
+  * @return string|false the changed path or FALSE, when the path couldn't be converted
   *
   * @see URIEXTENSION
   *
@@ -599,7 +599,18 @@ class GeneralFunctions {
   *
   */
   public static function Path2URI($path) {
-    return URIEXTENSION.$path;
+    if(strpos($path, DOCUMENTROOT) !== false) {
+      if($path = self::getRealPath($path)) {
+        $path = str_replace(DOCUMENTROOT,'',$path);
+        $path .= '/';
+        $path = preg_replace('#/+#', "/", $path);
+      }
+    }
+
+    if($path)
+      return URIEXTENSION.$path;
+    else
+      return false;
   }
 
 /**

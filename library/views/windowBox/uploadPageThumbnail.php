@@ -34,9 +34,7 @@ $page = $_GET['page'];
 $category = $_GET['category'];
 
 // ->> CHECK if the upload folder exists and is writeable
-if(empty($adminConfig['uploadPath']) || !is_dir(DOCUMENTROOT.$adminConfig['uploadPath']))
-  die('<h2>'.$langFile['PAGETHUMBNAIL_ERROR_NODIR_START'].' &quot;<strong>'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].'</strong>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_NODIR_END'].'</h2>');
-if($warning = isWritableWarning(DOCUMENTROOT.$adminConfig['uploadPath']))
+if($warning = isWritableWarning(dirname(__FILE__).'/../../../upload/'))
   die('<h2>'.$warning.'</h2>');
 
 $pageContent = GeneralFunctions::readPage($page,$category);
@@ -235,7 +233,7 @@ else
 // show thumbnail if the page has one
 if(!empty($pageContent['thumbnail'])) {
 
-  $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+  $thumbnailWidth = @getimagesize(dirname(__FILE__).'/../../../upload/thumbnails/'.$pageContent['thumbnail']);
 
   if($thumbnailWidth[0] <= 700)
     $thumbnailWidth = ' style="width: '.$thumbnailWidth[0].'px;"';
@@ -246,7 +244,7 @@ if(!empty($pageContent['thumbnail'])) {
   $randomImage = '?'.md5(uniqid(rand(),1));
 
   echo '<div class="center" id="windowBoxThumbnailPreview">';
-    echo '<img src="'.GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnail toolTipLeft"'.$thumbnailWidth.' alt="thumbnail" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
+    echo '<img src="'.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../../upload/thumbnails/').$pageContent['thumbnail'].$randomImage.'" class="thumbnail toolTipLeft"'.$thumbnailWidth.' alt="thumbnail" title="::'.dirname(__FILE__).'/../../../upload/thumbnails/'.$pageContent['thumbnail'].'::">';
   echo '</div>';
 }
 
@@ -256,7 +254,7 @@ if(!empty($pageContent['thumbnail'])) {
 /* <![CDATA[ */
   function refreshThumbnailImage(newImage) {
     if($('thumbnailPreviewImage') != null) {
-      $$('img.thumbnail').setProperty('src','<?php echo GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path']; ?>'+newImage);
+      $$('img.thumbnail').setProperty('src','<?php echo GeneralFunctions::Path2URI(dirname(__FILE__).'/../../../upload/thumbnails/'); ?>'+newImage);
     }
 
     if($('thumbnailUploadButtonInPreviewArea') != null)

@@ -34,7 +34,7 @@ if($post['send'] == 'true') {
 
   $newUserConfig = $userConfig;
   $newUserConfig[$post['userId']]['permissions']['frontendEditing']    = $post['frontendEditing'];
-  $newUserConfig[$post['userId']]['permissions']['fileManager']        = (empty($adminConfig['uploadPath'])) ? false : $post['fileManager'];
+  $newUserConfig[$post['userId']]['permissions']['fileManager']        = $post['fileManager'];
   $newUserConfig[$post['userId']]['permissions']['websiteSettings']    = $post['websiteSettings'];
   $newUserConfig[$post['userId']]['permissions']['editWebsiteFiles']   = $post['editWebsiteFiles'];
   $newUserConfig[$post['userId']]['permissions']['editStyleSheets']    = $post['editStyleSheets'];
@@ -73,13 +73,12 @@ if($post['send'] == 'true') {
     </div>
   </div>
 
-  <?php $fmDisabled = (empty($adminConfig['uploadPath'])) ? ' disabled="disabled"' : ''; ?>
   <div class="row">
     <div class="span3 right">
-      <input type="checkbox" id="fileManager" name="fileManager" value="true"<?php if($userConfig[$post['userId']]['permissions']['fileManager']) echo ' checked="checked"'; echo $fmDisabled; ?>>
+      <input type="checkbox" id="fileManager" name="fileManager" value="true"<?php if($userConfig[$post['userId']]['permissions']['fileManager']) echo ' checked="checked"'; ?>>
     </div>
     <div class="span5">
-      <label for="fileManager"<?php echo ($fmDisabled) ? 'class="toolTipLeft disabled" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label>
+      <label for="fileManager"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label>
     </div>
   </div>
 

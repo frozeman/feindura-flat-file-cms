@@ -35,9 +35,9 @@ if($_GET['site'] != 'pages' && empty($_GET['page']) && checkBasePathAndURL()) {
   $checkFolders[] = dirname(__FILE__).'/../config/';
   $checkFolders[] = dirname(__FILE__).'/../statistic/';
   $checkFolders[] = dirname(__FILE__).'/../pages/';
+  $checkFolders[] = dirname(__FILE__).'/../upload/';
   $checkFolders[] = $adminConfig['websiteFilesPath'];
   $checkFolders[] = $adminConfig['stylesheetPath'];
-  $checkFolders[] = $adminConfig['uploadPath'];
 
   // DOCUMENTROOT is set: gives the error OUTPUT if one of these files in unwriteable
   if(DOCUMENTROOT !== false && $unwriteableList = isWritableWarningRecursive($checkFolders)) {

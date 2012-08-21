@@ -28,11 +28,10 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 define("FILEMANAGER_CODE", true);
 
-if(!GeneralFunctions::hasPermission('fileManager') || empty($adminConfig['uploadPath']) || empty($adminConfig['basePath']))
+if(!GeneralFunctions::hasPermission('fileManager') || !is_dir(dirname(__FILE__).'/../../upload/') || empty($adminConfig['basePath']))
   die('MooTools FileManager is deactivated');
-
-if(!empty($adminConfig['uploadPath']) && !is_dir(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path']))
-  if(!@mkdir(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'],$adminConfig['permissions'],true))
+elseif(!is_dir(dirname(__FILE__).'/../../upload/thumbnails/'))
+  if(!@mkdir(dirname(__FILE__).'/../../upload/thumbnails/',$adminConfig['permissions'],true))
     die('Couldn\'t create the thumbnail folder');
 
 
@@ -57,9 +56,8 @@ switch ($adminConfig['dateFormat']) {
 
 $browser = new FileManagerWithAliasSupport(array(
   'Aliases' => array(URIEXTENSION => DOCUMENTROOT),
-  'directory' =>  GeneralFunctions::Path2URI($adminConfig['uploadPath']),
-  // 'directory' =>  $adminConfig['uploadPath'],
-  'thumbnailPath' => GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'],
+  'directory' =>  str_replace(DOCUMENTROOT,'',dirname(__FILE__).'/../../upload/'),
+  'thumbnailPath' => GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/'),
   'assetBasePath' => GeneralFunctions::Path2URI($adminConfig['basePath']).'library/thirdparty/MooTools-FileManager/Assets',
   'documentRootPath' => DOCUMENTROOT,
   'chmod' => $adminConfig['permissions'],

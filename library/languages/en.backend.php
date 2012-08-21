@@ -408,8 +408,6 @@ $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'The
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Please save the settings!';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Website path';
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'The [strong]absolute path[/strong] where the website is situated.[br][br][span class=hint]Can also contain filenames e.g &quot;/website/index.php&quot;[/span]';
-$langFile['ADMINSETUP_GENERAL_field4']                                    = 'Upload path';
-$langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br][br][span class=hint]The files can be uploaded on the Link button > Upload in the HTML-Editor or in the file manager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]This files can be edited further down, or in the website-settings (if it&#145;s activated in the user-settings).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Path for website files';
 $langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Here you can add a path to website-specific files, which should be editable in [span class=feinduraInline]fein[em]dura[/em][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
@@ -466,11 +464,6 @@ $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'If 
 
 // THUMBNAILS Settings
 $langFile['adminSetup_thumbnailSettings_h1']                              = 'Page-Thumbnail-Settings';
-$langFile['adminSetup_thumbnailSettings_field3']                          = 'Save path'; // Thumbnail-Speicherpfad
-$langFile['adminSetup_thumbnailSettings_field3_tip']                      = 'The path inside the upload path which will be used to save the thumbanils.';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip1']                = 'The upload path';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Relative path::Relative to the &quot;[strong]%s[/strong]&quot; path.[br][br]Starts without &quot;/&quot;';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
 $langFile['adminSetup_styleFileSettings_h1']                              = 'Edit the Styles-Selection of the HTML-Editor';
@@ -678,7 +671,6 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Edi
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Edit stylesheet files in the <a href="index.php?site=websiteSetup">Website-Settings</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Edit code snippets in the <a href="index.php?site=websiteSetup">Website-Settings</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                   = 'Activate file manager';
-$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'File manager deactivated::You must set the upload path in the basic-settings, before you can activate the file manager.';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'Activate frontend editing';
 
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>User information</strong> in the <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';

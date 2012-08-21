@@ -92,17 +92,6 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
 
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_uploadPath"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field4_tip'] ?>">
-        <?php echo $langFile['ADMINSETUP_GENERAL_field4'] ?></span></label>
-      </div>
-      <div class="span5">
-        <input type="text" id="cfg_uploadPath" name="cfg_uploadPath" value="<?php echo $adminConfig['uploadPath']; ?>" class="toolTipRight" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::">
-        <span class="badge badge-warning toolTipTop" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="span3 formLeft">
         <label for="cfg_stylesheetPath"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field6_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field6'] ?></span></label>
       </div>

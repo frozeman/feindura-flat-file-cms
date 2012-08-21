@@ -49,12 +49,12 @@ $thumbnail = $pageContent['thumbnail'];
 $question = '<h2 class="red">'.$langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_START'].' &quot;<span style="color:#000000;">'.strip_tags(GeneralFunctions::getLocalized($pageContent,'title')).'</span>&quot; '.$langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_END'].'</h2>';
 
 // DELETING PROCESS
-if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
-  @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail, $adminConfig['permissions']);
+if($asking && file_exists(dirname(__FILE__).'/../../../upload/thumbnails/'.$thumbnail)) {
+  @chmod(dirname(__FILE__).'/../../../upload/thumbnails/'.$thumbnail, $adminConfig['permissions']);
 
     // DELETING
     $pageContent['thumbnail'] = '';
-    if(@unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && GeneralFunctions::savePage($pageContent)) {
+    if(@unlink(dirname(__FILE__).'/../../../upload/thumbnails/'.$thumbnail) && GeneralFunctions::savePage($pageContent)) {
         saveActivityLog(5,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
 
         $question = false;
@@ -89,7 +89,7 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
       $question = '<div class="alert alert-error">'.$langFile['PAGETHUMBNAIL_ERROR_DELETE'].'</div>
       <a href="?category='.$category.'&amp;page='.$page.'" class="button ok center" onclick="closeWindowBox();return false;"></a>'."\n";
     }
-} elseif(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
+} elseif(!file_exists(dirname(__FILE__).'/../../../upload/thumbnails/'.$thumbnail)) {
   $pageContent['thumbnail'] = '';
   GeneralFunctions::savePage($pageContent);
 }
@@ -120,7 +120,7 @@ if(!$asking) {
 <!-- show a preview of the thumbnail -->
 <div class="center">
   <?php
-    $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+    $thumbnailWidth = @getimagesize(dirname(__FILE__).'/../../../upload/thumbnails/'.$pageContent['thumbnail']);
 
     if($thumbnailWidth[0] <= 700)
       $thumbnailWidth = ' style="width: '.$thumbnailWidth[0].'px;"';
@@ -130,7 +130,7 @@ if(!$asking) {
     // generates a random number to put on the end of the image, to prevent caching
     $randomImage = '?'.md5(uniqid(rand(),1));
   ?>
-  <img src="<?php echo GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$thumbnail.$randomImage; ?>" class="thumbnail"<?php echo $thumbnailWidth;?> alt="thumbnail" title="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail; ?>">
+  <img src="<?php echo GeneralFunctions::Path2URI(dirname(__FILE__).'/../../../upload/thumbnails/').$thumbnail.$randomImage; ?>" class="thumbnail"<?php echo $thumbnailWidth;?> alt="thumbnail" title="<?php echo dirname(__FILE__).'/../../../upload/thumbnails/'.$thumbnail; ?>">
 </div>
 <?php
 }

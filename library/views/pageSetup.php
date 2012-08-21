@@ -120,20 +120,6 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
       </div>
     </div>
 
-    <div class="spacer"></div>
-
-    <!-- THUMB PATH -->
-    <div class="row">
-      <div class="span3 formLeft">
-        <label for="cfg_thumbPath"><span class="toolTipLeft" title="::<?php echo $langFile['adminSetup_thumbnailSettings_field3_tip'] ?>">
-        <?php echo $langFile['adminSetup_thumbnailSettings_field3'] ?></span></label>
-      </div>
-      <div class="span5">
-        <input type="text" style="width:auto;" readonly="readonly" size="<?php echo strlen($adminConfig['uploadPath'])+5; ?>" value="<?php echo $adminConfig['uploadPath']; ?>" class="toolTipLeft" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip1']; ?>">
-        <input type="text" id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo $adminConfig['pageThumbnail']['path']; ?>" class="toolTipRight" title="<?php echo sprintf($langFile['adminSetup_thumbnailSettings_field3_inputTip2'],$adminConfig['uploadPath']); ?>">
-      </div>
-    </div>
-
     <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'thumbnailSettings'; submitAnchor('pageSettingsForm','thumbnailSettings');">
   </div>
 </div>

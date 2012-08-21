@@ -83,7 +83,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
 
   $adminConfig['websitePath']              = GeneralFunctions::URI2Path($_POST['cfg_websitePath']);
 
-  $adminConfig['uploadPath']               = GeneralFunctions::URI2Path($_POST['cfg_uploadPath']);
   $adminConfig['websiteFilesPath']         = GeneralFunctions::URI2Path($_POST['cfg_websiteFilesPath']);
   $adminConfig['stylesheetPath']           = GeneralFunctions::URI2Path($_POST['cfg_stylesheetPath']);
 
@@ -112,7 +111,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   //$adminConfig['pageThumbnail']['width']  =  $_POST['cfg_thumbWidth'];
   //$adminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];
   //$adminConfig['pageThumbnail']['ratio']  = $_POST['cfg_thumbRatio'];
-  //$adminConfig['pageThumbnail']['path']   = $_POST['cfg_thumbPath'];
 
   // **** opens admin.config.php for writing
   if(saveAdminConfig($adminConfig)) {

@@ -497,6 +497,10 @@ function createBasicFilesAndFolders() {
   if(!is_dir(dirname(__FILE__).'/../../config'))
     mkdir(dirname(__FILE__).'/../../config',$GLOBALS['adminConfig']['permissions']);
 
+  // upload folder
+  if(!is_dir(dirname(__FILE__).'/../../upload'))
+    mkdir(dirname(__FILE__).'/../../upload',$GLOBALS['adminConfig']['permissions']);
+
   // create CategoryConfig
   if(!is_file(dirname(__FILE__).'/../../config/category.config.php')) {
     $categoryConfig[0]['id'] = 0;
@@ -932,9 +936,6 @@ function saveAdminConfig($adminConfig) {
   // prevent resetting config
   if($adminConfig !== 1) {
 
-    // clear the thumbnail path, when no upload path is specified
-    if(empty($adminConfig['uploadPath'])) $adminConfig['pageThumbnail']['path'] = '';
-
     // -> escape \ and '
     $adminConfig = XssFilter::escapeBasics($adminConfig);
 
@@ -951,7 +952,6 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['url']               = '".XssFilter::url($adminConfig['url'])."';\n";
     $fileContent .= "\$adminConfig['basePath']          = '".XssFilter::path($adminConfig['basePath'])."';\n";
     $fileContent .= "\$adminConfig['websitePath']       = '".XssFilter::path($adminConfig['websitePath'],false,'/')."';\n";
-    $fileContent .= "\$adminConfig['uploadPath']        = '".XssFilter::path($adminConfig['uploadPath'])."';\n";
     $fileContent .= "\$adminConfig['websiteFilesPath']  = '".XssFilter::path($adminConfig['websiteFilesPath'])."';\n";
     $fileContent .= "\$adminConfig['stylesheetPath']    = '".XssFilter::path($adminConfig['stylesheetPath'])."';\n\n";
 
@@ -976,7 +976,6 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['pageThumbnail']['width']   = ".XssFilter::int($adminConfig['pageThumbnail']['width']).";\n";
     $fileContent .= "\$adminConfig['pageThumbnail']['height']  = ".XssFilter::int($adminConfig['pageThumbnail']['height']).";\n";
     $fileContent .= "\$adminConfig['pageThumbnail']['ratio']   = '".XssFilter::alphabetical($adminConfig['pageThumbnail']['ratio'])."';\n";
-    $fileContent .= "\$adminConfig['pageThumbnail']['path']    = '".XssFilter::path($adminConfig['pageThumbnail']['path'],false,(empty($adminConfig['uploadPath'])) ? '' : 'thumbnails/')."';\n\n";
 
     $fileContent .= "return \$adminConfig;";
     $fileContent .= "\n?>"; //? >
@@ -1630,7 +1629,7 @@ function saveFeeds($category) {
         $title = strip_tags(GeneralFunctions::getLocalized($feedsPage,'title',$langCode));
         $description = GeneralFunctions::getLocalized($feedsPage,'description',$langCode);
 
-        $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.$GLOBALS['adminConfig']['url'].$GLOBALS['adminConfig']['uploadPath'].$GLOBALS['adminConfig']['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
+        $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.$GLOBALS['adminConfig']['url'].GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$feedsPage['thumbnail'].'"><br>': '';
 
         $content = GeneralFunctions::replaceLinks(GeneralFunctions::getLocalized($feedsPage,'content',$langCode),false,$langCode,true);
         $content = GeneralFunctions::replaceSnippets($content,$feedsPage['id']); // Has to create a new Feindura class instance inside

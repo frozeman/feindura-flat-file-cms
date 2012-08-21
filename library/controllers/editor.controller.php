@@ -249,7 +249,7 @@ if($newPage) {
 $activatedPlugins = unserialize($categoryConfig[$category]['plugins']);
 
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file
-if(!empty($pageContent['thumbnail']) && isBlocked() === false && !file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) {
+if(!empty($pageContent['thumbnail']) && isBlocked() === false && !file_exists(dirname(__FILE__).'/../../upload/thumbnails/'.$pageContent['thumbnail'])) {
   $pageContent['thumbnail'] = '';
   GeneralFunctions::savePage($pageContent);
 }

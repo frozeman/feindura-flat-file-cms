@@ -414,8 +414,6 @@ $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'П�
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Пожалуйста, сохраните настройки!';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Путь к сайту';
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = '[strong]Абсолютный путь[/strong] расположения файлов сайта.[br][br][span class=hint]также могут содержать имена, например &quot;/website/index.php&quot;[/span]';
-$langFile['ADMINSETUP_GENERAL_field4']                                    = 'Путь для загрузи файлов';
-$langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Файлы вроде иллюстраций, изображений, флеш-анимациии другие будут закачиваться по этому адресу.';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Файлы могут редактироваться в сеции Настройки сайта, (если выбраны соответсвующие Пользовательские настроки).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Путь к файлам сайта';
 $langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Здесь вы можете добавить путь к cайт конкретные файлы, которые должны быть доступны для редактирования в [span class=feinduraInline]fein[em]dura[/em][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
@@ -472,11 +470,6 @@ $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Е�
 
 // THUMBNAILS Settings
 $langFile['adminSetup_thumbnailSettings_h1']                              = 'Настройки миниатюр';
-$langFile['adminSetup_thumbnailSettings_field3']                          = 'Путь для сохранения'; // Thumbnail-Speicherpfad
-$langFile['adminSetup_thumbnailSettings_field3_tip']                      = 'Дирктория в которую будут сохраняться миниатюры.';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip1']                = 'Директория загрузок';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Относительный путь::Относительный путь &quot;[strong]%s[/strong]&quot; path.[br][br]Без открывающего слеша впереди - &quot;/&quot;';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
 $langFile['adminSetup_styleFileSettings_h1']                              = 'Редактирование секции Стили-Selection для визуального редактора';
@@ -685,7 +678,6 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Р�
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Редактирование файлов стилей в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Редактировать фрагменты кода в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                   = 'Включить файл-менеджер';
-$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'Файл-менеджер выключен::Вы должны указать путь для загрузки файлов в секции "Базовых настроек" перед тем как активировать файл-менеджер.';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'Включить редактирование непосредственно на сайте';
 
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>Инфо-блок</strong> на странице <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';

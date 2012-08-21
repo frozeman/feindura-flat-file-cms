@@ -65,7 +65,7 @@ if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'
       @unlink(dirname(__FILE__).'/../../../statistic/pages/'.$page.'.statistics.php');
     // delete thumbnail
     if(!empty($pageContent['thumbnail']))
-      @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+      @unlink(dirname(__FILE__).'/../../../upload/thumbnails/'.$pageContent['thumbnail']);
 
     GeneralFunctions::removeStoredPage($pageContent['id']); // REMOVES the $pageContent array from the $storedPages property
     saveActivityLog(2,strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))); // <- SAVE the task in a LOG FILE

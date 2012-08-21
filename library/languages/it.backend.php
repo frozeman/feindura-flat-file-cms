@@ -410,8 +410,6 @@ $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'Il 
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Si prega di salvare le impostazioni!';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Percorso Sito Web';
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Il [strong]percorso assoluto[/strong] in cui il sito si trova.[br][br][span class=hint]Può anche contenere i nomi di file, ad esempio &quot;/website/index.php&quot;[/span]';
-$langFile['ADMINSETUP_GENERAL_field4']                                    = 'Percorso Upload';
-$langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'File come foto caricate, Animazioni-Flash e altri tipi di documenti verranno salvati qui.[br][br][span class=hint]I file possono essere caricati sul pulsante Link > Carica in Editor-HTML o nel file manager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Questi file possono essere modificati più in basso, o nelle impostazioni-website (se è attivato dalle impostazioni-utente).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Percorso Per I File';
 $langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Qui è possibile aggiungere un percorso per i sito-specifici file, che dovrebbe essere modificabile in [span class=feinduraInline]fein[em]dura[/em][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
@@ -468,11 +466,6 @@ $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Se 
 
 // THUMBNAILS Settings
 $langFile['adminSetup_thumbnailSettings_h1']                              = 'Pagina-Impostazioni-Miniature';
-$langFile['adminSetup_thumbnailSettings_field3']                          = 'Percorso Salvato'; // Thumbnail-Speicherpfad
-$langFile['adminSetup_thumbnailSettings_field3_tip']                      = 'Inserisci la cartella all&#145;interno del percorso di caricamento relativo che sarà usato per salvare le miniature.';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip1']                = 'Il percorso dei files caricati';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Percorso Relativo::Rispetta questo percorso relativo e inserisci qui i file delle miniature &quot;[strong]%s[/strong] thumbnails&quot;.[br][br]Usa sempre un nome con la sintassi minuscola senza spazi e non inserire all&#145;inizio del nome lo slash &quot;/&quot;';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
 $langFile['adminSetup_styleFileSettings_h1']                              = 'Modificare gli Stili-Selezione del HTML-Editor';
@@ -680,7 +673,6 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Mod
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Modificare i files fogli di stile in <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Modifica frammenti di codice nel <a href="index.php?site=websiteSetup">Impostazioni-SitoWeb</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                   = 'Attivare il file manager';
-$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'File manager disattivato::È necessario impostare il percorso di upload in Impostazioni-Di-Base, prima di poter attivare il file manager.';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'Attivare la modifica frontale';
 
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>Informazioni Utente</strong> in <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';

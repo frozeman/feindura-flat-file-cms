@@ -452,7 +452,7 @@ class imageGalleryFromFolder {
         if(!class_exists(Image,false))
           require_once(dirname(__FILE__).'/includes/Image.class.php');
 
-        $resize = new Image($imagePath);
+        $resize = new Image($imagePath,$this->documentRoot);
         $resize->resize($this->imageWidth,$this->imageHeight,$this->keepRatio,$this->resizeWhenSmaller);
         $resize->process();
         unset($resize);
@@ -558,7 +558,7 @@ class imageGalleryFromFolder {
             $height = false;
         }
 
-        $resize = new Image($imagePath);
+        $resize = new Image($imagePath,$this->documentRoot);
         $resize->resize($width,$height,$this->keepRatio,$this->resizeWhenSmaller);
         $resize->process('png',$this->documentRoot.$thumbnailPath);
         unset($resize);
@@ -615,7 +615,7 @@ class imageGalleryFromFolder {
       if(!empty($this->thumbnailWidth) && !empty($this->thumbnailHeight) && is_numeric($this->thumbnailWidth) && is_numeric($this->thumbnailHeight))
         $return[] = '<a href="'.GeneralFunctions::Path2URI($this->galleryPath).$image['filename'].'" data-milkbox="imageGalleryFromFolder#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block;"><img src="'.$this->emptyImage.'" alt="thumbnail" style="display:table-cell; width:'.$this->thumbnailWidth.'px; height:'.$this->thumbnailHeight.'px; background: url(\''.GeneralFunctions::Path2URI($this->galleryPath).'thumbnails/'.$thumbnailName.'\') no-repeat center center;"'.$tagEnd.'</a>';
       else
-        $return[] = '<a href="'.GeneralFunctions::Path2URI($this->galleryPath).$image['filename'].'" data-milkbox="imageGalleryFromFolder#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block;"><img src="'.$this->galleryPath.'thumbnails/'.$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
+        $return[] = '<a href="'.GeneralFunctions::Path2URI($this->galleryPath).$image['filename'].'" data-milkbox="imageGalleryFromFolder#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block;"><img src="'.GeneralFunctions::Path2URI($this->galleryPath).'thumbnails/'.$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
     }
 
     return $return;

@@ -159,7 +159,7 @@ if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
       <h1><img src="library/images/icons/thumbnailIcon_middle.png" alt="icon" style="position:relative; top:-4px; margin-right:5px;"><?php echo $langFile['THUMBNAIL_TEXT_NAME']; ?></h1>
       <?php
 
-      $thumbnailPath = (!empty($pageContent['thumbnail'] )) ? GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'] : '';
+      $thumbnailPath = (!empty($pageContent['thumbnail'])) ? GeneralFunctions::Path2URI(dirname(__FILE__).'/../upload/thumbnails/').$pageContent['thumbnail'] : '';
 
       // -> show THUMBNAIL if the page has one
       $displayThumbnailContainer = ' display:none;';
