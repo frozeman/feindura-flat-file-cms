@@ -326,10 +326,21 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
     $adminConfig['websitePath'] = (isset($adminConfig['websitePath'])) ? $adminConfig['websitePath'] : '/';
 
-    if($adminConfig['dateFormat'] == 'eu')
-      $adminConfig['dateFormat'] = 'DMY';
-    if($adminConfig['dateFormat'] == 'int')
-      $adminConfig['dateFormat'] = 'YMD';
+    // change th old date formats
+    if(until(971) && isset($adminConfig['dateFormat'])) {
+      if($adminConfig['dateFormat'] == 'eu')
+        $adminConfig['dateFormat'] = 'DMY';
+      if($adminConfig['dateFormat'] == 'int')
+        $adminConfig['dateFormat'] = 'YMD';
+
+      if($adminConfig['dateFormat'] == 'YMD')
+        $websiteConfig['dateFormat'] = 'Y-M-D';
+      if($adminConfig['dateFormat'] == 'DMY')
+        $websiteConfig['dateFormat'] = 'D.M.Y';
+      if($adminConfig['dateFormat'] == 'MDY')
+        $websiteConfig['dateFormat'] = 'M/D/Y';
+    }
+
 
     // only if was below 1.1.6
     if(until(796))
@@ -953,7 +964,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/images/buttons/login_button.png';
     $deleteFiles[] = 'library/images/icons/mail.gif';
     $deleteFiles[] = 'library/images/buttons/subMenu_editPage.png';
-
+    $deleteFiles[] = 'library/images/buttons/langSelection_en-gb.png';
 
 
     // CHECK if files could be deleted

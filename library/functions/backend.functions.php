@@ -957,7 +957,6 @@ function saveAdminConfig($adminConfig) {
 
     $fileContent .= "\$adminConfig['permissions']       = ".XssFilter::number($adminConfig['permissions']).";\n";
     $fileContent .= "\$adminConfig['timezone']          = '".XssFilter::string($adminConfig['timezone'],'\/','Europe/London')."';\n";
-    $fileContent .= "\$adminConfig['dateFormat']        = '".XssFilter::alphabetical($adminConfig['dateFormat'])."';\n";
     $fileContent .= "\$adminConfig['speakingUrl']       = ".XssFilter::bool($adminConfig['speakingUrl'],true).";\n\n";
 
     $fileContent .= "\$adminConfig['varName']['page']      = '".XssFilter::stringStrict($adminConfig['varName']['page'],'page')."';\n";
@@ -1110,6 +1109,7 @@ function saveWebsiteConfig($websiteConfig) {
     $fileContent .= "<?php\n"; //< ?php
 
     $fileContent .= "\$websiteConfig['maintenance']                          = ".XssFilter::bool($websiteConfig['maintenance'],true).";\n";
+    $fileContent .= "\$websiteConfig['dateFormat']                           = '".XssFilter::string($websiteConfig['dateFormat'])."';\n";
     $fileContent .= "\$websiteConfig['sitemapFiles']                         = ".XssFilter::bool($websiteConfig['sitemapFiles'],true).";\n";
     $fileContent .= "\$websiteConfig['visitorTimezone']                      = ".XssFilter::bool($websiteConfig['visitorTimezone'],true).";\n\n";
 

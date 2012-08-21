@@ -166,21 +166,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
 
     <div class="spacer"></div>
 
-    <div class="row">
-      <div class="span3 formLeft">
-        <label for="cfg_dateFormat"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field7_tip'] ?>">
-        <?php echo $langFile['ADMINSETUP_GENERAL_field7'] ?></span></label>
-      </div>
-      <div class="span5">
-        <select id="cfg_dateFormat" name="cfg_dateFormat">
-          <option value="YMD"<?php if($adminConfig['dateFormat'] == 'YMD') echo ' selected="selected"'; ?>><?php echo $langFile['DATE_YMD'];?></option>
-          <option value="DMY"<?php if($adminConfig['dateFormat'] == 'DMY') echo ' selected="selected"'; ?>><?php echo $langFile['DATE_DMY'];?></option>
-          <option value="MDY"<?php if($adminConfig['dateFormat'] == 'MDY') echo ' selected="selected"'; ?>><?php echo $langFile['DATE_MDY'];?></option>
-        </select>
-      </div>
-    </div>
-
-        <!-- URL FORMAT -> SPEAKING URLS -->
+    <!-- URL FORMAT -> SPEAKING URLS -->
     <div class="row">
       <div class="span3 formLeft">
         <label for="cfg_speakingUrl"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_tip'] ?>">

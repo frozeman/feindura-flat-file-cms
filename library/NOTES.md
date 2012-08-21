@@ -20,6 +20,7 @@ This File contains internal notes, which are helpfull when working on feindura.
 
 ### Thirdparty Fixes
 
+
 ***CKEditor***
 
 ADD PLUGINS:
@@ -38,13 +39,16 @@ MODIFIED PLUGINS:
 
 MooTools more needs the following packages:
 
-- Array.Extras, String.QueryString, Hash, Element.Delegation, Fx.Scroll, Fx.SmoothScroll, Drag, Drag.Move
 - Events.Pseudos
-- Element.Event.Pseudos, Element.Event.Pseudos.Keys
-- Fx.Slide, Fx.SmoothScroll, Fx.Reveal
-- Elements.from, Element.Pin, Element.Measure
+- Array.Extras
+- Date
+- String.QueryString
+- Hash
+- Elements.from, Element.Pin, Element.Measure, Element.Event.Pseudos, Element.Event.Pseudos.Keys
+- Fx.Reveal, Fx.Scroll, Fx.Slide, Fx.SmoothScroll, Drag, Drag.Move
 - Sortables
-- Scroller
 - Request.JSONP, Request.Queue
 - Assets
+- Scroller
 - Tips
+- Locale, Locale.en-US.Date, Locale.de-DE.Date, Locale.en-GB.Date, Locale.fr-FR.Date, Locale.it-IT.Date, Locale.ru-RU-unicode.Date

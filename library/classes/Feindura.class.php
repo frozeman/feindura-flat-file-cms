@@ -834,7 +834,7 @@ class Feindura extends FeinduraBase {
       $this->language = $_SESSION['feinduraSession']['websiteLanguage'];
     // -> last get BROWSER LANGUAGE
     } else
-      $this->language = GeneralFunctions::getBrowserLanguages($this->websiteConfig['multiLanguageWebsite']['mainLanguage']);
+      $this->language = substr(GeneralFunctions::getBrowserLanguages($this->websiteConfig['multiLanguageWebsite']['mainLanguage']),0,2);
 
     // ->> CHECK LANGUAGE
 

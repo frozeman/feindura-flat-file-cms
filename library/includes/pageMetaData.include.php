@@ -79,11 +79,11 @@ $pageDate = ($newPage)
   <div class="span3 formLeft">
     <?php
       // GET date format LANGUAGE TEXT
-      $dateFormat = $langFile['DATE_'.$adminConfig['dateFormat']];
+      $dateFormat = $langFile['DATE_'.$websiteConfig['dateFormat']];
 
       // CHECKs the DATE FORMAT
       if(empty($pageDate) || validateDateString($pageDate) === false)
-        echo '<label for="pageDate[before]" class="toolTipLeft red" title="'.$langFile['EDITOR_pageSettings_pagedate_error'].'::'.$langFile['EDITOR_pageSettings_pagedate_error_tip'].'[br][strong]'.$dateFormat.'[/strong]"><strong>'.$langFile['EDITOR_pageSettings_pagedate_error'].'</strong></label>';
+        echo '<label for="pageDate[before]" class="toolTipLeft red" title="'.$langFile['EDITOR_pageSettings_pagedate_error'].'::'.$langFile['EDITOR_pageSettings_pagedate_error_tip'].'[br][strong]'.$langFile['DATE_'.$dateFormat].'[/strong]"><strong>'.$langFile['EDITOR_pageSettings_pagedate_error'].'</strong></label>';
       else
         echo '<label for="pageDate[before]" class="toolTipLeft" title="'.$langFile['EDITOR_pageSettings_field3'].'::'.$langFile['EDITOR_pageSettings_field3_tip'].'">'.$langFile['EDITOR_pageSettings_field3'].'</label>';
     ?>
@@ -92,7 +92,7 @@ $pageDate = ($newPage)
       <?php
       $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent,'pageDate',true);
       ?>
-      <input type="text" name="pageDate[before]" id="pageDate[before]" value="<?php echo $pageDateBeforeAfter['before']; ?>" class="toolTipTop" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;">
+      <input type="text" class="datePicker" name="pageDate[before]" id="pageDate[before]" value="<?php echo $pageDateBeforeAfter['before']; ?>" class="toolTipTop" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;">
 
       <?php
 
@@ -140,14 +140,14 @@ $pageDate = ($newPage)
       $pageDateTags['year'] = '<input type="number" step="1" class="short toolTipTop" name="pageDate[year]" title="'.$langFile['EDITOR_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4">'."\n";
 
       // -> SHOWS the PAGE DATE INPUTS
-      switch ($adminConfig['dateFormat']) {
-        case 'YMD':
-          echo $pageDateTags['year'].' - '.$pageDateTags['month'].' - '.$pageDateTags['day'];
-          break;
-        case 'DMY':
+      switch ($websiteConfig['dateFormat']) {
+        case 'D.M.Y':
           echo $pageDateTags['day'].' . '.$pageDateTags['month'].' . '.$pageDateTags['year'];
           break;
-        case 'MDY':
+        case 'M/D/Y':
+          echo $pageDateTags['month'].' / '.$pageDateTags['day'].' / '.$pageDateTags['year'];
+          break;
+        case 'D/M/Y':
           echo $pageDateTags['month'].' / '.$pageDateTags['day'].' / '.$pageDateTags['year'];
           break;
 
@@ -215,21 +215,95 @@ if($categoryConfig[$_GET['category']]['showSubCategory']) {
 <!-- ***** PUBLIC/UNPUBLIC -->
 <div class="row">
   <div class="span3 formLeft">
-      <input type="checkbox" id="edit_public" name="public" value="true" <?php if($pageContent['public']) echo 'checked'; ?>>
-    </div>
-    <div class="span5">
-      <label for="edit_public">
-      <?php
-        $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';
-
-      // shows the public or unpublic picture
-      if($pageContent['public'])
-        echo '<img src="library/images/icons/page_public.png" class="toolTipBottom" title="'.$langFile['STATUS_PAGE_PUBLIC'].'"'.$publicSignStyle.' alt="icon public" width="27" height="27">';
-      else
-        echo '<img src="library/images/icons/page_nonpublic.png" class="toolTipBottom" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'"'.$publicSignStyle.' alt="icon nonpublic" width="27" height="27">';
-
-      ?>
-      &nbsp;<span class="toolTipRight" title="::<?php echo $langFile['EDITOR_pageSettings_field4_tip'] ?>">
-      <?php echo $langFile['EDITOR_pageSettings_field4']; ?></span></label>
-    </div>
+    <input type="checkbox" id="edit_public" name="public" value="true" <?php if($pageContent['public']) echo 'checked'; ?>>
   </div>
+  <div class="span5">
+    <label for="edit_public">
+    <?php
+      $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';
+
+    // shows the public or unpublic picture
+    if($pageContent['public'])
+      echo '<img src="library/images/icons/page_public.png" class="toolTipBottom" title="'.$langFile['STATUS_PAGE_PUBLIC'].'"'.$publicSignStyle.' alt="icon public" width="27" height="27">';
+    else
+      echo '<img src="library/images/icons/page_nonpublic.png" class="toolTipBottom" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'"'.$publicSignStyle.' alt="icon nonpublic" width="27" height="27">';
+
+    ?>
+    &nbsp;<span class="toolTipRight" title="::<?php echo $langFile['EDITOR_pageSettings_field4_tip'] ?>">
+    <?php echo $langFile['EDITOR_pageSettings_field4']; ?></span></label>
+  </div>
+</div>
+
+<?php
+
+switch (variable) {
+  case 'value':
+    # code...
+    break;
+  
+  default:
+    # code...
+    break;
+}
+
+?>
+
+
+<!-- PAGE SCRIPTS -->
+<script type="text/javascript">
+/* <![CDATA[ */
+
+  // set the localization for the datepicker (and all other Mootools tools, which need localization)
+  Locale.use('<?php
+  switch($_SESSION['feinduraSession']['backendLanguage']) {
+    case 'en-US':
+      echo  'en-US';
+      break;
+    case 'de':
+      echo  'de-DE';
+      break;
+    case 'fr':
+      echo  'fr-FR';
+      break;
+    case 'it':
+      echo  'it-IT';
+      break;
+    case 'ru':
+      echo  'ru-RU';
+      break;
+    default:
+      echo  'en-GB';
+      break;
+  }
+  ?>');
+
+  // translate the date format
+  var jsDateFormat = '<?php
+  switch($backendDateFormat) {
+    case 'D.M.Y':
+      echo  '%d.%m.%Y';
+      break;
+    case 'M/D/Y':
+      echo  '%m/%d/%Y';
+      break;
+    case 'D/M/Y':
+      echo  '%d/%m/%Y';
+      break;
+    default:
+      echo  '%Y-%m-%d';
+      break;
+  }
+  ?>';
+
+  // ADD DATEPICKER
+  new Picker.Date($$('input.datePicker'), {
+    format: jsDateFormat,
+    openLastView: true,
+    // timePicker: true,
+    positionOffset: {x: 0, y: 5},
+    pickerClass: 'datepicker_feindura',
+    useFadeInOut: !Browser.ie
+  });
+
+/* ]]> */
+</script>

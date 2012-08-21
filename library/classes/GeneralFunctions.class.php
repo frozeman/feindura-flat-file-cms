@@ -221,12 +221,12 @@ class GeneralFunctions {
   * @param string $standardLang the standard country code to return when no language code was get
   * @param bool   $simple       if TRUE it only returns a string with a language code, if FALSE it returns an array with the language
   *
-  * @return string|array  either a string with a language code, or a array in the format: array( [de-de] => 1, [en] => 0.5 ), depending on the <var>$simple</var> parameter
+  * @return string|array  either a string with a language code, or a array in the format: array( [de-DE] => 1, [en] => 0.5 ), depending on the <var>$simple</var> parameter
   *
   * @link   http://www.dyeager.org/post/2008/10/getting-browser-default-language-php
   * @static
   */
-  public static function getBrowserLanguages($standardLang = "en", $simple = true) {
+  public static function getBrowserLanguages($standardLang = "en-GB", $simple = true) {
     // var
     $language = array(strtolower($standardLang) => 1.0);
 
@@ -236,9 +236,9 @@ class GeneralFunctions {
       foreach ($x as $val) {
          #check for q-value and create associative array. No q-value means 1 by rule
          if(preg_match("/(.*);q=([0-1]{0,1}\.\d{0,4})/i",$val,$matches))
-            $lang[strtolower($matches[1])] = (float)$matches[2];
+            $lang[$matches[1]] = (float)$matches[2];
          else
-            $lang[strtolower($val)] = 1.0;
+            $lang[$val] = 1.0;
       }
 
       if(!empty($lang))
@@ -247,7 +247,7 @@ class GeneralFunctions {
 
     if($simple) {
       $language = key($language);
-      $language = substr($language, 0,2);
+      $language = $language;
     }
 
     return $language;
@@ -1668,20 +1668,29 @@ class GeneralFunctions {
   */
   public static function formatDate($timeStamp, $format = false) {
 
+    // if no timestamp, pass it through
     if(empty($timeStamp) || !preg_match('/^[0-9]{1,}$/',$timeStamp))
       return $timeStamp;
 
-    if($format === false)
-      $format = self::$adminConfig['dateFormat'];
+    // get the right date format
+    if(!empty($format))
+      $format = $format;
+    elseif(!empty($GLOBALS['backendDateFormat']))
+      $format = $GLOBALS['backendDateFormat'];
+    else
+      $format = self::$websiteConfig['dateFormat'];
 
     switch ($format) {
-      case 'YMD':
+      case 'Y-M-D':
         return date('Y-m-d',$timeStamp);
         break;
-      case 'DMY':
+      case 'D.M.Y':
         return date('d.m.Y',$timeStamp);
         break;
-      case 'MDY':
+      case 'D/M/Y':
+        return date('d/m/Y',$timeStamp);
+        break;
+      case 'M/D/Y':
         return date('m/d/Y',$timeStamp);
         break;
       default:

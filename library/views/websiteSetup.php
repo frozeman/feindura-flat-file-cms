@@ -145,6 +145,25 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
       </div>
     </div>
 
+    <div class="spacer"></div>
+
+    <div class="row">
+      <div class="span3 formLeft">
+        <label for="dateFormat"><span class="toolTipLeft" title="::<?php echo $langFile['WEBSITESETUP_TIP_DATEFORMAT'] ?>">
+        <?php echo $langFile['WEBSITESETUP_TEXT_DATEFORMAT'] ?></span></label>
+      </div>
+      <div class="span5">
+        <select id="dateFormat" name="dateFormat">
+          <option value="Y-M-D"<?php if($websiteConfig['dateFormat'] == 'Y-M-D') echo ' selected="selected"'; ?>><?php echo $langFile['DATE_Y-M-D'];?></option>
+          <option value="D.M.Y"<?php if($websiteConfig['dateFormat'] == 'D.M.Y') echo ' selected="selected"'; ?>><?php echo $langFile['DATE_D.M.Y'];?></option>
+          <option value="M/D/Y"<?php if($websiteConfig['dateFormat'] == 'M/D/Y') echo ' selected="selected"'; ?>><?php echo $langFile['DATE_M/D/Y'];?></option>
+          <option value="D/M/Y"<?php if($websiteConfig['dateFormat'] == 'D/M/Y') echo ' selected="selected"'; ?>><?php echo $langFile['DATE_D/M/Y'];?></option>
+        </select>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+
     <div class="row">
       <div class="span3 formLeft">
         <input type="checkbox" id="multiLanguageWebsite" name="multiLanguageWebsite" value="true" <?php if($websiteConfig['multiLanguageWebsite']['active']) echo ' checked="checked"'; ?>>

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0 beta
-Build 971
+Build 972
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 2.0 beta
 
+  build 972: add en-US as language, working on the datepicker
   build 971: moved the upload folder to its new location inside the feindura folder
   build 970: add restore last version feature
   build 969: made more use of the pagesMetaData array, should boost the perfomance, still issues with the previous state button

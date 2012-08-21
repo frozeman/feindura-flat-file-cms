@@ -71,9 +71,10 @@ $langFile['LOGIN_TIP_AUTOLOGOUT']                                         = 'Aut
 
 // -> GENERAL <-
 
-$langFile['DATE_YMD']                                                     = 'YYYY-MM-DD';
-$langFile['DATE_DMY']                                                     = 'DD.MM.YYYY';
-$langFile['DATE_MDY']                                                     = 'MM/DD/YYYY';
+$langFile['DATE_Y-M-D']                                                   = 'YYYY-MM-DD';
+$langFile['DATE_D.M.Y']                                                   = 'DD.MM.YYYY';
+$langFile['DATE_D/M/Y']                                                   = 'DD/MM/YYYY';
+$langFile['DATE_M/D/Y']                                                   = 'MM/DD/YYYY';
 $langFile['CATEGORIES_TEXT_NONCATEGORY']                                  = 'Pages';
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']                               = 'Pages without category';
 $langFile['TEXT_EXAMPLE']                                                 = 'Example';
@@ -423,8 +424,6 @@ $langFile['ADMINSETUP_GENERAL_varName2_inputTip']                         = $lan
 $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'Modul variable name';
 $langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]modul[/strong]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'The name of the [strong]$_GET Variable[/strong] which will be used to link the pages.';
-$langFile['ADMINSETUP_GENERAL_field7']                                    = 'Date format';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Will be used in the [span class=feinduraInline]fein[em]dura[/em][/span] Backend and the Website.';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Time zone';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Will only be used by the [span class=feinduraInline]fein[em]dura[/em][/span] Backend.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'URL format';
@@ -601,6 +600,8 @@ $langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                             = 'Try
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Multi language Website';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Main language';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'The main language will be selected, if no matching language could be determined automatically.';
+$langFile['WEBSITESETUP_TEXT_DATEFORMAT']                                 = 'Date format';
+$langFile['WEBSITESETUP_TIP_DATEFORMAT']                                  = 'Will be used in the Website.';
 
 
 /*

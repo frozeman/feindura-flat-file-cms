@@ -223,7 +223,7 @@
     feindura_storeTipTexts('.feindura_toolTip');
 
     // add the tooltips to the elements
-    toolTips = new Tips('.feindura_toolTip',{
+    toolTips = new FloatingTips('.feindura_toolTip',{
       className: 'feindura_toolTipBox',
       offset: {'x': 10,'y': 15},
       fixed: false,

@@ -73,9 +73,11 @@ $langFile['LOGIN_TIP_AUTOLOGOUT']                                         = 'А�
 
 // -> GENERAL <-
 
-$langFile['DATE_YMD']                                                     = 'YYYY-MM-DD';
-$langFile['DATE_DMY']                                                     = 'DD.MM.YYYY';
-$langFile['DATE_MDY']                                                     = 'MM/DD/YYYY';
+$langFile['DATE_Y-M-D']                                                   = 'ГГГГ-MM-ДД';
+$langFile['DATE_D.M.Y']                                                   = 'ДД.MM.ГГГГ';
+$langFile['DATE_D/M/Y']                                                   = 'ДД/MM/ГГГГ';
+$langFile['DATE_M/D/Y']                                                   = 'MM/ДД/ГГГГ';
+
 $langFile['CATEGORIES_TEXT_NONCATEGORY']                                  = 'Страницы';
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']                               = 'Страницы без категории';
 $langFile['TEXT_EXAMPLE']                                                 = 'Пример';
@@ -429,8 +431,6 @@ $langFile['ADMINSETUP_GENERAL_varName2_inputTip']                         = $lan
 $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'Переменная для модулей';
 $langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]modul[/strong]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'Имя GET-переменной которая будет использоваться для формирования ссылки.';
-$langFile['ADMINSETUP_GENERAL_field7']                                    = 'Формат даты';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Используется в [span class=feinduraInline]fein[em]dura[/em][/span] и на сайте.';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Часовой пояс';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Используется только в [span class=feinduraInline]fein[em]dura[/em][/span] панели управления.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'Формат URL';
@@ -609,6 +609,9 @@ $langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                             = 'П�
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Мульти язык сайта';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Основной язык';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'Основной язык будет выбран, если нет соответствующего языка может быть определен автоматически.';
+$langFile['WEBSITESETUP_TEXT_DATEFORMAT']                                 = 'Формат даты';
+$langFile['WEBSITESETUP_TIP_DATEFORMAT']                                  = 'Который используется в веб-страницы.';
+
 
 /*
 * statisticSetup.php

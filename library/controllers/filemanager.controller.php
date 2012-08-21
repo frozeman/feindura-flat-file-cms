@@ -38,15 +38,15 @@ elseif(!is_dir(dirname(__FILE__).'/../../upload/thumbnails/'))
 require_once(dirname(__FILE__).'/../thirdparty/MooTools-FileManager/Assets/Connector/FileManagerWithAliasSupport.php');
 
 // set the right dateformat
-switch ($adminConfig['dateFormat']) {
-  case 'YMD':
-    $dateFormat = 'Y-m-d H:i';
-    break;
-  case 'DMY':
+switch ($websiteConfig['dateFormat']) {
+  case 'D.M.Y':
     $dateFormat = 'd.m.Y H:i';
     break;
-  case 'MDY':
+  case 'M/D/Y':
     $dateFormat = 'm/d/Y H:i';
+    break;
+  case 'D/M/Y':
+    $dateFormat = 'd/m/Y H:i';
     break;
 
   default:
