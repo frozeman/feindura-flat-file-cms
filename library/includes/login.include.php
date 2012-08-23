@@ -90,19 +90,20 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
       $header .= 'From: "feindura CMS from '.$adminConfig['url'].'" <noreply@'.str_replace(array('http://','https://','www.'),'',$adminConfig['url']).">\r\n";
       $header .= 'X-Mailer: PHP/' . PHP_VERSION;
 
-      // change users password
-      $newUserConfig = $userConfig;
-      $newUserConfig[$currentUser['id']]['password'] = md5($newPassword);
+      if(mail($userEmail,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$header)) {
+        // change users password
+        $newUserConfig = $userConfig;
+        $newUserConfig[$currentUser['id']]['password'] = md5($newPassword);
 
-      // send mail with the new password
-      if(saveUserConfig($newUserConfig)) {
-        if(mail($userEmail,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$header)) {
-          $resetPassword = true;
-          unset($_GET['resetpassword']);
+        // send mail with the new password
+        if(saveUserConfig($newUserConfig)) {
+            $resetPassword = true;
+            unset($_GET['resetpassword']);
         } else
-          $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSEND'];
+          $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSAVED'];
+
       } else
-        $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSAVED'];
+          $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSEND'];
     } else
       $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOEMAIL'];
   } else

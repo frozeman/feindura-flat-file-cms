@@ -76,9 +76,11 @@
   <script type="text/javascript" src="library/thirdparty/javascripts/FloatingTips.js"></script>
 
   <!-- thirdparty/DatePicker -->
+  <script type="text/javascript" src="library/thirdparty/MooTools-DatePicker/Locale.<?php echo $_SESSION['feinduraSession']['backendLanguageLocale']; ?>.DatePicker.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-DatePicker/Picker.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-DatePicker/Picker.Attach.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-DatePicker/Picker.Date.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-DatePicker/Picker.Date.Range.js"></script>
 
   <!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>

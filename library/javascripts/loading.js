@@ -24,6 +24,7 @@ var dimmContainer = new Element('div',{'class':'dimmContainer'});
 function showDocumentSaved() {
 
   var documentSaved = $('documentSaved');
+  documentSaved.set('tween',{duration:500});
 
   // start tween
   documentSaved.setStyle('display','block').fade('hide').fade(1);

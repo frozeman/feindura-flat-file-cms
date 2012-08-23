@@ -35,7 +35,7 @@ $autofocus = ($newPage) ? ' autofocus="autofocus"' : '';
     <?php echo $langFile['EDITOR_pageSettings_title'] ?></span></label>
   </div>
   <div class="span5">
-    <input type="text" id="edit_title" name="title" value="<?php echo str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent,'title',true)); ?>"<?php echo $autofocus; ?> class="toolTipRight" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">
+    <input type="text" id="edit_title" name="title" value="<?php echo str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent,'title',false,true)); ?>"<?php echo $autofocus; ?> class="toolTipRight" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">
   </div>
 </div>
 
@@ -46,7 +46,7 @@ $autofocus = ($newPage) ? ' autofocus="autofocus"' : '';
     <?php echo $langFile['EDITOR_pageSettings_field1']; ?></span></label>
   </div>
   <div class="span5">
-    <textarea id="edit_description" name="description" style="white-space:normal;" class="toolTipRight autogrow" title="<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($pageContent,'description',true); ?></textarea>
+    <textarea id="edit_description" name="description" style="white-space:normal;" class="toolTipRight autogrow" title="::<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($pageContent,'description',false,true); ?></textarea>
   </div>
 </div>
 <?php
@@ -60,107 +60,45 @@ if($categoryConfig[$_GET['category']]['showPageDate'] ||
 // ->> CHECK if activated
 if($categoryConfig[$_GET['category']]['showPageDate']) { ?>
 
-<!-- ***** SORT DATE -->
-<?php
-
-// check if already a (wrong) pageDate exists
-$pageDate = (isset($pageDate))
-  ? $pageDate
-  : $pageContent['pageDate']['date'];
-
-// add the DATE of TODAY, if its a NEW PAGE
-$pageDate = ($newPage)
-  ? time()
-  : $pageDate;
-
-?>
-
+<!-- ***** PAGE DATE -->
 <div class="row">
   <div class="span3 formLeft">
     <?php
-      // GET date format LANGUAGE TEXT
-      $dateFormat = $langFile['DATE_'.$websiteConfig['dateFormat']];
+
+      // add the DATE of TODAY, if its a NEW PAGE
+      if($categoryConfig[$_GET['category']]['pageDateAsRange']) {
+
+        if(empty($pageContent['pageDate']['end']))
+          $pageContent['pageDate']['end'] = $pageContent['pageDate']['start'];
+
+        $pageDate = ($newPage)
+          ? GeneralFunctions::formatDate(time()).' - '.GeneralFunctions::formatDate(strtotime('+1 day'))
+          : GeneralFunctions::formatDate($pageContent['pageDate']['start']).' - '.GeneralFunctions::formatDate($pageContent['pageDate']['end']);
+        $dateFormatExample = $langFile['DATE_'.$backendDateFormat].' - '.$langFile['DATE_'.$backendDateFormat];
+        if($pageDate == ' - ' || $pageDate == '0 - 0')
+          $pageDate = false;
+      } else {
+        $pageDate = ($newPage)
+          ? GeneralFunctions::formatDate(time())
+          : GeneralFunctions::formatDate($pageContent['pageDate']['start']);
+        $dateFormatExample = $langFile['DATE_'.$backendDateFormat];
+        if($pageDate == '0')
+          $pageDate = false;
+      }
 
       // CHECKs the DATE FORMAT
-      if(empty($pageDate) || validateDateString($pageDate) === false)
-        echo '<label for="pageDate[before]" class="toolTipLeft red" title="'.$langFile['EDITOR_pageSettings_pagedate_error'].'::'.$langFile['EDITOR_pageSettings_pagedate_error_tip'].'[br][strong]'.$langFile['DATE_'.$dateFormat].'[/strong]"><strong>'.$langFile['EDITOR_pageSettings_pagedate_error'].'</strong></label>';
+      if(empty($pageDate))
+        echo '<label for="pageDate" class="toolTipLeft red" title="::[strong][span class=red]'.$langFile['EDITOR_PAGESETTINGS_NOPAGEDATE'].'[/span][br]'.$langFile['WEBSITESETUP_TEXT_DATEFORMAT'].'[/strong][br]'.$dateFormatExample.'">'.$langFile['EDITOR_pageSettings_field3'].'</label>';
       else
-        echo '<label for="pageDate[before]" class="toolTipLeft" title="'.$langFile['EDITOR_pageSettings_field3'].'::'.$langFile['EDITOR_pageSettings_field3_tip'].'">'.$langFile['EDITOR_pageSettings_field3'].'</label>';
+        echo '<label for="pageDate" class="toolTipLeft" title="'.$langFile['EDITOR_pageSettings_field3'].'::'.$langFile['EDITOR_pageSettings_field3_tip'].'">'.$langFile['EDITOR_pageSettings_field3'].'</label>';
     ?>
   </div>
   <div class="span5">
-      <?php
-      $pageDateBeforeAfter = GeneralFunctions::getLocalized($pageContent,'pageDate',true);
-      ?>
-      <input type="text" class="datePicker" name="pageDate[before]" id="pageDate[before]" value="<?php echo $pageDateBeforeAfter['before']; ?>" class="toolTipTop" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;">
-
-      <?php
-
-      // -> creates DAY selection
-      $pageDateTags['day'] = '<select name="pageDate[day]" class="toolTipTop" title="'.$langFile['EDITOR_pageSettings_pagedate_day_inputTip'].'">'."\n";
-      for($i = 1; $i <= 31; $i++) {
-        // adds following zero
-        if(strlen($i) == 1)
-          $countDays = '0'.$i;
-        else $countDays = $i;
-        // selects the selected month
-        if(substr($pageDate,-2) == $countDays ||
-           (preg_match('/^[0-9]{1,}$/',$pageDate) && date('d',$pageDate) == $countDays))
-          $selected = ' selected="selected"';
-        else $selected = null;
-        $pageDateTags['day'] .= '<option value="'.$countDays.'"'.$selected.'>'.$countDays.'</option>'."\n";
-      }
-      $pageDateTags['day'] .= '</select>'."\n";
-
-      // -> creates MONTH selection
-      $pageDateTags['month'] = '<select name="pageDate[month]" class="toolTipTop" title="'.$langFile['EDITOR_pageSettings_pagedate_month_inputTip'].'">'."\n";
-      for($i = 1; $i <= 12; $i++) {
-        // adds following zero
-        if(strlen($i) == 1)
-          $countMonths = '0'.$i;
-        else $countMonths = $i;
-        // selects the selected month
-        if(substr($pageDate,-5,2) == $countMonths ||
-           (preg_match('/^[0-9]{1,}$/',$pageDate) && date('m',$pageDate) == $countMonths))
-          $selected = ' selected="selected"';
-        else $selected = null;
-        $pageDateTags['month'] .= '<option value="'.$countMonths.'"'.$selected.'>'.$countMonths.'</option>'."\n";
-      }
-      $pageDateTags['month'] .= '</select>'."\n";
-
-      // -> creates YEAR selection
-      $year = substr($pageDate,0,4);
-      if(strlen($pageDate) > 4 && preg_match('/^[0-9]{1,}$/',$pageDate))
-        $year = date('Y',$pageDate);
-      elseif(preg_match('/^[0-9]{4}$/',$year))
-        $year = $year;
-      else
-        $year = null;
-
-      $pageDateTags['year'] = '<input type="number" step="1" class="short toolTipTop" name="pageDate[year]" title="'.$langFile['EDITOR_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4">'."\n";
-
-      // -> SHOWS the PAGE DATE INPUTS
-      switch ($websiteConfig['dateFormat']) {
-        case 'D.M.Y':
-          echo $pageDateTags['day'].' . '.$pageDateTags['month'].' . '.$pageDateTags['year'];
-          break;
-        case 'M/D/Y':
-          echo $pageDateTags['month'].' / '.$pageDateTags['day'].' / '.$pageDateTags['year'];
-          break;
-        case 'D/M/Y':
-          echo $pageDateTags['month'].' / '.$pageDateTags['day'].' / '.$pageDateTags['year'];
-          break;
-
-        default:
-          echo $pageDateTags['year'].' - '.$pageDateTags['month'].' - '.$pageDateTags['day'];
-          break;
-      }
-
-      ?>
-
-      <input type="number" step="1" name="pageDate[after]" value="<?php echo $pageDateBeforeAfter['after']; ?>" class="toolTipTop" title="<?php echo $langFile['EDITOR_pageSettings_pagedate_after_inputTip']; ?>" style="width:122px;">
+      <input type="text" class="datePicker toolTipTop" name="pageDate" id="pageDate" value="<?php echo $pageDate; ?>" title="::<?php echo $langFile['EDITOR_pageSettings_field3_tip']; ?>">
   </div>
 </div>
+
+<div class="spacer"></div>
 
 <?php }
 
@@ -174,7 +112,7 @@ if($categoryConfig[$_GET['category']]['showTags']) {
     <?php echo $langFile['EDITOR_pageSettings_field2'] ?></span></label>
   </div>
   <div class="span5">
-      <input type="text" id="edit_tags" name="tags" class="toolTipRight" value="<?php echo GeneralFunctions::getLocalized($pageContent,'tags',true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>">
+      <input type="text" id="edit_tags" name="tags" class="toolTipRight" value="<?php echo GeneralFunctions::getLocalized($pageContent,'tags',false,true); ?>" title="<?php echo $langFile['EDITOR_pageSettings_field2'].'::'.$langFile['EDITOR_pageSettings_field2_tip_inputTip']; ?>">
   </div>
 </div>
 <?php } ?>
@@ -234,76 +172,73 @@ if($categoryConfig[$_GET['category']]['showSubCategory']) {
   </div>
 </div>
 
-<?php
-
-switch (variable) {
-  case 'value':
-    # code...
-    break;
-  
-  default:
-    # code...
-    break;
-}
-
-?>
-
 
 <!-- PAGE SCRIPTS -->
 <script type="text/javascript">
 /* <![CDATA[ */
 
   // set the localization for the datepicker (and all other Mootools tools, which need localization)
-  Locale.use('<?php
+  <?php
   switch($_SESSION['feinduraSession']['backendLanguage']) {
-    case 'en-US':
-      echo  'en-US';
-      break;
     case 'de':
-      echo  'de-DE';
+      echo  'Locale.use("de-DE");';
+      echo 'var jsDateFormat = "%d.%m.%Y"';
       break;
     case 'fr':
-      echo  'fr-FR';
+      echo  'Locale.use("fr-FR");';
+      echo 'var jsDateFormat = "%d/%m/%Y"';
       break;
     case 'it':
-      echo  'it-IT';
+      echo  'Locale.use("it-IT");';
+      echo 'var jsDateFormat = "%d.%m.%Y"';
       break;
     case 'ru':
-      echo  'ru-RU';
+      echo  'Locale.use("ru-RU");';
+      echo 'var jsDateFormat = "%d.%m.%Y"';
       break;
+    case 'en':
+      if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'en-US') {
+        echo 'Locale.use("en-US");';
+        echo 'var jsDateFormat = "%m/%d/%Y"';
+        break;
+      }
     default:
-      echo  'en-GB';
+      echo  'Locale.use("en-GB");';
+      echo 'var jsDateFormat = "%d.%m.%Y"';
       break;
   }
-  ?>');
+  ?>
 
-  // translate the date format
-  var jsDateFormat = '<?php
-  switch($backendDateFormat) {
-    case 'D.M.Y':
-      echo  '%d.%m.%Y';
-      break;
-    case 'M/D/Y':
-      echo  '%m/%d/%Y';
-      break;
-    case 'D/M/Y':
-      echo  '%d/%m/%Y';
-      break;
-    default:
-      echo  '%Y-%m-%d';
-      break;
-  }
-  ?>';
+  <?php if($categoryConfig[$_GET['category']]['pageDateAsRange']) { ?>
 
-  // ADD DATEPICKER
+  // DATE RANGE
+  var datePicker = new Picker.Date.Range($$('input.datePicker'), {
+    format: jsDateFormat,
+    openLastView: true,
+    // timePicker: true,
+    positionOffset: {x: -140, y: 5},
+    pickerClass: 'datepicker_feindura range',
+    useFadeInOut: !Browser.ie
+  }).addEvent('open',function(e){
+    datePicker.footer.getElements('button').addClass('btn');
+    datePicker.footer.getElements('button').setStyle('float','right');
+    datePicker.footer.getElements('input').setProperty('type','text');
+    datePicker.footer.getElements('input').setStyle('width',150);
+  });
+
+  <?php } else { ?>
+
+  // SINGLE DATE
   new Picker.Date($$('input.datePicker'), {
     format: jsDateFormat,
     openLastView: true,
     // timePicker: true,
-    positionOffset: {x: 0, y: 5},
+    positionOffset: {x: -40, y: 5},
     pickerClass: 'datepicker_feindura',
     useFadeInOut: !Browser.ie
   });
+
+  <?php } ?>
 
 /* ]]> */
 </script>

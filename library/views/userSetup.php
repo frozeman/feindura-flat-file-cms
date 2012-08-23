@@ -27,10 +27,9 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 ?>
 <!-- USER SETTINGS -->
 
-<form action="index.php?site=userSetup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="userForm">
+<form action="index.php?site=userSetup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="userSettingsForm">
   <div>
   <input type="hidden" name="send" value="userSetup">
-  <input type="hidden" name="savedUserId" id="savedUserId" value="">
   </div>
 
 <div class="block">
@@ -161,8 +160,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
                   </div>
                 </div>';
 
-          echo '<input type="submit" value="" name="saveUserSetup" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="$(\'savedUserId\').value = \''.$user['id'].'\'; submitAnchor(\'userForm\',\'userId'.$user['id'].'\');">'; // end slide in box
-
+          echo '<input type="submit" value="" name="saveUserSetup" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'">'; // end slide in box
         }
       }
       ?>
@@ -174,6 +172,11 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 <!-- PAGE SCRIPTS -->
 <script type="text/javascript">
 /* <![CDATA[ */
+
+  // setup the AUTOMATICALLY ADDING OF the ANCHORS
+  setupForm('userSettingsForm');
+
+
   if(typeOf($$('input.userAdminCheckbox')[0]) !== 'null') {
 
     $$('input.userAdminCheckbox').addEvent('change',function(){

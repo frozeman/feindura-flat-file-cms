@@ -285,12 +285,14 @@ class Search {
 
       // generate search pattern
       $pattern = preg_replace('# +#', ' ', $searchwords);
-      $pattern = preg_quote($pattern); // escape regex pattern
       $pattern = str_replace($changeChars,'|',$pattern);
+      $pattern = preg_quote($pattern); // escape regex pattern
+      $pattern = str_replace('\|','|',$pattern);
       $pattern = trim($pattern,'|');
       $pattern = XssFilter::text($pattern);
       $pattern = ($pattern != '') ? '#'.$pattern.'#i' : '#a^#';
 
+      // GeneralFunctions::dump($pattern);
 
       // ->> GET LANGUAGE ot SEARCH
       // -> get ALL LANGUAGES
@@ -315,8 +317,9 @@ class Search {
       }
 
       // ->> PREPARE the to SEARCH CONTENTS as an ARRAY
-      $search['id']           = $pageContent['id'];
-      $search['date']         = GeneralFunctions::formatDate($pageContent['pageDate']['date']);
+      $search['id']            = $pageContent['id'];
+      $search['date']['start'] = GeneralFunctions::formatDate($pageContent['pageDate']['start']);
+      $search['date']['end']   = GeneralFunctions::formatDate($pageContent['pageDate']['end']);
 
 
       // ->> SEARCH PROCESS
@@ -337,9 +340,15 @@ class Search {
           $priority *= count($matches[0]);
         }
 
-        // -> PAGE DATE
-        if(preg_match_all($pattern,$search['date'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $pageResults['date'] = $matches[0];
+        // -> PAGE DATE start
+        if(preg_match_all($pattern,$search['date']['start'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+          $pageResults['date']['start'] = $matches[0];
+          $priority += 15;
+          $priority *= count($matches[0]);
+        }
+        // -> PAGE DATE end
+        if(preg_match_all($pattern,$search['date']['end'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+          $pageResults['date']['end'] = $matches[0];
           $priority += 15;
           $priority *= count($matches[0]);
         }
@@ -354,22 +363,6 @@ class Search {
             $search['description']  = GeneralFunctions::getLocalized($pageContent,'description',$langCode);
             $search['content']      = strip_tags(GeneralFunctions::getLocalized($pageContent,'content',$langCode));
             $search['tags']         = GeneralFunctions::getLocalized($pageContent,'tags',$langCode);
-            $searchPageDate         = GeneralFunctions::getLocalized($pageContent,'pageDate',$langCode);
-            $search['beforeDate']   = $searchPageDate['before'];
-            $search['afterDate']    = $searchPageDate['after'];
-
-
-            // -> DATE BEFORE/AFTER
-            if(preg_match_all($pattern,$search['beforeDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-              $pageResults['beforeDate'][$langCode] = $matches[0];
-              $priority += 15;
-              $priority *= count($matches[0]);
-            }
-            if(preg_match_all($pattern,$search['afterDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-              $pageResults['afterDate'][$langCode] = $matches[0];
-              $priority += 15;
-              $priority *= count($matches[0]);
-            }
 
 
             // -> TAGS
@@ -505,27 +498,26 @@ class Search {
         $page['description']  = GeneralFunctions::getLocalized($page,'description',$langCode);
         $page['content']      = strip_tags(GeneralFunctions::getLocalized($page,'content',$langCode));
         $page['tags']         = GeneralFunctions::getLocalized($page,'tags',$langCode);
-        $localizedPageDate    = GeneralFunctions::getLocalized($page,'pageDate',$langCode);
-        $page['beforeDate']   = $localizedPageDate['before'];
-        $page['afterDate']    = $localizedPageDate['after'];
 
 
         // GENERATE TITLE
-        if(isset($result['beforeDate'][$langCode]) ||
-           isset($result['date']) ||
-           isset($result['afterDate'][$langCode]) ||
+        if(isset($result['date']['start']) ||
+           isset($result['date']['end']) ||
            isset($result['title'][$langCode])) {
 
           // MARK DATE
-          if(isset($result['beforeDate'][$langCode]) || isset($result['date']) || isset($result['afterDate'][$langCode])) {
+          if(isset($result['date']['start']) || isset($result['date']['end'])) {
             $date = '';
-            // -> add before date
-            $date .= $this->markFindingInText($page['beforeDate'],$result['beforeDate'][$langCode]).' ';
-            // -> add date
-            $date .= $this->markFindingInText(GeneralFunctions::formatDate($page['pageDate']['date']),$result['date']);
-            // -> add after date
-            $date .= ' '.$this->markFindingInText($page['afterDate'],$result['afterDate'][$langCode]);
-            $date .= ' - ';
+            // -> add date start
+            if(!empty($page['pageDate']['start'])) {
+              $date .= $this->markFindingInText(GeneralFunctions::formatDate($page['pageDate']['start']),$result['date']['start']);
+              if(!empty($page['pageDate']['end']))
+                $date .= ' - ';
+            }
+            // -> add date end
+            if(!empty($page['pageDate']['end']))
+              $date .= $this->markFindingInText(GeneralFunctions::formatDate($page['pageDate']['end']),$result['date']['end']);
+            $date .= ' | ';
           }
 
           // ->> PREPARE the TITLE

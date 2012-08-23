@@ -61,7 +61,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   if(empty($categoryConfig))
     $_GET['category'] = 0;
 
-  include (dirname(__FILE__).'/controllers/editor.controller.php'); // isBlocked() is inside editor.controller.php
+  include_once(dirname(__FILE__).'/controllers/editor.controller.php'); // isBlocked() is inside editor.controller.php
 
 
 // OTHERWISE, load the controllers

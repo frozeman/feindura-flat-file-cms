@@ -4550,7 +4550,7 @@
 .feindura a:focus,
 .feindura a.link:hover,
 .feindura a.link:focus {
-  color: #536068;
+  color: #3a79a5;
   text-decoration: none;
 }
 .feindura a:active,
@@ -4574,7 +4574,7 @@
   visibility: hidden;
   padding-left: 0px;
   height: 0px;
-  top: -30px;
+  top: -50px;
   background: none;
 }
 .feindura a.deleteButton {
@@ -4691,9 +4691,6 @@
   height: 40px;
 }
 .feindura a.frontend img {
-  filter: url(filters.svg#grayscale);
-  /* Firefox 3.5+ */
-
   filter: gray;
   /* IE5+ */
 
@@ -5480,7 +5477,7 @@
   max-width: none;
 }
 .feindura [class^="span"] > [class^="fancyform"] {
-  top: 5px;
+  top: 4px;
 }
 .feindura .fancyform_checked {
   cursor: pointer;
@@ -5888,10 +5885,12 @@
   top: 0;
   right: 0;
   width: 210px;
+  height: 100%;
 }
 .feindura header.main .sideBar ul.userList {
   position: absolute;
   top: -4px;
+  width: 160px;
   max-height: 130px;
   padding: 0;
   padding-top: 14px;
@@ -5958,7 +5957,7 @@
   top: 45px;
   right: 5px;
   font-size: 11px;
-  color: #999;
+  color: #b3b3b3;
   -webkit-text-shadow: 0 1px 2px #ffffff;
   -moz-text-shadow: 0 1px 2px #ffffff;
   text-shadow: 0 1px 2px #ffffff;
@@ -5966,10 +5965,61 @@
   -o-text-shadow: 0 1px 2px #ffffff;
   -khtml-text-shadow: 0 1px 2px #ffffff;
 }
+.feindura header.main .sideBar .languageSelection {
+  position: absolute;
+  bottom: 21px;
+  left: 10px;
+  z-index: 2;
+}
+.feindura header.main .sideBar .languageSelection a {
+  position: absolute;
+  display: block;
+  width: 30px;
+  height: 21px;
+  padding-left: 0;
+}
+.feindura header.main .sideBar .languageSelection a:hover,
+.feindura header.main .sideBar .languageSelection a:focus {
+  background-position: 0px -21px !important;
+}
+.feindura header.main .sideBar .languageSelection a.active:before {
+  content: '▾';
+  position: absolute;
+  top: -8px;
+  left: 10px;
+  color: #b3b3b3;
+}
+.feindura header.main .sideBar .languageSelection a.active:hover:before {
+  top: -16px;
+}
+.feindura header.main .sideBar .languageSelection a.en-us {
+  left: 0px;
+  background: url("../images/buttons/langSelection_en-us.png") no-repeat;
+}
+.feindura header.main .sideBar .languageSelection a.en-gb {
+  left: 30px;
+  background: url("../images/buttons/langSelection_en-gb.png") no-repeat;
+}
+.feindura header.main .sideBar .languageSelection a.de {
+  left: 60px;
+  background: url("../images/buttons/langSelection_de.png") no-repeat;
+}
+.feindura header.main .sideBar .languageSelection a.fr {
+  left: 90px;
+  background: url("../images/buttons/langSelection_fr.png") no-repeat;
+}
+.feindura header.main .sideBar .languageSelection a.it {
+  left: 120px;
+  background: url("../images/buttons/langSelection_it.png") no-repeat;
+}
+.feindura header.main .sideBar .languageSelection a.ru {
+  left: 150px;
+  background: url("../images/buttons/langSelection_ru.png") no-repeat;
+}
 .feindura header.main a.feinduraLogo {
   z-index: 1;
   position: absolute;
-  top: 15px;
+  top: 20px;
   left: 20px;
   display: block;
   width: 163px;
@@ -5979,7 +6029,7 @@
 .feindura header.main .feinduraVersion {
   z-index: 2;
   position: absolute;
-  top: 35px;
+  top: 38px;
   left: 120px;
   width: 60px;
   color: #3a79a5;
@@ -5991,47 +6041,6 @@
   -ms-text-shadow: 0 1px 1px #999999;
   -o-text-shadow: 0 1px 1px #999999;
   -khtml-text-shadow: 0 1px 1px #999999;
-}
-.feindura header.main .languageSelection {
-  position: absolute;
-  bottom: 21px;
-  left: 10px;
-  z-index: 2;
-}
-.feindura header.main .languageSelection a {
-  position: absolute;
-  display: block;
-  width: 30px;
-  height: 21px;
-  padding-left: 0;
-}
-.feindura header.main .languageSelection a:hover,
-.feindura header.main .languageSelection a:focus {
-  background-position: 0px -21px !important;
-}
-.feindura header.main .languageSelection a.en-us {
-  left: 0px;
-  background: url("../images/buttons/langSelection_en-us.png") no-repeat;
-}
-.feindura header.main .languageSelection a.en-gb {
-  left: 30px;
-  background: url("../images/buttons/langSelection_en-gb.png") no-repeat;
-}
-.feindura header.main .languageSelection a.de {
-  left: 60px;
-  background: url("../images/buttons/langSelection_de.png") no-repeat;
-}
-.feindura header.main .languageSelection a.fr {
-  left: 90px;
-  background: url("../images/buttons/langSelection_fr.png") no-repeat;
-}
-.feindura header.main .languageSelection a.it {
-  left: 120px;
-  background: url("../images/buttons/langSelection_it.png") no-repeat;
-}
-.feindura header.main .languageSelection a.ru {
-  left: 150px;
-  background: url("../images/buttons/langSelection_ru.png") no-repeat;
 }
 .feindura header.main .adminMenuContainer {
   z-index: 99;
@@ -6824,7 +6833,7 @@
 }
 .feindura #rightSidebar #sideBarActivityLog ul li h3 {
   margin-top: -20px;
-  width: 193px;
+  width: 192px;
   font-size: 11px;
   font-weight: normal;
   padding-top: 7px;
@@ -7263,6 +7272,15 @@
 .feindura .mainContent .block .form .formLeft {
   text-align: right;
 }
+.feindura .mainContent .block .form .subOption {
+  background: url('../images/icons/arrow-down-right.png') no-repeat left 2px;
+  padding-left: 30px;
+}
+.feindura .mainContent .block .form .subOption [class^="fancyform"] {
+  position: relative;
+  top: 4px;
+  margin-right: 2px;
+}
 .feindura .mainContent .block .form input {
   margin: 1px 0;
 }
@@ -7326,6 +7344,7 @@
 .feindura .loginBox input[type="email"] {
   padding: 10px;
   font-size: 20px;
+  line-height: 30px;
   width: 90%;
 }
 .feindura .loginBox input.btn {
@@ -7729,6 +7748,7 @@
   background-clip: padding-box;
 }
 .feindura .block.listPages .block > h1 > a {
+  padding-top: 12px;
   margin-left: -35px;
   background-position: right 8px;
   width: 100%;
@@ -7744,7 +7764,7 @@
 .feindura .block.listPages .block div.categoryHeader {
   z-index: 2;
   position: absolute;
-  top: 17px;
+  top: 13px;
   right: 90px;
 }
 .feindura .block.listPages .block div.categoryHeader a.status {
@@ -8841,6 +8861,56 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
+.feindura .datepicker_feindura .column_2 {
+  width: 393px;
+}
+.feindura .datepicker_feindura .column_3 {
+  width: 592px;
+}
+.feindura .datepicker_feindura .column_4 {
+  width: 791px;
+}
+.feindura .datepicker_feindura .column_5 {
+  width: 990px;
+}
+.feindura .datepicker_feindura .body .column {
+  float: left;
+  width: 194px;
+  min-height: 193px;
+  margin-left: 5px;
+}
+.feindura .datepicker_feindura .body .column.column_1 {
+  margin-left: 0;
+}
+.feindura .datepicker_feindura .titleText .column {
+  float: left;
+  width: 160px;
+  margin-left: 5px;
+}
+.feindura .datepicker_feindura .titleText .column.column_1 {
+  margin-left: 0;
+}
+.feindura .datepicker_feindura.range {
+  width: 594px;
+  height: 220px;
+}
+.feindura .datepicker_feindura.range .titleText .column {
+  width: 182px;
+  float: left;
+}
+.feindura .datepicker_feindura.range .body {
+  width: 600px;
+}
+.feindura .datepicker_feindura.range .footer {
+  margin-top: 3px;
+  padding: 15px 5px;
+  height: 26px;
+}
+.feindura .datepicker_feindura.range .footer button {
+  position: relative;
+  top: -2px;
+  margin-left: 10px;
+}
 .feindura .datepicker_feindura .header {
   position: relative;
   height: 15px;
@@ -8884,7 +8954,10 @@
 }
 .feindura .datepicker_feindura .header .titleText {
   font-size: 11px;
-  color: #666;
+  color: #dd6e1f;
+}
+.feindura .datepicker_feindura .header .titleText:hover {
+  color: #3a79a5 !important;
 }
 .feindura .datepicker_feindura .header .previous,
 .feindura .datepicker_feindura .header .next,
@@ -8997,25 +9070,41 @@
   margin-bottom: 0;
 }
 .feindura .datepicker_feindura .days .week .day {
-  border: 1px solid #c3c3c3;
-  background: #f1f1f1;
   cursor: pointer;
+  border: 1px solid #dddddd;
+  background: none;
   color: #777777;
+  font-weight: bold !important;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+}
+.feindura .datepicker_feindura .days .week .day.otherMonth {
+  background: #fcfcfc;
+  border: 1px solid transparent;
+  color: #d8d8d8;
+  border: 1px solid #f6f6f6;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.feindura .datepicker_feindura .days .week .day.selected {
+  background: #fdf5ce;
+  color: #dd6e1f;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.30000000000000004);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 .feindura .datepicker_feindura .days .week .day:hover {
   background: #fdf5ce;
   color: #c77405;
   border: 1px solid #fbcb09;
-}
-.feindura .datepicker_feindura .days .week .otherMonth {
-  background: #f6f6f6;
-  color: #c3c3c3;
-  border: 1px solid #eaeaea;
-}
-.feindura .datepicker_feindura .days .week .selected {
-  background: #ffffff;
-  color: #dd6e1f;
-  border: 1px solid #eca776;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
 }
 .feindura .datepicker_feindura .months .month {
   float: left;
@@ -9028,6 +9117,40 @@
   height: 22px;
   border: 1px solid #aaa;
   margin: 0 2px 2px 0;
+  border: 1px solid #dddddd;
+  background: none;
+  color: #777777;
+  font-weight: bold !important;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+}
+.feindura .datepicker_feindura .months .month.otherMonth {
+  background: #fcfcfc;
+  border: 1px solid transparent;
+  color: #d8d8d8;
+  border: 1px solid #f6f6f6;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.feindura .datepicker_feindura .months .month.selected {
+  background: #fdf5ce;
+  color: #dd6e1f;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.30000000000000004);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.feindura .datepicker_feindura .months .month:hover {
+  background: #fdf5ce;
+  color: #c77405;
+  border: 1px solid #fbcb09;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
 }
 .feindura .datepicker_feindura .months .month3,
 .feindura .datepicker_feindura .months .month6,
@@ -9061,6 +9184,40 @@
   height: 22px;
   border: 1px solid #aaa;
   margin: 0 2px 2px 0;
+  border: 1px solid #dddddd;
+  background: none;
+  color: #777777;
+  font-weight: bold !important;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+}
+.feindura .datepicker_feindura .years .year.otherMonth {
+  background: #fcfcfc;
+  border: 1px solid transparent;
+  color: #d8d8d8;
+  border: 1px solid #f6f6f6;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.feindura .datepicker_feindura .years .year.selected {
+  background: #fdf5ce;
+  color: #dd6e1f;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.30000000000000004);
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.30000000000000004);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.30000000000000004);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.feindura .datepicker_feindura .years .year:hover {
+  background: #fdf5ce;
+  color: #c77405;
+  border: 1px solid #fbcb09;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
 }
 .feindura .datepicker_feindura .years .year4,
 .feindura .datepicker_feindura .years .year9,

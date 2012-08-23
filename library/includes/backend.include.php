@@ -86,6 +86,7 @@ if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {
   die('###RELEASEBLOCK###');
 }
 
+
 /**
  * SET the WEBSITE LANGUAGE
  *
@@ -104,8 +105,10 @@ if($websiteConfig['multiLanguageWebsite']['active']) {
   // reset the websiteLanguage SESSION var
   $_SESSION['feinduraSession']['websiteLanguage'] = $websiteLanguage;
   unset($websiteLanguage);
-} else
+} else {
+  unset($_SESSION['feinduraSession']['websiteLanguage']);
   $_SESSION['feinduraSession']['websiteLanguage'] = 0;
+}
 
 /**
  * SET the BACKEND LANGUAGE
@@ -113,46 +116,44 @@ if($websiteConfig['multiLanguageWebsite']['active']) {
  *
  */
 // unset($_SESSION['feinduraSession']['backendLanguage']);
+// unset($_SESSION['feinduraSession']['backendLanguageLocale']);
 //XSS Filter
 if(isset($_GET['backendLanguage'])) $_GET['backendLanguage'] = XssFilter::string($_GET['backendLanguage']);
 if(isset($_SESSION['feinduraSession']['backendLanguage'])) $_SESSION['feinduraSession']['backendLanguage'] = XssFilter::string($_SESSION['feinduraSession']['backendLanguage']);
 
+// GET BROWSER LANGUAGE
 if(isset($_GET['backendLanguage'])) $_SESSION['feinduraSession']['backendLanguage'] = $_GET['backendLanguage'];
-
-// GET BROWSER LANGUAGE, if no language is given
-if(empty($_SESSION['feinduraSession']['backendLanguage']))
+// if no language is given
+elseif(empty($_SESSION['feinduraSession']['backendLanguage']))
   $_SESSION['feinduraSession']['backendLanguage'] = GeneralFunctions::getBrowserLanguages();
 
-// shorten the language string
-if($_SESSION['feinduraSession']['backendLanguage'] !== 'en-US' &&
-   $_SESSION['feinduraSession']['backendLanguage'] !== 'en-GB')
-  $_SESSION['feinduraSession']['backendLanguage'] = substr($_SESSION['feinduraSession']['backendLanguage'],0,2);
+// save the locale
+$_SESSION['feinduraSession']['backendLanguageLocale'] = (strlen($_SESSION['feinduraSession']['backendLanguage']) == 5) ? $_SESSION['feinduraSession']['backendLanguage'] : $_SESSION['feinduraSession']['backendLanguageLocale'];
+// shorten the language to its basic language
+$_SESSION['feinduraSession']['backendLanguage'] = substr($_SESSION['feinduraSession']['backendLanguage'],0,2);
 
 // LOAD LANG FILES
-$languageShortcut = ($_SESSION['feinduraSession']['backendLanguage'] == 'en-US' || $_SESSION['feinduraSession']['backendLanguage'] == 'en-GB')
-  ? 'en'
-  : $_SESSION['feinduraSession']['backendLanguage'];
-$backendLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.backend.php',$languageShortcut);
-$sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$languageShortcut);
-unset($languageShortcut);
+$backendLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feinduraSession']['backendLanguage']);
+$sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feinduraSession']['backendLanguage']);
 
 $langFile = array_merge($sharedLangFile,$backendLangFile);
 unset($backendLangFile,$sharedLangFile);
 
-
 // set the BACKEND DATEFORMAT
+// ...is used in the GeneralFunctions::formatDate() function
 switch ($_SESSION['feinduraSession']['backendLanguage']) {
-  case 'en-US':
-    $backendDateFormat = 'M/D/Y';
-    break;
   case 'fr':
     $backendDateFormat = 'D/M/Y';
     break;
+  case 'en':
+    if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'en-US') {
+      $backendDateFormat = 'M/D/Y';
+      break;
+    } // else buble through to default
   default: // en-GB, ru, de, it
     $backendDateFormat = 'D.M.Y';
     break;
 }
-
 
 // -> ADD NON-CATEGORY name from the current language file
 $categoryConfig[0]['localized'][0]['name'] = $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'];

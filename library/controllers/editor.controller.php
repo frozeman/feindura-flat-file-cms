@@ -52,9 +52,8 @@ if(isBlocked() === false && $_GET['status'] == 'restorePageToLastState') {
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
 if(isBlocked() === false && $_POST['save']) {
-
   // vars
-  $page	= $_POST['id'];
+  $page = $_POST['id'];
   $category = $_POST['category'];
   $_GET['page'] = $page;
   $_GET['category'] = $category;
@@ -62,6 +61,7 @@ if(isBlocked() === false && $_POST['save']) {
   // removes double whitespaces and slashes
   $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );
   $_POST['HTMLEditor'] = str_replace('\"', '"', $_POST['HTMLEditor'] );
+
 
   // *** CREATE NEW PAGE ----------------------
   if ($page == 'new') {
@@ -138,8 +138,6 @@ if(isBlocked() === false && $_POST['save']) {
 
 
     // STORE LOCALIZED CONTENT
-    $_POST['localized'][$_POST['websiteLanguage']]['pageDate']['before'] = $_POST['pageDate']['before'];
-    $_POST['localized'][$_POST['websiteLanguage']]['pageDate']['after'] = $_POST['pageDate']['after'];
     $_POST['tags'] = trim(preg_replace("#[\;,]+#", ',', $_POST['tags']),',');
     $_POST['tags'] = preg_replace("# +#", ' ', $_POST['tags']); // replace multiple whitespaces with one whitespace
     $_POST['localized'][$_POST['websiteLanguage']]['tags'] = preg_replace("# *, *#", ',', $_POST['tags']); // make " , " to  ","
@@ -148,25 +146,36 @@ if(isBlocked() === false && $_POST['save']) {
     $_POST['localized'][$_POST['websiteLanguage']]['content'] = $_POST['HTMLEditor'];
 
     // delete unnecessary variables
-    unset($_POST['pageDate']['before'],$_POST['pageDate']['after'],$_POST['tags'],$_POST['title'],$_POST['description'],$_POST['HTMLEditor']);
+    unset($_POST['tags'],$_POST['title'],$_POST['description'],$_POST['HTMLEditor']);
 
     // STORE data right
     $_POST['lastSaveDate'] = time();
     $_POST['lastSaveAuthor'] = $_SESSION['feinduraSession']['login']['user'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
 
-    // generates pageDate
-    $generatedPageDate = '';
-    if(!empty($_POST['pageDate']['day']) && !empty($_POST['pageDate']['month']))
-      $generatedPageDate = $_POST['pageDate']['year'].'-'.$_POST['pageDate']['month'].'-'.$_POST['pageDate']['day'];
+    // PAGE DATE
+    if($categoryConfig[$category]['showPageDate']) {
 
-    // VALIDATE the SORT DATE
-    if(($pageDate = validateDateString($generatedPageDate)) === false)
-      $pageDate = $generatedPageDate;
-    // if VALID set the validated date to the post var
-    else {
-      $_POST['pageDate']['date'] = $pageDate;
-      unset($pageDate);
+      // vars
+      $pageDate = $_POST['pageDate'];
+      unset($_POST['pageDate']);
+      $_POST['pageDate'] = array();
+
+      // PREPARE PAGEDATE
+      if($backendDateFormat == 'D/M/Y')
+        $_POST['pageDate'] = str_replace('/','.',$_POST['pageDate']);
+
+      // SET PAGEDATE
+      if($categoryConfig[$category]['pageDateAsRange']) {
+        $pageDate = explode(' - ', $pageDate);
+        $_POST['pageDate']['start'] = strtotime($pageDate[0]);
+        $_POST['pageDate']['end']   = strtotime($pageDate[1]);
+
+        unset($_POST['pageDate'][0],$_POST['pageDate'][1]);
+      } else {
+        $_POST['pageDate']['start'] = strtotime($pageDate);
+        $_POST['pageDate']['end'] = false;
+      }
     }
 
     if(empty($_POST['sortOrder']))  $_POST['sortOrder'] = $pageContent['sortOrder'];
@@ -202,6 +211,7 @@ if(isBlocked() === false && $_POST['save']) {
     $_POST['styleId']    = setStylesByPriority($_POST['styleId'],'styleId',$category);
     $_POST['styleClass'] = setStylesByPriority($_POST['styleClass'],'styleClass',$category);
 
+
     if(GeneralFunctions::savePage($_POST)) {
       $documentSaved = true;
 
@@ -228,6 +238,7 @@ if(isBlocked() === false && $_POST['save']) {
   // sets which block should be opend after saving
   $savedForm = $_POST['savedBlock'];
 }
+
 
 
 // -> LOAD PAGE

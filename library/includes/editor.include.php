@@ -30,7 +30,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 <div class="block editor">
   <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
-    <?php echo htmlspecialchars(GeneralFunctions::getLocalized($pageContent,'content',true),ENT_NOQUOTES,'UTF-8'); ?>
+    <?php echo htmlspecialchars(GeneralFunctions::getLocalized($pageContent,'content',false,true),ENT_NOQUOTES,'UTF-8'); ?>
   </textarea>
 <?php
 
@@ -214,6 +214,6 @@ if(GeneralFunctions::hasPermission('fileManager')) {
       include(dirname(__FILE__).'/pageMetaData.include.php');
 
     ?>
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','pageSettings');">
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
   </div>
 </div>

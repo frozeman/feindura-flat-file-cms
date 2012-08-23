@@ -120,9 +120,6 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
 
     // clear the password confirm var
     unset($newUserConfig[$configs['id']]['password_confirm']);
-
-    // get the username which was saved
-    $savedUsername = ($_POST['savedUserId'] = $configs['id']) ? $configs['username'] : '';
   }
 
   ksort($newUserConfig);

@@ -247,7 +247,7 @@ class GeneralFunctions {
 
     if($simple) {
       $language = key($language);
-      $language = $language;
+      $language = substr($language,0,3).strtoupper(substr($language,3));
     }
 
     return $language;
@@ -842,29 +842,30 @@ class GeneralFunctions {
    * @param string       $value               the name of the value, which should be returned localized
    * @param bool|string  $forceOrUseLanguage  if TRUE the language will be forced to be loaded, even if it does not exist, if string it will be try this as the testing language code, instead of the <var>$_SESSION['feinduraSession']['websiteLanguage']</var> var
    *
-  * @return string the localized version of the <var>$value</var> parameter
+   * @return string the localized version of the <var>$value</var> parameter
    *
    *
    * @static
-   * @version 1.2
+   * @version 1.3
    * <br>
    * <b>ChangeLog</b><br>
+   *    - 1.3 add $forceLanguage again
    *    - 1.2 the $localizedArray is now an array with an localized array, e.g. to give the $categoryConfig directly
    *    - 1.1 changed $forceLanguage to $forceOrUseLanguage
    *    - 1.0 initial release
    *
    */
-  public static function getLocalized($localizedArray, $value, $forceOrUseLanguage = false) {
+  public static function getLocalized($localizedArray, $value, $languageCode = false, $forceLanguage = false) {
 
     // var
     $localizedArray = (isset($localizedArray['localized'])) ? $localizedArray['localized'] : $localizedArray; // LEGACY - in case its forgotten somewhere to reomve the 'localized'
-    $languageCode = (!is_bool($forceOrUseLanguage) && is_string($forceOrUseLanguage) && strlen($forceOrUseLanguage) == 2)
-      ? $forceOrUseLanguage
+    $languageCode = (is_string($languageCode) && strlen($languageCode) == 2)
+      ? $languageCode
       : $_SESSION['feinduraSession']['websiteLanguage'];
 
     // get the one matching $languageCode
     if((isset($localizedArray[$languageCode]) && !empty($localizedArray[$languageCode][$value])) ||
-       $forceOrUseLanguage === true)
+       $forceLanguage === true)
       $localizedValues = $localizedArray[$languageCode];
 
     // if not get the one matching the "Main Language"
@@ -1129,7 +1130,8 @@ class GeneralFunctions {
     $fileContent .= "\$pageContent['lastSaveDate']       = ".XssFilter::int($pageContent['lastSaveDate'],0).";\n";
     $fileContent .= "\$pageContent['lastSaveAuthor']     = ".XssFilter::int($pageContent['lastSaveAuthor'],'false').";\n\n"; // user id
 
-    $fileContent .= "\$pageContent['pageDate']['date']   = ".XssFilter::int($pageContent['pageDate']['date'],0).";\n\n";
+    $fileContent .= "\$pageContent['pageDate']['start']  = ".XssFilter::int($pageContent['pageDate']['start'],0).";\n";
+    $fileContent .= "\$pageContent['pageDate']['end']    = ".XssFilter::int($pageContent['pageDate']['end'],0).";\n\n";
 
     // write the plugins
     if(is_array($pageContent['plugins'])) {
@@ -1172,8 +1174,6 @@ class GeneralFunctions {
         // remove the '' when its 0 (for non localized pages)
         $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
 
-        $fileContent .= "\$pageContent['localized'][".$langCode."]['pageDate']['before'] = '".XssFilter::text($pageContentLocalized['pageDate']['before'])."';\n";
-        $fileContent .= "\$pageContent['localized'][".$langCode."]['pageDate']['after']  = '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
         $fileContent .= "\$pageContent['localized'][".$langCode."]['tags']               = '".XssFilter::text($pageContentLocalized['tags'])."';\n";
         $fileContent .= "\$pageContent['localized'][".$langCode."]['title']              = '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
         $fileContent .= "\$pageContent['localized'][".$langCode."]['description']        = '".XssFilter::text($pageContentLocalized['description'])."';\n";
@@ -1652,6 +1652,7 @@ class GeneralFunctions {
   *
   * @param int          $timeStamp a UNIX-Timestamp
   * @param string|false $format    (optional) the format type can be "DMY" to format into: "DD.MM.YYYY", "YMD" to format into: "YYYYY-MM-DD" or "MDY" to format into: "MM/DD/YYYYY", if FALSE it uses the format set in the administrator-settings config
+  * @param string       $dateSize  (optional) can be 'D', 'DM' or 'DMY', to display only days, days and month or a full day
   *
   * @uses $adminConfig  to get the right date format, if no format is given
   *
@@ -1666,32 +1667,50 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function formatDate($timeStamp, $format = false) {
+  public static function formatDate($timeStamp, $dateSize = 'DMY') {
 
     // if no timestamp, pass it through
     if(empty($timeStamp) || !preg_match('/^[0-9]{1,}$/',$timeStamp))
       return $timeStamp;
 
     // get the right date format
-    if(!empty($format))
-      $format = $format;
-    elseif(!empty($GLOBALS['backendDateFormat']))
+    if(!empty($GLOBALS['backendDateFormat']))
       $format = $GLOBALS['backendDateFormat'];
     else
       $format = self::$websiteConfig['dateFormat'];
 
-    switch ($format) {
+    switch($format) {
       case 'Y-M-D':
-        return date('Y-m-d',$timeStamp);
+        if($dateSize == 'DMY')
+          return date('Y-m-d',$timeStamp);
+        elseif($dateSize == 'DM')
+          return date('m-d',$timeStamp);
+        elseif($dateSize == 'D')
+          return date('m-d',$timeStamp);
         break;
       case 'D.M.Y':
-        return date('d.m.Y',$timeStamp);
+        if($dateSize == 'DMY')
+          return date('d.m.Y',$timeStamp);
+        elseif($dateSize == 'DM')
+          return date('d.m',$timeStamp);
+        elseif($dateSize == 'D')
+          return date('d.',$timeStamp);
         break;
       case 'D/M/Y':
-        return date('d/m/Y',$timeStamp);
+        if($dateSize == 'DMY')
+          return date('d/m/Y',$timeStamp);
+        elseif($dateSize == 'DM')
+          return date('d/m',$timeStamp);
+        elseif($dateSize == 'D')
+          return date('d',$timeStamp);
         break;
       case 'M/D/Y':
-        return date('m/d/Y',$timeStamp);
+        if($dateSize == 'DMY')
+          return date('m/d/Y',$timeStamp);
+        elseif($dateSize == 'DM')
+          return date('m/d',$timeStamp);
+        elseif($dateSize == 'D')
+          return date('m/d',$timeStamp);
         break;
       default:
         return $timeStamp;
@@ -1703,12 +1722,14 @@ class GeneralFunctions {
   * <b>Name</b> dateDayBeforeAfter()<br>
   *
   * Replaces the given <var>$date</var> parameter with "yesterday", "today" or "tomorrow" if it is one day before or the same day or one day after today.
+  * It will also wrap the date(s) in a <time> tag.
   *
   * <b>Used Global Variables</b><br>
   *    - <var>$langFile</var> the backend language-file array (included in the {@link backend.include.php})
   *
   * @param int          $timestamp      the timestamp to check
-  * @param array|false  $langFile       the languageFile which contains the ['DATE_TEXT_YESTERDAY'], ['DATE_TEXT_TODAY'] and ['DATE_TEXT_TOMORROW'] texts, if FALSE it loads the backend language-file
+  * @param array|false  $langFile       (optional) the languageFile which contains the ['DATE_TEXT_YESTERDAY'], ['DATE_TEXT_TODAY'] and ['DATE_TEXT_TOMORROW'] texts, if FALSE it loads the backend language-file
+  * @param string       $dateSize       (optional) can be 'D', 'DM' or 'DMY', to display only days, days and month or a full day
   *
   * @return string|int a string with "yesterday", "today" or "tomorrow" or the unchanged timestamp
   *
@@ -1720,62 +1741,98 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function dateDayBeforeAfter($timestamp,$langFile = false) {
+  public static function dateDayBeforeAfter($timestamp,$langFile = false, $dateSize = 'DMY') {
 
     if(empty($timestamp) || !preg_match('/^[0-9]{1,}$/',$timestamp))
       return $timestamp;
 
     //var
     $date = date('Y-m-d',$timestamp);
+    $return = '';
 
     if($langFile === false)
       $langFile = $GLOBALS['langFile'];
 
     // if the date is TODAY
     if(substr($date,0,10) == date('Y-m-d'))
-      return $langFile['DATE_TEXT_TODAY'];
+      $return = $langFile['DATE_TEXT_TODAY'];
 
     // if the date is YESTERDAY
     elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')-1)))
-      return $langFile['DATE_TEXT_YESTERDAY'];
+      $return = $langFile['DATE_TEXT_YESTERDAY'];
 
     // if the date is TOMORROW
     elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')+1)))
-      return $langFile['DATE_TEXT_TOMORROW'];
+      $return = $langFile['DATE_TEXT_TOMORROW'];
 
     else
-      return self::formatDate($timestamp);
+      $return = self::formatDate($timestamp,$dateSize);
+
+    return '<time datetime="'.self::getDateTimeValue($timestamp).'">'.$return.'</time>';
   }
 
- /**
-  * <b>Name</b> checkPageDate()<br>
+  /**
+  * <b>Name</b> showPageDate()<br>
   *
-  * Returns TRUE if the page date exists and is activated in this category of the page.
+  * Returns either a single page date or a date range formated, ready to display in an HTML page.
   *
   * @param array $pageContent the $pageContent array of a page
   *
   * @uses $categoryConfig to check if in the category the page date is activated
   *
-  * @return bool
+  * @return string|false the formated page date(s) or false if they the page has no page date or its deactivated in the category
   *
   * @static
-  * @version 1.2
+  * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.2 moved to GeneralFunctions
-  *    - 1.1 add pagedate for non-categories
   *    - 1.0 initial release
   *
   */
-  public static function checkPageDate($pageContent) {
-    $pageDate = self::getLocalized($pageContent,'pageDate');
-    $pageDateBefore = $pageDate['before'];
-    $pageDateAfter = $pageDate['after'];
-    if(self::$categoryConfig[$pageContent['category']]['showPageDate'] &&
-       (!empty($pageDateBefore) || !empty($pageContent['pageDate']['date']) || $pageContent['pageDate']['date'] === 0 || !empty($pageDateAfter)))
-       return true;
-    else
-       return false;
+  public static function showPageDate($pageContent,$langFile = false) {
+
+    // quit if deactivated
+    if(!self::$categoryConfig[$pageContent['category']]['showPageDate'])
+      return false;
+
+    if($langFile === false)
+      $langFile = $GLOBALS['langFile'];
+
+    // DATE RANGE
+    if(self::$categoryConfig[$pageContent['category']]['pageDateAsRange'] && !empty($pageContent['pageDate']['end'])) {
+
+      // BOTH dates EXIST
+      if(!empty($pageContent['pageDate']['start'])) {
+
+        // get the startdate (either: "d - .." or "d.m. - .." or "d.m.Y - ..")
+        $startDate = '';
+        if(date('Y',$pageContent['pageDate']['start']) == date('Y',$pageContent['pageDate']['end'])) {
+          if(date('m',$pageContent['pageDate']['start']) == date('m',$pageContent['pageDate']['end']))
+            if(date('d',$pageContent['pageDate']['start']) == date('d',$pageContent['pageDate']['end']))
+              $startDate = false;
+            else
+              $startDate = self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile,'D');
+          else
+            $startDate = self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile,'DM');
+        // full start date
+        } else
+          $startDate = self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile);
+
+        return ($startDate)
+          ? $startDate.' - '.self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile)
+          : self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile);
+
+      // ONLY LAST date EXIST
+      } else
+        return self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile);
+
+    // SINGLE DATE
+    } else {
+      if(!empty($pageContent['pageDate']['start']))
+        return self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile);
+      else
+        return false;
+    }
   }
 
  /**
@@ -1870,7 +1927,6 @@ class GeneralFunctions {
   *
   */
   public function replaceSnippets($pageContentString, $pageId, $removeSnippets = false) {
-
     // get the Feindura class to be used inside the snippets/plugins
     if(!$removeSnippets) {
       if($this instanceof Feindura) {

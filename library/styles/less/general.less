@@ -257,7 +257,7 @@ a:hover,
 a:focus,
 a.link:hover,
 a.link:focus {
-    color: #536068;
+    color: @logoColorBlue;
     text-decoration: none;
 }
 a:active,
@@ -285,7 +285,7 @@ a.anchorTarget {
     visibility: hidden;
     padding-left: 0px;
     height: 0px;
-    top: -30px;
+    top: -50px;
     background: none;
 }
 
@@ -390,7 +390,6 @@ a.frontend {
 
     img {
         // grayscale
-        filter: url(filters.svg#grayscale); /* Firefox 3.5+ */
         filter: gray; /* IE5+ */
         -webkit-filter: grayscale(1);
         -moz-filter: grayscale(1);

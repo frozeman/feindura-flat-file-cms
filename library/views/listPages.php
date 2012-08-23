@@ -184,12 +184,8 @@ foreach($categoryConfig as $category) {
           $pageStatistics = StatisticFunctions::readPageStatistics($pageContent['id']);
 
           // vars
-          $pageTitle_pageDate      = '';
-          $pageTitle_tags          = '';
-          $pageTitle_pageLanguages = '';
           $missingLanguages        = '';
           $startPageIcon           = '';
-          $pageTitle_startPageText = '';
           $sort_order[]            = $pageContent['sortOrder'];
 
           // add pageContent to this array to create later the arrows to the sub categories
@@ -209,51 +205,6 @@ foreach($categoryConfig as $category) {
           $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent,'title')),25);
           $visitorCount = GeneralFunctions::shortenString(formatHighNumber($pageStatistics['visitorCount']),12);
 
-          // -> show lastSaveDate
-          $lastSaveDate = GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile).' '.formatTime($pageContent['lastSaveDate']);
-          $lastSaveDate = ($pageContent['lastSaveAuthor'])
-              ? '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong][br]'.$lastSaveDate.' ('.$userConfig[$pageContent['lastSaveAuthor']]['username'].')[br]'
-              : '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong][br]'.$lastSaveDate.'[br]';
-
-          // -> show page ID
-          $pageTitle_Id = (GeneralFunctions::isAdmin())
-            ? '[strong]ID[/strong] '.$pageContent['id'].'[br]'
-            : '';
-
-          // -> show subcategory in toolTip
-          $pageTitle_subCategory = ($pageContent['subCategory'] && $categoryConfig[$pageContent['category']]['showSubCategory'])
-            ? '[strong]'.$langFile['EDITOR_TEXT_SUBCATEGORY'].'[/strong][br][img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($categoryConfig[$pageContent['subCategory']],'name').'[br]'
-            : '';
-
-          // -> generate pageDate for toolTip
-          if($pageTitle_pageDate = showPageDate($pageContent))
-            $pageTitle_pageDate .= '[br]';
-
-          // -> generate tags for toolTip
-          $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
-          if(!empty($localizedTags) && $categoryConfig[$pageContent['category']]['showTags']) {
-            $pageTitle_tags = '[strong]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].'[/strong][br]'.$localizedTags.'[br]';
-          }
-
-          // -> generate page languages for toolTip
-          if(!isset($pageContent['localized'][0])) {
-            $pageTitle_pageLanguages .= '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].'[/strong][br]';
-            if(is_array($pageContent['localized'][0])) {
-              foreach ($pageContent['localized'] as $langCode => $values) {
-                $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
-              }
-            }
-            // list not yet existing languages of the page
-            if(is_array($websiteConfig['multiLanguageWebsite']['languages'])) {
-              foreach($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
-                if(!isset($pageContent['localized'][$langCode])) {
-                  $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] [span class=gray][s]'.$languageNames[$langCode].'[/s][/span][br]';
-                  $missingLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
-                }
-              }
-            }
-          }
-
           $hasSubCategoryClass = (is_numeric($pageContent['subCategory'])) ? ' class="hasSubCategory"' : '';
 
           // -----------------------  ********  ----------------------
@@ -269,15 +220,13 @@ foreach($categoryConfig as $category) {
           // -> startpage icon before the name
           if($websiteConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
             $startPageIcon = ' isStartPage';
-            $pageTitle_startPageText = $langFile['SORTABLEPAGELIST_functions_startPage_set'].'[br]';
           }
 
           echo '<div class="row">';
 
             echo '<div class="span4 name left">
                     <a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTipLeft'.$subCategoryIcon.$startPageIcon.'"
-                    title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))).'::
-                    '.trim(' '.$pageTitle_startPageText.$pageTitle_Id.$lastSaveDate.$pageTitle_subCategory.$pageTitle_pageDate.$pageTitle_tags.$pageTitle_pageLanguages,'[br]').'">
+                    title="'.showPageToolTip($pageContent).'">
                       <strong>'.$title.'</strong>
                     </a>
                   </div>';

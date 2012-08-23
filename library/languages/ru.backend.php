@@ -554,6 +554,7 @@ $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'У�
 
 $langFile['PAGESETUP_TEXT_EDITPAGEDATE']                                  = 'Редактировать дату';
 $langFile['PAGESETUP_TIP_EDITPAGEDATE']                                   = 'Дата страницы может быть использована для сортировки.';
+$langFile['PAGESETUP_TEXT_PAGEDATERANGE']                                 = 'как период';
 
 $langFile['PAGESETUP_TEXT_FEEDS']                                         = 'Включить xml-ленты';
 $langFile['PAGESETUP_TIP_FEEDS']                                          = 'Включает выдачу xml-лент для категории в форматах: RSS 2.0 и Atom.';
@@ -724,21 +725,15 @@ $langFile['EDITOR_pageSettings_field2_tip']                               = 'К�
 $langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Таги должны быть разделены &quot;,&quot; (запятая).';
 $langFile['EDITOR_pageSettings_field3']                                   = 'Дата';
 $langFile['EDITOR_pageSettings_field3_tip']                               = 'Дата может быть использована для сортировки страниц.';
-$langFile['EDITOR_pageSettings_pagedate_before_inputTip']                 = 'Текст до даты::например &quot;начиная с 31 июня&quot;.';
-$langFile['EDITOR_pageSettings_pagedate_after_inputTip']                  = 'Текст после даты::';
-$langFile['EDITOR_pageSettings_pagedate_day_inputTip']                    = 'День::';
-$langFile['EDITOR_pageSettings_pagedate_month_inputTip']                  = 'Месяц::';
-$langFile['EDITOR_pageSettings_pagedate_year_inputTip']                   = 'Год::[strong]Формат[/strong] YYYY';
 $langFile['EDITOR_pageSettings_field4']                                   = 'Статус страницы';
 $langFile['EDITOR_pageSettings_field4_tip']                               = '[strong]Только активная страница отображается на сайте![/strong]';
 
-$langFile['EDITOR_pageSettings_pagedate_error']                           = 'Ошибочный формат даты';
-$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'В этом месяце не 31 день.[br]Формат даты может быть следующим:';
+$langFile['EDITOR_PAGESETTINGS_NOPAGEDATE']                               = 'без даты';
 
 $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'подкатегория';
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Позволяет создавать подменю для этой страницы на сайте.';
 
-$langFile['EDITOR_BUTTON_RESTORELASTSTATE']                              = 'Версия %s восстановление';
+$langFile['EDITOR_BUTTON_RESTORELASTSTATE']                               = 'Версия %s восстановление';
 $langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE']                           = 'Версия %s восстановлено.';
 
 // ---------- page advanced settings

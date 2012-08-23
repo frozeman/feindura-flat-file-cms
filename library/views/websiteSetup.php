@@ -33,16 +33,14 @@ require_once(dirname(__FILE__).'/../includes/secure.include.php');
   </div>
 
 <!-- WEBSITE SETTINGS -->
+<a id="websiteConfig" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
 $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="websiteSettings"><?php echo $langFile['websiteSetup_websiteConfig_h1']; ?></a></h1>
+  <h1><a href="#"><?php echo $langFile['websiteSetup_websiteConfig_h1']; ?></a></h1>
   <div class="content form">
-
-
-
 
     <div class="row">
       <div class="span3 formLeft">
@@ -50,7 +48,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
         <?php echo $langFile['websiteSetup_websiteConfig_field1']; ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="title" name="title" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'title',true); ?>">
+        <input type="text" id="title" name="title" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'title',false,true); ?>">
       </div>
     </div>
 
@@ -60,7 +58,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
         <?php echo $langFile['websiteSetup_websiteConfig_field2']; ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="publisher" name="publisher" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'publisher',true); ?>">
+        <input type="text" id="publisher" name="publisher" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'publisher',false,true); ?>">
       </div>
     </div>
 
@@ -70,7 +68,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
         <?php echo $langFile['websiteSetup_websiteConfig_field3']; ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="websiteConfig_copyright" name="websiteConfig_copyright" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'copyright',true); ?>">
+        <input type="text" id="websiteConfig_copyright" name="websiteConfig_copyright" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'copyright',false,true); ?>">
       </div>
     </div>
 
@@ -80,7 +78,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
         <?php echo $langFile['websiteSetup_websiteConfig_field4']; ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="keywords" name="keywords" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'keywords',true); ?>" class="toolTipRight" title="<?php echo $langFile['websiteSetup_websiteConfig_field4_inputTip']; ?>">
+        <input type="text" id="keywords" name="keywords" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'keywords',false,true); ?>" class="toolTipRight" title="<?php echo $langFile['websiteSetup_websiteConfig_field4_inputTip']; ?>">
       </div>
     </div>
 
@@ -90,11 +88,11 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
         <?php echo $langFile['websiteSetup_websiteConfig_field5']; ?></span></label>
       </div>
       <div class="span5">
-        <textarea id="description" name="description" class="toolTipRight autogrow" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($websiteConfig,'description',true); ?></textarea>
+        <textarea id="description" name="description" class="toolTipRight autogrow" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($websiteConfig,'description',false,true); ?></textarea>
       </div>
     </div>
 
-    <input type="submit" value="" name="websiteConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'websiteConfig'; submitAnchor('websiteSettingsForm','websiteConfig');">
+    <input type="submit" value="" name="websiteConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
   </div>
 </div>
 
@@ -220,16 +218,15 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
       </div>
     </div>
 
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'advancedWebsiteConfig'; submitAnchor('websiteSettingsForm','advancedWebsiteConfig');">
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
   </div>
 </div>
 
 </form>
 
-<?php if((!empty($adminConfig['websiteFilesPath']) || !empty($adminConfig['stylesheetPath'])) &&
-         (GeneralFunctions::hasPermission('editWebsiteFiles') ||
-          GeneralFunctions::hasPermission('editStyleSheets') ||
-          ($adminConfig['editor']['snippets'] && GeneralFunctions::hasPermission('editSnippets')))) { ?>
+<?php if((!empty($adminConfig['websiteFilesPath']) && GeneralFunctions::hasPermission('editWebsiteFiles')) ||
+         (!empty($adminConfig['stylesheetPath']) &&GeneralFunctions::hasPermission('editStyleSheets')) ||
+         ($adminConfig['editor']['snippets'] && GeneralFunctions::hasPermission('editSnippets'))) { ?>
 <div class="blockSpacer"></div>
 <?php
 
@@ -257,6 +254,9 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
 <!-- PAGE SCRIPTS -->
 <script type="text/javascript">
 /* <![CDATA[ */
+
+  // setup the AUTOMATICALLY ADDING OF the ANCHORS
+  setupForm('websiteSettingsForm');
 
   // -> MULTI LANGUAGE WEBSITE
 

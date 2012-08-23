@@ -519,8 +519,9 @@ $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS']                      = 'act
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS']                       = 'Activer plugins pour les pages de cette catégorie';
 $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Maintenez la touche CTRL/CMD enfoncée pour sélectionner plusieurs plugins.';
 
-$langFile['PAGESETUP_TEXT_EDITPAGEDATE']                                  = 'traiter la date du site web';
-$langFile['PAGESETUP_TIP_EDITPAGEDATE']                                   = 'La date du site web peu être utilisé pour trier des pages par ordre chronologique.';
+$langFile['PAGESETUP_TEXT_EDITPAGEDATE']                                  = 'traiter la date du page';
+$langFile['PAGESETUP_TIP_EDITPAGEDATE']                                   = 'La date du page peu être utilisé pour trier des pages par ordre chronologique.';
+$langFile['PAGESETUP_TEXT_PAGEDATERANGE']                                 = 'comme période.';
 
 $langFile['PAGESETUP_TEXT_FEEDS']                                         = 'activez Feeds';
 $langFile['PAGESETUP_TIP_FEEDS']                                          = 'Activer RSS 2.0 et Atom Feed pour les pages sans catégorie.';
@@ -685,20 +686,15 @@ $langFile['EDITOR_pageSettings_field2_tip']                               = 'Tag
 $langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Les tags doivent être séparés par la &quot;,&quot; (virgule).';
 $langFile['EDITOR_pageSettings_field3']                                   = 'date du site web';
 $langFile['EDITOR_pageSettings_field3_tip']                               = 'La date peut être utilisée pour trier les pages dans l&#145;ordre chronologique. (par ex. des évenements)';
-$langFile['EDITOR_pageSettings_pagedate_before_inputTip']                 = 'texte avant la date::Par ex. &quot;du 31. juin&quot;.';
-$langFile['EDITOR_pageSettings_pagedate_after_inputTip']                  = 'texte après la date::';
-$langFile['EDITOR_pageSettings_pagedate_day_inputTip']                    = 'jour::';
-$langFile['EDITOR_pageSettings_pagedate_month_inputTip']                  = 'mois::';
-$langFile['EDITOR_pageSettings_pagedate_year_inputTip']                   = 'an::[strong]format[/strong] AAAA';
 $langFile['EDITOR_pageSettings_field4']                                   = 'status de la page';
 $langFile['EDITOR_pageSettings_field4_tip']                               = '[strong]Une page sera visible sur le site web seulement quand elle est publiée![/strong]';
-$langFile['EDITOR_pageSettings_pagedate_error']                           = 'format de date incorrect';
-$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'Ce mois n&#145;a peut être pas 31 jours.[br]La date devrait avoir le format suivant:';
+
+$langFile['EDITOR_PAGESETTINGS_NOPAGEDATE']                               = 'Pas de date';
 
 $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Sous-catégorie';
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Permet de créer un sous-menu pour cette page sur le site.';
 
-$langFile['EDITOR_BUTTON_RESTORELASTSTATE']                              = 'Restaurer la version de %s';
+$langFile['EDITOR_BUTTON_RESTORELASTSTATE']                               = 'Restaurer la version de %s';
 $langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE']                           = 'Version de %s restaurée.';
 
 // ---------- page advanced settings

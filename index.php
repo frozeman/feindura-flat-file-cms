@@ -235,24 +235,15 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- loadingBox -->
   <div id="loadingBox"></div>
 
+  <!-- Top Anchor -->
+  <a id="top" class="anchorTarget"></a>
+
   <!-- ***************************************************************************************** -->
   <!-- ** HEADER ******************************************************************************* -->
   <header class="main">
     <div class="container">
 
-      <!-- Top Anchor -->
-      <a id="top" class="anchorTarget"></a>
-
       <div class="menuBlock">
-
-        <div class="languageSelection">
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','en-US'); ?>" tabindex="20" class="en-us toolTipBottom" title="English US::"></a>
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','en-GB'); ?>" tabindex="20" class="en-gb toolTipBottom" title="English GB::"></a>
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','de'); ?>" tabindex="21" class="de toolTipBottom" title="Deutsch::"></a>
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','fr'); ?>" tabindex="22" class="fr toolTipBottom" title="français::"></a>
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','it'); ?>" tabindex="23" class="it toolTipBottom" title="italiano::"></a>
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','ru'); ?>" tabindex="24" class="ru toolTipBottom" title="русский::"></a>
-        </div>
 
         <h1 style="display:none;">feindura - flat file cms</h1><!-- just for the outline of the HTML page -->
         <a href="http://feindura.org" class="feinduraLogo" target="_blank"></a>
@@ -310,7 +301,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
       <div class="sideBar">
         <?php if(!empty($userConfig)) { ?>
-        <div id="sessionTimout" class="toolTipBottom" title="<?php echo $langFile['LOGIN_TIP_AUTOLOGOUT']; ?>::">00:00:00</div>
+        <div id="sessionTimout" class="toolTipBottom" title="::<?php echo $langFile['LOGIN_TIP_AUTOLOGOUT']; ?>::">00:00:00</div>
         <?php } ?>
 
         <?php include(dirname(__FILE__).'/library/includes/userList.include.php'); ?>
@@ -321,9 +312,17 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
           <?php } ?>
           <a href="index.php?logout" tabindex="1" class="btn btn-large logout toolTipBottom" title="::<?php echo $langFile['HEADER_BUTTON_LOGOUT']; ?>">&#215;</a>
         </div>
-      </div>
 
-    </div>
+
+        <div class="languageSelection">
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','en-US'); ?>" tabindex="20" class="en-us toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'en-US') echo ' active'; ?>" title="English US::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','en-GB'); ?>" tabindex="20" class="en-gb toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'en-GB') echo ' active'; ?>" title="English GB::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','de-DE'); ?>" tabindex="21" class="de toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'de-DE') echo ' active'; ?>" title="Deutsch::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','fr-FR'); ?>" tabindex="22" class="fr toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'fr-FR') echo ' active'; ?>" title="français::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','it-IT'); ?>" tabindex="23" class="it toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'it-IT') echo ' active'; ?>" title="italiano::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','ru-RU'); ?>" tabindex="24" class="ru toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'ru-RU') echo ' active'; ?>" title="русский::"></a>
+        </div>
+      </div>
   </header>
 
   <!-- ***************************************************************************************** -->
@@ -384,7 +383,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
         if($_GET['status'] == 'addLanguage' && is_array($pageContent['localized']))
             $currentlanguageSlection = array_unique(array_merge($websiteConfig['multiLanguageWebsite']['languages'],array_keys($pageContent['localized'])));
         $_SESSION['feinduraSession']['websiteLanguage'] = (in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection)) ? $_SESSION['feinduraSession']['websiteLanguage']: current($currentlanguageSlection);
-
         // if NEW PAGE, overwrite with the mainLanguage
         if($newPage)
           $currentlanguageSlection = $websiteConfig['multiLanguageWebsite']['languages'];
@@ -523,7 +521,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
                   <?php } ?>
 
-                  <li><a <?php echo 'href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=restorePageToLastState&amp;reload='.rand(0,999).'" title="::'.sprintf($langFile['EDITOR_BUTTON_RESTORELASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousStatePageContent['lastSaveDate']).' '.formatTime($previousStatePageContent['lastSaveDate'])).'"'; ?> tabindex="33" class="restorePage toolTipBottom"></a></li>
+                  <li><a <?php echo 'href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=restorePageToLastState&amp;reload='.rand(0,999).'" title="::'.sprintf($langFile['EDITOR_BUTTON_RESTORELASTSTATE'],str_replace(array('<','>','"'),array('[',']',"'"),GeneralFunctions::dateDayBeforeAfter($previousStatePageContent['lastSaveDate'])).' '.formatTime($previousStatePageContent['lastSaveDate'])).'"'; ?> tabindex="33" class="restorePage toolTipBottom"></a></li>
 
                 <?php $showSpacer = false;
                 }

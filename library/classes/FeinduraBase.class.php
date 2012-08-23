@@ -931,23 +931,12 @@ class FeinduraBase {
     // -> PAGE DATE
     // *****************
     $pageDate = false;
-    if(GeneralFunctions::checkPageDate($pageContent)) {
-    	$titleDateBefore = '';
-    	$titleDateAfter = '';
-
-      // format pageDate
-      $pageDate = GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile);
-
-      // add <time> tag
-      if(!empty($pageContent['pageDate']['date']))
-        $pageDate = '<time datetime="'.GeneralFunctions::getDateTimeValue($pageContent['pageDate']['date']).'">'.$pageDate.'</time>';
-
-      $pageDateBeforeAfter = $this->getLocalized($pageContent,'pageDate');
-      // adds spaces on before and after
-      if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
-      if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
-      $pageDate = $titleDateBefore.$pageDate.$titleDateAfter;
-
+    if($this->categoryConfig[$pageContent['category']]['showPageDate']) {
+      // add page date
+      $pageDate          = GeneralFunctions::showPageDate($pageContent,$this->languageFile);
+      $pageDateTimeStamp['date']  = $pageContent['pageDate']['start'];
+      $pageDateTimeStamp['start'] = $pageContent['pageDate']['start'];
+      $pageDateTimeStamp['end']   = $pageContent['pageDate']['end'];
     }
 
     // -> PAGE TITLE
@@ -1034,7 +1023,7 @@ class FeinduraBase {
       $return['pageDate']                                     = $pageDate;
 
     if($pageDate)
-      $return['pageDateTimestamp']                            = $pageContent['pageDate']['date'];
+      $return['pageDateTimestamp']                            = $pageDateTimeStamp;
 
     if(!empty($localizedPageTitle))
       $return['title']                                        = $title;
@@ -1117,30 +1106,18 @@ class FeinduraBase {
       // saves the long version of the title, for the title="" tag
       //$fullTitle = strip_tags($this->getLocalized($pageContent,'title'));
 
-      // generate TITLEDATE
-      if($titleShowPageDate && GeneralFunctions::checkPageDate($pageContent)) {
-        $titleDateBefore = '';
-        $titleDateAfter = '';
-        $pageDateBeforeAfter = $this->getLocalized($pageContent,'pageDate');
 
-        // format pageDate
-        $titleDate = GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile);
+      if($titleShowPageDate && $this->categoryConfig[$pageContent['category']]['showPageDate']) {
+          // add page date
+          $titleDate          = GeneralFunctions::showPageDate($pageContent,$this->languageFile);
 
-        // add <time> tag to the pageDate
-        if(!empty($pageContent['pageDate']['date']))
-          $titleDate = '<time datetime="'.GeneralFunctions::getDateTimeValue($pageContent['pageDate']['date']).'">'.$titleDate.'</time>';
+          // add pageDate separator
+          if(is_string($titlePageDateSeparator))
+            $titleDate = $titleDate.$titlePageDateSeparator;
 
-        // adds spaces on before and after
-        if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
-        if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter   = ' '.$pageDateBeforeAfter['after'];
-        $titleDate = $titleDateBefore.$titleDate.$titleDateAfter;
+        } else
+          $titleDate = false;
 
-        // add pageDate separator
-        if(is_string($titlePageDateSeparator))
-          $titleDate = $titleDate.$titlePageDateSeparator;
-
-      } else
-        $titleDate = false;
 
       // show the CATEGORY NAME
       if($titleShowCategory === true && $pageContent['category'] != 0) {
@@ -1531,15 +1508,15 @@ class FeinduraBase {
   * Loads pages by ID-type and ID, which fit in the given time period parameters.
   *
   * Checks if the pages to load have a page date
-  * and the page date fit in the given <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters.
+  * and the page date fit in the given <var>$from</var> and <var>$to</var> parameters.
   * All time period parameters are compared against the date of TODAY.
   *
-  * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
+  * The <var>$from</var> and <var>$to</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   *
   * @param string          $idType                the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool  $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
-  * @param int|bool|string $monthsInThePast       (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
-  * @param int|bool|string $monthsInTheFuture     (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param int|bool|string $from                  (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
+  * @param int|bool|string $to                    (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
   * @param bool            $sortByCategories      (optional) determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
   * @param bool	           $reverseList           (optional) if TRUE the pages sorting will be reversed
   *
@@ -1564,13 +1541,12 @@ class FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  protected function loadPagesByDate($idType, $ids, $monthsInThePast = true, $monthsInTheFuture = true, $sortByCategories = false, $reverseList = false) {
+  protected function loadPagesByDate($idType, $ids, $from = true, $to = true, $sortByCategories = false, $reverseList = false) {
 
-    if(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
-      $monthsInThePast = round($monthsInThePast);
-    if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
-      $monthsInTheFuture = round($monthsInTheFuture);
-
+    if(!is_bool($from) && is_numeric($from))
+      $from = round($from);
+    if(!is_bool($to) && is_numeric($to))
+      $to = round($to);
     $ids = $this->getPropertyIdsByType($idType,$ids);
 
     // LOADS the PAGES BY TYPE
@@ -1586,20 +1562,20 @@ class FeinduraBase {
       $defaultTimezone = date_default_timezone_get();
       date_default_timezone_set($this->adminConfig['timezone']); // so the date can be compared to the page dates, which are set in the backend timezone
 
-      if(is_string($monthsInThePast) && !is_numeric($monthsInThePast))
-        $pastDate = strtotime($monthsInThePast,$currentDate);
-      elseif(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
-        $pastDate = strtotime('-'.$monthsInThePast.' month',$currentDate);
-      elseif($monthsInThePast === false)
-        $pastDate = $currentDate;
+        if(is_string($from) && !is_numeric($from))
+          $pastDate = strtotime($from,$currentDate);
+        elseif(!is_bool($from) && is_numeric($from))
+          $pastDate = strtotime('-'.$from.' month',$currentDate);
+        elseif($from === false)
+          $pastDate = $currentDate;
 
-      // creates the FUTURE DATE
-      if(is_string($monthsInTheFuture) && !is_numeric($monthsInTheFuture))
-        $futureDate = strtotime($monthsInTheFuture,$currentDate);
-      if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
-        $futureDate = strtotime('+'.$monthsInTheFuture.' month',$currentDate);
-      elseif($monthsInTheFuture === false)
-        $futureDate = $currentDate;
+        // creates the FUTURE DATE
+        if(is_string($to) && !is_numeric($to))
+          $futureDate = strtotime($to,$currentDate);
+        if(!is_bool($to) && is_numeric($to))
+          $futureDate = strtotime('+'.$to.' month',$currentDate);
+        elseif($to === false)
+          $futureDate = $currentDate;
 
       date_default_timezone_set($defaultTimezone); // set the timezone back to where it was
 
@@ -1608,26 +1584,30 @@ class FeinduraBase {
       // echo 'futureDate: '.date('d-m-Y',$futureDate).'<br><br>';
 
       // convert to number date e.g. 20010911
-      $pastDate = date('Ymd',$pastDate);
-      $futureDate = date('Ymd',$futureDate);
+      // $pastDate = date('Ymd',$pastDate);
+      // $futureDate = date('Ymd',$futureDate);
 
       // -> list a category(ies)
       // ------------------------------
       $selectedPages = array();
       foreach($pages as $page) {
-        // show the pages, if they have a date which can be sorten
-        if(!empty($page['pageDate']['date']) && $this->categoryConfig[$page['category']]['showPageDate']) {
+
+        // show the pages, if they have a date which can be sorted
+        if(!empty($page['pageDate']['start']) && $this->categoryConfig[$page['category']]['showPageDate']) {
 
           // echo 'pageDate: '.date('d-m-Y',$page['pageDate']['date']).'<br>';
 
           // convert to number date e.g. 20010911
-          $pageDate = date('Ymd',$page['pageDate']['date']);
+          // $pageDate = date('Ymd',$page['pageDate']['start']);
+          $pageDate = $page['pageDate']['start'];
+
+
 
           // adds the page to the array, if:
           // -> the currentdate ist between the minus and the plus month or
           // -> mins or plus month are true (means there is no time limit)
-          if(($monthsInThePast === true || $pageDate >= $pastDate) &&
-             ($monthsInTheFuture === true || $pageDate <= $futureDate))
+          if(($from === true || $pageDate >= $pastDate) &&
+             ($to === true || $pageDate <= $futureDate))
             $selectedPages[] = $page;
         }
       }

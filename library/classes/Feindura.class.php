@@ -781,9 +781,10 @@ class Feindura extends FeinduraBase {
   * @see FeinduraBase::__construct()
   *
   * @access public
-  * @version 1.1
+  * @version 1.2
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.2 changed the name of $_SESSION['feinduraSession']['websiteLanguage'] to $_SESSION['feinduraSession']['language'], so it differs from the backend version
   *    - 1.1 fixed language detection
   *    - 1.0 initial release
   *
@@ -830,8 +831,8 @@ class Feindura extends FeinduraBase {
     } elseif(is_string($_GET['language']) && strlen($_GET['language']) == 2) {
       $this->language = XssFilter::alphabetical($_GET['language']);
     // -> third SESSION language
-    } elseif(!empty($_SESSION['feinduraSession']['websiteLanguage']) && strlen($_SESSION['feinduraSession']['websiteLanguage']) == 2) {
-      $this->language = $_SESSION['feinduraSession']['websiteLanguage'];
+    } elseif(!empty($_SESSION['feinduraSession']['language']) && strlen($_SESSION['feinduraSession']['language']) == 2) {
+      $this->language = $_SESSION['feinduraSession']['language'];
     // -> last get BROWSER LANGUAGE
     } else
       $this->language = substr(GeneralFunctions::getBrowserLanguages($this->websiteConfig['multiLanguageWebsite']['mainLanguage']),0,2);
@@ -848,7 +849,7 @@ class Feindura extends FeinduraBase {
     elseif($this->loggedIn && !empty($_SESSION['feinduraSession']['backendLanguage']))
       $this->language = $_SESSION['feinduraSession']['backendLanguage'];
 
-    $_SESSION['feinduraSession']['websiteLanguage'] = $this->language;
+    $_SESSION['feinduraSession']['language'] = $this->language;
 
     $this->loadFrontendLanguageFile($this->language);
 
@@ -1244,9 +1245,10 @@ class Feindura extends FeinduraBase {
       }
     }
 
-    // ->> ENABLE FRONTEND EDITING
+    $frontendEditing = false;
+    // ->> ENABLE FRONTEND EDITING (DEACTIVATED)
     // if user is logged into the CMS, add javascripts for implementing ckeditor
-    if($this->loggedIn && GeneralFunctions::hasPermission('frontendEditing') && PHP_VERSION >= REQUIREDPHPVERSION) {
+    if($frontendEditing && $this->loggedIn && GeneralFunctions::hasPermission('frontendEditing') && PHP_VERSION >= REQUIREDPHPVERSION) {
 
       $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
       // add frontend editing stylesheets
@@ -1650,25 +1652,14 @@ class Feindura extends FeinduraBase {
           }
 
           // -> add PAGE DATE
-          $pageDate = false;
-          if(GeneralFunctions::checkPageDate($page)) {
-            $titleDateBefore = '';
-            $titleDateAfter = '';
-            // format pageDate
-            $pageDate = GeneralFunctions::dateDayBeforeAfter($page['pageDate']['date'],$this->languageFile);
-            // add <time> tag
-            if(!empty($page['pageDate']['date']))
-              $pageDate = '<time datetime="'.GeneralFunctions::getDateTimeValue($page['pageDate']['date']).'">'.$pageDate.'</time>';
-            $pageDateBeforeAfter = $this->getLocalized($page,'pageDate');
-            // adds spaces on before and after
-            if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
-            if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
-            $pageDate = $titleDateBefore.$pageDate.$titleDateAfter;
-
+          if($this->categoryConfig[$page['category']]['showPageDate']) {
             // add page date
-            $link['pageDate']          = $pageDate;
-            $link['pageDateTimestamp'] = $page['pageDate']['date'];
-          }
+            $link['pageDate']          = GeneralFunctions::showPageDate($page,$this->languageFile);
+            $link['pageDateTimestamp']['date']  = $page['pageDate']['start'];
+            $link['pageDateTimestamp']['start'] = $page['pageDate']['start'];
+            $link['pageDateTimestamp']['end']   = $page['pageDate']['end'];
+          } else
+            $link['pageDate'] = false;
 
           // create a title
           if($linkText === true) {
@@ -1795,9 +1786,9 @@ class Feindura extends FeinduraBase {
   * <b>This method uses the {@link Feindura::$linkLength $link...}, {@link Feindura::$menuId $menu...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   *
   * Creates a menu from category(ies) or page(s), sorted by the page date.
-  * Applies for pages which have a page date and it fit in the time period from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter (starting from the current today).
+  * Applies for pages which have a page date and it fit in the time period from the <var>$from</var> and the <var>$to</var> parameter (starting from the current today).
   *
-  * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
+  * The <var>$from</var> and <var>$to</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   *
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   *
@@ -1815,8 +1806,8 @@ class Feindura extends FeinduraBase {
   *
   * @param string          $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool  $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|bool|string $monthsInThePast    (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
-  * @param int|bool|string $monthsInTheFuture  (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param int|bool|string $from    (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
+  * @param int|bool|string $to  (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
   * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div"
   * @param string|bool     $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false       $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
@@ -1866,10 +1857,10 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMenuByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
+  public function createMenuByDate($idType = 'category', $ids = false, $from = true, $to = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
 
       // gets the right pages and sorted by page date
-      if($pageContents = $this->loadPagesByDate($idType,$ids,$monthsInThePast,$monthsInTheFuture,$sortByCategories,$reverseList))
+      if($pageContents = $this->loadPagesByDate($idType,$ids,$from,$to,$sortByCategories,$reverseList))
 	       return $this->createMenu($idType,$pageContents,$menuTag,$linkText,$breakAfter,false);
       else
         return array();
@@ -1879,9 +1870,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link createMenuByDate()}
   * @ignore
   */
-  public function createMenuByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
+  public function createMenuByDates($idType = 'category', $ids = false, $from = true, $to = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
     // call the right function
-    return $this->createMenuByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $menuTag, $linkText, $breakAfter, $sortByCategories, $reverseList);
+    return $this->createMenuByDate($idType, $ids, $from, $to, $menuTag, $linkText, $breakAfter, $sortByCategories, $reverseList);
   }
 
  /**
@@ -3390,9 +3381,9 @@ class Feindura extends FeinduraBase {
   * <b>This method uses the {@link Feindura::$showErrors $error...}, {@link Feindura::$titleLength $title...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   *
   * List pages by given category(ies) or page(s), sorted by the page date. Applies for pages which have a page date and it fit in the time period
-  * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter (starting from the current today).
+  * from the <var>$from</var> and the <var>$to</var> parameter (starting from the current today).
   *
-  * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
+  * The <var>$from</var> and <var>$to</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   *
   * Returns an array with multiple pages for displaying in a HTML-page.
   * In case no page with the given category or page ID(s) exist it returns an empty array.
@@ -3404,8 +3395,8 @@ class Feindura extends FeinduraBase {
   *
   * @param string          $idType                (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool  $ids                   (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|bool|string $monthsInThePast       (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
-  * @param int|bool|string $monthsInTheFuture     (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param int|bool|string $from                  (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
+  * @param int|bool|string $to                    (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
   * @param int|array|bool  $shortenText           (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string     $useHtml               (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
   * @param bool            $sortByCategories      (optional) if TRUE it sorts the given category or page ID(s) by category
@@ -3446,10 +3437,10 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function listPagesByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true, $sortByCategories = false, $reverseList = false) {
+  public function listPagesByDate($idType = 'category', $ids = false, $from = true, $to = true, $shortenText = false, $useHtml = true, $sortByCategories = false, $reverseList = false) {
 
       // gets the right pages and sorted by page date
-      $pageContents = $this->loadPagesByDate($idType,$ids,$monthsInThePast,$monthsInTheFuture,$sortByCategories,$reverseList);
+      $pageContents = $this->loadPagesByDate($idType,$ids,$from,$to,$sortByCategories,$reverseList);
       if($pageContents !== false)
         return $this->listPages($idType,$pageContents,$shortenText,$useHtml,false);
       else
@@ -3459,25 +3450,25 @@ class Feindura extends FeinduraBase {
   * Alias of {@link listPagesByDate()}
   * @ignore
   */
-  public function listPageByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
+  public function listPageByDate($idType = 'category', $ids = false, $from = true, $to = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
     // call the right function
-    return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
+    return $this->listPagesByDate($idType, $ids, $from, $to, $shortenText, $useHtml,$sortByCategories, $reverseList);
   }
  /**
   * Alias of {@link listPagesByDate()}
   * @ignore
   */
-  public function listPageByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
+  public function listPageByDates($idType = 'category', $ids = false, $from = true, $to = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
     // call the right function
-    return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
+    return $this->listPagesByDate($idType, $ids, $from, $to, $shortenText, $useHtml,$sortByCategories, $reverseList);
   }
  /**
   * Alias of {@link listPagesByDate()}
   * @ignore
   */
-  public function listPagesByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
+  public function listPagesByDates($idType = 'category', $ids = false, $from = true, $to = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
     // call the right function
-    return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
+    return $this->listPagesByDate($idType, $ids, $from, $to, $shortenText, $useHtml,$sortByCategories, $reverseList);
   }
 
  /**

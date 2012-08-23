@@ -161,6 +161,9 @@ function showCategory($categoryId){
  * 4afe1d41e2f2edbf07086b1c2c492c10|#|1306781299|#|firefox|#|test|#|websiteSetup
  * </samp>
  *
+ * <b>Used Global Variables</b><br>
+ *    - <var>$userConfig</var> the user-settings config (included in the {@link general.include.php})
+ *
  *
  * @return array an array with all users and current sites/pages
  *
@@ -593,6 +596,7 @@ function saveCategories($newCategories) {
     $fileContent .= "\$categoryConfig[".$category['id']."]['plugins']             = '".$category['plugins']."';\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['showTags']            = ".XssFilter::bool($category['showTags'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['showPageDate']        = ".XssFilter::bool($category['showPageDate'],true).";\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['pageDateAsRange']     = ".XssFilter::bool($category['pageDateAsRange'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['showSubCategory']     = ".XssFilter::bool($category['showSubCategory'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['feeds']               = ".XssFilter::bool($category['feeds'],true).";\n\n";
 
@@ -1624,6 +1628,7 @@ function saveFeeds($category) {
     foreach($feedsPages as $feedsPage) {
 
       if($feedsPage['public']) {
+
         // shows the page link
         $link = GeneralFunctions::createHref($feedsPage,false,$langCode,true);
         $title = strip_tags(GeneralFunctions::getLocalized($feedsPage,'title',$langCode));
@@ -1933,49 +1938,95 @@ function showStyleFileInputs($styleFiles,$inputNames) {
 }
 
 /**
- * <b>Name</b> showPageDate()<br>
+ * <b>Name</b> showPageToolTip()<br>
  *
- * Shows the page date, if the date is invalid it shows an error text.
+ * Generates the toolTip for a page.
  *
  * <b>Used Global Variables</b><br>
+ *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
+ *    - <var>$languageNames</var> an array with country codes and language names (included in the {@link general.include.php})
+ *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+ *    - <var>$userConfig</var> the user-settings config (included in the {@link general.include.php})
  *    - <var>$langFile</var> the language file of the backend (included in the {@link general.include.php})
  *
- * @param array        $pageContent  the $pageContent array of a page
+ * @param array $pageContent the $pageContent array of a page
  *
- * @uses GeneralFunctions::checkPageDate()      to check if the page date is a valid date
- * @uses GeneralFunctions::dateDayBeforeAfter() to check if the date was yesterday or is tomorrow
- * @uses GeneralFunctions::formatDate()         to format the unix timstamp into the right date format
+ * @uses GeneralFunctions::showPageDate()         to format the unix timstamp into the right date format
  *
- * @return string the page date as text string, or an error text
+ * @return string the tooltip ready to be put inside a title="..." attribute
  *
- * @version 1.1
+ * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
- *    - 1.1 moved to backend.functions.php
  *    - 1.0 initial release
  *
  */
-function showPageDate($pageContent) {
+function showPageToolTip($pageContent) {
 
   // vars
-  $return = false;
-  $titleDateBefore = '';
-  $titleDateAfter = '';
+  $pageTitle_pageDate      = '';
+  $pageTitle_tags          = '';
+  $pageTitle_pageLanguages = '';
+  $pageTitle_startPageText = '';
+  $pageTitle_lastSaveDate  = '';
 
-  if(GeneralFunctions::checkPageDate($pageContent)) {
-    $pageDate = GeneralFunctions::getLocalized($pageContent,'pageDate');
-    $pageDateBefore = $pageDate['before'];
-    $pageDateAfter = $pageDate['after'];
-  	// adds spaces on before and after
-  	if(!empty($pageDateBefore)) $titleDateBefore = $pageDateBefore.' ';
-  	if(!empty($pageDateAfter)) $titleDateAfter = ' '.$pageDateAfter;
+  $pageTitle_title = str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))).'::';
 
-    // CHECKs the DATE FORMAT
-    $return = (GeneralFunctions::formatDate(validateDateString($pageContent['pageDate']['date'])) === false)
-    ? '[br][strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong] '.$titleDateBefore.'[span style=color:#950300]'.$GLOBALS['langFile']['EDITOR_pageSettings_pagedate_error'].'[/span]'.$titleDateAfter
-    : '[br][strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong] '.$titleDateBefore.GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$GLOBALS['langFile']).$titleDateAfter;
+  // -> startpage icon before the name
+  if($GLOBALS['websiteConfig']['setStartPage'] && $pageContent['id'] == $GLOBALS['websiteConfig']['startPage']) {
+    $pageTitle_startPageText = $GLOBALS['langFile']['SORTABLEPAGELIST_functions_startPage_set'].'[br]';
   }
-  return $return;
+
+  // -> show page ID
+  $pageTitle_Id = (GeneralFunctions::isAdmin())
+    ? '[strong]ID[/strong] '.$pageContent['id'].'[br]'
+    : '';
+
+  // -> show lastSaveDate
+  $pageTitle_lastSaveDate = GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$GLOBALS['langFile']).' '.formatTime($pageContent['lastSaveDate']);
+  $pageTitle_lastSaveDate = ($pageContent['lastSaveAuthor'])
+    ? '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong][br]'.$pageTitle_lastSaveDate.' ('.$GLOBALS['userConfig'][$pageContent['lastSaveAuthor']]['username'].')[br][br]'
+    : '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong][br]'.$pageTitle_lastSaveDate.'[br][br]';
+
+
+  // -> show subcategory in toolTip
+  $pageTitle_subCategory = ($pageContent['subCategory'] && $GLOBALS['categoryConfig'][$pageContent['category']]['showSubCategory'])
+    ? '[strong]'.$GLOBALS['langFile']['EDITOR_TEXT_SUBCATEGORY'].'[/strong][br][img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($GLOBALS['categoryConfig'][$pageContent['subCategory']],'name').'[br]'
+    : '';
+
+  // -> generate pageDate for toolTip
+  if($pageDate = GeneralFunctions::showPageDate($pageContent)) {
+    $pageTitle_pageDate = '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong][br]'.$pageDate.'[br]';
+  } else
+    $pageTitle_pageDate = '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong][br][span class=red]'.$GLOBALS['langFile']['EDITOR_PAGESETTINGS_NOPAGEDATE'].'[/span][br]';
+
+  // -> generate tags for toolTip
+  $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
+  if(!empty($localizedTags) && $GLOBALS['categoryConfig'][$pageContent['category']]['showTags']) {
+    $pageTitle_tags = '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_TAGS'].'[/strong][br]'.$localizedTags.'[br]';
+  }
+
+  // -> generate page languages for toolTip
+  if(!isset($pageContent['localized'][0])) {
+    $pageTitle_pageLanguages .= '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_LOCALIZATION'].'[/strong][br]';
+    if(is_array($pageContent['localized'][0])) {
+      foreach ($pageContent['localized'] as $langCode => $values) {
+        $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] '.$GLOBALS['languageNames'][$langCode].'[br]';
+      }
+    }
+    // list not yet existing languages of the page
+    if(is_array($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'])) {
+      foreach($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'] as $langCode) {
+        if(!isset($pageContent['localized'][$langCode])) {
+          $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] [span class=gray][s]'.$GLOBALS['languageNames'][$langCode].'[/s][/span][br]';
+          $missingLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] '.$GLOBALS['languageNames'][$langCode].'[br]';
+        }
+      }
+    }
+  }
+
+  $return = trim(' '.$pageTitle_title.$pageTitle_startPageText.$pageTitle_Id.$pageTitle_lastSaveDate.$pageTitle_pageDate.$pageTitle_tags.$pageTitle_subCategory.$pageTitle_pageLanguages,'[br]');
+  return str_replace(array('<','>','"'),array('[',']',"'"),$return);
 }
 
 /**
@@ -2092,50 +2143,6 @@ function secToTime($sec) {
     $seconds = '0'.$seconds;
 
   return $hours.':'.$mins.':'.$seconds;
-}
-
-/**
- * <b>Name</b> validateDateString()<br>
- *
- * Check if a date is valid and returns the date as UNIX-Timestamp
- *
- * @param string $dateString a UNIX-Timestamp or a date string to validate in the format: "YYYY-MM-DD"
- *
- * @return int|false the timestamp of the date or FALSE if the date is not valid
- *
- * @static
- * @version 1.1
- * <br>
- * <b>ChangeLog</b><br>
- *    - 1.1 moved to backend.functions.php
- *    - 1.0 initial release
- *
- */
-function validateDateString($dateString) {
-
-  // if its a unix timestamp return immediately
-  if($dateString !== 0 && preg_match('/^[0-9]{1,}$/',$dateString))
-    return $dateString;
-
-  if((!is_string($dateString) && !is_numeric($dateString)) || $dateString === 0)
-    return false;
-
-  $date = explode('-', $dateString);
-
-  if(count($date) == 3 &&
-    is_numeric($date[0]) &&
-    is_numeric($date[1]) &&
-    is_numeric($date[2])) {
-
-    //yyyymmdd
-    if(strlen($date[0]) == 4 && checkdate($date[1], $date[2], $date[0]))
-      return mktime(23,59,59,$date[1],$date[2],$date[0]);
-    else
-      return false;
-
-  // if the this function doesn't return something, return false
-  } else
-    return false;
 }
 
 /**

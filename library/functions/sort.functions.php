@@ -92,9 +92,9 @@ function sortAlphabetical($a, $b) {     // (Array) $a = current; $b = follwing v
  */
 function sortByDate($a, $b) {     // (Array) $a = current; $b = follwing value
 
-  if ($a['pageDate']['date'] == $b['pageDate']['date'])
+  if ($a['pageDate']['start'] == $b['pageDate']['start'])
     return 0;
-  return ($a['pageDate']['date'] > $b['pageDate']['date']) ? -1 : 1;
+  return ($a['pageDate']['start'] > $b['pageDate']['start']) ? -1 : 1;
 }
 
 /**

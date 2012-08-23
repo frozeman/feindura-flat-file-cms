@@ -121,10 +121,12 @@ header.main {
         top: 0;
         right: 0;
         width: 210px;
+        height: 100%;
 
         ul.userList {
             position: absolute;
             top: -4px;
+            width: 160px;
             max-height: 130px;
             padding: 0;
             padding-top: 14px;
@@ -162,8 +164,64 @@ header.main {
             top: 45px;
             right: 5px;
             font-size: 11px;
-            color: #999;
+            color: @colorMiddleGray;
             #shadow > .text(0 1px 2px #fff);
+        }
+
+        // LANGUAGE SELECTION
+        .languageSelection {
+            position: absolute;
+            bottom: 21px;
+            left: 10px;
+            z-index: 2;
+
+            a {
+                position: absolute;
+                display: block;
+                width: 30px;
+                height: 21px;
+                padding-left: 0;
+
+                &:hover,
+                &:focus {
+                    background-position: 0px -21px !important;
+                }
+                &.active:before {
+                    content: '▾';
+                    position: absolute;
+                    top: -8px;
+                    left: 10px;
+                    color: @colorMiddleGray; //@colorGray
+                }
+                &.active:hover:before {
+                    top: -16px;
+                }
+            }
+
+            a.en-us {
+                left: 0px;
+                background: url("../images/buttons/langSelection_en-us.png") no-repeat;
+            }
+            a.en-gb {
+                left: 30px;
+                background: url("../images/buttons/langSelection_en-gb.png") no-repeat;
+            }
+            a.de {
+                left: 60px;
+                background: url("../images/buttons/langSelection_de.png") no-repeat;
+            }
+            a.fr {
+                left: 90px;
+                background: url("../images/buttons/langSelection_fr.png") no-repeat;
+            }
+            a.it {
+                left: 120px;
+                background: url("../images/buttons/langSelection_it.png") no-repeat;
+            }
+            a.ru {
+                left: 150px;
+                background: url("../images/buttons/langSelection_ru.png") no-repeat;
+            }
         }
     }
 
@@ -172,7 +230,7 @@ header.main {
     a.feinduraLogo {
         z-index: 1;
         position: absolute;
-        top: 15px;
+        top: 20px;
         left: 20px;
         display: block;
         width: 163px;
@@ -182,7 +240,7 @@ header.main {
     .feinduraVersion {
         z-index: 2;
         position: absolute;
-        top: 35px;
+        top: 38px;
         left: 120px;
         width: 60px;
         color: @logoColorBlue;
@@ -191,50 +249,6 @@ header.main {
         #shadow > .text(0 1px 1px #999);
     }
 
-    // LANGUAGE SELECTION
-    .languageSelection {
-        position: absolute;
-        bottom: 21px;
-        left: 10px;
-        z-index: 2;
-
-        a {
-            position: absolute;
-            display: block;
-            width: 30px;
-            height: 21px;
-            padding-left: 0;
-        }
-        a:hover,
-        a:focus {
-            background-position: 0px -21px !important;
-        }
-
-        a.en-us {
-            left: 0px;
-            background: url("../images/buttons/langSelection_en-us.png") no-repeat;
-        }
-        a.en-gb {
-            left: 30px;
-            background: url("../images/buttons/langSelection_en-gb.png") no-repeat;
-        }
-        a.de {
-            left: 60px;
-            background: url("../images/buttons/langSelection_de.png") no-repeat;
-        }
-        a.fr {
-            left: 90px;
-            background: url("../images/buttons/langSelection_fr.png") no-repeat;
-        }
-        a.it {
-            left: 120px;
-            background: url("../images/buttons/langSelection_it.png") no-repeat;
-        }
-        a.ru {
-            left: 150px;
-            background: url("../images/buttons/langSelection_ru.png") no-repeat;
-        }
-    }
 
 
     // ADMIN MENU

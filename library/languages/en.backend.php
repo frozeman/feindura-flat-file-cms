@@ -546,6 +546,7 @@ $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Hol
 
 $langFile['PAGESETUP_TEXT_EDITPAGEDATE']                                  = 'Edit page date';
 $langFile['PAGESETUP_TIP_EDITPAGEDATE']                                   = 'The page date can be used to sort pages by date';
+$langFile['PAGESETUP_TEXT_PAGEDATERANGE']                                 = 'as date range';
 
 $langFile['PAGESETUP_TEXT_FEEDS']                                         = 'Activate feeds';
 $langFile['PAGESETUP_TIP_FEEDS']                                          = 'Activate RSS 2.0 and Atom Feed for the pages without category.';
@@ -714,22 +715,16 @@ $langFile['EDITOR_pageSettings_field2']                                   = 'Tag
 $langFile['EDITOR_pageSettings_field2_tip']                               = 'Tags are keywords for this page.';
 $langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'The Tags must be separated by &quot;,&quot; (comma).';
 $langFile['EDITOR_pageSettings_field3']                                   = 'Pagedate';
-$langFile['EDITOR_pageSettings_field3_tip']                               = 'The date can be used to sort pages by date. (z.B. bei Veranstaltungen)';
-$langFile['EDITOR_pageSettings_pagedate_before_inputTip']                 = 'Text before the date::e.g. &quot;from 31st June until&quot;.';
-$langFile['EDITOR_pageSettings_pagedate_after_inputTip']                  = 'Text after the date::';
-$langFile['EDITOR_pageSettings_pagedate_day_inputTip']                    = 'Day::';
-$langFile['EDITOR_pageSettings_pagedate_month_inputTip']                  = 'Month::';
-$langFile['EDITOR_pageSettings_pagedate_year_inputTip']                   = 'Year::[strong]Format[/strong] YYYY';
+$langFile['EDITOR_pageSettings_field3_tip']                               = 'The date can be used to sort pages by date. (e.g. on Events)';
 $langFile['EDITOR_pageSettings_field4']                                   = 'Status of the page';
 $langFile['EDITOR_pageSettings_field4_tip']                               = '[strong]Only if the page is public, it will be shown in the website![/strong]';
 
-$langFile['EDITOR_pageSettings_pagedate_error']                           = 'Wrong date format';
-$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'This month has perhaps no 31 days.[br]The date should have the follwing format:';
+$langFile['EDITOR_PAGESETTINGS_NOPAGEDATE']                               = 'No date';
 
 $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Subcategory';
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Allows to create a sub menu for this page in the website.';
 
-$langFile['EDITOR_BUTTON_RESTORELASTSTATE']                              = 'Restore to the version from %s';
+$langFile['EDITOR_BUTTON_RESTORELASTSTATE']                               = 'Restore to the version from %s';
 $langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE']                           = 'To version from %s restored.';
 
 // ---------- page advanced settings

@@ -171,24 +171,74 @@ function changeEditFile( site, fileName, status, anchorName ) {
   window.location.href = window.location.pathname + "?site=" + site + "&status=" + status + "&file=" + fileName + "#" + anchorName ;
 }
 
+function setupForm(formId) {
+  var form = $(formId);
+
+  // places the right anchor in the form action
+  form.addEvent('submit',function(){
+    onSubmitSetAnchor(this);
+  });
+
+  // places the right anchor, when a submit button is clicked
+  form.getElements('input[type="submit"]').addEvent('click',function(){
+    onSubmitSetAnchor(form,null,this);
+  });
+}
+
 // -------------------------------------------------
 // -> on SUBMIT goto ANCHOR
-function submitAnchor(formId,anchorName) {
+function onSubmitSetAnchor(formId,anchorName,activeElement) {
+  var form       = $(formId);
+  var actionAttr = form.getProperty('action');
 
-  // IE
-  if(Browser.ie6 || Browser.ie7) {
-    // get form
-    var form = document.getElementById(formId);
-    // create new action attribute
-    var attr = document.createAttribute('action');
-    if(form.getAttributeNode('action').nodeValue.contains('#')) return;
-    attr.nodeValue = form.getAttributeNode('action').nodeValue + '#' + anchorName;
-    // set new action attribute
-    form.setAttributeNode(attr);
-  // ALL the OTHERS
-  } else {
-    if($(formId).getAttribute('action').contains('#')) return;
-    $(formId).setAttribute('action',($(formId).getAttribute('action') + '#' + anchorName));
+  // try to get the anchor manually
+  if(!anchorName) {
+    if(!activeElement && typeOf(document.activeElement) !== 'null')
+      activeElement = document.activeElement;
+
+    if(typeOf(activeElement) !== 'null') {
+
+      var getAnchor;
+
+      // first if its the submit button try to just get the pevious sibling
+      if(activeElement.getProperty('type')) {
+        getAnchor = activeElement.getAllPrevious('a.anchorTarget');
+        if(typeOf(getAnchor) !== 'null' && typeOf(getAnchor[0]) !== 'null')
+          anchorName = getAnchor[0].getProperty('id');
+      }
+
+      // then try to get it the previous sibling of the .row
+      getAnchor = activeElement.getParents('.row');
+      if(typeOf(anchorName) === 'null' && typeOf(getAnchor[0]) !== 'null') {
+        getAnchor = getAnchor[0].getAllPrevious('a.anchorTarget');
+        if(typeOf(getAnchor) !== 'null' && typeOf(getAnchor[0]) !== 'null')
+          anchorName = getAnchor[0].getProperty('id');
+      }
+
+      // then try to get it the previous sibling of the .block
+      if(typeOf(anchorName) === 'null') {
+        getAnchor = activeElement.getParents('.block');
+        if(typeOf(getAnchor[0]) !== 'null') {
+          getAnchor = getAnchor[0].getAllPrevious('a.anchorTarget');
+          if(typeOf(getAnchor) !== 'null' && typeOf(getAnchor[0]) !== 'null')
+            anchorName = getAnchor[0].getProperty('id');
+
+        }
+      }
+    }
+  }
+
+  // if there is an anchor, set the new one
+  if(typeOf(anchorName) !== 'null') {
+    // console.log(document.activeElement);
+    // console.log(anchorName);
+    if(actionAttr.contains('#')) {
+      actionAttr = actionAttr.substr(0,actionAttr.indexOf('#'));
+    }
+    form.set('action',(actionAttr + '#' + anchorName));
+
+    if(typeOf(form.getElement('#savedBlock')) !== 'null')
+      form.getElement('#savedBlock').setProperty('value',anchorName);
   }
 }
 
@@ -297,6 +347,13 @@ function blockSlider(givenId) {
         }
       });
 
+      // -> hide the block at start, if it has class "hidden"
+      if(block.hasClass('hidden'))  {
+        slideContent.slide('hide');
+        if(!slideContent.getChildren('textarea.editFiles')[0]) // necessary for CodeMirror to calculate the size of the Codemirror div
+          slideContent.setStyle('display','none'); // to allow sorting above the slided in box
+      }
+
       // DONT show the content bottom if IE 0-7
       if(Browser.ie6 || Browser.ie7)
         bottomBorder.setStyle('display', 'none');
@@ -312,20 +369,13 @@ function blockSlider(givenId) {
           $$('div.subCategoryArrowLine').fade(0);
 
         if(!slideContent.get('slide').open) {
-          scrollToElement.start(window.getPosition().x,block.getPosition().y - 30);
+          scrollToElement.start(window.getPosition().x,block.getPosition().y - 50);
         slideContent.setStyle('display','block'); // to allow sorting above the slided in box (reset)
         block.removeClass('hidden'); // change the arrow
         } else
           block.addClass('hidden'); // change the arrow
         slideContent.slide('toggle');
       });
-
-      // -> hide the block at start, if it has class "hidden"
-      if(block.hasClass('hidden'))  {
-        slideContent.slide('hide');
-        if(!slideContent.getChildren('textarea.editFiles')[0]) // necessary for CodeMirror to calculate the size of the Codemirror div
-          slideContent.setStyle('display','none'); // to allow sorting above the slided in box
-      }
     } // <-- end go trough blocks
   });
 }
@@ -387,9 +437,6 @@ function pageContentChangedSign() {
     $$('.subMenu').setStyle('width',810);
     $('subMenuSubmit').show();
   }
-
-  // adds the editorAnchor to the form
-  submitAnchor('editorForm','editorAnchor');
 
   if($('editorForm') !== null && !pageContentChanged) {
     $$('.notSavedSign' + $('editorForm').get('class')).each(function(notSavedSign) {
@@ -552,7 +599,7 @@ window.addEvent('load', function() {
     // SCROLL to ANCHORS after loading the pages (should fix problems with slided in blocks)
     var anchorId = window.location.hash.substring(1);
     if($(anchorId) !== null)
-      (function(){ new Fx.Scroll(window,{duration:100}).set(0,this.getPosition().y); }).delay(100,$(anchorId));
+      (function(){ window.scrollTo(0,this.getPosition().y); }).delay(100,$(anchorId));
 
 });
 
@@ -566,6 +613,10 @@ window.addEvent('domready', function() {
 
   // enable drag selections
   new jsMultipleSelect();
+
+  // BLOCK SLIDE IN/OUT
+  blockSlider();
+  inBlockSlider();
 
   // slide out elements on hover
   resizeOnHover();
@@ -633,10 +684,6 @@ window.addEvent('domready', function() {
    }
 
   // *** ->> CONTENT -----------------------------------------------------------------------------------------------------------------------
-
-  // BLOCK SLIDE IN/OUT
-  blockSlider();
-  inBlockSlider();
 
   // ADDs SMOOTHSCROLL to ANCHORS
   var smoothAnchorScroll = new Fx.SmoothScroll({
@@ -1633,15 +1680,21 @@ window.addEvent('domready', function() {
     HTMLEditor.on('blur',function() {
       if(HTMLEditor.checkDirty()) {
         pageContentChangedSign();
+        // adds the editorAnchor to the form
+        onSubmitSetAnchor('editorForm','editorAnchor');
       }
     });
     // on typing
     HTMLEditor.on("instanceReady", function() {
         this.document.on("keyup", function(){
           pageContentChangedSign();
+          // adds the editorAnchor to the form
+          onSubmitSetAnchor('editorForm','editorAnchor');
         });
         this.document.on("paste", function(){
           pageContentChangedSign();
+          // adds the editorAnchor to the form
+          onSubmitSetAnchor('editorForm','editorAnchor');
         });
       }
     );
@@ -1649,6 +1702,8 @@ window.addEvent('domready', function() {
     HTMLEditor.on('mode', function(e) {
       if(e.editor.mode === 'source' && HTMLEditor.checkDirty()) {
         pageContentChangedSign();
+        // adds the editorAnchor to the form
+        onSubmitSetAnchor('editorForm','editorAnchor');
       }
       }
     );

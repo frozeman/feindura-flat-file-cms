@@ -89,18 +89,18 @@ if(!$newPage && is_array($breadCrumbsArray)) {
   echo '<br style="clear:both;">';
 }
 
-
 // ->> SHOW the FORM
-echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'" method="post" accept-charset="UTF-8" id="editorForm" class="Page'.$_GET['page'].'">
-      <div>
-        <input type="hidden" name="save" value="true">
-        <input type="hidden" name="category" value="'.$_GET['category'].'">
-        <input type="hidden" name="id" value="'.$_GET['page'].'">
-        <input type="hidden" name="websiteLanguage" value="'.$_SESSION['feinduraSession']['websiteLanguage'].'">
-        <input type="hidden" name="status" value="'.$_GET['status'].'">
-        <input type="hidden" name="savedBlock" id="savedBlock" value="editor">
-      </div>';
 ?>
+<form action="index.php?category=<?php echo $_GET['category']; ?>&amp;page=<?php echo $_GET['page']; ?>" method="post" accept-charset="UTF-8" id="editorForm" class="Page<?php echo $_GET['page']; ?>">
+<div>
+  <input type="hidden" name="save" value="true">
+  <input type="hidden" name="category" value="<?php echo $_GET['category']; ?>">
+  <input type="hidden" name="id" value="<?php echo $_GET['page']; ?>">
+  <input type="hidden" name="websiteLanguage" value="<?php echo $_SESSION['feinduraSession']['websiteLanguage']; ?>">
+  <input type="hidden" name="status" value="<?php echo $_GET['status']; ?>">
+  <input type="hidden" name="savedBlock" id="savedBlock" value="editor">
+</div>
+
 
 <!-- page information anchor is here -->
 <a id="pageInformation" class="anchorTarget"></a>
@@ -120,7 +120,7 @@ if($newPage && $_GET['status'] == 'addLanguage')
 elseif($newPage)
   $pageTitle = $langFile['EDITOR_TITLE_CREATEPAGE'];
 else
-  $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent,'title',true));
+  $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent,'title',false,true));
 
 // adds the page and category IDs for the MooRTE saving of the title
 $titleData = (!$newPage) // data-feindura format: "pageID categoryID"
@@ -336,7 +336,9 @@ if($newPage) {
 
           include(dirname(__FILE__).'/../includes/pageMetaData.include.php');
       ?>
-      <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','pageInformation');">
+      <!-- this is just a placeholder anchor, so when submitting the form gets the editAnchor hashTag -->
+      <a id="editorAnchor" class="anchorTarget"></a>
+      <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
     </div>
   </div>
 <?php
@@ -353,7 +355,7 @@ if($newPage) {
 if(GeneralFunctions::isAdmin()) {
 ?>
 <!-- ***** ADVANCED PAGE SETTINGS -->
-<a id="advancedPageSettingsAnchor" class="anchorTarget"></a>
+<a id="advancedPageSettings" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
 $hidden = ($savedForm == 'advancedPageSettings') ? '' : ' hidden';
@@ -402,7 +404,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       </div>
     </div>
 
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'advancedPageSettings'; submitAnchor('editorForm','advancedPageSettingsAnchor');">
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
   </div>
 </div>
 <?php }
@@ -412,6 +414,9 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
 <!-- PAGE SCRIPTS -->
 <script type="text/javascript">
 /* <![CDATA[ */
+
+  // setup the AUTOMATICALLY ADDING OF the ANCHORS
+  setupForm('editorForm');
 
   $$('.restorePageButtonBox').addEvents({
     'mouseenter': function(){

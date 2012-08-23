@@ -254,7 +254,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       </div>
     </div>
 
-    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'adminSettings'; submitAnchor('adminSettingsForm','adminSettings');">
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
   </div>
 </div>
 
@@ -363,7 +363,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
       </div>
     </div>
 
-    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'editorSettings'; submitAnchor('adminSettingsForm','editorSettings');">
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
   </div>
 </div>
 
@@ -446,3 +446,14 @@ $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
 </div>
 </form>
 <?php } ?>
+
+
+<!-- PAGE SCRIPTS -->
+<script type="text/javascript">
+/* <![CDATA[ */
+
+  // setup the AUTOMATICALLY ADDING OF the ANCHORS
+  setupForm('adminSettingsForm');
+
+/* ]]> */
+</script>

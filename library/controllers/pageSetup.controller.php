@@ -193,6 +193,19 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
     $_POST['categories'][$categoryId]['isSubCategoryOf'] = $categoryConfig[$categoryId]['isSubCategoryOf'];
     $_POST['categories'][$categoryId]['localized']       = $categoryConfig[$categoryId]['localized'];
 
+    // set the PAGE DATE TIME PERIOD to FALSE, if the PAGE DATE was DEACTIVATED
+    if(!$_POST['categories'][$categoryId]['showPageDate']) {
+      $_POST['categories'][$categoryId]['pageDateAsRange'] = false;
+
+      // clear the page date on all pages in that category (DEACTIVATED, have t think about it)
+      // $catPages = GeneralFunctions::loadPages($categoryId);
+      // foreach ($catPages as $catPage) {
+      //   $catPage['pageDate'] = false;
+      //   GeneralFunctions::savePage($catPage);
+      // }
+      // unset($catPages);
+    }
+
     // STORE LOCALIZED CONTENT
     if(!empty($value['name']))
       $_POST['categories'][$categoryId]['localized'][$_POST['websiteLanguage']]['name'] = $value['name'];

@@ -15,7 +15,11 @@ array(
     'title'              => 'Example Page 1',
     'href'               => '?page=5&category=1',
     'pageDate'           => '2000-12-31',
-    'pageDateTimestamp'  => 1325393999,
+    'pageDateTimestamp'  => array(
+                    'date'  => 1325393999, // 'date' and 'start' is the same
+                    'start' => 1325393999,
+                    'end'   => 1325303455 // will be 0 when its not a date range
+                    ),
     'pageId' or 'id'     => 5,
     'categoryId'         => 1
     ),
@@ -29,7 +33,11 @@ array(
     'title'              => 'Example Page 2',
     'href'               => '?page=8&category=1',
     'pageDate'           => '2000-10-10',
-    'pageDateTimestamp'  => 13253034552,
+    'pageDateTimestamp'  => array(
+                    'date'  => 1325393465, // 'date' and 'start' is the same
+                    'start' => 1325393465,
+                    'end'   => 0
+                    ),
     'pageId' or 'id'     => 8,
     'categoryId'         => 1
     ),
@@ -43,7 +51,11 @@ array(
     'title'              => 'Example Page 3',
     'href'               => '?page=9&category=1',
     'pageDate'           => '2000-10-15',
-    'pageDateTimestamp'  => 13253034222,
+    'pageDateTimestamp'  => array(
+                    'date'  => 1325393322, // 'date' and 'start' is the same
+                    'start' => 1325393322,
+                    'end'   => 0
+                    ),
     'pageId' or 'id'     => 9,
     'categoryId'         => 1
     ),
