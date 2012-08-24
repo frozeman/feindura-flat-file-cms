@@ -208,6 +208,11 @@ if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
 
     // ***** dashboard sideBar -------------------------------------------------- *********
     case 'dashboard':
+        // show the feindura.org news
+        // $feinduraNewsXml = file_get_contents('http://feindura.org/feeds/news.xml');
+
+        // echo '<div class="box">';
+        // echo '</div>';
       break;
 
     // ***** pages sideBar -------------------------------------------------- *********

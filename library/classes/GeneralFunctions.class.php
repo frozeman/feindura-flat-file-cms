@@ -1822,17 +1822,15 @@ class GeneralFunctions {
           ? $startDate.' - '.self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile)
           : self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile);
 
-      // ONLY LAST date EXIST
+      // ONLY LAST date EXIST (unlikely)
       } else
         return self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile);
 
     // SINGLE DATE
-    } else {
-      if(!empty($pageContent['pageDate']['start']))
+    } elseif(!empty($pageContent['pageDate']['start'])) {
         return self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile);
-      else
+    } else
         return false;
-    }
   }
 
  /**
@@ -2197,18 +2195,18 @@ class GeneralFunctions {
   * Sort an array with the <var>$pageContent</var> arrays by a given sort-public static function.
   * The following sort public static functions can be used for the <var>$sortBy</var> parameter:<br>
   *   - "sortBySortOrder"
+  *   - "sortAlphabetical"
+  *   - "sortByPageDate"
   *   - "sortByCategory"
-  *   - "sortByDate"
-  *   - "sortByVisitedCount"
-  *   - "sortByVisitTimeMax"
+  *   - "sortByLastSaveDate"
   *
   * @param array        $pageContentArrays  the $pageContent array of a page
   * @param string|false $sortBy             (optional) the name of the sort public static function, if FALSE it uses automaticly the right sort-public static function of the category
   *
-  * @uses $categoryConfig        to find the right sort public static function for every category
+  * @uses GeneralFunctions::$categoryConfig        to find the right sort method for every category
   * @uses isPageContentArray()   to check if the given $pageContent arrays are valid
   * @uses sortBySortOrder()      to sort the pages by sortorder
-  * @uses sortByDate()           to sort the pages by page date
+  * @uses sortByPageDate()       to sort the pages by page date
   *
   * @return array the sorted array with the $pageContent arrays
   *
@@ -2262,7 +2260,7 @@ class GeneralFunctions {
         // SORTS the category the GIVEN SORTFUNCTION
         if($sortBy === false) {
           if(self::$categoryConfig[$category]['sorting'] == 'byPageDate')
-            usort($categoriesArray, 'sortByDate');
+            usort($categoriesArray, 'sortByPageDate');
           elseif(self::$categoryConfig[$category]['sorting'] == 'alphabetical')
             usort($categoriesArray, 'sortAlphabetical');
           else

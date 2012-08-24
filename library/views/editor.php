@@ -42,9 +42,9 @@ if(count($breadCrumbsArray) != 1)
 if(!$newPage && is_array($breadCrumbsArray)) {
 
   // vars
-  $breadCrumbPageIcon = ($keyNumber === 0) ? '<i class="icons breadCrumbStartPage" style="position:absolute;top: 1px;left: -3px;"></i>' : '<i class="icons breadCrumbPage" style="position:absolute;top: 1px;left: -2px;"></i>';
-  $breadCrumbCategoryIcon = '<i class="icons breadCrumbCategory" style="position:absolute;top: 1px;left: -3px;"></i>';
-  $breadCrumbSubCategoryIcon = '<i class="icons breadCrumbCategory" style="position:absolute;top: 1px;left: -3px;"></i>';
+  $breadCrumbPageIcon = ($keyNumber === 0) ? '<i class="icons breadCrumbStartPage" style="position:absolute;top: 0px;left: -3px;"></i>' : '<i class="icons breadCrumbPage" style="position:absolute;top: 0px;left: -1px;"></i>';
+  $breadCrumbCategoryIcon = '<i class="icons breadCrumbCategory" style="position:absolute;top: 0px;left: -1px;"></i>';
+  $breadCrumbSubCategoryIcon = '<i class="icons breadCrumbCategory" style="position:absolute;top: 0px;left: -1px;"></i>';
 
 
   echo '<div class="breadCrumbs">';

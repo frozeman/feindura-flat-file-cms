@@ -1,22 +1,26 @@
 /*
-    feindura - Flat File Content Management System
-    Copyright (C) Fabian Vogelsteller [frozeman.de]
-
-    This program is free software;
-    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License along with this program;
-    if not,see <http://www.gnu.org/licenses/>.
-*
-* java/content.js version 0.57 (requires mootools-core and mootools-more)
-*/
+ * feindura - Flat File Content Management System
+ * Copyright (C) Fabian Vogelsteller [frozeman.de]
+ *
+ * This program is free software;
+ * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not,see <http://www.gnu.org/licenses/>.
+ *
+ *
+ * javascripts/content.js version 0.8 (requires mootools-core and mootools-more)
+ */
 
 // vars
+var userCacheUpdateFrequency = 100; // seconds
+var currentVisitorsUpdateFrequency = 20; // seconds
+
 var toolTipsTop, toolTipsBottom, toolTipsLeft, toolTipsRight;
 var deactivateType = 'disabled'; // disabled/readonly
 var pageContentChanged = false; // used to give a warning, if a page in the editor.php has been changed and not saved
@@ -624,7 +628,7 @@ window.addEvent('domready', function() {
   // STORES all pages LI ELEMENTS
   listPagesBars = $$('div.block.listPagesBlock li');
 
-  // UPDATE the USER-CACHE every 5 minutes
+  // UPDATE the USER-CACHE every 3 minutes
   (function(){
     new Request({
       url:'library/includes/backend.include.php',
@@ -634,7 +638,7 @@ window.addEvent('domready', function() {
           $('contentBlocked').destroy();
       }
     }).send('status=updateUserCache&site='+currentSite+'&page='+currentPage);
-  }).periodical(180000);
+  }).periodical(userCacheUpdateFrequency *  1000);
 
 
   // -> CHANGE WEBSITE LANGUAGE by the SELECTION
@@ -714,7 +718,7 @@ window.addEvent('domready', function() {
             $('currentVisitorsSideBar').empty();
         }
       }).send('status=getCurrentVisitors&request=true'); // getCurrentVisitors status prevents userCache overwriting
-    }).periodical(58000);
+    }).periodical((currentVisitorsUpdateFrequency - 2) * 1000);
   }
   if($('currentVisitorsDashboard') !== null) {
     (function(){
@@ -732,7 +736,7 @@ window.addEvent('domready', function() {
             $('currentVisitorsDashboard').empty();
         }
       }).send('status=getCurrentVisitors&request=true&mode=dashboard'); // getCurrentVisitors status prevents userCache overwriting
-    }).periodical(60000);
+    }).periodical(currentVisitorsUpdateFrequency * 1000);
   }
 
   // *** ->> ADMIN-MENU -----------------------------------------------------------------------------------------------------------------------
@@ -1411,7 +1415,7 @@ window.addEvent('domready', function() {
       { name: 'document', items : ['Save','-','Maximize','-','Source'] },
       { name: 'tools', items : ['ShowBlocks'] },
       { name: 'clipboard', items : [ 'Undo','Redo','-','Cut','Copy','Paste','PasteText','PasteFromWord'] },
-      { name: 'editing', items : [ 'Find','Replace','-','SelectAll'] }, //,'-','SpellChecker', 'Scayt' ] },
+      { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-', 'Scayt' ] }, //'SpellChecker',
       '/',
       { name: 'colors', items : [ 'TextColor','BGColor' ] },
       { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
@@ -1419,8 +1423,9 @@ window.addEvent('domready', function() {
       { name: 'paragraph', items : [ 'Outdent','Indent','-','NumberedList','BulletedList','-','Blockquote','CreateDiv'] },
       '/',
       { name: 'styles', items : [ 'Styles','Format','FontSize' ] }, //'Font'
+      { name: 'media', items : [ 'Image','Flash','Iframe'] },
       { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
-      { name: 'insert', items : [ 'Image','Flash','Iframe','-','Table','HorizontalRule','SpecialChar'] },
+      { name: 'insert', items : [ 'Table','HorizontalRule','SpecialChar'] },
       { name: 'feindura', items : [ 'Snippets'] },
       { name: 'tools', items : [ 'About' ] }
     ];

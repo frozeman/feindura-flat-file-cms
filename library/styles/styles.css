@@ -4409,6 +4409,9 @@
   padding-top: 2px;
   padding-bottom: 2px;
 }
+.feindura .row [class^="span"] {
+  line-height: 28px;
+}
 .feindura .toolTipLeft,
 .feindura .toolTipRight,
 .feindura .toolTipTop,
@@ -8154,7 +8157,7 @@
   display: inline-block;
   background: none;
   padding: 3px 0;
-  padding-left: 23px;
+  padding-left: 25px;
   padding-right: 5px;
   margin-left: 3px;
   float: left;
@@ -8197,7 +8200,7 @@
 .feindura .breadCrumbs > .middle > span.separator {
   position: relative;
   display: inline-block;
-  width: 1px;
+  width: 3px;
   height: 26px;
   margin: 0 1px;
   margin-left: 2px;
@@ -8205,7 +8208,7 @@
   background-image: url('../images/bg/breadCrumbMenu_separator.png');
 }
 .feindura .breadCrumbs > .arrow {
-  width: 15px;
+  width: 20px;
   background-image: url('../images/bg/breadCrumbMenu_arrow.png');
 }
 .feindura .breadCrumbs > .end {

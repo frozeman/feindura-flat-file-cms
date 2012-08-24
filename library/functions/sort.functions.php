@@ -34,20 +34,6 @@
  */
 
 /**
- * <b>Name</b> sortCurrentVisitorsByTime()<br>
- *
- * Sort an Array with the current visitors by the TIMESTAMP.
- *
- */
-function sortCurrentVisitorsByTime($a, $b) {     // (Array) $a = current; $b = follwing value
-
-  $a = explode('|#|',$a);
-  $b = explode('|#|',$b);
-
-  return ($a[2] > $b[2]) ? -1 : 1;
-}
-
-/**
  * <b>Name</b> sortBySortOrder()<br>
  *
  * Sort an Array with the pageContent Array by SORTORDER.
@@ -85,42 +71,16 @@ function sortAlphabetical($a, $b) {     // (Array) $a = current; $b = follwing v
 
 
 /**
- * <b>Name</b> sortByDate()<br>
+ * <b>Name</b> sortByPageDate()<br>
  *
  * Sort an Array with the pageContent Array by DATE TIMESTAMP.
  *
  */
-function sortByDate($a, $b) {     // (Array) $a = current; $b = follwing value
+function sortByPageDate($a, $b) {     // (Array) $a = current; $b = follwing value
 
   if ($a['pageDate']['start'] == $b['pageDate']['start'])
     return 0;
   return ($a['pageDate']['start'] > $b['pageDate']['start']) ? -1 : 1;
-}
-
-/**
- * <b>Name</b> sortByLastSaveDate()<br>
- *
- * Sort an Array with the pageContent Array by LASTSAVEDATE TIMESTAMP.
- *
- */
-function sortByLastSaveDate($a, $b) {     // (Array) $a = current; $b = follwing value
-
-  if ($a['lastSaveDate'] == $b['lastSaveDate'])
-    return 0;
-  return ($a['lastSaveDate'] > $b['lastSaveDate']) ? -1 : 1;
-}
-
-/**
- * <b>Name</b> sortByLastVisitDate()<br>
- *
- * Sort an Array with the pageContent Array by LASTVISIT TIMESTAMP.
- *
- */
-function sortByLastVisitDate($a, $b) {     // (Array) $a = current; $b = follwing value
-
-  if ($a['lastVisit'] == $b['lastVisit'])
-    return 0;
-  return ($a['lastVisit'] > $b['lastVisit']) ? -1 : 1;
 }
 
 /**
@@ -155,16 +115,18 @@ function sortByCategory($a, $b) {     // (Array) $a = current; $b = following va
   return (strpos($categoryIds,$a['category'].'-') < strpos($categoryIds,$b['category'].'-')) ? -1 : 1;
 }
 
+
 /**
- * <b>Name</b> sortByVisitCount()<br>
+ * <b>Name</b> sortByLastSaveDate()<br>
  *
- * Ssort an Array with the pageContent Array by VISIT COUNT.
+ * Sort an Array with the pageContent Array by LASTSAVEDATE TIMESTAMP.
  *
  */
-function sortByVisitCount($a, $b) {     // (Array) $a = current; $b = follwing value
-  if ($a['visitorCount'] == $b['visitorCount'])
+function sortByLastSaveDate($a, $b) {     // (Array) $a = current; $b = follwing value
+
+  if ($a['lastSaveDate'] == $b['lastSaveDate'])
     return 0;
-  return ($a['visitorCount'] > $b['visitorCount']) ? -1 : 1;
+  return ($a['lastSaveDate'] > $b['lastSaveDate']) ? -1 : 1;
 }
 
 /**
@@ -182,6 +144,31 @@ function sortByVisitTimeMax($a, $b) {     // (Array) $a = current; $b = follwing
   if ($aMaxVisitTime[0] == $bMaxVisitTime[0])
     return 0;
   return ($aMaxVisitTime[0] > $bMaxVisitTime[0]) ? -1 : 1;
+}
+
+/**
+ * <b>Name</b> sortByLastVisitDate()<br>
+ *
+ * Sort an Array with the pageStatistics Array by LASTVISIT TIMESTAMP.
+ *
+ */
+function sortByLastVisitDate($a, $b) {     // (Array) $a = current; $b = follwing value
+
+  if ($a['lastVisit'] == $b['lastVisit'])
+    return 0;
+  return ($a['lastVisit'] > $b['lastVisit']) ? -1 : 1;
+}
+
+/**
+ * <b>Name</b> sortByVisitCount()<br>
+ *
+ * Sort an Array with the pageContent Array by VISIT COUNT.
+ *
+ */
+function sortByVisitCount($a, $b) {     // (Array) $a = current; $b = follwing value
+  if ($a['visitorCount'] == $b['visitorCount'])
+    return 0;
+  return ($a['visitorCount'] > $b['visitorCount']) ? -1 : 1;
 }
 
 /**
@@ -210,6 +197,20 @@ function sortDataString($a, $b) {
   if($a['number'] == $b['number'])
     return 0;
   return ($a['number'] > $b['number']) ? -1 : 1;
+}
+
+/**
+ * <b>Name</b> sortCurrentVisitorsByTime()<br>
+ *
+ * Sort an Array with the current visitors by TIMESTAMP.
+ *
+ */
+function sortCurrentVisitorsByTime($a, $b) {     // (Array) $a = current; $b = follwing value
+
+  $a = explode('|#|',$a);
+  $b = explode('|#|',$b);
+
+  return ($a[2] > $b[2]) ? -1 : 1;
 }
 
 ?>

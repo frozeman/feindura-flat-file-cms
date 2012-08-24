@@ -600,7 +600,7 @@ $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Mos
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Creare file Sitemap (<a href="http://www.sitemaps.org/" target="_blank">Dettagli</a>)';
 $langFile['WEBSITESETUP_TIP_SITEMAPFILES']                                = 'I file sitemap semplificare i motori di ricerca di indicizzare il sito.';
 $langFile['WEBSITESETUP_TEXT_VISITORTIMEZONE']                            = 'Prendi Fuso orario visitatori';
-$langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                             = 'Cercare di ottenere il fuso orario del visitatore. Il sito verrà ricaricato alla prima visita.';
+$langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                             = 'Cercare di ottenere il fuso orario del visitatore, per visualizzare le comunicazioni in tempo l&#145;ora locale del visitatore.[br][br][span class=hint]Il sito verrà ricaricato alla prima visita.[/span]';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Sito web multi lingua';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Lingua principale';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'La lingua principale sarà selezionato, se non la lingua di corrispondenza è stato possibile determinare automaticamente.';

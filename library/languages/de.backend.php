@@ -596,8 +596,8 @@ $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                             = 'Websei
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                              = 'Zeigt anstatt der Webseite eine Meldung, dass diese derzeit bearbeitet wird.';
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                            = 'Sitemap-Dateien erzeugen (<a href="http://www.sitemaps.org/" target="_blank">Details</a>)';
 $langFile['WEBSITESETUP_TIP_SITEMAPFILES']                             = 'Die Sitemap-Dateien vereinfachen Suchmaschinen das Indizieren der Webseite.';
-$langFile['WEBSITESETUP_TEXT_VISITORTIMEZONE']                         = 'Besucherzeitzone erfassen';
-$langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                          = 'Versucht die Zeitzone des Besuchers zu erfassen. Dabei wird beim ersten Besuch der Webseite die Seite neugeladen.';
+$langFile['WEBSITESETUP_TEXT_VISITORTIMEZONE']                         = 'Besucherzeitzone verwenden';
+$langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                          = 'Versucht die Zeitzone des Besuchers zu erfassen, um Zeitangaben in der lokalen Zeit des Besuchers darzustellen.[br][br][span class=hint]Beim ersten Besuch der Webseite wird die Seite neu geladen.[span]';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                    = 'Mehrsprachige Webseite';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                            = 'Hauptsprache';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                             = 'Die Hauptsprache wird verwendet, wenn nicht automatisch eine passende Sprache erfasst werden konnte.';

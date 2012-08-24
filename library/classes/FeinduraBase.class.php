@@ -507,8 +507,7 @@ class FeinduraBase {
   *
   *
   * @param array        $links      an array with links in the format
-  * @param string|false $menuTag    (optional) the menu tag or FALSE to just return links
-  * @param int|false    $breakAfter (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
+  * @param int|bool     $menuTag    (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -527,7 +526,7 @@ class FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  protected function generateMenu($links, $menuTag = false,$breakAfter = false) {
+  protected function generateMenu($links, $menuTag = false) {
 
     // vars
     $menu = array();
@@ -548,6 +547,12 @@ class FeinduraBase {
     $menuItem['pageId']            = false; // same as 'id'
     $menuItem['categoryId']        = false;
     $menuItemCopy = $menuItem;
+
+    // if "table", separate the array
+    if(is_array($menuTag)) {
+      $menuTag = $menuTag[0];
+      $breakAfter = (is_numeric($menuTag[1])) ? $menuTag[1] : false;
+    }
 
     // -> sets the MENU attributes
     // ----------------------------
@@ -780,7 +785,7 @@ class FeinduraBase {
   *
   * @param int|array      $page          page ID or a $pageContent array
   * @param bool           $showErrors    (optional) says if errors like "The page you requested doesn't exist" will be displayed
-  * @param int|array|bool $shortenText   (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
+  * @param int|array|bool $shortenText   (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string    $useHtml       (optional) displays the page content with or without HTML tags. It also accepts a string with allowed html tags.
   *
   *
@@ -974,7 +979,7 @@ class FeinduraBase {
       $pageContentEdited = "\n".'<div class="feindura_editPage" id="feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
       $pageContentEdited .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").store("editContent",$("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
 
-    // ->> ADD modified CONTENT (replaceLinks,replaceSnippets,..)
+    // ->> USE modified CONTENT (replaceLinks,replaceSnippets,..)
     } else {
       $pageContentEdited = GeneralFunctions::generateContent($localizedPageContent, $pageContent['id'], $this->sessionId, $this->language);
 
@@ -1509,7 +1514,7 @@ class FeinduraBase {
   *
   * Checks if the pages to load have a page date
   * and the page date fit in the given <var>$from</var> and <var>$to</var> parameters.
-  * All time period parameters are compared against the date of TODAY.
+  * All time period parameters are compared against the current date.
   *
   * The <var>$from</var> and <var>$to</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   *
@@ -1517,7 +1522,7 @@ class FeinduraBase {
   * @param int|array|bool  $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
   * @param int|bool|string $from                  (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
   * @param int|bool|string $to                    (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
-  * @param bool            $sortByCategories      (optional) determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
+  * @param bool            $sortPages      (optional) determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
   * @param bool	           $reverseList           (optional) if TRUE the pages sorting will be reversed
   *
   * @uses $categoryConfig                 to check if in the category is sorting by page date allowed
@@ -1541,7 +1546,7 @@ class FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  protected function loadPagesByDate($idType, $ids, $from = true, $to = true, $sortByCategories = false, $reverseList = false) {
+  protected function loadPagesByDate($from = true, $to = true, $idType, $ids, $sortPages = false, $reverseList = false) {
 
     if(!is_bool($from) && is_numeric($from))
       $from = round($from);
@@ -1559,66 +1564,82 @@ class FeinduraBase {
       $futureDate = false;
 
       // creates the PAST DATE
-      $defaultTimezone = date_default_timezone_get();
-      date_default_timezone_set($this->adminConfig['timezone']); // so the date can be compared to the page dates, which are set in the backend timezone
+      if(is_string($from) && !is_numeric($from))
+        $pastDate = strtotime($from,$currentDate);
+      elseif(!is_bool($from) && is_numeric($from))
+        $pastDate = strtotime('-'.$from.' month',$currentDate);
+      elseif($from === false)
+        $pastDate = $currentDate;
 
-        if(is_string($from) && !is_numeric($from))
-          $pastDate = strtotime($from,$currentDate);
-        elseif(!is_bool($from) && is_numeric($from))
-          $pastDate = strtotime('-'.$from.' month',$currentDate);
-        elseif($from === false)
-          $pastDate = $currentDate;
+      // creates the FUTURE DATE
+      if(is_string($to) && !is_numeric($to))
+        $futureDate = strtotime($to,$currentDate);
+      if(!is_bool($to) && is_numeric($to))
+        $futureDate = strtotime('+'.$to.' month',$currentDate);
+      elseif($to === false)
+        $futureDate = $currentDate;
 
-        // creates the FUTURE DATE
-        if(is_string($to) && !is_numeric($to))
-          $futureDate = strtotime($to,$currentDate);
-        if(!is_bool($to) && is_numeric($to))
-          $futureDate = strtotime('+'.$to.' month',$currentDate);
-        elseif($to === false)
-          $futureDate = $currentDate;
-
-      date_default_timezone_set($defaultTimezone); // set the timezone back to where it was
-
-      // echo 'currentDate: '.date('d-m-Y',$currentDate).'<br>';
+      // echo 'Today: '.date('d-m-Y',$currentDate).'<br>';
       // echo 'pastDate: '.date('d-m-Y',$pastDate).'<br>';
       // echo 'futureDate: '.date('d-m-Y',$futureDate).'<br><br>';
 
       // convert to number date e.g. 20010911
-      // $pastDate = date('Ymd',$pastDate);
-      // $futureDate = date('Ymd',$futureDate);
+      $pastDate = date('Ymd',$pastDate);
+      $futureDate = date('Ymd',$futureDate);
 
-      // -> list a category(ies)
-      // ------------------------------
+      // CHECK IF PAGE FITS in the given TIME PERIOD
       $selectedPages = array();
       foreach($pages as $page) {
 
-        // show the pages, if they have a date which can be sorted
-        if(!empty($page['pageDate']['start']) && $this->categoryConfig[$page['category']]['showPageDate']) {
+        // show the pages, if page date is activated
+        if($this->categoryConfig[$page['category']]['showPageDate']) {
 
-          // echo 'pageDate: '.date('d-m-Y',$page['pageDate']['date']).'<br>';
+          // DATE RANGE
+          if($this->categoryConfig[$page['category']]['pageDateAsRange'] && !empty($page['pageDate']['end'])) {
 
-          // convert to number date e.g. 20010911
-          // $pageDate = date('Ymd',$page['pageDate']['start']);
-          $pageDate = $page['pageDate']['start'];
+            // BOTH dates EXIST
+            if(!empty($page['pageDate']['start'])) {
+
+              // convert to number date e.g. 20120911
+              $pageDateStart = date('Ymd',$page['pageDate']['start']);
+              $pageDateEnd   = date('Ymd',$page['pageDate']['end']);
+              // compare
+              if(($from === true || ($pageDateStart >= $pastDate) || ($pageDateStart < $pastDate && $pageDateEnd >= $pastDate)) &&
+                 ($to === true || ($pageDateEnd <= $futureDate) || ($pageDateEnd > $futureDate && $pageDateStart <= $futureDate)))
+                $selectedPages[] = $page;
 
 
+            // ONLY LAST date EXIST (unlikely)
+            } else {
+              // convert to number date e.g. 20120911
+              $pageDateEnd = date('Ymd',$page['pageDate']['end']);
+              // compare
+              if(($from === true || $pageDateEnd >= $pastDate) &&
+                 ($to === true || $pageDateEnd <= $futureDate))
+                $selectedPages[] = $page;
+            }
 
-          // adds the page to the array, if:
-          // -> the currentdate ist between the minus and the plus month or
-          // -> mins or plus month are true (means there is no time limit)
-          if(($from === true || $pageDate >= $pastDate) &&
-             ($to === true || $pageDate <= $futureDate))
-            $selectedPages[] = $page;
+          // SINGLE DATE
+          } elseif(!empty($page['pageDate']['start'])) {
+
+            // convert to number date e.g. 20120911
+            $pageDate = date('Ymd',$page['pageDate']['start']);
+            // compare
+            if(($from === true || $pageDate >= $pastDate) &&
+               ($to === true || $pageDate <= $futureDate))
+              $selectedPages[] = $page;
+          }
         }
       }
 
       // -> SORT the pages BY DATE
       // sort by DATE and GIVEN ARRAY
-      if($sortByCategories === false)
-        usort($selectedPages,'sortByDate');
+      // if($sortPages === false)
+        // usort($selectedPages,'sortByPageDate');
+
       // sorts by DATE and CATEGORIES
-      else
-        $selectedPages = GeneralFunctions::sortPages($selectedPages,'sortByDate');
+      if($sortPages)
+        $selectedPages = GeneralFunctions::sortPages($selectedPages);//'sortByPageDate'
 
       // -> flips the sorted array if $reverseList === true
       if($reverseList === true)
@@ -2071,8 +2092,8 @@ class FeinduraBase {
       // vars
       $moreLink = true;
       if(is_array($length)) {
-        $moreLink = $length[1];
         $length = $length[0];
+        $moreLink = $length[1];
       }
 
       // shorten the string
@@ -2092,7 +2113,7 @@ class FeinduraBase {
 
       // adds the MORE LINK
       if(is_string($moreLink) && strpos($moreLink,'<a ') !== false) {
-        $string .= " \n".$moreLink;
+        $string .= " \n".str_replace('%href%',$this->createHref($pageContent['id']),$moreLink);;
       } elseif($moreLink && GeneralFunctions::isPageContentArray($pageContent)) {
         if(is_string($moreLink) && !is_bool($moreLink))
           $text = $moreLink;

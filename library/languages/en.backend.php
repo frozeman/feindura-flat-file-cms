@@ -597,7 +597,7 @@ $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Sho
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Create Sitemap-Files (<a href="http://www.sitemaps.org/" target="_blank">Details</a>)';
 $langFile['WEBSITESETUP_TIP_SITEMAPFILES']                                = 'The sitemap files simplify search engines to index this site.';
 $langFile['WEBSITESETUP_TEXT_VISITORTIMEZONE']                            = 'Get Visitors Timezone';
-$langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                             = 'Try to get the timezone of the visitor. The website will be reloaded on the first visit.';
+$langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                             = 'Try to get the timezone of the visitor, to display time disclosures in the local time of the visitor.[br][br][span class=hint]The website will be reloaded on the first visit.[/br]';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Multi language Website';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Main language';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'The main language will be selected, if no matching language could be determined automatically.';

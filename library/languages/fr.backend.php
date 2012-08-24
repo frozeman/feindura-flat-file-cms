@@ -571,7 +571,7 @@ $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Aff
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Créer des fichiers Sitemap (<a href="http://www.sitemaps.org/" target="_blank">détails</a>)';
 $langFile['WEBSITESETUP_TIP_SITEMAPFILES']                                = 'Les fichiers sitemap simplifier les moteurs de recherche à l&#145;index de ce site.';
 $langFile['WEBSITESETUP_TEXT_VISITORTIMEZONE']                            = 'Obtenez Fuseau horaire Visiteurs';
-$langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                             = 'Tenter d&#145;obtenir le fuseau horaire du visiteur. Le site sera rechargé à la première visite.';
+$langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                             = 'Tenter d&#145;obtenir le fuseau horaire du visiteur, pour afficher les divulgations de temps en temps local du visiteur.[br][br][span class=hint]Le site sera rechargé à la première visite.[/span]';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'site web multi-langues';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'La langue principale';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'La langue principale sera choisi, si aucune langue correspondante pourrait être déterminé automatiquement.';
