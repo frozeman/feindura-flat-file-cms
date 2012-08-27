@@ -74,6 +74,6 @@ if(empty($userConfig) || (is_array($userConfig) && count($userConfig) > 1)) {
       echo '</ul>';
     // no users
     } else
-      echo '<span class="red">'.$langFile['USER_TEXT_NOUSER'].'</span>';
+      echo '<div class="alert alert-error" style="position:relative; top: 50px; font-size: 11px;"><a href="?site=userSetup" class="red">'.$langFile['USER_TEXT_NOUSER'].'</div></a>';
 
 }

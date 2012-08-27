@@ -35,8 +35,7 @@ if($prevVersionFile = file(dirname(__FILE__).'/CHANGELOG')) {
   $CURVERSION = trim($prevVersionFile[2]);
   $CURBUILD = trim($prevVersionFile[3]);
   $CURBUILD = str_replace('Build ', '', $CURBUILD);
-} else
-  $PREVVERSION = '1.0';
+}
 
 $PREVVERSION = VERSION;
 $PREVBUILD = BUILD;
@@ -129,7 +128,7 @@ $CURVERSIONSTRING = $CURVERSION.' <small>Build '.$CURBUILD.'</small>';
   ?>
 
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
-  <span style="font-size:25px;"><?php echo ($PREVVERSION == '1.0') ? $PREVVERSION.'>': $PREVVERSIONSTRING; ?> &rArr; <?php echo $CURVERSIONSTRING; ?></span><br>
+  <span style="font-size:25px;"><?php echo (empty($PREVVERSION)) ? '1.x >': $PREVVERSIONSTRING; ?> &rArr; <?php echo $CURVERSIONSTRING; ?></span><br>
   <br>
   <?php
 

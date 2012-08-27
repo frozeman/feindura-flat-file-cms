@@ -255,7 +255,6 @@ class StatisticFunctions {
   *
   */
   public static function getCurrentPageId($startPage = null) {
-
     // ->> GET PAGE is an ID
     // *********************
     if(isset($_GET[self::$adminConfig['varName']['page']]) &&
@@ -328,7 +327,7 @@ class StatisticFunctions {
  /**
   * <b>Name</b> readPageStatistics()<br>
   *
-  * Loads the $pageContent array of a page.
+  * Loads the $pageStatistics array of a page.
   *
   * Includes the page statistics.
   *
@@ -388,7 +387,7 @@ class StatisticFunctions {
   *
   * Save a page statistics to it's flatfile.
   *
-  * Example of the saved $pageContent array:
+  * Example of the saved $pageStatistics array:
   * {@example readPageStatistics.return.example.php}
   *
   *
@@ -407,7 +406,6 @@ class StatisticFunctions {
   *
   */
   public static function savePageStatistics($pageStatistics) {
-
     // check if array is pageContent array
     if(!self::isPageStatisticsArray($pageStatistics))
       return false;
@@ -921,7 +919,7 @@ class StatisticFunctions {
   public static function saveWebsiteStats($page = false) {
 
     // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isRobot() public static function
-    //unset($_SESSION);
+    // unset($_SESSION);
 
     // var
     if($page === false)
@@ -1187,7 +1185,6 @@ class StatisticFunctions {
 
       // LOAD the $pageStatistics array
       $pageStatistics = self::readPageStatistics($pageId);
-
       // prevent resetting page stats
       if($pageStatistics === null)
         return false;
@@ -1225,9 +1222,8 @@ class StatisticFunctions {
 
       // ->> SAVE THE SEARCHWORDs from GOOGLE, YAHOO, MSN (Bing)
       // -------------------------------------------------------
-      if(!isset($_SESSION['feinduraSession']['log']['searchwords']))
-        $_SESSION['feinduraSession']['log']['searchwords'] = array();
-
+      // if(!isset($_SESSION['feinduraSession']['log']['searchwords']))
+      //   $_SESSION['feinduraSession']['log']['searchwords'] = array();
       if(isset($_SERVER['HTTP_REFERER']) &&
          !empty($_SERVER['HTTP_REFERER'])) {
 
@@ -1246,7 +1242,6 @@ class StatisticFunctions {
           'google' => 'q',
           'yahoo' => 'p'
         );
-
         if($searchWords && preg_match('#('.implode('|', array_keys($search_engines)).')#', $searchWords, $searchEngineMatches) === 1) {
 
           // gets the searchwords
@@ -1260,20 +1255,19 @@ class StatisticFunctions {
           // get searchwords
           $searchWords = explode(' ',$query[$searchEngineQueryName]);
 
-          // GeneralFunctions::dump($searchWords);
 
           // gos through searchwords and check if there already saved
           $newSearchWords = array();
           foreach($searchWords as $searchWord) {
-            if(!empty($searchWord) && in_array($searchWord,$_SESSION['feinduraSession']['log']['searchwords']) === false) {
+            if(!empty($searchWord)){// && in_array($searchWord,$_SESSION['feinduraSession']['log']['searchwords']) === false) {
               $newSearchWords[] = $searchWord;
-              $_SESSION['feinduraSession']['log']['searchwords'][] = $searchWord;
+              // $_SESSION['feinduraSession']['log']['searchwords'][] = $searchWord;
             }
           }
 
           if(!empty($newSearchWords)) {
             // adds the searchwords to the searchword data string
-            $pageStatistics['searchWords'] = self::addDataToDataString($pageContent['searchWords'],$searchWords);
+            $pageStatistics['searchWords'] = self::addDataToDataString($pageStatistics['searchWords'],$newSearchWords);
           }
         }
       }
