@@ -78,7 +78,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
         <?php echo $langFile['websiteSetup_websiteConfig_field4']; ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="keywords" name="keywords" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'keywords',false,true); ?>" class="toolTipRight" title="<?php echo $langFile['websiteSetup_websiteConfig_field4_inputTip']; ?>">
+        <input type="text" id="keywords" name="keywords" value="<?php echo GeneralFunctions::getLocalized($websiteConfig,'keywords',false,true); ?>" class="input-xlarge toolTipRight" title="<?php echo $langFile['websiteSetup_websiteConfig_field4_inputTip']; ?>">
       </div>
     </div>
 
@@ -88,7 +88,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
         <?php echo $langFile['websiteSetup_websiteConfig_field5']; ?></span></label>
       </div>
       <div class="span5">
-        <textarea id="description" name="description" class="toolTipRight autogrow" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($websiteConfig,'description',false,true); ?></textarea>
+        <textarea id="description" name="description" class="input-xlarge toolTipRight autogrow" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($websiteConfig,'description',false,true); ?></textarea>
       </div>
     </div>
 
@@ -257,6 +257,30 @@ $hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
 
   // setup the AUTOMATICALLY ADDING OF the ANCHORS
   setupForm('websiteSettingsForm');
+
+
+  // KEYWORDs as TAGS
+  if($('keywords') !== null) {
+    new TextboxList('keywords', {
+      unique: true,
+      inBetweenEditableBits: false,
+      // startEditableBit: false,
+      bitsOptions: {
+        editable: {
+          addOnBlur: true,
+          stopEnter: true
+          // addKeys: [188, 32, 13]
+        }
+      },
+      plugins: {
+        autocomplete: {
+          placeholder: false,
+          showAllValues: true,
+          reAddValues: true
+        }
+      }
+    });
+  }
 
   // -> MULTI LANGUAGE WEBSITE
 

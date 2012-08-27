@@ -111,122 +111,8 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     var feindura_snippets_isAdmin               = <?php echo (GeneralFunctions::isAdmin()) ? 'true' : 'false' ?>;
 
 
-    window.addEvent('domready', function () {
+    //  MORE SEE PAGE SCRIPT BELOW
 
-      // ->> include FILEMANAGER
-      <?php if(GeneralFunctions::hasPermission('fileManager')) { ?>
-      var hideFileManager = function(){this.hide();}
-      var fileManager = new FileManager({
-          url: 'library/controllers/filemanager.controller.php',
-          assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
-          documentRootPath: '<?php echo DOCUMENTROOT; ?>',
-          language: '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>',
-          propagateData: {'<?php echo session_name(); ?>':'<?php echo session_id(); ?>'},
-          destroy: true,
-          upload: true,
-          move_or_copy: true,
-          rename: true,
-          createFolders: true,
-          download: true,
-          hideOnClick: true,
-          hideOverlay: true,
-          hideOnDelete: false,
-          listType: 'thumb',
-          listPaginationSize: 100,
-          zIndex: 20020,
-          onShow: function() {
-              window.location.hash = '#none';
-              dimmContainer.show();
-              dimmContainer.addEvent('click',hideFileManager.bind(this));
-            },
-          onHide: function() {
-              dimmContainer.removeEvent('click',hideFileManager);
-              dimmContainer.hide();
-            }
-      });
-      fileManager.filemanager.setStyle('width','75%');
-      fileManager.filemanager.setStyle('height','70%');
-
-      // -> OPEN FILEMANAGER when button get clicked
-      $$('a.fileManager').each(function(fileManagerButton){
-        fileManagerButton.addEvent('click',function(e){
-          e.stop();
-          fileManager.show();
-        });
-      });
-      <?php } ?>
-
-      <?php if(isset($_GET['page']) && $categoryConfig[$_GET['category']]['showTags']) { ?>
-      // TEXTBOX LIST (TAG AUTOCOMPLETION)
-      if($('edit_tags') !== null) {
-        var editableTags = new TextboxList('edit_tags', {
-          unique: true,
-          inBetweenEditableBits: false,
-          // startEditableBit: false,
-          bitsOptions: {
-            editable: {
-              addOnBlur: true,
-              stopEnter: true
-              // addKeys: [188, 32, 13]
-            }
-          },
-          plugins: {
-            autocomplete: {
-              placeholder: false,
-              showAllValues: true,
-              reAddValues: true
-            }
-          }
-        });
-        editableTags.plugins['autocomplete'].setValues(
-          [
-          <?php
-          foreach ($pagesMetaData as $pageMetaData) {
-            foreach ($pageMetaData['localized'] as $langCode => $pageMetaDataLocalized) {
-              $tags = explode(',', $pageMetaDataLocalized['tags']);
-              foreach($tags as $tag) {
-                // add tag only when the current page dont have them
-                if(!empty($tag) && !GeneralFunctions::compareTags($pageContent, $tag))
-                  echo '["'.$tag.'","'.$tag.'"],';
-              }
-            }
-          }
-          ?>
-          ]
-        );
-      }
-      <?php } ?>
-
-      <?php
-      // ->> STARTS the session COUNTER
-      if(!empty($userConfig) && isset($_SESSION['feinduraSession']['login']['end'])) {
-      ?>
-      var div = $('sessionTimout'),
-      coundown = new CountDown({
-        //initialized 30s from now
-        date: new Date(<?php echo $_SESSION['feinduraSession']['login']['end'].'000'; ?>),
-        //update every 100ms
-        frequency: 1000,
-        //update the div#counter
-        onChange: function(counter) {
-          var text = '';
-          if(counter.hours < 1 && counter.minutes < 10) {
-            div.removeClass('blue');
-            div.addClass('red');
-            div.setStyle('font-weight','bold');
-          }
-          text += (counter.hours > 9 ? '' : '0') + counter.hours + ':';
-          text += (counter.minutes > 9 ? '' : '0') + counter.minutes + ':';
-          text += (counter.second > 9 ? '' : '0') + counter.second;
-          div.set('text', text);
-        },
-        //complete
-        onComplete: function () {
-          window.location.href = 'index.php?logout';
-        }
-      })
-      <?php } ?>
-    })
   /* ]]> */
   </script>
 </head>
@@ -650,6 +536,128 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     feindura_showMessage('<?php echo $messagePopUp; ?>');
   </script>
   <?php } ?>
+
+
+<!-- PAGE SCRIPTS -->
+<script type="text/javascript">
+/* <![CDATA[ */
+
+  // ->> include FILEMANAGER
+  <?php if(GeneralFunctions::hasPermission('fileManager')) { ?>
+  var hideFileManager = function(){this.hide();}
+  var fileManager = new FileManager({
+      url: 'library/controllers/filemanager.controller.php',
+      assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
+      documentRootPath: '<?php echo DOCUMENTROOT; ?>',
+      language: '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>',
+      propagateData: {'<?php echo session_name(); ?>':'<?php echo session_id(); ?>'},
+      destroy: true,
+      upload: true,
+      move_or_copy: true,
+      rename: true,
+      createFolders: true,
+      download: true,
+      hideOnClick: true,
+      hideOverlay: true,
+      hideOnDelete: false,
+      listType: 'thumb',
+      listPaginationSize: 100,
+      zIndex: 20020,
+      onShow: function() {
+          window.location.hash = '#none';
+          dimmContainer.show();
+          dimmContainer.addEvent('click',hideFileManager.bind(this));
+        },
+      onHide: function() {
+          dimmContainer.removeEvent('click',hideFileManager);
+          dimmContainer.hide();
+        }
+  });
+  fileManager.filemanager.setStyle('width','75%');
+  fileManager.filemanager.setStyle('height','70%');
+
+  // -> OPEN FILEMANAGER when button get clicked
+  $$('a.fileManager').each(function(fileManagerButton){
+    fileManagerButton.addEvent('click',function(e){
+      e.stop();
+      fileManager.show();
+    });
+  });
+  <?php } ?>
+
+  <?php if(isset($_GET['page']) && $categoryConfig[$_GET['category']]['showTags']) { ?>
+  // TEXTBOX LIST (TAG AUTOCOMPLETION)
+  if($('edit_tags') !== null) {
+    var editableTags = new TextboxList('edit_tags', {
+      unique: true,
+      inBetweenEditableBits: false,
+      // startEditableBit: false,
+      bitsOptions: {
+        editable: {
+          addOnBlur: true,
+          stopEnter: true
+          // addKeys: [188, 32, 13]
+        }
+      },
+      plugins: {
+        autocomplete: {
+          placeholder: false,
+          showAllValues: true,
+          reAddValues: true
+        }
+      }
+    });
+    editableTags.plugins['autocomplete'].setValues(
+      [
+      <?php
+      foreach ($pagesMetaData as $pageMetaData) {
+        foreach ($pageMetaData['localized'] as $langCode => $pageMetaDataLocalized) {
+          $tags = explode(',', $pageMetaDataLocalized['tags']);
+          foreach($tags as $tag) {
+            // add tag only when the current page dont have them
+            if(!empty($tag) && !GeneralFunctions::compareTags($pageContent, $tag))
+              echo '["'.$tag.'","'.$tag.'"],';
+          }
+        }
+      }
+      ?>
+      ]
+    );
+  }
+  <?php } ?>
+
+  <?php
+  // ->> STARTS the session COUNTER
+  if(!empty($userConfig) && isset($_SESSION['feinduraSession']['login']['end'])) {
+  ?>
+  var div = $('sessionTimout'),
+  coundown = new CountDown({
+    //initialized 30s from now
+    date: new Date(<?php echo $_SESSION['feinduraSession']['login']['end'].'000'; ?>),
+    //update every 100ms
+    frequency: 1000,
+    //update the div#counter
+    onChange: function(counter) {
+      var text = '';
+      if(counter.hours < 1 && counter.minutes < 10) {
+        div.removeClass('blue');
+        div.addClass('red');
+        div.setStyle('font-weight','bold');
+      }
+      text += (counter.hours > 9 ? '' : '0') + counter.hours + ':';
+      text += (counter.minutes > 9 ? '' : '0') + counter.minutes + ':';
+      text += (counter.second > 9 ? '' : '0') + counter.second;
+      div.set('text', text);
+    },
+    //complete
+    onComplete: function () {
+      window.location.href = 'index.php?logout';
+    }
+  })
+  <?php } ?>
+
+/* ]]> */
+</script>
 
 </body>
 </html>

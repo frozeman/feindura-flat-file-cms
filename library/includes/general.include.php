@@ -266,7 +266,7 @@ if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false) $_SERVER['REMOTE_ADDR'] = '1
 
 
 // -> GET VERSION and BUILD
-$changelogFile = file(dirname(__FILE__)."/../../VERSION");
+$changelogFile = @file(dirname(__FILE__)."/../../VERSION");
 $version = trim($changelogFile[1]);
 $buildNr = trim($changelogFile[2]);
 

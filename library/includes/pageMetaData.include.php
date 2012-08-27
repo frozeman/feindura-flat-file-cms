@@ -35,7 +35,7 @@ $autofocus = ($newPage) ? ' autofocus="autofocus"' : '';
     <?php echo $langFile['EDITOR_pageSettings_title'] ?></span></label>
   </div>
   <div class="span5">
-    <input type="text" id="edit_title" name="title" value="<?php echo str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent,'title',false,true)); ?>"<?php echo $autofocus; ?> class="toolTipRight" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">
+    <input type="text" id="edit_title" name="title" value="<?php echo str_replace('"','&quot;',GeneralFunctions::getLocalized($pageContent,'title',false,true)); ?>"<?php echo $autofocus; ?> class="input-xlarge toolTipRight" title="<?php echo $langFile['EDITOR_pageSettings_title'].'::'.$langFile['EDITOR_pageSettings_title_tip'] ?>">
   </div>
 </div>
 
@@ -46,7 +46,7 @@ $autofocus = ($newPage) ? ' autofocus="autofocus"' : '';
     <?php echo $langFile['EDITOR_pageSettings_field1']; ?></span></label>
   </div>
   <div class="span5">
-    <textarea id="edit_description" name="description" style="white-space:normal;" class="toolTipRight autogrow" title="::<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($pageContent,'description',false,true); ?></textarea>
+    <textarea id="edit_description" name="description" style="white-space:normal;" class="input-xlarge toolTipRight autogrow" title="::<?php echo $langFile['EDITOR_pageSettings_field1_inputTip']; ?>"><?php echo GeneralFunctions::getLocalized($pageContent,'description',false,true); ?></textarea>
   </div>
 </div>
 <?php

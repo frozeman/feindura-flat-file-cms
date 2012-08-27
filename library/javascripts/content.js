@@ -94,8 +94,9 @@ function addField(containerId,inputName) {
   //var newInput = new Element('input', {name: inputName});
 
   if(containerId && $(containerId) !== null) {
-    var newInput  = new Element('input', {type:'text',name: inputName});
+    var newInput  = new Element('input', {type:'text','name': inputName,'class':'input-xlarge'});
     $(containerId).grab(newInput,'bottom');
+    $(containerId).grab(new Element('br'),'bottom');
     return true;
   } else
     return false;
@@ -264,7 +265,21 @@ function resizeOnHover() {
   var startSize = 100;
 
   $$('.resizeOnHover').each(function(element){
+
+    // quit if it has already been setup
+    if(element.retrieve('resizeOnHover'))
+      return;
+
+    // vars
     var orgSize = element.getSize().y;
+    var slideOutTimeout;
+    var slideOut = function(){
+        slideOutTimeout = (function() {element.tween('height',orgSize);}).delay(500);
+      };
+    var slideIn = function(){
+        clearTimeout(slideOutTimeout);
+        element.tween('height',startSize);
+      };
 
     if(orgSize < startSize)
       return;
@@ -274,25 +289,21 @@ function resizeOnHover() {
       var arrow = new Element('div',{'class':'spacer arrow'});
       parentBox[0].grab(arrow);
       arrow.addEvents({
-        'mouseenter': function(){
-          element.tween('height',orgSize);
-        },
+        'mouseenter': slideOut,
         'mouseleave': function(){
-          element.tween('height',startSize);
+          clearTimeout(slideOutTimeout);
         }
       });
     }
 
     element.setStyle('height',startSize);
-    element.set('tween',{transition: Fx.Transitions.Quint.easeIn});
+    element.set('tween',{transition: Fx.Transitions.Quint.easeInOut});
     element.addEvents({
-      'mouseenter': function(){
-        element.tween('height',orgSize);
-      },
-      'mouseleave': function(){
-        element.tween('height',startSize);
-      }
+      'mouseenter': slideOut,
+      'mouseleave': slideIn
     });
+
+    element.store('resizeOnHover',true);
   });
 }
 
@@ -1267,40 +1278,15 @@ window.addEvent('domready', function() {
     }
   });
 
-  // -> DISABLE varNames if SPEAKING URL is selected
-  if($('cfg_speakingUrl') !== null) {
-    var smallSize = 60;
-
-    $('cfg_speakingUrl').addEvent('change',function() {
-      // disables all varNames fields is option value == true; speaking url
-      if(this[this.selectedIndex].value == 'true') {
-        $('cfg_varNamePage').setProperty(deactivateType,deactivateType);
-        $('cfg_varNamePage').tween('width',smallSize);
-        $('cfg_varNameCategory').setProperty(deactivateType,deactivateType);
-        $('cfg_varNameCategory').tween('width',smallSize);
-        //$('cfg_varNameModul').setProperty(deactivateType,deactivateType);
-        //$('cfg_varNameModul').tween('width',smallSize);
-      // activates thema if link with vars
-      } else {
-        $('cfg_varNamePage').removeProperty(deactivateType);
-        $('cfg_varNamePage').tween('width',320);
-        $('cfg_varNameCategory').removeProperty(deactivateType);
-        $('cfg_varNameCategory').tween('width',320);
-        //$('cfg_varNameModul').removeProperty(deactivateType);
-        //$('cfg_varNameModul').tween('width',320);
-      }
-    });
-  }
-
   // -> DISABLE cache timeout
   if($('cfg_cacheTimeout') !== null) {
     $('cfg_cache').addEvent('change',function() {
       // disable
       if(this.checked) {
-        $('cacheTimeoutRow').setStyle('display','block');
+        $('cacheTimeoutRow').reveal();
       // activate
       } else {
-        $('cacheTimeoutRow').setStyle('display','none');
+        $('cacheTimeoutRow').dissolve();
       }
     });
   }
@@ -1585,8 +1571,10 @@ window.addEvent('domready', function() {
           // -> UPDATE the TITLE everywhere
           title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
           $('edit_title').set('value',html);
-          $$('#rightSidebar menu.vertical a.active').getLast().getChildren('span').set('html',html);
-          setSidbarMenuTextLength();
+          var activeLink = $$('#rightSidebar menu.vertical a.active');
+          var star = activeLink.getElement('span');
+          activeLink.set('text',html);
+          activeLink.grab(star[0],'bottom');
           titleContent = $('editablePageTitle').get('html');
           // display document saved
           showDocumentSaved();

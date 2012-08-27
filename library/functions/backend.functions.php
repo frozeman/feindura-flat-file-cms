@@ -1257,14 +1257,20 @@ function saveSpeakingUrl(&$errorWindow) {
   }
   $htaccessFile = $websitePath.'/.htaccess';
 
-  // (?:[\/a-z0-9_-]*/{1})?  <- is only to add parent pages
-  $categoryRegEx = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?category/([a-zA-Z0-9_-]+)/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
-  $pageRegEx     = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?page/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
+  // page/category names
+  $newPageName     = $_POST['cfg_varNamePage'];
+  $newCategoryName = $_POST['cfg_varNameCategory'];
+  $oldPageName     = $GLOBALS['adminConfig']['varName']['page'];
+  $oldCategoryName = $GLOBALS['adminConfig']['varName']['category'];
 
-  $newRewriteRule  = $categoryRegEx.GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
-  $newRewriteRule .= $pageRegEx.GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?page=$2&language=$1 [QSA,L]';
-  $oldRewriteRule  = $categoryRegEx.GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
-  $oldRewriteRule .= $pageRegEx.GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?page=$2&language=$1 [QSA,L]';
+  // (?:[\/a-z0-9_-]*/{1})?  <- is only to add parent pages
+  $categoryRegEx = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?%s/([a-zA-Z0-9_-]+)/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
+  $pageRegEx     = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?%s/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
+
+  $newRewriteRule  = sprintf($pageRegEx,$newPageName).GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?page=$2&language=$1 [QSA,L]'."\n";
+  $newRewriteRule .= sprintf($categoryRegEx,$newCategoryName).GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]';
+  $oldRewriteRule  = sprintf($pageRegEx,$oldPageName).GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?page=$2&language=$1 [QSA,L]'."\n";
+  $oldRewriteRule .= sprintf($categoryRegEx,$oldCategoryName).GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]';
 
   $speakingUrlCode = '#
 # feindura - Flat File CMS -> speakingURL activation
@@ -1456,7 +1462,8 @@ function saveSitemap() {
 
   // vars
   $websitePath = GeneralFunctions::getDirname($GLOBALS['adminConfig']['websitePath']);
-  $realWebsitePath = GeneralFunctions::getRealPath($websitePath).'/';
+  $websitePath = (empty($websitePath)) ? '/': $websitePath;
+  $realWebsitePath = GeneralFunctions::getRealPath($websitePath);
   if($realWebsitePath == '/')
     return false;
   $baseUrl = $GLOBALS['adminConfig']['url'].GeneralFunctions::Path2URI($websitePath);
@@ -1468,7 +1475,7 @@ function saveSitemap() {
   $sitemapPages = GeneralFunctions::loadPages(true);
 
   // ->> START sitemap
-  $sitemap = new Sitemap($baseUrl,$realWebsitePath,false); // not compressed
+  $sitemap = new Sitemap($baseUrl,$realWebsitePath.'/',false); // not compressed
   $sitemap->showError = false;
   $sitemap->filePermissions = $GLOBALS['adminConfig']['permissions'];
   $sitemap->page('pages');
@@ -1928,10 +1935,10 @@ function showStyleFileInputs($styleFiles,$inputNames) {
      $styleFiles != 'a:0:{}' &&
      ($styleFileInputs = unserialize($styleFiles)) !== false) {
     foreach($styleFileInputs as $styleFileInput) {
-      $return .= '<input type="text" name="'.$inputNames.'[]" value="'.$styleFileInput.'" class="toolTipRight" title="'.$GLOBALS['langFile']['PATHS_TOOLTIP_ABSOLUTE'].'">';
+      $return .= '<input type="text" name="'.$inputNames.'[]" value="'.$styleFileInput.'" class="input-xlarge toolTipRight" title="'.$GLOBALS['langFile']['PATHS_TOOLTIP_ABSOLUTE'].'"><br>';
     }
   } else
-    $return = '<input type="text" name="'.$inputNames.'[]" value="" class="noResize inputToolTip" title="'.$GLOBALS['langFile']['PATHS_TOOLTIP_ABSOLUTE'].'">';
+    $return = '<input type="text" name="'.$inputNames.'[]" value="" class="noResize input-xlarge toolTipRight" title="'.$GLOBALS['langFile']['PATHS_TOOLTIP_ABSOLUTE'].'"><br>';
 
   // return the result
   return $return;

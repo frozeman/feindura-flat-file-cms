@@ -8,6 +8,18 @@
 // common elements
 #leftSidebar,
 #rightSidebar {
+
+    // SPACER
+    .spacer {
+        position: relative;
+        width: 202px;
+        height: 26px;
+
+        &.arrow {
+            background: url("../images/bg/sidebarMenu_spacer_arrow.png") no-repeat left center;
+        }
+    }
+
     .box {
         position: relative;
         z-index: 2;
@@ -83,19 +95,13 @@
             display: block;
             margin-bottom: 13px;
         }
-        ul {
+        ul.unstyled {
             overflow: auto;
+            overflow-x: hidden;
+            max-height: 400px;
             margin: 0;
             margin-right: -@blockContentPadding;
-            margin-left: 0px;
-            padding-left: 20px;
-            max-height: 400px;
-            list-style: circle;
-
-            li {
-                margin-right: 15px;
-                line-height: 18px;
-            }
+            margin-left: -@blockContentPadding;
         }
         ul.flags {
             margin-left: -5px;
@@ -383,17 +389,6 @@ div.rightSidebarLoadingCircle {
         }
     }
 
-    // SPACER
-    .spacer {
-        position: relative;
-        width: 202px;
-        height: 26px;
-
-        &.arrow {
-            background: url("../images/bg/sidebarMenu_spacer_arrow.png") no-repeat left center;
-        }
-    }
-
 
     // CURRENT xORS
 
@@ -429,7 +424,7 @@ div.rightSidebarLoadingCircle {
         margin: 0 -20px;
         margin-top: -18px;
         width: 208px;
-        height: 400px;
+        // height: 400px;
         font-size: 9px;
 
         a {
@@ -472,8 +467,8 @@ div.rightSidebarLoadingCircle {
 
     // SIDEBAR BACKUP
     ul.backupDownload {
-        list-style: none;
-        margin: 0;
+        margin: 0 !important;
+        margin-top: -10px !important;
         padding:0;
 
         li {
@@ -500,4 +495,21 @@ div.rightSidebarLoadingCircle {
     width: 210px;
     float: left;
     padding-bottom: 20px;
+
+    #feinduraNewsBlock ul {
+        margin-top: -16px;
+
+        li:first-child {
+            margin-top: -12px;
+        }
+
+        h3 {
+            margin-left: 0px;
+        }
+
+        a {
+            background-image: none;
+            padding: 3px 15px;
+        }
+    }
 }

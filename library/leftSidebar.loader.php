@@ -208,11 +208,40 @@ if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
 
     // ***** dashboard sideBar -------------------------------------------------- *********
     case 'dashboard':
-        // show the feindura.org news
-        // $feinduraNewsXml = file_get_contents('http://feindura.org/feeds/news.xml');
+    ?>
+      <div id="feinduraNewsBlock"></div>
 
-        // echo '<div class="box">';
-        // echo '</div>';
+      <!-- PAGE SCRIPTS -->
+      <script type="text/javascript">
+      /* <![CDATA[ */
+
+        var feinduraNewsBlock = $('feinduraNewsBlock');
+        feinduraNewsBlock.setStyle('display','none');
+
+        new Request.HTML({
+          url:'library/includes/feinduraNews.include.php',
+          method: 'post',
+          update: feinduraNewsBlock,
+          onSuccess: function(html) {
+
+            feinduraNewsBlock.setStyle('opacity',0.7);
+            feinduraNewsBlock.addEvents({
+              mouseenter: function(){
+                feinduraNewsBlock.tween('opacity',1);
+              },
+              mouseleave: function(){
+                feinduraNewsBlock.tween('opacity',0.7);
+              }
+            });
+
+            feinduraNewsBlock.show();
+            resizeOnHover();
+          }
+        }).send();
+
+      /* ]]> */
+      </script>
+    <?php
       break;
 
     // ***** pages sideBar -------------------------------------------------- *********
@@ -226,12 +255,6 @@ if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
 
     // ***** statisticSetup sideBar -------------------------------------------- *********
     case 'statisticSetup':
-      if($deletedStatistics) {
-        echo '<div class="box">';
-          echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" width="65" height="65">';
-          echo $deletedStatistics;
-        echo '</div>';
-      }
       break;
 
     // ***** websiteSetup sideBar -------------------------------------------- *********

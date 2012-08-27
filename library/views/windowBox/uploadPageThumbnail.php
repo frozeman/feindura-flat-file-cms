@@ -113,7 +113,7 @@ else
       <!-- file selection -->
       <h3 style="margin-bottom: -20px;"><?php echo $langFile['pagethumbnail_field1']; ?></h3>
 
-      <input type="file" name="thumbFile" class="btn">
+      <input type="file" name="thumbFile" class="btn" style="width: 220px;">
       <input type="submit" value="" class="button thumbnailUpload toolTipTop" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>">
 
     </div>
@@ -135,7 +135,7 @@ else
   </div>
 
   <?php if($thumbRatioY || $thumbRatioX) { ?>
-  <div style="position:relative; top: -60px;">
+  <div style="position:relative; top: -45px;">
     <a href="#" id="thumbSizeToogle" class="btn"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?> <span class="caret" onclick="return false;"></span></a>
   </div>
   <div style="margin-top: -35px;">

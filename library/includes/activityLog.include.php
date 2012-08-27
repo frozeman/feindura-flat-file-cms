@@ -33,7 +33,7 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-echo '<ul>';
+echo '<ul class="unstyled resizeOnHover">';
 // ->> LIST the tasks
 $count = 100;
 foreach($logContent as $logRow) {

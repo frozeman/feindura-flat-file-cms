@@ -22,8 +22,6 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-//var
-$deletedStatistics = false;
 
 // ------------>> SAVE the STATISTIC SETTINGS
 if($_POST['send'] && isset($_POST['statisticConfig'])) {
@@ -64,7 +62,7 @@ if($_POST['sendClearstatistics']) {
 
     // set the messagebox; save tasklog
     if($documentSaved) {
-      $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'].'</li>';
+      $messagePopUp .= '<div class="alert alert-success">'.$langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'].'</div>';
       saveActivityLog(20); // <- SAVE the task in a LOG FILE
     }
   }
@@ -88,7 +86,7 @@ if($_POST['sendClearstatistics']) {
 
     // set the messagebox; save tasklog
     if($documentSaved) {
-      $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'].'</li>';
+      $messagePopUp .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'].'</div>';
       saveActivityLog(21); // <- SAVE the task in a LOG FILE
     }
   }
@@ -100,7 +98,7 @@ if($_POST['sendClearstatistics']) {
 
     // set documentSaved status
     $documentSaved = true;
-    $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'].'</li>';
+    $messagePopUp .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'].'</div>';
     saveActivityLog(22); // <- SAVE the task in a LOG FILE
   }
 
@@ -111,7 +109,7 @@ if($_POST['sendClearstatistics']) {
 
     // set documentSaved status
     $documentSaved = true;
-    $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_REFERERLOG'].'</li>';
+    $messagePopUp .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_REFERERLOG'].'</div>';
     saveActivityLog(23); // <- SAVE the task in a LOG FILE
   }
 
@@ -122,16 +120,8 @@ if($_POST['sendClearstatistics']) {
 
     // set documentSaved status
     $documentSaved = true;
-    $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'</li>';
+    $messagePopUp .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'</div>';
     saveActivityLog(24); // <- SAVE the task in a LOG FILE
-  }
-
-  // SHOWs the MESSAGEBOX
-  if($deletedStatistics !== false) {
-    $deletedStatisticsFinal = '<ul class="red">';
-    $deletedStatisticsFinal .=  $deletedStatistics;
-    $deletedStatisticsFinal .= '</ul>';
-    $deletedStatistics = $deletedStatisticsFinal;
   }
 
   $savedForm = 'clearStatistics';

@@ -36,26 +36,17 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   if(is_file(DOCUMENTROOT.substr($_POST['cfg_websitePath'],0,-1)))
     $_POST['cfg_websitePath'] = substr($_POST['cfg_websitePath'],0,-1);
 
+  // -> CHECK if the VARNAMES are EMPTY, and add the previous ones, if speaking url = true
+  if(empty($_POST['cfg_varNamePage']))
+    $_POST['cfg_varNamePage'] = 'page';
+  if(empty($_POST['cfg_varNameCategory']))
+    $_POST['cfg_varNameCategory'] = 'category';
+  if(empty($_POST['cfg_varNameModul']))
+    $_POST['cfg_varNameModul'] = 'modul';
+
   // ->> add SPEAKING URL to .htaccess
   // --------------------------
   saveSpeakingUrl($errorWindow);
-
-  // -> CHECK if the VARNAMES are EMPTY, and add the previous ones, if speaking url = true
-  if($_POST['cfg_speakingUrl'] == 'true') {
-    if(!isset($_POST['cfg_varNamePage']))
-      $_POST['cfg_varNamePage'] = $adminConfig['varName']['page'];
-    if(!isset($_POST['cfg_varNameCategory']))
-      $_POST['cfg_varNameCategory'] = $adminConfig['varName']['category'];
-    if(!isset($_POST['cfg_varNameModul']))
-      $_POST['cfg_varNameModul'] = $adminConfig['varName']['modul'];
-  } else {
-    if(empty($_POST['cfg_varNamePage']))
-      $_POST['cfg_varNamePage'] = 'page';
-    if(empty($_POST['cfg_varNameCategory']))
-      $_POST['cfg_varNameCategory'] = 'category';
-    if(empty($_POST['cfg_varNameModul']))
-      $_POST['cfg_varNameModul'] = 'modul';
-  }
 
   // -> check Filter settings
   if(empty($_POST['cfg_editorHtmlLawed']))

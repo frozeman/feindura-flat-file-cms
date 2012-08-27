@@ -76,8 +76,7 @@ if($unwriteableList && checkBasePathAndURL()) {
 
       <div class="spacer2x"></div>
 
-      <h2><?php echo $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD']; ?></h2>
-      <div class="verticalSeparator"></div>
+      <h2 class="center"><?php echo $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD']; ?></h2>
 
       <div class="row">
         <div class="span3 formLeft"><img src="library/images/icons/backup_restore.png" width="70" height="78"></div>
@@ -91,8 +90,7 @@ if($unwriteableList && checkBasePathAndURL()) {
         $backups = GeneralFunctions::readFolder($backupFolder);
         if(!empty($backups['files'])) {
 
-          echo '<h2>'.$langFile['BACKUP_TITLE_RESTORE_FROMFILES'].'</h2>';
-          echo '<div class="verticalSeparator"></div>';
+          echo '<h2 class="center">'.$langFile['BACKUP_TITLE_RESTORE_FROMFILES'].'</h2>';
 
           natsort($backups['files']);
           $backups['files'] = array_reverse($backups['files']);

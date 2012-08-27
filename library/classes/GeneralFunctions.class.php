@@ -2942,6 +2942,11 @@ class GeneralFunctions {
       $return .= '<pre>';
       $return .= print_r($values,true);
       $return .= '</pre>';
+    } elseif(is_object($values)) {
+      $return  .= 'Object:<br>';
+      $return .= '<pre>';
+      $return .= print_r($values,true);
+      $return .= '</pre>';
     } elseif(is_bool($values)) {
       $values = ($values) ? 'TRUE' : 'FALSE';
       $return = "Bool: ".$values."<br>";

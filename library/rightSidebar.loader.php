@@ -196,7 +196,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
          $logContent = file(dirname(__FILE__).'/../statistic/activity.statistic.log')) {
 
          // echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat; top: 0px;"></div>';
-         echo '<div class="resizeOnHover" id="sideBarActivityLog">';
+         echo '<div id="sideBarActivityLog">';
 
               // ->> LIST the tasks
               include(dirname(__FILE__).'/includes/activityLog.include.php');
@@ -330,7 +330,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
         $lastBackups = '<p>'.$langFile['BACKUP_TEXT_NOBACKUP'].'</p>';
 
       // BACKUP DOWNLOADS
-      echo '<h2>'.$langFile['BACKUP_TITLE_LASTBACKUPS'].'</h2>';
+      echo '<h1>'.$langFile['BACKUP_TITLE_LASTBACKUPS'].'</h1>';
       echo $lastBackups;
       echo '</div>';
 

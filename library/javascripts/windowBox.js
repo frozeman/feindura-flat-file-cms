@@ -302,10 +302,19 @@ window.addEvent('domready', function() {
 
         // sets the SLIDE EFFECT to the buttons
         if($('thumbSizeToogle') !== null) {
-          $('thumbSizeToogle').addEvent('click', function(e){
-          e.stop();
-          slideThumbSize.toggle();
-        });
+          $('thumbSizeToogle').setStyle('opacity',0.5);
+          $('thumbSizeToogle').addEvents({
+            'click': function(e){
+                e.stop();
+                slideThumbSize.toggle();
+              },
+            mouseenter: function(){
+              $('thumbSizeToogle').tween('opacity',1);
+            },
+            mouseleave: function(){
+              $('thumbSizeToogle').tween('opacity',0.5);
+            }
+          });
         }
       }
 

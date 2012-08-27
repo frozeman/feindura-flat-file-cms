@@ -100,7 +100,7 @@ div.blockSpacer {
     padding-top: 2px;
     padding-bottom: 2px;
 
-    [class^="span"] {
+    div[class^="span"] {
         line-height: 28px;
     }
 }
@@ -228,6 +228,7 @@ hr {
         height: 0px;
         margin: 10px 0px;
         border: none;
+        line-height: 20px;
         border-top: 1px solid @colorLightGray;
     }
 }
@@ -373,7 +374,7 @@ a.logout, a.frontend, a.backend  {
     padding-bottom: 6px;
     // font-family: 'Comic Sans MS',"Helvetica Neue", Helvetica, Arial, sans-serif !important;
     text-align: center;
-    font-size: 28px;
+    font-size: 28px !important;
     font-weight: bold;
     color: #999;
     #shadow > .none();

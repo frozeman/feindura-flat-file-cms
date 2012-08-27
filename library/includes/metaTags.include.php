@@ -122,7 +122,7 @@
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>.js"></script>
   <?php } ?>
 
-  <?php if(isset($_GET['page']) && $categoryConfig[$_GET['category']]['showTags']) { ?>
+  <?php if($_GET['site'] == 'websiteSetup' || (!empty($_GET['page']) && $categoryConfig[$_GET['category']]['showTags'])) { ?>
   <!-- thirdparty/TextboxList -->
   <script type="text/javascript" src="library/thirdparty/TextboxList/TextboxList.js<?php echo '?v='.BUILD; ?>"></script>
   <script type="text/javascript" src="library/thirdparty/TextboxList/TextboxList.Autocomplete.js<?php echo '?v='.BUILD; ?>"></script>

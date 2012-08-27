@@ -87,7 +87,7 @@ if(!empty($userConfig[USERID]['info'])) {
     // USER COUNTER
     echo '<div class="row">';
       echo '<div class="span4">';
-        echo '<div class="insetBlock">';
+        echo '<div class="insetBlock visitorCountInsetBox">';
         echo '<h2>'.$langFile['STATISTICS_TEXT_VISITORCOUNT'].'</h2>';
         echo '<div class="center">';
           echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br><br>';

@@ -382,7 +382,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
         ?>
         </div>
         <a href="#" class="addStyleFilePath addButton toolTipLeft" style="margin-right: 10px;float:left;" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
-        <span class="badge" style="position:relative; top: 8px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
+        <span class="badge" style="position:relative; top: 3px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
       </div>
     </div>
 

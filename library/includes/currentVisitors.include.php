@@ -53,7 +53,7 @@ if(!empty($currentVisitors) && $showVisitors) {
   } else {
     $return .= '<div class="box">';
       $return .= '<h1>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].' ('.count($currentVisitors).')</h1>';
-      $return .= '<ul class="flags resizeOnHover">';
+      $return .= '<ul class="unstyled flags resizeOnHover">';
   }
 
   /* uses GeoIPLite
