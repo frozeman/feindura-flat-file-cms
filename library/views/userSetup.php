@@ -101,7 +101,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
           echo '<div class="row"><div class="span3 formLeft">';
           echo '<label for="users'.$user['id'].'email" class="toolTipLeft" title="::'.$langFile['USERSETUP_email_tip'].'">'.$langFile['USERSETUP_email'].'</label>
                 </div><div class="span5">
-                <input type="email" id="users'.$user['id'].'email" name="users['.$user['id'].'][email]" value="'.$user['email'].'" class="toolTipLeft" title="'.$langFile['USERSETUP_email'].'::'.$langFile['USERSETUP_email_tip'].'" autocomplete="off">
+                <input type="email" id="users'.$user['id'].'email" name="users['.$user['id'].'][email]" value="'.$user['email'].'" class="toolTipRight" title="'.$langFile['USERSETUP_email'].'::'.$langFile['USERSETUP_email_tip'].'" autocomplete="off">
                 </div></div>';
 
           echo '<div class="spacer"></div>';
