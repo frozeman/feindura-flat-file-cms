@@ -1379,7 +1379,7 @@ window.addEvent('domready', function() {
 
     // ------------------------------
     // CONFIG the HTMlEditor
-    CKEDITOR.config.skin                               = 'BootstrapCK-Skin';
+    CKEDITOR.config.skin                               = 'feindura-Skin';
     CKEDITOR.config.width                              = 770;
     CKEDITOR.config.height = ($('documentSaved') !== null && $('documentSaved').hasClass('saved')) ? editorToHeight : editorStartHeight;
     CKEDITOR.config.resize_minWidth                    = 831;

@@ -1,4 +1,7 @@
-# About [BootstrapCK-Skin][BootstrapCK-Skin]
+# About [feindura-Skin][feindura-Skin]
+
+Absolutely based on the [BootstrapCK-Skin]!
+Just changed minor details.
 
 The [BootstrapCK-Skin][BootstrapCK-Skin] is a skin for [CKEditor][CKEditor] based on [Twitter Bootstrap][Twitter Bootstrap] styles.<br />
 Some things couldn't be changed inside the skin, like the smileys and the position of the browse buttons when inserting an image or a flash.<br />
