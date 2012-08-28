@@ -6536,6 +6536,14 @@
 
   opacity: 0.5;
 }
+.feindura header.main .sideBar ul.userList li a {
+  color: #666;
+  padding-left: 0;
+  background: none;
+}
+.feindura header.main .sideBar ul.userList li a:hover {
+  color: #3a79a5;
+}
 .feindura header.main .sideBar ul.userList li.online {
   background-image: url("../images/icons/user_online.png");
   background-position: 5px 5px;
@@ -7099,7 +7107,7 @@
 .feindura div.rightSidebarLoadingCircle {
   position: absolute;
   top: 75px;
-  left: 60px;
+  right: 60px;
   z-index: 0;
 }
 .feindura #rightSidebar {

@@ -39,6 +39,9 @@ if($prevVersionFile = file(dirname(__FILE__).'/CHANGELOG')) {
 
 $PREVVERSION = VERSION;
 $PREVBUILD = BUILD;
+$PREVVERSION = (!empty($PREVVERSION)) ? $PREVVERSION : '1.0';
+$PREVBUILD = (!empty($PREVBUILD)) ? $PREVBUILD : '761';
+
 
 $PREVVERSIONSTRING = $PREVVERSION.' <small>Build '.$PREVBUILD.'</small>';
 $CURVERSIONSTRING = $CURVERSION.' <small>Build '.$CURBUILD.'</small>';
@@ -128,7 +131,7 @@ $CURVERSIONSTRING = $CURVERSION.' <small>Build '.$CURBUILD.'</small>';
   ?>
 
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
-  <span style="font-size:25px;"><?php echo (empty($PREVVERSION)) ? '1.x >': $PREVVERSIONSTRING; ?> &rArr; <?php echo $CURVERSIONSTRING; ?></span><br>
+  <span style="font-size:25px;"><?php echo ($PREVVERSION == '1.0') ? '1.x >': $PREVVERSIONSTRING; ?> &rArr; <?php echo $CURVERSIONSTRING; ?></span><br>
   <br>
   <?php
 
@@ -299,9 +302,6 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     // save the $pagesMetaData array
     // GeneralFunctions::savePagesMetaData();
 
-    // ->> LOAD PAGES
-    $pages = GeneralFunctions::loadPages(true);
-
     // ->> SAVE NEW adminConfig
     // rename
     $adminConfig['websiteFilesPath'] = (isset($adminConfig['websitefilesPath'])) ? $adminConfig['websitefilesPath'] : $adminConfig['websiteFilesPath'];
@@ -376,6 +376,80 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     }
     GeneralFunctions::$adminConfig = $adminConfig;
 
+
+    // ->> SAVE NEW categoryConfig
+    foreach($categoryConfig as $key => $category) {
+
+      // rename
+      $category['showTags'] = (isset($category['showtags'])) ? $category['showtags'] : $category['showTags'];
+      $category['showPageDate'] = (isset($category['showpagedate'])) ? $category['showpagedate'] : $category['showPageDate'];
+      if(!isset($category['sorting'])) $category['sorting'] = ($category['sortbypagedate'] || $category['sortByPageDate']) ? 'byPageDate' : 'manually';
+      $category['sortReverse'] = ($category['sortascending'] || $category['sortAscending']) ? 'true' : $category['sortReverse'];
+      $category['createDelete'] = (isset($category['createdelete'])) ? $category['createdelete'] : $category['createDelete'];
+      $category['thumbnails'] = (isset($category['thumbnail'])) ? $category['thumbnail'] : $category['thumbnails'];
+
+
+      if($category['plugins'] === true || $category['plugins'] === 'true')
+      $category['plugins'] = activateAllPluginsSerialized();
+
+      $data = $category['styleFile'];
+        if(strpos($data,'|#|') !== false)
+          $category['styleFile'] = changeToSerializedData($data,'|#|');
+        elseif(strpos($data,'|') !== false)
+          $category['styleFile'] = changeToSerializedData($data,'|');
+
+      // v2.0 - localized
+      if(!isset($category['localized'])) {
+        $category['localized'][0]['name'] = $category['name'];
+      }
+
+      // v2.0 subCategory
+      if(!isset($category['isSubCategory']))
+        $category['isSubCategory'] = false;
+      if(!isset($category['isSubCategoryOf']))
+        $category['isSubCategoryOf'] = 'a:0:{}';
+
+      // v2.0 - localized
+      if(!isset($category['localized'])) {
+        $category['localized'][0]['name'] = $category['name'];
+      }
+
+      // only if was until 1.1.6
+      // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
+      if(until(796)) {
+        $categoryPlugins = unserialize($category['plugins']);
+        $newCategoryPlugins = array();
+
+        foreach($categoryPlugins as $categoryPlugin) {
+          if($categoryPlugin == 'imageGallery' && !isset($categoryPlugins['imageGalleryFromFolder'])) {
+            $categoryPlugin = 'imageGalleryFromFolder';
+          } elseif($categoryPlugin == 'slideShow' && !isset($categoryPlugins['slideShowFromFolder'])) {
+            $categoryPlugin = 'slideShowFromFolder';
+          }
+          $newCategoryPlugins[] = $categoryPlugin;
+        }
+
+        // serialize the plugins again
+        $category['plugins'] = serialize($newCategoryPlugins);
+      }
+
+      // change old keys
+      $newKey = str_replace('id_','',$key);
+      $newKey = intval($newKey);
+
+      $newCategoryConfig[$newKey] = $category;
+    }
+    if(saveCategories($newCategoryConfig)) {
+      GeneralFunctions::$categoryConfig = include(dirname(__FILE__).'/config/category.config.php');
+      echo 'categoryConfig <span class="succesfull">succesfully updated</span><br>';
+    } else {
+      echo 'categoryConfig <span class="notSuccesfull">could not be updated</span><br>';
+      $succesfullUpdate = false;
+    }
+
+
+    // ->> LOAD PAGES
+    $pages = GeneralFunctions::loadPages(true);
 
     //print_r($pages);
     $pagesSuccesfullUpdated = true;
@@ -595,75 +669,6 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       echo 'pages <span class="succesfull">succesfully updated</span><br>';
     else {
       echo 'pages <span class="notSuccesfull">could not be updated</span><br>';
-      $succesfullUpdate = false;
-    }
-
-    // ->> SAVE NEW categoryConfig
-    foreach($categoryConfig as $key => $category) {
-
-      // rename
-      $category['showTags'] = (isset($category['showtags'])) ? $category['showtags'] : $category['showTags'];
-      $category['showPageDate'] = (isset($category['showpagedate'])) ? $category['showpagedate'] : $category['showPageDate'];
-      if(!isset($category['sorting'])) $category['sorting'] = ($category['sortbypagedate'] || $category['sortByPageDate']) ? 'byPageDate' : 'manually';
-      $category['sortReverse'] = ($category['sortascending'] || $category['sortAscending']) ? 'true' : $category['sortReverse'];
-      $category['createDelete'] = (isset($category['createdelete'])) ? $category['createdelete'] : $category['createDelete'];
-      $category['thumbnails'] = (isset($category['thumbnail'])) ? $category['thumbnail'] : $category['thumbnails'];
-
-
-      if($category['plugins'] === true || $category['plugins'] === 'true')
-      $category['plugins'] = activateAllPluginsSerialized();
-
-      $data = $category['styleFile'];
-        if(strpos($data,'|#|') !== false)
-          $category['styleFile'] = changeToSerializedData($data,'|#|');
-        elseif(strpos($data,'|') !== false)
-          $category['styleFile'] = changeToSerializedData($data,'|');
-
-      // v2.0 - localized
-      if(!isset($category['localized'])) {
-        $category['localized'][0]['name'] = $category['name'];
-      }
-
-      // v2.0 subCategory
-      if(!isset($category['isSubCategory']))
-        $category['isSubCategory'] = false;
-      if(!isset($category['isSubCategoryOf']))
-        $category['isSubCategoryOf'] = 'a:0:{}';
-
-      // v2.0 - localized
-      if(!isset($category['localized'])) {
-        $category['localized'][0]['name'] = $category['name'];
-      }
-
-      // only if was until 1.1.6
-      // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
-      if(until(796)) {
-        $categoryPlugins = unserialize($category['plugins']);
-        $newCategoryPlugins = array();
-
-        foreach($categoryPlugins as $categoryPlugin) {
-          if($categoryPlugin == 'imageGallery' && !isset($categoryPlugins['imageGalleryFromFolder'])) {
-            $categoryPlugin = 'imageGalleryFromFolder';
-          } elseif($categoryPlugin == 'slideShow' && !isset($categoryPlugins['slideShowFromFolder'])) {
-            $categoryPlugin = 'slideShowFromFolder';
-          }
-          $newCategoryPlugins[] = $categoryPlugin;
-        }
-
-        // serialize the plugins again
-        $category['plugins'] = serialize($newCategoryPlugins);
-      }
-
-      // change old keys
-      $newKey = str_replace('id_','',$key);
-      $newKey = intval($newKey);
-
-      $newCategoryConfig[$newKey] = $category;
-    }
-    if(saveCategories($newCategoryConfig))
-      echo 'categoryConfig <span class="succesfull">succesfully updated</span><br>';
-    else {
-      echo 'categoryConfig <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
 

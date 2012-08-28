@@ -69,7 +69,11 @@ if(empty($userConfig) || (is_array($userConfig) && count($userConfig) > 1)) {
           echo ' online" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$cachedUser["timestamp"]).'[br]('.ucfirst($cachedUser["browser"]).')'; //..."
 
         // list users 2nd part
-        echo '">'.$user['username'].'</li>';
+        echo '">';
+          echo (GeneralFunctions::isAdmin()) ? '<a href="?site=userSetup#userId'.$user['id'].'">': '';
+          echo $user['username'];
+          echo (GeneralFunctions::isAdmin()) ? '</a>': '';
+        echo '</li>';
       }
       echo '</ul>';
     // no users

@@ -136,6 +136,19 @@ class GeneralFunctions {
 
 
  /**
+  * Stores the result of {@link GeneralFunctions::isAdmin()}, to speed it up.
+  *
+  *
+  * @see GeneralFunctions::isAdmin()
+  *
+  * @static
+  * @var bool
+  *
+  */
+  private static $isAdmin = null;
+
+
+ /**
   * {@link GeneralFunctions::scriptBenchmark()} variables
   *
   *
@@ -334,9 +347,10 @@ class GeneralFunctions {
   * @see Feindura::createMetaTags()
   *
   * @static
-  * @version 1.1
+  * @version 1.2
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.2 changed "localTimezone" to "timezone"
   *    - 1.1 change timezone offsets to the current timezone offset
   *    - 1.0 initial release
   *
@@ -354,13 +368,13 @@ class GeneralFunctions {
 
     if(empty($_SESSION['feinduraSession']['timezone'])) {
 
-        if(empty($_GET['localTimezone'])) {
+        if(empty($_GET['timezone'])) {
           $return = '
   <!-- Get the Visitors Timezone -->
   <script>
   var d = new Date()
   var localTimezoneOffset= -d.getTimezoneOffset()/60;
-  location.href = "'.self::addParameterToUrl('localTimezone').'"+localTimezoneOffset;
+  location.href = "'.self::addParameterToUrl('timezone').'"+localTimezoneOffset;
   </script>
 
 ';
@@ -369,7 +383,7 @@ class GeneralFunctions {
           // $zonelist = array('Kwajalein' => -12.00, 'Pacific/Midway' => -11.00, 'Pacific/Honolulu' => -10.00, 'America/Anchorage' => -9.00, 'America/Los_Angeles' => -8.00, 'America/Denver' => -7.00, 'America/Tegucigalpa' => -6.00, 'America/New_York' => -5.00, 'America/Caracas' => -4.30, 'America/Halifax' => -4.00, 'America/St_Johns' => -3.30, 'America/Argentina/Buenos_Aires' => -3.00, 'America/Sao_Paulo' => -3.00, 'Atlantic/South_Georgia' => -2.00, 'Atlantic/Azores' => -1.00, 'Europe/Dublin' => 0, 'Europe/Belgrade' => 1.00, 'Europe/Minsk' => 2.00, 'Asia/Kuwait' => 3.00, 'Asia/Tehran' => 3.30, 'Asia/Muscat' => 4.00, 'Asia/Yekaterinburg' => 5.00, 'Asia/Kolkata' => 5.30, 'Asia/Katmandu' => 5.45, 'Asia/Dhaka' => 6.00, 'Asia/Rangoon' => 6.30, 'Asia/Krasnoyarsk' => 7.00, 'Asia/Brunei' => 8.00, 'Asia/Seoul' => 9.00, 'Australia/Darwin' => 9.30, 'Australia/Canberra' => 10.00, 'Asia/Magadan' => 11.00, 'Pacific/Fiji' => 12.00, 'Pacific/Tongatapu' => 13.00);
           // -> current difference
           $zonelist = array('Kwajalein' => -12.00, 'Pacific/Midway' => -11.00, 'Pacific/Honolulu' => -10.00, 'America/Anchorage' => -8.00, 'America/Los_Angeles' => -7.00, 'America/Denver' => -6.00, 'America/Tegucigalpa' => -6.00, 'America/New_York' => -4.00, 'America/Caracas' => -4.30, 'America/Halifax' => -3.00, 'America/St_Johns' => -2.30, 'America/Argentina/Buenos_Aires' => -3.00, 'America/Sao_Paulo' => -3.00, 'Atlantic/South_Georgia' => -2.00, 'Atlantic/Azores' => 0, 'Europe/Dublin' => 1.00, 'Europe/Belgrade' => 2.00, 'Europe/Minsk' => 3.00, 'Asia/Kuwait' => 3.00, 'Asia/Tehran' => 4.30, 'Asia/Muscat' => 4.00, 'Asia/Yekaterinburg' => 6.00, 'Asia/Kolkata' => 5.30, 'Asia/Katmandu' => 5.45, 'Asia/Dhaka' => 6.00, 'Asia/Rangoon' => 6.30, 'Asia/Krasnoyarsk' => 8.00, 'Asia/Brunei' => 8.00, 'Asia/Seoul' => 9.00, 'Australia/Darwin' => 9.30, 'Australia/Canberra' => 10.00, 'Asia/Magadan' => 12.00, 'Pacific/Fiji' => 12.00, 'Pacific/Tongatapu' => 13.00);
-          $index = array_keys($zonelist, $_GET['localTimezone']);
+          $index = array_keys($zonelist, $_GET['timezone']);
           $_SESSION['feinduraSession']['timezone'] = $index[0];
         }
     }
@@ -408,9 +422,15 @@ class GeneralFunctions {
     // var
     $otherUserIsAdmin = false;
 
+    // if already set
+    if(self::$isAdmin !== null)
+      return self::$isAdmin;
+
     // if no user exist, make the logged in one an admin
-    if(USERID === false || self::$userConfig[USERID]['admin'])
+    if(USERID === false || self::$userConfig[USERID]['admin']) {
+      self::$isAdmin = true;
       return true;
+    }
 
     // check if there is no other users which is admin
     if(is_array(self::$userConfig)) {
@@ -423,10 +443,14 @@ class GeneralFunctions {
     }
 
     // if no user is admin or no user exists, all are Admins
-    if($otherUserIsAdmin === false)
+    if($otherUserIsAdmin === false) {
+      self::$isAdmin = true;
       return true;
-    else
+    }
+    else {
+      self::$isAdmin = false;
       return false;
+    }
   }
 
  /**
@@ -1399,7 +1423,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function loadPages($category = false) {
+  public static function loadPages($category = true) {
 
     // IF $category FALSE set $category to 0
     if($category === false)
