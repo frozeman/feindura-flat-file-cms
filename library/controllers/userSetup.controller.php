@@ -40,8 +40,12 @@ if((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['cre
 
   // add a new user to the user array
   $userConfig[$newId] = array('id' => $newId);
+
+  // default user settings
+  $userConfig[$newId]['permissions']['websiteSettings'] = true;
+
   if(saveUserConfig($userConfig)) {
-     $messagePopUp .= '<div class="alert alert-success center">'.$langFile['USERSETUP_createUser_created'].'</div>';
+     $messagePopUp .= '<div class="alert alert-success">'.$langFile['USERSETUP_createUser_created'].'</div>';
      saveActivityLog(25); // <- SAVE the task in a LOG FILE
   } else { // throw error
     $errorWindow .= ($errorWindow) // if there is already an warning
@@ -69,7 +73,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['de
   }
 
   if(saveUserConfig($newUserConfig)) {
-    $messagePopUp .= '<div class="alert alert-info center">'.$langFile['USERSETUP_deleteUser_deleted'].'<br><strong>'.$storedUserName.'</strong></div>';
+    $messagePopUp .= '<div class="alert alert-info">'.$langFile['USERSETUP_deleteUser_deleted'].'<br><strong>'.$storedUserName.'</strong></div>';
     $documentSaved = true; // set documentSaved status
     saveActivityLog(26,$storedUserName); // <- SAVE the task in a LOG FILE
   } else
@@ -105,10 +109,10 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
       if($configs['password'] == $configs['password_confirm']) {
         $newUserConfig[$configs['id']]['password'] = md5($newUserConfig[$configs['id']]['password']);
         $userPassChanged = true;
-        $messagePopUp .= '<div class="alert alert-success center disappear">'.$langFile['USERSETUP_password_success'].'</div>';
+        $messagePopUp .= '<div class="alert alert-success">'.$langFile['USERSETUP_password_success'].'</div>';
       } else {
         $newUserConfig[$configs['id']]['password'] = $userConfig[$configs['id']]['password'];
-        $messagePopUp .= '<div class="alert alert-error center disappear">'.$langFile['USERSETUP_password_confirm_wrong'].'</div>';
+        $messagePopUp .= '<div class="alert alert-error">'.$langFile['USERSETUP_password_confirm_wrong'].'</div>';
         $userPassError = true;
       }
     } else
@@ -116,9 +120,6 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
 
     // clear the password confirm var
     unset($newUserConfig[$configs['id']]['password_confirm']);
-
-    // get the username which was saved
-    $savedUsername = ($_POST['savedUserId'] = $configs['id']) ? $configs['username'] : '';
   }
 
   ksort($newUserConfig);

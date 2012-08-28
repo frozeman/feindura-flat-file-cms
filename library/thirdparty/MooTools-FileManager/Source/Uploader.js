@@ -64,9 +64,11 @@ FileManager.implement({
 				},
 				mouseenter: function() {
 					this.addClass('hover');
+					self.upload.label.setStyle('display','block');
 				},
 				mouseleave: function() {
 					this.removeClass('hover');
+					self.upload.label.removeProperty('style');
 					this.blur();
 				},
 				mousedown: function() {

@@ -245,7 +245,7 @@ class FeinduraBase {
   */
   public function getParentPages($categoryId = false) {
 
-    if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
+    if($ids = $this->getIdsFromString(array(false,$categoryId))) {
       $categoryId = $ids[1];
       return GeneralFunctions::getParentPages($categoryId);
     }
@@ -507,8 +507,7 @@ class FeinduraBase {
   *
   *
   * @param array        $links      an array with links in the format
-  * @param string|false $menuTag    (optional) the menu tag or FALSE to just return links
-  * @param int|false    $breakAfter (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
+  * @param int|bool     $menuTag    (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -527,7 +526,7 @@ class FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  protected function generateMenu($links, $menuTag = false,$breakAfter = false) {
+  protected function generateMenu($links, $menuTag = false) {
 
     // vars
     $menu = array();
@@ -548,6 +547,12 @@ class FeinduraBase {
     $menuItem['pageId']            = false; // same as 'id'
     $menuItem['categoryId']        = false;
     $menuItemCopy = $menuItem;
+
+    // if "table", separate the array
+    if(is_array($menuTag)) {
+      $menuTag = $menuTag[0];
+      $breakAfter = (is_numeric($menuTag[1])) ? $menuTag[1] : false;
+    }
 
     // -> sets the MENU attributes
     // ----------------------------
@@ -780,7 +785,7 @@ class FeinduraBase {
   *
   * @param int|array      $page          page ID or a $pageContent array
   * @param bool           $showErrors    (optional) says if errors like "The page you requested doesn't exist" will be displayed
-  * @param int|array|bool $shortenText   (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
+  * @param int|array|bool $shortenText   (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string    $useHtml       (optional) displays the page content with or without HTML tags. It also accepts a string with allowed html tags.
   *
   *
@@ -931,23 +936,12 @@ class FeinduraBase {
     // -> PAGE DATE
     // *****************
     $pageDate = false;
-    if(GeneralFunctions::checkPageDate($pageContent)) {
-    	$titleDateBefore = '';
-    	$titleDateAfter = '';
-
-      // format pageDate
-      $pageDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile));
-
-      // add <time> tag
-      if(!empty($pageContent['pageDate']['date']))
-        $pageDate = '<time datetime="'.GeneralFunctions::getDateTimeValue($pageContent['pageDate']['date']).'">'.$pageDate.'</time>';
-
-      $pageDateBeforeAfter = $this->getLocalized($pageContent,'pageDate');
-      // adds spaces on before and after
-      if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
-      if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
-      $pageDate = $titleDateBefore.$pageDate.$titleDateAfter;
-
+    if($this->categoryConfig[$pageContent['category']]['showPageDate']) {
+      // add page date
+      $pageDate          = GeneralFunctions::showPageDate($pageContent,$this->languageFile);
+      $pageDateTimeStamp['date']  = $pageContent['pageDate']['start'];
+      $pageDateTimeStamp['start'] = $pageContent['pageDate']['start'];
+      $pageDateTimeStamp['end']   = $pageContent['pageDate']['end'];
     }
 
     // -> PAGE TITLE
@@ -985,7 +979,7 @@ class FeinduraBase {
       $pageContentEdited = "\n".'<div class="feindura_editPage" id="feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
       $pageContentEdited .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").store("editContent",$("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
 
-    // ->> ADD modified CONTENT (replaceLinks,replaceCodeSnippets,..)
+    // ->> USE modified CONTENT (replaceLinks,replaceSnippets,..)
     } else {
       $pageContentEdited = GeneralFunctions::generateContent($localizedPageContent, $pageContent['id'], $this->sessionId, $this->language);
 
@@ -1034,7 +1028,7 @@ class FeinduraBase {
       $return['pageDate']                                     = $pageDate;
 
     if($pageDate)
-      $return['pageDateTimestamp']                            = $pageContent['pageDate']['date'];
+      $return['pageDateTimestamp']                            = $pageDateTimeStamp;
 
     if(!empty($localizedPageTitle))
       $return['title']                                        = $title;
@@ -1117,30 +1111,18 @@ class FeinduraBase {
       // saves the long version of the title, for the title="" tag
       //$fullTitle = strip_tags($this->getLocalized($pageContent,'title'));
 
-      // generate TITLEDATE
-      if($titleShowPageDate && GeneralFunctions::checkPageDate($pageContent)) {
-        $titleDateBefore = '';
-        $titleDateAfter = '';
-        $pageDateBeforeAfter = $this->getLocalized($pageContent,'pageDate');
 
-        // format pageDate
-        $titleDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile));
+      if($titleShowPageDate && $this->categoryConfig[$pageContent['category']]['showPageDate']) {
+          // add page date
+          $titleDate          = GeneralFunctions::showPageDate($pageContent,$this->languageFile);
 
-        // add <time> tag to the pageDate
-        if(!empty($pageContent['pageDate']['date']))
-          $titleDate = '<time datetime="'.GeneralFunctions::getDateTimeValue($pageContent['pageDate']['date']).'">'.$titleDate.'</time>';
+          // add pageDate separator
+          if(is_string($titlePageDateSeparator))
+            $titleDate = $titleDate.$titlePageDateSeparator;
 
-        // adds spaces on before and after
-        if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
-        if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter   = ' '.$pageDateBeforeAfter['after'];
-        $titleDate = $titleDateBefore.$titleDate.$titleDateAfter;
+        } else
+          $titleDate = false;
 
-        // add pageDate separator
-        if(is_string($titlePageDateSeparator))
-          $titleDate = $titleDate.$titlePageDateSeparator;
-
-      } else
-        $titleDate = false;
 
       // show the CATEGORY NAME
       if($titleShowCategory === true && $pageContent['category'] != 0) {
@@ -1223,7 +1205,7 @@ class FeinduraBase {
 
     // ->> CHECK if thumbnail exists and is allowed to show
     if(!empty($pageContent['thumbnail']) && $this->categoryConfig[$pageContent['category']]['thumbnails'] &&
-      @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) {
+      @is_file(dirname(__FILE__).'/../../upload/thumbnails/'.$pageContent['thumbnail'])) {
 
       // set TAG ENDING (xHTML or HTML)
       if($this->xHtml === true) $tagEnding = ' />';
@@ -1258,13 +1240,13 @@ class FeinduraBase {
         : $this->adminConfig['pageThumbnail']['height'];
 
       if(!empty($configThumbWidth) && !empty($configThumbHeight) && is_numeric($configThumbWidth) && is_numeric($configThumbHeight)) {
-        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/images/icons/emptyImage.gif" style="display:table-cell; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.GeneralFunctions::Path2URI($this->adminConfig['uploadPath']).$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'\') no-repeat center center;'.$thumbnailAlign.'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/images/icons/emptyImage.gif" style="display:table-cell; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'\') no-repeat center center;'.$thumbnailAlign.'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       } else {
         if($thumbnailAlign) $thumbnailAlign = ' style="'.trim($thumbnailAlign).'"';
-        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI($this->adminConfig['uploadPath']).$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAlign.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAlign.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       }
 
-      $pageThumbnail['thumbnailPath'] = GeneralFunctions::Path2URI($this->adminConfig['uploadPath']).$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
+      $pageThumbnail['thumbnailPath'] = GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'];
 
       return $pageThumbnail;
     } else
@@ -1531,16 +1513,16 @@ class FeinduraBase {
   * Loads pages by ID-type and ID, which fit in the given time period parameters.
   *
   * Checks if the pages to load have a page date
-  * and the page date fit in the given <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters.
-  * All time period parameters are compared against the date of TODAY.
+  * and the page date fit in the given <var>$from</var> and <var>$to</var> parameters.
+  * All time period parameters are compared against the current date.
   *
-  * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
+  * The <var>$from</var> and <var>$to</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   *
   * @param string          $idType                the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool  $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
-  * @param int|bool|string $monthsInThePast       (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
-  * @param int|bool|string $monthsInTheFuture     (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
-  * @param bool            $sortByCategories      (optional) determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
+  * @param int|bool|string $from                  (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
+  * @param int|bool|string $to                    (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param bool            $sortPages      (optional) determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
   * @param bool	           $reverseList           (optional) if TRUE the pages sorting will be reversed
   *
   * @uses $categoryConfig                 to check if in the category is sorting by page date allowed
@@ -1564,13 +1546,12 @@ class FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  protected function loadPagesByDate($idType, $ids, $monthsInThePast = true, $monthsInTheFuture = true, $sortByCategories = false, $reverseList = false) {
+  protected function loadPagesByDate($from = true, $to = true, $idType, $ids, $sortPages = false, $reverseList = false) {
 
-    if(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
-      $monthsInThePast = round($monthsInThePast);
-    if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
-      $monthsInTheFuture = round($monthsInTheFuture);
-
+    if(!is_bool($from) && is_numeric($from))
+      $from = round($from);
+    if(!is_bool($to) && is_numeric($to))
+      $to = round($to);
     $ids = $this->getPropertyIdsByType($idType,$ids);
 
     // LOADS the PAGES BY TYPE
@@ -1583,27 +1564,22 @@ class FeinduraBase {
       $futureDate = false;
 
       // creates the PAST DATE
-      $defaultTimezone = date_default_timezone_get();
-      date_default_timezone_set($this->adminConfig['timezone']); // so the date can be compared to the page dates, which are set in the backend timezone
-
-      if(is_string($monthsInThePast) && !is_numeric($monthsInThePast))
-        $pastDate = strtotime($monthsInThePast,$currentDate);
-      elseif(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
-        $pastDate = strtotime('-'.$monthsInThePast.' month',$currentDate);
-      elseif($monthsInThePast === false)
+      if(is_string($from) && !is_numeric($from))
+        $pastDate = strtotime($from,$currentDate);
+      elseif(!is_bool($from) && is_numeric($from))
+        $pastDate = strtotime('-'.$from.' month',$currentDate);
+      elseif($from === false)
         $pastDate = $currentDate;
 
       // creates the FUTURE DATE
-      if(is_string($monthsInTheFuture) && !is_numeric($monthsInTheFuture))
-        $futureDate = strtotime($monthsInTheFuture,$currentDate);
-      if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
-        $futureDate = strtotime('+'.$monthsInTheFuture.' month',$currentDate);
-      elseif($monthsInTheFuture === false)
+      if(is_string($to) && !is_numeric($to))
+        $futureDate = strtotime($to,$currentDate);
+      if(!is_bool($to) && is_numeric($to))
+        $futureDate = strtotime('+'.$to.' month',$currentDate);
+      elseif($to === false)
         $futureDate = $currentDate;
 
-      date_default_timezone_set($defaultTimezone); // set the timezone back to where it was
-
-      // echo 'currentDate: '.date('d-m-Y',$currentDate).'<br>';
+      // echo 'Today: '.date('d-m-Y',$currentDate).'<br>';
       // echo 'pastDate: '.date('d-m-Y',$pastDate).'<br>';
       // echo 'futureDate: '.date('d-m-Y',$futureDate).'<br><br>';
 
@@ -1611,34 +1587,59 @@ class FeinduraBase {
       $pastDate = date('Ymd',$pastDate);
       $futureDate = date('Ymd',$futureDate);
 
-      // -> list a category(ies)
-      // ------------------------------
+      // CHECK IF PAGE FITS in the given TIME PERIOD
       $selectedPages = array();
       foreach($pages as $page) {
-        // show the pages, if they have a date which can be sorten
-        if(!empty($page['pageDate']['date']) && $this->categoryConfig[$page['category']]['showPageDate']) {
 
-          // echo 'pageDate: '.date('d-m-Y',$page['pageDate']['date']).'<br>';
+        // show the pages, if page date is activated
+        if($this->categoryConfig[$page['category']]['showPageDate']) {
 
-          // convert to number date e.g. 20010911
-          $pageDate = date('Ymd',$page['pageDate']['date']);
+          // DATE RANGE
+          if($this->categoryConfig[$page['category']]['pageDateAsRange'] && !empty($page['pageDate']['end'])) {
 
-          // adds the page to the array, if:
-          // -> the currentdate ist between the minus and the plus month or
-          // -> mins or plus month are true (means there is no time limit)
-          if(($monthsInThePast === true || $pageDate >= $pastDate) &&
-             ($monthsInTheFuture === true || $pageDate <= $futureDate))
-            $selectedPages[] = $page;
+            // BOTH dates EXIST
+            if(!empty($page['pageDate']['start'])) {
+
+              // convert to number date e.g. 20120911
+              $pageDateStart = date('Ymd',$page['pageDate']['start']);
+              $pageDateEnd   = date('Ymd',$page['pageDate']['end']);
+              // compare
+              if(($from === true || ($pageDateStart >= $pastDate) || ($pageDateStart < $pastDate && $pageDateEnd >= $pastDate)) &&
+                 ($to === true || ($pageDateEnd <= $futureDate) || ($pageDateEnd > $futureDate && $pageDateStart <= $futureDate)))
+                $selectedPages[] = $page;
+
+
+            // ONLY LAST date EXIST (unlikely)
+            } else {
+              // convert to number date e.g. 20120911
+              $pageDateEnd = date('Ymd',$page['pageDate']['end']);
+              // compare
+              if(($from === true || $pageDateEnd >= $pastDate) &&
+                 ($to === true || $pageDateEnd <= $futureDate))
+                $selectedPages[] = $page;
+            }
+
+          // SINGLE DATE
+          } elseif(!empty($page['pageDate']['start'])) {
+
+            // convert to number date e.g. 20120911
+            $pageDate = date('Ymd',$page['pageDate']['start']);
+            // compare
+            if(($from === true || $pageDate >= $pastDate) &&
+               ($to === true || $pageDate <= $futureDate))
+              $selectedPages[] = $page;
+          }
         }
       }
 
       // -> SORT the pages BY DATE
       // sort by DATE and GIVEN ARRAY
-      if($sortByCategories === false)
-        usort($selectedPages,'sortByDate');
+      // if($sortPages === false)
+        // usort($selectedPages,'sortByPageDate');
+
       // sorts by DATE and CATEGORIES
-      else
-        $selectedPages = GeneralFunctions::sortPages($selectedPages,'sortByDate');
+      if($sortPages)
+        $selectedPages = GeneralFunctions::sortPages($selectedPages);//'sortByPageDate'
 
       // -> flips the sorted array if $reverseList === true
       if($reverseList === true)
@@ -1729,7 +1730,7 @@ class FeinduraBase {
   }
 
  /**
-  * <b>Name</b> getPropertyIdsByString()<br>
+  * <b>Name</b> getIdsFromString()<br>
   *
   * Gets the right page and category IDs. If the <var>$ids</var> parameter is a an array it uses the first value as page ID and the second as category ID.
   *
@@ -1750,9 +1751,9 @@ class FeinduraBase {
   *
   * @param int|string|array|bool $ids    a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". (See example) (can also be a $pageContent array)
   *
-  * @uses getPropertyPage()		                 to get the right {@link Feindura::$page} property
-  * @uses GeneralFunctions::getPageCategory()  to get the category ID of the given page
-  * @uses GeneralFunctions::loadPages()	       to load all pages in a category to find the right previous or next page and return it
+  * @uses getPropertyPage()		                           to get the right {@link Feindura::$page} property
+  * @uses GeneralFunctions::getPageCategory()            to get the category ID of the given page
+  * @uses GeneralFunctions::getPagesMetaDataOfCategory() to load all pages in a category to find the right previous or next page and return it
   *
   * @return array|false array with the page ID and category ID of the right page, or FALSE if no page could be resolved (e.g. last page and "next"). (will also pass through a given $pageContent array)
   *
@@ -1760,11 +1761,11 @@ class FeinduraBase {
   * @version 2.0
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 2.0 change name from loadPrevNextPage() to getPropertyIdsByString(), now handles also categories
+  *    - 2.0 change name from loadPrevNextPage() to getIdsFromString(), now handles also categories
   *    - 1.0 initial release
   *
   */
-  protected function getPropertyIdsByString($ids) {
+  protected function getIdsFromString($ids) {
 
     if($ids === null || $ids === '')
       return false;
@@ -1852,25 +1853,26 @@ class FeinduraBase {
     if($page == 'next' || $page == 'prev') {
       // get category of the current page
       $category = GeneralFunctions::getPageCategory($this->page);
-      // loads all pages in this category
-      if(($pages = GeneralFunctions::loadPages($category)) !== false) {
-        $pagesCopy = $pages;
+      // loads all pagesMetaData of this category
+      $pagesMetaData = GeneralFunctions::getPagesMetaDataOfCategory($category);
+      if(is_array($pagesMetaData)) {
+        $pagesMetaDataCopy = $pagesMetaData;
 
-        foreach($pages as $eachPage) {
+        foreach($pagesMetaData as $pageMetaData) {
           // if found current page
-          if($eachPage['id'] == $this->page) {
+          if($pageMetaData['id'] == $this->page) {
             // NEXT
-            if($page == 'next' && $next = next($pagesCopy)) {
-              while($next && !$next['public']) $next = next($pagesCopy); // prevent to pick a non public page
+            if($page == 'next' && $next = next($pagesMetaDataCopy)) {
+              while($next && !$next['public']) $next = next($pagesMetaDataCopy); // prevent to pick a non public page
               return array($next['id'],$next['category']);;
             // PREV
-            } elseif($page == 'prev' && $prev = prev($pagesCopy)) {
-              while($prev && !$prev['public']) $prev = prev($pagesCopy); // prevent to pick a non public page
+            } elseif($page == 'prev' && $prev = prev($pagesMetaDataCopy)) {
+              while($prev && !$prev['public']) $prev = prev($pagesMetaDataCopy); // prevent to pick a non public page
               return array($prev['id'],$prev['category']);
             // END of CATEGORY
             } else return false;
           }
-          next($pagesCopy); // move the pointer
+          next($pagesMetaDataCopy); // move the pointer
         }
       } else
         return false;
@@ -1941,25 +1943,26 @@ class FeinduraBase {
     // ******
     if(is_bool($page) || $page == 'first' || $page == 'last' || $page == 'rand') {
 
-      // loads all pages in this category
-      if(($pages = GeneralFunctions::loadPages($category)) !== false) {
+      // loads all pagesMetaData of this category
+      $pagesMetaData = GeneralFunctions::getPagesMetaDataOfCategory($category);
+      if(is_array($pagesMetaData)) {
 
         // FIRST PAGE (first or bool)
-        if(($page == 'first' || is_bool($page)) && $tmpPage = reset($pages)) {
-          while($tmpPage && !$tmpPage['public']) $tmpPage = next($pages); // prevent to pick a non public page
+        if(($page == 'first' || is_bool($page)) && $tmpPage = reset($pagesMetaData)) {
+          while($tmpPage && !$tmpPage['public']) $tmpPage = next($pagesMetaData); // prevent to pick a non public page
           return array($tmpPage['id'],$tmpPage['category']);
         // LAST PAGE
-        } elseif($page == 'last' && $tmpPage = end($pages)) {
-          while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pages); // prevent to pick a non public page
+        } elseif($page == 'last' && $tmpPage = end($pagesMetaData)) {
+          while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pagesMetaData); // prevent to pick a non public page
           return array($tmpPage['id'],$tmpPage['category']);
         // RANDOM PAGE
         } elseif($page == 'rand') {
-          $pagesCopy = $pages;
-          shuffle($pagesCopy);
-          if($tmpPage = reset($pagesCopy)) {
-            while($tmpPage && !$tmpPage['public']) $tmpPage = next($pagesCopy); // prevent to pick a non public category
+          $pagesMetaDataCopy = $pagesMetaData;
+          shuffle($pagesMetaDataCopy);
+          if($tmpPage = reset($pagesMetaDataCopy)) {
+            while($tmpPage && !$tmpPage['public']) $tmpPage = next($pagesMetaDataCopy); // prevent to pick a non public category
             // reached the end? go backwards
-            if(!$tmpPage) while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pagesCopy); // prevent to pick a non public category
+            if(!$tmpPage) while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pagesMetaDataCopy); // prevent to pick a non public category
             return array($tmpPage['id'],$tmpPage['category']);
           }
         }
@@ -2089,8 +2092,8 @@ class FeinduraBase {
       // vars
       $moreLink = true;
       if(is_array($length)) {
-        $moreLink = $length[1];
         $length = $length[0];
+        $moreLink = $length[1];
       }
 
       // shorten the string
@@ -2110,7 +2113,7 @@ class FeinduraBase {
 
       // adds the MORE LINK
       if(is_string($moreLink) && strpos($moreLink,'<a ') !== false) {
-        $string .= " \n".$moreLink;
+        $string .= " \n".str_replace('%href%',$this->createHref($pageContent['id']),$moreLink);;
       } elseif($moreLink && GeneralFunctions::isPageContentArray($pageContent)) {
         if(is_string($moreLink) && !is_bool($moreLink))
           $text = $moreLink;

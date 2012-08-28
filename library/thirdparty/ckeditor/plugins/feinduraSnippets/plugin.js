@@ -20,7 +20,9 @@ CKEDITOR.plugins.add('feinduraSnippets',
 {
     init: function(editor)
     {
+        // vars
         var pluginName = 'feinduraSnippets';
+
 
         // -> MENU BUTTON
         editor.ui.addButton('Snippets',
@@ -47,7 +49,7 @@ CKEDITOR.plugins.add('feinduraSnippets',
               {
                 Snippet:  //name of the menu item
                 {
-                    label: feindura_langFile['CKEDITOR_TITLE_SNIPPETS'],
+                    label: feindura_langFile['CKEDITOR_TITLE_PLUGINS']+'/'+feindura_langFile['CKEDITOR_TITLE_SNIPPETS'],
                     command: pluginName,
                     icon: CKEDITOR.plugins.getPath(pluginName) + 'feinduraSnippetsIcon.png',
                     group: 'feinduraSnippetsGroup'  //have to be added in config
@@ -68,7 +70,7 @@ CKEDITOR.plugins.add('feinduraSnippets',
 
           var dialog = function(editor){
             return {
-              title : 'feindura ' + feindura_langFile['CKEDITOR_TITLE_SNIPPETS'],
+              title : 'feindura ' + feindura_langFile['CKEDITOR_TITLE_PLUGINS']+'/'+feindura_langFile['CKEDITOR_TITLE_SNIPPETS'],
               minWidth : 100,
               minHeight : '100%',
               onOk: function() {
@@ -80,7 +82,9 @@ CKEDITOR.plugins.add('feinduraSnippets',
                 var editor = this.getParentEditor();
 
                 elem = editor.document.createElement('img'); //set inital values for the input.supNote element
-                elem.setAttribute('src',feindura_basePath.replace(feindura_websitePath,'')+'library/thirdparty/ckeditor/plugins/feinduraSnippets/snippetFill.gif');
+                // elem.setAttribute('src',feindura_basePath.replace(feindura_websitePath,'')+'library/thirdparty/ckeditor/plugins/feinduraSnippets/snippetFill.gif');
+                elem.setAttribute('src','noImage.png');
+                elem.setAttribute('draggable','true');
                 editor.insertElement(elem);
                 this.snippet = elem;
 
@@ -105,12 +109,12 @@ CKEDITOR.plugins.add('feinduraSnippets',
                 if(!feindura_snippets_isAdmin && !feindura_snippets_editInWebsiteSettings)
                   this.getContentElement( 'snippets', 'editSnippet' ).getElement().setStyle('display','none');
 
-                // hide tabs when no data is available
-                if(feindura_plugins.length === 0) {
+                // hide tabs when no data is available (1 == ['-',''])
+                if(feindura_plugins.length === 1) {
                   this.hidePage('plugins');
                   this.selectPage('snippets');
                 }
-                else if(feindura_snippets.length === 0) {
+                else if(feindura_snippets.length === 1) {
                   this.hidePage('snippets');
                   this.selectPage('plugins');
                 }
@@ -142,14 +146,60 @@ CKEDITOR.plugins.add('feinduraSnippets',
                   'default' : '',
                   items: feindura_plugins,
                   setup: function(element){
+                    var select = this;
+                    // update the plugins selection
+                    select.clear();
+                    feindura_plugins.each(function(feindura_plugin){
+                      select.add(feindura_plugin[0],feindura_plugin[1]);
+                    });
+                    // select the current value
                     if(element !== null && element.hasClass('feinduraPlugin') && this.getDialog().tabs == 'plugins')
                       this.setValue(element.getAttribute('title'));
                   },
                   commit: function(element) {
                     if(this.getDialog().tabs == 'plugins') {
-                      element.addClass('feinduraPlugin');
-                      element.setAttribute('title',this.getValue()); // is used as the data storage
+                      // remove element if "-" is selected
+                      if(this.getValue() === '') {
+                        element.remove();
+                      // otherwise add data to element
+                      } else {
+                        var select = this;
+                        element.addClass('feinduraPlugin');
+
+                        // get the plugin name
+                        var pluginName;
+                        feindura_plugins.each(function(plugin){
+                          if(plugin.contains(select.getValue())){
+                            pluginName = plugin[0];
+                          }
+                        });
+
+                        element.setAttribute('title',select.getValue()); // is used as the data storage
+                        element.setAttribute('alt',pluginName); // is used to show the plugin name
+                      }
                     }
+                  }
+                },
+                {
+                  id : 'editPlugin',
+                  type : 'button',
+                  label : feindura_langFile['CKEDITOR_BUTTON_EDITPLUGIN'],
+                  onClick : function() {
+                    // vars
+                    var select              = this.getDialog().getContentElement('plugins','pluginsList');
+                    var currentPluginRaw    = select.getValue();
+                    var currentPlugin       = currentPluginRaw.substr(0,currentPluginRaw.indexOf('#'));
+                    var currentPluginNumber = currentPluginRaw.substr(currentPluginRaw.indexOf('#')+1);
+
+                    // get the plugin name
+                    var pluginName;
+                    feindura_plugins.each(function(plugin){
+                      if(plugin.contains(select.getValue())){
+                        pluginName = plugin[0];
+                      }
+                    });
+
+                    openWindowBox('library/views/windowBox/editPlugins.php?page='+currentPage+'&category='+currentCategory+'&plugin='+currentPlugin+'&number='+currentPluginNumber,pluginName);
                   }
                 },
                 {
@@ -233,8 +283,15 @@ CKEDITOR.plugins.add('feinduraSnippets',
                   },
                   commit: function(element){
                     if(this.getDialog().tabs == 'snippets') {
-                      element.addClass('feinduraSnippet');
-                      element.setAttribute('title',this.getValue()); // is used as the data storage
+                      // remove element if "-" is selected
+                      if(this.getValue() === '') {
+                        element.remove();
+                      // otherwise add data to element
+                      } else {
+                        element.addClass('feinduraSnippet');
+                        element.setAttribute('title',this.getValue()); // is used as the data storage
+                        element.setAttribute('alt',this.getValue()); // is used to show the snippet path
+                      }
                     }
                   }
                 },
@@ -245,13 +302,12 @@ CKEDITOR.plugins.add('feinduraSnippets',
                   onClick : function() {
                     var href = (feindura_snippets_editInWebsiteSettings) ? '?site=websiteSetup&status=snippetFiles&file=/'+ this.getDialog().getContentElement( 'snippets', 'snippetsList' ).getValue() +'#snippetsFilesAnchor'
                       : '?site=adminSetup&status=snippetFiles&file=/'+ this.getDialog().getContentElement( 'snippets', 'snippetsList' ).getValue() +'#snippetsFilesAnchor';
-                    
+
                     // warn when pagecontent was changed
                     if(pageContentChanged || this.getDialog().getParentEditor().checkDirty()) {
                       pageContentChangedSign();
-                      pageContentChanged = true;
                       openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(href),false);
-                      
+
                     } else
                       window.location.href = href;
                   }
@@ -261,10 +317,10 @@ CKEDITOR.plugins.add('feinduraSnippets',
           };
 
           return dialog(CKEDITOR);
-    
+
         }); //this.path + 'dialogs/feinduraSnippets.js');
 
         editor.addCommand(pluginName, new CKEDITOR.dialogCommand(pluginName));
-        
+
     }
 });

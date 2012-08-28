@@ -106,7 +106,7 @@ div.filemanager-dialog button {
 	font-size: 12px;
 	font-weight: normal;
 	margin: 0;
-	background: url("../Images/button.png") repeat-x;
+	background-color: #aec3eb;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 4px;

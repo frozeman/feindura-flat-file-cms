@@ -5,13 +5,14 @@
  *
  * @license MIT-style License
  * @author Christoph Pojer <christoph.pojer@gmail.com>
- * @author Additions: Fabian Vogelsteller <fabian.vogelsteller@gmail.com> 
+ * @author Additions: Fabian Vogelsteller <fabian.vogelsteller@gmail.com>
  *
  * @link http://www.bin-co.com/php/scripts/classes/gd_image/ Based on work by "Binny V A"
- * 
- * @version 1.11
+ *
+ * @version 1.2
  * Changlog<br>
- *    - 1.11 fixed $ratio in resize when both values are given 
+ *    - 1.2 add documentRoot as variable to the constructor
+ *    - 1.11 fixed $ratio in resize when both values are given
  *    - 1.1 add real resizing, with comparison of ratio
  *    - 1.01 small fixes in process method and add set memory limit to a higher value
  */
@@ -35,24 +36,26 @@ class Image {
 	 * @var array
 	 */
 	private $meta;
-	
+
 	/**
 	 * @param string $file The path to the image file
 	 */
-	public function __construct($file){
+	public function __construct($file,$documentRoot = false){
 	  ini_set('memory_limit', '120M'); //  handle large images
-	  
+
+	  $documentRoot = (!empty($documentRoot)) ? $documentRoot : $_SERVER['DOCUMENT_ROOT'];
+
 	  $file = str_replace('\\','/',$file);
     $file = preg_replace('#/+#','/',$file);
-    $file = str_replace($_SERVER['DOCUMENT_ROOT'],'',$file);
-	  $file = $_SERVER['DOCUMENT_ROOT'].$file;
+    $file = str_replace($documentRoot,'',$file);
+	  $file = $documentRoot.$file;
 		$file = realpath($file);
     if(!file_exists($file))
 			return;
-		
+
 		$this->file = $file;
 		$img = getimagesize($file);
-		
+
 		/*
 		echo basename($file)."\n";
 		var_dump(filesize($file));
@@ -66,15 +69,15 @@ class Image {
 			'mime' => $img['mime'],
 			'ext' => end(explode('/', $img['mime'])),
 		);
-		
+
 		if($this->meta['ext']=='jpg')
 			$this->meta['ext'] = 'jpeg';
 		if(!in_array($this->meta['ext'], array('gif', 'png', 'jpeg')))
 			return;
-		
+
 		if(in_array($this->meta['ext'], array('gif', 'png'))){
 			$this->image = $this->create();
-			
+
 			$fn = 'imagecreatefrom'.$this->meta['ext'];
 			$original = $fn($file);
 			imagecopyresampled($this->image, $original, 0, 0, 0, 0, $this->meta['width'], $this->meta['height'], $this->meta['width'], $this->meta['height']);
@@ -82,12 +85,12 @@ class Image {
 			$this->image = imagecreatefromjpeg($file);
 		}
 	}
-	
-	public function __destruct(){	  
+
+	public function __destruct(){
 		if(!empty($this->image)) imagedestroy($this->image);
 		unset($this->image);
 	}
-	
+
 	/**
 	 * Returns the size of the image
 	 *
@@ -99,7 +102,7 @@ class Image {
 			'height' => $this->meta['height'],
 		);
 	}
-	
+
 	/**
 	 * Creates a new, empty image with the desired size
 	 *
@@ -111,17 +114,17 @@ class Image {
 	private function create($x = null, $y = null, $ext = null){
 		if(!$x) $x = $this->meta['width'];
 		if(!$y) $y = $this->meta['height'];
-		
+
 		$image = imagecreatetruecolor($x, $y);
 		if(!$ext) $ext = $this->meta['ext'];
 		if($ext=='png'){
 			imagealphablending($image, false);
 			imagefilledrectangle($image, 0, 0, $x, $y, imagecolorallocatealpha($image, 0, 0, 0, 127));
 		}
-		
+
 		return $image;
 	}
-	
+
 	/**
 	 * Replaces the image resource with the given parameter
 	 *
@@ -130,11 +133,11 @@ class Image {
 	private function set($new){
 	  if(!empty($this->image)) imagedestroy($this->image);
 		$this->image = $new;
-		
+
 		$this->meta['width'] = imagesx($this->image);
 		$this->meta['height'] = imagesy($this->image);
 	}
-	
+
 	/**
 	 * Returns the path to the image file
 	 *
@@ -152,7 +155,7 @@ class Image {
 	public function getResource(){
 		return $this->image;
 	}
-	
+
 	/**
 	 * Rotates the image by the given angle
 	 *
@@ -162,12 +165,12 @@ class Image {
 	 */
 	public function rotate($angle, $bgcolor = null){
 		if(empty($this->image) || !$angle || $angle>=360) return $this;
-		
+
 		$this->set(imagerotate($this->image, $angle, is_array($bgcolor) ? imagecolorallocatealpha($this->image, $bgcolor[0], $bgcolor[1], $bgcolor[2], !empty($bgcolor[3]) ? $bgcolor[3] : null) : $bgcolor));
 
 		return $this;
 	}
-	
+
 	/**
 	 * Resizes the image to the given size, automatically calculates
 	 * the new ratio if parameter {@link $ratio} is set to true
@@ -180,15 +183,15 @@ class Image {
 	 */
 	public function resize($x = null, $y = null, $ratio = true, $resizeWhenSmaller = true){
 		if(empty($this->image) || (empty($x) && empty($y))) return false;
-		
+
 		$xStart = $x;
     $yStart = $y;
     $ratioX = $this->meta['width'] / $this->meta['height'];
     $ratioY = $this->meta['height'] / $this->meta['width'];
-    //echo 'ALLOWED: <br>'.$xStart.'x'."<br>".$yStart.'y'."<br>---------------<br>"; 
+    //echo 'ALLOWED: <br>'.$xStart.'x'."<br>".$yStart.'y'."<br>---------------<br>";
     // ->> keep the RATIO
     if($ratio) {
-      //echo 'BEGINN: <br>'.$this->meta['width'].'x'."<br>".$this->meta['height'].'y'."<br><br>"; 
+      //echo 'BEGINN: <br>'.$this->meta['width'].'x'."<br>".$this->meta['height'].'y'."<br><br>";
         // -> align to WIDTH
         if(!empty($x) && ($x < $this->meta['width'] || $resizeWhenSmaller))
           $y = round($x / $ratioX);
@@ -198,9 +201,9 @@ class Image {
         else {
           $y = $this->meta['height'];
           $x = $this->meta['width'];
-        }        
+        }
       //echo 'BET: <br>'.$x.'x'."<br>".$y.'y'."<br><br>";
-      // ->> align to WIDTH AND HEIGHT     
+      // ->> align to WIDTH AND HEIGHT
       if((!empty($yStart) && $y > $yStart) || (!empty($xStart) && $x > $xStart)) {
         if($y > $yStart) {
           $y = $yStart;
@@ -210,7 +213,7 @@ class Image {
           $y = round($x / $ratioX);
         }
       }
-    // ->> DONT keep the RATIO (but keep ration when, only width OR height is set)
+    // ->> DONT keep the RATIO (but keep ratio when, only width OR height is set)
     } else {
       // RATIO X
       if(!empty($y) && empty($x) && ($y < $this->meta['height'] || $resizeWhenSmaller))
@@ -220,7 +223,7 @@ class Image {
         $y = round($x / $ratioY);
     }
 		//echo 'END: <br>'.$x.'x'."<br>".$y.'y'."<br><br>";
-		
+
 		$new = $this->create($x, $y);
 		if(imagecopyresampled($new, $this->image, 0, 0, 0, 0, $x, $y, $this->meta['width'], $this->meta['height'])) {
   		$this->set($new);
@@ -228,7 +231,7 @@ class Image {
   	} else
   	 return false;
 	}
-	
+
 	/**
 	 * Crops the image. The values are given like margin/padding values in css
 	 *
@@ -248,30 +251,30 @@ class Image {
 	 */
 	public function crop($top, $right = null, $bottom = null, $left = null){
 		if(empty($this->image)) return $this;
-		
+
 		if(!is_numeric($right) && !is_numeric($bottom) && !is_numeric($left))
 			$right = $bottom = $left = $top;
-		
+
 		if(!is_numeric($bottom) && !is_numeric($left)){
 			$bottom = $top;
 			$left = $right;
 		}
-		
+
 		if(!is_numeric($left))
 			$left = $right;
-		
+
 		$x = $this->meta['width']-$left-$right;
 		$y = $this->meta['height']-$top-$bottom;
 
 		if($x<0 || $y<0) return $this;
-		
+
 		$new = $this->create($x, $y);
 		imagecopy($new, $this->image, 0, 0, $left, $top, $x, $y);
 		$this->set($new);
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Flips the image horizontally or vertically. To Flip both just use ->rotate(180)
 	 *
@@ -281,21 +284,21 @@ class Image {
 	 */
 	public function flip($type){
 		if(empty($this->image) || !in_array($type, array('horizontal', 'vertical'))) return $this;
-		
+
 		$new = $this->create();
-		
+
 		if($type=='horizontal')
 			for($x=0;$x<$this->meta['width'];$x++)
 				imagecopy($new, $this->image, $this->meta['width']-$x-1, 0, $x, 0, 1, $this->meta['height']);
 		elseif($type=='vertical')
 			for($y=0;$y<$this->meta['height'];$y++)
 				imagecopy($new, $this->image, 0, $this->meta['height']-$y-1, 0, $y, $this->meta['width'], 1);
-		
+
 		$this->set($new);
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Stores the image in the desired directory or overwrite the old one
 	 *
@@ -307,17 +310,17 @@ class Image {
   		if(!$ext) $ext = $this->meta['ext'];
   		if($ext=='jpg')	$ext = 'jpeg';
       if($ext=='png') imagesavealpha($this->image, true);
-  		
+
   		if($file == null)
   		  $file = $this->file;
-  		
+
       $fn = 'image'.$ext;
   		if($ext == 'jpeg')
   		  $fn($this->image, $file,100);
   		else
   		  $fn($this->image, $file);
-  		  
-  		
+
+
   		// If there is a new filename change the internal name too
   		if($file) $this->file = $file;
   		return true;
@@ -333,22 +336,22 @@ class Image {
 	 */
 	public function save($file = null){
 		if(empty($this->image)) return $this;
-		
+
 		if(!$file) $file = $this->file;
-		
+
 		$ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 		if(!$ext){
 			$file .= '.'.$this->meta['ext'];
 			$ext = $this->meta['ext'];
 		}
-		
+
 		if($ext=='jpg') $ext = 'jpeg';
-		
+
 		if(!in_array($ext, array('png', 'jpeg', 'gif')))
 			return $this;
-		
+
 		$this->process($ext, $file);
-		
+
 		return $this;
 	}
 
@@ -359,11 +362,11 @@ class Image {
 	 */
 	public function show(){
 		if(empty($this->image)) return $this;
-		
+
 		header('Content-type: '.$this->meta['mime']);
 		$this->process();
-		
+
 		return $this;
 	}
-	
+
 }

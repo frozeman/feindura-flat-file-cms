@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
  *
- * deletePageLanguage.php
+ * userPermissions.php
  *
  * @version 0.1
  */
@@ -28,14 +28,14 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 
 // vars
 $post = (!empty($_POST)) ? $_POST : $_GET;
-$error = false;
 
 // WHEN THE FORM WAS SEND
 if($post['send'] == 'true') {
 
   $newUserConfig = $userConfig;
   $newUserConfig[$post['userId']]['permissions']['frontendEditing']    = $post['frontendEditing'];
-  $newUserConfig[$post['userId']]['permissions']['fileManager']        = (empty($adminConfig['uploadPath'])) ? false : $post['fileManager'];
+  $newUserConfig[$post['userId']]['permissions']['fileManager']        = $post['fileManager'];
+  $newUserConfig[$post['userId']]['permissions']['websiteSettings']    = $post['websiteSettings'];
   $newUserConfig[$post['userId']]['permissions']['editWebsiteFiles']   = $post['editWebsiteFiles'];
   $newUserConfig[$post['userId']]['permissions']['editStyleSheets']    = $post['editStyleSheets'];
   $newUserConfig[$post['userId']]['permissions']['editSnippets']       = $post['editSnippets'];
@@ -73,48 +73,62 @@ if($post['send'] == 'true') {
     </div>
   </div>
 
-  <?php $fmDisabled = (empty($adminConfig['uploadPath'])) ? ' disabled="disabled"' : ''; ?>
   <div class="row">
     <div class="span3 right">
-      <input type="checkbox" id="fileManager" name="fileManager" value="true"<?php if($userConfig[$post['userId']]['permissions']['fileManager']) echo ' checked="checked"'; echo $fmDisabled; ?>>
+      <input type="checkbox" id="fileManager" name="fileManager" value="true"<?php if($userConfig[$post['userId']]['permissions']['fileManager']) echo ' checked="checked"'; ?>>
     </div>
     <div class="span5">
-      <label for="fileManager"<?php echo ($fmDisabled) ? 'class="toolTipLeft disabled" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label>
+      <label for="fileManager"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label>
     </div>
   </div>
 
-  <?php if(!empty($adminConfig['websiteFilesPath'])) { ?>
-  <div class="row">
-    <div class="span3 right">
-      <input type="checkbox" id="editWebsiteFiles" name="editWebsiteFiles" value="true"<?php if($userConfig[$post['userId']]['permissions']['editWebsiteFiles']) echo ' checked="checked"'; ?>>
-    </div>
-    <div class="span5">
-      <label for="editWebsiteFiles"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check1']; ?></label>
-    </div>
-  </div>
-  <?php } ?>
+  <div class="spacer"></div>
 
-  <?php if(!empty($adminConfig['stylesheetPath'])) { ?>
   <div class="row">
     <div class="span3 right">
-      <input type="checkbox" id="editStyleSheets" name="editStyleSheets" value="true"<?php if($userConfig[$post['userId']]['permissions']['editStyleSheets']) echo ' checked="checked"'; ?>>
+      <input type="checkbox" id="websiteSettings" name="websiteSettings" value="true"<?php if($userConfig[$post['userId']]['permissions']['websiteSettings']) echo ' checked="checked"'; ?>>
     </div>
     <div class="span5">
-      <label for="editStyleSheets"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']; ?></label>
+      <label for="websiteSettings"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_ACTIVATEWEBSITESETTINGS']; ?></label>
     </div>
   </div>
-  <?php } ?>
 
-  <?php if(!empty($adminConfig['editor']['snippets'])) { ?>
-  <div class="row">
-    <div class="span3 right">
-      <input type="checkbox" id="editSnippets" name="editSnippets" value="true"<?php if($userConfig[$post['userId']]['permissions']['editSnippets']) echo ' checked="checked"'; ?>>
+  <div id="additionalWebsiteSettings" <?php if(!$userConfig[$post['userId']]['permissions']['websiteSettings']) echo ' style="display:none;"'; ?>>
+
+    <?php if(!empty($adminConfig['websiteFilesPath'])) { ?>
+    <div class="row">
+      <div class="span3 right">
+        <input type="checkbox" id="editWebsiteFiles" name="editWebsiteFiles" value="true"<?php if($userConfig[$post['userId']]['permissions']['editWebsiteFiles']) echo ' checked="checked"'; ?>>
+      </div>
+      <div class="span5">
+        <label for="editWebsiteFiles"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check1']; ?></label>
+      </div>
     </div>
-    <div class="span5">
-      <label for="editSnippets"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']; ?></label>
+    <?php } ?>
+
+    <?php if(!empty($adminConfig['stylesheetPath'])) { ?>
+    <div class="row">
+      <div class="span3 right">
+        <input type="checkbox" id="editStyleSheets" name="editStyleSheets" value="true"<?php if($userConfig[$post['userId']]['permissions']['editStyleSheets']) echo ' checked="checked"'; ?>>
+      </div>
+      <div class="span5">
+        <label for="editStyleSheets"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']; ?></label>
+      </div>
     </div>
+    <?php } ?>
+
+    <?php if(!empty($adminConfig['editor']['snippets'])) { ?>
+    <div class="row">
+      <div class="span3 right">
+        <input type="checkbox" id="editSnippets" name="editSnippets" value="true"<?php if($userConfig[$post['userId']]['permissions']['editSnippets']) echo ' checked="checked"'; ?>>
+      </div>
+      <div class="span5">
+        <label for="editSnippets"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']; ?></label>
+      </div>
+    </div>
+    <?php } ?>
+
   </div>
-  <?php } ?>
 
   <div class="spacer2x"></div>
 
@@ -123,34 +137,32 @@ if($post['send'] == 'true') {
   </div>
   <div class="row">
     <div class="offset1 span3">
-      <ul class="jsMultipleSelect" data-jsMultipleSelect="1" data-name="editableCategories" data-type="remove">
+      <ul class="jsMultipleSelect" data-jsMultipleSelect="editables" data-name="editableCategories" data-type="remove">
         <li class="filter"><input type="text" placeholder="<?php echo $langFile['SORTABLEPAGELIST_headText1']; ?>"></li>
         <?php
           foreach ($categoryConfig as $config) {
-            echo '<li class="jsMultipleSelectItem btn" data-value="'.$config['id'].'"><img src="library/images/icons/categoryIcon_small.png" alt="category icon"><strong>'.GeneralFunctions::getLocalized($config,'name').'</strong></li>';
+            echo '<li class="jsMultipleSelectOption btn" data-value="'.$config['id'].'"><img src="library/images/icons/categoryIcon_small.png" alt="category icon"><strong>'.GeneralFunctions::getLocalized($config,'name').'</strong></li>';
           }
         ?>
       </ul>
       <?php
-      $pages = GeneralFunctions::loadPages(true);
-
-      if(!empty($pages) && is_array($pages)) {
+      if(!empty($pagesMetaData) && is_array($pagesMetaData)) {
       ?>
       <div class="spacer"></div>
-      <ul class="jsMultipleSelect" data-jsMultipleSelect="1" data-name="editablePages" data-type="remove">
+      <ul class="jsMultipleSelect" data-jsMultipleSelect="editables" data-name="editablePages" data-type="remove">
         <li class="filter"><input type="text" placeholder="<?php echo $langFile['SORTABLEPAGELIST_headText1']; ?>"></li>
         <?php
-          foreach ($pages as $page) {
-            if($page['category'] != 0)
-              $category = '<strong>'.GeneralFunctions::getLocalized($categoryConfig[$page['category']],'name').'</strong> » ';
-            echo '<li class="jsMultipleSelectItem btn" data-value="'.$page['id'].'"><img src="library/images/icons/pageIcon_small.png" alt="page icon">'.$category.GeneralFunctions::getLocalized($page,'title').'</li>';
+          foreach ($pagesMetaData as $pageMetaData) {
+            if($pageMetaData['category'] != 0)
+              $category = '<strong>'.GeneralFunctions::getLocalized($categoryConfig[$pageMetaData['category']],'name').'</strong> » ';
+            echo '<li class="jsMultipleSelectOption btn" data-value="'.$pageMetaData['id'].'"><img src="library/images/icons/pageIcon_small.png" alt="page icon">'.$category.GeneralFunctions::getLocalized($pageMetaData,'title').'</li>';
           }
         ?>
       </ul>
       <?php } ?>
     </div>
-    <div class="span3">
-      <ul class="jsMultipleSelectDestination" data-jsMultipleSelect="1">
+    <div class="span3 right">
+      <ul class="jsMultipleSelectDestination" data-jsMultipleSelect="editables">
         <?php
           // add selected editableCategories
           if(is_array($userConfig[$post['userId']]['permissions']['editableCategories'])) {
@@ -166,6 +178,7 @@ if($post['send'] == 'true') {
           }
         ?>
       </ul>
+      <a class="clearJsMultipleSelect btn btn-mini" data-jsMultipleSelect="editables"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']; ?></a>
     </div>
   </div>
 
@@ -183,7 +196,7 @@ if($post['send'] == 'true') {
 <!-- PAGE SCRIPTS -->
 <script type="text/javascript">
 /* <![CDATA[ */
-  $('windowBox').addEvent('loaded',function(){
+  windowBox.addEvent('loaded',function(){ // event is fired when the windowBox is ready
 
     // adds cross browser placeholder support
     new PlaceholderSupport();
@@ -191,10 +204,11 @@ if($post['send'] == 'true') {
     // enable drag selection
     new jsMultipleSelect();
 
-    // add fancy forms
-    new FancyForm('#windowBox input[type="checkbox"], #windowBox input[type="radio"]');
-    $$('#windowBox textarea.autogrow').each(function(textarea){
-      new Form.AutoGrow(textarea);
+    $$('input#websiteSettings').addEvent('change',function(){
+      if(this.checked && $('additionalWebsiteSettings') !== null)
+        $('additionalWebsiteSettings').setStyle('display','block');
+      else
+        $('additionalWebsiteSettings').setStyle('display','none');
     });
   });
 /* ]]> */

@@ -16,7 +16,7 @@
  *
  * This file includes all necessary <var>classes</var> and configs for the use in the FRONTEND and the BACKEND
  *
- * @version 0.15
+ * @version 0.5
  */
 
 // BENCHMARK start
@@ -132,7 +132,10 @@ if(function_exists('date_default_timezone_set') && !empty($adminConfig['timezone
  */
 // $RECACHE = true;
 // constant UPDATE is defined in the update.php, to prevent caching
-if(!defined('FEINDURA_UPDATE') && $adminConfig['cache']['active'] && !$_SESSION['feinduraSession']['login']['loggedIn']) {
+if(!defined('FEINDURA_UPDATE') &&
+   $adminConfig['cache']['active'] &&
+   !$_SESSION['feinduraSession']['login']['loggedIn'] &&
+   empty($_GET['timezone'])) { // don't cache if its requesting the visitors timezone
   require_once(dirname(__FILE__)."/../thirdparty/PHP/ACcache.php");
   // create cache folder
   if(!is_dir(dirname(__FILE__).'/../../pages/cache/')) {
@@ -263,9 +266,9 @@ if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false) $_SERVER['REMOTE_ADDR'] = '1
 
 
 // -> GET VERSION and BUILD
-$changelogFile = file(dirname(__FILE__)."/../../CHANGELOG");
-$version = trim($changelogFile[2]);
-$buildNr = explode(' ',$changelogFile[3]);
+$changelogFile = @file(dirname(__FILE__)."/../../VERSION");
+$version = trim($changelogFile[1]);
+$buildNr = trim($changelogFile[2]);
 
 
 /**
@@ -276,7 +279,7 @@ define('VERSION',$version);
 /**
  * The build number of feindura
  */
-define('BUILD',trim($buildNr[1]));
+define('BUILD',$buildNr);
 unset($changelogFile,$version,$buildNr);
 
 

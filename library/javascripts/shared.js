@@ -16,6 +16,74 @@
 *
 * shared.php version 0.1 (requires raphael)  */
 
+// vars
+var messageBox = null;
+var messageBoxTimeout;
+
+
+// EXTEND MOOTOOLS ELEMENTS
+Element.implement({
+  show: function(){
+    var element = this;
+
+    // store the opacity style, if not available
+    if(!element.retrieve('opacityStyle')) {
+      if(element.getStyle('opacity') !== 0)
+        element.store('opacityStyle',element.getStyle('opacity'));
+      else
+        element.store('opacityStyle',1);
+    }
+
+    // store the display style, if not available
+    if(!element.retrieve('displayStyle')) {
+      if(element.getStyle('display') && element.getStyle('display') !== 'none')
+        element.store('displayStyle',element.getStyle('display'));
+      else
+        element.store('displayStyle','block');
+    }
+
+    element.fade('hide');
+    element.setStyle('display',element.retrieve('displayStyle'));
+    element.fade(element.retrieve('opacityStyle'));
+    element.get('tween').chain(function(){
+      element.fireEvent('show');
+    });
+    return element;
+  },
+  hide: function(){
+    var element = this;
+
+    // store the opacity style, if not available
+    if(!element.retrieve('opacityStyle')) {
+      if(element.getStyle('opacity') !== 0)
+        element.store('opacityStyle',element.getStyle('opacity'));
+      else
+        element.store('opacityStyle',1);
+    }
+
+    // store the display style, if not available
+    if(!element.retrieve('displayStyle')) {
+      if(element.getStyle('display') && element.getStyle('display') !== 'none')
+        element.store('displayStyle',element.getStyle('display'));
+      else
+        element.store('displayStyle','block');
+    }
+
+    element.fade(0);
+    element.get('tween').chain(function(){
+      element.setStyle('display','none');
+      element.fireEvent('hide');
+    });
+    return element;
+  },
+  getString: function() {
+      var tmp = new Element('div');
+      this.inject(tmp);
+
+      return tmp.get('html');
+  }
+});
+
 // create the JS LOADING-CIRCLE
 function feindura_loadingCircle(holderid, R1, R2, count, stroke_width, colour) {
     var sectorsCount = count || 12,
@@ -72,32 +140,89 @@ function feindura_str_replace(s, r, c) {
 }
 
 /* ---------------------------------------------------------------------------------- */
+// ->> DISPLAY MESSAGE
+function feindura_showMessage(html) {
+  clearTimeout(messageBoxTimeout);
+
+  // var
+  var hideMessageBox = function(){
+    messageBox.tween('top',-messageBox.getSize().y);
+    messageBox.removeEvents('mouseover');
+    messageBox.get('tween').chain(function(){
+      messageBox.dispose();
+      messageBox.empty();
+    });
+  };
+  var showMessageBox = function(messageBox) {
+    messageBox.set('tween',{duration: 700});
+    messageBox.setStyle('top',-messageBox.getSize().y);
+    messageBox.setStyle('visibility','visible');
+    messageBox.tween('top',0);
+
+    messageBox.addEvent('mouseover',hideMessageBox);
+    messageBoxTimeout = hideMessageBox.delay(5000);
+  };
+
+  // -> create NEW MESSAGE BOX
+  if(!messageBox) {
+    // creates the errorWindow
+    messageBox = new Element('div',{'class':'messagePopUp feindura'});
+    messageBox.set('html',html);
+    document.body.grab(messageBox);
+    showMessageBox(messageBox);
+
+  // -> fade out and in EXISTING MESSAGE BOX
+  } else {
+    document.body.grab(messageBox);
+    messageBox.set('tween',{duration: 300});
+    messageBox.tween('top',-messageBox.getSize().y);
+    messageBox.get('tween').chain(function(){
+      messageBox.set('html',html);
+      showMessageBox(messageBox);
+    });
+  }
+}
+
+/* ---------------------------------------------------------------------------------- */
 // ->> DISPLAY ERROR
-function feindura_displayError(title,errorText) {
+function feindura_showError(title,errorText) {
+
+  // vars
+  var feindura_closeErrorWindow = function(e){
+    if(e) e.stop();
+    if(errorWindow === null || !errorWindow.hasClass('feindura'))
+      return;
+    errorWindow.fade('out');
+    errorWindow.get('tween').chain(function(){
+      errorWindow.destroy();
+    });
+  };
+
+  if($('errorWindow') !== null)
+    $('errorWindow').destroy();
+
   // creates the errorWindow
   var errorWindow = new Element('div',{id:'errorWindow','class':'feindura', 'style':'left:50%;margin-left:-260px;'});
-  errorWindow.grab(new Element('div',{'class':'feindura_top', 'html': title}));
+  errorWindow.grab(new Element('h1',{'text': title}));
   var errorWindowContent = new Element('div',{'class':'content warning', 'html':'<div class="scroll">'+errorText+'</div>'});
   var errorWindowOkButton = new Element('a',{'class':'ok button center', 'href':'#'});
-  errorWindowContent.grab(errorWindowOkButton);
   errorWindow.grab(errorWindowContent);
+  errorWindow.grab(errorWindowOkButton);
+
+  document.body.grab(errorWindow);
+  errorWindow.setStyle('top',window.getScroll().y + 150);
 
   // add functionality to the ok button
   errorWindowOkButton.addEvent('click',feindura_closeErrorWindow);
+
   document.addEvent('keypress',function(e){
-    if(e.key == 'esc' || e.key == 'enter')
+    if($('errorWindow') !== null && (e.key == 'esc' || e.key == 'enter')) {
       feindura_closeErrorWindow(e);
+    }
   });
 
-  return errorWindow;
-}
-function feindura_closeErrorWindow(e) {
-  if(e) e.stop();
-  if($('errorWindow') === null || !$('errorWindow').hasClass('feindura'))
-    return;
-  $('errorWindow').fade('out');
-  $('errorWindow').get('tween').chain(function(){
-    $('errorWindow').destroy();
+  window.addEvent('load',function(){
+    errorWindow.setStyle('top',window.getScroll().y + 150); // do it again to make sure, its repositioned
   });
 }
 

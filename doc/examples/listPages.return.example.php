@@ -10,7 +10,11 @@ array(
     'subCategory'       => 'Another Category',
     'subCategoryId'     => 2,
     'pageDate'          => '2010-12-31', // format depending on the administrator-settings
-    'pageDateTimestamp' => 1325393999,
+    'pageDateTimestamp'  => array(
+                    'date'  => 1325393999, // 'date' and 'start' is the same
+                    'start' => 1325393999,
+                    'end'   => 0
+                    ),
     'title'             => 'Title Example 1',
     'thumbnail'         => false, // page has no thumbnail
     'thumbnailPath'     => false,
@@ -38,8 +42,12 @@ array(
     'categoryId'        => 1,
     'subCategory'       => false,
     'subCategoryId'     => false,
-    'pageDate'          => '2009-12-31',
-    'pageDateTimestamp' => 1325393999,
+    'pageDate'          => '2009-12-31 - 2010-01-15',
+    'pageDateTimestamp'  => array(
+                    'date'  => 1325393999, // 'date' and 'start' is the same
+                    'start' => 1325393999,
+                    'end'   => 1325303455 // will be 0 when its not a date range
+                    ),
     'title'             => 'Title Example 2',
     'thumbnail'         => false,
     'thumbnailPath'     => false,

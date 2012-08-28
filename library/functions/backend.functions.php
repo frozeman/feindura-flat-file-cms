@@ -93,7 +93,13 @@ function showErrorsInWindow($errorCode, $errorText, $errorFile, $errorLine) {
  *    - 1.0 initial release
  *
  */
-function isBlocked($returnBool = false) {
+function isBlocked($returnBool = true) {
+
+  if($_GET['site'] == 'dashboard' ||
+     $_GET['site'] == 'pages' ||
+     $_GET['site'] == 'search')
+    return false;
+
   $return = '';
   foreach($GLOBALS['userCache'] as $cachedUser) {
     $location = trim($cachedUser['location']);
@@ -101,8 +107,8 @@ function isBlocked($returnBool = false) {
        $cachedUser['edit'] &&
        $location != 'new' && // dont block when createing a new page (multiple user can do that)
        ($location == $_GET['page'] || $location == $_GET['site'])) {
-      $return = ($returnBool) ? true : '<div id="contentBlocked"><div>'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'];
-      if(!empty($cachedUser['username'])) $return .= '<br><span style="font-size:15px;">'.$GLOBALS['langFile']['DASHBOARD_TITLE_USER'].': <span class="blue">'.$cachedUser['username'].'</span></span>';
+      $return = ($returnBool) ? true : '<div id="contentBlocked" class="divBlocked"><div>'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'];
+      if(!empty($cachedUser['username'])) $return .= '<br><span style="font-size:15px;">'.$GLOBALS['langFile']['USER_TEXT_USER'].': <span class="brown toolTipBottom noMark" title="::'.ucfirst($cachedUser['browser']).'">'.$cachedUser['username'].'</span></span>';
       $return .= '</div></div>';
       return $return;
     }
@@ -151,9 +157,12 @@ function showCategory($categoryId){
  *
  * An example of the saved cache lines
  * <samp>
- * c5b5533c8475801044fb7680059d5846|#|1306781298|#|frozeman|#|websiteSetup|#|edit
- * 4afe1d41e2f2edbf07086b1c2c492c10|#|1306781299|#|test|#|websiteSetup
+ * c5b5533c8475801044fb7680059d5846|#|1306781298|#|chrome|#|frozeman|#|websiteSetup|#|edit
+ * 4afe1d41e2f2edbf07086b1c2c492c10|#|1306781299|#|firefox|#|test|#|websiteSetup
  * </samp>
+ *
+ * <b>Used Global Variables</b><br>
+ *    - <var>$userConfig</var> the user-settings config (included in the {@link general.include.php})
  *
  *
  * @return array an array with all users and current sites/pages
@@ -173,6 +182,7 @@ function userCache() {
   $stored = false;
   $maxTime = 200; // 2min+, 3600 seconds = 1 hour
   $timeStamp = time();
+  $browser = StatisticFunctions::getBrowser();
   $cacheFile = dirname(__FILE__)."/../../statistic/user.statistic.cache";
   $newLines = array();
   $cachedLines = false;
@@ -193,7 +203,10 @@ function userCache() {
     $free = true;
     foreach($cachedLines as $cachedLine) {
       $cachedLineArray = explode('|#|', $cachedLine);
-      if(isset($cachedLineArray[4]) && IDENTITY != trim($cachedLineArray[0]) && trim($cachedLineArray[3]) == $location) $free = false;
+      if(IDENTITY != trim($cachedLineArray[0]) &&
+         trim($cachedLineArray[4]) == $location &&
+         isset($cachedLineArray[5]))
+        $free = false;
     }
 
     foreach($cachedLines as $cachedLine) {
@@ -206,8 +219,8 @@ function userCache() {
         if($cachedLineArray[0] == IDENTITY) {
           $edit = ($free) ? '|#|edit' : false;
 
-          $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'].'|#|'.$location.$edit;
-          $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'], 'location' => $location);
+          $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$browser.'|#|'.$GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'].'|#|'.$location.$edit;
+          $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'browser' => $browser, 'username' => $GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'], 'location' => $location);
 
           if($free) $addArray['edit'] = true;
           $return[] = $addArray;
@@ -215,9 +228,9 @@ function userCache() {
         } elseif(!empty($cachedLineArray[0])) {
           $newLines[] = $cachedLine;
 
-          $addArray = array('identity' => $cachedLineArray[0], 'timestamp' => $cachedLineArray[1], 'username' => $cachedLineArray[2], 'location' => trim($cachedLineArray[3]));
+          $addArray = array('identity' => $cachedLineArray[0], 'timestamp' => $cachedLineArray[1], 'browser' => $cachedLineArray[2], 'username' => $cachedLineArray[3], 'location' => trim($cachedLineArray[4]));
 
-          if(isset($cachedLineArray[4])) $addArray['edit'] = true;
+          if(isset($cachedLineArray[5])) $addArray['edit'] = true;
           $return[] = $addArray;
         }
       }
@@ -227,8 +240,8 @@ function userCache() {
   // STORE NEW CACHE LINE
   if($stored === false && !empty($location)) {
     $edit = ($free) ? '|#|edit' : false;
-    $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'].'|#|'.$location.$edit;
-    $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'], 'location' => $location);
+    $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$browser.'|#|'.$GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'].'|#|'.$location.$edit;
+    $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'browser' => $browser, 'username' => $GLOBALS['userConfig'][$_SESSION['feinduraSession']['login']['user']]['username'], 'location' => $location);
     if($free) $addArray['edit'] = true;
     $return[] = $addArray;
   }
@@ -487,6 +500,10 @@ function createBasicFilesAndFolders() {
   if(!is_dir(dirname(__FILE__).'/../../config'))
     mkdir(dirname(__FILE__).'/../../config',$GLOBALS['adminConfig']['permissions']);
 
+  // upload folder
+  if(!is_dir(dirname(__FILE__).'/../../upload'))
+    mkdir(dirname(__FILE__).'/../../upload',$GLOBALS['adminConfig']['permissions']);
+
   // create CategoryConfig
   if(!is_file(dirname(__FILE__).'/../../config/category.config.php')) {
     $categoryConfig[0]['id'] = 0;
@@ -579,6 +596,7 @@ function saveCategories($newCategories) {
     $fileContent .= "\$categoryConfig[".$category['id']."]['plugins']             = '".$category['plugins']."';\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['showTags']            = ".XssFilter::bool($category['showTags'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['showPageDate']        = ".XssFilter::bool($category['showPageDate'],true).";\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['pageDateAsRange']     = ".XssFilter::bool($category['pageDateAsRange'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['showSubCategory']     = ".XssFilter::bool($category['showSubCategory'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['feeds']               = ".XssFilter::bool($category['feeds'],true).";\n\n";
 
@@ -922,9 +940,6 @@ function saveAdminConfig($adminConfig) {
   // prevent resetting config
   if($adminConfig !== 1) {
 
-    // clear the thumbnail path, when no upload path is specified
-    if(empty($adminConfig['uploadPath'])) $adminConfig['pageThumbnail']['path'] = '';
-
     // -> escape \ and '
     $adminConfig = XssFilter::escapeBasics($adminConfig);
 
@@ -941,13 +956,11 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['url']               = '".XssFilter::url($adminConfig['url'])."';\n";
     $fileContent .= "\$adminConfig['basePath']          = '".XssFilter::path($adminConfig['basePath'])."';\n";
     $fileContent .= "\$adminConfig['websitePath']       = '".XssFilter::path($adminConfig['websitePath'],false,'/')."';\n";
-    $fileContent .= "\$adminConfig['uploadPath']        = '".XssFilter::path($adminConfig['uploadPath'])."';\n";
     $fileContent .= "\$adminConfig['websiteFilesPath']  = '".XssFilter::path($adminConfig['websiteFilesPath'])."';\n";
     $fileContent .= "\$adminConfig['stylesheetPath']    = '".XssFilter::path($adminConfig['stylesheetPath'])."';\n\n";
 
     $fileContent .= "\$adminConfig['permissions']       = ".XssFilter::number($adminConfig['permissions']).";\n";
     $fileContent .= "\$adminConfig['timezone']          = '".XssFilter::string($adminConfig['timezone'],'\/','Europe/London')."';\n";
-    $fileContent .= "\$adminConfig['dateFormat']        = '".XssFilter::alphabetical($adminConfig['dateFormat'])."';\n";
     $fileContent .= "\$adminConfig['speakingUrl']       = ".XssFilter::bool($adminConfig['speakingUrl'],true).";\n\n";
 
     $fileContent .= "\$adminConfig['varName']['page']      = '".XssFilter::stringStrict($adminConfig['varName']['page'],'page')."';\n";
@@ -966,7 +979,6 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['pageThumbnail']['width']   = ".XssFilter::int($adminConfig['pageThumbnail']['width']).";\n";
     $fileContent .= "\$adminConfig['pageThumbnail']['height']  = ".XssFilter::int($adminConfig['pageThumbnail']['height']).";\n";
     $fileContent .= "\$adminConfig['pageThumbnail']['ratio']   = '".XssFilter::alphabetical($adminConfig['pageThumbnail']['ratio'])."';\n";
-    $fileContent .= "\$adminConfig['pageThumbnail']['path']    = '".XssFilter::path($adminConfig['pageThumbnail']['path'],false,(empty($adminConfig['uploadPath'])) ? '' : 'thumbnails/')."';\n\n";
 
     $fileContent .= "return \$adminConfig;";
     $fileContent .= "\n?>"; //? >
@@ -1026,6 +1038,7 @@ function saveUserConfig($userConfig) {
 
       $fileContent .= "\$userConfig[".$user."]['permissions']['frontendEditing']      = ".XssFilter::bool($configs['permissions']['frontendEditing'],true).";\n";
       $fileContent .= "\$userConfig[".$user."]['permissions']['fileManager']          = ".XssFilter::bool($configs['permissions']['fileManager'],true).";\n";
+      $fileContent .= "\$userConfig[".$user."]['permissions']['websiteSettings']      = ".XssFilter::bool($configs['permissions']['websiteSettings'],true).";\n";
       $fileContent .= "\$userConfig[".$user."]['permissions']['editWebsiteFiles']     = ".XssFilter::bool($configs['permissions']['editWebsiteFiles'],true).";\n";
       $fileContent .= "\$userConfig[".$user."]['permissions']['editStyleSheets']      = ".XssFilter::bool($configs['permissions']['editStyleSheets'],true).";\n";
       $fileContent .= "\$userConfig[".$user."]['permissions']['editSnippets']         = ".XssFilter::bool($configs['permissions']['editSnippets'],true).";\n\n";
@@ -1075,9 +1088,10 @@ function saveUserConfig($userConfig) {
  *
  * @example backend/websiteConfig.array.example.php of the $websiteConfig array
  *
- * @version 1.2
+ * @version 1.3
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.3 add sitemap files option
  *    - 1.2 add localization
  *    - 1.1 change from fopen() to file_put_contents()
  *    - 1.0.3 add prevent resetting check
@@ -1099,6 +1113,10 @@ function saveWebsiteConfig($websiteConfig) {
     $fileContent .= "<?php\n"; //< ?php
 
     $fileContent .= "\$websiteConfig['maintenance']                          = ".XssFilter::bool($websiteConfig['maintenance'],true).";\n";
+    $fileContent .= "\$websiteConfig['dateFormat']                           = '".XssFilter::string($websiteConfig['dateFormat'])."';\n";
+    $fileContent .= "\$websiteConfig['sitemapFiles']                         = ".XssFilter::bool($websiteConfig['sitemapFiles'],true).";\n";
+    $fileContent .= "\$websiteConfig['visitorTimezone']                      = ".XssFilter::bool($websiteConfig['visitorTimezone'],true).";\n\n";
+
     $fileContent .= "\$websiteConfig['setStartPage']                         = ".XssFilter::bool($websiteConfig['setStartPage'],true).";\n";
     $fileContent .= "\$websiteConfig['startPage']                            = ".XssFilter::int($websiteConfig['startPage'],0).";\n\n";
 
@@ -1239,14 +1257,20 @@ function saveSpeakingUrl(&$errorWindow) {
   }
   $htaccessFile = $websitePath.'/.htaccess';
 
-  // (?:[\/a-z0-9_-]*/{1})?  <- is only to add parent pages
-  $categoryRegEx = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?category/([a-zA-Z0-9_-]+)/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
-  $pageRegEx     = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?page/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
+  // page/category names
+  $newPageName     = $_POST['cfg_varNamePage'];
+  $newCategoryName = $_POST['cfg_varNameCategory'];
+  $oldPageName     = $GLOBALS['adminConfig']['varName']['page'];
+  $oldCategoryName = $GLOBALS['adminConfig']['varName']['category'];
 
-  $newRewriteRule  = $categoryRegEx.GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
-  $newRewriteRule .= $pageRegEx.GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?page=$2&language=$1 [QSA,L]';
-  $oldRewriteRule  = $categoryRegEx.GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]'."\n";
-  $oldRewriteRule .= $pageRegEx.GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?page=$2&language=$1 [QSA,L]';
+  // (?:[\/a-z0-9_-]*/{1})?  <- is only to add parent pages
+  $categoryRegEx = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?%s/([a-zA-Z0-9_-]+)/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
+  $pageRegEx     = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?%s/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
+
+  $newRewriteRule  = sprintf($pageRegEx,$newPageName).GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?page=$2&language=$1 [QSA,L]'."\n";
+  $newRewriteRule .= sprintf($categoryRegEx,$newCategoryName).GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]';
+  $oldRewriteRule  = sprintf($pageRegEx,$oldPageName).GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?page=$2&language=$1 [QSA,L]'."\n";
+  $oldRewriteRule .= sprintf($categoryRegEx,$oldCategoryName).GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]';
 
   $speakingUrlCode = '#
 # feindura - Flat File CMS -> speakingURL activation
@@ -1433,9 +1457,13 @@ function saveActivityLog($task, $object = false) {
 */
 function saveSitemap() {
 
+  if(!$GLOBALS['websiteConfig']['sitemapFiles'])
+    return false;
+
   // vars
   $websitePath = GeneralFunctions::getDirname($GLOBALS['adminConfig']['websitePath']);
-  $realWebsitePath = GeneralFunctions::getRealPath($websitePath).'/';
+  $websitePath = (empty($websitePath)) ? '/': $websitePath;
+  $realWebsitePath = GeneralFunctions::getRealPath($websitePath);
   if($realWebsitePath == '/')
     return false;
   $baseUrl = $GLOBALS['adminConfig']['url'].GeneralFunctions::Path2URI($websitePath);
@@ -1447,7 +1475,7 @@ function saveSitemap() {
   $sitemapPages = GeneralFunctions::loadPages(true);
 
   // ->> START sitemap
-  $sitemap = new Sitemap($baseUrl,$realWebsitePath,false); // not compressed
+  $sitemap = new Sitemap($baseUrl,$realWebsitePath.'/',false); // not compressed
   $sitemap->showError = false;
   $sitemap->filePermissions = $GLOBALS['adminConfig']['permissions'];
   $sitemap->page('pages');
@@ -1577,7 +1605,7 @@ function saveFeeds($category) {
     if(is_file($atomFileName)) unlink($atomFileName);
     if(is_file($rss2FileName)) unlink($rss2FileName);
 
-    $feedsPages = GeneralFunctions::loadPages($category,true);
+    $feedsPages = GeneralFunctions::loadPages($category);
     $channelTitle = ($category == 0)
       ? GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'title',$langCode)
       : GeneralFunctions::getLocalized($GLOBALS['categoryConfig'][$category],'name',$langCode).' - '.GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'title',$langCode);
@@ -1607,15 +1635,16 @@ function saveFeeds($category) {
     foreach($feedsPages as $feedsPage) {
 
       if($feedsPage['public']) {
+
         // shows the page link
         $link = GeneralFunctions::createHref($feedsPage,false,$langCode,true);
         $title = strip_tags(GeneralFunctions::getLocalized($feedsPage,'title',$langCode));
         $description = GeneralFunctions::getLocalized($feedsPage,'description',$langCode);
 
-        $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.$GLOBALS['adminConfig']['url'].$GLOBALS['adminConfig']['uploadPath'].$GLOBALS['adminConfig']['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
+        $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.$GLOBALS['adminConfig']['url'].GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$feedsPage['thumbnail'].'"><br>': '';
 
         $content = GeneralFunctions::replaceLinks(GeneralFunctions::getLocalized($feedsPage,'content',$langCode),false,$langCode,true);
-        $content = GeneralFunctions::replaceCodeSnippets($content,$feedsPage['id']); // Has to create a new Feindura class instance inside
+        $content = GeneralFunctions::replaceSnippets($content,$feedsPage['id']); // Has to create a new Feindura class instance inside
         $content = preg_replace('#<script\b[^>]*>[\s\S]*?<\/script>#i', '', $content); // remove script tags
         $content = GeneralFunctions::htmLawed($content,array(
           'comment'=> 1,
@@ -1906,59 +1935,105 @@ function showStyleFileInputs($styleFiles,$inputNames) {
      $styleFiles != 'a:0:{}' &&
      ($styleFileInputs = unserialize($styleFiles)) !== false) {
     foreach($styleFileInputs as $styleFileInput) {
-      $return .= '<input type="text" name="'.$inputNames.'[]" value="'.$styleFileInput.'" class="toolTipRight" title="'.$GLOBALS['langFile']['PATHS_TOOLTIP_ABSOLUTE'].'">';
+      $return .= '<input type="text" name="'.$inputNames.'[]" value="'.$styleFileInput.'" class="input-xlarge toolTipRight" title="'.$GLOBALS['langFile']['PATHS_TOOLTIP_ABSOLUTE'].'"><br>';
     }
   } else
-    $return = '<input type="text" name="'.$inputNames.'[]" value="" class="noResize inputToolTip" title="'.$GLOBALS['langFile']['PATHS_TOOLTIP_ABSOLUTE'].'">';
+    $return = '<input type="text" name="'.$inputNames.'[]" value="" class="noResize input-xlarge toolTipRight" title="'.$GLOBALS['langFile']['PATHS_TOOLTIP_ABSOLUTE'].'"><br>';
 
   // return the result
   return $return;
 }
 
 /**
- * <b>Name</b> showPageDate()<br>
+ * <b>Name</b> showPageToolTip()<br>
  *
- * Shows the page date, if the date is invalid it shows an error text.
+ * Generates the toolTip for a page.
  *
  * <b>Used Global Variables</b><br>
+ *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
+ *    - <var>$languageNames</var> an array with country codes and language names (included in the {@link general.include.php})
+ *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+ *    - <var>$userConfig</var> the user-settings config (included in the {@link general.include.php})
  *    - <var>$langFile</var> the language file of the backend (included in the {@link general.include.php})
  *
- * @param array        $pageContent  the $pageContent array of a page
+ * @param array $pageContent the $pageContent array of a page
  *
- * @uses GeneralFunctions::checkPageDate()      to check if the page date is a valid date
- * @uses GeneralFunctions::dateDayBeforeAfter() to check if the date was yesterday or is tomorrow
- * @uses GeneralFunctions::formatDate()         to format the unix timstamp into the right date format
+ * @uses GeneralFunctions::showPageDate()         to format the unix timstamp into the right date format
  *
- * @return string the page date as text string, or an error text
+ * @return string the tooltip ready to be put inside a title="..." attribute
  *
- * @version 1.1
+ * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
- *    - 1.1 moved to backend.functions.php
  *    - 1.0 initial release
  *
  */
-function showPageDate($pageContent) {
+function showPageToolTip($pageContent) {
 
   // vars
-  $return = false;
-  $titleDateBefore = '';
-  $titleDateAfter = '';
+  $pageTitle_pageDate      = '';
+  $pageTitle_tags          = '';
+  $pageTitle_pageLanguages = '';
+  $pageTitle_startPageText = '';
+  $pageTitle_lastSaveDate  = '';
 
-  if(GeneralFunctions::checkPageDate($pageContent)) {
-    $pageDate = GeneralFunctions::getLocalized($pageContent,'pageDate');
-    $pageDateBefore = $pageDate['before'];
-    $pageDateAfter = $pageDate['after'];
-  	// adds spaces on before and after
-  	if(!empty($pageDateBefore)) $titleDateBefore = $pageDateBefore.' ';
-  	if(!empty($pageDateAfter)) $titleDateAfter = ' '.$pageDateAfter;
+  $pageTitle_title = str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))).'::';
 
-    // CHECKs the DATE FORMAT
-    $return = (GeneralFunctions::formatDate(validateDateString($pageContent['pageDate']['date'])) === false)
-    ? '[br][strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong] '.$titleDateBefore.'[span style=color:#950300]'.$GLOBALS['langFile']['EDITOR_pageSettings_pagedate_error'].'[/span]'.$titleDateAfter
-    : '[br][strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong] '.$titleDateBefore.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$GLOBALS['langFile'])).$titleDateAfter;
+  // -> startpage icon before the name
+  if($GLOBALS['websiteConfig']['setStartPage'] && $pageContent['id'] == $GLOBALS['websiteConfig']['startPage']) {
+    $pageTitle_startPageText = $GLOBALS['langFile']['SORTABLEPAGELIST_functions_startPage_set'].'[br]';
   }
-  return $return;
+
+  // -> show page ID
+  $pageTitle_Id = (GeneralFunctions::isAdmin())
+    ? '[strong]ID[/strong] '.$pageContent['id'].'[br]'
+    : '';
+
+  // -> show lastSaveDate
+  $pageTitle_lastSaveDate = GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$GLOBALS['langFile']).' '.formatTime($pageContent['lastSaveDate']);
+  $pageTitle_lastSaveDate = ($pageContent['lastSaveAuthor'])
+    ? '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong][br]'.$pageTitle_lastSaveDate.' ('.$GLOBALS['userConfig'][$pageContent['lastSaveAuthor']]['username'].')[br][br]'
+    : '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong][br]'.$pageTitle_lastSaveDate.'[br][br]';
+
+
+  // -> show subcategory in toolTip
+  $pageTitle_subCategory = ($pageContent['subCategory'] && $GLOBALS['categoryConfig'][$pageContent['category']]['showSubCategory'])
+    ? '[strong]'.$GLOBALS['langFile']['EDITOR_TEXT_SUBCATEGORY'].'[/strong][br][img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($GLOBALS['categoryConfig'][$pageContent['subCategory']],'name').'[br]'
+    : '';
+
+  // -> generate pageDate for toolTip
+  if($pageDate = GeneralFunctions::showPageDate($pageContent)) {
+    $pageTitle_pageDate = '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong][br]'.$pageDate.'[br]';
+  } else
+    $pageTitle_pageDate = '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong][br][span class=red]'.$GLOBALS['langFile']['EDITOR_PAGESETTINGS_NOPAGEDATE'].'[/span][br]';
+
+  // -> generate tags for toolTip
+  $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
+  if(!empty($localizedTags) && $GLOBALS['categoryConfig'][$pageContent['category']]['showTags']) {
+    $pageTitle_tags = '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_TAGS'].'[/strong][br]'.$localizedTags.'[br]';
+  }
+
+  // -> generate page languages for toolTip
+  if(!isset($pageContent['localized'][0])) {
+    $pageTitle_pageLanguages .= '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_LOCALIZATION'].'[/strong][br]';
+    if(is_array($pageContent['localized'][0])) {
+      foreach ($pageContent['localized'] as $langCode => $values) {
+        $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] '.$GLOBALS['languageNames'][$langCode].'[br]';
+      }
+    }
+    // list not yet existing languages of the page
+    if(is_array($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'])) {
+      foreach($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'] as $langCode) {
+        if(!isset($pageContent['localized'][$langCode])) {
+          $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] [span class=gray][s]'.$GLOBALS['languageNames'][$langCode].'[/s][/span][br]';
+          $missingLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] '.$GLOBALS['languageNames'][$langCode].'[br]';
+        }
+      }
+    }
+  }
+
+  $return = trim(' '.$pageTitle_title.$pageTitle_startPageText.$pageTitle_Id.$pageTitle_lastSaveDate.$pageTitle_pageDate.$pageTitle_tags.$pageTitle_subCategory.$pageTitle_pageLanguages,'[br]');
+  return str_replace(array('<','>','"'),array('[',']',"'"),$return);
 }
 
 /**
@@ -2024,19 +2099,19 @@ function showVisitTime($time) {
   // get the time together
   if($hour) {
     if($hour == 1)
-      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_HOUR_SINGULAR'].'</b>';
+      $printTime = $printTime.' '.$GLOBALS['langFile']['STATISTICS_TEXT_HOUR_SINGULAR'].'';
     else
-      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_HOUR_PLURAL'].'</b>';
+      $printTime = $printTime.' '.$GLOBALS['langFile']['STATISTICS_TEXT_HOUR_PLURAL'].'';
   } elseif($minute) {
     if($minute == 1)
-      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_MINUTE_SINGULAR'].'</b>';
+      $printTime = $printTime.' '.$GLOBALS['langFile']['STATISTICS_TEXT_MINUTE_SINGULAR'].'';
     else
-      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_MINUTE_PLURAL'].'</b>';
+      $printTime = $printTime.' '.$GLOBALS['langFile']['STATISTICS_TEXT_MINUTE_PLURAL'].'';
   } elseif($second) {
     if($second == 1)
-      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_SECOND_SINGULAR'].'</b>';
+      $printTime = $printTime.' '.$GLOBALS['langFile']['STATISTICS_TEXT_SECOND_SINGULAR'].'';
     else
-      $printTime = $printTime.' <b>'.$GLOBALS['langFile']['STATISTICS_TEXT_SECOND_PLURAL'].'</b>';
+      $printTime = $printTime.' '.$GLOBALS['langFile']['STATISTICS_TEXT_SECOND_PLURAL'].'';
   }
 
   // RETURN formated time
@@ -2075,50 +2150,6 @@ function secToTime($sec) {
     $seconds = '0'.$seconds;
 
   return $hours.':'.$mins.':'.$seconds;
-}
-
-/**
- * <b>Name</b> validateDateString()<br>
- *
- * Check if a date is valid and returns the date as UNIX-Timestamp
- *
- * @param string $dateString a UNIX-Timestamp or a date string to validate in the format: "YYYY-MM-DD"
- *
- * @return int|false the timestamp of the date or FALSE if the date is not valid
- *
- * @static
- * @version 1.1
- * <br>
- * <b>ChangeLog</b><br>
- *    - 1.1 moved to backend.functions.php
- *    - 1.0 initial release
- *
- */
-function validateDateString($dateString) {
-
-  // if its a unix timestamp return immediately
-  if($dateString !== 0 && preg_match('/^[0-9]{1,}$/',$dateString))
-    return $dateString;
-
-  if((!is_string($dateString) && !is_numeric($dateString)) || $dateString === 0)
-    return false;
-
-  $date = explode('-', $dateString);
-
-  if(count($date) == 3 &&
-    is_numeric($date[0]) &&
-    is_numeric($date[1]) &&
-    is_numeric($date[2])) {
-
-    //yyyymmdd
-    if(strlen($date[0]) == 4 && checkdate($date[1], $date[2], $date[0]))
-      return mktime(23,59,59,$date[1],$date[2],$date[0]);
-    else
-      return false;
-
-  // if the this function doesn't return something, return false
-  } else
-    return false;
 }
 
 /**
@@ -2782,7 +2813,7 @@ function missingLanguageWarning() {
   if($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'] != array_keys($GLOBALS['websiteConfig']['localized'])) {
     foreach ($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'] as $langCode) {
       if(!isset($GLOBALS['websiteConfig']['localized'][$langCode])) {
-        $websiteConfig .= '<span><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> <a href="?site=websiteSetup&amp;websiteLanguage='.$langCode.'" class="link gray">'.$GLOBALS['languageNames'][$langCode].'</a></span><br>';
+        $websiteConfig .= '<span><img src="'.GeneralFunctions::getFlagSrc($langCode).'" class="flag"> <a href="?site=websiteSetup&amp;websiteLanguage='.$langCode.'" class="link gray">'.$GLOBALS['languageNames'][$langCode].'</a></span><br>';
       }
     }
   }
@@ -2806,7 +2837,7 @@ function missingLanguageWarning() {
           if(!isset($category['localized'][$langCode])) {
             $categoryName = GeneralFunctions::getLocalized($category,'name');
             $categoryName = (!empty($categoryName)) ? ' &rArr; '.$categoryName : '';
-            $categoryConfig .= '<span><img src="'.GeneralFunctions::getFlagHref($langCode).'" class="flag"> '.$GLOBALS['languageNames'][$langCode].'<a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="link gray">'.$categoryName.'</a></span><br>';
+            $categoryConfig .= '<span><img src="'.GeneralFunctions::getFlagSrc($langCode).'" class="flag"> '.$GLOBALS['languageNames'][$langCode].'<a href="?site=pageSetup&amp;websiteLanguage='.$langCode.'" class="link gray">'.$categoryName.'</a></span><br>';
           }
         }
       }
@@ -3036,14 +3067,14 @@ function createBrowserChart($browserString) {
 
           $bigLogo = false;
         } else {
-          $cellText = '<span style="position: absolute; left: 45px; top: 13px;"><b>'.$displayBrowser['name'].'</b> ('.$displayBrowser['percent'].'%)</span>';
+          $cellText = '<span style="position: absolute; left: 45px; top: 11px;"><strong>'.$displayBrowser['name'].'</strong> ('.$displayBrowser['percent'].'%)</span>';
           $logoSize = '';
           $bigLogo = true;
           $cellpadding = '';
         }
 
         // SHOW the table cell with the right browser and color
-        $return .= '<td style="padding: '.$cellpadding.'; width: '.$displayBrowser['percent'].'%;" class="toolTipLeft '.$displayBrowser['class'].'" title="[span]'.$displayBrowser['name'].'[/span] ('.$displayBrowser['percent'].'%)::'.$displayBrowser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
+        $return .= '<td style="padding: '.$cellpadding.'; width: '.$displayBrowser['percent'].'%;" class="toolTipBottom '.$displayBrowser['class'].'" title="[span]'.$displayBrowser['name'].'[/span] ('.$displayBrowser['percent'].'%)::'.$displayBrowser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
                     <div style="position: relative;">
                     <img src="library/images/icons/'.$displayBrowser['logo'].'" style="float: left;'.$logoSize.';" alt="browser logo">'.$cellText.'
                     </div>
@@ -3100,7 +3131,7 @@ function createTagCloud($serializedTags,$minFontSize = 10,$maxFontSize = 20) {
       // create href
       $tagsHref = urlencode(html_entity_decode($tag['data'],ENT_QUOTES,'UTF-8'));
 
-      $return .= '<a href="?site=search&amp;search='.$tagsHref.'" style="font-size:'.$fontSize.'px;" class="toolTipLeft" title="[span]&quot;'.$tag['data'].'&quot;[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART1'].' [span]'.$tag['number'].'[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART2'].'::'.$GLOBALS['langFile']['STATISTICS_TOOLTIP_SEARCHWORD'].'">'.$tag['data'].'</a>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$tag['number'].')</span>
+      $return .= '<a href="?site=search&amp;search='.$tagsHref.'" style="font-size:'.$fontSize.'px;" class="toolTipTop" title="[span]&quot;'.$tag['data'].'&quot;[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART1'].' [span]'.$tag['number'].'[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART2'].'::'.$GLOBALS['langFile']['STATISTICS_TOOLTIP_SEARCHWORD'].'">'.$tag['data'].'</a>&nbsp;&nbsp;'."\n";
 
     }
   }
@@ -3108,5 +3139,3 @@ function createTagCloud($serializedTags,$minFontSize = 10,$maxFontSize = 20) {
   // return the tag-cloud or false
   return $return;
 }
-
-?>

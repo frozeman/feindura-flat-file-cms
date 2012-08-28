@@ -71,8 +71,8 @@ if(!empty($userConfig[USERID]['info'])) {
 
 <!-- WEBSITE STATISTIC -->
 
-<div class="block">
-  <h1><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27"><?php echo $langFile['DASHBOARD_TITLE_STATISTICS']; ?></h1>
+<div class="block dashboard">
+  <h1><img src="library/images/icons/statisticIcon_small.png" class="blockH1Icon" alt="icon" style="top:4px; left:5px;"><?php echo $langFile['DASHBOARD_TITLE_STATISTICS']; ?></h1>
   <div class="content">
     <?php
 
@@ -80,8 +80,6 @@ if(!empty($userConfig[USERID]['info'])) {
     $maxListEntries = 50;
 
     // ->> LOAD all PAGES
-    $orgPages = GeneralFunctions::loadPages(true);
-    $pages = $orgPages;
     $orgPagesStats = GeneralFunctions::loadPagesStatistics(true);
     $pagesStats = $orgPagesStats;
 
@@ -89,68 +87,66 @@ if(!empty($userConfig[USERID]['info'])) {
     // USER COUNTER
     echo '<div class="row">';
       echo '<div class="span4">';
-        echo '<div class="innerBlock">';
+        echo '<div class="insetBlock visitorCountInsetBox">';
         echo '<h2>'.$langFile['STATISTICS_TEXT_VISITORCOUNT'].'</h2>';
         echo '<div class="center">';
-          echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br>';
-            echo '<span class="toolTipLeft blue" title="'.$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'].'">'.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.formatHighNumber($websiteStatistic['robotVisitCount']).'</span><br>';
-            // CURRENT VISITORS
-            $currentVisitors = StatisticFunctions::getCurrentVisitors();
-            $countVisitor = 0;
-            $countRobots = 0;
-            foreach($currentVisitors as $currentVisitor) {
-              if($currentVisitor['type'] == 'visitor')
-                $countVisitor++;
-              else
-                $countRobots++;
-            }
-            echo '<span class="blue"><strong>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</strong> '.$countVisitor.' ('.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.$countRobots.')</span>';
+          echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br><br>';
+          // CURRENT VISITORS
+          $currentVisitors = StatisticFunctions::getCurrentVisitors();
+          $countRobots = 0;
+          foreach($currentVisitors as $currentVisitor) {
+            if($currentVisitor['type'] != 'visitor')
+              $countRobots++;
+          }
+          echo '<span class="toolTipBottom blue" title="'.$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'].'">'.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.formatHighNumber($websiteStatistic['robotVisitCount']).'</span><br><span class="gray">('.$langFile['STATISTICS_TEXT_CURRENT'].' '.$countRobots.')</span>';
           echo '<hr class="small">';
         echo '</div>';
 
-        if(!empty($websiteStatistic['firstVisit'])) {
-          echo '<div style="width:100%; text-align:right;">';
-            // FIRST VISIT
-            echo '<span class="toolTipLeft" title="'.formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.GeneralFunctions::formatDate($websiteStatistic['firstVisit']).'</span></span><br>';
-            // LADST VISIT
-            echo '<span class="toolTipLeft" title="'.formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['STATISTICS_TEXT_LASTVISIT'].' <span class="blue"><strong>'.GeneralFunctions::formatDate($websiteStatistic['lastVisit']).'</strong></span></span>';
+        echo '<div class="row">';
+          echo '<div class="span center" style="width: 160px;">';
+
+            echo '<a href="#" tabindex="30" class="inBlockSliderLink btn" data-inBlockSlider="1">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].' <span class="caret" onclick="return false;"></span></a>';
           echo '</div>';
-        }
+
+          if(!empty($websiteStatistic['firstVisit'])) {
+            echo '<div class="span right" style="width: 160px;">';
+              // FIRST VISIT
+              echo '<span class="toolTipLeft" title="'.formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.GeneralFunctions::formatDate($websiteStatistic['firstVisit']).'</span></span><br>';
+              // LADST VISIT
+              echo '<span class="toolTipLeft" title="'.formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['STATISTICS_TEXT_LASTVISIT'].' <span class="blue"><strong>'.GeneralFunctions::formatDate($websiteStatistic['lastVisit']).'</strong></span></span>';
+            echo '</div>';
+          }
         echo '</div>';
+        // echo '<div class="spacer"></div>';
       echo '</div>';
+    echo '</div>';
 
     // ---------------------------------
     // -> CURRENT VISITORS
     $currentVisitorDashboard = true;
     $currentVisitors = include('library/includes/currentVisitors.include.php');
     if($currentVisitors) {
-      echo '<div class="span4">';
-        echo '<div class="innerBlock">';
-        echo '<h2>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h2>';
-          echo '<div class="innerBlocklistPages">';
-          echo $currentVisitors;
-          echo '</div>';
-        echo '</div>';
+      echo '<div id="currentVisitorsDashboard" class="span4">';
+        echo $currentVisitors;
       echo '</div>';
     }
     echo '</div>';
 
-    echo '<div class="spacer2x"></div>';
+    echo '<div class="spacer"></div>';
 
-    // -> inBlockSlider
-    echo '<h2 class="center"><a href="#" tabindex="30" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></h2>';
-    echo '<div class="verticalSeparator"></div>';
+    // inblockslider link is in the main count
+    echo '<div class="inBlockSlider hidden" data-inBlockSlider="1">';
 
-    echo '<div class="inBlockSlider hidden">';
+    $pagesStats = $orgPagesStats;
 
     echo '<div class="row">';
       echo '<div class="span4">';
 
         // ---------------------------------
         // -> MOST VISITED PAGE
-        echo '<div class="innerBlock">';
+        echo '<div class="insetBlock">';
         echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'].'</h2>';
-          echo '<div class="innerBlocklistPages">
+          echo '<div class="insetBlockListPages">
                 <table class="coloredList"><tbody>';
           // SORT the Pages by VISIT COUNT
           usort($pagesStats, 'sortByVisitCount');
@@ -159,12 +155,8 @@ if(!empty($userConfig[USERID]['info'])) {
           foreach($pagesStats as $pageStats) {
             if(!empty($pageStats['visitorCount'])) {
               // get page category and title
-              foreach($pages as $page) {
-                if($pageStats['id'] == $page['id']) {
-                  $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
-                  $pageStats['category'] = $page['category'];
-                }
-              }
+              $pageStats['title'] = GeneralFunctions::getLocalized($pagesMetaData[$pageStats['id']],'title');
+              $pageStats['category'] = $pagesMetaData[$pageStats['id']]['category'];
               echo '<tr><td style="font-size:11px;text-align:center;"><strong>'.$pageStats['visitorCount'].'</strong></td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
               // count
               if($count == $maxListEntries) break;
@@ -183,9 +175,9 @@ if(!empty($userConfig[USERID]['info'])) {
 
         // ---------------------------------
         // -> LAST VISITED PAGES
-        echo '<div class="innerBlock">';
+        echo '<div class="insetBlock">';
         echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'].'</h2>';
-          echo '<div class="innerBlocklistPages">
+          echo '<div class="insetBlockListPages">
                 <table class="coloredList"><tbody>';
           // SORT the Pages by VISIT SAVEDATE
           usort($pagesStats, 'sortByLastVisitDate');
@@ -194,13 +186,9 @@ if(!empty($userConfig[USERID]['info'])) {
           foreach($pagesStats as $pageStats) {
             if($pageStats['lastVisit'] != 0) {
               // get page category and title
-              foreach($pages as $page) {
-                if($pageStats['id'] == $page['id']) {
-                  $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
-                  $pageStats['category'] = $page['category'];
-                }
-              }
-              echo '<tr><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageStats['lastVisit'])).'</strong> '.formatTime($pageStats['lastVisit']).'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
+              $pageStats['title'] = GeneralFunctions::getLocalized($pagesMetaData[$pageStats['id']],'title');
+              $pageStats['category'] = $pagesMetaData[$pageStats['id']]['category'];
+              echo '<tr><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::dateDayBeforeAfter($pageStats['lastVisit']).'</strong> '.formatTime($pageStats['lastVisit']).'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
               // count
               if($count == $maxListEntries) break;
               else $count++;
@@ -222,9 +210,9 @@ if(!empty($userConfig[USERID]['info'])) {
 
         // ---------------------------------
         // -> LONGEST VIEWED PAGE
-        echo '<div class="innerBlock">';
+        echo '<div class="insetBlock">';
         echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'].'</h2>';
-          echo '<div class="innerBlocklistPages">
+          echo '<div class="insetBlockListPages">
                 <table class="coloredList"><tbody>';
           // SORT the Pages by MAX VISIT TIME
           usort($pagesStats, 'sortByVisitTimeMax');
@@ -232,12 +220,8 @@ if(!empty($userConfig[USERID]['info'])) {
           $count = 1;
           foreach($pagesStats as $pageStats) {
             // get page category and title
-            foreach($pages as $page) {
-              if($pageStats['id'] == $page['id']) {
-                $pageStats['title'] = GeneralFunctions::getLocalized($page,'title');
-                $pageStats['category'] = $page['category'];
-              }
-            }
+            $pageStats['title'] = GeneralFunctions::getLocalized($pagesMetaData[$pageStats['id']],'title');
+            $pageStats['category'] = $pagesMetaData[$pageStats['id']]['category'];
 
             // get highest time
             $highestTime = unserialize($pageStats['visitTimeMax']);
@@ -260,17 +244,18 @@ if(!empty($userConfig[USERID]['info'])) {
 
         // ---------------------------------
         // -> LAST EDITED PAGES
-        echo '<div class="innerBlock">';
+        echo '<div class="insetBlock">';
         echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'].'</h2>';
-          echo '<div class="innerBlocklistPages">
+          echo '<div class="insetBlockListPages">
                 <table class="coloredList"><tbody>';
+          $pages = GeneralFunctions::loadPages(true);
           // SORT the Pages by VISIT SAVEDATE
           usort($pages, 'sortByLastSaveDate');
 
           $count = 1;
           foreach($pages as $page) {
             if($page['lastSaveDate'] != 0) {
-              echo '<tr><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</strong> '.formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'</a></td></tr>';
+              echo '<tr><td style="font-size:11px;text-align:left;"><strong>'.GeneralFunctions::dateDayBeforeAfter($page['lastSaveDate']).'</strong> '.formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags(GeneralFunctions::getLocalized($page,'title')).'</a></td></tr>';
               // count
               if($count == $maxListEntries) break;
               else $count++;
@@ -283,18 +268,23 @@ if(!empty($userConfig[USERID]['info'])) {
         echo '</div>';
     echo '</div>';
 
-    $pages = $orgPages;
-
-    echo '<div class="verticalSeparator"></div>';
     echo '</div>'; // <- inBlockSlider End
 
     //  spacer
-    echo '<div class="spacer4x"></div>';
+    echo '<div class="spacer2x"></div>';
+
+    // ---------------------------------
+    // -> BROWSER CHART
+    if($browserChart = createBrowserChart($websiteStatistic['browser'])) {
+      echo '<div class="spacer"></div>';
+      echo '<h2 class="center">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
+      echo '<div class="spacer2x"></div>';
+      echo $browserChart;
+    }
 
     // ---------------------------------
     // ->> SEARCHWORD CLOUD
-
-    // -> create SEARCHWORD DATASTRING of ALL PAGES
+    // -> create a DATASTRING of ALL PAGES
     $allSearchwords = false;
     foreach($pagesStats as $pageStats) {
       // if page has searchwords
@@ -302,23 +292,11 @@ if(!empty($userConfig[USERID]['info'])) {
         $allSearchwords = StatisticFunctions::addDataToDataString($allSearchwords,$pageStats['searchWords']);
       }
     }
-
-    // SHOW tag CLOUD
     if($tagCloud = createTagCloud($allSearchwords)) {
-      echo '<h2>'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h2>';
-      echo '<div class="verticalSeparator"></div>';
-      echo '<div class="tagCloud">'.$tagCloud.'</div>';
-    }
-
-    // ---------------------------------
-    // -> BROWSER CHART
-
-    if($browserChart = createBrowserChart($websiteStatistic['browser'])) {
-      // echo '<div class="verticalSeparator"></div>';
-      echo '<div class="spacer4x"></div>';
-      echo '<h2>'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
-      echo '<div class="verticalSeparator"></div>';
-      echo $browserChart;
+      echo '<div class="spacer2x"></div>';
+      echo '<h2 class="center">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h2>';
+      echo '<div class="spacer"></div>';
+      echo '<div class="well tagCloud">'.$tagCloud.'</div>';
     }
 
     // ---------------------------------
@@ -327,20 +305,20 @@ if(!empty($userConfig[USERID]['info'])) {
        $logContent = file(dirname(__FILE__).'/../../statistic/referer.statistic.log')) {
 
       // echo '<div class="verticalSeparator"></div>';
-      echo '<div class="spacer4x"></div>';
+      echo '<div class="spacer"></div>';
 
-      echo '<h2>'.$langFile['DASHBOARD_TITLE_REFERER'].'</h2>';
+      echo '<h2 class="center">'.$langFile['DASHBOARD_TITLE_REFERER'].'</h2>';
 
       echo '<div class="row">';
-        echo '<div class="span8 refererBox">';
+        echo '<div class="refererBox span8">';
           echo '<ul class="coloredList">';
             foreach($logContent as $logRow) {
               $logRow = explode('|#|',$logRow);
-              $logDate = GeneralFunctions::formatDate($logRow[0]);
+              $logDate = GeneralFunctions::dateDayBeforeAfter($logRow[0]);
               $logTime = formatTime($logRow[0]);
               $logUrl = str_replace('&','&amp;',$logRow[1]);
 
-              echo '<li><strong>'.$logDate.'</strong>  '.$logTime.'<a href="'.$logUrl.'" class="blue">'.str_replace('http://','',$logUrl).'</a></li>';
+              echo '<li><strong>'.$logDate.'</strong>  '.$logTime.' <a href="'.$logUrl.'" class="blue" target="_blank">'.str_replace('http://','',$logUrl).'</a></li>';
             }
           echo '</ul>';
         echo '</div>';

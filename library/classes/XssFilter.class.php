@@ -253,7 +253,7 @@ class XssFilter {
   public static function string($data, $addChars = null, $default = false) {
       if(!empty($data) || $data == 0) {
          // start with aplhabetic, may include space, end with alhabetic
-         preg_match_all("/^['.$addChars.'\(\)\[\]\,\.\'\-\$\&\£\s@\?#_a-zA-Z\d]+$/i",$data,$find);
+         preg_match_all("/^['.$addChars.'\(\)\[\]\/\,\.\'\-\$\&\£\s@\?#_a-zA-Z\d]+$/i",$data,$find);
          // if you have caught something return it
          if(!empty($find[0])) return implode('',$find[0]);
      }

@@ -34,6 +34,8 @@ if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
       // save the new status
       if(GeneralFunctions::savePage($contentArray)) {
         $documentSaved = true;
+        $messagePopUp .= '<div class="alert alert-success">'.$langFile['MESSAGE_TEXT_CHANGEDSTATUS'].'</div>';
+
         // ->> save the FEEDS, if activated
         saveFeeds($_GET['category']);
         // ->> save the SITEMAP
@@ -59,7 +61,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   if(empty($categoryConfig))
     $_GET['category'] = 0;
 
-  include (dirname(__FILE__).'/controllers/editor.controller.php'); // isBlocked() is inside editor.controller.php
+  include_once(dirname(__FILE__).'/controllers/editor.controller.php'); // isBlocked() is inside editor.controller.php
 
 
 // OTHERWISE, load the controllers

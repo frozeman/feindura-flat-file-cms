@@ -6,8 +6,12 @@ array(
   'categoryId'        => 3,
   'subCategory'       => 'Another Category',
   'subCategoryId'     => 4,
-  'pageDate'          => '2000-12-31', // depending on the date format settings from the backend
-  'pageDateTimestamp' => 1325393999,
+  'pageDate'          => '2000-12-31 - 2010-01-15', // depending on the date format settings in the backend
+  'pageDateTimestamp'  => array(
+                    'date'  => 1325393999, // 'date' and 'start' is the same
+                    'start' => 1325393999,
+                    'end'   => 1325303455 // will be 0 when its not a date range
+                    ),
   'title'             => 'Title Example',
   'thumbnail'         => '<img src="/path/thumb_page1.png" class="feinduraThumbnail" alt="Thumbnail" title="Title Example">',
   'thumbnailPath'     => '/path/thumb_page1.png',

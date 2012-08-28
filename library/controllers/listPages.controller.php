@@ -25,7 +25,9 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 $opendCategory = false;
 
 // ->> CHANGE CATEGORY STATUS
-if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus' && GeneralFunctions::hasPermission('editableCategories',$_GET['category'])) {
+if(isset($_GET['status']) &&
+   $_GET['status'] == 'changeCategoryStatus' &&
+   GeneralFunctions::hasPermission('editableCategories',$_GET['category'])) {
 
   // change the status
   $categoryConfig[$_GET['category']]['public'] = ($_GET['public']) ? false : true;
@@ -33,6 +35,8 @@ if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus' && Genera
   // save the new status
   if(saveCategories($categoryConfig)) {
     $documentSaved = true;
+    $messagePopUp .= '<div class="alert alert-success">'.$langFile['MESSAGE_TEXT_CHANGEDSTATUS'].'</div>';
+
     // ->> save the FEEDS, if activated
     GeneralFunctions::$categoryConfig = $categoryConfig;
     saveFeeds($_GET['category']);

@@ -34,9 +34,7 @@ $page = $_GET['page'];
 $category = $_GET['category'];
 
 // ->> CHECK if the upload folder exists and is writeable
-if(empty($adminConfig['uploadPath']) || !is_dir(DOCUMENTROOT.$adminConfig['uploadPath']))
-  die('<h2>'.$langFile['PAGETHUMBNAIL_ERROR_NODIR_START'].' &quot;<strong>'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].'</strong>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_NODIR_END'].'</h2>');
-if($warning = isWritableWarning(DOCUMENTROOT.$adminConfig['uploadPath']))
+if($warning = isWritableWarning(dirname(__FILE__).'/../../../upload/'))
   die('<h2>'.$warning.'</h2>');
 
 $pageContent = GeneralFunctions::readPage($page,$category);
@@ -115,8 +113,8 @@ else
       <!-- file selection -->
       <h3 style="margin-bottom: -20px;"><?php echo $langFile['pagethumbnail_field1']; ?></h3>
 
-      <input type="file" name="thumbFile" class="btn">
-      <input type="submit" value="" class="button thumbnailUpload toolTipLeft" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>">
+      <input type="file" name="thumbFile" class="btn" style="width: 220px;">
+      <input type="submit" value="" class="button thumbnailUpload toolTipTop" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>">
 
     </div>
     <div class="span4">
@@ -137,9 +135,10 @@ else
   </div>
 
   <?php if($thumbRatioY || $thumbRatioX) { ?>
-  <div style="margin-top: -25px;">
-    <a href="#" id="thumbSizeToogle" class="down"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?></a>
-
+  <div style="position:relative; top: -45px;">
+    <a href="#" id="thumbSizeToogle" class="btn"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?> <span class="caret" onclick="return false;"></span></a>
+  </div>
+  <div style="margin-top: -35px;">
     <div id="thumbnailSizeBox" class="insetBlock">
       <?php
       // -> THUMB-WIDTH
@@ -234,7 +233,7 @@ else
 // show thumbnail if the page has one
 if(!empty($pageContent['thumbnail'])) {
 
-  $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+  $thumbnailWidth = @getimagesize(dirname(__FILE__).'/../../../upload/thumbnails/'.$pageContent['thumbnail']);
 
   if($thumbnailWidth[0] <= 700)
     $thumbnailWidth = ' style="width: '.$thumbnailWidth[0].'px;"';
@@ -245,7 +244,7 @@ if(!empty($pageContent['thumbnail'])) {
   $randomImage = '?'.md5(uniqid(rand(),1));
 
   echo '<div class="center" id="windowBoxThumbnailPreview">';
-    echo '<img src="'.GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnail toolTipLeft"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">';
+    echo '<img src="'.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../../upload/thumbnails/').$pageContent['thumbnail'].$randomImage.'" class="thumbnail toolTipLeft"'.$thumbnailWidth.' alt="thumbnail" title="::'.dirname(__FILE__).'/../../../upload/thumbnails/'.$pageContent['thumbnail'].'::">';
   echo '</div>';
 }
 
@@ -253,19 +252,15 @@ if(!empty($pageContent['thumbnail'])) {
 <!-- UPDATE THE IMAGE -->
 <script type="text/javascript">
 /* <![CDATA[ */
-  function refreshThumbnailImage(newImage,imageWidth) {
+  function refreshThumbnailImage(newImage) {
     if($('thumbnailPreviewImage') != null) {
-      $$('img.thumbnail').setProperty('src','<?php echo GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path']; ?>'+newImage);
-      $('thumbnailPreviewImage').setProperty('data-width',imageWidth);
-      if(imageWidth >= 200)
-        $('thumbnailPreviewImage').setStyle('width',200);
-
+      $$('img.thumbnail').setProperty('src','<?php echo GeneralFunctions::Path2URI(dirname(__FILE__).'/../../../upload/thumbnails/'); ?>'+newImage);
     }
 
     if($('thumbnailUploadButtonInPreviewArea') != null)
       $('thumbnailUploadButtonInPreviewArea').setStyle('display','none');
     if($('thumbnailPreviewContainer') != null)
-      $('thumbnailPreviewContainer').setStyle('display','block');
+      $('thumbnailPreviewContainer').setStyle('display','inline-block');
   }
 /* ]]> */
 </script>

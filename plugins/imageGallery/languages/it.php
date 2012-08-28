@@ -21,7 +21,7 @@
 /* PLUGIN ************************************************************************************ */
 
 $pluginLangFile['feinduraPlugin_title']        = 'Galleria Immagini';
-$pluginLangFile['feinduraPlugin_description']  = 'Lista immagini in una galleria. Una miniatura verra creata automaticamente per ogni immagine. Quando si fa clic su un\'immagine, sar&#224; mostrata con le sue dimensioni reali in un <a href="http://reghellin.com/milkbox/">lightbox</a>.';
+$pluginLangFile['feinduraPlugin_description']  = 'Lista immagini in una galleria. Una miniatura verra creata automaticamente per ogni immagine. Quando si fa clic su un\'immagine, sar&#224; mostrata con le sue dimensioni reali in un <a href="http://reghellin.com/milkbox/" target="_blank">lightbox</a>.';
 
 /* CONFIG ************************************************************************************ */
 

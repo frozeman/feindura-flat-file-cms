@@ -3,64 +3,70 @@
 //
 // Published under the GNU General Public License
 
+.dashboard .insetBlock {
+    margin: @gridGutterWidth / 2 !important;
+}
+
+.visitorCountInsetBox [class^="span"],
+.visitorCountInsetBox div {
+    line-height: 20px !important;
+}
+
 .refererBox {
+    margin-top: -9px;
     max-height: 300px;
     overflow: auto;
-    border: 1px solid #ccc;
-    border-left: none;
-    border-right: none;
+    border-bottom: 1px solid #ccc;
+
+    li {
+        #content > .truncateText();
+        font-size: 13px;
+    }
 }
 
 .visitCountNumber {
     position: relative;
+    top: 10px;
     font-size: 33px;
     font-weight: bold;
-}
-
-.tagCloud {
-    // width: 100%;
-    max-height: 450px;
-    padding: 5px 0;
-    text-align: center;
-    overflow: auto;
-
-    span, a {
-        background: none !important;
-        padding-right: 0px !important;
-        color: #668CA6 !important;
-    }
 }
 
 
 table.tableChart {
     width: 100%;
     font-size: 10px;
-    color: #000000;
+    color: #222;
     border: 1px solid #fff;
-    border-left: none;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    #border > .rounded(@borderRadiusMedium);
+    #shadow > .drop(0,0,5px,0.2);
 
     td {
         vertical-align: middle;
         padding: 0px 5px !important;
-        border-left: 2px solid #fff;
+        border-left: 1px solid #fff;
         height: 30px;
         max-height: 30px;
         overflow: hidden;
-        #border > .rounded(5px);
+        // #shadow > .inner(0,0,10px,0.3);
+
+        &:first-child {
+            border-left: none;
+        }
 
         &.unknown {
             #gradient > .vertical(#CCCCCC,#666666,#CCCCCC);
-            color: #000000;
+            color: #222;
         }
         &.safari {
             #gradient > .vertical(#ECECEC,#CFCFDC,#ECECEC);
-            color: #000000;
+            color: #222;
         }
         &.opera {
             #gradient > .vertical(#FB9393,#D50404,#FB9393);
-            color: #000000;
+            color: #222;
         }
         &.netscape.navigator {
             #gradient > .vertical(#188E9C,#002C30,#188E9C);
@@ -72,22 +78,22 @@ table.tableChart {
         }
         &.chrome {
             #gradient > .vertical(#A0C2EF,#4B92E4,#A0C2EF);
-            color: #000000;
+            color: #222;
         }
         &.internet.explorer {
             #gradient > .vertical(#E3EEFB,#C5DEFB,#E3EEFB);
-            color: #000000;
+            color: #222;
         }
         &.internet.explorer.old {
             #gradient > .vertical(#FFFFFF,#D5D2CD,#FFFFFF);
-            color: #000000;
+            color: #222;
         }
         &.konqueror {
             #gradient > .vertical(#286CBF,#04478E,#286CBF);
             color: #fff;
         }
         &.lynx {
-            #gradient > .vertical(#666666,#000000,#666666);
+            #gradient > .vertical(#666666,#222,#666666);
             color: #fff;
         }
         &.mozilla {
@@ -95,12 +101,12 @@ table.tableChart {
             color: #fff;
         }
         &.iphone {
-            #gradient > .vertical(#5E5E5E,#000000,#5E5E5E);
+            #gradient > .vertical(#5E5E5E,#222,#5E5E5E);
             color: #fff;
         }
         &.ipod {
             #gradient > .vertical(#FFFFFF,#CCCCCC,#FFFFFF);
-            color: #000000;
+            color: #222;
         }
         &.ipad {
             #gradient > .vertical(#BCBCBC,#7C7C7C,#BCBCBC);
@@ -108,48 +114,48 @@ table.tableChart {
         }
         &.amaya {
             #gradient > .vertical(#FFFFFF,#A0D6EF,#FFFFFF);
-            color: #000000;
+            color: #222;
         }
         &.phoenix {
             #gradient > .vertical(#F4CACA,#D66869,#F4CACA);
-            color: #000000;
+            color: #222;
         }
         &.icab {
             #gradient > .vertical(#FFFFFF,#FFEEC0,#FFFFFF);
-            color: #000000;
+            color: #222;
         }
         &.omniweb {
             #gradient > .vertical(#FFFFFF,#0093D0,#FFFFFF);
-            color: #000000;
+            color: #222;
         }
         &.galeon {
             #gradient > .vertical(#FFFFFF,#CDCDCD,#FFFFFF);
-            color: #000000;
+            color: #222;
         }
         &.netpositive {
             #gradient > .vertical(#FFDC01,#A10001,#FFDC01);
-            color: #000000;
+            color: #222;
         }
         &.opera.mini {
             #gradient > .vertical(#FFFFFF,#DA0E0E,#FFFFFF);
-            color: #000000;
+            color: #222;
         }
         &.blackberry {
-            #gradient > .vertical(#5D5D5D,#000000,#5D5D5D);
+            #gradient > .vertical(#5D5D5D,#222,#5D5D5D);
             color: #fff;
         }
         &.icecat {
             #gradient > .vertical(#FFFFFF,#3465A4,#FFFFFF);
-            color: #000000;
+            color: #222;
         }
         &.android {
-            #gradient > .vertical(#5D5D5D,#000000,#5D5D5D);
+            #gradient > .vertical(#5D5D5D,#222,#5D5D5D);
             color: #fff;
         }
         &.nokia.browser,
         &.Nokia.S60.OSS.Browser {
             #gradient > .vertical(#FFFFFF,#CBCBCB,#FFFFFF);
-            color: #000000;
+            color: #222;
         }
     }
 }

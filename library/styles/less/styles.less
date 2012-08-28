@@ -21,11 +21,30 @@
 // @import "bootstrap/css/bootstrap.min.css";
 
 // VARS
+
+// Measures
+@appWidth: 1280px;
+
+// Boxes
 @zindexInFrontend: 20000;
 @blockContentPadding: 20px;
-@blockBorderRadius: 10px;
-@innerBlockColor: #fdfdfd;
-@innerBlockBorderColor: #c0c0c0;
+@blockContentMargin: 20px;
+@borderRadius: 10px;
+@borderRadiusMedium: 5px;
+@borderRadiusSmall: 2px;
+@insetBlockColor: #fdfdfd;
+@insetBlockBorderColor: #c0c0c0;
+
+// Colors
+@logoColorBlue: #3A79A5;
+@logoColorOrange: #DD6E1F;
+@colorRed: #A02F00;
+@colorBrown: #d49c5c;
+@colorGray: #999999;
+@colorLightGray: #f0f0f0;
+@colorMiddleGray: #b3b3b3;
+@textColor: #666;
+
 
 
 // FEINDURA CLASS
@@ -39,10 +58,12 @@
 
 
     // LESS Elements are useful mixins for CSS3 effects
+    // get from CodeKit Framework (elements)
     @import "elements.less";
 
 
     // DELETE these LINES FROM the "bootstrap/less/variables.less", to allow these rules to apply
+    @baseFontSize:            14px;
     @gridColumns:             8;
     @gridColumnWidth:         81px; // 84px - 2*20px padding of the div.content
     @gridGutterWidth:         16px;
@@ -50,7 +71,8 @@
     @iconWhiteSpritePath:     "../images/icons/glyphicons-halflings-white.png";
 
     // Get bootstrap
-    @import "../bootstrap/less/bootstrap.less";
+    // get from CodeKit Framework (bootstrap)
+    @import "bootstrap/bootstrap.less";
 
 
 
@@ -71,6 +93,7 @@
     // ======
     // Main layout structure
     @import "layout.less";
+    @import "sideBars.less";
 
 
     // ICONS
@@ -128,6 +151,6 @@
 
     // JS ELEMENT STYLES
     // ==============
-    // the content of the window boxes
     @import "js_multipleSelect.less";
+    @import "js_datePicker_feinduraSkin.less";
 }

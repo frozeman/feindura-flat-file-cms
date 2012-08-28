@@ -781,9 +781,11 @@ class Feindura extends FeinduraBase {
   * @see FeinduraBase::__construct()
   *
   * @access public
-  * @version 1.1
+  * @version 1.3
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.3 add set timezone from the backend as default timezone
+  *    - 1.2 changed the name of $_SESSION['feinduraSession']['websiteLanguage'] to $_SESSION['feinduraSession']['language'], so it differs from the backend version
   *    - 1.1 fixed language detection
   *    - 1.0 initial release
   *
@@ -810,16 +812,23 @@ class Feindura extends FeinduraBase {
     }
 
 
-    // saves the current GET vars in the PROPERTIES
+    // SET the CURRENT GET vars in the PROPERTIES
     // ********************************************
     $this->setCurrentPageId(true);           // get $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
     $this->setCurrentCategoryId(true);       // get $_GET['category']
     // set category automatically, if it couldn't be retrieved
     if($this->category == null) $this->category = GeneralFunctions::getPageCategory($this->page);
 
-    // save the website statistics
+
+    // SAVE the WEBSITE STATISTICS
     // ***************************
     StatisticFunctions::saveWebsiteStats($this->page);
+
+
+    // SET the DEFAULT TIMEZONE
+    if(function_exists('date_default_timezone_set') && !empty($this->adminConfig['timezone']))
+      date_default_timezone_set($this->adminConfig['timezone']);
+
 
     // ->> SET LANGUAGE
 
@@ -830,11 +839,11 @@ class Feindura extends FeinduraBase {
     } elseif(is_string($_GET['language']) && strlen($_GET['language']) == 2) {
       $this->language = XssFilter::alphabetical($_GET['language']);
     // -> third SESSION language
-    } elseif(!empty($_SESSION['feinduraSession']['websiteLanguage']) && strlen($_SESSION['feinduraSession']['websiteLanguage']) == 2) {
-      $this->language = $_SESSION['feinduraSession']['websiteLanguage'];
+    } elseif(!empty($_SESSION['feinduraSession']['language']) && strlen($_SESSION['feinduraSession']['language']) == 2) {
+      $this->language = $_SESSION['feinduraSession']['language'];
     // -> last get BROWSER LANGUAGE
     } else
-      $this->language = GeneralFunctions::getBrowserLanguages($this->websiteConfig['multiLanguageWebsite']['mainLanguage']);
+      $this->language = substr(GeneralFunctions::getBrowserLanguages($this->websiteConfig['multiLanguageWebsite']['mainLanguage']),0,2);
 
     // ->> CHECK LANGUAGE
 
@@ -848,7 +857,7 @@ class Feindura extends FeinduraBase {
     elseif($this->loggedIn && !empty($_SESSION['feinduraSession']['backendLanguage']))
       $this->language = $_SESSION['feinduraSession']['backendLanguage'];
 
-    $_SESSION['feinduraSession']['websiteLanguage'] = $this->language;
+    $_SESSION['feinduraSession']['language'] = $this->language;
 
     $this->loadFrontendLanguageFile($this->language);
 
@@ -1244,9 +1253,10 @@ class Feindura extends FeinduraBase {
       }
     }
 
-    // ->> ENABLE FRONTEND EDITING
+    $frontendEditing = false;
+    // ->> ENABLE FRONTEND EDITING (DEACTIVATED)
     // if user is logged into the CMS, add javascripts for implementing ckeditor
-    if($this->loggedIn && GeneralFunctions::hasPermission('frontendEditing') && PHP_VERSION >= REQUIREDPHPVERSION) {
+    if($frontendEditing && $this->loggedIn && GeneralFunctions::hasPermission('frontendEditing') && PHP_VERSION >= REQUIREDPHPVERSION) {
 
       $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
       // add frontend editing stylesheets
@@ -1295,8 +1305,9 @@ class Feindura extends FeinduraBase {
   var feindura_deactivateFrontendEditing = '".$_SESSION['feinduraSession']['login']['deactivateFrontendEditing']."';
   var feindura_langFile = {
     ERRORWINDOW_TITLE:                    \"".$this->languageFile['errorWindow_h1']."\",
-    ERROR_SAVE:                           \"".$this->languageFile['EDITOR_savepage_error_save']."\",
+    ERROR_SAVE:                           \"".$this->languageFile['ERROR_SAVEPAGE']."\",
     ERROR_SETSTARTPAGE:                   \"".$this->languageFile['SORTABLEPAGELIST_setStartPage_error_save']."\",
+    LOADING_TEXT_LOAD:                    \"".$this->languageFile['LOADING_TEXT_LOAD']."\",
     FUNCTIONS_STARTPAGE_SET:              \"".$this->languageFile['SORTABLEPAGELIST_functions_startPage_set']."\",
     FUNCTIONS_STARTPAGE:                  \"".$this->languageFile['SORTABLEPAGELIST_functions_startPage']."\",
     FUNCTIONS_EDITPAGE:                   \"".$this->languageFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']."\",
@@ -1354,7 +1365,7 @@ class Feindura extends FeinduraBase {
   *
   * @param int|string|array|bool $id  (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   *
-  * @uses FeinduraBase::getPropertyIdsByString()	to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()	to load the right page and category IDs depending on the $ids parameter
   * @uses GeneralFunctions::createHref()          call the right createHref functions in the GeneralFunctions class
   * @uses GeneralFunctions::getPageCategory()     to get the category of the page
   * @uses FeinduraBase::language
@@ -1374,7 +1385,7 @@ class Feindura extends FeinduraBase {
   */
   public function createHref($id = false) {
 
-    if($id = $this->getPropertyIdsByString($id)) {
+    if($id = $this->getIdsFromString($id)) {
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($id[0],$id[1])) !== false) {
           return GeneralFunctions::createHref($pageContent,$this->sessionId,$this->language);
@@ -1428,7 +1439,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailAfter
   *
   * @uses Feindura::createHref()                        to create the href-attribute
-  * @uses FeinduraBase::getPropertyIdsByString()        to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()        to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::createAttributes()              to create the attributes used by the link <a> tag
   * @uses FeinduraBase::createThumbnail()               to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
   * @uses FeinduraBase::shortenText()                   to shorten the linktext if the {@link $linkLength} property is set
@@ -1455,7 +1466,7 @@ class Feindura extends FeinduraBase {
     //echo 'PAGE: '.$id;
 
     // LOADS the right $pageContent array
-    if($ids = $this->getPropertyIdsByString($id)) {
+    if($ids = $this->getIdsFromString($id)) {
 
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
@@ -1565,10 +1576,9 @@ class Feindura extends FeinduraBase {
   *
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes specifically to this menu tag. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
+  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
-  * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -1618,7 +1628,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMenu($idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  public function createMenu($idType = 'category', $ids = false, $menuTag = false, $linkText = true, $sortPages = false) {
 
     $ids = $this->getPropertyIdsByType($idType,$ids);
 
@@ -1626,12 +1636,12 @@ class Feindura extends FeinduraBase {
     $pages = $this->loadPagesByType($idType,$ids);
 
     // -> if pages should be SORTED BY CATEGORY
-    if($sortByCategories === true)
+    if($sortPages === true)
       $pages = GeneralFunctions::sortPages($pages);
 
     // -> STOREs the LINKs in an Array
     $links = array();
-    if($pages !== false) {
+    if(!empty($pages)) {
       // create a link out of every page in the array
       foreach($pages as $page) {
         // creates the link
@@ -1649,25 +1659,14 @@ class Feindura extends FeinduraBase {
           }
 
           // -> add PAGE DATE
-          $pageDate = false;
-          if(GeneralFunctions::checkPageDate($page)) {
-            $titleDateBefore = '';
-            $titleDateAfter = '';
-            // format pageDate
-            $pageDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($page['pageDate']['date'],$this->languageFile));
-            // add <time> tag
-            if(!empty($page['pageDate']['date']))
-              $pageDate = '<time datetime="'.GeneralFunctions::getDateTimeValue($page['pageDate']['date']).'">'.$pageDate.'</time>';
-            $pageDateBeforeAfter = $this->getLocalized($page,'pageDate');
-            // adds spaces on before and after
-            if(!empty($pageDateBeforeAfter['before'])) $titleDateBefore = $pageDateBeforeAfter['before'].' ';
-            if(!empty($pageDateBeforeAfter['after'])) $titleDateAfter = ' '.$pageDateBeforeAfter['after'];
-            $pageDate = $titleDateBefore.$pageDate.$titleDateAfter;
-
+          if($this->categoryConfig[$page['category']]['showPageDate']) {
             // add page date
-            $link['pageDate']          = $pageDate;
-            $link['pageDateTimestamp'] = $page['pageDate']['date'];
-          }
+            $link['pageDate']          = GeneralFunctions::showPageDate($page,$this->languageFile);
+            $link['pageDateTimestamp']['date']  = $page['pageDate']['start'];
+            $link['pageDateTimestamp']['start'] = $page['pageDate']['start'];
+            $link['pageDateTimestamp']['end']   = $page['pageDate']['end'];
+          } else
+            $link['pageDate'] = false;
 
           // create a title
           if($linkText === true) {
@@ -1687,9 +1686,9 @@ class Feindura extends FeinduraBase {
         }
       }
     } else
-      return array(false);
+      return array();
 
-    return $this->generateMenu($links,$menuTag,$breakAfter);
+    return $this->generateMenu($links,$menuTag);
   }
 
  /**
@@ -1718,10 +1717,9 @@ class Feindura extends FeinduraBase {
   * @param string|array   $tags               a string with tags seperated by "," or ";" or an array with tags
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div"
+  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
-  * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -1768,13 +1766,13 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMenuByTags($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  public function createMenuByTags($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $sortPages = false) {
 
     $ids = $this->getPropertyIdsByType($idType,$ids);
 
     // check for the tags and CREATE A MENU
     if($ids = $this->checkPagesForTags($idType,$ids,$tags)) {
-      return $this->createMenu($idType,$ids,$menuTag,$linkText,$breakAfter,$sortByCategories);
+      return $this->createMenu($idType,$ids,$menuTag,$linkText,$sortPages);
     } else
       return array();
   }
@@ -1782,9 +1780,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link createMenuByTags()}
   * @ignore
   */
-  public function createMenuByTag($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  public function createMenuByTag($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $sortPages = false) {
     // call the right function
-    return $this->createMenuByTags($tags,$idType,$ids,$menuTag,$linkText,$breakAfter,$sortByCategories);
+    return $this->createMenuByTags($tags,$idType,$ids,$menuTag,$linkText,$sortPages);
   }
 
  /**
@@ -1793,10 +1791,11 @@ class Feindura extends FeinduraBase {
   *
   * <b>This method uses the {@link Feindura::$linkLength $link...}, {@link Feindura::$menuId $menu...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   *
-  * Creates a menu from category(ies) or page(s), sorted by the page date.
-  * Applies for pages which have a page date and it fit in the time period from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter (starting from the current today).
+  * Creates a menu from category(ies) or page(s) parameter.
+  * Applies for pages which have a page date (and page date is activated for that category!) and it fit in the time period
+  * from the <var>$from</var> and the <var>$to</var> parameter (relative to the current date).
   *
-  * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
+  * The <var>$from</var> and <var>$to</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   *
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   *
@@ -1812,14 +1811,13 @@ class Feindura extends FeinduraBase {
   * {@example createMenu.return.example.php}
   *
   *
+  * @param int|bool|string $from               (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
+  * @param int|bool|string $to                 (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
   * @param string          $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool  $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|bool|string $monthsInThePast    (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
-  * @param int|bool|string $monthsInTheFuture  (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
-  * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div"
+  * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool     $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param int|false       $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
-  * @param bool            $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
   * @param bool            $reverseList        (optional) reverse the menu listing
   *
   * @uses Feindura::$menuId
@@ -1865,11 +1863,11 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMenuByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
+  public function createMenuByDate($from = true, $to = true, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
 
       // gets the right pages and sorted by page date
-      if($pageContents = $this->loadPagesByDate($idType,$ids,$monthsInThePast,$monthsInTheFuture,$sortByCategories,$reverseList))
-	       return $this->createMenu($idType,$pageContents,$menuTag,$linkText,$breakAfter,false);
+      if($pageContents = $this->loadPagesByDate($from,$to,$idType,$ids,$sortPages,$reverseList))
+	       return $this->createMenu($idType,$pageContents,$menuTag,$linkText,false);
       else
         return array();
 
@@ -1878,9 +1876,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link createMenuByDate()}
   * @ignore
   */
-  public function createMenuByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
+  public function createMenuByDates($from = true, $to = true, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->createMenuByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $menuTag, $linkText, $breakAfter, $sortByCategories, $reverseList);
+    return $this->createMenuByDate($from, $to, $idType, $ids, $menuTag, $linkText, $sortPages, $reverseList);
   }
 
  /**
@@ -1908,13 +1906,12 @@ class Feindura extends FeinduraBase {
   * {@example createMenu.return.example.php}
   *
   *
-  * @param string         $sortCallback        the name of the callback function to sort the menu (the callback function is a function which can be passed to usort())
-  * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes specifically to this menu tag. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
-  * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
-  * @param bool           $reverseList        (optional) reverse the menu listing
+  * @param string         $sortCallback        the name of the callback function to sort the menu (uses usort()). For a list of available predefined functions see {@link GeneralFunctions::sortPages()}
+  * @param string         $idType              (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids                 (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
+  * @param int|bool       $menuTag             (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
+  * @param string|bool    $linkText            (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
+  * @param bool           $reverseList         (optional) reverse the menu listing
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -1960,7 +1957,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMenuBySortFunction($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $reverseList = false) {
+  public function createMenuBySortFunction($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $reverseList = false) {
 
       // load the pages
       $pageContents = $this->loadPagesByType($idType,$ids);
@@ -1968,31 +1965,31 @@ class Feindura extends FeinduraBase {
       // -> flips the sorted array if $reverseList === true
       if($reverseList === true)
         $pageContents = array_reverse($pageContents);
-	    return $this->createMenu($idType,$pageContents,$menuTag,$linkText,$breakAfter,false);
+	    return $this->createMenu($idType,$pageContents,$menuTag,$linkText,false);
   }
  /**
   * Alias of {@link createMenuBySortFunction()}
   * @ignore
   */
-  public function createMenuBySort($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $reverseList = false) {
+  public function createMenuBySort($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $reverseList = false) {
       // call the right function
-	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$breakAfter,$reverseList);
+	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$reverseList);
   }
   /**
   * Alias of {@link createMenuBySortFunction()}
   * @ignore
   */
-  public function createMenuBySortCallback($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $reverseList = false) {
+  public function createMenuBySortCallback($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $reverseList = false) {
       // call the right function
-	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$breakAfter,$reverseList);
+	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$reverseList);
   }
   /**
   * Alias of {@link createMenuBySortFunction()}
   * @ignore
   */
-  public function createMenuByCallback($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $reverseList = false) {
+  public function createMenuByCallback($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $reverseList = false) {
       // call the right function
-	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$breakAfter,$reverseList);
+	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$reverseList);
   }
 
 /**
@@ -2018,7 +2015,7 @@ class Feindura extends FeinduraBase {
   *
   */
   public function isSubCategory($categoryId = false) {
-    if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
+    if($ids = $this->getIdsFromString(array(false,$categoryId))) {
       $categoryId = $ids[1];
       if($this->categoryConfig[$categoryId]['isSubCategory'])
         return true;
@@ -2054,10 +2051,10 @@ class Feindura extends FeinduraBase {
   */
   public function isSubCategoryOf($pageId = false,$categoryId = false) {
 
-    if($ids = $this->getPropertyIdsByString(array($pageId,false)))
+    if($ids = $this->getIdsFromString(array($pageId,false)))
       $pageId = $ids[0];
 
-    if($ids = $this->getPropertyIdsByString(array(false,$categoryId)))
+    if($ids = $this->getIdsFromString(array(false,$categoryId)))
       $categoryId = $ids[1];
 
     $subCategoryPages = unserialize($this->categoryConfig[$categoryId]['isSubCategoryOf']);
@@ -2091,10 +2088,9 @@ class Feindura extends FeinduraBase {
   *
   *
   * @param int|string|array|bool  $id                 (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
-  * @param int|bool               $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes specifically to this menu tag. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
+  * @param int|bool               $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool            $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param int|false              $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
-  * @param bool                   $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * @param bool                   $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -2140,14 +2136,14 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createSubMenu($id = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  public function createSubMenu($id = false, $menuTag = false, $linkText = true, $sortPages = false) {
 
-    if($ids = $this->getPropertyIdsByString($id)) {
+    if($ids = $this->getIdsFromString($id)) {
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
         // return subcategory
         if(is_numeric($pageContent['subCategory']) && $this->categoryConfig[$pageContent['category']]['showSubCategory'])
-          return $this->createMenu('category', $pageContent['subCategory'], $menuTag, $linkText, $breakAfter, $sortByCategories);
+          return $this->createMenu('category', $pageContent['subCategory'], $menuTag, $linkText, $sortPages);
       }
     }
 
@@ -2193,10 +2189,9 @@ class Feindura extends FeinduraBase {
   *
   *
   * @param int|string|bool $categoryId         (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
-  * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes specifically to this menu tag. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
+  * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool     $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param int|false       $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
-  * @param bool            $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -2242,15 +2237,15 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMenuOfSubCategory($categoryId = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  public function createMenuOfSubCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false) {
 
-    if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
+    if($ids = $this->getIdsFromString(array(false,$categoryId))) {
       $categoryId = $ids[1];
       if($this->isSubCategory($categoryId)) {
 
         // check if subcategory
         if($categoryId && is_numeric($categoryId) && $this->categoryConfig[$categoryId]['isSubCategory'])
-          return $this->createMenu('category', $categoryId, $menuTag, $linkText, $breakAfter, $sortByCategories);
+          return $this->createMenu('category', $categoryId, $menuTag, $linkText, $sortPages);
       }
     }
 
@@ -2260,17 +2255,17 @@ class Feindura extends FeinduraBase {
   * Alias of {@link createMenuOfSubCategory()}
   * @ignore
   */
-  public function createMenuFromSubCategory($categoryId = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  public function createMenuFromSubCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false) {
     // call the right function
-    return $this->createMenuOfSubCategory($categoryId, $linkText, $breakAfter, $sortByCategories);
+    return $this->createMenuOfSubCategory($categoryId, $linkText, $sortPages);
   }
   /**
   * Alias of {@link createMenuOfSubCategory()}
   * @ignore
   */
-  public function createSubMenuFromCategory($categoryId = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  public function createSubMenuFromCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false) {
     // call the right function
-    return $this->createMenuOfSubCategory($categoryId, $linkText, $breakAfter, $sortByCategories);
+    return $this->createMenuOfSubCategory($categoryId, $linkText, $sortPages);
   }
 
  /**
@@ -2295,9 +2290,8 @@ class Feindura extends FeinduraBase {
   * {@example createLanguageMenu.return.example.php}
   *
   *
-  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes specifically to this menu tag. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
+  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -2327,7 +2321,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createLanguageMenu($menuTag = false, $linkText = true, $breakAfter = false) {
+  public function createLanguageMenu($menuTag = false, $linkText = true) {
 
     // quit if multilanguage website is deactivated
     if(!$this->websiteConfig['multiLanguageWebsite']['active'])
@@ -2369,7 +2363,7 @@ class Feindura extends FeinduraBase {
           $link['active']   = ($orgLanguage == $langCode) ? true : false;
           $link['href']     = $this->createHref(false);
           $link['language'] = $langCode;
-          $link['flag']     = GeneralFunctions::getFlagHref($langCode, false);
+          $link['flag']     = GeneralFunctions::getFlagSrc($langCode, false);
           $links[] = $link;
         }
       }
@@ -2382,15 +2376,15 @@ class Feindura extends FeinduraBase {
     } else
       return array(false);
 
-    return $this->generateMenu($links,$menuTag,$breakAfter);
+    return $this->generateMenu($links,$menuTag);
   }
   /**
   * Alias of {@link createLanguageMenu()}
   * @ignore
   */
-  public function createLanguagesMenu($menuTag = false, $linkText = true, $breakAfter = false) {
+  public function createLanguagesMenu($menuTag = false, $linkText = true) {
     // call the right function
-    return $this->createLanguageMenu($menuTag, $linkText, $breakAfter);
+    return $this->createLanguageMenu($menuTag, $linkText);
   }
 
  /**
@@ -2414,8 +2408,7 @@ class Feindura extends FeinduraBase {
   *
   * @param int|string|array|bool $id            (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param string|false          $separator     (optional) a string which will be used as separator or FALSE to dont use a separator string
-  * @param int|bool              $menuTag       (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div"
-  * @param int|false             $breakAfter    (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
+  * @param int|bool              $menuTag       (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -2444,7 +2437,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailBefore
   * @uses Feindura::$thumbnailAfter
   *
-  * @uses FeinduraBase::getPropertyIdsByString()       to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()       to load the right page and category IDs depending on the $ids parameter
   * @uses Feindura::readPage()
   * @uses GeneralFunctions::getParentPages()           to get the parent pages in an array
   *
@@ -2459,26 +2452,34 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createBreadCrumbsMenu($id = false, $separator = ' > ', $menuTag = false, $breakAfter = false) {
+  public function createBreadCrumbsMenu($id = false, $separator = ' > ', $menuTag = false) {
 
     // var
     $links = array();
     $orgLinkActiveClass = $this->linkActiveClass;
     $this->linkActiveClass = false;
 
-    if($ids = $this->getPropertyIdsByString($id)) {
+    if($ids = $this->getIdsFromString($id)) {
       // unset($_SESSION['feinduraSession']['log']['visitedPagesOrder']);
       // print_r($_SESSION['feinduraSession']['log']['visitedPagesOrder']);
 
-      // loads the $pageContent array
-      if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
+      // loads the $breadCrumbsArray
+      $breadCrumbsArray = GeneralFunctions::createBreadCrumbsArray($ids[0],$ids[1]);
 
-        // start page
-        if($this->websiteConfig['setStartPage'] && !empty($this->websiteConfig['startPage']) && $this->websiteConfig['startPage'] != $pageContent['id'] && ($startPage = GeneralFunctions::readPage($this->websiteConfig['startPage'],GeneralFunctions::getPageCategory($this->websiteConfig['startPage'])))) {
-          $link['link']  = $this->createLink($startPage).$separator;
-          $link['href']  = $this->createHref($startPage);
-          $link['id']    = $startPage['id'];
-          $link['title'] = $this->createTitle($startPage,
+      if(!empty($breadCrumbsArray)) {
+
+        foreach ($breadCrumbsArray as $parentPageContent) {
+          $getLinkCategory = $this->linkShowCategory;
+
+          // only show the category, if the parents page category is not a sub category
+          if(!$this->categoryConfig[$parentPageContent['category']]['isSubCategory'] && $parentPageContent !== reset($breadCrumbsArray))
+            $this->linkShowCategory = true;
+
+          $link['link']     = $this->createLink($parentPageContent);
+          $link['href']     = $this->createHref($parentPageContent);
+          $link['id']       = $parentPageContent['id'];
+          $link['category'] = $parentPageContent['category'];
+          $link['title']    = $this->createTitle($parentPageContent,
                                               $this->linkLength,
                                               false, // $titleAsLink
                                               $this->linkShowPageDate,
@@ -2486,79 +2487,21 @@ class Feindura extends FeinduraBase {
                                               $this->linkPageDateSeparator,
                                               $this->linkCategorySeparator,
                                               false); // $allowFrontendEditing
+          $this->linkShowCategory = $getLinkCategory;
 
           // -> add Thumbnail
-          if($pageThumbnail = $this->createThumbnail($page)) {
+          if($pageThumbnail = $this->createThumbnail($parentPageContent)) {
             $link['thumbnail'] = $pageThumbnail['thumbnail'];
             $link['thumbnailPath'] = $pageThumbnail['thumbnailPath'];
           }
 
+          // add separator to the link
+          if($parentPageContent !== end($breadCrumbsArray))
+            $link['link'] .= $separator;
+
           $links[] = $link;
-          unset($link,$startPage);
+          unset($link);
         }
-
-        // parent pages
-        if($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['isSubCategory'] && ($parentPages = GeneralFunctions::getParentPages($pageContent['category']))) {
-          foreach ($parentPages as $parentPageContent) {
-            $getLinkCategory = $this->linkShowCategory;
-
-            // only show the category, if the parents page category is not a sub category
-            if(!$this->categoryConfig[$parentPageContent['category']]['isSubCategory'])
-              $this->linkShowCategory = true;
-
-            $link['link']  = $this->createLink($parentPageContent).$separator;
-            $link['href']  = $this->createHref($parentPageContent);
-            $link['id']    = $parentPageContent['id'];
-            $link['title'] = $this->createTitle($parentPageContent,
-                                                $this->linkLength,
-                                                false, // $titleAsLink
-                                                $this->linkShowPageDate,
-                                                $this->linkShowCategory,
-                                                $this->linkPageDateSeparator,
-                                                $this->linkCategorySeparator,
-                                                false); // $allowFrontendEditing
-            $this->linkShowCategory = $getLinkCategory;
-
-            // -> add Thumbnail
-            if($pageThumbnail = $this->createThumbnail($page)) {
-              $link['thumbnail'] = $pageThumbnail['thumbnail'];
-              $link['thumbnailPath'] = $pageThumbnail['thumbnailPath'];
-            }
-
-            $links[] = $link;
-            unset($link);
-          }
-        }
-
-        // add pagelink
-        $getLinkCategory = $this->linkShowCategory;
-        // only show the category in the link, if the category is not a sub category
-        if(!$this->categoryConfig[$pageContent['category']]['isSubCategory'])
-          $this->linkShowCategory = true;
-
-        $link['link']     = $this->createLink($pageContent);
-        $link['href']     = $this->createHref($pageContent);
-        $link['id']       = $pageContent['id'];
-        $link['category'] = $pageContent['category'];
-        $link['title']    = $this->createTitle($pageContent,
-                                              $this->linkLength,
-                                              false, // $titleAsLink
-                                              $this->linkShowPageDate,
-                                              $this->linkShowCategory,
-                                              $this->linkPageDateSeparator,
-                                              $this->linkCategorySeparator,
-                                              false); // $allowFrontendEditing
-        $this->linkShowCategory = $getLinkCategory;
-
-        // -> add Thumbnail
-        if($pageThumbnail = $this->createThumbnail($page)) {
-          $link['thumbnail'] = $pageThumbnail['thumbnail'];
-          $link['thumbnailPath'] = $pageThumbnail['thumbnailPath'];
-        }
-
-        $links[] = $link;
-        unset($link);
-
       }
     }
 
@@ -2566,31 +2509,31 @@ class Feindura extends FeinduraBase {
     $this->linkActiveClass = $orgLinkActiveClass;
 
     // return the menu
-    return $this->generateMenu($links,$menuTag,$breakAfter);
+    return $this->generateMenu($links,$menuTag);
   }
   /**
   * Alias of {@link createBreadCrumbsMenu()}
   * @ignore
   */
-  public function createBreadCrumbMenu($id = false, $separator = ' > ', $menuTag = false, $breakAfter = false) {
+  public function createBreadCrumbMenu($id = false, $separator = ' > ', $menuTag = false) {
     // call the right function
-    return $this->createBreadCrumbsMenu($id, $separator, $menuTag, $breakAfter);
+    return $this->createBreadCrumbsMenu($id, $separator, $menuTag);
   }
   /**
   * Alias of {@link createBreadCrumbsMenu()}
   * @ignore
   */
-  public function createBreadCrumbs($id = false, $separator = ' > ', $menuTag = false, $breakAfter = false) {
+  public function createBreadCrumbs($id = false, $separator = ' > ', $menuTag = false) {
     // call the right function
-    return $this->createBreadCrumbsMenu($id, $separator, $menuTag, $breakAfter);
+    return $this->createBreadCrumbsMenu($id, $separator, $menuTag);
   }
   /**
   * Alias of {@link createBreadCrumbsMenu()}
   * @ignore
   */
-  public function createBreadCrumb($id = false, $separator = ' > ', $menuTag = false, $breakAfter = false) {
+  public function createBreadCrumb($id = false, $separator = ' > ', $menuTag = false) {
     // call the right function
-    return $this->createBreadCrumbsMenu($id, $separator, $menuTag, $breakAfter);
+    return $this->createBreadCrumbsMenu($id, $separator, $menuTag);
   }
 
  /**
@@ -2617,7 +2560,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$titleShowCategory
   * @uses Feindura::$titleCategorySeparator
   *
-  * @uses FeinduraBase::getPropertyIdsByString()	     to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()	     to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::createTitle()                  to generate the page title with the right title properties
   *
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page
@@ -2638,7 +2581,7 @@ class Feindura extends FeinduraBase {
   */
   public function showTitle($id = false) {
 
-    if($ids = $this->getPropertyIdsByString($id)) {
+    if($ids = $this->getIdsFromString($id)) {
 
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
@@ -2727,7 +2670,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailBefore
   * @uses Feindura::$thumbnailAfter
   *
-  * @uses FeinduraBase::getPropertyIdsByString()	              to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()	              to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                          to generate the array with the page elements
   *
   * @uses GeneralFunctions::getPageCategory()      to get the category of the page
@@ -2749,7 +2692,7 @@ class Feindura extends FeinduraBase {
   */
   public function showPage($id = false, $shortenText = false, $useHtml = true) {
 
-    $ids = $this->getPropertyIdsByString($id);
+    $ids = $this->getIdsFromString($id);
     $page = $ids[0];
     $category = $ids[1];
 
@@ -2789,7 +2732,7 @@ class Feindura extends FeinduraBase {
   *
   * @uses Feindura::$page
   * @uses Feindura::showPlugins()											 to check for the activated plugins
-  * @uses FeinduraBase::getPropertyIdsByString()	     to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()	     to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                 to generate the array with the page elements
   *
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page
@@ -2854,19 +2797,19 @@ class Feindura extends FeinduraBase {
   * {@example showPlugins.array.example.php}
   *
   *
-  * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
+  * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins. If its a plugin name and you want the plugin number 2. etc, you need to add the plugin number like "imageGallery#2".
   * @param int|string|array|bool  $id           (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param string|false           $divStyles    (optional) a string with styles, which will be add to the warapping div of the plugin. In the format: "witdh: 200px; height: 100px;"
   * @param bool									  $returnPlugin (optional) whether the plugin is returned, or only a boolean to check if the plugin is available for that page (used by {@link Feindura::hasPlugins()})
   *
   * @uses Feindura::$page
   *
-  * @uses FeinduraBase::getPropertyIdsByString()	     to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()	     to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                 to generate the array with the page elements
   *
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page
   *
-  * @return array|string|false with the plugin(s) HTML-code, ready to display in a HTML-page, or an empty Array, or FALSE if the plugin(s) or page doesn't exist or the page is not public
+  * @return array|string|false If a single plugin name is given it returns the plugins HTML-code, ready to display in a HTML-page, otherwise array with plugins, an empty array, or FALSE if the plugin(s) or page doesn't exist or the page is not public
   *
   * @see getPageTitle()
   * @see FeinduraBase::generatePage()
@@ -2874,9 +2817,10 @@ class Feindura extends FeinduraBase {
   * @example id.parameter.example.php $id parameter example
   *
   * @access public
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 add plugin numbers, to be able to add multile plugins of the same type
   *    - 1.0 initial release
   *
   */
@@ -2894,7 +2838,7 @@ class Feindura extends FeinduraBase {
     if(!is_array($plugins) && !is_bool($plugins))
       $plugins = array($plugins);
 
-    if($ids = $this->getPropertyIdsByString($id)) {
+    if($ids = $this->getIdsFromString($id)) {
 
       // LOAD the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
@@ -2905,49 +2849,53 @@ class Feindura extends FeinduraBase {
             // get the activated plugins
             $activatedPlugins = unserialize($this->categoryConfig[$pageContent['category']]['plugins']);
 
-            foreach($pageContent['plugins'] as $pluginName => $pluginContent) {
+            foreach($pageContent['plugins'] as $pluginName => $pagePlugins) {
+              foreach($pagePlugins as $pluginNumber => $pluginContent) {
+                // go through all plugins and load the required ones
+                if($pluginContent['active'] && // check if activated in the page
+                   (is_bool($plugins) || ($pluginNumber == 1 && in_array($pluginName,$plugins)) || in_array($pluginName.'#'.$pluginNumber,$plugins)) && // is in the requested plugins array
+                   is_array($activatedPlugins) && in_array($pluginName,$activatedPlugins)) { // activated in the adminConfig or categoryConfig
 
-              // go through all plugins and load the required ones
-              if($pluginContent['active'] && // check if activated in the page
-                 (is_bool($plugins) || in_array($pluginName,$plugins)) && // is in the requested plugins array
-                 is_array($activatedPlugins) && in_array($pluginName,$activatedPlugins)) { // activated in the adminConfig or categoryConfig
+                  if($returnPlugin) {
 
-                if($returnPlugin) {
-
-                  // -> PROVIDE VARS for INSIDE the PLUGIN
-                  $pluginConfig     = $pluginContent;
-                  $feindura         = $this;
-                  $feinduraBaseURL  = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']);
-                  $feinduraBasePath = $this->adminConfig['basePath'];
-                  $pluginBaseURL    = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']).'plugins/'.$pluginName.'/';
-                  $pluginBasePath   = $this->adminConfig['basePath'].'plugins/'.$pluginName.'/';
+                    // -> PROVIDE VARS for INSIDE the PLUGIN
+                    $feindura         = $this;
+                    $feinduraBaseURL  = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']);
+                    $feinduraBasePath = $this->adminConfig['basePath'];
+                    $pluginBaseURL    = $this->adminConfig['url'].GeneralFunctions::Path2URI($this->adminConfig['basePath']).'plugins/'.$pluginName.'/';
+                    $pluginBasePath   = $this->adminConfig['basePath'].'plugins/'.$pluginName.'/';
+                    $pluginConfig     = $pluginContent;
+                    //$pluginName
+                    //$pluginNumber
+                    //$pageContent
 
 
-                  // remove the active value from the plugin config
-                  unset($pluginConfig['active'],$pluginContent,$plugin);
+                    // remove the active value from the plugin config
+                    unset($pluginConfig['active'],$pluginContent,$plugin);
 
 
-                  // -> include the plugin
-                  ob_start();
-            		    include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/plugin.php');
-                    $pluginReturn = ob_get_contents();
-                  ob_end_clean();
+                    // -> include the plugin
+                    ob_start();
+              		    include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/plugin.php');
+                      $pluginReturn = ob_get_contents();
+                    ob_end_clean();
 
-                  // FALLBACK to support DEPRECATED plugins which use: return $plugin
-                  if(isset($plugin))
-                    $pluginReturn .= $plugin;
+                    // FALLBACK to support DEPRECATED plugins which use: return $plugin
+                    if(isset($plugin))
+                      $pluginReturn .= $plugin;
 
-                  // -> add div around the plugin
-                  $divStyles = (is_string($divStyles)) ? ' style="'.$divStyles.'"' : '';
-                  $pluginReturn = '<div class="feinduraPlugins feinduraPlugin_'.$pluginName.'" id="feinduraPlugin_'.$pluginName.'_'.$pageContent['id'].'"'.$divStyles.'>'.$pluginReturn.'</div>';
+                    // -> add div around the plugin
+                    $divStyles = (is_string($divStyles)) ? ' style="'.$divStyles.'"' : '';
+                    $pluginReturn = '<div class="feinduraPlugins feinduraPlugin_'.$pluginName.'" id="feinduraPlugin_'.$pluginName.'_'.$pageContent['id'].'"'.$divStyles.'>'.$pluginReturn.'</div>';
 
-                  if($singlePlugin) {
-                    return $pluginReturn;
-            		  } else
-                    $pluginsReturn[$pluginName] = $pluginReturn;
+                    if($singlePlugin) {
+                      return $pluginReturn;
+              		  } else
+                      $pluginsReturn[$pluginName] = $pluginReturn;
 
-                } else
-                  $pluginsReturn = true;
+                  } else
+                    $pluginsReturn = true;
+                }
               }
             }
           }
@@ -3049,7 +2997,7 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string    $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
   *
   *
   * @uses Feindura::$xHtml
@@ -3091,7 +3039,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function listPages($idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPages($idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false) {
 
     // vars
     $return = array();
@@ -3102,10 +3050,10 @@ class Feindura extends FeinduraBase {
     $pages = $this->loadPagesByType($idType,$ids);
 
     // -> if pages SORTED BY CATEGORY
-    if($sortByCategories === true)
+    if($sortPages === true)
       $pages = GeneralFunctions::sortPages($pages);
 
-    if($pages !== false) {
+    if(!empty($pages)) {
 
       // -> list a category(ies)
       // ------------------------------
@@ -3138,9 +3086,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link listPages()}
   * @ignore
   */
-  public function listPage($idType = 'category', $id = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPage($idType = 'category', $id = false, $shortenText = false, $useHtml = true, $sortPages = false) {
     // call the right function
-    return $this->listPages($idType, $id, $shortenText, $useHtml, $sortByCategories);
+    return $this->listPages($idType, $id, $shortenText, $useHtml, $sortPages);
   }
 
 /**
@@ -3167,7 +3115,7 @@ class Feindura extends FeinduraBase {
   * @param int|string|array|bool  $id                 (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param int|array|bool         $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string            $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool                   $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * @param bool                   $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
   *
   *
   * @uses Feindura::$xHtml
@@ -3207,14 +3155,14 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function listSubPages($id = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listSubPages($id = false, $shortenText = false, $useHtml = true, $sortPages = false) {
 
-    if($ids = $this->getPropertyIdsByString($id)) {
+    if($ids = $this->getIdsFromString($id)) {
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
         // return subcategory
         if(is_numeric($pageContent['subCategory']) && $this->categoryConfig[$pageContent['category']]['showSubCategory'])
-          return $this->listPages('category', $pageContent['subCategory'], $shortenText, $useHtml, $sortByCategories);
+          return $this->listPages('category', $pageContent['subCategory'], $shortenText, $useHtml, $sortPages);
       }
     }
 
@@ -3224,9 +3172,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link listSubPages()}
   * @ignore
   */
-  public function listSubPage($id = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listSubPage($id = false, $shortenText = false, $useHtml = true, $sortPages = false) {
     // call the right function
-    return $this->listSubPages($id, $shortenText, $useHtml, $sortByCategories);
+    return $this->listSubPages($id, $shortenText, $useHtml, $sortPages);
   }
 
 /**
@@ -3268,7 +3216,7 @@ class Feindura extends FeinduraBase {
   * @param int|string|bool $categoryId         (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
   * @param int|array|bool  $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string     $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool            $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
   *
   *
   * @uses Feindura::$xHtml
@@ -3308,14 +3256,14 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function listPagesOfSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPagesOfSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortPages = false) {
 
-    if($ids = $this->getPropertyIdsByString(array(false,$categoryId))) {
+    if($ids = $this->getIdsFromString(array(false,$categoryId))) {
       $categoryId = $ids[1];
       if($this->isSubCategory($categoryId)) {
         // create subcategory
         if($categoryId && is_numeric($categoryId) && $this->categoryConfig[$categoryId]['showSubCategory'])
-          return $this->listPages('category', $categoryId, $shortenText, $useHtml, $sortByCategories);
+          return $this->listPages('category', $categoryId, $shortenText, $useHtml, $sortPages);
       }
     }
 
@@ -3325,9 +3273,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link listPagesOfSubCategory()}
   * @ignore
   */
-  public function listPagesFromSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPagesFromSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortPages = false) {
     // call the right function
-    return $this->listPagesOfSubCategory($categoryId, $shortenText, $useHtml, $sortByCategories);
+    return $this->listPagesOfSubCategory($categoryId, $shortenText, $useHtml, $sortPages);
   }
 
  /**
@@ -3352,7 +3300,7 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string    $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
   *
   *
   * @uses Feindura::$xHtml
@@ -3392,13 +3340,13 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function listPagesByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPagesByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false) {
 
     $ids = $this->getPropertyIdsByType($idType,$ids);
 
     // check for the tags and LIST the PAGES
     if($ids = $this->checkPagesForTags($idType,$ids,$tags)) {
-      return $this->listPages($idType,$ids,$shortenText,$useHtml,$sortByCategories);
+      return $this->listPages($idType,$ids,$shortenText,$useHtml,$sortPages);
     } else
       return array();
   }
@@ -3406,25 +3354,25 @@ class Feindura extends FeinduraBase {
   * Alias of {@link listPagesByTags()}
   * @ignore
   */
-  public function listPagesByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPagesByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false) {
     // call the right function
-    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortByCategories);
+    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortPages);
   }
  /**
   * Alias of {@link listPagesByTags()}
   * @ignore
   */
-  public function listPageByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPageByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false) {
     // call the right function
-    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortByCategories);
+    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortPages);
   }
  /**
   * Alias of {@link listPagesByTags()}
   * @ignore
   */
-  public function listPageByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPageByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false) {
     // call the right function
-    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortByCategories);
+    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortPages);
   }
 
  /**
@@ -3433,10 +3381,10 @@ class Feindura extends FeinduraBase {
   *
   * <b>This method uses the {@link Feindura::$showErrors $error...}, {@link Feindura::$titleLength $title...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   *
-  * List pages by given category(ies) or page(s), sorted by the page date. Applies for pages which have a page date and it fit in the time period
-  * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter (starting from the current today).
+  * List pages by given a category(ies) or page(s) parameter. Applies for pages which have a page date (and page date is activated for that category!) and it fit in the given time period
+  * from the <var>$from</var> and the <var>$to</var> parameter (relative to the current date).
   *
-  * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
+  * The <var>$from</var> and <var>$to</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   *
   * Returns an array with multiple pages for displaying in a HTML-page.
   * In case no page with the given category or page ID(s) exist it returns an empty array.
@@ -3446,13 +3394,13 @@ class Feindura extends FeinduraBase {
   * Example usage:
   * {@example listPagesByTags.example.php}
   *
+  * @param int|bool|string $from                  (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
+  * @param int|bool|string $to                    (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
   * @param string          $idType                (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool  $ids                   (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
-  * @param int|bool|string $monthsInThePast       (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
-  * @param int|bool|string $monthsInTheFuture     (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27-06-2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
   * @param int|array|bool  $shortenText           (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string     $useHtml               (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool            $sortByCategories      (optional) if TRUE it sorts the given category or page ID(s) by category
+  * @param bool            $sortPages             (optional) if TRUE it sorts the pages like they are sorted in the backend
   *
   * @uses Feindura::$xHtml
   * @uses Feindura::$showErrors
@@ -3490,10 +3438,10 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function listPagesByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true, $sortByCategories = false, $reverseList = false) {
+  public function listPagesByDate($from = true, $to = true, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
 
       // gets the right pages and sorted by page date
-      $pageContents = $this->loadPagesByDate($idType,$ids,$monthsInThePast,$monthsInTheFuture,$sortByCategories,$reverseList);
+      $pageContents = $this->loadPagesByDate($from,$to,$idType,$ids,$sortPages,$reverseList);
       if($pageContents !== false)
         return $this->listPages($idType,$pageContents,$shortenText,$useHtml,false);
       else
@@ -3503,25 +3451,25 @@ class Feindura extends FeinduraBase {
   * Alias of {@link listPagesByDate()}
   * @ignore
   */
-  public function listPageByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
+  public function listPageByDate($from = true, $to = true, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
+    return $this->listPagesByDate($from, $to, $idType, $ids, $shortenText, $useHtml,$sortPages, $reverseList);
   }
  /**
   * Alias of {@link listPagesByDate()}
   * @ignore
   */
-  public function listPageByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
+  public function listPageByDates($from = true, $to = true, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
+    return $this->listPagesByDate($from, $to, $idType, $ids, $shortenText, $useHtml,$sortPages, $reverseList);
   }
  /**
   * Alias of {@link listPagesByDate()}
   * @ignore
   */
-  public function listPagesByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
+  public function listPagesByDates($from = true, $to = true, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
+    return $this->listPagesByDate($from, $to, $idType, $ids, $shortenText, $useHtml,$sortPages, $reverseList);
   }
 
  /**
@@ -3550,7 +3498,7 @@ class Feindura extends FeinduraBase {
   * {@example listPages.return.example.php}
   *
   *
-  * @param string         $sortCallback       the name of the callback function to sort the pages (the callback function is a function which can be passed to usort())
+  * @param string         $sortCallback       the name of the callback function to sort the pages (uses usort()). For a list of predefined available functions see {@link GeneralFunctions::sortPages()}
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)

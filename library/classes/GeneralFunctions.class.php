@@ -33,7 +33,7 @@
 * <br>
 *  <b>ChangeLog</b><br>
 *    - 1.4.1 add {@link GeneralFunctions::dump()}
-*    - 1.4 add {@link GeneralFunctions::replaceCodeSnippets()}
+*    - 1.4 add {@link GeneralFunctions::replaceSnippets()}
 *    - 1.3.1 add schemes to htmlLawed
 *    - 1.3 rewrite of checkLanguageFiles(), now loadLanguageFile()
 *    - 1.2 changed class to static class
@@ -123,16 +123,29 @@ class GeneralFunctions {
 
 
  /**
-  * Keeps an instance of the Feindura class to be used in the {@link GeneralFunctions::replaceCodeSnippets()} method.
+  * Keeps an instance of the Feindura class to be used in the {@link GeneralFunctions::replaceSnippets()} method.
   *
   *
-  * @see GeneralFunctions::replaceCodeSnippets()
+  * @see GeneralFunctions::replaceSnippets()
   *
   * @static
   * @var array
   *
   */
   public static $FeinduraCLass = null;
+
+
+ /**
+  * Stores the result of {@link GeneralFunctions::isAdmin()}, to speed it up.
+  *
+  *
+  * @see GeneralFunctions::isAdmin()
+  *
+  * @static
+  * @var bool
+  *
+  */
+  private static $isAdmin = null;
 
 
  /**
@@ -221,12 +234,12 @@ class GeneralFunctions {
   * @param string $standardLang the standard country code to return when no language code was get
   * @param bool   $simple       if TRUE it only returns a string with a language code, if FALSE it returns an array with the language
   *
-  * @return string|array  either a string with a language code, or a array in the format: array( [de-de] => 1, [en] => 0.5 ), depending on the <var>$simple</var> parameter
+  * @return string|array  either a string with a language code, or a array in the format: array( [de-DE] => 1, [en] => 0.5 ), depending on the <var>$simple</var> parameter
   *
   * @link   http://www.dyeager.org/post/2008/10/getting-browser-default-language-php
   * @static
   */
-  public static function getBrowserLanguages($standardLang = "en", $simple = true) {
+  public static function getBrowserLanguages($standardLang = "en-GB", $simple = true) {
     // var
     $language = array(strtolower($standardLang) => 1.0);
 
@@ -236,9 +249,9 @@ class GeneralFunctions {
       foreach ($x as $val) {
          #check for q-value and create associative array. No q-value means 1 by rule
          if(preg_match("/(.*);q=([0-1]{0,1}\.\d{0,4})/i",$val,$matches))
-            $lang[strtolower($matches[1])] = (float)$matches[2];
+            $lang[$matches[1]] = (float)$matches[2];
          else
-            $lang[strtolower($val)] = 1.0;
+            $lang[$val] = 1.0;
       }
 
       if(!empty($lang))
@@ -247,7 +260,7 @@ class GeneralFunctions {
 
     if($simple) {
       $language = key($language);
-      $language = substr($language, 0,2);
+      $language = substr($language,0,3).strtoupper(substr($language,3));
     }
 
     return $language;
@@ -334,9 +347,10 @@ class GeneralFunctions {
   * @see Feindura::createMetaTags()
   *
   * @static
-  * @version 1.1
+  * @version 1.2
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.2 changed "localTimezone" to "timezone"
   *    - 1.1 change timezone offsets to the current timezone offset
   *    - 1.0 initial release
   *
@@ -345,22 +359,22 @@ class GeneralFunctions {
 
     // unset($_SESSION['feinduraSession']['timezone']);
 
-    if(!function_exists('date_default_timezone_set'))
+    if(!self::$websiteConfig['visitorTimezone'] || !function_exists('date_default_timezone_set'))
       return false;
 
     // var
     $return = false;
     //unset($_SESSION['feinduraSession']['timezone']);
 
-    if(!isset($_SESSION['feinduraSession']['timezone'])) {
+    if(empty($_SESSION['feinduraSession']['timezone'])) {
 
-        if(!isset($_GET['localTimezone'])) {
+        if(empty($_GET['timezone'])) {
           $return = '
   <!-- Get the Visitors Timezone -->
   <script>
   var d = new Date()
   var localTimezoneOffset= -d.getTimezoneOffset()/60;
-  location.href = "'.self::addParameterToUrl('localTimezone').'"+localTimezoneOffset;
+  location.href = "'.self::addParameterToUrl('timezone').'"+localTimezoneOffset;
   </script>
 
 ';
@@ -369,7 +383,7 @@ class GeneralFunctions {
           // $zonelist = array('Kwajalein' => -12.00, 'Pacific/Midway' => -11.00, 'Pacific/Honolulu' => -10.00, 'America/Anchorage' => -9.00, 'America/Los_Angeles' => -8.00, 'America/Denver' => -7.00, 'America/Tegucigalpa' => -6.00, 'America/New_York' => -5.00, 'America/Caracas' => -4.30, 'America/Halifax' => -4.00, 'America/St_Johns' => -3.30, 'America/Argentina/Buenos_Aires' => -3.00, 'America/Sao_Paulo' => -3.00, 'Atlantic/South_Georgia' => -2.00, 'Atlantic/Azores' => -1.00, 'Europe/Dublin' => 0, 'Europe/Belgrade' => 1.00, 'Europe/Minsk' => 2.00, 'Asia/Kuwait' => 3.00, 'Asia/Tehran' => 3.30, 'Asia/Muscat' => 4.00, 'Asia/Yekaterinburg' => 5.00, 'Asia/Kolkata' => 5.30, 'Asia/Katmandu' => 5.45, 'Asia/Dhaka' => 6.00, 'Asia/Rangoon' => 6.30, 'Asia/Krasnoyarsk' => 7.00, 'Asia/Brunei' => 8.00, 'Asia/Seoul' => 9.00, 'Australia/Darwin' => 9.30, 'Australia/Canberra' => 10.00, 'Asia/Magadan' => 11.00, 'Pacific/Fiji' => 12.00, 'Pacific/Tongatapu' => 13.00);
           // -> current difference
           $zonelist = array('Kwajalein' => -12.00, 'Pacific/Midway' => -11.00, 'Pacific/Honolulu' => -10.00, 'America/Anchorage' => -8.00, 'America/Los_Angeles' => -7.00, 'America/Denver' => -6.00, 'America/Tegucigalpa' => -6.00, 'America/New_York' => -4.00, 'America/Caracas' => -4.30, 'America/Halifax' => -3.00, 'America/St_Johns' => -2.30, 'America/Argentina/Buenos_Aires' => -3.00, 'America/Sao_Paulo' => -3.00, 'Atlantic/South_Georgia' => -2.00, 'Atlantic/Azores' => 0, 'Europe/Dublin' => 1.00, 'Europe/Belgrade' => 2.00, 'Europe/Minsk' => 3.00, 'Asia/Kuwait' => 3.00, 'Asia/Tehran' => 4.30, 'Asia/Muscat' => 4.00, 'Asia/Yekaterinburg' => 6.00, 'Asia/Kolkata' => 5.30, 'Asia/Katmandu' => 5.45, 'Asia/Dhaka' => 6.00, 'Asia/Rangoon' => 6.30, 'Asia/Krasnoyarsk' => 8.00, 'Asia/Brunei' => 8.00, 'Asia/Seoul' => 9.00, 'Australia/Darwin' => 9.30, 'Australia/Canberra' => 10.00, 'Asia/Magadan' => 12.00, 'Pacific/Fiji' => 12.00, 'Pacific/Tongatapu' => 13.00);
-          $index = array_keys($zonelist, $_GET['localTimezone']);
+          $index = array_keys($zonelist, $_GET['timezone']);
           $_SESSION['feinduraSession']['timezone'] = $index[0];
         }
     }
@@ -408,9 +422,15 @@ class GeneralFunctions {
     // var
     $otherUserIsAdmin = false;
 
+    // if already set
+    if(self::$isAdmin !== null)
+      return self::$isAdmin;
+
     // if no user exist, make the logged in one an admin
-    if(USERID === false || self::$userConfig[USERID]['admin'])
+    if(USERID === false || self::$userConfig[USERID]['admin']) {
+      self::$isAdmin = true;
       return true;
+    }
 
     // check if there is no other users which is admin
     if(is_array(self::$userConfig)) {
@@ -423,10 +443,14 @@ class GeneralFunctions {
     }
 
     // if no user is admin or no user exists, all are Admins
-    if($otherUserIsAdmin === false)
+    if($otherUserIsAdmin === false) {
+      self::$isAdmin = true;
       return true;
-    else
+    }
+    else {
+      self::$isAdmin = false;
       return false;
+    }
   }
 
  /**
@@ -503,9 +527,10 @@ class GeneralFunctions {
    * @return string the new url with add parameter
    *
    *
-   * @version 2.0
+   * @version 2.1
    * <br>
    * <b>ChangeLog</b><br>
+   *    - 2.1 changed &amp; to &
    *    - 2.0 complete rewrite based on {@link http://stackoverflow.com/questions/909193/is-there-a-php-library-that-handles-url-parameters-adding-removing-or-replacin}
    *    - 1.0.1 moved to GeneralFunctions class
    *    - 1.0 initial release
@@ -526,7 +551,7 @@ class GeneralFunctions {
       $params[$key] = $value;
 
     $query = http_build_query($params);
-    return '?'.str_replace('&','&amp;',$query);
+    return '?'.$query;
   }
 
  /**
@@ -587,7 +612,7 @@ class GeneralFunctions {
   *
   * @param string $path the path to change
   *
-  * @return string the changed path
+  * @return string|false the changed path or FALSE, when the path couldn't be converted
   *
   * @see URIEXTENSION
   *
@@ -598,7 +623,18 @@ class GeneralFunctions {
   *
   */
   public static function Path2URI($path) {
-    return URIEXTENSION.$path;
+    if(strpos($path, DOCUMENTROOT) !== false) {
+      if($path = self::getRealPath($path)) {
+        $path = str_replace(DOCUMENTROOT,'',$path);
+        $path .= '/';
+        $path = preg_replace('#/+#', "/", $path);
+      }
+    }
+
+    if($path)
+      return URIEXTENSION.$path;
+    else
+      return false;
   }
 
 /**
@@ -830,29 +866,30 @@ class GeneralFunctions {
    * @param string       $value               the name of the value, which should be returned localized
    * @param bool|string  $forceOrUseLanguage  if TRUE the language will be forced to be loaded, even if it does not exist, if string it will be try this as the testing language code, instead of the <var>$_SESSION['feinduraSession']['websiteLanguage']</var> var
    *
-  * @return string the localized version of the <var>$value</var> parameter
+   * @return string the localized version of the <var>$value</var> parameter
    *
    *
    * @static
-   * @version 1.2
+   * @version 1.3
    * <br>
    * <b>ChangeLog</b><br>
+   *    - 1.3 add $forceLanguage again
    *    - 1.2 the $localizedArray is now an array with an localized array, e.g. to give the $categoryConfig directly
    *    - 1.1 changed $forceLanguage to $forceOrUseLanguage
    *    - 1.0 initial release
    *
    */
-  public static function getLocalized($localizedArray, $value, $forceOrUseLanguage = false) {
+  public static function getLocalized($localizedArray, $value, $languageCode = false, $forceLanguage = false) {
 
     // var
     $localizedArray = (isset($localizedArray['localized'])) ? $localizedArray['localized'] : $localizedArray; // LEGACY - in case its forgotten somewhere to reomve the 'localized'
-    $languageCode = (!is_bool($forceOrUseLanguage) && is_string($forceOrUseLanguage) && strlen($forceOrUseLanguage) == 2)
-      ? $forceOrUseLanguage
+    $languageCode = (is_string($languageCode) && strlen($languageCode) == 2)
+      ? $languageCode
       : $_SESSION['feinduraSession']['websiteLanguage'];
 
     // get the one matching $languageCode
     if((isset($localizedArray[$languageCode]) && !empty($localizedArray[$languageCode][$value])) ||
-       $forceOrUseLanguage === true)
+       $forceLanguage === true)
       $localizedValues = $localizedArray[$languageCode];
 
     // if not get the one matching the "Main Language"
@@ -949,6 +986,7 @@ class GeneralFunctions {
   *
   * @param int|array  $page           a page ID or a $pageContent array (will then returned immediately)
   * @param int        $category       (optional) a category ID, if FALSE it will try to load this page from the non-category
+  * @param bool       $readPrevious   (optional) if TRUE it will read the previous state of the page instead of the current page
   *
   * @uses getStoredPages()		for getting the {@link $storedPages} property
   * @uses addStoredPage()		to store a new loaded $pageContent array in the {@link $storedPages} property
@@ -962,7 +1000,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function readPage($page,$category = false) {
+  public static function readPage($page,$category = false,$readPrevious = false) {
     //echo 'PAGE: '.$page.' -> '.$category.'<br>';
 
     // var
@@ -974,7 +1012,11 @@ class GeneralFunctions {
     elseif(!is_numeric($page))
       return false;
 
-    $storedPages = self::getStoredPages();
+    // dont try to load stored pages when reading the previous state
+    if(!$readPrevious)
+      $storedPages = self::getStoredPages();
+    else
+      $storedPages = array();
 
     // ->> IF the page is already loaded
     if(isset($storedPages[$page])) {
@@ -984,9 +1026,12 @@ class GeneralFunctions {
     // ->> ELSE load the page and store it in the storePages PROPERTY
     } else {
 
+      // add the previous name when reading the previous state
+      $previous = ($readPrevious) ? '.previous' : '';
+
       // adds .php to the end if its missing
       if(substr($page,-4) != '.php')
-        $page .= '.php';
+        $page .= $previous.'.php';
 
       // adds a slash behind the $category / if she isn't empty
       if(!empty($category))
@@ -1000,7 +1045,7 @@ class GeneralFunctions {
       //echo 'CATEGORY: '.$category.'<br>';
 
       // ->> INCLUDE
-      if($fp = @fopen(dirname(__FILE__).'/../../pages/'.$category.$page,'r')) {
+      if($fp = @fopen(dirname(__FILE__).'/../../pages/'.$category.$page,'rb')) {
         flock($fp,LOCK_SH);
         $pageContent = @include(dirname(__FILE__).'/../../pages/'.$category.$page);
         flock($fp,LOCK_UN);
@@ -1009,6 +1054,7 @@ class GeneralFunctions {
 
       // return content array
       if(is_array($pageContent)) {
+
         // UNESCPAE the SINGLE QUOTES '
         if(is_array($pageContent['localized'])) {
           foreach ($pageContent['localized'] as $key => $value)
@@ -1017,7 +1063,11 @@ class GeneralFunctions {
         } else
           $pageContent['content'] = str_replace("\'", "'", $pageContent['content']);
 
-        return self::addStoredPage($pageContent);
+        // dont store the page when reading the previous state
+        if(!$readPrevious)
+          return self::addStoredPage($pageContent);
+        else
+          return $pageContent;
 
       // return failure while loading the content (file exists but couldn't be loaded)
       } elseif($pageContent === 1) {
@@ -1043,6 +1093,7 @@ class GeneralFunctions {
   *    - <var>"\n?>"</var> the php end tag
   *
   * @param array        $pageContent       the $pageContent array of the page to save
+  * @param bool         $readPrevious      (optional) if TRUE it will save the given $pageContent as a previous state of the page
   *
   * @uses $adminConfig      for the save path of the flatfiles
   * @uses addStoredPage()  to store the saved file agiain, and overwrite th old stored page
@@ -1062,7 +1113,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function savePage($pageContent) {
+  public static function savePage($pageContent,$savePrevious = false) {
 
     // check if array is pageContent array
     if(!self::isPageContentArray($pageContent))
@@ -1081,8 +1132,11 @@ class GeneralFunctions {
 
     // get path
     $filePath = ($categoryId === false || $categoryId == 0)
-    ? dirname(__FILE__).'/../../pages/'.$pageId.'.php'
-    : dirname(__FILE__).'/../../pages/'.$categoryId.'/'.$pageId.'.php';
+    ? dirname(__FILE__).'/../../pages/'.$pageId
+    : dirname(__FILE__).'/../../pages/'.$categoryId.'/'.$pageId;
+
+    // previous or current state
+    $filePath .= ($savePrevious) ? '.previous.php' : '.php';
 
     // escape \ and '
     $pageContent = XssFilter::escapeBasics($pageContent);
@@ -1100,30 +1154,34 @@ class GeneralFunctions {
     $fileContent .= "\$pageContent['lastSaveDate']       = ".XssFilter::int($pageContent['lastSaveDate'],0).";\n";
     $fileContent .= "\$pageContent['lastSaveAuthor']     = ".XssFilter::int($pageContent['lastSaveAuthor'],'false').";\n\n"; // user id
 
-    $fileContent .= "\$pageContent['pageDate']['date']   = ".XssFilter::int($pageContent['pageDate']['date'],0).";\n\n";
+    $fileContent .= "\$pageContent['pageDate']['start']  = ".XssFilter::int($pageContent['pageDate']['start'],0).";\n";
+    $fileContent .= "\$pageContent['pageDate']['end']    = ".XssFilter::int($pageContent['pageDate']['end'],0).";\n\n";
 
     // write the plugins
     if(is_array($pageContent['plugins'])) {
-      foreach($pageContent['plugins'] as $key => $value) {
+      foreach($pageContent['plugins'] as $pluginName => $plugins) {
         // save plugin settings only if plugin is activated
-        if($pageContent['plugins'][$key]['active']) {
-          foreach($value as $insideKey => $finalValue) {
-            // CHECK BOOL VALUES and change to FALSE
-            if(strpos(strtolower($insideKey),'bool') !== false ||
-               is_bool($pageContent['plugins'][$key][$insideKey]) ||
-               $pageContent['plugins'][$key][$insideKey] == 'true' ||
-               $pageContent['plugins'][$key][$insideKey] == 'false')
-              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = ".XssFilter::bool($pageContent['plugins'][$key][$insideKey],true).";\n";
-            elseif(strpos(strtolower($insideKey),'url') !== false)
-              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::url($pageContent['plugins'][$key][$insideKey])."';\n";
-            elseif(strpos(strtolower($insideKey),'path') !== false)
-              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::path($pageContent['plugins'][$key][$insideKey])."';\n";
-            elseif(strpos(strtolower($insideKey),'number') !== false)
-              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::number($pageContent['plugins'][$key][$insideKey])."';\n";
-            else
-              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::text($pageContent['plugins'][$key][$insideKey])."';\n";
+        foreach($plugins as $pluginNumber => $plugin) {
+          if($plugin['active']) {
+            foreach($plugin as $insideKey => $finalValue) {
+              // CHECK BOOL VALUES and change to FALSE
+              if(!is_numeric($plugin[$insideKey]) &&
+                 (strpos(strtolower($insideKey),'bool') !== false ||
+                 is_bool($plugin[$insideKey]) ||
+                 $plugin[$insideKey] == 'true' ||
+                 $plugin[$insideKey] == 'false'))
+                $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = ".XssFilter::bool($plugin[$insideKey],true).";\n";
+              elseif(strpos(strtolower($insideKey),'url') !== false)
+                $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = '".XssFilter::url($plugin[$insideKey])."';\n";
+              elseif(strpos(strtolower($insideKey),'path') !== false)
+                $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = '".XssFilter::path($plugin[$insideKey])."';\n";
+              elseif(strpos(strtolower($insideKey),'number') !== false)
+                $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = ".XssFilter::number($plugin[$insideKey]).";\n";
+              else
+                $fileContent .= "\$pageContent['plugins']['".$pluginName."'][".$pluginNumber."]['".$insideKey."'] = '".XssFilter::text($plugin[$insideKey])."';\n";
+            }
+            $fileContent .= "\n";
           }
-          $fileContent .= "\n";
         }
       }
     }
@@ -1140,13 +1198,12 @@ class GeneralFunctions {
         // remove the '' when its 0 (for non localized pages)
         $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
 
-        $fileContent .= "\$pageContent['localized'][".$langCode."]['pageDate']['before'] = '".XssFilter::text($pageContentLocalized['pageDate']['before'])."';\n";
-        $fileContent .= "\$pageContent['localized'][".$langCode."]['pageDate']['after']  = '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
         $fileContent .= "\$pageContent['localized'][".$langCode."]['tags']               = '".XssFilter::text($pageContentLocalized['tags'])."';\n";
         $fileContent .= "\$pageContent['localized'][".$langCode."]['title']              = '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
         $fileContent .= "\$pageContent['localized'][".$langCode."]['description']        = '".XssFilter::text($pageContentLocalized['description'])."';\n";
 
         $content = (self::$adminConfig['editor']['htmlLawed']) ? self::htmLawed($pageContentLocalized['content']) : $pageContentLocalized['content'];
+        $content = self::cleanPluginPlaceholders($content);
         $fileContent .= "\$pageContent['localized'][".$langCode."]['content']            = '".trim($content)."';\n\n";
       }
     }
@@ -1158,14 +1215,17 @@ class GeneralFunctions {
 
       @chmod($filePath,self::$adminConfig['permissions']);
 
-      // writes the new saved page to the $storedPages property
-      self::removeStoredPage($pageContent['id']); // remove the old one
-      unset($pageContent);
-      $pageContent = include($filePath);
-      self::addStoredPage($pageContent);
+      // only when current, reload the storedPages array and pagesMetaData
+      if(!$savePrevious) {
+        // writes the new saved page to the $storedPages property
+        self::removeStoredPage($pageContent['id']); // remove the old one
+        unset($pageContent);
+        $pageContent = include($filePath);
+        self::addStoredPage($pageContent);
 
-      // reload the $pagesMetaData array
-      self::savePagesMetaData();
+        // reload the $pagesMetaData array
+        self::savePagesMetaData();
+      }
 
       return true;
     } else
@@ -1228,6 +1288,9 @@ class GeneralFunctions {
       return false;
     }
 
+    // sort the pages
+    $pages = self::sortPages($pages);
+
     $fileContent = "<?php\n";
 
     foreach($pages as $pageContent) {
@@ -1235,13 +1298,14 @@ class GeneralFunctions {
       // CREATE file content
       $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['id']       = ".XssFilter::int($pageContent['id'],0).";\n";
       $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['category'] = ".XssFilter::int($pageContent['realCategory'],0).";\n";
+      $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['public']   = ".XssFilter::bool($pageContent['public'],true).";\n";
       if(self::$websiteConfig['startPage'] == $pageContent['id'])
         $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['startPage'] = true;\n";
       if(!empty($pageContent['modified']))
         $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['modified'] = ".$pageContent['modified'].";\n";
 
 
-      // save localized titles
+      // save LOCALIZED TITLES
       if(is_array($pageContent['localized'])) {
         foreach ($pageContent['localized'] as $langCode => $pageContentLocalized) {
           // remove the '' when its 0 (for non localized pages)
@@ -1280,6 +1344,50 @@ class GeneralFunctions {
 
   }
 
+/**
+  * <b>Name</b> getPagesMetaDataOfCategory()<br>
+  *
+  * Filters the {@link GeneralFunctions::$pagesMetaData} array and retruns only the pages which have a specific category.
+  *
+  *
+  * @param bool|int|array  $category  (optional) a category ID, or an array with category IDs. TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
+  *
+  * @uses GeneralFunctions::$pagesMetaData
+  *
+  * @return array an array with the $pagesMetaData arrays of the pages in a specific category
+  *
+  * @example pagesMetaData.array.example.php
+  *
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public static function getPagesMetaDataOfCategory($category = false) {
+
+    // IF $category FALSE set $category to 0
+    if($category === false)
+      $category = 0;
+
+    // IF $category TRUE use all Categories
+    if($category === true)
+      $category = array_keys(self::$categoryConfig);
+
+    // change category into array
+    if(is_numeric($category))
+      $category = array($category);
+
+    $filteredPageMetaData = array();
+    if(is_array($category)) {
+      foreach(self::$pagesMetaData as $pageMetaData) {
+        if(in_array($pageMetaData['category'],$category))
+          $filteredPageMetaData[$pageMetaData['id']] = $pageMetaData;
+      }
+    }
+    return $filteredPageMetaData;
+  }
 
  /**
   * <b>Name</b> loadPages()<br>
@@ -1297,7 +1405,6 @@ class GeneralFunctions {
   * {@example loadPages.return.example.php}
   *
   * @param bool|int|array  $category           (optional) a category ID, or an array with category IDs. TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
-  * @param bool		         $loadPagesInArray   (optional) if TRUE it returns the $pageContent arrays of the pages in the categories, if FALSE it only returns the page IDs of the requested category(ies). See the <var>$pagesMetaData</var> example below
   *
   * @uses $categoryConfig     to get the sorting of the category
   * @uses getStoredPages()		for getting the {@link $storedPages} property
@@ -1316,66 +1423,52 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function loadPages($category = false, $loadPagesInArray = true) {
+  public static function loadPages($category = true) {
 
     // IF $category FALSE set $category to 0
     if($category === false)
       $category = 0;
 
+    // IF $category TRUE use all Categories
+    if($category === true)
+      $category = array_keys(self::$categoryConfig);
+
+    // change category into array
+    if(is_numeric($category))
+      $category = array($category);
+
+
     // ->> RETURN $pageContent arrays
-    if($loadPagesInArray === true) {
 
-      //vars
-      $pagesArray = array();
+    //vars
+    $pagesArray = array();
 
-      // IF $category TRUE use all Categories
-      if($category === true)
-        $category = array_keys(self::$categoryConfig);
+    // go trough all given CATEGORIES
+    if(is_array($category)) {
+      foreach($category as $categoryId) {
 
-      // change category into array
-      if(is_numeric($category))
-        $category = array($category);
-
-      // go trough all given CATEGORIES
-      if(is_array($category)) {
-        foreach($category as $categoryId) {
-
-          // go trough the $pagesMetaData and open the page in it
-          $newPageContentArrays = array();
-          foreach(self::$pagesMetaData as $pageMetaData) {
-            // use only pages from the right category
-            if($pageMetaData['category'] == $categoryId) {
-              //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br>';
-              $newPageContentArrays[] = self::readPage($pageMetaData['id'],$pageMetaData['category']);
-            }
-          }
-
-          // sorts the category
-          if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
-            $newPageContentArrays = self::sortPages($newPageContentArrays);
-          }
-
-          // adds the new sorted category to the return array
-          $pagesArray = array_merge($pagesArray,$newPageContentArrays);
-        }
-      }
-      //print_r($pagesArray);
-      return $pagesArray;
-
-    // ->> RETURN ONLY the page & category IDs
-    } else {
-      $newPageIds = false;
-      if($category === true)
-        $newPageIds = $pageMetaData;
-      else {
+        // go trough the $pagesMetaData and open the page in it
+        $newPageContentArrays = array();
         foreach(self::$pagesMetaData as $pageMetaData) {
-          if($category == $pageMetaData['category'] ||
-             (is_array($category) && in_array($pageMetaData['category'],$category)))
-            $newPageIds[] = $pageMetaData;
+          // use only pages from the right category
+          if($pageMetaData['category'] == $categoryId) {
+            //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br>';
+            $newPageContentArrays[] = self::readPage($pageMetaData['id'],$pageMetaData['category']);
+          }
         }
+
+        // sorts the category
+        if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
+          $newPageContentArrays = self::sortPages($newPageContentArrays);
+        }
+
+        // adds the new sorted category to the return array
+        $pagesArray = array_merge($pagesArray,$newPageContentArrays);
       }
-      return $newPageIds;
     }
+    //print_r($pagesArray);
+    return $pagesArray;
+
   }
 
  /**
@@ -1417,7 +1510,7 @@ class GeneralFunctions {
     // IF $category TRUE create array with non-category and all category IDs
     if($category === true) {
     	// puts the categories IDs in an array
-    	$category = array(0); // start with the non category
+    	$category = array(); // start with the non category
     	if(is_array(self::$categoryConfig)) {
       	foreach(self::$categoryConfig as $eachCategory) {
       	  $category[] = $eachCategory['id'];
@@ -1581,8 +1674,9 @@ class GeneralFunctions {
   *
   * Converst a given timestamp into the a specific format type.
   *
-  * @param int    $timeStamp a UNIX-Timestamp
-  * @param string $format    (optional) the format type can be "DMY" to format into: "DD-MM-YYYY", "YMD" to format into: "YYYYY-MM-DD" or "MDY" to format into: "MM-DD-YYYYY", if FALSE it uses the format set in the administrator-settings config
+  * @param int          $timeStamp a UNIX-Timestamp
+  * @param string|false $format    (optional) the format type can be "DMY" to format into: "DD.MM.YYYY", "YMD" to format into: "YYYYY-MM-DD" or "MDY" to format into: "MM/DD/YYYYY", if FALSE it uses the format set in the administrator-settings config
+  * @param string       $dateSize  (optional) can be 'D', 'DM' or 'DMY', to display only days, days and month or a full day
   *
   * @uses $adminConfig  to get the right date format, if no format is given
   *
@@ -1597,23 +1691,50 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function formatDate($timeStamp, $format = false) {
+  public static function formatDate($timeStamp, $dateSize = 'DMY') {
 
+    // if no timestamp, pass it through
     if(empty($timeStamp) || !preg_match('/^[0-9]{1,}$/',$timeStamp))
       return $timeStamp;
 
-    if($format === false)
-      $format = self::$adminConfig['dateFormat'];
+    // get the right date format
+    if(!empty($GLOBALS['backendDateFormat']))
+      $format = $GLOBALS['backendDateFormat'];
+    else
+      $format = self::$websiteConfig['dateFormat'];
 
-    switch ($format) {
-      case 'YMD':
-        return date('Y-m-d',$timeStamp);
+    switch($format) {
+      case 'Y-M-D':
+        if($dateSize == 'DMY')
+          return date('Y-m-d',$timeStamp);
+        elseif($dateSize == 'DM')
+          return date('m-d',$timeStamp);
+        elseif($dateSize == 'D')
+          return date('m-d',$timeStamp);
         break;
-      case 'DMY':
-        return date('d.m.Y',$timeStamp);
+      case 'D.M.Y':
+        if($dateSize == 'DMY')
+          return date('d.m.Y',$timeStamp);
+        elseif($dateSize == 'DM')
+          return date('d.m',$timeStamp);
+        elseif($dateSize == 'D')
+          return date('d.',$timeStamp);
         break;
-      case 'MDY':
-        return date('m/d/Y',$timeStamp);
+      case 'D/M/Y':
+        if($dateSize == 'DMY')
+          return date('d/m/Y',$timeStamp);
+        elseif($dateSize == 'DM')
+          return date('d/m',$timeStamp);
+        elseif($dateSize == 'D')
+          return date('d',$timeStamp);
+        break;
+      case 'M/D/Y':
+        if($dateSize == 'DMY')
+          return date('m/d/Y',$timeStamp);
+        elseif($dateSize == 'DM')
+          return date('m/d',$timeStamp);
+        elseif($dateSize == 'D')
+          return date('m/d',$timeStamp);
         break;
       default:
         return $timeStamp;
@@ -1625,12 +1746,14 @@ class GeneralFunctions {
   * <b>Name</b> dateDayBeforeAfter()<br>
   *
   * Replaces the given <var>$date</var> parameter with "yesterday", "today" or "tomorrow" if it is one day before or the same day or one day after today.
+  * It will also wrap the date(s) in a <time> tag.
   *
   * <b>Used Global Variables</b><br>
   *    - <var>$langFile</var> the backend language-file array (included in the {@link backend.include.php})
   *
   * @param int          $timestamp      the timestamp to check
-  * @param array|false  $langFile       the languageFile which contains the ['DATE_TEXT_YESTERDAY'], ['DATE_TEXT_TODAY'] and ['DATE_TEXT_TOMORROW'] texts, if FALSE it loads the backend language-file
+  * @param array|false  $langFile       (optional) the languageFile which contains the ['DATE_TEXT_YESTERDAY'], ['DATE_TEXT_TODAY'] and ['DATE_TEXT_TOMORROW'] texts, if FALSE it loads the backend language-file
+  * @param string       $dateSize       (optional) can be 'D', 'DM' or 'DMY', to display only days, days and month or a full day
   *
   * @return string|int a string with "yesterday", "today" or "tomorrow" or the unchanged timestamp
   *
@@ -1642,66 +1765,100 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function dateDayBeforeAfter($timestamp,$langFile = false) {
+  public static function dateDayBeforeAfter($timestamp,$langFile = false, $dateSize = 'DMY') {
 
     if(empty($timestamp) || !preg_match('/^[0-9]{1,}$/',$timestamp))
       return $timestamp;
 
     //var
     $date = date('Y-m-d',$timestamp);
+    $return = '';
 
     if($langFile === false)
       $langFile = $GLOBALS['langFile'];
 
     // if the date is TODAY
     if(substr($date,0,10) == date('Y-m-d'))
-      return $langFile['DATE_TEXT_TODAY'];
+      $return = $langFile['DATE_TEXT_TODAY'];
 
     // if the date is YESTERDAY
     elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')-1)))
-      return $langFile['DATE_TEXT_YESTERDAY'];
+      $return = $langFile['DATE_TEXT_YESTERDAY'];
 
     // if the date is TOMORROW
     elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')+1)))
-      return $langFile['DATE_TEXT_TOMORROW'];
+      $return = $langFile['DATE_TEXT_TOMORROW'];
 
     else
-      return $timestamp;
+      $return = self::formatDate($timestamp,$dateSize);
+
+    return '<time datetime="'.self::getDateTimeValue($timestamp).'">'.$return.'</time>';
   }
 
- /**
-  * <b>Name</b> checkPageDate()<br>
+  /**
+  * <b>Name</b> showPageDate()<br>
   *
-  * Returns TRUE if the page date exists and is activated in this category of the page.
+  * Returns either a single page date or a date range formated, ready to display in an HTML page.
   *
   * @param array $pageContent the $pageContent array of a page
   *
   * @uses $categoryConfig to check if in the category the page date is activated
   *
-  * @return bool
+  * @return string|false the formated page date(s) or false if they the page has no page date or its deactivated in the category
   *
   * @static
-  * @version 1.2
+  * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.2 moved to GeneralFunctions
-  *    - 1.1 add pagedate for non-categories
   *    - 1.0 initial release
   *
   */
-  public static function checkPageDate($pageContent) {
-    $pageDate = self::getLocalized($pageContent,'pageDate');
-    $pageDateBefore = $pageDate['before'];
-    $pageDateAfter = $pageDate['after'];
-    if(self::$categoryConfig[$pageContent['category']]['showPageDate'] &&
-       (!empty($pageDateBefore) || !empty($pageContent['pageDate']['date']) || $pageContent['pageDate']['date'] === 0 || !empty($pageDateAfter)))
-       return true;
-    else
-       return false;
+  public static function showPageDate($pageContent,$langFile = false) {
+
+    // quit if deactivated
+    if(!self::$categoryConfig[$pageContent['category']]['showPageDate'])
+      return false;
+
+    if($langFile === false)
+      $langFile = $GLOBALS['langFile'];
+
+    // DATE RANGE
+    if(self::$categoryConfig[$pageContent['category']]['pageDateAsRange'] && !empty($pageContent['pageDate']['end'])) {
+
+      // BOTH dates EXIST
+      if(!empty($pageContent['pageDate']['start'])) {
+
+        // get the startdate (either: "d - .." or "d.m. - .." or "d.m.Y - ..")
+        $startDate = '';
+        if(date('Y',$pageContent['pageDate']['start']) == date('Y',$pageContent['pageDate']['end'])) {
+          if(date('m',$pageContent['pageDate']['start']) == date('m',$pageContent['pageDate']['end']))
+            if(date('d',$pageContent['pageDate']['start']) == date('d',$pageContent['pageDate']['end']))
+              $startDate = false;
+            else
+              $startDate = self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile,'D');
+          else
+            $startDate = self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile,'DM');
+        // full start date
+        } else
+          $startDate = self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile);
+
+        return ($startDate)
+          ? $startDate.' - '.self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile)
+          : self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile);
+
+      // ONLY LAST date EXIST (unlikely)
+      } else
+        return self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile);
+
+    // SINGLE DATE
+    } elseif(!empty($pageContent['pageDate']['start'])) {
+        return self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile);
+    } else
+        return false;
   }
 
  /**
-  * <b>Name</b> getFlagHref()<br>
+  * <b>Name</b> getFlagSrc()<br>
   *
   * Returns the right flag from the <var>library/images/icons/flags</var> folder.
   * If no flag with the given <var>$countryCode</var> parameter exists, it returns a generic flag (<var>library/images/icons/flags/none.png</var>).
@@ -1718,7 +1875,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function getFlagHref($countryCode, $backend = true) {
+  public static function getFlagSrc($countryCode, $backend = true) {
 
     // var
     $countryCode = strtolower($countryCode);
@@ -1767,7 +1924,7 @@ class GeneralFunctions {
   }
 
 /**
-  * <b>Name</b> replaceCodeSnippets()<br>
+  * <b>Name</b> replaceSnippets()<br>
   *
   * Replaces all feindura code snippets (e.g. "<img class="feinduraSnippet"...>) inside the given <var>$pageContentString</var> parameter, with either a code snippet or a plugin.
   *
@@ -1783,15 +1940,15 @@ class GeneralFunctions {
   * @see saveFeeds()
   *
   * @access protected
-  * @version 1.1
+  * @version 1.2
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.2 improved the reg ex to be able to catch multiple plugins of the same type.
   *    - 1.1 add empty code snippet replacement
   *    - 1.0 initial release
   *
   */
-  public function replaceCodeSnippets($pageContentString, $pageId, $removeSnippets = false) {
-
+  public function replaceSnippets($pageContentString, $pageId, $removeSnippets = false) {
     // get the Feindura class to be used inside the snippets/plugins
     if(!$removeSnippets) {
       if($this instanceof Feindura) {
@@ -1809,7 +1966,9 @@ class GeneralFunctions {
     $feindura_pageContentString = $pageContentString;
 
 
-    if(preg_match_all ('#<img.*class\=\"(feinduraSnippet|feinduraPlugin)\"[^>]*(?:style\=\"((?:(?:width|height)\:\s?(?:[0-9]*(?:%|px))\;\s?){0,2})\")?[^>]*title\="([^\"]+)?"[^>]*>#i', $feindura_pageContentString, $matches,PREG_SET_ORDER)) {
+    if(preg_match_all ('#<img(?:(?!class).)*class\=\"(feinduraSnippet|feinduraPlugin)\"(?:(?:(?!style).)*style\=\"((?:(?!").)*)")?(?:(?!title).)*title\="((?:(?!").)*)"(?:(?!>).)*>#i', $feindura_pageContentString, $matches,PREG_SET_ORDER)) {
+      // self::dump($matches);
+
       // replace each link
       foreach($matches as $feindura_match) {
 
@@ -2013,7 +2172,7 @@ class GeneralFunctions {
   *
   * @uses GeneralFunctions::htmLawed()
   * @uses GeneralFunctions::replaceLinks()
-  * @uses GeneralFunctions::replaceCodeSnippets()
+  * @uses GeneralFunctions::replaceSnippets()
   * @uses GeneralFunctions::shortenHtmlText()
   *
   *
@@ -2045,7 +2204,7 @@ class GeneralFunctions {
 
       // replace feindura links
       $pageContentEdited = self::replaceLinks($pageContentEdited,$sessionId,$language);
-      $pageContentEdited = self::replaceCodeSnippets($pageContentEdited,$pageId);
+      $pageContentEdited = self::replaceSnippets($pageContentEdited,$pageId);
 
     // -> show no content
     } else
@@ -2060,18 +2219,18 @@ class GeneralFunctions {
   * Sort an array with the <var>$pageContent</var> arrays by a given sort-public static function.
   * The following sort public static functions can be used for the <var>$sortBy</var> parameter:<br>
   *   - "sortBySortOrder"
+  *   - "sortAlphabetical"
+  *   - "sortByPageDate"
   *   - "sortByCategory"
-  *   - "sortByDate"
-  *   - "sortByVisitedCount"
-  *   - "sortByVisitTimeMax"
+  *   - "sortByLastSaveDate"
   *
   * @param array        $pageContentArrays  the $pageContent array of a page
   * @param string|false $sortBy             (optional) the name of the sort public static function, if FALSE it uses automaticly the right sort-public static function of the category
   *
-  * @uses $categoryConfig        to find the right sort public static function for every category
+  * @uses GeneralFunctions::$categoryConfig        to find the right sort method for every category
   * @uses isPageContentArray()   to check if the given $pageContent arrays are valid
   * @uses sortBySortOrder()      to sort the pages by sortorder
-  * @uses sortByDate()           to sort the pages by page date
+  * @uses sortByPageDate()       to sort the pages by page date
   *
   * @return array the sorted array with the $pageContent arrays
   *
@@ -2086,12 +2245,7 @@ class GeneralFunctions {
   */
   public static function sortPages($pageContentArrays, $sortBy = false) {
 
-    if(is_array($pageContentArrays) && isset($pageContentArrays[0])) {
-
-      // CHECK if the arrays are valid $pageContent arrays
-      // OTHER BUTTONSwise return the unchanged array
-      if(!self::isPageContentArray($pageContentArrays[0]))
-        return $pageContentArrays;
+    if(is_array($pageContentArrays) && self::isPageContentArray(reset($pageContentArrays))) {
 
       // sorts the array with the given sort public static function
       //natsort($pagesArray);
@@ -2118,7 +2272,7 @@ class GeneralFunctions {
       // adds the last $newPageContentArrays
       $categoriesArrays[] = $newPageContentArrays;
 
-      // -> SORTS every CATEGORY
+      // -> SORTS each CATEGORY
       $newPageContentArray = array();
       $category = false;
       foreach($categoriesArrays as $categoriesArray) {
@@ -2130,7 +2284,7 @@ class GeneralFunctions {
         // SORTS the category the GIVEN SORTFUNCTION
         if($sortBy === false) {
           if(self::$categoryConfig[$category]['sorting'] == 'byPageDate')
-            usort($categoriesArray, 'sortByDate');
+            usort($categoriesArray, 'sortByPageDate');
           elseif(self::$categoryConfig[$category]['sorting'] == 'alphabetical')
             usort($categoriesArray, 'sortAlphabetical');
           else
@@ -2151,6 +2305,87 @@ class GeneralFunctions {
       return $newPageContentArray;
     } else
       return $pageContentArrays;
+  }
+
+/**
+  * <b>Name</b> createBreadCrumbsArray()<br>
+  *
+  * Creates an array with <var>$pageContent</var> arrays in the order of the navigation.
+  *
+  *
+  * @param int        $page           a page ID
+  * @param int        $category       a category ID
+  *
+  * @uses GeneralFunctions::getParentPages()           to get the parent pages in an array
+  *
+  * @return array the created breadcrumb navigation, or an empty array
+  *
+  * @example id.parameter.example.php $id parameter example
+  *
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  static function createBreadCrumbsArray($page,$category) {
+
+    // vars
+    $breadCrumbsArray = array();
+
+    if(($pageContent = GeneralFunctions::readPage($page,$category)) !== false) {
+
+      // start page
+      if(self::$websiteConfig['setStartPage'] && !empty(self::$websiteConfig['startPage']) && self::$websiteConfig['startPage'] != $pageContent['id'] && ($startPage = self::readPage(self::$websiteConfig['startPage'],self::getPageCategory(self::$websiteConfig['startPage'])))) {
+        $breadCrumbsArray[] = $startPage;
+        unset($startPage);
+      }
+
+      // parent pages
+      if($pageContent['category'] != 0 && self::$categoryConfig[$pageContent['category']]['isSubCategory'] && ($parentPages = self::getParentPages($pageContent['category']))) {
+        foreach ($parentPages as $parentPageContent) {
+          $breadCrumbsArray[] = $parentPageContent;
+          unset($parentPageContent);
+        }
+      }
+
+      $breadCrumbsArray[] = $pageContent;
+      unset($pageContent);
+
+    }
+
+    return $breadCrumbsArray;
+  }
+
+ /**
+  * <b>Name</b> cleanPluginPlaceholders()<br>
+  *
+  * Removes the src attribute and adds back the draggable=true attribute.
+  *
+  * @param string    $content         a string with pluginPlaceholders
+  *
+  * @return string the changed $content parameter
+  *
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public static function cleanPluginPlaceholders($content) {
+    // remove the src attribute
+    $content = preg_replace('#src\=\"((?:(?!").)*library\/thirdparty\/ckeditor\/plugins\/feinduraSnippets\/snippetFill\.gif?)\"#i', 'src="noImage.png"', $content);
+
+    // add the draggable=true back again
+    if(strpos($content, 'class="feinduraPlugin" draggable="true"') === false)
+      $content = str_replace('class="feinduraPlugin"', 'class="feinduraPlugin" draggable="true"', $content);
+
+    // remove the draggable=true attribute
+    // $content = str_replace('class="feinduraPlugin" draggable="true"','class="feinduraPlugin"', $content);
+
+    return $content;
   }
 
  /**
@@ -2728,6 +2963,11 @@ class GeneralFunctions {
 
     if(is_array($values)) {
       $return  .= 'Array:<br>';
+      $return .= '<pre>';
+      $return .= print_r($values,true);
+      $return .= '</pre>';
+    } elseif(is_object($values)) {
+      $return  .= 'Object:<br>';
       $return .= '<pre>';
       $return .= print_r($values,true);
       $return .= '</pre>';

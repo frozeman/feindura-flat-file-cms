@@ -27,6 +27,9 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // available VARs from dashboard.php
 // $currentVisitorDashboard
 
+if($_POST['mode'] == 'dashboard')
+  $currentVisitorDashboard = true;
+
 // ---------------------------------
 // -> CURRENT VISITORS
 // -> clear cache from visitors over the timelimit and load current visitors
@@ -42,11 +45,15 @@ if(!empty($currentVisitors) && $showVisitors) {
   $return = '';
 
   // ->> write before the listing
-  if($currentVisitorDashboard)
-    $return .= '<table class="coloredList"><tbody>';
-  else {
-    $return .= '<h1>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h1>';
-    $return .= '<ul class="flags">';
+  if($currentVisitorDashboard) {
+    $return .= '<div class="insetBlock">';
+      $return .= '<h2>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].' ('.count($currentVisitors).')</h2>';
+      $return .= '<div class="insetBlockListPages">';
+        $return .= '<table class="coloredList"><tbody>';
+  } else {
+    $return .= '<div class="box">';
+      $return .= '<h1>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].' ('.count($currentVisitors).')</h1>';
+      $return .= '<ul class="unstyled flags resizeOnHover">';
   }
 
   /* uses GeoIPLite
@@ -66,21 +73,24 @@ if(!empty($currentVisitors) && $showVisitors) {
 
     $geoIPCode = geoip_country_code_by_addr($geoIP, $ip);
     $geoIPFlag = (empty($geoIPCode))
-      ? '<img src="'.GeneralFunctions::getFlagHref($geoIPCode).'" alt="flag" width="18" height="12">'
-      : '<img src="'.GeneralFunctions::getFlagHref($geoIPCode).'" alt="flag" class="toolTipLeft" width="18" height="12" title="'.geoip_country_name_by_addr($geoIP, $ip).'">';
+      ? '<img src="'.GeneralFunctions::getFlagSrc($geoIPCode).'" alt="flag" width="18" height="12">'
+      : '<img src="'.GeneralFunctions::getFlagSrc($geoIPCode).'" alt="flag" class="toolTipLeft" width="18" height="12" title="'.geoip_country_name_by_addr($geoIP, $ip).'">';
     $return .= ($currentVisitorDashboard)
-      ? '<tr><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$ip.'" target="_blank">'.$ip.'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTipLeft" title="'.GeneralFunctions::formatDate($currentVisitor['time']).'">'.formatTime($currentVisitor['time']).'</b></td></tr>'
-      : '<li>'.$geoIPFlag.' <a href="http://www.ip2location.com/'.$ip.'" target="_blank" class="link toolTipLeft" title="'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].'::'.GeneralFunctions::formatDate($currentVisitor['time']).' - '.formatTime($currentVisitor['time']).'">'.$ip.'</a></li>';
+      ? '<tr><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$ip.'" target="_blank">'.$ip.'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTipRight" title="'.GeneralFunctions::formatDate($currentVisitor['time']).'">'.formatTime($currentVisitor['time']).'</b></td></tr>'
+      : '<li>'.$geoIPFlag.' <a href="http://www.ip2location.com/'.$ip.'" target="_blank" class="link toolTipRight" title="'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].'::'.GeneralFunctions::formatDate($currentVisitor['time']).' - '.formatTime($currentVisitor['time']).'">'.$ip.'</a></li>';
     // change row color
   }
   // close geodates
   geoip_close($geoIP);
 
   // ->> write after the listing
-  if($currentVisitorDashboard)
-    $return .= '</tbody></table>';
-  else {
+  if($currentVisitorDashboard) {
+      $return .= '</tbody></table>';
+      $return .= '</div>';
+    $return .= '</div>';
+  } else {
     $return .= '</ul>';
+    $return .= '</div>';
   }
 
   if(isset($_POST['request']) && $_POST['request'] == true) echo $return;

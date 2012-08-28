@@ -27,12 +27,33 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 $page	= $_GET['page'];
 $category = $_GET['category'];
 
-// SAVE the PAGE
+// REVERT to a PREVIOUS STATE
 // -----------------------------------------------------------------------------
-if($_POST['save'] && isBlocked() === false && GeneralFunctions::hasPermission('editablePages',$page)) {
+if(isBlocked() === false && $_GET['status'] == 'restorePageToLastState') {
 
   // vars
-  $page	= $_POST['id'];
+  $categoryFolder = ($category == 0) ? '' : $category.'/';
+
+  if(file_exists(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previous.php')) {
+
+    $currentState = GeneralFunctions::readPage($page,$category);
+    if(($previousState = GeneralFunctions::readPage($page,$category,true)) !== false) {
+
+      GeneralFunctions::savePage($previousState);
+      GeneralFunctions::savePage($currentState,true);
+
+      $messagePopUp .= '<div class="alert alert-info">'.sprintf($langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousState['lastSaveDate']).' '.formatTime($previousState['lastSaveDate'])).'</div>';
+    }
+    unset($currentState,$previousState);
+  }
+}
+
+
+// SAVE the PAGE
+// -----------------------------------------------------------------------------
+if(isBlocked() === false && $_POST['save']) {
+  // vars
+  $page = $_POST['id'];
   $category = $_POST['category'];
   $_GET['page'] = $page;
   $_GET['category'] = $category;
@@ -40,6 +61,7 @@ if($_POST['save'] && isBlocked() === false && GeneralFunctions::hasPermission('e
   // removes double whitespaces and slashes
   $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );
   $_POST['HTMLEditor'] = str_replace('\"', '"', $_POST['HTMLEditor'] );
+
 
   // *** CREATE NEW PAGE ----------------------
   if ($page == 'new') {
@@ -66,10 +88,15 @@ if($_POST['save'] && isBlocked() === false && GeneralFunctions::hasPermission('e
   // *** SAVE PAGE ----------------------
   } else {
 
-    // if flatfile exists, load $pageContent array
-    // (necessary for: thumbnail, sortOrder and logs)
-    if(!$pageContent = GeneralFunctions::readPage($page,$category))
+    // if flatfile exists, load the existing $pageContent array
+    if(!$pageContent = GeneralFunctions::readPage($page,$category)) {
       $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['basePath']);
+
+    // create a BACKUP of the PREVIOUS STATE
+    } else {
+      $categoryFolder = ($category == 0) ? '' : $category.'/';
+      copy(dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.php', dirname(__FILE__).'/../../pages/'.$categoryFolder.$page.'.previous.php');
+    }
 
     $logText = ($_POST['status'] == 'addLanguage')
       ? 33
@@ -77,14 +104,40 @@ if($_POST['save'] && isBlocked() === false && GeneralFunctions::hasPermission('e
 
     // get OTHER LOCALIZED content
     $_POST['localized'] = $pageContent['localized'];
+
+    // transfer plugins
+    $_POST['plugins'] = $pageContent['plugins'];
   }
 
   // -> only save page if no error occured
   if($errorWindow === false) {
 
+
+    // SAVE NEW PLUGINS and REMOVE OLD ONES
+    $pluginsBefore = $_POST['plugins'];
+    unset($_POST['plugins']);
+    if(is_array($_POST['newPlugins'])){
+      foreach($_POST['newPlugins'] as $plugins) {
+        $pluginNumber = substr($plugins, strpos($plugins, '#')+1);
+        $pluginName = substr($plugins, 0 ,strpos($plugins, '#'));
+        $pluginConfig = @include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/config.php');
+
+        // GeneralFunctions::dump($pluginConfig);
+
+        // add new plugins, but prevent to overwrite existing ones
+        if(is_array($pluginsBefore[$pluginName][$pluginNumber]))
+          $_POST['plugins'][$pluginName][$pluginNumber] = $pluginsBefore[$pluginName][$pluginNumber];
+        else {
+          $_POST['plugins'][$pluginName][$pluginNumber] = $pluginConfig;
+          $_POST['plugins'][$pluginName][$pluginNumber]['active'] = true;
+        }
+
+        unset($pluginConfig,$pluginName,$pluginNumber);
+      }
+    }
+
+
     // STORE LOCALIZED CONTENT
-    $_POST['localized'][$_POST['websiteLanguage']]['pageDate']['before'] = $_POST['pageDate']['before'];
-    $_POST['localized'][$_POST['websiteLanguage']]['pageDate']['after'] = $_POST['pageDate']['after'];
     $_POST['tags'] = trim(preg_replace("#[\;,]+#", ',', $_POST['tags']),',');
     $_POST['tags'] = preg_replace("# +#", ' ', $_POST['tags']); // replace multiple whitespaces with one whitespace
     $_POST['localized'][$_POST['websiteLanguage']]['tags'] = preg_replace("# *, *#", ',', $_POST['tags']); // make " , " to  ","
@@ -93,25 +146,36 @@ if($_POST['save'] && isBlocked() === false && GeneralFunctions::hasPermission('e
     $_POST['localized'][$_POST['websiteLanguage']]['content'] = $_POST['HTMLEditor'];
 
     // delete unnecessary variables
-    unset($_POST['pageDate']['before'],$_POST['pageDate']['after'],$_POST['tags'],$_POST['title'],$_POST['description'],$_POST['HTMLEditor']);
+    unset($_POST['tags'],$_POST['title'],$_POST['description'],$_POST['HTMLEditor']);
 
     // STORE data right
     $_POST['lastSaveDate'] = time();
     $_POST['lastSaveAuthor'] = $_SESSION['feinduraSession']['login']['user'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
 
-    // generates pageDate
-    $generatedPageDate = '';
-    if(!empty($_POST['pageDate']['day']) && !empty($_POST['pageDate']['month']))
-      $generatedPageDate = $_POST['pageDate']['year'].'-'.$_POST['pageDate']['month'].'-'.$_POST['pageDate']['day'];
+    // PAGE DATE
+    if($categoryConfig[$category]['showPageDate']) {
 
-    // VALIDATE the SORT DATE
-    if(($pageDate = validateDateString($generatedPageDate)) === false)
-      $pageDate = $generatedPageDate;
-    // if VALID set the validated date to the post var
-    else {
-      $_POST['pageDate']['date'] = $pageDate;
-      unset($pageDate);
+      // vars
+      $pageDate = $_POST['pageDate'];
+      unset($_POST['pageDate']);
+      $_POST['pageDate'] = array();
+
+      // PREPARE PAGEDATE
+      if($backendDateFormat == 'D/M/Y')
+        $_POST['pageDate'] = str_replace('/','.',$_POST['pageDate']);
+
+      // SET PAGEDATE
+      if($categoryConfig[$category]['pageDateAsRange']) {
+        $pageDate = explode(' - ', $pageDate);
+        $_POST['pageDate']['start'] = strtotime($pageDate[0]);
+        $_POST['pageDate']['end']   = strtotime($pageDate[1]);
+
+        unset($_POST['pageDate'][0],$_POST['pageDate'][1]);
+      } else {
+        $_POST['pageDate']['start'] = strtotime($pageDate);
+        $_POST['pageDate']['end'] = false;
+      }
     }
 
     if(empty($_POST['sortOrder']))  $_POST['sortOrder'] = $pageContent['sortOrder'];
@@ -147,6 +211,7 @@ if($_POST['save'] && isBlocked() === false && GeneralFunctions::hasPermission('e
     $_POST['styleId']    = setStylesByPriority($_POST['styleId'],'styleId',$category);
     $_POST['styleClass'] = setStylesByPriority($_POST['styleClass'],'styleClass',$category);
 
+
     if(GeneralFunctions::savePage($_POST)) {
       $documentSaved = true;
 
@@ -175,9 +240,12 @@ if($_POST['save'] && isBlocked() === false && GeneralFunctions::hasPermission('e
 }
 
 
-// -> LOAD PAGE only if USER have PERMISSION for that PAGE or CATEGORY
-if(GeneralFunctions::hasPermission('editablePages',$page) && $pageContent = GeneralFunctions::readPage($page,$category))
+
+// -> LOAD PAGE
+if($pageContent = GeneralFunctions::readPage($page,$category)) {
   $newPage = false;
+  $previousStatePageContent = GeneralFunctions::readPage($pageContent['id'],$pageContent['category'],true);
+}
 // otherwise offer NEW PAGE
 else
   $newPage = true;
@@ -188,8 +256,11 @@ if($newPage) {
   $page = 'new';
 }
 
+// get the activated plugins
+$activatedPlugins = unserialize($categoryConfig[$category]['plugins']);
+
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file
-if(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) && isBlocked() === false) {
+if(!empty($pageContent['thumbnail']) && isBlocked() === false && !file_exists(dirname(__FILE__).'/../../upload/thumbnails/'.$pageContent['thumbnail'])) {
   $pageContent['thumbnail'] = '';
   GeneralFunctions::savePage($pageContent);
 }

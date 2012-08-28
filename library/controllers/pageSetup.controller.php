@@ -45,7 +45,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   $newAdminConfig['pageThumbnail']['width']               = $_POST['cfg_thumbWidth'];
   $newAdminConfig['pageThumbnail']['height']              = $_POST['cfg_thumbHeight'];
   $newAdminConfig['pageThumbnail']['ratio']               = $_POST['cfg_thumbRatio'];
-  $newAdminConfig['pageThumbnail']['path']                = $_POST['cfg_thumbPath'];
 
 
   // -> save ADMIN SETTINGS
@@ -96,7 +95,7 @@ if((isset($_POST['send']) && $_POST['send'] == 'categorySetup' && isset($_POST['
       // add a new id to the category array
       $categoryConfig[$newId] = array('id' => $newId); // gives the new category a id
       if(saveCategories($categoryConfig)) {
-         $messagePopUp .= '<div class="alert alert-success center">'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED'].'</div>';
+         $messagePopUp .= '<div class="alert alert-success">'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED'].'</div>';
          saveActivityLog(15); // <- SAVE the task in a LOG FILE
       } else { // throw error
         $errorWindow .= ($errorWindow) // if there is allready an warning
@@ -123,7 +122,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
   unset($categoryConfig[$_GET['category']]);
   if(saveCategories($categoryConfig)) {
 
-    $messagePopUp .= '<div class="alert alert-info center">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_DELETED'].'<br><strong>'.$storedCategoryName.'</strong></div>';
+    $messagePopUp .= '<div class="alert alert-info">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_DELETED'].'<br><strong>'.$storedCategoryName.'</strong></div>';
 
     // if there is a category dir, trys to delete it !important deletes all files in it
     if(is_dir(dirname(__FILE__).'/../../pages/'.$_GET['category'])) {
@@ -132,10 +131,10 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
 
         // deletes possible thumbnails before deleting the category
         foreach($pages as $page) {
-          if(!empty($page['thumbnail']) && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'])) {
-            @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], $adminConfig['permissions']);
+          if(!empty($page['thumbnail']) && is_file(dirname(__FILE__).'/../../upload/thumbnails/'.$page['thumbnail'])) {
+            @chmod(dirname(__FILE__).'/../../upload/thumbnails/'.$page['thumbnail'], $adminConfig['permissions']);
             // DELETING
-            @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail']);
+            @unlink(dirname(__FILE__).'/../../upload/thumbnails/'.$page['thumbnail']);
           }
         }
       }
@@ -167,7 +166,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 
   if(moveCategories($categoryConfig,$_GET['category'],$direction)) {
 
-    $messagePopUp .= '<div class="alert alert-success center">'.$langFile['PAGESETUP_CATEGORY_TEXT_MOVECATEGORY_MOVED'].'<br><strong>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</strong></div>';
+    $messagePopUp .= '<div class="alert alert-success">'.$langFile['PAGESETUP_CATEGORY_TEXT_MOVECATEGORY_MOVED'].'<br><strong>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</strong></div>';
 
     // save the categories array
     if(saveCategories($categoryConfig)) {
@@ -193,6 +192,19 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
     $_POST['categories'][$categoryId]['isSubCategory']   = $categoryConfig[$categoryId]['isSubCategory'];
     $_POST['categories'][$categoryId]['isSubCategoryOf'] = $categoryConfig[$categoryId]['isSubCategoryOf'];
     $_POST['categories'][$categoryId]['localized']       = $categoryConfig[$categoryId]['localized'];
+
+    // set the PAGE DATE TIME PERIOD to FALSE, if the PAGE DATE was DEACTIVATED
+    if(!$_POST['categories'][$categoryId]['showPageDate']) {
+      $_POST['categories'][$categoryId]['pageDateAsRange'] = false;
+
+      // clear the page date on all pages in that category (DEACTIVATED, have t think about it)
+      // $catPages = GeneralFunctions::loadPages($categoryId);
+      // foreach ($catPages as $catPage) {
+      //   $catPage['pageDate'] = false;
+      //   GeneralFunctions::savePage($catPage);
+      // }
+      // unset($catPages);
+    }
 
     // STORE LOCALIZED CONTENT
     if(!empty($value['name']))

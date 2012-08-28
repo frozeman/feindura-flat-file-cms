@@ -40,41 +40,20 @@ if(PHP_VERSION < REQUIREDPHPVERSION) {
 <!DOCTYPE html>
 <html class="feindura">
 <head>
-  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
-  <meta http-equiv="content-language" content="en">
 
-  <title>feindura PHP Error</title>
+  <title>feindura | PHP Error</title>
 
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-  <meta name="robots" content="no-index,nofollow">
-  <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
-  <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
-  <meta http-equiv="accept-encoding" content="gzip, deflate">
-
-  <meta name="title" content="feindura login">
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="description" content="A flat file based Content Management System, written in PHP">
-  <meta name="keywords" content="cms,content,management,system,flat,file">
-
-  <link rel="shortcut icon" href="favicon.ico">
-
-  <!-- <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all"> -->
-  <!-- <link rel="stylesheet" type="text/css" href="library/styles/login.css" media="all"> -->
-  <link rel="stylesheet" type="text/css" href="library/styles/styles.css" media="all">
+  <?php
+  include(dirname(__FILE__).'/metaTags.include.php');
+  ?>
 
 </head>
 <body>
-  <div id="container">
-    <div class="alert alert-error">
-      <div class="top"></div>
-      <div class="middle">
+  <div class="container">
+    <div class="alert alert-error center">
       <?php
-      echo 'ERROR<br><br><span class="feinduraInline">fein<em>dura</em></span> requires at least PHP version '.REQUIREDPHPVERSION;
+      echo '<h1>PHP ERROR</h1><span class="feinduraInline">fein<em>dura</em></span> requires at least PHP version '.REQUIREDPHPVERSION;
       ?>
-      </div>
     </div>
 </body>
 </html>
@@ -100,12 +79,13 @@ $documentSaved    = false; // when true the document saved icon is displayed
 $savedForm        = false; // to tell wich part fo the form was saved
 $savedSettings    = false; // to tell wich settings were saved, to re-include the settings
 $newPage          = false; // tells the editor whether a new page is created
-$userCache        = ((!isset($_GET['status']) && !isset($_POST['status']) ) || $_GET['status'] == 'updateUserCache') ? userCache() : array();
+$userCache        = ((!isset($_GET['status']) && !isset($_POST['status'])) || $_GET['status'] == 'updateUserCache') ? userCache() : array();
 
 // ->> SEND INFO to CONTENT.JS, so when updated the user config and a page gets free, it can remove the "contentBlocked" DIV
 if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {
-  echo 'releaseBlock';
+  die('###RELEASEBLOCK###');
 }
+
 
 /**
  * SET the WEBSITE LANGUAGE
@@ -125,8 +105,10 @@ if($websiteConfig['multiLanguageWebsite']['active']) {
   // reset the websiteLanguage SESSION var
   $_SESSION['feinduraSession']['websiteLanguage'] = $websiteLanguage;
   unset($websiteLanguage);
-} else
+} else {
+  unset($_SESSION['feinduraSession']['websiteLanguage']);
   $_SESSION['feinduraSession']['websiteLanguage'] = 0;
+}
 
 /**
  * SET the BACKEND LANGUAGE
@@ -134,15 +116,22 @@ if($websiteConfig['multiLanguageWebsite']['active']) {
  *
  */
 // unset($_SESSION['feinduraSession']['backendLanguage']);
+// unset($_SESSION['feinduraSession']['backendLanguageLocale']);
 //XSS Filter
-if(isset($_GET['backendLanguage'])) $_GET['backendLanguage'] = XssFilter::alphabetical($_GET['backendLanguage']);
-if(isset($_SESSION['feinduraSession']['backendLanguage'])) $_SESSION['feinduraSession']['backendLanguage'] = XssFilter::alphabetical($_SESSION['feinduraSession']['backendLanguage']);
+if(isset($_GET['backendLanguage'])) $_GET['backendLanguage'] = XssFilter::string($_GET['backendLanguage']);
+if(isset($_SESSION['feinduraSession']['backendLanguage'])) $_SESSION['feinduraSession']['backendLanguage'] = XssFilter::string($_SESSION['feinduraSession']['backendLanguage']);
 
+// GET BROWSER LANGUAGE
 if(isset($_GET['backendLanguage'])) $_SESSION['feinduraSession']['backendLanguage'] = $_GET['backendLanguage'];
+// if no language is given
+elseif(empty($_SESSION['feinduraSession']['backendLanguage']))
+  $_SESSION['feinduraSession']['backendLanguage'] = GeneralFunctions::getBrowserLanguages();
 
-// GET BROWSER LANGUAGE, if no language is given
-if(empty($_SESSION['feinduraSession']['backendLanguage']))
-  $_SESSION['feinduraSession']['backendLanguage'] = GeneralFunctions::getBrowserLanguages('en',true);
+// save the locale
+$_SESSION['feinduraSession']['backendLanguageLocale'] = (strlen($_SESSION['feinduraSession']['backendLanguage']) == 5) ? $_SESSION['feinduraSession']['backendLanguage'] : $_SESSION['feinduraSession']['backendLanguageLocale'];
+// shorten the language to its basic language
+$_SESSION['feinduraSession']['backendLanguage'] = substr($_SESSION['feinduraSession']['backendLanguage'],0,2);
+
 // LOAD LANG FILES
 $backendLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feinduraSession']['backendLanguage']);
 $sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feinduraSession']['backendLanguage']);
@@ -150,6 +139,21 @@ $sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$
 $langFile = array_merge($sharedLangFile,$backendLangFile);
 unset($backendLangFile,$sharedLangFile);
 
+// set the BACKEND DATEFORMAT
+// ...is used in the GeneralFunctions::formatDate() function
+switch ($_SESSION['feinduraSession']['backendLanguage']) {
+  case 'fr':
+    $backendDateFormat = 'D/M/Y';
+    break;
+  case 'en':
+    if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'en-US') {
+      $backendDateFormat = 'M/D/Y';
+      break;
+    } // else buble through to default
+  default: // en-GB, ru, de, it
+    $backendDateFormat = 'D.M.Y';
+    break;
+}
 
 // -> ADD NON-CATEGORY name from the current language file
 $categoryConfig[0]['localized'][0]['name'] = $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'];

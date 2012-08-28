@@ -12,17 +12,19 @@ ul.jsMultipleSelectDestination {
     min-height: 50px;
     max-height: 200px;
     overflow: auto;
-    border: 1px solid @innerBlockBorderColor;
+    border: 1px solid @insetBlockBorderColor;
     #shadow > .inner(0,0,5px,0.3);
-    #border > .rounded(5px);
+    #border > .rounded(@borderRadiusMedium);
 
-    li.jsMultipleSelectItem, {
+    li.jsMultipleSelectOption, {
         position: relative;
         display: block;
         margin: 3px 0;
         text-align: left;
         cursor: pointer; // move
+        #content > .noTextSelection();
 
+        padding-right: 18px;
         padding-left: 30px;
 
         img {
@@ -32,17 +34,19 @@ ul.jsMultipleSelectDestination {
         }
     }
     li.filter {
+        height: 30px;
         input {
-            width: 93.5%;
-            margin-left: -4px;
-            margin-top: -2px;
-            margin-bottom: 0;
+            position: absolute;
+            width: 89% !important;
+            margin-left: -4px !important;
+            margin-top: -2px !important;
+            margin-bottom: 0 !important;
             padding-right: 20px;
             font-size: 14px;
         }
         a {
             position: absolute;
-            top: 4px;
+            top: 5px;
             right: 8px;
             padding: 0;
             background: none;
@@ -60,12 +64,15 @@ ul.jsMultipleSelectDestination {
     border-color: @logoColorBlue;
 
     li {
+        position: relative;
         cursor: auto !important;
+        padding-right: 18px;
 
-        a {
-            position: relative;
+        a.remove {
+            position: absolute !important;
             display: none;
-            margin-top: -1px;
+            top: 4px;
+            right: 6px;
             padding: 0;
             background: none;
             float: right;
@@ -83,4 +90,8 @@ ul.jsMultipleSelectDestination {
             color: @logoColorBlue;
         }
     }
+}
+
+a.clearJsMultipleSelect {
+    margin-top: 5px;
 }

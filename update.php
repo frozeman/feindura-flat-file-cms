@@ -16,7 +16,7 @@
  *
  * update.php
  *
- * @version 2.1
+ * @version 2.2
  */
 
 /**
@@ -30,20 +30,21 @@ $wrongDirectory = (include("library/includes/backend.include.php"))
 // -----------------------------------------------------------------------------------
 error_reporting(E_ALL ^ E_NOTICE);
 
-$NEWVERSION = '2.0';
-$NEWBUILD = 957;
-
 // gets the version of the feindura CMS
-if($prevVersionFile = file(dirname(__FILE__).'/VERSION')) {
-  $PREVVERSION = trim($prevVersionFile[1]);
-  $PREVBUILD = trim($prevVersionFile[2]);
-} else
-  $PREVVERSION = '1.0';
+if($prevVersionFile = file(dirname(__FILE__).'/CHANGELOG')) {
+  $CURVERSION = trim($prevVersionFile[2]);
+  $CURBUILD = trim($prevVersionFile[3]);
+  $CURBUILD = str_replace('Build ', '', $CURBUILD);
+}
+
+$PREVVERSION = VERSION;
+$PREVBUILD = BUILD;
+$PREVVERSION = (!empty($PREVVERSION)) ? $PREVVERSION : '1.0';
+$PREVBUILD = (!empty($PREVBUILD)) ? $PREVBUILD : '761';
 
 
 $PREVVERSIONSTRING = $PREVVERSION.' <small>Build '.$PREVBUILD.'</small>';
-$CURVERSIONSTRING = VERSION.' <small>Build '.BUILD.'</small>';
-$NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
+$CURVERSIONSTRING = $CURVERSION.' <small>Build '.$CURBUILD.'</small>';
 
 ?>
 <!DOCTYPE html>
@@ -126,29 +127,29 @@ $NEWVERSIONSTRING = $NEWVERSION.' <small>Build '.$NEWBUILD.'</small>';
   // ->> CHECK PHP VERSION
   // *********************
   if(PHP_VERSION < REQUIREDPHPVERSION)
-    die('You have the wrong PHP version for feindura '.$NEWVERSIONSTRING.'. You need at least PHP version'.REQUIREDPHPVERSION.'</body></html>');
+    die('You have the wrong PHP version for feindura '.$CURVERSIONSTRING.'. You need at least PHP version'.REQUIREDPHPVERSION.'</body></html>');
   ?>
 
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
-  <span style="font-size:25px;"><?php echo ($PREVVERSION == '1.0') ? $PREVVERSION.'>': $PREVVERSIONSTRING; ?> &rArr; <?php echo $NEWVERSIONSTRING; ?></span><br>
+  <span style="font-size:25px;"><?php echo ($PREVVERSION == '1.0') ? '1.x >': $PREVVERSIONSTRING; ?> &rArr; <?php echo $CURVERSIONSTRING; ?></span><br>
   <br>
   <?php
 
   // check version
-  if($PREVVERSION.$PREVBUILD == $NEWVERSION.$NEWBUILD)
+  if($PREVVERSION.$PREVBUILD == $CURVERSION.$CURBUILD)
     die('<span class="succesfull">You content is already up to date.</span><br>
       <small style="color:#999;">(If you don\'t think so, change the number to your previous version of feindura in the "/cms/VERSION" file and run this updater again.)</small>
       <br><br>
       <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a></body></html>');
 
   // check if cms is already updated
-  $updatePossible = (VERSION.BUILD == $NEWVERSION.$NEWBUILD) ? true : false;
+  $updatePossible = ($CURVERSION.$CURBUILD == $CURVERSION.$CURBUILD) ? true : false;
 
   // WARNING
   if(!$updatePossible) {
 
     echo 'hm... you current version is <b>'.$CURVERSIONSTRING.'</b> you cannot use this updater, :-(';
-    echo '<br><span class="warning">it\'s only for updating to <span class="feindura"><em>fein</em>dura</span> '.$NEWVERSIONSTRING.'!</span>';
+    echo '<br><span class="warning">it\'s only for updating to <span class="feindura"><em>fein</em>dura</span> '.$CURVERSIONSTRING.'!</span>';
   }
 
   // WRONG PATH WARNING
@@ -257,12 +258,9 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       return serialize($activatedPlugins);
     }
 
-    // check if the last version was until the given version number
-    function until($version) {
-      if(strlen($version) >= 3 && strpos($version, '.') === false)
-        return ($GLOBALS['PREVBUILD'] <= $version) ? true : false;
-      else
-        return ($GLOBALS['PREVVERSION'].$GLOBALS['PREVBUILD'] <= $version) ? true : false;
+    // check if the last version was until the given build number
+    function until($build) {
+        return ($GLOBALS['PREVBUILD'] <= $build) ? true : false;
     }
 
     // and start!
@@ -270,29 +268,39 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
     echo '<br>';
 
-    // try to move the pages folder
+    // try to MOVE the UPLOAD FOLDER to the new place
     $copyError = false;
-    $didntCopy = false;
-    if(!empty($adminConfig['savePath']) && is_dir($DOCUMENTROOT.$adminConfig['savePath'])) {
-      copyDir($DOCUMENTROOT.$adminConfig['savePath'],dirname(__FILE__).'/pages/',$copyError);
-    } else
-      $didntCopy = true;
+    $copySuccess = false;
+    if(!empty($adminConfig['uploadPath']) && is_dir(DOCUMENTROOT.$adminConfig['uploadPath'])) {
+      copyDir(DOCUMENTROOT.$adminConfig['uploadPath'],dirname(__FILE__).'/upload/',$copyError);
+      $copySuccess = true;
+    }
+    if(!$copyError && $copySuccess) {
+      GeneralFunctions::deleteFolder(DOCUMENTROOT.$adminConfig['uploadPath']);
+      echo 'pages <span class="succesfull">succesfully moved the upload folder to its location inside the feindura folder.</span><br>';
+    } elseif($copyError) {
+      echo 'pages <span class="notSuccesfull">upload folder could not be moved! Please move the "'.$adminConfig['uploadPath'].'" folder manually "feindura_folder/upload/" and run this updater again.</span><br>';
+      $succesfullUpdate = false;
+    }
 
-    if($copyError === false && $didntCopy === false) {
-      GeneralFunctions::deleteFolder($adminConfig['savePath']);
+
+    // try to MOVE the PAGES FOLDER
+    $copyError = false;
+    $copySuccess = false;
+    if(!empty($adminConfig['savePath']) && is_dir(DOCUMENTROOT.$adminConfig['savePath'])) {
+      copyDir(DOCUMENTROOT.$adminConfig['savePath'],dirname(__FILE__).'/pages/',$copyError);
+      $copySuccess = true;
+    }
+    if(!$copyError && $copySuccess) {
+      GeneralFunctions::deleteFolder(DOCUMENTROOT.$adminConfig['savePath']);
       echo 'pages <span class="succesfull">succesfully copied to "feindura_folder/pages/"</span><br>';
-    } elseif($didntCopy) {
-      echo 'old pages folder <span class="succesfull" style="color:#3A74AB;">already copied to "feindura_folder/pages/"? (<strong>You must copy the folder with your pages (set in the "save path" setting) to your feindura folder, e.g. "/pages/" -> "/feindura_folder/pages/"</strong>)</span><br>';
-    } else {
-      echo 'pages <span class="notSuccesfull">could not be copied! Please move the folder with your pages (1.php, 2.php, etc..) to "feindura_folder/pages/" manually and run this updater again.</span><br>';
+    } elseif($copyError) {
+      echo 'pages <span class="notSuccesfull">could not be copied! Please move the folder with your pages (1.php, 2.php, etc..) to manually "feindura_folder/pages/" and run this updater again.</span><br>';
       $succesfullUpdate = false;
     }
 
     // save the $pagesMetaData array
-    GeneralFunctions::savePagesMetaData();
-
-    // ->> LOAD PAGES
-    $pages = GeneralFunctions::loadPages(true);
+    // GeneralFunctions::savePagesMetaData();
 
     // ->> SAVE NEW adminConfig
     // rename
@@ -317,17 +325,28 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
     $adminConfig['websitePath'] = (isset($adminConfig['websitePath'])) ? $adminConfig['websitePath'] : '/';
 
-    if($adminConfig['dateFormat'] == 'eu')
-      $adminConfig['dateFormat'] = 'DMY';
-    if($adminConfig['dateFormat'] == 'int')
-      $adminConfig['dateFormat'] = 'YMD';
+    // change th old date formats
+    if(until(971) && isset($adminConfig['dateFormat'])) {
+      if($adminConfig['dateFormat'] == 'eu')
+        $adminConfig['dateFormat'] = 'DMY';
+      if($adminConfig['dateFormat'] == 'int')
+        $adminConfig['dateFormat'] = 'YMD';
+
+      if($adminConfig['dateFormat'] == 'YMD')
+        $websiteConfig['dateFormat'] = 'Y-M-D';
+      if($adminConfig['dateFormat'] == 'DMY')
+        $websiteConfig['dateFormat'] = 'D.M.Y';
+      if($adminConfig['dateFormat'] == 'MDY')
+        $websiteConfig['dateFormat'] = 'M/D/Y';
+    }
+
 
     // only if was below 1.1.6
-    if(until('1.1.6'))
+    if(until(796))
       $adminConfig['speakingUrl'] = false; // beacuse i changed speaking url reg ex and createHref generation
 
     // only if was until build 947
-    if(until('946') && !isset($categoryConfig[0]['id'])) {
+    if(until(946) && !isset($categoryConfig[0]['id'])) {
 
       // delete the non-category, which only has the name (set in backend.include.php)
       unset($categoryConfig[0]);
@@ -357,207 +376,6 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     }
     GeneralFunctions::$adminConfig = $adminConfig;
 
-
-    //print_r($pages);
-    $pagesSuccesfullUpdated = true;
-    foreach($pages as $pageContent) {
-
-      // renaming of some values
-      $pageContent['sortOrder'] = (isset($pageContent['sortorder'])) ? $pageContent['sortorder'] : $pageContent['sortOrder'];
-      $pageContent['lastSaveDate'] = (isset($pageContent['lastsavedate'])) ? $pageContent['lastsavedate'] : $pageContent['lastSaveDate'];
-      $pageContent['lastSaveAuthor'] = (isset($pageContent['lastsaveauthor'])) ? $pageContent['lastsaveauthor'] : $pageContent['lastSaveAuthor'];
-      $pageContent['pageDate']['date'] = (isset($pageContent['pagedate']['date'])) ? $pageContent['pagedate']['date'] : $pageContent['pageDate']['date'];
-
-      // v2.0
-      if(!is_numeric($pageContent['lastSaveAuthor'])) {
-        foreach ($userConfig as $user) {
-          if($user['username'] == $pageContent['lastSaveAuthor']) {
-            $pageContent['lastSaveAuthor'] = $user['id'];
-            break;
-          }
-        }
-      }
-
-      // v2.0 change thumbnail filename extension (convert to .jpg)
-      $thumbnailExtension = substr($pageContent['thumbnail'], (strrpos($pageContent['thumbnail'], '.') + 1 ));
-      $thumbnailExtension = strtolower( $thumbnailExtension );
-      $thumbnailPath = DOCUMENTROOT.GeneralFunctions::URI2Path($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
-      if(!empty($pageContent['thumbnail']) && !empty($thumbnailExtension) && $thumbnailExtension != 'jpg' && is_file($thumbnailPath)) {
-        require_once(dirname(__FILE__).'/library/thirdparty/PHP/Image.class.php');
-        $newThumbnail = new Image($thumbnailPath);
-        $newThumbnail->process('jpg',str_replace('.'.$thumbnailExtension, '.jpg', $thumbnailPath));
-        $pageContent['thumbnail'] = str_replace('.'.$thumbnailExtension, '.jpg', $pageContent['thumbnail']);
-        unlink($thumbnailPath);
-        unset($newThumbnail);
-      }
-
-      // v2.0 - localized
-      if(!isset($pageContent['localized'])) {
-
-        $pageContent['localized'][0]['title'] = $pageContent['title'];
-        $pageContent['localized'][0]['content'] = $pageContent['content'];
-        $pageContent['localized'][0]['description'] = $pageContent['description'];
-        $pageContent['localized'][0]['tags'] = $pageContent['tags'];
-
-        // page date before/after
-        $pageContent['localized'][0]['pageDate']['before'] = (isset($pageContent['pagedate']['before'])) ? $pageContent['pagedate']['before'] : $pageContent['pageDate']['before'];
-        $pageContent['localized'][0]['pageDate']['after'] = (isset($pageContent['pagedate']['after'])) ? $pageContent['pagedate']['after'] : $pageContent['pageDate']['after'];
-
-      }
-
-      $pageContent['log_visitorCount'] = (isset($pageContent['log_visitorcount'])) ? $pageContent['log_visitorcount'] : $pageContent['log_visitorCount'];
-      $pageContent['log_searchWords'] = (isset($pageContent['log_searchwords'])) ? $pageContent['log_searchwords'] : $pageContent['log_searchWords'];
-
-      // activate the captcha in the contactForm plugins, when the contactForm is activated
-      if(isset($pageContent['plugins']['contactForm']) && !isset($pageContent['plugins']['contactForm']['captcha']))
-        $pageContent['plugins']['contactForm']['captcha'] = true;
-
-
-      // only if was until 1.1.6
-      // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
-      if(until('1.1.6')) {
-        if(isset($pageContent['plugins']['imageGallery']) && !isset($pageContent['plugins']['imageGalleryFromFolder'])) {
-          $pageContent['plugins']['imageGalleryFromFolder'] = $pageContent['plugins']['imageGallery'];
-          unset($pageContent['plugins']['imageGallery']);
-        } elseif(isset($pageContent['plugins']['slideShow']) && !isset($pageContent['plugins']['slideShowFromFolder'])) {
-          $pageContent['plugins']['slideShowFromFolder'] = $pageContent['plugins']['slideShow'];
-          unset($pageContent['plugins']['slideShow']);
-        }
-      }
-
-      // v2.0 changed key names of plugins
-      // imageGallery
-      if(isset($pageContent['plugins']['imageGallery'])) {
-        $pageContent['plugins']['imageGallery']['imageWidthNumber'] = (isset($pageContent['plugins']['imageGallery']['imageWidth']))
-          ? $pageContent['plugins']['imageGallery']['imageWidth']
-          : $pageContent['plugins']['imageGallery']['imageWidthNumber'];
-        $pageContent['plugins']['imageGallery']['imageHeightNumber'] = (isset($pageContent['plugins']['imageGallery']['imageHeight']))
-          ? $pageContent['plugins']['imageGallery']['imageHeight']
-          : $pageContent['plugins']['imageGallery']['imageHeightNumber'];
-        $pageContent['plugins']['imageGallery']['thumbnailWidthNumber'] = (isset($pageContent['plugins']['imageGallery']['thumbnailWidth']))
-          ? $pageContent['plugins']['imageGallery']['thumbnailWidth']
-          : $pageContent['plugins']['imageGallery']['thumbnailWidthNumber'];
-        $pageContent['plugins']['imageGallery']['thumbnailHeightNumber'] = (isset($pageContent['plugins']['imageGallery']['thumbnailHeight']))
-          ? $pageContent['plugins']['imageGallery']['thumbnailHeight']
-          : $pageContent['plugins']['imageGallery']['thumbnailHeightNumber'];
-        $pageContent['plugins']['imageGallery']['breakAfterNumber'] = (isset($pageContent['plugins']['imageGallery']['breakAfter']))
-          ? $pageContent['plugins']['imageGallery']['breakAfter']
-          : $pageContent['plugins']['imageGallery']['breakAfterNumber'];
-        $pageContent['plugins']['imageGallery']['tagSelection'] = (isset($pageContent['plugins']['imageGallery']['tag']))
-          ? $pageContent['plugins']['imageGallery']['tag']
-          : $pageContent['plugins']['imageGallery']['tagSelection'];
-
-        unset($pageContent['plugins']['imageGallery']['imageWidth'],$pageContent['plugins']['imageGallery']['imageHeight'],$pageContent['plugins']['imageGallery']['thumbnailWidth'],$pageContent['plugins']['imageGallery']['thumbnailHeight'],$pageContent['plugins']['imageGallery']['breakAfter'],$pageContent['plugins']['imageGallery']['tag']);
-      }
-      // imageGalleryFromFolder
-      if(isset($pageContent['plugins']['imageGalleryFromFolder'])) {
-        $pageContent['plugins']['imageGalleryFromFolder']['imageWidthNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['imageWidth']))
-          ? $pageContent['plugins']['imageGalleryFromFolder']['imageWidth']
-          : $pageContent['plugins']['imageGalleryFromFolder']['imageWidthNumber'];
-        $pageContent['plugins']['imageGalleryFromFolder']['imageHeightNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['imageHeight']))
-          ? $pageContent['plugins']['imageGalleryFromFolder']['imageHeight']
-          : $pageContent['plugins']['imageGalleryFromFolder']['imageHeightNumber'];
-        $pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidthNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidth']))
-          ? $pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidth']
-          : $pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidthNumber'];
-        $pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeightNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeight']))
-          ? $pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeight']
-          : $pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeightNumber'];
-        $pageContent['plugins']['imageGalleryFromFolder']['breakAfterNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['breakAfter']))
-          ? $pageContent['plugins']['imageGalleryFromFolder']['breakAfter']
-          : $pageContent['plugins']['imageGalleryFromFolder']['breakAfterNumber'];
-        $pageContent['plugins']['imageGalleryFromFolder']['tagSelection'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['tag']))
-          ? $pageContent['plugins']['imageGalleryFromFolder']['tag']
-          : $pageContent['plugins']['imageGalleryFromFolder']['tagSelection'];
-
-        unset($pageContent['plugins']['imageGalleryFromFolder']['imageWidth'],$pageContent['plugins']['imageGalleryFromFolder']['imageHeight'],$pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidth'],$pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeight'],$pageContent['plugins']['imageGalleryFromFolder']['breakAfter'],$pageContent['plugins']['imageGalleryFromFolder']['tag']);
-      }
-      // slideShow
-      if(isset($pageContent['plugins']['slideShow'])) {
-         $pageContent['plugins']['slideShow']['intervalNumber'] = (isset($pageContent['plugins']['slideShow']['intervalNumber']))
-          ? $pageContent['plugins']['slideShow']['intervalNumber']
-          : 3;
-        $pageContent['plugins']['slideShow']['effectSelection'] = (isset($pageContent['plugins']['slideShow']['effectSelection']))
-          ? $pageContent['plugins']['slideShow']['effectSelection']
-          : 'fade';
-      }
-      // slideShowFromFolder
-      if(isset($pageContent['plugins']['slideShowFromFolder'])) {
-         $pageContent['plugins']['slideShowFromFolder']['intervalNumber'] = (isset($pageContent['plugins']['slideShowFromFolder']['intervalNumber']))
-          ? $pageContent['plugins']['slideShowFromFolder']['intervalNumber']
-          : 3;
-        $pageContent['plugins']['slideShowFromFolder']['effectSelection'] = (isset($pageContent['plugins']['slideShowFromFolder']['effectSelection']))
-          ? $pageContent['plugins']['slideShowFromFolder']['effectSelection']
-          : 'fade';
-      }
-
-      // -> change such a date: 2010-03-20 17:50:27 to unix timestamp
-      // mktime(hour,minute,seconds,month,day,year)
-
-      $time = $pageContent['lastSaveDate'];
-      if(substr($time,4,1) == '-')
-        $pageContent['lastSaveDate'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
-
-      $time = $pageContent['log_firstVisit'];
-      if(substr($time,4,1) == '-')
-        $pageContent['log_firstVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
-
-      $time = $pageContent['log_lastVisit'];
-      if(substr($time,4,1) == '-')
-        $pageContent['log_lastVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
-
-      $time = $pageContent['pageDate']['date'];
-      if(substr($time,4,1) == '-')
-        $pageContent['pageDate']['date'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
-
-      // -> change dataString separator
-      $data = $pageContent['log_visitTime_min'];
-        if(strpos($data,'|#|') !== false)
-          $pageContent['log_visitTime_min'] = changeVisitTime($data,'|#|');
-        elseif(strpos($data,'|') !== false)
-          $pageContent['log_visitTime_min'] = changeVisitTime($data,'|');
-        elseif(!empty($data) && substr($data,0,2) != 'a:')
-          $pageContent['log_visitTime_min'] = changeVisitTime($data,' ');
-
-      $data = $pageContent['log_visitTime_max'];
-        if(strpos($data,'|#|') !== false)
-          $pageContent['log_visitTime_max'] = changeVisitTime($data,'|#|');
-        elseif(strpos($data,'|') !== false)
-          $pageContent['log_visitTime_max'] = changeVisitTime($data,'|');
-        elseif(!empty($data) && substr($data,0,2) != 'a:')
-          $pageContent['log_visitTime_max'] = changeVisitTime($data,' ');
-
-
-      $data = $pageContent['log_searchWords'];
-        if(strpos($data,'|#|') !== false)
-          $pageContent['log_searchWords'] = changeToSerializedDataString($data,'|#|');
-        elseif(strpos($data,'|') !== false)
-          $pageContent['log_searchWords'] = changeToSerializedDataString($data,'|');
-        elseif(!empty($data) && substr($data,0,2) != 'a:')
-          $pageContent['log_searchWords'] = changeToSerializedDataString($data,' ');
-
-      // save page stats
-      $pageStatistics = StatisticFunctions::readPageStatistics($pageContent['id']);
-      if(!$pageStatistics) {
-        $pageStatistics['id'] = $pageContent['id'];
-        $pageStatistics['visitorCount'] = $pageContent['log_visitorCount'];
-        $pageStatistics['firstVisit'] = $pageContent['log_firstVisit'];
-        $pageStatistics['lastVisit'] = $pageContent['log_lastVisit'];
-        $pageStatistics['visitTimeMin'] = $pageContent['log_visitTime_min'];
-        $pageStatistics['visitTimeMax'] = $pageContent['log_visitTime_max'];
-        $pageStatistics['searchWords'] = $pageContent['log_searchWords'];
-        StatisticFunctions::savePageStatistics($pageStatistics);
-      }
-
-      if(!GeneralFunctions::savePage($pageContent))
-        $pagesSuccesfullUpdated = false;
-    }
-    if($pagesSuccesfullUpdated)
-      echo 'pages <span class="succesfull">succesfully updated</span><br>';
-    else {
-      echo 'pages <span class="notSuccesfull">could not be updated</span><br>';
-      $succesfullUpdate = false;
-    }
 
     // ->> SAVE NEW categoryConfig
     foreach($categoryConfig as $key => $category) {
@@ -598,7 +416,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
       // only if was until 1.1.6
       // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
-      if(until('1.1.6')) {
+      if(until(796)) {
         $categoryPlugins = unserialize($category['plugins']);
         $newCategoryPlugins = array();
 
@@ -621,10 +439,236 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
       $newCategoryConfig[$newKey] = $category;
     }
-    if(saveCategories($newCategoryConfig))
+    if(saveCategories($newCategoryConfig)) {
+      GeneralFunctions::$categoryConfig = include(dirname(__FILE__).'/config/category.config.php');
       echo 'categoryConfig <span class="succesfull">succesfully updated</span><br>';
-    else {
+    } else {
       echo 'categoryConfig <span class="notSuccesfull">could not be updated</span><br>';
+      $succesfullUpdate = false;
+    }
+
+
+    // ->> LOAD PAGES
+    $pages = GeneralFunctions::loadPages(true);
+
+    //print_r($pages);
+    $pagesSuccesfullUpdated = true;
+    foreach($pages as $pageContent) {
+
+      // renaming of some values
+      if(until(796)) {
+        $pageContent['sortOrder'] = (isset($pageContent['sortorder'])) ? $pageContent['sortorder'] : $pageContent['sortOrder'];
+        $pageContent['lastSaveDate'] = (isset($pageContent['lastsavedate'])) ? $pageContent['lastsavedate'] : $pageContent['lastSaveDate'];
+        $pageContent['lastSaveAuthor'] = (isset($pageContent['lastsaveauthor'])) ? $pageContent['lastsaveauthor'] : $pageContent['lastSaveAuthor'];
+        $pageContent['pageDate']['date'] = (isset($pageContent['pagedate']['date'])) ? $pageContent['pagedate']['date'] : $pageContent['pageDate']['date'];
+        $pageContent['log_visitorCount'] = (isset($pageContent['log_visitorcount'])) ? $pageContent['log_visitorcount'] : $pageContent['log_visitorCount'];
+        $pageContent['log_searchWords'] = (isset($pageContent['log_searchwords'])) ? $pageContent['log_searchwords'] : $pageContent['log_searchWords'];
+      }
+
+      // v2.0
+      if(until(972)) {
+        if(!is_numeric($pageContent['lastSaveAuthor'])) {
+          foreach ($userConfig as $user) {
+            if($user['username'] == $pageContent['lastSaveAuthor']) {
+              $pageContent['lastSaveAuthor'] = $user['id'];
+              break;
+            }
+          }
+        }
+
+        // v2.0 change thumbnail filename extension (convert to .jpg)
+        $thumbnailExtension = substr($pageContent['thumbnail'], (strrpos($pageContent['thumbnail'], '.') + 1 ));
+        $thumbnailExtension = strtolower( $thumbnailExtension );
+        $thumbnailPath = dirname(__FILE__).'/upload/thumbnails/'.$pageContent['thumbnail'];
+        if(!empty($pageContent['thumbnail']) && !empty($thumbnailExtension) && $thumbnailExtension != 'jpg' && is_file($thumbnailPath)) {
+          require_once(dirname(__FILE__).'/library/thirdparty/PHP/Image.class.php');
+          $newThumbnail = new Image($thumbnailPath,DOCUMENTROOT);
+          $newThumbnail->process('jpg',str_replace('.'.$thumbnailExtension, '.jpg', $thumbnailPath));
+          $pageContent['thumbnail'] = str_replace('.'.$thumbnailExtension, '.jpg', $pageContent['thumbnail']);
+          unlink($thumbnailPath);
+          unset($newThumbnail);
+        }
+
+        // v2.0 - localized
+        if(!isset($pageContent['localized'])) {
+
+          $pageContent['localized'][0]['title'] = $pageContent['title'];
+          $pageContent['localized'][0]['content'] = $pageContent['content'];
+          $pageContent['localized'][0]['description'] = $pageContent['description'];
+          $pageContent['localized'][0]['tags'] = $pageContent['tags'];
+        }
+
+        // activate the captcha in the contactForm plugins, when the contactForm is activated
+        if(isset($pageContent['plugins']['contactForm']) && !isset($pageContent['plugins']['contactForm']['captcha']))
+          $pageContent['plugins']['contactForm']['captcha'] = true;
+      }
+
+
+
+      // only if was until 1.1.6
+      // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
+      if(until(796)) {
+        if(isset($pageContent['plugins']['imageGallery']) && !isset($pageContent['plugins']['imageGalleryFromFolder'])) {
+          $pageContent['plugins']['imageGalleryFromFolder'] = $pageContent['plugins']['imageGallery'];
+          unset($pageContent['plugins']['imageGallery']);
+        } elseif(isset($pageContent['plugins']['slideShow']) && !isset($pageContent['plugins']['slideShowFromFolder'])) {
+          $pageContent['plugins']['slideShowFromFolder'] = $pageContent['plugins']['slideShow'];
+          unset($pageContent['plugins']['slideShow']);
+        }
+      }
+
+      // v2.0 changed key names of plugins
+      if(until(972)) {
+        // imageGallery
+        if(isset($pageContent['plugins']['imageGallery'])) {
+          $pageContent['plugins']['imageGallery']['imageWidthNumber'] = (isset($pageContent['plugins']['imageGallery']['imageWidth']))
+            ? $pageContent['plugins']['imageGallery']['imageWidth']
+            : $pageContent['plugins']['imageGallery']['imageWidthNumber'];
+          $pageContent['plugins']['imageGallery']['imageHeightNumber'] = (isset($pageContent['plugins']['imageGallery']['imageHeight']))
+            ? $pageContent['plugins']['imageGallery']['imageHeight']
+            : $pageContent['plugins']['imageGallery']['imageHeightNumber'];
+          $pageContent['plugins']['imageGallery']['thumbnailWidthNumber'] = (isset($pageContent['plugins']['imageGallery']['thumbnailWidth']))
+            ? $pageContent['plugins']['imageGallery']['thumbnailWidth']
+            : $pageContent['plugins']['imageGallery']['thumbnailWidthNumber'];
+          $pageContent['plugins']['imageGallery']['thumbnailHeightNumber'] = (isset($pageContent['plugins']['imageGallery']['thumbnailHeight']))
+            ? $pageContent['plugins']['imageGallery']['thumbnailHeight']
+            : $pageContent['plugins']['imageGallery']['thumbnailHeightNumber'];
+          $pageContent['plugins']['imageGallery']['breakAfterNumber'] = (isset($pageContent['plugins']['imageGallery']['breakAfter']))
+            ? $pageContent['plugins']['imageGallery']['breakAfter']
+            : $pageContent['plugins']['imageGallery']['breakAfterNumber'];
+          $pageContent['plugins']['imageGallery']['tagSelection'] = (isset($pageContent['plugins']['imageGallery']['tag']))
+            ? $pageContent['plugins']['imageGallery']['tag']
+            : $pageContent['plugins']['imageGallery']['tagSelection'];
+
+          unset($pageContent['plugins']['imageGallery']['imageWidth'],$pageContent['plugins']['imageGallery']['imageHeight'],$pageContent['plugins']['imageGallery']['thumbnailWidth'],$pageContent['plugins']['imageGallery']['thumbnailHeight'],$pageContent['plugins']['imageGallery']['breakAfter'],$pageContent['plugins']['imageGallery']['tag']);
+        }
+        // imageGalleryFromFolder
+        if(isset($pageContent['plugins']['imageGalleryFromFolder'])) {
+          $pageContent['plugins']['imageGalleryFromFolder']['imageWidthNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['imageWidth']))
+            ? $pageContent['plugins']['imageGalleryFromFolder']['imageWidth']
+            : $pageContent['plugins']['imageGalleryFromFolder']['imageWidthNumber'];
+          $pageContent['plugins']['imageGalleryFromFolder']['imageHeightNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['imageHeight']))
+            ? $pageContent['plugins']['imageGalleryFromFolder']['imageHeight']
+            : $pageContent['plugins']['imageGalleryFromFolder']['imageHeightNumber'];
+          $pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidthNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidth']))
+            ? $pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidth']
+            : $pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidthNumber'];
+          $pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeightNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeight']))
+            ? $pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeight']
+            : $pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeightNumber'];
+          $pageContent['plugins']['imageGalleryFromFolder']['breakAfterNumber'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['breakAfter']))
+            ? $pageContent['plugins']['imageGalleryFromFolder']['breakAfter']
+            : $pageContent['plugins']['imageGalleryFromFolder']['breakAfterNumber'];
+          $pageContent['plugins']['imageGalleryFromFolder']['tagSelection'] = (isset($pageContent['plugins']['imageGalleryFromFolder']['tag']))
+            ? $pageContent['plugins']['imageGalleryFromFolder']['tag']
+            : $pageContent['plugins']['imageGalleryFromFolder']['tagSelection'];
+
+          unset($pageContent['plugins']['imageGalleryFromFolder']['imageWidth'],$pageContent['plugins']['imageGalleryFromFolder']['imageHeight'],$pageContent['plugins']['imageGalleryFromFolder']['thumbnailWidth'],$pageContent['plugins']['imageGalleryFromFolder']['thumbnailHeight'],$pageContent['plugins']['imageGalleryFromFolder']['breakAfter'],$pageContent['plugins']['imageGalleryFromFolder']['tag']);
+        }
+        // slideShow
+        if(isset($pageContent['plugins']['slideShow'])) {
+           $pageContent['plugins']['slideShow']['intervalNumber'] = (isset($pageContent['plugins']['slideShow']['intervalNumber']))
+            ? $pageContent['plugins']['slideShow']['intervalNumber']
+            : 3;
+          $pageContent['plugins']['slideShow']['effectSelection'] = (isset($pageContent['plugins']['slideShow']['effectSelection']))
+            ? $pageContent['plugins']['slideShow']['effectSelection']
+            : 'fade';
+        }
+        // slideShowFromFolder
+        if(isset($pageContent['plugins']['slideShowFromFolder'])) {
+           $pageContent['plugins']['slideShowFromFolder']['intervalNumber'] = (isset($pageContent['plugins']['slideShowFromFolder']['intervalNumber']))
+            ? $pageContent['plugins']['slideShowFromFolder']['intervalNumber']
+            : 3;
+          $pageContent['plugins']['slideShowFromFolder']['effectSelection'] = (isset($pageContent['plugins']['slideShowFromFolder']['effectSelection']))
+            ? $pageContent['plugins']['slideShowFromFolder']['effectSelection']
+            : 'fade';
+        }
+      }
+
+      // if below  build 958
+      if(until(958)) {
+        foreach ($pageContent['plugins'] as $pluginName => $pluginData) {
+          unset($pageContent['plugins'][$pluginName]);
+          $pageContent['plugins'][$pluginName][1] = $pluginData;
+        }
+      }
+
+      // -> change such a date: 2010-03-20 17:50:27 to unix timestamp
+      // mktime(hour,minute,seconds,month,day,year)
+      if(until(796)) {
+        $time = $pageContent['lastSaveDate'];
+        if(substr($time,4,1) == '-')
+          $pageContent['lastSaveDate'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
+
+        $time = $pageContent['log_firstVisit'];
+        if(substr($time,4,1) == '-')
+          $pageContent['log_firstVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
+
+        $time = $pageContent['log_lastVisit'];
+        if(substr($time,4,1) == '-')
+          $pageContent['log_lastVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
+
+        $time = $pageContent['pageDate']['date'];
+        if(substr($time,4,1) == '-')
+          $pageContent['pageDate']['date'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
+
+        // -> change dataString separator
+        $data = $pageContent['log_visitTime_min'];
+          if(strpos($data,'|#|') !== false)
+            $pageContent['log_visitTime_min'] = changeVisitTime($data,'|#|');
+          elseif(strpos($data,'|') !== false)
+            $pageContent['log_visitTime_min'] = changeVisitTime($data,'|');
+          elseif(!empty($data) && substr($data,0,2) != 'a:')
+            $pageContent['log_visitTime_min'] = changeVisitTime($data,' ');
+
+        $data = $pageContent['log_visitTime_max'];
+          if(strpos($data,'|#|') !== false)
+            $pageContent['log_visitTime_max'] = changeVisitTime($data,'|#|');
+          elseif(strpos($data,'|') !== false)
+            $pageContent['log_visitTime_max'] = changeVisitTime($data,'|');
+          elseif(!empty($data) && substr($data,0,2) != 'a:')
+            $pageContent['log_visitTime_max'] = changeVisitTime($data,' ');
+
+
+        $data = $pageContent['log_searchWords'];
+          if(strpos($data,'|#|') !== false)
+            $pageContent['log_searchWords'] = changeToSerializedDataString($data,'|#|');
+          elseif(strpos($data,'|') !== false)
+            $pageContent['log_searchWords'] = changeToSerializedDataString($data,'|');
+          elseif(!empty($data) && substr($data,0,2) != 'a:')
+            $pageContent['log_searchWords'] = changeToSerializedDataString($data,' ');
+      }
+
+      // change the pageDate
+      if(until(972) && !empty($pageContent['pageDate']['date']) && !isset($pageContent['pageDate']['start'])) {
+        $pageContent['pageDate']['start'] = $pageContent['pageDate']['date'];
+      }
+
+      // save page stats
+      $pageStatistics = StatisticFunctions::readPageStatistics($pageContent['id']);
+      if(until(796) && !$pageStatistics) {
+        $pageStatistics['id'] = $pageContent['id'];
+        $pageStatistics['visitorCount'] = $pageContent['log_visitorCount'];
+        $pageStatistics['firstVisit'] = $pageContent['log_firstVisit'];
+        $pageStatistics['lastVisit'] = $pageContent['log_lastVisit'];
+        $pageStatistics['visitTimeMin'] = $pageContent['log_visitTime_min'];
+        $pageStatistics['visitTimeMax'] = $pageContent['log_visitTime_max'];
+        $pageStatistics['searchWords'] = $pageContent['log_searchWords'];
+        StatisticFunctions::savePageStatistics($pageStatistics);
+      }
+
+      if(GeneralFunctions::savePage($pageContent)) {
+        // delete the previous files
+        $categoryPath = ($pageContent['category'] == 0) ? '' : $pageContent['category'].'/';
+        if(file_exists(dirname(__FILE__).'/pages/'.$categoryPath.$pageContent['id'].'.previous.php'))
+          @unlink(dirname(__FILE__).'/pages/'.$categoryPath.$pageContent['id'].'.previous.php');
+      } else
+        $pagesSuccesfullUpdated = false;
+    }
+    if($pagesSuccesfullUpdated)
+      echo 'pages <span class="succesfull">succesfully updated</span><br>';
+    else {
+      echo 'pages <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
     }
 
@@ -639,7 +683,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     }
 
     // only if was below 2.0 build 951
-    if(until('951')) {
+    if(until(951)) {
       // maintenance
       if(!isset($websiteConfig['maintenance']))
         $websiteConfig['maintenance'] = $adminConfig['maintenance'];
@@ -918,6 +962,25 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/styles/ie7.css';
     $deleteFiles[] = 'library/styles/login.css';
 
+    $deleteFiles[] = 'library/includes/showTaskLog.include.php';
+    $deleteFiles[] = 'library/images/bg/leftSidebarInfo_bg.png';
+    $deleteFiles[] = 'library/images/bg/footerBlock.png';
+    $deleteFiles[] = 'library/images/bg/sidebarScrollDown.png';
+    $deleteFiles[] = 'library/images/bg/sidebarScrollUp.png';
+    $deleteFiles[] = 'library/images/buttons/sidebarMenu_key_gray.png';
+    $deleteFiles[] = 'library/images/buttons/sidebarMenu_key_brown.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_blue_down.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_blue_up.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_blue_start.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_blue_end.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_brown_down.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_brown_up.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_brown_start.png';
+    $deleteFiles[] = 'library/images/bg/listPages_parentPage_inLineArrow_brown_end.png';
+    $deleteFiles[] = 'library/images/buttons/login_button.png';
+    $deleteFiles[] = 'library/images/icons/mail.gif';
+    $deleteFiles[] = 'library/images/buttons/subMenu_editPage.png';
+
 
     // CHECK if files could be deleted
     $checkFiles = array();
@@ -989,10 +1052,14 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
         // add the user permissions from the adminConfig to the userConfig
         // only if was until build 953
-        if(until('953') && !isset($newUserConfig[$user['id']]['info'])) {
+        if(until(953) && !isset($newUserConfig[$user['id']]['info']))
           $newUserConfig[$user['id']]['info'] = $adminConfig['user']['info'];
-        if(until('953') && !isset($newUserConfig[$user['id']]['permissions'])) {
+        if(until(953) && !isset($newUserConfig[$user['id']]['permissions']))
           $newUserConfig[$user['id']]['permissions'] = $adminConfig['user'];
+
+        // only if was until build 957
+        if(until(957) && !isset($newUserConfig[$user['id']]['permissions']['websiteSettings']))
+          $newUserConfig[$user['id']]['permissions']['websiteSettings'] = true;
       }
 
       if(saveUserConfig($newUserConfig))
@@ -1006,7 +1073,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
     // -> final success text or failure warning
     if($succesfullUpdate) {
-      file_put_contents(dirname(__FILE__).'/VERSION', "This file is necessary for the next feindura update. Do not delete it!\n".$NEWVERSION."\n".$NEWBUILD);
+      file_put_contents(dirname(__FILE__).'/VERSION', "feindura - Flat File CMS (Version,Build)\n".$CURVERSION."\n".$CURBUILD);
       echo '<br>NOTE: If you had Speaking URL activated, you have to activate it again in the admin settings. But before delete the speaking URL code from you .htaccess file manually!<br>';
       echo '<br><h1>You can now delete the "update.php" file.</h1>';
     } else

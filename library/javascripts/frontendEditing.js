@@ -116,7 +116,7 @@
       onSuccess: function(html) { //-------------------------------------------------
 
         if(html.contains('####SAVING-ERROR####'))
-          document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
+          document.body.grab(feindura_showError(errorTexts.title,errorTexts.text),'top');
         else {
           // display finish picture
           document.body.grab(finishPicture,'bottom');
@@ -144,7 +144,7 @@
           return;
 
         // add errorWindow
-        document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
+        document.body.grab(feindura_showError(errorTexts.title,errorTexts.text),'top');
       }
     }).send(data);
   }
@@ -223,7 +223,7 @@
     feindura_storeTipTexts('.feindura_toolTip');
 
     // add the tooltips to the elements
-    toolTips = new Tips('.feindura_toolTip',{
+    toolTips = new FloatingTips('.feindura_toolTip',{
       className: 'feindura_toolTipBox',
       offset: {'x': 10,'y': 15},
       fixed: false,
@@ -448,8 +448,8 @@
   // ->> create TOP BAR
   function topBarTemplate() {
     var links = [];
-    links[0] = new Element('a',{ 'href': feindura_logoutUrl, 'class': 'feindura_logout feindura_toolTip', 'title': feindura_langFile.BUTTON_LOGOUT });
-    links[1] = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'class': 'feindura_toBackend feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
+    links[0] = new Element('a',{ 'href': feindura_logoutUrl, 'class': 'feindura_logout feindura_toolTip', 'title': feindura_langFile.BUTTON_LOGOUT,'text':'X' });
+    links[1] = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'class': 'feindura_toBackend feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND, 'text':'>' });
 
     // Hide button
     links[2] = new Element('a',{ 'href': '#', 'onclick':'return false;', 'class': 'feindura_topBarHide feindura_toolTip', 'title': feindura_langFile.TOPBAR_TIP_DEACTIVATEFRONTENDEDITING+'::'});

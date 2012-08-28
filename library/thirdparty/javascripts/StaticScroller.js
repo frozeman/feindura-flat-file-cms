@@ -23,7 +23,7 @@ var StaticScroller = new Class({
 	Implements: Options,
 
 		options: {
-			offset: 1,
+			offset: 0,
 			scrollElement: window
 		},
 
@@ -88,7 +88,7 @@ var StaticScroller = new Class({
 		if(collision) {
 			if(!isPinned) {
 				this.element.pin();
-        if(this.options.offset.toInt() > 0)
+        if(this.options.offset.toInt() !== 0)
           this.element.setStyle('top', this.options.offset.toInt());
 				this.element.store('pinned',true);
 			}

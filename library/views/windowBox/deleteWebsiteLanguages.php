@@ -46,7 +46,7 @@ if(!empty($languageString))
   echo '<h2 class="red">'.sprintf($langFile['WINDOWBOX_TITLE_DELETEWEBSITELANGUAGES_QUESTION'],'<span style="color:#000000;">'.$languageString.'</span>').'</h2>';
 
 if($_GET['status'] == 'deactivated')
-  echo '<div class="alert alert-info">'.sprintf($langFile['WINDOWBOX_TEXT_DELETEWEBSITELANGUAGES_QUESTION'],$languageNames[$_GET['mainLanguage']]).'</div>';
+  echo '<div class="alert alert-info center">'.sprintf($langFile['WINDOWBOX_TEXT_DELETEWEBSITELANGUAGES_QUESTION'],$languageNames[$_GET['mainLanguage']]).'</div>';
 
 ?>
 

@@ -25,10 +25,12 @@
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 ?>
+<!-- editor anchor is here -->
 <a id="editorAnchor" class="anchorTarget"></a>
+
 <div class="block editor">
   <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
-    <?php echo htmlspecialchars(GeneralFunctions::getLocalized($pageContent,'content',true),ENT_NOQUOTES,'UTF-8'); ?>
+    <?php echo htmlspecialchars(GeneralFunctions::getLocalized($pageContent,'content',false,true),ENT_NOQUOTES,'UTF-8'); ?>
   </textarea>
 <?php
 
@@ -50,24 +52,32 @@ $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',
 
   // -> TRANSPORT Snippets to CKEditor feinduraSnippets plugin
   var feindura_plugins = [
-    <?php
+    ['-',''],
+<?php
       // check if plugins are activated
       if(is_array($pageContent['plugins']) && is_array($activatedPlugins) && count($activatedPlugins) >= 1) {
+        $transportPlugins = '';
         $hasPlugins = false;
-        foreach ($pageContent['plugins'] as $pluginName => $pluginValues) {
-          if(in_array($pluginName,$activatedPlugins)) {
-            $pluginFolder = $adminConfig['basePath'].'plugins/'.$pluginName;
-            $pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['feinduraSession']['backendLanguage'].'.php'))
-              ? $_SESSION['feinduraSession']['backendLanguage']
-              : 'en';
-            $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/languages/'.$pluginCountryCode.'.php');
-            $hasPlugins = true;
-            echo '["'.str_replace('"','',$pluginLangFile['feinduraPlugin_title']).'","'.$pluginName.'"],';
+        foreach ($pageContent['plugins'] as $pluginFolderName => $plugins) {
+          foreach ($plugins as $pluginNumber => $pluginValues) {
+            if(in_array($pluginFolderName,$activatedPlugins)) {
+              $pluginFolder = $adminConfig['basePath'].'plugins/'.$pluginFolderName;
+              $pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['feinduraSession']['backendLanguage'].'.php'))
+                ? $_SESSION['feinduraSession']['backendLanguage']
+                : 'en';
+              $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/languages/'.$pluginCountryCode.'.php');
+              $hasPlugins = true;
+
+              $pluginName = str_replace('"','',$pluginLangFile['feinduraPlugin_title']) ;
+              $pluginName .= ($pluginNumber > 1) ? ' #'.$pluginNumber : '';
+              $transportPlugins .= '    ["'.$pluginName.'","'.$pluginFolderName.'#'.$pluginNumber.'"],'."\n";
+            }
           }
         }
+        echo trim($transportPlugins,",\n")."\n";
       }
-      unset($pluginLangFile);
-    ?>
+      unset($pluginLangFile,$plugins,$pluginValues,$pluginNumber);
+?>
   ];
 
 window.addEvent('domready',function() {
@@ -124,133 +134,86 @@ if($adminConfig['editor']['enterMode'] == 'br') { ?>
 <?php }
 
 // FILEMANAGER
-if($adminConfig['user']['fileManager']) {
+if(GeneralFunctions::hasPermission('fileManager')) {
 ?>
   CKEDITOR.config.filebrowserBrowseUrl      = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath'])."library/views/windowBox/fileManager.php"; ?>';
   CKEDITOR.config.filebrowserImageBrowseUrl = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath'])."library/views/windowBox/fileManager.php?mimType=image"; ?>';
   CKEDITOR.config.filebrowserFlashBrowseUrl = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath'])."library/views/windowBox/fileManager.php?mimType=application"; ?>';
-  CKEDITOR.config.filebrowserWindowWidth    = 960;
-  CKEDITOR.config.filebrowserWindowHeight   = 600;
+  CKEDITOR.config.filebrowserWindowWidth    = 1000;
+  CKEDITOR.config.filebrowserWindowHeight   = 650;
   CKEDITOR.config.filebrowserWindowFeatures = 'scrollbars=no,center=yes,status=no';
 <?php } ?>
 });
 /* ]]> */
 </script>
 
-  <div class="content">
+  <div class="content form">
+    <!-- page settings anchor is here -->
+    <a id="pageSettings" class="anchorTarget"></a>
 
-    <div class="row">
-      <div class="span2">
-        <span href="#" id="hotKeysToogle" class="down link toolTipRight" title="::[table]
-          [tbody]
-            [tr]
-              [td]
-                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field1']; ?>[/strong][/td]
-              [td] STRG + A[/td]
-            [/tr][tr]
-              [td]
-                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field2']; ?>[/strong][/td]
-              [td] STRG + C[/td]
-            [/tr][tr]
-              [td]
-                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field3']; ?>[/strong][/td]
-              [td]
-                STRG + V[/td]
-            [/tr][tr]
-              [td]
-                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field4']; ?>[/strong][/td]
-              [td]
-                STRG + X
-                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_or']; ?>[/strong] SHIFT + Del[/td]
-            [/tr][tr]
-              [td colspan=2 style=height: 10px;background-color:#fff;] [/td]
-            [/tr][tr]
-              [td]
-                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field5']; ?>[/strong][/td]
-              [td] STRG + Z[/td]
-            [/tr][tr]
-              [td]
-                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field6']; ?>[/strong][/td]
-              [td]
-                STRG + Y
-                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_or']; ?>[/strong] STRG + SHIFT + Z[/td]
-            [/tr][tr]
-              [td colspan=2 style=height: 10px;background-color:#fff;] [/td]
-            [/tr][tr]
-              [td]
-                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field7']; ?>[/strong][/td]
-              [td] STRG + L[/td]
-            [/tr][tr]
-              [td]
-                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field8']; ?>[/strong][/td]
-              [td] STRG + B[/td]
-            [/tr][tr]
-              [td]
-                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field9']; ?>[/strong][/td]
-              [td] STRG + I[/td]
-            [/tr][tr]
-              [td]
-                [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field10']; ?>[/strong][/td]
-              [td] STRG + U[/td]
-            [/tr]
-          [/tbody]
-        [/table]"><?php echo $langFile['EDITOR_htmleditor_hotkeys_h1']; ?></span>
-      </div>
+    <span id="hotKeysToogle" class="down link toolTipRight" title="::[table]
+      [tbody]
+        [tr]
+          [td]
+            [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field1']; ?>[/strong][/td]
+          [td] STRG + A[/td]
+        [/tr][tr]
+          [td]
+            [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field2']; ?>[/strong][/td]
+          [td] STRG + C[/td]
+        [/tr][tr]
+          [td]
+            [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field3']; ?>[/strong][/td]
+          [td]
+            STRG + V[/td]
+        [/tr][tr]
+          [td]
+            [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field4']; ?>[/strong][/td]
+          [td]
+            STRG + X
+            [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_or']; ?>[/strong] SHIFT + Del[/td]
+        [/tr][tr]
+          [td colspan=2 style=height: 10px;background-color:#fff;] [/td]
+        [/tr][tr]
+          [td]
+            [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field5']; ?>[/strong][/td]
+          [td] STRG + Z[/td]
+        [/tr][tr]
+          [td]
+            [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field6']; ?>[/strong][/td]
+          [td]
+            STRG + Y
+            [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_or']; ?>[/strong] STRG + SHIFT + Z[/td]
+        [/tr][tr]
+          [td colspan=2 style=height: 10px;background-color:#fff;] [/td]
+        [/tr][tr]
+          [td]
+            [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field7']; ?>[/strong][/td]
+          [td] STRG + L[/td]
+        [/tr][tr]
+          [td]
+            [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field8']; ?>[/strong][/td]
+          [td] STRG + B[/td]
+        [/tr][tr]
+          [td]
+            [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field9']; ?>[/strong][/td]
+          [td] STRG + I[/td]
+        [/tr][tr]
+          [td]
+            [strong]<?php echo $langFile['EDITOR_htmleditor_hotkeys_field10']; ?>[/strong][/td]
+          [td] STRG + U[/td]
+        [/tr]
+      [/tbody]
+    [/table]">
+    <?php echo $langFile['EDITOR_htmleditor_hotkeys_h1']; ?>
+    </span>
+    <br class="clear">
+    <?php
 
-      <div class="span6">
-      <?php
+    if(!$newPage)
+      include(dirname(__FILE__).'/pageMetaData.include.php');
 
-      $thumbnailPath = (!empty($pageContent['thumbnail'] )) ? GeneralFunctions::Path2URI($adminConfig['uploadPath']).$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'] : '#';
-
-      // -> show THUMBNAIL if the page has one
-      $displayThumbnailContainer = ' display:none;';
-      if(!$newPage && $categoryConfig[$pageContent['category']]['thumbnails'] && !empty($pageContent['thumbnail'])) {
-
-        $displayThumbnailContainer = '';
-      }
-
-      // thumb width
-      $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
-      $thumbnailWidth = $thumbnailWidth[0];
-
-      if($thumbnailWidth >= 200)
-        $thumbnailWidthStyle = ' style="width:200px;"';
-
-
-      // generates a random number to put on the end of the image, to prevent caching
-      // $randomImage = '?'.md5(uniqid(rand(),1));
-
-      // thumbnailPreviewContainer
-      echo '<div id="thumbnailPreviewContainer" style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;'.$displayThumbnailContainer.'">';
-      echo $langFile['THUMBNAIL_TEXT_NAME'].'<br>';
-
-        echo '<div>';
-        // see if the thumbnails are activated, add upload/delete buttons
-        if($categoryConfig[$pageContent['category']]['thumbnails']) {
-          echo '<a href="?site=deletePageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"" class="deleteButton toolTipLeft"></a>';
-          echo '<a href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" class="image">';
-          echo '<img src="'.$thumbnailPath.'" id="thumbnailPreviewImage" class="thumbnail"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail">';
-          echo '</a>';
-        // if not only show the thumbnailPreviewImage
-        } else
-          echo '<img src="'.$thumbnailPath.'" id="thumbnailPreviewImage" class="thumbnail"'.$thumbnailWidthStyle.' data-width="'.$thumbnailWidth.'" alt="thumbnail">';
-
-        echo '</div>';
-      echo '</div>';
-
-      // -> show the thumbnail upload button if there is no thumbnail yet
-      $displayThumbnailUploadButton = (!$newPage && $categoryConfig[$pageContent['category']]['thumbnails'] && empty($pageContent['thumbnail']))
-         ? '' : ' style="display:none;"';
-
-      // thumbnailUploadButtonInPreviewArea
-      echo '<a href="?site=uploadPageThumbnail&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" id="thumbnailUploadButtonInPreviewArea" onclick="openWindowBox(\'library/views/windowBox/uploadPageThumbnail.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="uploadPageThumbnail toolTipLeft"'.$displayThumbnailUploadButton.'></a>';
-
-
-      ?>
-      </div>
-    </div>
+    ?>
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
   </div>
-
-  <input type="submit" value="" id="HTMLEditorSubmit" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
-  <br><br>
 </div>

@@ -90,19 +90,20 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
       $header .= 'From: "feindura CMS from '.$adminConfig['url'].'" <noreply@'.str_replace(array('http://','https://','www.'),'',$adminConfig['url']).">\r\n";
       $header .= 'X-Mailer: PHP/' . PHP_VERSION;
 
-      // change users password
-      $newUserConfig = $userConfig;
-      $newUserConfig[$currentUser['id']]['password'] = md5($newPassword);
+      if(mail($userEmail,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$header)) {
+        // change users password
+        $newUserConfig = $userConfig;
+        $newUserConfig[$currentUser['id']]['password'] = md5($newPassword);
 
-      // send mail with the new password
-      if(saveUserConfig($newUserConfig)) {
-        if(mail($userEmail,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$header)) {
-          $resetPassword = true;
-          unset($_GET['resetpassword']);
+        // send mail with the new password
+        if(saveUserConfig($newUserConfig)) {
+            $resetPassword = true;
+            unset($_GET['resetpassword']);
         } else
-          $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSEND'];
+          $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSAVED'];
+
       } else
-        $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSAVED'];
+          $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSEND'];
     } else
       $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOEMAIL'];
   } else
@@ -151,62 +152,31 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 <!DOCTYPE html>
 <html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>" class="feindura">
 <head>
-  <meta charset="UTF-8">
+  <title>feindura | login</title>
 
-  <title>feindura login</title>
-
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=0.5">
-
-  <meta name="robots" content="no-index,nofollow">
-  <meta http-equiv="pragma" content="no-cache"> <!--browser/proxy dont cache-->
-  <meta http-equiv="cache-control" content="no-cache"> <!--proxy dont cache-->
-  <meta http-equiv="accept-encoding" content="gzip, deflate">
-
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]">
-  <meta name="description" content="A flat file based Content Management System, written in PHP">
-  <meta name="keywords" content="cms,flat,file,content,management,system">
-
-  <link rel="shortcut icon" href="favicon.ico">
-
-  <!-- feindura styles -->
-  <link rel="stylesheet" type="text/css" href="library/styles/styles.css<?php echo '?v='.BUILD; ?>">
-
-  <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.4.5.js"></script>
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.4.0.1.js"></script>
-
-  <!-- thirdparty/PlaceholderSupport -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/PlaceholderSupport.js"></script>
-
-  <!-- thirdparty/Raphael -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
-
-  <!-- thirdparty/Html5Shiv -->
-  <!--[if lt IE 9]><script type="text/javascript" src="library/thirdparty/javascripts/html5shiv.min.js"></script><![endif]-->
-
-  <!-- javascripts -->
-  <script type="text/javascript" src="library/javascripts/shared.js"></script>
+  <?php
+  include(dirname(__FILE__).'/metaTags.include.php');
+  ?>
 
   <script type="text/javascript">
+  /* <![CDATA[ */
+    window.addEvent('domready',function(){
+      new PlaceholderSupport();
+    });
 
-  window.addEvent('domready',function(){
-    new PlaceholderSupport();
-  });
-
-  function startLoadingCircle() {
-    // create loading circle element
+    // vars
     var loginLoadingCircle = new Element('div', {id: 'loginLoadingCircle'});
-    loginLoadingCircle.replaces('submitButton');
-    var removeLoadingCircle = feindura_loadingCircle('loginLoadingCircle', 12, 20, 12, 3, "#000");
-  }
 
+    function startLoadingCircle() {
+      // create loading circle element
+      loginLoadingCircle.replaces('submitButton');
+      feindura_loadingCircle('loginLoadingCircle', 12, 20, 12, 3, "#000");
+    }
+  /* ]]> */
   </script>
 </head>
 <body>
-  <div class="container">
+  <div class="container loginContainer">
   <?php if($loggedOut) {  ?>
     <div class="alert center">
       <?php

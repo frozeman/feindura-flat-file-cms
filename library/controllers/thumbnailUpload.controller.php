@@ -97,15 +97,14 @@ if($_POST['upload']) {
     $fileCounter = 0 ;
 
     // sets the thumbnail UploadPath
-    $uploadPath = $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'];
+    $uploadPath = dirname(__FILE__).'/../../upload/thumbnails/';
 
     // ---------------- ERROR
     // checks if the upload Dir exists
-    if(empty($adminConfig['uploadPath']) || empty($adminConfig['pageThumbnail']['path']))
-      $error[] = $langFile['PAGETHUMBNAIL_ERROR_NODIR_START'].' &quot;<b>'.$uploadPath.'</b>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_NODIR_END'];
-    elseif(!@is_dir(DOCUMENTROOT.$uploadPath))
-      if(!@mkdir(DOCUMENTROOT.$uploadPath, $adminConfig['permissions'],true))
+    if(!@is_dir($uploadPath)) {
+      if(!@mkdir($uploadPath, $adminConfig['permissions'],true))
         $error[] = $langFile['PAGETHUMBNAIL_ERROR_NODIR_START'].' &quot;<b>'.$uploadPath.'</b>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END'];
+    }
 
 
     // CHECK FOR ERROR 2
@@ -128,7 +127,7 @@ if($_POST['upload']) {
       	if(is_file($filePath))	{
       		$fileCounter++;
       		$fileName = substr($originalFileName, 0, strrpos($originalFileName, '.')).'('.$fileCounter.').'.$fileExtension;
-      		$response[] = '<div class="alert alert-info">'.$langFile['PAGETHUMBNAIL_TEXT_fileexists'].' $quot;<b>'.$fileName.'</b>&quot;</div>';
+      		$response[] = '<div class="alert alert-info">'.$langFile['PAGETHUMBNAIL_TEXT_fileexists'].' &quot;<b>'.$fileName.'</b>&quot;</div>';
 
       	// if not move the uploaded file
       	}	else	{
@@ -136,14 +135,14 @@ if($_POST['upload']) {
       	// stops the while, because the fileName is possible
       	$changeFileName = false;
 
-      	if(!move_uploaded_file( $_FILES['thumbFile']['tmp_name'], DOCUMENTROOT.$filePath ))
+      	if(!move_uploaded_file( $_FILES['thumbFile']['tmp_name'], $filePath ))
       	 $error[] = sprintf($langFile['PAGETHUMBNAIL_ERROR_COULDNTMOVEFILE'],'(<b>'.$uploadPath.'</b>)');
 
         // CHECK FOR ERROR 3
         // --------------------------------------------------------------------------------
         if($error === false) {
           // sets the rights of the file
-        	if(is_file(DOCUMENTROOT.$filePath))	{
+        	if(is_file($filePath))	{
         		$oldumask = umask(0);
         		@chmod( $filePath, $adminConfig['permissions']);
         		umask($oldumask);
@@ -156,12 +155,11 @@ if($_POST['upload']) {
 
           require_once(dirname(__FILE__).'/../thirdparty/PHP/Image.class.php');
 
-
           // When both sizes are given resize only the small part which is bigger than the thumbnail with/height
           // (the rest will be "cut" to prevent squeezing, by adding it as background image to the <img>)
           if(!empty($thumbWidth) && !empty($thumbHeight) && is_numeric($thumbWidth) && is_numeric($thumbHeight)) {
 
-            $imageSize = (file_exists(DOCUMENTROOT.$filePath)) ? getimagesize(DOCUMENTROOT.$filePath) : array(0,0);
+            $imageSize = (file_exists($filePath)) ? getimagesize($filePath) : array(0,0);
 
             $imageRatio = $imageSize[0] / $imageSize[1];
             $thumbRatio = $thumbWidth / $thumbHeight;
@@ -182,15 +180,14 @@ if($_POST['upload']) {
           } else
             $keepRatio = (empty($_POST['thumbRatio'])) ? false : true;
 
-
-          $resize = new Image(DOCUMENTROOT.$filePath);
+          $resize = new Image($filePath,DOCUMENTROOT);
           if(!$resize->resize($thumbWidth,$thumbHeight,$keepRatio,true))
             $error[] = $langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE'];
           else
-            $resize->process($fileExtension,DOCUMENTROOT.$newFilePath);
+            $resize->process($fileExtension,$newFilePath);
           unset($resize);
 
-          @unlink(DOCUMENTROOT.$filePath);
+          @unlink($filePath);
 
           // get pageContent (ERROR)
           if(!$pageContent = GeneralFunctions::readPage($page,$category))
@@ -203,14 +200,14 @@ if($_POST['upload']) {
             // delete old thumbnail -------------------
             if(!empty($pageContent['thumbnail']) &&
               $pageContent['thumbnail'] != $newFileName &&
-              @is_file(DOCUMENTROOT.$uploadPath.$pageContent['thumbnail'])) {
+              @is_file($uploadPath.$pageContent['thumbnail'])) {
 
-              if(!unlink(DOCUMENTROOT.$uploadPath.$pageContent['thumbnail']))
+              if(!unlink($uploadPath.$pageContent['thumbnail']))
                 $error[] = $langFile['PAGETHUMBNAIL_ERROR_deleteoldfile'];
             }
 
             // image size
-            $thumbSize = @getimagesize(DOCUMENTROOT.$newFilePath);
+            $thumbSize = @getimagesize($newFilePath);
             $randomImage = '?'.md5(uniqid(rand(),1));
 
             // saves the new thumbnail in the flatfile ---------------------
@@ -224,7 +221,7 @@ if($_POST['upload']) {
 
               // generates a random number to put on the end of the image, to prevent caching
               $response[] = '<div class="alert alert-success">'.$langFile['PAGETHUMBNAIL_TEXT_finish'].'</div>
-                <img src="'.$uploadPath.$newFileName.$randomImage.'" class="thumbnail"'.$thumbnailWidth.'>';
+                <img src="'.GeneralFunctions::Path2URI($uploadPath).$newFileName.$randomImage.'" class="thumbnail"'.$thumbnailWidth.'>';
               saveActivityLog(6,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
             }
 
@@ -235,7 +232,7 @@ if($_POST['upload']) {
             // call this javascript, on the succesfull finish of the upload
             echo '<script type="text/javascript">
                   /* <![CDATA[ */
-                    window.top.window.finishThumbnailUpload('.$frameHeight.',"'.$newFileName.$randomImage.'",'.$thumbSize[0].');
+                    window.top.window.finishThumbnailUpload('.$frameHeight.',"'.$newFileName.$randomImage.'");
                   /* ]]> */
                   </script>';
           	}

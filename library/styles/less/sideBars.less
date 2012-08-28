@@ -1,0 +1,515 @@
+// feindura - Flat File Content Management System
+// Copyright (C) Fabian Vogelsteller [frozeman.de]
+//
+// Published under the GNU General Public License
+
+// SIDEBARS
+
+// common elements
+#leftSidebar,
+#rightSidebar {
+
+    // SPACER
+    .spacer {
+        position: relative;
+        width: 202px;
+        height: 26px;
+
+        &.arrow {
+            background: url("../images/bg/sidebarMenu_spacer_arrow.png") no-repeat left center;
+        }
+    }
+
+    .box {
+        position: relative;
+        z-index: 2;
+        margin: @blockContentPadding 0;
+        padding: @blockContentPadding;
+        width: 168px;
+        border: 1px solid #cdcdcd;
+        line-height: 18px;
+        word-break: break-word;
+        font-size: 12px;
+        #boxBasics;
+        #PIE;
+
+        &:first-child {
+            margin-top: -10px;
+        }
+
+        .statistics {
+            font-size: 11px;
+            word-break: break-word;
+        }
+
+        .row {
+            margin-left: 0;
+        }
+
+        [class^="span"] {
+            margin-left: 3px;
+        }
+
+        h1,h2,h3 {
+            padding: 4px;
+            padding-top: 6px;
+            margin: -@blockContentPadding - 1px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 30px;
+            #boxHeadlineBasics;
+        }
+        &:first-child {
+            h1 {
+                padding-top: 15px;
+            }
+        }
+        h2, h3 {
+            padding: 2px 10px;
+            padding-top: 7px;
+            margin: 10px -@blockContentPadding - 1px;
+            margin-top: 10px;
+            width: 188px;
+            border-bottom: 1px solid #fff;
+            font-size: 12px;
+            line-height: 18px;
+            font-weight: normal;
+            color: darken(@colorGray,5%);
+            #gradient > .vertical(#fff,@colorLightGray,#fff);
+            #shadow > .drop(0,2px,2px,0.2);
+            #shadow > .text(0 1px 1px #ffffff) !important;
+            #border > .rounded(0);
+        }
+
+        .spacer.arrow {
+            position: absolute;
+            // top: 0;
+            // padding-top: -10px;
+            left: 0;
+        }
+
+        .hintIcon {
+            position: relative;
+            left: 50px;
+            display: block;
+            margin-bottom: 13px;
+        }
+        ul.unstyled {
+            overflow: auto;
+            overflow-x: hidden;
+            max-height: 400px;
+            margin: 0;
+            margin-right: -@blockContentPadding;
+            margin-left: -@blockContentPadding;
+        }
+        ul.flags {
+            margin-left: -5px;
+            padding-left: 10px;
+            list-style: none;
+
+            li {
+                position: relative;
+                padding-left: 28px;
+                margin-bottom: 10px;
+            }
+            img {
+                position: absolute;
+                left: 0px;
+                margin-top: 3px;
+            }
+            a.link {
+                padding-left: 0;
+                background: none;
+            }
+        }
+    }
+}
+
+// other
+div.rightSidebarLoadingCircle {
+    position: absolute;
+    top: 75px;
+    right: 60px;
+    z-index: 0;
+}
+
+#rightSidebar {
+    z-index: 8;
+    position: relative;
+    top: 0px;
+    // left: 1048px;
+    float: right;
+    width: 210px;
+    font-size: 13px;
+
+    #shadow > .text(0 1px 1px #fff);
+
+
+    // SIDEBAR MENU
+
+    .sidebarMenu {
+        position: relative;
+        z-index: 0;
+        overflow: hidden;
+        width: 210px;
+        max-width: @appWidth;
+        #shadow > .drop(0,0,10px,0.3);
+
+        &.hidden {
+            display: block; // overwrites the class .hidden in general.less
+        }
+
+        &:first-child {
+            margin-top: 1px;
+        }
+
+        .top {
+            position: relative;
+            height: 35px;
+            line-height: 16px;
+            // margin-bottom: -1px;
+            text-decoration: none;
+            white-space: nowrap;
+            font-weight: bold;
+            font-size: 13px;
+            border-right: 1px solid #BDBDB9;
+            border-left: 1px solid #BDBDB9;
+            #border > .radius(@borderRadiusMedium,0,0,@borderRadiusMedium);
+
+            span {
+                position: absolute;
+                top: 10px;
+                left: 41px;
+            }
+
+            img {
+                display: inline-block;
+                height: 35px;
+                margin-left: 3px;
+            }
+            img.icons {
+               top: 0px;
+            }
+
+
+            // PULL UP/DOWN LINK in the TOP PART of the SIDEBAR MENU
+            a {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                display: inline-block;
+                width: 208px; // 208px
+                height: 35px;
+                padding-left: 0;
+                text-decoration: none;
+                background: url("../images/buttons/sidebarMenu_buttonUp.png") no-repeat right top;
+            }
+
+            a:hover,
+            a:focus {
+                background-position: right -36px;
+            }
+        }
+        &.hidden .top a {
+            background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
+
+            &:hover,
+            &:focus {
+                background-position: right -36px;
+            }
+        }
+
+        &:first-child .top {
+            #border > .rounded(0);
+        }
+        &:first-child .top img.icon {
+            margin-left: 5px; // -15px
+        }
+
+
+        // PULL TOOGLE link in the bottom
+        .bottom {
+
+            a {
+                position: relative;
+                display: block;
+                top: -1px;
+                padding: 0;
+                width: 100%;
+                height: 12px; // original 13px
+                background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right -14px;
+                text-decoration: none;
+                #border > .radius(0,@borderRadiusMedium,@borderRadiusMedium,0);
+            }
+            a:hover,
+            a:focus {
+                background-position: right top;
+            }
+        }
+
+
+        // MENU
+        .menuWrapper {
+            position: relative;
+            background-color: #ccc;
+            border-right: 1px solid #BDBDB9;
+            border-left: 1px solid #BDBDB9;
+            top: -1px;
+
+            // buttons
+            a {
+                display: block;
+                padding: 9px 0px;
+                padding-left: 10px;
+                height: 15px;
+                line-height: 15px;
+                color: #FBC279;
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 11px;
+                background-repeat: repeat-x;
+                background-position: 0 0;
+                border-top: 1px solid transparent;
+                border-bottom: 1px solid transparent;
+                #content > .truncateText();
+
+                &:hover,
+                &:focus {
+                    background-position: 0px -35px;
+                }
+                &.active {
+                    background-position: 0px -70px;
+
+                    &:before {
+                        content: '⟩ ';
+                    }
+                }
+            }
+        }
+
+        // GRAY SIDEBAR MENU
+        &.gray {
+            .top {
+                background: url("../images/bg/sidebarMenu_top_gray.png") repeat-x;
+                background-color: #BDBDB9;
+                border-color: #BDBDB9;
+
+                span {
+                    color: #666666;
+                }
+            }
+
+            .menuWrapper {
+                border-color: #BDBDB9;
+
+                a {
+                    background-image: none;
+                    color: #707F81;
+                    #gradient > .vertical(#fcfcfc,#bdbdbd,#fcfcfc);
+                    border-top-color: #b3b3b3;
+                    border-bottom-color: #fff;
+                }
+                a:hover,
+                a:focus {
+                    #gradient > .vertical(#ffffff,#e2e2e2,#ffffff);
+                }
+                a.active {
+                    #gradient > .vertical(#bdbdbd,#fcfcfc,#bdbdbd);
+                    color: #666666;
+                }
+            }
+        }
+
+
+        // BROWN SIDEBAR MENU
+        &.brown {
+            .top {
+                background: url("../images/bg/sidebarMenu_top_brown.png") repeat-x;
+                background-color: #E6BF7C;
+                border-color: #E6BF7C;
+
+                span {
+                    color: #9B6B1D;
+                }
+            }
+
+            .menuWrapper {
+                border-color: #E6BF7C;
+
+                a {
+                    background-image: none;
+                    color: #9B6B1D;
+                    #gradient > .vertical(#ffeac4,#eec075,#ffeac4);
+                    border-top-color: #E6BF7C;
+                    border-bottom-color: #fff7e7;
+                }
+                a:hover,
+                a:focus {
+                    #gradient > .vertical(#fff7e7,#ffeac4,#fff7e7);
+                }
+                a.active {
+                    #gradient > .vertical(#eec075,#ffeac4,#eec075);
+                    color: #643d12;
+                }
+            }
+        }
+
+        // BLUE SIDEBAR MENU
+        &.blue {
+            .top {
+                background: url("../images/bg/sidebarMenu_top_blue.png") repeat-x;
+                background-color: #89B5D6;
+                border-color: #89B5D6;
+
+                span {
+                    color: #536068;
+                }
+            }
+
+            .menuWrapper {
+                border-color: #89B5D6;
+
+                a {
+                    background-image: none;
+                    color: #2b6ba8;
+                    #gradient > .vertical(#ffffff,#75ade0,#ffffff);
+                    border-top-color: #75ade0;
+                    border-bottom-color: #ffffff;
+                }
+                a:hover,
+                a:focus {
+                    #gradient > .vertical(#ffffff,#93bce5,#ffffff);
+                }
+                a.active {
+                    #gradient > .vertical(#75ade0,#e0ebf8,#75ade0);
+                    color: #2b6ba8;
+                }
+            }
+        }
+    }
+
+
+    // CURRENT xORS
+
+    #currentVisitorsSideBar {
+        position: relative;
+        margin: 30px 0;
+
+        ul {
+            margin-top: -18px;
+            padding-top: 7px;
+        }
+
+        h1 {
+            padding-top: 6px;
+        }
+
+        &:first-child {
+            margin-top: -10px;
+
+            h1 {
+                padding-top: 20px !important;
+            }
+        }
+
+    }
+
+    // SIDEBAR ACTIVITY LOG
+
+    #sideBarActivityLog {
+        position: relative;
+        z-index: 10;
+        overflow: hidden;
+        margin: 0 -20px;
+        margin-top: -18px;
+        width: 208px;
+        // height: 400px;
+        font-size: 9px;
+
+        a {
+            color: #3A7AA5;
+            text-decoration: none;
+        }
+        a:hover,
+        a:focus,
+        a:active,
+        a.active {
+            color: #666666;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+        ul li {
+            margin: 5px -5px;
+            padding: 15px 20px;
+            width: 140px;
+            #shadow > .text(0 1px 1px #ccc);
+
+            h3 {
+                margin-top: -20px;
+                width: 192px;
+                font-size: 11px;
+                font-weight: normal;
+                padding-top: 7px;
+            }
+        }
+    }
+    // the arrows inside the #sideBarActivityLog, the picture is add in inline in the leftSidebar.loader.php
+    .scrollUpDown {
+        position: absolute;
+        z-index: 2;
+        width: 165px;
+        height: 30px;
+    }
+
+    // SIDEBAR BACKUP
+    ul.backupDownload {
+        margin: 0 !important;
+        margin-top: -10px !important;
+        padding:0;
+
+        li {
+            position: relative;
+        }
+        a.backup {
+            display: inline-block;
+            padding: 5px 0;
+            padding-left: 25px;
+            background: url("../images/buttons/backup_download_small.png") no-repeat left center;
+        }
+        a.deleteButton {
+            top: 15px;
+            right: 0px;
+        }
+    }
+}
+
+#leftSidebar {
+    // z-index: 8;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 210px;
+    float: left;
+    padding-bottom: 20px;
+
+    #feinduraNewsBlock ul {
+        margin-top: -16px;
+
+        li:first-child {
+            margin-top: -12px;
+        }
+
+        h3 {
+            margin-left: 0px;
+        }
+
+        a {
+            background-image: none;
+            padding: 3px 15px;
+        }
+    }
+}

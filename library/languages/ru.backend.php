@@ -38,6 +38,7 @@
  *    - EXAMPLE
  *    - ERROR
  *    - TOOLTIP / TIP
+ *    - MESSAGE // should contain <div class="alert"></div>
  *
  * need a RETURN $langFile; at the END
  */
@@ -72,14 +73,21 @@ $langFile['LOGIN_TIP_AUTOLOGOUT']                                         = 'А�
 
 // -> GENERAL <-
 
-$langFile['DATE_YMD']                                                     = 'YYYY-MM-DD';
-$langFile['DATE_DMY']                                                     = 'DD.MM.YYYY';
-$langFile['DATE_MDY']                                                     = 'MM/DD/YYYY';
+$langFile['DATE_Y-M-D']                                                   = 'ГГГГ-MM-ДД';
+$langFile['DATE_D.M.Y']                                                   = 'ДД.MM.ГГГГ';
+$langFile['DATE_D/M/Y']                                                   = 'ДД/MM/ГГГГ';
+$langFile['DATE_M/D/Y']                                                   = 'MM/ДД/ГГГГ';
+
 $langFile['CATEGORIES_TEXT_NONCATEGORY']                                  = 'Страницы';
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']                               = 'Страницы без категории';
 $langFile['TEXT_EXAMPLE']                                                 = 'Пример';
 
 $langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Редактировать на сайте::Нажмите что бы редактировать страницы на сайте.';
+
+$langFile['BUTTON_MORE']                                                  = 'гораздо';
+
+// PERMISSIONS
+$langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION']                          = 'Вы не авторизованы, чтобы изменить это.';
 
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT']                                          = 'пикселей';
@@ -125,21 +133,20 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'п�
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'раз на сайт';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Нажмите для поиска слова на странице.';
 
-$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'посетителей';
-$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'текущие посетители';
-$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'последняя активность';
+$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Посетителей до сих пор';
+$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Текущие посетители';
+$langFile['STATISTICS_TEXT_CURRENT']                                      = 'в настоящее время';
+$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Последняя активность';
 
 $langFile['STATISTICS_TITLE_PAGESTATISTICS']                              = 'Статистика по страницам';
 
 $langFile['STATISTICS_TEXT_VISITTIME_MAX']                                = 'самые продолжительные визиты';
 $langFile['STATISTICS_TEXT_VISITTIME_MIN']                                = 'самые короткие визиты';
-$langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'первое посещение';
-$langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'последнее посещение';
+$langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'с';
+$langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'до';
 $langFile['STATISTICS_TEXT_NOVISIT']                                      = 'Еще никто не посещал сайт.';
-$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = 'Ключевые слова по которым приходят из
-<a href                                                                   ="http://www.google.de">Google</a>,
-<a href                                                                   ="http://www.yahoo.de">Yahoo</a> или
-<a href                                                                   ="http://www.bing.com">Bing (MSN)</a> на сайт.';
+$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = '<span class="toolTipTop" title="::По которым приходят из
+Google, Yahoo или Bing (MSN) на сайт.">Ключевые слова</span>';
 
 $langFile['STATISTICS_TEXT_HOUR_SINGULAR']                                = 'час';
 $langFile['STATISTICS_TEXT_HOUR_PLURAL']                                  = 'часов';
@@ -156,7 +163,7 @@ $langFile['LOG_PAGE_NEW']                                                 = 'С�
 $langFile['LOG_PAGE_DELETE']                                              = 'Удалена страница';
 
 $langFile['LOG_PAGE_MOVEDINCATEGORY']                                     = 'Перемещение страницы в категорию';
-$langFile['LOG_PAGE_MOVEDINCATEGORY_CATEGORY']                            = 'в категории'; // Example Page in Category
+$langFile['LOG_PAGE_MOVEDTOCATEGORY_CATEGORY']                            = 'в категории'; // Example Page in Category
 $langFile['LOG_PAGE_SORTED']                                              = 'Сортировка страниц изменена';
 
 $langFile['LOG_THUMBNAIL_UPLOAD']                                         = 'Миниатюра загружена';
@@ -204,14 +211,15 @@ $langFile['STATUS_PAGE_NONPUBLIC']                                        = 'С�
 $langFile['STATUS_CATEGORY_PUBLIC']                                       = 'Категория активна';
 $langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'Категория скрыта';
 
-// USER LIST 630
-$langFile['USER_TEXT_NOUSER']                                             = 'Нет пользователей';
-$langFile['USER_TEXT_CURRENTUSER']                                        = 'Вы зашли под этим пользователем';
-$langFile['USER_TEXT_USERSONLINE']                                        = 'Этот пользователь авторизовался::Последние действия';
+// USER LIST
+$langFile['USER_TEXT_USER']                                               = 'Пользователь';
+$langFile['USER_TEXT_NOUSER']                                             = 'Существовали не пользователей.';
+$langFile['USER_TEXT_CURRENTUSER']                                        = 'Что это ты!';
+$langFile['USER_TEXT_USERSONLINE']                                        = 'Этот пользователь есть онлайн::Последние действия';
 
 $langFile['LOGO_TEXT']                                                    = 'Версия';
 $langFile['txt_logo_gotowebsite']                                         = 'Нажмите что бы перейти на сайт.';
-$langFile['LOADING_TEXT_LOAD']                                            = 'Загрузка страницы...';
+
 
 // CKEDITOR transport
 $langFile['CKEDITOR_TITLE_LINKS']                                         = 'feindura страницы';
@@ -219,6 +227,8 @@ $langFile['CKEDITOR_TITLE_SNIPPETS']                                      = 'Ф�
 $langFile['CKEDITOR_TEXT_SNIPPETS']                                       = 'Выберите фрагмент кода, чтобы поместить его на страницу.';
 $langFile['CKEDITOR_BUTTON_EDITSNIPPET']                                  = 'Редактировать фрагмент кода';
 $langFile['CKEDITOR_TITLE_PLUGINS']                                       = 'Плагины';
+$langFile['CKEDITOR_BUTTON_EDITPLUGIN']                                   = 'Редактировать плагин';
+
 $langFile['CKEDITOR_TEXT_PLUGINS']                                        = 'Выберите плагин, чтобы поместить его на страницу.';
 
 
@@ -290,6 +300,10 @@ $langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Д�
 
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Страница в данный момент редактируется...';
 
+// MESSAGES
+$langFile['MESSAGE_TEXT_CHANGEDSTATUS']                                   = 'Статус был успешно изменен.';
+
+
 /*
 * leftSidebar.loader.php
 */
@@ -346,8 +360,7 @@ $langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE']                          = 'с�
 
 $langFile['SORTABLEPAGELIST_functions_editPage']                          = 'Редактировать';
 
-$langFile['SORTABLEPAGELIST_changeStatus_linkPage']                       = 'Нажмите что бы изменить статус страницы.';
-$langFile['SORTABLEPAGELIST_changeStatus_linkCategory']                   = 'Нажмите что бы изменить статус категории';
+$langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS']                            = 'Нажмите что бы изменить.';
 
 $langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING']                     = 'Отсутствует языках';
 
@@ -356,13 +369,14 @@ $langFile['SORTABLEPAGELIST_setStartPage_error_save']                     .= $la
 $langFile['SORTABLEPAGELIST_changeStatusPage_error_save']                 = '<b>Не удается изменить статус страницы.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_changeStatusCategory_error_save']             = '<b>Не удается изменить статус категории.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 
-$langFile['SORTABLEPAGELIST_info']                                        = 'Вы можете менять порядок <b>сортировки</b> используя принцип <b>Нажми & Тащи</b> :)';
+$langFile['SORTABLEPAGELIST_info']                                        = 'Вы можете менять порядок <b>соглашение</b> используя принцип <b>Нажми & Тащи</b> :)';
 $langFile['SORTABLEPAGELIST_save']                                        = 'Сохранение сортировки ...';
 $langFile['SORTABLEPAGELIST_save_finished']                               = 'Порядок сортировки изменен!';
 $langFile['SORTABLEPAGELIST_error_save']                                  = '<b>Не удается сохранить страницу.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_error_read']                                  = '<b>Страницы не читаются!</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>Не удается переместить страницу в новую категорию.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'Нет страниц';
+$langFile['SORTABLEPAGELIST_TIP_DRATOREARRANGE']                          = 'Перетащите для перегруппировки.';
 
 $langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_SINGULAR']             = 'Подкатегория на странице:';
 $langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL']               = 'Подкатегория из страниц:';
@@ -402,8 +416,6 @@ $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'П�
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Пожалуйста, сохраните настройки!';
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Путь к сайту';
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = '[strong]Абсолютный путь[/strong] расположения файлов сайта.[br][br][span class=hint]также могут содержать имена, например &quot;/website/index.php&quot;[/span]';
-$langFile['ADMINSETUP_GENERAL_field4']                                    = 'Путь для загрузи файлов';
-$langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Файлы вроде иллюстраций, изображений, флеш-анимациии другие будут закачиваться по этому адресу.';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Файлы могут редактироваться в сеции Настройки сайта, (если выбраны соответсвующие Пользовательские настроки).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Путь к файлам сайта';
 $langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Здесь вы можете добавить путь к cайт конкретные файлы, которые должны быть доступны для редактирования в [span class=feinduraInline]fein[em]dura[/em][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
@@ -411,21 +423,16 @@ $langFile['ADMINSETUP_GENERAL_field6']                                    = 'П�
 $langFile['ADMINSETUP_GENERAL_field6_tip']                                = 'Здесь вы можете добавить путь к файлам стилей, которые должны быть доступны для редактирования в [span class=feinduraInline]fein[em]dura[/em][/span].'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS']                          = 'Права для файлов и директорий';
 $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS']                           = 'Каждый файл или директория созданные [span class=feinduraInline]fein[em]dura[/em][/span] будут иметь указанные здесь права.';
-$langFile['ADMINSETUP_GENERAL_varName_ifempty']                           = 'Если поле пусто - будет использовано стандарное имя GET-перемнной: ';
-$langFile['ADMINSETUP_GENERAL_varName1']                                  = 'Переменная для страниц';
-$langFile['ADMINSETUP_GENERAL_varName1_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]page[/strong]&quot;';
-$langFile['ADMINSETUP_GENERAL_varName2']                                  = 'Переменная для категорий';
-$langFile['ADMINSETUP_GENERAL_varName2_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]category[/strong]&quot;';
-$langFile['ADMINSETUP_GENERAL_varName3']                                  = 'Переменная для модулей';
-$langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[strong]modul[/strong]&quot;';
-$langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'Имя GET-переменной которая будет использоваться для формирования ссылки.';
-$langFile['ADMINSETUP_GENERAL_field7']                                    = 'Формат даты';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Используется в [span class=feinduraInline]fein[em]dura[/em][/span] и на сайте.';
+$langFile['ADMINSETUP_TEXT_VARNAMEPAGE']                                  = 'Ном-дель URL страницы';
+$langFile['ADMINSETUP_TEXT_VARNAMECATEGORY']                              = 'Ном-дель URL категории';
+$langFile['ADMINSETUP_TEXT_VARNAMEMODUL']                                 = 'Ном-дель URL модуль';
+$langFile['ADMINSETUP_TIP_VARNAME']                                       = 'Имя, которое будет использоваться в URL, чтобы связать страницы.';
+$langFile['ADMINSETUP_TIP_EMPTYVARNAME']                                  = 'Если это поле пустым стандартное имя будет использоваться: ';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Часовой пояс';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Используется только в [span class=feinduraInline]fein[em]dura[/em][/span] панели управления.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'Формат URL';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'ЧПУ';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/category-name/example-page';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/%s/category-name/example-page';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URL с переменными';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Формат URL используется при формировании всех ссылок на сайте.[br][br]ЧПУ работают только если есть модуль [strong]Apache[/strong] [strong]mod_rewrite[/strong].[br][br][strong]ВНИМАНИЕ: С РУССКИМИ НАЗВАНИЯМИ СТРАНИЦ И КАТЕГОРИЙ ЧПУ НЕ РАБОТАЕТ (на данный момент)![/strong]';
@@ -460,11 +467,6 @@ $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Е�
 
 // THUMBNAILS Settings
 $langFile['adminSetup_thumbnailSettings_h1']                              = 'Настройки миниатюр';
-$langFile['adminSetup_thumbnailSettings_field3']                          = 'Путь для сохранения'; // Thumbnail-Speicherpfad
-$langFile['adminSetup_thumbnailSettings_field3_tip']                      = 'Дирктория в которую будут сохраняться миниатюры.';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip1']                = 'Директория загрузок';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Относительный путь::Относительный путь &quot;[strong]%s[/strong]&quot; path.[br][br]Без открывающего слеша впереди - &quot;/&quot;';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
 $langFile['adminSetup_styleFileSettings_h1']                              = 'Редактирование секции Стили-Selection для визуального редактора';
@@ -549,6 +551,7 @@ $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'У�
 
 $langFile['PAGESETUP_TEXT_EDITPAGEDATE']                                  = 'Редактировать дату';
 $langFile['PAGESETUP_TIP_EDITPAGEDATE']                                   = 'Дата страницы может быть использована для сортировки.';
+$langFile['PAGESETUP_TEXT_PAGEDATERANGE']                                 = 'как период';
 
 $langFile['PAGESETUP_TEXT_FEEDS']                                         = 'Включить xml-ленты';
 $langFile['PAGESETUP_TIP_FEEDS']                                          = 'Включает выдачу xml-лент для категории в форматах: RSS 2.0 и Atom.';
@@ -597,10 +600,16 @@ $langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'У�
 $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'Дает возможность установить любую страницу в качестве главной (стартовой).[br][br]Стартовая страница выводится если запрос в [i]$_GET[/i] пуст.';
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Отключить сайта';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Показывает сообщение, а не на сайт, в котором говорится, что сайт в настоящее время редактируется.';
+$langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Карта сайта Файлы создать (<a href="http://www.sitemaps.org/" target="_blank">детали</a>)';
+$langFile['WEBSITESETUP_TIP_SITEMAPFILES']                                = 'Карта сайта файлы упростить поисковые системы для индексации сайта.';
+$langFile['WEBSITESETUP_TEXT_VISITORTIMEZONE']                            = 'Получите Посетители часовой пояс';
+$langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                             = 'Постарайтесь, чтобы получить часовой пояс посетителя, для отображения времени раскрытия информации по местному времени из посетителей.[br][br][span class=hint]Этот сайт будет обновлен на первом посещении[/span].';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Мульти язык сайта';
-$langFile['WEBSITESETUP_TIP_MULTILANGUAGEWEBSITE']                        = '[strong]двойной клик[/strong] для выбора языка.';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Основной язык';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'Основной язык будет выбран, если нет соответствующего языка может быть определен автоматически.';
+$langFile['WEBSITESETUP_TEXT_DATEFORMAT']                                 = 'Формат даты';
+$langFile['WEBSITESETUP_TIP_DATEFORMAT']                                  = 'Который используется в веб-страницы.';
+
 
 /*
 * statisticSetup.php
@@ -665,19 +674,19 @@ $langFile['USERSETUP_error_save']                                         = $lan
 
 // ---------- USER PERMISSION
 $langFile['USERSETUP_USERPERMISSIONS_TITLE']                              = 'Пользовательские настройки';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_ACTIVATEWEBSITESETTINGS']       = 'Редактирование Настройки сайта';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']              = 'Редактирование файлов сайта в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSTYLESHEETS']               = 'Редактирование файлов стилей в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITSNIPPETS']                  = 'Редактировать фрагменты кода в разделе <a href="index.php?site=websiteSetup">Настройки сайта</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']                   = 'Включить файл-менеджер';
-$langFile['USERSETUP_USERPERMISSIONS_TIP_FILEMANAGER']                    = 'Файл-менеджер выключен::Вы должны указать путь для загрузки файлов в секции "Базовых настроек" перед тем как активировать файл-менеджер.';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']               = 'Включить редактирование непосредственно на сайте';
 
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<strong>Инфо-блок</strong> на странице <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'Инфо-блок::Это короткий ифнормационный текст для пользователей который будет отображаться на странице '.$langFile['BUTTON_DASHBOARD'].'.';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'Если у вас нет информации для пользователей - оставьте поле пустым.';
 
-$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Выберите категорию и страницы которой пользователь должен иметь возможность редактировать';
-
+$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Выберите категорию и страницы которой пользователь должен иметь возможность редактировать<br>(Если ничего не выбрано, то все может быть отредактирован)';
+$langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']                = 'Снять выделение';
 
 /*
 * editor.php
@@ -686,8 +695,8 @@ $langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'В�
 // ---------- page info
 $langFile['EDITOR_TITLE_CREATEPAGE']                                      = 'Создание новой страницы';
 $langFile['EDITOR_TITLE_ADDLANGUAGE']                                     = 'Добавить язык &quot;%s&quot; на странице';
-$langFile['EDITOR_pageinfo_lastsavedate']                                 = 'последняя редакция';
-$langFile['EDITOR_pageinfo_lastsaveauthor']                               = '-';
+$langFile['EDITOR_pageinfo_lastsavedate']                                 = 'В последний раз редактировали';
+$langFile['EDITOR_pageinfo_lastsaveauthor']                               = 'с';
 $langFile['EDITOR_pageinfo_linktothispage']                               = 'Ссылка на страницу';
 $langFile['EDITOR_pageinfo_id']                                           = 'ID страницы';
 $langFile['EDITOR_pageinfo_id_tip']                                       = 'С этим ID страница хранится на сервере.';
@@ -701,7 +710,6 @@ $langFile['EDITOR_block_edited']                                          = 'и�
 $langFile['EDITOR_pageNotSaved']                                          = 'не сохранено';
 
 // ---------- page settings
-$langFile['EDITOR_pageSettings_h1']                                       = 'Настройки';
 $langFile['EDITOR_pagestatistics_h1']                                     = 'Статистика';
 
 $langFile['EDITOR_pageSettings_title']                                    = 'Заголовок';
@@ -714,22 +722,19 @@ $langFile['EDITOR_pageSettings_field2_tip']                               = 'К�
 $langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Таги должны быть разделены &quot;,&quot; (запятая).';
 $langFile['EDITOR_pageSettings_field3']                                   = 'Дата';
 $langFile['EDITOR_pageSettings_field3_tip']                               = 'Дата может быть использована для сортировки страниц.';
-$langFile['EDITOR_pageSettings_pagedate_before_inputTip']                 = 'Текст до даты::например &quot;начиная с 31 июня&quot;.';
-$langFile['EDITOR_pageSettings_pagedate_after_inputTip']                  = 'Текст после даты::';
-$langFile['EDITOR_pageSettings_pagedate_day_inputTip']                    = 'День::';
-$langFile['EDITOR_pageSettings_pagedate_month_inputTip']                  = 'Месяц::';
-$langFile['EDITOR_pageSettings_pagedate_year_inputTip']                   = 'Год::[strong]Формат[/strong] YYYY';
 $langFile['EDITOR_pageSettings_field4']                                   = 'Статус страницы';
 $langFile['EDITOR_pageSettings_field4_tip']                               = '[strong]Только активная страница отображается на сайте![/strong]';
 
-$langFile['EDITOR_pageSettings_pagedate_error']                           = 'Ошибочный формат даты';
-$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'В этом месяце не 31 день.[br]Формат даты может быть следующим:';
+$langFile['EDITOR_PAGESETTINGS_NOPAGEDATE']                               = 'без даты';
 
 $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'подкатегория';
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Позволяет создавать подменю для этой страницы на сайте.';
 
+$langFile['EDITOR_BUTTON_RESTORELASTSTATE']                               = 'Версия %s восстановление';
+$langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE']                           = 'Версия %s восстановлено.';
+
 // ---------- page advanced settings
-$langFile['EDITOR_advancedpageSettings_h1']                               = 'Дополнительные настройки';
+$langFile['EDITOR_advancedpageSettings_h1']                               = 'Страница конкретной HTML-редактор Настройка';
 
 $langFile['EDITOR_advancedpageSettings_field1']                           = 'Индивидуальный файл стилей';
 $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']               = 'Если поле пусто будут использованы настройки категории, если в настройках категории пусто - будут использованы стандартные стили.';
@@ -751,7 +756,9 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'Настройки расширений';
-$langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'После активации плагина, вы можете разместить его непосредственно в страницу, в редакторе при помощи значка %s.';
+$langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'После того как вы активировали плагин, наведите курсор мыши на плагин, чтобы иметь возможность перетащить его в редакторе, или разместить его непосредственно в редакторе при помощи значка %s.';
+$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Плагины спасены!</div>';//<div class="alert">Нажмите на плагин для редактирования свойств.</div>';
+$langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Перетащите модуль в редакторе.';
 
 /*
 * unsavedPage.php
@@ -870,5 +877,3 @@ $langFile['BACKUP_ERROR_DELETE']                                          = 'Н�
 // RETURN ****************************************************************************************
 // -----------------------------------------------------------------------------------------------
 return $langFile;
-
-?>

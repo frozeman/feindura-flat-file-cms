@@ -120,21 +120,7 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
       </div>
     </div>
 
-    <div class="spacer"></div>
-
-    <!-- THUMB PATH -->
-    <div class="row">
-      <div class="span3 formLeft">
-        <label for="cfg_thumbPath"><span class="toolTipLeft" title="::<?php echo $langFile['adminSetup_thumbnailSettings_field3_tip'] ?>">
-        <?php echo $langFile['adminSetup_thumbnailSettings_field3'] ?></span></label>
-      </div>
-      <div class="span5">
-        <input type="text" style="width:auto;" readonly="readonly" size="<?php echo strlen($adminConfig['uploadPath'])+5; ?>" value="<?php echo $adminConfig['uploadPath']; ?>" class="toolTipLeft" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip1']; ?>">
-        <input type="text" id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo $adminConfig['pageThumbnail']['path']; ?>" class="toolTipRight" title="<?php echo sprintf($langFile['adminSetup_thumbnailSettings_field3_inputTip2'],$adminConfig['uploadPath']); ?>">
-      </div>
-    </div>
-
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'thumbnailSettings'; submitAnchor('pageSettingsForm','thumbnailSettings');">
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>">
   </div>
 </div>
 
@@ -156,7 +142,7 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
 $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><img src="library/images/icons/pageIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']; ?></a></h1>
+  <h1 class="brown"><a href="#"><img src="library/images/icons/pageIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']; ?></a></h1>
   <div class="content form">
 
     <div class="row">
@@ -191,10 +177,16 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
         <div class="row">
           <div class="span1 formLeft">
-            <input type="checkbox" id="nonCategoryShowPageDate" name="categories[0][showPageDate]" value="true" class="toolTipLeft" title="::<?php echo $langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"<?php if($categoryConfig[0]['showPageDate']) echo ' checked="checked"'; ?>>
+            <input type="checkbox" id="nonCategoryShowPageDate" class="pageDates" name="categories[0][showPageDate]" value="true" class="toolTipLeft" title="::<?php echo $langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"<?php if($categoryConfig[0]['showPageDate']) echo ' checked="checked"'; ?>>
           </div>
           <div class="span3">
             <label for="nonCategoryShowPageDate"><span class="toolTipRight" title="::<?php echo $langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"><?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE']; ?></span></label>
+          </div>
+        </div>
+        <div class="row pageDatesRange"<?php if(!$categoryConfig[0]['showPageDate']) echo ' style="display:none;"'; ?>>
+          <div class="offset1 span2 subOption">
+            <input type="checkbox" id="nonCategoryPageDateRange" name="categories[0][pageDateAsRange]" value="true"<?php if($categoryConfig[0]['pageDateAsRange']) echo ' checked="checked"'; ?>>
+            <label for="nonCategoryPageDateRange"><span><?php echo $langFile['PAGESETUP_TEXT_PAGEDATERANGE']; ?></span></label>
           </div>
         </div>
 
@@ -280,14 +272,14 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
     </div>
     <?php } ?>
 
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedCategory').value = 0; submitAnchor('categoriesForm','nonCategoryPages');">
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedCategory').value = 0;">
   </div>
 </div>
 
 
 <!-- CATEGORIES SETTINGS -->
 <div class="block">
-  <h1><img src="library/images/icons/categoryIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_CATEGORY_TITLE_CATEGORIES']; ?></h1>
+  <h1 class="blue"><img src="library/images/icons/categoryIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_CATEGORY_TITLE_CATEGORIES']; ?></h1>
   <div class="content form">
     <div class="row">
       <div class="span8 center">
@@ -330,6 +322,8 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
           $checked[13] = ($category['showSubCategory']) ? 'checked="checked"' : '';
 
+          $checked[14] = ($category['pageDateAsRange']) ? 'checked="checked"' : '';
+
           $checked[12] = ($category['feeds']) ? 'checked="checked"' : '';
 
           $checked[6]  = ($category['sortReverse']) ? 'checked="checked"' : '';
@@ -360,7 +354,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
           echo '<a name="category'.$category['id'].'" id="categoryAnchor'.$category['id'].'" class="anchorTarget"></a>';
 
           // category NAME
-          $categoryName = GeneralFunctions::getLocalized($category,'name',true);
+          $categoryName = GeneralFunctions::getLocalized($category,'name',false,true);
           $autofocus = '';
           // change to "unnamed category" if text is missing
           if(empty($categoryName)) {
@@ -380,7 +374,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
                 // deleteCategory
             echo '<div class="span5" style="position:relative;">
                     <h2 class="gray">ID '.$category['id'].'</h2>
-                    <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTipRight" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.GeneralFunctions::getLocalized($category,'name',true).'[br][span class=red]'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'[/span]"></a>';
+                    <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTipLeft" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.GeneralFunctions::getLocalized($category,'name',false,true).'"></a>';
           echo '  </div>
                 </div>';
                 // category name
@@ -389,7 +383,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
                     <label for="categories'.$category['id'].'name">'.$langFile['PAGESETUP_CATEGORY_TEXT_CATEGORYNAME'].'</label>
                   </div>
                   <div class="span5">
-                    <input type="text" id="categories'.$category['id'].'name" name="categories['.$category['id'].'][name]" value="'.GeneralFunctions::getLocalized($category,'name',true).'"'.$autofocus.'>
+                    <input type="text" id="categories'.$category['id'].'name" name="categories['.$category['id'].'][name]" value="'.GeneralFunctions::getLocalized($category,'name',false,true).'"'.$autofocus.'>
                   </div>
                 </div>';
 
@@ -456,10 +450,17 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
               echo '<div class="row">
                       <div class="span1 formLeft">
-                        <input type="checkbox" id="categories'.$category['id'].'showPageDate" name="categories['.$category['id'].'][showPageDate]" value="true" '.$checked[5].' class="toolTipLeft" title="::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE'].'"><br>
+                        <input type="checkbox" id="categories'.$category['id'].'showPageDate" class="pageDates" name="categories['.$category['id'].'][showPageDate]" value="true" '.$checked[5].' class="toolTipLeft" title="::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE'].'"><br>
                       </div>
                       <div class="span3">
                         <label for="categories'.$category['id'].'showPageDate"><span class="toolTipRight" title="::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE'].'">'.$langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'</span></label>
+                      </div>
+                    </div>';
+              $showPageDateRange = (!$category['showPageDate']) ? ' style="display:none;"' : '';
+              echo '<div class="row pageDatesRange"'.$showPageDateRange.'>
+                      <div class="offset1 span2 subOption">
+                        <input type="checkbox" id="categories'.$category['id'].'PageDateRange" name="categories['.$category['id'].'][pageDateAsRange]" value="true"'.$checked[14].'>
+                        <label for="categories'.$category['id'].'PageDateRange"><span>'.$langFile['PAGESETUP_TEXT_PAGEDATERANGE'].'</span></label>
                       </div>
                     </div>';
 
@@ -533,8 +534,8 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
             echo '<div class="row">
                     <div class="offset1 span3">';
-                echo '<label for="categories'.$category['id'].'plugins"><h4 class="toolTipLeft" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">';
-                echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</h4></label><br>';
+                echo '<h3 class="toolTipLeft" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">';
+                echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</h3>';
                 echo '<select id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins][]" multiple="multiple">';
                   foreach($plugins as $pluginName) {
                     $categoryPlugins = unserialize($category['plugins']);
@@ -544,12 +545,14 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
                 echo '</select>';
                 echo '</div>
                       <div class="span3">
-                        <div class="spacerH4"></div>
+                        <div class="spacerH3"></div>
                         <div class="alert">'.$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'].'</div>';
             echo '  </div>
                   </div>';
 
           }
+
+          echo '<div class="spacer"></div>';
 
           $advancedSettingsEdited = ((!empty($category['styleFile']) && $category['styleFile'] != 'a:0:{}') ||
                                      (!empty($category['styleId']) &&  $category['styleId'] != 'a:0:{}') ||
@@ -560,17 +563,15 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
           echo '<div class="row">
                   <div class="span8 center">
-                      <a href="#" class="down inBlockSliderLink" style="position:relative; bottom: -10px;">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].$advancedSettingsEdited.'</a>
+                      <a href="#" class="btn inBlockSliderLink" data-inBlockSlider="'.$category['id'].'">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].$advancedSettingsEdited.' <span class="caret" onclick="return false;"></span></a>
                   </div>
                 </div>';
-
-          echo '<div class="spacer"></div>';
 
           // -----------------------------------------------
           // second TABLE (advanced settings) (with slide in)
           $hidden = ($_POST['savedCategory'] != $category['id']) ? ' hidden' : '';
 
-          echo '<div id="advancedConfigTable'.$category['id'].'" class="inBlockSlider insetBlock'.$hidden.'">
+          echo '<div id="advancedConfigTable'.$category['id'].'" class="inBlockSlider insetBlock'.$hidden.'" data-inBlockSlider="'.$category['id'].'">
 
                 <div class="row">
                     <div class="span8">
@@ -682,7 +683,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
           // SUBMIT: If advancedConfigTable has not Class "hidden" it stores the categoryId in the savedCategory input
           // and gives the submit anchor to the FORM
-          echo '<input type="submit" value="" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="if(!$(\'advancedConfigTable'.$category['id'].'\').hasClass(\'hidden\')) $(\'savedCategory\').value = \''.$category['id'].'\'; submitAnchor(\'categoriesForm\',\'categoryAnchor'.$category['id'].'\');">';
+          echo '<input type="submit" value="" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="if(!$(\'advancedConfigTable'.$category['id'].'\').hasClass(\'hidden\')) $(\'savedCategory\').value = \''.$category['id'].'\';">';
           if($category != end($categoryConfig))
             echo '<br><br><div class="verticalSeparator"></div><br>';
           echo '</div>'; // end slide in box
@@ -694,3 +695,22 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 </div>
 
 </form>
+
+<!-- PAGE SCRIPTS -->
+<script type="text/javascript">
+/* <![CDATA[ */
+
+  // setup the AUTOMATICALLY ADDING OF the ANCHORS
+  setupForm('pageSettingsForm');
+  setupForm('categoriesForm');
+
+  // PAGE DATE extra OPTION
+  $$('input.pageDates').addEvent('change',function(e){
+    if(this.checked)
+      this.getParent('.row').getNext('.pageDatesRange').reveal();
+    else
+      this.getParent('.row').getNext('.pageDatesRange').dissolve();
+  });
+
+/* ]]> */
+</script>

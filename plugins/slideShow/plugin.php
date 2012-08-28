@@ -27,6 +27,7 @@
  *     - $pluginBasePath            -> the base path of this plugins folder, e.g. "/cms/plugins/examplePlugin/". Be aware that this is a file system path and could differ from an URI path.
  *     - $pluginConfig              -> contains the changed settings from the "config.php" from this plugin
  *     - $pluginName                -> the folder name of this plugin
+ *     - $pluginNumber              -> the number of the plugin (to differ multiple plugins on the same page)
  *     - $pageContent               -> the pageContent array of the page which contains this plugin
  *     - the GeneralFunctions class -> for advanced methods. It's a static class so use "GeneralFunctions::exampleMethod(..);"
  *
@@ -120,7 +121,7 @@ require_once('slideShow.php');
 
 // create an instance of the slideShow class
 $jsonImages =  str_replace(array('&#34;','&#58;'), array('"',':'), $pluginConfig['imagesHidden']);
-$slideShow = new slideShow($jsonImages,$feindura->adminConfig['uploadPath'],DOCUMENTROOT);
+$slideShow = new slideShow($jsonImages,$feinduraBasePath.'upload/',DOCUMENTROOT);
 
 // set configs
 $slideShow->xHtml = $feindura->xHtml; // set the xHtml property rom the feindura class

@@ -96,13 +96,13 @@ div.filemanager button {
 	height: 22px;
 	line-height: 20px;        /* lift the text in the button by 1 px: line-height: 20px vs height: 22px */
 	margin: 4px 5px;
-	padding: 0 2px;
+	padding: 0 5px;
 
 	color: #333;
 	text-shadow: #eee 1px 1px 1px;
 
 	clear: none;
-	background: url("../Images/button.png") repeat-x;
+	background-color: #aec3eb;
 	border: 1px solid #a1aeb9;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -131,22 +131,59 @@ div.filemanager button.disabled:focus {
 	cursor: default;
 	color: #666;
 	text-shadow: none;
-	background: url("../Images/button_disabled.png") repeat-x;
+	background-color: #ccc;
 	border-color: #bababa;
 }
 
+div.filemanager button.filemanager-download {
+	background-image: url('../Images/download.png');
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	padding-left: 25px;
+}
+div.filemanager button.filemanager-upload {
+	background-image: url('../Images/upload.png');
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	padding-left: 25px;
+}
+div.filemanager button.filemanager-create {
+	background-image: url('../Images/Icons/directory.png');
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	padding-left: 25px;
+}
+div.filemanager button.filemanager-serialize,
 div.filemanager button.filemanager-open {
+	background-image: url('../Images/ok.png');
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	padding-left: 25px;
 	font-weight: bold;
 }
 
 div.filemanager-menu label {
+	display: none;
+	position: absolute;
+	top: 30px;
+	right: 40%;
 	cursor: pointer;
-	float: right;
 	width: auto;
 	height: auto;
-	line-height: 30px;
-
+	line-height: 30px !important;
+	padding: 0px 4px;
 	font-size: 11px;
+	background-color: #efefef;
+	border: 1px solid #ccc;
+
+	-moz-border-radius: 0 0 8px 8px;
+	-webkit-border-radius: 0 0 8px 8px;
+	-o-border-radius: 0 0 8px 8px;
+	border-radius: 0 0 8px 8px;
+}
+div.filemanager-menu:hover label,
+div.filemanager-menu label:hover {
+	display: block;
 }
 
 div.loader {
@@ -807,7 +844,9 @@ div.filemanager-container .file .file-progress {
 div.filemanager div.checkbox {
 	float: left;
 	height: 12px;
+	min-height: 12px;
 	width: 16px;
+	padding: 0;
 	margin: 10px 3px 0;
 	background: url("../Images/checkbox.png") no-repeat;
 }
@@ -837,7 +876,6 @@ div.filemanager button.filemanager-serialize {
 
 div.filemanager-gallery {
 	position: absolute;
-	/* z-index: 1000; */
 	width: 798px;        /* 9 images wide + optional scrollbar; old 750px value was ~ 8.5 so pretty useless */
 	height: 144px;
 	display: none;
@@ -862,13 +900,12 @@ div.filemanager-gallery {
 
 div.filemanager-gallery div.howto {
 	position: absolute;
-	/* z-index: 1002; */
-	left: 50px;
-	top: 60px;
+	left: 30px;
+	top: 30px;
+	width: 35%;
 
-	color: #666;
-	font-size: 18px;
-	font-style: italic;
+	color: #929292;
+	font-size: 20px;
 }
 
 div.filemanager-gallery ul {
@@ -880,7 +917,7 @@ div.filemanager-gallery ul {
 	overflow: auto;
 	overflow-x: hidden;
 	border: 1px solid #bebebe;
-	background: #f2f2f2;
+	background: #f2f2f2 url('../Images/dropHere.png') no-repeat center center;
 }
 
 div.filemanager-gallery ul li {
@@ -913,7 +950,7 @@ div.filemanager-gallery ul li div.gallery-image img {
 
 div.filemanager-gallery ul li img.filemanager-remove {
 	position: absolute;
-	right: -2px; /* place the red X inside the li entirely; otherwise the adjacent image may partly obscure it */
+	right: -6px; /* place the red X inside the li entirely; otherwise the adjacent image may partly obscure it */
 	top: -1px;
 	width: 16px;
 	height: 16px;

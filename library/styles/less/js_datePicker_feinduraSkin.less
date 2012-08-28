@@ -1,0 +1,368 @@
+.datepicker_feindura {
+    position: absolute;
+    font-size: 10px;
+    font-family: "Trebuchet MS", Tahoma, Verdana, Arial, sans-serif;
+    color: #333;
+    line-height: normal;
+    width: 198px;
+    height: 175px;
+    padding: 5px;
+    #boxBasics;
+    #border > .rounded(@borderRadiusMedium);
+
+
+    .column_2 {
+        width: 393px;
+    }
+
+    .column_3 {
+        width: 592px;
+    }
+
+    .column_4 {
+        width: 791px;
+    }
+
+    .column_5 {
+        width: 990px;
+    }
+
+    .box() {
+        border: 1px solid lighten(@datePickerBoxColor,20%);
+        // border: 1px solid transparent;
+        background: none;
+        color: darken(@datePickerBoxColor,20%);
+        font-weight: bold !important;
+        #shadow > .drop(0,0,3px,0.2);
+
+        &.otherMonth {
+            background: lighten(@datePickerBoxColor,32%);
+            border: 1px solid transparent;
+            color: lighten(@datePickerBoxColor,18%);
+            border: 1px solid lighten(@datePickerBoxColor,30%);
+            #shadow > .none();
+            // display: none;
+        }
+        &.selected {
+            background: #fdf5ce;
+            color: @logoColorOrange;
+            // border: 1px solid lighten(@logoColorOrange,20%);
+            #shadow > .drop(0,0,3px,0.3);
+            #shadow > .none();
+        }
+        &:hover {
+            background: #fdf5ce;
+            color: #c77405;
+            border: 1px solid #fbcb09;
+            #shadow > .drop(0,0,3px,0.2);
+        }
+    }
+
+    .body .column {
+        float: left;
+        width: 194px;
+        min-height: 193px;
+        margin-left: 5px;
+    }
+
+    .body .column.column_1 {
+        margin-left: 0;
+    }
+
+    .titleText .column {
+        float: left;
+        width: 160px;
+        margin-left: 5px;
+    }
+    .titleText .column.column_1 {
+        margin-left: 0;
+    }
+
+    &.range {
+        width: 198px * 3;
+        height: 220px;
+
+        .titleText .column {
+            width: 182px;
+            float: left;
+        }
+        .body {
+            width: 200px * 3;
+        }
+        .footer {
+            margin-top: 3px;
+            padding: 15px 5px;
+            height: 26px;
+
+            button {
+                position: relative;
+                top: -2px;
+                margin-left: 10px;
+            }
+        }
+    }
+
+    @datePickerBoxColor: #aaa;
+
+    // HEADER
+    .header {
+        position: relative;
+        height: 15px;
+        padding:  6px;
+        margin: -6px;
+        margin-bottom: 5px;
+        #boxHeadlineBasics;
+        #border > .radius(@borderRadiusMedium,@borderRadiusSmall,@borderRadiusSmall,@borderRadiusMedium);
+
+    }
+
+    .header .title {
+        text-align: center;
+        margin: 3px 18px 0 18px;
+    }
+
+    .header .titleText {
+        font-size: 11px;
+        color: @logoColorOrange;
+
+        &:hover {
+            color: @logoColorBlue !important;
+        }
+    }
+
+    .header .previous,
+    .header .next,
+    .header .closeButton {
+        position: absolute;
+        cursor: pointer;
+        text-indent: -40px;
+        overflow: hidden;
+        width: 16px;
+        height: 16px;
+        top: 6px;
+        background-image: url('../images/buttons/arrows.png');
+        background-position: left top;
+        background-repeat: no-repeat;
+    }
+
+    .header .previous {
+        left: 4px;
+    }
+    .header .previous:hover {
+        background-position: left bottom;
+    }
+    .header .next {
+        right: 4px;
+        background-position: -17px top;
+    }
+    .header .next:hover {
+        background-position: -17px bottom;
+    }
+    .header .closeButton {
+        display: none;
+        right: 0px;
+        top: 0px;
+        background-position: right top;
+    }
+    .header .closeButton:hover {
+        background-position: right bottom;
+    }
+
+    // BODY
+    .body {
+        position: relative;
+        top: 6px;
+        left: 2px;
+        width: 197px;
+        height: 145px;
+        overflow: hidden;
+    }
+
+    // TIME
+    .time {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .time .hour,
+    .time .separator,
+    .time .minutes {
+        background: #fff;
+        width: 50px;
+        height: 50px;
+        font-size: 32px;
+        color: #333;
+        border: 1px solid #aaa;
+        position: absolute;
+        top: 18px;
+        text-align: center;
+        padding: 2px;
+    }
+
+    .time .hour {
+        left: 23px;
+    }
+    .time .separator {
+        background: transparent;
+        border: 0px;
+        width: 10px;
+        left: 84px;
+    }
+
+    .time .minutes {
+        left: 103px;
+    }
+    .time .ok {
+        position: absolute;
+        top: 80px;
+        height: 32px;
+        width: 136px;
+        left: 23px;
+        font-size: 20px;
+    }
+
+    // DAYS-GRID
+    .days .day {
+        float: left;
+        overflow: hidden;
+        width: 19px;
+        padding: 1px;
+        padding-right: 3px;
+        height: 13px;
+        text-align: right;
+        margin: 0 3px 3px 0;
+    }
+
+    .days .titles {
+        margin-bottom: 1px;
+    }
+
+    .days .titles .title {
+        border: 1px solid transparent;
+        text-align: center;
+        height: 16px;
+        padding-right: 0px;
+        width: 22px;
+        padding-top: 2px;
+
+    }
+
+    .days .day0 {
+        margin-right: 0;
+    }
+
+    .days .week5 .day {
+        margin-bottom: 0;
+    }
+
+    // DAYS-COLORS
+    .days .week .day {
+        cursor: pointer;
+        .box;
+    }
+
+    // MONTHS-GRID
+    .months .month {
+        float: left;
+        text-align: center;
+        overflow: hidden;
+        width: 57px;
+        cursor: pointer;
+        background: #fcfcfc;
+        padding-top: 7px;
+        height: 22px;
+        border: 1px solid #aaa;
+        margin: 0 2px 2px 0;
+        .box;
+    }
+
+    .months .month3,
+    .months .month6,
+    .months .month9,
+    .months .month12 {
+        margin-right: 0;
+    }
+
+    .months .month10,
+    .months .month11,
+    .months .month12 {
+        margin-bottom: 0;
+    }
+
+    // MONTHS-COLORS
+    .months .month:hover {
+        background: #fdf5ce;
+        color: #c77405;
+        border: 1px solid #fbcb09;
+    }
+
+    .months .selected {
+        background: #fff;
+        color: #c77405;
+        border: 1px solid #fbcb09;
+    }
+
+    // YEARS-GRID
+    .years .year {
+        float: left;
+        text-align: center;
+        overflow: hidden;
+        background: #fcfcfc;
+        width: 32px;
+        cursor: pointer;
+        padding-top: 7px;
+        height: 22px;
+        border: 1px solid #aaa;
+        margin: 0 2px 2px 0;
+        .box;
+    }
+
+    .years .year4,
+    .years .year9,
+    .years .year14,
+    .years .year19 {
+        margin-right: 0;
+        width: 34px;
+    }
+
+    .years .year15,
+    .years .year16,
+    .years .year17,
+    .years .year18,
+    .years .year19 {
+        margin-bottom: 0;
+    }
+
+    // YEARS-COLORS
+    .years .year:hover {
+        background: #fdf5ce;
+        color: #c77405;
+        border: 1px solid #fbcb09;
+    }
+
+    .years .selected {
+        background: #fff;
+        color: #c77405;
+        border: 1px solid #fbcb09;
+    }
+}
+
+
+// /* global
+// ********************************************************/
+// .unavailable {
+//     cursor: default !important;
+//     background: #f0f0f0 !important;
+//     color: #ccc !important;
+//     border: 1px solid #ccc !important;
+// }
+
+// table {
+//     border-spacing: 0;
+// }
+
+// th,
+// td {
+//     padding: 0;
+// }

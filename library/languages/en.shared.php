@@ -27,6 +27,8 @@ $sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Click here to log
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'Set this page as start page';
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage_set'] = 'This page is the start page';
 
+$sharedLangFile['LOADING_TEXT_LOAD']                        = 'Page is loading..';
+
 /* date texts */
 
 $sharedLangFile['DATE_TEXT_YESTERDAY']                      = 'Yesterday';
@@ -51,12 +53,10 @@ $sharedLangFile['SEARCH_TEXT_TIME_2']                       = 'seconds';
 
 $sharedLangFile['errorWindow_h1']                           = 'An error occured!';
 $sharedLangFile['SORTABLEPAGELIST_setStartPage_error_save'] = '<b>Could not set the start page.</b>';
-$sharedLangFile['EDITOR_savepage_error_save']               = '<b>The page could not be saved.</b>';
+$sharedLangFile['ERROR_SAVEPAGE']                           = '<b>The page could not be saved.</b>';
 $sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'ERROR<br><br><span class="feinduraInline">fein<em>dura</em></span> requires at least PHP version'; // PHP 5.2.3
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************
 // -----------------------------------------------------------------------------------------------
 return $sharedLangFile;
-
-?>

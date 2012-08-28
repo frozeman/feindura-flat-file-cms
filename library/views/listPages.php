@@ -122,7 +122,7 @@ foreach($categoryConfig as $category) {
         : '[br][strong]'.$langFile['SORTABLEPAGELIST_TIP_SUBCATEGORYOFPAGES_PLURAL'].'[/strong][br]';
       foreach($parentPages as $parentPage) {
         if($categoryConfig[$parentPage['category']]['showSubCategory']) {
-          $parentPageCategory = ($parentPage['category'] != 0 ) ? GeneralFunctions::getLocalized($categoryConfig[$pageOfSubCategory['category']],'name').' &rArr; ' : '';
+          $parentPageCategory = ($parentPage['category'] != 0 ) ? GeneralFunctions::getLocalized($categoryConfig[$parentPage['category']],'name').' &rArr; ' : '';
           $categoryTitle .= '[img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.$parentPageCategory.GeneralFunctions::getLocalized($parentPage,'title').'[br]';
         }
       }
@@ -142,8 +142,10 @@ foreach($categoryConfig as $category) {
 
           // CATEGORY STATUS
           // show category status only if its a category (0 is non-category)
-          if($category['id'] != 0)
-            echo '<a href="?site='.$_GET['site'].'&amp;status=changeCategoryStatus&amp;public='.$category['public'].'&amp;category='.$category['id'].'&amp;reload='.rand(0,999).'#categoryAnchor'.$category['id'].'" class="toolTipTop status'.$publicClass.'" title="'.$publicText.'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkCategory'].'">&nbsp;</a>';
+          if($category['id'] != 0) {
+            $categoryStatusTitle = (GeneralFunctions::hasPermission('editableCategories',$category['id'])) ? $langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS']: $langFile['PERMISSIONS_TEXT_DONTHAVEPERMISSION'];
+            echo '<a href="?site='.$_GET['site'].'&amp;status=changeCategoryStatus&amp;public='.$category['public'].'&amp;category='.$category['id'].'&amp;reload='.rand(0,999).'#categoryAnchor'.$category['id'].'" class="toolTipTop status'.$publicClass.'" title="'.$publicText.'::'.$categoryStatusTitle.'">&nbsp;</a>';
+          }
 
         if(GeneralFunctions::hasPermission('editableCategories',$category['id'])) {
           // CATEGORY FUNCTIONS
@@ -182,12 +184,8 @@ foreach($categoryConfig as $category) {
           $pageStatistics = StatisticFunctions::readPageStatistics($pageContent['id']);
 
           // vars
-          $pageTitle_pageDate      = '';
-          $pageTitle_tags          = '';
-          $pageTitle_pageLanguages = '';
           $missingLanguages        = '';
           $startPageIcon           = '';
-          $pageTitle_startPageText = '';
           $sort_order[]            = $pageContent['sortOrder'];
 
           // add pageContent to this array to create later the arrows to the sub categories
@@ -207,51 +205,6 @@ foreach($categoryConfig as $category) {
           $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent,'title')),25);
           $visitorCount = GeneralFunctions::shortenString(formatHighNumber($pageStatistics['visitorCount']),12);
 
-          // -> show lastSaveDate
-          $lastSaveDate = GeneralFunctions::formatDate(GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.formatTime($pageContent['lastSaveDate']);
-          $lastSaveDate = ($pageContent['lastSaveAuthor'])
-              ? '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong][br]'.$lastSaveDate.' ('.$userConfig[$pageContent['lastSaveAuthor']]['username'].')[br]'
-              : '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LASTEDIT'].'[/strong] '.$lastSaveDate.'[br]';
-
-          // -> show page ID
-          $pageTitle_Id = (GeneralFunctions::isAdmin())
-            ? '[strong]ID[/strong] '.$pageContent['id'].'[br]'
-            : '';
-
-          // -> show subcategory in toolTip
-          $pageTitle_subCategory = ($pageContent['subCategory'] && $categoryConfig[$pageContent['category']]['showSubCategory'])
-            ? '[strong]'.$langFile['EDITOR_TEXT_SUBCATEGORY'].'[/strong][br][img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;] '.GeneralFunctions::getLocalized($categoryConfig[$pageContent['subCategory']],'name').'[br]'
-            : '';
-
-          // -> generate pageDate for toolTip
-          if($pageTitle_pageDate = showPageDate($pageContent))
-            $pageTitle_pageDate .= '[br]';
-
-          // -> generate tags for toolTip
-          $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
-          if(!empty($localizedTags) && $categoryConfig[$pageContent['category']]['showTags']) {
-            $pageTitle_tags = '[strong]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].'[/strong] '.$localizedTags.'[br]';
-          }
-
-          // -> generate page languages for toolTip
-          if(!isset($pageContent['localized'][0])) {
-            $pageTitle_pageLanguages .= '[strong]'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].'[/strong][br]';
-            if(is_array($pageContent['localized'][0])) {
-              foreach ($pageContent['localized'] as $langCode => $values) {
-                $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
-              }
-            }
-            // list not yet existing languages of the page
-            if(is_array($websiteConfig['multiLanguageWebsite']['languages'])) {
-              foreach($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
-                if(!isset($pageContent['localized'][$langCode])) {
-                  $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] [span class=gray][s]'.$languageNames[$langCode].'[/s][/span][br]';
-                  $missingLanguages .= '[img src='.GeneralFunctions::getFlagHref($langCode).' class=flag] '.$languageNames[$langCode].'[br]';
-                }
-              }
-            }
-          }
-
           $hasSubCategoryClass = (is_numeric($pageContent['subCategory'])) ? ' class="hasSubCategory"' : '';
 
           // -----------------------  ********  ----------------------
@@ -267,15 +220,13 @@ foreach($categoryConfig as $category) {
           // -> startpage icon before the name
           if($websiteConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
             $startPageIcon = ' isStartPage';
-            $pageTitle_startPageText = $langFile['SORTABLEPAGELIST_functions_startPage_set'].'[br]';
           }
 
           echo '<div class="row">';
 
             echo '<div class="span4 name left">
                     <a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTipLeft'.$subCategoryIcon.$startPageIcon.'"
-                    title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))).'::
-                    '.trim(' '.$pageTitle_startPageText.$pageTitle_Id.$lastSaveDate.$pageTitle_subCategory.$pageTitle_pageDate.$pageTitle_tags.$pageTitle_pageLanguages,'[br]').'">
+                    title="'.showPageToolTip($pageContent).'">
                       <strong>'.$title.'</strong>
                     </a>
                   </div>';
@@ -285,7 +236,7 @@ foreach($categoryConfig as $category) {
             echo '</div>';
             echo '<div class="span1">';
               // PAGE and LANGUAGE STATUS
-              echo ' <a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" class="toolTipTop status'.$publicClass.'" title="'.$publicText.'::'.$langFile['SORTABLEPAGELIST_changeStatus_linkPage'].'"></a>';
+              echo ' <a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" class="toolTipTop status'.$publicClass.'" title="'.$publicText.'::'.$langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS'].'"></a>';
               // show language status (is everything translated)
               if($websiteConfig['multiLanguageWebsite']['active'] && !empty($missingLanguages))
                 echo ' <span class="toolTipTop missingLanguages" title="'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'] .'::'.$missingLanguages.'"></span>';
@@ -325,6 +276,7 @@ foreach($categoryConfig as $category) {
               }
 
             echo '</div>';
+            echo '<div class="grabBar toolTipRight" title="'.$langFile['SORTABLEPAGELIST_TIP_DRATOREARRANGE'].'"></div>';
           echo '</div>';
           echo '</li>'."\n";
 
@@ -353,12 +305,12 @@ foreach($categoryConfig as $category) {
 
 
 // arrows to the sub categories
+$pagesWithSubCategories = array_reverse($pagesWithSubCategories); // to be able to show the tooltip of above arrows
 foreach ($pagesWithSubCategories as $pageWithSubCategory) {
   $categoryClass = ($pageWithSubCategory['category'] != 0) ? ' categories' : ' nonCategory';
-  echo '<div class="subCategoryArrowLine'.$categoryClass.'" data-parentPage="page'.$pageWithSubCategory['id'].'" data-category="category'.$pageWithSubCategory['category'].'" data-subCategory="category'.$pageWithSubCategory['subCategory'].'">
+  $categoryNameInTitle = ($pageWithSubCategory['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$pageWithSubCategory['category']],'name').' &rArr; ' : '';
+  echo '<div class="subCategoryArrowLine toolTipLeft'.$categoryClass.'" data-parentPage="page'.$pageWithSubCategory['id'].'" data-category="category'.$pageWithSubCategory['category'].'" data-subCategory="category'.$pageWithSubCategory['subCategory'].'" title="::[div class=right][img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;]'.$categoryNameInTitle.GeneralFunctions::getLocalized($pageWithSubCategory,'title').'[br]&dArr;&nbsp;&nbsp;&nbsp;[br][img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;]'.GeneralFunctions::getLocalized($categoryConfig[$pageWithSubCategory['subCategory']],'name').'[/div]">
   <div class="subCategoryInLineArrow"></div>
-  <div class="subCategoryArrowStart"></div>
-  <div class="subCategoryArrowEnd"></div>
   </div>';
 }
 unset($pagesWithSubCategories);
@@ -366,3 +318,10 @@ unset($pagesWithSubCategories);
 ?>
 </form>
 </div>
+
+<!-- PAGE SCRIPTS -->
+<script type="text/javascript">
+/* <![CDATA[ */
+
+/* ]]> */
+</script>

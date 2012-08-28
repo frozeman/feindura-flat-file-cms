@@ -6,7 +6,7 @@
 body {
     height: 100%;
     background: #5b5b5b url("../images/bg/body.png") repeat;
-    color: #666;
+    color: @textColor;
     font: 14px 'century gothic','helvetica neue',Helvetica, Verdana, Arial, Sans-serif, Serif;
     line-height: 20px;
     // -webkit-font-smoothing: antialiased;
@@ -15,28 +15,35 @@ body {
     // font-smoothing: antialiased;
 }
 
+.container {
+    position: relative;
+    width: @appWidth;
+}
+
 
 // HEADER
 
 header.main {
+    z-index: 3;
     position: relative;
     top: 0;
-    z-index: 3;
     width: 100%;
-    height: 150px;
     min-width: @appWidth;
+    height: 155px;
     background: url("../images/bg/header.png") repeat-x;
     #shadow > .text(0 1px 1px #fff);
 
+
     div.menuBlock {
-        position: absolute;
-        top: 0;
-        left: 0;
         z-index: 2;
-        width: 860px;
+        position: relative;
+        left: 5px;
+        float: left;
+        width: 865px;
         height: 140px;
         border-top: 1px solid #E5E5E5;
         background: url("../images/bg/headerBlock.png") no-repeat 0 -1px;
+
 
 
         // MAINMENU
@@ -108,781 +115,363 @@ header.main {
         }
     }
 
-    #sessionTimout {
+    // the sidebar on the right
+    .sideBar {
         position: absolute;
-        top: 6px;
-        left: 140px;
-        z-index: 3;
-        font-size: 11px;
+        top: 0;
+        right: 0;
+        width: 210px;
+        height: 100%;
+
+        ul.userList {
+            position: absolute;
+            top: -4px;
+            width: 160px;
+            max-height: 130px;
+            padding: 0;
+            padding-top: 14px;
+            margin: 0;
+            left: 0;
+            font-size: 12px;
+            overflow: auto;
+
+            li {
+                padding: 3px 0;
+                padding-left: 22px;
+                width: 120px;
+                background-image: url("../images/icons/user_offline.png");
+                background-repeat: no-repeat;
+                background-position: 5px 4px;
+                // border-bottom: 1px solid @colorLightGray;
+                color: #666;
+                #transform > .opacity(0.5);
+
+                a {
+                    color: #666;
+                    padding-left: 0;
+                    background: none;
+
+                    &:hover {
+                        color: @logoColorBlue;
+                    }
+                }
+
+                &.online {
+                    background-image: url("../images/icons/user_online.png");
+                    background-position: 5px 5px;
+                    #transform > .opacity(1);
+                }
+                &.current {
+                    font-weight: bold;
+                    // color: @logoColorBlue;
+                }
+            }
+        }
+
+        #sessionTimout {
+            z-index: 3;
+            position: absolute;
+            top: 45px;
+            right: 5px;
+            font-size: 11px;
+            color: @colorMiddleGray;
+            #shadow > .text(0 1px 2px #fff);
+        }
+
+        // LANGUAGE SELECTION
+        .languageSelection {
+            position: absolute;
+            bottom: 21px;
+            left: 10px;
+            z-index: 2;
+
+            a {
+                position: absolute;
+                display: block;
+                width: 30px;
+                height: 21px;
+                padding-left: 0;
+
+                &:hover,
+                &:focus {
+                    background-position: 0px -21px !important;
+                }
+                &.active:before {
+                    content: '▾';
+                    position: absolute;
+                    top: -8px;
+                    left: 10px;
+                    color: @colorMiddleGray; //@colorGray
+                }
+                &.active:hover:before {
+                    top: -16px;
+                }
+            }
+
+            a.en-us {
+                left: 0px;
+                background: url("../images/buttons/langSelection_en-us.png") no-repeat;
+            }
+            a.en-gb {
+                left: 30px;
+                background: url("../images/buttons/langSelection_en-gb.png") no-repeat;
+            }
+            a.de {
+                left: 60px;
+                background: url("../images/buttons/langSelection_de.png") no-repeat;
+            }
+            a.fr {
+                left: 90px;
+                background: url("../images/buttons/langSelection_fr.png") no-repeat;
+            }
+            a.it {
+                left: 120px;
+                background: url("../images/buttons/langSelection_it.png") no-repeat;
+            }
+            a.ru {
+                left: 150px;
+                background: url("../images/buttons/langSelection_ru.png") no-repeat;
+            }
+        }
     }
+
 
     // LOGO
     a.feinduraLogo {
-        z-index: 0;
-        position: absolute;
-        top: 25px;
-        left: 15px;
         z-index: 1;
+        position: absolute;
+        top: 20px;
+        left: 20px;
         display: block;
         width: 163px;
         height: 94px;
         background: url("../images/icons/logo.png") no-repeat;
     }
     .feinduraVersion {
-        position: absolute;
-        top: 48px;
-        left: 110px;
         z-index: 2;
+        position: absolute;
+        top: 38px;
+        left: 120px;
         width: 60px;
         color: @logoColorBlue;
         text-align: right;
-        font-weight: bold;
         font-size: 11px;
+        #shadow > .text(0 1px 1px #999);
     }
 
-    // LANGUAGE SELECTION
-    .languageSelection {
+
+
+    // ADMIN MENU
+
+    .adminMenuContainer {
+        z-index: 99;
         position: absolute;
-        bottom: 21px;
-        left: 15px;
-        z-index: 2;
+        top: 0;
+        right: 0;
+        overflow: visible;
+    }
+    #adminMenu {
+        position: absolute;
+        top: 0;
+        overflow: auto; // will be overwritten by javascript
+        width: 190px; // will be overwritten by javascript with 172px
+        height: 140px;
+        border: 1px solid lighten(@colorGray,20%);
+        // background: url("../images/bg/adminMenu.png") no-repeat;
+        background-color: #e8e8e8;
+        text-align: center;
+        #border > .rounded(@borderRadiusMedium);
+        #shadow > .both(0,0,5px,0.2,#000,0,0,10px,0.2);
+        #shadow > .inner(0,0,10px,0.2);
+        #gradient > .vertical(#fff,#fff,#e8e8e8);
+
+        h2 {
+            display: inline-block;
+            margin-bottom: 3px;
+            padding-top: 10px;
+            padding-bottom: 5px;
+            width: 120px;
+            border-bottom: 1px solid #cccccc;
+            color: #999999;
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 12px;
+        }
+
+        table {
+            position: absolute;
+            top: 37px;
+            left: 8px;
+            z-index: 1;
+        }
+
+
+        // ADMIN BUTTONS
 
         a {
-            position: absolute;
+            position: relative;
             display: block;
-            width: 30px;
-            height: 21px;
-            padding-left: 0;
+            margin: 0px 5px;
+            padding: 0;
+            padding-top: 70px;
+            width: 65px;
+            height: 30px; // org-image-size: 65px
+            color: #666666;
+            text-align: center;
+            text-decoration: none;
+            font-size: 9px;
+            line-height: 11px;
         }
         a:hover,
-        a:focus {
-            background-position: 0px -21px !important;
+        a:focus,
+        a.active {
+            background-position: -65px 0px !important;
+            color: #CF7F52;
         }
 
-        a.de {
-            left: 0px;
-            background: url("../images/buttons/langSelection_de.png") no-repeat;
+        a.adminSetup {
+            background: url("../images/buttons/adminMenu_adminSetup.png") no-repeat;
         }
-        a.en {
-            left: 30px;
-            background: url("../images/buttons/langSelection_en.png") no-repeat;
+        a.pageSetup {
+            background: url("../images/buttons/adminMenu_pageSetup.png") no-repeat;
         }
-        a.fr {
-            left: 60px;
-            background: url("../images/buttons/langSelection_fr.png") no-repeat;
+        a.statisticSetup {
+            background: url("../images/buttons/adminMenu_statisticSetup.png") no-repeat;
         }
-        a.it {
-            left: 90px;
-            background: url("../images/buttons/langSelection_it.png") no-repeat;
+        a.userSetup {
+            background: url("../images/buttons/adminMenu_userSetup.png") no-repeat;
         }
-        a.ru {
-            left: 120px;
-            background: url("../images/buttons/langSelection_ru.png") no-repeat;
+        a.backup {
+            background: url("../images/buttons/adminMenu_backup.png") no-repeat;
         }
     }
 }
 
-
-// ADMIN MENU
-
-#adminMenu {
-    position: absolute;
-    top: 0;
-    left: 859px;
-    z-index: 1;
-    overflow: auto; // will be overwritten by javascript
-    width: 190px; // will be overwritten by javascript with 172px
-    height: 140px;
-    border-bottom: 1px solid #BBB9B7;
-    background: url("../images/bg/adminMenu.png") no-repeat;
-    text-align: center;
-    #border > .rounded(8px);
-    #shadow > .drop(0,0,10px,0.2);
-
-    h2 {
-        display: inline-block;
-        margin-bottom: 3px;
-        padding-top: 10px;
-        padding-bottom: 5px;
-        width: 120px;
-        border-bottom: 1px solid #cccccc;
-        color: #999999;
-        font-weight: bold;
-        font-size: 12px;
-        line-height: 12px;
-    }
-
-    table {
-        position: absolute;
-        top: 37px;
-        left: 8px;
-        z-index: 1;
-    }
-
-
-    // ADMIN BUTTONS
-
-    a {
-        position: relative;
-        display: block;
-        margin: 0px 5px;
-        padding: 0;
-        padding-top: 70px;
-        width: 65px;
-        height: 30px; // org-image-size: 65px
-        color: #666666;
-        text-align: center;
-        text-decoration: none;
-        font-size: 10px;
-        line-height: 11px;
-    }
-    a:hover,
-    a:focus,
-    a.active {
-        background-position: -65px 0px !important;
-        color: #CF7F52;
-    }
-
-    a.adminSetup {
-        background: url("../images/buttons/adminMenu_adminSetup.png") no-repeat;
-    }
-    a.pageSetup {
-        background: url("../images/buttons/adminMenu_pageSetup.png") no-repeat;
-    }
-    a.statisticSetup {
-        background: url("../images/buttons/adminMenu_statisticSetup.png") no-repeat;
-    }
-    a.userSetup {
-        background: url("../images/buttons/adminMenu_userSetup.png") no-repeat;
-    }
-    a.backup {
-        background: url("../images/buttons/adminMenu_backup.png") no-repeat;
-    }
-}
 
 
 // MAINBODY
 
 .mainBody {
     position: relative;
-    top: -5px;
+    top: -10px;
     z-index: 0;
     overflow: auto;
     width: 100%;
     min-width: @appWidth;
     margin-bottom: -38px;
-    background: #d8d8d8 url("../images/bg/mainBody.png") repeat-y;
+    background: #565656 url("../images/bg/mainBody.png") repeat;
     #shadow > .text(0 1px 1px #dfdfdf);
 
+    .container {
+        background: transparent url("../images/bg/mainBodyContainer.png") repeat-y;
+    }
 
     // CONTENT
 
-    div.mainContent {
+    section.mainContent {
+        z-index: 3;
         position: relative;
-        top: 0px;
-        left: 10px;
-        z-index: 0;
         float: left;
         overflow: visible;
-        padding: 10px 10px;
-        padding-bottom: 8px;
+        padding: 10px;
+        padding-bottom: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
         width: 800px;
-        background-color: #fff;
         font-size: 14px;
+        color: #444;
 
         &.hasSubMenu {
-            padding-top: 58px;
+            padding-top: 54px;
         }
 
         p {
             margin: 10px 0px;
         }
-
-        // FAST UP LINK
-        a.fastUp {
-            z-index: 4;
-            position: fixed;
-            left: 1108px;
-            top: 80px;
-            display: block;
-            width: 66px;
-            height: 65px;
-            text-decoration: none;
-            background: url("../images/buttons/content_fastUp.png") no-repeat;
-            }
-        a.fastUp:hover, .mainContent a.fastUp:focus {
-            background-position: 0px -68px;
-            }
     }
-
-    // SIDEBARS
-
-    #leftSidebar {
-        position: relative;
-        top: 0px;
-        left: 0px;
-        z-index: 2;
-        float: left;
-        padding-bottom: 20px;
-        width: 208px;
-        #shadow > .text(0 1px 1px #fff);
-
-        h3 {
-          margin: 0px;
-          margin-top: 3px;
-          margin-bottom: 5px;
-          padding: 0px;
-          color: #666666;
-          font-weight: bold;
-          font-size: 11px;
-        }
-        h2 img {
-            position: relative;
-            margin-top: -5px;
-            margin-right: 5px;
-        }
-        h3 {
-          font-size: 10px;
-        }
-        p {
-          margin: 2px 0px;
-          margin-bottom: 12px;
-        }
-
-        // speacial headline
-        h2 {
-            z-index: 2;
-            position: relative;
-            padding: 2px 10px;
-            margin: 15px 0;
-            width: 183px;
-            border-bottom: 1px solid #fff;
-            #gradient > .vertical(#fff,@colorLightGray,#fff);
-            #shadow > .drop(0,2px,2px,0.2);
-            font-size: 12px;
-            line-height: 18px;
-        }
-        h3 {
-            line-height: 18px;
-        }
-
-        .content {
-            z-index: 1;
-            position: relative;
-            margin: 10px 10px;
-            width: 170px;
-            padding: 0 5px;
-            word-wrap: break-word;
-            font-size: 10px;
-
-        }
-
-
-        // SIDEBAR MENU
-
-        .sidebarMenu {
-            position: relative;
-            z-index: 0;
-            overflow: hidden;
-            width: 210px;
-            max-width: @appWidth;
-            #border > .rounded(8px);
-            #shadow > .drop(0,0,10px,0.3);
-
-            &.hidden {
-                display: block; // overwrites the class .hidden in general.less
-            }
-
-            a:hover,
-            a:focus,
-            a:active,
-            a.active {
-                #shadow > .text(none);
-            }
-
-            .top {
-                position: relative;
-                overflow: hidden;
-                height: 35px;
-                text-decoration: none;
-                white-space: nowrap;
-                font-weight: bold;
-                font-size: 13px;
-
-                span {
-                    position: absolute;
-                    top: 10px;
-                    left: 43px;
-                }
-                &.blue span {
-                    color: #536068;
-                }
-                &.brown span {
-                    color: #536068;
-                }
-                &.gray span {
-                    color: #666666;
-                }
-
-                img {
-                    display: inline-block;
-                    height: 35px;
-                }
-
-
-                // PULL UP/DOWN LINK in the TOP PART of the SIDEBAR MENU
-
-                a {
-                    position: absolute;
-                    top: 0px;
-                    right: 0px;
-                    display: inline-block;
-                    width: 208px; // 208px
-                    height: 35px;
-                    text-decoration: none;
-                }
-
-                a {
-                    background: url("../images/buttons/sidebarMenu_buttonUp.png") no-repeat right top;
-                }
-
-                a:hover,
-                a:focus {
-                    background-position: right -36px;
-                }
-
-                img.icons {
-                    top: 1px;
-                }
-            }
-            &.hidden .top a {
-                background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
-            }
-
-            &.free .top {
-                border-right: 0px solid #ffffff;
-            }
-
-            &.fixed .top img.icon {
-                margin-left: 5px; // -15px
-            }
-            &.free .top img.icon {
-                margin-left: 4px;
-            }
-
-            &.fixed {
-                margin-top: -1px;
-            }
-
-            // MENU
-            .menuWrapper {
-                position: relative;
-                background-color: #ccc;
-
-                // buttons
-                a {
-                    display: block;
-                    padding: 10px 0px;
-                    padding-left: 18px;
-                    height: 15px;
-                    color: #FBC279;
-                    text-decoration: none;
-                    font-weight: bold;
-                    font-size: 11px;
-                    background-repeat: repeat-x;
-                    background-position: 0 0;
-                }
-                a:hover,
-                a:focus {
-                    background-position: 0px -35px;
-                }
-                a.active {
-                    background-position: 0px -70px;
-                }
-            }
-
-            // GRAY SIDEBAR MENU
-            &.gray {
-                .top {
-                    background: url("../images/bg/sidebarMenu_top_gray.png") repeat-x;
-                    color: #666;
-                }
-                &.free .top {
-                    background-position: right top;
-                }
-                &.fixed .top {
-                    background-position: -10px top;
-                    border-right: 1px solid #BDBDB9;
-                }
-
-                .menuWrapper {
-                    border-right: 1px solid #BDBDB9;
-
-                    a {
-                        background-image: url("../images/buttons/sidebarMenu_key_gray.png");
-                        color: #707F81;
-                    }
-                    a.active {
-                        color: #ffffff;
-                    }
-                    a:hover,
-                    a:focus {
-                        color: #ffffff;
-                    }
-                }
-            }
-
-
-            // BROWN SIDEBAR MENU
-            &.brown {
-                .top {
-                    background: url("../images/bg/sidebarMenu_top_brown.png") repeat-x;
-                    color: #9B6B1D;
-                }
-                &.free .top {
-                    background-position: right top;
-                }
-                &.fixed .top {
-                    background-position: -10px top;
-                    border-right: 1px solid #E6BF7C;
-                }
-
-                .menuWrapper {
-                    border-right: 1px solid #E6BF7C;
-
-                    a {
-                        background-image: url("../images/buttons/sidebarMenu_key_brown.png");
-                        color: #9B6B1D;
-                    }
-                    a.active {
-                        color: #ffffff !important;
-                    }
-                    a:hover,
-                    a:focus {
-                        color: #ffffff;
-                    }
-                }
-            }
-
-            // BLUE SIDEBAR MENU
-            &.blue {
-                .top {
-                    background: url("../images/bg/sidebarMenu_top_blue.png") repeat-x;
-                }
-                &.free .top {
-                    background-position: right top;
-                }
-                &.fixed .top {
-                    background-position: -10px top;
-                    border-right: 1px solid #89B5D6;
-                }
-
-                .menuWrapper {
-                    border-right: 1px solid #89B5D6;
-
-                    a {
-                        background-image: url("../images/buttons/sidebarMenu_key_blue.png");
-                        color: #457A96;
-                    }
-                    a.active {
-                        color: #ffffff !important;
-                    }
-                    a:hover,
-                    a:focus {
-                        color: #ffffff;
-                    }
-                }
-            }
-
-            // PULL TOOGLE link in the bottom
-            .bottom {
-                a {
-                    display: block;
-                    padding: 0;
-                    width: 100%;
-                    height: 13px; // original 13px
-                    background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top;
-                    text-decoration: none;
-                }
-                a:hover,
-                a:focus {
-                    background-position: right -14px;
-                }
-            }
-        }
-
-        // SPACER
-        .spacer {
-            position: relative;
-            width: 202px;
-            height: 26px;
-
-            &.arrow {
-                background: url("../images/bg/sidebarMenu_spacer_arrow.png") no-repeat left center;
-            }
-        }
-
-
-        // SIDEBAR INFO
-
-        .sidebarInfo {
-            position: relative;
-            top: 2px;
-            left: 1px;
-            padding: 0px;
-            padding-top: 10px;
-            width: 198px;
-            min-height: 260px;
-            border-top: 1px solid #ffffff;
-            background: url("../images/bg/leftSidebarInfo_bg.png") no-repeat;
-
-            .content {
-                margin: 10px 20px;
-                width: 150px;
-                overflow: hidden;
-            }
-
-            hr {
-                margin: 15px 0px;
-                height: 0px;
-                border: none;
-                border-top: 1px dotted #E2E3E3;
-            }
-
-            h2 {
-                margin: 10px 0;
-                width: auto;
-                text-align: center;
-                #shadow > .none();
-                #gradient > .none();
-                border: none;
-            }
-
-        }
-
-        // SIDEBAR ACTIVITY LOG
-
-        #sidebarTaskLog {
-            position: relative;
-            z-index: 1;
-            overflow: auto;
-            margin: 0px -10px;
-            width: 200px;
-            height: 450px;
-            border-bottom: 1px solid #ffffff;
-            font-size: 9px;
-
-            a {
-                color: #3A7AA5;
-                text-decoration: none;
-            }
-            a:hover,
-            a:focus,
-            a:active,
-            a.active {
-                color: #666666;
-            }
-
-            ul {
-                margin: 0px;
-                margin-left: 5px;
-            }
-            ul li {
-                display: block;
-                margin: 10px 0;
-                padding: 15px 10px;
-                width: 140px !important;
-                // border-bottom: 1px solid #dedede;
-                // border-top: 1px solid @colorLightGray;
-                #shadow > .drop(0,0,5px);
-                #shadow > .text(0 1px 1px #ccc);
-            }
-        }
-        // the arrows inside the #sidebarTaskLog, the picture is add in inline in the leftSidebar.loader.php
-        .scrollUpDown {
-            position: absolute;
-            z-index: 2;
-            width: 165px;
-            height: 30px;
-        }
-
-
-        // SIDEBAR USERS
-
-        ul.sidebarListUsers {
-            margin-top: -15px;
-
-            li {
-                margin: 0 -14px;
-                padding: 8px 0;
-                padding-left: 25px;
-                width: 177px;
-                background-color: #fff;
-                background-image: url("../images/icons/user_offline.png");
-                background-repeat: no-repeat;
-                background-position: 5px 9px;
-                font-weight:bold;
-                // #shadow > .drop(0,0,2px,0.3);
-                border-bottom: 1px solid @colorLightGray;
-
-                &.online {
-                    background-image: url("../images/icons/user_online.png");
-                    background-position: 5px 10px;
-                }
-                &:hover {
-                    background-color: @colorLightGray;
-                }
-            }
-        }
-
-
-        // SIDEBAR BACKUP
-        ul.backupDownload {
-            li {
-                position: relative;
-            }
-            a.backup {
-                display: inline-block;
-                padding: 5px 0;
-                padding-left: 25px;
-                background: url("../images/buttons/backup_download_small.png") no-repeat left center;
-            }
-            a.deleteButton {
-                top: 15px;
-                right: 0px;
-            }
-        }
-    }
-
-    #rightSidebar {
-        position: absolute;
-        top: 0px;
-        left: 1050px;
-        z-index: 2;
-        width: 210px;
-
-        .box {
-            position: relative;
-            z-index: 2;
-            margin: 30px 0;
-            padding: 20px 20px;
-            border: 1px solid #cdcdcd;
-            line-height: 18px;
-            #gradient > .horizontal(#fff,#fff,#e2e2e2);
-            #border > .rounded(10px);
-            #shadow > .both(0,0,8px,0.1,#000,0,0,15px,0.05);
-            #PIE;
-
-            &:first-child {
-                margin-top: -10px;
-            }
-
-            h1 {
-                margin: 2px -13px;
-                margin-bottom: 15px;
-                padding-bottom: 8px;
-                border-bottom: 1px dotted #ccc;
-                text-align: center;
-                font-size: 14px;
-                line-height: 20px;
-            }
-
-            .hintIcon {
-                position: relative;
-                left: 50px;
-                display: block;
-                margin-bottom: 13px;
-            }
-            ul {
-                overflow: auto;
-                margin: 0;
-                margin-right: -15px;
-                margin-left: 0px;
-                padding-left: 20px;
-                max-height: 400px;
-                list-style: circle;
-            }
-            ul li {
-                margin-right: 15px;
-                line-height: 18px;
-            }
-            ul.flags {
-                margin-left: -5px;
-                padding-left: 10px;
-                list-style: none;
-            }
-            ul.flags li {
-                position: relative;
-                padding-left: 22px;
-            }
-            ul.flags img {
-                position: absolute;
-                left: 0px;
-                margin-top: 3px;
-            }
-            ul.flags a.link {
-                padding-left: 0px;
-                background: none;
-            }
-        }
-    }
-
-
 
     // SUBMENU
 
     .subMenu {
+        z-index: 7;
         position: absolute;
+        max-width: 810px;
         top: -8px;
         left: 10px;
-        padding:  0 10px;
-        padding-top: 7px;
-        z-index: 7;
+        padding-top: 1px;
+        margin-bottom: @blockContentMargin;
         overflow: visible;
-        height: 48px;
-        border: 1px solid #f4f4f4;
-        background: #eaeaea;
-        background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 58%,#eaeaea 59%, #e6e6e6 100%);
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(58%,#f6f6f6), color-stop(59%,#eaeaea), color-stop(100%,#e6e6e6));
-        background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
-        background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
-        background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
-        background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 );
-        #shadow > .drop(0, 1px, 5px, 0.35);
-        #border > .rounded(8px);
-        #PIE;
+        text-align: left;
+
+        menu {
+            display: inline-block;
+            float: left;
+            height: 40px;
+            padding: 0 3px;
+            padding-top: 7px;
+            margin: 0;
+            margin-right: 10px;
+            border: 1px solid #f4f4f4;
+            background: #eaeaea;
+            background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 58%,#eaeaea 59%, #e6e6e6 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(58%,#f6f6f6), color-stop(59%,#eaeaea), color-stop(100%,#e6e6e6));
+            background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
+            background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
+            background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
+            background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 58%,#eaeaea 59%,#e6e6e6 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 );
+            #shadow > .drop(0, 1px, 10px, 0.35);
+            #border > .rounded(8px);
+            #PIE;
+
+            &.right {
+                float: right;
+            }
+        }
 
         // submenu selection
         select {
             position: relative;
-            margin: 12px 12px;
+            margin: 0 8px;
             margin-left: 1px;
             padding: 3px 3px;
             font-size: 14px;
+            width: auto;
+            max-width: 195px;
         }
         img.flag {
             margin-left: 8px;
         }
 
+        li {
+            height: 40px;
+            margin: 0 2px;
+
+            &:hover {
+                background-color: rgba(0,0,0,0.1);
+            }
+        }
+
         li.spacer {
             display: inline-block;
-            width: 14px;
-            height: 47px;
-            background: url("../images/buttons/subMenu_spacer.png") no-repeat;
+            top: 0;
+            width: 6px;
+            height: 40px;
+            margin: 0 -2px;
+            background: url("../images/buttons/subMenu_spacer.png") no-repeat center center;
         }
 
         // submenu buttons
         li a {
             display: block;
-            margin: 0px 5px;
+            margin: 0;
             padding: 0;
-            width: 50px;
-            height: 48px;
+            width: 42px !important;
+            height: 40px;
         }
         a:hover,
         a:focus {
-            background-position: -50px 0px !important;
+            // background-position: -42px 0px !important;
         }
 
         a.fileManager {
@@ -894,8 +483,8 @@ header.main {
         a.deletePage {
             background: url("../images/buttons/subMenu_deletePage.png") no-repeat;
         }
-        a.editPage {
-            background: url("../images/buttons/subMenu_editPage.png") no-repeat;
+        a.frontendEditing {
+            background: url("../images/buttons/subMenu_frontendEditing.png") no-repeat;
         }
         a.uploadPageThumbnail {
             background: url("../images/buttons/subMenu_uploadThumb.png") no-repeat;
@@ -909,6 +498,18 @@ header.main {
         a.removePageLanguage {
             background: url("../images/buttons/subMenu_removePageLanguage.png") no-repeat;
         }
+        a.createUser {
+            background: url("../images/buttons/subMenu_createUser.png") no-repeat;
+        }
+        a.createCategory {
+            background: url("../images/buttons/subMenu_createCategory.png") no-repeat;
+        }
+        a.submit {
+            background: url("../images/buttons/subMenu_submit.png") no-repeat;
+        }
+        a.restorePage {
+            background: url("../images/buttons/subMenu_restorePage.png") no-repeat;
+        }
     }
 }
 
@@ -919,27 +520,19 @@ footer.main {
     position: relative;
     z-index: 1;
     width: 100%;
-    height: 176px;
     min-width: @appWidth;
+    height: 70px;
+    margin-top: 10px;
     clear: both;
     background: url("../images/bg/footer.png") repeat-x;
 
-    div.sideBarBottom {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 1024px;
-        height: 168px;
-        background: url("../images/bg/footerBlock.png") no-repeat;
-    }
     div.copyright {
-        position: absolute;
-        top: 142px;
-        left: 0;
-        width: @appWidth;
+        position: relative;
+        top: 25px;
         color: #979797;
         text-align: center;
         font-size: 11px;
+        #shadow > .text(0 1px 1px #000);
     }
 
     // - footer links
