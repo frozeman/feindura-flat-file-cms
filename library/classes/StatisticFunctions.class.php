@@ -280,10 +280,12 @@ class StatisticFunctions {
       foreach(self::$pagesMetaData as $pageMetaData) {
 
         // goes trough each localization and check if its fit the $_GET['page'] title
-        foreach ($pageMetaData['localized'] as $localizedPageContent) {
-          // RETURNs the right page Id
-          if(self::urlEncode($localizedPageContent['title']) == self::urlEncode($_GET['page'])) {
-            return $pageMetaData['id'];
+        if(is_array($pageMetaData['localized'])) {
+          foreach ($pageMetaData['localized'] as $localizedPageContent) {
+            // RETURNs the right page Id
+            if(self::urlEncode($localizedPageContent['title']) == self::urlEncode($_GET['page'])) {
+              return $pageMetaData['id'];
+            }
           }
         }
       }

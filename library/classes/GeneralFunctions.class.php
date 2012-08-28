@@ -2099,9 +2099,9 @@ class GeneralFunctions {
 
       // -> add the CATEGORY or PAGE word
       if($categoryNameString && $category != 0)
-        $href .= 'category/'.$categoryNameString.$parentPagesString;
+        $href .= self::$adminConfig['varName']['category'].'/'.$categoryNameString.$parentPagesString;
       else
-        $href .= 'page/'.$parentPagesString;
+        $href .= self::$adminConfig['varName']['page'].'/'.$parentPagesString;
 
       // -> add PAGE NAME
       $href .= StatisticFunctions::urlEncode(self::getLocalized($pageContent,'title',$language));
@@ -2986,4 +2986,3 @@ class GeneralFunctions {
     echo '<div style="background-color:white !important;color:black !important; padding: 10px;font-size: 14px;"><strong>Dump</strong><br><br>'.$return.'</div>';
   }
 }
-?>
