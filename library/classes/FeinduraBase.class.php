@@ -977,7 +977,7 @@ class FeinduraBase {
       $uniqueId = uniqid();
 
       $pageContentEdited = "\n".'<div class="feindura_editPage" id="feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
-      $pageContentEdited .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").store("editContent",$("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
+      // $pageContentEdited .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").store("editContent",$("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
 
     // ->> USE modified CONTENT (replaceLinks,replaceSnippets,..)
     } else {
@@ -1143,7 +1143,7 @@ class FeinduraBase {
         $uniqueId = uniqid();
 
         $titleText = '<span class="feindura_editTitle" id="feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.$this->getLocalized($pageContent,'title',$langCode).'</span>';
-        $titleText .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'").store("editContent",$("feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
+        // $titleText .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'").store("editContent",$("feindura_editTitle'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
 
       } else
         $titleText = $this->getLocalized($pageContent,'title');
@@ -1239,11 +1239,13 @@ class FeinduraBase {
         ? $this->categoryConfig[$pageContent['category']]['thumbHeight']
         : $this->adminConfig['pageThumbnail']['height'];
 
+      $altTitle = strip_tags(str_replace('"', '&quot;', $this->getLocalized($pageContent,'title'))); // getLocalized function is from the feindura.class.pgp
+
       if(!empty($configThumbWidth) && !empty($configThumbHeight) && is_numeric($configThumbWidth) && is_numeric($configThumbHeight)) {
-        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/images/icons/emptyImage.gif" style="display:table-cell; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'\') no-repeat center center;'.$thumbnailAlign.'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/images/icons/emptyImage.gif" style="display:table-cell; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'\') no-repeat center center;'.$thumbnailAlign.'" class="feinduraThumbnail" alt="'.$altTitle.'" title="'.$altTitle.'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       } else {
         if($thumbnailAlign) $thumbnailAlign = ' style="'.trim($thumbnailAlign).'"';
-        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'" class="feinduraThumbnail" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($this->getLocalized($pageContent,'title'))).'"'.$thumbnailAlign.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'" class="feinduraThumbnail" alt="'.$altTitle.'" title="'.$altTitle.'"'.$thumbnailAlign.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       }
 
       $pageThumbnail['thumbnailPath'] = GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'];
