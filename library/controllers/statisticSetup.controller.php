@@ -42,7 +42,7 @@ if($_POST['sendClearstatistics']) {
 
   // ->> CLEAR PAGES-STATISTICs
   if($_POST['clearStatistics_pagesStatistics'] == 'true' &&
-     $pagesStats = GeneralFunctions::loadPagesStatistics(true)) {
+     $pagesStats = GeneralFunctions::loadPagesStatistics()) {
     foreach($pagesStats as $pageStatistics) {
 
       // -> CLEAR the page stats
@@ -69,7 +69,7 @@ if($_POST['sendClearstatistics']) {
 
   // ->> CLEAR PAGES-LENGTHOFSTAY-STATISTICs
   if($_POST['clearStatistics_pagesStaylengthStatistics'] == 'true' &&
-     $pagesStats = GeneralFunctions::loadPagesStatistics(true)) {
+     $pagesStats = GeneralFunctions::loadPagesStatistics()) {
 
     foreach($pagesStats as $pageStatistics) {
 

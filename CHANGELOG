@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0 beta
-Build 979
+Build 980
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 2.0 beta
 
+  build 980: savePage has now a parameter to prevent saving of the pagesMetaData array, to speed up some tasks
   build 979: changed the breadcrumb image
   build 978: changed thumbnail alt attribute
   build 977: small change on the bootstrap ckeditor skin and renamed it to feindura skin, also removed all the unused skins

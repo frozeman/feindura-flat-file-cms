@@ -52,7 +52,7 @@ if(is_array($currentUser) && $currentUser['password'] == $_POST['password']) {
     $returnJSON['statistics']['browser'] = unserialize($websiteStatistic['browser']);
 
     // searchwords
-    $pagesStats = GeneralFunctions::loadPagesStatistics(true);
+    $pagesStats = GeneralFunctions::loadPagesStatistics();
     $allSearchwords = array();
     foreach($pagesStats as $pageStats) {
       if(!empty($pageStats['searchWords'])) {

@@ -80,7 +80,7 @@ if(!empty($userConfig[USERID]['info'])) {
     $maxListEntries = 50;
 
     // ->> LOAD all PAGES
-    $orgPagesStats = GeneralFunctions::loadPagesStatistics(true);
+    $orgPagesStats = GeneralFunctions::loadPagesStatistics();
     $pagesStats = $orgPagesStats;
 
     // --------------------------------

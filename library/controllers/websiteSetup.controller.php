@@ -88,9 +88,13 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
         $pageContent['localized'] = array_merge(array($newWebsiteConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $pageContent['localized']);
         unset($pageContent['localized'][0]);
       }
-      if(!GeneralFunctions::savePage($pageContent))
+      if(!GeneralFunctions::savePage($pageContent,false,false))
         $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
     }
+
+    // SAVE the pagesMetaData array
+    GeneralFunctions::savePagesMetaData();
+
 
     // -> CHANGE WEBSITE CONFIG
     if(is_array($newWebsiteConfig['localized']) && is_array(current($newWebsiteConfig['localized']))) {
@@ -155,9 +159,12 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
       } else
         $pageContent['localized'][0] = array();
 
-      if(!GeneralFunctions::savePage($pageContent))
+      if(!GeneralFunctions::savePage($pageContent,false,false))
         $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
     }
+
+    // SAVE the pagesMetaData array
+    GeneralFunctions::savePagesMetaData();
 
     // -> CHANGE WEBSITE CONFIG
     // change the localized content to non localized content using the the mainLanguage

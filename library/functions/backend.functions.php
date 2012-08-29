@@ -816,12 +816,16 @@ function checkSubCategories() {
     if(is_numeric($pageContent['subCategory']) &&
        (!isset($GLOBALS['categoryConfig'][$pageContent['subCategory']]) || !$GLOBALS['categoryConfig'][$pageContent['category']]['showSubCategory'])) {
       $pageContent['subCategory'] = false;
-      GeneralFunctions::savePage($pageContent);
+      GeneralFunctions::savePage($pageContent,false,false);
     }
 
     $pageContents[$pageContent['id']] = $pageContent;
   }
   unset($pageContent);
+
+  // SAVE the pagesMetaData array
+  GeneralFunctions::savePagesMetaData();
+
 
   // return here if no categories exist
   if(empty($GLOBALS['categoryConfig']))

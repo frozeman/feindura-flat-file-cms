@@ -657,7 +657,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
         StatisticFunctions::savePageStatistics($pageStatistics);
       }
 
-      if(GeneralFunctions::savePage($pageContent)) {
+      if(GeneralFunctions::savePage($pageContent,false,false)) { // dont save the pagesMetaData each times
         // delete the previous files
         $categoryPath = ($pageContent['category'] == 0) ? '' : $pageContent['category'].'/';
         if(file_exists(dirname(__FILE__).'/pages/'.$categoryPath.$pageContent['id'].'.previous.php'))
@@ -665,8 +665,10 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       } else
         $pagesSuccesfullUpdated = false;
     }
-    if($pagesSuccesfullUpdated)
+    if($pagesSuccesfullUpdated) {
+      GeneralFunctions::savePagesMetaData();
       echo 'pages <span class="succesfull">succesfully updated</span><br>';
+    }
     else {
       echo 'pages <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;

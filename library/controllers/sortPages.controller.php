@@ -51,7 +51,7 @@ foreach($sortOrder as $sort) {
 
 
       // ->> save the new sorting
-      if(GeneralFunctions::savePage($pageContent)) {
+      if(GeneralFunctions::savePage($pageContent,false,false)) {
         $status = $langFile['SORTABLEPAGELIST_save_finished'];
         $count++;
 
@@ -78,6 +78,10 @@ foreach($sortOrder as $sort) {
       $status = sprintf($langFile['SORTABLEPAGELIST_error_read'],$adminConfig['basePath']);
   }
 }
+
+// SAVE the PAGESMETADATAARRAY
+GeneralFunctions::savePagesMetaData();
+
 // -> CHECKs if the category folder is empty,
 // if its empty: the "<span></span>" is read by the content.js sort request and puts, a "no pages" - notice into the listPages
 if(!GeneralFunctions::getPagesMetaDataOfCategory($_POST['categoryOld']))

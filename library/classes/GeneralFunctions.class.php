@@ -988,8 +988,8 @@ class GeneralFunctions {
   * @param int        $category       (optional) a category ID, if FALSE it will try to load this page from the non-category
   * @param bool       $readPrevious   (optional) if TRUE it will read the previous state of the page instead of the current page
   *
-  * @uses getStoredPages()		for getting the {@link $storedPages} property
-  * @uses addStoredPage()		to store a new loaded $pageContent array in the {@link $storedPages} property
+  * @uses getStoredPages()    for getting the {@link $storedPages} property
+  * @uses addStoredPage()   to store a new loaded $pageContent array in the {@link $storedPages} property
   *
   * @return array|FALSE the $pageContent array of the requested page or FALSE, if it couldn't open the file, or NULL when the file exists but couldnt be loaded properly
   *
@@ -1094,6 +1094,7 @@ class GeneralFunctions {
   *
   * @param array        $pageContent       the $pageContent array of the page to save
   * @param bool         $readPrevious      (optional) if TRUE it will save the given $pageContent as a previous state of the page
+  * @param bool         $savePagesMetaData (optional) it FALSE it won't save the $pagesMetaData array
   *
   * @uses $adminConfig      for the save path of the flatfiles
   * @uses addStoredPage()  to store the saved file agiain, and overwrite th old stored page
@@ -1113,7 +1114,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function savePage($pageContent,$savePrevious = false) {
+  public static function savePage($pageContent,$savePrevious = false,$savePagesMetaData = true) {
 
     // check if array is pageContent array
     if(!self::isPageContentArray($pageContent))
@@ -1224,7 +1225,8 @@ class GeneralFunctions {
         self::addStoredPage($pageContent);
 
         // reload the $pagesMetaData array
-        self::savePagesMetaData();
+        if($savePagesMetaData)
+          self::savePagesMetaData();
       }
 
       return true;
@@ -1334,8 +1336,13 @@ class GeneralFunctions {
       self::$pagesMetaData               = $GLOBALS['pagesMetaData'];
       StatisticFunctions::$pagesMetaData = $GLOBALS['pagesMetaData'];
 
-      foreach ($resavePages as $resavePage) {
-        self::savePage($resavePage);
+      // SAVE the PAGES which have a CHANGED CATEGORY,
+      // and save the pagesMetaData array again
+      if(!empty($resavePages) && is_array($resavePages)) {
+        foreach ($resavePages as $resavePage) {
+          self::savePage($resavePage,false,false);
+        }
+        self::savePagesMetaData();
       }
 
       return true;
@@ -1407,8 +1414,8 @@ class GeneralFunctions {
   * @param bool|int|array  $category           (optional) a category ID, or an array with category IDs. TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
   *
   * @uses $categoryConfig     to get the sorting of the category
-  * @uses getStoredPages()		for getting the {@link $storedPages} property
-  * @uses readPage()			    to load the $pageContent array of the page
+  * @uses getStoredPages()    for getting the {@link $storedPages} property
+  * @uses readPage()          to load the $pageContent array of the page
   *
   * @return array an array with the $pageContent arrays of the requested pages
   *
@@ -1486,8 +1493,8 @@ class GeneralFunctions {
   * @param bool|int|array  $category           (optional) a category ID, or an array with category IDs. TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
   *
   * @uses $categoryConfig               to get the sorting of the category
-  * @uses getStoredPages()		          for getting the {@link $storedPages} property
-  * @uses readPageStatistics()			    to load the $pageStatistics array of the page
+  * @uses getStoredPages()              for getting the {@link $storedPages} property
+  * @uses readPageStatistics()          to load the $pageStatistics array of the page
   *
   * @return array an array with the $pageStatistic arrays of the requested pages
   *
@@ -1498,7 +1505,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function loadPagesStatistics($category = false) {
+  public static function loadPagesStatistics($category = true) {
 
     // IF $category FALSE set $category to 0
     if($category === false)
@@ -1508,15 +1515,9 @@ class GeneralFunctions {
     $pagesStatsArray = array();
 
     // IF $category TRUE create array with non-category and all category IDs
-    if($category === true) {
-    	// puts the categories IDs in an array
-    	$category = array(); // start with the non category
-    	if(is_array(self::$categoryConfig)) {
-      	foreach(self::$categoryConfig as $eachCategory) {
-      	  $category[] = $eachCategory['id'];
-      	}
-    	}
-    }
+    if($category === true)
+      $category = array_keys(self::$categoryConfig);
+
 
     // change category into array
     if(is_numeric($category))
@@ -1594,8 +1595,8 @@ class GeneralFunctions {
       // goes trough the given category IDs array
       foreach($ids as $id) {
         // checks if the category is public and creates a new array
-      	if($id == 0 || (isset(self::$categoryConfig[$id]) && self::$categoryConfig[$id]['public']))
-      	  $newIds[] = $id;
+        if($id == 0 || (isset(self::$categoryConfig[$id]) && self::$categoryConfig[$id]['public']))
+          $newIds[] = $id;
             }
 
     // -> SINGLE category ID

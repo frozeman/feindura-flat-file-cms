@@ -28,8 +28,9 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 
 // vars
 $post = (!empty($_POST)) ? $_POST : $_GET;
+$pageContent = GeneralFunctions::readPage($post['page'],$post['category']);
 
-if(!($pageContent = GeneralFunctions::readPage($post['page'],$post['category']))) {
+if(!$pageContent) {
   die('#CLOSE#
   <script type="text/javascript">
     feindura_showError("'.$langFile['errorWindow_h1'].'","'.sprintf($langFile['file_error_read'],$adminConfig['basePath']).'")
