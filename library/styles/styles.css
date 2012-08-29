@@ -8820,14 +8820,10 @@
   padding-right: 0;
   background-image: url('../images/bg/breadCrumbMenu_middle.png');
 }
-.feindura .breadCrumbs > .middle > span.separator {
+.feindura .breadCrumbs > .separator {
   position: relative;
-  display: inline-block;
-  width: 3px;
+  width: 15px;
   height: 26px;
-  margin: 0 1px;
-  margin-left: 2px;
-  float: left;
   background-image: url('../images/bg/breadCrumbMenu_separator.png');
 }
 .feindura .breadCrumbs > .arrow {

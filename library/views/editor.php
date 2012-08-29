@@ -62,7 +62,7 @@ if(!$newPage && is_array($breadCrumbsArray)) {
       echo '<div class="middle">';
         if($breadCrumb['category'] !== 0) {
           echo '<a '.$breadCrumbCategoryHref.'>'.$breadCrumbCategoryIcon.GeneralFunctions::getLocalized($categoryConfig[$breadCrumb['category']],'name').'</a>';
-          echo '<span class="separator"></span>';
+          echo '</div><div class="separator"></div><div class="middle">';
         }
         // echo '</div>';
         // echo '<div class="arrow"></div>';

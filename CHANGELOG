@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0 beta
-Build 978
+Build 979
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 2.0 beta
 
+  build 979: changed the breadcrumb image
   build 978: changed thumbnail alt attribute
   build 977: small change on the bootstrap ckeditor skin and renamed it to feindura skin, also removed all the unused skins
   build 976: make user list clickable for admins
