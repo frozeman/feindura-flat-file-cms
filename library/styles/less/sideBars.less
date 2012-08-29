@@ -156,6 +156,10 @@ div.rightSidebarLoadingCircle {
         max-width: @appWidth;
         #shadow > .drop(0,0,10px,0.3);
 
+        &:last-of-type {
+            margin-bottom: 50px;
+        }
+
         &.hidden {
             display: block; // overwrites the class .hidden in general.less
         }

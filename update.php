@@ -390,7 +390,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
 
       if($category['plugins'] === true || $category['plugins'] === 'true')
-      $category['plugins'] = activateAllPluginsSerialized();
+        $category['plugins'] = activateAllPluginsSerialized();
 
       $data = $category['styleFile'];
         if(strpos($data,'|#|') !== false)
@@ -497,12 +497,14 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
           $pageContent['localized'][0]['description'] = $pageContent['description'];
           $pageContent['localized'][0]['tags'] = $pageContent['tags'];
         }
+      }
 
+
+      if(until(972)) {
         // activate the captcha in the contactForm plugins, when the contactForm is activated
         if(isset($pageContent['plugins']['contactForm']) && !isset($pageContent['plugins']['contactForm']['captcha']))
           $pageContent['plugins']['contactForm']['captcha'] = true;
       }
-
 
 
       // only if was until 1.1.6
@@ -588,8 +590,10 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       // if below  build 958
       if(until(958)) {
         foreach ($pageContent['plugins'] as $pluginName => $pluginData) {
-          unset($pageContent['plugins'][$pluginName]);
-          $pageContent['plugins'][$pluginName][1] = $pluginData;
+          if(isset($pageContent['plugins'][$pluginName]['active'])) {
+            unset($pageContent['plugins'][$pluginName]);
+            $pageContent['plugins'][$pluginName][1] = $pluginData;
+          }
         }
       }
 
@@ -982,6 +986,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     $deleteFiles[] = 'library/images/buttons/login_button.png';
     $deleteFiles[] = 'library/images/icons/mail.gif';
     $deleteFiles[] = 'library/images/buttons/subMenu_editPage.png';
+    $deleteFiles[] = 'library/images/buttons/content_fastUp.png';
 
 
     // CHECK if files could be deleted

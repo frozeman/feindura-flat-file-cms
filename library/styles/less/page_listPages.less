@@ -33,10 +33,12 @@
     .block {
         z-index: 1;
         margin: 0;
+        margin-bottom: -5px;
+        #shadow > .none();
 
-        > div {
-            #shadow > .none();
-        }
+        // > div {
+        //     #shadow > .none();
+        // }
 
         .content {
             padding: 5px 20px;
@@ -244,7 +246,7 @@
         position: relative;
         z-index: 1;
         height: 31px;
-        margin-bottom: 0px;
+        margin-bottom: -8px;
         padding: 10px @gridGutterWidth;
         padding-top: 2px;
         border-top: 1px solid @colorBrown;
@@ -252,6 +254,7 @@
         line-height: 32px;
         background: url("../images/bg/listPages_headBg.png") repeat-x;
         color:3C5E91;
+        #border > .radius(0,@borderRadiusSmall,@borderRadiusSmall,0);
 
         > div {
             white-space: nowrap;
@@ -274,7 +277,7 @@
             a#listPagesFilterCancel {
                 position: absolute;
                 display: none;
-                top: 0px;
+                top: 2px;
                 right: 8px;
                 padding: 0;
                 background: none;

@@ -47,8 +47,9 @@
         // $pluginConfig = @include(dirname(__FILE__).'/../../plugins/'.$pluginFolderName.'/config.php');
         // $pluginName = (isset($pluginLangFile['feinduraPlugin_title'])) ? $pluginLangFile['feinduraPlugin_title'] : $pluginFolderName;
 
+        $pluginTitle = (!empty($pluginLangFile['feinduraPlugin_title'])) ? $pluginLangFile['feinduraPlugin_title'] : $pluginFolderName;
 
-        echo '<li class="jsMultipleSelectOption btn" data-value="'.$pluginFolderName.'">'.$pluginLangFile['feinduraPlugin_title'].'</li>';
+        echo '<li class="jsMultipleSelectOption btn" data-value="'.$pluginFolderName.'">'.$pluginTitle.'</li>';
       }
     ?>
   </ul>

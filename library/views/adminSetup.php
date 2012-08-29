@@ -246,7 +246,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
       </div>
       <div class="span5">
         <input type="number" step="0.5" id="cfg_cacheTimeout" name="cfg_cacheTimeout" value=<?php echo '"'.$adminConfig['cache']['timeout'].'"'; ?> class="toolTipRight short" title="<?php echo $langFile['ADMINSETUP_TEXT_CACHETIMEOUT'].'::'.$langFile['ADMINSETUP_TIP_CACHETIMEOUT']; ?>">
-        <span class="badge badge-warning"><?php echo $langFile['ADMINSETUP_HINT_CACHETIMEOUT']; ?></span>
+        <?php echo $langFile['ADMINSETUP_HINT_CACHETIMEOUT']; ?>
       </div>
     </div>
 

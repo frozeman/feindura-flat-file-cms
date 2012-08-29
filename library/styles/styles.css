@@ -5227,17 +5227,17 @@
 .feindura a.fastUp {
   z-index: 1;
   position: fixed;
-  right: 9%;
-  top: 80px;
+  left: 10px;
+  top: 10px;
   display: block;
-  width: 66px;
-  height: 65px;
+  width: 54px;
+  height: 54px;
   text-decoration: none;
-  background: url("../images/buttons/content_fastUp.png") no-repeat;
+  background: url("../images/buttons/fastUp.png") no-repeat;
 }
 .feindura a.fastUp:hover,
 .feindura .mainContent a.fastUp:focus {
-  background-position: 0px -68px;
+  background-position: 0px -54px;
 }
 .feindura .headerCornerButtons {
   z-index: 4;
@@ -7134,6 +7134,9 @@
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
 }
+.feindura #rightSidebar .sidebarMenu:last-of-type {
+  margin-bottom: 50px;
+}
 .feindura #rightSidebar .sidebarMenu.hidden {
   display: block;
 }
@@ -8328,8 +8331,7 @@
 .feindura .block.listPages .block {
   z-index: 1;
   margin: 0;
-}
-.feindura .block.listPages .block > div {
+  margin-bottom: -5px;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -8587,7 +8589,7 @@
   position: relative;
   z-index: 1;
   height: 31px;
-  margin-bottom: 0px;
+  margin-bottom: -8px;
   padding: 10px 16px;
   padding-top: 2px;
   border-top: 1px solid #d49c5c;
@@ -8595,6 +8597,21 @@
   line-height: 32px;
   background: url("../images/bg/listPages_headBg.png") repeat-x;
   color: 3C5E91;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomright: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
 }
 .feindura .block.listPages div.listPagesHead > div {
   white-space: nowrap;
@@ -8614,7 +8631,7 @@
 .feindura .block.listPages div.listPagesHead div.name a#listPagesFilterCancel {
   position: absolute;
   display: none;
-  top: 0px;
+  top: 2px;
   right: 8px;
   padding: 0;
   background: none;

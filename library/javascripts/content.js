@@ -1025,14 +1025,14 @@ window.addEvent('domready', function() {
       // if the subCategory is under the category with the parent page
       if(subCategory.getPosition(listPagesBlock).y > category.getPosition(listPagesBlock).y) {
         top = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y + 22): (parentPage.getPosition(listPagesBlock).y + 16);
-        height = subCategory.getPosition(listPagesBlock).y - top + 32;
+        height = subCategory.getPosition(listPagesBlock).y - top + 30;
 
         arrow.removeClass('up');
         arrow.addClass('down');
 
       // if the category with the parent page is under the subCategory
       } else {
-        top = subCategory.getPosition(listPagesBlock).y + 23;
+        top = subCategory.getPosition(listPagesBlock).y + 20;
         height = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y - subCategory.getPosition(listPagesBlock).y ): (parentPage.getPosition(listPagesBlock).y  - subCategory.getPosition(listPagesBlock).y - 11);
 
         arrow.removeClass('down');

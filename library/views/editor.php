@@ -52,22 +52,21 @@ if(!$newPage && is_array($breadCrumbsArray)) {
     foreach ($breadCrumbsArray as $keyNumber => $breadCrumb) {
 
       $breadCrumbCategoryHref = 'href="index.php?site=pages&amp;category='.$breadCrumb['category'].'#categoryAnchor'.$breadCrumb['category'].'"';
-
       $breadCrumbPageHref = ($breadCrumb == $pageContent)
         ? 'href="#" onclick="return false;"'
         : 'href="index.php?page='.$breadCrumb['id'].'&amp;category='.$breadCrumb['category'].'"';
 
-      $markBreadCrumb = ($breadCrumb['id'] == $pageContent['id']) ? ' class="currentPage"' : '';
+      $markBreadCrumb = ($breadCrumb['id'] == $pageContent['id']) ? ' class="toolTipBottom currentPage"' : 'class="toolTipBottom"';
 
       echo '<div class="middle">';
         if($breadCrumb['category'] !== 0) {
-          echo '<a '.$breadCrumbCategoryHref.'>'.$breadCrumbCategoryIcon.GeneralFunctions::getLocalized($categoryConfig[$breadCrumb['category']],'name').'</a>';
+          echo '<a '.$breadCrumbCategoryHref.' class="toolTipBottom" title="::'.strip_tags(str_replace('"', '&quot;', GeneralFunctions::getLocalized($categoryConfig[$breadCrumb['category']],'name'))).'">'.$breadCrumbCategoryIcon.GeneralFunctions::getLocalized($categoryConfig[$breadCrumb['category']],'name').'</a>';
           echo '</div><div class="separator"></div><div class="middle">';
         }
         // echo '</div>';
         // echo '<div class="arrow"></div>';
         // echo '<div class="middle">';
-        echo '<a '.$breadCrumbPageHref.$markBreadCrumb.'>'.$breadCrumbPageIcon.GeneralFunctions::getLocalized($breadCrumb,'title').'</a>';
+        echo '<a '.$breadCrumbPageHref.$markBreadCrumb.' title="::'.strip_tags(str_replace('"', '&quot;', GeneralFunctions::getLocalized($breadCrumb,'title'))).'">'.$breadCrumbPageIcon.GeneralFunctions::getLocalized($breadCrumb,'title').'</a>';
       echo '</div>';
 
       if($breadCrumb !== end($breadCrumbsArray))
@@ -79,7 +78,7 @@ if(!$newPage && is_array($breadCrumbsArray)) {
 
       echo '<div class="arrow"></div>';
       echo '<div class="middle">';
-        echo '<a '.$breadCrumbSubCategoryHref.'>'.$breadCrumbSubCategoryIcon.GeneralFunctions::getLocalized($categoryConfig[$breadCrumb['subCategory']],'name').'</a>';
+        echo '<a '.$breadCrumbSubCategoryHref.' class="toolTipBottom" title="::'.strip_tags(str_replace('"', '&quot;', GeneralFunctions::getLocalized($categoryConfig[$breadCrumb['subCategory']],'name'))).'">'.$breadCrumbSubCategoryIcon.GeneralFunctions::getLocalized($categoryConfig[$breadCrumb['subCategory']],'name').'</a>';
       echo '</div>';
     }
 
