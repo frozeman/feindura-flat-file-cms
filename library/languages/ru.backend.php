@@ -237,7 +237,7 @@ $langFile['CKEDITOR_TEXT_PLUGINS']                                        = 'В�
 // MAIN MENU
 $langFile['BUTTON_DASHBOARD']                                             = 'Сводка';
 $langFile['BUTTON_PAGES']                                                 = 'Страницы';
-$langFile['BUTTON_ADDONS']                                                = 'Расширения';
+$langFile['BUTTON_ADDONS']                                                = 'Add-ons';
 $langFile['BUTTON_WEBSITESETTINGS']                                       = 'Настройки сайта';
 $langFile['BUTTON_SEARCH']                                                = 'Искать страницы';
 
@@ -269,7 +269,7 @@ $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'У�
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Вверх';
-
+$langFile['BUTTON_INFO']                                                  = 'Информация';
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>Не удается сохранить настройки</b>';
@@ -323,8 +323,7 @@ $langFile['btn_quickmenu_pages']                                          = 'С�
 // ---------- DASHBOARD
 $langFile['DASHBOARD_TITLE_USERINFO']                                     = 'пользователей';
 
-$langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Добро пожаловать в панель управления <span class="feinduraInline">fein<em>dura</em></span>,<br> превосходной системы управления контентом :)';
-$langFile['DASHBOARD_TEXT_WELCOME']                                       = 'CMS <span class="feinduraInline">fein<em>dura</em></span> основана на принципе хранения <span class="toolTipLeft" title="flat file::Принцип хранения данных в файлах (использование ресурсов файловой системы), противопостовляется реляционным базам данных типа Mysql.">flat file</span>, т.е. использует файлы в качестве базы данных.';
+$langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Добро пожаловать в панель управления <span class="feinduraInline">fein<em>dura</em></span>,<br> превосходной системы управления контентом';
 
 $langFile['DASHBOARD_TITLE_STATISTICS']                                   = 'Статистика сайта';
 
@@ -872,6 +871,13 @@ $langFile['BACKUP_ERROR_FILENOTFOUND']                                    = 'Ф�
 $langFile['BACKUP_ERROR_NORESTROEFILE']                                   = 'Не выбрано файла резервной копии для восстановления.';
 $langFile['BACKUP_ERROR_DELETE']                                          = 'Не удается удалить резервную копию!';
 
+
+// -> ADDONS
+
+$langFile['ADDONS_TITLE_ADDON']                                           = 'Выберите <span class="feinduraInline">fein<em>dura</em></span> Add-on';
+$langFile['ADDONS_TEXT_AUTHOR']                                           = 'Автор';
+$langFile['ADDONS_TEXT_WEBSITE']                                          = 'Сайт';
+$langFile['ADDONS_TEXT_VERSION']                                          = 'Версия';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

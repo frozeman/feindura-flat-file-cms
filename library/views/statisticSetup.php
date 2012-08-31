@@ -47,7 +47,7 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
         <?php echo $langFile['STATISTICSSETUP_TEXT_REFERERNUMBER']; ?></span></label>
       </div>
       <div class="span5">
-        <input type="number" step="5" min="0" id="numberRefererLog" name="number[refererLog]" class="short" value="<?php echo $statisticConfig['number']['refererLog']; ?>">
+        <input type="number" step="5" min="0" id="numberRefererLog" name="number[refererLog]" value="<?php echo $statisticConfig['number']['refererLog']; ?>">
         </div>
     </div>
 
@@ -57,7 +57,7 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
         <?php echo $langFile['STATISTICSSETUP_TEXT_ACTIVITYNUMBER']; ?></span></label>
       </div>
       <div class="span5">
-        <input type="number" step="5" min="0" id="numberTaskLog" name="number[taskLog]" class="short" value="<?php echo $statisticConfig['number']['taskLog']; ?>">
+        <input type="number" step="5" min="0" id="numberTaskLog" name="number[taskLog]" value="<?php echo $statisticConfig['number']['taskLog']; ?>">
         </div>
     </div>
 

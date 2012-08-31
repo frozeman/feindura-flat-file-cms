@@ -231,7 +231,7 @@ $langFile['CKEDITOR_TEXT_PLUGINS']                                        = 'Cho
 // MAIN MENU
 $langFile['BUTTON_DASHBOARD']                                             = 'Dashboard';
 $langFile['BUTTON_PAGES']                                                 = 'Pages';
-$langFile['BUTTON_ADDONS']                                                = 'Addons';
+$langFile['BUTTON_ADDONS']                                                = 'Add-ons';
 $langFile['BUTTON_WEBSITESETTINGS']                                       = 'Website Settings';
 $langFile['BUTTON_SEARCH']                                                = 'Search Pages';
 
@@ -263,7 +263,7 @@ $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Del
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Up';
-
+$langFile['BUTTON_INFO']                                                  = 'Info';
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>The settings could not be saved</b>';
@@ -316,7 +316,6 @@ $langFile['SIDEBARMENU_TITLE_PAGES']                                      = 'Pag
 $langFile['DASHBOARD_TITLE_USERINFO']                                     = 'User Information';
 
 $langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Welcome in <span class="feinduraInline">fein<em>dura</em></span>,<br>the Content Management System of your website';
-$langFile['DASHBOARD_TEXT_WELCOME']                                       = '<span class="feinduraInline">fein<em>dura</em></span> is a <span class="toolTipLeft" title="flat files::That are files on the server, in which the content of the website is stored.">flat file</span> based Content Management System.<br>Here you can manage the content of your website.';
 
 $langFile['DASHBOARD_TITLE_STATISTICS']                                   = 'Website-Statistic';
 
@@ -862,6 +861,12 @@ $langFile['BACKUP_ERROR_FILENOTFOUND']                                    = 'Bac
 $langFile['BACKUP_ERROR_NORESTROEFILE']                                   = 'No backup file to restore was selected.';
 $langFile['BACKUP_ERROR_DELETE']                                          = 'Backup could not be deleted!';
 
+// -> ADDONS
+
+$langFile['ADDONS_TITLE_ADDON']                                           = 'Choose a <span class="feinduraInline">fein<em>dura</em></span> Add-on';
+$langFile['ADDONS_TEXT_AUTHOR']                                           = 'Author';
+$langFile['ADDONS_TEXT_WEBSITE']                                          = 'Website';
+$langFile['ADDONS_TEXT_VERSION']                                          = 'Version';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

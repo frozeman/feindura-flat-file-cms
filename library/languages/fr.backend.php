@@ -220,19 +220,19 @@ $langFile['CKEDITOR_TEXT_PLUGINS']                                        = 'Cho
 // -> BUTTON TEXTS
 
 // MAIN MENU
-$langFile['BUTTON_DASHBOARD']                                             = 'vue globale';
-$langFile['BUTTON_PAGES']                                                 = 'pages';
-$langFile['BUTTON_ADDONS']                                                = 'addons';
-$langFile['BUTTON_WEBSITESETTINGS']                                       = 'préférences site web';
-$langFile['BUTTON_SEARCH']                                                = 'fouiller tout le site web';
+$langFile['BUTTON_DASHBOARD']                                             = 'Vue globale';
+$langFile['BUTTON_PAGES']                                                 = 'Pages';
+$langFile['BUTTON_ADDONS']                                                = 'Add-ons';
+$langFile['BUTTON_WEBSITESETTINGS']                                       = 'Préférences site web';
+$langFile['BUTTON_SEARCH']                                                = 'Fouiller tout le site web';
 
 // ADMIN MENU
-$langFile['HEADER_TITLE_ADMINMENU']                                       = 'administration';
-$langFile['BUTTON_ADMINSETUP']                                            = 'préférences administrateur';
-$langFile['BUTTON_PAGESETUP']                                             = 'préférences site web';
-$langFile['BUTTON_STATISTICSETUP']                                        = 'préférences statistiques';
-$langFile['BUTTON_USERSETUP']                                             = 'utilisateurs';
-$langFile['BUTTON_BACKUP']                                                = 'sauvegardes';
+$langFile['HEADER_TITLE_ADMINMENU']                                       = 'Administration';
+$langFile['BUTTON_ADMINSETUP']                                            = 'Préférences administrateur';
+$langFile['BUTTON_PAGESETUP']                                             = 'Préférences site web';
+$langFile['BUTTON_STATISTICSETUP']                                        = 'Préférences statistiques';
+$langFile['BUTTON_USERSETUP']                                             = 'Utilisateurs';
+$langFile['BUTTON_BACKUP']                                                = 'Sauvegardes';
 
 // SUB MENU/FOOTER
 $langFile['BUTTON_FILEMANAGER']                                           = 'gestionnaire des fichiers';
@@ -254,7 +254,7 @@ $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Sup
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'vers le haut';
-
+$langFile['BUTTON_INFO']                                                  = 'Infos';
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>Les préférences ne peuvent pas être sauvegardés.</b>';
@@ -305,7 +305,7 @@ $langFile['SIDEBARMENU_TITLE_PAGES']                                      = 'pag
 // ---------- DASHBOARD
 $langFile['DASHBOARD_TITLE_USERINFO']                                     = 'utilisateurs';
 $langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Bienvenue au content management system <span class="feinduraInline">fein<em>dura</em></span><br> de ton site web';
-$langFile['DASHBOARD_TEXT_WELCOME']                                       = '<span class="feinduraInline">fein<em>dura</em></span> est un  Content Management System basé sur <span class="toolTipLeft" title="Flat-Files.::fichiers sur un server contenant le contenu du site web">Flat-Files</span>. <br>Ici tu peux gérer le contenu de ton site web.';
+
 $langFile['DASHBOARD_TITLE_STATISTICS']                                   = 'statistiques du site web';
 $langFile['DASHBOARD_TITLE_USER']                                         = 'utilisateur';
 $langFile['DASHBOARD_TITLE_ACTIVITY']                                     = 'dernières activités';
@@ -822,6 +822,13 @@ $langFile['BACKUP_TEXT_NOBACKUP']                                         = 'Pas
 $langFile['BACKUP_ERROR_FILENOTFOUND']                                    = 'Sauvegarde n&#145;a pas été trouvé au chemin d&#145;accès:';
 $langFile['BACKUP_ERROR_NORESTROEFILE']                                   = 'Il n&#145;y a pas de fichier de sauvegarde pour restaurer sélectionné.';
 $langFile['BACKUP_ERROR_DELETE']                                          = 'Sauvegarde ne peut pas être supprimé!';
+
+// -> ADDONS
+
+$langFile['ADDONS_TITLE_ADDON']                                           = 'Sélectionnez un <span class="feinduraInline">fein<em>dura</em></span> Add-on';
+$langFile['ADDONS_TEXT_AUTHOR']                                           = 'Auteur';
+$langFile['ADDONS_TEXT_WEBSITE']                                          = 'Site Web';
+$langFile['ADDONS_TEXT_VERSION']                                          = 'Version';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

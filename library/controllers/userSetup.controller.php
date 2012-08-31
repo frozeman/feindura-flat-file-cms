@@ -45,7 +45,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['cre
   $userConfig[$newId]['permissions']['websiteSettings'] = true;
 
   if(saveUserConfig($userConfig)) {
-     $messagePopUp .= '<div class="alert alert-success">'.$langFile['USERSETUP_createUser_created'].'</div>';
+     $notification .= '<div class="alert alert-success">'.$langFile['USERSETUP_createUser_created'].'</div>';
      saveActivityLog(25); // <- SAVE the task in a LOG FILE
   } else { // throw error
     $errorWindow .= ($errorWindow) // if there is already an warning
@@ -73,7 +73,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['de
   }
 
   if(saveUserConfig($newUserConfig)) {
-    $messagePopUp .= '<div class="alert alert-info">'.$langFile['USERSETUP_deleteUser_deleted'].'<br><strong>'.$storedUserName.'</strong></div>';
+    $notification .= '<div class="alert alert-info">'.$langFile['USERSETUP_deleteUser_deleted'].'<br><strong>'.$storedUserName.'</strong></div>';
     $documentSaved = true; // set documentSaved status
     saveActivityLog(26,$storedUserName); // <- SAVE the task in a LOG FILE
   } else
@@ -109,10 +109,10 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
       if($configs['password'] == $configs['password_confirm']) {
         $newUserConfig[$configs['id']]['password'] = md5($newUserConfig[$configs['id']]['password']);
         $userPassChanged = true;
-        $messagePopUp .= '<div class="alert alert-success">'.$langFile['USERSETUP_password_success'].'</div>';
+        $notification .= '<div class="alert alert-success">'.$langFile['USERSETUP_password_success'].'</div>';
       } else {
         $newUserConfig[$configs['id']]['password'] = $userConfig[$configs['id']]['password'];
-        $messagePopUp .= '<div class="alert alert-error">'.$langFile['USERSETUP_password_confirm_wrong'].'</div>';
+        $notification .= '<div class="alert alert-error">'.$langFile['USERSETUP_password_confirm_wrong'].'</div>';
         $userPassError = true;
       }
     } else

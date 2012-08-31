@@ -40,7 +40,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
   $showCurrentVisitors = false;
 
   if(!$_GET['loadSideBarMenu'])
-    echo '<div id="sidebarSelection" class="staticScroller" data-offset="-2">';
+    echo '<div id="sidebarMenu" class="staticScroller" data-offset="-2">';
 
     // ----  show QUICKMENU for the NONE-CATEGORY PAGES
     // slide the categories menu IN, when a category is open
@@ -73,8 +73,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
             else
               $pageSelected = '';
 
-            echo '<li'.$showPageId.'><a href="?category=0&amp;page='.$pageMetaData['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'>'.strip_tags(GeneralFunctions::getLocalized($pageMetaData,'title')).'<span style="display:none;" class="toolTipLeft noMark notSavedSignPage'.$pageMetaData['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
-            $tabIndex++;
+            echo '<li'.$showPageId.'><a href="?category=0&amp;page='.$pageMetaData['id'].'" tabindex="'.$tabIndex++.'"'.$pageSelected.'>'.strip_tags(GeneralFunctions::getLocalized($pageMetaData,'title')).'<span style="display:none;" class="toolTipLeft noMark notSavedSignPage'.$pageMetaData['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
           }
           unset($filteredPagesMetaData);
         } else {
@@ -126,8 +125,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
                 $categorySelected = ' class="active"';
               else
                 $categorySelected = '';
-            echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="loadSideBarMenu(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span'.$categoryId.'>'.GeneralFunctions::getLocalized($category,'name').'</span></a></li>';
-            $tabIndex++;
+            echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex++.'" onclick="loadSideBarMenu(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span'.$categoryId.'>'.GeneralFunctions::getLocalized($category,'name').'</span></a></li>';
           }
         echo '</menu>
           </div>
@@ -163,8 +161,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
             else
               $pageSelected = '';
 
-            echo '<li'.$showPageId.'><a href="?category='.$pageMetaData['category'].'&amp;page='.$pageMetaData['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'>'.GeneralFunctions::getLocalized($pageMetaData,'title').'<span style="display:none;" class="toolTipLeft noMark notSavedSignPage'.$pageMetaData['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
-            $tabIndex++;
+            echo '<li'.$showPageId.'><a href="?category='.$pageMetaData['category'].'&amp;page='.$pageMetaData['id'].'" tabindex="'.$tabIndex++.'"'.$pageSelected.'>'.GeneralFunctions::getLocalized($pageMetaData,'title').'<span style="display:none;" class="toolTipLeft noMark notSavedSignPage'.$pageMetaData['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
           }
           unset($filteredPagesMetaData);
         } else {
@@ -237,15 +234,13 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
     case 'pageSetup':
       if(!GeneralFunctions::isAdmin()) break;
 
-      // dont show the current visitors when sidebarmenu
+      // dont show the current visitors when category menu
       $showCurrentVisitors = false;
 
       // -> CATEGORY ANCHOR LINKS
-      echo '<div id="sidebarSelection" class="staticScroller" data-offset="-2">';
 
       if(!empty($categoryConfig) && is_array($categoryConfig)) {
-
-        echo '<div class="sidebarMenu blue">
+        echo '<div class="sidebarMenu blue staticScroller" data-offset="-2">
             <div class="top"><img src="library/images/icons/categoryIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
             <div class="menuWrapper">
               <menu class="vertical">';
@@ -258,31 +253,25 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
                   // overjump the non-category
                   if($category['id'] == 0) continue;
 
-                  echo '<li><a href="#categoryAnchor'.$category['id'].'" tabindex="'.$tabIndex.'"><span>'.GeneralFunctions::getLocalized($category,'name').'</span></a></li>';
-                  $tabIndex++;
+                  echo '<li><a href="#categoryAnchor'.$category['id'].'" tabindex="'.$tabIndex++.'"><span>'.GeneralFunctions::getLocalized($category,'name').'</span></a></li>';
                 }
             echo '</menu>
           </div>
           <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
         </div>';
-
       }
-      echo '</div>';
 
       break;
     // ***** USERSETUP -------------------------------------------- **********
     case 'userSetup':
       if(!GeneralFunctions::isAdmin()) break;
 
-      // dont show the current visitors when sidebarmenu
+      // dont show the current visitors when user menu
       $showCurrentVisitors = false;
 
       // -> USER ANCHOR LINKS
-      echo '<div id="sidebarSelection" class="staticScroller" data-offset="-2">';
-
       if(!empty($userConfig) && is_array($userConfig)) {
-
-        echo '<div class="sidebarMenu gray">
+        echo '<div class="sidebarMenu gray staticScroller" data-offset="-2">
             <div class="top"><img src="library/images/icons/userIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['USERSETUP_userSelection'].'</span><a href="#">&nbsp;</a></div>
             <div class="menuWrapper">
               <menu class="vertical">';
@@ -291,16 +280,15 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
                 // -> show a anchor link to each user
                 foreach($userConfig as $user) {
-                  $userIsAdmin = ($user['admin']) ? ' toolTipLeft" title="'.$langFile['USERSETUP_admin'].'::"' : '"';
-                  echo '<li><a href="#userId'.$user['id'].'" class="'.$userIsAdmin.' tabindex="'.$tabIndex.'"><span>'.$user['username'].'</span></a></li>';
-                  $tabIndex++;
+                  $userIsAdminToolTip = ($user['admin']) ? ' class="toolTipLeft" title="'.$langFile['USERSETUP_admin'].'::"' : '';
+                  $userIsAdminHint = ($user['admin']) ? ' *' : '';
+                  echo '<li><a href="#userId'.$user['id'].'"'.$userIsAdminToolTip.' tabindex="'.$tabIndex++.'"><span>'.$user['username'].$userIsAdminHint.'</span></a></li>';
                 }
             echo '</menu>
           </div>
           <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
         </div>';
-
-      } echo '</div>';
+      }
 
       break;
     // ***** BACKUP sideBar -------------------------------------------- **********
@@ -335,6 +323,33 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       echo '</div>';
 
       break;
+
+    // ***** ADDONS -------------------------------------------- **********
+    case 'addons':
+      if(!GeneralFunctions::isAdmin()) break;
+
+      // dont show the current visitors when addon menu
+      $showCurrentVisitors = false;
+
+      // -> ADDONS LINKS
+      if(!empty($addons) && is_array($addons)) {
+        echo '<div class="sidebarMenu gray staticScroller" data-offset="-2">
+            <div class="top"><img src="library/images/icons/addonsIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['BUTTON_ADDONS'].'</span><a href="#">&nbsp;</a></div>
+            <div class="menuWrapper">
+              <menu class="vertical">';
+
+              echo '<li><a href="#top"><i class="icon icon-arrow-up icon-white"></i></a></li>';
+
+                // -> show a anchor link to each user
+                foreach($addons as $addon) {
+                  $currentAddon = ($addon['name'] == $_GET['addon']) ? ' class="active"' : '';
+                  echo '<li><a href="?site=addons&amp;addon='.$addon['name'].'"'.$currentAddon.' tabindex="'.$tabIndex++.'"><span>'.$addon['title'].'</span></a></li>';
+                }
+            echo '</menu>
+          </div>
+          <div class="bottom"><a href="#" onclick="return false;">&nbsp;</a></div>
+        </div>';
+      }
   } //switch END
 }
 
@@ -346,6 +361,3 @@ if($showCurrentVisitors) {
     echo $currentVisitors;
   echo '</div>';
 }
-
-
-?>

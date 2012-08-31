@@ -529,11 +529,13 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   </script>
   <?php } ?>
 
-  <?php if($messagePopUp !== false) { ?>
+  <?php if($notification !== false) {
+    $notification = str_replace(array("\n","\t"), '', $notification);
+  ?>
   <!-- ************************************************************************* -->
-  <!-- ** MESSAGE POPUP ********************************************************* -->
+  <!-- ** NOTIFICATION  ******************************************************** -->
   <script type="text/javascript">
-    feindura_showMessage('<?php echo $messagePopUp; ?>');
+    feindura_showNotification('<?php echo $notification; ?>');
   </script>
   <?php } ?>
 

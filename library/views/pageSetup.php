@@ -24,15 +24,8 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-// LOAD PLUGINS
-$plugins = GeneralFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
-$newPlugins = array();
-if(is_array($plugins['folders'])) {
-  foreach($plugins['folders'] as $pluginFolder)
-    $newPlugins[] = basename($pluginFolder);
-}
-$plugins = $newPlugins;
-unset($newPlugins);
+// VARS from pageSetup.controller.php
+// - $plugins = a list with all plugins available
 
 ?>
 <form action="index.php?site=pageSetup" id="pageSettingsForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
@@ -59,7 +52,7 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
         <?php echo $langFile['THUMBNAIL_TEXT_WIDTH'] ?></span></label>
       </div>
       <div class="span5">
-          <input type="number" step="1" min="0" id="cfg_thumbWidth" name="cfg_thumbWidth" class="short" value="<?php echo $adminConfig['pageThumbnail']['width']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' disabled="disabled"'; ?>>
+          <input type="number" step="1" min="0" id="cfg_thumbWidth" name="cfg_thumbWidth" value="<?php echo $adminConfig['pageThumbnail']['width']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' disabled="disabled"'; ?>>
           <?php echo $langFile['THUMBNAIL_TEXT_UNIT']; ?>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <input type="radio" id="ratioX" name="cfg_thumbRatio" value="x"<?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' checked="checked"'; ?>>
@@ -89,7 +82,7 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
         <?php echo $langFile['THUMBNAIL_TEXT_HEIGHT'] ?></span></label>
       </div>
       <div class="span5">
-          <input type="number" step="1" min="0" id="cfg_thumbHeight" name="cfg_thumbHeight" class="short" value="<?php echo $adminConfig['pageThumbnail']['height']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' disabled="disabled"'; ?>>
+          <input type="number" step="1" min="0" id="cfg_thumbHeight" name="cfg_thumbHeight" value="<?php echo $adminConfig['pageThumbnail']['height']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' disabled="disabled"'; ?>>
           <?php echo $langFile['THUMBNAIL_TEXT_UNIT']; ?>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <input type="radio" id="ratioY" name="cfg_thumbRatio" value="y"<?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' checked="checked"'; ?>>
@@ -344,6 +337,8 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
             $disabled[9] = 'disabled="disabled"';
           }
 
+          echo '<div class="spacer2x"></div>';
+
           // slide container (help for the javascript to find the right elements)
           echo '<div class="categoryConfig">';
 
@@ -366,15 +361,12 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
           }
 
           echo '<div class="row">
-                  <div class="span3 formLeft">';
-              echo '<h2>'.$categoryName.'</h2>';
+                  <div class="span8" style="position:relative;">';
+              echo '<h2 class="center">'.$categoryName.' (ID '.$category['id'].')</h2>';
               echo '<input type="hidden" name="categories['.$category['id'].'][id]" value="'.$category['id'].'">';
-            echo '</div>';
 
                 // deleteCategory
-            echo '<div class="span5" style="position:relative;">
-                    <h2 class="gray">ID '.$category['id'].'</h2>
-                    <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTipLeft" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.GeneralFunctions::getLocalized($category,'name',false,true).'"></a>';
+              echo '<a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTipLeft" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.GeneralFunctions::getLocalized($category,'name',false,true).'"></a>';
           echo '  </div>
                 </div>';
                 // category name
@@ -624,7 +616,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
                     '.$langFile['THUMBNAIL_TEXT_WIDTH'].'</span></label>
                   </div>
                   <div class="span5">
-                    <input type="number" step="1" min="0" id="categories'.$category['id'].'thumbWidth" name="categories['.$category['id'].'][thumbWidth]" class="short" value="'.$category['thumbWidth'].'" '.$disabled[9].'>
+                    <input type="number" step="1" min="0" id="categories'.$category['id'].'thumbWidth" name="categories['.$category['id'].'][thumbWidth]" value="'.$category['thumbWidth'].'" '.$disabled[9].'>
                     '.$langFile['THUMBNAIL_TEXT_UNIT'].'
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="radio" id="categories'.$category['id'].'ratioX" name="categories['.$category['id'].'][thumbRatio]" value="x" '.$checked[9].'>
@@ -649,7 +641,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
                     '.$langFile['THUMBNAIL_TEXT_HEIGHT'].'</span></label>
                   </div>
                   <div class="span5">
-                    <input type="number" step="1" min="0" id="categories'.$category['id'].'thumbHeight" name="categories['.$category['id'].'][thumbHeight]" class="short" value="'.$category['thumbHeight'].'" '.$disabled[10].'>
+                    <input type="number" step="1" min="0" id="categories'.$category['id'].'thumbHeight" name="categories['.$category['id'].'][thumbHeight]" value="'.$category['thumbHeight'].'" '.$disabled[10].'>
                     '.$langFile['THUMBNAIL_TEXT_UNIT'].'
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="radio" id="categories'.$category['id'].'ratioY" name="categories['.$category['id'].'][thumbRatio]" value="y" '.$checked[10].'>
@@ -683,9 +675,7 @@ $hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
           // SUBMIT: If advancedConfigTable has not Class "hidden" it stores the categoryId in the savedCategory input
           // and gives the submit anchor to the FORM
-          echo '<input type="submit" value="" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="if(!$(\'advancedConfigTable'.$category['id'].'\').hasClass(\'hidden\')) $(\'savedCategory\').value = \''.$category['id'].'\';">';
-          if($category != end($categoryConfig))
-            echo '<br><br><div class="verticalSeparator"></div><br>';
+          echo '<input type="submit" value="" class="button submit center" style="top:-25px;" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="if(!$(\'advancedConfigTable'.$category['id'].'\').hasClass(\'hidden\')) $(\'savedCategory\').value = \''.$category['id'].'\';">';
           echo '</div>'; // end slide in box
 
         }

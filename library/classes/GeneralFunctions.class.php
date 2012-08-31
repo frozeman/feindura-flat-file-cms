@@ -2330,7 +2330,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  static function createBreadCrumbsArray($page,$category) {
+  public static function createBreadCrumbsArray($page,$category) {
 
     // vars
     $breadCrumbsArray = array();
@@ -2357,6 +2357,81 @@ class GeneralFunctions {
     }
 
     return $breadCrumbsArray;
+  }
+
+/**
+  * <b>Name</b> addStylesheetsInBody()<br>
+  *
+  * Goes through a folder recursive and gets the css files.
+  * It then tries to add these as <link..> tags inside the <head> tag, using javascript.
+  * If no javascript is activated it will just place the <link...> tags to the current position.
+  *
+  *
+  * @param string $folder the path of the plugin folder to look for stylesheet files
+  *
+  * @uses GeneralFunctions::createStyleTags() to get the stylesheet <link..> tags
+  *
+  * @return string|false the HTML <link> tags plus corresponding javascript or FALSE if no stylesheet-file was found
+  *
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public static function addStylesheetsInBody($folder) {
+
+    //var
+    $return = false;
+    // makes sure the DOCUMENTROOT is not add twice
+    $folder = str_replace(DOCUMENTROOT, '', $folder);
+    $folder = DOCUMENTROOT.$folder;
+
+    // ->> goes trough all folder and subfolders and gets the stylesheets
+    $stylesheets = self::createStyleTags($folder,true);
+
+    if(!empty($stylesheets)) {
+      // js adding to the head
+      $return .= '
+
+      <!-- Add stylesheets to the <head> tag -->
+      <script type="text/javascript">
+      /* <![CDATA[ */
+      (function() {
+        var head = document.getElementsByTagName(\'head\')[0];
+        ';
+
+      foreach ($stylesheets as $stylesheet) {
+        $return .= '
+        url = "'.$stylesheet.'";
+        if (document.createStyleSheet)  {
+          document.createStyleSheet(url);
+        }
+        else {
+          head.innerHTML = head.innerHTML +\'<link rel="stylesheet" type="text/css" href="\' + url + \'">\';
+        }
+        ';
+      }
+
+      $return .=  '
+      })();
+      /* ]]> */
+      </script>
+      ';
+
+      // NON JS, just place the stylesheets
+      $return .= '<noscript>';
+        foreach ($stylesheets as $stylesheet) {
+          $return .= '<link rel="stylesheet" type="text/css" href="'.$stylesheet.'">';
+        }
+      $return .= '</noscript>
+
+  ';
+    }
+
+
+    return $return;
   }
 
  /**
@@ -2781,7 +2856,7 @@ class GeneralFunctions {
    *    - 1.0 initial release
    *
    */
-  public static function createStyleTags($folder, $backend = true, $returnHrefOnly = false) {
+  public static function createStyleTags($folder, $returnHrefOnly = false) {
 
     //var
     $return = ($returnHrefOnly) ? array() : false;
@@ -2792,9 +2867,6 @@ class GeneralFunctions {
       foreach($filesInFolder['files'] as $file) {
         // -> check for CSS FILES
         if(substr($file,-4) == '.css') {
-          // -> removes the $adminConfig('basePath')
-          if($backend)
-            $file = str_replace($adminConfig['basePath'],'',$file);
 
           // -> return only link
           if($returnHrefOnly) {
@@ -2948,6 +3020,9 @@ class GeneralFunctions {
   * Simply lists arrays or echo an string inside a box, to see the content of a variable.
   * It will add a <br> after each value so it can be better read.
   *
+  * @param mixed $values all kinds of variables, which should be displayed
+  * @param bool  $shouldReturn (optional) whether or not the content should be displayed or returned.
+  *
   * @return string a <div> block with the given values, nicly printed
   *
   * @static
@@ -2957,7 +3032,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  function dump($values) {
+  function dump($values, $shouldReturn = false) {
 
     // vars
     $return = '';
@@ -2984,6 +3059,11 @@ class GeneralFunctions {
     } else
       $return = "'".$values."'<br>";
 
-    echo '<div style="background-color:white !important;color:black !important; padding: 10px;font-size: 14px;"><strong>Dump</strong><br><br>'.$return.'</div>';
+    $return = '<div style="background-color:white !important;color:black !important; padding: 10px;font-size: 14px;"><strong>Dump</strong><br><br>'.$return.'</div>';
+
+    if($shouldReturn)
+      return $return;
+    else
+      echo $return;
   }
 }

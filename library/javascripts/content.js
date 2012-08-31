@@ -532,7 +532,7 @@ function loadSideBarMenu(site,page,category) {
     url:'library/rightSidebar.loader.php',
     method: 'get',
     data: 'site=' + site + '&category=' + category + '&page=' + page + '&loadSideBarMenu=true',
-    update: $('sidebarSelection'),
+    update: $('sidebarMenu'),
 
     //-----------------------------------------------------------------------------
     onRequest: function() { //-----------------------------------------------------
@@ -639,17 +639,22 @@ window.addEvent('domready', function() {
   // STORES all pages LI ELEMENTS
   listPagesBars = $$('div.block.listPagesBlock li');
 
+
   // UPDATE the USER-CACHE every 3 minutes
-  (function(){
-    new Request({
-      url:'library/includes/backend.include.php',
-      method: 'get',
-      onSuccess: function(html) {
-        if(html == '###RELEASEBLOCK###' && $('contentBlocked') !== null)
-          $('contentBlocked').destroy();
-      }
-    }).send('status=updateUserCache&site='+currentSite+'&page='+currentPage);
-  }).periodical(userCacheUpdateFrequency *  1000);
+  var currentSite = (typeOf(currentSite) == 'null') ? 'login' : currentSite;
+  if(currentSite !== 'login'){
+    (function(){
+
+      new Request({
+        url:'library/includes/backend.include.php',
+        method: 'get',
+        onSuccess: function(html) {
+          if(html == '###RELEASEBLOCK###' && $('contentBlocked') !== null)
+            $('contentBlocked').destroy();
+        }
+      }).send('status=updateUserCache&site='+currentSite+'&page='+currentPage);
+    }).periodical(userCacheUpdateFrequency *  1000);
+  }
 
 
   // -> CHANGE WEBSITE LANGUAGE by the SELECTION
@@ -1189,7 +1194,7 @@ window.addEvent('domready', function() {
         onSuccess: function(responseText) {
 
           // FINAL SORT MESSAGE
-          feindura_showMessage('<div class="alert alert-success">'+responseText+'</div>');
+          feindura_showNotification('<div class="alert alert-success">'+responseText+'</div>');
 
           // remove prevent clicking the link on sort
           $$('.sortablePageList a').each(function(a) { a.removeEvent('click',preventLink); });
@@ -1383,7 +1388,7 @@ window.addEvent('domready', function() {
     CKEDITOR.config.width                              = 770;
     CKEDITOR.config.height = ($('documentSaved') !== null && $('documentSaved').hasClass('saved')) ? editorToHeight : editorStartHeight;
     CKEDITOR.config.resize_minWidth                    = 831;
-    CKEDITOR.config.resize_maxWidth                    = 1200;
+    CKEDITOR.config.resize_maxWidth                    = 831;
     CKEDITOR.config.resize_minHeight                   = (editorStartHeight+136);
     CKEDITOR.config.resize_maxHeight                   = 900;
     CKEDITOR.config.forcePasteAsPlainText              = false; // was true

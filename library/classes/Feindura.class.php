@@ -772,7 +772,7 @@ class Feindura extends FeinduraBase {
   *
   * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is set to the {@link FeinduraBase::$language} property
   *
-  * @uses FeinduraBase::__construct()		          the constructor of the parent class to load all necessary properties
+  * @uses FeinduraBase::__construct()             the constructor of the parent class to load all necessary properties
   * @uses FeinduraBase::setCurrentCategoryId()  to set the fetched category ID from the $_GET variable to the {@link Feindura::$category} property
   * @uses FeinduraBase::setCurrentPageId()      to set the fetched page ID from the $_GET variable to the {@link Feindura::$page} property
   *
@@ -913,7 +913,7 @@ class Feindura extends FeinduraBase {
   *
   * @param string $language a language country code like "en", "de", ...
   *
-  * @uses FeinduraBase::$language	the language country code like "en", "de", ... which will be returned
+  * @uses FeinduraBase::$language the language country code like "en", "de", ... which will be returned
   * @uses FeinduraBase::$metaData to change it to the new language
   *
   * @return string|false the {@link Feindura::$language language country code} or FALSE if the given $language parameter is no country code
@@ -951,7 +951,7 @@ class Feindura extends FeinduraBase {
   *
   * Returns the {@link Feindura::$language language country code} which was set in the {@link feinduraBase:__construct()}.
   *
-  * @uses FeinduraBase::$language	the language country code like "en", "de", ... which will be returned
+  * @uses FeinduraBase::$language the language country code like "en", "de", ... which will be returned
   *
   * @return string the {@link Feindura::$language language country code}
   *
@@ -1099,7 +1099,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$page                         to load the page title of teh righte page
   * @uses Feindura::$category                     to load the page title of teh righte page
   * @uses FeinduraBase::$websiteConfig            for the website title, publisher, copyright, description and keywords
-  * @uses GeneralFunctions::readPage()	          to load the page for the page title
+  * @uses GeneralFunctions::readPage()            to load the page for the page title
   * @uses GeneralFunctions::setVisitorTimezone()  to try to set the timezone to the visitors one
   *
   * @return string with all meta tags ready to display in a HTML page
@@ -1365,7 +1365,7 @@ class Feindura extends FeinduraBase {
   *
   * @param int|string|array|bool $id  (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   *
-  * @uses FeinduraBase::getIdsFromString()	to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()  to load the right page and category IDs depending on the $ids parameter
   * @uses GeneralFunctions::createHref()          call the right createHref functions in the GeneralFunctions class
   * @uses GeneralFunctions::getPageCategory()     to get the category of the page
   * @uses FeinduraBase::language
@@ -1503,16 +1503,16 @@ class Feindura extends FeinduraBase {
           else
             $linkClass = $this->linkClass;
 
-  	      $linkClass = trim($linkClass);
+          $linkClass = trim($linkClass);
 
-  	      $linkAttributes .= $this->createAttributes($this->linkId, $linkClass, $this->linkAttributes);
+          $linkAttributes .= $this->createAttributes($this->linkId, $linkClass, $this->linkAttributes);
 
           $linkStartTag = '<a '.$linkAttributes.">";
           $linkEndTag = "</a>";
 
           // -> LINK THUMBNAIL
           // *****************
-  	      $returnThumbnail = false;
+          $returnThumbnail = false;
           if($this->linkShowThumbnail && $linkShowThumbnail = $this->createThumbnail($pageContent))
             $returnThumbnail = $linkShowThumbnail['thumbnail']."\n";
 
@@ -1867,7 +1867,7 @@ class Feindura extends FeinduraBase {
 
       // gets the right pages and sorted by page date
       if($pageContents = $this->loadPagesByDate($from,$to,$idType,$ids,$sortPages,$reverseList))
-	       return $this->createMenu($idType,$pageContents,$menuTag,$linkText,false);
+         return $this->createMenu($idType,$pageContents,$menuTag,$linkText,false);
       else
         return array();
 
@@ -1965,7 +1965,7 @@ class Feindura extends FeinduraBase {
       // -> flips the sorted array if $reverseList === true
       if($reverseList === true)
         $pageContents = array_reverse($pageContents);
-	    return $this->createMenu($idType,$pageContents,$menuTag,$linkText,false);
+      return $this->createMenu($idType,$pageContents,$menuTag,$linkText,false);
   }
  /**
   * Alias of {@link createMenuBySortFunction()}
@@ -1973,7 +1973,7 @@ class Feindura extends FeinduraBase {
   */
   public function createMenuBySort($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $reverseList = false) {
       // call the right function
-	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$reverseList);
+      return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$reverseList);
   }
   /**
   * Alias of {@link createMenuBySortFunction()}
@@ -1981,7 +1981,7 @@ class Feindura extends FeinduraBase {
   */
   public function createMenuBySortCallback($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $reverseList = false) {
       // call the right function
-	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$reverseList);
+      return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$reverseList);
   }
   /**
   * Alias of {@link createMenuBySortFunction()}
@@ -1989,7 +1989,7 @@ class Feindura extends FeinduraBase {
   */
   public function createMenuByCallback($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $reverseList = false) {
       // call the right function
-	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$reverseList);
+      return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$reverseList);
   }
 
 /**
@@ -2560,7 +2560,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$titleShowCategory
   * @uses Feindura::$titleCategorySeparator
   *
-  * @uses FeinduraBase::getIdsFromString()	     to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()       to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::createTitle()                  to generate the page title with the right title properties
   *
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page
@@ -2670,7 +2670,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailBefore
   * @uses Feindura::$thumbnailAfter
   *
-  * @uses FeinduraBase::getIdsFromString()	              to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()                to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                          to generate the array with the page elements
   *
   * @uses GeneralFunctions::getPageCategory()      to get the category of the page
@@ -2731,8 +2731,8 @@ class Feindura extends FeinduraBase {
   * @param int|string|bool       $ids          a page ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property. (See examples) (can also be a $pageContent array)
   *
   * @uses Feindura::$page
-  * @uses Feindura::showPlugins()											 to check for the activated plugins
-  * @uses FeinduraBase::getIdsFromString()	     to load the right page and category IDs depending on the $ids parameter
+  * @uses Feindura::showPlugins()                      to check for the activated plugins
+  * @uses FeinduraBase::getIdsFromString()       to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                 to generate the array with the page elements
   *
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page
@@ -2800,11 +2800,11 @@ class Feindura extends FeinduraBase {
   * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins. If its a plugin name and you want the plugin number 2. etc, you need to add the plugin number like "imageGallery#2".
   * @param int|string|array|bool  $id           (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param string|false           $divStyles    (optional) a string with styles, which will be add to the warapping div of the plugin. In the format: "witdh: 200px; height: 100px;"
-  * @param bool									  $returnPlugin (optional) whether the plugin is returned, or only a boolean to check if the plugin is available for that page (used by {@link Feindura::hasPlugins()})
+  * @param bool                   $returnPlugin (optional) whether the plugin is returned, or only a boolean to check if the plugin is available for that page (used by {@link Feindura::hasPlugins()})
   *
   * @uses Feindura::$page
   *
-  * @uses FeinduraBase::getIdsFromString()	     to load the right page and category IDs depending on the $ids parameter
+  * @uses FeinduraBase::getIdsFromString()       to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                 to generate the array with the page elements
   *
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page
@@ -2876,7 +2876,7 @@ class Feindura extends FeinduraBase {
 
                     // -> include the plugin
                     ob_start();
-              		    include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/plugin.php');
+                      include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/plugin.php');
                       $pluginReturn = ob_get_contents();
                     ob_end_clean();
 
@@ -2888,9 +2888,12 @@ class Feindura extends FeinduraBase {
                     $divStyles = (is_string($divStyles)) ? ' style="'.$divStyles.'"' : '';
                     $pluginReturn = '<div class="feinduraPlugins feinduraPlugin_'.$pluginName.'" id="feinduraPlugin_'.$pluginName.'_'.$pageContent['id'].'"'.$divStyles.'>'.$pluginReturn.'</div>';
 
+                    // add plugin stylesheets
+                    $pluginReturn = GeneralFunctions::addStylesheetsInBody($pluginBasePath).$pluginReturn;
+
                     if($singlePlugin) {
                       return $pluginReturn;
-              		  } else
+                    } else
                       $pluginsReturn[$pluginName] = $pluginReturn;
 
                   } else
@@ -3552,7 +3555,7 @@ class Feindura extends FeinduraBase {
       // -> flips the sorted array if $reverseList === true
       if($reverseList === true)
         $pageContents = array_reverse($pageContents);
-	    return $this->listPages($idType,$pageContents,$shortenText,$useHtml,false);
+      return $this->listPages($idType,$pageContents,$shortenText,$useHtml,false);
   }
  /**
   * Alias of {@link listPagesBySortFunction()}
@@ -3560,7 +3563,7 @@ class Feindura extends FeinduraBase {
   */
   public function listPagesBySort($sortCallback, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $reverseList = false) {
       // call the right function
-	    return $this->listPagesBySortFunction($sortCallback,$idType,$ids,$shortenText,$useHtml,$reverseList);
+      return $this->listPagesBySortFunction($sortCallback,$idType,$ids,$shortenText,$useHtml,$reverseList);
   }
  /**
   * Alias of {@link listPagesBySortFunction()}
@@ -3568,7 +3571,7 @@ class Feindura extends FeinduraBase {
   */
   public function listPagesBySortCallback($sortCallback, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $reverseList = false) {
       // call the right function
-	    return $this->listPagesBySortFunction($sortCallback,$idType,$ids,$shortenText,$useHtml,$reverseList);
+      return $this->listPagesBySortFunction($sortCallback,$idType,$ids,$shortenText,$useHtml,$reverseList);
   }
  /**
   * Alias of {@link listPagesBySortFunction()}
@@ -3576,86 +3579,6 @@ class Feindura extends FeinduraBase {
   */
   public function listPagesByCallback($sortCallback, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $reverseList = false) {
       // call the right function
-	    return $this->listPagesBySortFunction($sortCallback,$idType,$ids,$shortenText,$useHtml,$reverseList);
-  }
-
- /**
-  * <b>Name</b> addPluginStylesheets()<br>
-  *
-  * Goes through a folder recursive and gets the css files.
-  * It then tries to add these as <link..> tags inside the <head> tag, using javascript.
-  * If no javascript is activated it will just place the <link...> tags to the current position.
-  *
-  *
-  * @param string $folder the path of the plugin folder to look for stylesheet files
-  *
-  * @uses GeneralFunctions::createStyleTags() to get the stylesheet <link..> tags
-  *
-  * @return string|false the HTML <link> tags plus corresponding javascript or FALSE if no stylesheet-file was found
-  *
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  *
-  */
-  public function addPluginStylesheets($folder) {
-
-    //var
-    $return = false;
-    // makes sure the DOCUMENTROOT is not add twice
-    $folder = str_replace(DOCUMENTROOT, '', $folder);
-    $folder = DOCUMENTROOT.$folder;
-
-    // ->> goes trough all folder and subfolders and gets the stylesheets
-    $stylesheets = GeneralFunctions::createStyleTags($folder,false,true);
-
-    // js adding to the head
-    $return .= '<!-- Add the plugin stylesheets to the <head> tag -->
-    <script type="text/javascript">
-    /* <![CDATA[ */
-    (function() {
-      var head = document.getElementsByTagName(\'head\')[0];
-      ';
-
-    foreach ($stylesheets as $stylesheet) {
-      $return .= '
-      url = "'.$stylesheet.'";
-      if (document.createStyleSheet)  {
-        document.createStyleSheet(url);
-      }
-      else {
-        head.innerHTML = head.innerHTML +\'<link rel="stylesheet" type="text/css" href="\' + url + \'">\';
-      }
-      ';
-    }
-
-    $return .=  '
-    })();
-    /* ]]> */
-    </script>
-    ';
-
-    // if in frontend editing, just place stylesheets
-    if($this->loggedIn && GeneralFunctions::hasPermission('frontendEditing')) {
-
-      foreach ($stylesheets as $stylesheet) {
-        $return .= '<link rel="stylesheet" type="text/css" href="'.$stylesheet.'">';
-      }
-
-    // non js, just place the stylesheets
-    } else {
-
-      $return .= '<noscript>';
-        foreach ($stylesheets as $stylesheet) {
-          $return .= '<link rel="stylesheet" type="text/css" href="'.$stylesheet.'">';
-        }
-      $return .= '</noscript>
-
-';
-    }
-    return $return;
+      return $this->listPagesBySortFunction($sortCallback,$idType,$ids,$shortenText,$useHtml,$reverseList);
   }
 }
-?>

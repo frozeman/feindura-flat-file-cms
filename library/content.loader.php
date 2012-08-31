@@ -160,6 +160,13 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     case 'backup':
       if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/views/backup.php');
       break;
+    // ADDONS
+    case 'addons':
+      if(empty($_GET['addon']))
+        include (dirname(__FILE__).'/views/addons.php');
+      else
+        include (dirname(__FILE__).'/../addons/'.$_GET['addon'].'/addon.php');
+      break;
   } //switch END
 
 }

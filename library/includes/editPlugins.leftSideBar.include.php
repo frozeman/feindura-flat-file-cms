@@ -237,7 +237,7 @@
       //     onSuccess: function(responseText){
       //       $('savePluginSelectionDivBlocked').dissolve();
       //       removeLoadingCircle();
-      //       feindura_showMessage('<?php echo $langFile['EDITOR_MESSAGE_PLUGINSSAVED']; ?>');
+      //       feindura_showNotification('<?php echo $langFile['EDITOR_MESSAGE_PLUGINSSAVED']; ?>');
       //     }
       //   }).send();
       // };

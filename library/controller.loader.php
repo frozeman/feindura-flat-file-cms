@@ -34,7 +34,7 @@ if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
       // save the new status
       if(GeneralFunctions::savePage($contentArray)) {
         $documentSaved = true;
-        $messagePopUp .= '<div class="alert alert-success">'.$langFile['MESSAGE_TEXT_CHANGEDSTATUS'].'</div>';
+        $notification .= '<div class="alert alert-success">'.$langFile['MESSAGE_TEXT_CHANGEDSTATUS'].'</div>';
 
         // ->> save the FEEDS, if activated
         saveFeeds($_GET['category']);
@@ -109,6 +109,11 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     // BACKUP
     case 'backup':
       if(GeneralFunctions::isAdmin()) include (dirname(__FILE__).'/controllers/backup.controller.php');
+      break;
+    // ADDONS
+    case 'addons':
+      if(isBlocked()) break;
+      include (dirname(__FILE__).'/controllers/addons.controller.php');
       break;
   } //switch END
 

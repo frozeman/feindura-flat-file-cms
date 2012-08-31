@@ -44,6 +44,8 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
       </div>
     </div>
 
+    <div class="verticalSeparator"></div>
+
     <div class="spacer"></div>
 
     <?php
@@ -59,8 +61,8 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
           $checked[1] = ($user['admin']) ? 'checked="checked"' : '';
 
 
-          echo '<div class="verticalSeparator"></div>';
-          echo '<div class="spacer"></div>';
+          // echo '<div class="verticalSeparator"></div>';
+          echo '<div class="spacer2x"></div>';
 
           // user ANCHOR
           echo '<a id="userId'.$user['id'].'" class="anchorTarget"></a>';
@@ -72,14 +74,11 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
             : $user['username'];
 
           echo '<div class="row">
-                  <div class="span3 formLeft">';
-              echo '<h2>'.$userName.'</h2>';
+                  <div class="span8" style="position:relative;">';
+              echo '<h2>'.$userName.' (ID '.$user['id'].')</h2>';
               echo '<input type="hidden" name="users['.$user['id'].'][id]" value="'.$user['id'].'">';
-            echo '</div>';
 
             // DELETEUSER
-            echo '<div class="span5" style="position:relative;">
-                    <h2 class="gray">ID '.$user['id'].'</h2>';
               echo '<a href="?site=userSetup&amp;status=deleteUser&amp;userId='.$user['id'].'#top" class="deleteUser toolTipBottom" title="'.$langFile['USERSETUP_deleteUser'].'::'.$user['username'].'"></a>';
           echo '  </div>
                 </div>';

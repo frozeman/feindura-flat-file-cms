@@ -35,7 +35,7 @@ if(isset($_GET['status']) &&
   // save the new status
   if(saveCategories($categoryConfig)) {
     $documentSaved = true;
-    $messagePopUp .= '<div class="alert alert-success">'.$langFile['MESSAGE_TEXT_CHANGEDSTATUS'].'</div>';
+    $notification .= '<div class="alert alert-success">'.$langFile['MESSAGE_TEXT_CHANGEDSTATUS'].'</div>';
 
     // ->> save the FEEDS, if activated
     GeneralFunctions::$categoryConfig = $categoryConfig;

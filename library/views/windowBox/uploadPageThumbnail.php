@@ -150,7 +150,7 @@ else
             <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></label>
           </div>
           <div class="span1">
-            <input type="number" id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?>>
+            <input type="number" id="windowBox_thumbWidth" name="thumbWidth" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?>>
             <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
           </div>
           <!-- shows the width in a scale -->
@@ -177,7 +177,7 @@ else
             <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></label>
           </div>
           <div class="span6">
-            <input type="number" id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?>>
+            <input type="number" id="windowBox_thumbHeight" name="thumbHeight" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?>>
             <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
           </div>
         </div>

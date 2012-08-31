@@ -62,7 +62,7 @@ if($_POST['sendClearstatistics']) {
 
     // set the messagebox; save tasklog
     if($documentSaved) {
-      $messagePopUp .= '<div class="alert alert-success">'.$langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'].'</div>';
+      $notification .= '<div class="alert alert-success">'.$langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'].'</div>';
       saveActivityLog(20); // <- SAVE the task in a LOG FILE
     }
   }
@@ -86,7 +86,7 @@ if($_POST['sendClearstatistics']) {
 
     // set the messagebox; save tasklog
     if($documentSaved) {
-      $messagePopUp .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'].'</div>';
+      $notification .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'].'</div>';
       saveActivityLog(21); // <- SAVE the task in a LOG FILE
     }
   }
@@ -98,7 +98,7 @@ if($_POST['sendClearstatistics']) {
 
     // set documentSaved status
     $documentSaved = true;
-    $messagePopUp .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'].'</div>';
+    $notification .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'].'</div>';
     saveActivityLog(22); // <- SAVE the task in a LOG FILE
   }
 
@@ -109,7 +109,7 @@ if($_POST['sendClearstatistics']) {
 
     // set documentSaved status
     $documentSaved = true;
-    $messagePopUp .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_REFERERLOG'].'</div>';
+    $notification .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_REFERERLOG'].'</div>';
     saveActivityLog(23); // <- SAVE the task in a LOG FILE
   }
 
@@ -120,7 +120,7 @@ if($_POST['sendClearstatistics']) {
 
     // set documentSaved status
     $documentSaved = true;
-    $messagePopUp .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'</div>';
+    $notification .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'</div>';
     saveActivityLog(24); // <- SAVE the task in a LOG FILE
   }
 

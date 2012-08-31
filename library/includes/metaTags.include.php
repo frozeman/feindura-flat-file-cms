@@ -48,10 +48,11 @@
   <link rel="stylesheet" type="text/css" href="library/thirdparty/CodeMirror/codemirror-unified.css">
 
   <?php
-  if($_GET['site'] == 'addons') {
-    if($addonStyles = GeneralFunctions::createStyleTags(dirname(__FILE__).'/addons/')) {
-      echo "\n  <!-- addons stylesheets -->\n";
-      echo $addonStyles;
+  if($_GET['site'] == 'addons' && !empty($_GET['addon'])) {
+    $addonStylesheets = GeneralFunctions::createStyleTags(dirname(__FILE__).'/../../addons/'.$_GET['addon'].'/');
+    if(!empty($addonStylesheets)) {
+      echo '<!-- Addon stylesheets -->';
+      echo $addonStylesheets;
     }
   }
   ?>

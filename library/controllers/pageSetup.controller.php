@@ -95,7 +95,7 @@ if((isset($_POST['send']) && $_POST['send'] == 'categorySetup' && isset($_POST['
       // add a new id to the category array
       $categoryConfig[$newId] = array('id' => $newId); // gives the new category a id
       if(saveCategories($categoryConfig)) {
-         $messagePopUp .= '<div class="alert alert-success">'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED'].'</div>';
+         $notification .= '<div class="alert alert-success">'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED'].'</div>';
          saveActivityLog(15); // <- SAVE the task in a LOG FILE
       } else { // throw error
         $errorWindow .= ($errorWindow) // if there is allready an warning
@@ -122,7 +122,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
   unset($categoryConfig[$_GET['category']]);
   if(saveCategories($categoryConfig)) {
 
-    $messagePopUp .= '<div class="alert alert-info">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_DELETED'].'<br><strong>'.$storedCategoryName.'</strong></div>';
+    $notification .= '<div class="alert alert-info">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_DELETED'].'<br><strong>'.$storedCategoryName.'</strong></div>';
 
     // if there is a category dir, trys to delete it !important deletes all files in it
     if(is_dir(dirname(__FILE__).'/../../pages/'.$_GET['category'])) {
@@ -166,7 +166,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 
   if(moveCategories($categoryConfig,$_GET['category'],$direction)) {
 
-    $messagePopUp .= '<div class="alert alert-success">'.$langFile['PAGESETUP_CATEGORY_TEXT_MOVECATEGORY_MOVED'].'<br><strong>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</strong></div>';
+    $notification .= '<div class="alert alert-success">'.$langFile['PAGESETUP_CATEGORY_TEXT_MOVECATEGORY_MOVED'].'<br><strong>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</strong></div>';
 
     // save the categories array
     if(saveCategories($categoryConfig)) {
@@ -276,4 +276,15 @@ if($savedSettings) {
   // ->> save the SITEMAP
   saveSitemap();
 }
+
+
+// LOAD PLUGINS
+$plugins = GeneralFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
+$newPlugins = array();
+if(is_array($plugins['folders'])) {
+  foreach($plugins['folders'] as $pluginFolder)
+    $newPlugins[] = basename($pluginFolder);
+}
+$plugins = $newPlugins;
+unset($newPlugins);
 ?>

@@ -104,22 +104,22 @@ if(!empty($searchWords)) {
       $page = GeneralFunctions::readPage($result['page']['id'],$result['page']['category']);
 
       // echo '<div class="searchResults">';
-      echo '<div class="block plain searchResults">';//<h1>&nbsp;</h1>
-        echo '<div class="content">';
-
-      // found ID
-      if($result['id']) {
-        echo '<span class="resultHeadline matchingID">';
-        echo $langFile['SEARCH_TEXT_MATCH_ID'].' &rArr; ';
-        echo '</span>';
-      }
+      echo '<div class="block searchResults">';//<h1>&nbsp;</h1>
 
       // first TITLE
-      echo '<span class="resultHeadline">';
+      echo '<h2>';
       echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTipLeft" title="'.showPageToolTip($page).'">';
       echo ($result['title']) ? $result['title'] : strip_tags(GeneralFunctions::getLocalized($page,'title'));
       echo '</a>';
-      echo '</span>';
+      echo '</h2>';
+      echo '<div class="content">';
+
+      // found ID
+      if($result['id']) {
+        echo '<span class="matchingID">';
+        echo $langFile['SEARCH_TEXT_MATCH_ID'].' &rArr; '.$result['id'];
+        echo '</span>';
+      }
 
       // otherwise display all results
       if($result['id'] === false) {

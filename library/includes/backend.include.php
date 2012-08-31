@@ -74,7 +74,7 @@ createBasicFilesAndFolders();
 
 // -> SET the BASIC VARIABLEs
 $errorWindow      = false; // when it contains a string the errorWindow with this string is displayed
-$messagePopUp     = false; // when it contains a string a message popup will be displayed
+$notification     = false; // when it contains a string a message popup will be displayed
 $documentSaved    = false; // when true the document saved icon is displayed
 $savedForm        = false; // to tell wich part fo the form was saved
 $savedSettings    = false; // to tell wich settings were saved, to re-include the settings

@@ -17,8 +17,8 @@
 * shared.php version 0.1 (requires raphael)  */
 
 // vars
-var messageBox = null;
-var messageBoxTimeout;
+var notification = null;
+var notificationTimeout;
 
 
 // EXTEND MOOTOOLS ELEMENTS
@@ -141,44 +141,44 @@ function feindura_str_replace(s, r, c) {
 
 /* ---------------------------------------------------------------------------------- */
 // ->> DISPLAY MESSAGE
-function feindura_showMessage(html) {
-  clearTimeout(messageBoxTimeout);
+function feindura_showNotification(html) {
+  clearTimeout(notificationTimeout);
 
   // var
-  var hideMessageBox = function(){
-    messageBox.tween('top',-messageBox.getSize().y);
-    messageBox.removeEvents('mouseover');
-    messageBox.get('tween').chain(function(){
-      messageBox.dispose();
-      messageBox.empty();
+  var hideNotification = function(){
+    notification.tween('top',-notification.getSize().y);
+    notification.removeEvents('mouseover');
+    notification.get('tween').chain(function(){
+      notification.dispose();
+      notification.empty();
     });
   };
-  var showMessageBox = function(messageBox) {
-    messageBox.set('tween',{duration: 700});
-    messageBox.setStyle('top',-messageBox.getSize().y);
-    messageBox.setStyle('visibility','visible');
-    messageBox.tween('top',0);
+  var showNotification = function(notification) {
+    notification.set('tween',{duration: 700});
+    notification.setStyle('top',-notification.getSize().y);
+    notification.setStyle('visibility','visible');
+    notification.tween('top',0);
 
-    messageBox.addEvent('mouseover',hideMessageBox);
-    messageBoxTimeout = hideMessageBox.delay(5000);
+    notification.addEvent('mouseover',hideNotification);
+    notificationTimeout = hideNotification.delay(5000);
   };
 
   // -> create NEW MESSAGE BOX
-  if(!messageBox) {
+  if(!notification) {
     // creates the errorWindow
-    messageBox = new Element('div',{'class':'messagePopUp feindura'});
-    messageBox.set('html',html);
-    document.body.grab(messageBox);
-    showMessageBox(messageBox);
+    notification = new Element('div',{'class':'messagePopUp feindura'});
+    notification.set('html',html);
+    document.body.grab(notification);
+    showNotification(notification);
 
   // -> fade out and in EXISTING MESSAGE BOX
   } else {
-    document.body.grab(messageBox);
-    messageBox.set('tween',{duration: 300});
-    messageBox.tween('top',-messageBox.getSize().y);
-    messageBox.get('tween').chain(function(){
-      messageBox.set('html',html);
-      showMessageBox(messageBox);
+    document.body.grab(notification);
+    notification.set('tween',{duration: 300});
+    notification.tween('top',-notification.getSize().y);
+    notification.get('tween').chain(function(){
+      notification.set('html',html);
+      showNotification(notification);
     });
   }
 }

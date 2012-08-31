@@ -37,7 +37,7 @@ MODIFIED PLUGINS:
 
 ***MooTools***
 
-MooTools more needs the following packages:
+MooTools more has the following packages:
 
 - Events.Pseudos
 - Array.Extras

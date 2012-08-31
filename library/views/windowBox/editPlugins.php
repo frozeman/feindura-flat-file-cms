@@ -72,34 +72,90 @@ if($post['send'] == 'true') {
     $pluginCountryCode = (file_exists(dirname(__FILE__).'/../../../plugins/'.$post['plugin'].'/languages/'.$_SESSION['feinduraSession']['backendLanguage'].'.php'))
       ? $_SESSION['feinduraSession']['backendLanguage']
       : 'en';
-    unset($pluginConfig,$pluginLangFile);
-    $pluginConfig = @include(dirname(__FILE__).'/../../../plugins/'.$post['plugin'].'/config.php');
-    $pluginLangFile = @include(dirname(__FILE__).'/../../../plugins/'.$post['plugin'].'/languages/'.$pluginCountryCode.'.php');
-    $pluginName = (isset($pluginLangFile['feinduraPlugin_title'])) ? $pluginLangFile['feinduraPlugin_title'] : $post['plugin'];
 
-    // LIST PLUGINS
+    $pluginCredits   = @file(dirname(__FILE__).'/../../../plugins/'.$post['plugin'].'/credits.yml');
 
-    echo '<p>'.$pluginLangFile['feinduraPlugin_description'].'</p>';
+    $plugin['author']   = trim(str_replace('author:','',$pluginCredits[1]));
+    $plugin['website']  = trim(str_replace('website:','',$pluginCredits[2]));
+    $plugin['version']  = trim(str_replace('version:','',$pluginCredits[3]));
+
+    $plugin['config'] = @include(dirname(__FILE__).'/../../../plugins/'.$post['plugin'].'/config.php');
+    $plugin['langFile'] = @include(dirname(__FILE__).'/../../../plugins/'.$post['plugin'].'/languages/'.$pluginCountryCode.'.php');
+    $plugin['name'] = (isset($plugin['langFile']['feinduraPlugin_title'])) ? $plugin['langFile']['feinduraPlugin_title'] : $post['plugin'];
+
+    // description
+    echo '<div class="row">';
+      echo '<div class="span6 offset1">'.$plugin['langFile']['feinduraPlugin_description'].'</div>';
+
+      // INFO BUTTON
+      if(!empty($plugin['website']) || !empty($plugin['author']) || !empty($plugin['version'])) {
+        echo '<div class="span1 center">';
+            echo '<a href="#" class="btn btn-small inBlockSliderLink" data-inBlockSlider="'.$post['plugin'].'Info">'.$langFile['BUTTON_INFO'].'</a>';
+        echo '</div>';
+      }
+    echo '</div>';
+
+    // CREDITS
+    if(!empty($plugin['website']) || !empty($plugin['author']) || !empty($plugin['version'])) {
+      echo '<div class="row">';
+        echo '<div class="span6 offset1">';
+
+          echo '<div class="inBlockSlider hidden well" data-inBlockSlider="'.$post['plugin'].'Info">';
+
+          if(!empty($plugin['author'])) {
+            echo '<div class="row">
+              <div class="span1 right">
+              <strong>'.$langFile['ADDONS_TEXT_AUTHOR'].'</strong>
+              </div>
+              <div class="span2">
+              '.$plugin['author'].'
+              </div>
+            </div>';
+          }
+
+          if(!empty($plugin['website'])) {
+            echo '<div class="row">
+              <div class="span1 right">
+              <strong>'.$langFile['ADDONS_TEXT_WEBSITE'].'</strong>
+              </div>
+              <div class="span2">
+              <a href="'.$plugin['website'].'" target="_blank">'.$plugin['website'].'</a>
+              </div>
+            </div>';
+          }
+
+          if(!empty($plugin['version'])) {
+            echo '<div class="row">
+              <div class="span1 right">
+              <strong>'.$langFile['ADDONS_TEXT_VERSION'].'</strong>
+              </div>
+              <div class="span2">
+              '.$plugin['version'].'
+              </div>
+            </div>';
+          }
+        echo '</div>';
+      echo '</div>';
+    }
 
     echo '<div class="spacer2x"></div>';
 
     // ->> LIST PLUGIN SETTINGS
-    if(!empty($pluginConfig) && is_array($pluginConfig)) {
+    if(!empty($plugin['config']) && is_array($plugin['config'])) {
 
       // active field
       echo '<input type="hidden" name="pluginConfig[active]" value="true">';
 
-      foreach($pluginConfig as $key => $orgValue) {
+      foreach($plugin['config'] as $key => $orgValue) {
 
         $value = (!isset($pageContent['plugins'][$post['plugin']][$post['number']][$key]) && $pageContent['plugins'][$post['plugin']][$post['number']][$key] !== false)
           ? $orgValue
           : $pageContent['plugins'][$post['plugin']][$post['number']][$key];
-        $keyName = (isset($pluginLangFile[$key]))
-          ? $pluginLangFile[$key]
+        $keyName = (isset($plugin['langFile'][$key]))
+          ? $plugin['langFile'][$key]
           : $key ;
-        $inputLength = (strpos(strtolower($key),'number') !== false || is_numeric($value)) ? ' short' : '';
-        $keyTipLeft  = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTipLeft'.$inputLength.'" title="::'.$pluginLangFile[$key.'_tip'].'::"' : '';
-        $keyTipRight = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTipRight'.$inputLength.'" title="::'.$pluginLangFile[$key.'_tip'].'::"' : '';
+        $keyTipLeft  = (isset($plugin['langFile'][$key.'_tip'])) ? ' class="toolTipLeft" title="::'.$plugin['langFile'][$key.'_tip'].'::"' : '';
+        $keyTipRight = (isset($plugin['langFile'][$key.'_tip'])) ? ' class="toolTipRight" title="::'.$plugin['langFile'][$key.'_tip'].'::"' : '';
 
 
         // BOOL
@@ -164,9 +220,6 @@ if($post['send'] == 'true') {
         // JS NUMBER
         } elseif(strpos(strtolower($key),'number') !== false || is_numeric($value)) {
 
-          if($keyTipRight == '')
-            $keyTipRight = ' class="short"';
-
           echo '<div class="row">
                   <div class="span3 right">
                     <label for="feinduraPlugin_'.$post['plugin'].'_config_'.$key.'"><span'.$keyTipLeft.'>'.$keyName.'</span></label>
@@ -213,11 +266,14 @@ if($post['send'] == 'true') {
 
   // event is fired when the windowBox is ready
   windowBox.addEvent('loaded',function(){
+
+    inBlockSlider();
+
     <?php
 
     // LOAD PLUGIN SCRIPT
-    if(!empty($pluginConfig) && is_array($pluginConfig)) {
-      foreach($pluginConfig as $key => $value) {
+    if(!empty($plugin['config']) && is_array($plugin['config'])) {
+      foreach($plugin['config'] as $key => $value) {
         if(strpos(strtolower($key),'script') !== false)
           echo $value;
       }

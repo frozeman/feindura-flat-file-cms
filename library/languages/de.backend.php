@@ -230,7 +230,7 @@ $langFile['CKEDITOR_BUTTON_EDITPLUGIN']                                   = 'Plu
 // MAIN MENU
 $langFile['BUTTON_DASHBOARD']                                             = 'Übersicht';
 $langFile['BUTTON_PAGES']                                                 = 'Seiten';
-$langFile['BUTTON_ADDONS']                                                = 'Addons';
+$langFile['BUTTON_ADDONS']                                                = 'Add-ons';
 $langFile['BUTTON_WEBSITESETTINGS']                                       = 'Webseiten Einstellungen';
 $langFile['BUTTON_SEARCH']                                                = 'Seiten durchsuchen';
 
@@ -262,6 +262,7 @@ $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Spr
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Nach oben';
+$langFile['BUTTON_INFO']                                                  = 'Info';
 
 
 // -> GENERAL ERROR TEXTS
@@ -315,7 +316,6 @@ $langFile['SIDEBARMENU_TITLE_PAGES']                                      = 'Sei
 $langFile['DASHBOARD_TITLE_USERINFO']                                     = 'Benutzer Information';
 
 $langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Willkommen in <span class="feinduraInline">fein<em>dura</em></span>,<br>dem Content Management System deiner Webseite';
-$langFile['DASHBOARD_TEXT_WELCOME']                                       = '<span class="feinduraInline">fein<em>dura</em></span> ist ein auf <span class="toolTipLeft" title="Flat-Files::Das sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird.">Flat-Files</span> basierendes Content Management System.<br>Hier kannst du den Inhalt deiner Webseite verwalten.';
 
 $langFile['DASHBOARD_TITLE_STATISTICS']                                   = 'Webseiten-Statistik';
 
@@ -751,6 +751,7 @@ $langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'Nac
 $langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins gespeichert!</div>';//<div class="alert">Klicken Sie auf ein Plugin, um es zu bearbeiten.</div>';
 $langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Ziehe das Plugin in den Editor um es zu platzieren.';
 
+
 /*
 * unsavedPage.php
 */
@@ -863,6 +864,13 @@ $langFile['BACKUP_ERROR_FILENOTFOUND']                                    = 'Bac
 $langFile['BACKUP_ERROR_NORESTROEFILE']                                   = 'Es wurde keine Backup-Datei für die Wiederherstellung ausgewählt.';
 $langFile['BACKUP_ERROR_DELETE']                                          = 'Backup konnte nicht gelöscht werden!';
 
+
+// -> ADDONS
+
+$langFile['ADDONS_TITLE_ADDON']                                           = 'Wähle ein <span class="feinduraInline">fein<em>dura</em></span> Add-on';
+$langFile['ADDONS_TEXT_AUTHOR']                                           = 'Autor';
+$langFile['ADDONS_TEXT_WEBSITE']                                          = 'Website';
+$langFile['ADDONS_TEXT_VERSION']                                          = 'Version';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

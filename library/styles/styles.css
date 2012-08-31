@@ -5142,6 +5142,8 @@
 }
 .feindura h1 {
   font-size: 20px;
+  line-height: 28px;
+  font-weight: normal;
 }
 .feindura h2 {
   font-size: 18px;
@@ -5530,12 +5532,12 @@
   margin-bottom: 16px;
   background-color: #fdfdfd;
   border: 1px solid #c0c0c0;
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.19999999999999996);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
@@ -5741,7 +5743,7 @@
   padding: 0 !important;
   color: #668CA6 !important;
 }
-.feindura input.short {
+.feindura input[type="number"] {
   width: 70px !important;
   text-align: center;
 }
@@ -6777,13 +6779,22 @@
   margin-right: 20px;
   width: 800px;
   font-size: 14px;
-  color: #444;
+  color: #454545;
 }
 .feindura .mainBody section.mainContent.hasSubMenu {
   padding-top: 54px;
 }
 .feindura .mainBody section.mainContent p {
   margin: 10px 0px;
+}
+.feindura .mainBody section.mainContent > h1 > span.feinduraInline,
+.feindura .mainBody section.mainContent > p > span.feinduraInline {
+  color: #b95c1a !important;
+}
+.feindura .mainBody section.mainContent > h1 > span.feinduraInline em,
+.feindura .mainBody section.mainContent > p > span.feinduraInline em {
+  font-style: normal;
+  color: #2f6387 !important;
 }
 .feindura .mainBody .subMenu {
   z-index: 7;
@@ -7587,6 +7598,7 @@
   position: relative;
   width: 760px;
   margin: 0;
+  margin-top: 5px;
   padding: 20px;
   overflow: hidden;
 }
@@ -7594,8 +7606,9 @@
   z-index: 2;
   min-height: 30px;
   padding: 20px 25px;
+  margin-bottom: 0;
   width: 748px;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 30px;
   border: 1px solid #fff;
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19999999999999996);
@@ -7678,12 +7691,54 @@
   background-image: url("../images/buttons/content_h1_down_on.png");
 }
 .feindura .mainContent .block h2 {
-  margin: 0;
-  margin-bottom: 6px;
-  padding: 4px 6px;
-  padding-bottom: 6px;
-  line-height: 20px;
-  font-size: 16px;
+  padding: 10px 20px;
+  padding-top: 14px;
+  margin: 5px 0;
+  margin-top: 0;
+  border-bottom: 1px solid #fff;
+  line-height: 23px;
+  font-weight: normal;
+  font-size: 17px;
+  color: #8c8c8c;
+  background: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f0f0f0), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #f0f0f0 0%, #ffffff 100%);
+  background: -ms-linear-gradient(bottom, #f0f0f0 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f0f0f0',GradientType=0);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
+  -webkit-text-shadow: 0 1px 1px #ffffff !important;
+  -moz-text-shadow: 0 1px 1px #ffffff !important;
+  text-shadow: 0 1px 1px #ffffff !important;
+  -ms-text-shadow: 0 1px 1px #ffffff !important;
+  -o-text-shadow: 0 1px 1px #ffffff !important;
+  -khtml-text-shadow: 0 1px 1px #ffffff !important;
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feindura .mainContent .block h2 a {
+  background-image: none;
+  padding-left: 0;
+}
+.feindura .mainContent .block h2 img.blockH2Icon {
+  top: -3px;
+  left: -4px;
+  margin: -5px 0;
+  vertical-align: top;
 }
 .feindura .mainContent .block h3 {
   margin-bottom: 10px;
@@ -7700,30 +7755,15 @@
   font-size: 14px;
   color: #536068;
 }
-.feindura .mainContent .block .content > h2 {
-  padding: 4px 10px;
-  padding-top: 7px;
+.feindura .mainContent .block .content > h2,
+.feindura .mainContent .block .span8 > h2 {
   margin: 10px -21px;
-  margin-top: 0;
-  border-bottom: 1px solid #fff;
-  line-height: 20px;
-  font-weight: normal;
-  font-size: 16px;
-  color: #8c8c8c;
-  background: #ffffff;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f0f0f0), color-stop(1, #ffffff));
-  background: -moz-linear-gradient(center bottom, #f0f0f0 0%, #ffffff 100%);
-  background: -ms-linear-gradient(bottom, #f0f0f0 0%, #ffffff 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f0f0f0',GradientType=0);
-  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
-  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.19999999999999996);
-  -webkit-text-shadow: 0 1px 1px #ffffff !important;
-  -moz-text-shadow: 0 1px 1px #ffffff !important;
-  text-shadow: 0 1px 1px #ffffff !important;
-  -ms-text-shadow: 0 1px 1px #ffffff !important;
-  -o-text-shadow: 0 1px 1px #ffffff !important;
-  -khtml-text-shadow: 0 1px 1px #ffffff !important;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
 }
 .feindura .mainContent .block .verticalSeparator {
   height: 5px;
@@ -8985,16 +9025,10 @@
 .feindura input.searchSubmit:focus {
   background-position: 0px -50px;
 }
-.feindura .searchResults .resultHeadline {
-  z-index: 1;
-  position: relative;
-  font-size: 18px;
-  line-height: 20px;
-}
 .feindura .searchResults .matchingID {
   position: relative;
-  font-weight: bold;
   top: 5px;
+  color: #3a79a5 !important;
 }
 .feindura .searchResults .keywords {
   position: relative;
@@ -9026,7 +9060,7 @@
 .feindura a.deleteCategory {
   position: absolute;
   display: block;
-  top: -10px;
+  top: -5px;
   right: 30px;
   width: 75px;
   height: 54px;
@@ -9091,7 +9125,7 @@
 }
 .feindura a.deleteUser {
   position: absolute;
-  top: -10px;
+  top: -5px;
   right: 30px;
   display: block;
   width: 75px;

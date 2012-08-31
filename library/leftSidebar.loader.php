@@ -211,7 +211,7 @@ if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
     ?>
       <div id="feinduraNewsBlock"></div>
 
-      <!-- PAGE SCRIPTS -->
+      <!-- NEWS LOADER SCRIPT -->
       <script type="text/javascript">
       /* <![CDATA[ */
 
@@ -224,9 +224,12 @@ if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
           update: feinduraNewsBlock,
           onSuccess: function(html) {
 
-            feinduraNewsBlock.setStyle('opacity',0.7);
+            var setOpacityTimeout = (function(){feinduraNewsBlock.tween('opacity',0.7);}).delay(3000);
+
+
             feinduraNewsBlock.addEvents({
               mouseenter: function(){
+                clearTimeout(setOpacityTimeout);
                 feinduraNewsBlock.tween('opacity',1);
               },
               mouseleave: function(){

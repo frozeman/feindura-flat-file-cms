@@ -30,6 +30,7 @@
         position: relative;
         width: @gridRowWidth;
         margin: 0;
+        margin-top: 5px;
         padding: @blockContentPadding; // content size is 800 - 40 = 760px
         // padding-top: 10px;
         overflow: hidden;
@@ -40,8 +41,9 @@
         z-index: 2;
         min-height: 30px;
         padding: 20px 25px;
+        margin-bottom: 0;
         width: @gridRowWidth - 12px;
-        font-size: 18px;
+        font-size: 20px;
         line-height: 30px;
         #boxHeadlineBasics;
 
@@ -104,13 +106,33 @@
         background-image: url("../images/buttons/content_h1_down_on.png");
     }
 
+    // special block headline
     h2 {
-        margin: 0;
-        margin-bottom: 6px;
-        padding: 4px 6px;
-        padding-bottom: 6px;
-        line-height: 20px;
-        font-size: 16px;
+        padding: 10px 20px;
+        padding-top: 14px;
+        margin: 5px 0;
+        margin-top: 0;
+        border-bottom: 1px solid #fff;
+        line-height: 23px;
+        font-weight: normal;
+        font-size: 17px;
+        color: darken(@colorGray,5%);
+        #gradient > .vertical(#fff,@colorLightGray,#fff);
+        #shadow > .drop(0,2px,2px,0.2);
+        #shadow > .text(0 1px 1px #ffffff) !important;
+        #border > .radius(@borderRadius,0,0,@borderRadius);
+
+        a {
+            background-image: none;
+            padding-left: 0;
+        }
+
+        img.blockH2Icon {
+            // display: none;
+            top: -3px;
+            left: -4px;margin: -5px 0;
+            vertical-align: top;
+        }
     }
     h3 {
         margin-bottom: 10px;
@@ -130,19 +152,10 @@
     }
 
     // special block headline
-    .content > h2 {
-        padding: 4px 10px;
-        padding-top: 7px;
+    .content > h2,
+    .span8 > h2 {
         margin: 10px -@blockContentPadding - 1px;
-        margin-top: 0;
-        border-bottom: 1px solid #fff;
-        line-height: 20px;
-        font-weight: normal;
-        font-size: 16px;
-        color: darken(@colorGray,5%);
-        #gradient > .vertical(#fff,@colorLightGray,#fff);
-        #shadow > .drop(0,2px,2px,0.2);
-        #shadow > .text(0 1px 1px #ffffff) !important;
+        #border > .rounded(0);
     }
 
 

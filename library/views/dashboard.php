@@ -36,12 +36,13 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 </div>
 </noscript>
 
-<div class="block open">
+<div class="spacer"></div>
+
+<!-- <div class="block open"> -->
   <h1><?php echo $langFile['DASHBOARD_TITLE_WELCOME']; ?></h1>
-  <div class="content">
-    <p><?php echo $langFile['DASHBOARD_TEXT_WELCOME']; ?></p>
-  </div>
-</div>
+<!-- </div> -->
+
+<div class="spacer"></div>
 
 <?php
 
@@ -278,7 +279,7 @@ if(!empty($userConfig[USERID]['info'])) {
     if($browserChart = createBrowserChart($websiteStatistic['browser'])) {
       echo '<div class="spacer"></div>';
       echo '<h2 class="center">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
-      echo '<div class="spacer2x"></div>';
+      echo '<div class="spacer"></div>';
       echo $browserChart;
     }
 

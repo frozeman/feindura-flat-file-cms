@@ -379,7 +379,7 @@ header.main {
         margin-right: 20px;
         width: 800px;
         font-size: 14px;
-        color: #444;
+        color: #454545;
 
         &.hasSubMenu {
             padding-top: 54px;
@@ -387,6 +387,16 @@ header.main {
 
         p {
             margin: 10px 0px;
+        }
+
+        > h1 > span.feinduraInline,
+        > p > span.feinduraInline {
+            color: darken(@logoColorOrange,8%) !important;
+
+            em {
+                font-style: normal;
+                color: darken(@logoColorBlue,8%) !important;
+            }
         }
     }
 

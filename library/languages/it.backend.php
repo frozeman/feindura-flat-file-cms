@@ -234,7 +234,7 @@ $langFile['CKEDITOR_TEXT_PLUGINS']                                        = 'Sce
 // MAIN MENU
 $langFile['BUTTON_DASHBOARD']                                             = 'Cruscotto';
 $langFile['BUTTON_PAGES']                                                 = 'Pagine';
-$langFile['BUTTON_ADDONS']                                                = 'Addons';
+$langFile['BUTTON_ADDONS']                                                = 'Add-ons';
 $langFile['BUTTON_WEBSITESETTINGS']                                       = 'Impostazioni SitoWeb';
 $langFile['BUTTON_SEARCH']                                                = 'Ricerca Pagine';
 
@@ -266,7 +266,7 @@ $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Eli
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Torna Su';
-
+$langFile['BUTTON_INFO']                                                  = 'Info';
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>Le impostazioni non possono essere salvate</b>';
@@ -318,9 +318,7 @@ $langFile['SIDEBARMENU_TITLE_PAGES']                                      = 'pag
 // ---------- DASHBOARD
 $langFile['DASHBOARD_TITLE_USERINFO']                                     = 'Utenti';
 
-$langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Benvenuti in - <span class="feinduraInline">fein<em>dura</em></span> - (Content Management System) <br>Un Sistema Di Gestione Dei Contenuti Per Il Tuo Sito Web.';
-$langFile['DASHBOARD_TEXT_WELCOME']                                       = '<span class="feinduraInline">fein<em>dura</em></span> usa il sistema <span class="toolTipLeft" title="Files Flat::Flat è un sistema che non necessita di database per memorizzazione il contenuto, esso viene scritto direttamente nei files che verranno poi stipati in una cartella appositamente creata sul server e in cui il contenuto del sito WEB viene memorizzato.">files flat</span> basati come Content Management System.<br>Qui è possibile gestire il contenuto del tuo sito web senza l&#145;uso di database.
-<br> Software Tradotto In Lingua Italiana Da: <a href                     ="http://www.sberlamediatica.altervista.org">Un Uomo In Blues</a>';
+$langFile['DASHBOARD_TITLE_WELCOME']                                      = 'Benvenuti in <span class="feinduraInline">fein<em>dura</em></span> - Flat File CMS.<br>Un Sistema Di Gestione Dei Contenuti Per Il Tuo Sito Web.';
 
 $langFile['DASHBOARD_TITLE_STATISTICS']                                   = 'Statistiche-Sito-Web';
 
@@ -754,6 +752,7 @@ $langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'Dop
 $langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins salvato!</div>';//<div class="alert">Click on un plugin per modificarne le proprietà.</div>';
 $langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Trascinare il plugin nell&#145;editor.';
 
+
 /*
 * unsavedPage.php
 */
@@ -866,6 +865,12 @@ $langFile['BACKUP_ERROR_FILENOTFOUND']                                    = 'Il 
 $langFile['BACKUP_ERROR_NORESTROEFILE']                                   = 'Nessun file di backup da ripristinare è stato selezionato.';
 $langFile['BACKUP_ERROR_DELETE']                                          = 'Il backup non può essere cancellato!';
 
+// -> ADDONS
+
+$langFile['ADDONS_TITLE_ADDON']                                           = 'Selezionare un <span class="feinduraInline">fein<em>dura</em></span> Add-on';
+$langFile['ADDONS_TEXT_AUTHOR']                                           = 'Autore';
+$langFile['ADDONS_TEXT_WEBSITE']                                          = 'Sito web';
+$langFile['ADDONS_TEXT_VERSION']                                          = 'Versione';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

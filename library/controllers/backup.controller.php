@@ -54,7 +54,7 @@ if(isset($_GET['createBackup'])) {
 
       if(@file_exists($backupFile)) {
 
-        $messagePopUp .= '<div class="alert alert-success">'.$langFile['LOG_BACKUP_CREATED'].'</div>';
+        $notification .= '<div class="alert alert-success">'.$langFile['LOG_BACKUP_CREATED'].'</div>';
 
         saveActivityLog(29); // <- SAVE the task in a LOG FILE
 
@@ -72,7 +72,7 @@ if(isset($_GET['status']) && $_GET['status'] == 'deleteBackup') {
   $_GET['file'] = XssFilter::path($_GET['file']);
   if(!empty($_GET['file']) && unlink(dirname(__FILE__).'/../../backups/'.$_GET['file'])) {
 
-    $messagePopUp .= '<div class="alert alert-info">'.$langFile['LOG_BACKUP_DELETED'].'<br>'.$_GET['file'].'</div>';
+    $notification .= '<div class="alert alert-info">'.$langFile['LOG_BACKUP_DELETED'].'<br>'.$_GET['file'].'</div>';
 
     saveActivityLog(31); // <- SAVE the task in a LOG FILE
   } else
@@ -162,7 +162,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
     // -> when restore was succesfull
     if($errorWindow === false) {
 
-      $messagePopUp .= '<div class="alert alert-success">'.$langFile['LOG_BACKUP_RESTORED'].'</div>';
+      $notification .= '<div class="alert alert-success">'.$langFile['LOG_BACKUP_RESTORED'].'</div>';
 
       saveActivityLog(30); // <- SAVE the task in a LOG FILE
 

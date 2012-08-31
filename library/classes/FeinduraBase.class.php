@@ -972,15 +972,15 @@ class FeinduraBase {
     $localizedPageContent = $this->getLocalized($pageContent,'content',$langCode);
 
     // -> ADD the FRONTEND EDITING CONTAINER
-    if(!$shortenText && !$GLOBALS['ISSNIPPET'] && $useHtml && $this->loggedIn && GeneralFunctions::hasPermission('frontendEditing') && PHP_VERSION >= REQUIREDPHPVERSION) {
+    // if(!$shortenText && !$GLOBALS['ISSNIPPET'] && $useHtml && $this->loggedIn && GeneralFunctions::hasPermission('frontendEditing') && PHP_VERSION >= REQUIREDPHPVERSION) {
 
-      $uniqueId = uniqid();
+    //   $uniqueId = uniqid();
 
-      $pageContentEdited = "\n".'<div class="feindura_editPage" id="feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
-      // $pageContentEdited .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").store("editContent",$("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
+    //   $pageContentEdited = "\n".'<div class="feindura_editPage" id="feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].' '.$langCode.'">'.$localizedPageContent.'</div>'."\n";
+    //   $pageContentEdited .= '<script type="text/javascript">/* <![CDATA[ */ $("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").store("editContent",$("feindura_editPage'.$pageContent['id'].'_'.$uniqueId.'").get("html")); /* ]]> */</script>'."\n";
 
-    // ->> USE modified CONTENT (replaceLinks,replaceSnippets,..)
-    } else {
+    // // ->> USE modified CONTENT (replaceLinks,replaceSnippets,..)
+    // } else {
       $pageContentEdited = GeneralFunctions::generateContent($localizedPageContent, $pageContent['id'], $this->sessionId, $this->language);
 
       // clear Html tags?
@@ -998,7 +998,7 @@ class FeinduraBase {
       // clear xHTML tag endings from the content
       if($this->xHtml === false)
         $pageContentEdited = str_replace(' />','>',$pageContentEdited);
-    }
+    // }
 
 
     // -> get description

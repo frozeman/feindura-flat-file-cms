@@ -242,6 +242,8 @@ label span {
 
 h1 {
     font-size: 20px;
+    line-height: 28px;
+    font-weight: normal;
 }
 h2 {
     font-size: 18px;
@@ -619,8 +621,8 @@ div.divBlocked {
     margin-bottom: @gridGutterWidth;
     background-color: @insetBlockColor;
     border: 1px solid @insetBlockBorderColor;
-    #shadow > .inner(0,0,5px,0.3);
-    #border > .rounded(10px);
+    #shadow > .inner(0,0,3px,0.2);
+    #border > .rounded(@borderRadiusMedium);
 
     @insetBlockMargin: -5px;
     @insetBlockRoundBorder: 6px;
@@ -734,7 +736,7 @@ iframe#fileManagerFrame {
 
 // FORMS
 
-input.short {
+input[type="number"] {
     width: 70px !important;
     text-align: center;
 }

@@ -42,7 +42,7 @@ if(isBlocked() === false && $_GET['status'] == 'restorePageToLastState') {
       GeneralFunctions::savePage($previousState);
       GeneralFunctions::savePage($currentState,true);
 
-      $messagePopUp .= '<div class="alert alert-info">'.sprintf($langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousState['lastSaveDate']).' '.formatTime($previousState['lastSaveDate'])).'</div>';
+      $notification .= '<div class="alert alert-info">'.sprintf($langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousState['lastSaveDate']).' '.formatTime($previousState['lastSaveDate'])).'</div>';
     }
     unset($currentState,$previousState);
   }
