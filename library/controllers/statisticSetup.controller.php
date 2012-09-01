@@ -28,13 +28,13 @@ if($_POST['send'] && isset($_POST['statisticConfig'])) {
 
     if(saveStatisticConfig($_POST)) {
       // set documentSaved status
-      $documentSaved = true;
+      $DOCUMENTSAVED = true;
       saveActivityLog(19); // <- SAVE the task in a LOG FILE
     } else
-      $errorWindow .= sprintf($langFile['STATISTICSSETUP_ERROR_SAVE'],$adminConfig['basePath']);
+      $ERRORWINDOW .= sprintf($langFile['STATISTICSSETUP_ERROR_SAVE'],$adminConfig['basePath']);
 
-  $savedForm = 'statisticConfig';
-  $savedSettings = true;
+  $SAVEDFORM = 'statisticConfig';
+  $SAVEDSETTINGS = true;
 }
 
 // ------------>> CLEAR the STATISTICs
@@ -55,14 +55,14 @@ if($_POST['sendClearstatistics']) {
 
       if(StatisticFunctions::savePageStatistics($pageStatistics)) {
         // set documentSaved status
-        $documentSaved = true;
+        $DOCUMENTSAVED = true;
       } else
-        $errorWindow .= sprintf($langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'],$adminConfig['basePath']);
+        $ERRORWINDOW .= sprintf($langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'],$adminConfig['basePath']);
     }
 
     // set the messagebox; save tasklog
-    if($documentSaved) {
-      $notification .= '<div class="alert alert-success">'.$langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'].'</div>';
+    if($DOCUMENTSAVED) {
+      $NOTIFICATION .= '<div class="alert alert-success">'.$langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'].'</div>';
       saveActivityLog(20); // <- SAVE the task in a LOG FILE
     }
   }
@@ -79,14 +79,14 @@ if($_POST['sendClearstatistics']) {
 
       if(StatisticFunctions::savePageStatistics($pageStatistics)) {
         // set documentSaved status
-        $documentSaved = true;
+        $DOCUMENTSAVED = true;
       } else
-        $errorWindow .= sprintf($langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'],$adminConfig['basePath']);
+        $ERRORWINDOW .= sprintf($langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'],$adminConfig['basePath']);
     }
 
     // set the messagebox; save tasklog
-    if($documentSaved) {
-      $notification .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'].'</div>';
+    if($DOCUMENTSAVED) {
+      $NOTIFICATION .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'].'</div>';
       saveActivityLog(21); // <- SAVE the task in a LOG FILE
     }
   }
@@ -97,8 +97,8 @@ if($_POST['sendClearstatistics']) {
      unlink(dirname(__FILE__)."/../../statistic/website.statistic.php")) {
 
     // set documentSaved status
-    $documentSaved = true;
-    $notification .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'].'</div>';
+    $DOCUMENTSAVED = true;
+    $NOTIFICATION .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'].'</div>';
     saveActivityLog(22); // <- SAVE the task in a LOG FILE
   }
 
@@ -108,8 +108,8 @@ if($_POST['sendClearstatistics']) {
     fclose($refererLogFile);
 
     // set documentSaved status
-    $documentSaved = true;
-    $notification .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_REFERERLOG'].'</div>';
+    $DOCUMENTSAVED = true;
+    $NOTIFICATION .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_REFERERLOG'].'</div>';
     saveActivityLog(23); // <- SAVE the task in a LOG FILE
   }
 
@@ -119,16 +119,16 @@ if($_POST['sendClearstatistics']) {
     fclose($taskLogFile);
 
     // set documentSaved status
-    $documentSaved = true;
-    $notification .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'</div>';
+    $DOCUMENTSAVED = true;
+    $NOTIFICATION .= '<div class="alert alert-info">'.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'</div>';
     saveActivityLog(24); // <- SAVE the task in a LOG FILE
   }
 
-  $savedForm = 'clearStatistics';
+  $SAVEDFORM = 'clearStatistics';
 }
 
 // RE-INCLUDE
-if($savedSettings) {
+if($SAVEDSETTINGS) {
   $statisticConfig = @include (dirname(__FILE__)."/../../config/statistic.config.php");
   // RESET of the vars in the classes
   StatisticFunctions::$statisticConfig = $statisticConfig;

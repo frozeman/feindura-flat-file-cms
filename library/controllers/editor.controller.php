@@ -42,7 +42,7 @@ if(isBlocked() === false && $_GET['status'] == 'restorePageToLastState') {
       GeneralFunctions::savePage($previousState);
       GeneralFunctions::savePage($currentState,true);
 
-      $notification .= '<div class="alert alert-info">'.sprintf($langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousState['lastSaveDate']).' '.formatTime($previousState['lastSaveDate'])).'</div>';
+      $NOTIFICATION .= '<div class="alert alert-info">'.sprintf($langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousState['lastSaveDate']).' '.formatTime($previousState['lastSaveDate'])).'</div>';
     }
     unset($currentState,$previousState);
   }
@@ -90,7 +90,7 @@ if(isBlocked() === false && $_POST['save']) {
 
     // if flatfile exists, load the existing $pageContent array
     if(!$pageContent = GeneralFunctions::readPage($page,$category)) {
-      $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['basePath']);
+      $ERRORWINDOW .= sprintf($langFile['file_error_read'],$adminConfig['basePath']);
 
     // create a BACKUP of the PREVIOUS STATE
     } else {
@@ -110,7 +110,7 @@ if(isBlocked() === false && $_POST['save']) {
   }
 
   // -> only save page if no error occured
-  if($errorWindow === false) {
+  if($ERRORWINDOW === false) {
 
 
     // SAVE NEW PLUGINS and REMOVE OLD ONES
@@ -213,7 +213,7 @@ if(isBlocked() === false && $_POST['save']) {
 
 
     if(GeneralFunctions::savePage($_POST)) {
-      $documentSaved = true;
+      $DOCUMENTSAVED = true;
 
       if($_POST['status'] == 'addLanguage')
         saveActivityLog(array($logText,$languageNames[$_POST['websiteLanguage']]),'page='.$page); // <- SAVE the task in a LOG FILE
@@ -232,26 +232,26 @@ if(isBlocked() === false && $_POST['save']) {
       saveSitemap();
 
     } else
-      $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
+      $ERRORWINDOW .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
   }
 
   // sets which block should be opend after saving
-  $savedForm = $_POST['savedBlock'];
+  $SAVEDFORM = $_POST['savedBlock'];
 }
 
 
 
 // -> LOAD PAGE
 if($pageContent = GeneralFunctions::readPage($page,$category)) {
-  $newPage = false;
+  $NEWPAGE = false;
   $previousStatePageContent = GeneralFunctions::readPage($pageContent['id'],$pageContent['category'],true);
 }
 // otherwise offer NEW PAGE
 else
-  $newPage = true;
+  $NEWPAGE = true;
 
 // set to new page if i couldn't load the page
-if($newPage) {
+if($NEWPAGE) {
   $_GET['page'] = 'new';
   $page = 'new';
 }
@@ -265,9 +265,9 @@ if(!empty($pageContent['thumbnail']) && isBlocked() === false && !file_exists(di
   GeneralFunctions::savePage($pageContent);
 }
 
-// if ADD LANGUAGE set the $newPage var to TRUE, and ADD TITLE TEXT
+// if ADD LANGUAGE set the $NEWPAGE var to TRUE, and ADD TITLE TEXT
 if($_GET['status'] == 'addLanguage') {
-  $newPage = true;
+  $NEWPAGE = true;
   $pageTitle = $langFile['BUTTON_WEBSITELANGUAGE_ADD'].': '.$languageNames[$_SESSION['feinduraSession']['websiteLanguage']];
 
   // LOAD LANGUAGE as template
@@ -276,7 +276,7 @@ if($_GET['status'] == 'addLanguage') {
 }
 
 // LOAD PAGE as TEMPLATE
-if($newPage && isset($_GET['template']) && is_numeric($_GET['template'])) {
+if($NEWPAGE && isset($_GET['template']) && is_numeric($_GET['template'])) {
   $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
 
   foreach ($pageContent['localized'] as $langCode => $localized) {

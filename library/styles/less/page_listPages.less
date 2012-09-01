@@ -176,10 +176,12 @@
                 .name a {
                     display: inline-block;
                     height: 27px;
+                    width: 94%;
                     margin-left: 4px;
                     background-image: url("../images/icons/pageIcon_small.png");
                     background-repeat: no-repeat;
                     padding-left: 31px;
+                    #content > .truncateText();
 
                     &.hasSubCategory {
                         background-image: url("../images/icons/pageIcon_subCategory_small.png");
@@ -191,6 +193,7 @@
                         background-image: url("../images/icons/pageIcon_startPage_subCategory_small.png");
                     }
                 }
+
 
                 div.functions {
                     width: 160px;
@@ -251,7 +254,7 @@
         border-top: 1px solid @colorBrown;
         font-size: 15px;
         line-height: 32px;
-        background: url("../images/bg/listPages_headBg.png") repeat-x;
+        background: lighten(@colorBrown,30%) url("../images/bg/listPages_headBg.png") repeat-x;
         color:3C5E91;
         #border > .radius(0,@borderRadiusSmall,@borderRadiusSmall,0);
 

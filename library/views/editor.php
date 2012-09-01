@@ -39,7 +39,7 @@ $breadCrumbsArray = GeneralFunctions::createBreadCrumbsArray($page,$category);
 if(count($breadCrumbsArray) != 1)
   unset($breadCrumbsArray[0]);
 
-if(!$newPage && is_array($breadCrumbsArray)) {
+if(!$NEWPAGE && is_array($breadCrumbsArray)) {
 
   // vars
   $breadCrumbPageIcon = ($keyNumber === 0) ? '<i class="icons breadCrumbStartPage" style="position:absolute;top: 0px;left: -3px;"></i>' : '<i class="icons breadCrumbPage" style="position:absolute;top: 0px;left: -1px;"></i>';
@@ -114,24 +114,24 @@ $headerColorClass = ($_GET['category'] != 0)
   : 'brown'; //" comes in the h1
 
 // get Title
-if($newPage && $_GET['status'] == 'addLanguage')
+if($NEWPAGE && $_GET['status'] == 'addLanguage')
   $pageTitle = sprintf($langFile['EDITOR_TITLE_ADDLANGUAGE'],$languageNames[$_SESSION['feinduraSession']['websiteLanguage']]);
-elseif($newPage)
+elseif($NEWPAGE)
   $pageTitle = $langFile['EDITOR_TITLE_CREATEPAGE'];
 else
   $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent,'title',false,true));
 
 // adds the page and category IDs for the MooRTE saving of the title
-$titleData = (!$newPage) // data-feindura format: "pageID categoryID"
+$titleData = (!$NEWPAGE) // data-feindura format: "pageID categoryID"
   ? ' data-feindura="'.$_GET['page'].' '.$_GET['category'].' '.$_SESSION['feinduraSession']['websiteLanguage'].'"'
   : '';
 
-$titleIsEditable = (!$newPage)
+$titleIsEditable = (!$NEWPAGE)
   ? ' id="editablePageTitle"'
   : '';
 
 // -> show NEWPAGE ICON
-if($newPage) {
+if($NEWPAGE) {
   $newPageIcon = '<img src="library/images/icons/newPageIcon_middle.png" class="blockH1Icon" width="33" height="30" alt="icon">';
 }
 
@@ -153,7 +153,7 @@ else
 echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColorClasses.'"'.$titleIsEditable.$titleData.'>'.$pageTitle.'</span>'.$sorting.'<span style="display:none;" class="toolTipRight noMark notSavedSignPage'.$pageContent['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></h1>';
 
 // shows the PUBLIC OR UNPUBLIC in headline
-if(!$newPage) {
+if(!$NEWPAGE) {
   echo '<div style="z-index: 2;position:absolute;top: 10px; right:15px;">';
   if($pageContent['public'])
     echo ' <a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=changePageStatus&amp;public=1&amp;reload='.rand(0,999).'#pageInformation" class="toolTipTop noMark image" title="'.$langFile['STATUS_PAGE_PUBLIC'].'::'.$langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS'].'"><img src="library/images/icons/page_public.png" '.$publicSignStyle.' alt="icon public" width="27" height="27"></a>';
@@ -174,13 +174,13 @@ if(!$newPage) {
       ? '</b> '.$langFile['EDITOR_pageinfo_lastsaveauthor'].' <b>'.$userConfig[$pageContent['lastSaveAuthor']]['username']
       : '';
 
-    echo ($newPage)
+    echo ($NEWPAGE)
       ? ''
       : '<div style="font-size:11px; text-align:right;">'.$langFile['EDITOR_pageinfo_lastsavedate'].' <b>'.$lastSaveDate.' '.$lastSaveTime.$editedByUser.'</b></div>';
 
 
     // PAGE ID
-    if(!$newPage && GeneralFunctions::isAdmin())
+    if(!$NEWPAGE && GeneralFunctions::isAdmin())
       echo '<div class="row">
               <div class="span3 formLeft">
                 <span class="info toolTipLeft" title="::'.$langFile['EDITOR_pageinfo_id_tip'].'"><strong>'.$langFile['EDITOR_pageinfo_id'].'</strong></span>
@@ -191,7 +191,7 @@ if(!$newPage) {
             </div>';
 
     // ->> IF NEWPAGE
-    if($newPage && $_GET['status'] != 'addLanguage') {
+    if($NEWPAGE && $_GET['status'] != 'addLanguage') {
 
       // -> show a CATEGORY SELECTION
       echo '<div class="row">
@@ -260,7 +260,7 @@ if(!$newPage) {
     }
 
     // SHOW PAGE LINK and LANGUAGES
-    if(!$newPage) {
+    if(!$NEWPAGE) {
       // shows the category var in the link or not
       if($_GET['category'] == 0)
         $categoryInLink = '';
@@ -314,11 +314,11 @@ if(!$newPage) {
 /**
  * Include the editor
  */
-if(!$newPage) {
+if(!$NEWPAGE) {
 
   // show the PREVIOUS STATE of the PAGE button
   if($previousStatePageContent) {
-    $showPreviousStateBlock = ($savedForm) ? ' style="margin-top:-55px;"':'';
+    $showPreviousStateBlock = ($SAVEDFORM) ? ' style="margin-top:-55px;"':'';
     echo '<div class="restorePageButtonBox"'.$showPreviousStateBlock.'><div><a href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'&amp;status=restorePageToLastState&amp;reload='.rand(0,999).'#editorAnchor" class="btn btn-inverse"><i class="icons restorePage"></i>'.sprintf($langFile['EDITOR_BUTTON_RESTORELASTSTATE'],GeneralFunctions::dateDayBeforeAfter($previousStatePageContent['lastSaveDate']).' '.formatTime($previousStatePageContent['lastSaveDate'])).'</a></div></div>';
   }
 
@@ -326,7 +326,7 @@ if(!$newPage) {
   include_once(dirname(__FILE__).'/../includes/editor.include.php');
 }
 
-if($newPage) {
+if($NEWPAGE) {
 ?>
   <!-- ***** PAGE SETTINGS on NEW PAGE -->
   <div class="block<?php echo $hidden; ?>">
@@ -346,7 +346,7 @@ if($newPage) {
 /**
  * Include the editor when newpage
  */
-if($newPage) {
+if($NEWPAGE) {
   include_once(dirname(__FILE__).'/../includes/editor.include.php');
   echo '<div class="spacer2x"></div>';
 }
@@ -357,7 +357,7 @@ if(GeneralFunctions::isAdmin()) {
 <a id="advancedPageSettings" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
-$hidden = ($savedForm == 'advancedPageSettings') ? '' : ' hidden';
+$hidden = ($SAVEDFORM == 'advancedPageSettings') ? '' : ' hidden';
 $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['styleFile'] != 'a:0:{}') ||
                        (!empty($pageContent['styleId']) &&  $pageContent['styleId'] != 'a:0:{}') ||
                        (!empty($pageContent['styleClass']) && $pageContent['styleClass'] != 'a:0:{}'))

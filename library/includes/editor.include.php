@@ -210,7 +210,7 @@ if(GeneralFunctions::hasPermission('fileManager')) {
     <br class="clear">
     <?php
 
-    if(!$newPage)
+    if(!$NEWPAGE)
       include(dirname(__FILE__).'/pageMetaData.include.php');
 
     ?>

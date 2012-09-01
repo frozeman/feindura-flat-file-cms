@@ -50,14 +50,14 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   // -> save ADMIN SETTINGS
   if(saveAdminConfig($newAdminConfig)) {
     // give documentSaved status
-    $documentSaved = true;
+    $DOCUMENTSAVED = true;
     saveActivityLog(14); // <- SAVE the task in a LOG FILE
 
   } else
-    $errorWindow .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['basePath']);
+    $ERRORWINDOW .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['basePath']);
 
-  $savedForm = $_POST['savedBlock'];
-  $savedSettings = true;
+  $SAVEDFORM = $_POST['savedBlock'];
+  $SAVEDSETTINGS = true;
 }
 
 // ---------------------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ if((isset($_POST['send']) && $_POST['send'] == 'categorySetup' && isset($_POST['
       // creates a new category folder
       if(!@mkdir(dirname(__FILE__).'/../../pages/'.$newId, $adminConfig['permissions'],true)) {
           $isDir = false;
-          $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATEDIR'],$adminConfig['basePath']);
+          $ERRORWINDOW .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATEDIR'],$adminConfig['basePath']);
       // save category dir could be created
       } else
         $isDir = true;
@@ -95,20 +95,20 @@ if((isset($_POST['send']) && $_POST['send'] == 'categorySetup' && isset($_POST['
       // add a new id to the category array
       $categoryConfig[$newId] = array('id' => $newId); // gives the new category a id
       if(saveCategories($categoryConfig)) {
-         $notification .= '<div class="alert alert-success">'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED'].'</div>';
+         $NOTIFICATION .= '<div class="alert alert-success">'.$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED'].'</div>';
          saveActivityLog(15); // <- SAVE the task in a LOG FILE
       } else { // throw error
-        $errorWindow .= ($errorWindow) // if there is allready an warning
+        $ERRORWINDOW .= ($ERRORWINDOW) // if there is allready an warning
           ? '<br><br>'.sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath'])
           : sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
       }
     }
 
   } else // throw error
-    $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
+    $ERRORWINDOW .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
 
-  $savedForm = 'categories';
-  $savedSettings = true;
+  $SAVEDFORM = 'categories';
+  $SAVEDSETTINGS = true;
 }
 
 // ****** ---------- DELETE CATEGORY
@@ -122,7 +122,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
   unset($categoryConfig[$_GET['category']]);
   if(saveCategories($categoryConfig)) {
 
-    $notification .= '<div class="alert alert-info">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_DELETED'].'<br><strong>'.$storedCategoryName.'</strong></div>';
+    $NOTIFICATION .= '<div class="alert alert-info">'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_DELETED'].'<br><strong>'.$storedCategoryName.'</strong></div>';
 
     // if there is a category dir, trys to delete it !important deletes all files in it
     if(is_dir(dirname(__FILE__).'/../../pages/'.$_GET['category'])) {
@@ -141,7 +141,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
 
       // deletes the dir with subdirs and files
       if(!GeneralFunctions::deleteFolder(dirname(__FILE__).'/../../pages/'.$_GET['category'].'/')) {
-        $errorWindow .= ($errorWindow) // if there is allready an warning
+        $ERRORWINDOW .= ($ERRORWINDOW) // if there is allready an warning
           ? '<br><br>'.sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETEDIR'],$adminConfig['basePath'])
           : sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETEDIR'],$adminConfig['basePath']);
       }
@@ -149,10 +149,10 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
 
     saveActivityLog(16,$storedCategoryName); // <- SAVE the task in a LOG FILE
   } else // throw error
-    $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETECATEGORY'],$adminConfig['basePath']);
+    $ERRORWINDOW .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_DELETECATEGORY'],$adminConfig['basePath']);
 
-  $savedForm = 'categories';
-  $savedSettings = true;
+  $SAVEDFORM = 'categories';
+  $SAVEDSETTINGS = true;
 }
 
 // ****** ---------- MOVE CATEGORY
@@ -166,19 +166,19 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 
   if(moveCategories($categoryConfig,$_GET['category'],$direction)) {
 
-    $notification .= '<div class="alert alert-success">'.$langFile['PAGESETUP_CATEGORY_TEXT_MOVECATEGORY_MOVED'].'<br><strong>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</strong></div>';
+    $NOTIFICATION .= '<div class="alert alert-success">'.$langFile['PAGESETUP_CATEGORY_TEXT_MOVECATEGORY_MOVED'].'<br><strong>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</strong></div>';
 
     // save the categories array
     if(saveCategories($categoryConfig)) {
-      $documentSaved = true; // set documentSaved status
+      $DOCUMENTSAVED = true; // set documentSaved status
       saveActivityLog(17,'category='.$_GET['category']); // <- SAVE the task in a LOG FILE
     } else
-      $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_SAVE'],$adminConfig['basePath']);
+      $ERRORWINDOW .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_SAVE'],$adminConfig['basePath']);
 
   }
 
-  $savedForm = 'categories';
-  $savedSettings = true;
+  $SAVEDFORM = 'categories';
+  $SAVEDSETTINGS = true;
 }
 
 
@@ -220,19 +220,19 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
   $_POST['categories'][0]['styleClass'] = $categoryConfig[0]['styleClass'];
 
   if(saveCategories($_POST['categories'])) {
-    $documentSaved = true; // set documentSaved status
+    $DOCUMENTSAVED = true; // set documentSaved status
     saveActivityLog(18); // <- SAVE the task in a LOG FILE
 
   } else
-    $errorWindow .= $langFile['PAGESETUP_CATEGORY_ERROR_SAVE'];
+    $ERRORWINDOW .= $langFile['PAGESETUP_CATEGORY_ERROR_SAVE'];
 
-  $savedForm = 'categories';
-  $savedSettings = true;
+  $SAVEDFORM = 'categories';
+  $SAVEDSETTINGS = true;
 }
 
 
 // RE-INCLUDE
-if($savedSettings) {
+if($SAVEDSETTINGS) {
   unset($adminConfig); $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
   unset($categoryConfig); $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
 

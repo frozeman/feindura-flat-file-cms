@@ -67,7 +67,7 @@ if($unwriteableList && checkBasePathAndURL()) {
   <!-- RESTORE -->
   <?php
   // shows the block below if it is the ones which is saved before
-  $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
+  $hidden = ($SAVEDFORM != 'restorBackup') ? ' hidden' : '';
   ?>
   <div class="block<?php echo $hidden ?>">
     <h1><a href="#"><?php echo $langFile['BACKUP_TITLE_RESTORE']; ?></a></h1>

@@ -50,7 +50,7 @@ foreach ($tab as $buf) {
 <a id="adminSettings" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
-$hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePathAndURL() && !documentrootWarning()) ? ' hidden' : '';
+$hidden = ($SAVEDFORM !== false && $SAVEDFORM != 'adminSettings' && checkBasePathAndURL() && !documentrootWarning()) ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><img src="library/images/icons/setupIcon_middle.png" class="blockH1Icon" alt="icon"><?php echo $langFile['ADMINSETUP_GENERAL_h1']; ?></a></h1>
@@ -258,7 +258,7 @@ $hidden = ($savedForm !== false && $savedForm != 'adminSettings' && checkBasePat
 <a id="editorSettings" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
-$hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
+$hidden = ($SAVEDFORM != 'editorSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><img src="library/images/icons/editorIcon_middle.png" class="blockH1Icon" alt="icon" style="margin-right: 5px;"><?php echo $langFile['adminSetup_editorSettings_h1']; ?></a></h1>
@@ -427,7 +427,7 @@ if(strpos($htmlEditorStyleContent,'CKEDITOR.addStylesSet') === false)
 ]);";
 
 // shows the block below if it is the ones which is saved before
-$hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
+$hidden = ($SAVEDFORM != 'fckStyleFile') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#" id="fckstyleFileAnchor"><img src="library/images/icons/stylesSelectionIcon_middle.png" class="blockH1Icon" alt="icon" style="margin-right: 3px;"><?php echo $langFile['adminSetup_styleFileSettings_h1']; ?></a></h1>

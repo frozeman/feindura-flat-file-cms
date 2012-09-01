@@ -25,7 +25,7 @@
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // vars
-$autofocus = ($newPage) ? ' autofocus="autofocus"' : '';
+$autofocus = ($NEWPAGE) ? ' autofocus="autofocus"' : '';
 
 ?>
 
@@ -71,14 +71,14 @@ if($categoryConfig[$_GET['category']]['showPageDate']) { ?>
         if(empty($pageContent['pageDate']['end']))
           $pageContent['pageDate']['end'] = $pageContent['pageDate']['start'];
 
-        $pageDate = ($newPage)
+        $pageDate = ($NEWPAGE)
           ? GeneralFunctions::formatDate(time()).' - '.GeneralFunctions::formatDate(strtotime('+1 day'))
           : GeneralFunctions::formatDate($pageContent['pageDate']['start']).' - '.GeneralFunctions::formatDate($pageContent['pageDate']['end']);
         $dateFormatExample = $langFile['DATE_'.$backendDateFormat].' - '.$langFile['DATE_'.$backendDateFormat];
         if($pageDate == ' - ' || $pageDate == '0 - 0')
           $pageDate = false;
       } else {
-        $pageDate = ($newPage)
+        $pageDate = ($NEWPAGE)
           ? GeneralFunctions::formatDate(time())
           : GeneralFunctions::formatDate($pageContent['pageDate']['start']);
         $dateFormatExample = $langFile['DATE_'.$backendDateFormat];

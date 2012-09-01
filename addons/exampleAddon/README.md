@@ -27,7 +27,7 @@ An Add-on is piece of code which can be run in the feindura backend to create ex
 
 It basically consist of 3 files:
 
-- languages/en.php       <- this are the language files which can acces in your Add-on through the $addonLangFile variable
+- languages/en.php       <- this are the language files which can acces in your Add-on through the $addonLangFile variable (The default fallback language is english, so an "en.php" at least should exist)
 - addon.php              <- here comes your add-on code
 - addon.controller.php   <- here comes your code to process your forms $_POST variable
 - credits.yml            <- this file contains the authors name and website

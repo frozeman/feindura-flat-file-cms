@@ -28,11 +28,11 @@ if(isset($_POST['send']) && $_POST['send'] == 'saveEditedFiles') {
   //var
   $file = (!empty($_POST['newFile'])) ? $_POST['newFile'].$_POST['fileType'] : $_POST['file'];
 
-  if(saveEditedFiles($savedForm)) {
-    $documentSaved = true; // give documentSaved status
+  if(saveEditedFiles($SAVEDFORM)) {
+    $DOCUMENTSAVED = true; // give documentSaved status
     // -> tasklog is saved in the saveEditFiles() function
   } else {
-    $errorWindow .= $langFile['EDITFILESSETTINGS_ERROR_SAVEFILE'].' '.$file;
+    $ERRORWINDOW .= $langFile['EDITFILESSETTINGS_ERROR_SAVEFILE'].' '.$file;
   }
 }
 
@@ -41,7 +41,7 @@ if($_GET['status'] == 'deleteEditFiles' && !empty($_GET['file'])) {
 
   // -> will be deleted in the editFiles() function
 
-  $savedForm = $_GET['editFilesStatus'];
+  $SAVEDFORM = $_GET['editFilesStatus'];
 }
 
 ?>

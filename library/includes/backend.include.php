@@ -73,13 +73,13 @@ require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 createBasicFilesAndFolders();
 
 // -> SET the BASIC VARIABLEs
-$errorWindow      = false; // when it contains a string the errorWindow with this string is displayed
-$notification     = false; // when it contains a string a message popup will be displayed
-$documentSaved    = false; // when true the document saved icon is displayed
-$savedForm        = false; // to tell wich part fo the form was saved
-$savedSettings    = false; // to tell wich settings were saved, to re-include the settings
-$newPage          = false; // tells the editor whether a new page is created
-$userCache        = ((!isset($_GET['status']) && !isset($_POST['status'])) || $_GET['status'] == 'updateUserCache') ? userCache() : array();
+$ERRORWINDOW      = false; // when it contains a string the errorWindow with this string is displayed
+$NOTIFICATION     = false; // when it contains a string a message popup will be displayed
+$DOCUMENTSAVED    = false; // when true the document saved icon is displayed
+$SAVEDFORM        = false; // to tell wich part fo the form was saved
+$SAVEDSETTINGS    = false; // to tell wich settings were saved, to re-include the settings
+$NEWPAGE          = false; // tells the editor whether a new page is created
+$USERCACHE        = ((!isset($_GET['status']) && !isset($_POST['status'])) || $_GET['status'] == 'updateUserCache') ? userCache() : array();
 
 // ->> SEND INFO to CONTENT.JS, so when updated the user config and a page gets free, it can remove the "contentBlocked" DIV
 if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {

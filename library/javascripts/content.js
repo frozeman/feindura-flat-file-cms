@@ -755,28 +755,6 @@ window.addEvent('domready', function() {
     }).periodical(currentVisitorsUpdateFrequency * 1000);
   }
 
-  // *** ->> ADMIN-MENU -----------------------------------------------------------------------------------------------------------------------
-
-  if($('adminMenu') !== null) {
-    // set the style back, which is set for non javascript users
-    $('adminMenu').setStyle('width','172px');
-    $('adminMenu').setStyle('overflow','hidden');
-
-    // set tween
-    $('adminMenu').set('tween',{duration: 350, transition: Fx.Transitions.Quint.easeInOut});
-
-    // add resize tween event
-    $('adminMenu').addEvents({
-      mouseenter : function() { // resize on mouseover
-        $('adminMenu').scrollTo(0,0);
-        $('adminMenu').tween('height',($('adminMenu').getChildren('table')[0].offsetHeight + 40) + 'px');
-      },
-      mouseleave : function() { // resize on onmouseout
-        $('adminMenu').tween('height','140px');
-      }
-    });
-  }
-
 
   // *** ->> LISTPAGES -----------------------------------------------------------------------------------------------------------------------
 

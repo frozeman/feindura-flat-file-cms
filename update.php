@@ -712,9 +712,6 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     if($taskLogFile = fopen(dirname(__FILE__)."/statistic/activity.statistic.log","wb")) {
       fclose($taskLogFile);
 
-      // set documentSaved status
-      $documentSaved = true;
-      $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'<br>';
       saveActivityLog(24); // <- SAVE the task in a LOG FILE
 
       echo 'activity log <span class="succesfull">reset</span><br>';

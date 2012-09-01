@@ -33,8 +33,8 @@ if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
 
       // save the new status
       if(GeneralFunctions::savePage($contentArray)) {
-        $documentSaved = true;
-        $notification .= '<div class="alert alert-success">'.$langFile['MESSAGE_TEXT_CHANGEDSTATUS'].'</div>';
+        $DOCUMENTSAVED = true;
+        $NOTIFICATION .= '<div class="alert alert-success">'.$langFile['MESSAGE_TEXT_CHANGEDSTATUS'].'</div>';
 
         // ->> save the FEEDS, if activated
         saveFeeds($_GET['category']);
@@ -42,10 +42,10 @@ if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
         saveSitemap();
 
       } else
-        $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['basePath']);
+        $ERRORWINDOW .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['basePath']);
 
     } else
-      $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['basePath']);
+      $ERRORWINDOW .= sprintf($langFile['file_error_read'],$adminConfig['basePath']);
 
   // shows the category open, after saving
   $opendCategory = $_GET['category'];
@@ -120,7 +120,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
 }
 
 // -> CLEAR CACHE ON SAVING
-if($documentSaved == true)
+if($DOCUMENTSAVED == true)
   GeneralFunctions::deleteFolder(dirname(__FILE__).'/../pages/cache/');
 
 ?>

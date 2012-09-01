@@ -39,7 +39,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 <a id="thumbnailSettings" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
-$hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
+$hidden = ($SAVEDFORM != 'thumbnailSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><img src="library/images/icons/thumbnailIcon_middle.png" class="blockH1Icon" alt="thumbnail icon" width="35" height="35"><?php echo $langFile['adminSetup_thumbnailSettings_h1']; ?></a></h1>
@@ -132,7 +132,7 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
 <a id="nonCategoryPages" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
-$hidden = ($savedForm !== false && $_POST['savedCategory'] != '0') ? ' hidden' : '';
+$hidden = ($SAVEDFORM !== false && $_POST['savedCategory'] != '0') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1 class="brown"><a href="#"><img src="library/images/icons/pageIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']; ?></a></h1>

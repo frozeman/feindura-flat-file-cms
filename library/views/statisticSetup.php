@@ -32,7 +32,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 <?php
 // show the block below if it is the ones which is saved before
-if($savedForm == 'statisticConfig' || $savedForm === false)
+if($SAVEDFORM == 'statisticConfig' || $SAVEDFORM === false)
     $hidden = '';
   else
     $hidden = ' hidden';
@@ -75,7 +75,7 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
 
 <?php
 // shows the block below if it is the ones which is saved before
-if($savedForm == 'clearStatistics')
+if($SAVEDFORM == 'clearStatistics')
     $hidden = '';
   else
     $hidden = ' hidden';

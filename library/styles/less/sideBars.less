@@ -471,12 +471,12 @@ div.rightSidebarLoadingCircle {
 
     // SIDEBAR BACKUP
     ul.backupDownload {
-        margin: 0 !important;
-        margin-top: -10px !important;
-        padding:0;
+        margin: 0  -@blockContentPadding !important;
+        margin-top: -16px !important;
 
         li {
             position: relative;
+            padding: 0 @blockContentPadding;
         }
         a.backup {
             display: inline-block;
@@ -486,7 +486,7 @@ div.rightSidebarLoadingCircle {
         }
         a.deleteButton {
             top: 15px;
-            right: 0px;
+            right: @blockContentPadding;
         }
     }
 }

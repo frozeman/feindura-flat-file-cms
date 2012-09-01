@@ -44,7 +44,7 @@ if(empty($userConfig) || (is_array($userConfig) && count($userConfig) > 1)) {
       }
       // add online user
       foreach($editableUserConfig as $user) {
-        foreach($userCache as $cachedUser) {
+        foreach($USERCACHE as $cachedUser) {
           if($user['username'] == $cachedUser['username']) {
             $user['status'] = 'online';
             array_push($sortedUsers, $user);

@@ -41,11 +41,11 @@
 if(!empty($_POST)) {
 
   // Lets just display Message Box with the results
-  // the $notification will be display automatically when its not empty.
-  $notification .= '<div class="alert alert-success">
+  // the $NOTIFICATION will be display automatically when its not empty.
+  $NOTIFICATION .= '<div class="alert alert-success">
                     The addon.controller.php just got a <code>$_POST</code> variable.
                     </div>';
 
-  // if we set $documentSaved to true, it will show the saved icon shortly after the page is loaded
-  $documentSaved = true;
+  // if we set $DOCUMENTSAVED to true, it will show the saved icon shortly after the page is loaded
+  $DOCUMENTSAVED = true;
 }

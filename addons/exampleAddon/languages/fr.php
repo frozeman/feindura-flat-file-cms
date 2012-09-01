@@ -7,23 +7,20 @@
  *
  * Every addon language file has to have:
  *    - $addonLangFile['feinduraAddon_title']        = 'Exampletitle';
- *    - $addonLangFile['feinduraAddon_description']  = 'This is an example plugin dscription.';
+ *    - $addonLangFile['feinduraAddon_description']  = 'This is an example addon description.';
  *
- * If the array key has an "configname_tip" on the end it will be used as toolTip.
- * E.g.:
- * $addonLangFile['exampleconfig_tip'] = 'Example config tooltip text';
  *
  * @package [Addons]
  * @subpackage exampleAddon
  */
 
 
-/* PLUGIN ************************************************************************************ */
+/* ADDON ************************************************************************************ */
 
 $addonLangFile['feinduraAddon_title']        = 'addon Exemple';
 $addonLangFile['feinduraAddon_description']  = 'Cet addon est juste pour montrer comment vous pourriez faire vos propres addons!';
 
-/* CONFIG ************************************************************************************ */
+/* TEXTS ************************************************************************************ */
 
 $addonLangFile['exampleText']       = 'Ce texte par exemple provient du fichier de langue française de ce module.';
 

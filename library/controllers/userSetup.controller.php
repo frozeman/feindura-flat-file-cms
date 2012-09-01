@@ -45,18 +45,18 @@ if((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['cre
   $userConfig[$newId]['permissions']['websiteSettings'] = true;
 
   if(saveUserConfig($userConfig)) {
-     $notification .= '<div class="alert alert-success">'.$langFile['USERSETUP_createUser_created'].'</div>';
+     $NOTIFICATION .= '<div class="alert alert-success">'.$langFile['USERSETUP_createUser_created'].'</div>';
      saveActivityLog(25); // <- SAVE the task in a LOG FILE
   } else { // throw error
-    $errorWindow .= ($errorWindow) // if there is already an warning
+    $ERRORWINDOW .= ($ERRORWINDOW) // if there is already an warning
       ? '<br><br>'.sprintf($langFile['USERSETUP_error_create'],$adminConfig['basePath'])
       : sprintf($langFile['USERSETUP_error_create'],$adminConfig['basePath']);
   }
 
   } else // throw error
-    $errorWindow .= sprintf($langFile['USERSETUP_error_create'],$adminConfig['basePath']);
+    $ERRORWINDOW .= sprintf($langFile['USERSETUP_error_create'],$adminConfig['basePath']);
 
-  $savedSettings = true;
+  $SAVEDSETTINGS = true;
 }
 
 // ****** ---------- DELETE USER
@@ -73,13 +73,13 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['de
   }
 
   if(saveUserConfig($newUserConfig)) {
-    $notification .= '<div class="alert alert-info">'.$langFile['USERSETUP_deleteUser_deleted'].'<br><strong>'.$storedUserName.'</strong></div>';
-    $documentSaved = true; // set documentSaved status
+    $NOTIFICATION .= '<div class="alert alert-info">'.$langFile['USERSETUP_deleteUser_deleted'].'<br><strong>'.$storedUserName.'</strong></div>';
+    $DOCUMENTSAVED = true; // set documentSaved status
     saveActivityLog(26,$storedUserName); // <- SAVE the task in a LOG FILE
   } else
-    $errorWindow .= sprintf($langFile['USERSETUP_error_save'],$adminConfig['basePath']);
+    $ERRORWINDOW .= sprintf($langFile['USERSETUP_error_save'],$adminConfig['basePath']);
 
-  $savedSettings = true;
+  $SAVEDSETTINGS = true;
 }
 
 // ****** ---------- SAVE USERS
@@ -109,10 +109,10 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
       if($configs['password'] == $configs['password_confirm']) {
         $newUserConfig[$configs['id']]['password'] = md5($newUserConfig[$configs['id']]['password']);
         $userPassChanged = true;
-        $notification .= '<div class="alert alert-success">'.$langFile['USERSETUP_password_success'].'</div>';
+        $NOTIFICATION .= '<div class="alert alert-success">'.$langFile['USERSETUP_password_success'].'</div>';
       } else {
         $newUserConfig[$configs['id']]['password'] = $userConfig[$configs['id']]['password'];
-        $notification .= '<div class="alert alert-error">'.$langFile['USERSETUP_password_confirm_wrong'].'</div>';
+        $NOTIFICATION .= '<div class="alert alert-error">'.$langFile['USERSETUP_password_confirm_wrong'].'</div>';
         $userPassError = true;
       }
     } else
@@ -129,19 +129,19 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
   if(saveUserConfig($newUserConfig)) {
 
     if(!$userPassError)
-      $documentSaved = true; // set documentSaved status
+      $DOCUMENTSAVED = true; // set documentSaved status
     if($userPassChanged)
       saveActivityLog(27,$savedUsername); // <- SAVE the task in a LOG FILE
     else
       saveActivityLog(28,$savedUsername); // <- SAVE the task in a LOG FILE
   } else
-    $errorWindow .= sprintf($langFile['USERSETUP_error_save'],$adminConfig['basePath']);
+    $ERRORWINDOW .= sprintf($langFile['USERSETUP_error_save'],$adminConfig['basePath']);
 
-  $savedSettings = true;
+  $SAVEDSETTINGS = true;
 }
 
 // RE-INCLUDE
-if($savedSettings) {
+if($SAVEDSETTINGS) {
   unset($userConfig);
   $userConfig = @include(dirname(__FILE__)."/../../config/user.config.php");
 }

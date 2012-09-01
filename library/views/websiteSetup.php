@@ -36,7 +36,7 @@ require_once(dirname(__FILE__).'/../includes/secure.include.php');
 <a id="websiteConfig" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
-$hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
+$hidden = ($SAVEDFORM == 'websiteConfig' || empty($SAVEDFORM)) ? '' : ' hidden';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><?php echo $langFile['websiteSetup_websiteConfig_h1']; ?></a></h1>
@@ -101,7 +101,7 @@ $hidden = ($savedForm == 'websiteConfig' || empty($savedForm)) ? '' : ' hidden';
 <a id="advancedWebsiteConfig" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
-$hidden = ($savedForm == 'advancedWebsiteConfig') ? '' : ' hidden';
+$hidden = ($SAVEDFORM == 'advancedWebsiteConfig') ? '' : ' hidden';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><?php echo $langFile['WEBSITESETUP_TITLE_PAGESETTINGS']; ?></a></h1>

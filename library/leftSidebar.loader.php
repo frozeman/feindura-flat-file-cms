@@ -163,7 +163,7 @@ if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
 
       // -> show THUMBNAIL if the page has one
       $displayThumbnailContainer = ' display:none;';
-      if(!$newPage && $categoryConfig[$pageContent['category']]['thumbnails'] && !empty($pageContent['thumbnail'])) {
+      if(!$NEWPAGE && $categoryConfig[$pageContent['category']]['thumbnails'] && !empty($pageContent['thumbnail'])) {
         $displayThumbnailContainer = '';
       }
 
@@ -185,7 +185,7 @@ if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
       echo '</div>';
 
       // -> show the thumbnail upload button if there is no thumbnail yet
-      $displayThumbnailUploadButton = (!$newPage && $categoryConfig[$pageContent['category']]['thumbnails'] && empty($pageContent['thumbnail']))
+      $displayThumbnailUploadButton = (!$NEWPAGE && $categoryConfig[$pageContent['category']]['thumbnails'] && empty($pageContent['thumbnail']))
          ? '' : ' style="display:none;"';
 
       // thumbnailUploadButtonInPreviewArea

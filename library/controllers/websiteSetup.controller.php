@@ -89,7 +89,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
         unset($pageContent['localized'][0]);
       }
       if(!GeneralFunctions::savePage($pageContent,false,false))
-        $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
+        $ERRORWINDOW .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
     }
 
     // SAVE the pagesMetaData array
@@ -135,7 +135,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
         }
       }
       if(!saveCategories($newCategoryConfig))
-        $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
+        $ERRORWINDOW .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
     }
 
     // -> add to SESSION
@@ -160,7 +160,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
         $pageContent['localized'][0] = array();
 
       if(!GeneralFunctions::savePage($pageContent,false,false))
-        $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
+        $ERRORWINDOW .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
     }
 
     // SAVE the pagesMetaData array
@@ -195,7 +195,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
           $newCategoryConfig[$key]['localized'][0] = array();
       }
       if(!saveCategories($newCategoryConfig))
-        $errorWindow .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
+        $ERRORWINDOW .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'],$adminConfig['basePath']);
     }
 
     // -> add to SESSION
@@ -209,13 +209,13 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
 
   if(saveWebsiteConfig($newWebsiteConfig)) {
     // give documentSaved status
-    $documentSaved = true;
+    $DOCUMENTSAVED = true;
     saveActivityLog(7); // <- SAVE the task in a LOG FILE
   } else
-  $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['basePath']);
+  $ERRORWINDOW .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['basePath']);
 
-  $savedForm = $_POST['savedBlock'];
-  $savedSettings = true;
+  $SAVEDFORM = $_POST['savedBlock'];
+  $SAVEDSETTINGS = true;
 }
 
 
@@ -223,7 +223,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
 include_once(dirname(__FILE__).'/../controllers/saveEditFiles.controller.php');
 
 // RE-INCLUDE
-if($savedSettings) {
+if($SAVEDSETTINGS) {
   unset($websiteConfig);
   $websiteConfig = @include (dirname(__FILE__)."/../../config/website.config.php");
   GeneralFunctions::$websiteConfig = $websiteConfig;

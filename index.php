@@ -182,6 +182,36 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
             </table>
           </div>
         </div>
+
+        <!-- ADMIN MENU SCRIPTS -->
+        <script type="text/javascript">
+        /* <![CDATA[ */
+
+          var adminMenu = $('adminMenu');
+
+          if(adminMenu !== null) {
+            // set the style back, which is set for non javascript users
+            adminMenu.setStyle('width','172px');
+            adminMenu.setStyle('overflow','hidden');
+
+            // set tween
+            adminMenu.set('tween',{duration: 350, transition: Fx.Transitions.Quint.easeInOut});
+
+            // add resize tween event
+            adminMenu.addEvents({
+              mouseenter : function() { // resize on mouseover
+                adminMenu.scrollTo(0,0);
+                adminMenu.tween('height',(adminMenu.getChildren('table')[0].offsetHeight + 40) + 'px');
+              },
+              mouseleave : function() { // resize on onmouseout
+                adminMenu.tween('height','140px');
+              }
+            });
+          }
+
+        /* ]]> */
+        </script>
+
         <?php } ?>
       </div>
 
@@ -221,7 +251,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       // ->> CHECK to show BUTTONs in subMenu and FooterMenu
 
       // vars
-      $isInPageEditor = (!empty($_GET['page']) && empty($_GET['site']) && !$newPage) ? true : false;
+      $isInPageEditor = (!empty($_GET['page']) && empty($_GET['site']) && !$NEWPAGE) ? true : false;
 
       $generallyCreatePages = false;
       // CHECK if one category can create pages
@@ -237,14 +267,14 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       $showCreatePage = ($generallyCreatePages) ? true : false;
 
        // -> CHECK for DELETE PAGE
-      $showDeletePage = ($generallyCreatePages && !$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new' &&
+      $showDeletePage = ($generallyCreatePages && !$NEWPAGE && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new' &&
                          $categoryConfig[$_GET['category']]['createDelete']) ? true : false;
 
       // ->CHECK frontend editing
       $showFrontendEditing = ($isInPageEditor && GeneralFunctions::hasPermission('frontendEditing')) ? true : false;
 
       // -> CHECK for uploadPageThumbnail
-      $showPageThumbnailUpload = (!$newPage &&
+      $showPageThumbnailUpload = (!$NEWPAGE &&
                                   empty($_GET['site']) && !empty($_GET['page']) &&
                                   $categoryConfig[$_GET['category']]['thumbnails']) ? true : false;
 
@@ -270,7 +300,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
             $currentlanguageSlection = array_unique(array_merge($websiteConfig['multiLanguageWebsite']['languages'],array_keys($pageContent['localized'])));
         $_SESSION['feinduraSession']['websiteLanguage'] = (in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection)) ? $_SESSION['feinduraSession']['websiteLanguage']: current($currentlanguageSlection);
         // if NEW PAGE, overwrite with the mainLanguage
-        if($newPage)
+        if($NEWPAGE)
           $currentlanguageSlection = $websiteConfig['multiLanguageWebsite']['languages'];
 
         // find out if there are missing languages
@@ -346,7 +376,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                     <?php
                       // create language selection
                       foreach($currentlanguageSlection as $langCode) {
-                        if($newPage || empty($pageContent) || isset($pageContent['localized'][$langCode]) || ($_GET['status'] == 'addLanguage' && $_SESSION['feinduraSession']['websiteLanguage'] == $langCode)) {
+                        if($NEWPAGE || empty($pageContent) || isset($pageContent['localized'][$langCode]) || ($_GET['status'] == 'addLanguage' && $_SESSION['feinduraSession']['websiteLanguage'] == $langCode)) {
                           $selected = ($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) ? ' selected="selected"' : '';
                           echo '<option value="'.$langCode.'"'.$selected.'>'.$languageNames[$langCode].'</option>';
                         }
@@ -519,23 +549,23 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
   <!-- ************************************************************************* -->
   <!-- ** DOCUMENT SAVED ******************************************************* -->
-  <div id="documentSaved"<?php if($documentSaved === true) echo ' class="saved"'; ?>></div>
+  <div id="documentSaved"<?php if($DOCUMENTSAVED === true) echo ' class="saved"'; ?>></div>
 
-  <?php if($errorWindow !== false) { ?>
+  <?php if($ERRORWINDOW !== false) { ?>
   <!-- ************************************************************************* -->
   <!-- ** ERROR WINDOW ********************************************************* -->
   <script type="text/javascript">
-    feindura_showError('<?php echo $langFile['errorWindow_h1']; ?>','<?php echo str_replace(array("\n","\t"),'',$errorWindow); ?>');
+    feindura_showError('<?php echo $langFile['errorWindow_h1']; ?>','<?php echo str_replace(array("\n","\t"),'',$ERRORWINDOW); ?>');
   </script>
   <?php } ?>
 
-  <?php if($notification !== false) {
-    $notification = str_replace(array("\n","\t"), '', $notification);
+  <?php if($NOTIFICATION !== false) {
+    $NOTIFICATION = str_replace(array("\n","\t"), '', $NOTIFICATION);
   ?>
   <!-- ************************************************************************* -->
   <!-- ** NOTIFICATION  ******************************************************** -->
   <script type="text/javascript">
-    feindura_showNotification('<?php echo $notification; ?>');
+    feindura_showNotification('<?php echo $NOTIFICATION; ?>');
   </script>
   <?php } ?>
 

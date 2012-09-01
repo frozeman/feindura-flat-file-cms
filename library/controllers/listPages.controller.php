@@ -34,8 +34,8 @@ if(isset($_GET['status']) &&
 
   // save the new status
   if(saveCategories($categoryConfig)) {
-    $documentSaved = true;
-    $notification .= '<div class="alert alert-success">'.$langFile['MESSAGE_TEXT_CHANGEDSTATUS'].'</div>';
+    $DOCUMENTSAVED = true;
+    $NOTIFICATION .= '<div class="alert alert-success">'.$langFile['MESSAGE_TEXT_CHANGEDSTATUS'].'</div>';
 
     // ->> save the FEEDS, if activated
     GeneralFunctions::$categoryConfig = $categoryConfig;
@@ -44,7 +44,7 @@ if(isset($_GET['status']) &&
     saveSitemap();
 
   } else
-    $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['basePath']);
+    $ERRORWINDOW .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['basePath']);
 
  // shows after saving the category open
  $opendCategory = $_GET['category'];
@@ -61,9 +61,9 @@ if(isset($_GET['status']) && $_GET['status'] == 'setStartPage' && !empty($_GET['
 
   if(savewebsiteConfig($websiteConfig)) {
     // give documentSaved status
-    $documentSaved = true;
+    $DOCUMENTSAVED = true;
 
-  } else $errorWindow .= sprintf($langFile['SORTABLEPAGELIST_setStartPage_error_save'],$adminConfig['basePath']);
+  } else $ERRORWINDOW .= sprintf($langFile['SORTABLEPAGELIST_setStartPage_error_save'],$adminConfig['basePath']);
 
 
   // shows after saving the category open

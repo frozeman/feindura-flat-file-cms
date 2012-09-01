@@ -202,7 +202,7 @@ foreach($categoryConfig as $category) {
           }
 
           // shorten the title
-          $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent,'title')),25);
+          $title = str_replace('"','&quot;',strip_tags(GeneralFunctions::getLocalized($pageContent,'title')));
           $visitorCount = GeneralFunctions::shortenString(formatHighNumber($pageStatistics['visitorCount']),12);
 
           $hasSubCategoryClass = (is_numeric($pageContent['subCategory'])) ? ' class="hasSubCategory"' : '';

@@ -36,7 +36,7 @@
  *
  *
  * <b>Used Global Variables</b><br>
- *    - <var>$errorWindow</var> the errorWindow text which will extended with the given errors from PHP
+ *    - <var>$ERRORWINDOW</var> the errorWindow text which will extended with the given errors from PHP
  *
  * @param int     $errorCode the PHP errorcode
  * @param string  $errorText the PHP error message
@@ -1233,7 +1233,7 @@ function saveStatisticConfig($statisticConfig) {
  *    - <var>$langFile</var> the language file of the backend (included in the {@link general.include.php})
  *    - <var>$XssFilter</var> the {@link XssFilter::__construct()} class instance created in the {@link general.include.php})
  *
- * @param false|string $errorWindow will be filled with an error message if an error occurs
+ * @param false|string $ERRORWINDOW will be filled with an error message if an error occurs
  *
  * @return void
  *
@@ -1247,7 +1247,7 @@ function saveStatisticConfig($statisticConfig) {
  *    - 1.0 initial release
  *
  */
-function saveSpeakingUrl(&$errorWindow) {
+function saveSpeakingUrl(&$ERRORWINDOW) {
 
   // vars
   $save = false;
@@ -1356,7 +1356,7 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
   // ->> throw error
   } elseif($save) {
     $_POST['cfg_speakingUrl'] = '';
-    $errorWindow .= $GLOBALS['langFile']['ADMINSETUP_GENERAL_speakingUrl_error_save'];
+    $ERRORWINDOW .= $GLOBALS['langFile']['ADMINSETUP_GENERAL_speakingUrl_error_save'];
   }
 
   return;
@@ -2224,7 +2224,7 @@ function formatHighNumber($number,$decimalsNumber = 0) {
  * <b>Used Global Variables</b><br>
  *    - <var>$_POST</var> to get which form is open
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
- *    - <var>$savedForm</var> the variable to tell which form was saved (set in the {@link saveEditedFiles})
+ *    - <var>$SAVEDFORM</var> the variable to tell which form was saved (set in the {@link saveEditedFiles})
  *
  * @param string		$filesPath	         the absolute file system path to the files (also files in subfolders), which will be editable
  * @param string		$status		           a status name which will be set to the $_GET['status'] variable in the formular action attribute
@@ -2276,7 +2276,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
 
       saveActivityLog(13,$filesPath.$_GET['file']); // <- SAVE the task in a LOG FILE
     } else
-      $errorWindow .= $langFile['EDITFILESSETTINGS_ERROR_DELETEFILE'].' '.$filesPath.$_GET['file'];
+      $ERRORWINDOW .= $langFile['EDITFILESSETTINGS_ERROR_DELETEFILE'].' '.$filesPath.$_GET['file'];
   }
 
 
@@ -2298,7 +2298,6 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
           <h1><a href="#">'.$titleText.'</a></h1>
           <div class="content editFiles">';
 
-    echo '<div class="spacer"></div>';
 
   //echo $filesPath.'<br>';
   // gets the files out of the directory --------------
@@ -2379,7 +2378,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
 
       echo '<div class="span5">';
         //<div class="editFiles left">
-        echo '<h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CHOOSEFILE'].'</h2>
+        echo '<h3>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CHOOSEFILE'].'</h3>
               <input type="text" value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'">'."\n";
         echo '<select onchange="changeEditFile(\''.$_GET['site'].'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
 
@@ -2398,7 +2397,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
     // NO FILES
     } else {
       echo '<div class="span5">';
-        echo '<h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_NOFILE'].'</h2>';
+        echo '<h3>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_NOFILE'].'</h3>';
       echo '</div>';
     }
 
@@ -2408,7 +2407,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
       $fileTypeText = '<b>.'.$fileType.'</b>';
 
     echo '<div class="span3">';
-      echo '<h2>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'</h2>
+      echo '<h3>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'</h3>
             <input type="text" name="newFile" class="toolTipLeft" title="'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CREATEFILE'].'::'.$GLOBALS['langFile']['EDITFILESSETTINGS_TIP_CREATEFILE'].'"> '.$fileTypeText;
     echo '</div>';
   }
@@ -2453,7 +2452,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
  *    - <var>$_POST</var> for the file data
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  *
- * @param string &$savedForm	to set which form was is saved
+ * @param string &$SAVEDFORM	to set which form was is saved
  *
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
  *
@@ -2464,7 +2463,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
  *    - 1.0 initial release
  *
  */
-function saveEditedFiles(&$savedForm) {
+function saveEditedFiles(&$SAVEDFORM) {
 
   // var
   $_POST['filesPath'] = DOCUMENTROOT.str_replace(DOCUMENTROOT,'',$_POST['filesPath']);
@@ -2484,7 +2483,7 @@ function saveEditedFiles(&$savedForm) {
       @chmod($_POST['filesPath'].$_POST['file'], $GLOBALS['adminConfig']['permissions']);
       $_GET['file'] = $_POST['file'];
       $_GET['status'] = $_POST['status'];
-      $savedForm = $_POST['status'];
+      $SAVEDFORM = $_POST['status'];
 
       saveActivityLog(12,$_GET['file']); // <- SAVE the task in a LOG FILE
       return true;
@@ -2519,7 +2518,7 @@ function saveEditedFiles(&$savedForm) {
       @chmod($fullFilePath, $GLOBALS['adminConfig']['permissions']);
       $_GET['file'] = '/'.$_POST['newFile'].$_POST['fileType'];
       $_GET['status'] = $_POST['status'];
-      $savedForm = $_POST['status'];
+      $SAVEDFORM = $_POST['status'];
 
       fclose($file);
       saveActivityLog(12,$_GET['file']); // <- SAVE the task in a LOG FILE

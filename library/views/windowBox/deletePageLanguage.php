@@ -54,7 +54,7 @@ if($_POST['asking']) {
     die('#REDIRECT#'.$redirect);
 
   } else
-    $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
+    $ERRORWINDOW .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
 
 }
 

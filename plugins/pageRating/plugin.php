@@ -46,9 +46,9 @@ echo '<script type="text/javascript">
 
 $alreadyRatedClass = ($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] === 'false') ? ' unrated': '';
 
-echo '  <ul id="pageRating'.$uniqueId.'" class="'.$alreadyRatedClass.'" data-pageRating="'.$pageContent['id'].' '.$pageContent['category'].'" title="'.$pageContent['plugins']['pageRating']['valueNumber'].'">';
+echo '  <ul id="pageRating'.$uniqueId.'" class="'.$alreadyRatedClass.'" data-pageRating="'.$pageContent['id'].' '.$pageContent['category'].'" title="'.$pluginConfig['valueNumber'].'">';
 for($i = 1; $i <= 5; $i++) {
-  $filled = ($i <= $pageContent['plugins']['pageRating']['valueNumber']) ? ' filled' : '' ;
+  $filled = ($i <= $pluginConfig['valueNumber']) ? ' filled' : '' ;
   echo '    <li><a href="#" class="star'.$filled.'" data-pageRating="'.$i.'" onclick="return false;"></a></li>';
 }
 echo '  </ul>';

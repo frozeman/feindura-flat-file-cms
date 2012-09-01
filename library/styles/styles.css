@@ -7472,12 +7472,12 @@
   height: 30px;
 }
 .feindura #rightSidebar ul.backupDownload {
-  margin: 0 !important;
-  margin-top: -10px !important;
-  padding: 0;
+  margin: 0 -20px !important;
+  margin-top: -16px !important;
 }
 .feindura #rightSidebar ul.backupDownload li {
   position: relative;
+  padding: 0 20px;
 }
 .feindura #rightSidebar ul.backupDownload a.backup {
   display: inline-block;
@@ -7487,7 +7487,7 @@
 }
 .feindura #rightSidebar ul.backupDownload a.deleteButton {
   top: 15px;
-  right: 0px;
+  right: 20px;
 }
 .feindura #leftSidebar {
   position: relative;
@@ -7598,7 +7598,6 @@
   position: relative;
   width: 760px;
   margin: 0;
-  margin-top: 5px;
   padding: 20px;
   overflow: hidden;
 }
@@ -7656,7 +7655,7 @@
 }
 .feindura .mainContent .block > h1 img {
   position: relative;
-  top: 1px;
+  top: 0;
   left: 2px;
 }
 .feindura .mainContent .block > h1 img.blockH1Icon {
@@ -7670,6 +7669,7 @@
   display: block;
   width: 97.5%;
   min-height: 30px;
+  height: 30px;
   padding: 20px 25px;
   margin: -20px -25px;
   line-height: 30px;
@@ -8573,10 +8573,17 @@
 .feindura .block.listPages .block ul li .name a {
   display: inline-block;
   height: 27px;
+  width: 94%;
   margin-left: 4px;
   background-image: url("../images/icons/pageIcon_small.png");
   background-repeat: no-repeat;
   padding-left: 31px;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-text-overflow: ellipsis;
+  -moz-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 .feindura .block.listPages .block ul li .name a.hasSubCategory {
   background-image: url("../images/icons/pageIcon_subCategory_small.png");
@@ -8635,7 +8642,7 @@
   border-top: 1px solid #d49c5c;
   font-size: 15px;
   line-height: 32px;
-  background: url("../images/bg/listPages_headBg.png") repeat-x;
+  background: #f4e6d5 url("../images/bg/listPages_headBg.png") repeat-x;
   color: 3C5E91;
   -webkit-border-top-right-radius: 0;
   -webkit-border-bottom-right-radius: 2px;

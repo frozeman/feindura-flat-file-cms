@@ -46,7 +46,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
 
   // ->> add SPEAKING URL to .htaccess
   // --------------------------
-  saveSpeakingUrl($errorWindow);
+  saveSpeakingUrl($ERRORWINDOW);
 
   // -> check Filter settings
   if(empty($_POST['cfg_editorHtmlLawed']))
@@ -105,11 +105,11 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   // **** opens admin.config.php for writing
   if(saveAdminConfig($adminConfig)) {
     // give documentSaved status
-    $documentSaved = true;
+    $DOCUMENTSAVED = true;
     saveActivityLog(8); // <- SAVE the task in a LOG FILE
 
   } else
-    $errorWindow .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['basePath']);
+    $ERRORWINDOW .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['basePath']);
 
 
   // adds the HTML-Editor stylesheets to the NON-CATEGORY
@@ -118,8 +118,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $categoryConfig[0]['styleClass']   = str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass']);
   saveCategories($categoryConfig);
 
-  $savedForm = $_POST['savedBlock'];
-  $savedSettings = true;
+  $SAVEDFORM = $_POST['savedBlock'];
+  $SAVEDSETTINGS = true;
 }
 
 // ---------- Speichern in EditorStyles.js
@@ -133,22 +133,22 @@ if(isset($_POST['saveFckStyleFile'])) {
   if(file_put_contents(dirname(__FILE__)."/../../config/EditorStyles.js", $fckstylewrite, LOCK_EX)) {
 
     // give documentSaved status
-    $documentSaved = true;
+    $DOCUMENTSAVED = true;
     saveActivityLog(9); // <- SAVE the task in a LOG FILE
   } elseif(empty($fckstylewrite)) {
     @unlink(dirname(__FILE__)."/../../config/EditorStyles.js");
   } else {
-    $errorWindow .= $langFile['adminSetup_styleFileSettings_error_save'];
+    $ERRORWINDOW .= $langFile['adminSetup_styleFileSettings_error_save'];
   }
 
-  $savedForm = 'fckStyleFile';
+  $SAVEDFORM = 'fckStyleFile';
 }
 
 // ---------- SAVE the editFiles
 include_once(dirname(__FILE__).'/saveEditFiles.controller.php');
 
 // RE-INCLUDE
-if($savedSettings) {
+if($SAVEDSETTINGS) {
   if($fp = @fopen(dirname(__FILE__).'/../../config/admin.config.php','r')) {
     flock($fp,LOCK_SH);
     unset($adminConfig);
