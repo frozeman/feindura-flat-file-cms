@@ -19,7 +19,8 @@
 
 // vars
 var userCacheUpdateFrequency = 100; // seconds
-var currentVisitorsUpdateFrequency = 20; // seconds
+var visitorsCountUpdateFrequency = 22; // seconds 22
+var currentVisitorsUpdateFrequency = 20; // seconds 20
 
 var toolTipsTop, toolTipsBottom, toolTipsLeft, toolTipsRight;
 var deactivateType = 'disabled'; // disabled/readonly
@@ -50,10 +51,12 @@ function addParameterToUrl(key,value) {
 // *** ->> TOOLTIPS - functions -----------------------------------------------------------------------------------------------------------------------
 
 /* set toolTips to all objects with a toolTip class */
-function setToolTips() {
+function setToolTips(containerSelector) {
+
+  var containerSelectorString = (containerSelector)? containerSelector : '';
 
   //store titles and text
-  feindura_storeTipTexts('.toolTipLeft, .toolTipRight, .toolTipTop, .toolTipBottom');
+  feindura_storeTipTexts(containerSelectorString + ' .toolTipLeft, '+containerSelectorString+' .toolTipRight, '+containerSelectorString+' .toolTipTop, '+containerSelectorString+' .toolTipBottom');
 
   var tipOptions = {
     content: function(e){
@@ -71,25 +74,80 @@ function setToolTips() {
     showDelay: 400
   };
 
-  toolTipsTop = new FloatingTips('.toolTipTop',Object.merge(tipOptions,{
+  toolTipsTop = new FloatingTips(containerSelectorString + ' .toolTipTop',Object.merge(tipOptions,{
     position: 'top'
   }));
-  toolTipsBottom = new FloatingTips('.toolTipBottom',Object.merge(tipOptions,{
+  toolTipsBottom = new FloatingTips(containerSelectorString + ' .toolTipBottom',Object.merge(tipOptions,{
     position: 'bottom'
   }));
-  toolTipsLeft = new FloatingTips('.toolTipLeft',Object.merge(tipOptions,{
+  toolTipsLeft = new FloatingTips(containerSelectorString + ' .toolTipLeft',Object.merge(tipOptions,{
     position: 'left'
   }));
-  toolTipsRight = new FloatingTips('.toolTipRight',Object.merge(tipOptions,{
+  toolTipsRight = new FloatingTips(containerSelectorString + ' .toolTipRight',Object.merge(tipOptions,{
     position: 'right'
   }));
+}
+
+
+// ------------------------------------------------------------------------------
+// RELOAD the content of an container periodical
+function reloadPeriodical(url,updateFrequency,container,divBlockedContainer,extraData) {
+
+  // vars
+  container = $(container);
+  if(!divBlockedContainer)
+    divBlockedContainer = container;
+
+  if(container !== null) {
+    (function(){
+      var divBlocked = new Element('div',{'class':'divBlocked'}).grab(new Element('div'));
+      var removeLoadingCircle;
+
+      new Request({
+        'url': url,
+        onRequest: function(){
+          removeLoadingCircle = feindura_loadingCircle(divBlocked.getChildren('div')[0], 15, 28, 12, 3, "#000");
+          divBlockedContainer.grab(divBlocked,'bottom');
+          divBlocked.show();
+        },
+        onSuccess: function(html) {
+          divBlocked.hide();
+          divBlocked.removeEvents('hide');
+          divBlocked.addEvent('hide',function(){
+            removeLoadingCircle();
+            divBlocked.destroy();
+
+            if(html) {
+              toolTipsTop.detach(container.getElements('.toolTipTop'));
+              toolTipsBottom.detach(container.getElements('.toolTipBottom'));
+              toolTipsLeft.detach(container.getElements('.toolTipLeft'));
+              toolTipsRight.detach(container.getElements('.toolTipRight'));
+
+              container.set('html',html);
+
+              feindura_storeTipTexts(container.getElements('[class^="toolTip"]]'));
+              toolTipsTop.attach(container.getElements('.toolTipTop'));
+              toolTipsBottom.attach(container.getElements('.toolTipBottom'));
+              toolTipsLeft.attach(container.getElements('.toolTipLeft'));
+              toolTipsRight.attach(container.getElements('.toolTipRight'));
+
+              inBlockSlider();
+              resizeOnHover();
+
+            } else
+              container.empty();
+          });
+        }
+      }).send('status=reloadPeriodical&request=true'+extraData); // status prevents userCache overwriting
+    }).periodical(updateFrequency * 1000);
+  }
 }
 
 // *** ->> SETUP - functions -----------------------------------------------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------
 // ADD a INPUT FIELD
-function addField(containerId,inputName) {
+function addInputField(containerId,inputName) {
 
   //var newInput = new Element('input', {name: inputName});
 
@@ -267,7 +325,7 @@ function resizeOnHover() {
   $$('.resizeOnHover').each(function(element){
 
     // quit if it has already been setup
-    if(element.retrieve('resizeOnHover'))
+    if(element.retrieve('resizeOnHover') === true)
       return;
 
     // vars
@@ -319,6 +377,11 @@ function blockSlider(givenId) {
     blocksInDiv = givenId + ' ';
 
   $$(blocksInDiv + '.block').each(function(block,i) {
+
+    // quit if already setup
+    if(block.retrieve('blockSlider') === true)
+      return;
+
      var h1SlideButton, slideContent, bottomBorder;
 
      // gets the <a> tag in the <h1>
@@ -391,7 +454,9 @@ function blockSlider(givenId) {
           block.addClass('hidden'); // change the arrow
         slideContent.slide('toggle');
       });
-    } // <-- end go trough blocks
+    }
+
+    block.store('blockSlider',true);
   });
 }
 
@@ -428,6 +493,11 @@ function inBlockSlider() {
 
     // sets the SLIDE effect to the SLIDE links
     inBlockSliderLinks.each(function(inBlockSliderLink){
+
+      // quit if already setup
+      if(inBlockSliderLink.retrieve('inBlockSlider') === true)
+        return;
+
       inBlockSliderLink.addEvent('click', function(e) {
         if(e.target.match('a')) e.stop();
 
@@ -439,6 +509,8 @@ function inBlockSlider() {
         inBlockSlider.toggleClass('hidden');
         slide.toggle();
       });
+
+      inBlockSliderLink.store('inBlockSlider',true);
     });
   });
 }
@@ -715,45 +787,12 @@ window.addEvent('domready', function() {
   // TOOLTIPS
   setToolTips();
 
+  // -> RELOAD THE VISITORS COUNT periodical
+  reloadPeriodical('library/includes/visitorCount.include.php',visitorsCountUpdateFrequency,'visitorCountInsetBox');
 
-  // -> RELOAD THE CURRENTVISITORS statistic every 1 minute
-  if($('currentVisitorsSideBar') !== null) {
-    (function(){
-      new Request({
-        url:'library/includes/currentVisitors.include.php',
-        onSuccess: function(html) {
-          if(html) {
-            toolTipsLeft.detach('#currentVisitorsSideBar .toolTipLeft');
-            toolTipsRight.detach('#currentVisitorsSideBar .toolTipRight');
-            $('currentVisitorsSideBar').set('html',html);
-            feindura_storeTipTexts('#currentVisitorsSideBar .toolTipLeft, #currentVisitorsSideBar .toolTipRight');
-            toolTipsLeft.attach('#currentVisitorsSideBar .toolTipLeft');
-            toolTipsRight.attach('#currentVisitorsSideBar .toolTipRight');
-            resizeOnHover();
-          } else
-            $('currentVisitorsSideBar').empty();
-        }
-      }).send('status=getCurrentVisitors&request=true'); // getCurrentVisitors status prevents userCache overwriting
-    }).periodical((currentVisitorsUpdateFrequency - 2) * 1000);
-  }
-  if($('currentVisitorsDashboard') !== null) {
-    (function(){
-      new Request({
-        url:'library/includes/currentVisitors.include.php',
-        onSuccess: function(html) {
-          if(html) {
-            toolTipsLeft.detach('#currentVisitorsDashboard .toolTipLeft');
-            toolTipsRight.detach('#currentVisitorsDashboard .toolTipRight');
-            $('currentVisitorsDashboard').set('html',html);
-            feindura_storeTipTexts('#currentVisitorsDashboard .toolTipLeft, #currentVisitorsSideBar .toolTipRight');
-            toolTipsLeft.attach('#currentVisitorsDashboard .toolTipLeft');
-            toolTipsRight.attach('#currentVisitorsDashboard .toolTipRight');
-          } else
-            $('currentVisitorsDashboard').empty();
-        }
-      }).send('status=getCurrentVisitors&request=true&mode=dashboard'); // getCurrentVisitors status prevents userCache overwriting
-    }).periodical(currentVisitorsUpdateFrequency * 1000);
-  }
+  // -> RELOAD THE CURRENTVISITORS periodical
+  reloadPeriodical('library/includes/currentVisitors.include.php',currentVisitorsUpdateFrequency,'currentVisitorsDashboard',$$('#currentVisitorsDashboard > .insetBlock'),'&mode=dashboard');
+  reloadPeriodical('library/includes/currentVisitors.include.php',currentVisitorsUpdateFrequency - 1,'currentVisitorsSideBar',$$('#currentVisitorsSideBar > .box'));
 
 
   // *** ->> LISTPAGES -----------------------------------------------------------------------------------------------------------------------
@@ -1256,7 +1295,7 @@ window.addEvent('domready', function() {
 
       addButton.addEvent('click', function(e) {
         e.stop();
-        addField(containerId,inputName);
+        addInputField(containerId,inputName);
       });
     }
   });

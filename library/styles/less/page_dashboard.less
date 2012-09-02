@@ -3,13 +3,17 @@
 //
 // Published under the GNU General Public License
 
-.dashboard .insetBlock {
-    margin: @gridGutterWidth / 2 !important;
+#visitorCountInsetBox {
+    position: relative;
+
+    [class^="span"],
+    div {
+        line-height: 20px !important;
+    }
 }
 
-.visitorCountInsetBox [class^="span"],
-.visitorCountInsetBox div {
-    line-height: 20px !important;
+.dashboard .insetBlock {
+    margin: @gridGutterWidth / 2 !important;
 }
 
 .refererBox {

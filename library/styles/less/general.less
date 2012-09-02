@@ -581,8 +581,8 @@ div.divBlocked {
     #transform > .opacity(0.5);
 
     > div {
-        position: fixed;
-        top: 250px;
+        position: absolute;
+        top: 40%;
         left: 50%;
         width: 500px;
         margin-left: -250px;
@@ -598,6 +598,10 @@ div.divBlocked {
     width: @appWidth;
     background: transparent url("../images/bg/mainBody.png") repeat;
     #border > .rounded(0);
+
+    > div {
+        top: 250px;
+    }
 }
 
 #loadingBox {
@@ -616,6 +620,7 @@ div.divBlocked {
 }
 
 .insetBlock {
+    position: relative;
     padding: 9px;
     margin-top: @gridGutterWidth;
     margin-bottom: @gridGutterWidth;
@@ -626,6 +631,11 @@ div.divBlocked {
 
     @insetBlockMargin: -5px;
     @insetBlockRoundBorder: 6px;
+
+    // change divBlocked for insetBLock
+    div.divBlocked {
+        margin: 0 -9px;
+    }
 
     h2 {
         border-bottom: 1px solid #c4c4c4;

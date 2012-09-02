@@ -94,7 +94,7 @@ if(!empty($currentVisitors) && $showVisitors) {
   }
 
   if(isset($_POST['request']) && $_POST['request'] == true) echo $return;
-  return $return;
+    return $return;
 }
 return false;
 ?>

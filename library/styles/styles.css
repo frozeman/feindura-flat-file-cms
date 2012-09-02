@@ -5476,8 +5476,8 @@
   opacity: 0.5;
 }
 .feindura div.divBlocked > div {
-  position: fixed;
-  top: 250px;
+  position: absolute;
+  top: 40%;
   left: 50%;
   width: 500px;
   margin-left: -250px;
@@ -5503,6 +5503,9 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
+.feindura #contentBlocked > div {
+  top: 250px;
+}
 .feindura #loadingBox {
   position: fixed;
   top: 40%;
@@ -5527,6 +5530,7 @@
   behavior: url('library/thirdparty/javascripts/PIE.htc');
 }
 .feindura .insetBlock {
+  position: relative;
   padding: 9px;
   margin-top: 16px;
   margin-bottom: 16px;
@@ -5541,6 +5545,9 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+}
+.feindura .insetBlock div.divBlocked {
+  margin: 0 -9px;
 }
 .feindura .insetBlock h2 {
   border-bottom: 1px solid #c4c4c4;
@@ -8043,12 +8050,15 @@
   text-decoration: none;
   color: #DF893B;
 }
+.feindura #visitorCountInsetBox {
+  position: relative;
+}
+.feindura #visitorCountInsetBox [class^="span"],
+.feindura #visitorCountInsetBox div {
+  line-height: 20px !important;
+}
 .feindura .dashboard .insetBlock {
   margin: 8px !important;
-}
-.feindura .visitorCountInsetBox [class^="span"],
-.feindura .visitorCountInsetBox div {
-  line-height: 20px !important;
 }
 .feindura .refererBox {
   margin-top: -9px;
