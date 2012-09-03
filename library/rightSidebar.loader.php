@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* sidebar.loader.php version 0.60
+* sidebar.loader.php version 0.7
 *
 * The leftSideBar shows always websiteand cms relevant information. like users, visitors, last activity etc.
 */
@@ -55,7 +55,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       echo '<div class="sidebarMenu brown'.$hidden.'">
       <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTipLeft" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
       <div class="menuWrapper">
-        <menu class="vertical">';
+        <menu class="vertical nonCategory">';
 
         if(is_array($pagesMetaData)) {
           $filteredPagesMetaData = GeneralFunctions::getPagesMetaDataOfCategory(0);
@@ -109,7 +109,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
         echo '<div class="sidebarMenu blue'.$hidden.'">
         <div class="top"><img src="library/images/icons/categoryIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.$langFile['SIDEBARMENU_TITLE_CATEGORIES'].'</span><a href="#">&nbsp;</a></div>
         <div class="menuWrapper">
-          <menu class="vertical">';
+          <menu class="vertical categories">';
 
           foreach($showCategories as $category) {
 
@@ -143,7 +143,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       echo '<div class="sidebarMenu gray">
       <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</span><a href="#" class="toolTipLeft" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'::">&nbsp;</a></div>
       <div class="menuWrapper">
-        <menu class="vertical">';
+        <menu class="vertical category">';
 
         if(is_array($pageMetaData)) {
           $filteredPagesMetaData = GeneralFunctions::getPagesMetaDataOfCategory($_GET['category']);

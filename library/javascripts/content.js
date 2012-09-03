@@ -14,7 +14,7 @@
  * if not,see <http://www.gnu.org/licenses/>.
  *
  *
- * javascripts/content.js version 0.8 (requires mootools-core and mootools-more)
+ * javascripts/content.js version 0.9 (requires mootools-core and mootools-more)
  */
 
 // vars
@@ -26,8 +26,6 @@ var toolTipsTop, toolTipsBottom, toolTipsLeft, toolTipsRight;
 var deactivateType = 'disabled'; // disabled/readonly
 var pageContentChanged = false; // used to give a warning, if a page in the editor.php has been changed and not saved
 var HTMLEditor;
-var subCategoryArrows;
-var countSubCategoryArrows = 1;
 var listPagesBars = []; // stores all pages li elements
 
 
@@ -370,7 +368,7 @@ function resizeOnHover() {
 function blockSlider(givenId) {
 
   var blocksInDiv = '';
-  var scrollToElement = new Fx.Scroll(window,{duration: 300,transition: Fx.Transitions.Quint.easeInOut});
+  var scrollToElement = new Fx.Scroll(window,{duration: 400,transition: Fx.Transitions.Quint.easeInOut});
 
   // prepares the given container div id or class
   if(givenId)
@@ -447,9 +445,9 @@ function blockSlider(givenId) {
           $$('div.subCategoryArrowLine').fade(0);
 
         if(!slideContent.get('slide').open) {
-          scrollToElement.start(window.getPosition().x,block.getPosition().y - 50);
-        slideContent.setStyle('display','block'); // to allow sorting above the slided in box (reset)
-        block.removeClass('hidden'); // change the arrow
+          scrollToElement.start(window.getPosition().x,block.getPosition().y - 100);
+          slideContent.setStyle('display','block'); // to allow sorting above the slided in box (reset)
+          block.removeClass('hidden'); // change the arrow
         } else
           block.addClass('hidden'); // change the arrow
         slideContent.slide('toggle');
@@ -678,15 +676,75 @@ function LeavingWithoutSavingWarning() {
 }
 
 
+// --------------------------------------------------------------------------------------------
+// SHOW SUBCATEGORY ARROW PAGES ---------------------------------------------------------------
+function subCategoryArrows() {
+
+  // vars
+  var countSubCategoryArrows = 1;
+  var subCategoryArrowElements = $$('div.subCategoryArrowLine');
+  subCategoryArrowElements.reverse(); // because the array is also in the dom reversed
+
+  subCategoryArrowElements.each(function(arrow){
+    countSubCategoryArrows++;
+
+    // vars
+    arrow.set('tween', {duration:'short',transition: Fx.Transitions.Quint.easeOut});
+    var listPagesBlock        = $('listPagesBlock');
+    var parentPage            = $(arrow.getProperty('data-parentPage'));
+    var category              = $(arrow.getProperty('data-category')).getParent('div.block');
+    var subCategory           = $(arrow.getProperty('data-subCategory')).getParent('div.block');
+    var top,height = 0;
+    // if the subCategory is under the category with the parent page
+    if(subCategory.getPosition(listPagesBlock).y > category.getPosition(listPagesBlock).y) {
+      top = (category.hasClass('hidden')) ? (category.getPosition(listPagesBlock).y + 22): (parentPage.getPosition(listPagesBlock).y + 16);
+      height = subCategory.getPosition(listPagesBlock).y - top + 30;
+
+      arrow.removeClass('up');
+      arrow.addClass('down');
+
+    // if the category with the parent page is under the subCategory
+    } else {
+      top = subCategory.getPosition(listPagesBlock).y + 20;
+      height = (category.hasClass('hidden')) ? (category.getPosition(listPagesBlock).y - subCategory.getPosition(listPagesBlock).y ): (parentPage.getPosition(listPagesBlock).y  - subCategory.getPosition(listPagesBlock).y - 11);
+
+      arrow.removeClass('down');
+      arrow.addClass('up');
+    }
+
+    // arrow.fade(0);
+    // arrow.get('tween').chain(function(){
+      arrow.setStyles({
+        'display': 'block',
+        'top': top,
+        'height': height
+      });
+      // arrow.fade(1);
+    // });
+
+    // arrow.morph({'top': top, 'height': subCategory.getPosition(listPagesBlock).y - top + 10});
+
+    if(arrow.getStyle('width') === '0px') {
+      arrow.setStyles({
+        'width': (countSubCategoryArrows * 20),
+        'left': -(countSubCategoryArrows * 20) - 4
+      });
+    }
+
+  });
+}
+
+
 // *---------------------------------------------------------------------------------------------------*
 //  LOAD (if all pics are loaded)
 // *---------------------------------------------------------------------------------------------------*
 window.addEvent('load', function() {
 
-    // SCROLL to ANCHORS after loading the pages (should fix problems with slided in blocks)
-    var anchorId = window.location.hash.substring(1);
-    if($(anchorId) !== null)
-      (function(){ window.scrollTo(0,this.getPosition().y); }).delay(100,$(anchorId));
+  // SCROLL to ANCHORS AFTER LOADING (should fix problems with the scroll position)
+  // Also below after blockSlider()
+  var anchorId = window.location.hash.substring(1);
+  if($(anchorId) !== null)
+    (function(){ window.scrollTo(0,this.getPosition().y); }).delay(100,$(anchorId));
 
 });
 
@@ -708,8 +766,19 @@ window.addEvent('domready', function() {
   // slide out elements on hover
   resizeOnHover();
 
+  subCategoryArrows();
+  // window.addEvent('scroll',moveArrow);
+
+
   // STORES all pages LI ELEMENTS
   listPagesBars = $$('div.block.listPagesBlock li');
+
+
+  // SCROLL to ANCHORS AFTER LOADING (should fix problems with the scroll position)
+  // Also above on window 'load'
+  var anchorId = window.location.hash.substring(1);
+  if($(anchorId) !== null)
+    (function(){ window.scrollTo(0,this.getPosition().y); }).delay(100,$(anchorId));
 
 
   // UPDATE the USER-CACHE every 3 minutes
@@ -1026,71 +1095,6 @@ window.addEvent('domready', function() {
       }
     });
   }
-
-  // --------------------------------------------------------------------------------------------
-  // SHOW SUBCATEGORY ARROW PAGES ---------------------------------------------------------------
-  subCategoryArrows = function() {
-    var subCategoryArrows = $$('div.subCategoryArrowLine');
-    subCategoryArrows.reverse(); // because the array is also in the dom reversed
-
-    subCategoryArrows.each(function(arrow){
-      countSubCategoryArrows++;
-
-      // vars
-      arrow.set('tween', {duration:'short',transition: Fx.Transitions.Quint.easeOut});
-      var listPagesBlock        = $('listPagesBlock');
-      var parentPage            = $(arrow.get('data-parentPage'));
-      var category              = $(arrow.get('data-category')).getParent('div.block');
-      var subCategory           = $(arrow.get('data-subCategory')).getParent('div.block');
-      var top,height = 0;
-
-      // if the subCategory is under the category with the parent page
-      if(subCategory.getPosition(listPagesBlock).y > category.getPosition(listPagesBlock).y) {
-        top = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y + 22): (parentPage.getPosition(listPagesBlock).y + 16);
-        height = subCategory.getPosition(listPagesBlock).y - top + 30;
-
-        arrow.removeClass('up');
-        arrow.addClass('down');
-
-      // if the category with the parent page is under the subCategory
-      } else {
-        top = subCategory.getPosition(listPagesBlock).y + 20;
-        height = (parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0) ? (category.getPosition(listPagesBlock).y - subCategory.getPosition(listPagesBlock).y ): (parentPage.getPosition(listPagesBlock).y  - subCategory.getPosition(listPagesBlock).y - 11);
-
-        arrow.removeClass('down');
-        arrow.addClass('up');
-      }
-
-      // if category is slided in
-      if((parentPage.getPosition(parentPage.getParent('div.block > h1')).y < 0)) {
-        // subCategoryArrowStart.setStyle('display','block');
-      } else {
-        // subCategoryArrowStart.setStyle('display','none');
-      }
-
-      // arrow.fade(0);
-      // arrow.get('tween').chain(function(){
-        arrow.setStyles({
-          'display': 'block',
-          'top': top,
-          'height': height
-        });
-        // arrow.fade(1);
-      // });
-
-      // arrow.morph({'top': top, 'height': subCategory.getPosition(listPagesBlock).y - top + 10});
-
-      if(arrow.getStyle('width') === '0px') {
-        arrow.setStyles({
-          'width': (countSubCategoryArrows * 20),
-          'left': -(countSubCategoryArrows * 20) - 4
-        });
-      }
-
-    });
-  };
-  subCategoryArrows();
-  // window.addEvent('scroll',moveArrow);
 
   // -------------------------------------------------------------------------------------------
   // LIST PAGES SORTABLE -----------------------------------------------------------------------
@@ -1565,7 +1569,7 @@ window.addEvent('domready', function() {
       //request(title,,,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
 
       // save the title
-      new Request({
+      new Request.HTML({
         url: feindura_basePath + 'library/controllers/frontendEditing.controller.php',
         method: 'post',
         data: 'save=true&type='+type+'&language='+title.retrieve('language')+'&category='+title.retrieve('category')+'&page='+title.retrieve('page')+'&data='+content,
@@ -1577,7 +1581,7 @@ window.addEvent('domready', function() {
             title.grab(jsLoadingCircle,'top');
           removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 8, 15, 12, 2, "#000");
         },
-        onSuccess: function(html) {
+        onSuccess: function(responseTree, responseElements, responseHTML) {
 
         // -> fade out the loadingCircle
         jsLoadingCircle.set('tween',{duration: 200});
@@ -1587,15 +1591,16 @@ window.addEvent('domready', function() {
         removeLoadingCircle();
         jsLoadingCircle.dispose();
 
-        if(html.contains('####SAVING-ERROR####'))
+        if(responseHTML.contains('####SAVING-ERROR####'))
           document.body.grab(feindura_showError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
         else {
           // -> UPDATE the TITLE everywhere
-          title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
-          $('edit_title').set('value',html);
-          var activeLink = $$('#rightSidebar menu.vertical a.active');
+          title.set('html', responseHTML+"<p id='rteMozFix' style='display:none'><br></p>");
+          var activeLink = $$('#rightSidebar menu.vertical.nonCategory a.active, #rightSidebar menu.vertical.category a.active');
           var star = activeLink.getElement('span');
-          activeLink.set('text',html);
+          activeLink.set('html',responseHTML);
+          // update input, with the value from the activeLink
+          $('edit_title').setProperty('value',activeLink.get('text'));
           activeLink.grab(star[0],'bottom');
           titleContent = $('editablePageTitle').get('html');
           // display document saved

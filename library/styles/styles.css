@@ -5227,7 +5227,7 @@
   background: url("../images/buttons/up.gif") no-repeat 0px 3px !important;
 }
 .feindura a.fastUp {
-  z-index: 1;
+  z-index: 3;
   position: fixed;
   left: 10px;
   top: 10px;
@@ -6295,7 +6295,7 @@
   position: absolute;
   margin-top: 2px;
   font-size: 12px;
-  max-height: 300px;
+  max-height: 200px;
   overflow: auto;
   border: 1px solid #999;
   border-top: none;

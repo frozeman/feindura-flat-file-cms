@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* controllers/websiteSetup.controller.php version 1.9
+* controllers/websiteSetup.controller.php version 2.0
 */
 
 /**
@@ -50,6 +50,24 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
   $newWebsiteConfig['multiLanguageWebsite']['mainLanguage'] = $_POST['websiteMainLanguage'];
   $newWebsiteConfig['multiLanguageWebsite']['languages']    = $_POST['websiteLanguages'];
 
+
+  // remove the sitemap files, if deactivated
+  if(empty($newWebsiteConfig['sitemapFiles'])) {
+    $websitePath = GeneralFunctions::getDirname($GLOBALS['adminConfig']['websitePath']);
+    $websitePath = (empty($websitePath)) ? '/': $websitePath;
+    $realWebsitePath = GeneralFunctions::getRealPath($websitePath);
+    if($realWebsitePath) {
+      @unlink($realWebsitePath.'/sitemap-index.xml');
+      $sitemapFileNumber = 1;
+      while(file_exists($realWebsitePath.'/sitemap-pages-'.$sitemapFileNumber.'.xml')) {
+        @unlink($realWebsitePath.'/sitemap-pages-'.$sitemapFileNumber.'.xml');
+        $sitemapFileNumber++;
+      }
+      unset($sitemapFileNumber);
+    }
+  } else {
+    saveSitemap(true);
+  }
 
 
   // ------------------------------------------------------------------

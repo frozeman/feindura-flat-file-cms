@@ -134,7 +134,7 @@ foreach($categoryConfig as $category) {
 
     // -> CATEGORY HEADLINE
     echo "\n\n".'<div class="block open listPagesBlock'.$hidden.'">';
-    	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
+        // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
       echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTipLeft" title="'.$categoryName.'::'.$categoryClass.$categoryTitle.'"><img src="'.$categoryIcon.'" class="blockH1Icon" alt="category icon" width="35" height="35"> '.$categoryName.'</span> '.$sorting.'</a></h1>
             <div class="categoryHeader">';
 
@@ -308,8 +308,8 @@ foreach($categoryConfig as $category) {
 $pagesWithSubCategories = array_reverse($pagesWithSubCategories); // to be able to show the tooltip of above arrows
 foreach ($pagesWithSubCategories as $pageWithSubCategory) {
   $categoryClass = ($pageWithSubCategory['category'] != 0) ? ' categories' : ' nonCategory';
-  $categoryNameInTitle = ($pageWithSubCategory['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$pageWithSubCategory['category']],'name').' &rArr; ' : '';
-  echo '<div class="subCategoryArrowLine toolTipLeft'.$categoryClass.'" data-parentPage="page'.$pageWithSubCategory['id'].'" data-category="category'.$pageWithSubCategory['category'].'" data-subCategory="category'.$pageWithSubCategory['subCategory'].'" title="::[div class=right][img src=library/images/icons/pageIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;]'.$categoryNameInTitle.GeneralFunctions::getLocalized($pageWithSubCategory,'title').'[br]&dArr;&nbsp;&nbsp;&nbsp;[br][img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;]'.GeneralFunctions::getLocalized($categoryConfig[$pageWithSubCategory['subCategory']],'name').'[/div]">
+  $categoryNameInTitle = ($pageWithSubCategory['category'] != 0) ? GeneralFunctions::getLocalized($categoryConfig[$pageWithSubCategory['category']],'name').'[br]&dArr;[br]' : '';
+  echo '<div class="subCategoryArrowLine toolTipLeft'.$categoryClass.'" data-parentPage="page'.$pageWithSubCategory['id'].'" data-category="category'.$pageWithSubCategory['category'].'" data-subCategory="category'.$pageWithSubCategory['subCategory'].'" title="::[div class=center][img src=library/images/icons/categoryIcon_small.png style=position:relative;margin-bottom:-10px;]'.$categoryNameInTitle.'[img src=library/images/icons/pageIcon_small.png style=position:relative;margin-bottom:-10px;]'.GeneralFunctions::getLocalized($pageWithSubCategory,'title').'[br]&dArr;[br][img src=library/images/icons/categoryIcon_subCategory_small.png style=position:relative;margin-bottom:-10px;]'.GeneralFunctions::getLocalized($categoryConfig[$pageWithSubCategory['subCategory']],'name').'[/div]">
   <div class="subCategoryInLineArrow"></div>
   </div>';
 }

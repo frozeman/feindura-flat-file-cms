@@ -16,7 +16,7 @@
  *
  * deletePage.php
  *
- * @version 1.0
+ * @version 1.2
  */
 
 /**
@@ -60,6 +60,9 @@ if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'
   // DELETING PAGE
   if(@unlink(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.php')) {
 
+    if(file_exists(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.previous.php'))
+      @unlink(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.previous.php');
+
     // delete statistics
     if(is_file(dirname(__FILE__).'/../../../statistic/pages/'.$page.'.statistics.php'))
       @unlink(dirname(__FILE__).'/../../../statistic/pages/'.$page.'.statistics.php');
@@ -72,6 +75,9 @@ if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'
 
     // reload the $pagesMetaData array
     GeneralFunctions::savePagesMetaData();
+
+    saveFeeds($pageContent['category']);
+    saveSitemap();
 
     $question = false;
     $redirect = '?site=pages&category='.$category.'&status=reload'.rand(1,99).'#categoryAnchor'.$category;

@@ -876,10 +876,11 @@ function checkSubCategories() {
  *
  * @return bool TRUE if the page was succesfull moved, otherwise FALSE
  *
- * @version 1.01
+ * @version 1.1
  * <br>
  * <b>ChangeLog</b><br>
- *    - 1.01 add create category folder, if not exiting
+ *    - 1.1 add moving the previous page too
+ *    - 1.0.1 add create category folder, if not exiting
  *    - 1.0 initial release
  *
  */
@@ -897,8 +898,16 @@ function movePage($page, $fromCategory, $toCategory) {
 
   // MOVE categories
   if(copy(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.php',
-    dirname(__FILE__).'/../../pages/'.$toCategory.$page.'.php') &&
+          dirname(__FILE__).'/../../pages/'.$toCategory.$page.'.php') &&
     unlink(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.php')) {
+
+    // move the previous page too
+    if(file_exists(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.previous.php')) {
+      copy(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.previous.php',
+           dirname(__FILE__).'/../../pages/'.$toCategory.$page.'.previous.php');
+      unlink(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.previous.php');
+    }
+
     // reset the stored page ids
     GeneralFunctions::$storedPages = null;
 
@@ -1446,22 +1455,24 @@ function saveActivityLog($task, $object = false) {
 *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
 *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
 *
+* @param bool $force (optional) When its true, it will save the sitemaps, even if the generation of sitemap files is deactivated.
 *
 * @return bool whether the saving of the sitemap was done or not
 *
 * @link http://www.sitemaps.org
-* @version 0.4
+* @version 0.5
 * <br>
 * <b>ChangeLog</b><br>
+*    - 0.5 add frequency detection, using the previousPage versions lastSaveDate
 *    - 0.4 changed modification time to "daily"
 *    - 0.3 moved to backend.functions.php
 *    - 0.2 return false if the real website path, couldn't be resolved
 *    - 0.1 initial release
 *
 */
-function saveSitemap() {
+function saveSitemap($force = false) {
 
-  if(!$GLOBALS['websiteConfig']['sitemapFiles'])
+  if(!$GLOBALS['websiteConfig']['sitemapFiles'] && $force === false)
     return false;
 
   // vars
@@ -1485,17 +1496,34 @@ function saveSitemap() {
   $sitemap->page('pages');
 
   // ->> adds the sitemap ENTRIES
-  foreach($sitemapPages as $sitemapPage) {
+  foreach($sitemapPages as $pageContent) {
+
+    $changeFreq = 'never';
+
+    // FIND THE RIGHT FREQUENCY
+    if($previousPage = GeneralFunctions::readPage($pageContent['id'],$pageContent['category'],true)) {
+      $daysInBetween = $pageContent['lastSaveDate'] - $previousPage['lastSaveDate'];
+      $daysInBetween = round($daysInBetween / 60 / 60 / 24,3);
+
+      if($daysInBetween >= 365)
+        $changeFreq = 'yearly';
+      elseif($daysInBetween >= 30)
+        $changeFreq = 'monthly';
+      elseif($daysInBetween >= 7)
+        $changeFreq = 'weekly';
+      elseif($daysInBetween < 1)
+        $changeFreq = 'hourly';
+    }
 
     // ->> if category is deactivated jump to the next item in the foreach loop
-    if($sitemapPage['category'] != 0 && !$GLOBALS['categoryConfig'][$sitemapPage['category']]['public'])
+    if($pageContent['category'] != 0 && !$GLOBALS['categoryConfig'][$pageContent['category']]['public'])
       continue;
 
-    if($sitemapPage['public']) {
+    if($pageContent['public']) {
       // generate page link
-      $link = GeneralFunctions::createHref($sitemapPage,false,$GLOBALS['websiteConfig']['multiLanguageWebsite']['mainLanguage'],true);
+      $link = GeneralFunctions::createHref($pageContent,false,$GLOBALS['websiteConfig']['multiLanguageWebsite']['mainLanguage'],true);
       // add page to sitemap
-      $sitemap->url($link, date('Y-m-d',$sitemapPage['lastSaveDate']), 'daily');
+      $sitemap->url($link, GeneralFunctions::getDateTimeValue($pageContent['lastSaveDate']), $changeFreq);
     }
   }
 
@@ -2008,7 +2036,7 @@ function showPageToolTip($pageContent) {
   // -> generate pageDate for toolTip
   if($pageDate = GeneralFunctions::showPageDate($pageContent)) {
     $pageTitle_pageDate = '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong][br]'.$pageDate.'[br]';
-  } else
+  } elseif($GLOBALS['categoryConfig'][$pageContent['category']]['showPageDate'])
     $pageTitle_pageDate = '[strong]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/strong][br][span class=red]'.$GLOBALS['langFile']['EDITOR_PAGESETTINGS_NOPAGEDATE'].'[/span][br]';
 
   // -> generate tags for toolTip
@@ -2226,14 +2254,14 @@ function formatHighNumber($number,$decimalsNumber = 0) {
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
  *    - <var>$SAVEDFORM</var> the variable to tell which form was saved (set in the {@link saveEditedFiles})
  *
- * @param string		$filesPath	         the absolute file system path to the files (also files in subfolders), which will be editable
- * @param string		$status		           a status name which will be set to the $_GET['status'] variable in the formular action attribute
- * @param string		$titleText	         a title text which will be displayed as the title of the edit files textfield
- * @param string		$anchorName	         the name of the anchor which will be added to the formular action attribute
- * @param string|false		$fileType      (optional) a filetype which will be added to each ne created file
- * @param string|array|false	$excluded	 (optional) a string (seperated with ",") or array with files or folder names which should be excluded from the file selection, if FALSE no file will be excluded
+ * @param string    $filesPath           the absolute file system path to the files (also files in subfolders), which will be editable
+ * @param string    $status              a status name which will be set to the $_GET['status'] variable in the formular action attribute
+ * @param string    $titleText           a title text which will be displayed as the title of the edit files textfield
+ * @param string    $anchorName          the name of the anchor which will be added to the formular action attribute
+ * @param string|false    $fileType      (optional) a filetype which will be added to each ne created file
+ * @param string|array|false  $excluded  (optional) a string (seperated with ",") or array with files or folder names which should be excluded from the file selection, if FALSE no file will be excluded
  *
- * @uses GeneralFunctions::readFolderRecursive()	reads the $filesPath folder recursive and loads all file paths in an array
+ * @uses GeneralFunctions::readFolderRecursive()  reads the $filesPath folder recursive and loads all file paths in an array
  *
  * @return void displayes the file edit textfield
  *
@@ -2321,40 +2349,40 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
       $files = $newFiles;
     }
 
-  	// ->> EXLUDES files or folders
-  	if($files && $excluded !== false) {
+    // ->> EXLUDES files or folders
+    if($files && $excluded !== false) {
 
-  	  // -> is string convert to array
-  	  if(is_string($excluded))
-  	    $excluded = explode(',',$excluded);
+      // -> is string convert to array
+      if(is_string($excluded))
+        $excluded = explode(',',$excluded);
 
-  	  if(is_array($excluded)) {
+      if(is_array($excluded)) {
         $newFiles = array();
 
-  	    foreach($files as $file) {
-  	      $foundToExclud = false;
-  	      // looks if any of a excluded file is found
-  	      foreach($excluded as $excl) {
-  	        if(strpos($file,$excl) !== false)
-  		        $foundToExclud = true;
-  	      }
+        foreach($files as $file) {
+          $foundToExclud = false;
+          // looks if any of a excluded file is found
+          foreach($excluded as $excl) {
+            if(strpos($file,$excl) !== false)
+              $foundToExclud = true;
+          }
 
-  	      // then exclud them
-  	      if($foundToExclud === false)
-  	        $newFiles[] = $file;
-  	    }
-  	    // set new files array to the old one
-  	    $files = $newFiles;
-  	  }
-  	}
-  	$isDir = true;
+          // then exclud them
+          if($foundToExclud === false)
+            $newFiles[] = $file;
+        }
+        // set new files array to the old one
+        $files = $newFiles;
+      }
+    }
+    $isDir = true;
 
-  	// only if still are files left
-  	if(is_array($files) && !empty($files)) {
-  	  $isFiles = true;
-  	  // sort the files in a natural way (alphabetical)
-  	  natsort($files);
-  	}
+    // only if still are files left
+    if(is_array($files) && !empty($files)) {
+      $isFiles = true;
+      // sort the files in a natural way (alphabetical)
+      natsort($files);
+    }
   // dont show files but show directory error
   } else {
     echo '<code>"'.$filesPath.'"</code> <b>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_NODIR'].'</b>';
@@ -2452,7 +2480,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
  *    - <var>$_POST</var> for the file data
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  *
- * @param string &$SAVEDFORM	to set which form was is saved
+ * @param string &$SAVEDFORM  to set which form was is saved
  *
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
  *
