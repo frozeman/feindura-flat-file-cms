@@ -118,8 +118,39 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 </head>
 <body>
 
-  <!-- loadingBox -->
+
+  <!-- ************************************************************************* -->
+  <!-- ** DOCUMENT SAVED ******************************************************* -->
+  <div id="documentSaved"<?php if($DOCUMENTSAVED === true) echo ' class="saved"'; ?>></div>
+
+  <!-- ************************************************************************* -->
+  <!-- ** LOADING BOX ********************************************************** -->
   <div id="loadingBox"></div>
+
+  <!-- LOADING BOX and DOCUMENT SAVED SCRIPTS -->
+  <script type="text/javascript">
+  /* <![CDATA[ */
+    var loadingBox = $('loadingBox');
+
+    // ->> SHOW the loading circle
+    if(!$('documentSaved').hasClass('saved')) {
+      onStartLoadingCircle();
+
+    // ->> hide loading circle, when it was not animated
+    } else if(loadingBox !== null) {
+      loadingBox.empty();
+      loadingBox.setStyle('display','none');
+      // loadingBox.setStyle('opacity','1');
+    }
+
+    // ->> if DOCUMENT SAVED has given the class from the php script
+    if($('documentSaved') !== null && $('documentSaved').hasClass('saved')) {
+      // display document saved
+      showDocumentSaved();
+    }
+  /* ]]> */
+  </script>
+
 
   <!-- Top Anchor -->
   <a id="top" class="anchorTarget"></a>
@@ -545,11 +576,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
         <span class="feinduraInline">fein<em>dura</em></span> - Flat File Content Management System, Copyright &copy; 2009-<?php echo date('Y'); ?> <a href="http://frozeman.de">Fabian Vogelsteller</a> - <span class="feinduraInline">fein<em>dura</em></span> is published under the <a href="LICENSE">GNU General Public License, version 3</a>
       </div>
   </footer>
-
-
-  <!-- ************************************************************************* -->
-  <!-- ** DOCUMENT SAVED ******************************************************* -->
-  <div id="documentSaved"<?php if($DOCUMENTSAVED === true) echo ' class="saved"'; ?>></div>
 
   <?php if($ERRORWINDOW !== false) { ?>
   <!-- ************************************************************************* -->

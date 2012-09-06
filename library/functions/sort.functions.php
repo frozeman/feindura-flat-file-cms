@@ -71,16 +71,29 @@ function sortAlphabetical($a, $b) {     // (Array) $a = current; $b = follwing v
 
 
 /**
- * <b>Name</b> sortByPageDate()<br>
+ * <b>Name</b> sortByStartDate()<br>
  *
  * Sort an Array with the pageContent Array by DATE TIMESTAMP.
  *
  */
-function sortByPageDate($a, $b) {     // (Array) $a = current; $b = follwing value
+function sortByStartDate($a, $b) {     // (Array) $a = current; $b = follwing value
 
   if ($a['pageDate']['start'] == $b['pageDate']['start'])
     return 0;
   return ($a['pageDate']['start'] > $b['pageDate']['start']) ? -1 : 1;
+}
+
+/**
+ * <b>Name</b> sortByEndDate()<br>
+ *
+ * Sort an Array with the pageContent Array by DATE TIMESTAMP.
+ *
+ */
+function sortByEndDate($a, $b) {     // (Array) $a = current; $b = follwing value
+
+  if ($a['pageDate']['end'] == $b['pageDate']['end'])
+    return 0;
+  return ($a['pageDate']['end'] > $b['pageDate']['end']) ? -1 : 1;
 }
 
 /**

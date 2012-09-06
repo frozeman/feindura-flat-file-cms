@@ -54,27 +54,12 @@ if(is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.php')) {
 }
 
 // DELETING PROCESS
-if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.php')) {
-  @chmod(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page, $adminConfig['permissions']);
+if($asking) {
 
   // DELETING PAGE
-  if(@unlink(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.php')) {
+  if(GeneralFunctions::deletePage($pageContent)) {
 
-    if(file_exists(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.previous.php'))
-      @unlink(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.previous.php');
-
-    // delete statistics
-    if(is_file(dirname(__FILE__).'/../../../statistic/pages/'.$page.'.statistics.php'))
-      @unlink(dirname(__FILE__).'/../../../statistic/pages/'.$page.'.statistics.php');
-    // delete thumbnail
-    if(!empty($pageContent['thumbnail']))
-      @unlink(dirname(__FILE__).'/../../../upload/thumbnails/'.$pageContent['thumbnail']);
-
-    GeneralFunctions::removeStoredPage($pageContent['id']); // REMOVES the $pageContent array from the $storedPages property
     saveActivityLog(2,strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))); // <- SAVE the task in a LOG FILE
-
-    // reload the $pagesMetaData array
-    GeneralFunctions::savePagesMetaData();
 
     saveFeeds($pageContent['category']);
     saveSitemap();

@@ -75,9 +75,10 @@ if($post['send'] == 'true') {
 
     $pluginCredits   = @file(dirname(__FILE__).'/../../../plugins/'.$post['plugin'].'/credits.yml');
 
-    $plugin['author']   = trim(str_replace('author:','',$pluginCredits[1]));
-    $plugin['website']  = trim(str_replace('website:','',$pluginCredits[2]));
-    $plugin['version']  = trim(str_replace('version:','',$pluginCredits[3]));
+    $plugin['author']       = trim(str_replace('author:','',$pluginCredits[1]));
+    $plugin['website']      = trim(str_replace('website:','',$pluginCredits[2]));
+    $plugin['version']      = trim(str_replace('version:','',$pluginCredits[3]));
+    $plugin['requirements'] = trim(str_replace('requirements:','',$pluginCredits[4]));
 
     $plugin['config'] = @include(dirname(__FILE__).'/../../../plugins/'.$post['plugin'].'/config.php');
     $plugin['langFile'] = @include(dirname(__FILE__).'/../../../plugins/'.$post['plugin'].'/languages/'.$pluginCountryCode.'.php');
@@ -131,6 +132,17 @@ if($post['send'] == 'true') {
               </div>
               <div class="span2">
               '.$plugin['version'].'
+              </div>
+            </div>';
+          }
+
+          if(!empty($plugin['requirements'])) {
+            echo '<div class="row">
+              <div class="span1 right">
+              <strong>'.$langFile['ADDONS_TEXT_REQUIREMENTS'].'</strong>
+              </div>
+              <div class="span2">
+              '.$plugin['requirements'].'
               </div>
             </div>';
           }

@@ -31,7 +31,7 @@ $items = false;
 if($feinduraNewsXml = simplexml_load_file('http://feindura.org/cms/pages/2/rss2.xml')) {
 
   foreach ($feinduraNewsXml->channel->item as $entries) {
-    // GeneralFunctions::dump($entries);
+    // DebugTools::dump($entries);
     $item['title'] = (string) $entries->title;
     $item['link'] = (string) $entries->link;
     $item['date'] = strtotime((string) $entries->pubDate);
@@ -50,7 +50,7 @@ if($feinduraNewsXml = simplexml_load_file('http://feindura.org/cms/pages/2/rss2.
 
 // display the links
 if(!empty($items)) {
-// GeneralFunctions::dump($items);
+// DebugTools::dump($items);
   echo '<div class="box">';
     echo '<h1><span class="feinduraInline">fein<em>dura</em></span> News</h1>';
     echo '<ul class="unstyled resizeOnHover center">';

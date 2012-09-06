@@ -85,8 +85,6 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['de
 // ****** ---------- SAVE USERS
 if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
 
-// GeneralFunctions::dump($_POST);
-
   // var
   $userPassChanged = false;
   $userPassError = false;
@@ -124,7 +122,6 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
 
   ksort($newUserConfig);
 
-// GeneralFunctions::dump($newUserConfig);
 
   if(saveUserConfig($newUserConfig)) {
 

@@ -58,7 +58,7 @@ if(!GeneralFunctions::hasPermission('fileManager'))
           path = path.replace('<?php echo GeneralFunctions::getDirname($adminConfig['websitePath']); ?>','');
         <?php } else { ?>
           // if absolute path, add the URIEXTENSION
-          path = '<?php GeneralFunctions::Path2URI(''); ?>' + path;
+          path = '<?php echo URIEXTENSION; ?>' + path;
         <?php } ?>
         window.opener.CKEDITOR.tools.callFunction('<?php echo $_GET["CKEditorFuncNum"]; ?>', path);
         window.close();

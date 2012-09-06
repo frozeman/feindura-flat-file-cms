@@ -14,13 +14,16 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* controllers/pageSetup.controller.php version 1.22
+* controllers/pageSetup.controller.php version 1.3
 */
 
 /**
  * Includes the login.include.php and backend.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
+// vars
+$categoriesForFeedSaving = array();
 
 
 // ---------------------------------------------------------------------------------------------------
@@ -158,6 +161,8 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
 // ****** ---------- MOVE CATEGORY
 if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) && is_numeric($_GET['category'])) {
 
+  $categoryName = GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name');
+
   // move the categories in the categories array
   if($_GET['status'] == 'moveCategoryUp')
     $direction = 'up';
@@ -166,7 +171,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 
   if(moveCategories($categoryConfig,$_GET['category'],$direction)) {
 
-    $NOTIFICATION .= '<div class="alert alert-success">'.$langFile['PAGESETUP_CATEGORY_TEXT_MOVECATEGORY_MOVED'].'<br><strong>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</strong></div>';
+    $NOTIFICATION .= '<div class="alert alert-success">'.$langFile['PAGESETUP_CATEGORY_TEXT_MOVECATEGORY_MOVED'].'<br><strong>'.$categoryName.'</strong></div>';
 
     // save the categories array
     if(saveCategories($categoryConfig)) {
@@ -176,6 +181,8 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
       $ERRORWINDOW .= sprintf($langFile['PAGESETUP_CATEGORY_ERROR_SAVE'],$adminConfig['basePath']);
 
   }
+
+  unset($categoryName,$direction);
 
   $SAVEDFORM = 'categories';
   $SAVEDSETTINGS = true;
@@ -193,9 +200,14 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
     $_POST['categories'][$categoryId]['isSubCategoryOf'] = $categoryConfig[$categoryId]['isSubCategoryOf'];
     $_POST['categories'][$categoryId]['localized']       = $categoryConfig[$categoryId]['localized'];
 
+    // add categories which have a changed feed status to the array
+    if($categoryConfig[$categoryId]['feeds'] != $_POST['categories'][$categoryId]['feeds'])
+      $categoriesForFeedSaving[] = $categoryId;
+
     // set the PAGE DATE TIME PERIOD to FALSE, if the PAGE DATE was DEACTIVATED
     if(!$_POST['categories'][$categoryId]['showPageDate']) {
       $_POST['categories'][$categoryId]['pageDateAsRange'] = false;
+
 
       // clear the page date on all pages in that category (DEACTIVATED, have t think about it)
       // $catPages = GeneralFunctions::loadPages($categoryId);
@@ -265,13 +277,9 @@ if($SAVEDSETTINGS) {
   // -> check isSubCategoryOf in categories and subCategory in pages
   checkSubCategories();
 
-  // -> delete old feeds
-  clearFeeds();
   // ->> save the FEEDS for categories, if activated
-  if(is_array($categoryConfig)) {
-    foreach($categoryConfig as $category)
-      saveFeeds($category['id']);
-  }
+  foreach($categoriesForFeedSaving as $categoryForFeedSaving)
+    saveFeeds($categoryForFeedSaving);
 
   // ->> save the SITEMAP
   saveSitemap();

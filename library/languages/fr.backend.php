@@ -829,6 +829,7 @@ $langFile['ADDONS_TITLE_ADDON']                                           = 'Sé
 $langFile['ADDONS_TEXT_AUTHOR']                                           = 'Auteur';
 $langFile['ADDONS_TEXT_WEBSITE']                                          = 'Site Web';
 $langFile['ADDONS_TEXT_VERSION']                                          = 'Version';
+$langFile['ADDONS_TEXT_REQUIREMENTS']                                     = 'Exigences';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

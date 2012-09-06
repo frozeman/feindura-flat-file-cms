@@ -2,6 +2,7 @@ name: exampleAddon
 author: Fabian Vogelsteller
 website: http://feindura.org
 version: 0.1
+requirements: Requires PHP 5.3
 
 # Keep the order of the keywords.
 # Dont remove any keyword. E.g if you have no website, leave it empty.

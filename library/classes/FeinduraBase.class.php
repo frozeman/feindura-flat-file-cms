@@ -914,7 +914,7 @@ class FeinduraBase {
       if(!$pageContent = GeneralFunctions::readPage($page,$category)) {
         // if could not load throw ERROR
         if($showErrors) {
-	        $return['content'] = $errorStartTag.$this->languageFile['PAGE_ERROR_NOPAGE'].$errorEndTag; // if not throw error and and the method
+          $return['content'] = $errorStartTag.$this->languageFile['PAGE_ERROR_NOPAGE'].$errorEndTag; // if not throw error and and the method
         }
 
         return $return;
@@ -1074,17 +1074,17 @@ class FeinduraBase {
   * <b>Note:</b> Activates the frontend editing (adds a span tag with feindura data).
   *
   * @param array   $pageContent                 the $pageContent Array of a page
-  * @param int	   $titleLength                 (optional) number of the maximal text length shown or FALSE to not shorten
+  * @param int     $titleLength                 (optional) number of the maximal text length shown or FALSE to not shorten
   * @param bool    $titleAsLink                 (optional) if TRUE, it creates the title as link
-  * @param bool	   $titleShowPageDate           (optional) if TRUE, it shows the page date before the title text
+  * @param bool    $titleShowPageDate           (optional) if TRUE, it shows the page date before the title text
   * @param bool    $titleShowCategory           (optional) if TRUE, it shows the category name before the title text, and uses the $titleShowCategory parameter string between both
   * @param string  $titleCategorySeparator      (optional) string to seperate the category name and the title text, if the $titleShowCategory parameter is TRUE
   * @param bool    $allowFrontendEditing        (optional) if TRUE it will allow frontendenditing, when it is activated and the user is logged in. If <var>$titleAsLink</var> is TRUE, frontend editing will be deactivated anyway.
   *
-  * @uses $categoryConfig			                        to check if showing the page date is allowed and for the category name
-  * @uses $languageFile				                        for showing "yesterday", "today" or "tomorrow" instead of a page date
-  * @uses shortenText()				                        to shorten the title text, if the $titleLength parameter is TRUE
-  * @uses createHref()				                        to create the href if the $titleAsLink parameter is TRUE
+  * @uses $categoryConfig                             to check if showing the page date is allowed and for the category name
+  * @uses $languageFile                               for showing "yesterday", "today" or "tomorrow" instead of a page date
+  * @uses shortenText()                               to shorten the title text, if the $titleLength parameter is TRUE
+  * @uses createHref()                                to create the href if the $titleAsLink parameter is TRUE
   * @uses GeneralFunctions::formatDate()            to format the title date for output
   * @uses GeneralFunctions::dateDayBeforeAfter()    check if the title date is "yesterday" "today" or "tomorrow"
   *
@@ -1187,7 +1187,7 @@ class FeinduraBase {
   *
   * @uses $adminConfig          for the thumbnail path
   * @uses $categoryConfig       to check if thumbnails are allowed for the th category of this page
-  * @uses createAttributes()		to create the attributes used in the thumbnail <img> tag
+  * @uses createAttributes()    to create the attributes used in the thumbnail <img> tag
   *
   * @return array|false the generated thumbnail <img> tag and a the plain thumbnail path or FALSE if no thumbnail exists or is not allowed to show
   *
@@ -1294,7 +1294,7 @@ class FeinduraBase {
 
       // add ATTRIBUTES
       if((is_string($attributes) || is_numeric($attributes)) && !empty($attributes))
-	      $attributeString .= ' '.$attributes;
+        $attributeString .= ' '.$attributes;
 
       return $attributeString;
   }
@@ -1316,10 +1316,10 @@ class FeinduraBase {
   * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
   *
-  * @uses isPageContentArray()		                 to check if the given array is a $pageContent array, if TRUE it just returns this array
+  * @uses isPageContentArray()                     to check if the given array is a $pageContent array, if TRUE it just returns this array
   * @uses GeneralFunctions::isPublicCategory()     to check if the category(ies) or page(s) category(ies) are public
-  * @uses GeneralFunctions::loadPages()	           to load pages
-  * @uses GeneralFunctions::readPage()	           to load a single page
+  * @uses GeneralFunctions::loadPages()            to load pages
+  * @uses GeneralFunctions::readPage()             to load a single page
   * @uses GeneralFunctions::getPageCategory()      to get the category of the page
   *
   * @return array|false an array with $pageContent array(s)
@@ -1353,8 +1353,8 @@ class FeinduraBase {
           // checks if the categories are public
           if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false) {
 
-	          // returns the loaded pages from the CATEGORY IDs
-	          // the pages in the returned array also get SORTED
+            // returns the loaded pages from the CATEGORY IDs
+            // the pages in the returned array also get SORTED
             return GeneralFunctions::loadPages($ids);
 
           } else return false;
@@ -1370,9 +1370,9 @@ class FeinduraBase {
       // ***************
       if($ids === true) {
 
-      	// checks if the categories are public
-      	if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false)
-      	  return GeneralFunctions::loadPages($ids);
+        // checks if the categories are public
+        if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false)
+          return GeneralFunctions::loadPages($ids);
 
       // -----------------------------------------
       // ->> pages IDs
@@ -1387,13 +1387,13 @@ class FeinduraBase {
 
           // loads all pages in an array
           foreach($ids as $page) {
-      	    // get category
-      	    $category = GeneralFunctions::getPageCategory($page);
-      	    if(($category = GeneralFunctions::isPublicCategory($category)) !== false) {
+            // get category
+            $category = GeneralFunctions::getPageCategory($page);
+            if(($category = GeneralFunctions::isPublicCategory($category)) !== false) {
               if($pageContent = GeneralFunctions::readPage($page,$category)) {
                 $return[] = $pageContent;
               }
-	          }
+            }
           }
         }
       // -----------------------------------------
@@ -1401,7 +1401,7 @@ class FeinduraBase {
       // ***************
       } elseif($ids && is_numeric($ids)) {
         $category = GeneralFunctions::getPageCategory($page);
-	      if(($category = GeneralFunctions::isPublicCategory($category)) !== false) {
+        if(($category = GeneralFunctions::isPublicCategory($category)) !== false) {
           // loads the single page in an array
           if($pageContent = GeneralFunctions::readPage($ids,$category)) {
             $return[] = $pageContent;
@@ -1524,14 +1524,14 @@ class FeinduraBase {
   * @param int|array|bool  $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
   * @param int|bool|string $from                  (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
   * @param int|bool|string $to                    (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
-  * @param bool            $sortPages      (optional) determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
-  * @param bool	           $reverseList           (optional) if TRUE the pages sorting will be reversed
+  * @param bool            $sortPages             (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE it sorts the pages by date (If date range: by start date). Can also be a sort function e.g. "sortByEndDate". See {@link sort.functions.php} for more.
+  * @param bool            $reverseList           (optional) if TRUE the pages sorting will be reversed
   *
   * @uses $categoryConfig                 to check if in the category is sorting by page date allowed
   * @uses getPropertyIdsByType()          to get the property IDs if the $ids parameter is FALSE
   * @uses loadPagesByType()               load the pages depending on the type
   * @uses changeDate()                    change the current date minus or plus the months from specified in the parameters
-  * @uses gernalFunctions::sortPages()		to sort the pages by page date
+  * @uses gernalFunctions::sortPages()    to sort the pages by page date
   *
   * @return array|false an array with the $pageContent arrays or FALSE if no page has a page date or is allowed for sorting
   *
@@ -1566,7 +1566,7 @@ class FeinduraBase {
       $futureDate = false;
 
       // creates the PAST DATE
-      if(is_string($from) && !is_numeric($from))
+      if(!is_bool($from) && is_string($from) && !is_numeric($from))
         $pastDate = strtotime($from,$currentDate);
       elseif(!is_bool($from) && is_numeric($from))
         $pastDate = strtotime('-'.$from.' month',$currentDate);
@@ -1574,7 +1574,7 @@ class FeinduraBase {
         $pastDate = $currentDate;
 
       // creates the FUTURE DATE
-      if(is_string($to) && !is_numeric($to))
+      if(!is_bool($to) && is_string($to) && !is_numeric($to))
         $futureDate = strtotime($to,$currentDate);
       if(!is_bool($to) && is_numeric($to))
         $futureDate = strtotime('+'.$to.' month',$currentDate);
@@ -1634,16 +1634,21 @@ class FeinduraBase {
         }
       }
 
-      // -> SORT the pages BY DATE
-      // sort by DATE and GIVEN ARRAY
-      // if($sortPages === false)
-        // usort($selectedPages,'sortByPageDate');
-
+      // -> SORT PAGES
       // sorts by DATE and CATEGORIES
-      if($sortPages)
-        $selectedPages = GeneralFunctions::sortPages($selectedPages);//'sortByPageDate'
+      if($sortPages === true) {
+        $selectedPages = GeneralFunctions::sortPages($selectedPages);
 
-      // -> flips the sorted array if $reverseList === true
+      // sort by given sort function
+      } elseif(is_string($sortPages) && function_exists($sortPages)) {
+        usort($selectedPages,$sortPages);
+
+      // sort by DATE
+      } else {
+        usort($selectedPages,'sortByStartDate');
+      }
+
+      // -> flips the pages array if $reverseList === true
       if($reverseList === true)
         $selectedPages = array_reverse($selectedPages);
 
@@ -1652,7 +1657,7 @@ class FeinduraBase {
       if(!empty($selectedPages))
         return $selectedPages;
       else
-	     return false;
+       return false;
 
 
     } else return false;
@@ -1671,8 +1676,8 @@ class FeinduraBase {
   * @param string|array   $tags             an string (seperated by ",") or an array with tags to compare
   * @param bool           $loadPageContent  whether or not to return <var>pageContent</var arrays or just the <var>$pagesMetaData</var> arrays
   *
-  * @uses loadPagesByType()	to load pages by the given ID(s) for comparision
-  * @uses compareTags()		to compare each tags between two strings
+  * @uses loadPagesByType() to load pages by the given ID(s) for comparision
+  * @uses compareTags()   to compare each tags between two strings
   *
   * @return array|false an array of $pageContent arrays or FALSE if no $pageContent array has any of the given tags
   *
@@ -1753,7 +1758,7 @@ class FeinduraBase {
   *
   * @param int|string|array|bool $ids    a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". (See example) (can also be a $pageContent array)
   *
-  * @uses getPropertyPage()		                           to get the right {@link Feindura::$page} property
+  * @uses getPropertyPage()                              to get the right {@link Feindura::$page} property
   * @uses GeneralFunctions::getPageCategory()            to get the category ID of the given page
   * @uses GeneralFunctions::getPagesMetaDataOfCategory() to load all pages in a category to find the right previous or next page and return it
   *
@@ -2295,4 +2300,3 @@ class FeinduraBase {
       return $output.$moreLink;
   }
 }
-?>

@@ -1,7 +1,7 @@
 <?php
 // RSS 0.90  Officially obsoleted by 1.0
 // RSS 0.91, 0.92, 0.93 and 0.94  Officially obsoleted by 2.0
-// So, define constants for RSS 1.0, RSS 2.0 and ATOM 	
+// So, define constants for RSS 1.0, RSS 2.0 and ATOM
 
 	define('RSS1', 'RSS 1.0', true);
 	define('RSS2', 'RSS 2.0', true);
@@ -11,9 +11,9 @@
  * Univarsel Feed Writer class
  *
  * Genarate RSS 1.0, RSS2.0 and ATOM Feed
- * 
+ *
  * Edited by Fabian Vogelsteller, to work with the feindura - flat file cms (http://feindura.org).
- *  
+ *
  * @package     UnivarselFeedWriter
  * @author      Anis uddin Ahmad <anisniit@gmail.com>
  * @link        http://www.ajaxray.com/projects/rss
@@ -24,28 +24,28 @@
 	 private $items         = array();  // Collection of items as object of FeedItem class.
 	 private $data          = array();  // Store some other version wise data
 	 private $CDATAEncoding = array();  // The tag names which have to encoded as CDATA
-	 
-	 private $version   = null; 
-	
+
+	 private $version   = null;
+
 	/**
 	* Constructor
-	* 
+	*
 	* @param    constant    the version constant (RSS1/RSS2/ATOM).
-	*/ 
+	*/
 	function __construct($version = RSS2)
-	{	
+	{
 		$this->version = $version;
-			
+
 		// Setting default value for assential channel elements
 		$this->channels['title']        = $version . ' Feed';
 		$this->channels['link']         = 'http://www.ajaxray.com/blog';
-				
+
 		//Tag names to encode in CDATA
 		$this->CDATAEncoding = array('description','title','content','content:encoded','summary');
 	}
 
 	// Start # public functions ---------------------------------------------
-	
+
 	/**
 	* Set a channel element
 	* @access   public
@@ -57,11 +57,11 @@
 	{
 		$this->channels[$elementName] = $content ;
 	}
-	
+
 	/**
-	* Set multiple channel elements from an array. Array elements 
+	* Set multiple channel elements from an array. Array elements
 	* should be 'channelName' => 'channelContent' format.
-	* 
+	*
 	* @access   public
 	* @param    array   array of channels
 	* @return   void
@@ -69,34 +69,34 @@
 	public function setChannelElementsFromArray($elementArray)
 	{
 		if(! is_array($elementArray)) return;
-		foreach ($elementArray as $elementName => $content) 
+		foreach ($elementArray as $elementName => $content)
 		{
 			$this->setChannelElement($elementName, $content);
 		}
 	}
-	
+
 	/**
 	* Genarate the actual RSS/ATOM file
-	* 
+	*
 	* @access   public
 	* @return   void
-	*/ 
+	*/
 	public function generateFeed()
 	{
 		//header("Content-type: text/xml");
-		
+
 		$return = '';
-		
+
 		$return .= $this->printHead();
 		$return .= $this->printChannels();
 		$return .= $this->printItems();
 		$return .= $this->printTale();
 		return $return;
 	}
-	
+
 	/**
 	* Create a new FeedItem.
-	* 
+	*
 	* @access   public
 	* @return   object  instance of FeedItem class
 	*/
@@ -106,10 +106,10 @@
 		$Item = new FeedItem($this->version);
 		return $Item;
 	}
-	
+
 	/**
 	* Add a FeedItem to the main class
-	* 
+	*
 	* @access   public
 	* @param    object  instance of FeedItem class
 	* @return   void
@@ -118,13 +118,13 @@
 	{
 		$this->items[] = $feedItem;
 	}
-	
-	
+
+
 	// Wrapper functions -------------------------------------------------------------------
-	
+
 	/**
 	* Set the 'title' channel element
-	* 
+	*
 	* @access   public
 	* @param    srting  value of 'title' channel tag
 	* @return   void
@@ -133,10 +133,10 @@
 	{
 		$this->setChannelElement('title', $title);
 	}
-	
+
 	/**
 	* Set the 'description' channel element
-	* 
+	*
 	* @access   public
 	* @param    srting  value of 'description' channel tag
 	* @return   void
@@ -145,10 +145,10 @@
 	{
 		$this->setChannelElement('description', $desciption);
 	}
-	
+
 	/**
 	* Set the 'link' channel element
-	* 
+	*
 	* @access   public
 	* @param    srting  value of 'link' channel tag
 	* @return   void
@@ -157,10 +157,10 @@
 	{
 		$this->setChannelElement('link', $link);
 	}
-	
+
 	/**
 	* Set the 'image' channel element
-	* 
+	*
 	* @access   public
 	* @param    srting  title of image
 	* @param    srting  link url of the imahe
@@ -171,26 +171,26 @@
 	{
 		$this->setChannelElement('image', array('title'=>$title, 'link'=>$link, 'url'=>$url));
 	}
-	
+
 	/**
 	* Set the 'about' channel element. Only for RSS 1.0
-	* 
+	*
 	* @access   public
 	* @param    srting  value of 'about' channel tag
 	* @return   void
 	*/
 	public function setChannelAbout($url)
 	{
-		$this->data['ChannelAbout'] = $url;    
+		$this->data['ChannelAbout'] = $url;
 	}
-	
+
   /**
   * Genarates an UUID
   * @author     Anis uddin Ahmad <admin@ajaxray.com>
   * @param      string  an optional prefix
   * @return     string  the formated uuid
   */
-  public function uuid($key = null, $prefix = '') 
+  public function uuid($key = null, $prefix = '')
   {
 	$key = ($key == null)? uniqid(rand()) : $key;
 	$chars = md5($key);
@@ -203,26 +203,26 @@
 	return $prefix . $uuid;
   }
 	// End # public functions ----------------------------------------------
-	
+
 	// Start # private functions ----------------------------------------------
-	
+
 	/**
 	* Prints the xml and rss namespace
-	* 
+	*
 	* @access   private
 	* @return   void
 	*/
 	private function printHead()
 	{
 		$out  = '<?xml version="1.0" encoding="utf-8"?>' . "\n";
-		
+
 		if($this->version == RSS2)
 		{
 			$out .= '<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/">' . PHP_EOL;
-		}    
+		}
 		elseif($this->version == RSS1)
 		{
-			$out .= '<rdf:RDF 
+			$out .= '<rdf:RDF
 					 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 					 xmlns="http://purl.org/rss/1.0/"
 					 xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -230,14 +230,14 @@
 		}
 		else if($this->version == ATOM)
 		{
-			$out .= '<feed xmlns="http://www.w3.org/2005/Atom">' . PHP_EOL;;
+			$out .= '<feed xmlns="http://www.w3.org/2005/Atom">' . PHP_EOL;
 		}
 		return $out;
 	}
-	
+
 	/**
 	* Closes the open tags at the end of file
-	* 
+	*
 	* @access   private
 	* @return   void
 	*/
@@ -245,8 +245,8 @@
 	{
 		if($this->version == RSS2)
 		{
-			return '</channel>' . PHP_EOL . '</rss>'; 
-		}    
+			return '</channel>' . PHP_EOL . '</rss>';
+		}
 		elseif($this->version == RSS1)
 		{
 			return '</rdf:RDF>';
@@ -255,12 +255,12 @@
 		{
 			return '</feed>';
 		}
-	  
+
 	}
 
 	/**
 	* Creates a single node as xml format
-	* 
+	*
 	* @access   private
 	* @param    srting  name of the tag
 	* @param    mixed   tag value as string or array of nested tags in 'tagName' => 'tagValue' format
@@ -268,30 +268,30 @@
 	* @return   string  formatted xml tag
 	*/
 	private function makeNode($tagName, $tagContent, $attributes = null)
-	{        
+	{
 		$nodeText = '';
 		$attrText = '';
 
 		if(is_array($attributes))
 		{
-			foreach ($attributes as $key => $value) 
+			foreach ($attributes as $key => $value)
 			{
 				$attrText .= " $key=\"$value\" ";
 			}
 		}
-		
+
 		if(is_array($tagContent) && $this->version == RSS1)
 		{
 			$attrText = ' rdf:parseType="Resource"';
 		}
-		
-		
+
+
 		$attrText .= (in_array($tagName, $this->CDATAEncoding) && $this->version == ATOM)? ' type="html" ' : '';
 		$nodeText .= (in_array($tagName, $this->CDATAEncoding))? "<{$tagName}{$attrText}><![CDATA[" : "<{$tagName}{$attrText}>";
-		 
+
 		if(is_array($tagContent))
-		{ 
-			foreach ($tagContent as $key => $value) 
+		{
+			foreach ($tagContent as $key => $value)
 			{
 				$nodeText .= $this->makeNode($key, $value);
 			}
@@ -299,13 +299,13 @@
 		else
 		{
 			$nodeText .= (in_array($tagName, $this->CDATAEncoding))? $tagContent : htmlentities($tagContent);
-		}           
-			
+		}
+
 		$nodeText .= (in_array($tagName, $this->CDATAEncoding))? "]]></$tagName>" : "</$tagName>";
 
 		return $nodeText . PHP_EOL;
 	}
-	
+
 	/**
 	* @desc     Print channels
 	* @access   private
@@ -314,22 +314,22 @@
 	private function printChannels()
 	{
 	  $return = '';
-	   
+
 		//Start channel tag
-		switch ($this->version) 
+		switch ($this->version)
 		{
-		   case RSS2: 
-				$return .= '<channel>' . PHP_EOL;        
+		   case RSS2:
+				$return .= '<channel>' . PHP_EOL;
 				break;
-		   case RSS1: 
+		   case RSS1:
 				$return .= (isset($this->data['ChannelAbout']))? "<channel rdf:about=\"{$this->data['ChannelAbout']}\">" : "<channel rdf:about=\"{$this->channels['link']}\">";
 				break;
 		}
-		
+
 		//Print Items of channel
-		foreach ($this->channels as $key => $value) 
+		foreach ($this->channels as $key => $value)
 		{
-			if($this->version == ATOM && $key == 'link') 
+			if($this->version == ATOM && $key == 'link')
 			{
 				// ATOM prints link element as href attribute
 				$return .= $this->makeNode($key,'',array('href'=>$value));
@@ -339,53 +339,53 @@
 			else
 			{
 				$return .= $this->makeNode($key, $value);
-			}    
-			
+			}
+
 		}
-		
-		//RSS 1.0 have special tag <rdf:Seq> with channel 
+
+		//RSS 1.0 have special tag <rdf:Seq> with channel
 		if($this->version == RSS1)
 		{
 			$return .= "<items>" . PHP_EOL . "<rdf:Seq>" . PHP_EOL;
-			foreach ($this->items as $item) 
+			foreach ($this->items as $item)
 			{
 				$thisItems = $item->getElements();
 				$return .= "<rdf:li resource=\"{$thisItems['link']['content']}\"/>" . PHP_EOL;
 			}
 			$return .= "</rdf:Seq>" . PHP_EOL . "</items>" . PHP_EOL . "</channel>" . PHP_EOL;
 		}
-		
+
 		return $return;
 	}
-	
+
 	/**
 	* Prints formatted feed items
-	* 
+	*
 	* @access   private
 	* @return   void
 	*/
 	private function printItems()
-	{  
-    $return = ''; 
+	{
+    $return = '';
 		foreach ($this->items as $item) {
-			
+
       $thisItems = $item->getElements();
-			
-			//the argument is printed as rdf:about attribute of item in rss 1.0 
+
+			//the argument is printed as rdf:about attribute of item in rss 1.0
 			$return .= $this->startItem($thisItems['link']['content']);
-			
-			foreach ($thisItems as $feedItem ) 
+
+			foreach ($thisItems as $feedItem )
 			{
-				$return .= $this->makeNode($feedItem['name'], $feedItem['content'], $feedItem['attributes']); 
+				$return .= $this->makeNode($feedItem['name'], $feedItem['content'], $feedItem['attributes']);
 			}
 			$return .= $this->endItem();
 		}
 		return $return;
 	}
-	
+
 	/**
 	* Make the starting tag of channels
-	* 
+	*
 	* @access   private
 	* @param    srting  The vale of about tag which is used for only RSS 1.0
 	* @return   void
@@ -394,8 +394,8 @@
 	{
 		if($this->version == RSS2)
 		{
-			return '<item>' . PHP_EOL; 
-		}    
+			return '<item>' . PHP_EOL;
+		}
 		elseif($this->version == RSS1)
 		{
 			if($about)
@@ -410,12 +410,12 @@
 		elseif($this->version == ATOM)
 		{
 			return "<entry>" . PHP_EOL;
-		}    
+		}
 	}
-	
+
 	/**
 	* Closes feed item tag
-	* 
+	*
 	* @access   private
 	* @return   void
 	*/
@@ -423,16 +423,16 @@
 	{
 		if($this->version == RSS2 || $this->version == RSS1)
 		{
-			return '</item>' . PHP_EOL; 
-		}    
+			return '</item>' . PHP_EOL;
+		}
 		else if($this->version == ATOM)
 		{
 			return "</entry>" . PHP_EOL;
 		}
 	}
-	
 
-	
+
+
 	// End # private functions ----------------------------------------------
-	
+
  } // end of class FeedWriter

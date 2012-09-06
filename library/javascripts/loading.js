@@ -103,31 +103,10 @@ window.addEvent('domready', function() {
   // inject the dimmContainer for the backend
   dimmContainer.inject(document.body,'top');
 
-  var loadingBox = $('loadingBox');
-
-  // ->> SHOW the loading circle
-  if(loadingBox !== null &&
-     $('documentSaved') !== null && !$('documentSaved').hasClass('saved')) {
-
-    onStartLoadingCircle();
-
-  // ->> hide loading circle, when it was not animated
-  } else if(loadingBox !== null) {
-    loadingBox.empty();
-    loadingBox.setStyle('display','none');
-    // loadingBox.setStyle('opacity','1');
-  }
-
   // IE HACK for dimmContainer
 	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/) && dimmContainer !== null) {
 		dimmContainer.setStyle('height',$(document.body).offsetHeight); //,$('window').getSize().y);
 	}
-
-  // ->> if DOCUMENT SAVED has given the class from the php script
-  if($('documentSaved') !== null && $('documentSaved').hasClass('saved')) {
-    // display document saved
-    showDocumentSaved();
-  }
 });
 
 // LOADING-CIRCLE when the website will be left

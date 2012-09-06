@@ -64,7 +64,7 @@ if(is_numeric($_POST['page']) && !empty($_POST['type']) && is_array($_POST['data
         $pluginName = substr($plugins, 0 ,strpos($plugins, '#'));
         $pluginConfig = @include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/config.php');
 
-        // GeneralFunctions::dump($pluginConfig);
+        // DebugTools::dump($pluginConfig);
 
         // add new plugins, but prevent to overwrite existing ones
         if(is_array($pluginsBefore[$pluginName][$pluginNumber]))

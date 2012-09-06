@@ -138,6 +138,8 @@ $hidden = ($SAVEDFORM !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
   <h1 class="brown"><a href="#"><img src="library/images/icons/pageIcon_middle.png" class="blockH1Icon" alt="non category icon" width="35" height="35"><?php echo $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']; ?></a></h1>
   <div class="content form">
 
+    <input type="hidden" name="categories[0][public]" value="true">
+
     <div class="row">
       <div class="span4">
 

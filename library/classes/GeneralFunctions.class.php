@@ -29,9 +29,10 @@
 *
 * @package [Implementation]-[Backend]
 *
-* @version 1.4.1
+* @version 1.5
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 1.5 moved {@link GeneralFunctions::dump()} and {@link GeneralFunctions::scriptBenchmark()} to the {@link DebugTools} class
 *    - 1.4.1 add {@link GeneralFunctions::dump()}
 *    - 1.4 add {@link GeneralFunctions::replaceSnippets()}
 *    - 1.3.1 add schemes to htmlLawed
@@ -147,17 +148,6 @@ class GeneralFunctions {
   */
   private static $isAdmin = null;
 
-
- /**
-  * {@link GeneralFunctions::scriptBenchmark()} variables
-  *
-  *
-  * @static
-  * @var number
-  *
-  */
-  private static $scriptBenchmarkTime = null;
-  private static $scriptBenchmarkPoint = 0;
 
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** CONSTRUCTOR *** */
@@ -1080,6 +1070,71 @@ class GeneralFunctions {
   }
 
  /**
+  * <b>Name</b> deletePage()<br>
+  *
+  * Deletes a page and all depencies of it.
+  *
+  *
+  *
+  * @param array|int        $page               an page id, or the $pageContent array of a page
+  * @param int|false        $catgory            (optional) the pages category id, or false to let it determine automatically
+  * @param bool             $savePagesMetaData  (optional) it FALSE it won't save the $pagesMetaData array
+  *
+  * @uses $adminConfig      for the save path of the flatfiles
+  * @uses addStoredPage()  to store the saved file agiain, and overwrite th old stored page
+  *
+  * @return bool TRUE if the page was succesfull deleted, otherwise FALSE
+  *
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public static function deletePage($page,$catgory = false,$savePagesMetaData = true) {
+
+    if(self::isPageContentArray($page)) {
+      $pageContent = $page;
+    } else {
+      if($catgory === false)
+        $catgory = self::getPageCategory($page);
+      $pageContent = self::readPage($page,$catgory);
+    }
+
+
+    // vars
+    $categoryPath = ($pageContent['category'] == 0) ? '' : $pageContent['category'].'/';
+
+    if(is_file(dirname(__FILE__).'/../../pages/'.$categoryPath.$pageContent['id'].'.php') &&
+      // @chmod(dirname(__FILE__).'/../../pages/'.$categoryPath.$page, $adminConfig['permissions']) &&
+       @unlink(dirname(__FILE__).'/../../pages/'.$categoryPath.$pageContent['id'].'.php')) {
+
+      // delete previous page
+      if(file_exists(dirname(__FILE__).'/../../pages/'.$categoryPath.$pageContent['id'].'.previous.php'))
+        @unlink(dirname(__FILE__).'/../../pages/'.$categoryPath.$pageContent['id'].'.previous.php');
+
+      // delete statistics
+      if(is_file(dirname(__FILE__).'/../../statistic/pages/'.$pageContent['id'].'.statistics.php'))
+        @unlink(dirname(__FILE__).'/../../../statistic/pages/'.$pageContent['id'].'.statistics.php');
+
+      // delete thumbnail
+      if(!empty($pageContent['thumbnail']))
+        @unlink(dirname(__FILE__).'/../../upload/thumbnails/'.$pageContent['thumbnail']);
+
+      self::removeStoredPage($pageContent['id']); // REMOVES the $pageContent array from the $storedPages property
+
+      // resave the $pagesMetaData array
+      if($savePagesMetaData)
+        self::savePagesMetaData();
+
+      return true;
+    } else
+      return false;
+
+  }
+
+ /**
   * <b>Name</b> savePage()<br>
   *
   * Save a page to it's flatfile.
@@ -1801,7 +1856,9 @@ class GeneralFunctions {
   *
   * Returns either a single page date or a date range formated, ready to display in an HTML page.
   *
-  * @param array $pageContent the $pageContent array of a page
+  * @param array       $pageContent       the $pageContent array of a page
+  * @param array|false $langFile          (optional) a language file to use, if FALSE it uses the global $langFile variable.
+  * @param bool        $useDayBeforeAfter (optional) is TRUE it uses the names Today,Tomorrow, Yesterday these dates, if FALSE it always uses just dates.
   *
   * @uses $categoryConfig to check if in the category the page date is activated
   *
@@ -1814,13 +1871,13 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function showPageDate($pageContent,$langFile = false) {
+  public static function showPageDate($pageContent,$langFile = false,$useDayBeforeAfter = true) {
 
     // quit if deactivated
     if(!self::$categoryConfig[$pageContent['category']]['showPageDate'])
       return false;
 
-    if($langFile === false)
+    if($langFile === false || !is_array($langFile))
       $langFile = $GLOBALS['langFile'];
 
     // DATE RANGE
@@ -1836,24 +1893,26 @@ class GeneralFunctions {
             if(date('d',$pageContent['pageDate']['start']) == date('d',$pageContent['pageDate']['end']))
               $startDate = false;
             else
-              $startDate = self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile,'D');
+              $startDate = ($useDayBeforeAfter) ? self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile,'D') : self::formatDate($pageContent['pageDate']['start'],'D');
           else
-            $startDate = self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile,'DM');
+            $startDate = ($useDayBeforeAfter) ? self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile,'DM') : self::formatDate($pageContent['pageDate']['start'],'DM');
         // full start date
         } else
-          $startDate = self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile);
+          $startDate = ($useDayBeforeAfter) ? self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile) : self::formatDate($pageContent['pageDate']['start']);
 
-        return ($startDate)
-          ? $startDate.' - '.self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile)
-          : self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile);
+        $endDate = ($useDayBeforeAfter) ? self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile) : self::formatDate($pageContent['pageDate']['end']);
+
+        return (!empty($startDate))
+          ? $startDate.' - '.$endDate
+          : $endDate;
 
       // ONLY LAST date EXIST (unlikely)
       } else
-        return self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile);
+        return ($useDayBeforeAfter) ? self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile) : self::formatDate($pageContent['pageDate']['end']);
 
     // SINGLE DATE
     } elseif(!empty($pageContent['pageDate']['start'])) {
-        return self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile);
+        return ($useDayBeforeAfter) ? self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile) : self::formatDate($pageContent['pageDate']['start']);
     } else
         return false;
   }
@@ -1968,7 +2027,7 @@ class GeneralFunctions {
 
 
     if(preg_match_all ('#<img(?:(?!class).)*class\=\"(feinduraSnippet|feinduraPlugin)\"(?:(?:(?!style).)*style\=\"((?:(?!").)*)")?(?:(?!title).)*title\="((?:(?!").)*)"(?:(?!>).)*>#i', $feindura_pageContentString, $matches,PREG_SET_ORDER)) {
-      // self::dump($matches);
+      // DebugTools::dump($matches);
 
       // replace each link
       foreach($matches as $feindura_match) {
@@ -2221,17 +2280,18 @@ class GeneralFunctions {
   * The following sort public static functions can be used for the <var>$sortBy</var> parameter:<br>
   *   - "sortBySortOrder"
   *   - "sortAlphabetical"
-  *   - "sortByPageDate"
+  *   - "sortByStartDate"
+  *   - "sortByEndDate"
   *   - "sortByCategory"
   *   - "sortByLastSaveDate"
   *
   * @param array        $pageContentArrays  the $pageContent array of a page
-  * @param string|false $sortBy             (optional) the name of the sort public static function, if FALSE it uses automaticly the right sort-public static function of the category
+  * @param string|false $sortBy             (optional) the name of the sort function to use, if FALSE it uses automatically the right sort-public static function for the category
   *
   * @uses GeneralFunctions::$categoryConfig        to find the right sort method for every category
   * @uses isPageContentArray()   to check if the given $pageContent arrays are valid
   * @uses sortBySortOrder()      to sort the pages by sortorder
-  * @uses sortByPageDate()       to sort the pages by page date
+  * @uses sortByStartDate()       to sort the pages by page date
   *
   * @return array the sorted array with the $pageContent arrays
   *
@@ -2282,16 +2342,20 @@ class GeneralFunctions {
         if(isset($categoriesArray[0]))
           $category = $categoriesArray[0]['category'];
 
+
         // SORTS the category the GIVEN SORTFUNCTION
-        if($sortBy === false) {
+        if(is_string($sortBy) && function_exists($sortBy)) {
+            usort($categoriesArray, $sortBy);
+
+        // or BY the CATEGORY sort function
+        } else {
           if(self::$categoryConfig[$category]['sorting'] == 'byPageDate')
-            usort($categoriesArray, 'sortByPageDate');
+            usort($categoriesArray, 'sortByStartDate');
           elseif(self::$categoryConfig[$category]['sorting'] == 'alphabetical')
             usort($categoriesArray, 'sortAlphabetical');
           else
             usort($categoriesArray, 'sortBySortOrder');
-        } else
-            usort($categoriesArray, $sortBy);
+        }
 
         // reverse the category, if its in the options
         if(self::$categoryConfig[$category]['sortReverse'])
@@ -2962,108 +3026,5 @@ class GeneralFunctions {
       }
       $json = str_replace(array("&#92;", "&#34;", "$"), array("\\\\", "\\\"", "\\$"), implode("", $parts));
       return eval("return $json;");
-  }
-
- /**
-  * <b>Name</b> scriptBenchmark()<br>
-  *
-  * Shows th time the scipt need between this call and the last call of this function.
-  * And shows the memory usage at the point of the script where this public static function is called.
-  *
-  * @return string the time needed
-  *
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  *
-  */
-  function scriptBenchmark() {
-    $return = '<br>*** BENCHMARK ***<br>Time: ';
-
-    // ->> time
-    $timer = explode( ' ', microtime() );
-    $timer = $timer[1] + $timer[0];
-
-    if(self::$scriptBenchmarkTime) {
-      ++self::$scriptBenchmarkPoint;
-      $return .= round($timer - self::$scriptBenchmarkTime,4).' seconds on point: '.self::$scriptBenchmarkPoint.'<br>';
-      // self::$debug_showTime = $timer;
-
-    // first run
-    } else {
-      self::$scriptBenchmarkPoint = 0;
-      self::$scriptBenchmarkTime = $timer;
-      $return .= round($timer,4).' start time<br>';
-    }
-
-    // ->> memory
-    $mem_usage = memory_get_usage(true);
-
-    $return .= 'Memory: ';//.$mem_usage.' -> ';
-
-    if ($mem_usage < 1024)
-        $return .= $mem_usage." bytes";
-    elseif ($mem_usage < 1048576)
-        $return .= round($mem_usage/1024,2)." kilobytes";
-    else
-        $return .= round($mem_usage/1048576,2)." megabytes";
-
-    $return .= '<br>';
-    return $return;
-  }
-
-   /**
-  * <b>Name</b> dump()<br>
-  *
-  * Simply lists arrays or echo an string inside a box, to see the content of a variable.
-  * It will add a <br> after each value so it can be better read.
-  *
-  * @param mixed $values all kinds of variables, which should be displayed
-  * @param bool  $shouldReturn (optional) whether or not the content should be displayed or returned.
-  *
-  * @return string a <div> block with the given values, nicly printed
-  *
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  *
-  */
-  function dump($values, $shouldReturn = false) {
-
-    // vars
-    $return = '';
-
-    if(is_array($values)) {
-      $return  .= 'Array:<br>';
-      $return .= '<pre>';
-      $return .= print_r($values,true);
-      $return .= '</pre>';
-    } elseif(is_object($values)) {
-      $return  .= 'Object:<br>';
-      $return .= '<pre>';
-      $return .= print_r($values,true);
-      $return .= '</pre>';
-    } elseif(is_bool($values)) {
-      $values = ($values) ? 'TRUE' : 'FALSE';
-      $return = "Bool: ".$values."<br>";
-    } elseif(is_numeric($values)) {
-      $return = "Numeric: ".$values."<br>";
-    } elseif(!empty($values)) {
-      $return = "'".$values."'<br>";
-    } elseif(empty($values)) {
-      $return = "EMPTY<br>";
-    } else
-      $return = "'".$values."'<br>";
-
-    $return = '<div style="background-color:white !important;color:black !important; padding: 10px;font-size: 14px;"><strong>Dump</strong><br><br>'.$return.'</div>';
-
-    if($shouldReturn)
-      return $return;
-    else
-      echo $return;
   }
 }

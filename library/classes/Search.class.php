@@ -292,7 +292,7 @@ class Search {
       $pattern = XssFilter::text($pattern);
       $pattern = ($pattern != '') ? '#'.$pattern.'#i' : '#a^#';
 
-      // GeneralFunctions::dump($pattern);
+      // DebugTools::dump($pattern);
 
       // ->> GET LANGUAGE ot SEARCH
       // -> get ALL LANGUAGES

@@ -878,6 +878,7 @@ $langFile['ADDONS_TITLE_ADDON']                                           = 'В�
 $langFile['ADDONS_TEXT_AUTHOR']                                           = 'Автор';
 $langFile['ADDONS_TEXT_WEBSITE']                                          = 'Сайт';
 $langFile['ADDONS_TEXT_VERSION']                                          = 'Версия';
+$langFile['ADDONS_TEXT_REQUIREMENTS']                                     = 'Требование';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

@@ -417,11 +417,19 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
   // setup the AUTOMATICALLY ADDING OF the ANCHORS
   setupForm('editorForm');
 
+
+  // hide .restorePageButtonBox after a while
+  var restoreBoxTimeout = (function(){
+    $$('.restorePageButtonBox').tween('margin-top','-20px')
+  }).delay(5000);
+
   $$('.restorePageButtonBox').addEvents({
     'mouseenter': function(){
+      clearTimeout(restoreBoxTimeout);
       this.tween('margin-top','-55px');
     },
     'mouseleave': function(){
+      clearTimeout(restoreBoxTimeout);
       this.tween('margin-top','-20px');
     }
   });

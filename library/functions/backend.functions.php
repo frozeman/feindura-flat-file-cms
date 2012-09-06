@@ -897,15 +897,13 @@ function movePage($page, $fromCategory, $toCategory) {
     mkdir(dirname(__FILE__).'/../../pages/'.$toCategory,$GLOBALS['adminConfig']['permissions'],true);
 
   // MOVE categories
-  if(copy(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.php',
-          dirname(__FILE__).'/../../pages/'.$toCategory.$page.'.php') &&
-    unlink(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.php')) {
+  if(rename(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.php',
+            dirname(__FILE__).'/../../pages/'.$toCategory.$page.'.php')) {
 
     // move the previous page too
     if(file_exists(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.previous.php')) {
-      copy(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.previous.php',
-           dirname(__FILE__).'/../../pages/'.$toCategory.$page.'.previous.php');
-      unlink(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.previous.php');
+       rename(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.previous.php',
+              dirname(__FILE__).'/../../pages/'.$toCategory.$page.'.previous.php');
     }
 
     // reset the stored page ids
@@ -1277,24 +1275,25 @@ function saveSpeakingUrl(&$ERRORWINDOW) {
   $oldCategoryName = $GLOBALS['adminConfig']['varName']['category'];
 
   // (?:[\/a-z0-9_-]*/{1})?  <- is only to add parent pages
-  $categoryRegEx = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?%s/([a-zA-Z0-9_-]+)/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
-  $pageRegEx     = 'RewriteRule ^(?:([a-zA-Z]{2})/{1})?%s/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
+  $categoryRegEx = '  RewriteRule ^(?:([a-zA-Z]{2})/{1})?%s/([a-zA-Z0-9_-]+)/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
+  $pageRegEx     = '  RewriteRule ^(?:([a-zA-Z]{2})/{1})?%s/(?:[\/a-zA-Z0-9_-]*/{1})?([a-zA-Z0-9_-]+).*?$ ';
 
   $newRewriteRule  = sprintf($pageRegEx,$newPageName).GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?page=$2&language=$1 [QSA,L]'."\n";
   $newRewriteRule .= sprintf($categoryRegEx,$newCategoryName).GeneralFunctions::Path2URI(XssFilter::path($_POST['cfg_websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]';
   $oldRewriteRule  = sprintf($pageRegEx,$oldPageName).GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?page=$2&language=$1 [QSA,L]'."\n";
   $oldRewriteRule .= sprintf($categoryRegEx,$oldCategoryName).GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]';
 
-  $speakingUrlCode = '#
+  $speakingUrlCode = '
+#
 # feindura - Flat File CMS -> speakingURL activation
 #
 <IfModule mod_rewrite.c>
-RewriteEngine on
-RewriteBase /
-# rewrite "/page/example-page" and "/category/example-category/example-page"
-# and also passes the session var
-RewriteCond %{REQUEST_URI} !\.(css|jpg|gif|png|js)$ [NC] #do the stuff that follows only if the request doesnt end in one of these file extensions.
-RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http://','https://'),'',$_SERVER["HTTP_HOST"]).'$
+  RewriteEngine on
+  RewriteBase /
+  # rewrite "/page/example-page" and "/category/example-category/example-page"
+  # also passes the session var
+  RewriteCond %{REQUEST_URI} !\.(css|jpg|gif|png|js)$ [NC] #do the stuff that follows only if the request doesnt end in one of these file extensions.
+  RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http://','https://'),'',$_SERVER["HTTP_HOST"]).'$
 '.$newRewriteRule.'
 </IfModule>';
 
@@ -1503,7 +1502,7 @@ function saveSitemap($force = false) {
     // FIND THE RIGHT FREQUENCY
     if($previousPage = GeneralFunctions::readPage($pageContent['id'],$pageContent['category'],true)) {
       $daysInBetween = $pageContent['lastSaveDate'] - $previousPage['lastSaveDate'];
-      $daysInBetween = round($daysInBetween / 60 / 60 / 24,3);
+      $daysInBetween = abs(round($daysInBetween / 60 / 60 / 24,3));
 
       if($daysInBetween >= 365)
         $changeFreq = 'yearly';
@@ -1608,9 +1607,8 @@ function clearFeeds() {
  */
 function saveFeeds($category) {
 
-  // quit if feeds are deactivated for that category
-  if(!is_numeric($category) || !$GLOBALS['categoryConfig'][$category]['feeds'])
-    return false;
+  if(!is_numeric($category))
+    return;
 
   // vars
   $return = false;
@@ -1618,10 +1616,11 @@ function saveFeeds($category) {
     ? $GLOBALS['websiteConfig']['multiLanguageWebsite']['languages']
     : array(0 => 0);
 
-  foreach ($languages as $langCode) {
+  // get the FeedWriter class
+  require_once(dirname(__FILE__).'/../thirdparty/FeedWriter/FeedWriter.php');
 
-    // get the FeedWriter class
-    require_once(dirname(__FILE__).'/../thirdparty/FeedWriter/FeedWriter.php');
+
+  foreach ($languages as $langCode) {
 
     $addLanguageToFilename = (!empty($langCode)) ? '.'.$langCode : '';
 
@@ -1633,14 +1632,19 @@ function saveFeeds($category) {
       ? dirname(__FILE__).'/../../pages/rss2'.$addLanguageToFilename.'.xml'
       : dirname(__FILE__).'/../../pages/'.$category.'/rss2'.$addLanguageToFilename.'.xml';
 
-    // delete old files
+    // DELETE OLD FILES
     if(is_file($atomFileName)) unlink($atomFileName);
     if(is_file($rss2FileName)) unlink($rss2FileName);
+
+    // QUIT IF feeds are DEACTIVATED for that category, (but after they are deleted)
+    if(!$GLOBALS['categoryConfig'][$category]['feeds'])
+      continue;
+
 
     $feedsPages = GeneralFunctions::loadPages($category);
     $channelTitle = ($category == 0)
       ? GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'title',$langCode)
-      : GeneralFunctions::getLocalized($GLOBALS['categoryConfig'][$category],'name',$langCode).' - '.GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'title',$langCode);
+      : GeneralFunctions::getLocalized($GLOBALS['categoryConfig'][$category],'name',$langCode).' | '.GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'title',$langCode);
 
     // ->> START feeds
     $atom = new FeedWriter(ATOM);
@@ -1664,62 +1668,66 @@ function saveFeeds($category) {
     $rss2->setChannelElement('copyright', GeneralFunctions::getLocalized($GLOBALS['websiteConfig'],'copyright',$langCode));
 
     // ->> adds the feed ENTRIES/ITEMS
-    foreach($feedsPages as $feedsPage) {
+    if($GLOBALS['categoryConfig'][$category]['public']) {
+      foreach($feedsPages as $feedsPage) {
 
-      if($feedsPage['public']) {
+        if($feedsPage['public']) {
 
-        // shows the page link
-        $link = GeneralFunctions::createHref($feedsPage,false,$langCode,true);
-        $title = strip_tags(GeneralFunctions::getLocalized($feedsPage,'title',$langCode));
-        $description = GeneralFunctions::getLocalized($feedsPage,'description',$langCode);
+          // shows the page link
+          $link = GeneralFunctions::createHref($feedsPage,false,$langCode,true);
+          $title = strip_tags(GeneralFunctions::getLocalized($feedsPage,'title',$langCode));
+          $description = GeneralFunctions::getLocalized($feedsPage,'description',$langCode);
 
-        $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.$GLOBALS['adminConfig']['url'].GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$feedsPage['thumbnail'].'"><br>': '';
+          $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.$GLOBALS['adminConfig']['url'].GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$feedsPage['thumbnail'].'"><br>': '';
 
-        $content = GeneralFunctions::replaceLinks(GeneralFunctions::getLocalized($feedsPage,'content',$langCode),false,$langCode,true);
-        $content = GeneralFunctions::replaceSnippets($content,$feedsPage['id']); // Has to create a new Feindura class instance inside
-        $content = preg_replace('#<script\b[^>]*>[\s\S]*?<\/script>#i', '', $content); // remove script tags
-        $content = GeneralFunctions::htmLawed($content,array(
-          'comment'=> 1,
-          'cdata'=> 1,
-          'safe'=> 1
-        ));
-        $content = strip_tags($content,'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><em><s><u><strong><small><span><img><table><tr><td><thead><tbody><object>');
-        // $content = preg_replace('#<h[0-6]>#','<strong>',$content);
-        // $content = preg_replace('#</h[0-6]>#','</strong><br>',$content);
+          $content = GeneralFunctions::replaceLinks(GeneralFunctions::getLocalized($feedsPage,'content',$langCode),false,$langCode,true);
+          $content = GeneralFunctions::replaceSnippets($content,$feedsPage['id']); // Has to create a new Feindura class instance inside
+          $content = preg_replace('#<script\b[^>]*>[\s\S]*?<\/script>#i', '', $content); // remove script tags
+          $content = GeneralFunctions::htmLawed($content,array(
+            'comment'=> 1,
+            'cdata'=> 1,
+            'safe'=> 1
+          ));
+          $content = strip_tags($content,'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><em><s><u><strong><small><span><img><table><tr><td><thead><tbody><object>');
+          // $content = preg_replace('#<h[0-6]>#','<strong>',$content);
+          // $content = preg_replace('#</h[0-6]>#','</strong><br>',$content);
 
-        // ATOM
-        $atomItem = $atom->createNewItem();
-        $atomItem->setTitle($title);
-        $atomItem->setLink($link);
-        $atomItem->setDate($feedsPage['lastSaveDate']);
-        $atomItem->addElement('content',$thumbnail.$content,array('src'=>$link));
+          // ATOM
+          $atomItem = $atom->createNewItem();
+          $atomItem->setTitle($title);
+          $atomItem->setLink($link);
+          $atomItem->setDate($feedsPage['lastSaveDate']);
+          $atomItem->addElement('content',$thumbnail.$content,array('src'=>$link));
 
-        // RSS2
-        $rssItem = $rss2->createNewItem();
-        $rssItem->setTitle($title);
-        $rssItem->setLink($link);
-        $rssItem->setDate($feedsPage['lastSaveDate']);
-        $rssItem->addElement('guid', $link,array('isPermaLink'=>'true'));
+          // RSS2
+          $rssItem = $rss2->createNewItem();
+          $rssItem->setTitle($title);
+          $rssItem->setLink($link);
+          $rssItem->setDate($feedsPage['lastSaveDate']);
+          $rssItem->addElement('guid', $link,array('isPermaLink'=>'true'));
 
-        // BOTH
-        if(empty($description)) {
-          //$atomItem->setDescription($thumbnail.GeneralFunctions::shortenString(strip_tags($content),450)); // dont create Atom description when, there is already an content tag
-          $rssItem->setDescription($thumbnail.GeneralFunctions::shortenString(strip_tags($content),450));
-        } else {
-          $atomItem->setDescription($thumbnail.$description);
-          $rssItem->setDescription($thumbnail.$description);
+          // BOTH
+          if(empty($description)) {
+            //$atomItem->setDescription($thumbnail.GeneralFunctions::shortenString(strip_tags($content),450)); // dont create Atom description when, there is already an content tag
+            $rssItem->setDescription($thumbnail.GeneralFunctions::shortenString(strip_tags($content),450));
+          } else {
+            $atomItem->setDescription($thumbnail.$description);
+            $rssItem->setDescription($thumbnail.$description);
+          }
+
+          //Now add the feeds item
+          $atom->addItem($atomItem);
+          //Now add the feeds item
+          $rss2->addItem($rssItem);
         }
-
-        //Now add the feeds item
-        $atom->addItem($atomItem);
-        //Now add the feeds item
-        $rss2->addItem($rssItem);
       }
     }
 
+    require_once(dirname(__FILE__).'/../thirdparty/PHP/Encoding.php');
+
     // -> SAVE
-    if(file_put_contents($atomFileName,$atom->generateFeed(),LOCK_EX) !== false &&
-            file_put_contents($rss2FileName,$rss2->generateFeed(),LOCK_EX) !== false) {
+    if(file_put_contents($atomFileName,Encoding::toUTF8($atom->generateFeed()),LOCK_EX) !== false &&
+       file_put_contents($rss2FileName,Encoding::toUTF8($rss2->generateFeed()),LOCK_EX) !== false) {
       @chmod($atomFileName, $GLOBALS['adminConfig']['permissions']);
       @chmod($rss2FileName, $GLOBALS['adminConfig']['permissions']);
       $return = true;
@@ -2407,7 +2415,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
       echo '<div class="span5">';
         //<div class="editFiles left">
         echo '<h3>'.$GLOBALS['langFile']['EDITFILESSETTINGS_TEXT_CHOOSEFILE'].'</h3>
-              <input type="text" value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'">'."\n";
+              <input type="text" value="'.$filesPath.'" readonly="readonly" style="width:auto;max-width:230px;" size="'.(strlen($filesPath)-2).'">'."\n";
         echo '<select onchange="changeEditFile(\''.$_GET['site'].'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
 
               // listet die Dateien aus dem Ordner als Mehrfachauswahl auf

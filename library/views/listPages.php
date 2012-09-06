@@ -134,7 +134,7 @@ foreach($categoryConfig as $category) {
 
     // -> CATEGORY HEADLINE
     echo "\n\n".'<div class="block open listPagesBlock'.$hidden.'">';
-        // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
+    	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
       echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTipLeft" title="'.$categoryName.'::'.$categoryClass.$categoryTitle.'"><img src="'.$categoryIcon.'" class="blockH1Icon" alt="category icon" width="35" height="35"> '.$categoryName.'</span> '.$sorting.'</a></h1>
             <div class="categoryHeader">';
 

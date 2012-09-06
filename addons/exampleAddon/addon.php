@@ -234,7 +234,7 @@
 
       // Displays the $_POST variable, when its not empty
       if(!empty($_POST))
-        GeneralFunctions::dump($_POST);
+        DebugTools::dump($_POST);
 
       ?>
 

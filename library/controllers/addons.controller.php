@@ -35,14 +35,15 @@ if(is_array($addons['folders'])) {
       : 'en';
     $addonCredits   = @file(dirname(__FILE__).'/../../addons/'.$addonFolderName.'/credits.yml');
 
-    $newAddons[$addonFolderName]['name']     = $addonFolderName;
-    $newAddons[$addonFolderName]['author']   = trim(str_replace('author:','',$addonCredits[1]));
-    $newAddons[$addonFolderName]['website']  = trim(str_replace('website:','',$addonCredits[2]));
-    $newAddons[$addonFolderName]['version']  = trim(str_replace('version:','',$addonCredits[3]));
+    $newAddons[$addonFolderName]['name']         = $addonFolderName;
+    $newAddons[$addonFolderName]['author']       = trim(str_replace('author:','',$addonCredits[1]));
+    $newAddons[$addonFolderName]['website']      = trim(str_replace('website:','',$addonCredits[2]));
+    $newAddons[$addonFolderName]['version']      = trim(str_replace('version:','',$addonCredits[3]));
+    $newAddons[$addonFolderName]['requirements'] = trim(str_replace('requirements:','',$addonCredits[4]));
 
-    $newAddons[$addonFolderName]['config']   = @include(dirname(__FILE__).'/../../addons/'.$addonFolderName.'/config.php');
-    $newAddons[$addonFolderName]['langFile'] = @include(dirname(__FILE__).'/../../addons/'.$addonFolderName.'/languages/'.$addonCountryCode.'.php');
-    $newAddons[$addonFolderName]['title']    = (isset($newAddons[$addonFolderName]['langFile']['feinduraAddon_title'])) ? $newAddons[$addonFolderName]['langFile']['feinduraAddon_title'] : $addonFolderName;
+    $newAddons[$addonFolderName]['config']       = @include(dirname(__FILE__).'/../../addons/'.$addonFolderName.'/config.php');
+    $newAddons[$addonFolderName]['langFile']     = @include(dirname(__FILE__).'/../../addons/'.$addonFolderName.'/languages/'.$addonCountryCode.'.php');
+    $newAddons[$addonFolderName]['title']        = (isset($newAddons[$addonFolderName]['langFile']['feinduraAddon_title'])) ? $newAddons[$addonFolderName]['langFile']['feinduraAddon_title'] : $addonFolderName;
   }
 }
 $addons = $newAddons;

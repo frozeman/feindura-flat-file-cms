@@ -87,7 +87,18 @@ foreach ($addons as $addon) {
             </div>
           </div>';
         }
-      
+
+        if(!empty($addon['requirements'])) {
+          echo '<div class="row">
+            <div class="span1">
+            <strong>'.$langFile['ADDONS_TEXT_REQUIREMENTS'].'</strong>
+            </div>
+            <div class="span3">
+            '.$addon['requirements'].'
+            </div>
+          </div>';
+        }
+
         echo '</div>';
       echo '</div>';
     }

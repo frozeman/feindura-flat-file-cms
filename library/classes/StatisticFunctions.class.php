@@ -696,7 +696,7 @@ class StatisticFunctions {
             $bots[] = strtolower($xmlData['ident']);
         }
       }
-      //var_dump($bots);
+      //DebugTools::dump($bots);
 
       $userAgent = strtolower($userAgent);
       $i = 0;

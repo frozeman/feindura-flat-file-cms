@@ -1578,7 +1578,8 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
+  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool           $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -1628,16 +1629,27 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMenu($idType = 'category', $ids = false, $menuTag = false, $linkText = true, $sortPages = false) {
+  public function createMenu($idType = 'category', $ids = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
 
     $ids = $this->getPropertyIdsByType($idType,$ids);
 
     // -> LOADS the PAGES BY TYPE
     $pages = $this->loadPagesByType($idType,$ids);
 
-    // -> if pages should be SORTED BY CATEGORY
-    if($sortPages === true)
+
+    // -> SORT PAGES
+    // sorts by CATEGORIES like in the backend
+    if($sortPages === true) {
       $pages = GeneralFunctions::sortPages($pages);
+
+    // sort by given sort function
+    } elseif(is_string($sortPages) && function_exists($sortPages))
+      usort($pages,$sortPages);
+
+    // -> flips the pages array if $reverseList === true
+    if($reverseList === true)
+      $selectedPages = array_reverse($selectedPages);
+
 
     // -> STOREs the LINKs in an Array
     $links = array();
@@ -1719,7 +1731,8 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
+  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool           $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -1766,13 +1779,13 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMenuByTags($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $sortPages = false) {
+  public function createMenuByTags($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
 
     $ids = $this->getPropertyIdsByType($idType,$ids);
 
     // check for the tags and CREATE A MENU
     if($ids = $this->checkPagesForTags($idType,$ids,$tags)) {
-      return $this->createMenu($idType,$ids,$menuTag,$linkText,$sortPages);
+      return $this->createMenu($idType,$ids,$menuTag,$linkText,$sortPages,$reverseList);
     } else
       return array();
   }
@@ -1780,9 +1793,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link createMenuByTags()}
   * @ignore
   */
-  public function createMenuByTag($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $sortPages = false) {
+  public function createMenuByTag($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->createMenuByTags($tags,$idType,$ids,$menuTag,$linkText,$sortPages);
+    return $this->createMenuByTags($tags,$idType,$ids,$menuTag,$linkText,$sortPages,$reverseList);
   }
 
  /**
@@ -1817,8 +1830,8 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool  $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool     $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
-  * @param bool            $reverseList        (optional) reverse the menu listing
+  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE it sorts the pages by date (If date range: by start date). Can also be a sort function e.g. "sortByEndDate". See {@link sort.functions.php} for more.
+  * @param bool            $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -1867,7 +1880,7 @@ class Feindura extends FeinduraBase {
 
       // gets the right pages and sorted by page date
       if($pageContents = $this->loadPagesByDate($from,$to,$idType,$ids,$sortPages,$reverseList))
-         return $this->createMenu($idType,$pageContents,$menuTag,$linkText,false);
+         return $this->createMenu($idType,$pageContents,$menuTag,$linkText,false,false);
       else
         return array();
 
@@ -1911,7 +1924,7 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool $ids                 (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|bool       $menuTag             (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool    $linkText            (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param bool           $reverseList         (optional) reverse the menu listing
+  * @param bool           $reverseList         (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -1961,11 +1974,15 @@ class Feindura extends FeinduraBase {
 
       // load the pages
       $pageContents = $this->loadPagesByType($idType,$ids);
-      usort($pageContents,$sortCallback);
-      // -> flips the sorted array if $reverseList === true
-      if($reverseList === true)
-        $pageContents = array_reverse($pageContents);
-      return $this->createMenu($idType,$pageContents,$menuTag,$linkText,false);
+      if(is_array($pageContents)) {
+        usort($pageContents,$sortCallback);
+        // -> flips the sorted array if $reverseList === true
+        if($reverseList === true)
+          $pageContents = array_reverse($pageContents);
+        return $this->createMenu($idType,$pageContents,$menuTag,$linkText,false,false);
+
+      } else
+        return array();
   }
  /**
   * Alias of {@link createMenuBySortFunction()}
@@ -2090,7 +2107,8 @@ class Feindura extends FeinduraBase {
   * @param int|string|array|bool  $id                 (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param int|bool               $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool            $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param bool                   $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
+  * @param bool                   $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool                   $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -2136,14 +2154,14 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createSubMenu($id = false, $menuTag = false, $linkText = true, $sortPages = false) {
+  public function createSubMenu($id = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
 
     if($ids = $this->getIdsFromString($id)) {
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
         // return subcategory
         if(is_numeric($pageContent['subCategory']) && $this->categoryConfig[$pageContent['category']]['showSubCategory'])
-          return $this->createMenu('category', $pageContent['subCategory'], $menuTag, $linkText, $sortPages);
+          return $this->createMenu('category', $pageContent['subCategory'], $menuTag, $linkText, $sortPages,$reverseList);
       }
     }
 
@@ -2191,7 +2209,8 @@ class Feindura extends FeinduraBase {
   * @param int|string|bool $categoryId         (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
   * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool     $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
+  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool            $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$menuId
   * @uses Feindura::$menuClass
@@ -2237,7 +2256,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMenuOfSubCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false) {
+  public function createMenuOfSubCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
 
     if($ids = $this->getIdsFromString(array(false,$categoryId))) {
       $categoryId = $ids[1];
@@ -2245,7 +2264,7 @@ class Feindura extends FeinduraBase {
 
         // check if subcategory
         if($categoryId && is_numeric($categoryId) && $this->categoryConfig[$categoryId]['isSubCategory'])
-          return $this->createMenu('category', $categoryId, $menuTag, $linkText, $sortPages);
+          return $this->createMenu('category', $categoryId, $menuTag, $linkText, $sortPages,$reverseList);
       }
     }
 
@@ -2255,17 +2274,17 @@ class Feindura extends FeinduraBase {
   * Alias of {@link createMenuOfSubCategory()}
   * @ignore
   */
-  public function createMenuFromSubCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false) {
+  public function createMenuFromSubCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->createMenuOfSubCategory($categoryId, $linkText, $sortPages);
+    return $this->createMenuOfSubCategory($categoryId, $menuTag, $linkText, $sortPages,$reverseList);
   }
   /**
   * Alias of {@link createMenuOfSubCategory()}
   * @ignore
   */
-  public function createSubMenuFromCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false) {
+  public function createSubMenuFromCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->createMenuOfSubCategory($categoryId, $linkText, $sortPages);
+    return $this->createMenuOfSubCategory($categoryId, $menuTag, $linkText, $sortPages,$reverseList);
   }
 
  /**
@@ -3000,7 +3019,8 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string    $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
+  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool           $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   *
   * @uses Feindura::$xHtml
@@ -3042,7 +3062,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function listPages($idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false) {
+  public function listPages($idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
 
     // vars
     $return = array();
@@ -3052,9 +3072,20 @@ class Feindura extends FeinduraBase {
     // LOADS the PAGES BY TYPE
     $pages = $this->loadPagesByType($idType,$ids);
 
-    // -> if pages SORTED BY CATEGORY
-    if($sortPages === true)
+
+    // -> SORT PAGES
+    // sorts by CATEGORIES like in the backend
+    if($sortPages === true) {
       $pages = GeneralFunctions::sortPages($pages);
+
+    // sort by given sort function
+    } elseif(is_string($sortPages) && function_exists($sortPages))
+      usort($pages,$sortPages);
+
+    // -> flips the pages array if $reverseList === true
+    if($reverseList === true)
+      $selectedPages = array_reverse($selectedPages);
+
 
     if(!empty($pages)) {
 
@@ -3089,9 +3120,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link listPages()}
   * @ignore
   */
-  public function listPage($idType = 'category', $id = false, $shortenText = false, $useHtml = true, $sortPages = false) {
+  public function listPage($idType = 'category', $id = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->listPages($idType, $id, $shortenText, $useHtml, $sortPages);
+    return $this->listPages($idType, $id, $shortenText, $useHtml, $sortPages,$reverseList);
   }
 
 /**
@@ -3118,7 +3149,8 @@ class Feindura extends FeinduraBase {
   * @param int|string|array|bool  $id                 (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param int|array|bool         $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string            $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool                   $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
+  * @param bool                   $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool                   $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   *
   * @uses Feindura::$xHtml
@@ -3158,14 +3190,14 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function listSubPages($id = false, $shortenText = false, $useHtml = true, $sortPages = false) {
+  public function listSubPages($id = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
 
     if($ids = $this->getIdsFromString($id)) {
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
         // return subcategory
         if(is_numeric($pageContent['subCategory']) && $this->categoryConfig[$pageContent['category']]['showSubCategory'])
-          return $this->listPages('category', $pageContent['subCategory'], $shortenText, $useHtml, $sortPages);
+          return $this->listPages('category', $pageContent['subCategory'], $shortenText, $useHtml, $sortPages,$reverseList);
       }
     }
 
@@ -3175,9 +3207,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link listSubPages()}
   * @ignore
   */
-  public function listSubPage($id = false, $shortenText = false, $useHtml = true, $sortPages = false) {
+  public function listSubPage($id = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->listSubPages($id, $shortenText, $useHtml, $sortPages);
+    return $this->listSubPages($id, $shortenText, $useHtml, $sortPages,$reverseList);
   }
 
 /**
@@ -3219,7 +3251,8 @@ class Feindura extends FeinduraBase {
   * @param int|string|bool $categoryId         (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
   * @param int|array|bool  $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string     $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
+  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool            $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   *
   * @uses Feindura::$xHtml
@@ -3259,14 +3292,14 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function listPagesOfSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortPages = false) {
+  public function listPagesOfSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
 
     if($ids = $this->getIdsFromString(array(false,$categoryId))) {
       $categoryId = $ids[1];
       if($this->isSubCategory($categoryId)) {
         // create subcategory
         if($categoryId && is_numeric($categoryId) && $this->categoryConfig[$categoryId]['showSubCategory'])
-          return $this->listPages('category', $categoryId, $shortenText, $useHtml, $sortPages);
+          return $this->listPages('category', $categoryId, $shortenText, $useHtml, $sortPages,$reverseList);
       }
     }
 
@@ -3276,9 +3309,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link listPagesOfSubCategory()}
   * @ignore
   */
-  public function listPagesFromSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortPages = false) {
+  public function listPagesFromSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->listPagesOfSubCategory($categoryId, $shortenText, $useHtml, $sortPages);
+    return $this->listPagesOfSubCategory($categoryId, $shortenText, $useHtml, $sortPages,$reverseList);
   }
 
  /**
@@ -3303,7 +3336,8 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string    $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend
+  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool           $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   *
   * @uses Feindura::$xHtml
@@ -3343,13 +3377,13 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function listPagesByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false) {
+  public function listPagesByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
 
     $ids = $this->getPropertyIdsByType($idType,$ids);
 
     // check for the tags and LIST the PAGES
     if($ids = $this->checkPagesForTags($idType,$ids,$tags)) {
-      return $this->listPages($idType,$ids,$shortenText,$useHtml,$sortPages);
+      return $this->listPages($idType,$ids,$shortenText,$useHtml,$sortPages,$reverseList);
     } else
       return array();
   }
@@ -3357,25 +3391,25 @@ class Feindura extends FeinduraBase {
   * Alias of {@link listPagesByTags()}
   * @ignore
   */
-  public function listPagesByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false) {
+  public function listPagesByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortPages);
+    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortPages,$reverseList);
   }
  /**
   * Alias of {@link listPagesByTags()}
   * @ignore
   */
-  public function listPageByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false) {
+  public function listPageByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortPages);
+    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortPages,$reverseList);
   }
  /**
   * Alias of {@link listPagesByTags()}
   * @ignore
   */
-  public function listPageByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false) {
+  public function listPageByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortPages);
+    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortPages,$reverseList);
   }
 
  /**
@@ -3403,7 +3437,8 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool  $ids                   (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|array|bool  $shortenText           (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string     $useHtml               (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool            $sortPages             (optional) if TRUE it sorts the pages like they are sorted in the backend
+  * @param bool            $sortPages             (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE it sorts the pages by date (If date range: by start date). Can also be a sort function e.g. "sortByEndDate". See {@link sort.functions.php} for more.
+  * @param bool            $reverseList           (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$xHtml
   * @uses Feindura::$showErrors
@@ -3446,7 +3481,7 @@ class Feindura extends FeinduraBase {
       // gets the right pages and sorted by page date
       $pageContents = $this->loadPagesByDate($from,$to,$idType,$ids,$sortPages,$reverseList);
       if($pageContents !== false)
-        return $this->listPages($idType,$pageContents,$shortenText,$useHtml,false);
+        return $this->listPages($idType,$pageContents,$shortenText,$useHtml,false,false);
       else
         return array();
   }
@@ -3506,7 +3541,7 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string    $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool           $reverseList        (optional) reverse the menu listing
+  * @param bool           $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   *
   * @uses Feindura::$xHtml
@@ -3555,7 +3590,7 @@ class Feindura extends FeinduraBase {
       // -> flips the sorted array if $reverseList === true
       if($reverseList === true)
         $pageContents = array_reverse($pageContents);
-      return $this->listPages($idType,$pageContents,$shortenText,$useHtml,false);
+      return $this->listPages($idType,$pageContents,$shortenText,$useHtml,false,false);
   }
  /**
   * Alias of {@link listPagesBySortFunction()}

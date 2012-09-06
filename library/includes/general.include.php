@@ -38,12 +38,13 @@ mb_http_output('UTF-8');
  *
  */
 function __autoload($class_name) {
-  if($class_name == 'GeneralFunctions' ||
+  if($class_name == 'FeinduraBase' ||
+     $class_name == 'Feindura' ||
+     $class_name == 'GeneralFunctions' ||
      $class_name == 'StatisticFunctions' ||
      $class_name == 'XssFilter' ||
      $class_name == 'Search' ||
-     $class_name == 'FeinduraBase' ||
-     $class_name == 'Feindura')
+     $class_name == 'DebugTools')
     require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
 
   if($class_name == 'ZenPHP')
