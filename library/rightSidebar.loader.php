@@ -65,8 +65,8 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
             // -> show page ID
             $showPageId = (GeneralFunctions::isAdmin())
-              ? ' class="toolTipLeft noMark" title="ID '.$pageMetaData['id'].'"'
-              : '';
+              ? ' class="toolTipLeft noMark" title="'.strip_tags(GeneralFunctions::getLocalized($pageMetaData,'title')).'::ID '.$pageMetaData['id'].'"'
+              : ' class="toolTipLeft noMark" title="'.strip_tags(GeneralFunctions::getLocalized($pageMetaData,'title')).'"';
 
             if($_GET['page'] == $pageMetaData['id'])
               $pageSelected = ' class="active"';
@@ -153,8 +153,8 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
 
             // -> show page ID
             $showPageId = (GeneralFunctions::isAdmin())
-              ? ' class="toolTipLeft noMark" title="ID '.$pageMetaData['id'].'"'
-              : '';
+              ? ' class="toolTipLeft noMark" title="'.strip_tags(GeneralFunctions::getLocalized($pageMetaData,'title')).'::ID '.$pageMetaData['id'].'"'
+              : ' class="toolTipLeft noMark" title="'.strip_tags(GeneralFunctions::getLocalized($pageMetaData,'title')).'"';
 
             if($_GET['page'] == $pageMetaData['id'])
               $pageSelected = ' class="active"';

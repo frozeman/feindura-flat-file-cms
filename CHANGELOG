@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0 beta
-Build 984
+Build 985
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 2.0 beta
 
+  build 985: add startCache(), endCache() to the Feindura class, to speed up slow script parts, when using feindura ;)
   build 984: created DebugTools class and moved GeneralFunctions::dump() and ..::scriptBenchmark() there
   build 983: add frequency detection in sitemap files generation
   build 982: auto updates visitor count in dashboard

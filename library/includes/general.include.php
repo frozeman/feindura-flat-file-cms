@@ -146,7 +146,7 @@ if(!defined('FEINDURA_UPDATE') &&
   // unset($_SESSION);
   StatisticFunctions::init();
   StatisticFunctions::saveWebsiteStats();
-  new cache(dirname(__FILE__).'/../../pages/cache/', $_GET['language'], ($adminConfig['cache']['timeout']*60*60), "html" );
+  new cache(dirname(__FILE__).'/../../pages/cache/', $_SESSION['feinduraSession']['language'], ($adminConfig['cache']['timeout']*60*60), "html" );
 }
 
 /**

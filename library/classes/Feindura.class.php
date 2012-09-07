@@ -753,6 +753,34 @@ class Feindura extends FeinduraBase {
   public $errorTag = '';                // [False or String]      -> the message TAG which is used when creating a message (STANDARD Tag: SPAN; if there is a class and/or id and no TAG is set)
 
 
+ /**
+  * The number of the current scriptCache.
+  * Increases everytime you call {@link Feindura::startCache()}.
+  *
+  *
+  * @var int
+  * @access protected
+  *
+  * @see Feindura::startCache()
+  * @see Feindura::endCache()
+  *
+  */
+  protected $currentScriptCacheNumber = 0;
+
+ /**
+  * Tells the {@link Feindura::endCache()} method to write the a cache file or not.
+  *
+  *
+  * @var bool
+  * @access protected
+  *
+  * @see Feindura::startCache()
+  * @see Feindura::endCache()
+  *
+  */
+  protected $cachedScriptCache = false;
+
+
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** CONSTRUCTOR *** */
  /* **************************************************************************************************************************** */
@@ -3615,5 +3643,125 @@ class Feindura extends FeinduraBase {
   public function listPagesByCallback($sortCallback, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $reverseList = false) {
       // call the right function
       return $this->listPagesBySortFunction($sortCallback,$idType,$ids,$shortenText,$useHtml,$reverseList);
+  }
+
+  /**
+  * <b>Name</b> startCache()<br>
+  *
+  *
+  * This method can cache parts of your script, to speed up page loading time.
+  * You need to call {@link Feindura::endCache()} to tell it were you cache ends.
+  *
+  * Because of PHP scope restricions, you need to manually prevent the processing of the original script. See the example for more.
+  *
+  * <strong>Note</strong>: This method and the {@link Feindura::endCache()} uses the ob_start() and ob_end_clean() function,
+  * if you start a output buffer inside your script which will be cached, make sure to close you output buffer beforec calling {@link Feindura::endCache()}.
+  * <strong>Note</strong>: You cannot nest multiple startCache() calls, this would overwrite the cache of the previous call of startCache().
+  *
+  * <code>
+  *
+  * // this will cache the scripts inside the brackets for two hours,
+  * // and then recache them again.
+  * if(!$feindura->startCache(2)) {
+  *
+  * .. your scripts
+  *
+  * }
+  * $feindura->endCache();
+  *
+  * ..
+  *
+  *
+  * // Since PHP 5.3 you could also write it like this:
+  * if($feindura->startCache(2))
+  *   goto usedCache;
+  *
+  * .. your scripts
+  *
+  * usedCache:
+  * $feindura->endCache();
+  *
+  * ..
+  *
+  * </code>
+  *
+  * @param float  $timeout (optional) the number of hours after whihc the cache should be reloaded
+  *
+  *
+  *
+  * @return bool TRUE if the it will output the cached part, FALSE if no cache existed and it was created
+  *
+  * @see Feindura::endCache()
+  *
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public function startCache($timeout = 8) {
+
+    // vars
+    $this->currentScriptCacheNumber++; // increase the current script cache number verytime you call
+    $cachedFile = dirname(__FILE__).'/../../pages/cache/scriptCache_'.$this->currentScriptCacheNumber.'.cache';
+    $timeoutSec = $timeout * 60 * 60;
+
+    // DebugTools::dump('Time until the next cache reload: '.(filectime($cachedFile) + $timeoutSec - time()).' seconds');
+
+    // SHOW CACHED if exist
+    if(file_exists($cachedFile) &&
+       ($cachedFileTime = filectime($cachedFile)) + $timeoutSec >= time() ) {
+
+      if(($cachedScript = file_get_contents($cachedFile)) !== false) {
+        echo "\n<!-- Start of the cached Script #".$this->currentScriptCacheNumber."
+Cached on ".date('d M Y H:i:s',$cachedFileTime)."
+Expires on ".date('d M Y H:i:s',$cachedFileTime + $timeoutSec)."  -->\n".$cachedScript."\n<!-- End of the cached Script #".$this->currentScriptCacheNumber."  -->\n";
+        return true;
+      } else
+        return false;
+
+    // GENERATE CACHE
+    } else {
+
+      // create cache folder
+      if(!is_dir(dirname(__FILE__).'/../../pages/cache'))
+        @mkdir(dirname(__FILE__).'/../../pages/cache');
+
+      ob_start();
+      $this->cachedScriptCache = true;
+    }
+
+    return false;
+  }
+
+
+  /**
+  * <b>Name</b> endCache()<br>
+  *
+  * This method writes the cache, which was started with {@link Feidnura::startCache()}.
+  * See the {@link Feidnura::startCache()} method for more.
+  *
+  *
+  * @return void
+  *
+  * @see Feindura::endCache()
+  *
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public function endCache() {
+
+    if($this->cachedScriptCache === true) {
+      $scriptCache = ob_get_contents();
+      ob_end_flush();
+      @file_put_contents(dirname(__FILE__).'/../../pages/cache/scriptCache_'.$this->currentScriptCacheNumber.'.cache', $scriptCache, LOCK_EX);
+    }
+
+    $this->cachedScriptCache = true;
   }
 }
