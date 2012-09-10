@@ -342,15 +342,18 @@ class FeinduraBase {
 
       // if not try to get the category from the url
       } else {
-        foreach($this->categoryConfig as $category) {
-          // goes trough each localization and check if its fit the $_GET['category'] title
-          foreach($category['localized'] as $localizedCategory) {
-            // RETURNs the right category Id
-            if(StatisticFunctions::urlEncode($localizedCategory['name']) == StatisticFunctions::urlEncode($_GET['category'])) {
-              return $category['id'];
+        if(is_array($this->categoryConfig)) {
+          foreach($this->categoryConfig as $category) {
+            // goes trough each localization and check if its fit the $_GET['category'] title
+            foreach($category['localized'] as $localizedCategory) {
+              // RETURNs the right category Id
+              if(StatisticFunctions::urlEncode($localizedCategory['name']) === StatisticFunctions::urlEncode($_GET['category'])) {
+                return $category['id'];
+              }
             }
           }
-        }
+        } else
+          return false;
       }
     } elseif(empty($_GET['page']) && $this->websiteConfig['setStartPage'] && is_numeric($this->startCategory)) {
       return $this->startCategory;
@@ -364,6 +367,371 @@ class FeinduraBase {
   public function getCategoryId() {
     // call the right function
     return $this->getCurrentCategoryId();
+  }
+
+
+ /**
+  * <b>Name</b> loadPagesByType()<br>
+  *
+  * Load pages by ID-type and ID(s).
+  *
+  * If the <var>$idType</var> parameter start with "cat" it takes the given <var>$ids</var> parameter as category IDs.<br>
+  * If the <var>$idType</var> parameter start with "pag" it takes the given <var>$ids</var> parameter as page IDs.<br>
+  * While it is not important that whether the <var>$idType</var> parameter is written in plural or singular.
+  * The <var>$ids</var> parameter is automaticly checked whether its an array with IDs or a single ID.
+  *
+  * Example of the returned $pageContent array: (<b>Note</b> This array will be wraped in another array, not shown here)
+  * {@example readPage.return.example.php}
+  *
+  * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
+  *
+  * @uses isPageContentArray()                     to check if the given array is a $pageContent array, if TRUE it just returns this array
+  * @uses GeneralFunctions::isPublicCategory()     to check if the category(ies) or page(s) category(ies) are public
+  * @uses GeneralFunctions::loadPages()            to load pages
+  * @uses GeneralFunctions::readPage()             to load a single page
+  * @uses GeneralFunctions::getPageCategory()      to get the category of the page
+  *
+  * @return array|false an array with $pageContent array(s)
+  *
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public function loadPagesByType($idType, $ids) {
+
+    // vars
+    $return = false;
+    $idType = strtolower($idType);
+    $shortIdType = substr($idType,0,3);
+
+    // -> category ID(s)
+    // ***************
+    if($shortIdType === 'cat') {
+      if($ids === true || is_array($ids) || is_numeric($ids)) {
+
+        // if its an array with $pageContent arrays -> return this
+        if(GeneralFunctions::isPageContentArray($ids) || (isset($ids[0]) && GeneralFunctions::isPageContentArray($ids[0]))) {
+          return $ids;
+
+        // OTHERWISE load the pages from the category(ies)
+        } else {
+
+          // checks if the categories are public
+          if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false) {
+
+            // returns the loaded pages from the CATEGORY IDs
+            // the pages in the returned array also get SORTED
+            return GeneralFunctions::loadPages($ids);
+
+          } else return false;
+        }
+      } else return false;
+
+    // ->> if PAGE ID(s)
+    // **************************
+    } elseif($shortIdType === 'pag') {
+
+      // -----------------------------------------
+      // ->> load all pages
+      // ***************
+      if($ids === true) {
+
+        // checks if the categories are public
+        if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false)
+          return GeneralFunctions::loadPages($ids);
+
+      // -----------------------------------------
+      // ->> pages IDs
+      // ***************
+      } elseif($ids && is_array($ids)) {
+
+        // checks if its an Array with pageContent Arrays
+        if(GeneralFunctions::isPageContentArray($ids) || (isset($ids[0]) && GeneralFunctions::isPageContentArray($ids[0]))) {
+          return $ids;
+        //otherwise load the pages from the categories
+        } else {
+
+          // loads all pages in an array
+          foreach($ids as $page) {
+            // get category
+            $category = GeneralFunctions::getPageCategory($page);
+            if(($category = GeneralFunctions::isPublicCategory($category)) !== false) {
+              if($pageContent = GeneralFunctions::readPage($page,$category)) {
+                $return[] = $pageContent;
+              }
+            }
+          }
+        }
+      // -----------------------------------------
+      // ->> single page ID
+      // ***************
+      } elseif($ids && is_numeric($ids)) {
+        $category = GeneralFunctions::getPageCategory($page);
+        if(($category = GeneralFunctions::isPublicCategory($category)) !== false) {
+          // loads the single page in an array
+          if($pageContent = GeneralFunctions::readPage($ids,$category)) {
+            $return[] = $pageContent;
+          } else return false;
+        } else return false;
+      } else return false;
+    }
+
+    // -> returns an array with the pageContent Arrays
+    return $return;
+  }
+
+ /**
+  * <b>Name</b> loadPagesMetaDataByType()<br>
+  *
+  * Filters the {@link GeneralFunctions::$pagesMetaData} by ID-type and ID(s).
+  *
+  * If the <var>$idType</var> parameter start with "cat" it takes the given <var>$ids</var> parameter as category IDs.<br>
+  * If the <var>$idType</var> parameter start with "pag" it takes the given <var>$ids</var> parameter as page IDs.<br>
+  * While it is not important that whether the <var>$idType</var> parameter is written in plural or singular.
+  * The <var>$ids</var> parameter is automaticly checked whether its an array with IDs or a single ID.
+  *
+  * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
+  *
+  * @uses GeneralFunctions::isPublicCategory()     to check if the category(ies) or page(s) category(ies) are public
+  * @uses GeneralFunctions::getPageCategory()      to get the category of the page
+  * @uses GeneralFunctions::$pagesMetaData
+  *
+  * @return array|false the filtered $pagesMetaData array, or FALSE
+  *
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public function loadPagesMetaDataByType($idType, $ids) {
+
+    // vars
+    $return = false;
+    $idType = strtolower($idType);
+    $shortIdType = substr($idType,0,3);
+
+    // -> category ID(s)
+    // ***************
+    if($shortIdType === 'cat') {
+      if($ids === true || is_array($ids) || is_numeric($ids)) {
+
+          // checks if the categories are public
+          if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false) {
+
+            if(is_numeric($ids))
+              $ids = array($ids);
+
+            // returns all pagesMetaData fo public categories
+            foreach(GeneralFunctions::$pagesMetaData as $pageMetaData) {
+              if(in_array($pageMetaData['category'], $ids))
+                $return[] = $pageMetaData;
+            }
+
+          } else return false;
+      } else return false;
+
+    // ->> if PAGE ID(s)
+    // **************************
+    } elseif($shortIdType === 'pag') {
+
+      // -----------------------------------------
+      // ->> load all pages
+      // ***************
+      if($ids === true) {
+
+        // checks if the categories are public
+        if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false) {
+          // returns all pagesMetaData fo public categories
+          foreach(GeneralFunctions::$pagesMetaData as $pageMetaData) {
+            if(in_array($pageMetaData['category'], $ids))
+              $return[] = $pageMetaData;
+          }
+        }
+
+      // -----------------------------------------
+      // ->> pages IDs
+      // ***************
+      } elseif($ids && is_array($ids)) {
+
+        // loads all pagesMetaData with given ids
+        foreach($ids as $pageId) {
+          $return[] = GeneralFunctions::$pagesMetaData[$pageId];
+        }
+
+      // -----------------------------------------
+      // ->> single page ID
+      // ***************
+      } elseif($ids && is_numeric($ids)) {
+        // loads the single pageMetaData in an array
+        $return[] = GeneralFunctions::$pagesMetaData[$ids];
+
+      } else return false;
+    }
+
+    // -> returns an array with the pageContent Arrays
+    return $return;
+  }
+
+ /**
+  * <b>Name</b> loadPagesByDate()<br>
+  *
+  * Loads pages by ID-type and ID, which fit in the given time period parameters.
+  *
+  * Checks if the pages to load have a page date
+  * and the page date fit in the given <var>$from</var> and <var>$to</var> parameters.
+  * All time period parameters are compared against the current date.
+  *
+  * The <var>$from</var> and <var>$to</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
+  *
+  * @param string          $idType                the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool  $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
+  * @param int|bool|string $from                  (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
+  * @param int|bool|string $to                    (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param bool            $sortPages             (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE it sorts the pages by date (If date range: by start date). Can also be a sort function e.g. "sortByEndDate". See {@link GeneralFunctions::sortPages()} for more.
+  * @param bool            $reverseList           (optional) if TRUE the pages sorting will be reversed
+  *
+  * @uses $categoryConfig                 to check if in the category is sorting by page date allowed
+  * @uses getPropertyIdsByType()          to get the property IDs if the $ids parameter is FALSE
+  * @uses loadPagesByType()               load the pages depending on the type
+  * @uses changeDate()                    change the current date minus or plus the months from specified in the parameters
+  * @uses gernalFunctions::sortPages()    to sort the pages by page date
+  *
+  * @return array|false an array with the $pageContent arrays or FALSE if no page has a page date or is allowed for sorting
+  *
+  * @link http://www.php.net/manual/de/datetime.formats.php
+  *
+  * @see Feindura::listPagesByDate()
+  * @see Feindura::createMenuByDate()
+  *
+  * @access public
+  * @version 1.0.1
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0.1 fixed timezone when using strtotime
+  *    - 1.0 initial release
+  *
+  */
+  public function loadPagesByDate($from = true, $to = true, $idType, $ids, $sortPages = false, $reverseList = false) {
+
+    if(!is_bool($from) && is_numeric($from))
+      $from = round($from);
+    if(!is_bool($to) && is_numeric($to))
+      $to = round($to);
+    $ids = $this->getPropertyIdsByType($idType,$ids);
+
+    // LOADS the PAGES BY TYPE
+    if($pages = $this->loadPagesByType($idType,$ids)) {
+
+      // creates the current date to compare with
+      $currentDate = time();
+
+      $pastDate = false;
+      $futureDate = false;
+
+      // creates the PAST DATE
+      if(!is_bool($from) && is_string($from) && !is_numeric($from))
+        $pastDate = strtotime($from,$currentDate);
+      elseif(!is_bool($from) && is_numeric($from))
+        $pastDate = strtotime('-'.$from.' month',$currentDate);
+      elseif($from === false)
+        $pastDate = $currentDate;
+
+      // creates the FUTURE DATE
+      if(!is_bool($to) && is_string($to) && !is_numeric($to))
+        $futureDate = strtotime($to,$currentDate);
+      if(!is_bool($to) && is_numeric($to))
+        $futureDate = strtotime('+'.$to.' month',$currentDate);
+      elseif($to === false)
+        $futureDate = $currentDate;
+
+      // echo 'Today: '.date('d-m-Y',$currentDate).'<br>';
+      // echo 'pastDate: '.date('d-m-Y',$pastDate).'<br>';
+      // echo 'futureDate: '.date('d-m-Y',$futureDate).'<br><br>';
+
+      // convert to number date e.g. 20010911
+      $pastDate = date('Ymd',$pastDate);
+      $futureDate = date('Ymd',$futureDate);
+
+      // CHECK IF PAGE FITS in the given TIME PERIOD
+      $selectedPages = array();
+      foreach($pages as $page) {
+
+        // show the pages, if page date is activated
+        if($this->categoryConfig[$page['category']]['showPageDate']) {
+
+          // DATE RANGE
+          if($this->categoryConfig[$page['category']]['pageDateAsRange'] && !empty($page['pageDate']['end'])) {
+
+            // BOTH dates EXIST
+            if(!empty($page['pageDate']['start'])) {
+
+              // convert to number date e.g. 20120911
+              $pageDateStart = date('Ymd',$page['pageDate']['start']);
+              $pageDateEnd   = date('Ymd',$page['pageDate']['end']);
+              // compare
+              if(($from === true || ($pageDateStart >= $pastDate) || ($pageDateStart < $pastDate && $pageDateEnd >= $pastDate)) &&
+                 ($to === true || ($pageDateEnd <= $futureDate) || ($pageDateEnd > $futureDate && $pageDateStart <= $futureDate)))
+                $selectedPages[] = $page;
+
+
+            // ONLY LAST date EXIST (unlikely)
+            } else {
+              // convert to number date e.g. 20120911
+              $pageDateEnd = date('Ymd',$page['pageDate']['end']);
+              // compare
+              if(($from === true || $pageDateEnd >= $pastDate) &&
+                 ($to === true || $pageDateEnd <= $futureDate))
+                $selectedPages[] = $page;
+            }
+
+          // SINGLE DATE
+          } elseif(!empty($page['pageDate']['start'])) {
+
+            // convert to number date e.g. 20120911
+            $pageDate = date('Ymd',$page['pageDate']['start']);
+            // compare
+            if(($from === true || $pageDate >= $pastDate) &&
+               ($to === true || $pageDate <= $futureDate))
+              $selectedPages[] = $page;
+          }
+        }
+      }
+
+      // -> SORT PAGES
+      // sorts by DATE and CATEGORIES
+      if($sortPages === true) {
+        $selectedPages = GeneralFunctions::sortPages($selectedPages);
+
+      // sort by given sort function
+      } elseif(is_string($sortPages) && function_exists($sortPages)) {
+        usort($selectedPages,$sortPages);
+
+      // sort by DATE
+      } else {
+        usort($selectedPages,'sortByStartDate');
+      }
+
+      // -> flips the pages array if $reverseList === true
+      if($reverseList === true)
+        $selectedPages = array_reverse($selectedPages);
+
+
+      // -> RETURN the pages the pages
+      if(!empty($selectedPages))
+        return $selectedPages;
+      else
+       return false;
+
+
+    } else return false;
+    //return $return;
   }
 
 
@@ -623,7 +991,7 @@ class FeinduraBase {
     $menuItemCopy = $menuItem;
 
     // creating the START TR tag
-    if($pureTag == 'table') {
+    if($pureTag === 'table') {
       $menuItemCopy['menuItem'] = "<tbody><tr>\n";
       $menuItemCopy['item']     = "<tbody><tr>\n";
       $menuItemCopy['startTag'] = "<tbody><tr>\n";
@@ -638,7 +1006,7 @@ class FeinduraBase {
     foreach($links as $link) {
 
       // breaks the CELLs with TR after the given NUMBER of CELLS
-      if($pureTag == 'table' &&
+      if($pureTag === 'table' &&
          is_numeric($breakAfter) &&
          ($breakAfter + 1) == $countCells) {
         $menuItemCopy['menuItem'] = "\n</tr><tr>\n";
@@ -654,18 +1022,18 @@ class FeinduraBase {
 
       // add "active" class to the link wrapping element
       $linkClass = '';
-      if(!empty($this->linkActiveClass) && ($link['active'] || $this->page == $link['id']))
+      if(!empty($this->linkActiveClass) && ($link['active'] || $this->page === $link['id']))
         $linkClass = ' class="'.$this->linkActiveClass.'"';
 
       // if menuTag is a LIST ------
-      if($pureTag == 'menu' || $pureTag == 'ul' || $pureTag == 'ol') {
+      if($pureTag === 'menu' || $pureTag === 'ul' || $pureTag === 'ol') {
         $menuItemCopy['menuItem'] = '<li'.$linkClass.'>'.$link['link']."</li>\n";
         $menuItemCopy['item']     = '<li'.$linkClass.'>'.$link['link']."</li>\n";
         $menuItemCopy['startTag'] = '<li'.$linkClass.'>';
         $menuItemCopy['endTag']   = "</li>\n";
 
       // if menuTag is a TABLE -----
-      } elseif($pureTag == 'table') {
+      } elseif($pureTag === 'table') {
         $menuItemCopy['menuItem'] = "<td'.$linkClass.'>\n".$link['link']."\n</td>";
         $menuItemCopy['item']     = "<td'.$linkClass.'>\n".$link['link']."\n</td>";
         $menuItemCopy['startTag'] = "<td'.$linkClass.'>\n";
@@ -726,7 +1094,7 @@ class FeinduraBase {
     }
 
     // fills in the missing TABLE CELLs
-    while($pureTag == 'table' &&
+    while($pureTag === 'table' &&
           is_numeric($breakAfter) &&
           $breakAfter >= $countCells) {
       $menuItemCopy['menuItem'] = "\n<td></td>\n";
@@ -741,7 +1109,7 @@ class FeinduraBase {
     $menuItemCopy = $menuItem;
 
     // creating the END TR tag
-    if($pureTag == 'table') {
+    if($pureTag === 'table') {
       $menuItemCopy['menuItem'] = "</tr></tbody>\n";
       $menuItemCopy['item']     = "</tr></tbody>\n";
       $menuItemCopy['endTag']   = "</tr></tbody>\n";
@@ -762,6 +1130,65 @@ class FeinduraBase {
     // returns the whole menu after finish
     return $menu;
   }
+
+/**
+  * <b>Name</b> generateContent()<br>
+  *
+  * Generates the page content and adds the frontend editing when activated and logged in.
+  *
+  *
+  * <b>Note:</b> Activates the frontend editing (adds a div tag with feindura data).
+  *
+  *
+  * @param string         $pageContentString  the localized page content string of a page
+  * @param int|array      $pageId             page ID
+  *
+  * @uses GeneralFunctions::$adminConfig       to check for frontend editing
+  * @uses $xHtml
+  *
+  *
+  * @uses GeneralFunctions::htmLawed()
+  * @uses GeneralFunctions::replaceLinks()
+  * @uses GeneralFunctions::replaceSnippets()
+  * @uses GeneralFunctions::shortenHtmlText()
+  *
+  *
+  * @return string the generated page content
+  *
+  * @see FeinduraBase::generatePage()
+  *
+  * @access protected
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  protected function generateContent($pageContentString, $pageId) {
+    // -> when content is not empty
+    if(!empty($pageContentString)) {
+
+      if($this->adminConfig['editor']['safeHtml'])
+        $htmlLawedConfig['safe'] = 1;
+      else
+        $htmlLawedConfig['safe'] = 0;
+      if($xHtml)
+        $htmlLawedConfig['valid_xhtml'] = 1;
+      else
+        $htmlLawedConfig['valid_xhtml'] = 0;
+      $pageContentEdited = ($this->adminConfig['editor']['htmlLawed']) ? GeneralFunctions::htmLawed($pageContentString,$htmlLawedConfig) : $pageContentString;
+
+      // replace feindura links
+      $pageContentEdited = GeneralFunctions::replaceLinks($pageContentEdited, $this->sessionId, $this->language);
+      $pageContentEdited = GeneralFunctions::replaceSnippets($pageContentEdited,$pageId);
+
+    // -> show no content
+    } else
+      $pageContentEdited = '';
+
+    return $pageContentEdited;
+  }
+
 
  /**
   * <b>Name</b> generatePage()<br>
@@ -981,7 +1408,7 @@ class FeinduraBase {
 
     // // ->> USE modified CONTENT (replaceLinks,replaceSnippets,..)
     // } else {
-      $pageContentEdited = GeneralFunctions::generateContent($localizedPageContent, $pageContent['id'], $this->sessionId, $this->language);
+      $pageContentEdited = $this->generateContent($localizedPageContent, $pageContent['id']);
 
       // clear Html tags?
       if($useHtml === false || is_string($useHtml)) {
@@ -1299,371 +1726,6 @@ class FeinduraBase {
       return $attributeString;
   }
 
-
- /**
-  * <b>Name</b> loadPagesByType()<br>
-  *
-  * Load pages by ID-type and ID(s).
-  *
-  * If the <var>$idType</var> parameter start with "cat" it takes the given <var>$ids</var> parameter as category IDs.<br>
-  * If the <var>$idType</var> parameter start with "pag" it takes the given <var>$ids</var> parameter as page IDs.<br>
-  * While it is not important that whether the <var>$idType</var> parameter is written in plural or singular.
-  * The <var>$ids</var> parameter is automaticly checked whether its an array with IDs or a single ID.
-  *
-  * Example of the returned $pageContent array: (<b>Note</b> This array will be wraped in another array, not shown here)
-  * {@example readPage.return.example.php}
-  *
-  * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
-  *
-  * @uses isPageContentArray()                     to check if the given array is a $pageContent array, if TRUE it just returns this array
-  * @uses GeneralFunctions::isPublicCategory()     to check if the category(ies) or page(s) category(ies) are public
-  * @uses GeneralFunctions::loadPages()            to load pages
-  * @uses GeneralFunctions::readPage()             to load a single page
-  * @uses GeneralFunctions::getPageCategory()      to get the category of the page
-  *
-  * @return array|false an array with $pageContent array(s)
-  *
-  * @access protected
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  *
-  */
-  protected function loadPagesByType($idType, $ids) {
-
-    // vars
-    $return = false;
-    $idType = strtolower($idType);
-    $shortIdType = substr($idType,0,3);
-
-    // -> category ID(s)
-    // ***************
-    if($shortIdType == 'cat') {
-      if($ids === true || is_array($ids) || is_numeric($ids)) {
-
-        // if its an array with $pageContent arrays -> return this
-        if(GeneralFunctions::isPageContentArray($ids) || (isset($ids[0]) && GeneralFunctions::isPageContentArray($ids[0]))) {
-          return $ids;
-
-        // OTHERWISE load the pages from the category(ies)
-        } else {
-
-          // checks if the categories are public
-          if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false) {
-
-            // returns the loaded pages from the CATEGORY IDs
-            // the pages in the returned array also get SORTED
-            return GeneralFunctions::loadPages($ids);
-
-          } else return false;
-        }
-      } else return false;
-
-    // ->> if PAGE ID(s)
-    // **************************
-    } elseif($shortIdType == 'pag') {
-
-      // -----------------------------------------
-      // ->> load all pages
-      // ***************
-      if($ids === true) {
-
-        // checks if the categories are public
-        if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false)
-          return GeneralFunctions::loadPages($ids);
-
-      // -----------------------------------------
-      // ->> pages IDs
-      // ***************
-      } elseif($ids && is_array($ids)) {
-
-        // checks if its an Array with pageContent Arrays
-        if(GeneralFunctions::isPageContentArray($ids) || (isset($ids[0]) && GeneralFunctions::isPageContentArray($ids[0]))) {
-          return $ids;
-        //otherwise load the pages from the categories
-        } else {
-
-          // loads all pages in an array
-          foreach($ids as $page) {
-            // get category
-            $category = GeneralFunctions::getPageCategory($page);
-            if(($category = GeneralFunctions::isPublicCategory($category)) !== false) {
-              if($pageContent = GeneralFunctions::readPage($page,$category)) {
-                $return[] = $pageContent;
-              }
-            }
-          }
-        }
-      // -----------------------------------------
-      // ->> single page ID
-      // ***************
-      } elseif($ids && is_numeric($ids)) {
-        $category = GeneralFunctions::getPageCategory($page);
-        if(($category = GeneralFunctions::isPublicCategory($category)) !== false) {
-          // loads the single page in an array
-          if($pageContent = GeneralFunctions::readPage($ids,$category)) {
-            $return[] = $pageContent;
-          } else return false;
-        } else return false;
-      } else return false;
-    }
-
-    // -> returns an array with the pageContent Arrays
-    return $return;
-  }
-
- /**
-  * <b>Name</b> loadPagesMetaDataByType()<br>
-  *
-  * Filters the {@link GeneralFunctions::$pagesMetaData} by ID-type and ID(s).
-  *
-  * If the <var>$idType</var> parameter start with "cat" it takes the given <var>$ids</var> parameter as category IDs.<br>
-  * If the <var>$idType</var> parameter start with "pag" it takes the given <var>$ids</var> parameter as page IDs.<br>
-  * While it is not important that whether the <var>$idType</var> parameter is written in plural or singular.
-  * The <var>$ids</var> parameter is automaticly checked whether its an array with IDs or a single ID.
-  *
-  * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
-  *
-  * @uses GeneralFunctions::isPublicCategory()     to check if the category(ies) or page(s) category(ies) are public
-  * @uses GeneralFunctions::getPageCategory()      to get the category of the page
-  * @uses GeneralFunctions::$pagesMetaData
-  *
-  * @return array|false the filtered $pagesMetaData array, or FALSE
-  *
-  * @access protected
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  *
-  */
-  protected function loadPagesMetaDataByType($idType, $ids) {
-
-    // vars
-    $return = false;
-    $idType = strtolower($idType);
-    $shortIdType = substr($idType,0,3);
-
-    // -> category ID(s)
-    // ***************
-    if($shortIdType == 'cat') {
-      if($ids === true || is_array($ids) || is_numeric($ids)) {
-
-          // checks if the categories are public
-          if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false) {
-
-            if(is_numeric($ids))
-              $ids = array($ids);
-
-            // returns all pagesMetaData fo public categories
-            foreach(GeneralFunctions::$pagesMetaData as $pageMetaData) {
-              if(in_array($pageMetaData['category'], $ids))
-                $return[] = $pageMetaData;
-            }
-
-          } else return false;
-      } else return false;
-
-    // ->> if PAGE ID(s)
-    // **************************
-    } elseif($shortIdType == 'pag') {
-
-      // -----------------------------------------
-      // ->> load all pages
-      // ***************
-      if($ids === true) {
-
-        // checks if the categories are public
-        if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false) {
-          // returns all pagesMetaData fo public categories
-          foreach(GeneralFunctions::$pagesMetaData as $pageMetaData) {
-            if(in_array($pageMetaData['category'], $ids))
-              $return[] = $pageMetaData;
-          }
-        }
-
-      // -----------------------------------------
-      // ->> pages IDs
-      // ***************
-      } elseif($ids && is_array($ids)) {
-
-        // loads all pagesMetaData with given ids
-        foreach($ids as $pageId) {
-          $return[] = GeneralFunctions::$pagesMetaData[$pageId];
-        }
-
-      // -----------------------------------------
-      // ->> single page ID
-      // ***************
-      } elseif($ids && is_numeric($ids)) {
-        // loads the single pageMetaData in an array
-        $return[] = GeneralFunctions::$pagesMetaData[$ids];
-
-      } else return false;
-    }
-
-    // -> returns an array with the pageContent Arrays
-    return $return;
-  }
-
- /**
-  * <b>Name</b> loadPagesByDate()<br>
-  *
-  * Loads pages by ID-type and ID, which fit in the given time period parameters.
-  *
-  * Checks if the pages to load have a page date
-  * and the page date fit in the given <var>$from</var> and <var>$to</var> parameters.
-  * All time period parameters are compared against the current date.
-  *
-  * The <var>$from</var> and <var>$to</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
-  *
-  * @param string          $idType                the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array|bool  $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
-  * @param int|bool|string $from                  (optional) number of months in the past, if TRUE it show all pages in the past, if FALSE it loads only pages starting from the current date. Can also be a string with a date format (e.g. '2 weeks' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/en/datetime.formats.php}
-  * @param int|bool|string $to                    (optional) number of months in the future, if TRUE it show all pages in the future, if FALSE it loads only pages until the current date. Can also be a string with a date format (e.g. '10 days' or '27.06.2012'), for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
-  * @param bool            $sortPages             (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE it sorts the pages by date (If date range: by start date). Can also be a sort function e.g. "sortByEndDate". See {@link sort.functions.php} for more.
-  * @param bool            $reverseList           (optional) if TRUE the pages sorting will be reversed
-  *
-  * @uses $categoryConfig                 to check if in the category is sorting by page date allowed
-  * @uses getPropertyIdsByType()          to get the property IDs if the $ids parameter is FALSE
-  * @uses loadPagesByType()               load the pages depending on the type
-  * @uses changeDate()                    change the current date minus or plus the months from specified in the parameters
-  * @uses gernalFunctions::sortPages()    to sort the pages by page date
-  *
-  * @return array|false an array with the $pageContent arrays or FALSE if no page has a page date or is allowed for sorting
-  *
-  * @link http://www.php.net/manual/de/datetime.formats.php
-  *
-  * @see Feindura::listPagesByDate()
-  * @see Feindura::createMenuByDate()
-  *
-  * @access protected
-  * @version 1.0.1
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0.1 fixed timezone when using strtotime
-  *    - 1.0 initial release
-  *
-  */
-  protected function loadPagesByDate($from = true, $to = true, $idType, $ids, $sortPages = false, $reverseList = false) {
-
-    if(!is_bool($from) && is_numeric($from))
-      $from = round($from);
-    if(!is_bool($to) && is_numeric($to))
-      $to = round($to);
-    $ids = $this->getPropertyIdsByType($idType,$ids);
-
-    // LOADS the PAGES BY TYPE
-    if($pages = $this->loadPagesByType($idType,$ids)) {
-
-      // creates the current date to compare with
-      $currentDate = time();
-
-      $pastDate = false;
-      $futureDate = false;
-
-      // creates the PAST DATE
-      if(!is_bool($from) && is_string($from) && !is_numeric($from))
-        $pastDate = strtotime($from,$currentDate);
-      elseif(!is_bool($from) && is_numeric($from))
-        $pastDate = strtotime('-'.$from.' month',$currentDate);
-      elseif($from === false)
-        $pastDate = $currentDate;
-
-      // creates the FUTURE DATE
-      if(!is_bool($to) && is_string($to) && !is_numeric($to))
-        $futureDate = strtotime($to,$currentDate);
-      if(!is_bool($to) && is_numeric($to))
-        $futureDate = strtotime('+'.$to.' month',$currentDate);
-      elseif($to === false)
-        $futureDate = $currentDate;
-
-      // echo 'Today: '.date('d-m-Y',$currentDate).'<br>';
-      // echo 'pastDate: '.date('d-m-Y',$pastDate).'<br>';
-      // echo 'futureDate: '.date('d-m-Y',$futureDate).'<br><br>';
-
-      // convert to number date e.g. 20010911
-      $pastDate = date('Ymd',$pastDate);
-      $futureDate = date('Ymd',$futureDate);
-
-      // CHECK IF PAGE FITS in the given TIME PERIOD
-      $selectedPages = array();
-      foreach($pages as $page) {
-
-        // show the pages, if page date is activated
-        if($this->categoryConfig[$page['category']]['showPageDate']) {
-
-          // DATE RANGE
-          if($this->categoryConfig[$page['category']]['pageDateAsRange'] && !empty($page['pageDate']['end'])) {
-
-            // BOTH dates EXIST
-            if(!empty($page['pageDate']['start'])) {
-
-              // convert to number date e.g. 20120911
-              $pageDateStart = date('Ymd',$page['pageDate']['start']);
-              $pageDateEnd   = date('Ymd',$page['pageDate']['end']);
-              // compare
-              if(($from === true || ($pageDateStart >= $pastDate) || ($pageDateStart < $pastDate && $pageDateEnd >= $pastDate)) &&
-                 ($to === true || ($pageDateEnd <= $futureDate) || ($pageDateEnd > $futureDate && $pageDateStart <= $futureDate)))
-                $selectedPages[] = $page;
-
-
-            // ONLY LAST date EXIST (unlikely)
-            } else {
-              // convert to number date e.g. 20120911
-              $pageDateEnd = date('Ymd',$page['pageDate']['end']);
-              // compare
-              if(($from === true || $pageDateEnd >= $pastDate) &&
-                 ($to === true || $pageDateEnd <= $futureDate))
-                $selectedPages[] = $page;
-            }
-
-          // SINGLE DATE
-          } elseif(!empty($page['pageDate']['start'])) {
-
-            // convert to number date e.g. 20120911
-            $pageDate = date('Ymd',$page['pageDate']['start']);
-            // compare
-            if(($from === true || $pageDate >= $pastDate) &&
-               ($to === true || $pageDate <= $futureDate))
-              $selectedPages[] = $page;
-          }
-        }
-      }
-
-      // -> SORT PAGES
-      // sorts by DATE and CATEGORIES
-      if($sortPages === true) {
-        $selectedPages = GeneralFunctions::sortPages($selectedPages);
-
-      // sort by given sort function
-      } elseif(is_string($sortPages) && function_exists($sortPages)) {
-        usort($selectedPages,$sortPages);
-
-      // sort by DATE
-      } else {
-        usort($selectedPages,'sortByStartDate');
-      }
-
-      // -> flips the pages array if $reverseList === true
-      if($reverseList === true)
-        $selectedPages = array_reverse($selectedPages);
-
-
-      // -> RETURN the pages the pages
-      if(!empty($selectedPages))
-        return $selectedPages;
-      else
-       return false;
-
-
-    } else return false;
-    //return $return;
-  }
-
  /**
   * <b>Name</b> checkPagesForTags()<br>
   *
@@ -1781,10 +1843,10 @@ class FeinduraBase {
     $categoriesArray = $this->categoryConfig;
     // ??include the non-category??
     unset($categoriesArray[0]);
-
     // CHECK if its a $pageContent array, set the $page ID to the $page parameter
     if(GeneralFunctions::isPageContentArray($ids))
       return array($ids,$ids['category']);
+
 
     // -> IF ARRAY, separates into page/category
     if(is_array($ids)) {
@@ -1823,41 +1885,42 @@ class FeinduraBase {
     if($category != 0 && is_numeric($category) && !array_key_exists($category, $categoriesArray))
       return false;
 
+
     // ->> SHORTEN STRINGS
     // page string
     if(is_string($page) && !is_numeric($page)) {
       $page = strtolower($page);
       $page = substr($page,0,4);
       // PREV
-      if($page == 'prev') $page = 'prev';
+      if($page === 'prev') $page = 'prev';
       // NEXT
-      elseif($page == 'next') $page = 'next';
+      elseif($page === 'next') $page = 'next';
       // FIRST
-      elseif($page == 'firs' || $page == 'top') $page = 'first';
+      elseif($page === 'firs' || $page === 'top') $page = 'first';
       // LAST
-      elseif($page == 'last' || $page == 'bott') $page = 'last';
+      elseif($page === 'last' || $page === 'bott') $page = 'last';
       // RANDOM
-      elseif($page == 'rand' || $page == 'shuf') $page = 'rand';
+      elseif($page === 'rand' || $page === 'shuf') $page = 'rand';
     }
     // category string
     if(is_string($category) && !is_numeric($category)) {
       $category = strtolower($category);
       $category = substr($category,0,4);
       // PREV
-      if($category == 'prev') $category = 'prev';
+      if($category === 'prev') $category = 'prev';
       // NEXT
-      elseif($category == 'next') $category = 'next';
+      elseif($category === 'next') $category = 'next';
       // FIRST
-      elseif($category == 'firs' || $category == 'top') $category = 'first';
+      elseif($category === 'firs' || $category === 'top') $category = 'first';
       // LAST
-      elseif($category == 'last' || $category == 'bott') $category = 'last';
+      elseif($category === 'last' || $category === 'bott') $category = 'last';
       // RANDOM
-      elseif($category == 'rand' || $category == 'shuf') $category = 'rand';
+      elseif($category === 'rand' || $category === 'shuf') $category = 'rand';
     }
 
     // ->> NEXT/PREV PAGE
     // ******
-    if($page == 'next' || $page == 'prev') {
+    if($page === 'next' || $page === 'prev') {
       // get category of the current page
       $category = GeneralFunctions::getPageCategory($this->page);
       // loads all pagesMetaData of this category
@@ -1869,11 +1932,11 @@ class FeinduraBase {
           // if found current page
           if($pageMetaData['id'] == $this->page) {
             // NEXT
-            if($page == 'next' && $next = next($pagesMetaDataCopy)) {
+            if($page === 'next' && $next = next($pagesMetaDataCopy)) {
               while($next && !$next['public']) $next = next($pagesMetaDataCopy); // prevent to pick a non public page
               return array($next['id'],$next['category']);;
             // PREV
-            } elseif($page == 'prev' && $prev = prev($pagesMetaDataCopy)) {
+            } elseif($page === 'prev' && $prev = prev($pagesMetaDataCopy)) {
               while($prev && !$prev['public']) $prev = prev($pagesMetaDataCopy); // prevent to pick a non public page
               return array($prev['id'],$prev['category']);
             // END of CATEGORY
@@ -1881,6 +1944,8 @@ class FeinduraBase {
           }
           next($pagesMetaDataCopy); // move the pointer
         }
+
+        unset($pagesMetaData);
       } else
         return false;
     }
@@ -1892,18 +1957,18 @@ class FeinduraBase {
     // ******
 
     // NEXT/PREV CATEGORY
-    if($category == 'next' || $category == 'prev') {
+    if($category === 'next' || $category === 'prev') {
       $categoriesArrayCopy = $categoriesArray;
 
       foreach($this->categoryConfig as $eachCategory) {
         // if found current category
         if($eachCategory['id'] == $this->category) {
           // NEXT
-          if($category == 'next' && $next = next($categoriesArrayCopy)) {
+          if($category === 'next' && $next = next($categoriesArrayCopy)) {
             while($next && !$this->categoryConfig[$next['id']]['public']) $next = next($categoriesArrayCopy); // prevent to pick a non public category
             $category = $next['id'];
           // PREV
-          } elseif($category == 'prev' && $prev = prev($categoriesArrayCopy)) {
+          } elseif($category === 'prev' && $prev = prev($categoriesArrayCopy)) {
             while($prev && !$this->categoryConfig[$prev['id']]['public']) $prev = prev($categoriesArrayCopy); // prevent to pick a non public category
             $category = $prev['id'];
           } else
@@ -1915,21 +1980,21 @@ class FeinduraBase {
       }
 
     // FIRST CATEGORY
-    } elseif($category == 'first' && $tmpCategory = reset($categoriesArray)) {
+    } elseif($category === 'first' && $tmpCategory = reset($categoriesArray)) {
       while($tmpCategory && !$this->categoryConfig[$tmpCategory['id']]['public']) $tmpCategory = next($categoriesArray); // prevent to pick a non public category
       $category = $tmpCategory['id'];
       reset($categoriesArray);
       unset($tmpCategory);
 
     // LAST CATEGORY
-    } elseif($category == 'last' && $tmpCategory = end($categoriesArray)) {
+    } elseif($category === 'last' && $tmpCategory = end($categoriesArray)) {
       while($tmpCategory && !$this->categoryConfig[$tmpCategory['id']]['public']) $tmpCategory = prev($categoriesArray); // prevent to pick a non public category
       $category = $tmpCategory['id'];
       reset($categoriesArray);
       unset($tmpCategory);
 
     // RANDOM CATEGORY
-    } elseif($category == 'rand') {
+    } elseif($category === 'rand') {
       $categoriesArrayCopy = $categoriesArray;
       shuffle($categoriesArrayCopy);
       if($tmpCategory = reset($categoriesArrayCopy)) {
@@ -1946,24 +2011,25 @@ class FeinduraBase {
       return false;
     // ******
 
+
     //->> GET PAGE (first,last,rand)
     // ******
-    if(is_bool($page) || $page == 'first' || $page == 'last' || $page == 'rand') {
+    if(is_bool($page) || $page === 'first' || $page === 'last' || $page === 'rand') {
 
       // loads all pagesMetaData of this category
       $pagesMetaData = GeneralFunctions::getPagesMetaDataOfCategory($category);
       if(is_array($pagesMetaData)) {
 
         // FIRST PAGE (first or bool)
-        if(($page == 'first' || is_bool($page)) && $tmpPage = reset($pagesMetaData)) {
+        if(($page === 'first' || is_bool($page)) && $tmpPage = reset($pagesMetaData)) {
           while($tmpPage && !$tmpPage['public']) $tmpPage = next($pagesMetaData); // prevent to pick a non public page
           return array($tmpPage['id'],$tmpPage['category']);
         // LAST PAGE
-        } elseif($page == 'last' && $tmpPage = end($pagesMetaData)) {
+        } elseif($page === 'last' && $tmpPage = end($pagesMetaData)) {
           while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pagesMetaData); // prevent to pick a non public page
           return array($tmpPage['id'],$tmpPage['category']);
         // RANDOM PAGE
-        } elseif($page == 'rand') {
+        } elseif($page === 'rand') {
           $pagesMetaDataCopy = $pagesMetaData;
           shuffle($pagesMetaDataCopy);
           if($tmpPage = reset($pagesMetaDataCopy)) {
@@ -1973,6 +2039,8 @@ class FeinduraBase {
             return array($tmpPage['id'],$tmpPage['category']);
           }
         }
+
+        unset($pagesMetaData);
       }
     }
     // ******
@@ -2010,10 +2078,10 @@ class FeinduraBase {
 
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     if($ids === false) {
-      if($shortIdType == 'pag')
+      if($shortIdType === 'pag')
         // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
         $ids = $this->getPropertyPage(false);
-      elseif($shortIdType == 'cat')
+      elseif($shortIdType === 'cat')
         // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory(false);
     }
@@ -2193,9 +2261,9 @@ class FeinduraBase {
           //echo 'inTAG. '.$inTag.'<br>';
 
           // checks if it is in a Tag or not
-          if($actualChar == '<')
+          if($actualChar === '<')
             $inTag = true;
-          elseif($actualChar == '>')
+          elseif($actualChar === '>')
             $inTag = false;
 
           // count the currentLength up if it is not in a tag
@@ -2280,15 +2348,15 @@ class FeinduraBase {
       $output = $input;
 
       // removes the last \r\n on the end
-      if(mb_substr($output,-1,mb_strlen($output,'UTF-8'),'UTF-8') == "\n")
+      if(mb_substr($output,-1,mb_strlen($output,'UTF-8'),'UTF-8') === "\n")
         $output = mb_substr($output,0,-2,'UTF-8');
-      if(mb_substr($input,-1,mb_strlen($input,'UTF-8'),'UTF-8') == "\r")
+      if(mb_substr($input,-1,mb_strlen($input,'UTF-8'),'UTF-8') === "\r")
         $output = mb_substr($output,0,-2,'UTF-8');
 
       // if string was shorten
       if($textWasCut) {
         // try to put the endString before the last HTML-Tag and add the more link
-        if(mb_substr($output,-1,mb_strlen($output,'UTF-8'),'UTF-8') == '>') {
+        if(mb_substr($output,-1,mb_strlen($output,'UTF-8'),'UTF-8') === '>') {
           $lastTagPos = mb_strrpos($output, '</','UTF-8');
           $lastTag = mb_substr($output,$lastTagPos,mb_strlen($output,'UTF-8'),'UTF-8');
           $output = mb_substr($output,0,$lastTagPos,'UTF-8').$endString.$lastTag;

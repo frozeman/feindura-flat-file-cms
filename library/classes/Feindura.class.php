@@ -754,24 +754,10 @@ class Feindura extends FeinduraBase {
 
 
  /**
-  * The number of the current scriptCache.
-  * Increases everytime you call {@link Feindura::startCache()}.
-  *
-  *
-  * @var int
-  * @access protected
-  *
-  * @see Feindura::startCache()
-  * @see Feindura::endCache()
-  *
-  */
-  protected $currentScriptCacheNumber = 0;
-
- /**
   * Tells the {@link Feindura::endCache()} method to write the a cache file or not.
   *
   *
-  * @var bool
+  * @var array
   * @access protected
   *
   * @see Feindura::startCache()
@@ -1606,7 +1592,7 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div". You can also add simple Zen Code selectors to this string to add id, classes and attributes. E.g. "ul#myId.myClass1.myClass2[attribute1=value][attribute2=value]" converts to <ul id="myId" class="myClass1 myClass2" attribute1="value" attribute2="value">
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link GeneralFunctions::sortPages()} for more.
   * @param bool           $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$menuId
@@ -1759,7 +1745,7 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link GeneralFunctions::sortPages()} for more.
   * @param bool           $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$menuId
@@ -1858,7 +1844,7 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool  $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool     $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE it sorts the pages by date (If date range: by start date). Can also be a sort function e.g. "sortByEndDate". See {@link sort.functions.php} for more.
+  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE it sorts the pages by date (If date range: by start date). Can also be a sort function e.g. "sortByEndDate". See {@link GeneralFunctions::sortPages()} for more.
   * @param bool            $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$menuId
@@ -2073,7 +2059,7 @@ class Feindura extends FeinduraBase {
 /**
   * <b>Name</b> isSubCategoryOf()<br>
   *
-  * Check if the given <var>$page</var> ID has the <var>$category</var> as a subcategory.<br>
+  * Check if the given <var>$pageId</var> ID has the given <var>$categoryId</var> as a subcategory.<br>
   *
   * <b>Note</b>: If the <var>$pageID</var> parameter is FALSE or empty, it uses the current page (means the {@link Feindura::$page} property).<br>
   * <b>Note</b>: If the <var>$categoryId</var> parameter is FALSE or empty, it uses the current page (means the {@link Feindura::$page} property).<br>
@@ -2110,6 +2096,50 @@ class Feindura extends FeinduraBase {
     return false;
   }
 
+  /**
+  * <b>Name</b> getParentPagesOf()<br>
+  *
+  * Loads the parent pages of a subcategory.
+  *
+  * <b>Note</b>: If the <var>$categoryId</var> parameter is FALSE or empty, it uses the current page (means the {@link Feindura::$page} property).<br>
+  *
+  * @param int|string|bool $categoryId  (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
+  *
+  * @uses Feindura::$category
+  * @uses Feindura::$categoryConfig
+  *
+  *
+  * @return array|false and array with all the parent pages or FALSE if it is not a sub category
+  *
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public function getParentPagesOf($categoryId = false) {
+
+    if($ids = $this->getIdsFromString(array(false,$categoryId)))
+      $categoryId = $ids[1];
+
+    // quit if its not a subcategory
+    if(!$this->categoryConfig[$categoryId]['isSubCategory'])
+      return false;
+
+    else {
+      // vars
+      $return = array();
+
+      $parentPages = unserialize($this->categoryConfig[$categoryId]['isSubCategoryOf']);
+      foreach ($parentPages as $pageId => $categoryId) {
+        if($generatedPage = $this->generatePage($pageId,$this->showErrors))
+          $return[] = $generatedPage;
+      }
+      return $return;
+    }
+  }
+
  /**
   * <b>Name</b> createSubMenu()<br>
   *
@@ -2135,7 +2165,7 @@ class Feindura extends FeinduraBase {
   * @param int|string|array|bool  $id                 (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param int|bool               $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool            $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param bool                   $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool                   $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link GeneralFunctions::sortPages()} for more.
   * @param bool                   $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$menuId
@@ -2237,7 +2267,7 @@ class Feindura extends FeinduraBase {
   * @param int|string|bool $categoryId         (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
   * @param int|bool        $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
   * @param string|bool     $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link GeneralFunctions::sortPages()} for more.
   * @param bool            $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$menuId
@@ -2900,7 +2930,7 @@ class Feindura extends FeinduraBase {
               foreach($pagePlugins as $pluginNumber => $pluginContent) {
                 // go through all plugins and load the required ones
                 if($pluginContent['active'] && // check if activated in the page
-                   (is_bool($plugins) || ($pluginNumber == 1 && in_array($pluginName,$plugins)) || in_array($pluginName.'#'.$pluginNumber,$plugins)) && // is in the requested plugins array
+                   (is_bool($plugins) || ($pluginNumber == 0 && in_array($pluginName,$plugins)) || ($pluginNumber == 1 && in_array($pluginName,$plugins)) || in_array($pluginName.'#'.$pluginNumber,$plugins)) && // is in the requested plugins array
                    is_array($activatedPlugins) && in_array($pluginName,$activatedPlugins)) { // activated in the adminConfig or categoryConfig
 
                   if($returnPlugin) {
@@ -2919,7 +2949,6 @@ class Feindura extends FeinduraBase {
 
                     // remove the active value from the plugin config
                     unset($pluginConfig['active'],$pluginContent,$plugin);
-
 
                     // -> include the plugin
                     ob_start();
@@ -2985,7 +3014,7 @@ class Feindura extends FeinduraBase {
   * echo $feindura->hasTags('example tag', 'category', 1);
   *
   * // RESULT
-  * 3 (means 3 pages in category 1 have this tag)
+  * 3 (means 3 pages in category 1 have the 'example tag')
   *
   * ?>
   * </code>
@@ -3047,7 +3076,7 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string    $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link GeneralFunctions::sortPages()} for more.
   * @param bool           $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   *
@@ -3177,7 +3206,7 @@ class Feindura extends FeinduraBase {
   * @param int|string|array|bool  $id                 (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
   * @param int|array|bool         $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string            $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool                   $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool                   $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link GeneralFunctions::sortPages()} for more.
   * @param bool                   $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   *
@@ -3279,7 +3308,7 @@ class Feindura extends FeinduraBase {
   * @param int|string|bool $categoryId         (optional) a category ID, or a string with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$category} property.
   * @param int|array|bool  $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string     $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool            $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link GeneralFunctions::sortPages()} for more.
   * @param bool            $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   *
@@ -3364,7 +3393,7 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|array|bool $shortenText        (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string    $useHtml            (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link sort.functions.php} for more.
+  * @param bool           $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link GeneralFunctions::sortPages()} for more.
   * @param bool           $reverseList        (optional) if TRUE the pages sorting will be reversed
   *
   *
@@ -3465,7 +3494,7 @@ class Feindura extends FeinduraBase {
   * @param int|array|bool  $ids                   (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property
   * @param int|array|bool  $shortenText           (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="%href%"'>read more</a>'). (the <var>%href%</var> will be replaced by the pages href)
   * @param bool|string     $useHtml               (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
-  * @param bool            $sortPages             (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE it sorts the pages by date (If date range: by start date). Can also be a sort function e.g. "sortByEndDate". See {@link sort.functions.php} for more.
+  * @param bool            $sortPages             (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE it sorts the pages by date (If date range: by start date). Can also be a sort function e.g. "sortByEndDate". See {@link GeneralFunctions::sortPages()} for more.
   * @param bool            $reverseList           (optional) if TRUE the pages sorting will be reversed
   *
   * @uses Feindura::$xHtml
@@ -3649,8 +3678,9 @@ class Feindura extends FeinduraBase {
   * <b>Name</b> startCache()<br>
   *
   *
-  * This method can cache parts of your script, to speed up page loading time.
-  * You need to call {@link Feindura::endCache()} to tell it were you cache ends.
+  * This method can cache parts of your script, to speed up page loading time.<br>
+  * You need to call {@link Feindura::endCache()} to tell it were the cache part ends.<br>
+  * The cache will be resaved after the <var>$timeout</var> parameter is over. The cache will also be deleted when a page is saved in the backend.
   *
   * Because of PHP scope restricions, you need to manually prevent the processing of the original script. See the example for more.
   *
@@ -3662,7 +3692,7 @@ class Feindura extends FeinduraBase {
   *
   * // this will cache the scripts inside the brackets for two hours,
   * // and then recache them again.
-  * if(!$feindura->startCache(2)) {
+  * if(!$feindura->startCache('myScriptCache',2)) {
   *
   * .. your scripts
   *
@@ -3673,7 +3703,7 @@ class Feindura extends FeinduraBase {
   *
   *
   * // Since PHP 5.3 you could also write it like this:
-  * if($feindura->startCache(2))
+  * if($feindura->startCache('myScriptCache',2))
   *   goto usedCache;
   *
   * .. your scripts
@@ -3686,6 +3716,7 @@ class Feindura extends FeinduraBase {
   * </code>
   *
   * @param float  $timeout (optional) the number of hours after whihc the cache should be reloaded
+  * @param string $cacheId a unique id to identify the cache e.g "myScriptCache1"
   *
   *
   *
@@ -3700,11 +3731,10 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function startCache($timeout = 8) {
+  public function startCache($cacheId ,$timeout = 8) {
 
     // vars
-    $this->currentScriptCacheNumber++; // increase the current script cache number verytime you call
-    $cachedFile = dirname(__FILE__).'/../../pages/cache/scriptCache_'.$this->currentScriptCacheNumber.'.cache';
+    $cachedFile = dirname(__FILE__).'/../../pages/cache/scriptCache_'.$cacheId.'.cache';
     $timeoutSec = $timeout * 60 * 60;
 
     // DebugTools::dump('Time until the next cache reload: '.(filectime($cachedFile) + $timeoutSec - time()).' seconds');
@@ -3713,13 +3743,16 @@ class Feindura extends FeinduraBase {
     if(file_exists($cachedFile) &&
        ($cachedFileTime = filectime($cachedFile)) + $timeoutSec >= time() ) {
 
+      // load the cached file and display
       if(($cachedScript = file_get_contents($cachedFile)) !== false) {
-        echo "\n<!-- Start of the cached Script #".$this->currentScriptCacheNumber."
+        echo "\n<!-- Start of Cached Script #".$this->currentScriptCacheNumber."
 Cached on ".date('d M Y H:i:s',$cachedFileTime)."
-Expires on ".date('d M Y H:i:s',$cachedFileTime + $timeoutSec)."  -->\n".$cachedScript."\n<!-- End of the cached Script #".$this->currentScriptCacheNumber."  -->\n";
+Expires on ".date('d M Y H:i:s',$cachedFileTime + $timeoutSec)."  -->\n".$cachedScript."\n<!-- End of Cached Script #".$this->currentScriptCacheNumber."  -->\n";
+
         return true;
-      } else
+      } else {
         return false;
+      }
 
     // GENERATE CACHE
     } else {
@@ -3729,7 +3762,7 @@ Expires on ".date('d M Y H:i:s',$cachedFileTime + $timeoutSec)."  -->\n".$cached
         @mkdir(dirname(__FILE__).'/../../pages/cache');
 
       ob_start();
-      $this->cachedScriptCache = true;
+      $this->cachedScriptCache = $cacheId;
     }
 
     return false;
@@ -3739,7 +3772,7 @@ Expires on ".date('d M Y H:i:s',$cachedFileTime + $timeoutSec)."  -->\n".$cached
   /**
   * <b>Name</b> endCache()<br>
   *
-  * This method writes the cache, which was started with {@link Feidnura::startCache()}.
+  * This method writes the cache, which was started with {@link Feidnura::startCache()}. It will save the last started cache.
   * See the {@link Feidnura::startCache()} method for more.
   *
   *
@@ -3756,12 +3789,12 @@ Expires on ".date('d M Y H:i:s',$cachedFileTime + $timeoutSec)."  -->\n".$cached
   */
   public function endCache() {
 
-    if($this->cachedScriptCache === true) {
+    if($this->cachedScriptCache !== false) {
       $scriptCache = ob_get_contents();
       ob_end_flush();
-      @file_put_contents(dirname(__FILE__).'/../../pages/cache/scriptCache_'.$this->currentScriptCacheNumber.'.cache', $scriptCache, LOCK_EX);
+      @file_put_contents(dirname(__FILE__).'/../../pages/cache/scriptCache_'.$this->cachedScriptCache.'.cache', $scriptCache, LOCK_EX);
     }
 
-    $this->cachedScriptCache = true;
+    $this->cachedScriptCache = false;
   }
 }

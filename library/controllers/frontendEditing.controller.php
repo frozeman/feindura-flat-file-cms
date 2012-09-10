@@ -99,7 +99,9 @@ if($_POST['replaceContent'] == 'true') {
 
   // -> add edit content
   if($_POST['mode'] == 'deactivate') {
-    $return = GeneralFunctions::generateContent($localizedContent, $pageContent['id'], $sessionId, $langCode);
+
+    // is moved to the FeinduraBase class... need to be edited with the new frontendediting mode!
+    // $return = GeneralFunctions::generateContent($localizedContent, $pageContent['id'], $sessionId, $langCode);
 
     // clear xHTML tag endings from the content
     if(empty($_POST['xHtml']))
