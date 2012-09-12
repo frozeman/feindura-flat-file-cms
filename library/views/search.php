@@ -74,7 +74,7 @@ if(!empty($searchWords)) {
   // ->> START SEARCH
   // ****************
   $search = new Search(); //$_SESSION['feinduraSession']['websiteLanguage']
-  $search->checkIfPublic = false;
+  $search->onlyPublic = false;
   $search->checkPermissions = true;
   $results = $search->find($searchWords);
 

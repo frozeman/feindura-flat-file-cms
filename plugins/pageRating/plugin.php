@@ -65,22 +65,22 @@ echo '<script type="text/javascript">
     $$("#pageRating'.$uniqueId.' a").setStyle("opacity",opacLevel).removeClass("unrated");
   }
 
-  $$("#pageRating'.$uniqueId.' a").addEvent("click",function(e){
+  // var
+  var feinduraPlugin_pageRating = $("pageRating'.$uniqueId.'");
+  var pageIds = feinduraPlugin_pageRating.getProperty("data-pageRating").split(" ");
+  feinduraPlugin_pageRating.set("tween",{duration:300});
+
+  feinduraPlugin_pageRating.getElements("a").addEvent("click",function(e){
     e.stop();
 
-    // var
-    var feinduraPlugin_pageRating = $("pageRating'.$uniqueId.'");
-    var pageIds = feinduraPlugin_pageRating.getProperty("data-pageRating").split(" ");
     if(!feinduraPlugin_pageRating.hasClass("unrated"))
       return;
 
     // save the rating
     new Request({
       url: "'.$pluginBaseURL.'saveRating.php",
+      link: "cancel",
       data: "page=" + pageIds[0] + "&category=" + pageIds[1] + "&pluginNumber="+'.$pluginNumber.'+"&rating="+this.getProperty("data-pageRating"),
-      onRequest: function() {
-        feinduraPlugin_pageRating.set("tween",{duration:300});
-      },
       onSuccess: function(rating) {
         if(rating && !isNaN(rating)) {
           feinduraPlugin_pageRating.fade(0).get("tween").chain(function(){

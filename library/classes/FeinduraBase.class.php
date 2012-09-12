@@ -345,10 +345,12 @@ class FeinduraBase {
         if(is_array($this->categoryConfig)) {
           foreach($this->categoryConfig as $category) {
             // goes trough each localization and check if its fit the $_GET['category'] title
-            foreach($category['localized'] as $localizedCategory) {
-              // RETURNs the right category Id
-              if(StatisticFunctions::urlEncode($localizedCategory['name']) === StatisticFunctions::urlEncode($_GET['category'])) {
-                return $category['id'];
+            if(is_array($category['localized'])) {
+              foreach($category['localized'] as $localizedCategory) {
+                // RETURNs the right category Id
+                if(StatisticFunctions::urlEncode($localizedCategory['name']) === StatisticFunctions::urlEncode($_GET['category'])) {
+                  return $category['id'];
+                }
               }
             }
           }
@@ -911,6 +913,7 @@ class FeinduraBase {
     $menuItem['language']          = false;
     $menuItem['thumbnail']         = false;
     $menuItem['thumbnailPath']     = false;
+    $menuItem['tags']              = false;
     $menuItem['id']                = false;
     $menuItem['pageId']            = false; // same as 'id'
     $menuItem['categoryId']        = false;
@@ -1065,6 +1068,8 @@ class FeinduraBase {
         $menuItemCopy['pageDateTimestamp']   = $link['pageDateTimestamp'];
       if($link['language'])
         $menuItemCopy['language']            = $link['language'];
+      if($link['tags'])
+        $menuItemCopy['tags']                = $link['tags'];
 
       // add thumbnail
       if($link['thumbnail']) {
@@ -1365,7 +1370,7 @@ class FeinduraBase {
     $pageDate = false;
     if($this->categoryConfig[$pageContent['category']]['showPageDate']) {
       // add page date
-      $pageDate          = GeneralFunctions::showPageDate($pageContent,$this->languageFile);
+      $pageDate          = GeneralFunctions::showPageDate($pageContent,true,$this->languageFile);
       $pageDateTimeStamp['date']  = $pageContent['pageDate']['start'];
       $pageDateTimeStamp['start'] = $pageContent['pageDate']['start'];
       $pageDateTimeStamp['end']   = $pageContent['pageDate']['end'];
@@ -1538,14 +1543,13 @@ class FeinduraBase {
       // saves the long version of the title, for the title="" tag
       //$fullTitle = strip_tags($this->getLocalized($pageContent,'title'));
 
-
       if($titleShowPageDate && $this->categoryConfig[$pageContent['category']]['showPageDate']) {
           // add page date
-          $titleDate          = GeneralFunctions::showPageDate($pageContent,$this->languageFile);
+          $titleDate          = GeneralFunctions::showPageDate($pageContent,true,$this->languageFile);
 
           // add pageDate separator
-          if(is_string($titlePageDateSeparator))
-            $titleDate = $titleDate.$titlePageDateSeparator;
+          if(is_string($titlePageDateSeparator) && !empty($titleDate))
+            $titleDate .= $titlePageDateSeparator;
 
         } else
           $titleDate = false;
@@ -1574,6 +1578,9 @@ class FeinduraBase {
 
       } else
         $titleText = $this->getLocalized($pageContent,'title');
+
+      // remove the " quotes
+      $titleText = str_replace('"', '&quot;', $titleText);
 
 
       // GENERATE title
@@ -1666,7 +1673,7 @@ class FeinduraBase {
         ? $this->categoryConfig[$pageContent['category']]['thumbHeight']
         : $this->adminConfig['pageThumbnail']['height'];
 
-      $altTitle = strip_tags(str_replace('"', '&quot;', $this->getLocalized($pageContent,'title'))); // getLocalized function is from the feindura.class.pgp
+      $altTitle = strip_tags($this->getLocalized($pageContent,'title')); // getLocalized function is from the feindura.class.pgp
 
       if(!empty($configThumbWidth) && !empty($configThumbHeight) && is_numeric($configThumbWidth) && is_numeric($configThumbHeight)) {
         $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/images/icons/emptyImage.gif" style="display:table-cell; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'\') no-repeat center center;'.$thumbnailAlign.'" class="feinduraThumbnail" alt="'.$altTitle.'" title="'.$altTitle.'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;

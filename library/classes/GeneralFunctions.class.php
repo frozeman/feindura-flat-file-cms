@@ -1857,8 +1857,8 @@ class GeneralFunctions {
   * Returns either a single page date or a date range formated, ready to display in an HTML page.
   *
   * @param array       $pageContent       the $pageContent array of a page
+  * @param bool        $useText           (optional) is TRUE it uses the names Today,Tomorrow, Yesterday these dates, if FALSE it always uses just dates.
   * @param array|false $langFile          (optional) a language file to use, if FALSE it uses the global $langFile variable.
-  * @param bool        $useDayBeforeAfter (optional) is TRUE it uses the names Today,Tomorrow, Yesterday these dates, if FALSE it always uses just dates.
   *
   * @uses $categoryConfig to check if in the category the page date is activated
   *
@@ -1871,7 +1871,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function showPageDate($pageContent,$langFile = false,$useDayBeforeAfter = true) {
+  public static function showPageDate($pageContent, $useText = true, $langFile = false) {
 
     // quit if deactivated
     if(!self::$categoryConfig[$pageContent['category']]['showPageDate'])
@@ -1893,14 +1893,14 @@ class GeneralFunctions {
             if(date('d',$pageContent['pageDate']['start']) == date('d',$pageContent['pageDate']['end']))
               $startDate = false;
             else
-              $startDate = ($useDayBeforeAfter) ? self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile,'D') : self::formatDate($pageContent['pageDate']['start'],'D');
+              $startDate = ($useText) ? self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile,'D') : self::formatDate($pageContent['pageDate']['start'],'D');
           else
-            $startDate = ($useDayBeforeAfter) ? self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile,'DM') : self::formatDate($pageContent['pageDate']['start'],'DM');
+            $startDate = ($useText) ? self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile,'DM') : self::formatDate($pageContent['pageDate']['start'],'DM');
         // full start date
         } else
-          $startDate = ($useDayBeforeAfter) ? self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile) : self::formatDate($pageContent['pageDate']['start']);
+          $startDate = ($useText) ? self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile) : self::formatDate($pageContent['pageDate']['start']);
 
-        $endDate = ($useDayBeforeAfter) ? self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile) : self::formatDate($pageContent['pageDate']['end']);
+        $endDate = ($useText) ? self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile) : self::formatDate($pageContent['pageDate']['end']);
 
         return (!empty($startDate))
           ? $startDate.' - '.$endDate
@@ -1908,11 +1908,11 @@ class GeneralFunctions {
 
       // ONLY LAST date EXIST (unlikely)
       } else
-        return ($useDayBeforeAfter) ? self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile) : self::formatDate($pageContent['pageDate']['end']);
+        return ($useText) ? self::dateDayBeforeAfter($pageContent['pageDate']['end'],$langFile) : self::formatDate($pageContent['pageDate']['end']);
 
     // SINGLE DATE
     } elseif(!empty($pageContent['pageDate']['start'])) {
-        return ($useDayBeforeAfter) ? self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile) : self::formatDate($pageContent['pageDate']['start']);
+        return ($useText) ? self::dateDayBeforeAfter($pageContent['pageDate']['start'],$langFile) : self::formatDate($pageContent['pageDate']['start']);
     } else
         return false;
   }

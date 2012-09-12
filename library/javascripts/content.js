@@ -1623,7 +1623,7 @@ window.addEvent('domready', function() {
             removeLoadingCircle();
             jsLoadingCircle.dispose();
             // add errorWindow
-            document.body.grab(feindura_showError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
+            feindura_showError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE);
           });
 
         }

@@ -117,7 +117,7 @@ class Search {
   * @var bool
   * @access public
   */
-  public $checkIfPublic = true;
+  public $onlyPublic = true;
 
   /**
   * If TRUE it will check if the current user has the right to edit the searched page.
@@ -229,7 +229,7 @@ class Search {
   * @param string          $searchwords  one or more searchwords to fing
   * @param bool|int|array  $category     the ID or an array with IDs of the category(ies) in which should be searched, if TRUE it searches in all categories, if FALSE it searches only in the non category
   *
-  * @uses Search::$checkIfPublic                if TRUE it searches only in pages which are public
+  * @uses Search::$onlyPublic                   if TRUE it searches only in pages which are public
   * @uses sortByPriority()                      to sort the page array
   * @uses GeneralFunctions::isPublicCategory()  to check if the category is public
   * @uses GeneralFunctions::loadPages()         to load the pages
@@ -250,14 +250,14 @@ class Search {
     $results = false;
 
     // -> check if the categories are public
-    if($this->checkIfPublic)
+    if($this->onlyPublic)
       $category = GeneralFunctions::isPublicCategory($category);
 
     // -> load the pages
     $pages = GeneralFunctions::loadPages($category);
 
     // -> CHECK if the pages are PUBLIC
-    if($this->checkIfPublic) {
+    if($this->onlyPublic) {
       foreach($pages as $key => $page) {
         if(!$page['public'])
           unset($pages[$key]);
@@ -280,14 +280,14 @@ class Search {
       $pageResults = false;
       $text = false;
 
-    	// set the priority of the results to 0
-    	$priority = 0;
+      // set the priority of the results to 0
+      $priority = 0;
 
       // generate search pattern
       $pattern = preg_replace('# +#', ' ', $searchwords);
       $pattern = str_replace($changeChars,'|',$pattern);
       $pattern = preg_quote($pattern); // escape regex pattern
-      $pattern = str_replace('\|','|',$pattern);
+      $pattern = str_replace(array('\|',"'",'"'),array('|','',''),$pattern);
       $pattern = trim($pattern,'|');
       $pattern = XssFilter::text($pattern);
       $pattern = ($pattern != '') ? '#'.$pattern.'#i' : '#a^#';

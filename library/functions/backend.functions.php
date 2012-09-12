@@ -1498,20 +1498,29 @@ function saveSitemap($force = false) {
   foreach($sitemapPages as $pageContent) {
 
     $changeFreq = 'never';
+    $priority = '1.0';
 
     // FIND THE RIGHT FREQUENCY
     if($previousPage = GeneralFunctions::readPage($pageContent['id'],$pageContent['category'],true)) {
       $daysInBetween = $pageContent['lastSaveDate'] - $previousPage['lastSaveDate'];
       $daysInBetween = abs(round($daysInBetween / 60 / 60 / 24,3));
 
-      if($daysInBetween >= 365)
+      if($daysInBetween >= 365) {
         $changeFreq = 'yearly';
-      elseif($daysInBetween >= 30)
+        $priority = '0.3';
+      } elseif($daysInBetween >= 30) {
         $changeFreq = 'monthly';
-      elseif($daysInBetween >= 7)
+        $priority = '0.6';
+      } elseif($daysInBetween >= 7) {
         $changeFreq = 'weekly';
-      elseif($daysInBetween < 1)
+        $priority = '0.8';
+      } elseif($daysInBetween >= 2) {
+        $changeFreq = 'daily';
+        $priority = '0.9';
+      } elseif($daysInBetween < 1) {
         $changeFreq = 'hourly';
+        $priority = '1.0';
+      }
     }
 
     // ->> if category is deactivated jump to the next item in the foreach loop
@@ -1522,7 +1531,7 @@ function saveSitemap($force = false) {
       // generate page link
       $link = GeneralFunctions::createHref($pageContent,false,$GLOBALS['websiteConfig']['multiLanguageWebsite']['mainLanguage'],true);
       // add page to sitemap
-      $sitemap->url($link, GeneralFunctions::getDateTimeValue($pageContent['lastSaveDate']), $changeFreq);
+      $sitemap->url($link, GeneralFunctions::getDateTimeValue($pageContent['lastSaveDate']), $changeFreq, $priority);
     }
   }
 

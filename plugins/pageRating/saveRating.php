@@ -41,10 +41,10 @@ if(isset($_POST['rating'])) {
 
   $currentSum = $pageContent['plugins']['pageRating'][$number]['valueNumber'] * $pageContent['plugins']['pageRating'][$number]['votesNumber'];
   $pageContent['plugins']['pageRating'][$number]['valueNumber'] = ($currentSum + $_POST['rating']) / ++$pageContent['plugins']['pageRating'][$number]['votesNumber'];
-  $pageContent['plugins']['pageRating'][$number]['valueNumber'] = round($pageContent['plugins']['pageRating'][$number]['valueNumber'],3);
+  $pageContent['plugins']['pageRating'][$number]['valueNumber'] = round($pageContent['plugins']['pageRating'][$number]['valueNumber'],2);
 
   // ->> save the page
-  if(GeneralFunctions::savePage($pageContent)) {
+  if(GeneralFunctions::savePage($pageContent,false,false)) {
     $_SESSION['feinduraPlugin_pageRating'][$_POST['page']]['rated'] = 'true';
   // ->> on failure, return the unsaved data
   } else {

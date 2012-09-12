@@ -1060,7 +1060,7 @@ class Feindura extends FeinduraBase {
   *
   * @param array        $localizedArray      an array with an ['localized'] array in the form of: array('de' => .. , 'en' => .. )
   * @param string       $value               the name of the value, which should be returned localized
-  * @param string|false $language            (optional) a language to use for loading the localized version of the given <var>$value</var> paramter
+  * @param string|false $language            (optional) a language code ("en","de", etc) to use for loading the localized version of the given <var>$value</var> paramter
   *
   *
   * @uses GeneralFunctions::getLocalized() to get the right localization
@@ -1377,7 +1377,8 @@ class Feindura extends FeinduraBase {
   * <samp>'/category/category_name/page_title.html'</samp>
   *
   *
-  * @param int|string|array|bool $id  (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
+  * @param int|string|array|bool $id       (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
+  * @param bool                  $fullUrl  (optional) whether the full url should be returned or one relative to the website path.
   *
   * @uses FeinduraBase::getIdsFromString()  to load the right page and category IDs depending on the $ids parameter
   * @uses GeneralFunctions::createHref()          call the right createHref functions in the GeneralFunctions class
@@ -1397,12 +1398,12 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createHref($id = false) {
+  public function createHref($id = false, $fullUrl = false) {
 
     if($id = $this->getIdsFromString($id)) {
       // loads the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($id[0],$id[1])) !== false) {
-          return GeneralFunctions::createHref($pageContent,$this->sessionId,$this->language);
+          return GeneralFunctions::createHref($pageContent,$this->sessionId,$this->language, $fullUrl);
       }
     }
     return false;
@@ -1442,6 +1443,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$linkShowThumbnail
   * @uses Feindura::$linkShowThumbnailAfterText
   * @uses Feindura::$linkShowPageDate
+  * @uses Feidnura::$linkPageDateSeparator
   * @uses Feindura::$linkShowCategory
   * @uses Feindura::$linkCategorySeparator
   *
@@ -1677,6 +1679,7 @@ class Feindura extends FeinduraBase {
           $link['href']     = $this->createHref($page);
           $link['id']       = $page['id'];
           $link['category'] = $page['category'];
+          $link['tags']     = $this->getLocalized($page,'tags');
 
           // -> add Thumbnail
           if($pageThumbnail = $this->createThumbnail($page)) {
@@ -1687,7 +1690,7 @@ class Feindura extends FeinduraBase {
           // -> add PAGE DATE
           if($this->categoryConfig[$page['category']]['showPageDate']) {
             // add page date
-            $link['pageDate']          = GeneralFunctions::showPageDate($page,$this->languageFile);
+            $link['pageDate']          = GeneralFunctions::showPageDate($page,true,$this->languageFile);
             $link['pageDateTimestamp']['date']  = $page['pageDate']['start'];
             $link['pageDateTimestamp']['start'] = $page['pageDate']['start'];
             $link['pageDateTimestamp']['end']   = $page['pageDate']['end'];
@@ -2556,6 +2559,8 @@ class Feindura extends FeinduraBase {
           $link['href']     = $this->createHref($parentPageContent);
           $link['id']       = $parentPageContent['id'];
           $link['category'] = $parentPageContent['category'];
+          $link['tags']     = $this->getLocalized($parentPageContent,'tags');
+
           $link['title']    = $this->createTitle($parentPageContent,
                                               $this->linkLength,
                                               false, // $titleAsLink
@@ -2634,6 +2639,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink
   * @uses Feindura::$titleShowPageDate
+  * @uses Feidnura::$titlePageDateSeparator
   * @uses Feindura::$titleShowCategory
   * @uses Feindura::$titleCategorySeparator
   *
@@ -2737,6 +2743,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink
   * @uses Feindura::$titleShowPageDate
+  * @uses Feindura::$titlePageDateSeparator
   * @uses Feindura::$titleShowCategory
   * @uses Feindura::$titleCategorySeparator
   *
@@ -3270,7 +3277,8 @@ class Feindura extends FeinduraBase {
   }
 
 /**
-  * <b>Name</b> listPagesOfSubCategory()<br>
+  * <b>Name</b> listSubCategory()<br>
+  * <b>Alias</b> listPagesOfSubCategory()<br>
   * <b>Alias</b> listPagesFromSubCategory()<br>
   *
   * <b>This method uses the {@link Feindura::$showErrors $error...}, {@link Feindura::$titleLength $title...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
@@ -3349,13 +3357,13 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function listPagesOfSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
+  public function listSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
 
     if($ids = $this->getIdsFromString(array(false,$categoryId))) {
       $categoryId = $ids[1];
       if($this->isSubCategory($categoryId)) {
         // create subcategory
-        if($categoryId && is_numeric($categoryId) && $this->categoryConfig[$categoryId]['showSubCategory'])
+        if($categoryId && is_numeric($categoryId))
           return $this->listPages('category', $categoryId, $shortenText, $useHtml, $sortPages,$reverseList);
       }
     }
@@ -3363,12 +3371,20 @@ class Feindura extends FeinduraBase {
     return array();
   }
   /**
-  * Alias of {@link listPagesOfSubCategory()}
+  * Alias of {@link listSubCategory()}
   * @ignore
   */
   public function listPagesFromSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->listPagesOfSubCategory($categoryId, $shortenText, $useHtml, $sortPages,$reverseList);
+    return $this->listSubCategory($categoryId, $shortenText, $useHtml, $sortPages,$reverseList);
+  }
+  /**
+  * Alias of {@link listSubCategory()}
+  * @ignore
+  */
+  public function listPagesOfSubCategory($categoryId = false, $shortenText = false, $useHtml = true, $sortPages = false, $reverseList = false) {
+    // call the right function
+    return $this->listSubCategory($categoryId, $shortenText, $useHtml, $sortPages,$reverseList);
   }
 
  /**
