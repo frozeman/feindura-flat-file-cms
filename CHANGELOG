@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0 beta
-Build 986
+Build 987
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 2.0 beta
 
+  build 987: add $openGraph and $googleSnippets meta tags to Feindura::createMetaTags()
   build 986: fixed tooltips on dashboard statistic reload
   build 985: add startCache(), endCache() to the Feindura class, to speed up slow script parts, when using feindura ;)
   build 984: created DebugTools class and moved GeneralFunctions::dump() and ..::scriptBenchmark() there

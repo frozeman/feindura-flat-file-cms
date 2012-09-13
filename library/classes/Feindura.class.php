@@ -1105,13 +1105,13 @@ class Feindura extends FeinduraBase {
   * Example:
   * {@example createMetaTags.example.php}
   *
-  * @param string       $charset      (optional) the charset used in the website like "UTF-8", "iso-8859-1", ...
-  * @param string|false $author       (optional) the author of the website
-  * @param string|bool  $publisher    (optional) the publisher of the website, if TRUE it uses the publisher from the {@link FeinduraBase::$websiteConfig website-settings config}
-  * @param string|bool  $copyright    (optional) the copyright owner of the website, if TRUE it uses the copyright from the {@link FeinduraBase::$websiteConfig website-settings config}
+  * @param string       $charset        (optional) the charset used in the website like "UTF-8", "iso-8859-1", ...
+  * @param string|false $author         (optional) the author of the website
+  * @param bool         $openGraph      (optional) if TRUE it add the following open graph meta tags: "og:site_name", "og:url", "og:title", "og:description" and "og:image", you should add ( prefix="og: http://ogp.me/ns#" ) to the <html> tag, like this <html prefix="og: http://ogp.me/ns#">
+  * @param bool         $googleSnippets (optional) if TRUE it add the following google snippets meta tags: "url", "name", "description" and "image"
   *
-  * @uses Feindura::$page                         to load the page title of teh righte page
-  * @uses Feindura::$category                     to load the page title of teh righte page
+  * @uses Feindura::$page                         to load the page title of the right page
+  * @uses Feindura::$category                     to load the page title of the right page
   * @uses FeinduraBase::$websiteConfig            for the website title, publisher, copyright, description and keywords
   * @uses GeneralFunctions::readPage()            to load the page for the page title
   * @uses GeneralFunctions::setVisitorTimezone()  to try to set the timezone to the visitors one
@@ -1128,7 +1128,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMetaTags($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true) {
+  public function createMetaTags($charset = 'UTF-8', $author = false, $openGraph = true, $googleSnippets = true) {
 
     // vars
     $metaTags = '';
@@ -1170,22 +1170,14 @@ class Feindura extends FeinduraBase {
       $metaTags .= '  <meta name="author" content="'.$author.'"'.$tagEnding."\n";
 
     // -> add puplisher
-    if($publisher) {
-      $websiteConfigPublisher = $this->getLocalized($this->websiteConfig,'publisher');
-      if(is_string($publisher) && !is_bool($publisher))
-        $metaTags .= '  <meta name="publisher" content="'.$publisher.'"'.$tagEnding."\n";
-      elseif(!empty($websiteConfigPublisher))
-        $metaTags .= '  <meta name="publisher" content="'.$websiteConfigPublisher.'"'.$tagEnding."\n";
-    }
+    $websiteConfigPublisher = $this->getLocalized($this->websiteConfig,'publisher');
+    if(!empty($websiteConfigPublisher))
+      $metaTags .= '  <meta name="publisher" content="'.$websiteConfigPublisher.'"'.$tagEnding."\n";
 
     // -> add copyright
-    if($copyright) {
-      $websiteConfigCopyright = $this->getLocalized($this->websiteConfig,'copyright');
-      if(is_string($copyright) && !is_bool($copyright))
-        $metaTags .= '  <meta name="copyright" content="'.$copyright.'"'.$tagEnding."\n";
-      elseif(!empty($websiteConfigCopyright))
-        $metaTags .= '  <meta name="copyright" content="'.$websiteConfigCopyright.'"'.$tagEnding."\n";
-    }
+    $websiteConfigCopyright = $this->getLocalized($this->websiteConfig,'copyright');
+    if(!empty($websiteConfigCopyright))
+      $metaTags .= '  <meta name="copyright" content="'.$websiteConfigCopyright.'"'.$tagEnding."\n";
 
     // -> add keywords
     $websiteConfigKeywords =  $this->getLocalized($this->websiteConfig,'keywords');
@@ -1209,9 +1201,49 @@ class Feindura extends FeinduraBase {
     $metaTags .= '  <meta name="revised" content="'.GeneralFunctions::getDateTimeValue($currentPage['lastSaveDate'],false).'"'.$tagEnding."\n";
     $metaTags .= '  <meta name="modified" content="'.GeneralFunctions::getDateTimeValue($currentPage['lastSaveDate'],false).'"'.$tagEnding."\n";
 
-    $metaTags .= '  <meta name="generator" content="feindura - Flat File CMS '.VERSION.' build:'.BUILD.'"'.$tagEnding."\n";
-    $metaTags .= "\n";
+    $metaTags .= '  <meta name="generator" content="feindura - Flat File CMS '.VERSION.', Build '.BUILD.'"'.$tagEnding."\n";
 
+
+    // Generate content for open graph and google snippets
+    if($openGraph || $googleSnippets) {
+      $pageTitle = strip_tags($this->getLocalized($currentPage,'title'));
+      $pageDescription = str_replace('"','&quot;',strip_tags($this->getLocalized($currentPage,'description')));
+      $pagePic = (!empty($currentPage['thumbnail']))
+        ? $this->adminConfig['url'].$this->adminConfig['basePath'].'upload/thumbnails/'.$currentPage['thumbnail']
+        : '';
+    }
+
+    if($openGraph) {
+      $metaTags .= "\n".'  <!-- Open Graph Protocol -->'."\n";
+      $metaTags .= '  <meta property="og:site_name" content="'.$this->getLocalized($this->websiteConfig,'title').'">'."\n";
+      $metaTags .= '  <meta property="og:url" content="'.$this->createHref($currentPage,true).'">'."\n";
+
+      if($currentPage) {
+
+        if(!empty($pageTitle))
+          $metaTags .= '  <meta property="og:title" content="'.$pageTitle.'">'."\n";
+        if(!empty($pageDescription))
+          $metaTags .= '  <meta property="og:description" content="'.$pageDescription.'">'."\n";
+        if(!empty($pagePic))
+          $metaTags .= '  <meta property="og:image" content="'.$pagePic.'">'."\n";
+      }
+    }
+
+    if($googleSnippets) {
+      $metaTags .= "\n".'  <!-- Google+ Snippets -->'."\n";
+      $metaTags .= '  <meta itemprop="url" content="'.$this->createHref($currentPage,true).'">'."\n";
+
+      if($currentPage) {
+        if(!empty($pageTitle))
+          $metaTags .= '  <meta itemprop="name" content="'.$pageTitle.'">'."\n";
+        if(!empty($pageDescription))
+          $metaTags .= '  <meta itemprop="description" content="'.$pageDescription.'">'."\n";
+        if(!empty($pagePic))
+          $metaTags .= '  <meta itemprop="image" content="'.$pagePic.'">'."\n";
+      }
+    }
+
+    $metaTags .= "\n";
 
     // -> CHECK if website is currently under MAINTENANCE, if so show ERROR
     if($this->websiteConfig['maintenance'] && !$this->loggedIn) {
@@ -1349,9 +1381,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link createMetaTags()}
   * @ignore
   */
-  public function createMetaTag($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true) {
+  public function createMetaTag($charset = 'UTF-8', $author = false, $openGraph = true, $googleSnippets = true) {
     // call the right function
-    return $this->createMetaTags($charset, $author, $publisher, $copyright);
+    return $this->createMetaTags($charset, $author, $openGraph, $googleSnippets);
   }
 
  /**
