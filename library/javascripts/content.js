@@ -121,14 +121,10 @@ function reloadPeriodical(url,updateFrequency,container,divBlockedContainer,extr
               toolTipsLeft.detach(container.getElements('.toolTipLeft'));
               toolTipsRight.detach(container.getElements('.toolTipRight'));
 
+
               container.set('html',html);
 
-              feindura_storeTipTexts(container.getElements('[class^="toolTip"]]'));
-              toolTipsTop.attach(container.getElements('.toolTipTop'));
-              toolTipsBottom.attach(container.getElements('.toolTipBottom'));
-              toolTipsLeft.attach(container.getElements('.toolTipLeft'));
-              toolTipsRight.attach(container.getElements('.toolTipRight'));
-
+              setToolTips('#'+container.getProperty('id'));
               inBlockSlider();
               resizeOnHover();
 
