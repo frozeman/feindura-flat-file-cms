@@ -6097,7 +6097,7 @@
   max-width: none;
 }
 .feindura [class^="span"] > [class^="fancyform"] {
-  top: 4px;
+  margin-top: 2px;
 }
 .feindura .fancyform_checked {
   cursor: pointer;
@@ -7944,6 +7944,9 @@
 }
 .feindura .mainContent .block .form .row {
   padding: 5px 0;
+}
+.feindura .mainContent .block .form [class^="span"] > [class^="fancyform"] {
+  margin-top: 4px;
 }
 .feindura .mainContent .block .form .formLeft {
   text-align: right;

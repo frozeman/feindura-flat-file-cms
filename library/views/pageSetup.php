@@ -552,12 +552,12 @@ $hidden = ($SAVEDFORM !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
                                      (!empty($category['styleId']) &&  $category['styleId'] != 'a:0:{}') ||
                                      (!empty($category['styleClass']) && $category['styleClass'] != 'a:0:{}') ||
                                       !empty($category['thumbWidth']) || !empty($category['thumbHeight']) || !empty($category['thumbRatio']))
-            ? '&nbsp;<img src="library/images/icons/edited_small.png" class="toolTipRight" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" style="position:absolute;margin-top:-2px;width:27px;height:23px;">'
+            ? '&nbsp;<img src="library/images/icons/edited_small.png" class="toolTipRight" title="'.$langFile['EDITOR_advancedpageSettings_h1'].' '.$langFile['EDITOR_block_edited'].'::" alt="icon" style="position:relative;left: -10px;" onclick="return false;">'
             : '';
 
           echo '<div class="row">
                   <div class="span8 center">
-                      <a href="#" class="btn inBlockSliderLink" data-inBlockSlider="'.$category['id'].'">'.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].$advancedSettingsEdited.' <span class="caret" onclick="return false;"></span></a>
+                      <a href="#" class="btn inBlockSliderLink" data-inBlockSlider="'.$category['id'].'">'.$advancedSettingsEdited.$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'].' <span class="caret" onclick="return false;"></span></a>
                   </div>
                 </div>';
 
