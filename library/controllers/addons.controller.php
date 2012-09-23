@@ -56,6 +56,6 @@ if($_GET['addon'])
 
 
 // LOAD the current ADDON CONTROLLER
-if($_GET['addon']) {
+if($_GET['addon'] && !isBlocked()) {
   @include(dirname(__FILE__).'/../../addons/'.$addons[$_GET['addon']]['name'].'/addon.controller.php');
 }

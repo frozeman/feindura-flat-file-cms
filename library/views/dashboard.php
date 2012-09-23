@@ -78,7 +78,7 @@ if(!empty($userConfig[USERID]['info'])) {
     <?php
 
     // vars
-    $maxListEntries = 50;
+    $maxListEntries = 300;
 
     // ->> LOAD all PAGES
     $orgPagesStats = GeneralFunctions::loadPagesStatistics();

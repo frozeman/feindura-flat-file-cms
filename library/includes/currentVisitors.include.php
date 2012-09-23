@@ -38,7 +38,13 @@ $currentVisitors = StatisticFunctions::getCurrentVisitors();
 
 // CHECK if visitors will be displayed
 $showVisitors = false;
-foreach($currentVisitors as $currentVisitor) if(trim($currentVisitor['ip']) != '::1' && $currentVisitor['type'] != 'robot') $showVisitors = true;
+$newCurrentVisitors = array();
+foreach($currentVisitors as $currentVisitor) {
+  if(trim($currentVisitor['ip']) != '::1' && $currentVisitor['type'] != 'robot' && !empty($currentVisitor)) {
+    $showVisitors = true;
+    $newCurrentVisitors[] = $currentVisitor;
+  }
+}
 if(!empty($currentVisitors) && $showVisitors) {
 
   // var
@@ -47,12 +53,12 @@ if(!empty($currentVisitors) && $showVisitors) {
   // ->> write before the listing
   if($currentVisitorDashboard) {
     $return .= '<div class="insetBlock">';
-      $return .= '<h2>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].' ('.count($currentVisitors).')</h2>';
+      $return .= '<h2>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].' ('.count($newCurrentVisitors).')</h2>';
       $return .= '<div class="insetBlockListPages">';
         $return .= '<table class="coloredList"><tbody>';
   } else {
     $return .= '<div class="box">';
-      $return .= '<h1>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].' ('.count($currentVisitors).')</h1>';
+      $return .= '<h1>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].' ('.count($newCurrentVisitors).')</h1>';
       $return .= '<ul class="unstyled flags resizeOnHover">';
   }
 
@@ -67,9 +73,8 @@ if(!empty($currentVisitors) && $showVisitors) {
   // open geodates
   $geoIP = geoip_open(dirname(__FILE__).'/../thirdparty/GeoIP/GeoIP.dat',GEOIP_STANDARD);
 
-  foreach($currentVisitors as $currentVisitor) {
+  foreach($newCurrentVisitors as $currentVisitor) {
     $ip = trim($currentVisitor['ip']);
-    if(empty($currentVisitor) || $currentVisitor['type'] == 'robot' || trim($currentVisitor['ip']) == '::1') continue;
 
     $geoIPCode = geoip_country_code_by_addr($geoIP, $ip);
     $geoIPFlag = (empty($geoIPCode))

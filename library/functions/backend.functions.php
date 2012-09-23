@@ -95,21 +95,28 @@ function showErrorsInWindow($errorCode, $errorText, $errorFile, $errorLine) {
  */
 function isBlocked($returnBool = true) {
 
-  if($_GET['site'] == 'dashboard' ||
-     $_GET['site'] == 'pages' ||
-     $_GET['site'] == 'search')
+
+  if($_GET['site'] === 'dashboard' ||
+     $_GET['site'] === 'pages' ||
+     $_GET['site'] === 'search')
     return false;
 
   $return = '';
-  foreach($GLOBALS['userCache'] as $cachedUser) {
+  foreach($GLOBALS['USERCACHE'] as $cachedUser) {
     $location = trim($cachedUser['location']);
     if($cachedUser['identity'] != IDENTITY &&
        $cachedUser['edit'] &&
        $location != 'new' && // dont block when createing a new page (multiple user can do that)
        ($location == $_GET['page'] || $location == $_GET['site'])) {
-      $return = ($returnBool) ? true : '<div id="contentBlocked" class="divBlocked"><div>'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'];
-      if(!empty($cachedUser['username'])) $return .= '<br><span style="font-size:15px;">'.$GLOBALS['langFile']['USER_TEXT_USER'].': <span class="brown toolTipBottom noMark" title="::'.ucfirst($cachedUser['browser']).'">'.$cachedUser['username'].'</span></span>';
-      $return .= '</div></div>';
+
+      if($returnBool) {
+        $return = true;
+      } else {
+        $return = '<div id="contentBlocked" class="divBlocked"><div>'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'];
+        if(!empty($cachedUser['username']))
+          $return .= '<br><span style="font-size:15px;">'.$GLOBALS['langFile']['USER_TEXT_USER'].': <span class="brown toolTipBottom noMark" title="::'.ucfirst($cachedUser['browser']).'">'.$cachedUser['username'].'</span></span>';
+        $return .= '</div></div>';
+      }
       return $return;
     }
   }
@@ -2326,7 +2333,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
 
 
   // shows the block below if it is the ones which is saved before
-  $hidden = ($_GET['status'] == $status || $GLOBALS['savedForm'] === $status) ? '' : ' hidden';
+  $hidden = ($_GET['status'] == $status || $GLOBALS['SAVEDFORM'] === $status) ? '' : ' hidden';
 
   echo '<form action="index.php?site='.$_GET['site'].'#'.$anchorName.'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
         <div>
@@ -2429,7 +2436,8 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
 
               // listet die Dateien aus dem Ordner als Mehrfachauswahl auf
               foreach($files as $cFile) {
-                $onlyFile = str_replace($filesPath,'',$cFile);
+                $onlyFile = substr($cFile, strlen($filesPath));
+                // $onlyFile = substr($filesPath,'',$cFile);
                 if($editFile == $onlyFile)
                   echo '<option value="'.$onlyFile.'" selected="selected">'.$onlyFile.'</option>'."\n";
                 else

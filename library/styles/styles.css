@@ -5977,6 +5977,7 @@
 }
 .feindura select.cke_dialog_ui_input_select {
   width: auto;
+  max-width: 400px;
 }
 .feindura .cke_dialog_ui_vbox_child input {
   margin: 0 !important;
@@ -6406,7 +6407,7 @@
   height: 100%;
   background: #5b5b5b url("../images/bg/body.png") repeat;
   color: #333333;
-  font: 14px 'century gothic', 'helvetica neue', Helvetica, Verdana, Arial, Sans-serif, Serif;
+  font: 14px 'century gothic', 'helvetica neue', Helvetica, sans-serif, Verdana, Arial, Serif;
   line-height: 20px;
 }
 .feindura .container {
@@ -9261,7 +9262,7 @@
 .feindura .windowBox a.close {
   z-index: 2;
   position: absolute;
-  top: 20px;
+  top: 15px;
   right: 20px;
   padding: 0px !important;
   width: 18px;

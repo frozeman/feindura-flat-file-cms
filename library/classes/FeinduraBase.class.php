@@ -921,8 +921,8 @@ class FeinduraBase {
 
     // if "table", separate the array
     if(is_array($menuTag)) {
-      $menuTag = $menuTag[0];
       $breakAfter = (is_numeric($menuTag[1])) ? $menuTag[1] : false;
+      $menuTag = $menuTag[0];
     }
 
     // -> sets the MENU attributes
@@ -1037,9 +1037,9 @@ class FeinduraBase {
 
       // if menuTag is a TABLE -----
       } elseif($pureTag === 'table') {
-        $menuItemCopy['menuItem'] = "<td'.$linkClass.'>\n".$link['link']."\n</td>";
-        $menuItemCopy['item']     = "<td'.$linkClass.'>\n".$link['link']."\n</td>";
-        $menuItemCopy['startTag'] = "<td'.$linkClass.'>\n";
+        $menuItemCopy['menuItem'] = "<td".$linkClass.">\n".$link['link']."\n</td>";
+        $menuItemCopy['item']     = "<td".$linkClass.">\n".$link['link']."\n</td>";
+        $menuItemCopy['startTag'] = "<td".$linkClass.">\n";
         $menuItemCopy['endTag']   = "\n</td>";
 
       // if just a link

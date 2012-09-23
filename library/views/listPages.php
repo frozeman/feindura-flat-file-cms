@@ -276,7 +276,9 @@ foreach($categoryConfig as $category) {
               }
 
             echo '</div>';
-            echo '<div class="grabBar toolTipRight" title="'.$langFile['SORTABLEPAGELIST_TIP_DRATOREARRANGE'].'"></div>';
+
+            if($category['sorting'] == 'manually')
+              echo '<div class="grabBar toolTipRight" title="'.$langFile['SORTABLEPAGELIST_TIP_DRATOREARRANGE'].'"></div>';
           echo '</div>';
           echo '</li>'."\n";
 

@@ -112,7 +112,6 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       break;
     // ADDONS
     case 'addons':
-      if(isBlocked()) break;
       include (dirname(__FILE__).'/controllers/addons.controller.php');
       break;
   } //switch END
