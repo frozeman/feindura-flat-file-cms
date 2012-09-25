@@ -979,7 +979,7 @@ function saveAdminConfig($adminConfig) {
 
     $fileContent .= "\$adminConfig['permissions']       = ".XssFilter::number($adminConfig['permissions']).";\n";
     $fileContent .= "\$adminConfig['timezone']          = '".XssFilter::string($adminConfig['timezone'],'\/','Europe/London')."';\n";
-    $fileContent .= "\$adminConfig['speakingUrl']       = ".XssFilter::bool($adminConfig['speakingUrl'],true).";\n\n";
+    $fileContent .= "\$adminConfig['prettyURL']         = ".XssFilter::bool($adminConfig['prettyURL'],true).";\n\n";
 
     $fileContent .= "\$adminConfig['varName']['page']      = '".XssFilter::stringStrict($adminConfig['varName']['page'],'page')."';\n";
     $fileContent .= "\$adminConfig['varName']['category']  = '".XssFilter::stringStrict($adminConfig['varName']['category'],'category')."';\n";
@@ -1234,9 +1234,9 @@ function saveStatisticConfig($statisticConfig) {
 }
 
 /**
- * <b>Name</b> saveSpeakingUrl()<br>
+ * <b>Name</b> savePrettyUrlCode()<br>
  *
- * Check if speakingUrl is activated and save a speakingUrl redirect (with mod_rewrite) to the .htacces file in the document root.
+ * Check if Pretty URLs are activated and save a Pretty URL redirect code (needs mod_rewrite) to the .htacces file in the document root.
  *
  *
  * <b>Used Constants</b><br>
@@ -1261,7 +1261,7 @@ function saveStatisticConfig($statisticConfig) {
  *    - 1.0 initial release
  *
  */
-function saveSpeakingUrl(&$ERRORWINDOW) {
+function savePrettyUrlCode(&$ERRORWINDOW) {
 
   // vars
   $save = false;
@@ -1270,7 +1270,7 @@ function saveSpeakingUrl(&$ERRORWINDOW) {
   $websitePath = (empty($websitePath)) ? '/': $websitePath;
   $websitePath = GeneralFunctions::getRealPath($websitePath);
   if($websitePath === false) {
-    $_POST['cfg_speakingUrl'] = '';
+    $_POST['cfg_prettyURL'] = '';
     return false;
   }
   $htaccessFile = $websitePath.'/.htaccess';
@@ -1290,9 +1290,9 @@ function saveSpeakingUrl(&$ERRORWINDOW) {
   $oldRewriteRule  = sprintf($pageRegEx,$oldPageName).GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?page=$2&language=$1 [QSA,L]'."\n";
   $oldRewriteRule .= sprintf($categoryRegEx,$oldCategoryName).GeneralFunctions::Path2URI(XssFilter::path($GLOBALS['adminConfig']['websitePath'])).'?category=$2&page=$3&language=$1 [QSA,L]';
 
-  $speakingUrlCode = '
+  $prettyURLCode = '
 #
-# feindura - Flat File CMS -> speakingURL activation
+# feindura - Flat File CMS -> Pretty URL Rewrite Code
 #
 <IfModule mod_rewrite.c>
   RewriteEngine on
@@ -1304,12 +1304,12 @@ function saveSpeakingUrl(&$ERRORWINDOW) {
 '.$newRewriteRule.'
 </IfModule>';
 
-  $oldSpeakingUrlCode = str_replace($newRewriteRule,$oldRewriteRule,$speakingUrlCode);
+  $oldPrettyURLCode = str_replace($newRewriteRule,$oldRewriteRule,$prettyURLCode);
 
   // -> looks if the MOD_REWRITE modul exists
   $apacheModules = (function_exists('apache_get_modules')) ? apache_get_modules() : array('mod_rewrite');
   if(!in_array('mod_rewrite',$apacheModules)) {
-    $_POST['cfg_speakingUrl'] = '';
+    $_POST['cfg_prettyURL'] = '';
     return;
   }
 
@@ -1321,40 +1321,40 @@ function saveSpeakingUrl(&$ERRORWINDOW) {
     $currrentContent = trim(file_get_contents($htaccessFile));
 
     // ->> create or change the .htaccess file
-    if($_POST['cfg_speakingUrl'] == 'true') {
+    if($_POST['cfg_prettyURL'] == 'true') {
 
-      // -> if no speakingUrl code exists, add new one (or update the old one)
-      if(strpos($currrentContent,$speakingUrlCode) === false) {
+      // -> if no prettyURL code exists, add new one (or update the old one)
+      if(strpos($currrentContent,$prettyURLCode) === false) {
 
         $save = true;
-        $currrentContent = str_replace($oldSpeakingUrlCode,'', $currrentContent); // removes perhaps existing old one
-        $data = $currrentContent."\n".$speakingUrlCode;
+        $currrentContent = str_replace($oldPrettyURLCode,'', $currrentContent); // removes perhaps existing old one
+        $data = $currrentContent."\n".$prettyURLCode;
 
       }
 
-    // ->> delete the .htaccess file or remove the speakingUrl code
+    // ->> delete the .htaccess file or remove the prettyURL code
     } else {
 
-      // -> ONLY if the SPEAKING URL code is in the .htaccess then DELTE the .htaccess file
-      if($currrentContent == $speakingUrlCode ||
-         $currrentContent == $oldSpeakingUrlCode) {
+      // -> ONLY if the PRETTY URL code is in the .htaccess then DELTE the .htaccess file
+      if($currrentContent == $prettyURLCode ||
+         $currrentContent == $oldPrettyURLCode) {
         @unlink($htaccessFile);
 
-      // -> looks if SPEAKING URL code EXISTs in the .htaccess file and remove it
-      } elseif(strpos($currrentContent,$speakingUrlCode) !== false ||
-               strpos($currrentContent,$oldSpeakingUrlCode) !== false) {
-        $newContent = str_replace($speakingUrlCode,'',$currrentContent);
-        $newContent = str_replace($oldSpeakingUrlCode,'',$currrentContent);
+      // -> looks if PRETTY URL code EXISTs in the .htaccess file and remove it
+      } elseif(strpos($currrentContent,$prettyURLCode) !== false ||
+               strpos($currrentContent,$oldPrettyURLCode) !== false) {
+        $newContent = str_replace($prettyURLCode,'',$currrentContent);
+        $newContent = str_replace($oldPrettyURLCode,'',$currrentContent);
 
         $save = true;
         $data = $newContent;
       }
     }
 
-  // -> if no .htaccess exists and speaking url is acitvated
-  } elseif($_POST['cfg_speakingUrl'] == 'true') {
+  // -> if no .htaccess exists and pretty url is activated
+  } elseif($_POST['cfg_prettyURL'] == 'true') {
     $save = true;
-    $data = $speakingUrlCode;
+    $data = $prettyURLCode;
   }
 
   // **************************
@@ -1370,8 +1370,8 @@ function saveSpeakingUrl(&$ERRORWINDOW) {
 
   // ->> throw error
   } elseif($save) {
-    $_POST['cfg_speakingUrl'] = '';
-    $ERRORWINDOW .= $GLOBALS['langFile']['ADMINSETUP_GENERAL_speakingUrl_error_save'];
+    $_POST['cfg_prettyURL'] = '';
+    $ERRORWINDOW .= $GLOBALS['langFile']['ADMINSETUP_GENERAL_PRETTYURL_error_save'];
   }
 
   return;

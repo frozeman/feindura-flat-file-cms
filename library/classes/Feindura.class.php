@@ -1158,8 +1158,8 @@ class Feindura extends FeinduraBase {
     // -> add TITLE
     $metaTags .= '  <title>'.$pageNameInTitle.$this->getLocalized($this->websiteConfig,'title').'</title>'."\n\n";
 
-    // -> add BASE PATH if SPEAKING URLS are ON
-    if($this->adminConfig['speakingUrl'])
+    // -> add BASE PATH if PRETTY URLS are ON
+    if($this->adminConfig['prettyURL'])
       $metaTags .= '  <base href="'.$this->adminConfig['url'].GeneralFunctions::Path2URI(GeneralFunctions::getDirname($this->adminConfig['websitePath'])).'"'.$tagEnding."\n\n";
 
     // -> add other META TAGs
@@ -1390,7 +1390,7 @@ class Feindura extends FeinduraBase {
   * <b>Name</b> createHref()<br>
   *
   * Generates a href attribute which links to a page.
-  * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br>
+  * Depending whether Pretty URLs is in the administrator-settings activated, it generates a different href attribute.<br>
   * If cookies are deactivated it attaches the {@link FeinduraBase::$sessionId} on the end.
   *
   * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link Feindura::$page} property.
@@ -1403,9 +1403,9 @@ class Feindura extends FeinduraBase {
   * Pages with category:
   * <samp>'?category=1&page=1'</samp>
   *
-  * Speaking URL href for pages without category:
+  * Pretty URL href for pages without category:
   * <samp>'/page/page_title.html'</samp>
-  * Speaking URL href for pages with category:
+  * Pretty URL href for pages with category:
   * <samp>'/category/category_name/page_title.html'</samp>
   *
   *

@@ -36,7 +36,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   if(is_file(DOCUMENTROOT.substr($_POST['cfg_websitePath'],0,-1)))
     $_POST['cfg_websitePath'] = substr($_POST['cfg_websitePath'],0,-1);
 
-  // -> CHECK if the VARNAMES are EMPTY, and add the previous ones, if speaking url = true
+  // -> CHECK if the VARNAMES are EMPTY, and add the previous ones, if pretty url = true
   if(empty($_POST['cfg_varNamePage']))
     $_POST['cfg_varNamePage'] = 'page';
   if(empty($_POST['cfg_varNameCategory']))
@@ -44,9 +44,9 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   if(empty($_POST['cfg_varNameModul']))
     $_POST['cfg_varNameModul'] = 'modul';
 
-  // ->> add SPEAKING URL to .htaccess
+  // ->> add PRETTY URL to .htaccess
   // --------------------------
-  saveSpeakingUrl($ERRORWINDOW);
+  savePrettyUrlCode($ERRORWINDOW);
 
   // -> check Filter settings
   if(empty($_POST['cfg_editorHtmlLawed']))
@@ -79,7 +79,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
 
   $adminConfig['permissions']              = $_POST['cfg_permissions'];
   $adminConfig['timezone']                 = $_POST['cfg_timeZone'];
-  $adminConfig['speakingUrl']              = $_POST['cfg_speakingUrl'];
+  $adminConfig['prettyURL']                = $_POST['cfg_prettyURL'];
 
   $adminConfig['cache']['active']          = $_POST['cfg_cache'];
   $adminConfig['cache']['timeout']         = $_POST['cfg_cacheTimeout'];

@@ -2099,8 +2099,8 @@ class GeneralFunctions {
   * @param bool|string  $languageCode (optional) a language code to use when generating the link, if FALSE it uses the <var>$_SESSION['feinduraSession']['websiteLanguage']</var> variable
   * @param bool         $fullUrl      (optional) if TRUE it add also the URL to the href path
   *
-  * @uses $adminConfig    for the variabel names which the $_GET variable will use for category and page and the when speakingURLs, for the websitePath
-  * @uses $categoryConfig for the category name if speaking URLs i activated
+  * @uses $adminConfig    for the variable names which the $_GET variable will use for category and page, also for the websitePath
+  * @uses $categoryConfig for the category name if Pretty URLs are activated
   *
   * @return string the href string ready to use in a href attribute
   *
@@ -2130,9 +2130,9 @@ class GeneralFunctions {
     // add (url) and websitepath
     if($fullUrl) $href .= self::$adminConfig['url'];
 
-    // ->> create HREF with speaking URL
+    // ->> create HREF with Pretty URL
     // *************************************
-    if(self::$adminConfig['speakingUrl'] == 'true') {
+    if(self::$adminConfig['prettyURL']) {
 
       $href .= self::Path2URI(self::getDirname(self::$adminConfig['websitePath']));
 

@@ -166,11 +166,11 @@ $hidden = ($SAVEDFORM !== false && $SAVEDFORM != 'adminSettings' && checkBasePat
 
     <div class="spacer"></div>
 
-    <!-- URL FORMAT -> SPEAKING URLS -->
+    <!-- URL FORMAT -> PRETTY URLS -->
     <div class="row">
       <div class="span3 formLeft">
-        <label for="cfg_speakingUrl"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_tip'] ?>">
-        <?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl'] ?></span></label>
+        <label for="cfg_prettyURL"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_PRETTYURL_tip'] ?>">
+        <?php echo $langFile['ADMINSETUP_GENERAL_PRETTYURL'] ?></span></label>
       </div>
       <div class="span5">
         <?php
@@ -178,9 +178,9 @@ $hidden = ($SAVEDFORM !== false && $SAVEDFORM != 'adminSettings' && checkBasePat
           ? apache_get_modules()
           : array('mod_rewrite');
         ?>
-        <select id="cfg_speakingUrl" name="cfg_speakingUrl" class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_warning'] ?>"<?php if(!in_array('mod_rewrite',$apacheModules)) echo ' disabled="disabled"'; ?>>
-          <option value="true"<?php if($adminConfig['speakingUrl'] == 'true') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_true'].' -> &quot;'.sprintf($langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'],$adminConfig['varName']['category']).'&quot;';?></option>
-          <option value=""<?php if($adminConfig['speakingUrl'] == '') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_false'].' -> &quot;'.sprintf($langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'],$adminConfig['varName']['category'],$adminConfig['varName']['page']).'&quot;';?></option>
+        <select id="cfg_prettyURL" name="cfg_prettyURL" class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_PRETTYURL_warning'] ?>"<?php if(!in_array('mod_rewrite',$apacheModules)) echo ' disabled="disabled"'; ?>>
+          <option value="true"<?php if($adminConfig['prettyURL'] == 'true') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_PRETTYURL_true'].' -> &quot;'.sprintf($langFile['ADMINSETUP_GENERAL_PRETTYURL_true_example'],$adminConfig['varName']['category']).'&quot;';?></option>
+          <option value=""<?php if($adminConfig['prettyURL'] == '') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_PRETTYURL_false'].' -> &quot;'.sprintf($langFile['ADMINSETUP_GENERAL_PRETTYURL_false_example'],$adminConfig['varName']['category'],$adminConfig['varName']['page']).'&quot;';?></option>
         </select>
       </div>
     </div>
@@ -188,7 +188,7 @@ $hidden = ($SAVEDFORM !== false && $SAVEDFORM != 'adminSettings' && checkBasePat
     <?php
 
       // add varnames prefixes
-      if($adminConfig['speakingUrl'] == 'true') {
+      if($adminConfig['prettyURL'] == 'true') {
         $varNamesStyle[0] = '/';
         $varNamesStyle[1] = '/..';
       } else {

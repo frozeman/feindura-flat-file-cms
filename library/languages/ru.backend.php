@@ -429,17 +429,17 @@ $langFile['ADMINSETUP_TIP_VARNAME']                                       = 'И�
 $langFile['ADMINSETUP_TIP_EMPTYVARNAME']                                  = 'Если это поле пустым стандартное имя будет использоваться: ';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Часовой пояс';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Используется только в [span class=feinduraInline]fein[em]dura[/em][/span] панели управления.';
-$langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'Формат URL';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'ЧПУ';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/%s/category-name/example-page';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URL с переменными';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Формат URL используется при формировании всех ссылок на сайте.[br][br]ЧПУ работают только если есть модуль [strong]Apache[/strong] [strong]mod_rewrite[/strong].[br][br][strong]ВНИМАНИЕ: С РУССКИМИ НАЗВАНИЯМИ СТРАНИЦ И КАТЕГОРИЙ ЧПУ НЕ РАБОТАЕТ (на данный момент)![/strong]';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'ВНИМАНИЕ!::[span class=red]Если при использовании ЧПУ возникнут проблемы, вы должны удалить файл [strong].htaccess[/strong] из корня сайта.[/span]';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL']                                 = 'Формат URL';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_true']                            = 'Красивые URL&#145;ы';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_true_example']                    = '/%s/category-name/example-page';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_false']                           = 'URL с переменными';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_false_example']                   = 'index.php?%s=1&%s=1';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_tip']                             = 'Формат URL используется при формировании всех ссылок на сайте.[br][br]Красивые URL&#145;ы работают только если есть модуль [strong]Apache[/strong] [strong]mod_rewrite[/strong].[br][br][strong]ВНИМАНИЕ: С РУССКИМИ НАЗВАНИЯМИ СТРАНИЦ И КАТЕГОРИЙ Красивые URL&#145;ы НЕ РАБОТАЕТ (на данный момент)![/strong]';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_warning']                         = 'ВНИМАНИЕ!::[span class=red]Если при использовании Красивые URL&#145;ы возникнут проблемы, вы должны удалить файл [strong].htaccess[/strong] из корня сайта.[/span]';
 
-// ---------- speaking url ERRORs
-$langFile['ADMINSETUP_GENERAL_speakingUrl_error_save']                    = '<b>ЧПУ</b> не могут быть активированы '.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>ЧПУ</b> не могут быть активироываны, не найден модуль MOD_REWRITE';
+// ---------- PRETTY URL ERRORs
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_error_save']                      = '<b>Красивые URL&#145;ы</b> не могут быть активированы '.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_error_modul']                     = '<b>Красивые URL&#145;ы</b> не могут быть активироываны, не найден модуль MOD_REWRITE';
 
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'Включить кэш';

@@ -403,17 +403,17 @@ $langFile['ADMINSETUP_TIP_VARNAME']                                       = 'Le 
 $langFile['ADMINSETUP_TIP_EMPTYVARNAME']                                  = 'si le panneua est vide, le nom standard sera utilisé: ';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'heure locale';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Ne seront utilisées que par les [span class=feinduraInline]fein[em]dura[/em][/span] backend.';
-$langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'format URL';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'speaking URLs';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/%s/category-name/example-page';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URL avec variables';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Le format de d&#145;URL pour le référencement du site web.[br][br]Speaking URLs fonctionnent seulement si [strong]Apache[/strong] le [strong]mod_rewrite[/strong] module est disponible.';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'Attention!::[span class=red]Si des erreurs se produisent pendant l&#145;utilisation des speaking URLs, le fichier [strong].htaccess[/strong] dans la chemin documentaire root du serveur doit être éffacé.[/span][br][br](dans certains logiciels FTP les fichiers cachés doivent être indiqués pour montrer le fichier .htaccess)';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL']                                 = 'format URL';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_true']                            = 'Pretty URLs';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_true_example']                    = '/%s/category-name/example-page';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_false']                           = 'URL avec variables';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_false_example']                   = 'index.php?%s=1&%s=1';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_tip']                             = 'Le format de d&#145;URL pour le référencement du site web.[br][br]Pretty URLs fonctionnent seulement si [strong]Apache[/strong] le [strong]mod_rewrite[/strong] module est disponible.';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_warning']                         = 'Attention!::[span class=red]Si des erreurs se produisent pendant l&#145;utilisation des Pretty URLs, le fichier [strong].htaccess[/strong] dans la chemin documentaire root du serveur doit être éffacé.[/span][br][br](dans certains logiciels FTP les fichiers cachés doivent être indiqués pour montrer le fichier .htaccess)';
 
-// ---------- speaking url ERRORs
-$langFile['ADMINSETUP_GENERAL_speakingUrl_error_save']                    = '<b>Speaking URLs</b> ne pouvaient pas être activés'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul']                   = '<b>Speaking URLs</b> ne pouvait pas être activé à cause du module Apache: MOD_REWRITE peut pas être trouvé';
+// ---------- Pretty url ERRORs
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_error_save']                      = '<b>Pretty URLs</b> ne pouvaient pas être activés'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_error_modul']                     = '<b>Pretty URLs</b> ne pouvait pas être activé à cause du module Apache: MOD_REWRITE peut pas être trouvé';
 
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'activer le cache';

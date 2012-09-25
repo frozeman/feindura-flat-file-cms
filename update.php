@@ -343,7 +343,9 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
     // only if was below 1.1.6
     if(until(796))
-      $adminConfig['speakingUrl'] = false; // beacuse i changed speaking url reg ex and createHref generation
+      $adminConfig['prettyURL'] = false; // because i changed pretty url reg ex and createHref generation
+    elseif(isset($adminConfig['speakingUrl']))
+      $adminConfig['prettyURL'] = $adminConfig['speakingUrl'];
 
     // only if was until build 947
     if(until(946) && !isset($categoryConfig[0]['id'])) {
@@ -369,7 +371,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     }
 
     if(saveAdminConfig($adminConfig))
-      echo 'adminConfig <span class="succesfull">succesfully updated</span> (if you had SPEAKING URLS activated, you must delete the mod_rewrite code from your .htaccess file, in the root of your webserver and save the administrator settings to create a new one!)<br>';
+      echo 'adminConfig <span class="succesfull">succesfully updated</span> (if you had PRETTY URLS activated, you must delete the mod_rewrite code from your .htaccess file, in the root of your webserver and save the administrator settings to create a new one!)<br>';
     else {
       echo 'adminConfig <span class="notSuccesfull">could not be updated</span><br>';
       $succesfullUpdate = false;
@@ -1078,7 +1080,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
     // -> final success text or failure warning
     if($succesfullUpdate) {
       file_put_contents(dirname(__FILE__).'/VERSION', "feindura - Flat File CMS (Version,Build)\n".$CURVERSION."\n".$CURBUILD);
-      echo '<br>NOTE: If you had Speaking URL activated, you have to activate it again in the admin settings. But before delete the speaking URL code from you .htaccess file manually!<br>';
+      echo '<br>NOTE: If you had Pretty URLs activated, you have to activate it again in the admin settings. But before delete the Pretty URL code from you .htaccess file manually!<br>';
       echo '<br><h1>You can now delete the "update.php" file.</h1>';
     } else
       echo '<h1>something went wrong :-( could not completely update feindura, check the errors and try again.</h1>';
