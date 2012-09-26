@@ -20,6 +20,8 @@
 .feindura {
   -moz-transition-duration: 0;
   -webkit-transition-duration: 0;
+  -o-transition-duration: 0;
+  -ms-transition-duration: 0;
   transition-duration: 0;
   /*! ---------------------------------------------------
     LESS Elements 0.8
@@ -5761,10 +5763,11 @@
 .feindura textarea.autogrow {
   overflow-y: auto;
   resize: none;
-  transition: height 100ms ease-out;
   -moz-transition: height 100ms ease-out;
   -webkit-transition: height 100ms ease-out;
   -o-transition: height 100ms ease-out;
+  -ms-transition: height 100ms ease-out;
+  transition: height 100ms ease-out;
 }
 .feindura select[multiple="multiple"] {
   width: 250px;
@@ -6062,12 +6065,15 @@
   -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
   -o-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  transition: border 200ms linear;
   -moz-transition: border 200ms linear;
   -webkit-transition: border 200ms linear;
   -o-transition: border 200ms linear;
+  -ms-transition: border 200ms linear;
+  transition: border 200ms linear;
   -moz-transition-duration: 200ms;
   -webkit-transition-duration: 200ms;
+  -o-transition-duration: 200ms;
+  -ms-transition-duration: 200ms;
   transition-duration: 200ms;
 }
 .feindura div.CodeMirror:hover {

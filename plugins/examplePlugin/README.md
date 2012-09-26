@@ -28,7 +28,7 @@ A plugin is piece of code which can be add to each page.
 It basically consist of 4 files:
 
 - config.php          <- here you can set configs for your plugin, which the user can then edit in any page (the category must have this plugin activated)
-- languages/en.php    <- this are the language files for the settings of your plugin, these will be used when you edit a plugin in the backend (The default fallback language is english, so an "en.php" at least should exist)
+- languages/en.php    <- this are the language files for the settings of your plugin, these will be used when you edit a plugin in the backend (The default fallback language is english, so an "en.php" should at least exist)
 - plugin.php          <- here comes your plugin code and you here you can access the plugin configs (changed by the user for each page) through the $pluginConfig variable
 - credits.yml        <- this file contains the authors name and website
 
