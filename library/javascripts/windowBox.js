@@ -24,6 +24,7 @@ var windowBoxDimmer = new Element('div', {'class': 'windowBoxDimmer'});
 
 var uploadAnimationElement = null;
 var windowBoxIsVisible = false;
+var removeWindowBoxLoadingCircle;
 
 
 
@@ -105,7 +106,6 @@ function requestSite(site,siteTitle,dataOrFormId) {
 
   // vars
   var data = (typeOf(dataOrFormId) == 'object') ? dataOrFormId : $(dataOrFormId);
-  var removeLoadingCircle;
 
   // creates the request Object
   new Request.HTML({
@@ -116,18 +116,24 @@ function requestSite(site,siteTitle,dataOrFormId) {
 
         // shows the LOADING
         windowRequestBox.grab(windowBoxDimmer,'top');
-        removeLoadingCircle = feindura_loadingCircle(windowBoxDimmer, 23, 35, 12, 5, "#000");
+        removeWindowBoxLoadingCircle = feindura_loadingCircle(windowBoxDimmer, 24, 38, 12, 5, "#000");
     },
     //-----------------------------------------------------------------------------
 		onSuccess: function(html,childs,rawText,responseJavaScript) { //-------------------------------------------------
 
-      //  CLOSE the windowBox AND REDIRECT, if the first part of the response is '#REDIRECT#'
+
+
+      // CLOSE the windowBox AND REDIRECT, if the first part of the response is '#REDIRECT#'
       if(rawText.substring(1,11) == '#REDIRECT#') {
+        if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
+          removeWindowBoxLoadingCircle();
         closeWindowBox(rawText.substring(11));
         return;
 
       // CLOSE the windowBox, if the first part of the response is '#CLOSE#'
       } else if(rawText.substring(1,8) == '#CLOSE#') {
+        if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
+          removeWindowBoxLoadingCircle();
         closeWindowBox();
         return;
       }
@@ -139,10 +145,13 @@ function requestSite(site,siteTitle,dataOrFormId) {
 
         // fill in the content
         if(site) {
+
           if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
-            removeLoadingCircle();
+            removeWindowBoxLoadingCircle();
+
           //Clear the text currently inside the results div.
           windowRequestBox.set('html', '');
+
           //Inject the new DOM elements into the results div.
           windowRequestBox.adopt(html);
         }
@@ -186,7 +195,7 @@ function requestSite(site,siteTitle,dataOrFormId) {
 		//Our request will most likely succeed, but just in case, we'll add an
 		//onFailure method which will let the user know what happened.
 		onFailure: function() { //-----------------------------------------------------
-			windowRequestBox.set('html', '<div class="alert alert-error center">The request failed.</div><a href="#" class="ok button center" onclick="closeWindowBox();return false;"></a>');
+			windowRequestBox.set('html', '<div class="alert alert-error center">Couldn\'t load the Page</div><a href="#" class="ok button center" onclick="closeWindowBox();return false;"></a>');
     }
   }).post(data);
 }

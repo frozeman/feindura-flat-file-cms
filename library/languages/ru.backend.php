@@ -270,6 +270,8 @@ $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'У�
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Вверх';
 $langFile['BUTTON_INFO']                                                  = 'Информация';
+$langFile['BUTTON_EDIT']                                                  = 'Редактировать';
+$langFile['BUTTON_RESET']                                                 = 'Восстановление';
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>Не удается сохранить настройки</b>';
@@ -707,6 +709,8 @@ $langFile['EDITOR_TEXT_TEMPALATECOPYADDITION']                            = 'с�
 
 $langFile['EDITOR_block_edited']                                          = 'изменены';
 $langFile['EDITOR_pageNotSaved']                                          = 'не сохранено';
+
+$langFile['EDITOR_EDITLINK']                                              = 'Изменить ссылку';
 
 // ---------- page settings
 $langFile['EDITOR_pagestatistics_h1']                                     = 'Статистика';

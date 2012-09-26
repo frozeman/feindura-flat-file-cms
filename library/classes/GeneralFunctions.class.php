@@ -1207,6 +1207,8 @@ class GeneralFunctions {
     $fileContent .= "\$pageContent['sortOrder']          = ".XssFilter::int($pageContent['sortOrder'],0).";\n";
     $fileContent .= "\$pageContent['public']             = ".XssFilter::bool($pageContent['public'],true).";\n\n";
 
+    $fileContent .= "\$pageContent['editedLink']         = '".XssFilter::path($pageContent['editedLink'])."';\n\n";
+
     $fileContent .= "\$pageContent['lastSaveDate']       = ".XssFilter::int($pageContent['lastSaveDate'],0).";\n";
     $fileContent .= "\$pageContent['lastSaveAuthor']     = ".XssFilter::int($pageContent['lastSaveAuthor'],'false').";\n\n"; // user id
 
@@ -1361,6 +1363,7 @@ class GeneralFunctions {
       if(!empty($pageContent['modified']))
         $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['modified'] = ".$pageContent['modified'].";\n";
 
+      $fileContent .= "\$pagesMetaData[".$pageContent['id']."]['editedLink'] = '".XssFilter::path($pageContent['editedLink'])."';\n\n";
 
       // save LOCALIZED TITLES
       if(is_array($pageContent['localized'])) {
@@ -2164,8 +2167,16 @@ class GeneralFunctions {
       else
         $href .= self::$adminConfig['varName']['page'].'/'.$parentPagesString;
 
-      // -> add PAGE NAME
-      $href .= StatisticFunctions::urlEncode(self::getLocalized($pageContent,'title',$language));
+
+      // USE the MANUALLY TYPED LINK
+      if(!empty($pageContent['editedLink']))
+        $href .= $pageContent['editedLink'];
+
+      // OTHERWISE use PAGE TITLE
+      else {
+        $href .= StatisticFunctions::urlEncode(self::getLocalized($pageContent,'title',$language));
+      }
+
       $href .= '/'; //'.html';
 
       if($sessionId)

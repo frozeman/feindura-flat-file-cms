@@ -5159,10 +5159,8 @@
 }
 .feindura a,
 .feindura a.link {
-  padding-left: 18px;
   color: #dd6e1f;
   text-decoration: none;
-  background: url("../images/icons/link.gif") no-repeat left center;
   cursor: pointer !important;
   outline: none !important;
 }

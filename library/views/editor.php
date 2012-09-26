@@ -267,7 +267,7 @@ if(!$NEWPAGE) {
       else
         $categoryInLink = $adminConfig['varName']['category'].'='.$pageContent['category'].'&amp;';
 
-      // shows the page languages
+      // SHOWS the PAGE LANGUAGES
       if(!isset($pageContent['localized'][0])) {
         echo '<div class="row">
                 <div class="span3 formLeft">
@@ -293,14 +293,19 @@ if(!$NEWPAGE) {
               </div>';
       }
 
-      // shows the page link
+      // SHOWS the PAGE LINK
       echo '<div class="row">
               <div class="span3 formLeft">
                 <span><strong>'.$langFile['EDITOR_pageinfo_linktothispage'].'</strong></span>
               </div>
-              <div class="span5">
-                <span style="font-size:11px; word-wrap: break-word;"><a href="'.GeneralFunctions::createHref($pageContent,false,false,true).'" class="extern">'.GeneralFunctions::createHref($pageContent,false,false,true).'</a></span>
-              </div>
+              <div class="span5">';
+
+        echo '    <span style="font-size:12px; word-wrap: break-word;"><a href="'.GeneralFunctions::createHref($pageContent,false,false,true).'" id="pageLink">'.GeneralFunctions::createHref($pageContent,false,false,true).'</a></span>';
+
+      if($adminConfig['prettyURL'])
+        echo ' <a href="?site=editLink&amp;category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" class="btn btn-mini" onclick="openWindowBox(\'library/views/windowBox/editLink.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['EDITOR_EDITLINK'].'\');return false;">'.$langFile['BUTTON_EDIT'].'</a>';
+
+      echo '  </div>
             </div>';
 
     }

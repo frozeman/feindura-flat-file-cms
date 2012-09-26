@@ -264,6 +264,8 @@ $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Del
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Up';
 $langFile['BUTTON_INFO']                                                  = 'Info';
+$langFile['BUTTON_EDIT']                                                  = 'Edit';
+$langFile['BUTTON_RESET']                                                 = 'Restore';
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>The settings could not be saved</b>';
@@ -698,6 +700,8 @@ $langFile['EDITOR_TEXT_TEMPALATECOPYADDITION']                            = 'cop
 
 $langFile['EDITOR_block_edited']                                          = 'were edited';
 $langFile['EDITOR_pageNotSaved']                                          = 'not saved';
+
+$langFile['EDITOR_EDITLINK']                                              = 'Edit link';
 
 // ---------- page settings
 $langFile['EDITOR_pagestatistics_h1']                                     = 'Statistic';

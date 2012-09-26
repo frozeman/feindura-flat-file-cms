@@ -267,6 +267,8 @@ $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Eli
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Torna Su';
 $langFile['BUTTON_INFO']                                                  = 'Info';
+$langFile['BUTTON_EDIT']                                                  = 'Modifica';
+$langFile['BUTTON_RESET']                                                 = 'Ristabilire';
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>Le impostazioni non possono essere salvate</b>';
@@ -700,6 +702,8 @@ $langFile['EDITOR_TEXT_TEMPALATECOPYADDITION']                            = 'cop
 
 $langFile['EDITOR_block_edited']                                          = 'sono stati modificati';
 $langFile['EDITOR_pageNotSaved']                                          = 'non è stata salvata';
+
+$langFile['EDITOR_EDITLINK']                                              = 'Modifica il link';
 
 // ---------- page settings
 $langFile['EDITOR_pagestatistics_h1']                                     = 'Statistiche';

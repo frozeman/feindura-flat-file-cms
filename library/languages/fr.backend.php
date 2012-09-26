@@ -255,6 +255,8 @@ $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Sup
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'vers le haut';
 $langFile['BUTTON_INFO']                                                  = 'Infos';
+$langFile['BUTTON_EDIT']                                                  = 'Modifier';
+$langFile['BUTTON_RESET']                                                 = 'Restaurer';
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>Les préférences ne peuvent pas être sauvegardés.</b>';
@@ -670,6 +672,8 @@ $langFile['EDITOR_TEXT_TEMPALATECOPYADDITION']                            = 'cop
 
 $langFile['EDITOR_block_edited']                                          = 'ont été édité';
 $langFile['EDITOR_pageNotSaved']                                          = 'pas sauvegardé';
+
+$langFile['EDITOR_EDITLINK']                                              = 'Modifier le lien';
 
 // ---------- page settings
 $langFile['EDITOR_pagestatistics_h1']                                     = 'statistiques';

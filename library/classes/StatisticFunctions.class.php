@@ -272,19 +272,26 @@ class StatisticFunctions {
       // get PAGE GET var
       return XssFilter::int($_GET['feinduraPageID'],0); // get the page ID from the $_GET var
 
-    // ->> GET PAGE is a NAME
+    // ->> GET PAGE is a STRING
     // **********************
     } elseif(isset($_GET['page']) &&
              !empty($_GET['page'])) {
 
       foreach(self::$pagesMetaData as $pageMetaData) {
 
-        // goes trough each localization and check if its fit the $_GET['page'] title
-        if(is_array($pageMetaData['localized'])) {
-          foreach ($pageMetaData['localized'] as $localizedPageContent) {
-            // RETURNs the right page Id
-            if(self::urlEncode($localizedPageContent['title']) == self::urlEncode($_GET['page'])) {
-              return $pageMetaData['id'];
+        if(!empty($pageMetaData['editedLink'])) {
+          // RETURNs the right page Id
+          if(basename($pageMetaData['editedLink']) == self::urlEncode($_GET['page']))
+            return $pageMetaData['id'];
+
+        } else {
+          // goes trough each localization and check if its fit the $_GET['page'] title
+          if(is_array($pageMetaData['localized'])) {
+            foreach ($pageMetaData['localized'] as $localizedPageContent) {
+              // RETURNs the right page Id
+              if(self::urlEncode($localizedPageContent['title']) == self::urlEncode($_GET['page'])) {
+                return $pageMetaData['id'];
+              }
             }
           }
         }

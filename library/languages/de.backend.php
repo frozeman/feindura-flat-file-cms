@@ -263,6 +263,8 @@ $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Spr
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Nach oben';
 $langFile['BUTTON_INFO']                                                  = 'Info';
+$langFile['BUTTON_EDIT']                                                  = 'Bearbeiten';
+$langFile['BUTTON_RESET']                                                 = 'Zurücksetzen';
 
 
 // -> GENERAL ERROR TEXTS
@@ -699,6 +701,8 @@ $langFile['EDITOR_TEXT_TEMPALATECOPYADDITION']                            = 'Kop
 
 $langFile['EDITOR_block_edited']                                          = 'wurden bearbeitet';
 $langFile['EDITOR_pageNotSaved']                                          = 'noch nicht gespeichert';
+
+$langFile['EDITOR_EDITLINK']                                              = 'Link bearbeiten';
 
 // ---------- page settings
 $langFile['EDITOR_pagestatistics_h1']                                     = 'Statistik';

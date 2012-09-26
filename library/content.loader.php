@@ -121,12 +121,16 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       include (dirname(__FILE__).'/views/windowBox/deletePageThumbnail.php');
       break;
     // ADD PAGE LANGUAGE
-    // case 'addPageLanguage':
-    //   include (dirname(__FILE__).'/views/windowBox/addPageLanguage.php');
-    //   break;
+    case 'addPageLanguage':
+      include (dirname(__FILE__).'/views/windowBox/addPageLanguage.php');
+      break;
     // REMOVE PAGE LANGUAGE
     case 'deletePageLanguage':
       include (dirname(__FILE__).'/views/windowBox/deletePageLanguage.php');
+      break;
+    // EDIT LINK
+    case 'editLink':
+      include (dirname(__FILE__).'/views/windowBox/editLink.php');
       break;
     // USER PERMISSIONS
     case 'userPermissions':

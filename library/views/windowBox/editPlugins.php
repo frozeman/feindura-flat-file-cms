@@ -50,8 +50,9 @@ if($post['send'] == 'true') {
     die('#CLOSE#');
 
   } else
-    echo '<div class="alert alert-error">'.sprintf($langFile['USERSETUP_error_save'],$adminConfig['basePath']).'</div>';
-    echo '<a href="?site=userSetup" class="button ok center" onclick="closeWindowBox();return false;"></a>';
+    echo '<div class="alert alert-error">'.sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']).'</div>';
+
+  echo '<a href="?page='.$post['page'].'&amp;category='.$post['category'].'" class="button ok center" onclick="closeWindowBox();return false;"></a>';
 
 // SHOW THE FORM
 } else {
@@ -264,7 +265,7 @@ if($post['send'] == 'true') {
 
   <div class="row buttons">
     <div class="span4 center">
-      <a href="?site=userSetup" class="button cancel" onclick="closeWindowBox();return false;"></a>
+      <a href="?page=<?php echo $post['page']; ?>&amp;category=<?php echo $post['category']; ?>" class="button cancel" onclick="closeWindowBox();return false;"></a>
     </div>
     <div class="span4 center">
       <input type="submit" value="" class="button submit">
