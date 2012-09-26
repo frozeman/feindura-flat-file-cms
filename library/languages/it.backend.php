@@ -428,7 +428,7 @@ $langFile['ADMINSETUP_GENERAL_PRETTYURL_true']                            = 'Pre
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_true_example']                    = '/%s/category-name/example-page';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_false']                           = 'URLs con variabili';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_false_example']                   = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_PRETTYURL_tip']                             = 'Questo sarà il formato URL che verrà utilizzato per collegare le pagine.[br][br]Pretty URLs funziona solo se [strong]Apache[/strong] ha attivato [strong]mod_rewrite[/strong] e il modulo è disponibile.';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_tip']                             = 'Questo sarà il formato URL che verrà utilizzato per collegare le pagine.[br][br]Pretty URLs funziona solo se [strong]Apache Server[/strong] ha attivato [strong]mod_rewrite[/strong] e il modulo è disponibile.';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_warning']                         = 'ATTENZIONE!::[span class=red]Se si verifica un errore durante l&#145;utilizzo di [i]Pretty URLs[/i], sarà necessario eliminare il file - [strong].htaccess[/strong] - [br]Questo file dal percorso principale del vostro server web va eliminato solo se si desidera usare Pretty URLs.[/span][br][br](In alcuni programmi FTP si devono mostrare i file nascosti in primo luogo, per vedere il file .Htaccess altrimenti esso risulterà invisibile)';
 
 // ---------- Pretty url ERRORs

@@ -426,12 +426,12 @@ $langFile['ADMINSETUP_GENERAL_PRETTYURL_true']                            = 'Pre
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_true_example']                    = '/%s/kategorie-name/seiten-name';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_false']                           = 'URLs mit Variablen';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_false_example']                   = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_PRETTYURL_tip']                             = 'Das URL Format, welches für die Seiten-Verlinkung verwendet wird.[br][br]Pretty URLs funktionieren nur wenn im [strong]Apache[/strong] das [strong]mod_rewrite[/strong] Modul verfügbar ist.';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_tip']                             = 'Das URL Format, welches für die Seiten-Verlinkung verwendet wird.[br][br]Pretty URLs funktionieren nur wenn im [strong]Apache Server[/strong] das [strong]mod_rewrite[/strong] Modul verfügbar ist.';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_warning']                         = 'WARNUNG!::[span class=red]Sollten Fehler bei der Vewendung von Pretty URLs auftreten, muss die [strong].htaccess Datei[/strong] im Dokumenten-Wurzelverzeichnis Pfad des Webservers gelöscht werden.[/span][br][br](In manchen FTP-Programmen muss man erst die versteckten Dateien anzeigen, um die .htaccess Datei sichtbar zu machen)';
 
 // ---------- Pretty url ERRORs
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_error_save']                      = '<b>Pretty URLs</b> konnte nicht aktiviert werden'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
-$langFile['ADMINSETUP_GENERAL_PRETTYURL_error_modul']                     = '<b>Pretty URLs</b> konnte nicht aktiviert werden da das Apache modul: MOD_REWRITE nicht gefunden wurde';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_error_modul']                     = '<b>Pretty URLs</b> konnte nicht aktiviert werden da das Apache Modul: MOD_REWRITE nicht gefunden wurde';
 
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'Cache aktivieren';

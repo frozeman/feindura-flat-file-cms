@@ -408,12 +408,12 @@ $langFile['ADMINSETUP_GENERAL_PRETTYURL_true']                            = 'Pre
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_true_example']                    = '/%s/category-name/example-page';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_false']                           = 'URL avec variables';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_false_example']                   = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_PRETTYURL_tip']                             = 'Le format de d&#145;URL pour le référencement du site web.[br][br]Pretty URLs fonctionnent seulement si [strong]Apache[/strong] le [strong]mod_rewrite[/strong] module est disponible.';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_tip']                             = 'Le format de d&#145;URL pour le référencement du site web.[br][br]Pretty URLs fonctionnent seulement si [strong]Apache Server[/strong] le [strong]mod_rewrite[/strong] module est disponible.';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_warning']                         = 'Attention!::[span class=red]Si des erreurs se produisent pendant l&#145;utilisation des Pretty URLs, le fichier [strong].htaccess[/strong] dans la chemin documentaire root du serveur doit être éffacé.[/span][br][br](dans certains logiciels FTP les fichiers cachés doivent être indiqués pour montrer le fichier .htaccess)';
 
 // ---------- Pretty url ERRORs
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_error_save']                      = '<b>Pretty URLs</b> ne pouvaient pas être activés'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
-$langFile['ADMINSETUP_GENERAL_PRETTYURL_error_modul']                     = '<b>Pretty URLs</b> ne pouvait pas être activé à cause du module Apache: MOD_REWRITE peut pas être trouvé';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_error_modul']                     = '<b>Pretty URLs</b> ne pouvait pas être activé à cause du module Apache module: MOD_REWRITE peut pas être trouvé';
 
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'activer le cache';

@@ -3761,7 +3761,6 @@ FileManager.Dialog = new Class({
 		{
 			// HTML5 support: see    http://diveintohtml5.org/detect.html
 			autofocus_el.setProperty('autofocus', 'autofocus');
-      autofocus_el.focus();
 		}
 		this.el.center().fade(1).get('tween').chain((function() {
 				// Safari / Chrome have trouble focussing on things not yet fully rendered!

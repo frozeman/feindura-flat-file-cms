@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0 beta
-Build 989
+Build 990
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 2.0 beta
 
+  build 990: add non flash uploader to the filemanager
   build 989: changed the name speaking Urls to "Pretty URLs"
   build 988: some changes in createLink, is now also active when in sub page
   build 987: add $openGraph and $googleSnippets meta tags to Feindura::createMetaTags()

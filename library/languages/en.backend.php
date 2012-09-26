@@ -427,12 +427,12 @@ $langFile['ADMINSETUP_GENERAL_PRETTYURL_true']                          = 'Prett
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_true_example']                  = '/%s/example-category/example-page';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_false']                         = 'URLs with variables';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_false_example']                 = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_PRETTYURL_tip']                           = 'The URL format, which will be used to link the pages.[br][br]Pretty URLs work only if the [strong]Apache[/strong] [strong]mod_rewrite[/strong] modul is available.';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_tip']                           = 'The URL format, which will be used to link the pages.[br][br]Pretty URLs work only if the [strong]Apache Server[/strong] [strong]mod_rewrite[/strong] module is available.';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_warning']                       = 'WARNING!::[span class=red]If an error occours while using Pretty URLs, you have to delete the [strong].htaccess file[/strong] in the document root path of your webserver.[/span][br][br](In some FTP programs you have to show hidden files first, to see the .htaccess file)';
 
 // ---------- Pretty url ERRORs
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_error_save']                    = '<b>Pretty URLs</b> could not be activated'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
-$langFile['ADMINSETUP_GENERAL_PRETTYURL_error_modul']                   = '<b>Pretty URLs</b> could not be activated, because the Apache MOD_REWRITE modul could not be found';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_error_modul']                   = '<b>Pretty URLs</b> could not be activated, because the Apache module MOD_REWRITE modul could not be found';
 
 // ---------- cache settings
 $langFile['ADMINSETUP_TEXT_CACHE']                                        = 'Activate cache';

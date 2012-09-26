@@ -119,7 +119,15 @@
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js<?php echo '?v='.BUILD; ?>"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
+  <script type="text/javascript">
+  /* <![CDATA[ */
+    // Uses the non flash uploader when flash is not installed
+    if(Browser.Plugins.Flash.version == 0) {
+      document.write(unescape('<script src="library/thirdparty/MooTools-FileManager/Source/NoFlash.Uploader.js"><\/script>'));
+    } else
+      document.write(unescape('<script src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"><\/script>'));
+  /* ]]> */
+  </script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>.js"></script>
   <?php } ?>
 
