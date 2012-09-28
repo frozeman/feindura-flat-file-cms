@@ -160,10 +160,9 @@ if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
       <?php
 
       $thumbnailPath = (!empty($pageContent['thumbnail'])) ? GeneralFunctions::Path2URI(dirname(__FILE__).'/../upload/thumbnails/').$pageContent['thumbnail'] : '';
-
       // -> show THUMBNAIL if the page has one
       $displayThumbnailContainer = ' display:none;';
-      if(!$NEWPAGE && $categoryConfig[$pageContent['category']]['thumbnails'] && !empty($pageContent['thumbnail'])) {
+      if(!$NEWPAGE && !empty($pageContent['thumbnail'])) {
         $displayThumbnailContainer = '';
       }
 
