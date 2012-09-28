@@ -1697,7 +1697,7 @@ class Feindura extends FeinduraBase {
 
     // -> flips the pages array if $reverseList === true
     if($reverseList === true)
-      $selectedPages = array_reverse($selectedPages);
+      $pages = array_reverse($pages);
 
 
     // -> STOREs the LINKs in an Array
@@ -3181,7 +3181,7 @@ class Feindura extends FeinduraBase {
 
     // -> flips the pages array if $reverseList === true
     if($reverseList === true)
-      $selectedPages = array_reverse($selectedPages);
+      $pages = array_reverse($pages);
 
 
     if(!empty($pages)) {
