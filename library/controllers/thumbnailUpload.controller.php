@@ -36,7 +36,7 @@ $category = $_POST['category'];
 <html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>" class="feindura">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="../styles/styles.css">
+  <link rel="stylesheet" type="text/css" href="../styles/css/styles.css">
 </head>
 <body id="thumbnailUploadFrame">
 <?php

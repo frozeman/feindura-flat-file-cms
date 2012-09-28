@@ -42,7 +42,7 @@
   <!-- STYLESHEETS -->
 
   <!-- feindura styles -->
-  <link rel="stylesheet" type="text/css" href="library/styles/styles.css<?php echo '?v='.BUILD; ?>">
+  <link rel="stylesheet" type="text/css" href="library/styles/css/styles.css<?php echo '?v='.BUILD; ?>">
 
   <!-- thirdparty/CodeMirror -->
   <link rel="stylesheet" type="text/css" href="library/thirdparty/CodeMirror/codemirror-unified.css">

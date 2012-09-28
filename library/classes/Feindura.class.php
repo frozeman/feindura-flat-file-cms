@@ -1105,7 +1105,6 @@ class Feindura extends FeinduraBase {
   * Example:
   * {@example createMetaTags.example.php}
   *
-  * @param string       $charset        (optional) the charset used in the website like "UTF-8", "iso-8859-1", ...
   * @param string|false $author         (optional) the author of the website
   * @param bool         $openGraph      (optional) if TRUE it add the following open graph meta tags: "og:site_name", "og:url", "og:title", "og:description" and "og:image", you should add ( prefix="og: http://ogp.me/ns#" ) to the <html> tag, like this <html prefix="og: http://ogp.me/ns#">
   * @param bool         $googleSnippets (optional) if TRUE it add the following google snippets meta tags: "url", "name", "description" and "image"
@@ -1128,7 +1127,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMetaTags($charset = 'UTF-8', $author = false, $openGraph = true, $googleSnippets = true) {
+  public function createMetaTags($author = false, $openGraph = true, $googleSnippets = true) {
 
     // vars
     $metaTags = '';
@@ -1145,8 +1144,8 @@ class Feindura extends FeinduraBase {
     }
 
     // -> add CHARSET
-    //$metaTags .= '  <meta http-equiv="content-type" content="'.$siteType.'; charset='.$charset.'"'.$tagEnding."\n";
-    $metaTags .= '  <meta charset="'.$charset.'"'.$tagEnding."\n";
+    //$metaTags .= '  <meta http-equiv="content-type" content="'.$siteType.'; charset=UTF-8"'.$tagEnding."\n";
+    $metaTags .= '  <meta charset="UTF-8"'.$tagEnding."\n";
 
     // -> Set Visitors Local Timezone
     $metaTags .= GeneralFunctions::setVisitorTimzone();
@@ -1381,9 +1380,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link createMetaTags()}
   * @ignore
   */
-  public function createMetaTag($charset = 'UTF-8', $author = false, $openGraph = true, $googleSnippets = true) {
+  public function createMetaTag($author = false, $openGraph = true, $googleSnippets = true) {
     // call the right function
-    return $this->createMetaTags($charset, $author, $openGraph, $googleSnippets);
+    return $this->createMetaTags($author, $openGraph, $googleSnippets);
   }
 
  /**

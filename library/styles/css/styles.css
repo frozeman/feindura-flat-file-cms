@@ -1744,7 +1744,7 @@
   *margin-right: .3em;
   line-height: 14px;
   vertical-align: text-top;
-  background-image: url("../images/icons/glyphicons-halflings.png");
+  background-image: url("../../images/icons/glyphicons-halflings.png");
   background-position: 14px 14px;
   background-repeat: no-repeat;
   margin-top: 1px;
@@ -1762,7 +1762,7 @@
 .feindura .dropdown-menu > li > a:hover > [class*=" icon-"],
 .feindura .dropdown-menu > .active > a > [class^="icon-"],
 .feindura .dropdown-menu > .active > a > [class*=" icon-"] {
-  background-image: url("../images/icons/glyphicons-halflings-white.png");
+  background-image: url("../../images/icons/glyphicons-halflings-white.png");
 }
 .feindura .icon-glass {
   background-position: 0      0;
@@ -5014,7 +5014,7 @@
   width: 788px;
   height: 28px;
   margin: 25px 5px;
-  background: url("../images/bg/content_blockSpacer.png") no-repeat;
+  background: url("../../images/bg/content_blockSpacer.png") no-repeat;
 }
 .feindura .row {
   padding-top: 2px;
@@ -5057,7 +5057,7 @@
 .feindura label.toolTipRight,
 .feindura label.toolTipTop,
 .feindura label.toolTipBottom {
-  background: url("../images/icons/hint_toolTipInfo.png") no-repeat right center;
+  background: url("../../images/icons/hint_toolTipInfo.png") no-repeat right center;
   padding-right: 18px;
 }
 .feindura span.toolTipLeft.noMark,
@@ -5072,14 +5072,14 @@
   display: inline-block;
   padding: 3px 0px;
   padding-left: 20px;
-  background: url("../images/icons/warning.gif") no-repeat 0px 7px !important;
+  background: url("../../images/icons/warning.gif") no-repeat 0px 7px !important;
   font-size: 12px;
   color: #a02f00;
 }
 .feindura span.hint {
   display: inline-block;
   padding-left: 18px;
-  background: url("../images/icons/hint_toolTipInfo.png") no-repeat;
+  background: url("../../images/icons/hint_toolTipInfo.png") no-repeat;
   background-position: left center;
   font-size: 12px;
   color: #d49c5c;
@@ -5201,7 +5201,7 @@
   width: 18px;
   height: 17px;
   padding-left: 0;
-  background: url("../images/buttons/content_deleteButton.png") no-repeat;
+  background: url("../../images/buttons/content_deleteButton.png") no-repeat;
 }
 .feindura a.deleteButton:hover,
 .feindura a.deleteButton:focus {
@@ -5214,7 +5214,7 @@
   height: 24px;
   padding: 0;
   margin: 6px 0;
-  background: url("../images/buttons/addButton.png") no-repeat;
+  background: url("../../images/buttons/addButton.png") no-repeat;
 }
 .feindura a.addButton:hover,
 .feindura a.addButton:focus {
@@ -5226,12 +5226,12 @@
 .feindura a.down {
   font-weight: bold;
   padding-left: 16px;
-  background: url("../images/buttons/down.gif") no-repeat 0px 3px !important;
+  background: url("../../images/buttons/down.gif") no-repeat 0px 3px !important;
 }
 .feindura a.up {
   font-weight: bold;
   padding-left: 16px;
-  background: url("../images/buttons/up.gif") no-repeat 0px 3px !important;
+  background: url("../../images/buttons/up.gif") no-repeat 0px 3px !important;
 }
 .feindura a.fastUp {
   z-index: 3;
@@ -5242,7 +5242,7 @@
   width: 54px;
   height: 54px;
   text-decoration: none;
-  background: url("../images/buttons/fastUp.png") no-repeat;
+  background: url("../../images/buttons/fastUp.png") no-repeat;
 }
 .feindura a.fastUp:hover,
 .feindura .mainContent a.fastUp:focus {
@@ -5332,16 +5332,16 @@
   padding-left: 0px;
 }
 .feindura a.status.public {
-  background: url("../images/icons/page_public.png") no-repeat;
+  background: url("../../images/icons/page_public.png") no-repeat;
 }
 .feindura a.status.nonpublic {
-  background: url("../images/icons/page_nonpublic.png") no-repeat;
+  background: url("../../images/icons/page_nonpublic.png") no-repeat;
 }
 .feindura .categoryHeader a.status.public {
-  background: url("../images/icons/category_public.png") no-repeat;
+  background: url("../../images/icons/category_public.png") no-repeat;
 }
 .feindura .categoryHeader a.status.nonpublic {
-  background: url("../images/icons/category_nonpublic.png") no-repeat;
+  background: url("../../images/icons/category_nonpublic.png") no-repeat;
 }
 .feindura ul.nav-tabs a {
   background: none;
@@ -5436,7 +5436,7 @@
   display: none;
   width: 100%;
   height: 100%;
-  background: url("../images/bg/dimmContainer.png") repeat;
+  background: url("../../images/bg/dimmContainer.png") repeat;
   background-color: transparent;
 }
 .feindura #documentSaved {
@@ -5449,7 +5449,7 @@
   margin-left: -123px;
   width: 246px;
   height: 264px;
-  background: url("../images/icons/documentSaved.png") no-repeat;
+  background: url("../../images/icons/documentSaved.png") no-repeat;
 }
 .feindura div.divBlocked {
   z-index: 7;
@@ -5492,7 +5492,7 @@
 .feindura #contentBlocked {
   margin: 0;
   width: 1280px;
-  background: transparent url("../images/bg/mainBody.png") repeat;
+  background: transparent url("../../images/bg/mainBody.png") repeat;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -5804,7 +5804,7 @@
 .feindura a.ok {
   width: 55px !important;
   height: 55px !important;
-  background: url("../images/buttons/form_submit.png") no-repeat;
+  background: url("../../images/buttons/form_submit.png") no-repeat;
   cursor: pointer;
 }
 .feindura input.submit:hover,
@@ -5824,7 +5824,7 @@
 .feindura a.cancel {
   width: 55px !important;
   height: 55px !important;
-  background: url("../images/buttons/form_cancel.png") no-repeat;
+  background: url("../../images/buttons/form_cancel.png") no-repeat;
   cursor: pointer;
 }
 .feindura input.cancel:hover,
@@ -5841,7 +5841,7 @@
   position: relative;
   width: 75px;
   height: 90px;
-  background: url("../images/buttons/thumbnailUpload.png") no-repeat;
+  background: url("../../images/buttons/thumbnailUpload.png") no-repeat;
 }
 .feindura input.thumbnailUpload:hover {
   background-position: 0px -90px !important;
@@ -5939,7 +5939,7 @@
   position: absolute !important;
 }
 .feindura .cke_dialog_background_cover {
-  background: url("../images/bg/dimmContainer.png") repeat !important;
+  background: url("../../images/bg/dimmContainer.png") repeat !important;
   background-color: transparent !important;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100) !important;
   filter: alpha(opacity=100) !important;
@@ -6117,11 +6117,11 @@
   top: 2px;
   width: 16px;
   height: 16px;
-  background-image: url("../images/icons/checkbox_on.png");
+  background-image: url("../../images/icons/checkbox_on.png");
 }
 .feindura .fancyform_checked.fancyform_disabled {
   cursor: default;
-  background-image: url("../images/icons/checkbox_on_disabled.png");
+  background-image: url("../../images/icons/checkbox_on_disabled.png");
 }
 .feindura .fancyform_unchecked {
   cursor: pointer;
@@ -6131,11 +6131,11 @@
   top: 2px;
   width: 16px;
   height: 16px;
-  background-image: url("../images/icons/checkbox_off.png");
+  background-image: url("../../images/icons/checkbox_off.png");
 }
 .feindura .fancyform_unchecked.fancyform_disabled {
   cursor: default;
-  background-image: url("../images/icons/checkbox_off_disabled.png");
+  background-image: url("../../images/icons/checkbox_off_disabled.png");
 }
 .feindura .fancyform_selected {
   cursor: pointer;
@@ -6145,11 +6145,11 @@
   top: 4px;
   width: 16px;
   height: 16px;
-  background-image: url("../images/icons/radio_on.png");
+  background-image: url("../../images/icons/radio_on.png");
 }
 .feindura .fancyform_selected.fancyform_disabled {
   cursor: default;
-  background-image: url("../images/icons/radio_on_disabled.png");
+  background-image: url("../../images/icons/radio_on_disabled.png");
 }
 .feindura .fancyform_unselected {
   cursor: pointer;
@@ -6159,11 +6159,11 @@
   top: 4px;
   width: 16px;
   height: 16px;
-  background-image: url("../images/icons/radio_off.png");
+  background-image: url("../../images/icons/radio_off.png");
 }
 .feindura .fancyform_unselected.fancyform_disabled {
   cursor: default;
-  background-image: url("../images/icons/radio_off_disabled.png");
+  background-image: url("../../images/icons/radio_off_disabled.png");
 }
 .feindura .fancyform_focus {
   cursor: pointer;
@@ -6404,7 +6404,7 @@
 }
 .feindura body {
   height: 100%;
-  background: #5b5b5b url("../images/bg/body.png") repeat;
+  background: #5b5b5b url("../../images/bg/body.png") repeat;
   color: #333333;
   font: 14px 'century gothic', 'helvetica neue', Helvetica, sans-serif, Verdana, Arial, Serif;
   line-height: 20px;
@@ -6420,7 +6420,7 @@
   width: 100%;
   min-width: 1280px;
   height: 155px;
-  background: url("../images/bg/header.png") repeat-x;
+  background: url("../../images/bg/header.png") repeat-x;
   -webkit-text-shadow: 0 1px 1px #ffffff;
   -moz-text-shadow: 0 1px 1px #ffffff;
   -ms-text-shadow: 0 1px 1px #ffffff;
@@ -6436,7 +6436,7 @@
   width: 865px;
   height: 140px;
   border-top: 1px solid #E5E5E5;
-  background: url("../images/bg/headerBlock.png") no-repeat 0 -1px;
+  background: url("../../images/bg/headerBlock.png") no-repeat 0 -1px;
 }
 .feindura header.main div.menuBlock nav.mainMenu {
   position: absolute;
@@ -6485,19 +6485,19 @@
   font-size: 13px;
 }
 .feindura header.main div.menuBlock nav.mainMenu a.dashboard {
-  background: url("../images/buttons/mainMenu_dashboard.png") no-repeat;
+  background: url("../../images/buttons/mainMenu_dashboard.png") no-repeat;
 }
 .feindura header.main div.menuBlock nav.mainMenu a.pages {
-  background: url("../images/buttons/mainMenu_pages.png") no-repeat;
+  background: url("../../images/buttons/mainMenu_pages.png") no-repeat;
 }
 .feindura header.main div.menuBlock nav.mainMenu a.addons {
-  background: url("../images/buttons/mainMenu_addons.png") no-repeat;
+  background: url("../../images/buttons/mainMenu_addons.png") no-repeat;
 }
 .feindura header.main div.menuBlock nav.mainMenu a.websiteSetup {
-  background: url("../images/buttons/mainMenu_settings.png") no-repeat;
+  background: url("../../images/buttons/mainMenu_settings.png") no-repeat;
 }
 .feindura header.main div.menuBlock nav.mainMenu a.search {
-  background: url("../images/buttons/mainMenu_search.png") no-repeat;
+  background: url("../../images/buttons/mainMenu_search.png") no-repeat;
 }
 .feindura header.main .sideBar {
   position: absolute;
@@ -6522,7 +6522,7 @@
   padding: 3px 0;
   padding-left: 22px;
   width: 120px;
-  background-image: url("../images/icons/user_offline.png");
+  background-image: url("../../images/icons/user_offline.png");
   background-repeat: no-repeat;
   background-position: 5px 4px;
   color: #666;
@@ -6542,7 +6542,7 @@
   color: #3a79a5;
 }
 .feindura header.main .sideBar ul.userList li.online {
-  background-image: url("../images/icons/user_online.png");
+  background-image: url("../../images/icons/user_online.png");
   background-position: 5px 5px;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
   filter: alpha(opacity=100);
@@ -6597,27 +6597,27 @@
 }
 .feindura header.main .sideBar .languageSelection a.en-us {
   left: 0px;
-  background: url("../images/buttons/langSelection_en-us.png") no-repeat;
+  background: url("../../images/buttons/langSelection_en-us.png") no-repeat;
 }
 .feindura header.main .sideBar .languageSelection a.en-gb {
   left: 30px;
-  background: url("../images/buttons/langSelection_en-gb.png") no-repeat;
+  background: url("../../images/buttons/langSelection_en-gb.png") no-repeat;
 }
 .feindura header.main .sideBar .languageSelection a.de {
   left: 60px;
-  background: url("../images/buttons/langSelection_de.png") no-repeat;
+  background: url("../../images/buttons/langSelection_de.png") no-repeat;
 }
 .feindura header.main .sideBar .languageSelection a.fr {
   left: 90px;
-  background: url("../images/buttons/langSelection_fr.png") no-repeat;
+  background: url("../../images/buttons/langSelection_fr.png") no-repeat;
 }
 .feindura header.main .sideBar .languageSelection a.it {
   left: 120px;
-  background: url("../images/buttons/langSelection_it.png") no-repeat;
+  background: url("../../images/buttons/langSelection_it.png") no-repeat;
 }
 .feindura header.main .sideBar .languageSelection a.ru {
   left: 150px;
-  background: url("../images/buttons/langSelection_ru.png") no-repeat;
+  background: url("../../images/buttons/langSelection_ru.png") no-repeat;
 }
 .feindura header.main a.feinduraLogo {
   z-index: 1;
@@ -6627,7 +6627,7 @@
   display: block;
   width: 163px;
   height: 94px;
-  background: url("../images/icons/logo.png") no-repeat;
+  background: url("../../images/icons/logo.png") no-repeat;
 }
 .feindura header.main .feinduraVersion {
   z-index: 2;
@@ -6720,19 +6720,19 @@
   color: #CF7F52;
 }
 .feindura header.main #adminMenu a.adminSetup {
-  background: url("../images/buttons/adminMenu_adminSetup.png") no-repeat;
+  background: url("../../images/buttons/adminMenu_adminSetup.png") no-repeat;
 }
 .feindura header.main #adminMenu a.pageSetup {
-  background: url("../images/buttons/adminMenu_pageSetup.png") no-repeat;
+  background: url("../../images/buttons/adminMenu_pageSetup.png") no-repeat;
 }
 .feindura header.main #adminMenu a.statisticSetup {
-  background: url("../images/buttons/adminMenu_statisticSetup.png") no-repeat;
+  background: url("../../images/buttons/adminMenu_statisticSetup.png") no-repeat;
 }
 .feindura header.main #adminMenu a.userSetup {
-  background: url("../images/buttons/adminMenu_userSetup.png") no-repeat;
+  background: url("../../images/buttons/adminMenu_userSetup.png") no-repeat;
 }
 .feindura header.main #adminMenu a.backup {
-  background: url("../images/buttons/adminMenu_backup.png") no-repeat;
+  background: url("../../images/buttons/adminMenu_backup.png") no-repeat;
 }
 .feindura .mainBody {
   position: relative;
@@ -6742,7 +6742,7 @@
   width: 100%;
   min-width: 1280px;
   margin-bottom: -38px;
-  background: #565656 url("../images/bg/mainBody.png") repeat;
+  background: #565656 url("../../images/bg/mainBody.png") repeat;
   -webkit-text-shadow: 0 1px 1px #dfdfdf;
   -moz-text-shadow: 0 1px 1px #dfdfdf;
   -ms-text-shadow: 0 1px 1px #dfdfdf;
@@ -6751,7 +6751,7 @@
   text-shadow: 0 1px 1px #dfdfdf;
 }
 .feindura .mainBody .container {
-  background: transparent url("../images/bg/mainBodyContainer.png") repeat-y;
+  background: transparent url("../../images/bg/mainBodyContainer.png") repeat-y;
 }
 .feindura .mainBody section.mainContent {
   z-index: 3;
@@ -6849,7 +6849,7 @@
   width: 6px;
   height: 40px;
   margin: 0 -2px;
-  background: url("../images/buttons/subMenu_spacer.png") no-repeat center center;
+  background: url("../../images/buttons/subMenu_spacer.png") no-repeat center center;
 }
 .feindura .mainBody .subMenu li a {
   display: block;
@@ -6859,40 +6859,40 @@
   height: 40px;
 }
 .feindura .mainBody .subMenu a.fileManager {
-  background: url("../images/buttons/subMenu_fileManager.png") no-repeat;
+  background: url("../../images/buttons/subMenu_fileManager.png") no-repeat;
 }
 .feindura .mainBody .subMenu a.createPage {
-  background: url("../images/buttons/subMenu_createPage.png") no-repeat;
+  background: url("../../images/buttons/subMenu_createPage.png") no-repeat;
 }
 .feindura .mainBody .subMenu a.deletePage {
-  background: url("../images/buttons/subMenu_deletePage.png") no-repeat;
+  background: url("../../images/buttons/subMenu_deletePage.png") no-repeat;
 }
 .feindura .mainBody .subMenu a.frontendEditing {
-  background: url("../images/buttons/subMenu_frontendEditing.png") no-repeat;
+  background: url("../../images/buttons/subMenu_frontendEditing.png") no-repeat;
 }
 .feindura .mainBody .subMenu a.uploadPageThumbnail {
-  background: url("../images/buttons/subMenu_uploadThumb.png") no-repeat;
+  background: url("../../images/buttons/subMenu_uploadThumb.png") no-repeat;
 }
 .feindura .mainBody .subMenu a.deletePageThumbnail {
-  background: url("../images/buttons/subMenu_deleteThumb.png") no-repeat;
+  background: url("../../images/buttons/subMenu_deleteThumb.png") no-repeat;
 }
 .feindura .mainBody .subMenu a.addPageLanguage {
-  background: url("../images/buttons/subMenu_addPageLanguage.png") no-repeat;
+  background: url("../../images/buttons/subMenu_addPageLanguage.png") no-repeat;
 }
 .feindura .mainBody .subMenu a.removePageLanguage {
-  background: url("../images/buttons/subMenu_removePageLanguage.png") no-repeat;
+  background: url("../../images/buttons/subMenu_removePageLanguage.png") no-repeat;
 }
 .feindura .mainBody .subMenu a.createUser {
-  background: url("../images/buttons/subMenu_createUser.png") no-repeat;
+  background: url("../../images/buttons/subMenu_createUser.png") no-repeat;
 }
 .feindura .mainBody .subMenu a.createCategory {
-  background: url("../images/buttons/subMenu_createCategory.png") no-repeat;
+  background: url("../../images/buttons/subMenu_createCategory.png") no-repeat;
 }
 .feindura .mainBody .subMenu a.submit {
-  background: url("../images/buttons/subMenu_submit.png") no-repeat;
+  background: url("../../images/buttons/subMenu_submit.png") no-repeat;
 }
 .feindura .mainBody .subMenu a.restorePage {
-  background: url("../images/buttons/subMenu_restorePage.png") no-repeat;
+  background: url("../../images/buttons/subMenu_restorePage.png") no-repeat;
 }
 .feindura footer.main {
   position: relative;
@@ -6902,7 +6902,7 @@
   height: 70px;
   margin-top: 10px;
   clear: both;
-  background: url("../images/bg/footer.png") repeat-x;
+  background: url("../../images/bg/footer.png") repeat-x;
 }
 .feindura footer.main div.copyright {
   position: relative;
@@ -6937,7 +6937,7 @@
 }
 .feindura #leftSidebar .spacer.arrow,
 .feindura #rightSidebar .spacer.arrow {
-  background: url("../images/bg/sidebarMenu_spacer_arrow.png") no-repeat left center;
+  background: url("../../images/bg/sidebarMenu_spacer_arrow.png") no-repeat left center;
 }
 .feindura #leftSidebar .box,
 .feindura #rightSidebar .box {
@@ -7192,14 +7192,14 @@
   height: 35px;
   padding-left: 0;
   text-decoration: none;
-  background: url("../images/buttons/sidebarMenu_buttonUp.png") no-repeat right top;
+  background: url("../../images/buttons/sidebarMenu_buttonUp.png") no-repeat right top;
 }
 .feindura #rightSidebar .sidebarMenu .top a:hover,
 .feindura #rightSidebar .sidebarMenu .top a:focus {
   background-position: right -36px;
 }
 .feindura #rightSidebar .sidebarMenu.hidden .top a {
-  background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
+  background: url("../../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
 }
 .feindura #rightSidebar .sidebarMenu.hidden .top a:hover,
 .feindura #rightSidebar .sidebarMenu.hidden .top a:focus {
@@ -7223,7 +7223,7 @@
   padding: 0;
   width: 100%;
   height: 12px;
-  background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right -14px;
+  background: url("../../images/buttons/sidebarMenu_pullToogle.png") no-repeat right -14px;
   text-decoration: none;
   -webkit-border-top-right-radius: 0;
   -webkit-border-bottom-right-radius: 5px;
@@ -7284,7 +7284,7 @@
   content: '⟩ ';
 }
 .feindura #rightSidebar .sidebarMenu.gray .top {
-  background: url("../images/bg/sidebarMenu_top_gray.png") repeat-x;
+  background: url("../../images/bg/sidebarMenu_top_gray.png") repeat-x;
   background-color: #BDBDB9;
   border-color: #BDBDB9;
 }
@@ -7322,7 +7322,7 @@
   color: #666666;
 }
 .feindura #rightSidebar .sidebarMenu.brown .top {
-  background: url("../images/bg/sidebarMenu_top_brown.png") repeat-x;
+  background: url("../../images/bg/sidebarMenu_top_brown.png") repeat-x;
   background-color: #E6BF7C;
   border-color: #E6BF7C;
 }
@@ -7360,7 +7360,7 @@
   color: #643d12;
 }
 .feindura #rightSidebar .sidebarMenu.blue .top {
-  background: url("../images/bg/sidebarMenu_top_blue.png") repeat-x;
+  background: url("../../images/bg/sidebarMenu_top_blue.png") repeat-x;
   background-color: #89B5D6;
   border-color: #89B5D6;
 }
@@ -7473,7 +7473,7 @@
   display: inline-block;
   padding: 5px 0;
   padding-left: 25px;
-  background: url("../images/buttons/backup_download_small.png") no-repeat left center;
+  background: url("../../images/buttons/backup_download_small.png") no-repeat left center;
 }
 .feindura #rightSidebar ul.backupDownload a.deleteButton {
   top: 15px;
@@ -7510,17 +7510,17 @@
 .feindura .icons.startpage {
   width: 27px;
   height: 23px;
-  background: url("../images/buttons/listPages_startPage.png") no-repeat;
+  background: url("../../images/buttons/listPages_startPage.png") no-repeat;
 }
 .feindura .icons.page {
   width: 27px;
   height: 27px;
-  background: url("../images/icons/pageIcon_small.png") no-repeat;
+  background: url("../../images/icons/pageIcon_small.png") no-repeat;
 }
 .feindura .icons.category {
   width: 27px;
   height: 27px;
-  background: url("../images/icons/categoryIcon_small.png") no-repeat;
+  background: url("../../images/icons/categoryIcon_small.png") no-repeat;
 }
 .feindura .icons.codeSnippets {
   width: 16px;
@@ -7531,22 +7531,22 @@
 .feindura .icons.breadCrumbPage {
   width: 25px;
   height: 25px;
-  background: url("../images/icons/breadCrumb_page.png") no-repeat;
+  background: url("../../images/icons/breadCrumb_page.png") no-repeat;
 }
 .feindura .icons.breadCrumbStartPage {
   width: 25px;
   height: 25px;
-  background: url("../images/icons/breadCrumb_startPage.png") no-repeat;
+  background: url("../../images/icons/breadCrumb_startPage.png") no-repeat;
 }
 .feindura .icons.breadCrumbCategory {
   width: 25px;
   height: 25px;
-  background: url("../images/icons/breadCrumb_category.png") no-repeat;
+  background: url("../../images/icons/breadCrumb_category.png") no-repeat;
 }
 .feindura .icons.restorePage {
   width: 27px;
   height: 27px;
-  background: url("../images/icons/restorePageIcon_small.png") no-repeat;
+  background: url("../../images/icons/restorePageIcon_small.png") no-repeat;
 }
 .feindura .mainContent .block {
   z-index: 1;
@@ -7632,7 +7632,7 @@
 .feindura .mainContent .block > h1.brown {
   background: none;
   filter: none;
-  background-image: url("../images/bg/block_h1_brown.png") !important;
+  background-image: url("../../images/bg/block_h1_brown.png") !important;
   background-repeat: repeat-x !important;
   background-color: #fff;
   line-height: 26px;
@@ -7640,7 +7640,7 @@
 .feindura .mainContent .block > h1.blue {
   background: none;
   filter: none;
-  background-image: url("../images/bg/block_h1_blue.png") !important;
+  background-image: url("../../images/bg/block_h1_blue.png") !important;
   background-repeat: repeat-x !important;
   background-color: #fff;
   line-height: 26px;
@@ -7665,7 +7665,7 @@
   padding: 20px 25px;
   margin: -20px -25px;
   line-height: 30px;
-  background-image: url("../images/buttons/content_h1_up_off.png");
+  background-image: url("../../images/buttons/content_h1_up_off.png");
   background-repeat: no-repeat;
   background-position: right 18px;
   color: #536068;
@@ -7673,14 +7673,14 @@
 .feindura .mainContent .block > h1 a:hover,
 .feindura .mainContent .block > h1 a:focus {
   color: #536068;
-  background-image: url("../images/buttons/content_h1_up_on.png");
+  background-image: url("../../images/buttons/content_h1_up_on.png");
 }
 .feindura .mainContent .block.hidden > h1 a {
-  background-image: url("../images/buttons/content_h1_down_off.png");
+  background-image: url("../../images/buttons/content_h1_down_off.png");
 }
 .feindura .mainContent .block.hidden > h1 a:hover,
 .feindura .mainContent .block.hidden > h1 a:focus {
-  background-image: url("../images/buttons/content_h1_down_on.png");
+  background-image: url("../../images/buttons/content_h1_down_on.png");
 }
 .feindura .mainContent .block h2 {
   padding: 10px 20px;
@@ -7882,7 +7882,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffecdd',GradientType=0);
 }
 .feindura .mainContent .block.warning .content {
-  background-image: url("../images/icons/warning.png");
+  background-image: url("../../images/icons/warning.png");
 }
 .feindura .mainContent .block.warning h1 {
   color: #CA5C00;
@@ -7903,7 +7903,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#feec92',GradientType=0);
 }
 .feindura .mainContent .block.info .content {
-  background-image: url("../images/icons/info.png");
+  background-image: url("../../images/icons/info.png");
 }
 .feindura .mainContent .block.info h1 {
   color: #d49c5c;
@@ -7922,7 +7922,7 @@
   color: #d49c5c;
 }
 .feindura .mainContent .block.info.missingLanguages .content {
-  background-image: url("../images/icons/missingLanguages_big.png");
+  background-image: url("../../images/icons/missingLanguages_big.png");
 }
 .feindura .mainContent .block.info.missingLanguages a {
   background-image: none;
@@ -7941,7 +7941,7 @@
   text-align: right;
 }
 .feindura .mainContent .block .form .subOption {
-  background: url('../images/icons/arrow-down-right.png') no-repeat left 2px;
+  background: url('../../images/icons/arrow-down-right.png') no-repeat left 2px;
   padding-left: 30px;
 }
 .feindura .mainContent .block .form .subOption [class^="fancyform"] {
@@ -8312,7 +8312,7 @@
 
   padding-left: 80px;
   padding-top: 30px;
-  background: url("../images/buttons/backup_download.png") no-repeat;
+  background: url("../../images/buttons/backup_download.png") no-repeat;
 }
 .feindura a.createBackup:hover,
 .feindura a.createBackup:focus {
@@ -8323,7 +8323,7 @@
   height: 48px;
   padding-left: 80px;
   padding-top: 30px;
-  background: url("../images/buttons/backup_restore.png") no-repeat;
+  background: url("../../images/buttons/backup_restore.png") no-repeat;
 }
 .feindura a.restoreBackup:hover,
 .feindura a.restoreBackup:focus {
@@ -8456,7 +8456,7 @@
   display: block;
   width: 27px;
   height: 27px;
-  background-image: url("../images/buttons/listPages_createPage.png");
+  background-image: url("../../images/buttons/listPages_createPage.png");
   background-repeat: no-repeat;
   background-position: 0 0;
 }
@@ -8504,10 +8504,10 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  background: url('../images/bg/listPages_pageBar_blue.png') repeat-x;
+  background: url('../../images/bg/listPages_pageBar_blue.png') repeat-x;
 }
 .feindura .block.listPages .block ul li:hover {
-  background: url('../images/bg/listPages_pageBar_brown.png') repeat-x;
+  background: url('../../images/bg/listPages_pageBar_brown.png') repeat-x;
 }
 .feindura .block.listPages .block ul li.active {
   border-color: #d49c5c;
@@ -8518,7 +8518,7 @@
   right: 0;
   height: 35px;
   width: 35px;
-  background: url('../images/bg/listPages_grabBar.png') no-repeat;
+  background: url('../../images/bg/listPages_grabBar.png') no-repeat;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=30);
   filter: alpha(opacity=30);
   -moz-opacity: 0.3;
@@ -8551,14 +8551,14 @@
   display: inline-block;
   width: 27px;
   height: 27px;
-  background: url("../images/icons/missingLanguages_small.png") no-repeat !important;
+  background: url("../../images/icons/missingLanguages_small.png") no-repeat !important;
 }
 .feindura .block.listPages .block ul li .name a {
   display: inline-block;
   height: 27px;
   width: 94%;
   margin-left: 4px;
-  background-image: url("../images/icons/pageIcon_small.png");
+  background-image: url("../../images/icons/pageIcon_small.png");
   background-repeat: no-repeat;
   padding-left: 31px;
   overflow: hidden;
@@ -8569,13 +8569,13 @@
   text-overflow: ellipsis;
 }
 .feindura .block.listPages .block ul li .name a.hasSubCategory {
-  background-image: url("../images/icons/pageIcon_subCategory_small.png");
+  background-image: url("../../images/icons/pageIcon_subCategory_small.png");
 }
 .feindura .block.listPages .block ul li .name a.isStartPage {
-  background-image: url("../images/icons/pageIcon_startPage_small.png");
+  background-image: url("../../images/icons/pageIcon_startPage_small.png");
 }
 .feindura .block.listPages .block ul li .name a.hasSubCategory.isStartPage {
-  background-image: url("../images/icons/pageIcon_startPage_subCategory_small.png");
+  background-image: url("../../images/icons/pageIcon_startPage_subCategory_small.png");
 }
 .feindura .block.listPages .block ul li div.functions {
   width: 160px;
@@ -8595,22 +8595,22 @@
   background-position: 0px -27px;
 }
 .feindura .block.listPages .block ul li .functions a.startPage {
-  background-image: url("../images/buttons/listPages_startPage.png");
+  background-image: url("../../images/buttons/listPages_startPage.png");
 }
 .feindura .block.listPages .block ul li .functions a.frontendEditing {
-  background-image: url("../images/buttons/listPages_frontendEditing.png");
+  background-image: url("../../images/buttons/listPages_frontendEditing.png");
 }
 .feindura .block.listPages .block ul li .functions a.editPage {
-  background-image: url("../images/buttons/listPages_editPage.png");
+  background-image: url("../../images/buttons/listPages_editPage.png");
 }
 .feindura .block.listPages .block ul li .functions a.deletePage {
-  background-image: url("../images/buttons/listPages_deletePage.png");
+  background-image: url("../../images/buttons/listPages_deletePage.png");
 }
 .feindura .block.listPages .block ul li .functions a.uploadPageThumbnail {
-  background-image: url("../images/buttons/listPages_uploadPageThumbnail.png");
+  background-image: url("../../images/buttons/listPages_uploadPageThumbnail.png");
 }
 .feindura .block.listPages .block ul li .functions a.deletePageThumbnail {
-  background-image: url("../images/buttons/listPages_deletePageThumbnail.png");
+  background-image: url("../../images/buttons/listPages_deletePageThumbnail.png");
 }
 .feindura .block.listPages .block ul.sortablePageList li {
   cursor: move;
@@ -8625,7 +8625,7 @@
   border-top: 1px solid #d49c5c;
   font-size: 15px;
   line-height: 32px;
-  background: #f4e6d5 url("../images/bg/listPages_headBg.png") repeat-x;
+  background: #f4e6d5 url("../../images/bg/listPages_headBg.png") repeat-x;
   color: 3C5E91;
   -webkit-border-top-right-radius: 0;
   -webkit-border-bottom-right-radius: 2px;
@@ -8861,25 +8861,25 @@
 }
 .feindura .breadCrumbs > .start {
   width: 10px;
-  background-image: url('../images/bg/breadCrumbMenu_start.png');
+  background-image: url('../../images/bg/breadCrumbMenu_start.png');
 }
 .feindura .breadCrumbs > .middle {
   padding-right: 0;
-  background-image: url('../images/bg/breadCrumbMenu_middle.png');
+  background-image: url('../../images/bg/breadCrumbMenu_middle.png');
 }
 .feindura .breadCrumbs > .separator {
   position: relative;
   width: 15px;
   height: 26px;
-  background-image: url('../images/bg/breadCrumbMenu_separator.png');
+  background-image: url('../../images/bg/breadCrumbMenu_separator.png');
 }
 .feindura .breadCrumbs > .arrow {
   width: 20px;
-  background-image: url('../images/bg/breadCrumbMenu_arrow.png');
+  background-image: url('../../images/bg/breadCrumbMenu_arrow.png');
 }
 .feindura .breadCrumbs > .end {
   width: 15px;
-  background-image: url('../images/bg/breadCrumbMenu_end.png');
+  background-image: url('../../images/bg/breadCrumbMenu_end.png');
 }
 .feindura .restorePageButtonBox {
   z-index: 1;
@@ -8916,7 +8916,7 @@
   display: inline-block;
   width: 90px;
   height: 75px;
-  background: url("../images/buttons/content_uploadPageThumbnail.png") no-repeat;
+  background: url("../../images/buttons/content_uploadPageThumbnail.png") no-repeat;
   background-position: 0 0;
 }
 .feindura #leftSidebar a.uploadPageThumbnail:hover,
@@ -9012,7 +9012,7 @@
   width: 50px;
   height: 50px;
   padding: 0px;
-  background: url("../images/buttons/form_search.png") no-repeat 0px 0px;
+  background: url("../../images/buttons/form_search.png") no-repeat 0px 0px;
 }
 .feindura input.searchSubmit:hover,
 .feindura input.searchSubmit:focus {
@@ -9044,7 +9044,7 @@
   width: 75px;
   height: 54px;
   padding: 0;
-  background: url("../images/buttons/pageSetup_createCategory.png") no-repeat 0px 0px;
+  background: url("../../images/buttons/pageSetup_createCategory.png") no-repeat 0px 0px;
 }
 .feindura a.createCategory:hover,
 .feindura a.createCategory:focus {
@@ -9059,7 +9059,7 @@
   height: 54px;
   padding: 0;
   float: right;
-  background: url("../images/buttons/pageSetup_deleteCategory.png") no-repeat 0px 0px;
+  background: url("../../images/buttons/pageSetup_deleteCategory.png") no-repeat 0px 0px;
 }
 .feindura a.deleteCategory:hover,
 .feindura a.deleteCategory:focus {
@@ -9073,7 +9073,7 @@
   height: 31px;
   margin-top: -40px;
   padding: 0;
-  background: url("../images/buttons/pageSetup_categoryUp.png") no-repeat 0px 0px;
+  background: url("../../images/buttons/pageSetup_categoryUp.png") no-repeat 0px 0px;
 }
 .feindura a.categoryUp:hover,
 .feindura a.categoryUp:focus {
@@ -9086,7 +9086,7 @@
   width: 43px;
   height: 31px;
   padding: 0;
-  background: url("../images/buttons/pageSetup_categoryDown.png") no-repeat 0px 0px;
+  background: url("../../images/buttons/pageSetup_categoryDown.png") no-repeat 0px 0px;
 }
 .feindura a.categoryDown:hover,
 .feindura a.categoryDown:focus {
@@ -9110,7 +9110,7 @@
   width: 75px;
   height: 54px;
   padding: 0;
-  background: url("../images/buttons/userSetup_createUser.png") no-repeat 0px 0px;
+  background: url("../../images/buttons/userSetup_createUser.png") no-repeat 0px 0px;
 }
 .feindura a.createUser:hover,
 .feindura a.createUser:focus {
@@ -9125,7 +9125,7 @@
   height: 54px;
   padding: 0;
   float: right;
-  background: url("../images/buttons/userSetup_deleteUser.png") no-repeat 0px 0px;
+  background: url("../../images/buttons/userSetup_deleteUser.png") no-repeat 0px 0px;
 }
 .feindura a.deleteUser:hover,
 .feindura a.deleteUser:focus {
@@ -9242,7 +9242,7 @@
   padding: 0px !important;
   width: 18px;
   height: 18px;
-  background: url("../images/buttons/close_gray.png") no-repeat !important;
+  background: url("../../images/buttons/close_gray.png") no-repeat !important;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
   filter: alpha(opacity=80);
   -moz-opacity: 0.8;
@@ -9345,7 +9345,7 @@
 }
 .feindura #errorWindow.feindura .content.warning {
   min-height: 48px;
-  background: url("../images/icons/warning.png") no-repeat center left;
+  background: url("../../images/icons/warning.png") no-repeat center left;
 }
 .feindura #errorWindow.feindura .content div.scroll {
   display: block;
@@ -9372,7 +9372,7 @@
   border-bottom: 1px dotted #999999;
 }
 .feindura #errorWindow.feindura .ok {
-  background-image: url('../images/buttons/errorWindow_ok.png');
+  background-image: url('../../images/buttons/errorWindow_ok.png');
 }
 .feindura ul.jsMultipleSelect,
 .feindura ul.jsMultipleSelectDestination {
@@ -9445,7 +9445,7 @@
 .feindura ul.jsMultipleSelectDestination {
   max-height: 350px;
   min-height: 150px;
-  background: #e7f0f7 url("../images/icons/dropHere.png") no-repeat center center;
+  background: #e7f0f7 url("../../images/icons/dropHere.png") no-repeat center center;
   border-color: #3a79a5;
 }
 .feindura ul.jsMultipleSelectDestination li {
@@ -9504,6 +9504,9 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+}
+.feindura .datepicker_feindura .today {
+  border-color: #dd6e1f !important;
 }
 .feindura .datepicker_feindura .column_2 {
   width: 393px;
@@ -9614,7 +9617,7 @@
   width: 16px;
   height: 16px;
   top: 6px;
-  background-image: url('../images/buttons/arrows.png');
+  background-image: url('../../images/buttons/arrows.png');
   background-position: left top;
   background-repeat: no-repeat;
 }
@@ -9734,6 +9737,7 @@
   -moz-box-shadow: none;
   -o-box-shadow: none;
   box-shadow: none;
+  display: none;
 }
 .feindura .datepicker_feindura .days .week .day.selected {
   background: #fdf5ce;
@@ -9785,6 +9789,7 @@
   -moz-box-shadow: none;
   -o-box-shadow: none;
   box-shadow: none;
+  display: none;
 }
 .feindura .datepicker_feindura .months .month.selected {
   background: #fdf5ce;
@@ -9857,6 +9862,7 @@
   -moz-box-shadow: none;
   -o-box-shadow: none;
   box-shadow: none;
+  display: none;
 }
 .feindura .datepicker_feindura .years .year.selected {
   background: #fdf5ce;
