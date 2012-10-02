@@ -24,7 +24,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // VARs
 // -----------------------------------------------------------------------------
-$page	= $_GET['page'];
+$page = $_GET['page'];
 $category = $_GET['category'];
 
 // REVERT to a PREVIOUS STATE
@@ -138,9 +138,11 @@ if(isBlocked() === false && $_POST['save']) {
 
 
     // STORE LOCALIZED CONTENT
-    $_POST['tags'] = trim(preg_replace("#[\;,]+#", ',', $_POST['tags']),',');
+    $_POST['tags'] = trim(preg_replace("#[,]+#", ',', $_POST['tags']),',');
     $_POST['tags'] = preg_replace("# +#", ' ', $_POST['tags']); // replace multiple whitespaces with one whitespace
-    $_POST['localized'][$_POST['websiteLanguage']]['tags'] = preg_replace("# *, *#", ',', $_POST['tags']); // make " , " to  ","
+    $_POST['tags'] = preg_replace("# *, *#", ',', $_POST['tags']); // make " , " to  ","
+
+    $_POST['localized'][$_POST['websiteLanguage']]['tags'] = $_POST['tags'];
     $_POST['localized'][$_POST['websiteLanguage']]['title'] = $_POST['title'];
     $_POST['localized'][$_POST['websiteLanguage']]['description'] = $_POST['description'];
     $_POST['localized'][$_POST['websiteLanguage']]['content'] = $_POST['HTMLEditor'];

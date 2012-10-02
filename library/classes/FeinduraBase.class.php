@@ -329,7 +329,7 @@ class FeinduraBase {
        !empty($_GET[$this->adminConfig['varName']['category']]) &&
        is_numeric($_GET[$this->adminConfig['varName']['category']])) {
 
-      return XssFilter::int($_GET[$this->adminConfig['varName']['category']],0); // get the category ID from the $_GET var
+      return intval(XssFilter::int($_GET[$this->adminConfig['varName']['category']],0)); // get the category ID from the $_GET var
 
     // ->> GET CATEGORY is a NAME
     // **************************
@@ -349,7 +349,7 @@ class FeinduraBase {
               foreach($category['localized'] as $localizedCategory) {
                 // RETURNs the right category Id
                 if(StatisticFunctions::urlEncode($localizedCategory['name']) === StatisticFunctions::urlEncode($_GET['category'])) {
-                  return $category['id'];
+                  return intval($category['id']);
                 }
               }
             }
@@ -358,7 +358,7 @@ class FeinduraBase {
           return false;
       }
     } elseif(empty($_GET['page']) && $this->websiteConfig['setStartPage'] && is_numeric($this->startCategory)) {
-      return $this->startCategory;
+      return intval($this->startCategory);
     } else
       return false;
   }
@@ -1852,7 +1852,7 @@ class FeinduraBase {
     unset($categoriesArray[0]);
     // CHECK if its a $pageContent array, set the $page ID to the $page parameter
     if(GeneralFunctions::isPageContentArray($ids))
-      return array($ids,$ids['category']);
+      return array($ids,intval($ids['category']));
 
 
     // -> IF ARRAY, separates into page/category
@@ -1886,7 +1886,7 @@ class FeinduraBase {
 
     // -> if page AND category are IDs, return it right away
     if(is_numeric($page) && is_numeric($category))
-      return array($page,$category);
+      return array(intval($page),intval($category));
 
     // -> if category doesn't exist return false
     if($category != 0 && is_numeric($category) && !array_key_exists($category, $categoriesArray))
@@ -1941,11 +1941,11 @@ class FeinduraBase {
             // NEXT
             if($page === 'next' && $next = next($pagesMetaDataCopy)) {
               while($next && !$next['public']) $next = next($pagesMetaDataCopy); // prevent to pick a non public page
-              return array($next['id'],$next['category']);;
+              return array(intval($next['id']),intval($next['category']));
             // PREV
             } elseif($page === 'prev' && $prev = prev($pagesMetaDataCopy)) {
               while($prev && !$prev['public']) $prev = prev($pagesMetaDataCopy); // prevent to pick a non public page
-              return array($prev['id'],$prev['category']);
+              return array(intval($prev['id']),intval($prev['category']));
             // END of CATEGORY
             } else return false;
           }
@@ -2030,11 +2030,11 @@ class FeinduraBase {
         // FIRST PAGE (first or bool)
         if(($page === 'first' || is_bool($page)) && $tmpPage = reset($pagesMetaData)) {
           while($tmpPage && !$tmpPage['public']) $tmpPage = next($pagesMetaData); // prevent to pick a non public page
-          return array($tmpPage['id'],$tmpPage['category']);
+          return array(intval($tmpPage['id']),intval($tmpPage['category']));
         // LAST PAGE
         } elseif($page === 'last' && $tmpPage = end($pagesMetaData)) {
           while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pagesMetaData); // prevent to pick a non public page
-          return array($tmpPage['id'],$tmpPage['category']);
+          return array(intval($tmpPage['id']),intval($tmpPage['category']));
         // RANDOM PAGE
         } elseif($page === 'rand') {
           $pagesMetaDataCopy = $pagesMetaData;
@@ -2043,7 +2043,7 @@ class FeinduraBase {
             while($tmpPage && !$tmpPage['public']) $tmpPage = next($pagesMetaDataCopy); // prevent to pick a non public category
             // reached the end? go backwards
             if(!$tmpPage) while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pagesMetaDataCopy); // prevent to pick a non public category
-            return array($tmpPage['id'],$tmpPage['category']);
+            return array(intval($tmpPage['id']),intval($tmpPage['category']));
           }
         }
 

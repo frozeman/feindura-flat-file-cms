@@ -312,6 +312,19 @@ var TextboxListBit = new Class({
 			}.bind(this),
 			mouseleave: function() {
 				this.bit.removeClass(this.prefix+'-hover').removeClass(this.typeprefix+'-hover');
+			}.bind(this),
+			'dblclick': function(){
+				// this.blur();
+				var editable = this.textboxlist.create('editable');
+				var editableInput = editable.bit.getElement('.textboxlist-bit-editable-input');
+				editableInput.setProperty('value',this.value[1]);
+				editable.focus();
+				editableInput.addEvent('toBox',function(){
+						editable.bit.destroy();
+					});
+				editable.inject(this, 'after');
+				editableInput.retrieve('growing').resize();
+				this.remove();
 			}.bind(this)
 		});
 	},
@@ -469,8 +482,10 @@ TextboxListBit.Editable = new Class({
 		if (box) {
 			box.inject(this.bit, 'before');
 			this.setValue([null, '', null]);
+			this.element.fireEvent('toBox');
 			return box;
 		}
+		this.element.fireEvent('toBox');
 		return null;
 	}
 

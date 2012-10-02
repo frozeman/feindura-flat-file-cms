@@ -767,7 +767,9 @@ class GeneralFunctions {
   */
   public static function getPageCategory($page) {
     if($page !== false && is_numeric($page)) {
-      return self::$pagesMetaData[$page]['category'];
+      $page = intval($page);
+
+      return intval(self::$pagesMetaData[$page]['category']);
     } else
       return false;
   }

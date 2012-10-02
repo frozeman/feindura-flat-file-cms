@@ -146,6 +146,7 @@ function feindura_showNotification(html) {
 
   // var
   var hideNotification = function(){
+    notification.set('tween',{duration: 200});
     notification.tween('top',-notification.getSize().y);
     notification.removeEvents('mouseover');
     notification.get('tween').chain(function(){
@@ -174,7 +175,6 @@ function feindura_showNotification(html) {
   // -> fade out and in EXISTING MESSAGE BOX
   } else {
     document.body.grab(notification);
-    notification.set('tween',{duration: 300});
     notification.tween('top',-notification.getSize().y);
     notification.get('tween').chain(function(){
       notification.set('html',html);
@@ -244,7 +244,7 @@ function feindura_storeTipTexts(elements) {
       element.store('tip:text', content[1]);
       element.removeProperty('title');
     }
-	});
+  });
 }
 
 // -> STORES the page ID and category ID in the editable element storage

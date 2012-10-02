@@ -29,7 +29,6 @@ require_once(dirname(__FILE__)."/library/includes/secure.include.php");
  */
 require_once(dirname(__FILE__)."/library/controller.loader.php");
 
-
 // VARs
 // -----------------------------------------------------------------------------------
 // store the current location, this will be used when the user comes back from the frontend
@@ -649,7 +648,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     var editableTags = new TextboxList('edit_tags', {
       unique: true,
       inBetweenEditableBits: false,
-      // startEditableBit: false,
       bitsOptions: {
         editable: {
           addOnBlur: true,

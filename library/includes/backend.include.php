@@ -132,6 +132,24 @@ $_SESSION['feinduraSession']['backendLanguageLocale'] = (strlen($_SESSION['feind
 // shorten the language to its basic language
 $_SESSION['feinduraSession']['backendLanguage'] = substr($_SESSION['feinduraSession']['backendLanguage'],0,2);
 
+// complete the locale if empty
+if(empty($_SESSION['feinduraSession']['backendLanguageLocale'])) {
+  switch ($_SESSION['feinduraSession']['backendLanguage']) {
+    case 'de':
+      $_SESSION['feinduraSession']['backendLanguageLocale'] = 'de-DE';
+      break;
+    case 'fr':
+      $_SESSION['feinduraSession']['backendLanguageLocale'] = 'fr-FR';
+      break;
+    case 'it':
+      $_SESSION['feinduraSession']['backendLanguageLocale'] = 'it-IT';
+      break;
+    default:
+      $_SESSION['feinduraSession']['backendLanguageLocale'] = 'en-GB';
+      break;
+  }
+}
+
 // LOAD LANG FILES
 $backendLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feinduraSession']['backendLanguage']);
 $sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feinduraSession']['backendLanguage']);
