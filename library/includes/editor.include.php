@@ -24,6 +24,10 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
+// VARS
+// $activatedPlugins - from editor.controller.php
+
+
 ?>
 <!-- editor anchor is here -->
 <a id="editorAnchor" class="anchorTarget"></a>
@@ -94,7 +98,7 @@ window.addEvent('domready',function() {
 
 <?php
 // SNIPPETS
-if($adminConfig['editor']['snippets'] || $hasPlugins) { ?>
+if($adminConfig['editor']['snippets'] || (is_array($activatedPlugins) && count($activatedPlugins) >= 1)) { ?>
   CKEDITOR.config.extraPlugins              += ',feinduraSnippets';
   CKEDITOR.config.menu_groups               += ',feinduraSnippetsGroup';
 <?php }

@@ -751,7 +751,7 @@ $langFile['EDITOR_htmleditor_hotkeys_or']                                 = 'opp
 $langFile['EDITOR_savepage_error_save']                                   .= $langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];// also in en.shared.php
 
 // ---------- plugin settings
-$langFile['EDITOR_pluginSettings_h1']                                     = 'Impostazioni Plugin';
+$langFile['EDITOR_pluginSettings_h1']                                     = 'Aggiungi Plugin';
 $langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'Dopo aver attivato un plugin, passa il mouse sopra il plugin di essere possibile trascinare nell&#145;editor HTML, o posizionare direttamente nell&#145;editor HTML, usando l&#145;icona %s.';
 $langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins salvato!</div>';//<div class="alert">Click on un plugin per modificarne le proprietà.</div>';
 $langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Trascinare il plugin nell&#145;editor.';

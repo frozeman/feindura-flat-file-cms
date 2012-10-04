@@ -750,7 +750,7 @@ $langFile['EDITOR_htmleditor_hotkeys_or']                                 = 'ode
 $langFile['EDITOR_savepage_error_save']                                   .= $langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];// also in de.shared.php
 
 // ---------- plugin settings
-$langFile['EDITOR_pluginSettings_h1']                                     = 'Plugin Einstellungen';
+$langFile['EDITOR_pluginSettings_h1']                                     = 'Plugins hinzufügen';
 $langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'Nach dem du ein Plugin aktiviert hast, bleib mit der Maus darüber um es in den Editor ziehen zu können, oder nutze im Editor das Icon %s.';
 $langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins gespeichert!</div>';//<div class="alert">Klicken Sie auf ein Plugin, um es zu bearbeiten.</div>';
 $langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Ziehe das Plugin in den Editor um es zu platzieren.';

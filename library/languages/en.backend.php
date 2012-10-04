@@ -749,7 +749,7 @@ $langFile['EDITOR_htmleditor_hotkeys_or']                                 = 'or'
 $langFile['EDITOR_savepage_error_save']                                   .= $langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];// also in en.shared.php
 
 // ---------- plugin settings
-$langFile['EDITOR_pluginSettings_h1']                                     = 'Plugin Settings';
+$langFile['EDITOR_pluginSettings_h1']                                     = 'Add plugins';
 $langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'After you activated a plugin, hover over the plugin to be able to drag it into the Editor, or place it directly in the editor, using the %s icon.';
 $langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins saved!</div>';//<div class="alert">Click on a plugin to edit its properties.</div>';
 $langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Drag the plugin into the Editor.';
