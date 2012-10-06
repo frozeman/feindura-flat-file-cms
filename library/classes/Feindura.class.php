@@ -1707,11 +1707,12 @@ class Feindura extends FeinduraBase {
         // creates the link
         if($pageLink = $this->createLink($page,$linkText)) {
           // adds the link to an array
-          $link['link']     = $pageLink;
-          $link['href']     = $this->createHref($page);
-          $link['id']       = $page['id'];
-          $link['category'] = $page['category'];
-          $link['tags']     = $this->getLocalized($page,'tags');
+          $link['link']        = $pageLink;
+          $link['href']        = $this->createHref($page);
+          $link['id']          = $page['id'];
+          $link['category']    = $page['category'];
+          $link['subCategory'] = $page['subCategory'];
+          $link['tags']        = $this->getLocalized($page,'tags');
 
           // -> add Thumbnail
           if($pageThumbnail = $this->createThumbnail($page)) {

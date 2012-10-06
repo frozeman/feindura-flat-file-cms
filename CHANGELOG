@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0 beta
-Build 994
+Build 995
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 2.0 beta
 
+  build 995: add active class on menu listing element too, when in sub page
   build 994: deactivated frontend editing feature, due to "not ready yet"
   build 993: changed the size of the user information field
   build 992: removed the charset parameter from createMetaTags()

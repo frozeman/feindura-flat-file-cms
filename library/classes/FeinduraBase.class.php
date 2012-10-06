@@ -1025,7 +1025,8 @@ class FeinduraBase {
 
       // add "active" class to the link wrapping element
       $linkClass = '';
-      if(!empty($this->linkActiveClass) && ($link['active'] || $this->page === $link['id']))
+      if(!empty($this->linkActiveClass) && ($link['active'] || $this->page === $link['id']) ||
+         (!empty($link['subCategory']) && $this->category == $link['subCategory']))
         $linkClass = ' class="'.$this->linkActiveClass.'"';
 
       // if menuTag is a LIST ------
