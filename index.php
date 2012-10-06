@@ -666,16 +666,22 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
     editableTags.plugins['autocomplete'].setValues(
       [
       <?php
+      $allTags = array();
       foreach ($pagesMetaData as $pageMetaData) {
         foreach ($pageMetaData['localized'] as $langCode => $pageMetaDataLocalized) {
           $tags = explode(',', $pageMetaDataLocalized['tags']);
-          foreach($tags as $tag) {
-            // add tag only when the current page dont have them
-            if(!empty($tag) && !GeneralFunctions::compareTags($pageContent, $tag))
-              echo '["'.$tag.'","'.$tag.'"],';
-          }
+          $allTags = array_merge($allTags,$tags);
         }
       }
+      $allTags = array_unique($allTags);
+      natcasesort($allTags);
+      foreach($allTags as $tag) {
+        // add tag only when the current page dont have them
+        if(!empty($tag) && !GeneralFunctions::compareTags($pageContent, $tag)) {
+          echo '["'.$tag.'","'.$tag.'"],';
+        }
+      }
+      unset($allTags);
       ?>
       ]
     );
@@ -714,6 +720,10 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
 /* ]]> */
 </script>
+<?php
 
+          DebugTools::dump($existingTags);
+
+?>
 </body>
 </html>

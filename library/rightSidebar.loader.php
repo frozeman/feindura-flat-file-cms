@@ -135,18 +135,22 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
     }
 
     // ----  show QUICKMENU for the CATEGORY PAGES
-    if(!empty($_GET['category']) && showCategory($_GET['category'])) {
+    // page has a subcategory, show it
+    $loadCategory = (!empty($pageContent['subCategory'])) ? $pageContent['subCategory'] : $_GET['category'];
+
+    if(!empty($loadCategory) && showCategory($loadCategory)) {
 
       // spacer
       echo '<div class="spacer arrow"></div>';
 
       echo '<div class="sidebarMenu gray">
-      <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'</span><a href="#" class="toolTipLeft" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$_GET['category']],'name').'::">&nbsp;</a></div>
+      <div class="top"><img src="library/images/icons/pageIcon_middle.png" class="icons" alt="icon" width="35" height="35"><span>'.GeneralFunctions::getLocalized($categoryConfig[$loadCategory],'name').'</span><a href="#" class="toolTipLeft" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.GeneralFunctions::getLocalized($categoryConfig[$loadCategory],'name').'::">&nbsp;</a></div>
       <div class="menuWrapper">
         <menu class="vertical category">';
 
         if(is_array($pageMetaData)) {
-          $filteredPagesMetaData = GeneralFunctions::getPagesMetaDataOfCategory($_GET['category']);
+
+          $filteredPagesMetaData = GeneralFunctions::getPagesMetaDataOfCategory($loadCategory);
           foreach($filteredPagesMetaData as $pageMetaData) {
             if(!GeneralFunctions::hasPermission('editablePages',$pageMetaData['id']))
               continue;

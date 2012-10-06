@@ -6264,7 +6264,7 @@
   z-index: 1;
   position: absolute;
   display: block;
-  background: url("../thirdparty/TextboxList/close.gif");
+  background: url("../../thirdparty/TextboxList/close.gif");
   height: 7px;
   right: 5px;
   top: 4px;

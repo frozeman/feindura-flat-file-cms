@@ -94,7 +94,7 @@ var TextboxList = new Class({
 				}
 				this.blur();
 			}.bind(this),
-			keydown: function(ev) {
+			keyup: function(ev) {
 				if ( ! this.focused || ! this.current) return;
 				var caret = this.current.is('editable') ? this.current.getCaret() : null;
 				var value = this.current.getValue()[1];
@@ -103,6 +103,12 @@ var TextboxList = new Class({
 				});
 				var custom = special || (this.current.is('editable') && this.current.isSelected());
 				switch (ev.key) {
+					case 'enter':
+						if (this.current.is('box') || ((caret === 0 || !value.length) && ! custom)) {
+							ev.stop();
+							this.current.editBit();
+							break;
+						}
 					case 'backspace':
 						if (this.current.is('box')) {
 							ev.stop();
@@ -161,7 +167,9 @@ var TextboxList = new Class({
 	},
 
 	focusRelative: function(dir, to) {
-		var bit = this.getBit(document.id([to, this.current].pick())['get'+dir.capitalize()]());
+		var bit = false;
+		if(typeOf(document.id([to, this.current].pick())) != 'null')
+			bit = this.getBit(document.id([to, this.current].pick())['get'+dir.capitalize()]());
 		if (bit) {
 			bit.focus();
 		}
@@ -298,6 +306,22 @@ var TextboxListBit = new Class({
 		return this;
 	},
 
+	editBit: function(e) {
+		if(!e || (e.key == 'enter' && this.focused)) {
+			// this.blur();
+			var editable = this.textboxlist.create('editable');
+			var editableInput = editable.bit.getElement('.textboxlist-bit-editable-input');
+			editableInput.setProperty('value',this.value[1]);
+			editable.focus();
+			editableInput.addEvent('toBox',function(){
+					editable.bit.destroy();
+				});
+			editable.inject(this, 'after');
+			editableInput.retrieve('growing').resize();
+			this.remove();
+		}
+	},
+
 	initialize: function(value, textboxlist, options){
 		this.name = this.type.capitalize();
 		this.value = value;
@@ -314,17 +338,7 @@ var TextboxListBit = new Class({
 				this.bit.removeClass(this.prefix+'-hover').removeClass(this.typeprefix+'-hover');
 			}.bind(this),
 			'dblclick': function(){
-				// this.blur();
-				var editable = this.textboxlist.create('editable');
-				var editableInput = editable.bit.getElement('.textboxlist-bit-editable-input');
-				editableInput.setProperty('value',this.value[1]);
-				editable.focus();
-				editableInput.addEvent('toBox',function(){
-						editable.bit.destroy();
-					});
-				editable.inject(this, 'after');
-				editableInput.retrieve('growing').resize();
-				this.remove();
+				this.editBit();
 			}.bind(this)
 		});
 	},
@@ -485,6 +499,8 @@ TextboxListBit.Editable = new Class({
 			this.element.fireEvent('toBox');
 			return box;
 		}
+		this.textboxlist.focusRelative('next');
+		this.textboxlist.focusRelative('previous');
 		this.element.fireEvent('toBox');
 		return null;
 	}
