@@ -1298,10 +1298,9 @@ class Feindura extends FeinduraBase {
       }
     }
 
-    $frontendEditing = false;
     // ->> ENABLE FRONTEND EDITING (DEACTIVATED)
     // if user is logged into the CMS, add javascripts for implementing ckeditor
-    if($frontendEditing && $this->loggedIn && GeneralFunctions::hasPermission('frontendEditing') && PHP_VERSION >= REQUIREDPHPVERSION) {
+    if($this->loggedIn && GeneralFunctions::hasPermission('frontendEditing') && PHP_VERSION >= REQUIREDPHPVERSION) {
 
       $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
       // add frontend editing stylesheets

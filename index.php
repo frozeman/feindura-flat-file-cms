@@ -720,10 +720,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
 /* ]]> */
 </script>
-<?php
 
-          DebugTools::dump($existingTags);
-
-?>
 </body>
 </html>

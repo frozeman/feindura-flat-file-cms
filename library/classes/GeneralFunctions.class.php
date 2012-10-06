@@ -465,6 +465,10 @@ class GeneralFunctions {
   */
   public static function hasPermission($permission, $data = false, $userId = false) {
 
+    // TEMPORARY
+    if($permission == 'frontendEditing')
+      return false;
+
     if(!is_numeric($userId))
       $userId = USERID;
 

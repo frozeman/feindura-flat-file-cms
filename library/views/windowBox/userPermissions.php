@@ -64,14 +64,14 @@ if($post['send'] == 'true') {
     <input type="hidden" name="userId" value="<?php echo $post['userId']; ?>">
   </div>
 
-  <div class="row">
+<!--   <div class="row">
     <div class="span3 right">
       <input type="checkbox" id="frontendEditing" name="frontendEditing" value="true"<?php if($userConfig[$post['userId']]['permissions']['frontendEditing']) echo ' checked="checked"'; echo $fmDisabled; ?>>
     </div>
     <div class="span5">
       <label for="frontendEditing"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']; ?></label>
     </div>
-  </div>
+  </div> -->
 
   <div class="row">
     <div class="span3 right">

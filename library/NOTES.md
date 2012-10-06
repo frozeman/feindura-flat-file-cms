@@ -52,3 +52,7 @@ MooTools more has the following packages:
 - Scroller
 - Tips
 - Locale, Locale.en-US.Date, Locale.de-DE.Date, Locale.en-GB.Date, Locale.fr-FR.Date, Locale.it-IT.Date, Locale.ru-RU-unicode.Date
+
+***Temporary***
+
+- deactivated the frontend editing feature. (In GeneralFunctions::hasPermissions() and userPermissions.php)
