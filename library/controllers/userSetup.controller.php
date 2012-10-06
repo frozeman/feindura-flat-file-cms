@@ -95,7 +95,9 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
 
     // transfer the permssions
     $newUserConfig[$configs['id']]['permissions'] = $userConfig[$configs['id']]['permissions'];
-    $newUserConfig[$configs['id']]['info']       = GeneralFunctions::htmLawed($configs['info'],array('tidy'=>1));
+    $newUserConfig[$configs['id']]['info']        = GeneralFunctions::htmLawed($configs['info'],array('tidy'=>0));
+    $newUserConfig[$configs['id']]['info']        = nl2br($newUserConfig[$configs['id']]['info']);
+    $newUserConfig[$configs['id']]['info']        = str_replace(array("\n","\r"), '', $newUserConfig[$configs['id']]['info']);
 
     // filter password
     $configs['password'] = XssFilter::text($configs['password']);

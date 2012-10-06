@@ -137,7 +137,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
                     <label for="users'.$user['id'].'info"><span class="toolTipLeft" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION'].'">'.$langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION'].'</span></label>
                   </div>
                   <div class="span5">
-                    <textarea id="users'.$user['id'].'info" name="users['.$user['id'].'][info]" style="white-space:normal;" class="toolTipRight autogrow" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO'].'">'.str_replace(array('<br>','<br>','<br/>'),'',$userConfig[$user['id']]['info']).'</textarea>
+                    <textarea id="users'.$user['id'].'info" name="users['.$user['id'].'][info]" style="white-space:normal;width:400px;" class="toolTipRight autogrow" title="'.$langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO'].'">'.str_replace(array('<br>','<br />','<br/>'),"\n",$userConfig[$user['id']]['info']).'</textarea>
                   </div>
                 </div>';
 
