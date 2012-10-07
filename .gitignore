@@ -11,7 +11,8 @@ upload/
 
 statistic/
 
-pages/
+pages/*.php
+pages/*/*
 
 config/
 

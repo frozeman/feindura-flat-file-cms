@@ -138,7 +138,7 @@ $CURVERSIONSTRING = $CURVERSION.' <small>Build '.$CURBUILD.'</small>';
   // check version
   if($PREVVERSION.$PREVBUILD == $CURVERSION.$CURBUILD)
     die('<span class="succesfull">You content is already up to date.</span><br>
-      <small style="color:#999;">(If you don\'t think so, change the number to your previous version of feindura in the "/cms/VERSION" file and run this updater again.)</small>
+      <small style="color:#999;">(If you don\'t think so, change the number to your previous version of feindura in the "/cms/pages/VERSION" file and run this updater again.)</small>
       <br><br>
       <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a></body></html>');
 
@@ -154,7 +154,7 @@ $CURVERSIONSTRING = $CURVERSION.' <small>Build '.$CURBUILD.'</small>';
 
   // WRONG PATH WARNING
   if($wrongDirectory) {
-    echo '<br><span class="warning">You must place the "updater.php" file inside your <span class="feindura"><em>fein</em>dura</span> folder!</span>';
+    echo '<br><span class="warning">You must place the "update.php" file inside your <span class="feindura"><em>fein</em>dura</span> folder!</span>';
     $updatePossible = false;
   }
 
@@ -1076,7 +1076,7 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
 
     // -> final success text or failure warning
     if($succesfullUpdate) {
-      file_put_contents(dirname(__FILE__).'/VERSION', "feindura - Flat File CMS (Version,Build)\n".$CURVERSION."\n".$CURBUILD);
+      file_put_contents(dirname(__FILE__).'/pages/VERSION', "feindura - Flat File CMS (Version,Build)\n".$CURVERSION."\n".$CURBUILD);
       echo '<br>NOTE: If you had Pretty URLs activated, you have to activate it again in the admin settings. But before delete the Pretty URL code from you .htaccess file manually!<br>';
       echo '<br><h1>You can now delete the "update.php" file.</h1>';
     } else
