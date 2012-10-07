@@ -1362,7 +1362,6 @@ class Feindura extends FeinduraBase {
     TOPBAR_TIP_DEACTIVATEFRONTENDEDITING: \"".$this->languageFile['TOPBAR_TIP_DEACTIVATEFRONTENDEDITING']."\"
   };
   var feindura_logoutUrl =    '".GeneralFunctions::getCurrentUrl('feinduraLogout')."';
-  var feindura_setStartPage = '".$this->websiteConfig['setStartPage']."';
   var feindura_startPage =    '".$this->startPage."';
   var feindura_xHtml =        '".$this->xHtml."';
   /* ]]> */

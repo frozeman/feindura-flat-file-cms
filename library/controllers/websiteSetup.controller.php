@@ -42,7 +42,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
 
   // RENAME advanced websitesettings vars
   $newWebsiteConfig['maintenance']                          = $_POST['maintenance'];
-  $newWebsiteConfig['setStartPage']                         = $_POST['setStartPage'];
   $newWebsiteConfig['dateFormat']                           = $_POST['dateFormat'];
   $newWebsiteConfig['sitemapFiles']                         = $_POST['sitemapFiles'];
   $newWebsiteConfig['visitorTimezone']                      = $_POST['visitorTimezone'];

@@ -588,8 +588,6 @@ $langFile['websiteSetup_websiteConfig_field5_tip']                        = 'A s
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'A short text with not more than 3 lines.';
 
 $langFile['WEBSITESETUP_TITLE_PAGESETTINGS']                              = 'Advanced Website-Settings';
-$langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'Set start page';
-$langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'The user can set a page as the start page.[br][br]The start page will be used if no page variable is given through the [i]$_GET[/i] variable in the website.';
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Deactivate Website';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Shows a message instead of the website, which says that the website is currently being edited.';
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Create Sitemap-Files (<a href="http://www.sitemaps.org/" target="_blank">Details</a>)';

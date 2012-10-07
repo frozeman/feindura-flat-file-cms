@@ -218,7 +218,7 @@ foreach($categoryConfig as $category) {
             : '';
 
           // -> startpage icon before the name
-          if($websiteConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
+          if($pageContent['id'] == $websiteConfig['startPage']) {
             $startPageIcon = ' isStartPage';
           }
 
@@ -265,16 +265,14 @@ foreach($categoryConfig as $category) {
                 echo '<a href="?site=deletePage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_DELETEPAGE'].'::" class="deletePage toolTipTop"></a>';
 
               // startpage
-              if($websiteConfig['setStartPage']) {
-                if($pageContent['id'] == $websiteConfig['startPage']) {
-                  $activeStartPage = ' active';
-                  $startPageTitle = $langFile['SORTABLEPAGELIST_functions_startPage_set'];
-                } else {
-                  $activeStartPage = '';
-                  $startPageTitle = $langFile['SORTABLEPAGELIST_functions_startPage'];
-                }
-                echo '<a href="?site='.$_GET['site'].'&amp;status=setStartPage&amp;refresh='.uniqid().'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" title="'.$startPageTitle.'::" class="startPage'.$activeStartPage.' toolTipTop"></a>';
+              if($pageContent['id'] == $websiteConfig['startPage']) {
+                $activeStartPage = ' active';
+                $startPageTitle = $langFile['SORTABLEPAGELIST_functions_startPage_set'];
+              } else {
+                $activeStartPage = '';
+                $startPageTitle = $langFile['SORTABLEPAGELIST_functions_startPage'];
               }
+              echo '<a href="?site='.$_GET['site'].'&amp;status=setStartPage&amp;refresh='.uniqid().'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" title="'.$startPageTitle.'::" class="startPage'.$activeStartPage.' toolTipTop"></a>';
 
             echo '</div>';
 

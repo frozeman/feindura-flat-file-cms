@@ -303,7 +303,7 @@ class StatisticFunctions {
       return false;
 
     // otherwise set the startpage
-    } elseif(self::$websiteConfig['setStartPage'] && is_numeric($startPage)) {
+    } elseif(is_numeric($startPage)) {
       return intval($startPage);
     } else
       return false;

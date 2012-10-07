@@ -357,7 +357,7 @@ class FeinduraBase {
         } else
           return false;
       }
-    } elseif(empty($_GET['page']) && $this->websiteConfig['setStartPage'] && is_numeric($this->startCategory)) {
+    } elseif(empty($_GET['page']) && is_numeric($this->startCategory)) {
       return intval($this->startCategory);
     } else
       return false;
@@ -769,7 +769,7 @@ class FeinduraBase {
   protected function setCurrentPageId($setStartPage = false) {
 
     // sets the startPage if it exists
-    if($setStartPage === true && $this->websiteConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) { //empty($this->category)
+    if($setStartPage === true && !empty($this->websiteConfig['startPage'])) { //empty($this->category)
       $this->startPage = intval($this->websiteConfig['startPage']);
     }
 
@@ -817,7 +817,7 @@ class FeinduraBase {
   protected function setCurrentCategoryId($setStartCategory = false) {
 
     // sets the startPage if it exists
-    if($setStartCategory === true && $this->websiteConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {
+    if($setStartCategory === true && !empty($this->websiteConfig['startPage'])) {
       $this->startCategory = GeneralFunctions::getPageCategory($this->websiteConfig['startPage']);
     }
 

@@ -589,8 +589,6 @@ $langFile['websiteSetup_websiteConfig_field5_tip']                        = 'Ein
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Ein kurzer Text mit nicht mehr als 3 Zeilen.';
 
 $langFile['WEBSITESETUP_TITLE_PAGESETTINGS']                           = 'Erweiterte Webseiten-Einstellungen';
-$langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                            = 'Startseite ist einstellbar';
-$langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                             = 'Startseite ist vom Benutzer selbst einstellbar.[br][br]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine bestimmte Seite aufgerufen wurde.';
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                             = 'Webseite deaktivieren';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                              = 'Zeigt anstatt der Webseite eine Meldung, dass diese derzeit bearbeitet wird.';
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                            = 'Sitemap-Dateien erzeugen (<a href="http://www.sitemaps.org/" target="_blank">Details</a>)';

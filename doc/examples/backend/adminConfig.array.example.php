@@ -27,7 +27,6 @@ $adminConfig['user']['editStyleSheets']   = false;
 $adminConfig['user']['editSnippets']      = false;
 $adminConfig['user']['info']              = '';
 
-$adminConfig['setStartPage']                         = true;
 $adminConfig['multiLanguageWebsite']['active']       = true;
 $adminConfig['multiLanguageWebsite']['languages'][]    = en;
 $adminConfig['multiLanguageWebsite']['languages'][]    = nl;

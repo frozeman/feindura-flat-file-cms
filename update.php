@@ -695,9 +695,6 @@ Good, your current version is <b><?php echo $CURVERSIONSTRING; ?></b>, but your 
       // maintenance
       if(!isset($websiteConfig['maintenance']))
         $websiteConfig['maintenance'] = $adminConfig['maintenance'];
-      // setStartPage
-      if(!isset($websiteConfig['setStartPage']))
-        $websiteConfig['setStartPage'] = $adminConfig['setStartPage'];
       // multiLanguageWebsite
       if(!isset($websiteConfig['multiLanguageWebsite']))
         $websiteConfig['multiLanguageWebsite'] = $adminConfig['multiLanguageWebsite'];

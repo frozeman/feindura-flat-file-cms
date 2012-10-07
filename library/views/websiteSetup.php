@@ -118,15 +118,6 @@ $hidden = ($SAVEDFORM == 'advancedWebsiteConfig') ? '' : ' hidden';
 
     <div class="row">
       <div class="span3 formLeft">
-        <input type="checkbox" id="setStartPage" name="setStartPage" value="true" class="toolTipLeft" title="::<?php echo $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']; ?>"<?php if($websiteConfig['setStartPage']) echo ' checked="checked"'; ?>>
-      </div>
-      <div class="span5">
-        <label for="setStartPage"><span class="toolTipRight" title="::<?php echo $langFile['WEBSITESETUP_TIP_SETSTARTPAGE']; ?>"><?php echo $langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']; ?></span></label>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="span3 formLeft">
         <input type="checkbox" id="sitemapFiles" name="sitemapFiles" value="true" class="toolTipLeft" title="::<?php echo $langFile['WEBSITESETUP_TIP_SITEMAPFILES']; ?>"<?php if($websiteConfig['sitemapFiles']) echo ' checked="checked"'; ?>>
       </div>
       <div class="span5">

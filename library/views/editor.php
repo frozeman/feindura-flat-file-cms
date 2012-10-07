@@ -136,7 +136,7 @@ if($NEWPAGE) {
 }
 
 // -> checks for startpage, and show STARTPAGE ICON
-if($websiteConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
+if($pageContent['id'] == $websiteConfig['startPage']) {
   $startPageIcon = '<img src="library/images/icons/startPageIcon_middle.png" class="blockH1Icon" width="33" height="30" alt="icon">';
   $startPageTitle = ' toolTipTop" style="cursor:text;" title="'.$langFile['SORTABLEPAGELIST_functions_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }

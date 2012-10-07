@@ -96,8 +96,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
 
 
   // -> saved in pageSetup.php
-  //$websiteConfig['setStartPage']            = $_POST['cfg_setStartPage'];
-
   //$adminConfig['pageThumbnail']['width']  =  $_POST['cfg_thumbWidth'];
   //$adminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];
   //$adminConfig['pageThumbnail']['ratio']  = $_POST['cfg_thumbRatio'];

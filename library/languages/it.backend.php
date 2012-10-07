@@ -590,8 +590,6 @@ $langFile['websiteSetup_websiteConfig_field5_tip']                        = 'Ins
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Testo Breve Non Più Di 3 Linee.';
 
 $langFile['WEBSITESETUP_TITLE_PAGESETTINGS']                              = 'Impostazioni-Avanzate-SitoWeb';
-$langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'Imposta Pagina Iniziale';
-$langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'L&#145;utente può impostare una pagina come pagina iniziale.[br][br]Se selezionata questa impostazione l&#145;utente può decidere la pagina da visualizzare all&#145;entrata nel sito. Quando nessuna variabile [i]$_GET[/i] di altre pagine vengono passate nel sito o in qualunque pagina che è stata già visualizzata, sarà quella selezionata la Home Page.';
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Disattivare sito web';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Mostra un messaggio invece del sito, che dice che il sito è attualmente in fase di modifica.';
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Creare file Sitemap (<a href="http://www.sitemaps.org/" target="_blank">Dettagli</a>)';

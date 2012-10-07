@@ -597,8 +597,6 @@ $langFile['websiteSetup_websiteConfig_field5_tip']                        = 'И�
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Короткое описание не больше 2-5 строчек.';
 
 $langFile['WEBSITESETUP_TITLE_PAGESETTINGS']                              = 'настройках настройки сайта';
-$langFile['WEBSITESETUP_TEXT_SETSTARTPAGE']                               = 'Установка главной страницы';
-$langFile['WEBSITESETUP_TIP_SETSTARTPAGE']                                = 'Дает возможность установить любую страницу в качестве главной (стартовой).[br][br]Стартовая страница выводится если запрос в [i]$_GET[/i] пуст.';
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Отключить сайта';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Показывает сообщение, а не на сайт, в котором говорится, что сайт в настоящее время редактируется.';
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Карта сайта Файлы создать (<a href="http://www.sitemaps.org/" target="_blank">детали</a>)';

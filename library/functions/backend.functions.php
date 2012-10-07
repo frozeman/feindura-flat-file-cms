@@ -1135,7 +1135,6 @@ function saveWebsiteConfig($websiteConfig) {
     $fileContent .= "\$websiteConfig['sitemapFiles']                         = ".XssFilter::bool($websiteConfig['sitemapFiles'],true).";\n";
     $fileContent .= "\$websiteConfig['visitorTimezone']                      = ".XssFilter::bool($websiteConfig['visitorTimezone'],true).";\n\n";
 
-    $fileContent .= "\$websiteConfig['setStartPage']                         = ".XssFilter::bool($websiteConfig['setStartPage'],true).";\n";
     $fileContent .= "\$websiteConfig['startPage']                            = ".XssFilter::int($websiteConfig['startPage'],0).";\n\n";
 
     $fileContent .= "\$websiteConfig['multiLanguageWebsite']['active']       = ".XssFilter::bool($websiteConfig['multiLanguageWebsite']['active'],true).";\n";
@@ -2036,7 +2035,7 @@ function showPageToolTip($pageContent) {
   $pageTitle_title = str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))).'::';
 
   // -> startpage icon before the name
-  if($GLOBALS['websiteConfig']['setStartPage'] && $pageContent['id'] == $GLOBALS['websiteConfig']['startPage']) {
+  if($pageContent['id'] == $GLOBALS['websiteConfig']['startPage']) {
     $pageTitle_startPageText = $GLOBALS['langFile']['SORTABLEPAGELIST_functions_startPage_set'].'[br]';
   }
 
@@ -2820,12 +2819,12 @@ function startPageWarning() {
   if(checkBasePathAndURL() === false || !is_dir(dirname(__FILE__).'/../../pages/'))
     return false;
 
-  if($GLOBALS['websiteConfig']['setStartPage'] && !empty($GLOBALS['websiteConfig']['startPage']) && ($startPageCategory = GeneralFunctions::getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
+  if(!empty($GLOBALS['websiteConfig']['startPage']) && ($startPageCategory = GeneralFunctions::getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
     $startPageCategory .= '/';
   else
     $startPageCategory = '';
 
-  if($GLOBALS['websiteConfig']['setStartPage'] && (empty($GLOBALS['websiteConfig']['startPage']) || !file_exists(dirname(__FILE__).'/../../pages/'.$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
+  if(empty($GLOBALS['websiteConfig']['startPage']) || !file_exists(dirname(__FILE__).'/../../pages/'.$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php')) {
     return '<div class="block alert info">
             <h1>'.$GLOBALS['langFile']['WARNING_TITLE_STARTPAGE'].'</h1>
             <div class="content">

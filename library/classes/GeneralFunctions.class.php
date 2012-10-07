@@ -2360,7 +2360,7 @@ class GeneralFunctions {
     if(($pageContent = GeneralFunctions::readPage($page,$category)) !== false) {
 
       // start page
-      if(self::$websiteConfig['setStartPage'] && !empty(self::$websiteConfig['startPage']) && self::$websiteConfig['startPage'] != $pageContent['id'] && ($startPage = self::readPage(self::$websiteConfig['startPage'],self::getPageCategory(self::$websiteConfig['startPage'])))) {
+      if(!empty(self::$websiteConfig['startPage']) && self::$websiteConfig['startPage'] != $pageContent['id'] && ($startPage = self::readPage(self::$websiteConfig['startPage'],self::getPageCategory(self::$websiteConfig['startPage'])))) {
         $breadCrumbsArray[] = $startPage;
         unset($startPage);
       }
