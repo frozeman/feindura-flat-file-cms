@@ -41,7 +41,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
   </div>
 </div>
 
-<form action="<?php echo GeneralFunctions::getCurrentUrl(); ?>" method="post" accept-charset="UTF-8">
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" accept-charset="UTF-8">
 <?php
 
 // vars

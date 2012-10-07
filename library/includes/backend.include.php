@@ -50,6 +50,7 @@ if(PHP_VERSION < REQUIREDPHPVERSION) {
 </head>
 <body>
   <div class="container">
+    <br>
     <div class="alert alert-error center">
       <?php
       echo '<h1>PHP ERROR</h1><span class="feinduraInline">fein<em>dura</em></span> requires at least PHP version '.REQUIREDPHPVERSION;
@@ -175,6 +176,22 @@ switch ($_SESSION['feinduraSession']['backendLanguage']) {
 
 // -> ADD NON-CATEGORY name from the current language file
 $categoryConfig[0]['localized'][0]['name'] = $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'];
+
+
+
+/**
+ * CHECK for UPDATES
+ */
+
+if($_GET['site'] == 'dashboard' || (empty($_GET['site']) && empty($_GET['page']))) {
+  $cmsVersion = file(dirname(__FILE__).'/../../CHANGELOG');
+  $cmsVersion = trim($cmsVersion[3]);
+  $cmsVersion = str_replace('Build ','',$cmsVersion);
+  if($cmsVersion > BUILD) {
+    include(dirname(__FILE__).'/update.include.php');
+  }
+}
+
 
 
 // -> SEND BACKEND HEADER

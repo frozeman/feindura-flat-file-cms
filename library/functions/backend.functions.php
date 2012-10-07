@@ -2630,7 +2630,12 @@ function isFolderWarning($folder) {
  */
 function isWritableWarning($fileFolder) {
 
+  $filename = basename($fileFolder);
   $fileFolder = GeneralFunctions::getRealPath($fileFolder);
+
+  // add the filename again
+  if(is_file($fileFolder.'/'.$filename))
+    $fileFolder = $fileFolder.'/'.$filename;
 
   if(file_exists($fileFolder) && is_writable($fileFolder) === false) {
     return '<span class="warning toolTipLeft" title="'.$fileFolder.'::'.sprintf($GLOBALS['langFile']['ADMINSETUP_TOOLTIP_WRITEACCESSERROR'],$GLOBALS['adminConfig']['permissions']).'"><b>&quot;'.$fileFolder.'&quot;</b> -> '.$GLOBALS['langFile']['ADMINSETUP_TEXT_WRITEACCESSERROR'].'</span><br>';
@@ -2683,6 +2688,54 @@ function isWritableWarningRecursive($folders) {
       }
     }
   }
+  return $return;
+}
+
+/**
+ * <b>Name</b> basicFilesAreWriteableWarning()<br>
+ *
+ * Checks if the basics config and other files are writeable.
+ *
+ *
+ * @return string|true a warning or FALSE,
+ *
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ *
+ */
+function basicFilesAreWriteableWarning() {
+
+  // var
+  $return = false;
+
+  $checkFolders[] = dirname(__FILE__).'/../../config/';
+  $checkFolders[] = dirname(__FILE__).'/../../statistic/';
+  $checkFolders[] = dirname(__FILE__).'/../../pages/';
+  $checkFolders[] = dirname(__FILE__).'/../../upload/';
+  $checkFolders[] = $adminConfig['websiteFilesPath'];
+  $checkFolders[] = $adminConfig['stylesheetPath'];
+
+  // DOCUMENTROOT is set: gives the error OUTPUT if one of these files in unwriteable
+  if(DOCUMENTROOT !== false && $unwriteableList = isWritableWarningRecursive($checkFolders)) {
+    $return = '<div class="block alert warning">
+      <h1>'.$GLOBALS['langFile']['ADMINSETUP_TITLE_ERROR'].'</h1>
+      <div class="content">
+        <p>'.$unwriteableList.'</p>
+      </div>
+    </div>';
+
+  // DOCUMENTROOT is NOT set: show error if admin.config.php is not readable
+  } elseif(DOCUMENTROOT === false && $unwriteableConfig = isWritableWarningRecursive(array($checkFolders[0]))) {
+    $return = '<div class="block alert warning">
+      <h1>'.$GLOBALS['langFile']['ADMINSETUP_TITLE_ERROR'].'</h1>
+      <div class="content">
+        <p>'.$unwriteableConfig.'</p>
+      </div>
+    </div>';
+  }
+
   return $return;
 }
 

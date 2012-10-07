@@ -3,48 +3,48 @@
 //
 // Published under the GNU General Public License
 
-.loginContainer {
+.updateContainer {
     position: relative;
     top: 100px;
     width: 330px;
 }
 
-.loginBox {
+.updateBox {
     position: relative;
     padding: 30px;
     padding-top: 60px;
-    margin-top: 80px;
-    text-align: center;
+    margin-top: 30px;
     #boxBasics;
 
-    img.logo {
+    p.versions {
+        display: inline-block;
+        margin: 10px 0;
+        margin-bottom: 20px;
+        padding: 5px 10px;
+        background-color: @colorMiddleGray;
+        color: #fff;
+        text-align: center;
+        #border > .rounded(5px);
+    }
+
+    img.icon {
         position: absolute;
-        top: -50px;
+        top: -64px;
         left: 50%;
-        margin-left: -82px;
-        clip: rect(0px, 163px, 75px, 0px);
+        margin-left: -64px;
     }
 
     form {
         margin: 0;
     }
-    input[type="text"],
-    input[type="password"],
-    input[type="email"] {
-        padding: 10px;
-        font-size: 20px;
-        line-height: 26px;
-        width: 90%;
-    }
+
     input.btn {
         margin-top: 15px;
         padding: 12px 25px;
-    }
-    input.btn[name="loginSubmit"] {
         text-transform:uppercase;
     }
 
-    #loginLoadingCircle {
+    #updateBoxLoadingCircle {
       margin-top: 15px;
     }
 

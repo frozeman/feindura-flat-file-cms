@@ -269,6 +269,7 @@ $langFile['BUTTON_UP']                                                    = 'Tor
 $langFile['BUTTON_INFO']                                                  = 'Info';
 $langFile['BUTTON_EDIT']                                                  = 'Modifica';
 $langFile['BUTTON_RESET']                                                 = 'Ristabilire';
+$langFile['BUTTON_OK']                                                    = 'OK';
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>Le impostazioni non possono essere salvate</b>';
@@ -874,6 +875,27 @@ $langFile['ADDONS_TEXT_AUTHOR']                                           = 'Aut
 $langFile['ADDONS_TEXT_WEBSITE']                                          = 'Sito web';
 $langFile['ADDONS_TEXT_VERSION']                                          = 'Versione';
 $langFile['ADDONS_TEXT_REQUIREMENTS']                                     = 'Requisiti';
+
+
+// -> UPDATE
+
+$langFile['UPDATE_TITLE']                                                 = 'I contenuti devono essere aggiornati';
+$langFile['UPDATE_TEXT_CHECKPATHS']                                       = 'Assicurarsi che i percorsi siano corretti prima di aggiornare.';
+$langFile['UPDATE_TEXT_BASEPATH']                                         = 'Percorso per il <span class="feinduraInline">fein<em>dura</em> </span>';
+$langFile['UPDATE_TEXT_WEBSITEPATH']                                      = 'Percorso del sito web';
+$langFile['UPDATE_TEXT_SUCCESS']                                          = 'Contenuto aggiornato con successo';
+$langFile['UPDATE_BUTTON_UPDATE']                                         = 'AGGIORNA';
+$langFile['UPDATE_ERROR_MOVEUPLOADFOLDER']                                = 'Carica cartella non può essere spostato! Si prega di spostare la cartella "%s" manualmente "your_feindura_folder/upload/".';
+$langFile['UPDATE_ERROR_MOVEPAGESFOLDER']                                 = 'Le pagine non possono essere copiate! Si prega di spostare la cartella "%s" manualmente "your_feindura_folder/pages/".';
+$langFile['UPDATE_ERROR_SAVEADMINCONFIG']                                 = 'Impostazioni amministratore non può essere aggiornata.';
+$langFile['UPDATE_ERROR_SAVECATEGORYCONFIG']                              = 'Impostazioni di categoria non può essere aggiornata.';
+$langFile['UPDATE_ERROR_SAVEUSERCONFIG']                                  = 'Impostazioni utente non può essere aggiornata.';
+$langFile['UPDATE_ERROR_SAVEWEBSITECONFIG']                               = 'Impostazioni sito web non può essere aggiornata.';
+$langFile['UPDATE_ERROR_SAVEPAGES']                                       = 'Le pagine non può essere aggiornata.';
+$langFile['UPDATE_ERROR_CLEARACTIVITYLOG']                                = 'Registro attività non può essere cancellato.';
+$langFile['UPDATE_ERROR_SAVEWEBSITESTATISTICS']                           = 'Statistiche del sito web non può essere aggiornata.';
+$langFile['UPDATE_ERROR_SAVEREFERERLOG']                                  = 'Log Referer non può essere aggiornata.';
+$langFile['UPDATE_ERROR_DELETEOLDFILES']                                  = 'Impossibile rimuovere i file vecchi e cartelle, <br> Si prega di verificare i file e cartelle, e rimuovere manualmente:';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

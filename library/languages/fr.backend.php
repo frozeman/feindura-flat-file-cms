@@ -257,6 +257,7 @@ $langFile['BUTTON_UP']                                                    = 'ver
 $langFile['BUTTON_INFO']                                                  = 'Infos';
 $langFile['BUTTON_EDIT']                                                  = 'Modifier';
 $langFile['BUTTON_RESET']                                                 = 'Restaurer';
+$langFile['BUTTON_OK']                                                    = 'OK';
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>Les préférences ne peuvent pas être sauvegardés.</b>';
@@ -832,6 +833,27 @@ $langFile['ADDONS_TEXT_AUTHOR']                                           = 'Aut
 $langFile['ADDONS_TEXT_WEBSITE']                                          = 'Site Web';
 $langFile['ADDONS_TEXT_VERSION']                                          = 'Version';
 $langFile['ADDONS_TEXT_REQUIREMENTS']                                     = 'Exigences';
+
+
+// -> UPDATE
+
+$langFile['UPDATE_TITLE']                                                 = 'ALe contenu doit être mis à jour';
+$langFile['UPDATE_TEXT_CHECKPATHS']                                       = 'Assurez-vous que les chemins d&#145;accès suivants sont corrects avant de vous mettre à jour.';
+$langFile['UPDATE_TEXT_BASEPATH']                                         = 'Chemin vers <span class="feinduraInline">fein<em>dura</em></span>';
+$langFile['UPDATE_TEXT_WEBSITEPATH']                                      = 'chemin d&#145;accès du site';
+$langFile['UPDATE_TEXT_SUCCESS']                                          = 'Contenu mis à jour!';
+$langFile['UPDATE_BUTTON_UPDATE']                                         = 'ACTUALISER';
+$langFile['UPDATE_ERROR_MOVEUPLOADFOLDER']                                = 'Envoyer le dossier n&#145;a pas pu être déplacé! S&#145;il vous plaît déplacer le dossier "%s" manuellement "your_feindura_folder/upload/".';
+$langFile['UPDATE_ERROR_MOVEPAGESFOLDER']                                 = 'Pages n&#145;a pas pu être copié! S&#145;il vous plaît déplacer le dossier "%s" manuellement "your_feindura_folder/pages/".';
+$langFile['UPDATE_ERROR_SAVEADMINCONFIG']                                 = 'Paramètres administrateur n&#145;a pas pu être mis à jour.';
+$langFile['UPDATE_ERROR_SAVECATEGORYCONFIG']                              = 'Paramètres catégorie n&#145;a pas pu être mis à jour.';
+$langFile['UPDATE_ERROR_SAVEUSERCONFIG']                                  = 'Paramètres utilisateur n&#145;a pas pu être mis à jour.';
+$langFile['UPDATE_ERROR_SAVEWEBSITECONFIG']                               = 'Paramètres du site n&#145;a pas pu être mis à jour.';
+$langFile['UPDATE_ERROR_SAVEPAGES']                                       = 'Pages n&#145;a pas pu être mis à jour.';
+$langFile['UPDATE_ERROR_CLEARACTIVITYLOG']                                = 'journal d&#145;activité ne peut pas être effacé.';
+$langFile['UPDATE_ERROR_SAVEWEBSITESTATISTICS']                           = 'Statistiques du Site n&#145;a pas pu être mis à jour.';
+$langFile['UPDATE_ERROR_SAVEREFERERLOG']                                  = 'Connexion Referer ne pouvait pas être mis à jour.';
+$langFile['UPDATE_ERROR_DELETEOLDFILES']                                  = 'Impossible de supprimer les anciens fichiers et dossiers, <br> S&#145;il vous plaît vérifier ces fichiers et dossiers, et de les supprimer manuellement:';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

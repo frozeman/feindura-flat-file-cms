@@ -18,6 +18,17 @@ _____________________________________________
 This File contains internal notes, which are helpfull when editing on feindura.
 
 
+### Temporary
+
+- deactivated the frontend editing feature. (In GeneralFunctions::hasPermissions() and userPermissions.php)
+
+
+### When adding a language
+
+If you add a language you must add the flag to the header sidebar.
+Add also the localization to the backend.include.php and the editor.php page scripts (for the datepicker)
+
+
 ### Thirdparty Fixes
 
 
@@ -52,7 +63,3 @@ MooTools more has the following packages:
 - Scroller
 - Tips
 - Locale, Locale.en-US.Date, Locale.de-DE.Date, Locale.en-GB.Date, Locale.fr-FR.Date, Locale.it-IT.Date, Locale.ru-RU-unicode.Date
-
-***Temporary***
-
-- deactivated the frontend editing feature. (In GeneralFunctions::hasPermissions() and userPermissions.php)

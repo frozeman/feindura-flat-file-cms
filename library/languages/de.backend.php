@@ -265,6 +265,7 @@ $langFile['BUTTON_UP']                                                    = 'Nac
 $langFile['BUTTON_INFO']                                                  = 'Info';
 $langFile['BUTTON_EDIT']                                                  = 'Bearbeiten';
 $langFile['BUTTON_RESET']                                                 = 'Zurücksetzen';
+$langFile['BUTTON_OK']                                                    = 'OK';
 
 
 // -> GENERAL ERROR TEXTS
@@ -874,6 +875,28 @@ $langFile['ADDONS_TEXT_AUTHOR']                                           = 'Aut
 $langFile['ADDONS_TEXT_WEBSITE']                                          = 'Website';
 $langFile['ADDONS_TEXT_VERSION']                                          = 'Version';
 $langFile['ADDONS_TEXT_REQUIREMENTS']                                     = 'Benötigt';
+
+
+// -> UPDATE
+
+$langFile['UPDATE_TITLE']                                                 = 'Die Inhalte müssen aktualisiert werden';
+$langFile['UPDATE_TEXT_CHECKPATHS']                                       = 'Schaue bitte ob die folgenden Pfade stimmen, bevor du startest.';
+$langFile['UPDATE_TEXT_BASEPATH']                                         = 'Pfad zu <span class="feinduraInline">fein<em>dura</em></span>';
+$langFile['UPDATE_TEXT_WEBSITEPATH']                                      = 'Webseitenpfad';
+$langFile['UPDATE_TEXT_SUCCESS']                                          = 'Inhalte erfolgreich aktualisiert!';
+$langFile['UPDATE_BUTTON_UPDATE']                                         = 'AKTUALISIEREN';
+$langFile['UPDATE_ERROR_MOVEUPLOADFOLDER']                                = 'Upload Ordner konnte nicht kopiert werden! Bitte verschiebe den Ordner "%s" manuell nach "dein_feindura_verzeichnis/upload/".';
+$langFile['UPDATE_ERROR_MOVEPAGESFOLDER']                                 = 'Seiten Ordner konnte nicht kopiert werden! Bitte verschiebe den Ordner "%s" manuell nach "dein_feindura_verzeichnis/pages/".';
+$langFile['UPDATE_ERROR_SAVEADMINCONFIG']                                 = 'Administrator Einstellungen konnten nicht aktualisiert werden.';
+$langFile['UPDATE_ERROR_SAVECATEGORYCONFIG']                              = 'Kategorie Einstellungen konnten nicht aktualisiert werden.';
+$langFile['UPDATE_ERROR_SAVEUSERCONFIG']                                  = 'Benutzer Einstellungen konnten nicht aktualisiert werden.';
+$langFile['UPDATE_ERROR_SAVEWEBSITECONFIG']                               = 'Webseiten Einstellungen konnten nicht aktualisiert werden.';
+$langFile['UPDATE_ERROR_SAVEPAGES']                                       = 'Seiten konnten nicht aktualisiert werden.';
+$langFile['UPDATE_ERROR_CLEARACTIVITYLOG']                                = 'Aktivitäts Log konnte nicht gelöscht werden.';
+$langFile['UPDATE_ERROR_SAVEWEBSITESTATISTICS']                           = 'Webseiten Statistics konnten nicht aktualisiert werden.';
+$langFile['UPDATE_ERROR_SAVEREFERERLOG']                                  = 'Referer Log konnten nicht aktualisiert werden.';
+$langFile['UPDATE_ERROR_DELETEOLDFILES']                                  = 'Konnte alte Verzeichnisse und Dateien nicht löschen.<br>Bitte lösche folgende Dateien und Verzeichnisse manuell:';
+
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

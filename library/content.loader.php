@@ -32,33 +32,10 @@ checkPagesMetaData();
 // ***********************************************************************
 // CHECKs if the necessary FILEs are WRITEABLE, otherwise show an warnings
 if($_GET['site'] != 'pages' && empty($_GET['page']) && checkBasePathAndURL()) {
-  $checkFolders[] = dirname(__FILE__).'/../config/';
-  $checkFolders[] = dirname(__FILE__).'/../statistic/';
-  $checkFolders[] = dirname(__FILE__).'/../pages/';
-  $checkFolders[] = dirname(__FILE__).'/../upload/';
-  $checkFolders[] = $adminConfig['websiteFilesPath'];
-  $checkFolders[] = $adminConfig['stylesheetPath'];
+  if($writeableWarning = basicFilesAreWriteableWarning())
+    echo $writeableWarning.'<div class="blockSpacer"></div>';
 
-  // DOCUMENTROOT is set: gives the error OUTPUT if one of these files in unwriteable
-  if(DOCUMENTROOT !== false && $unwriteableList = isWritableWarningRecursive($checkFolders)) {
-    echo '<div class="block alert warning">
-      <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
-      <div class="content">
-        <p>'.$unwriteableList.'</p><!-- need <p> tags for margin-left:..-->
-      </div>
-    </div>';
-    echo '<div class="blockSpacer"></div>';
-
-  // DOCUMENTROOT is NOT set: show error if admin.config.php is not readable
-  } elseif(DOCUMENTROOT === false && $unwriteableConfig = isWritableWarningRecursive(array($checkFolders[0]))) {
-    echo '<div class="block alert warning">
-      <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
-      <div class="content">
-        <p>'.$unwriteableConfig.'</p><!-- need <p> tags for margin-left:..-->
-      </div>
-    </div>';
-    echo '<div class="blockSpacer"></div>';
-  }
+  unset($writeableWarning);
 }
 
 // ***********************************************************************

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0 beta
-Build 997
+Build 998
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 2.0 beta
 
+  build 998: integrated the updater into the feindura interface
   build 997: moved the VERSION file to the pages folder
   build 996: removed setStartPage from the website settings, doenst seem necessary
   build 995: add active class on menu listing element too, when in sub page

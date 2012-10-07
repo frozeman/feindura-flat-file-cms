@@ -36,7 +36,8 @@
   <meta name="description" content="A flat file based Content Management System, written in PHP">
   <meta name="keywords" content="cms,flat,file,content,management,system">
 
-  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" href="library/images/icons/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="library/images/icons/favicon.ico" type="image/x-icon">
 
   <!-- ************************************************************************************************************ -->
   <!-- STYLESHEETS -->

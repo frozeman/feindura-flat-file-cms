@@ -266,6 +266,7 @@ $langFile['BUTTON_UP']                                                    = 'Up'
 $langFile['BUTTON_INFO']                                                  = 'Info';
 $langFile['BUTTON_EDIT']                                                  = 'Edit';
 $langFile['BUTTON_RESET']                                                 = 'Restore';
+$langFile['BUTTON_OK']                                                    = 'OK';
 
 // -> GENERAL ERROR TEXTS
 $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>The settings could not be saved</b>';
@@ -870,6 +871,28 @@ $langFile['ADDONS_TEXT_AUTHOR']                                           = 'Aut
 $langFile['ADDONS_TEXT_WEBSITE']                                          = 'Website';
 $langFile['ADDONS_TEXT_VERSION']                                          = 'Version';
 $langFile['ADDONS_TEXT_REQUIREMENTS']                                     = 'Requirements';
+
+
+// -> UPDATE
+
+$langFile['UPDATE_TITLE']                                                 = 'Content must be updated';
+$langFile['UPDATE_TEXT_CHECKPATHS']                                       = 'Make sure the following paths are correct before you update.';
+$langFile['UPDATE_TEXT_BASEPATH']                                         = 'Path to <span class="feinduraInline">fein<em>dura</em></span>';
+$langFile['UPDATE_TEXT_WEBSITEPATH']                                      = 'Website path';
+$langFile['UPDATE_TEXT_SUCCESS']                                          = 'Content successfully updated!';
+$langFile['UPDATE_BUTTON_UPDATE']                                         = 'UPDATE';
+$langFile['UPDATE_ERROR_MOVEUPLOADFOLDER']                                = 'Upload folder could not be moved! Please move the folder "%s" manually to "your_feindura_folder/upload/".';
+$langFile['UPDATE_ERROR_MOVEPAGESFOLDER']                                 = 'Pages could not be copied! Please move the folder "%s" manually to "your_feindura_folder/pages/".';
+$langFile['UPDATE_ERROR_SAVEADMINCONFIG']                                 = 'Admin Settings couldn&#145;t be updated.';
+$langFile['UPDATE_ERROR_SAVECATEGORYCONFIG']                              = 'Category Settings couldn&#145;t be updated.';
+$langFile['UPDATE_ERROR_SAVEUSERCONFIG']                                  = 'User Settings couldn&#145;t be updated.';
+$langFile['UPDATE_ERROR_SAVEWEBSITECONFIG']                               = 'Website Settings couldn&#145;t be updated.';
+$langFile['UPDATE_ERROR_SAVEPAGES']                                       = 'Pages couldn&#145;t be updated.';
+$langFile['UPDATE_ERROR_CLEARACTIVITYLOG']                                = 'Activity log couldn&#145;t be cleared.';
+$langFile['UPDATE_ERROR_SAVEWEBSITESTATISTICS']                           = 'Website Statistics couldn&#145;t be updated.';
+$langFile['UPDATE_ERROR_SAVEREFERERLOG']                                  = 'Referer Log couldn&#145;t be updated.';
+$langFile['UPDATE_ERROR_DELETEOLDFILES']                                  = 'Could not remove old files and folders,<br>Please check these files and folders, and remove them manually:';
+
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************
