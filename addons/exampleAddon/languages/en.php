@@ -18,7 +18,7 @@
 /* ADDON ************************************************************************************ */
 
 $addonLangFile['feinduraAddon_title']        = 'Example Addon';
-$addonLangFile['feinduraAddon_description']  = 'This addon is just for showing how you could make your own addons!';
+$addonLangFile['feinduraAddon_description']  = 'With addons you can build you own apps, running inside the feindura backend.';
 
 /* TEXTS ************************************************************************************ */
 
