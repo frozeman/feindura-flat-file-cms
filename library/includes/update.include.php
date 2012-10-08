@@ -44,6 +44,31 @@ $CURVERSIONSTRING = $CURVERSION.' <small>Build '.$CURBUILD.'</small>';
 // ->> UPDATE FORM SEND
 if(isset($_POST) && $_POST['update'] == 'true') {
 
+
+  // BACKUP BEFORE UPDATE
+  // -> check backup folder
+  $unwriteableList = false;
+  $checkFolder = dirname(__FILE__).'/../../backups/';
+
+  // try to create folder
+  if(!is_dir($checkFolder))
+    mkdir($checkFolder,$adminConfig['permissions']);
+  $unwriteableList .= isWritableWarning($checkFolder);
+
+  // ->> create archive
+  if(!$unwriteableList) {
+
+    // delete cache before
+    GeneralFunctions::deleteFolder(dirname(__FILE__).'/../pages/cache/');
+
+    // generates the file name
+    $backupFile = generateBackupFileName();
+    // create backup
+    $catchError = createBackup($backupFile);
+  }
+
+
+
   // vars
   $updateSuccessful = true;
 
@@ -1001,9 +1026,9 @@ if(isset($_POST) && $_POST['update'] == 'true') {
         <div>
           <input type="hidden" name="update" value="true">
 
-          <label><?php echo $langFile['UPDATE_TEXT_BASEPATH']; ?>
+<!--           <label><?php echo $langFile['UPDATE_TEXT_BASEPATH']; ?>
           <input type="text" value="<?php echo $adminConfig['basePath']; ?>" style="width:95%;" name="basePath" title="<?php echo $langFile['LOGIN_INPUT_USERNAME']; ?>" placeholder="/cms/"></label>
-
+ -->
           <label><?php echo $langFile['UPDATE_TEXT_WEBSITEPATH']; ?>
           <input type="text" value="<?php echo $adminConfig['websitePath']; ?>" style="width:95%;" name="websitePath" title="<?php echo $langFile['LOGIN_INPUT_PASSWORD']; ?>" placeholder="/"></label>
 

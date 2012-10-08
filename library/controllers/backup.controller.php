@@ -107,7 +107,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
 
   // ->> otherwise use existing backup file
   } elseif(isset($_POST['restoreBackupFile'])) {
-    $backupFile = '..'.$_POST['restoreBackupFile'];
+    $backupFile = DOCUMENTROOT.$_POST['restoreBackupFile'];
   // -> otherwise throw error
   } else {
     $ERRORWINDOW .= $langFile['BACKUP_ERROR_NORESTROEFILE'];
@@ -124,6 +124,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
 
     // only proceed when the backup was succesfully created
     if($ERRORWINDOW === false) {
+
       // -> extracting the backup file
       require_once(dirname(__FILE__).'/../thirdparty/PHP/pclzip.lib.php');
       $archive = new PclZip($backupFile);
@@ -162,7 +163,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
     // -> when restore was succesfull
     if($ERRORWINDOW === false) {
 
-      $NOTIFICATION .= '<div class="alert alert-success">'.$langFile['LOG_BACKUP_RESTORED'].'</div>';
+      $NOTIFICATION .= '<div class="alert alert-success">'.$langFile['LOG_BACKUP_RESTORED'].'<br>'.basename($backupFile).'</div>';
 
       saveActivityLog(30); // <- SAVE the task in a LOG FILE
 

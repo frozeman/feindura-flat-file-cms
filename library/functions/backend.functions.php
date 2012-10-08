@@ -1782,7 +1782,7 @@ function generateBackupFileName($backupAppendix = false) {
   $websitePath = GeneralFunctions::getDirname($GLOBALS['adminConfig']['websitePath']);
   $websitePath = str_replace(array('/',"\\"),'-',$websitePath);
   $websitePath = ($websitePath != '-') ? substr($websitePath,0,-1) : '';
-  $backupName = 'feinduraBackup_'.$_SERVER['SERVER_NAME'].$websitePath.'_'.date('Y-m-d_H-i').$backupAppendix.'.zip';
+  $backupName = 'feinduraBackup_'.$_SERVER['SERVER_NAME'].$websitePath.'_'.date('Y-m-d_H-i').'_build'.BUILD.$backupAppendix.'.zip';
   $backupFileName = dirname(__FILE__).'/../../backups/'.$backupName;
 
   return $backupFileName;
