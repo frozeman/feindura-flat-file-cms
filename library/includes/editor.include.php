@@ -24,9 +24,6 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-// VARS
-// $activatedPlugins - from editor.controller.php
-
 
 ?>
 <!-- editor anchor is here -->
@@ -58,24 +55,22 @@ $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',
   var feindura_plugins = [
     ['-',''],
 <?php
-      // check if plugins are activated
-      if(is_array($pageContent['plugins']) && is_array($activatedPlugins) && count($activatedPlugins) >= 1) {
+      // check if plugins are activated in the category
+      $hasPlugins = false;
+      if(is_array($pageContent['plugins']) && $categoryConfig[$pageContent['category']]['plugins']) {
         $transportPlugins = '';
-        $hasPlugins = false;
         foreach ($pageContent['plugins'] as $pluginFolderName => $plugins) {
           foreach ($plugins as $pluginNumber => $pluginValues) {
-            if(in_array($pluginFolderName,$activatedPlugins)) {
-              $pluginFolder = $adminConfig['basePath'].'plugins/'.$pluginFolderName;
-              $pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['feinduraSession']['backendLanguage'].'.php'))
-                ? $_SESSION['feinduraSession']['backendLanguage']
-                : 'en';
-              $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/languages/'.$pluginCountryCode.'.php');
-              $hasPlugins = true;
+            $pluginFolder = $adminConfig['basePath'].'plugins/'.$pluginFolderName;
+            $pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['feinduraSession']['backendLanguage'].'.php'))
+              ? $_SESSION['feinduraSession']['backendLanguage']
+              : 'en';
+            $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/languages/'.$pluginCountryCode.'.php');
+            $hasPlugins = true;
 
-              $pluginName = str_replace('"','',$pluginLangFile['feinduraPlugin_title']) ;
-              $pluginName .= ($pluginNumber > 1) ? ' #'.$pluginNumber : '';
-              $transportPlugins .= '    ["'.$pluginName.'","'.$pluginFolderName.'#'.$pluginNumber.'"],'."\n";
-            }
+            $pluginName = str_replace('"','',$pluginLangFile['feinduraPlugin_title']) ;
+            $pluginName .= ($pluginNumber > 1) ? ' #'.$pluginNumber : '';
+            $transportPlugins .= '    ["'.$pluginName.'","'.$pluginFolderName.'#'.$pluginNumber.'"],'."\n";
           }
         }
         echo trim($transportPlugins,",\n")."\n";
@@ -83,6 +78,10 @@ $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',
       unset($pluginLangFile,$plugins,$pluginValues,$pluginNumber);
 ?>
   ];
+
+  var feinduraSnippetsActive = <?php echo ($adminConfig['editor']['snippets']) ? 'true' : 'false'; ?>;
+  var feinduraPluginsActive  = <?php echo ($categoryConfig[$pageContent['category']]['plugins']) ? 'true' : 'false'; ?>;
+
 
 window.addEvent('domready',function() {
 
@@ -98,7 +97,7 @@ window.addEvent('domready',function() {
 
 <?php
 // SNIPPETS
-if($adminConfig['editor']['snippets'] || (is_array($activatedPlugins) && count($activatedPlugins) >= 1)) { ?>
+if($adminConfig['editor']['snippets'] || $categoryConfig[$pageContent['category']]['plugins']) { ?>
   CKEDITOR.config.extraPlugins              += ',feinduraSnippets';
   CKEDITOR.config.menu_groups               += ',feinduraSnippetsGroup';
 <?php }

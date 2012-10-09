@@ -517,7 +517,6 @@ $langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS']                             = 'tra
 $langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Tags peuvent être définis pour la catégorie de cette page.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS']                      = 'activer plugins';
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS']                       = 'Activer plugins pour les pages de cette catégorie';
-$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Maintenez la touche CTRL/CMD enfoncée pour sélectionner plusieurs plugins.';
 
 $langFile['PAGESETUP_TEXT_EDITPAGEDATE']                                  = 'traiter la date du page';
 $langFile['PAGESETUP_TIP_EDITPAGEDATE']                                   = 'La date du page peu être utilisé pour trier des pages par ordre chronologique.';

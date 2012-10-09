@@ -141,16 +141,6 @@ if(isset($_POST) && $_POST['update'] == 'true') {
       }
   }
 
-  // save all activated plugins as serialized string
-  function activateAllPluginsSerialized() {
-    $activatedPlugins = array();
-    foreach($pluginsConfig as $pluginName => $pluginConfig) {
-      if($pluginConfig['active'])
-        $activatedPlugins[] = $pluginName;
-    }
-    return serialize($activatedPlugins);
-  }
-
   // check if the last version was until the given build number
   function until($build) {
       return ($GLOBALS['PREVBUILD'] <= $build) ? true : false;
@@ -199,10 +189,6 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   $adminConfig['user']['editStyleSheets'] = (isset($adminConfig['user']['editStylesheets'])) ? $adminConfig['user']['editStylesheets'] : $adminConfig['user']['editStyleSheets'];
   if(!isset($adminConfig['editor']['safeHtml'])) $adminConfig['editor']['safeHtml'] = false;
   if(!isset($adminConfig['editor']['htmlLawed'])) $adminConfig['editor']['htmlLawed'] = true;
-
-  // save all activated plugins as serialized string
-  if($adminConfig['pages']['plugins'] === true || $adminConfig['pages']['plugins'] === 'true')
-    $adminConfig['pages']['plugins'] = activateAllPluginsSerialized();
 
   $data = $adminConfig['editor']['styleFile'];
   if(strpos($data,'|#|') !== false)
@@ -259,6 +245,14 @@ if(isset($_POST) && $_POST['update'] == 'true') {
     unset($adminConfig['pages'],$adminConfig['editor']['styleFile'],$adminConfig['editor']['styleId'],$adminConfig['editor']['styleClass']);
   }
 
+  // check if in the non category plugins were activated
+  if(until(999)) {
+    if($adminConfig['plugins'] === true || $adminConfig['plugins'] === 'true' || (is_array(unserialize($adminConfig['plugins'])) && count(unserialize($adminConfig['plugins'])) > 0))
+      $nonCategoryPluginsActivated = true;
+    else
+      $nonCategoryPluginsActivated = false;
+  }
+
   if(saveAdminConfig($adminConfig))
     GeneralFunctions::$adminConfig = include(dirname(__FILE__).'/../../config/admin.config.php');
   else {
@@ -277,10 +271,6 @@ if(isset($_POST) && $_POST['update'] == 'true') {
     $category['sortReverse'] = ($category['sortascending'] || $category['sortAscending']) ? 'true' : $category['sortReverse'];
     $category['createDelete'] = (isset($category['createdelete'])) ? $category['createdelete'] : $category['createDelete'];
     $category['thumbnails'] = (isset($category['thumbnail'])) ? $category['thumbnail'] : $category['thumbnails'];
-
-
-    if($category['plugins'] === true || $category['plugins'] === 'true')
-      $category['plugins'] = activateAllPluginsSerialized();
 
     $data = $category['styleFile'];
       if(strpos($data,'|#|') !== false)
@@ -304,23 +294,12 @@ if(isset($_POST) && $_POST['update'] == 'true') {
       $category['localized'][0]['name'] = $category['name'];
     }
 
-    // only if was until 1.1.6
-    // change the plugins names from imageGallery => imageGalleryFromFolder; slideShow => slideShowFromFolder
-    if(until(796)) {
-      $categoryPlugins = unserialize($category['plugins']);
-      $newCategoryPlugins = array();
-
-      foreach($categoryPlugins as $categoryPlugin) {
-        if($categoryPlugin == 'imageGallery' && !isset($categoryPlugins['imageGalleryFromFolder'])) {
-          $categoryPlugin = 'imageGalleryFromFolder';
-        } elseif($categoryPlugin == 'slideShow' && !isset($categoryPlugins['slideShowFromFolder'])) {
-          $categoryPlugin = 'slideShowFromFolder';
-        }
-        $newCategoryPlugins[] = $categoryPlugin;
-      }
-
-      // serialize the plugins again
-      $category['plugins'] = serialize($newCategoryPlugins);
+    // set plugins to true, when activated
+    if(until(999)) {
+      if($category['plugins'] === true || $category['plugins'] === 'true' || (is_array(unserialize($category['plugins'])) && count(unserialize($category['plugins'])) > 0))
+        $category['plugins'] = true;
+      elseif($category['id'] == 0 && $nonCategoryPluginsActivated)
+        $category['plugins'] = true;
     }
 
     // change old keys

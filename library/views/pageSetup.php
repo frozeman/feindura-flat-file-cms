@@ -203,6 +203,15 @@ $hidden = ($SAVEDFORM !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
           </div>
         </div>
 
+        <div class="row">
+          <div class="span1 formLeft">
+            <input type="checkbox" id="nonCategoryPlugins" name="categories[0][plugins]" value="true" class="toolTipLeft" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_ACTIVATEPLUGINS']; ?>"<?php if($categoryConfig[0]['plugins']) echo ' checked="checked"'; ?>>
+          </div>
+          <div class="span3">
+            <label for="nonCategoryPlugins"><span class="toolTipRight" title="::<?php echo $langFile['PAGESETUP_PAGES_TIP_ACTIVATEPLUGINS']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_ACTIVATEPLUGINS']; ?></span></label>
+          </div>
+        </div>
+
       </div>
       <div class="span4">
         <!-- SORTING -->
@@ -246,26 +255,6 @@ $hidden = ($SAVEDFORM !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
     </div>
 
     <div class="spacer"></div>
-
-    <?php if(!empty($plugins)) { ?>
-    <div class="row">
-      <div class="offset1 span3">
-        <h3><?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] ?></h3>
-        <select id="nonCategoryPlugins" name="categories[0][plugins][]" multiple="multiple">
-          <?php
-          foreach($plugins as $pluginName) {
-            $selected = (is_array(unserialize($categoryConfig[0]['plugins'])) && in_array($pluginName,unserialize($categoryConfig[0]['plugins']))) ? ' selected="selected"' : '' ;
-            echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';
-          }
-          ?>
-        </select>
-        </div>
-        <div class="span3">
-          <div class="spacerH3"></div>
-          <div class="alert"><?php echo $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'] ?></div>
-        </div>
-    </div>
-    <?php } ?>
 
     <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedCategory').value = 0;">
   </div>
@@ -476,6 +465,15 @@ $hidden = ($SAVEDFORM !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
                       </div>
                     </div>';
 
+              echo '<div class="row">
+                      <div class="span1 formLeft">
+                        <input type="checkbox" id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins]" value="true" '.$checked[11].' class="toolTipLeft" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'"><br>
+                      </div>
+                      <div class="span3">
+                        <label for="categories'.$category['id'].'plugins"><span class="toolTipRight" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</span></label>
+                      </div>
+                    </div>';
+
             echo '</div>';
 
             // SORTING
@@ -521,30 +519,6 @@ $hidden = ($SAVEDFORM !== false && $_POST['savedCategory'] != '0') ? ' hidden' :
 
             echo '</div>';
           echo '</div>';
-
-          echo '<div class="spacer"></div>';
-
-          if(!empty($plugins)) {
-
-            echo '<div class="row">
-                    <div class="offset1 span3">';
-                echo '<h3 class="toolTipLeft" title="::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">';
-                echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</h3>';
-                echo '<select id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins][]" multiple="multiple">';
-                  foreach($plugins as $pluginName) {
-                    $categoryPlugins = unserialize($category['plugins']);
-                    $selected = (is_array($categoryPlugins) && in_array($pluginName,$categoryPlugins)) ? ' selected="selected"' : '' ;
-                    echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';
-                  }
-                echo '</select>';
-                echo '</div>
-                      <div class="span3">
-                        <div class="spacerH3"></div>
-                        <div class="alert">'.$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'].'</div>';
-            echo '  </div>
-                  </div>';
-
-          }
 
           echo '<div class="spacer"></div>';
 

@@ -258,9 +258,6 @@ if($NEWPAGE) {
   $page = 'new';
 }
 
-// get the activated plugins
-$activatedPlugins = unserialize($categoryConfig[$category]['plugins']);
-
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file
 if(!empty($pageContent['thumbnail']) && isBlocked() === false && !file_exists(dirname(__FILE__).'/../../upload/thumbnails/'.$pageContent['thumbnail'])) {
   $pageContent['thumbnail'] = '';
@@ -287,5 +284,16 @@ if($NEWPAGE && isset($_GET['template']) && is_numeric($_GET['template'])) {
 
   unset($localized,$langCode);
 }
+
+
+// LOAD PLUGINS
+$plugins = GeneralFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
+$newPlugins = array();
+if(is_array($plugins['folders'])) {
+  foreach($plugins['folders'] as $pluginFolder)
+    $newPlugins[] = basename($pluginFolder);
+}
+$plugins = $newPlugins;
+unset($newPlugins);
 
 ?>

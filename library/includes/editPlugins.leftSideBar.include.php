@@ -19,8 +19,8 @@
  * @version 0.1
  */
 
-// AVAILABLE VARS
-// $activatedPlugins from editor.php
+// VARS
+// $plugins - from editor.controller.php
 
 ?>
 
@@ -31,11 +31,7 @@
     <?php
 
       // ->> SHOW PLUGINS as OPTIONS
-      $activatedPluginsPaths = array();
-      foreach ($activatedPlugins as $activatedPlugin)
-        $activatedPluginsPaths[] = dirname(__FILE__).'/../../plugins/'.$activatedPlugin.'/';
-
-      foreach($activatedPluginsPaths as $pluginFolder) {
+      foreach($plugins as $pluginFolder) {
 
         // // vars
         $pluginFolderName = basename($pluginFolder);

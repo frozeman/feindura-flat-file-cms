@@ -26,7 +26,6 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // -> available VARs from the editor.controller.php
 // string   $pageTitle
-// array    $activatedPlugins
 
 // -> available VARs from index.php -> subMenu
 // array    $missingLanguages

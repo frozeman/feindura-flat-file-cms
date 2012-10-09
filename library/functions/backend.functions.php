@@ -547,9 +547,10 @@ function createBasicFilesAndFolders() {
  *
  * @example backend/categoryConfig.array.example.php of the $categoryConfig array
  *
- * @version 1.3
+ * @version 1.4
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.4 changed 'plugins' to bool
  *    - 1.3 moved ['pages'] and styleFile, class, id from the adminConfig to the categoryConfig
  *    - 1.2 add localization
  *    - 1.1 change from fopen() to file_put_contents()
@@ -600,7 +601,7 @@ function saveCategories($newCategories) {
     $fileContent .= "\$categoryConfig[".$category['id']."]['isSubCategoryOf']     = '".$category['isSubCategoryOf']."';\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['createDelete']        = ".XssFilter::bool($category['createDelete'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['thumbnails']          = ".XssFilter::bool($category['thumbnails'],true).";\n";
-    $fileContent .= "\$categoryConfig[".$category['id']."]['plugins']             = '".$category['plugins']."';\n";
+    $fileContent .= "\$categoryConfig[".$category['id']."]['plugins']             = ".XssFilter::bool($category['plugins'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['showTags']            = ".XssFilter::bool($category['showTags'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['showPageDate']        = ".XssFilter::bool($category['showPageDate'],true).";\n";
     $fileContent .= "\$categoryConfig[".$category['id']."]['pageDateAsRange']     = ".XssFilter::bool($category['pageDateAsRange'],true).";\n";

@@ -2960,17 +2960,14 @@ class Feindura extends FeinduraBase {
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
 
         // ->> LOAD the PLUGINS and return them
-        if(($pageContent['category'] == 0 || $this->categoryConfig[$pageContent['category']]['public']) && $pageContent['public']) {
+        if(($pageContent['category'] == 0 || $this->categoryConfig[$pageContent['category']]['public']) && $pageContent['public'] && $this->categoryConfig[$pageContent['category']]['plugins']) {
           if(is_array($pageContent['plugins'])) {
-            // get the activated plugins
-            $activatedPlugins = unserialize($this->categoryConfig[$pageContent['category']]['plugins']);
 
             foreach($pageContent['plugins'] as $pluginName => $pagePlugins) {
               foreach($pagePlugins as $pluginNumber => $pluginContent) {
                 // go through all plugins and load the required ones
                 if($pluginContent['active'] && // check if activated in the page
-                   (is_bool($plugins) || ($pluginNumber == 0 && in_array($pluginName,$plugins)) || ($pluginNumber == 1 && in_array($pluginName,$plugins)) || in_array($pluginName.'#'.$pluginNumber,$plugins)) && // is in the requested plugins array
-                   is_array($activatedPlugins) && in_array($pluginName,$activatedPlugins)) { // activated in the adminConfig or categoryConfig
+                   (is_bool($plugins) || ($pluginNumber == 0 && in_array($pluginName,$plugins)) || ($pluginNumber == 1 && in_array($pluginName,$plugins)) || in_array($pluginName.'#'.$pluginNumber,$plugins))) { // is in the requested plugins array
 
                   if($returnPlugin) {
 
@@ -3000,7 +2997,7 @@ class Feindura extends FeinduraBase {
                       $pluginReturn .= $plugin;
 
                     // -> add div around the plugin
-                    $divStyles = (is_string($divStyles)) ? ' style="'.$divStyles.'"' : '';
+                    // $divStyles = (is_string($divStyles)) ? ' style="'.$divStyles.'"' : ''; // DEACTIVATED dont add the styles from the plugin placeholder
                     $pluginReturn = '<div class="feinduraPlugins feinduraPlugin_'.$pluginName.'" id="feinduraPlugin_'.$pluginName.'_'.$pageContent['id'].'"'.$divStyles.'>'.$pluginReturn.'</div>';
 
                     // add plugin stylesheets

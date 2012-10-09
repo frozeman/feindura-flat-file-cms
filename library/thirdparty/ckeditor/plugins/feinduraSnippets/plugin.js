@@ -110,11 +110,11 @@ CKEDITOR.plugins.add('feinduraSnippets',
                   this.getContentElement( 'snippets', 'editSnippet' ).getElement().setStyle('display','none');
 
                 // hide tabs when no data is available (1 == ['-',''])
-                if(feindura_plugins.length === 1) {
+                if(!feinduraPluginsActive || feindura_plugins.length === 1) {
                   this.hidePage('plugins');
                   this.selectPage('snippets');
                 }
-                else if(feindura_snippets.length === 1) {
+                if(!feinduraSnippetsActive || feindura_snippets.length === 1) {
                   this.hidePage('snippets');
                   this.selectPage('plugins');
                 }
@@ -127,8 +127,8 @@ CKEDITOR.plugins.add('feinduraSnippets',
                 }
 
                 // make the width/height inputs smaller
-                this.getContentElement('plugins','feinduraPluginWidth').getElement().setStyle('width','60px');
-                this.getContentElement('plugins','feinduraPluginHeight').getElement().setStyle('width','60px');
+                // this.getContentElement('plugins','feinduraPluginWidth').getElement().setStyle('width','60px');
+                // this.getContentElement('plugins','feinduraPluginHeight').getElement().setStyle('width','60px');
 
                 // update the selections
                 if(this.snippet && (this.snippet.hasClass('feinduraPlugin') || this.snippet.hasClass('feinduraSnippet')))
@@ -201,71 +201,72 @@ CKEDITOR.plugins.add('feinduraSnippets',
 
                     openWindowBox('library/views/windowBox/editPlugins.php?page='+currentPage+'&category='+currentCategory+'&plugin='+currentPlugin+'&number='+currentPluginNumber,pluginName);
                   }
-                },
-                {
-                  type: 'hbox',
-                  widths : [ '25%', '75%' ],
-                  children: [{
-                    type : 'text',
-                    id : 'feinduraPluginWidth',
-                    label : editor.lang[editor.config.language].common.width,
-                    size: 40,
-                    'default' : '100',
-                    setup: function(element){
-                        if(element !== null && element.hasClass('feinduraPlugin') && this.getDialog().tabs == 'plugins')
-                          this.setValue(element.getStyle('width').match(/[0-9]*/g)[0]);
-                      },
-                    commit: function(element) {
-                      if(this.getDialog().tabs == 'plugins') {
-                        element.setStyle('width',this.getValue()+this.getDialog().getContentElement('plugins','feinduraPluginWidthMeasure').getValue());
-                      }
-                    }
-                  },
-                  {
-                    type : 'select',
-                    id : 'feinduraPluginWidthMeasure',
-                    label: '&nbsp;',
-                    width: 3,
-                    'default' : '%',
-                    items: [['%','%'],['Pixel','px']],
-                    setup: function(element){
-                        if(element !== null && element.hasClass('feinduraPlugin') && this.getDialog().tabs == 'plugins')
-                          this.setValue(element.getStyle('width').replace(/[0-9]*/g,''));
-                      }
-                  }]
-                },
-                {
-                  type: 'hbox',
-                  widths : [ '25%', '75%' ],
-                  children: [{
-                    type : 'text',
-                    id : 'feinduraPluginHeight',
-                    label : editor.lang[editor.config.language].common.height,
-                    size: 40,
-                    'default' : '',
-                    setup: function(element){
-                        if(element !== null && element.hasClass('feinduraPlugin') && this.getDialog().tabs == 'plugins')
-                          this.setValue(element.getStyle('height').match(/[0-9]*/g)[0]);
-                      },
-                    commit: function(element) {
-                      if(this.getDialog().tabs == 'plugins') {
-                        element.setStyle('height',this.getValue()+this.getDialog().getContentElement('plugins','feinduraPluginHeightMeasure').getValue());
-                      }
-                    }
-                  },
-                  {
-                    type : 'select',
-                    id : 'feinduraPluginHeightMeasure',
-                    label: '&nbsp;',
-                    width: 3,
-                    'default' : '%',
-                    items: [['%','%'],['Pixel','px']],
-                    setup: function(element){
-                        if(element !== null && element.hasClass('feinduraPlugin') && this.getDialog().tabs == 'plugins')
-                          this.setValue(element.getStyle('height').replace(/[0-9]*/g,''));
-                      }
-                  }]
-                }]
+                }
+                // {
+                //   type: 'hbox',
+                //   widths : [ '25%', '75%' ],
+                //   children: [{
+                //     type : 'text',
+                //     id : 'feinduraPluginWidth',
+                //     label : editor.lang[editor.config.language].common.width,
+                //     size: 40,
+                //     'default' : '100',
+                //     setup: function(element){
+                //         if(element !== null && element.hasClass('feinduraPlugin') && this.getDialog().tabs == 'plugins')
+                //           this.setValue(element.getStyle('width').match(/[0-9]*/g)[0]);
+                //       },
+                //     commit: function(element) {
+                //       if(this.getDialog().tabs == 'plugins') {
+                //         element.setStyle('width',this.getValue()+this.getDialog().getContentElement('plugins','feinduraPluginWidthMeasure').getValue());
+                //       }
+                //     }
+                //   },
+                //   {
+                //     type : 'select',
+                //     id : 'feinduraPluginWidthMeasure',
+                //     label: '&nbsp;',
+                //     width: 3,
+                //     'default' : '%',
+                //     items: [['%','%'],['Pixel','px']],
+                //     setup: function(element){
+                //         if(element !== null && element.hasClass('feinduraPlugin') && this.getDialog().tabs == 'plugins')
+                //           this.setValue(element.getStyle('width').replace(/[0-9]*/g,''));
+                //       }
+                //   }]
+                // },
+                // {
+                //   type: 'hbox',
+                //   widths : [ '25%', '75%' ],
+                //   children: [{
+                //     type : 'text',
+                //     id : 'feinduraPluginHeight',
+                //     label : editor.lang[editor.config.language].common.height,
+                //     size: 40,
+                //     'default' : '',
+                //     setup: function(element){
+                //         if(element !== null && element.hasClass('feinduraPlugin') && this.getDialog().tabs == 'plugins')
+                //           this.setValue(element.getStyle('height').match(/[0-9]*/g)[0]);
+                //       },
+                //     commit: function(element) {
+                //       if(this.getDialog().tabs == 'plugins') {
+                //         element.setStyle('height',this.getValue()+this.getDialog().getContentElement('plugins','feinduraPluginHeightMeasure').getValue());
+                //       }
+                //     }
+                //   },
+                //   {
+                //     type : 'select',
+                //     id : 'feinduraPluginHeightMeasure',
+                //     label: '&nbsp;',
+                //     width: 3,
+                //     'default' : '%',
+                //     items: [['%','%'],['Pixel','px']],
+                //     setup: function(element){
+                //         if(element !== null && element.hasClass('feinduraPlugin') && this.getDialog().tabs == 'plugins')
+                //           this.setValue(element.getStyle('height').replace(/[0-9]*/g,''));
+                //       }
+                //   }]
+                // }
+                ]
               },
               {
                 id : 'snippets',

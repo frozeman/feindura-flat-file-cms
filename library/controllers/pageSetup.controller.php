@@ -195,7 +195,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
 
   // transfer data from the categoryConfig
   foreach($_POST['categories'] as $categoryId => $value) {
-    $_POST['categories'][$categoryId]['plugins']         = serialize($value['plugins']);
     $_POST['categories'][$categoryId]['isSubCategory']   = $categoryConfig[$categoryId]['isSubCategory'];
     $_POST['categories'][$categoryId]['isSubCategoryOf'] = $categoryConfig[$categoryId]['isSubCategoryOf'];
     $_POST['categories'][$categoryId]['localized']       = $categoryConfig[$categoryId]['localized'];
@@ -285,14 +284,4 @@ if($SAVEDSETTINGS) {
   saveSitemap();
 }
 
-
-// LOAD PLUGINS
-$plugins = GeneralFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
-$newPlugins = array();
-if(is_array($plugins['folders'])) {
-  foreach($plugins['folders'] as $pluginFolder)
-    $newPlugins[] = basename($pluginFolder);
-}
-$plugins = $newPlugins;
-unset($newPlugins);
 ?>

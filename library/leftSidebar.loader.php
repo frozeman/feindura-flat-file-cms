@@ -195,7 +195,7 @@ if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
     }
 
     // PLUGINS
-    if(is_array($activatedPlugins) && count($activatedPlugins) >= 1)
+    if($categoryConfig[$pageContent['category']]['plugins'])
       include(dirname(__FILE__).'/includes/editPlugins.leftSideBar.include.php');
   }
 

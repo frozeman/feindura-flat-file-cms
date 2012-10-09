@@ -541,7 +541,6 @@ $langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS']                             = 'Edi
 $langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Specifies if the user can edit tags in pages in this category.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS']                      = 'Activate plugins';
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS']                       = 'Specifies if the user can use plugins in pages in this category.';
-$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Hold the CTRL/CMD-key to select multiple plugins.';
 
 $langFile['PAGESETUP_TEXT_EDITPAGEDATE']                                  = 'Edit page date';
 $langFile['PAGESETUP_TIP_EDITPAGEDATE']                                   = 'The page date can be used to sort pages by date';
