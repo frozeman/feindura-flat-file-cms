@@ -260,6 +260,9 @@ $langFile['BUTTON_WEBSITELANGUAGE_ADD']                                   = 'Add
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Add a new language to this page';
 $langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Delete Language';
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Delete language &quot;%s&quot; for this page';
+$langFile['BUTTON_SHOWINMENU']                                            = 'Show in menus';
+$langFile['BUTTON_HIDEINMENU']                                            = 'Hide from menus';
+$langFile['BUTTON_TOOLTIP_SHOWHIDEINMENU']                                = 'Determines whether the page is displayed in menus or not.';
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Up';
@@ -300,6 +303,7 @@ $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Pag
 
 // MESSAGES
 $langFile['MESSAGE_TEXT_CHANGEDSTATUS']                                   = 'The status was successfully changed.';
+$langFile['MESSAGE_TEXT_CHANGEDSHOWINMENU']                               = 'The menu status was successfully changed.';
 
 
 /*

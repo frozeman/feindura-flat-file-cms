@@ -138,7 +138,7 @@ class DebugTools {
   * <b>Name</b> dump()<br>
   *
   * Simply lists arrays or echo an string inside a box, to see the content of a variable.
-  * It will add a <br> after each value so it can be better read.
+  * It will add a &lt;br&gt; after each value so it can be better read.
   *
   * @param mixed $values all kinds of variables, which should be displayed
   * @param bool  $shouldReturn (optional) whether or not the content should be displayed or returned.

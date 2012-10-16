@@ -101,7 +101,9 @@
 
                 &:hover,
                 &:focus {
-                    background-position: 0px -27px;
+                    background-color: #fff;
+                    #border > .rounded(4px);
+                    #shadow > .drop(0,0,5px,0.2);
                 }
             }
         }
@@ -194,25 +196,34 @@
                     }
                 }
 
+                div.status {
+                    width: 60px;
+                    margin-left: 0; // overwrites the bootstrap span* margin
+                }
 
                 div.functions {
-                    width: 160px;
+                    width: 198px;
                     margin-left: 0; // overwrites the bootstrap span* margin
                 }
 
                 // function links
                 .functions a {
+                    position: relative;
+                    top: -1px;
                     display: inline-block;
                     width: 27px;
                     height: 27px;
                     padding: 0px;
+                    margin-left: 1px;
                     background-repeat: no-repeat;
                     background-position: 0 0;
                 }
                 .functions a:hover,
                 .functions a:focus,
                 .functions a.startPage.active {
-                    background-position: 0px -27px;
+                    background-color: #fff;
+                    #border > .rounded(4px);
+                    #shadow > .drop(0,0,5px,0.2);
                 }
 
                 .functions a.startPage {
@@ -220,6 +231,13 @@
                 }
                 .functions a.frontendEditing {
                     background-image: url("../../images/buttons/listPages_frontendEditing.png");
+                }
+                .functions a.showInMenu {
+                    background-image: url("../../images/buttons/listPages_showInMenu.png");
+                }
+                .functions a.hideInMenu {
+                    background-image: url("../../images/buttons/listPages_showInMenu.png");
+                    background-position: 0 -27px;
                 }
                 .functions a.editPage {
                     background-image: url("../../images/buttons/listPages_editPage.png");

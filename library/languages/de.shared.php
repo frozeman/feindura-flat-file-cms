@@ -24,7 +24,7 @@
 // -> GENERAL <-
 
 $sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Klicke hier um dich auszuloggen.';
-$sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'Diese Seite als Startseite festlegen';
+$sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'Als Startseite festlegen';
 $sharedLangFile['SORTABLEPAGELIST_functions_startPage_set'] = 'Diese Seite ist die Startseite';
 
 $sharedLangFile['LOADING_TEXT_LOAD']                        = 'Seite wird geladen..';

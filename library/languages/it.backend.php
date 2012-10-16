@@ -263,6 +263,12 @@ $langFile['BUTTON_WEBSITELANGUAGE_ADD']                                   = 'Agg
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Aggiungere un nuovo linguaggio di questa pagina';
 $langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Elimina Lingua';
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Eliminare Lingua &quot;%s&quot; per questa pagina';
+$langFile['BUTTON_SHOWINMENU']                                            = 'Show in menus';
+$langFile['BUTTON_HIDEINMENU']                                            = 'Hide from menus';
+$langFile['BUTTON_TOOLTIP_SHOWHIDEINMENU']                                = 'Whether or not to hide this page from menus.';
+$langFile['BUTTON_SHOWINMENU']                                            = 'Mostra nel menu';
+$langFile['BUTTON_HIDEINMENU']                                            = 'Nascondi dal menu';
+$langFile['BUTTON_TOOLTIP_SHOWHIDEINMENU']                                = 'Determina se la pagina viene visualizzata nel menu o meno.';
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Torna Su';
@@ -303,6 +309,7 @@ $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Att
 
 // MESSAGES
 $langFile['MESSAGE_TEXT_CHANGEDSTATUS']                                   = 'Lo stato è stata cambiata con successo.';
+$langFile['MESSAGE_TEXT_CHANGEDSHOWINMENU']                               = 'Lo stato del menu è stata cambiata con successo.';
 
 
 /*

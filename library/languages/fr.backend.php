@@ -251,6 +251,9 @@ $langFile['BUTTON_WEBSITELANGUAGE_ADD']                                   = 'Ajo
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Ajouter une nouvelle langue sur cette page.';
 $langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'supprimer langue';
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Supprimer langue &quot;%s&quot; pour cette page.';
+$langFile['BUTTON_SHOWINMENU']                                            = 'Afficher dans les menus';
+$langFile['BUTTON_HIDEINMENU']                                            = 'Cacher dans les menus';
+$langFile['BUTTON_TOOLTIP_SHOWHIDEINMENU']                                = 'Détermine si la page est affichée dans les menus ou non.';
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'vers le haut';
@@ -290,8 +293,8 @@ $langFile['DASHBOARD_TEXT_IEWARNING']                                     = 'Pou
 $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Page est actuellement en cours de modification...';
 
 // MESSAGES
-$langFile['MESSAGE_TEXT_CHANGEDSTATUS']                                   = 'l&#145;état a été modifié avec succès.';
-
+$langFile['MESSAGE_TEXT_CHANGEDSTATUS']                                   = 'L&#145;état a été modifié avec succès.';
+$langFile['MESSAGE_TEXT_CHANGEDSHOWINMENU']                               = 'L&#145;état du menu a été modifié avec succès.';
 
 /*
 * leftSidebar.loader.php

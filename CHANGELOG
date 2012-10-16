@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-2.0 beta
-Build 1000
+2.0
+Build 1002
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,8 @@ ChangeLog:
 
 2.0 beta
 
+  build 1002: create release of 2.0
+  build 1001: its now possible to hide pages from beeing visible in menus!
   build 1000: removed the need to activate plugins, just delete them if dont need them
   build 999: fixed backup restore
   build 998: integrated the updater into the feindura interface

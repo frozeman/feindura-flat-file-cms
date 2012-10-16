@@ -172,6 +172,29 @@ if($categoryConfig[$_GET['category']]['showSubCategory']) {
   </div>
 </div>
 
+<!-- **** MENU STATUS -->
+<div class="row">
+  <div class="span3 formLeft">
+    <input type="checkbox" id="edit_showInMenus" name="showInMenus" value="true" <?php if($pageContent['showInMenus']) echo 'checked'; ?>>
+  </div>
+  <div class="span5">
+    <label for="edit_showInMenus">
+    <span class="toolTipRight" title="::<?php echo $langFile['BUTTON_TOOLTIP_SHOWHIDEINMENU'] ?>">
+    <?php echo $langFile['BUTTON_SHOWINMENU']; ?></span></label>
+  </div>
+</div>
+
+<!-- **** STARTPAGE -->
+<div class="row">
+  <div class="span3 formLeft">
+    <input type="checkbox" id="edit_setStartPage" name="setStartPage" value="true" <?php if($pageContent['id'] == $websiteConfig['startPage']) echo 'checked'; ?>>
+  </div>
+  <div class="span5">
+    <label for="edit_setStartPage">
+    <?php echo $langFile['SORTABLEPAGELIST_functions_startPage']; ?></label>
+  </div>
+</div>
+
 
 <!-- PAGE SCRIPTS -->
 <script type="text/javascript">

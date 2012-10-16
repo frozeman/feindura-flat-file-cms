@@ -228,6 +228,13 @@ if(isBlocked() === false && $_POST['save']) {
         : dirname(__FILE__).'/../../pages/'.$category.'/'.$page.'.php';
       @chmod($filePath, $adminConfig['permissions']);
 
+
+      // -> set as startpage, if activated
+      if($_POST['setStartPage']) {
+        $websiteConfig['startPage'] = $page;
+        saveWebsiteConfig($websiteConfig);
+      }
+
       // ->> save the FEEDS, if activated
       saveFeeds($category);
       // ->> save the SITEMAP

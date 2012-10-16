@@ -54,10 +54,7 @@ $feindura = new Feindura();
 $feindura->xHtml =                  true;
 
 $feindura->showErrors =              true;
-$feindura->errorTag =               'span';
-$feindura->errorId =                'errorId';
-$feindura->errorClass =             'errorClass';
-$feindura->errorAttributes =        'test="exampleAttribute1" onclick="exampleAttribute2"';
+$feindura->errorTag =               'div.alertClass';
 
 $feindura->titleLength =            20;
 $feindura->titleAsLink =            true;

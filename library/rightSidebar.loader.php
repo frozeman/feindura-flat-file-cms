@@ -189,6 +189,10 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
     // ***** LAST ACTIVITY -------------------------------------------- **********
     case 'dashboard': case 'pages': case '':
 
+      // dont show the current visitors when user menu
+      if($_GET['site'] != 'pages')
+        $showCurrentVisitors = false;
+
       // -> SHOW TASK LOG
       echo '<div class="box">';
       echo '<h1><img src="library/images/icons/activityLogIcon.png" alt="icon" style="position:relative; top:-2px;margin-right: 4px;"> '.$langFile['DASHBOARD_TITLE_ACTIVITY'].'</h1>';

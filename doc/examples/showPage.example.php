@@ -56,10 +56,7 @@ $feindura->thumbnailBefore =        false;
 $feindura->thumbnailAfter =         false;
 
 $feindura->showErrors =              true;
-$feindura->errorTag =               'span';
-$feindura->errorId =                'errorId';
-$feindura->errorClass =             'errorClass';
-$feindura->errorAttributes =        'test="exampleAttribute1" onclick="exampleAttribute2"';
+$feindura->errorTag =               'div.alertClass';
 
 
 // finally, get the page, with ID "1", using the above set properties
@@ -91,8 +88,8 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam...</p>
 --------------------------------------------------------------------------------
 
 
-<span id="errorId" class="errorClass" test="exampleAttribute1" onclick="exampleAttribute2">
+<div class="alertClass">
 The requested page is deactivated.
-</span>
+</div>
 
 ?>

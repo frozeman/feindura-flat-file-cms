@@ -79,7 +79,7 @@ foreach($categoryConfig as $category) {
     // shows after saving the right category open
     $hidden = (is_array($pages) && !empty($pages) &&                                         // -> slide in the category if EMPTY
                (!isset($_GET['category']) && $category['id'] == 0) ||                        // -> slide non-category in if no category is selected
-               ($opendCategory === $category['id'] || $_GET['category'] == $category['id'])) // -> slide out the category if ACTIVE
+               ($openCategory === $category['id'] || $_GET['category'] == $category['id'])) // -> slide out the category if ACTIVE
     ? '' : ' hidden';
 
     // shows the text of the sorting of a CATEGORY
@@ -234,7 +234,7 @@ foreach($categoryConfig as $category) {
               // VISITOR COUNT
               echo '<span class="toolTipTop" title="'.formatHighNumber($pageStatistics['visitorCount']).'">'.$visitorCount.'</span>';
             echo '</div>';
-            echo '<div class="span1">';
+            echo '<div class="span1 status">';
               // PAGE and LANGUAGE STATUS
               echo ' <a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" class="toolTipTop status'.$publicClass.'" title="'.$publicText.'::'.$langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS'].'"></a>';
               // show language status (is everything translated)
@@ -253,9 +253,15 @@ foreach($categoryConfig as $category) {
               if($category['thumbnails'] && !empty($pageContent['thumbnail']))
                 echo '<a href="?site=deletePageThumbnail&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageThumbnail.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::" class="deletePageThumbnail toolTipTop"></a>';
 
+              // show/hide in menu
+              $showHideInMenu     = ($pageContent['showInMenus']) ? 'showInMenu' : 'hideInMenu';
+              $showHideInMenuText = ($pageContent['showInMenus']) ? $langFile['BUTTON_HIDEINMENU'] : $langFile['BUTTON_SHOWINMENU'];
+              echo '<a href="?site='.$_GET['site'].'&amp;status=changeMenuStatus&amp;showInMenus='.$pageContent['showInMenus'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" title="'.$showHideInMenuText.'::" class="'.$showHideInMenu.' toolTipTop"></a>';
+
               // frontend editing
               if(GeneralFunctions::hasPermission('frontendEditing'))
                 echo '<a href="'.$adminConfig['url'].GeneralFunctions::Path2URI($adminConfig['websitePath']).'?'.$adminConfig['varName']['category'].'='.$category['id'].'&amp;'.$adminConfig['varName']['page'].'='.$pageContent['id'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::" class="frontendEditing toolTipTop"></a>';
+
 
               // edit page
               echo '<a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$langFile['SORTABLEPAGELIST_functions_editPage'].'::" class="editPage toolTipTop"></a>';

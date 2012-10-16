@@ -1231,9 +1231,6 @@ class FeinduraBase {
   * @uses Feindura::$xHtml
   * @uses Feindura::$showErrors
   * @uses Feindura::$errorTag
-  * @uses Feindura::$errorId
-  * @uses Feindura::$errorClass
-  * @uses Feindura::$errorAttributes
   *
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink

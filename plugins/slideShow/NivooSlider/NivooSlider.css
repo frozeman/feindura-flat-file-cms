@@ -31,10 +31,10 @@
 
 .nivoo-slider img,
 .nivoo-link {
-  left: 0;
+  /*left: 0;
   position: absolute;
   top: 0;
-    z-index: 0;
+  z-index: 0;*/
 }
 .nivoo-slider > img:first-child,
 .nivoo-slider > a:first-child img {
@@ -50,40 +50,40 @@
   z-index: 20;  
 }
 
-.direction-nav-left {
+.nivoo-slider .direction-nav-left {
     left: 0;
 }
-.direction-nav-right {
+.nivoo-slider .direction-nav-right {
     right: 0;
 }
 
 /* directioNavPosition inside */
-.direction-nav-left,
-.direction-nav-right {
-    position: absolute;
-    top: 0;
-    z-index: 40;
+.nivoo-slider .direction-nav-left,
+.nivoo-slider .direction-nav-right {
+  position: absolute;
+  top: 0;
+  z-index: 40;
+  height: 100% !important;
+}
+.direction-nav-left a,
+.direction-nav-right a {
+    display: block;
     height: 100% !important;
-    }
-    .direction-nav-left a,
-    .direction-nav-right a {
-        display: block;
-        height: 100% !important;
-    }
-    .direction-nav-left a:focus,
-    .direction-nav-right a:focus {
-        outline: none;
-    }
-    .direction-nav-left a {
-        background: url(images/arrow-left.png) no-repeat 2% 50%;
-    }
-    .direction-nav-right a {
-        background: url(images/arrow-right.png) no-repeat 98% 50%;
-    }
+}
+.direction-nav-left a:focus,
+.direction-nav-right a:focus {
+    outline: none;
+}
+.direction-nav-left a {
+    background: url(images/arrow-left.png) no-repeat 2% 50%;
+}
+.direction-nav-right a {
+    background: url(images/arrow-right.png) no-repeat 98% 50%;
+}
     
 /* directioNavPosition oustide */
-.direction-nav-outside .direction-nav-left,
-.direction-nav-outside .direction-nav-right {
+.nivoo-slider .direction-nav-outside .direction-nav-left,
+.nivoo-slider .direction-nav-outside .direction-nav-right {
     width: 60px;
 }
 
@@ -107,7 +107,7 @@
 
 /* control navigation */
 
-div.control-nav {
+.nivoo-slider div.control-nav {
     position: absolute;
     bottom: 35px;
     z-index: 10;
@@ -116,24 +116,44 @@ div.control-nav {
     line-height: 20px;
     margin: 10px 0 0;
     text-align: center;
+}
+.nivoo-slider div.control-nav a {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin: 0 4px;
+    background: rgba(101, 101, 102, 0.2);
+    font-size: 0;
+    color: transparent;
+    -webkit-text-shadow: none;
+    -moz-text-shadow: none;
+    -ms-text-shadow: none;
+    -o-text-shadow: none;
+    -khtml-text-shadow: none;
+    text-shadow: none;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+    -o-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
     }
-    div.control-nav a {
-        color: #dadada;
-        font-size: 20px;
-        outline: none;
-        padding: 2px;
-        text-decoration: none;
-        text-shadow: 0 0 2px #f5f5f5;
-        -moz-transition: color 1s;
-        -ms-transition: color 1s;
-        -o-transition: color 1s;
-        -webkit-transition: color 1s;
-        transition: color 1s;
-        }
-    div.control-nav .disc {
-      font-size: 40px;
-    }
-        div.control-nav a.current,
-        div.control-nav a:hover {
-            color: #333;
-        }
+.nivoo-slider div.control-nav .disc {
+  font-size: 0;
+}
+.nivoo-slider div.control-nav a.current,
+.nivoo-slider div.control-nav a:hover {
+    background: #7ec6ea;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #0387c9), color-stop(1, #7ec6ea));
+  background: -moz-linear-gradient(center bottom, #0387c9 0%, #7ec6ea 100%);
+  background: -ms-linear-gradient(bottom, #0387c9 0%, #7ec6ea 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7ec6ea', endColorstr='#0387c9',GradientType=0);
+  -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.25);
+  -o-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.25);
+}

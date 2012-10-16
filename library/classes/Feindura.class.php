@@ -35,7 +35,7 @@
 * @version 2.0
 * <br>
 * <b>ChangeLog</b><br>
-*    - 2.0 add {@link Feindura::createSubMenu()}, {@link Feindura::isSubCategory()}, {@link Feindura::isSubCategoryOf()}, {@link Feindura::createMenuOfSubCategory()}, {@link Feindura::createLanguageMenu()}, {@link Feindura::createBreadCrumbsMenu()}, {@link Feindura::hasTags()}, {@link Feindura::getLocalized()}, {@link Feindura::lisSubPages()}, {@link Feindura::listPagesOfSubCategory()}
+*    - 2.0 add {@link Feindura::createSubMenu()}, {@link Feindura::isSubCategory()}, {@link Feindura::isSubCategoryOf()}, {@link Feindura::createMenuOfSubCategory()}, {@link Feindura::createLanguageMenu()}, {@link Feindura::createBreadCrumbsMenu()}, {@link Feindura::hasTags()}, {@link Feindura::getLocalized()}, {@link Feindura::listSubPages()}, {@link Feindura::listSubCategory()}
 *    - 1.0.1 add setStartPage()
 *    - 1.0 initial release
 *
@@ -913,7 +913,7 @@ class Feindura extends FeinduraBase {
     if(is_numeric($pageId)) {
       $this->startPage = $pageId;
       $this->startCategory = GeneralFunctions::getPageCategory($pageId);
-      $this->setCurrentPageId($pageId);
+      $this->setCurrentPageId(true);
     }
   }
 
@@ -1704,7 +1704,7 @@ class Feindura extends FeinduraBase {
       // create a link out of every page in the array
       foreach($pages as $page) {
         // creates the link
-        if($pageLink = $this->createLink($page,$linkText)) {
+        if($page['showInMenus'] && $pageLink = $this->createLink($page,$linkText)) {
           // adds the link to an array
           $link['link']        = $pageLink;
           $link['href']        = $this->createHref($page);
@@ -2743,8 +2743,7 @@ class Feindura extends FeinduraBase {
   *
   * <b>This method uses the {@link Feindura::$showErrors $error...}, {@link Feindura::$titleLength $title...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   *
-  * Returns a page for displaying in a HTML-page.
-  * This array will conatin all elements of the page, ready for displaying in a HTML-page.
+  * Returns an array which contains all elements of the page, ready for displaying in a HTML-page.
   *
   * In case the page doesn't exists or is not public and the {@link Feindura::$showErrors} property is TRUE,
   * an error will be placed in the ['content'] part of the returned array,
@@ -2768,9 +2767,6 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$xHtml
   * @uses Feindura::$showErrors
   * @uses Feindura::$errorTag
-  * @uses Feindura::$errorId
-  * @uses Feindura::$errorClass
-  * @uses Feindura::$errorAttributes
   *
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink
@@ -3119,9 +3115,6 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$xHtml
   * @uses Feindura::$showErrors
   * @uses Feindura::$errorTag
-  * @uses Feindura::$errorId
-  * @uses Feindura::$errorClass
-  * @uses Feindura::$errorAttributes
   *
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink
@@ -3249,9 +3242,6 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$xHtml
   * @uses Feindura::$showErrors
   * @uses Feindura::$errorTag
-  * @uses Feindura::$errorId
-  * @uses Feindura::$errorClass
-  * @uses Feindura::$errorAttributes
   *
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink
@@ -3352,9 +3342,6 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$xHtml
   * @uses Feindura::$showErrors
   * @uses Feindura::$errorTag
-  * @uses Feindura::$errorId
-  * @uses Feindura::$errorClass
-  * @uses Feindura::$errorAttributes
   *
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink
@@ -3445,9 +3432,6 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$xHtml
   * @uses Feindura::$showErrors
   * @uses Feindura::$errorTag
-  * @uses Feindura::$errorId
-  * @uses Feindura::$errorClass
-  * @uses Feindura::$errorAttributes
   *
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink
@@ -3545,9 +3529,6 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$xHtml
   * @uses Feindura::$showErrors
   * @uses Feindura::$errorTag
-  * @uses Feindura::$errorId
-  * @uses Feindura::$errorClass
-  * @uses Feindura::$errorAttributes
   *
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink
@@ -3649,9 +3630,6 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$xHtml
   * @uses Feindura::$showErrors
   * @uses Feindura::$errorTag
-  * @uses Feindura::$errorId
-  * @uses Feindura::$errorClass
-  * @uses Feindura::$errorAttributes
   *
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink

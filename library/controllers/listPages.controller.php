@@ -22,7 +22,29 @@
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // VAR
-$opendCategory = false;
+$openCategory = false;
+
+// ->> CHANGE MENU STATUS
+if(isset($_GET['status']) && $_GET['status'] == 'changeMenuStatus') {
+
+    if($contentArray = GeneralFunctions::readPage($_GET['page'],$_GET['category'])) {
+      // change the status
+      $contentArray['showInMenus'] = ($_GET['showInMenus']) ? false : true;
+
+      // save the new status
+      if(GeneralFunctions::savePage($contentArray)) {
+        $DOCUMENTSAVED = true;
+        $NOTIFICATION .= '<div class="alert alert-success">'.$langFile['MESSAGE_TEXT_CHANGEDSHOWINMENU'].'</div>';
+
+      } else
+        $ERRORWINDOW .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['basePath']);
+
+    } else
+      $ERRORWINDOW .= sprintf($langFile['file_error_read'],$adminConfig['basePath']);
+
+  // shows the category open, after saving
+  $openCategory = $_GET['category'];
+}
 
 // ->> CHANGE CATEGORY STATUS
 if(isset($_GET['status']) &&
@@ -47,7 +69,7 @@ if(isset($_GET['status']) &&
     $ERRORWINDOW .= sprintf($langFile['SORTABLEPAGELIST_changeStatusPage_error_save'],$adminConfig['basePath']);
 
  // shows after saving the category open
- $opendCategory = $_GET['category'];
+ $openCategory = $_GET['category'];
 }
 
 // ->> SET THE STARTPAGE
@@ -67,7 +89,7 @@ if(isset($_GET['status']) && $_GET['status'] == 'setStartPage' && !empty($_GET['
 
 
   // shows after saving the category open
- $opendCategory = $_GET['category'];
+ $openCategory = $_GET['category'];
 }
 
 ?>

@@ -1181,6 +1181,7 @@ class GeneralFunctions {
     $fileContent .= "\$pageContent['category']           = ".XssFilter::int($pageContent['category'],0).";\n";
     $fileContent .= "\$pageContent['subCategory']        = ".XssFilter::int($pageContent['subCategory'],'false').";\n";
     $fileContent .= "\$pageContent['sortOrder']          = ".XssFilter::int($pageContent['sortOrder'],0).";\n";
+    $fileContent .= "\$pageContent['showInMenus']        = ".XssFilter::bool($pageContent['showInMenus'],true).";\n";
     $fileContent .= "\$pageContent['public']             = ".XssFilter::bool($pageContent['public'],true).";\n\n";
 
     $fileContent .= "\$pageContent['editedLink']         = '".XssFilter::path($pageContent['editedLink'])."';\n\n";

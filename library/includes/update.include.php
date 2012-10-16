@@ -529,6 +529,10 @@ if(isset($_POST) && $_POST['update'] == 'true') {
       StatisticFunctions::savePageStatistics($pageStatistics);
     }
 
+    if(until(1000)) {
+      $pageContent['showInMenus'] = true;
+    }
+
     if(GeneralFunctions::savePage($pageContent,false,false)) { // dont save the pagesMetaData each times
       // delete the previous files
       $categoryPath = ($pageContent['category'] == 0) ? '' : $pageContent['category'].'/';

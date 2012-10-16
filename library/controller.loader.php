@@ -48,7 +48,7 @@ if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
       $ERRORWINDOW .= sprintf($langFile['file_error_read'],$adminConfig['basePath']);
 
   // shows the category open, after saving
-  $opendCategory = $_GET['category'];
+  $openCategory = $_GET['category'];
 }
 
 

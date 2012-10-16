@@ -266,6 +266,12 @@ $langFile['BUTTON_WEBSITELANGUAGE_ADD']                                   = 'Д�
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Добавить новый язык для этой страницы';
 $langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Удаление языка';
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Удаление языка &quot;%s&quot; для этой страницы';
+$langFile['BUTTON_SHOWINMENU']                                            = 'Show in menus';
+$langFile['BUTTON_HIDEINMENU']                                            = 'Hide from menus';
+$langFile['BUTTON_TOOLTIP_SHOWHIDEINMENU']                                = 'Whether or not to hide this page from menus.';
+$langFile['BUTTON_SHOWINMENU']                                            = 'Показывать в меню';
+$langFile['BUTTON_HIDEINMENU']                                            = 'Скрыть из меню';
+$langFile['BUTTON_TOOLTIP_SHOWHIDEINMENU']                                = 'Определяет, является ли страница отображается в меню или нет.';
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Вверх';
@@ -305,6 +311,7 @@ $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'С�
 
 // MESSAGES
 $langFile['MESSAGE_TEXT_CHANGEDSTATUS']                                   = 'Статус был успешно изменен.';
+$langFile['MESSAGE_TEXT_CHANGEDSHOWINMENU']                               = 'Он меню статус был успешно изменен.';
 
 
 /*

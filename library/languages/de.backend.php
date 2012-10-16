@@ -259,6 +259,9 @@ $langFile['BUTTON_WEBSITELANGUAGE_ADD']                                   = 'Spr
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Füge eine neue Sprache zu dieser Seite hinzu';
 $langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Sprache löschen';
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Sprache &quot;%s&quot; für diese Seite löschen';
+$langFile['BUTTON_SHOWINMENU']                                            = 'In Menüs anzeigen';
+$langFile['BUTTON_HIDEINMENU']                                            = 'In Menüs verstecken';
+$langFile['BUTTON_TOOLTIP_SHOWHIDEINMENU']                                = 'Legt fest ob diese Seite in Menüs angezeigt wird oder nicht.';
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Nach oben';
@@ -300,7 +303,7 @@ $langFile['GENERAL_TEXT_CURRENTLYEDITED']                                 = 'Sei
 
 // MESSAGES
 $langFile['MESSAGE_TEXT_CHANGEDSTATUS']                                   = 'Der Status wurde geändert.';
-
+$langFile['MESSAGE_TEXT_CHANGEDSHOWINMENU']                               = 'Der Menüstatus wurde erfolgreich geändert.';
 
 /*
 * leftSidebar.loader.php

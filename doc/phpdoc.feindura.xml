@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor>
+  <title><![CDATA[feindura - Flat File CMS]]></title>
+  <parser>
+    <default-package-name>[not_documented]</default-package-name>
+    <target>/Users/frozeman/Development/Server/_feindura-doc2</target>
+    <markers>
+      <item>TODO</item>
+      <item>FIXME</item>
+    </markers>
+    <extensions>
+      <extension>php</extension>
+      <extension>php3</extension>
+      <extension>phtml</extension>
+    </extensions>
+    <visibility></visibility>
+  </parser>
+  <files>
+    <ignore-hidden>on</ignore-hidden>
+    <ignore-symlinks>on</ignore-symlinks>
+    <directory>/Users/frozeman/Development/Server/_feindura</directory>
+    <directory>/Users/frozeman/Development/Server/_feindura/library/classes</directory>
+    <directory>/Users/frozeman/Development/Server/_feindura/library/includes</directory>
+    <directory>/Users/frozeman/Development/Server/_feindura/library/functions</directory>
+    <ignore>pear-*</ignore>
+    <ignore>doc/examples</ignore>
+    <ignore>library/thirdparty</ignore>
+    <ignore>pages/*</ignore>
+    <ignore>config/*</ignore>
+    <ignore>statistic/*</ignore>
+  </files>
+  <transformer>
+    <target>/Users/frozeman/Development/Server/_feindura-doc2</target>
+  </transformer>
+  <logging>
+    <level>warn</level>
+    <paths>
+      <default>{APP_ROOT}/data/log/{DATE}.log</default>
+      <errors>{APP_ROOT}/data/log/{DATE}.errors.log</errors>
+    </paths>
+  </logging>
+  <transformations>
+    <template name="Users/frozeman/Development/Server/_feindura/doc/feinduraTemplate" />
+  </transformations>
+</phpdocumentor>

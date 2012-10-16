@@ -5090,6 +5090,9 @@
   -o-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09999999999999998);
 }
+.feindura img {
+  max-width: none;
+}
 .feindura img.thumbnail {
   display: inline-block;
   position: relative;
@@ -6435,8 +6438,7 @@
   float: left;
   width: 865px;
   height: 140px;
-  border-top: 1px solid #E5E5E5;
-  background: url("../../images/bg/headerCenter.png") no-repeat 0 -1px;
+  background: url("../../images/bg/headerCenter.png") no-repeat;
 }
 .feindura header.main div.menuBlock nav.mainMenu {
   position: absolute;
@@ -6633,7 +6635,7 @@
   z-index: 2;
   position: absolute;
   top: 38px;
-  left: 120px;
+  left: 115px;
   width: 60px;
   color: #3a79a5;
   text-align: right;
@@ -8528,7 +8530,17 @@
 }
 .feindura .block.listPages .block div.categoryHeader a.createPage:hover,
 .feindura .block.listPages .block div.categoryHeader a.createPage:focus {
-  background-position: 0px -27px;
+  background-color: #fff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  -o-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
 }
 .feindura .block.listPages .block ul {
   position: relative;
@@ -8643,28 +8655,52 @@
 .feindura .block.listPages .block ul li .name a.hasSubCategory.isStartPage {
   background-image: url("../../images/icons/pageIcon_startPage_subCategory_small.png");
 }
+.feindura .block.listPages .block ul li div.status {
+  width: 60px;
+  margin-left: 0;
+}
 .feindura .block.listPages .block ul li div.functions {
-  width: 160px;
+  width: 198px;
   margin-left: 0;
 }
 .feindura .block.listPages .block ul li .functions a {
+  position: relative;
+  top: -1px;
   display: inline-block;
   width: 27px;
   height: 27px;
   padding: 0px;
+  margin-left: 1px;
   background-repeat: no-repeat;
   background-position: 0 0;
 }
 .feindura .block.listPages .block ul li .functions a:hover,
 .feindura .block.listPages .block ul li .functions a:focus,
 .feindura .block.listPages .block ul li .functions a.startPage.active {
-  background-position: 0px -27px;
+  background-color: #fff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  -o-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
 }
 .feindura .block.listPages .block ul li .functions a.startPage {
   background-image: url("../../images/buttons/listPages_startPage.png");
 }
 .feindura .block.listPages .block ul li .functions a.frontendEditing {
   background-image: url("../../images/buttons/listPages_frontendEditing.png");
+}
+.feindura .block.listPages .block ul li .functions a.showInMenu {
+  background-image: url("../../images/buttons/listPages_showInMenu.png");
+}
+.feindura .block.listPages .block ul li .functions a.hideInMenu {
+  background-image: url("../../images/buttons/listPages_showInMenu.png");
+  background-position: 0 -27px;
 }
 .feindura .block.listPages .block ul li .functions a.editPage {
   background-image: url("../../images/buttons/listPages_editPage.png");
@@ -9052,7 +9088,7 @@
   position: relative;
   height: 95px;
   width: 100%;
-  background: url('../thirdparty/ckeditor/plugins/feinduraSnippets/feinduraPluginPlaceholder.png') no-repeat center center;
+  background: url('../../thirdparty/ckeditor/plugins/feinduraSnippets/feinduraPluginPlaceholder.png') no-repeat center center;
   cursor: move;
 }
 .feindura #editablePageTitle {

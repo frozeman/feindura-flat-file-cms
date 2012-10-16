@@ -26,8 +26,8 @@
 
 $sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Déconnexion Cliquez ici pour être.';
 
-$sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'définir cette page comme page d\'acceuil';
-$sharedLangFile['SORTABLEPAGELIST_functions_startPage_set'] = 'cette page est la page d\'acceuil';
+$sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'Définir comme page d&#145;accueil';
+$sharedLangFile['SORTABLEPAGELIST_functions_startPage_set'] = 'Cette page est la page d\'acceuil';
 
 $sharedLangFile['LOADING_TEXT_LOAD']                        = 'site en connexion...';
 
