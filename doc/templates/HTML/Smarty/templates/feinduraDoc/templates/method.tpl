@@ -1,10 +1,10 @@
 <A NAME='method_detail'></A>
 {section name=methods loop=$methods}
 {if $methods[methods].static}
-<a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
+<a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}" class="anchor"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 
-  
+
   <div class="method-header">
     <a href="#sec-method-summary" class="upButton" title="back to the methods summary"></a>
     <span class="lineNumber"><span>File source:</span><br>
@@ -18,7 +18,7 @@
       <span class="method-braces">(</span>
       </td><td>
   		{if count($methods[methods].ifunction_call.params)}
-  			{section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1},<br>{/if}{if $methods[methods].ifunction_call.params[params].hasdefault}<span class="method-optional-braces">[</span>{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span><span class="method-optional-braces">]</span>{/if}{/section}<span class="method-braces">)</span>
+  			{section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1},<br>{/if}{if $methods[methods].ifunction_call.params[params].hasdefault}<span class="method-optional-braces">[</span>{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$mPtrethods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span><span class="method-optional-braces">]</span>{/if}{/section}<span class="method-braces">)</span>
   		{else}
   		<span class="method-braces">)</span>
   		{/if}
@@ -27,7 +27,7 @@
 	</div>
 
 	<div class="docBlock">
-	
+
 	{if $methods[methods].params}
 		<div class="method-parameters">
 			<h3>Parameters</h3>
@@ -46,7 +46,7 @@
 			</table>
 		</div>
 	{/if}
-	
+
 	{if $methods[methods].method_overrides}
 		<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
@@ -69,7 +69,7 @@
 		</dl>
 	{/section}
 	{/if}
-	
+
 	{if $methods[methods].descmethod}
 		<hr class="separator" />
 		<div class="notes">Redefined in descendants as:</div>
@@ -85,17 +85,17 @@
 		</ul>
 	{/if}
 	</div>
-	
+
 	{include file="docblock.tpl" sdesc=$methods[methods].sdesc desc=$methods[methods].desc tags=$methods[methods].tags params=$methods[methods].params function=false}
-	
+
 </div>
 {/if}
 {/section}
 {section name=methods loop=$methods}
 {if !$methods[methods].static}
-<a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
+<a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}" class="anchor"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
-	
+
 	<div class="method-header">
 	  <a href="#sec-method-summary" class="upButton" title="back to the methods summary"></a>
 	  <span class="lineNumber"><span>File source:</span><br>
@@ -118,9 +118,9 @@
   		</td></tr>
   	</table>
 	</div>
-		
+
 	<div class="docBlock">
-	
+
 	{if $methods[methods].params}
 		<div class="method-parameters">
 			<h3>Parameters</h3>
@@ -138,7 +138,7 @@
 			</table>
 		</div>
 	{/if}
-	
+
 	{if $methods[methods].method_overrides}
 		<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
@@ -161,7 +161,7 @@
 		</dl>
 	{/section}
 	{/if}
-	
+
 	{if $methods[methods].descmethod}
 		<hr class="separator" />
 		<div class="notes">Redefined in descendants as:</div>
@@ -177,9 +177,9 @@
 		</ul>
 	{/if}
 	</div>
-	
+
 	{include file="docblock.tpl" sdesc=$methods[methods].sdesc desc=$methods[methods].desc tags=$methods[methods].tags params=$methods[methods].params function=false}
-	
+
 </div>
 {/if}
 {/section}

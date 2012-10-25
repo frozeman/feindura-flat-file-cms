@@ -29,7 +29,8 @@ $pages = $feindura->listPagesBySortFunction('sortByLastEditDate','category',arra
 foreach($pages as $page) {
   echo $page['title']."\n\n";
   echo $page['thumbnail']."\n";
-  echo $page['content']."\n<br>-----------------------<br>\n";
+  echo $page['content']."\n";
+  echo "<br>-----------------------<br>\n";
 }
 
 

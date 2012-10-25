@@ -14,22 +14,22 @@ $feindura = new Feindura();
 
 
 // will create a <ul> language menu
-$menu = $feindura->createLanguageMenu('ul');
+$menu = $feindura->createLanguageMenu('ul.langMenu');
 
 // displays the menu
 foreach($menu as $item) {
-  echo $item['menuItem'];
+  echo $item['item'];
 }
 
 
                                *** RESULT *** 
 --------------------------------------------------------------------------------
 
-<ul>
-  <li><a href="/en/page/english-title" title="English">
+<ul class="langMenu">
+  <li><a href="/en/page/current-page-with-english-title" title="English">
   English
   </a></li>
-  <li><a href="/nl/page/dutch-title" title="Dutch">
+  <li><a href="/nl/page/current-page-with-dutch-title" title="Dutch">
   Dutch
   </a></li>
 </ul>

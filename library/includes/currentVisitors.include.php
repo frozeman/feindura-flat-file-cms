@@ -27,6 +27,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // available VARs from dashboard.php
 // $currentVisitorDashboard
 
+
 if($_POST['mode'] == 'dashboard')
   $currentVisitorDashboard = true;
 

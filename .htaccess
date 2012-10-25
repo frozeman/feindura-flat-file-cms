@@ -3,13 +3,13 @@
 # ----------------------------------------------------------------------
 
 <IfModule mod_php5.c>
-  php_value memory_limit 100M
+  php_value memory_limit 160M
   php_value upload_max_filesize 100M
   php_value post_max_size 100M
   php_value max_execution_time 200
   php_value max_input_time 200
   
-  # colse the security hole for XSS attacks
+  # close the security hole for XSS attacks
   php_flag register_globals Off
 </IfModule>
 

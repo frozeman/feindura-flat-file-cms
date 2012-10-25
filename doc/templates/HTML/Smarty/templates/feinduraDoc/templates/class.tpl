@@ -47,7 +47,8 @@
 	<div class="properties">
     <div class="top"></div>
     <div class="content">	
-  	  <span class="folder-title">Properties</span>
+        <a href="#top" class="upButton"></a><br>
+        <span class="folder-title">Properties</span>
   		<ul class="variables">
   		  {section name=contents loop=$contents.var}
   		  <li>{$contents.var[contents]}</li>
@@ -62,7 +63,8 @@
   <div class="methods">
     <div class="top"></div>
     <div class="content">
-  	  <span class="folder-title">Methods</span>
+        <a href="#top" class="upButton"></a><br>
+        <span class="folder-title">Methods</span>
   		<ul class="functions">
   		  {section name=methods loop=$methods}
   		  <li><a href="#{$methods[methods].function_name}">{$methods[methods].function_name}()</a></li>
@@ -78,7 +80,7 @@
 <h2 class="class-name">{if $is_interface}Interface{else}Class{/if} {$class_name} <span class="small">File source: <a href="{$page_link}">{$source_location}</a></span></h2>
 
 
-<a name="sec-description"></a>
+<a name="sec-description" id="sec-description" class="anchor"></a>
 <div class="info-box">
 
 	<div class="info-box-title">
@@ -121,7 +123,7 @@
 </div>
 
 {if $children}
-	<a name="sec-descendants"></a>
+	<a name="sec-descendants" id="sec-descendants" class="anchor"></a>
 	<div class="info-box">
 		<div class="info-box-title">
     <a href="#top" class="upButton" title="Up"></a>
@@ -151,82 +153,8 @@
 	</div>
 {/if}
 
-{if $ivars || $imethods || $iconsts}
-	<a name="sec-inherited"></a>
-	<div class="info-box">
-		<div class="info-box-title">
-    <a href="#top" class="upButton" title="Up"></a>
-    Inherited Properties, Constants, and Methods
-    </div>
-		<div class="info-box-body">
-		  <div class="docBlock">
-			<table cellpadding="2" cellspacing="0" class="class-table">
-				<tr>
-					<th class="class-table-header" width="30%">Inherited Properties</th>
-					<th class="class-table-header" width="40%">Inherited Methods</th>
-					<th class="class-table-header" width="30%">Inherited Constants</th>
-				</tr>
-				<tr>
-					<td width="30%">
-						{section name=ivars loop=$ivars}
-							<h5>Inherited From <span class="classname">{$ivars[ivars].parent_class}</span></h5>
-							<blockquote>
-								<dl>
-									{section name=ivars2 loop=$ivars[ivars].ivars}
-										<dt>
-											<span class="method-definition">{$ivars[ivars].ivars[ivars2].link}</span>
-										</dt>
-										<dd>
-											<span class="method-definition">{$ivars[ivars].ivars[ivars2].ivars_sdesc}</span>
-										</dd>
-									{/section}
-								</dl>
-							</blockquote>
-						{/section}
-					</td>
-					<td width="40%">
-						{section name=imethods loop=$imethods}
-							<h5>Inherited From <span class="classname">{$imethods[imethods].parent_class}</span></h5>
-							<blockquote>
-								<dl>
-									{section name=im2 loop=$imethods[imethods].imethods}
-										<dt>
-											<span class="method-definition">{$imethods[imethods].imethods[im2].link}</span>
-										</dt>
-										<dd>
-											<span class="method-definition">{$imethods[imethods].imethods[im2].sdesc}</span>
-										</dd>
-									{/section}
-								</dl>
-							</blockquote>
-						{/section}
-					</td>
-					<td width="30%">
-						{section name=iconsts loop=$iconsts}
-							<h5>Inherited From <span class="classname">{$iconsts[iconsts].parent_class}</span></h5>
-							<blockquote>
-								<dl>
-									{section name=iconsts2 loop=$iconsts[iconsts].iconsts}
-										<dt>
-											<span class="method-definition">{$iconsts[iconsts].iconsts[iconsts2].link}</span>
-										</dt>
-										<dd>
-											<span class="method-definition">{$iconsts[iconsts].iconsts[iconsts2].iconsts_sdesc}</span>
-										</dd>
-									{/section}
-								</dl>
-							</blockquote>
-						{/section}
-					</td>
-				</tr>
-			</table>
-			</div>
-		</div>
-	</div>
-{/if}
-
 {if $consts}
-	<a name="sec-const-summary"></a>
+	<a name="sec-const-summary" id="sec-const-summary" class="anchor"></a>
 	<div class="info-box">
 		<div class="info-box-title">
     <a href="#top" class="upButton" title="Up"></a>
@@ -250,7 +178,7 @@
 {/if}
 
 {if $vars}
-	<a name="sec-var-summary"></a>
+	<a name="sec-var-summary" id="sec-var-summary" class="anchor"></a>
 	<div class="info-box">
 		<div class="info-box-title">
     <a href="#top" class="upButton" title="Up"></a>
@@ -285,7 +213,7 @@
 {/if}
 
 {if $methods}
-	<a name="sec-method-summary"></a>
+	<a name="sec-method-summary" id="sec-method-summary" class="anchor"></a>
 	<div class="info-box">
 		<div class="info-box-title">
     <a href="#top" class="upButton" title="Up"></a>
@@ -325,7 +253,7 @@
 {/if}
 
 {if $vars || $ivars}
-	<a name="sec-vars"></a>
+	<a name="sec-vars" id="sec-vars" class="anchor"></a>
 	<div class="info-box">
 		<div class="info-box-title">
     <a href="#top" class="upButton" title="Up"></a>
@@ -335,7 +263,7 @@
 {/if}
 
 {if $methods || $imethods}
-	<a name="sec-methods"></a>
+	<a name="sec-methods" id="sec-methods" class="anchor"></a>
 	<div class="info-box">
 		<div class="info-box-title">
     <a href="#top" class="upButton" title="Up"></a>
@@ -345,13 +273,81 @@
 {/if}
 
 {if $consts || $consts}
-	<a name="sec-consts"></a>
+	<a name="sec-consts" id="sec-consts" class="anchor"></a>
 	<div class="info-box">
 		<div class="info-box-title">
     <a href="#top" class="upButton" title="Up"></a>
     Constants</div>
 			{include file="const.tpl"}
 	</div>
+{/if}
+
+{if $ivars || $imethods || $iconsts}
+    <a name="sec-inherited" id="sec-inherited" class="anchor"></a>
+    <div class="info-box">
+        <div class="info-box-title">
+    <a href="#top" class="upButton" title="Up"></a>
+    Inherited Properties, Constants, and Methods
+    </div>
+        <div class="info-box-body">
+          <div class="docBlock">
+            <table cellpadding="2" cellspacing="0" class="class-table">
+                <tr>
+                    <th class="class-table-header" width="30%">Inherited Properties</th>
+                    <th class="class-table-header" width="40%">Inherited Methods</th>
+                    <th class="class-table-header" width="30%">Inherited Constants</th>
+                </tr>
+                <tr>
+                    <td width="30%">
+                        {section name=ivars loop=$ivars}
+                            <h5>Inherited From <span class="classname">{$ivars[ivars].parent_class}</span></h5>
+                            <dl>
+                                {section name=ivars2 loop=$ivars[ivars].ivars}
+                                    <dt>
+                                        <span class="method-definition">{$ivars[ivars].ivars[ivars2].link}</span>
+                                    </dt>
+                                    <dd>
+                                        <span class="method-definition">{$ivars[ivars].ivars[ivars2].ivars_sdesc}</span>
+                                    </dd>
+                                {/section}
+                            </dl>
+                        {/section}
+                    </td>
+                    <td width="40%">
+                        {section name=imethods loop=$imethods}
+                            <h5>Inherited From <span class="classname">{$imethods[imethods].parent_class}</span></h5>
+                            <dl>
+                                {section name=im2 loop=$imethods[imethods].imethods}
+                                    <dt>
+                                        <span class="method-definition">{$imethods[imethods].imethods[im2].link}</span>
+                                    </dt>
+                                    <dd>
+                                        <span class="method-definition">{$imethods[imethods].imethods[im2].sdesc}</span>
+                                    </dd>
+                                {/section}
+                            </dl>
+                        {/section}
+                    </td>
+                    <td width="30%">
+                        {section name=iconsts loop=$iconsts}
+                            <h5>Inherited From <span class="classname">{$iconsts[iconsts].parent_class}</span></h5>
+                            <dl>
+                                {section name=iconsts2 loop=$iconsts[iconsts].iconsts}
+                                    <dt>
+                                        <span class="method-definition">{$iconsts[iconsts].iconsts[iconsts2].link}</span>
+                                    </dt>
+                                    <dd>
+                                        <span class="method-definition">{$iconsts[iconsts].iconsts[iconsts2].iconsts_sdesc}</span>
+                                    </dd>
+                                {/section}
+                            </dl>
+                        {/section}
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </div>
+    </div>
 {/if}
 
 {include file="footer.tpl"}

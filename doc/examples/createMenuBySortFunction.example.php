@@ -22,7 +22,7 @@ function sortByLastEditDate($a,$b) {
 }
 
 // now we create the menu from the category with ID "1"
-$menu = $feindura->createMenuBySortFunction('sortByLastEditDate','category',1,'table',true,2);
+$menu = $feindura->createMenuBySortFunction('sortByLastEditDate','category',1,array('table',2));
 
 // displays the menu
 foreach($menu as $item) {

@@ -5470,6 +5470,7 @@
   background-clip: padding-box;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
   filter: alpha(opacity=50);
+  -ms-opacity: 0.5;
   -moz-opacity: 0.5;
   -khtml-opacity: 0.5;
   -webkit-opacity: 0.5;
@@ -6107,7 +6108,7 @@
   max-width: 730px;
 }
 .feindura .cke_maximized .CodeMirror-scroll * {
-  max-width: none;
+  max-width: 1000px;
 }
 .feindura [class^="span"] > [class^="fancyform"] {
   margin-top: 2px;
@@ -6356,6 +6357,7 @@
   background-clip: padding-box;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
   filter: alpha(opacity=100);
+  -ms-opacity: 1;
   -moz-opacity: 1;
   -khtml-opacity: 1;
   -webkit-opacity: 1;
@@ -6530,6 +6532,7 @@
   color: #666;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
   filter: alpha(opacity=50);
+  -ms-opacity: 0.5;
   -moz-opacity: 0.5;
   -khtml-opacity: 0.5;
   -webkit-opacity: 0.5;
@@ -6548,6 +6551,7 @@
   background-position: 5px 5px;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
   filter: alpha(opacity=100);
+  -ms-opacity: 1;
   -moz-opacity: 1;
   -khtml-opacity: 1;
   -webkit-opacity: 1;
@@ -7857,6 +7861,16 @@
   -o-box-shadow: none;
   box-shadow: none;
 }
+.feindura .mainContent .block.alert h2 {
+  background: none;
+  filter: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
+  padding: 3px 5px;
+  color: inherit;
+}
 .feindura .mainContent .block.alert p {
   display: block;
   margin-left: 100px;
@@ -8599,6 +8613,7 @@
   background: url('../../images/bg/listPages_grabBar.png') no-repeat;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=30);
   filter: alpha(opacity=30);
+  -ms-opacity: 0.3;
   -moz-opacity: 0.3;
   -khtml-opacity: 0.3;
   -webkit-opacity: 0.3;
@@ -8608,6 +8623,7 @@
 .feindura .block.listPages .block ul li div.grabBar:hover {
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
   filter: alpha(opacity=70);
+  -ms-opacity: 0.7;
   -moz-opacity: 0.7;
   -khtml-opacity: 0.7;
   -webkit-opacity: 0.7;
@@ -9347,6 +9363,7 @@
   background: url("../../images/buttons/close_gray.png") no-repeat !important;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
   filter: alpha(opacity=80);
+  -ms-opacity: 0.8;
   -moz-opacity: 0.8;
   -khtml-opacity: 0.8;
   -webkit-opacity: 0.8;
@@ -9355,6 +9372,7 @@
 .feindura .windowBox a.close:hover {
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
   filter: alpha(opacity=100);
+  -ms-opacity: 1;
   -moz-opacity: 1;
   -khtml-opacity: 1;
   -webkit-opacity: 1;
@@ -9377,6 +9395,7 @@
   background-color: #fff;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
   filter: alpha(opacity=50);
+  -ms-opacity: 0.5;
   -moz-opacity: 0.5;
   -khtml-opacity: 0.5;
   -webkit-opacity: 0.5;

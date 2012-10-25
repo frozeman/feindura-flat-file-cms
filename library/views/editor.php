@@ -302,7 +302,7 @@ if(!$NEWPAGE) {
         echo '    <span style="font-size:12px; word-wrap: break-word;"><a href="'.GeneralFunctions::createHref($pageContent,false,false,true).'" id="pageLink">'.GeneralFunctions::createHref($pageContent,false,false,true).'</a></span>';
 
       if($adminConfig['prettyURL'])
-        echo ' <a href="?site=editLink&amp;category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" class="btn btn-mini" onclick="openWindowBox(\'library/views/windowBox/editLink.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['EDITOR_EDITLINK'].'\');return false;">'.$langFile['BUTTON_EDIT'].'</a>';
+        echo ' <a href="?site=editLink&amp;category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" class="btn btn-mini" style="margin-left: 8px;margin-top: -3px;" onclick="openWindowBox(\'library/views/windowBox/editLink.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['EDITOR_EDITLINK'].'\');return false;">'.$langFile['BUTTON_EDIT'].'</a>';
 
       echo '  </div>
             </div>';

@@ -727,7 +727,7 @@ $langFile['EDITOR_TEXT_SUBCATEGORY']                                      = 'Sub
 $langFile['EDITOR_TIP_SUBCATEGORY']                                       = 'Allows to create a sub menu for this page in the website.';
 
 $langFile['EDITOR_BUTTON_RESTORELASTSTATE']                               = 'Restore to the version from %s';
-$langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE']                           = 'To version from %s restored.';
+$langFile['EDITOR_MESSAGE_RESTOREDTOLASTSTATE']                           = 'Restored the version from %s.';
 
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'Page specific HTML-Editor-Settings';

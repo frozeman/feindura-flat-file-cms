@@ -1,5 +1,5 @@
 {include file="header.tpl"}
-<a name="top"></a>
+<a name="top" id="top" class="anchor"></a>
 <h2>Package: {$package} - element index</h2>
 {if count($packageindex) > 1}
 	<h4>Package indexes</h4>

@@ -19,7 +19,7 @@ array(
   'description'       => 'Short description of the page',
   'tags'              => 'tag1,tag2,tag3',
   'href'              => '?category=3&page=1', // or a speaking url, if activated
-  'plugins'           => array(
+  'plugins'           => array( // each activated plugin with its page specific settings
           'imageGallery' => array(
               'active'          => true,
               'galleryPath'     => '/upload/gallery/',

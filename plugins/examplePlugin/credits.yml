@@ -1,0 +1,10 @@
+name: examplePlugin
+author: Fabian Vogelsteller
+website: http://feindura.org
+version: 0.1
+requirements: at least feindura 2.0
+
+# Keep the order of the keywords.
+# Dont remove any keyword. E.g if you have no website, leave it empty.
+# Use only one line for each keyword. If you have for example multiple authors write it like this:
+# author: Max Mustermann, John Doe, Fred Firestone

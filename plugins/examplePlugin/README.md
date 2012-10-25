@@ -17,23 +17,25 @@ You should have received a copy of the GNU General Public License along with thi
 if not,see <http://www.gnu.org/licenses/>.
 _____________________________________________
 
-### VERSION 1.0
-
 ### AUTHOR
-Fabian Vogelsteller <http://frozeman.de>
+Fabian Vogelsteller <http://feindura.org>
 
 
 ### DESCRIPTION
 This plugin shows you how you can create your own plugins.
-A plugin is piece of extra code which can be add to each page in the backend.
-It consist of basically 3 files:
+A plugin is piece of code which can be add to each page.
+
+It basically consist of 4 files:
 
 - config.php          <- here you can set configs for your plugin, which the user can then edit in any page (the category must have this plugin activated)
-- languages/en.php    <- this are the language files for the settings of your plugin, these will be shown in the plugin config of each page (backend)
-- plugin.php          <- this is the actual plugin, here comes your plugin code and you can access the plugin configs (changed by the user for each page)
+- languages/en.php    <- this are the language files for the settings of your plugin, these will be used when you edit a plugin in the backend (The default fallback language is english, so an "en.php" should at least exist)
+- plugin.php          <- here comes your plugin code and you here you can access the plugin configs (changed by the user for each page) through the $pluginConfig variable
+- credits.yml        <- this file contains the authors name and website
 
-basically you need only the "plugin.php", but the config gives you the ability to let your users set some settings for each page where the plugin is activated. These changed settings can then change your plugin behavior.
+basically you need only the "plugin.php", but the config gives you the ability to let your users set some settings for each page where the plugin is inserted. These changed settings can then change your plugins behavior.
 The language files are necessary, so that you can give names to your settings.
+
+If you have stylesheets files inside your plugins folder (or subfolders), then they will be automatically add to the pages <head>.
 
 Take a look in each of the example files to see how they are written.
 
@@ -41,24 +43,36 @@ If you made a plugin and you want to share it, let me know -> fabian@feindura.or
 
 
 ### USAGE
-A plugin can be displayed in your website with the showPlugins('contactForm',$pageId) method from the Feindura class (when the this plugin is activated in that page). See http://feindura.org/api/[Implementation]/Feindura.html#showPlugins for more.
+A plugin can be displayed in your website by dragged it directly into the page in the Editor, or using the showPlugins('examplePlugin',$pageId); method from the Feindura class (when this plugin is activated in that page). See http://feindura.org/api/[Implementation]/Feindura.html#showPlugins for more.
+
 
 ### STYLING
-Every plugin will be wraped with a <div class="feinduraPlugins feinduraPlugin_<pluginName>" id="feinduraPlugin_<pluginName>_<currentPageID>"> to make it easy to style. 
+Every plugin will be wraped with a <div class="feinduraPlugins feinduraPlugin_<pluginName>" id="feinduraPlugin_<pluginName>_<currentPageID>"> to make it easy to style.
+
 
 ### AVAILABLE VARS
-In the plugin.php you have the following vars available:
+See the plugin.php for more.
 
- - $feindura                  -> the current Feindura class instance with all its methods (use "$feindura->..")
- - $feinduraBaseURL           -> the base url of the feindura folder, e.g. "http://mysite.com/cms/"
- - $feinduraBasePath          -> the base path of the feindura folder, e.g. "/cms/". Be aware that this is a file system path and could differ from an URI path.
- - $pluginBaseURL             -> the base url of this plugins folder, e.g. "http://mysite.com/cms/plugins/examplePlugin/"
- - $pluginBasePath            -> the base path of this plugins folder, e.g. "/cms/plugins/examplePlugin/". Be aware that this is a file system path and could differ from an URI path.
- - $pluginConfig              -> contains the changed settings from the "config.php" from this plugin
- - $pluginName                -> the folder name of this plugin
- - $pageContent               -> the pageContent array of the page which contains this plugin
- - the GeneralFunctions class -> for advanced methods. It's a static class so use "GeneralFunctions::exampleMethod(..);"
- 
 
-### USES
-Nothing but PHP
+### JAVASCRIPT
+If you need to add javascript or an library like mootools in your plugin, add the code to your plugin.php like this:
+
+echo '<script type="text/javascript">
+/* <![CDATA[ */
+
+  // Add mootools if it is not already loaded
+  if(!window.MooTools) {
+    document.write(unescape(\'<script src="'.$feinduraBaseURL.'library/thirdparty/javascripts/mootools-core-1.4.5.js"><\/script>\'));
+    document.write(unescape(\'<script src="'.$feinduraBaseURL.'library/thirdparty/javascripts/mootools-more-1.4.0.1.js"><\/script>\'));
+  }
+
+  // Add another script from inside the plugin folder (e.g. MilkBox)
+  (window.MilkBox || document.write(unescape(\'<script src="'.$pluginBaseURL.'milkbox/milkbox.js"><\/script>\')));
+
+
+  // add some custom js code
+  var test = "my string";
+  ...
+
+/* ]]> */
+</script>';

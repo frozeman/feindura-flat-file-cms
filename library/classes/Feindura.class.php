@@ -1205,7 +1205,7 @@ class Feindura extends FeinduraBase {
 
     // Generate content for open graph and google snippets
     if($openGraph || $googleSnippets) {
-      $pageTitle = strip_tags($this->getLocalized($currentPage,'title'));
+      $pageTitle = $pageNameInTitle.$this->getLocalized($this->websiteConfig,'title');
       $pageDescription = str_replace('"','&quot;',strip_tags($this->getLocalized($currentPage,'description')));
       $pagePic = (!empty($currentPage['thumbnail']))
         ? $this->adminConfig['url'].$this->adminConfig['basePath'].'upload/thumbnails/'.$currentPage['thumbnail']

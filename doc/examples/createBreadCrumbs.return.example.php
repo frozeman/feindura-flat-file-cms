@@ -14,11 +14,11 @@ array(
     'endTag'             => '</li>',
     'title'              => 'Welcome',
     'href'               => '?page=1',
-    'pageId'             => 1
+    'pageId'             => 1,
+    'categoryId'         => 0
     ),
   array(
     'position'           => 'last',
-    'active'             => false,
     'menuItem' or 'item' => '<li><a href="?page=5$category=1">Example Category: Example Page 1</a></li>',
     'startTag'           => '<li>',
     'link'               => '<a href="?page=5$category=1">Example Category: Example Page 1</a>',

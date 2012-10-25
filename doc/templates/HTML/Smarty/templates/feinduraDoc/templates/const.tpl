@@ -1,5 +1,5 @@
 {section name=consts loop=$consts}
-<a name="const{$consts[consts].const_name}" id="{$consts[consts].const_name}"><!-- --></A>
+<a name="const{$consts[consts].const_name}" id="{$consts[consts].const_name}" class="anchor"><!-- --></A>
 <div class="{cycle values="evenrow,oddrow"}">
 
 	<div class="var-header">

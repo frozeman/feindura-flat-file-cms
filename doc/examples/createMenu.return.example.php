@@ -25,7 +25,6 @@ array(
     ),
   array(
     'position'           => 2,
-    'active'             => false,
     'menuItem' or 'item' => '<li><a href="?page=8&category=1">Example Page 2</a></li>',
     'startTag'           => '<li>',
     'link'               => '<a href="?page=8&category=1">Example Page 2</a>',
@@ -43,7 +42,6 @@ array(
     ),
   array(
     'position'           => 'last',
-    'active'             => false,
     'menuItem' or 'item' => '<li><a href="?page=9&category=1">Example Page 3</a></li>',
     'startTag'           => '<li>',
     'link'               => '<a href="?page=9&category=1">Example Page 3</a>',

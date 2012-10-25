@@ -91,7 +91,7 @@ if($post['send'] == 'true') {
       <div class="input-prepend input-append">
         <span class="add-on"><?php echo $hrefBeginning.'/'; ?></span>
         <input type="text" name="link" value="<?php echo $encodesTitle; ?>" style="width:250px;" autofocus="autofocus">
-        <a href="#" class="btn" onclick="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','',{page:<?php echo $post['page']; ?>,category:<?php echo $post['category']; ?>,send:true,reset:true});return false;"><?php echo $langFile['BUTTON_RESET']; ?></a>
+        <a href="#" class="btn btn-inverse" onclick="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','',{page:<?php echo $post['page']; ?>,category:<?php echo $post['category']; ?>,send:true,reset:true});return false;"><?php echo $langFile['BUTTON_RESET']; ?></a>
       </div>
     </div>
 

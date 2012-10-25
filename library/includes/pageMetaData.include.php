@@ -175,7 +175,7 @@ if($categoryConfig[$_GET['category']]['showSubCategory']) {
 <!-- **** MENU STATUS -->
 <div class="row">
   <div class="span3 formLeft">
-    <input type="checkbox" id="edit_showInMenus" name="showInMenus" value="true" <?php if($pageContent['showInMenus']) echo 'checked'; ?>>
+    <input type="checkbox" id="edit_showInMenus" name="showInMenus" value="true" <?php if($pageContent['showInMenus'] || $NEWPAGE) echo 'checked'; ?>>
   </div>
   <div class="span5">
     <label for="edit_showInMenus">

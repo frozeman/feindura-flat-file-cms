@@ -51,15 +51,9 @@ if(!GeneralFunctions::hasPermission('fileManager'))
   /* <![CDATA[ */
     function openFilemanager(){
       var complete = function(path, file){
-        // when mimeType == image
-        <?php if(isset($_GET["mimType"])) { ?>
-          // remove the websitePath from the absolute path, to generate one relative to the websitePath
-          // (don't use Path2URI on the websitePath, because the filemanager returns filesystem paths)
-          path = path.replace('<?php echo GeneralFunctions::getDirname($adminConfig['websitePath']); ?>','');
-        <?php } else { ?>
-          // if absolute path, add the URIEXTENSION
-          path = '<?php echo URIEXTENSION; ?>' + path;
-        <?php } ?>
+        // remove the websitePath from the absolute path, to generate one relative to the websitePath
+        // (don't use Path2URI on the websitePath, because the filemanager returns filesystem paths)
+        path = path.replace('<?php echo GeneralFunctions::getDirname($adminConfig['websitePath']); ?>','');
         window.opener.CKEDITOR.tools.callFunction('<?php echo $_GET["CKEditorFuncNum"]; ?>', path);
         window.close();
       };

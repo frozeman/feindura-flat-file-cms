@@ -14,12 +14,10 @@ $feindura = new Feindura();
 
 
 // will list the subpages of the current page. The 200 is the maximum number of characters we want to display
-$subPages = $feindura->listSubPages(false,200);
-
-// displays the subpages
-foreach($subPages as $subPage) {
+foreach($feindura->listSubPages(false,200) as $subPage) {
    echo '<h1>'.$subPage['title'].'</h1>';
-   echo $subPage['content']."\n<br>-----------------------<br>\n";
+   echo $subPage['content']."\n";
+   echo "<br>-----------------------<br>\n";
 }
 
 

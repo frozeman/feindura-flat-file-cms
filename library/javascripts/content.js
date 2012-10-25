@@ -115,7 +115,7 @@ function reloadPeriodical(url,updateFrequency,container,divBlockedContainer,extr
             removeLoadingCircle();
             divBlocked.destroy();
 
-            if(html) {
+            if(html && html !== '#LOGOUT#') {
               toolTipsTop.detach(container.getElements('.toolTipTop'));
               toolTipsBottom.detach(container.getElements('.toolTipBottom'));
               toolTipsLeft.detach(container.getElements('.toolTipLeft'));
@@ -128,7 +128,7 @@ function reloadPeriodical(url,updateFrequency,container,divBlockedContainer,extr
               inBlockSlider();
               resizeOnHover();
 
-            } else
+            } else if(html !== '#LOGOUT#')
               container.empty();
           });
         }

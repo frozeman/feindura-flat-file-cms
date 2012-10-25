@@ -1,6 +1,6 @@
 {if count($defines) > 0}
 {section name=def loop=$defines}
-<a name="{$defines[def].define_link}" id="{$defines[def].define_link}"><!-- --></a>
+<a name="{$defines[def].define_link}" id="{$defines[def].define_link}" class="anchor"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 
 	<div>

@@ -176,22 +176,19 @@ else
             <label for="windowBox_thumbHeight">
             <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></label>
           </div>
-          <div class="span6">
+          <div class="span1">
             <input type="number" id="windowBox_thumbHeight" name="thumbHeight" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?>>
             <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
           </div>
-        </div>
-
-        <!-- shows the height in a scale -->
-        <?php
-        if($thumbHeight)
-          $styleThumbHeight = 'width:'.$thumbHeight.'px';
-        else
-          $styleThumbHeight = 'width:0px';
-        ?>
-        <div class="row">
-          <div class="span8">
-            <div id="windowBox_thumbHeightScale" class="thumbnailScale" style="<?php echo $styleThumbHeight; ?>"><div></div></div>
+          <!-- shows the height in a scale -->
+          <?php
+          if($thumbHeight)
+            $styleThumbHeight = 'width:'.$thumbHeight.'px';
+          else
+            $styleThumbHeight = 'width:0px';
+          ?>
+          <div class="span5">
+            <div id="windowBox_thumbHeightScale" class="thumbnailScale" style="top:8px; <?php echo $styleThumbHeight; ?>"><div></div></div>
           </div>
         </div>
       <?php

@@ -305,21 +305,19 @@ class GeneralFunctions {
     if(!empty($currentLangCode) && !is_array($currentLangCode)) {
       $currentLangCodeArray = array($currentLangCode => 2); // set it as the highest qvalue
       //$browserLanguages = currentLangCodeArray + $browserLanguages;
-      $browserLanguages = array_merge($browserLanguages,$currentLangCodeArray);
-      natsort($browserLanguages);
-      $browserLanguages = array_reverse($browserLanguages);
+      $languages = array_merge($browserLanguages,$currentLangCodeArray);
+      natsort($languages);
+      $languages = array_reverse($languages);
     }
-    foreach($browserLanguages as $browserLanguage => $qValue) {
+    foreach($languages as $language => $qValue) {
 
-      $filenameReplaced = str_replace('%lang%',substr($browserLanguage,0,2),$filename);
+      $filenameReplaced = str_replace('%lang%',substr($language,0,2),$filename);
       $fullPath = preg_replace('#/+#','/',$langPath.'/'.$filenameReplaced);
-
-      //echo $fullPath."<br>\n";
 
       $languageFile = @include($fullPath);
       if(is_array($languageFile)) {
         $return = $languageFile;
-        $currentLangCode = substr($browserLanguage,0,2);
+        $currentLangCode = substr($language,0,2);
         break;
       }
     }

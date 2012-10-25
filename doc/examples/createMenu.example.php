@@ -9,7 +9,7 @@ require('cms/feindura.include.php');
 $feindura = new Feindura();
 
 // create a menu from the category with ID "1"
-$menu = $feindura->createMenu('category',1,'ul');
+$menu = $feindura->createMenu('category',1,'ul.myNav');
 
 // displays the menu
 foreach($menu as $item) {
@@ -19,7 +19,7 @@ foreach($menu as $item) {
                                *** RESULT *** 
 --------------------------------------------------------------------------------
 
-<ul>
+<ul class="myNav">
   <li><a href="?category=1&amp;page=1" title="Example Page 1">Example Page 1</a></li>
   <li><a href="?category=1&amp;page=2" title="Example Page 2">Example Page 2</a></li>
 </ul>

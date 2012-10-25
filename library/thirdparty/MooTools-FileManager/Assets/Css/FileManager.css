@@ -557,6 +557,10 @@ div.filemanager-container span.thumb img.browser-icon {
 }
 
 
+div.filemanager-container span.move {
+	background: url('../Images/move.png') no-repeat right center !important;
+}
+
 div.filemanager-container span.move img.browser-icon {
 	display: none;
 }

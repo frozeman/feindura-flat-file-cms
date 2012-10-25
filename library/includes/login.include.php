@@ -123,6 +123,7 @@ if(isset($_GET['logout']) || (isset($_SESSION['feinduraSession']['login']['end']
   $_SESSION['feinduraSession']['login']['end'] = time() + $sessionLifeTime;
 }
 
+// DebugTools::dump($_SERVER['PHP_SELF']);
 
 // ->> CHECK if user is logged in
 // *****************************************************
@@ -137,8 +138,8 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
   define('USERID',$_SESSION['feinduraSession']['login']['user']);
 
 
-// ->> SHOW LOGIN FORM
-} else {
+// ->> SHOW LOGIN FORM (when in mainpage and not a subpage)
+} elseif(strpos($_SERVER['PHP_SELF'],'/library/') === false) {
 
   // DEBUG
   // echo 'server name: '.session_name().'->'.session_id().'<br>';
@@ -235,6 +236,7 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
 </body>
 </html>
 <?php
-  die();
-}
+  die(); // die with login form
+} else
+  die('#LOGOUT#'); // die without login form, logout tells js scripts to quit too
 ?>

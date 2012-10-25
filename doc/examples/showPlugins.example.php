@@ -13,8 +13,11 @@ require('cms/feindura.include.php');
 // creates a new Feindura instance
 $feindura = new Feindura();
 
-// get the all plugins, which are activated in the page with ID "2"
+// get the all plugins from the page with ID "2"
 $plugins = $feindura->showPlugins(true,2);
+// you could also call
+// $plugins = $feindura->showPlugins('imageGallery');
+// it would get the imageGallery plugin of the current page
 
 // displays the page (the "\n" creates a line break for a better look)
 foreach($plugins as $plugin) {

@@ -1,6 +1,6 @@
 {section name=vars loop=$vars}
 {if $vars[vars].static}
-<a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}"><!-- --></a>
+<a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}" class="anchor"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
   
 	<div class="var-header">
@@ -53,7 +53,7 @@
 
 {section name=vars loop=$vars}
 {if !$vars[vars].static}
-<a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}"><!-- --></A>
+<a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}" class="anchor"><!-- --></A>
 <div class="{cycle values="evenrow,oddrow"}">
   
 	<div class="var-header">

@@ -19,7 +19,7 @@ $tags = 'winter summer spring';
 // $tags = array(0 => 'winter', 1 => 'summer', 2 => 'spring');
 
 // finally create the menu from the category with ID "1" using the above set tags
-$menu = $feindura->createMenuByTags($tags,'category',1,'table',true,2,true);
+$menu = $feindura->createMenuByTags($tags,'category',1,array('table',2));
 
 // displays the menu
 foreach($menu as $item) {

@@ -122,19 +122,20 @@ function requestSite(site,siteTitle,dataOrFormId) {
 		onSuccess: function(html,childs,rawText,responseJavaScript) { //-------------------------------------------------
 
 
-
       // CLOSE the windowBox AND REDIRECT, if the first part of the response is '#REDIRECT#'
+      // the first character is a " " because of the safari htmlentities bug, thats why its starting with 1.
       if(rawText.substring(1,11) == '#REDIRECT#') {
-        if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
-          removeWindowBoxLoadingCircle();
+        removeWindowBoxLoadingCircle();
         closeWindowBox(rawText.substring(11));
         return;
-
       // CLOSE the windowBox, if the first part of the response is '#CLOSE#'
       } else if(rawText.substring(1,8) == '#CLOSE#') {
-        if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
-          removeWindowBoxLoadingCircle();
+        removeWindowBoxLoadingCircle();
         closeWindowBox();
+        return;
+      // LOGOUT when logged out
+      } else if(rawText == '#LOGOUT#') {
+        window.location.href = '?logout';
         return;
       }
 
@@ -146,8 +147,7 @@ function requestSite(site,siteTitle,dataOrFormId) {
         // fill in the content
         if(site) {
 
-          if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
-            removeWindowBoxLoadingCircle();
+          removeWindowBoxLoadingCircle();
 
           //Clear the text currently inside the results div.
           windowRequestBox.set('html', '');
@@ -195,6 +195,7 @@ function requestSite(site,siteTitle,dataOrFormId) {
 		//Our request will most likely succeed, but just in case, we'll add an
 		//onFailure method which will let the user know what happened.
 		onFailure: function() { //-----------------------------------------------------
+      removeWindowBoxLoadingCircle();
 			windowRequestBox.set('html', '<div class="alert alert-error center">Couldn\'t load the Page</div><a href="#" class="ok button center" onclick="closeWindowBox();return false;"></a>');
     }
   }).post(data);

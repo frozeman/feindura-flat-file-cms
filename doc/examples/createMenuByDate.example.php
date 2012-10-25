@@ -20,7 +20,7 @@ $feindura->linkPageDateSeparator = ': ';
 
 // create the menu from the category with ID "1" using the time period:
 // load all pages in the past until 8 months in the future starting from the date today: 31.05.2010
-$menu = $feindura->createMenuByDate('category',1,true,8,'table',true,2);
+$menu = $feindura->createMenuByDate('category',1,array('table',2));
 
 // displays the menu
 foreach($menu as $item) {

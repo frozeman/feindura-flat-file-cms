@@ -7,9 +7,10 @@ array(
     ),
   array(
     'position'           => 'first',
-    'menuItem' or 'item' => '<li><a href="/en/page/english-page">English</a></li>',
+    'active'             => true,
+    'menuItem' or 'item' => '<li class="active"><a href="/en/page/english-page" class="active">English</a></li>',
     'startTag'           => '<li>',
-    'link'               => '<a href="/en/page/english-page">English</a>',
+    'link'               => '<a href="/en/page/english-page" class="active">English</a>',
     'endTag'             => '</li>',
     'href'               => '/en/page/english-page',
     'flag'               => '/cms/library/images/icons/flags/en.png',

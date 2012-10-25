@@ -6,16 +6,40 @@ array(
     "subCategory"    => false,
     "public"         => true,
     "sortOrder"      => 4,
+    "showInMenus"    => true,
+    "editLink"       => '',
+
     "lastSaveDate"   => 1282348800, // UNIX-Timestamp
     "lastSaveAuthor" => 1, // ID of the user
+
     "pageDate"       => array(
-        "date"   => '2010-12-15',
+        "start"   => 1282342343,
+        "end"     => 1282353627
       ),
-    "plugins"      => '',
+
+    "plugins"      => array(
+          'imageGallery' => array(
+              'active'          => true,
+              'galleryPath'     => '/upload/gallery/',
+              'imageWidth'      => 800,
+              'imageHeight'     => null,
+              'thumbnailWidth'  => 160,
+              'thumbnailHeight' => null,
+              'tag'             => 'table',
+              'breakAfter'      => 3
+          ),
+          'pageRating' => array(
+              'active' => false,
+              'value'  => 0,
+              'votes'  => 0
+          ),
+
     "thumbnail"    => 'thumb_page1.jpg',
+
     "styleFile"    => '',
     "styleId"      => '',
     "styleClass"   => '',
+
     "localized"    => array(
         "en" => array( 
           "title"       => 'Example Page 1',

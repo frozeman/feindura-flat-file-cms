@@ -12,20 +12,20 @@ require('cms/feindura.include.php');
 $feindura = new Feindura();
 
 // start to write HTML page
-echo '<!DOCTYPE html>
-      <html>
-      <head>';
+?>
+<!DOCTYPE html>
+  <html>
+  <head>';
+  <?php
+    // John Doe is the author of the website.
+    echo $feindura->createMetaTags('John Doe');
+  ?>
+  </head>
+  <body>
+  ...
 
-// writes the meta tags in the <head>
-echo $feindura->createMetaTags('UTF-8','Max Musterman');
-    
-echo '</head>
-      <body>
-      ...';
 
-
-
-                               *** RESULT *** 
+<?php                               *** RESULT *** 
 --------------------------------------------------------------------------------
 
 <!DOCTYPE html>

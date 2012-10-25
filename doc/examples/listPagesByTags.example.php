@@ -19,15 +19,13 @@ $tags = 'winter summer spring';
 // $tags = array(0 => 'winter', 1 => 'summer', 2 => 'spring');
 
 
-// return the pages from the category with ID "1"
+// get the pages from the category with ID "1"
 // the page content will be shorten to "200" characters
-$pages = $feindura->listPagesByTags($tags,'category',1,200,true,true);
-
-// displays the pages (the "\n" creates a line break for a better look)
-foreach($pages as $page) {
+foreach($feindura->listPagesByTags($tags,'category',1,200) as $page) {
   echo $page['title'].'<br>
        Has the following Tags: '.$page['tags']."\n";
-  echo $page['content']."\n<br>-----------------------<br>\n";
+  echo $page['content']."\n";
+  echo "<br>-----------------------<br>\n";
 }
 
 

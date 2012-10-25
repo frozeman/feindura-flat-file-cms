@@ -1,4 +1,4 @@
-div.sidebarMenu div.quickmenu a.upButton {
+div.sidebarMenu a.upButton {
     position: relative !important;
     top: 18px !important;
     left: 2px !important;
@@ -17,24 +17,25 @@ span.package-title {
   }
 
 /****************/
-/* --- SIDEBAR MENU */ 
+/* --- SIDEBAR MENU */
 
 div.sidebarMenu {
-    z-index: 2;
+    position: relative;
+    z-index: 5;
     position: fixed;
-    top: 0px;
-    padding: 20px 0px;
+    top: 0;
+    padding: 10px 0px;
     width: 275px;
+    height: 100%;
+    overflow: auto;
     }
 div.sidebarMenu.left {
     left: 0px;
     }
 div.sidebarMenu.right {
     right: 0px;
-    height: 700px;
-    overflow: auto;
     }
-    
+
 div.sidebarMenu div {
     margin-bottom: 20px;
     }
@@ -59,7 +60,7 @@ div.sidebarMenu.left div div.bottom {
     height: 12px;
     margin-bottom: 0px;
     }
-    
+
 /* sidebarMenu right */
 div.sidebarMenu.right div div.top {
     background: url("image/bg/sidebarMenu_right_top.png") no-repeat;
@@ -81,11 +82,11 @@ div.sidebarMenu.right div div.bottom {
     height: 12px;
     margin-bottom: 0px;
     }
-    
+
 div.sidebarMenu.right div.methods div.content, div.sidebarMenu.right div.properties div.content {
     /*max-height: 260px;*/
     }
-    
+
 div.sidebarMenu.right div.functions div.content {
     /*max-height: 350px;*/
     }
@@ -112,9 +113,9 @@ div.sidebarMenu.right div ul.functions, div.sidebarMenu.right div ul.variables {
 
 .folder-title {
   display: block;
-  background: url("image/sign/folder-horizontal.png") no-repeat 0px 1px;
+  background: url("image/sign/folder-horizontal.png") no-repeat 0px 4px;
   padding: 3px 0px;
-  padding-left: 20px; 
+  padding-left: 20px;
   margin: 15px 0px;
   margin-bottom: 10px;
   margin-left: 3px;
@@ -122,12 +123,12 @@ div.sidebarMenu.right div ul.functions, div.sidebarMenu.right div ul.variables {
   }
 
 ul.package li  {
-  background: url(image/sign/icon_package.png) no-repeat 0px 2px;
+  background: url(image/sign/icon_package.png) no-repeat 0px 4px;
   padding: 2px;
   padding-left: 23px;
   margin-left: 10px;
   }
-  
+
 li.classtrees {
   background: url("image/sign/cookies.png") no-repeat 0px 1px;
   padding: 3px 0px;
@@ -136,38 +137,38 @@ li.classtrees {
   }
 
 li.elementindex {
-  background: url("image/sign/sign_elementindex.png") no-repeat 0px 1px;
+  background: url("image/sign/sign_elementindex.png") no-repeat 0px 5px;
   padding: 3px 0px;
   padding-left: 20px;
   margin-left: 5px;
   }
-  
+
 ul.classes li, div.classes ul li {
-  background: url(image/sign/cookie.png) no-repeat 0px 2px;
+  background: url(image/sign/cookie.png) no-repeat 0px 5px;
   padding: 3px 0px;
-  padding-left: 22px;
+  padding-left: 22px !important;
   margin-left: 10px;
   }
 
 ul.functions li, span.functions {
-  background: url(image/sign/cookie-bite.png) no-repeat 0px 1px;
+  background: url(image/sign/cookie-bite.png) no-repeat 0px 6px;
   padding: 3px 0px !important;
   padding-left: 22px !important;
   margin-left: 10px;
   }
 span.functions {
   margin-left: 4px;
-  } 
+  }
 
 ul.variables li {
-  background: url(image/sign/variable.png) no-repeat 0px 2px;
+  background: url(image/sign/variable.png) no-repeat 0px 6px;
   padding: 3px 0px !important;
   padding-left: 22px !important;
   margin-left: 10px;
   }
 
 ul.files li {
-  background: url(image/sign/document-binary.png) no-repeat 0px 1px;
+  background: url(image/sign/document-binary.png) no-repeat 0px 5px;
   padding: 3px 0px;
   padding-left: 22px;
   margin-left: 10px;
@@ -187,7 +188,7 @@ ul.packages {
   margin-bottom: 30px;
   }
 ul.packages li {
-  background: url("image/sign/icon_package.png") no-repeat 0px 3px;
+  background: url("image/sign/icon_package.png") no-repeat 0px 7px;
   padding: 2px 5px;
   padding-left: 22px;
   margin-bottom: 8px;

@@ -101,7 +101,7 @@ if($post['send'] == 'true') {
         <input type="checkbox" id="editWebsiteFiles" name="editWebsiteFiles" value="true"<?php if($userConfig[$post['userId']]['permissions']['editWebsiteFiles']) echo ' checked="checked"'; ?>>
       </div>
       <div class="span5">
-        <label for="editWebsiteFiles"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check1']; ?></label>
+        <label for="editWebsiteFiles"><?php echo $langFile['USERSETUP_USERPERMISSIONS_TEXT_EDITWEBSITEFILES']; ?></label>
       </div>
     </div>
     <?php } ?>
