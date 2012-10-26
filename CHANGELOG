@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 1002
+Build 1003
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,6 +21,8 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ----------
+
+  build 1003: changed $() to document.id() in plugins, to avoid problems with jquery
 
 2.0 beta
 

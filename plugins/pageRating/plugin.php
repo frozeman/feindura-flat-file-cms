@@ -66,7 +66,7 @@ echo '<script type="text/javascript">
   }
 
   // var
-  var feinduraPlugin_pageRating = $("pageRating'.$uniqueId.'");
+  var feinduraPlugin_pageRating = document.id("pageRating'.$uniqueId.'");
   var pageIds = feinduraPlugin_pageRating.getProperty("data-pageRating").split(" ");
   feinduraPlugin_pageRating.set("tween",{duration:300});
 

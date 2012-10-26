@@ -85,7 +85,7 @@ Asset.javascript("library/thirdparty/MooTools-FileManager/Source/Gallery.js",{
         var filemanagerDimmer = new Element("div",{styles:{"z-index":20008,"position":"fixed", top: 0, "width": "100%","height": "100%"}});
 
         // get the current gallery
-        var galleryItems = JSON.decode($("feinduraPlugin_slideShow_config_imagesHidden").get("value"));
+        var galleryItems = JSON.decode(document.id("feinduraPlugin_slideShow_config_imagesHidden").get("value"));
         galleryItems = transformBr(galleryItems);
         var galleryDir = (typeOf(galleryItems) == "object") ? Object.keys(galleryItems)[0] : "";
 
@@ -113,7 +113,7 @@ Asset.javascript("library/thirdparty/MooTools-FileManager/Source/Gallery.js",{
             listPaginationSize: 100,
             zIndex: 20020,
             onShow: function(mgr) {
-                galleryItems = JSON.decode($("feinduraPlugin_slideShow_config_imagesHidden").get("value"));
+                galleryItems = JSON.decode(document.id("feinduraPlugin_slideShow_config_imagesHidden").get("value"));
                 galleryItems = transformBr(galleryItems);
                 mgr.populate(galleryItems, false);
 
@@ -132,7 +132,7 @@ Asset.javascript("library/thirdparty/MooTools-FileManager/Source/Gallery.js",{
                     text = text.replace(/[\n\r]/g,"<br>");
                     serialized[key] = text;
                 });
-                $("feinduraPlugin_slideShow_config_imagesHidden").set("value", decodeURIComponent(JSON.encode(serialized)));
+                document.id("feinduraPlugin_slideShow_config_imagesHidden").set("value", decodeURIComponent(JSON.encode(serialized)));
               }
         });
         fileManagerSlideShow.filemanager.setStyle("width","75%");
