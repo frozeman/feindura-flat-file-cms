@@ -1,0 +1,117 @@
+/****************/
+/* --- ELEMENTS */
+
+.mainContent p {  
+    font-size: 1.0em;
+    line-height: 1.5em;
+    margin-top: 10px;
+    margin-bottom: 12px;
+    }
+  
+.mainContent h1 {  
+    font-size: 2.1em;
+    line-height: 2em;
+    font-family: Georgia, Serif, Sans-serif, Arial, Verdana;
+    font-weight: normal;
+    }  
+
+
+.mainContent td.tableSideBar {
+    border-left: 1px dotted #CCCCCC;
+    padding-left: 10px;
+  }
+
+.mainContent ul {  
+    list-style: circle;
+    padding-left: 10px;
+    margin-left: 20px;
+    margin-top: -5px;
+    }
+.mainContent li {
+    margin: 5px 0px;
+    }
+    
+#contentPackagList ul {
+  list-style: none;
+}
+    
+/* quotes */
+blockquote { 
+    margin: 0px;
+    margin-bottom: 30px;
+    padding: 12px 20px;
+    padding-bottom: 15px;
+    border: 1px dotted #cccccc;
+    background: url("image/bg/blockquote.png") no-repeat #f9f9f9;
+    }
+blockquote p {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    }
+
+/* SEARCH */
+
+input.searchButton {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    background: url("image/key/searchButton.png") no-repeat  0px 0px !important;
+    border: none;
+    }
+input.searchButton:hover {
+    background-position: 0px -50px !important;
+    }
+
+div.block {
+    border-bottom: 1px dotted #cccccc;
+    padding: 0px 8px;
+    }
+
+/* forms */
+
+input.searchInput {
+  border: 1px solid #cccccc;
+  padding: 5px 8px;
+  }
+
+
+/* BACK BUTTON */
+a.backButton {
+  display: block;
+  position: relative;
+  top: -2px;
+  height: 50px;
+  width: 50px;
+  background: url("image/key/backButton.png") no-repeat;
+  }
+a.backButton:hover {
+  background-position: 0px -50px;
+  }
+  
+/* CODE BLOCK */
+  
+div.html {
+  position: absolute;
+  width: 40px;
+  height: 14px;
+  margin-left: 810px;
+  background: url("image/sign/code_html.png") no-repeat top left;
+  }
+
+div.php {
+  position: absolute;
+  width: 31px;
+  height: 14px;
+  margin-left: 830px;
+  background: url("image/sign/code_php.png") no-repeat top left;
+  }
+
+div.javascript {
+  position: absolute;
+  width: 80px;
+  height: 14px;
+  margin-left: 770px;
+  background: url("image/sign/code_javascript.png") no-repeat top left;
+  }

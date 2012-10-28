@@ -633,7 +633,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
     $mandatoryFields = array();
 
     $return .= '<a id="feinduraPlugin_contactFormAnchor"></a>';
-    $return .= '<h1>'.$this->langFile['form_title'].'</h1>'."\n";
+    // $return .= '<h1>'.$this->langFile['form_title'].'</h1>'."\n";
 
     if(isset($_POST['contactFormSend']) && $_POST['contactFormSend'] == 'true')
       $return .= $this->sendForm($mandatoryfieldsOk,$mandatoryFields);

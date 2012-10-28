@@ -1,0 +1,105 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    font: 12px Verdana, Arial, Sans-serif, Serif;
+    background-color: #ffffff !important;
+    color: #4B4B4B;
+    height: 100%;
+    }
+
+/****************/  
+/* *** GENERAL */
+
+/* standard links */
+a:link, a:visited {
+    color: #DE6D1F;
+    text-decoration: none;
+    }  
+a:hover, a:active {
+    color: #3D79A5;
+    }  
+  
+/* feindura logo inside texts */
+span.feindura {
+    color: #3F7DA6;
+    }
+span.feindura em {
+    color: #DE7124;
+    font-weight: normal;
+    font-style: normal;
+    }
+    
+/* hr */
+.mainContent hr, #footer hr {
+    display: block;
+    clear: both;
+    width: 910px;
+    height: 15px; /* org 15px */    
+    margin: 25px -20px;
+    background: url("image/sign/hr.png") no-repeat;
+    border: none;
+    }
+
+/****************/  
+/* *** CONTAINERS */
+
+#bgFade {
+    z-index: -1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: url("image/bg/bgFade.png") repeat-x;
+    width: 100%;
+    height: 900px;
+    }    
+    
+#container {
+    z-index: 1;
+    position: relative;
+    top: 0px;
+    width: 910px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+/****************/
+/* --- CONTENT */ 
+
+.mainContent {
+    width: 870px; /* org: 910px */
+    padding: 20px;
+    padding-bottom: 10px;
+    color: #666666;
+    }
+
+/****************/
+/* --- FOOTER */
+#footer {
+    z-index: 0;
+    position: relative;
+    width: 100%;
+    height: 120px;
+    background: url("image/bg/footerBg.png") repeat-x #F7F7F7;
+    font-size: 13px;
+    text-align: center;
+    clear: both;
+    margin-top: 50px;
+    padding-top: 50px;
+    padding-bottom: 1px;
+    }
+#innerFooter {
+    position: relative;
+    width: 910px;
+    margin-left: auto;
+    margin-right: auto;
+    }
+    
+#footer .copyright {
+    display: block;
+    position: relative;
+    color: #7E7E7E;
+    font-size: 11px;
+    padding: 10px 0px;
+    margin: -15px 0px;
+    }

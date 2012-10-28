@@ -1,0 +1,196 @@
+div.sidebarMenu div.quickmenu a.upButton {
+    position: relative !important;
+    top: 18px !important;
+    left: 2px !important;
+    }
+
+/* PACKAGE TITLE */
+span.package-title {
+  font-size: 13px !important;
+  font-weight: bold !important;
+  background: url("image/sign/icon_package.png") no-repeat 0px 3px;
+  padding: 2px;
+  padding-bottom: 8px;
+  padding-left: 23px !important;
+  color: #666666 !important;
+  border-bottom: 1px dotted #999999;
+  }
+
+/****************/
+/* --- SIDEBAR MENU */ 
+
+div.sidebarMenu {
+    z-index: 2;
+    position: fixed;
+    top: 0px;
+    padding: 20px 0px;
+    width: 275px;
+    height: 100%;
+    overflow: auto;
+    }
+div.sidebarMenu.left {
+    left: 0px;
+    }
+div.sidebarMenu.right {
+    right: 0px;
+    /*height: 700px;*/
+    overflow: auto;
+    }
+    
+div.sidebarMenu div {
+    margin-bottom: 20px;
+    }
+
+/* sidebarMenu left */
+div.sidebarMenu.left div div.top {
+    background: url("image/bg/sidebarMenu_left_top.png") no-repeat;
+    position: relative;
+    height: 12px;
+    margin-bottom: 0px;
+    }
+div.sidebarMenu.left div div.content {
+    background: url("image/bg/sidebarMenu_left_middle.png") repeat-y;
+    position: relative;
+    padding: 10px 10px;
+    overflow: auto;
+    margin-bottom: 0px;
+    }
+div.sidebarMenu.left div div.bottom {
+    background: url("image/bg/sidebarMenu_left_bottom.png") no-repeat;
+    position: relative;
+    height: 12px;
+    margin-bottom: 0px;
+    }
+    
+/* sidebarMenu right */
+div.sidebarMenu.right div div.top {
+    background: url("image/bg/sidebarMenu_right_top.png") no-repeat;
+    position: relative;
+    height: 12px;
+    margin-bottom: 0px;
+    }
+div.sidebarMenu.right div div.content {
+    background: url("image/bg/sidebarMenu_right_middle.png") repeat-y;
+    padding: 10px 10px;
+    padding-left: 20px;
+    padding-top: 0px;
+    overflow: auto;
+    margin-bottom: 0px;
+    }
+div.sidebarMenu.right div div.bottom {
+    background: url("image/bg/sidebarMenu_right_bottom.png") no-repeat;
+    position: relative;
+    height: 12px;
+    margin-bottom: 0px;
+    }
+    
+div.sidebarMenu.right div.methods div.content, div.sidebarMenu.right div.properties div.content {
+    /*max-height: 260px;*/
+    }
+    
+div.sidebarMenu.right div.functions div.content {
+    /*max-height: 350px;*/
+    }
+
+/* SIDEBAR MENU CONTENT */
+.sidebarMenu ul {
+  list-style: none !important;
+  margin: 5px 0px;
+  }
+.sidebarMenu li {
+  margin-bottom: 8px;
+  }
+
+div.sidebarMenu.right div ul {
+  margin-left: 10px;
+  }
+div.sidebarMenu.right div ul li {
+  padding: 2px 0px;
+  }
+
+div.sidebarMenu.right div ul.functions, div.sidebarMenu.right div ul.variables {
+  margin-left: 0px;
+  }
+
+.folder-title {
+  display: block;
+  background: url("image/sign/folder-horizontal.png") no-repeat 0px 1px;
+  padding: 3px 0px;
+  padding-left: 20px; 
+  margin: 15px 0px;
+  margin-bottom: 10px;
+  margin-left: 3px;
+  font-weight: bold;
+  }
+
+ul.package li  {
+  background: url(image/sign/icon_package.png) no-repeat 0px 2px;
+  padding: 2px;
+  padding-left: 23px;
+  margin-left: 10px;
+  }
+  
+li.classtrees {
+  background: url("image/sign/cookies.png") no-repeat 0px 1px;
+  padding: 3px 0px;
+  padding-left: 22px;
+  margin-left: 5px;
+  }
+
+li.elementindex {
+  background: url("image/sign/sign_elementindex.png") no-repeat 0px 1px;
+  padding: 3px 0px;
+  padding-left: 20px;
+  margin-left: 5px;
+  }
+  
+ul.classes li, div.classes ul li {
+  background: url(image/sign/cookie.png) no-repeat 0px 2px;
+  padding: 3px 0px;
+  padding-left: 22px !important;
+  margin-left: 10px;
+  }
+
+ul.functions li, span.functions {
+  background: url(image/sign/cookie-bite.png) no-repeat 0px 1px;
+  padding: 3px 0px !important;
+  padding-left: 22px !important;
+  margin-left: 10px;
+  }
+span.functions {
+  margin-left: 4px;
+  } 
+
+ul.variables li {
+  background: url(image/sign/variable.png) no-repeat 0px 2px;
+  padding: 3px 0px !important;
+  padding-left: 22px !important;
+  margin-left: 10px;
+  }
+
+ul.files li {
+  background: url(image/sign/document-binary.png) no-repeat 0px 1px;
+  padding: 3px 0px;
+  padding-left: 22px;
+  margin-left: 10px;
+  }
+
+/* DOCBLOCK LISTS */
+.insideDocBlock ul {
+  list-style: circle;
+  margin-left: 40px;
+  font-size: 13px;
+  }
+
+ul.packages {
+  list-style: none;
+  margin-left: 3px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  }
+ul.packages li {
+  background: url("image/sign/icon_package.png") no-repeat 0px 3px;
+  padding: 2px 5px;
+  padding-left: 22px;
+  margin-bottom: 8px;
+  }
