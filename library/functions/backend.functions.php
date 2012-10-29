@@ -2041,9 +2041,10 @@ function showPageToolTip($pageContent) {
   }
 
   // -> show page ID
-  $pageTitle_Id = (GeneralFunctions::isAdmin())
-    ? '[strong]ID[/strong] '.$pageContent['id'].'[br]'
-    : '';
+  // $pageTitle_Id = (GeneralFunctions::isAdmin())
+  //   ? '[strong]ID[/strong] '.$pageContent['id'].'[br]'
+  //   : '';
+  $pageTitle_Id = '[strong]ID[/strong] '.$pageContent['id'].'[br]';
 
   // -> show lastSaveDate
   $pageTitle_lastSaveDate = GeneralFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$GLOBALS['langFile']).' '.formatTime($pageContent['lastSaveDate']);

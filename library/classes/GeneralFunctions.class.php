@@ -300,12 +300,12 @@ class GeneralFunctions {
       $langPath = (strpos($langPath,DOCUMENTROOT) === false) ? DOCUMENTROOT.$langPath : $langPath;
 
     // checks if the BROWSER STANDARD LANGUAGE is found in the SUPPORTED COUNTRY CODE
-    $browserLanguages = self::getBrowserLanguages($standardLang,false);
+    $languages = self::getBrowserLanguages($standardLang,false);
     // add the current language code
     if(!empty($currentLangCode) && !is_array($currentLangCode)) {
       $currentLangCodeArray = array($currentLangCode => 2); // set it as the highest qvalue
-      //$browserLanguages = currentLangCodeArray + $browserLanguages;
-      $languages = array_merge($browserLanguages,$currentLangCodeArray);
+      //$languages = currentLangCodeArray + $languages;
+      $languages = array_merge($languages,$currentLangCodeArray);
       natsort($languages);
       $languages = array_reverse($languages);
     }

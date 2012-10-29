@@ -218,6 +218,9 @@ if(file_exists($_SERVER['DOCUMENT_ROOT'].XssFilter::path($_SERVER['PHP_SELF'])))
 }
 if(empty($docRoot))
   $docRoot = false;
+elseif(substr($docRoot, -1) == '/') // make sure the last character isn't a "/"
+  $docRoot = substr($docRoot, 0, -1);
+
 
 define('DOCUMENTROOT', $docRoot);
 unset($fileDir,$docRoot,$docRootPattern); //unset($docRoot,$basePath,$localpath,$absolutepath);

@@ -82,7 +82,7 @@ $pluginLangFile['button_send'] = 'SEND';
 
 $pluginLangFile['message_subject'] = 'contact form'; // Websitetitle contact form
 $pluginLangFile['message_title1'] = 'You got a mesage from'; // You get a mesage from the Website title contact formular
-$pluginLangFile['message_title2'] = 'contact formular';
+$pluginLangFile['message_title2'] = 'contact form';
 $pluginLangFile['message_block1_title'] = 'MESSAGE';
 $pluginLangFile['message_block2_title'] = 'FROM';
 $pluginLangFile['message_senddate'] = 'Send on'; // Send on dd.mm.yyyy at 12:00

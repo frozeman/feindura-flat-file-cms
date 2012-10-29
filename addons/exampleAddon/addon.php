@@ -189,7 +189,7 @@
     <h1>How to make forms</h1>
     <div class="content">
 
-      <p>With this plugin it automatically loads your <code>addon.controller.php</code> at the beginning. There you can get and save data, which can then be displayed here.</p>
+      <p>With this add-on it automatically loads your <code>addon.controller.php</code> at the beginning. There you can get and save data, which can then be displayed here.</p>
       <div class="alert">Submit to see a nice notification.</div>
 
       <!-- number input small -->

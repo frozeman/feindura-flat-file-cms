@@ -111,9 +111,10 @@ foreach($categoryConfig as $category) {
     }
 
     // show category id
-    $categoryTitle .= (GeneralFunctions::isAdmin())
-      ? '[strong]ID:[/strong] '.$category['id']
-      : '';
+    // $categoryTitle .= (GeneralFunctions::isAdmin())
+    //   ? '[strong]ID:[/strong] '.$category['id']
+    //   : '';
+    $categoryTitle .= '[strong]ID:[/strong] '.$category['id'];
 
     // show pages which have this category as subcategory
     if(!empty($parentPages)) {
