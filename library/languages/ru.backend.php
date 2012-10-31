@@ -134,7 +134,7 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'р�
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Нажмите для поиска слова на странице.';
 
 $langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Посетителей до сих пор';
-$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Текущие посетители';
+$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Текущие посетителей';
 $langFile['STATISTICS_TEXT_CURRENT']                                      = 'в настоящее время';
 $langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Последняя активность';
 
@@ -608,7 +608,7 @@ $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'О�
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Показывает сообщение, а не на сайт, в котором говорится, что сайт в настоящее время редактируется.';
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Карта сайта Файлы создать (<a href="http://www.sitemaps.org/" target="_blank">детали</a>)';
 $langFile['WEBSITESETUP_TIP_SITEMAPFILES']                                = 'Карта сайта файлы упростить поисковые системы для индексации сайта.';
-$langFile['WEBSITESETUP_TEXT_VISITORTIMEZONE']                            = 'Получите Посетители часовой пояс';
+$langFile['WEBSITESETUP_TEXT_VISITORTIMEZONE']                            = 'Получите Посетителй часовой пояс';
 $langFile['WEBSITESETUP_TIP_VISITORTIMEZONE']                             = 'Постарайтесь, чтобы получить часовой пояс посетителя, для отображения времени раскрытия информации по местному времени из посетителей.[br][br][span class=hint]Этот сайт будет обновлен на первом посещении[/span].';
 $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Мульти язык сайта';
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Основной язык';
@@ -633,9 +633,9 @@ $langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER']                           = 'М�
 
 $langFile['statisticSetup_clearStatistic_h1']                             = 'Обнулить статистику';
 $langFile['statisticSetup_clearStatistics_websiteStatistic']              = 'Статистика сайта';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[strong]Содержит[/strong][ul][li]Статистика посещений/посетителей[/li][li]Статистика пауков/ботов[/li][li]Дата первого визита[/li][li]Дата последнего визита[/li][li]Статистика браузеров[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[strong]Содержит[/strong][ul][li]Общее число посещений[/li][li]Статистика пауков/ботов[/li][li]Дата первого визита[/li][li]Дата последнего визита[/li][li]Статистика браузеров[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic']                = 'Статистика по страницам';
-$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[strong]Содержит[/strong][ul][li]Количество посетителей[/li][li]Дата первого визита страницы[/li][li]Дата последнего визита страницы[/li][li]Самые короткие визиты[/li][li]Самые продолжительные визиты[/li][li]Ключевые слова из поиска[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[strong]Содержит[/strong][ul][li]Число посещений страниц[/li][li]Дата первого визита страницы[/li][li]Дата последнего визита страницы[/li][li]Самые короткие визиты[/li][li]Самые продолжительные визиты[/li][li]Ключевые слова из поиска[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics']     = 'Только статистику продолжительности пребывания на странице';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics_tip'] = 'Удалить только статистику продолжительности просмотров всех страниц';
 $langFile['statisticSetup_clearStatistics_refererLog']                    = 'Источники переходов'; // engl.: referer

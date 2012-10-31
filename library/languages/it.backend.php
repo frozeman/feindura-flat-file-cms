@@ -122,7 +122,7 @@ $langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Per
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Percorso Relativo::Percorso URI relativo, significa che rispetto al documento corrente.';
 
 // STATISTICS
-$langFile['STATISTICS_TITLE_BROWSERCHART']                                = 'Il browser usato dagli utenti';
+$langFile['STATISTICS_TITLE_BROWSERCHART']                                = 'Il browser usato dagli visitatori';
 $langFile['STATISTICS_TEXT_ROBOTCOUNT']                                   = 'web-crawler';
 $langFile['STATISTICS_TOOLTIP_ROBOTCOUNT']                                = 'web-crawler::I Crawlers detti anche robots sono (programmi e algoritmi) che i motori di ricerca usano lanciandoli in rete per analizzare e indicizzare le pagine index dei siti web.';
 
@@ -130,7 +130,7 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'ha 
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'volte a questo sito';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Clicca qui per la ricerca di questa parola nelle pagine.';
 
-$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Visitatori finora';
+$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Visite finora';
 $langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Visitatori correnti';
 $langFile['STATISTICS_TEXT_CURRENT']                                      = 'Attualmente';
 $langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Altima attività';
@@ -626,9 +626,9 @@ $langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER']                           = 'Num
 
 $langFile['statisticSetup_clearStatistic_h1']                             = 'Elimina-Statistiche';
 $langFile['statisticSetup_clearStatistics_websiteStatistic']              = 'Statistiche-SitoWeb';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[strong]Contiene[/strong][ul][li]Numero totale di visitatori[/li][li]Numero totale di web-crawler[/li][li]Data della prima visita[/li][li]Data dell&#145;ultima visita[/li][li]Browser spectrum[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[strong]Contiene[/strong][ul][li]Numero totale di visite[/li][li]Numero totale di web-crawler[/li][li]Data della prima visita[/li][li]Data dell&#145;ultima visita[/li][li]Browser spectrum[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic']                = 'Statistiche-Pagina';
-$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[strong]Contiene[/strong][ul][li]Numero di visitatori della pagina[/li][li]Data della prima visita[/li][li]Data dell&#145;ultima visita[/li][li]La durata della visita più breve[/li][li]La durata della visita più lunga[/li][li]Parole chiave che portano al sito[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[strong]Contiene[/strong][ul][li]Numero di visite della pagina[/li][li]Data della prima visita[/li][li]Data dell&#145;ultima visita[/li][li]La durata della visita più breve[/li][li]La durata della visita più lunga[/li][li]Parole chiave che portano al sito[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics']     = 'Statistiche-Length-Of-Stay';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics_tip'] = 'Elimina l&#145;elenco della pagina Length-Of-Stay';
 $langFile['statisticSetup_clearStatistics_refererLog']                    = 'Referrer-URLs Log'; // engl.: referer

@@ -122,7 +122,7 @@ $langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Abs
 $langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Relative Path::Relative URI Path, means relative to the current document.';
 
 // STATISTICS
-$langFile['STATISTICS_TITLE_BROWSERCHART']                                = 'Browser usage of the visitors';
+$langFile['STATISTICS_TITLE_BROWSERCHART']                                = 'Browser usage';
 $langFile['STATISTICS_TEXT_ROBOTCOUNT']                                   = 'web-crawler';
 $langFile['STATISTICS_TOOLTIP_ROBOTCOUNT']                                = 'web-crawler::Or robots are programs of search engines which analyse and index websites.';
 
@@ -130,7 +130,7 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'led
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'times to this site';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Click to search for this word in the pages.';
 
-$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Visitors so far';
+$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Visits so far';
 $langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Current Visitors';
 $langFile['STATISTICS_TEXT_CURRENT']                                      = 'Currently';
 $langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Last activity';
@@ -335,7 +335,7 @@ $langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED']                       = 'las
 $langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED']                        = 'last edited pages';
 $langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED']                     = 'longest viewed pages';
 
-$langFile['DASHBOARD_TITLE_REFERER']                                      = 'Websites from which visitors came';
+$langFile['DASHBOARD_TITLE_REFERER']                                      = 'Visitors came from';
 
 /*
 * listPages.php
@@ -621,9 +621,9 @@ $langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER']                           = 'Spe
 
 $langFile['statisticSetup_clearStatistic_h1']                             = 'Delete statistics';
 $langFile['statisticSetup_clearStatistics_websiteStatistic']              = 'Website-Statistic';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[strong]Contains[/strong][ul][li]Total number of visitors[/li][li]Total number of web-crawler[/li][li]Date of the first visit[/li][li]Date of the last visit[/li][li]Browser spectrum[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[strong]Contains[/strong][ul][li]Total number of visits[/li][li]Total number of web-crawlers[/li][li]Date of the first visit[/li][li]Date of the last visit[/li][li]Browser spectrum[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic']                = 'Page-Statistics';
-$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[strong]Contains[/strong][ul][li]Number of page visitors[/li][li]Date of the first page visit[/li][li]Date of the last page visit[/li][li]shortest length of stay[/li][li]longest length of stay[/li][li]Keywords which led to this site[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[strong]Contains[/strong][ul][li]Number of page visits[/li][li]Date of the first page visit[/li][li]Date of the last page visit[/li][li]shortest length of stay[/li][li]longest length of stay[/li][li]Keywords which led to this site[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics']     = 'only the Page-Length-Of-Stay-Statistics';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics_tip'] = '';
 $langFile['statisticSetup_clearStatistics_refererLog']                    = 'Referrer-URLs Log'; // engl.: referer

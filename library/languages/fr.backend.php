@@ -127,7 +127,7 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'a';
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'mèné sur ce site';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Cliquez dessus pour chercher le mot de recherche dans toutes les pages.';
 
-$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'visiteurs à ce jour';
+$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'visites à ce jour';
 $langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'visiteurs présents';
 $langFile['STATISTICS_TEXT_CURRENT']                                      = 'Actuellement';
 $langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Ultima attività';
@@ -594,9 +594,9 @@ $langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER']                           = 'Ind
 
 $langFile['statisticSetup_clearStatistic_h1']                             = 'éffacer statistiques';
 $langFile['statisticSetup_clearStatistics_websiteStatistic']              = 'statistiques du site web';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[strong]Contient[/strong][ul][li]tout le nombre des visiteurs[/li][li]nombre des web-crawler[/li][li]date de la première visite[/li][li]date de la dernière visite[/li][li]spectre des navigateurs utilisés[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[strong]Contient[/strong][ul][li]tout le nombre des visites[/li][li]nombre des web-crawler[/li][li]date de la première visite[/li][li]date de la dernière visite[/li][li]spectre des navigateurs utilisés[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic']                = 'statistiques des pages';
-$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[strong]Contient[/strong][ul][li]nombre de visiteurs[/li][li]date de la première visite[/li][li]date de la dernière visite[/li][li]temps de visite le plus court[/li][li]temps de visite le plus long[/li][li]mots-clé des moteurs de recherche qui ont mènés sur le site web[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[strong]Contient[/strong][ul][li]nombre de visites[/li][li]date de la première visite[/li][li]date de la dernière visite[/li][li]temps de visite le plus court[/li][li]temps de visite le plus long[/li][li]mots-clé des moteurs de recherche qui ont mènés sur le site web[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics']     = 'seulement les statistiques temps-de-visite';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics_tip'] = '';
 $langFile['statisticSetup_clearStatistics_refererLog']                    = 'Referrer-URLs Log'; // engl.: referer

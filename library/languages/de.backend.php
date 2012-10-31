@@ -130,7 +130,7 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'hat
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'mal auf diese Seite geführt';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Anklicken um nach diesem Suchwort in allen Seiten zu suchen.';
 
-$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Besucher bisher';
+$langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Besuche bisher';
 $langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Aktuelle Besucher';
 $langFile['STATISTICS_TEXT_CURRENT']                                      = 'Aktuell';
 $langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Letzte Aktivität';
@@ -621,9 +621,9 @@ $langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER']                           = 'Gib
 
 $langFile['statisticSetup_clearStatistic_h1']                             = 'Statistiken löschen';
 $langFile['statisticSetup_clearStatistics_websiteStatistic']              = 'Webseiten-Statistik';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[strong]Beinhaltet[/strong][ul][li]Gesamtanzahl der Besucher[/li][li]Gesamtanzahl der Web-Crawler[/li][li]Datum des ersten Besuchs[/li][li]Datum des letzten Besuchs[/li][li]Browserspektrum[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']          = '[strong]Beinhaltet[/strong][ul][li]Gesamtanzahl der Besuche[/li][li]Gesamtanzahl der Web-Crawler[/li][li]Datum des ersten Besuchs[/li][li]Datum des letzten Besuchs[/li][li]Browserspektrum[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic']                = 'Seiten-Statistiken';
-$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[strong]Beinhaltet[/strong][ul][li]Anzahl der Seitenbesucher[/li][li]Datum des ersten Seitenbesuchs[/li][li]Datum des letzten Seitenbesuchs[/li][li]kürzeste Verweildauer[/li][li]längste Verweildauer[/li][li]Suchmaschienen-Stichworte welche auf diese Seite geführt haben[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']            = '[strong]Beinhaltet[/strong][ul][li]Anzahl der Seitenbesuche[/li][li]Datum des ersten Seitenbesuchs[/li][li]Datum des letzten Seitenbesuchs[/li][li]kürzeste Verweildauer[/li][li]längste Verweildauer[/li][li]Suchmaschienen-Stichworte welche auf diese Seite geführt haben[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics']     = 'nur die Seiten-Verweildauer-Statistiken';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics_tip'] = '';
 $langFile['statisticSetup_clearStatistics_refererLog']                    = 'Referrer-URLs Log'; // engl.: referer
