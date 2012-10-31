@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 1005
+Build 1006
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ----------
 
+  build 1006: fixed static scroller for the left sidebar menu
   build 1005: make sure the last character of the DOCUMENTROOT isn't a "/"
   build 1004: add new spider list
   build 1003: changed $() to document.id() in plugins, to avoid problems with jquery

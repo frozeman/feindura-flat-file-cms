@@ -500,7 +500,7 @@ TextboxListBit.Editable = new Class({
 			return box;
 		}
 		this.textboxlist.focusRelative('next');
-		this.textboxlist.focusRelative('previous');
+		// this.textboxlist.focusRelative('previous');
 		this.element.fireEvent('toBox');
 		return null;
 	}

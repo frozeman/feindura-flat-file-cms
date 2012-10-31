@@ -28,6 +28,8 @@ var pageContentChanged = false; // used to give a warning, if a page in the edit
 var HTMLEditor;
 var listPagesBars = []; // stores all pages li elements
 
+var staticScrollers = [];
+
 
 /* GENERAL FUNCTIONS */
 
@@ -625,6 +627,11 @@ function loadSideBarMenu(site,page,category) {
         removeLoadingCircle();
       });
 
+      // re-check static scroller
+      staticScrollers.each(function(staticScroller){
+        staticScroller.checkHeight();
+      });
+
       LeavingWithoutSavingWarning();
       sidebarMenu();
       setToolTips();
@@ -818,7 +825,7 @@ window.addEvent('domready', function() {
     if(element.getProperty('data-offset'))
       offset = element.getProperty('data-offset');
 
-    new StaticScroller(element,{offset:offset});
+    staticScrollers.push(new StaticScroller(element,{offset:offset}));
   });
 
   // ADD .active to links which get clicked
