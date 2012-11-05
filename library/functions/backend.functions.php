@@ -1143,10 +1143,10 @@ function saveWebsiteConfig($websiteConfig) {
       foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langKey) {
         $langCode = XssFilter::alphabetical($langKey,$_SESSION['feinduraSession']);
         if($langCode && strlen($langCode) == 2)
-          $fileContent .= "\$websiteConfig['multiLanguageWebsite']['languages'][]    = ".$langCode.";\n";
+          $fileContent .= "\$websiteConfig['multiLanguageWebsite']['languages'][]    = '".$langCode."';\n";
       }
     }
-    $fileContent .= "\$websiteConfig['multiLanguageWebsite']['mainLanguage']   = ".XssFilter::alphabetical($websiteConfig['multiLanguageWebsite']['mainLanguage'],0).";\n\n";
+    $fileContent .= "\$websiteConfig['multiLanguageWebsite']['mainLanguage']   = '".XssFilter::alphabetical($websiteConfig['multiLanguageWebsite']['mainLanguage'],0)."';\n\n";
 
     // save localized
     if(is_array($websiteConfig['localized'])) {
@@ -2078,7 +2078,7 @@ function showPageToolTip($pageContent) {
         $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] '.$GLOBALS['languageNames'][$langCode].'[br]';
       }
     }
-    // list not yet existing languages of the page
+    // list not yet existing languages of the page (also in listPages.php)
     if(is_array($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'])) {
       foreach($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'] as $langCode) {
         if(!isset($pageContent['localized'][$langCode])) {

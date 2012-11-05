@@ -268,7 +268,7 @@ if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
         if($websiteConfig['multiLanguageWebsite']['active'] && !empty($websiteConfigLanguagesDiff)) {
           echo '<div class="box">';
             echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
-            echo '<h1>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>';
+            echo '<h2>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h2>';
             echo '<ul class="flags">';
             foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
               if(!isset($websiteConfig['localized'][$langCode])) {
@@ -299,7 +299,7 @@ if(empty($_GET['site']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
       if($categoryHasMissingLanguages) {
         echo '<div class="box">';
           echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50">';
-          echo '<h1>'.$langFile['WARNING_TITLE_UNTITLEDCATEGORIES'].'</h1>';
+          echo '<h2>'.$langFile['WARNING_TITLE_UNTITLEDCATEGORIES'].'</h2>';
           echo '<ul class="flags">';
           foreach ($websiteConfig['multiLanguageWebsite']['languages'] as $langCode) {
             foreach ($categoryConfig as $category) {

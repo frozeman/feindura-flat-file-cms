@@ -189,6 +189,18 @@ foreach($categoryConfig as $category) {
           $startPageIcon           = '';
           $sort_order[]            = $pageContent['sortOrder'];
 
+          if(!isset($pageContent['localized'][0])) {
+            // list not yet existing languages of the page (also in backend.functions.php -> showPageToolTip())
+            if(is_array($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'])) {
+              foreach($GLOBALS['websiteConfig']['multiLanguageWebsite']['languages'] as $langCode) {
+                if(!isset($pageContent['localized'][$langCode])) {
+                  $pageTitle_pageLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] [span class=gray][s]'.$GLOBALS['languageNames'][$langCode].'[/s][/span][br]';
+                  $missingLanguages .= '[img src='.GeneralFunctions::getFlagSrc($langCode).' class=flag] '.$GLOBALS['languageNames'][$langCode].'[br]';
+                }
+              }
+            }
+          }
+
           // add pageContent to this array to create later the arrows to the sub categories
           if(is_numeric($pageContent['subCategory']))
             $pagesWithSubCategories[] = $pageContent;

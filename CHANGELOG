@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-2.0
-Build 1006
+2.0.1
+Build 1007
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,12 +22,15 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ----------
 
+2.0.1
+
+  build 1007: fixed multilanguage issues (saved wrong, didn't displayed missing languages)
   build 1006: fixed static scroller for the left sidebar menu
   build 1005: make sure the last character of the DOCUMENTROOT isn't a "/"
   build 1004: add new spider list
   build 1003: changed $() to document.id() in plugins, to avoid problems with jquery
 
-2.0 beta
+2.0
 
   build 1002: create release of 2.0
   build 1001: its now possible to hide pages from beeing visible in menus!

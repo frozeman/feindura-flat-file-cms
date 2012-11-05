@@ -400,7 +400,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                   ?>
 
                   <li class="spacer"></li>
-                  <li style="top: -17px;">
+                  <li class="langSelect">
                     <img src="<?php echo GeneralFunctions::getFlagSrc($_SESSION['feinduraSession']['websiteLanguage']); ?>" class="toolTipBottom" title="::<?php echo $languageNames[$_SESSION['feinduraSession']['websiteLanguage']]; ?>">
                     <select name="websiteLanguageSelection" id="websiteLanguageSelection" tabindex="37">
                     <?php
