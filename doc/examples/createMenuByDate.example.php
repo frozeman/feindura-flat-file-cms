@@ -13,6 +13,13 @@ require('cms/feindura.include.php');
 // creates a new Feindura instance
 $feindura = new Feindura();
 
+?>
+<!DOCTYPE html>
+<html>
+...
+
+<?php
+
 // set this property to show the page date in the links text
 // the "text before date" and "text after date" was set in the page editor in the backend
 $feindura->linkShowPageDate      = true;

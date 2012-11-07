@@ -35,7 +35,7 @@
 * @version 2.0
 * <br>
 * <b>ChangeLog</b><br>
-*    - 2.0 add {@link Feindura::createSubMenu()}, {@link Feindura::isSubCategory()}, {@link Feindura::isSubCategoryOf()}, {@link Feindura::createMenuOfSubCategory()}, {@link Feindura::createLanguageMenu()}, {@link Feindura::createBreadCrumbsMenu()}, {@link Feindura::hasTags()}, {@link Feindura::getLocalized()}, {@link Feindura::listSubPages()}, {@link Feindura::listSubCategory()}
+*    - 2.0 add {@link Feindura::createSubMenuOfPage()}, {@link Feindura::isSubCategory()}, {@link Feindura::isSubCategoryOf()}, {@link Feindura::createMenuOfSubCategory()}, {@link Feindura::createLanguageMenu()}, {@link Feindura::createBreadCrumbsMenu()}, {@link Feindura::hasTags()}, {@link Feindura::getLocalized()}, {@link Feindura::listSubPages()}, {@link Feindura::listSubCategory()}
 *    - 1.0.1 add setStartPage()
 *    - 1.0 initial release
 *
@@ -1396,14 +1396,14 @@ class Feindura extends FeinduraBase {
   * Examples of the returned href string:
   *
   * Pages without category:
-  * <samp>'?page=1'</samp>
+  * <samp>?page=1</samp>
   * Pages with category:
-  * <samp>'?category=1&page=1'</samp>
+  * <samp>?category=1&page=1</samp>
   *
   * Pretty URL href for pages without category:
-  * <samp>'/page/page_title.html'</samp>
+  * <samp>/page/page-title/</samp>
   * Pretty URL href for pages with category:
-  * <samp>'/category/category_name/page_title.html'</samp>
+  * <samp>/category/category-name/page-title/</samp>
   *
   *
   * @param int|string|array|bool $id       (optional) a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link Feindura::$page} property.<br><i>See Additional -> $id parameter example</i>
@@ -1451,7 +1451,7 @@ class Feindura extends FeinduraBase {
   * If there is no current, next or previous page in it returns FALSE.
   *
   * <b>Note</b>: If the <var>$id</var> parameter is empty or FALSE it uses the {@link Feindura::$page} property.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also it wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also its wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
   *
   *
   * Example:
@@ -1612,7 +1612,7 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags for this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also it wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also its wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
   *
   * Example Usage:
   * {@example createMenu.example.php}
@@ -1766,7 +1766,7 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also it wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also its wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
   *
   * Example:
   * {@example createMenuByTags.example.php}
@@ -1864,7 +1864,7 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also it wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also its wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
   *
   * Example:
   * {@example createMenuByDate.example.php}
@@ -1958,7 +1958,7 @@ class Feindura extends FeinduraBase {
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$ids</var> parameter is FALSE it uses the {@link Feindura::$page} or {@link Feindura::$category} property depending on the <var>$idType</var> parameter.<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also it wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also its wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
   *
   *
   * Example:
@@ -2180,18 +2180,98 @@ class Feindura extends FeinduraBase {
   *
   * <b>This method uses the {@link Feindura::$linkLength $link...}, {@link Feindura::$menuId $menu...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   *
-  * Creates a sub menu out of the subcategory of a page.<br>
+  * Creates a sub menu from the <i>current</i> page ({@link Feindura::$page}) or the current category ({@link Feindura::$category}), if its a subcategory.<br>
+  * In case the current page has no subcategory or the current category is no subcategory it returns an empty array.<br>
+  *
+  *
+  * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
+  * If its any other tag name it just enclose the links with this HTML-tag.<br>
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also its wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
+  *
+  *
+  * Example:
+  * {@example createSubMenu.example.php}
+  *
+  * Example of the returned Array:
+  * {@example createMenu.return.example.php}
+  *
+  *
+  * @param int|bool               $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "array('table',<number until new row>)" or any other tag, if TRUE it uses "div"
+  * @param string|bool            $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
+  * @param bool                   $sortPages          (optional) if TRUE it sorts the pages like they are sorted in the backend, if FALSE they are sorted in the order of the given IDs. Can also be a sort function e.g. "sortByLastSaveDate". See {@link GeneralFunctions::sortPages()} for more.
+  * @param bool                   $reverseList        (optional) if TRUE the pages sorting will be reversed
+  *
+  * @uses Feindura::$menuId
+  * @uses Feindura::$menuClass
+  * @uses Feindura::$menuAttributes
+  *
+  * @uses Feindura::$linkLength
+  * @uses Feindura::$linkId
+  * @uses Feindura::$linkClass
+  * @uses Feindura::$linkActiveClass
+  * @uses Feindura::$linkAttributes
+  * @uses Feindura::$linkBefore
+  * @uses Feindura::$linkAfter
+  * @uses Feindura::$linkBeforeText
+  * @uses Feindura::$linkAfterText
+  * @uses Feindura::$linkShowThumbnail
+  * @uses Feindura::$linkShowThumbnailAfterText
+  * @uses Feindura::$linkShowPageDate
+  * @uses Feindura::$linkPageDateSeparator
+  * @uses Feindura::$linkShowCategory
+  * @uses Feindura::$linkCategorySeparator
+  *
+  * @uses Feindura::$thumbnailAlign
+  * @uses Feindura::$thumbnailId
+  * @uses Feindura::$thumbnailClass
+  * @uses Feindura::$thumbnailAttributes
+  * @uses Feindura::$thumbnailBefore
+  * @uses Feindura::$thumbnailAfter
+  *
+  * @uses Feindura::createMenu()    to create the menu
+  *
+  * @return array the created sub menu in an array, ready to display in a HTML-page, or an empty array
+  *
+  *
+  * @see createMenuFromCategory()
+  * @see createLink()
+  * @see createMenu()
+  *
+  * @access public
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public function createSubMenu($menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
+
+    if(($subMenu = $this->createSubMenuOfPage(false, $menuTag, $linkText, $sortPages, $reverseList)) ||
+       ($subMenu = $this->createSubMenuOfSubCategory(false, $menuTag, $linkText, $sortPages, $reverseList))) {
+      return $subMenu;
+    }
+
+    return array();
+  }
+
+ /**
+  * <b>Name</b> createSubMenuOfPage()<br>
+  * <b>Alias</b> createSubMenuFromPage()<br>
+  *
+  * <b>This method uses the {@link Feindura::$linkLength $link...}, {@link Feindura::$menuId $menu...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
+  *
+  * Creates a sub menu out of the subcategory of a page. If the page has no subcategory it will return an empty array.<br>
   * In case no page with the given page ID exist, or it has no subcategory it returns an empty array.<br>
   *
   *
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current page (means the {@link Feindura::$page} property).<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also it wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also its wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
   *
   *
   * Example:
-  * {@example createSubMenu.example.php}
+  * {@example createSubMenuOfPage.example.php}
   *
   * Example of the returned Array:
   * {@example createMenu.return.example.php}
@@ -2247,7 +2327,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createSubMenu($id = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
+  public function createSubMenuOfPage($id = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
 
     if($ids = $this->getIdsFromString($id)) {
       // loads the $pageContent array
@@ -2262,30 +2342,33 @@ class Feindura extends FeinduraBase {
   }
 
  /**
-  * <b>Name</b> createMenuOfSubCategory()<br>
-  * <b>Alias</b> createMenuFromSubCategory()<br>
+  * <b>Name</b> createSubMenuOfSubCategory()<br>
+  * <b>Alias</b> createSubMenuOfCategory()<br>
+  * <b>Alias</b> createSubMenuFromSubCategory()<br>
   * <b>Alias</b> createSubMenuFromCategory()<br>
+  * <b>Alias</b> createMenuFromSubCategory()<br>
+  * <b>Alias</b> createMenuOfSubCategory()<br>
   *
   * <b>This method uses the {@link Feindura::$linkLength $link...}, {@link Feindura::$menuId $menu...} and {@link Feindura::$thumbnailAlign $thumbnail...} properties.</b>
   *
-  * Creates a sub menu out of a subcategory.<br>
+  * Creates a sub menu from a subcategory. If the category is not a sub category it will return an empty array.<br>
   * In case no category with the given page ID exist, or it is not a subcategory it returns an empty array.<br>
   *
   *
   * <b>Note</b>: The <var>$menuTag</var> parameter can be an "menu", "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.<br>
   * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current category (means the {@link Feindura::$category} property).<br>
-  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also it wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
+  * <b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also its wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
   *
   *
-  * You can use this function in conjunction with {@link Feindura::createSubMenu()} to display the submenu,
+  * You can use this function in conjunction with {@link Feindura::createSubMenuOfPage()} to display the submenu,
   * even if you're in a page of the subcategory.
   * <code>
   * <?php
   *
   * // we use "false", because we use the current page and category.
   * // NOTE: we need the double (), otherwise it would use the assignment of the $subMenu variable as condition!
-  * if(($subMenu = $feindura->createSubMenu(false,'ul')) || // will create the menu when inside the page which has a subcategory
+  * if(($subMenu = $feindura->createSubMenuOfPage(false,'ul')) || // will create the menu when inside the page which has a subcategory
   *    ($subMenu = $feindura->createMenuOfSubCategory(false,'ul'))) { // will create the menu when inside a page within a subcategory
   *
   *   foreach($subMenu as $item)
@@ -2336,9 +2419,9 @@ class Feindura extends FeinduraBase {
   *
   * @return array the created sub menu in an array, ready to display in a HTML-page, or an empty array
   *
-  * @example createSubMenu.example.php See the example of the createSubMenu() method
+  * @example createSubMenu.example.php See the example of the createSubMenuOfPage() method
   *
-  * @see createSubMenu()
+  * @see createSubMenuOfPage()
   * @see createLink()
   * @see createMenu()
   *
@@ -2349,7 +2432,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMenuOfSubCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
+  public function createSubMenuOfSubCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
 
     if($ids = $this->getIdsFromString(array(false,$categoryId))) {
       $categoryId = $ids[1];
@@ -2364,20 +2447,44 @@ class Feindura extends FeinduraBase {
     return array();
   }
   /**
-  * Alias of {@link createMenuOfSubCategory()}
+  * Alias of {@link createSubMenuOfSubCategory()}
   * @ignore
   */
-  public function createMenuFromSubCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
+  public function createSubMenuOfCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->createMenuOfSubCategory($categoryId, $menuTag, $linkText, $sortPages,$reverseList);
+    return $this->createSubMenuOfSubCategory($categoryId, $menuTag, $linkText, $sortPages,$reverseList);
   }
   /**
-  * Alias of {@link createMenuOfSubCategory()}
+  * Alias of {@link createSubMenuOfSubCategory()}
+  * @ignore
+  */
+  public function createSubMenuFromSubCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
+    // call the right function
+    return $this->createSubMenuOfSubCategory($categoryId, $menuTag, $linkText, $sortPages,$reverseList);
+  }
+  /**
+  * Alias of {@link createSubMenuOfSubCategory()}
   * @ignore
   */
   public function createSubMenuFromCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
     // call the right function
-    return $this->createMenuOfSubCategory($categoryId, $menuTag, $linkText, $sortPages,$reverseList);
+    return $this->createSubMenuOfSubCategory($categoryId, $menuTag, $linkText, $sortPages,$reverseList);
+  }
+  /**
+  * Alias of {@link createSubMenuOfSubCategory()}
+  * @ignore
+  */
+  public function createMenuFromSubCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
+    // call the right function
+    return $this->createSubMenuOfSubCategory($categoryId, $menuTag, $linkText, $sortPages,$reverseList);
+  }
+  /**
+  * Alias of {@link createSubMenuOfSubCategory()}
+  * @ignore
+  */
+  public function createMenuOfSubCategory($categoryId = false, $menuTag = false, $linkText = true, $sortPages = false, $reverseList = false) {
+    // call the right function
+    return $this->createSubMenuOfSubCategory($categoryId, $menuTag, $linkText, $sortPages,$reverseList);
   }
 
  /**
@@ -3223,7 +3330,7 @@ class Feindura extends FeinduraBase {
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   *
   * <b>Note</b>: If the <var>$id</var> parameter is FALSE or empty, it uses the current page (means the {@link Feindura::$page} property).<br>
-  * b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also it wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
+  * b>Note</b>: It will add the {@link Feindura::$linkActiveClass} property as a CSS class to the link (and also its wrapping element, e.g. <li> or <td>), when the links page is matching the current page, or the current page is a sub page of the links page.
   *
   * Example:
   * {@example listSubPages.example.php}
@@ -3707,9 +3814,9 @@ class Feindura extends FeinduraBase {
   *
   * Because of PHP scope restricions, you need to manually prevent the processing of the original script. See the example for more.
   *
-  * <strong>Note</strong>: This method and the {@link Feindura::endCache()} uses the ob_start() and ob_end_clean() function,
+  * <b>Note</b>: This method and the {@link Feindura::endCache()} uses the ob_start() and ob_end_clean() function,
   * if you start a output buffer inside your script which will be cached, make sure to close you output buffer beforec calling {@link Feindura::endCache()}.
-  * <strong>Note</strong>: You cannot nest multiple startCache() calls, this would overwrite the cache of the previous call of startCache().
+  * <b>Note</b>: You cannot nest multiple startCache() calls, this would overwrite the cache of the previous call of startCache().
   *
   * <code>
   *

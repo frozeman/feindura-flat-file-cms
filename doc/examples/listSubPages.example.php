@@ -12,6 +12,12 @@ require('cms/feindura.include.php');
 // creates a new Feindura instance
 $feindura = new Feindura();
 
+?>
+<!DOCTYPE html>
+<html>
+...
+
+<?php
 
 // will list the subpages of the current page. The 200 is the maximum number of characters we want to display
 foreach($feindura->listSubPages(false,200) as $subPage) {

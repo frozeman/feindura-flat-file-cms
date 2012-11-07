@@ -13,6 +13,13 @@ require('cms/feindura.include.php');
 // creates a new Feindura instance
 $feindura = new Feindura();
 
+?>
+<!DOCTYPE html>
+<html>
+...
+
+<?php
+
 // the tags where the pages in the menu should have atleast one
 $tags = 'winter summer spring';
 // could also be an array like

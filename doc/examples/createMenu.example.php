@@ -8,6 +8,13 @@ require('cms/feindura.include.php');
 // creates a new Feindura instance
 $feindura = new Feindura();
 
+?>
+<!DOCTYPE html>
+<html>
+...
+
+<?php
+
 // create a menu from the category with ID "1"
 $menu = $feindura->createMenu('category',1,'ul.myNav');
 
@@ -37,6 +44,13 @@ require('cms/feindura.include.php');
 
 // creates a new Feindura instance
 $feindura = new Feindura();
+
+?>
+<!DOCTYPE html>
+<html>
+...
+
+<?php
 
 // set menu properties
 $feindura->menuId                     = 'menuId';

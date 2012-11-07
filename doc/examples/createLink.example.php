@@ -14,6 +14,13 @@ require('cms/feindura.include.php');
 // creates a new Feindura instance
 $feindura = new Feindura();
 
+?>
+<!DOCTYPE html>
+<html>
+...
+
+<?php
+
 // set link properties
 $feindura->linkLength                 = 20; // shortens the page title in the link
 $feindura->linkId                     = 'exampleId';

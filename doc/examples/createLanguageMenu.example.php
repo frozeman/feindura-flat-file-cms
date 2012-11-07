@@ -12,6 +12,12 @@ require('cms/feindura.include.php');
 // creates a new Feindura instance
 $feindura = new Feindura();
 
+?>
+<!DOCTYPE html>
+<html>
+...
+
+<?php
 
 // will create a <ul> language menu
 $menu = $feindura->createLanguageMenu('ul.langMenu');

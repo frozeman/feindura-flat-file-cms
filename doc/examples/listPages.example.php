@@ -8,6 +8,13 @@ require('cms/feindura.include.php');
 // creates a new Feindura instance
 $feindura = new Feindura();
 
+?>
+<!DOCTYPE html>
+<html>
+...
+
+<?php
+
 // Get the pages from the category with ID "1"
 // the page content will be shorten to "200" characters
 $pages = $feindura->listPages('category',1,200);

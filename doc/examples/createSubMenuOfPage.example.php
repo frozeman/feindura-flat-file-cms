@@ -1,5 +1,5 @@
 <?php
-/*                               *** CODE ***
+/*                               *** CODE *** 
 --------------------------------------------------------------------------------
 This example uses no extra properties. To see an example using all the properties, see the createMenu() method example.
 */
@@ -19,14 +19,22 @@ $feindura = new Feindura();
 
 <?php
 
+// will create a <ul> menu from the non category (ID 0)
+$menu = $feindura->createMenu('category',0,'ul');
 
-// will create a <ul> menu from the current page, when it has a subcategory or the current subcategory
-foreach($feindura->createSubMenu('ul') as $item) {
-  echo $item['menuItem'];
+// displays the menu
+foreach($menu as $item) {
+  echo $item['startTag'].$item['link'];
+  // when a page has a submenu it will create a <ul> menu inside this <li></li>,
+  // which can be used as a CSS dropdown menu. e.g. see http://www.cssnewbie.com/easy-css-dropdown-menus/
+  foreach($feindura->createSubMenuOfPage($item['pageId'],'ul') as $subItem) {
+    echo $subItem['menuItem'];
+  }
+  echo $item['endTag'];
 }
 
 
-                               *** RESULT ***
+                               *** RESULT *** 
 --------------------------------------------------------------------------------
 
 <ul>
@@ -34,7 +42,7 @@ foreach($feindura->createSubMenu('ul') as $item) {
     <a href="?category=1&page=1" title="Example Page 1">
     Example Page 1
     </a>
-
+    
     <ul>
       <li>
         <a href="?category=2&page=4" title="Example Page in SubCategory 1">

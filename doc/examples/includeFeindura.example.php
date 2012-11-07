@@ -9,3 +9,6 @@ require('cms/feindura.include.php');
 $feindura = new Feindura();
 
 ?>
+<!DOCTYPE html>
+<html>
+...

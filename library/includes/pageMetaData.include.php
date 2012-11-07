@@ -151,6 +151,12 @@ if($categoryConfig[$_GET['category']]['showSubCategory']) {
 <div class="spacer"></div>
 
 <!-- ***** PUBLIC/UNPUBLIC -->
+<?php
+
+if($NEWPAGE)
+  $pageContent['public'] = false;
+
+?>
 <div class="row">
   <div class="span3 formLeft">
     <input type="checkbox" id="edit_public" name="public" value="true" <?php if($pageContent['public']) echo 'checked'; ?>>

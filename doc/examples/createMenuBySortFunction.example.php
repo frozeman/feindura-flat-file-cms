@@ -14,6 +14,13 @@ require('cms/feindura.include.php');
 // creates a new Feindura instance
 $feindura = new Feindura();
 
+?>
+<!DOCTYPE html>
+<html>
+...
+
+<?php
+
 // create the sort function, which we use with the createMenuBySortFunction() method
 function sortByLastEditDate($a,$b) {
   if ($a['lastSaveDate'] == $b['lastSaveDate'])

@@ -14,6 +14,13 @@ require('cms/feindura.include.php');
 // creates a new Feindura instance
 $feindura = new Feindura();
 
+?>
+<!DOCTYPE html>
+<html>
+...
+
+<?php
+
 // set title properties
 $feindura->titleLength =              10;
 $feindura->titleAsLink =              true;

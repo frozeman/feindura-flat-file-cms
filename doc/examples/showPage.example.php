@@ -8,6 +8,13 @@ require('cms/feindura.include.php');
 // creates a new Feindura instance
 $feindura = new Feindura();
 
+?>
+<!DOCTYPE html>
+<html>
+...
+
+<?php
+
 // get the page, which is currently selected, if not page is selected it uses the $feindura->startPage property
 $currentPage = $feindura->showPage();
 

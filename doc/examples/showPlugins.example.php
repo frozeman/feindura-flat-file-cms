@@ -13,6 +13,13 @@ require('cms/feindura.include.php');
 // creates a new Feindura instance
 $feindura = new Feindura();
 
+?>
+<!DOCTYPE html>
+<html>
+...
+
+<?php
+
 // get the all plugins from the page with ID "2"
 $plugins = $feindura->showPlugins(true,2);
 // you could also call

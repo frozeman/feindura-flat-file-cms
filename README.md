@@ -52,7 +52,7 @@ for a full list see: <http://feindura.org/page/features/>
 
 ### REQUIREMENTS
 * PHP >= 5.1 (PHP as FastCGI)
-* apache with mod_rewrite modul if you want to have Pretty URLs like: "domain.com/pages/welcome"
+* apache with mod_rewrite modul if you want to have Pretty URLs like: "domain.com/page/welcome"
 
 ### APPROPRIATE USES
 It's not tested yet, but it should work well on websites with up to 100 vistiors per Minute.
@@ -78,7 +78,7 @@ before the header is sent, which means before any HTML tag:
 After this you can refer to the feindura class an it's methods through the $feindura->... instance.
 
 Read <http://feindura.org/page/getting-started/>.
-For details and more methods, see the feindura class - documentation <http://feindura.org/docs/%5BImplementation%5D/feindura.html>.
+For details and more methods, see the feindura class - documentation <http://feindura.org/docs/[Implementation]/Feindura.html>.
 
 ### NOTE
 
