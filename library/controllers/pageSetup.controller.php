@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* controllers/pageSetup.controller.php version 1.3
+* controllers/pageSetup.controller.php version 1.4
 */
 
 /**
@@ -77,8 +77,6 @@ if((isset($_POST['send']) && $_POST['send'] == 'categorySetup' && isset($_POST['
   $newId = getNewCatgoryId();
 
   if(is_numeric($newId)) {
-    if($newId == 1)
-      $categoryConfig = array();
 
     // if there is no category dir, try to create one
     if(@is_dir(dirname(__FILE__).'/../../pages/'.$newId)) {
