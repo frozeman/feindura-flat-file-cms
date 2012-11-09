@@ -520,7 +520,8 @@ function createBasicFilesAndFolders() {
 
   // pages folder
   if(!is_dir(dirname(__FILE__).'/../../pages'))
-    mkdir(dirname(__FILE__).'/../../pages',$GLOBALS['adminConfig']['permissions']);
+    if(mkdir(dirname(__FILE__).'/../../pages',$GLOBALS['adminConfig']['permissions']))
+      file_put_contents(dirname(__FILE__).'/../../pages/VERSION', "feindura - content version\n".VERSION."\n".BUILD);
   // statistic folder
   if(!is_dir(dirname(__FILE__).'/../../statistic'))
     mkdir(dirname(__FILE__).'/../../statistic',$GLOBALS['adminConfig']['permissions']);

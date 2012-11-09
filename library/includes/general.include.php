@@ -270,10 +270,18 @@ if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false) $_SERVER['REMOTE_ADDR'] = '1
 
 
 // -> GET VERSION and BUILD
-$changelogFile = @file(dirname(__FILE__)."/../../pages/VERSION");
-$version = trim($changelogFile[1]);
-$buildNr = trim($changelogFile[2]);
+// use VERSION file
+if(is_dir(dirname(__FILE__).'/../../pages')) {
+  $changelogFile = @file(dirname(__FILE__)."/../../pages/VERSION");
+  $version = trim($changelogFile[1]);
+  $buildNr = trim($changelogFile[2]);
 
+// if no pages folder exist (new feindura installation) use the CHANGELOG file (to create VERSION file later in createBasicFilesAndFolders())
+} elseif($prevVersionFile = @file(dirname(__FILE__).'/../../CHANGELOG')) {
+  $version = trim($prevVersionFile[2]);
+  $buildNr = trim($prevVersionFile[3]);
+  $buildNr = str_replace('Build ', '', $buildNr);
+}
 
 /**
  * The version of feindura
@@ -284,7 +292,7 @@ define('VERSION',$version);
  * The build number of feindura
  */
 define('BUILD',$buildNr);
-unset($changelogFile,$version,$buildNr);
+unset($changelogFile,$prevVersionFile,$version,$buildNr);
 
 
 // INIT STATIC CLASSES

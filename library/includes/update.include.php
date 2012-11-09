@@ -978,7 +978,7 @@ if(isset($_POST) && $_POST['update'] == 'true') {
     <div class="updateBox">
       <img class="icon" src="library/images/icons/update.png" alt="icon">
       <?php if($updateSuccessful):
-        file_put_contents(dirname(__FILE__).'/../../pages/VERSION', "feindura - Flat File CMS (Version,Build)\n".$CURVERSION."\n".$CURBUILD);
+        file_put_contents(dirname(__FILE__).'/../../pages/VERSION', "feindura - content version\n".$CURVERSION."\n".$CURBUILD);
       ?>
 
       <br>
