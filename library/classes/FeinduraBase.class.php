@@ -281,7 +281,7 @@ class FeinduraBase {
   *
   */
   public function getCurrentPageId() {
-    return StatisticFunctions::getCurrentPageId($this->startPage);
+    return StatisticFunctions::getCurrentPageId($this->startPage,$this->category);
   }
  /**
   * Alias of {@link getCurrentPageId()}
@@ -337,11 +337,11 @@ class FeinduraBase {
              !empty($_GET['category'])) {
 
       // if the page is set, get its category
-      if(is_numeric($this->page)) {
-        return GeneralFunctions::getPageCategory($this->page);
+      // if(is_numeric($this->page)) {
+        // return GeneralFunctions::getPageCategory($this->page);
 
       // if not try to get the category from the url
-      } else {
+      // } else {
         if(is_array($this->categoryConfig)) {
           foreach($this->categoryConfig as $category) {
             // goes trough each localization and check if its fit the $_GET['category'] title
@@ -356,8 +356,8 @@ class FeinduraBase {
           }
         } else
           return false;
-      }
-    } elseif(empty($_GET['page']) && is_numeric($this->startCategory)) {
+      // }
+    } elseif(empty($_GET['page']) && empty($_GET['category']) && is_numeric($this->startCategory)) {
       return intval($this->startCategory);
     } else
       return false;
@@ -1644,7 +1644,7 @@ class FeinduraBase {
       else $tagEnding = '>';
 
       // adds ATTRIBUTES and/or FLOAT
-      $thumbnailAttributes = $this->createAttributes($this->thumbnailId, $this->thumbnailClass, $this->thumbnailAttributes);
+      $thumbnailAttributes = $this->createAttributes($this->thumbnailId, trim('feinduraThumbnail '.$this->thumbnailClass), $this->thumbnailAttributes);
 
       // thumbnail FLOAT
       $thumbnailAlign = false;
@@ -1661,6 +1661,12 @@ class FeinduraBase {
       if($this->thumbnailAfter !== true)
         $thumbnailAfter = $this->thumbnailAfter;
 
+      // CREATE A LINK around the thumbnail
+      if($this->thumbnailAsLink === true) {
+        $thumbnailBefore = $thumbnailBefore.'<a href="'.$this->createHref($pageContent,$this->sessionId,$this->language).'" title="'.str_replace('"','&quot;',strip_tags($pageContent['title'])).'">'."\n";
+        $thumbnailAfter = $thumbnailAfter."\n</a>";
+      }
+
       // get the setting thumbnail sizes
       // THUMB WIDTH
       $configThumbWidth = (!empty($this->categoryConfig[$pageContent['category']]['thumbWidth']))
@@ -1674,10 +1680,10 @@ class FeinduraBase {
       $altTitle = strip_tags($this->getLocalized($pageContent,'title')); // getLocalized function is from the feindura.class.pgp
 
       if(!empty($configThumbWidth) && !empty($configThumbHeight) && is_numeric($configThumbWidth) && is_numeric($configThumbHeight)) {
-        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/images/icons/emptyImage.gif" style="display:table-cell; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'\') no-repeat center center;'.$thumbnailAlign.'" class="feinduraThumbnail" alt="'.$altTitle.'" title="'.$altTitle.'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/images/icons/emptyImage.gif" style="display:table-cell; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'\') no-repeat center center;'.$thumbnailAlign.'" alt="'.$altTitle.'" title="'.$altTitle.'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       } else {
         if($thumbnailAlign) $thumbnailAlign = ' style="'.trim($thumbnailAlign).'"';
-        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'" class="feinduraThumbnail" alt="'.$altTitle.'" title="'.$altTitle.'"'.$thumbnailAlign.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'" alt="'.$altTitle.'" title="'.$altTitle.'"'.$thumbnailAlign.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       }
 
       $pageThumbnail['thumbnailPath'] = GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'];

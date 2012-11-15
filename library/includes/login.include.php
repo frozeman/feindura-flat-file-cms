@@ -149,8 +149,7 @@ if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
   // print_r($_SESSION);
   // echo '</pre>';
 
-  ?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="<?php echo $_SESSION['feinduraSession']['backendLanguage']; ?>" class="feindura">
 <head>
   <title>feindura | login</title>

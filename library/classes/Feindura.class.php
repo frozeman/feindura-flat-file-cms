@@ -592,6 +592,18 @@ class Feindura extends FeinduraBase {
   /* ->> THUMBAIL <<- */
 
  /**
+  * If TRUE the page thumbnail will be wrapped with a link to the page.
+  *
+  * @var bool
+  * @access public
+  *
+  * @see Feindura::showPage()
+  * @see FeinduraBase::createThumbnail()
+  *
+  */
+  public $thumbnailAsLink = false;
+
+ /**
   * Contains the position of the thumbnail picture, the possible values are "left", "right" or FALSE.
   *
   * If the values are "left" or "right" a style-attribute will be add to the thumbnail <img> tag with "float:left/right;".
@@ -828,8 +840,8 @@ class Feindura extends FeinduraBase {
 
     // SET the CURRENT GET vars in the PROPERTIES
     // ********************************************
-    $this->setCurrentPageId(true);           // get $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
     $this->setCurrentCategoryId(true);       // get $_GET['category']
+    $this->setCurrentPageId(true);           // get $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
     // set category automatically, if it couldn't be retrieved
     if($this->category == null) $this->category = GeneralFunctions::getPageCategory($this->page);
 

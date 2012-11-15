@@ -246,15 +246,16 @@ class StatisticFunctions {
   * @return int|false the current page ID or FALSE
   *
   * @access public
-  * @version 1.2
+  * @version 1.3
   * <br>
   * <b>ChangeLog</b><br>
-  *    - moved to StatisticsFunctions; use now $pagesMetaData
+  *    - 1.3 pretty url page name looks now only in the current category for a match
+  *    - 1.2 moved to StatisticsFunctions; use now $pagesMetaData
   *    - 1.1 add localization
   *    - 1.0 initial release
   *
   */
-  public static function getCurrentPageId($startPage = null) {
+  public static function getCurrentPageId($startPage = null,$category) {
     // ->> GET PAGE is an ID
     // *********************
     if(isset($_GET[self::$adminConfig['varName']['page']]) &&
@@ -279,18 +280,24 @@ class StatisticFunctions {
 
       foreach(self::$pagesMetaData as $pageMetaData) {
 
-        if(!empty($pageMetaData['editedLink'])) {
-          // RETURNs the right page Id
-          if(basename($pageMetaData['editedLink']) == self::urlEncode($_GET['page']))
-            return intval($pageMetaData['id']);
+        // look for the page name only in the right category
+        if(!is_numeric($category) ||
+           $category == 0 ||
+           $pageMetaData['category'] == $category) {
 
-        } else {
-          // goes trough each localization and check if its fit the $_GET['page'] title
-          if(is_array($pageMetaData['localized'])) {
-            foreach ($pageMetaData['localized'] as $localizedPageContent) {
-              // RETURNs the right page Id
-              if(self::urlEncode($localizedPageContent['title']) == self::urlEncode($_GET['page'])) {
-                return intval($pageMetaData['id']);
+          if(!empty($pageMetaData['editedLink'])) {
+            // RETURNs the right page Id
+            if(basename($pageMetaData['editedLink']) == self::urlEncode($_GET['page']))
+              return intval($pageMetaData['id']);
+
+          } else {
+            // goes trough each localization and check if its fit the $_GET['page'] title
+            if(is_array($pageMetaData['localized'])) {
+              foreach ($pageMetaData['localized'] as $localizedPageContent) {
+                // RETURNs the right page Id
+                if(self::urlEncode($localizedPageContent['title']) == self::urlEncode($_GET['page'])) {
+                  return intval($pageMetaData['id']);
+                }
               }
             }
           }
@@ -298,8 +305,8 @@ class StatisticFunctions {
       }
     // if only a category is given, return flase, so it loads the first page of that category
     } elseif(isset($_GET[self::$adminConfig['varName']['category']]) &&
-       !empty($_GET[self::$adminConfig['varName']['category']]) &&
-       is_numeric($_GET[self::$adminConfig['varName']['category']])) {
+             !empty($_GET[self::$adminConfig['varName']['category']]) &&
+             is_numeric($_GET[self::$adminConfig['varName']['category']])) {
       return false;
 
     // otherwise set the startpage

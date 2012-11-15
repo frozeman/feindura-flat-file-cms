@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-2.0.2
-Build 1010
+2.0.3
+Build 1013
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,12 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ----------
 
+  build 1013: when pretty urls are activated it is now possible to have the same page names, when the pages are in different categories (before each page name had to be different, when using pretty urls, this still applies for sub categories)
+
+2.0.3
+
+  build 1012: add $thumbnailAsLink property
+  build 1011: fixed the thumbnail class, class attribute was add twice.
   build 1010: prevent update notice when there is an empty pages folder.
   build 1009: fixed the issue, when creating the first category, it deletes the non-category settings.
 
