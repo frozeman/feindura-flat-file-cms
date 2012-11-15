@@ -315,9 +315,14 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
       // -> CHECK for restore page (if and old state exists)
       $showRestorePage = ($previousStatePageContent) ? true : false;
 
-      // -> CHECK if show SUBMENU
-      $showSubMenu = (($showPageThumbnailUpload || $showCreatePage || $showPageThumbnailUpload || GeneralFunctions::hasPermission('fileManager') || $showDeletePage)) ? true : false;
+      $showFileManager = (GeneralFunctions::hasPermission('fileManager')) ? true : false;
 
+      // -> CHECK if show SUBMENU
+      $showSubMenu = ($showPageThumbnailUpload || $showCreatePage || $showPageThumbnailUpload || $showFileManager || $showDeletePage) ? true : false;
+
+
+      // -> CHECK if multiple lang on
+      $showMultilanguageWebsite = ($websiteConfig['multiLanguageWebsite']['active'] && !empty($websiteConfig['multiLanguageWebsite']['languages']) && (empty($pageContent) || !empty($pageContent['localized']))) ? true : false;
 
       // ->> RE-SET CURRENT WEBSITE LANGUAGE based on the pages languages
       if($websiteConfig['multiLanguageWebsite']['active']) {
@@ -366,6 +371,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
           <?php if($showSubMenu) { ?>
 
             <div class="subMenu staticScroller" data-offset="-8">
+              <?php if($showFileManager || $showCreatePage || $showMultilanguageWebsite) { ?>
               <menu class="horizontal">
                 <?php
 
@@ -373,7 +379,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                 $showSpacer = false;
 
                 // FILE MANAGER
-                if(GeneralFunctions::hasPermission('fileManager')) { ?>
+                if($showFileManager) { ?>
 
                   <li><a href="?site=fileManager" tabindex="29" class="fileManager toolTipBottom" title="<?php echo $langFile['BUTTON_FILEMANAGER'].'::'.$langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>"></a></li>
 
@@ -396,7 +402,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                 }
 
                 // PAGE LANGUAGE SELECTION with
-                if($websiteConfig['multiLanguageWebsite']['active'] && !empty($websiteConfig['multiLanguageWebsite']['languages']) && (empty($pageContent) || !empty($pageContent['localized']))) {
+                if($showMultilanguageWebsite) {
                   ?>
 
                   <li class="spacer"></li>
@@ -416,9 +422,8 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
                 <?php
                 }
                 ?>
-
               </menu>
-
+              <?php } ?>
               <?php if($showFrontendEditing ||
                        $showDeletePage ||
                        $showRestorePage ||
