@@ -471,7 +471,7 @@ class imageGallery {
         $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : '';
 
       if(!empty($this->thumbnailWidth) && !empty($this->thumbnailHeight) && is_numeric($this->thumbnailWidth) && is_numeric($this->thumbnailHeight))
-        $return[] = '<a href="'.GeneralFunctions::Path2URI($image['path']).$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block;"><img src="'.$this->emptyImage.'" alt="'.$image['text'].'" style="display: inline-block; background-size: cover; width:'.$this->thumbnailWidth.'px; height:'.$this->thumbnailHeight.'px; background: url(\''.GeneralFunctions::Path2URI($image['path']).$thumbnailName.'\') no-repeat center center;"'.$tagEnd.'</a>';
+        $return[] = '<a href="'.GeneralFunctions::Path2URI($image['path']).$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block; width:'.$this->thumbnailWidth.'px; height:'.$this->thumbnailHeight.'px;"><img src="'.$this->emptyImage.'" alt="'.$image['text'].'" style="display: inline-block; background-size: cover; width:'.$this->thumbnailWidth.'px; height:'.$this->thumbnailHeight.'px; background: url(\''.GeneralFunctions::Path2URI($image['path']).$thumbnailName.'\') no-repeat center center;"'.$tagEnd.'</a>';
       else
         $return[] = '<a href="'.GeneralFunctions::Path2URI($image['path']).$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.' style="display:inline-block;"><img src="'.GeneralFunctions::Path2URI($image['path']).$thumbnailName.'" alt="'.$image['text'].'"'.$tagEnd.'</a>';
     }
