@@ -1052,7 +1052,7 @@ class FeinduraBase {
       // add the rest of the menu item
       $menuItemCopy['link']                  = $link['link'];
       $menuItemCopy['href']                  = $link['href'];
-      $menuItemCopy['active']                = ($link['active'] || $this->page == $link['id']) ? true : false;
+      $menuItemCopy['active']                = ($link['active'] || $this->page == $link['id'] || (!empty($link['subCategory']) && $this->category == $link['subCategory'])) ? true : false;
       if($link['title'])
         $menuItemCopy['title']               = $link['title'];
       if($link['id']) {
