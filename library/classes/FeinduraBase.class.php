@@ -1680,7 +1680,7 @@ class FeinduraBase {
       $altTitle = strip_tags($this->getLocalized($pageContent,'title')); // getLocalized function is from the feindura.class.pgp
 
       if(!empty($configThumbWidth) && !empty($configThumbHeight) && is_numeric($configThumbWidth) && is_numeric($configThumbHeight)) {
-        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/images/icons/emptyImage.gif" style="display:table-cell; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'\') no-repeat center center;'.$thumbnailAlign.'" alt="'.$altTitle.'" title="'.$altTitle.'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+        $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI($this->adminConfig['basePath']).'library/images/icons/emptyImage.gif" style="display: inline-block; background-size: cover; width:'.$configThumbWidth.'px; height:'.$configThumbHeight.'px; background: url(\''.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'\') no-repeat center center;'.$thumbnailAlign.'" alt="'.$altTitle.'" title="'.$altTitle.'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       } else {
         if($thumbnailAlign) $thumbnailAlign = ' style="'.trim($thumbnailAlign).'"';
         $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/').$pageContent['thumbnail'].'" alt="'.$altTitle.'" title="'.$altTitle.'"'.$thumbnailAlign.$thumbnailAttributes.$tagEnding.$thumbnailAfter;

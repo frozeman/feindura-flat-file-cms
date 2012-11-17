@@ -206,7 +206,7 @@ $filePath = (empty($_SERVER["SCRIPT_FILENAME"])) ? realpath(null) : realpath($_S
 // should realpath() fail, use just the $_SERVER["SCRIPT_FILENAME"] variable
 if($filePath === false && !empty($_SERVER["SCRIPT_FILENAME"])) $filePath = $_SERVER["SCRIPT_FILENAME"];
 
-if(file_exists($_SERVER['DOCUMENT_ROOT'].XssFilter::path($_SERVER['PHP_SELF']))) {
+if(@is_file($_SERVER['DOCUMENT_ROOT'].XssFilter::path($_SERVER['PHP_SELF']))) {
   $docRoot = realpath($_SERVER['DOCUMENT_ROOT']);
 } else {
   // $fileDir = str_replace('/library/includes/general.include.php','',str_replace("\\","/",__FILE__));
