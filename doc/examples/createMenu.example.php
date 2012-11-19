@@ -53,6 +53,7 @@ $feindura = new Feindura();
 <?php
 
 // set menu properties
+$feindura->menuShowAllPages           = true; // will overwrite the pages "show in menu" setting
 $feindura->menuId                     = 'menuId';
 $feindura->menuClass                  = 'menuClass';
 $feindura->menuAttributes             = 'test="menuAttribute1" onclick="menuAttribute2"';

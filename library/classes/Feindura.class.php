@@ -433,6 +433,18 @@ class Feindura extends FeinduraBase {
   /* ->> MENU <<- */
 
  /**
+  * If this property is TRUE, it overwrites the "show in menu" setting of all pages, so that all pages are visible in the following menus.
+  *
+  * @var bool
+  * @access public
+  *
+  * @see Feindura::createMenu()
+  * @example createMenu.example.php
+  *
+  */
+  public $menuShowAllPages = false;
+
+ /**
   * Contains an id-Attribute which will be add to the menu tag created by any {@link Feindura::createMenu()} method.
   *
   * <b>Notice</b>: You can also add the ID, classes and attributes directly to a specific menu using the <var>$menuTag</var> parameter. See the <var>$menuTag</var> parameter of the {@link Feindura::createMenu()} method for details.
@@ -1716,7 +1728,7 @@ class Feindura extends FeinduraBase {
       // create a link out of every page in the array
       foreach($pages as $page) {
         // creates the link
-        if($page['showInMenus'] && $pageLink = $this->createLink($page,$linkText)) {
+        if(($page['showInMenus'] || $this->menuShowAllPages) && $pageLink = $this->createLink($page,$linkText)) {
           // adds the link to an array
           $link['link']        = $pageLink;
           $link['href']        = $this->createHref($page);
