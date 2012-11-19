@@ -25,7 +25,6 @@
 require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
-$_GET['file'] = XssFilter::path($_GET['file']);
 
 $backupTime = filemtime(dirname(__FILE__).'/../../../backups/'.$_GET['file']);
 $backupName .= (strpos($_GET['file'],'restore') === false)

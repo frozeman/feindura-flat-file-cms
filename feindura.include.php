@@ -29,9 +29,18 @@
 
 // -> starts a SESSION; needed to prevent multiple counting of the visitor in the statistics
 ini_set('session.gc_maxlifetime', 3600); // saves the session for 60 minutes
-ini_set('session.cookie_lifetime', 3600); // saves the session for 3 hours minutes
+ini_set('session.cookie_lifetime', 3600); // saves the session for 60 minutes
 session_name('session');
-session_start();
+
+// prevent Full Path Disclosure, through session error
+$sessid = (isset($_COOKIE['session']))
+    ? $_COOKIE['session']
+    : $sessid = session_id();
+
+if(preg_match('/^[a-z0-9]{32}$/', $sessid))
+    session_start();
+unset($sessid);
+
 
 // -> CHECKS if cookies are enabled
 if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'] != 'true')

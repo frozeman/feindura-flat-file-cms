@@ -123,6 +123,7 @@ if(isset($_GET['logout']) || (isset($_SESSION['feinduraSession']['login']['end']
   $_SESSION['feinduraSession']['login']['end'] = time() + $sessionLifeTime;
 }
 
+
 // DebugTools::dump($_SERVER['PHP_SELF']);
 
 // ->> CHECK if user is logged in

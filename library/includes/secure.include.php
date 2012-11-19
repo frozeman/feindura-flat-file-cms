@@ -35,11 +35,14 @@ require_once(dirname(__FILE__)."/backend.include.php");
 $_SERVER['PHP_SELF'] = XssFilter::path($_SERVER['PHP_SELF']);
 
 // ->> CHECK the GET and POST variables
-if(isset($_GET['category'])) $_GET['category'] = XssFilter::int($_GET['category'],0);
+if(isset($_GET['category'])) $_GET['category']   = XssFilter::int($_GET['category'],0);
 if(isset($_POST['category'])) $_POST['category'] = XssFilter::int($_POST['category'],0);
-if(isset($_GET['page']) && $_GET['page'] !== 'new') $_GET['page'] = XssFilter::int($_GET['page'],0);
+if(isset($_GET['page']) && $_GET['page'] !== 'new') $_GET['page']    = XssFilter::int($_GET['page'],0);
 if(isset($_POST['page']) && $_POST['page'] !== 'new') $_POST['page'] = XssFilter::int($_POST['page'],0);
-if(isset($_GET['site'])) $_GET['site'] = XssFilter::stringStrict($_GET['site']);
+
+if(isset($_GET['site'])) $_GET['site']   = XssFilter::stringStrict($_GET['site']);
+if(isset($_GET['addon'])) $_GET['addon'] = XssFilter::path($_GET['addon']);
+if(isset($_GET['file'])) $_GET['file']   = XssFilter::path($_GET['file']);
 
 /**
  * Then includes the login

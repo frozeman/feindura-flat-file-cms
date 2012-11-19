@@ -226,4 +226,15 @@ function sortCurrentVisitorsByTime($a, $b) {     // (Array) $a = current; $b = f
   return ($a[2] > $b[2]) ? -1 : 1;
 }
 
+/**
+ * <b>Name</b> sortFilesByModifiedDate()<br>
+ *
+ * Sort an Array of filepaths by modified timestamp. With the newest timestamp first.
+ *
+ */
+function sortFilesByModifiedDate($a, $b) {     // (Array) $a = current; $b = follwing value
+
+  return (filemtime(DOCUMENTROOT.$a) > filemtime(DOCUMENTROOT.$b)) ? -1 : 1;
+}
+
 ?>

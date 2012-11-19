@@ -19,13 +19,22 @@
  * @version 0.3
  */
 
-$sessionLifeTime = (60 * 60 * 99); // logout after 3 hours of inactivity, but set the session to very long time
+$sessionLifeTime = (60 * 60 * 3); // logout after 3 hours of inactivity, but set the session to very long time
 
 // -> START SESSION (for the login, language and storedPages [currently deactivated])
 ini_set('session.gc_maxlifetime', $sessionLifeTime * 10); // saves the session for a long time, so it doesnt expire (feindura handles this)
 ini_set('session.cookie_lifetime', $sessionLifeTime * 10); // saves the session for a long time, so it doesnt expire (feindura handles this)
 session_name('session');
-session_start();
+
+// prevent Full Path Disclosure, through session error
+$sessid = (isset($_COOKIE['session']))
+    ? $_COOKIE['session']
+    : $sessid = session_id();
+
+if(preg_match('/^[a-z0-9]{32}$/', $sessid))
+    session_start();
+unset($sessid);
+
 
 // set the execution time limit higher
 @set_time_limit(50);

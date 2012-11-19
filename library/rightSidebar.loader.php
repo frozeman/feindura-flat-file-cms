@@ -309,8 +309,7 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       $backups = GeneralFunctions::readFolder(dirname(__FILE__).'/../backups/');
       if(!empty($backups['files'])) {
         $lastBackups = '<ul class="unstyled backupDownload">';
-        natsort($backups['files']);
-        $backups['files'] = array_reverse($backups['files']);
+        usort($backups['files'],'sortFilesByModifiedDate');
         foreach($backups['files'] as $backupFile) {
           $backupTime = filemtime(DOCUMENTROOT.$backupFile);
 

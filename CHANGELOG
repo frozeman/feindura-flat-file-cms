@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0.3
-Build 1016
+Build 1017
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ----------
 
+  build 1017: fixed the sorting of the backups, xss filter more get variables, at Full Path Disclosure filter.
   build 1016: changed the way thumbnails get implemented, when the size is fixed (width and height set)
   build 1015: add link active state to the returned link array, also when in subm category.
   build 1014: fixed submenu issue, where parts of the submenu was visible for non admins
