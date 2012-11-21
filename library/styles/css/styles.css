@@ -185,7 +185,7 @@
   clear: both;
 }
 .feindura .hide-text {
-  font: a;
+  font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
@@ -5640,10 +5640,10 @@
   animation-duration: 0.7s;
   animation-iteration-count: 1;
   animation-name: messagePopUpPerspective;
-  -webkit-transform: rotatex(0.1deg);
-  -moz-transform: rotatex(0.1deg);
-  -o-transform: rotatex(0.1deg);
-  transform: rotatex(0.1deg);
+  -webkit-transform: rotateX(0.1deg);
+  -moz-transform: rotateX(0.1deg);
+  -o-transform: rotateX(0.1deg);
+  transform: rotateX(0.1deg);
   padding: 20px;
   margin: 0;
   margin-top: 20px;
@@ -5657,74 +5657,74 @@
 }
 @-webkit-keyframes messagePopUpPerspective {
   0% {
-    -webkit-transform: rotatex(-90deg);
-    -moz-transform: rotatex(-90deg);
-    -o-transform: rotatex(-90deg);
-    transform: rotatex(-90deg);
+    -webkit-transform: rotateX(-90deg);
+    -moz-transform: rotateX(-90deg);
+    -o-transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
     -webkit-animation-timing-function: ease-in-out;
     -moz-animation-timing-function: ease-in-out;
     -o-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
   }
   35% {
-    -webkit-transform: rotatex(-50deg);
-    -moz-transform: rotatex(-50deg);
-    -o-transform: rotatex(-50deg);
-    transform: rotatex(-50deg);
+    -webkit-transform: rotateX(-50deg);
+    -moz-transform: rotateX(-50deg);
+    -o-transform: rotateX(-50deg);
+    transform: rotateX(-50deg);
   }
   100% {
-    -webkit-transform: rotatex(0.1deg);
-    -moz-transform: rotatex(0.1deg);
-    -o-transform: rotatex(0.1deg);
-    transform: rotatex(0.1deg);
+    -webkit-transform: rotateX(0.1deg);
+    -moz-transform: rotateX(0.1deg);
+    -o-transform: rotateX(0.1deg);
+    transform: rotateX(0.1deg);
   }
 }
 @-moz-keyframes messagePopUpPerspective {
   0% {
-    -webkit-transform: rotatex(-90deg);
-    -moz-transform: rotatex(-90deg);
-    -o-transform: rotatex(-90deg);
-    transform: rotatex(-90deg);
+    -webkit-transform: rotateX(-90deg);
+    -moz-transform: rotateX(-90deg);
+    -o-transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
     -webkit-animation-timing-function: ease-in-out;
     -moz-animation-timing-function: ease-in-out;
     -o-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
   }
   35% {
-    -webkit-transform: rotatex(-50deg);
-    -moz-transform: rotatex(-50deg);
-    -o-transform: rotatex(-50deg);
-    transform: rotatex(-50deg);
+    -webkit-transform: rotateX(-50deg);
+    -moz-transform: rotateX(-50deg);
+    -o-transform: rotateX(-50deg);
+    transform: rotateX(-50deg);
   }
   100% {
-    -webkit-transform: rotatex(0.1deg);
-    -moz-transform: rotatex(0.1deg);
-    -o-transform: rotatex(0.1deg);
-    transform: rotatex(0.1deg);
+    -webkit-transform: rotateX(0.1deg);
+    -moz-transform: rotateX(0.1deg);
+    -o-transform: rotateX(0.1deg);
+    transform: rotateX(0.1deg);
   }
 }
 @-o-keyframes messagePopUpPerspective {
   0% {
-    -webkit-transform: rotatex(-90deg);
-    -moz-transform: rotatex(-90deg);
-    -o-transform: rotatex(-90deg);
-    transform: rotatex(-90deg);
+    -webkit-transform: rotateX(-90deg);
+    -moz-transform: rotateX(-90deg);
+    -o-transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
     -webkit-animation-timing-function: ease-in-out;
     -moz-animation-timing-function: ease-in-out;
     -o-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
   }
   35% {
-    -webkit-transform: rotatex(-50deg);
-    -moz-transform: rotatex(-50deg);
-    -o-transform: rotatex(-50deg);
-    transform: rotatex(-50deg);
+    -webkit-transform: rotateX(-50deg);
+    -moz-transform: rotateX(-50deg);
+    -o-transform: rotateX(-50deg);
+    transform: rotateX(-50deg);
   }
   100% {
-    -webkit-transform: rotatex(0.1deg);
-    -moz-transform: rotatex(0.1deg);
-    -o-transform: rotatex(0.1deg);
-    transform: rotatex(0.1deg);
+    -webkit-transform: rotateX(0.1deg);
+    -moz-transform: rotateX(0.1deg);
+    -o-transform: rotateX(0.1deg);
+    transform: rotateX(0.1deg);
   }
 }
 .feindura div.smallLoadingCircle {
@@ -5851,7 +5851,7 @@
   background-position: 0px -90px !important;
 }
 .feindura .floating-tip-wrapper {
-  z-index: 20020;
+  z-index: 20020 !important;
   pointer-events: none;
 }
 .feindura .floating-tip {
@@ -6581,7 +6581,7 @@
 .feindura header.main .sideBar .languageSelection {
   position: absolute;
   bottom: 21px;
-  left: 10px;
+  left: 0;
   z-index: 2;
 }
 .feindura header.main .sideBar .languageSelection a {
@@ -6628,6 +6628,10 @@
 .feindura header.main .sideBar .languageSelection a.ru {
   left: 150px;
   background: url("../../images/buttons/langSelection_ru.png") no-repeat;
+}
+.feindura header.main .sideBar .languageSelection a.ro {
+  left: 180px;
+  background: url("../../images/buttons/langSelection_ro.png") no-repeat;
 }
 .feindura header.main a.feinduraLogo {
   z-index: 1;
@@ -6818,7 +6822,7 @@
   background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 58%, #eaeaea 59%, #e6e6e6 100%);
   background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 58%, #eaeaea 59%, #e6e6e6 100%);
   background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 58%, #eaeaea 59%, #e6e6e6 100%);
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
   -o-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);

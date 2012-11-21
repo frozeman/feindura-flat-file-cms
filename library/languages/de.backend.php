@@ -285,7 +285,7 @@ $langFile['WARNING_TITLE_STARTPAGE']                                      = 'Die
 $langFile['WARNING_TEXT_STARTPAGE']                                       = 'Bitte lege eine Seite als Startseite fest.<br>Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="icons startpage"></span> Symbol';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Das Dokumenten-Wurzelverzeichnis konnte nicht automatisch bestimmt werden!';
-$langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Um das Dokumenten-Wurzelverzeichnis korrekt auflösen zu können, trage bitte den &quot;echten feindura Pfad&quot; deines <span class="feinduraInline">fein<em>dura</em></span> CMS in den <a href="?site=adminSetup#adminSettings">Administrator-Einstellungen</a> ein.';
+$langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Damit <span class="feinduraInline">fein<em>dura</em></span> richtig funktionieren kann trage bitte das Dokumenten-Wurzelverzeichnis (Document-Root) in den <a href="?site=adminSetup#adminSettings">Administrator-Einstellungen</a> manuell ein.';
 
 $langFile['WARNING_TITLE_BASEPATH']                                       = '<span class="feinduraInline">fein<em>dura</em></span> wurde noch nicht konfiguriert!';
 $langFile['WARNING_TEXT_BASEPATH']                                        = 'Der <i>Basispfad</i> stimmt nicht mit dem in den Administrator-Einstellungen angegebenen Pfad überein.<br>
@@ -403,6 +403,8 @@ $langFile['ADMINSETUP_GENERAL_error_save']                                = $lan
 
 $langFile['ADMINSETUP_GENERAL_h1']                                        = 'Grund-Einstellungen';
 
+$langFile['ADMINSETUP_GENERAL_TEXT_DOCUMENTROOT']                         = 'Dokumenten-Wurzelverzeichnis';
+$langFile['ADMINSETUP_GENERAL_TOOLTIP_DOCUMENTROOT']                      = 'Bitte gib das Dokumenten-Wurzelverzeichnis manuell ein.[br][span class=hint]z.B. &quot;/server/user/htdocs&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field1']                                    = 'Webseiten-URL';
 $langFile['ADMINSETUP_GENERAL_field1_tip']                                = 'Die URL ihrer Webseite wird automatisch eingefügt.';
 $langFile['ADMINSETUP_GENERAL_field1_inputTip']                           = 'Die URL wird automatisch eingefügt';

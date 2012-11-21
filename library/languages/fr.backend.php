@@ -276,7 +276,7 @@ $langFile['WARNING_TITLE_STARTPAGE']                                      = 'La 
 $langFile['WARNING_TEXT_STARTPAGE']                                       = 'Svp définissez une page d&#145;acceuil.<br>Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="icons startpage"></span> Symbol';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Le Document Root ne pouvait pas être résolus automatiquement!';
-$langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Pour résoudre correctement le Document Root, allez à la <a href="?site=adminSetup#adminSettings">administrator-settings</a> et définir le "chemin réel du feindura" de votre <span class="feinduraInline">fein<em>dura</em></span> CMS.';
+$langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Pour <span class="feinduraInline">fein<em>dura</em></span> pour fonctionner correctement, vous devez définir le DocumentRoot manuellement dans le <a href="?site=adminSetup#adminSettings">administrator-settings</a>.';
 
 $langFile['WARNING_TITLE_BASEPATH']                                       = '<span class="feinduraInline">fein<em>dura</em></span> n&#145;a pas encore été configuré!';
 $langFile['WARNING_TEXT_BASEPATH']                                        = 'La <i>chemin de base</i>ne correspond pas avec les préférences l&#145;administrateur.<br>
@@ -385,6 +385,8 @@ $langFile['ADMINSETUP_TEXT_ISFOLDERERROR']                                = 'n&#
 $langFile['ADMINSETUP_GENERAL_error_save']                                = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].'%sconfig/admin.config.php';
 $langFile['ADMINSETUP_GENERAL_h1']                                        = 'configuration de base';
 
+$langFile['ADMINSETUP_GENERAL_TEXT_DOCUMENTROOT']                         = 'DocumentRoot';
+$langFile['ADMINSETUP_GENERAL_TOOLTIP_DOCUMENTROOT']                      = 'S&#145;il vous plaît entrez dans la racine du document manuellement.[br][span class=hint]p.e. &quot;/server/user/htdocs&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field1']                                    = 'URL site web';
 $langFile['ADMINSETUP_GENERAL_field1_tip']                                = 'L&#145;URL de votre site web sera mise automatiquement.';
 $langFile['ADMINSETUP_GENERAL_field1_inputTip']                           = 'L&#145;URL sera mise automatiquement';

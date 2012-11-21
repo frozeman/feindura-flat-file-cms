@@ -371,7 +371,7 @@ class XssFilter {
   */
   public static function path($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
-        preg_match("#^[~\:\/\.\-\s_a-zA-Z\d]*$#i",$data,$find);
+        preg_match("#^[~\:\\\/\.\-\s_a-zA-Z\d]*$#i",$data,$find);
          if (!empty($find[0])) {
            preg_match("#\.\.#",$find[0],$findCatch); // disallow ".."
            $data = preg_replace('#/+#','/',$find[0]);

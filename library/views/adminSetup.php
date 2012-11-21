@@ -56,13 +56,25 @@ $hidden = ($SAVEDFORM !== false && $SAVEDFORM != 'adminSettings' && checkBasePat
   <h1><a href="#"><img src="library/images/icons/setupIcon_middle.png" class="blockH1Icon" alt="icon"><?php echo $langFile['ADMINSETUP_GENERAL_h1']; ?></a></h1>
   <div class="content form">
 
+    <?php if(documentrootWarning() || !empty($adminConfig['documentroot'])) { ?>
+    <div class="row">
+      <div class="span3 formLeft">
+        <label for="cfg_documentroot"><span class="toolTipLeft<?php if(empty($adminConfig['documentroot'])) echo ' red';  ?>" title="::<?php echo $langFile['ADMINSETUP_GENERAL_TOOLTIP_DOCUMENTROOT'] ?>">
+        <?php echo $langFile['ADMINSETUP_GENERAL_TEXT_DOCUMENTROOT'] ?></span></label>
+      </div>
+      <div class="span5">
+        <input type="text" id="cfg_documentroot" name="cfg_documentroot"<?php if(empty($adminConfig['documentroot'])) echo ' value="'.str_replace($adminConfig['basePath'],'',str_replace('library/views','',dirname(__FILE__))).'"'; else echo ' value="'.$adminConfig['documentroot'].'"'; ?> class="toolTipRight" style="width: 400px;" title="::<?php echo $langFile['ADMINSETUP_GENERAL_TOOLTIP_DOCUMENTROOT']; ?>">
+      </div>
+    </div>
+    <?php } ?>
+
     <div class="row">
       <div class="span3 formLeft">
         <label for="cfg_url"><span class="toolTipLeft" title="::<?php echo $langFile['ADMINSETUP_GENERAL_field1_tip'] ?>">
         <?php echo $langFile['ADMINSETUP_GENERAL_field1'] ?></span></label>
       </div>
       <div class="span5">
-        <input type="text" id="cfg_url" name="cfg_url"<?php if($GLOBALS['adminConfig']['url'] != generateCurrentUrl()) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>">
+        <input type="text" id="cfg_url" name="cfg_url"<?php if($adminConfig['url'] != generateCurrentUrl()) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>">
       </div>
     </div>
 
@@ -73,7 +85,7 @@ $hidden = ($SAVEDFORM !== false && $SAVEDFORM != 'adminSettings' && checkBasePat
       </div>
       <div class="span5">
         <?php
-        $checkPath = GeneralFunctions::URI2Path(GeneralFunctions::getDirname($_SERVER['PHP_SELF']));
+        $checkPath = GeneralFunctions::URI2Path(dirname($_SERVER['PHP_SELF'])).'/';
         ?>
         <input type="text" id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="toolTipRight" title="<?php echo $langFile['ADMINSETUP_GENERAL_field2_inputTip']; ?>">
       </div>

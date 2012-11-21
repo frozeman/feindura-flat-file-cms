@@ -285,7 +285,7 @@ $langFile['WARNING_TITLE_STARTPAGE']                                      = 'The
 $langFile['WARNING_TEXT_STARTPAGE']                                       = 'Please set a page as start page.<br>Go to <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> and click on the <span class="icons startpage"></span> icon on the desired page.';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Your Document Root couldn&#145;t be resolved automatically!';
-$langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'To correctly resolve the Document Root, go to the <a href="?site=adminSetup#adminSettings">administrator-settings</a> and set the &quot;real feindura path&quot; of your <span class="feinduraInline">fein<em>dura</em></span> CMS manually.';
+$langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'For <span class="feinduraInline">fein<em>dura</em></span> to function properly, you have to set the  Documentroot manually in the <a href="?site=adminSetup#adminSettings">Administrator Settings</a>.';
 
 $langFile['WARNING_TITLE_BASEPATH']                                       = '<span class="feinduraInline">fein<em>dura</em></span> is not configurated!';
 $langFile['WARNING_TEXT_BASEPATH']                                        = 'The <i>base path</i> of the CMS doesn&#145;t match the one in the administrator-settings.<br>
@@ -405,6 +405,8 @@ $langFile['ADMINSETUP_GENERAL_error_save']                                = $lan
 
 $langFile['ADMINSETUP_GENERAL_h1']                                        = 'Basic-Settings';
 
+$langFile['ADMINSETUP_GENERAL_TEXT_DOCUMENTROOT']                         = 'Documentroot';
+$langFile['ADMINSETUP_GENERAL_TOOLTIP_DOCUMENTROOT']                      = 'Please type in the document root manually.[br][span class=hint]e.g. &quot;/server/user/htdocs&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field1']                                    = 'Website URL';
 $langFile['ADMINSETUP_GENERAL_field1_tip']                                = 'The URL of your website will be added automatically.';
 $langFile['ADMINSETUP_GENERAL_field1_inputTip']                           = 'The URL will be added automatically';

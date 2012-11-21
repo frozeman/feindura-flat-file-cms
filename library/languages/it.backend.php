@@ -291,7 +291,7 @@ $langFile['WARNING_TITLE_STARTPAGE']                                      = 'La 
 $langFile['WARNING_TEXT_STARTPAGE']                                       = 'Si prega di impostare una pagina come pagina iniziale.<br>Vai a <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> e fare clic sull&#145; <span class="icons startpage"></span> icona della pagina desiderata.';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'La root del documento non può essere risolta automaticamente!';
-$langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Per risolvere correttamente la root del documento, andare su <a href="?site=adminSetup#adminSettings">impostazioni-amministratore</a> e settare il &quot;percorso reale&quot; del tuo <span class="feinduraInline">fein<em>dura</em></span> CMS manualmente.';
+$langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Per <span class="feinduraInline">fein<em>dura</em></span> per funzionare correttamente, è necessario impostare la DocumentRoot manualmente su <a href="?site=adminSetup#adminSettings">impostazioni-amministratore</a>.';
 
 $langFile['WARNING_TITLE_BASEPATH']                                       = '<span class="feinduraInline">fein<em>dura</em></span> non è configurato!';
 $langFile['WARNING_TEXT_BASEPATH']                                        = 'Il <i> percorso di base</i> del CMS non corrisponde a quello delle impostazioni-amministratore.<br>
@@ -409,6 +409,8 @@ $langFile['ADMINSETUP_GENERAL_error_save']                                = $lan
 
 $langFile['ADMINSETUP_GENERAL_h1']                                        = 'Impostazioni-Di-Base';
 
+$langFile['ADMINSETUP_GENERAL_TEXT_DOCUMENTROOT']                         = 'DocumentRoot';
+$langFile['ADMINSETUP_GENERAL_TOOLTIP_DOCUMENTROOT']                      = 'Si prega di digitare il principale documento manualmente.[br][span class=hint]a.e. &quot;/server/user/htdocs&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field1']                                    = 'URL Sito Web';
 $langFile['ADMINSETUP_GENERAL_field1_tip']                                = 'L&#145;URL del tuo sito verrà aggiunto automaticamente.';
 $langFile['ADMINSETUP_GENERAL_field1_inputTip']                           = 'L&#145;URL verrà aggiunto automaticamente';

@@ -117,7 +117,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 </head>
 <body>
 
-
   <!-- ************************************************************************* -->
   <!-- ** DOCUMENT SAVED ******************************************************* -->
   <div id="documentSaved"<?php if($DOCUMENTSAVED === true) echo ' class="saved"'; ?>></div>
@@ -267,6 +266,8 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
           <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','fr-FR'); ?>" tabindex="22" class="fr toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'fr-FR') echo ' active'; ?>" title="français::"></a>
           <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','it-IT'); ?>" tabindex="23" class="it toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'it-IT') echo ' active'; ?>" title="italiano::"></a>
           <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','ru-RU'); ?>" tabindex="24" class="ru toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'ru-RU') echo ' active'; ?>" title="русский::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','ro-RO'); ?>" tabindex="25" class="ro toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'ro-RO') echo ' active'; ?>" title="român::"></a>
+
         </div>
       </div>
   </header>

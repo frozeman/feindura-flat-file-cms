@@ -294,7 +294,7 @@ $langFile['WARNING_TITLE_STARTPAGE']                                      = 'Г�
 $langFile['WARNING_TEXT_STARTPAGE']                                       = 'Пожалуйста установите главную страницу.<br>Пройдите к <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> и выберите <span class="icons startpage"></span> иконку для назначения страницы.';
 
 $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Ваш Document Root не удается обнаружить автоматически!';
-$langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Для корректной установки Document Root пройдите в <a href="?site=adminSetup#adminSettings">Основные настройки</a> и установите &quot;Реальный путь feindura&quot;.';
+$langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Для <span class="feinduraInline">fein<em>dura</em></span> функционировать должным образом, вы должны установить Document Root вручную в <a href="?site=adminSetup#adminSettings">Основные настройки</a>.';
 
 $langFile['WARNING_TITLE_BASEPATH']                                       = '<span class="feinduraInline">fein<em>dura</em></span> не настроена!';
 $langFile['WARNING_TEXT_BASEPATH']                                        = '<i>Базовый путь</i> неверный, установите базовый путь на странице Основные настройки - Базовые настройки.';
@@ -415,6 +415,8 @@ $langFile['ADMINSETUP_GENERAL_error_save']                                = $lan
 
 $langFile['ADMINSETUP_GENERAL_h1']                                        = 'Базовые настройки';
 
+$langFile['ADMINSETUP_GENERAL_TEXT_DOCUMENTROOT']                         = 'DocumentRoot';
+$langFile['ADMINSETUP_GENERAL_TOOLTIP_DOCUMENTROOT']                      = 'Пожалуйста, введите в корневом каталоге документов вручную.[br][span class=hint]например &quot;/server/user/htdocs&quot;[/span]';
 $langFile['ADMINSETUP_GENERAL_field1']                                    = 'URL сайта';
 $langFile['ADMINSETUP_GENERAL_field1_tip']                                = 'URL сайта определяется автоматически.';
 $langFile['ADMINSETUP_GENERAL_field1_inputTip']                           = 'URL сайта определяется автоматически.';

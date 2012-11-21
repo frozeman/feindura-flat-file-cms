@@ -202,29 +202,34 @@ $GLOBALS['languageNames'] = $languageNames;
  * The absolut path of the webserver, with fix for IIS Server
  */
 // use getcwd()?
-$filePath = (empty($_SERVER["SCRIPT_FILENAME"])) ? realpath(null) : realpath($_SERVER["SCRIPT_FILENAME"]);
+// $filePath = (empty($_SERVER["SCRIPT_FILENAME"])) ? realpath(null) : realpath($_SERVER["SCRIPT_FILENAME"]);
 // should realpath() fail, use just the $_SERVER["SCRIPT_FILENAME"] variable
-if($filePath === false && !empty($_SERVER["SCRIPT_FILENAME"])) $filePath = $_SERVER["SCRIPT_FILENAME"];
+// if($filePath === false && !empty($_SERVER["SCRIPT_FILENAME"])) $filePath = $_SERVER["SCRIPT_FILENAME"];
+$filePath = str_replace('library/includes/general.include.php', 'index.php', __FILE__);
 
 if(@is_file($_SERVER['DOCUMENT_ROOT'].XssFilter::path($_SERVER['PHP_SELF']))) {
   $docRoot = realpath($_SERVER['DOCUMENT_ROOT']);
 } else {
-  // $fileDir = str_replace('/library/includes/general.include.php','',str_replace("\\","/",__FILE__));
   $fileDir = str_replace("\\","/",$filePath);
   $docRootPattern = str_replace('/','|',XssFilter::path($_SERVER['PHP_SELF']));
   $docRoot = preg_replace('#'.$docRootPattern.'#', '', $fileDir);
   if(substr($docRoot, -1) == '/')
     $docRoot = substr(preg_replace('#/+#','/',$docRoot), 0, -1);
 }
-if(empty($docRoot))
+// use the manual set documentroot if retrieving automatically didn't work
+if(empty($docRoot) && !empty($adminConfig['documentroot']))
+  $docRoot = $adminConfig['documentroot'];
+elseif(empty($docRoot))
   $docRoot = false;
-elseif(substr($docRoot, -1) == '/') // make sure the last character isn't a "/"
+// remove last "/"
+if(substr($docRoot, -1) == '/')
   $docRoot = substr($docRoot, 0, -1);
 
+if(!@is_dir($docRoot))
+  $docRoot = false;
 
 define('DOCUMENTROOT', $docRoot);
 unset($fileDir,$docRoot,$docRootPattern); //unset($docRoot,$basePath,$localpath,$absolutepath);
-
 
 // ->> URIEXTENSION
 /**
@@ -247,8 +252,8 @@ if(!empty($filePath)) {
 define('URIEXTENSION', $uriExtension);
 unset($uriPattern,$uriExtension,$filePath);
 
-// echo 'DOCROOT: '.DOCUMENTROOT.'<br>';
-// echo 'URI: '.URIEXTENSION.'<br>';
+// DebugTools::dump('DOCROOT: '.DOCUMENTROOT);
+// DebugTools::dump('URI: '.URIEXTENSION);
 
 /**
  * The required PHP version

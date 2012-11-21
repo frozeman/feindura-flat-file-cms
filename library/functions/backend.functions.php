@@ -973,6 +973,7 @@ function saveAdminConfig($adminConfig) {
     $fileContent = '';
     $fileContent .= "<?php\n"; // < ?php
 
+    $fileContent .= "\$adminConfig['documentroot']      = '".XssFilter::path($adminConfig['documentroot'])."';\n";
     $fileContent .= "\$adminConfig['url']               = '".XssFilter::url($adminConfig['url'])."';\n";
     $fileContent .= "\$adminConfig['basePath']          = '".XssFilter::path($adminConfig['basePath'])."';\n";
     $fileContent .= "\$adminConfig['websitePath']       = '".XssFilter::path($adminConfig['websitePath'],false,'/')."';\n";
@@ -2780,7 +2781,7 @@ function generateCurrentUrl() {
  *
  */
 function checkBasePathAndURL() {
-  $checkPath = GeneralFunctions::URI2Path(GeneralFunctions::getDirname($_SERVER['PHP_SELF']));
+  $checkPath = GeneralFunctions::URI2Path(dirname($_SERVER['PHP_SELF'])).'/';
 
   if($GLOBALS['adminConfig']['basePath'] == $checkPath &&
      $GLOBALS['adminConfig']['url'] == generateCurrentUrl())
@@ -2808,7 +2809,7 @@ function checkBasePathAndURL() {
  *
  */
 function documentrootWarning() {
-  if(checkBasePathAndURL() && (DOCUMENTROOT === false)) {
+  if(checkBasePathAndURL() && (empty($GLOBALS['adminConfig']['documentroot']) || !@is_dir($GLOBALS['adminConfig']['documentroot'])) && (DOCUMENTROOT === false)) {
     return '<div class="block alert warning">
             <h1>'.$GLOBALS['langFile']['WARNING_TITLE_DOCUMENTROOT'].'</h1>
             <div class="content">

@@ -68,9 +68,14 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   foreach($_POST as $postKey => $post)
     $_POST[$postKey] = str_replace(array('\"',"\'"),'',$post);
 
+  // remove last "/"
+  if(substr($_POST['cfg_documentroot'], -1) == '/')
+    $_POST['cfg_documentroot'] = substr($_POST['cfg_documentroot'], 0, -1);
+
   // -> PREPARE CONFIG VARs
+  $adminConfig['documentroot']             = $_POST['cfg_documentroot'];
   $adminConfig['url']                      = generateCurrentUrl();
-  $adminConfig['basePath']                 = GeneralFunctions::URI2Path(GeneralFunctions::getDirname($_SERVER['PHP_SELF']));
+  $adminConfig['basePath']                 = GeneralFunctions::URI2Path(dirname($_SERVER['PHP_SELF'])).'/';
 
   $adminConfig['websitePath']              = GeneralFunctions::URI2Path($_POST['cfg_websitePath']);
 

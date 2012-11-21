@@ -120,6 +120,7 @@ if($websiteConfig['multiLanguageWebsite']['active']) {
   $_SESSION['feinduraSession']['websiteLanguage'] = 0;
 }
 
+
 /**
  * SET the BACKEND LANGUAGE
  * And loads the language files
@@ -153,6 +154,12 @@ if(empty($_SESSION['feinduraSession']['backendLanguageLocale'])) {
       break;
     case 'it':
       $_SESSION['feinduraSession']['backendLanguageLocale'] = 'it-IT';
+      break;
+    case 'ru':
+      $_SESSION['feinduraSession']['backendLanguageLocale'] = 'ru-RU';
+      break;
+    case 'ro':
+      $_SESSION['feinduraSession']['backendLanguageLocale'] = 'ro-RO';
       break;
     default:
       $_SESSION['feinduraSession']['backendLanguageLocale'] = 'en-GB';
