@@ -29,7 +29,7 @@ $frontendLangFile['HEADER_TIP_GOTOBACKEND']               = 'Feindura::Click aic
 $frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']      = 'Editeaza aceasta pagina in adminstrare';
 
 $frontendLangFile['EDITPAGE_TIP_DISABLED']                = 'Editarea in pagina nu este posibila::Continutul a fost schimbat de scripturi.';
-$frontendLangFile['TOPBAR_TIP_FRONTENDEDITING']           = 'Selectati o zona aditabila pentru a putea incepe sa editati.';
+$frontendLangFile['TOPBAR_TIP_FRONTENDEDITING']           = 'Selectati o zona editabila pentru a putea incepe sa editati.';
 $frontendLangFile['TOPBAR_TIP_DEACTIVATEFRONTENDEDITING'] = 'Dezactivati editarea in website';
 
 // FRONTEND ERROR TEXTS

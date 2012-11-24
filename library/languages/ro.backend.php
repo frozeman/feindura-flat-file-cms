@@ -93,8 +93,8 @@ $langFile['THUMBNAIL_TEXT_NAME']                                          = 'Thu
 $langFile['THUMBNAIL_TEXT_WIDTH']                                         = 'Thumbnail <b>latime</b>';
 $langFile['THUMBNAIL_TEXT_HEIGHT']                                        = 'Thumbnail <b>inaltime</b>';
 
-$langFile['THUMBNAIL_TOOLTIP_WIDTH']                                      = 'Latime standard::Latimea thumbnail-ului in pixeli.[br][br]Imaginea va fi redimensionata la aceasta dimensiune dupa incarca.';
-$langFile['THUMBNAIL_TOOLTIP_HEIGHT']                                     = 'Inaltime standard::Inaltimea thumbnail-ului in pixeli.[br][br]Imaginea va fi redimensionata la aceasta dimensiune dupa incarca.';
+$langFile['THUMBNAIL_TOOLTIP_WIDTH']                                      = 'Latime standard::Latimea thumbnail-ului in pixeli.[br][br]Imaginea va fi redimensionata la aceasta dimensiune dupa incarcare.';
+$langFile['THUMBNAIL_TOOLTIP_HEIGHT']                                     = 'Inaltime standard::Inaltimea thumbnail-ului in pixeli.[br][br]Imaginea va fi redimensionata la aceasta dimensiune dupa incarcare.';
 
 $langFile['THUMBNAIL_TEXT_RATIO']                                         = 'Proportie';
 $langFile['THUMBNAIL_TEXT_KEEPRATIO']                                     = 'pastreaza proportia';
@@ -108,9 +108,9 @@ $langFile['STYLESHEETS_TEXT_STYLEFILE']                                   = 'Fis
 $langFile['STYLESHEETS_TEXT_ID']                                          = 'Stylesheet-Id';
 $langFile['STYLESHEETS_TEXT_CLASS']                                       = 'Stylesheet-Class';
 
-$langFile['STYLESHEETS_TOOLTIP_STYLEFILE']                                = 'Aici poti specifica fisierele stylesheet Ce vor fi utilizate pentru formatarea continutului HTML.';
-$langFile['STYLESHEETS_TOOLTIP_ID']                                       = 'Aici poti defini un Atribut ID, care va fi adaugat la <body> tag  a editorului HTML.';
-$langFile['STYLESHEETS_TOOLTIP_CLASS']                                    = 'Aici poti defini un Atribut Clasa, care va fi adaugat la <body> tag  a editorului HTML.';
+$langFile['STYLESHEETS_TOOLTIP_STYLEFILE']                                = 'Aici poti specifica fisierele stylesheet ce vor fi utilizate pentru formatarea continutului HTML.';
+$langFile['STYLESHEETS_TOOLTIP_ID']                                       = 'Aici poti defini un Atribut ID, care va fi adaugat la <body> tag-ul editorului HTML.';
+$langFile['STYLESHEETS_TOOLTIP_CLASS']                                    = 'Aici poti defini un Atribut Clasa, care va fi adaugat la <body> tag-ul editorului HTML.';
 
 $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']                             = 'adauga fisier stylesheet ';
 $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>Exemplu</b> &quot;/style/layout.css&quot;';
@@ -118,20 +118,20 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'cale absoluta';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'cale relativa';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Cale Absoluta::Sistem de fisiere cu cale absoluta. (Dar relativa la radacina documentelor)[br][br][span class=hint]/server/htdocs[strong]/path/[/strong][/span]';
-$langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Cale relativa::Relativa URI Cale, adica relativ la documentul curent.';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Cale absoluta::Sistem de fisiere cu cale absoluta. (Dar relativa la radacina documentelor)[br][br][span class=hint]/server/htdocs[strong]/path/[/strong][/span]';
+$langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Cale relativa::Cale URI relativa  , adica relativ la documentul curent.';
 
 // STATISTICS
 $langFile['STATISTICS_TITLE_BROWSERCHART']                                = 'Utilizare browsere';
 $langFile['STATISTICS_TEXT_ROBOTCOUNT']                                   = 'web-crawler';
-$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT']                                = 'web-crawler::Sau robots sunt programe ale motoarelor de cautare care analizeaza si indexeaza site-ul.';
+$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT']                                = 'web-crawler::Sau robots, sunt programe ale motoarelor de cautare care analizeaza si indexeaza site-ul.';
 
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART1']                             = 'led'; // "exampleword" led 20 times to this website
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'ori pe acest site';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Click  pentru a cauta acest cuvant in pagini.';
 
 $langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Vizite pana acum';
-$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Vizitatori Curenti';
+$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Vizitatori curenti';
 $langFile['STATISTICS_TEXT_CURRENT']                                      = 'Acum';
 $langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Ultima activitate';
 
@@ -142,7 +142,7 @@ $langFile['STATISTICS_TEXT_VISITTIME_MIN']                                = 'cea
 $langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'de la';
 $langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'pana la';
 $langFile['STATISTICS_TEXT_NOVISIT']                                      = 'Pana acum nu aveti nici un vizitator.';
-$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = '<span class="toolTipTop" title="::Au venit din Google, Yahoo sau Bing (MSN) catre aces site.">Searchwords</span>';
+$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = '<span class="toolTipTop" title="::Au venit din Google, Yahoo sau Bing (MSN) catre acest site.">Searchwords</span>';
 
 $langFile['STATISTICS_TEXT_HOUR_SINGULAR']                                = 'ora';
 $langFile['STATISTICS_TEXT_HOUR_PLURAL']                                  = 'ore';
@@ -158,11 +158,11 @@ $langFile['LOG_PAGE_SAVED']                                               = 'Pag
 $langFile['LOG_PAGE_NEW']                                                 = 'Pagina nou creata';
 $langFile['LOG_PAGE_DELETE']                                              = 'Pagina stearsa';
 
-$langFile['LOG_PAGE_MOVEDINCATEGORY']                                     = 'PAgina mutata la categorie';
+$langFile['LOG_PAGE_MOVEDINCATEGORY']                                     = 'Pagina mutata la categorie';
 $langFile['LOG_PAGE_MOVEDTOCATEGORY_CATEGORY']                            = 'La categorie'; // Example Page in Category
 $langFile['LOG_PAGE_SORTED']                                              = 'Ordinea paginilor s-a schimbat';
 
-$langFile['LOG_THUMBNAIL_UPLOAD']                                         = 'Un nou thumbnail a fost incarca-at';
+$langFile['LOG_THUMBNAIL_UPLOAD']                                         = 'Un nou thumbnail a fost incarcat';
 $langFile['LOG_THUMBNAIL_DELETE']                                         = 'Thumbnail sters';
 
 $langFile['LOG_USER_ADD']                                                 = 'Utilizator nou creat';
@@ -218,7 +218,7 @@ $langFile['txt_logo_gotowebsite']                                         = 'Cli
 // CKEDITOR transport
 $langFile['CKEDITOR_TITLE_LINKS']                                         = 'pagini feindura';
 $langFile['CKEDITOR_TITLE_SNIPPETS']                                      = 'Code snippets';
-$langFile['CKEDITOR_TEXT_SNIPPETS']                                       = 'Aoegeti un code snippet pentru a-l plasa in pagina.';
+$langFile['CKEDITOR_TEXT_SNIPPETS']                                       = 'Alegeti un code snippet pentru a-l plasa in pagina.';
 $langFile['CKEDITOR_BUTTON_EDITSNIPPET']                                  = 'Editeaza code snippet';
 $langFile['CKEDITOR_TITLE_PLUGINS']                                       = 'Plugin-uri';
 $langFile['CKEDITOR_BUTTON_EDITPLUGIN']                                   = 'Editeaza plugin';
@@ -275,9 +275,9 @@ $langFile['ERROR_SAVE_SETTINGS']                                          = '<b>
 $langFile['ERROR_SAVE_FILE']                                              = '<br><br>Verificati permisiunile de scriere-citire ale fisierelor: ';
 
 $langFile['ERROR_READ_FOLDER_PART1']                                      = '<br><br>Verificati permisiunile de citire ale &quot;';
-$langFile['ERROR_SAVE_FOLDER_PART1']                                      = '<br><br>Verificati permisiunile de scriere ale the &quot;';
+$langFile['ERROR_SAVE_FOLDER_PART1']                                      = '<br><br>Verificati permisiunile de scriere ale &quot;';
 
-$langFile['ERROR_FOLDER_PART2']                                           = '&quot; Folder, it&#145;s subfoldere si fisiere.';
+$langFile['ERROR_FOLDER_PART2']                                           = '&quot; Foldere, subfoldere si fisiere.';
 
 // -> WARNINGS
 $langFile['WARNING_TITLE_STARTPAGE']                                      = 'Pagina de start nu a fost setata!';
@@ -287,8 +287,7 @@ $langFile['WARNING_TITLE_DOCUMENTROOT']                                   = 'Rad
 $langFile['WARNING_TEXT_DOCUMENTROOT']                                    = 'Pentru <span class="feinduraInline">fein<em>dura</em></span> pentru a funcționa corect, trebuie să setați manual DocumentRoot în <a href="?site=adminSetup#adminSettings">setari administrator</a>.';
 
 $langFile['WARNING_TITLE_BASEPATH']                                       = '<span class="feinduraInline">fein<em>dura</em></span> nu este configurat!';
-$langFile['WARNING_TEXT_BASEPATH']                                        = '<i>Calea de baza</i> a CMS-ului nu se potriveste cu cea din setarile de administrare.<br>
-Please go to the <a href                                                  ="?site=adminSetup#adminSettings">setari administrare</a> si configureaza <span class="feinduraInline">fein<em>dura</em></span> CMS.';
+$langFile['WARNING_TEXT_BASEPATH']                                        = '<i>Calea de baza</i> a CMS-ului nu se potriveste cu cea din setarile de administrare.<br>Please go to the <a href="?site=adminSetup#adminSettings">setari administrare</a> si configureaza <span class="feinduraInline">fein<em>dura</em></span> CMS.';
 
 $langFile['WARNING_TITLE_JAVASCRIPT']                                     = 'Activati Javascript';
 $langFile['WARNING_TEXT_JAVASCRIPT']                                      = '<strong>Pentru a utiliza deplin <span class="feinduraInline">fein<em>dura</em></span>, trebuie sa activati  Javascript!</strong>';
@@ -366,11 +365,11 @@ $langFile['SORTABLEPAGELIST_setStartPage_error_save']                     .= $la
 $langFile['SORTABLEPAGELIST_changeStatusPage_error_save']                 = '<b>Nu pot schimba statusul paginii.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_changeStatusCategory_error_save']             = '<b>Nu pot schimba statusul categoriei.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 
-$langFile['SORTABLEPAGELIST_info']                                        = 'POti schimba  <b>aranjamentul</b> paginilor si le poti muta dintr-o categorie in alta prin <b>Drag and Drop</b>.';
+$langFile['SORTABLEPAGELIST_info']                                        = 'Poti schimba  <b>aranjamentul</b> paginilor si le poti muta dintr-o categorie in alta prin <b>Drag and Drop</b>.';
 $langFile['SORTABLEPAGELIST_save']                                        = 'Salveaza noua sortare ...';
 $langFile['SORTABLEPAGELIST_save_finished']                               = 'Sortarea noua a fost salvata cu succes!';
 $langFile['SORTABLEPAGELIST_error_save']                                  = '<b>Nu pot salva pagina.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['SORTABLEPAGELIST_error_read']                                  = '<b>PAgina nu poate fi citita.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['SORTABLEPAGELIST_error_read']                                  = '<b>Pagina nu poate fi citita.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_error_move']                                  = '<b>Nu pot muta pagina intr-a categorie noua.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'Nici o pagina disponibila';
 $langFile['SORTABLEPAGELIST_TIP_DRATOREARRANGE']                          = 'Drag pentru rearanjare.';
@@ -410,7 +409,7 @@ $langFile['ADMINSETUP_GENERAL_field1']                                    = 'Web
 $langFile['ADMINSETUP_GENERAL_field1_tip']                                = 'URL site-ului va fi adaugat automat.';
 $langFile['ADMINSETUP_GENERAL_field1_inputTip']                           = 'URL va fi adaugat automat';
 $langFile['ADMINSETUP_GENERAL_field1_inputWarningText']                   = 'Salveaza setarile!';
-$langFile['ADMINSETUP_GENERAL_field2']                                    = 'celea feindura';
+$langFile['ADMINSETUP_GENERAL_field2']                                    = 'calea feindura';
 $langFile['ADMINSETUP_GENERAL_field2_tip']                                = 'Calea de baza va fi determinata automat si salvata, la prima salvare a setarilor.';
 $langFile['ADMINSETUP_GENERAL_field2_inputTip']                           = 'Calea va fi adaugata automat';
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText']                   = 'Salveaza setarile!';
@@ -426,7 +425,7 @@ $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS']                           = 'Toa
 $langFile['ADMINSETUP_TEXT_VARNAMEPAGE']                                  = 'Nume URL pentru pagina';
 $langFile['ADMINSETUP_TEXT_VARNAMECATEGORY']                              = 'Nume URL pentru categorie';
 $langFile['ADMINSETUP_TEXT_VARNAMEMODUL']                                 = 'Nume URL modul';
-$langFile['ADMINSETUP_TIP_VARNAME']                                       = 'Numele ce v afi folosit in URL pentru a link-a paginile.';
+$langFile['ADMINSETUP_TIP_VARNAME']                                       = 'Numele ce va fi folosit in URL pentru a link-a paginile.';
 $langFile['ADMINSETUP_TIP_EMPTYVARNAME']                                  = 'Daca acest camp este gol, va fi folosit numele standard: ';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Fus orar';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Va fi folosit/a numai de adminisrarea [span class=feinduraInline]fein[em]dura[/em][/span].';
@@ -435,7 +434,7 @@ $langFile['ADMINSETUP_GENERAL_PRETTYURL_true']                          = 'Prett
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_true_example']                  = '/%s/example-category/example-page';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_false']                         = 'URL-uri cu variabile';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_false_example']                 = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_PRETTYURL_tip']                           = 'Format URLt, ce va fi folosit pentru link-ul paginilor.[br][br]Pretty URL functioneaza numai daca [strong]Apache Server[/strong] [strong]mod_rewrite[/strong] este disponibil.';
+$langFile['ADMINSETUP_GENERAL_PRETTYURL_tip']                           = 'Format URL, ce va fi folosit pentru link-ul paginilor.[br][br]Pretty URL functioneaza numai daca [strong]Apache Server[/strong] [strong]mod_rewrite[/strong] este disponibil.';
 $langFile['ADMINSETUP_GENERAL_PRETTYURL_warning']                       = 'ATENTIONARE!::[span class=red]Daca apare o eroare in utilizarea Pretty URLs, trebuie sa stergi [strong]fisierul .htaccess [/strong] din radacina serverului.[/span][br][br](In unele programe FTP trebuie setat sa arate toat fisierele ascunse, pentru a vedea fisierul .htaccess)';
 
 // ---------- Pretty url ERRORs
@@ -461,7 +460,7 @@ $langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']                              = 'act
 $langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Face posibila amplasarea de code snippets in pagini.[br]Click pe icon-ul din HTML-Editor: [img class=icons src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png][br][br][span class=hint] Daca aceasta optiune este activata poti edita/crea code snippets mai jos.[/span]';
 $langFile['adminSetup_editorSettings_field1']                             = 'ENTER-Key mod';
 $langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER genereaza &quot;%s&quot;';
-$langFile['adminSetup_editorSettings_field1_tip']                         = 'Seturi pe care  HTML-Tag le va adauga la apsarea ENTER in HTML-Editor.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
+$langFile['adminSetup_editorSettings_field1_tip']                         = 'Seturi pe care  HTML-Tag le va adauga la apasarea ENTER in HTML-Editor.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip']                    = 'Daca este gol nu va fi folosit nici un Id-attribute.';
 $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Daca este gol nu va fi folosit nici o Class-attribute .';
 
@@ -474,12 +473,12 @@ $langFile['adminSetup_styleFileSettings_error_save']                      = '<b>
 
 // ---------- editFiles Settings
 $langFile['EDITFILESSETTINGS_TITLE_STYLESHEETS']                          = 'Editeaza fisierul stylesheet';
-$langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES']                         = 'Editeaza fiseirele website-ului';
+$langFile['EDITFILESSETTINGS_TITLE_WEBSITEFILES']                         = 'Editeaza fisierele website-ului';
 $langFile['EDITFILESSETTINGS_TITLE_SNIPPETS']                             = 'Editeaza code snippets';
-$langFile['EDITFILESSETTINGS_TEXT_NODIR']                                 = 'is not a valid directorynu este un director valid!';
+$langFile['EDITFILESSETTINGS_TEXT_NODIR']                                 = 'nu este un director valid!';
 $langFile['EDITFILESSETTINGS_TEXT_CHOOSEFILE']                            = 'Alege un fisier';
 $langFile['EDITFILESSETTINGS_TEXT_CREATEFILE']                            = 'Creaza un fisier nou';
-$langFile['EDITFILESSETTINGS_TIP_CREATEFILE']                             = 'Daca scri un nume de fisier aici, un fisier nou creat si  [strong] fisierele selectate acum nu vor fi salvate![/strong]';
+$langFile['EDITFILESSETTINGS_TIP_CREATEFILE']                             = 'Daca scri un nume de fisier aici, un fisier nou creat si[strong] fisierele selectate acum nu vor fi salvate![/strong]';
 $langFile['EDITFILESSETTINGS_TEXT_NOFILE']                                = 'Nici un fisier disponibil';
 
 $langFile['EDITFILESSETTINGS_TEXT_DELETEFILE']                            = 'Sterge aces fisier';
@@ -532,7 +531,7 @@ $langFile['PAGESETUP_CATEGORY_ERROR_SAVE']                                = $lan
 
 
 $langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS']                    = 'Setari avansate';
-$langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS']                     = 'Daca folositi aceste setari ele vor suprascrie setarile thumbnail mai sus de '.$langFile['adminSetup_editorSettings_h1'].' in <a href="?site=adminSetup">setari administrare</a>.';
+$langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS']                     = 'Daca folositi aceste setari ele vor suprascrie setarile thumbnail de mai sus '.$langFile['adminSetup_editorSettings_h1'].' in <a href="?site=adminSetup">setari administrare</a>.';
 
 $langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY']                     = 'Daca toate campurile sunt goale, atunci setarile stylesheet din '.$langFile['adminSetup_editorSettings_h1'].' vor fi folosite.';
 
@@ -544,7 +543,7 @@ $langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS']                     = 'Inc
 $langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS']                      = 'Specifica daca utilizatorul poate incarca thumbnail-uri pentru pagini in aceasta categorie.';
 $langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS']                             = 'Editeaza tag-uri';
 $langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Specifica daca utilizatorul poate edita tag-uri pentru pagini in aceasta categorie.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
-$langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS']                      = 'Activate plugins';
+$langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS']                      = 'Activeaza plugin-uri';
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS']                       = 'Specifica daca utilizatorul poate utiliza plugin-uri pentru pagini in aceasta categorie.';
 
 $langFile['PAGESETUP_TEXT_EDITPAGEDATE']                                  = 'Editeaza data paginii';
@@ -562,7 +561,7 @@ $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'Sor
 $langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Paginile cu o data mai apropiata vor aparea [strong]primele[/strong].[br][br][span class=hint]Dezactivati sortarea manuala.[/span]';
 
 $langFile['PAGESETUP_TEXT_SORTMANUALLY']                                  = 'Sorteaza paginile manual';
-$langFile['PAGESETUP_TIP_SORTMANUALLY']                                   = 'PAginile nou create vor fi afisate [strong]primele[/strong].';
+$langFile['PAGESETUP_TIP_SORTMANUALLY']                                   = 'Paginile nou create vor fi afisate [strong]primele[/strong].';
 
 $langFile['PAGESETUP_TEXT_SORTALPHABETICAL']                              = 'Sorteaza paginile alfabetic';
 $langFile['PAGESETUP_TIP_SORTALPHABETICAL']                               = '[span class=hint]Dezactivati sortarea manuala.[/span]';
@@ -580,7 +579,7 @@ $langFile['websiteSetup_websiteConfig_error_save']                        = $lan
 
 $langFile['websiteSetup_websiteConfig_h1']                                = 'Setari Website';
 $langFile['websiteSetup_websiteConfig_field1']                            = 'Titlu website';
-$langFile['websiteSetup_websiteConfig_field1_tip']                        = 'Titlul website-ului afizat in bara browser-ului.';
+$langFile['websiteSetup_websiteConfig_field1_tip']                        = 'Titlul website-ului afisat in bara browser-ului.';
 $langFile['websiteSetup_websiteConfig_field2']                            = 'Autor';
 $langFile['websiteSetup_websiteConfig_field2_tip']                        = 'Numele celui care a publicat site-ul.';
 $langFile['websiteSetup_websiteConfig_field3']                            = 'Copyright';
@@ -589,10 +588,10 @@ $langFile['websiteSetup_websiteConfig_field4']                            = 'Cuv
 $langFile['websiteSetup_websiteConfig_field4_tip']                        = 'Cele mai multe motoare de cautare cauta cuvintele cheie in text, oricum trebuie trecute cateva cuvinte cheie si aici, ce vor fi afisate in <meta> tag-urile paginii.';
 $langFile['websiteSetup_websiteConfig_field4_inputTip']                   = 'Cuvintele cheie trebuie separate de &quot;,&quot;::'.$langFile['TEXT_EXAMPLE'].':[br]stichwort1,stichwort2,etc';
 $langFile['websiteSetup_websiteConfig_field5']                            = 'Descriere website';
-$langFile['websiteSetup_websiteConfig_field5_tip']                        = 'O scurta descriere pentru uzul motoarelor de cautare, daca cuvintele de cautare au fost gasite in URL si nu in continuta.';
-$langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Un text scurt, nu mai lung de trei linii.';
+$langFile['websiteSetup_websiteConfig_field5_tip']                        = 'O scurta descriere pentru uzul motoarelor de cautare, daca cuvintele de cautare au fost gasite in URL si nu in continut.';
+$langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Un text scurt, nu mai lung de trei randuri.';
 
-$langFile['WEBSITESETUP_TITLE_PAGESETTINGS']                              = 'Setari Website Avansate';
+$langFile['WEBSITESETUP_TITLE_PAGESETTINGS']                              = 'Setari Avansate Website';
 $langFile['WEBSITESETUP_TEXT_MAINTENANCE']                                = 'Dezactiveaza Website';
 $langFile['WEBSITESETUP_TIP_MAINTENANCE']                                 = 'Afiseaza un mesaj in locul site-ului, ce transmite ca site-ul se afla in mentenanta.';
 $langFile['WEBSITESETUP_TEXT_SITEMAPFILES']                               = 'Creaza Sitemap-Files (<a href="http://www.sitemaps.org/" target="_blank">Detalii</a>)';
@@ -603,7 +602,7 @@ $langFile['WEBSITESETUP_TEXT_MULTILANGUAGEWEBSITE']                       = 'Web
 $langFile['WEBSITESETUP_TEXT_MAINLANGUAGE']                               = 'Limba principala';
 $langFile['WEBSITESETUP_TIP_MAINLANGUAGE']                                = 'Se va alege limba principla in mod automat, daca nu a fost selectata o alta limba.';
 $langFile['WEBSITESETUP_TEXT_DATEFORMAT']                                 = 'Format data';
-$langFile['WEBSITESETUP_TIP_DATEFORMAT']                                  = 'VA fi folosit pe website.';
+$langFile['WEBSITESETUP_TIP_DATEFORMAT']                                  = 'Va fi folosit pe website.';
 
 
 /*
@@ -615,7 +614,7 @@ $langFile['STATISTICSSETUP_ERROR_SAVE']                                   = $lan
 
 $langFile['STATISTICSSETUP_TITLE_STATISTICSSETTINGS']                     = 'Setari Statistici';
 $langFile['STATISTICSSETUP_TEXT_REFERERNUMBER']                           = 'Numar de  <b>Referrer-URL-uri</b>';
-$langFile['STATISTICSSETUP_TIP_REFERERNUMBER']                            = 'Specifica cate Referrer-URL-uri ([i]URLs ce au dus la acest site[/i]) vor fi salvate si afisate.';
+$langFile['STATISTICSSETUP_TIP_REFERERNUMBER']                            = 'Specifica cate Referrer-URL-uri ([i]URLs ce au condus la acest site[/i]) vor fi salvate si afisate.';
 $langFile['STATISTICSSETUP_TEXT_ACTIVITYNUMBER']                          = 'Numar de <b>Log-uri Activitate</b>';
 $langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER']                           = 'Specifica cate Log-uri Activitate vor fi salvate si afisate.';
 
@@ -656,7 +655,7 @@ $langFile['USERSETUP_password']                                           = 'Par
 $langFile['USERSETUP_password_change']                                    = 'schimba parola';
 $langFile['USERSETUP_password_confirm']                                   = 'Confirma parola';
 $langFile['USERSETUP_password_confirm_wrong']                             = 'Cele doua parole nu corespund.';
-$langFile['USERSETUP_password_missing']                                   = 'NU este setata o parola inca.';
+$langFile['USERSETUP_password_missing']                                   = 'Nu este setata o parola inca.';
 $langFile['USERSETUP_password_success']                                   = 'Parola schimbata cu succes!';
 $langFile['USERSETUP_email']                                              = 'E-Mail';
 $langFile['USERSETUP_email_tip']                                          = 'Daca utilizatorul si-a uitat parola, o noua parola va fi trimisa pe e-mail.';
@@ -680,7 +679,7 @@ $langFile['USERSETUP_USERPERMISSIONS_TEXT_USERINFORMATION']               = '<st
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION']                = 'Informatii utilizator::Acest text va fi afisat in  '.$langFile['BUTTON_DASHBOARD'].' pagina [span class=feinduraInline]fein[em]dura[/em][/span].';
 $langFile['USERSETUP_USERPERMISSIONS_TIP_USERINFORMATION_NOINFO']         = 'Daca nu doresti sa afisezi informatii despre utilizator, lasa campul liber';
 
-$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Selecteaza Categorii si Pagini ce vor putea fi editate de utilizator<br>(Daca nu este selectat nimic, atinci totul va putea fi editat)';
+$langFile['USERSETUP_USERPERMISSIONS_TITLE_EDITABLECATEGORIES-PAGES']     = 'Selecteaza Categorii si Pagini ce vor putea fi editate de utilizator<br>(Daca nu este selectat nimic, atunci totul va putea fi editat)';
 $langFile['USERSETUP_USERPERMISSIONS_TEXT_CLEARSELECTION']                = 'Sterge selectia';
 
 /*
@@ -694,7 +693,7 @@ $langFile['EDITOR_pageinfo_lastsavedate']                                 = 'ult
 $langFile['EDITOR_pageinfo_lastsaveauthor']                               = 'de';
 $langFile['EDITOR_pageinfo_linktothispage']                               = 'Link catre aceasta pagina';
 $langFile['EDITOR_pageinfo_id']                                           = 'ID Pagina';
-$langFile['EDITOR_pageinfo_id_tip']                                       = 'Aceasta pagina va fi salvata sub aces ID pe server.';
+$langFile['EDITOR_pageinfo_id_tip']                                       = 'Aceasta pagina va fi salvata sub acest ID pe server.';
 $langFile['EDITOR_pageinfo_category']                                     = 'Categorii';
 $langFile['EDITOR_pageinfo_category_noCategory']                          = 'fara categorie';
 
@@ -713,10 +712,10 @@ $langFile['EDITOR_pageSettings_title']                                    = 'Tit
 $langFile['EDITOR_pageSettings_title_tip']                                = 'Titlul paginii poate contine urmatoarele HTML tags:[br]<a> <span> <em> <strong> <i> <b> <abbr> <code> <samp> <kbd> <var>';
 $langFile['EDITOR_pageSettings_field1']                                   = 'Descriere scurta';
 $langFile['EDITOR_pageSettings_field1_inputTip']                          = 'Daca este gol va fi utilizata descrierea din Setari Website.';
-$langFile['EDITOR_pageSettings_field1_tip']                               = 'O scurta descriere a continutului paginii. Aceasta descriere va fi filosita in  META-Tag-ul paginii.[br][br][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
+$langFile['EDITOR_pageSettings_field1_tip']                               = 'O scurta descriere a continutului paginii. Aceasta descriere va fi folosita in  META-Tag-ul paginii.[br][br][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
 $langFile['EDITOR_pageSettings_field2']                                   = 'Tag-uri';
 $langFile['EDITOR_pageSettings_field2_tip']                               = 'Tag-urile sunt cuvinte cheie pentru aceasta pagina.';
-$langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Tag-urile trebuie seprate de &quot;,&quot; (comma).';
+$langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Tag-urile trebuie separate de &quot;,&quot; (comma).';
 $langFile['EDITOR_pageSettings_field3']                                   = 'Data pagina';
 $langFile['EDITOR_pageSettings_field3_tip']                               = 'Data poate fi utilizata pentru sortare in functie de data. (e.g. la Evenimente)';
 $langFile['EDITOR_pageSettings_field4']                                   = 'Statusul paginii';
@@ -753,8 +752,8 @@ $langFile['EDITOR_savepage_error_save']                                   .= $la
 
 // ---------- plugin settings
 $langFile['EDITOR_pluginSettings_h1']                                     = 'Adauga plugin-uri';
-$langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'Dupa ce activezi un plugin, trece peste plugin  pentru a-l putea trage in Editor, sau plaseaza-l direct in editor, utilizan %s icon.';
-$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugins salvat!</div>';//<div class="alert">Click on a plugin to edit its properties.</div>';
+$langFile['EDITOR_TEXT_EDITPLUGINSINEDITOR']                              = 'Dupa ce activezi un plugin, hoover peste plugin  pentru a-l putea trage in Editor, sau plaseaza-l direct in editor, utilizand %s icon.';
+$langFile['EDITOR_MESSAGE_PLUGINSSAVED']                                  = '<div class="alert alert-success">Plugin salvat!</div>';//<div class="alert">Click on a plugin to edit its properties.</div>';
 $langFile['EDITOR_TIP_DRAGPLUGIN']                                        = 'Trage plugin-ul in Editor.';
 
 /*
@@ -856,7 +855,7 @@ $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD']                              = 'Inc
 $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE']                      = 'Backup inainte de restaurare';
 
 $langFile['BACKUP_BUTTON_DOWNLOAD']                                       = 'Creaza backup curent';
-$langFile['BACKUP_TEXT_BACKUP']                                           = 'Back-up-ul creaza un fisier <code>.zip</code> cu<span class="blue">"pages","config"</span> si <span class="blue">"statistic"</span> folders.<br>Fisierul incarca nu va fi salvat.';
+$langFile['BACKUP_TEXT_BACKUP']                                           = 'Back-up-ul creaza un fisier <code>.zip</code> cu<span class="blue">"pages","config"</span> si <span class="blue">"statistic"</span>.<br>Fisierul upload nu va fi salvat.';
 $langFile['BACKUP_TEXT_RESTORE']                                          = '<p>Selectati un fisier de back-up <span class="feinduraName"><span>fein</span>dura</span>, pentru a restaura o instanta anterioara.</p><div class="alert"><strong>Hint!</strong> Un back-up a starii curente a fost salvat inainte de restaurare.</div>';
 $langFile['BACKUP_TOOLTIP_DELETE']                                        = 'Sterge backup';
 $langFile['BACKUP_TEXT_DELETE_QUESTION']                                  = 'Sigur stergi %s?'; // really delete backup 2010-11-05 15:03?
@@ -879,13 +878,13 @@ $langFile['ADDONS_TEXT_REQUIREMENTS']                                     = 'Cer
 
 // -> UPDATE
 
-$langFile['UPDATE_TITLE']                                                 = 'Centinutul trebuie updatat';
-$langFile['UPDATE_TEXT_CHECKPATHS']                                       = 'Fi sigur ca urmatoarele cai sunt corecte inainte de update.';
+$langFile['UPDATE_TITLE']                                                 = 'Continutul trebuie updatat';
+$langFile['UPDATE_TEXT_CHECKPATHS']                                       = 'Fii sigur ca urmatoarele cai sunt corecte inainte de update.';
 $langFile['UPDATE_TEXT_BASEPATH']                                         = 'Cale catre <span class="feinduraInline">fein<em>dura</em></span>';
 $langFile['UPDATE_TEXT_WEBSITEPATH']                                      = 'Cale Website';
 $langFile['UPDATE_TEXT_SUCCESS']                                          = 'Continut updatat cu succes!';
 $langFile['UPDATE_BUTTON_UPDATE']                                         = 'UPDATE';
-$langFile['UPDATE_ERROR_MOVEUPLOADFOLDER']                                = 'Fisierul Incarca nu poate fi mutat! Mutati folderul "%s" manual la "your_feindura_folder/incarca/".';
+$langFile['UPDATE_ERROR_MOVEUPLOADFOLDER']                                = 'Fisierul Upload nu poate fi mutat! Mutati folderul "%s" manual la "your_feindura_folder/upload/".';
 $langFile['UPDATE_ERROR_MOVEPAGESFOLDER']                                 = 'Fisierul Pages nu poate fi copiat! Mutati folderul "%s" manual la "your_feindura_folder/pages/".';
 $langFile['UPDATE_ERROR_SAVEADMINCONFIG']                                 = 'Setarile Admin nu pot si actualizate.';
 $langFile['UPDATE_ERROR_SAVECATEGORYCONFIG']                              = 'Setarile de categorie nu pot fi actualizate.';

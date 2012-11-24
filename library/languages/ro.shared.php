@@ -52,8 +52,8 @@ $sharedLangFile['SEARCH_TEXT_TIME_2']                       = 'secunde';
 // -> ERROR TEXTs
 
 $sharedLangFile['errorWindow_h1']                           = 'A aparut o eroare!';
-$sharedLangFile['SORTABLEPAGELIST_setStartPage_error_save'] = '<b>NU se poate seta pagina de start.</b>';
-$sharedLangFile['ERROR_SAVEPAGE']                           = '<b>PAgina nu poate fi salvata.</b>';
+$sharedLangFile['SORTABLEPAGELIST_setStartPage_error_save'] = '<b>Nu se poate seta pagina de start.</b>';
+$sharedLangFile['ERROR_SAVEPAGE']                           = '<b>Pagina nu poate fi salvata.</b>';
 $sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'EROARE<br><br><span class="feinduraInline">fein<em>dura</em></span> are nevoie de versiunea PHP minim'; // PHP 5.2.3
 
 // -----------------------------------------------------------------------------------------------
