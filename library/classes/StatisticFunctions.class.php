@@ -65,6 +65,16 @@ class StatisticFunctions {
   */
   public static $adminConfig;
 
+  /**
+  * Contains the category-settings config <var>array</var>
+  *
+  * @static
+  * @var array
+  * @see init()
+  *
+  */
+  public static $categoryConfig;
+
  /**
   * Contains the website-config <var>array</var>
   *
@@ -164,9 +174,10 @@ class StatisticFunctions {
   * @return void
   *
   * @static
-  * @version 1.2.1
+  * @version 1.3
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.3 add $categoryConfig back again
   *    - 1.2 add $pagesMetaData
   *    - 1.1 removed $categoryConfig
   *    - 1.02 removed instatiating of GeneralFunctions class, because GeneralFunctions is now static
@@ -178,6 +189,7 @@ class StatisticFunctions {
 
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     self::$adminConfig      = $GLOBALS["adminConfig"];
+    self::$categoryConfig   = $GLOBALS["categoryConfig"];
     self::$websiteConfig    = $GLOBALS["websiteConfig"];
     self::$websiteStatistic = $GLOBALS["websiteStatistic"];
     self::$statisticConfig  = $GLOBALS["statisticConfig"];
@@ -237,9 +249,7 @@ class StatisticFunctions {
   *
   * @param int $startPage the startPage, given when it comes from the {@link Feindura::__construct() Feindura class}
   *
-  * @uses $varNames                        for variable names which the $_GET will use for the page ID
   * @uses $adminConfig                     to look if set startpage is allowed
-  * @uses Feindura::$startPage             if no $_GET variable exists it will try to get the {@link Feindura::$startPage} property
   * @uses GeneralFunctions::$pagesMetaData to get all page titles, to get the right page ID, if the $_GET variable is not a ID but a page name
   *
   *
@@ -255,7 +265,7 @@ class StatisticFunctions {
   *    - 1.0 initial release
   *
   */
-  public static function getCurrentPageId($startPage = null,$category) {
+  public static function getCurrentPageId($startPage = null,$category = null) {
     // ->> GET PAGE is an ID
     // *********************
     if(isset($_GET[self::$adminConfig['varName']['page']]) &&
@@ -315,6 +325,76 @@ class StatisticFunctions {
     } else
       return false;
   }
+
+   /**
+  * <b> Name</b>      getCurrentCategoryId()<br>
+  *
+  * Returns the current category ID from the <var>$_GET</var> variable.
+  *
+  * Gets the current category ID from the <var>$_GET</var> variable.
+  * If <var>$_GET</var> is not a ID but a category name, it look in the {@link FeinduraBase::$categoryConfig} for the right category ID.
+  * If no <var>$_GET</var> variable exists it try to return the {@link Feindura::$startPage} property.
+  *
+  *
+  * <b>Used Global Variables</b><br>
+  *    - <var>$_GET</var> to fetch the category ID
+  *
+  * @uses $adminConfig               to look if set startpage is allowed
+  * @uses $categoryConfig            for the right category name, if the $_GET variable is not a ID but a category name
+  *
+  * @return int|false the current category ID or FALSE
+  *
+  * @access public
+  * @version 1.2
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.2 moved to StatisticFunctions class
+  *    - 1.1 add localization
+  *    - 1.0 initial release
+  *
+  */
+  public function getCurrentCategoryId($startCategory = null) {
+
+    // ->> GET CATEGORY is an ID
+    // *************************
+    if(isset($_GET[self::$adminConfig['varName']['category']]) &&
+       !empty($_GET[self::$adminConfig['varName']['category']]) &&
+       is_numeric($_GET[self::$adminConfig['varName']['category']])) {
+
+      return intval(XssFilter::int($_GET[self::$adminConfig['varName']['category']],0)); // get the category ID from the $_GET var
+
+    // ->> GET CATEGORY is a NAME
+    // **************************
+    } elseif(isset($_GET['category']) &&
+             !empty($_GET['category'])) {
+
+      // if the page is set, get its category
+      // if(is_numeric(????$page)) {
+        // return GeneralFunctions::getPageCategory($this->page);
+
+      // if not try to get the category from the url
+      // } else {
+        if(is_array(self::$categoryConfig)) {
+          foreach(self::$categoryConfig as $category) {
+            // goes trough each localization and check if its fit the $_GET['category'] title
+            if(is_array($category['localized'])) {
+              foreach($category['localized'] as $localizedCategory) {
+                // RETURNs the right category Id
+                if(self::urlEncode($localizedCategory['name']) === self::urlEncode($_GET['category'])) {
+                  return intval($category['id']);
+                }
+              }
+            }
+          }
+        } else
+          return false;
+      // }
+    } elseif(empty($_GET['page']) && empty($_GET['category']) && is_numeric($startCategory)) {
+      return intval($startCategory);
+    } else
+      return false;
+  }
+
 
  /**
   * <b>Name</b> isPageStatisticsArray()<br>
@@ -938,8 +1018,9 @@ class StatisticFunctions {
     // unset($_SESSION);
 
     // var
-    if($page === false)
-      $page = self::getCurrentPageId();
+    if($page === false) {
+      $page = self::getCurrentPageId(self::$websiteConfig['startPage'],self::getCurrentCategoryId(GeneralFunctions::getPageCategory($websiteConfig['startPage'])));
+    }
 
     // STORES all LAST VISITED PAGES in array, in the order they are visited (will also double count pages)
     $_SESSION['feinduraSession']['log']['visitedPagesOrder'][] = $page;

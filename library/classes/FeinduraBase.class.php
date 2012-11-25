@@ -322,45 +322,7 @@ class FeinduraBase {
   *
   */
   public function getCurrentCategoryId() {
-
-    // ->> GET CATEGORY is an ID
-    // *************************
-    if(isset($_GET[$this->adminConfig['varName']['category']]) &&
-       !empty($_GET[$this->adminConfig['varName']['category']]) &&
-       is_numeric($_GET[$this->adminConfig['varName']['category']])) {
-
-      return intval(XssFilter::int($_GET[$this->adminConfig['varName']['category']],0)); // get the category ID from the $_GET var
-
-    // ->> GET CATEGORY is a NAME
-    // **************************
-    } elseif(isset($_GET['category']) &&
-             !empty($_GET['category'])) {
-
-      // if the page is set, get its category
-      // if(is_numeric($this->page)) {
-        // return GeneralFunctions::getPageCategory($this->page);
-
-      // if not try to get the category from the url
-      // } else {
-        if(is_array($this->categoryConfig)) {
-          foreach($this->categoryConfig as $category) {
-            // goes trough each localization and check if its fit the $_GET['category'] title
-            if(is_array($category['localized'])) {
-              foreach($category['localized'] as $localizedCategory) {
-                // RETURNs the right category Id
-                if(StatisticFunctions::urlEncode($localizedCategory['name']) === StatisticFunctions::urlEncode($_GET['category'])) {
-                  return intval($category['id']);
-                }
-              }
-            }
-          }
-        } else
-          return false;
-      // }
-    } elseif(empty($_GET['page']) && empty($_GET['category']) && is_numeric($this->startCategory)) {
-      return intval($this->startCategory);
-    } else
-      return false;
+    return StatisticFunctions::getCurrentCategoryId($this->startCategory);
   }
  /**
   * Alias of {@link getCurrentCategoryId()}

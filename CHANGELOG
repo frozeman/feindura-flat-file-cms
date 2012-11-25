@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0.3
-Build 1019
+Build 1020
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ----------
 
+  build 1020: moved getCurrentCategoryId to StatisticFunctions class
   build 1019: add romanian translation; its now possible to set the documentroot manually, if it couldn't be resolved
   build 1018: add the $menuShowAllPages property, to be able to overwrite the "show in menu" setting of pages.
   build 1017: fixed the sorting of the backups, xss filter more get variables, at Full Path Disclosure filter.

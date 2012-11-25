@@ -255,6 +255,7 @@ if($SAVEDSETTINGS) {
   GeneralFunctions::$adminConfig = $adminConfig;
   GeneralFunctions::$categoryConfig = $categoryConfig;
   StatisticFunctions::$adminConfig = $adminConfig;
+  StatisticFunctions::$categoryConfig = $categoryConfig;
 
   // DELETE old FEED FILES
   // non category
