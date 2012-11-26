@@ -79,7 +79,8 @@ class Sitemap {
 
   private function save () {
     if (empty($this->urls)) return;
-    $file = "sitemap-{$this->page}-{$this->index}.xml{$this->compress}";
+    $file = "sitemap.xml{$this->compress}";
+    // $file = "sitemap-{$this->page}-{$this->index}.xml{$this->compress}";
     $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
     foreach ($this->urls as $url) {
@@ -105,7 +106,7 @@ class Sitemap {
       unlink($this->base_uri . "sitemap-{$this->page}-{$num}.xml{$this->compress}");
       $num++;
     }
-    $this->index($file);
+    // $this->index($file);
   }
 
   private function index ($file) {

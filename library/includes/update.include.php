@@ -902,6 +902,12 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   if(!unlink(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($_POST['websitePath'])).'/sitemap-pages-1.xml.gz') &&
     is_file(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($_POST['websitePath'])).'/sitemap-pages-1.xml.gz'))
     $checkFiles[] = GeneralFunctions::getRealPath(GeneralFunctions::getDirname($_POST['websitePath'])).'/sitemap-pages-1.xml.gz';
+  if(!unlink(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($_POST['websitePath'])).'/sitemap-pages-1.xml') &&
+    is_file(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($_POST['websitePath'])).'/sitemap-pages-1.xml'))
+    $checkFiles[] = GeneralFunctions::getRealPath(GeneralFunctions::getDirname($_POST['websitePath'])).'/sitemap-pages-1.xml';
+  if(!unlink(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($_POST['websitePath'])).'/sitemap-index.xml') &&
+    is_file(GeneralFunctions::getRealPath(GeneralFunctions::getDirname($_POST['websitePath'])).'/sitemap-index.xml'))
+    $checkFiles[] = GeneralFunctions::getRealPath(GeneralFunctions::getDirname($_POST['websitePath'])).'/sitemap-index.xml';
 
 
   if(!empty($checkFiles)) {
