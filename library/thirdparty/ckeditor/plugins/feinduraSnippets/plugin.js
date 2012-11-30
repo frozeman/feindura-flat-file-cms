@@ -18,6 +18,7 @@
 
 CKEDITOR.plugins.add('feinduraSnippets',
 {
+    // requires: ['fakeobjects'],
     init: function(editor)
     {
         // vars
@@ -324,4 +325,24 @@ CKEDITOR.plugins.add('feinduraSnippets',
         editor.addCommand(pluginName, new CKEDITOR.dialogCommand(pluginName));
 
     }
+    // afterInit: function(editor) {
+    //    function createFakeElement(realElement) {
+    //     console.log(realElement);
+    //       var fakeElement = editor.createFakeParserElement(realElement, '', 'img', true);
+    //          // fakeStyle = fakeElement.attributes.style || '';
+    //       // fakeStyle = fakeElement.attributes.style = fakeStyle + 'width:10px;';
+    //       // fakeStyle = fakeElement.attributes.style = fakeStyle + 'height:10px;';
+    //       return fakeElement;
+    //    }
+
+    //    var dataProcessor = editor.dataProcessor;
+    //    var dataFilter = dataProcessor && dataProcessor.dataFilter;
+    //    if (dataFilter) {
+    //       dataFilter.addRules({
+    //          elements: {
+    //             'img': function(element) { return createFakeElement(element); }
+    //          }
+    //       }, 2); // Low priority, it's not really necessary as nothing should touch the script before you
+    //    }
+    // }
 });

@@ -312,7 +312,31 @@ class StatisticFunctions {
             }
           }
         }
+
+
       }
+
+      // -> if no page was found in the current category, look everywhere (same code again)
+      foreach(self::$pagesMetaData as $pageMetaData) {
+
+        if(!empty($pageMetaData['editedLink'])) {
+          // RETURNs the right page Id
+          if(basename($pageMetaData['editedLink']) == self::urlEncode($_GET['page']))
+            return intval($pageMetaData['id']);
+
+        } else {
+          // goes trough each localization and check if its fit the $_GET['page'] title
+          if(is_array($pageMetaData['localized'])) {
+            foreach ($pageMetaData['localized'] as $localizedPageContent) {
+              // RETURNs the right page Id
+              if(self::urlEncode($localizedPageContent['title']) == self::urlEncode($_GET['page'])) {
+                return intval($pageMetaData['id']);
+              }
+            }
+          }
+        }
+      }
+
     // if only a category is given, return flase, so it loads the first page of that category
     } elseif(isset($_GET[self::$adminConfig['varName']['category']]) &&
              !empty($_GET[self::$adminConfig['varName']['category']]) &&

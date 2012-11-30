@@ -691,48 +691,51 @@ function subCategoryArrows() {
   subCategoryArrowElements.each(function(arrow){
     countSubCategoryArrows++;
 
-    // vars
-    arrow.set('tween', {duration:'short',transition: Fx.Transitions.Quint.easeOut});
-    var listPagesBlock        = $('listPagesBlock');
-    var parentPage            = $(arrow.getProperty('data-parentPage'));
-    var category              = $(arrow.getProperty('data-category')).getParent('div.block');
-    var subCategory           = $(arrow.getProperty('data-subCategory')).getParent('div.block');
-    var top,height = 0;
-    // if the subCategory is under the category with the parent page
-    if(subCategory.getPosition(listPagesBlock).y > category.getPosition(listPagesBlock).y) {
-      top = (category.hasClass('hidden')) ? (category.getPosition(listPagesBlock).y + 22): (parentPage.getPosition(listPagesBlock).y + 16);
-      height = subCategory.getPosition(listPagesBlock).y - top + 30;
+    if($(arrow.getProperty('data-subCategory')) !== null) {
+      // vars
+      arrow.set('tween', {duration:'short',transition: Fx.Transitions.Quint.easeOut});
+      var listPagesBlock        = $('listPagesBlock');
+      var parentPage            = $(arrow.getProperty('data-parentPage'));
+      var category              = $(arrow.getProperty('data-category')).getParent('div.block');
+      var subCategory           = $(arrow.getProperty('data-subCategory')).getParent('div.block');
+      var top,height = 0;
+      // if the subCategory is under the category with the parent page
+      if(subCategory.getPosition(listPagesBlock).y > category.getPosition(listPagesBlock).y) {
+        top = (category.hasClass('hidden')) ? (category.getPosition(listPagesBlock).y + 22): (parentPage.getPosition(listPagesBlock).y + 16);
+        height = subCategory.getPosition(listPagesBlock).y - top + 30;
 
-      arrow.removeClass('up');
-      arrow.addClass('down');
+        arrow.removeClass('up');
+        arrow.addClass('down');
 
-    // if the category with the parent page is under the subCategory
-    } else {
-      top = subCategory.getPosition(listPagesBlock).y + 20;
-      height = (category.hasClass('hidden')) ? (category.getPosition(listPagesBlock).y - subCategory.getPosition(listPagesBlock).y ): (parentPage.getPosition(listPagesBlock).y  - subCategory.getPosition(listPagesBlock).y - 11);
+      // if the category with the parent page is under the subCategory
+      } else {
+        top = subCategory.getPosition(listPagesBlock).y + 20;
+        height = (category.hasClass('hidden')) ? (category.getPosition(listPagesBlock).y - subCategory.getPosition(listPagesBlock).y ): (parentPage.getPosition(listPagesBlock).y  - subCategory.getPosition(listPagesBlock).y - 11);
 
-      arrow.removeClass('down');
-      arrow.addClass('up');
-    }
+        arrow.removeClass('down');
+        arrow.addClass('up');
+      }
 
-    // arrow.fade(0);
-    // arrow.get('tween').chain(function(){
-      arrow.setStyles({
-        'display': 'block',
-        'top': top,
-        'height': height
-      });
-      // arrow.fade(1);
-    // });
+      // arrow.fade(0);
+      // arrow.get('tween').chain(function(){
+        arrow.setStyles({
+          'display': 'block',
+          'top': top,
+          'height': height
+        });
+        // arrow.fade(1);
+      // });
 
-    // arrow.morph({'top': top, 'height': subCategory.getPosition(listPagesBlock).y - top + 10});
+      // arrow.morph({'top': top, 'height': subCategory.getPosition(listPagesBlock).y - top + 10});
 
-    if(arrow.getStyle('width') === '0px') {
-      arrow.setStyles({
-        'width': (countSubCategoryArrows * 20),
-        'left': -(countSubCategoryArrows * 20) - 4
-      });
-    }
+      if(arrow.getStyle('width') === '0px') {
+        arrow.setStyles({
+          'width': (countSubCategoryArrows * 20),
+          'left': -(countSubCategoryArrows * 20) - 4
+        });
+      }
+    } else
+      console.log('Couldn\'t create sub category arrows');
 
   });
 }
@@ -1401,20 +1404,24 @@ window.addEvent('domready', function() {
   if($('HTMLEditor') !== null) {
 
     // vars
-    var editorStartHeight   = window.getSize().y * 0.60;
+    var editorStartHeight   = window.getSize().y * 0.40;
     var editorToHeight      = (window.getSize().y * 0.60 > 420) ? window.getSize().y * 0.60 : 420;
     var editorHasFocus      = false;
     var editorIsClicked     = false;
 
+
     // ------------------------------
     // CONFIG the HTMlEditor
-    CKEDITOR.config.skin                               = 'feindura-Skin';
-    CKEDITOR.config.width                              = 770;
+    CKEDITOR.config.skin                               = 'feindura-skin';
+    // CKEDITOR.config.width                              = 770;
     CKEDITOR.config.height = ($('documentSaved') !== null && $('documentSaved').hasClass('saved')) ? editorToHeight : editorStartHeight;
     CKEDITOR.config.resize_minWidth                    = 831;
     CKEDITOR.config.resize_maxWidth                    = 831;
     CKEDITOR.config.resize_minHeight                   = (editorStartHeight+136);
-    CKEDITOR.config.resize_maxHeight                   = 900;
+    CKEDITOR.config.resize_maxHeight                   = 1000;
+    CKEDITOR.config.autoGrow_maxHeight                 = 1000;
+    CKEDITOR.config.autoGrow_minHeight                 = (editorStartHeight+136);
+    CKEDITOR.config.autoGrow_onStartup                 = false;
     CKEDITOR.config.forcePasteAsPlainText              = false; // was true
     CKEDITOR.config.pasteFromWordNumberedHeadingToList = true;
     CKEDITOR.config.scayt_autoStartup                  = false;
@@ -1422,6 +1429,7 @@ window.addEvent('domready', function() {
     CKEDITOR.config.entities                           = false;
     CKEDITOR.config.protectedSource.push( /<\?[\s\S]*?\?>/g ); // protect php code
     //CKEDITOR.config.disableNativeSpellChecker = false;
+    CKEDITOR.config.toolbarCanCollapse                 = true;
     if($('documentSaved') === null || !$('documentSaved').hasClass('saved'))
       CKEDITOR.config.toolbarStartupExpanded = false;
 
@@ -1438,7 +1446,7 @@ window.addEvent('domready', function() {
       { name: 'paragraph', items : [ 'Outdent','Indent','-','NumberedList','BulletedList','-','Blockquote','CreateDiv'] },
       '/',
       { name: 'styles', items : [ 'Styles','Format','FontSize' ] }, //'Font'
-      { name: 'media', items : [ 'Image','Flash','Iframe'] },
+      { name: 'media', items : [ 'Image','Flash','MediaEmbed','Iframe'] },
       { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
       { name: 'insert', items : [ 'Table','HorizontalRule','SpecialChar'] },
       { name: 'feindura', items : [ 'Snippets'] },
@@ -1460,8 +1468,8 @@ window.addEvent('domready', function() {
         });
 
         // fix editor size
-        $('cke_contents_HTMLEditor').setStyle('height',$('cke_contents_HTMLEditor').getStyle('height').replace('px','') - 30);
-        $$('.cke_maximized').setStyle('width',window.getSize().x - 20);
+        $$('.cke_contents').setStyle('height',$$('.cke_contents')[0].getStyle('height').replace('px',''));
+        $$('.cke_maximized').setStyle('width',window.getSize().x);
 
         // also hide some divs
         $$('header.main, footer.main, div.pageHeader, #leftSidebar, #rightSidebar, div.content, a.fastUp').setStyle('display','none');
@@ -1473,16 +1481,38 @@ window.addEvent('domready', function() {
       }
     });
 
-    // -> add TOOLTIPS for ckeditor
     HTMLEditor.on('instanceReady',function() {
+      // -> add TOOLTIPS for ckeditor
       $$('.cke_button').each(function(button) {
-        var link = button.getChildren('a');
-        if(link !== null) {
+        if(button !== null) {
           // store tip text
-          link.store('tip:text', link.get('title'));
-          toolTipsBottom.attach(link);
-          link.removeProperty('title');
+          button.store('tip:text', button.get('title'));
+          toolTipsBottom.attach(button);
+          button.removeProperty('title');
         }
+      });
+
+      // -> setup OUTPUT FORMAT
+      HTMLEditor.dataProcessor.writer.setRules( 'p', {
+          indent: true,
+          breakBeforeOpen: true,
+          breakAfterOpen: true,
+          breakBeforeClose: true,
+          breakAfterClose: true
+      });
+      HTMLEditor.dataProcessor.writer.setRules( 'div', {
+          indent: true,
+          breakBeforeOpen: true,
+          breakAfterOpen: true,
+          breakBeforeClose: true,
+          breakAfterClose: true
+      });
+      HTMLEditor.dataProcessor.writer.setRules( 'table', {
+          indent: true,
+          breakBeforeOpen: true,
+          breakAfterOpen: true,
+          breakBeforeClose: true,
+          breakAfterClose: true
       });
     });
 
@@ -1491,71 +1521,54 @@ window.addEvent('domready', function() {
     if($('documentSaved') !== null && $('documentSaved').hasClass('saved'))
       editorIsClicked = true;
 
-      HTMLEditor.on('instanceReady',function() {
-        var windowScroll = new Fx.Scroll(window.document,{duration:'normal'});
-        var ckeditorContent = $('cke_contents_HTMLEditor');
-        ckeditorContent.set('tween',{duration:400, transition: Fx.Transitions.Pow.easeIn});
-        var ckeditorToolBar = $$("#cke_top_HTMLEditor .cke_toolbox")[0];
 
-        // fixes the ckeditor to use slide ins
-        $$('.cke_top').setStyles({
-          // 'position':'relative',
-          'padding':'6px 0'
-        });
-        $$('.cke_toolbox_collapser').setStyles({
-          'position':'absolute',
-          'right': 25,
-          'top': 10
-        });
+    HTMLEditor.on('instanceReady',function() {
+      var windowScroll = new Fx.Scroll(window.document,{duration:'normal'});
+      var ckeditorContent = $$('.cke_contents')[0];
+      ckeditorContent.set('tween',{duration:400, transition: Fx.Transitions.Pow.easeIn});
 
-        // var editorTweenTimeout;
+      // var editorTweenTimeout;
 
-        $$('div.editor #cke_HTMLEditor').addEvent('click',function(e){
-          // clearTimeout(editorTweenTimeout);
+      $$('div.editor #cke_HTMLEditor').addEvent('click',function(e){
+        // clearTimeout(editorTweenTimeout);
 
-          if(!editorHasFocus && ckeditorContent.getHeight() <= (editorStartHeight+20))
-            HTMLEditor.resize(798,editorToHeight + 100);
+        if(!editorHasFocus && ckeditorContent.getHeight() <= (editorStartHeight+20))
+          HTMLEditor.resize(798,editorToHeight + 100);
 
-          if(!editorHasFocus && typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') === 'none') {
-            editorHasFocus = true;
-            HTMLEditor.execCommand('toolbarCollapse'); //toggles
-            // slide in
-            ckeditorToolBar.set('slide',{duration:400, transition: Fx.Transitions.Pow.easeOut});
-            ckeditorToolBar.slide('hide').slide('in');
-          }
-
-          // scroll to editor
-          if($('editorAnchor') !== 'null')
-            windowScroll.toElement($('editorAnchor'));
-
+        if(!editorIsClicked && !editorHasFocus) {
           editorHasFocus = true;
-        });
+          HTMLEditor.execCommand('toolbarCollapse'); //toggles
+        }
 
-        HTMLEditor.on('focus',function(e) {
-          // clearTimeout(editorTweenTimeout);
-          if(editorHasFocus)
-            return;
+        // scroll to editor
+        if($('editorAnchor') !== 'null')
+          windowScroll.toElement($('editorAnchor'));
 
-          if(!editorHasFocus && ckeditorContent.getHeight() <= (editorStartHeight+20)) {
-            HTMLEditor.resize(798,editorToHeight + 100);
-          }
-
-          // show toolbar directly
-          if(!editorHasFocus && typeOf(ckeditorToolBar) !== 'null' && ckeditorToolBar.getStyle('display') == 'none') {
-            HTMLEditor.execCommand('toolbarCollapse'); //toggles
-            // slide in
-            ckeditorToolBar.set('slide',{duration:400, transition: Fx.Transitions.Pow.easeOut});
-            ckeditorToolBar.slide('hide').slide('in');
-          }
-
-          // scroll to editor
-          if($('editorAnchor') !== 'null')
-            windowScroll.toElement($('editorAnchor'));
-
-          editorHasFocus = true;
-        });
+        editorHasFocus = true;
       });
-    }
+
+      HTMLEditor.on('focus',function(e) {
+        // clearTimeout(editorTweenTimeout);
+        if(editorHasFocus)
+          return;
+
+        if(!editorHasFocus && ckeditorContent.getHeight() <= (editorStartHeight+20)) {
+          HTMLEditor.resize(798,editorToHeight + 100);
+        }
+
+        // show toolbar directly
+        if(!editorIsClicked && !editorHasFocus) {
+          HTMLEditor.execCommand('toolbarCollapse'); //toggles
+        }
+
+        // scroll to editor
+        if($('editorAnchor') !== 'null')
+          windowScroll.toElement($('editorAnchor'));
+
+        editorHasFocus = true;
+      });
+    });
+  }
   // ->> make PAGE TITLE EDITABLE
 
   // -> SAVE TITLE

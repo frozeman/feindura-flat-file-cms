@@ -205,7 +205,7 @@ $GLOBALS['languageNames'] = $languageNames;
 // $filePath = (empty($_SERVER["SCRIPT_FILENAME"])) ? realpath(null) : realpath($_SERVER["SCRIPT_FILENAME"]);
 // should realpath() fail, use just the $_SERVER["SCRIPT_FILENAME"] variable
 // if($filePath === false && !empty($_SERVER["SCRIPT_FILENAME"])) $filePath = $_SERVER["SCRIPT_FILENAME"];
-$filePath = str_replace('library/includes/general.include.php', 'index.php', __FILE__);
+$filePath = str_replace('library/includes/general.include.php', '', __FILE__);
 
 if(@is_file($_SERVER['DOCUMENT_ROOT'].XssFilter::path($_SERVER['PHP_SELF']))) {
   $docRoot = realpath($_SERVER['DOCUMENT_ROOT']);
@@ -237,7 +237,12 @@ unset($fileDir,$docRoot,$docRootPattern); //unset($docRoot,$basePath,$localpath,
  * E.g. "mysite.com/user/index.php" is in real "/server/username/htdocs/index.php".<br>
  * So URIEXTENSION contains "/user", which will be add to absolute paths, so they will work also as URL paths.
  */
-// for $filePath see above
+// get the filepath of the index.php file
+// use getcwd()?
+$filePath = (empty($_SERVER["SCRIPT_FILENAME"])) ? realpath(null) : realpath($_SERVER["SCRIPT_FILENAME"]);
+// should realpath() fail, use just the $_SERVER["SCRIPT_FILENAME"] variable
+if($filePath === false && !empty($_SERVER["SCRIPT_FILENAME"])) $filePath = $_SERVER["SCRIPT_FILENAME"];
+
 if(!empty($filePath)) {
   $uriExtension = str_replace(DOCUMENTROOT, '', str_replace("\\","/",$filePath));
   $uriPattern = str_replace('/','|',preg_quote($uriExtension));

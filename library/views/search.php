@@ -58,7 +58,7 @@ $searchWords = GeneralFunctions::smartStripslashes($searchWords);
   <div class="block">
   <h1><?php echo $langFile['BUTTON_SEARCH']; ?></h1>
     <div class="content">
-      <input type="search" name="search" size="50" value="<?php echo htmlentities($searchWords,ENT_QUOTES,'UTF-8'); ?>" style="float:left; margin-top: 12px; margin-right:10px;" autofocus="autofocus">
+      <input type="search" name="search" class="input-xxlarge" value="<?php echo htmlentities($searchWords,ENT_QUOTES,'UTF-8'); ?>" style="float:left; margin-top: 12px; margin-right:10px;" autofocus="autofocus">
       <input type="submit" value="" class="button searchSubmit">
     </div>
   </div>

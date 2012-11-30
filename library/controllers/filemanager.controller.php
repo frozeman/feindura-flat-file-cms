@@ -56,9 +56,9 @@ switch ($websiteConfig['dateFormat']) {
 
 $browser = new FileManagerWithAliasSupport(array(
   'Aliases' => array(URIEXTENSION => DOCUMENTROOT),
-  'directory' =>  str_replace(DOCUMENTROOT,'',dirname(__FILE__).'/../../upload/'),
+  'directory' =>  GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/'),
   'thumbnailPath' => GeneralFunctions::Path2URI(dirname(__FILE__).'/../../upload/thumbnails/'),
-  'assetBasePath' => GeneralFunctions::Path2URI($adminConfig['basePath']).'library/thirdparty/MooTools-FileManager/Assets',
+  'assetBasePath' => GeneralFunctions::Path2URI(dirname(__FILE__).'/../thirdparty/MooTools-FileManager/Assets'),
   'documentRootPath' => DOCUMENTROOT,
   'chmod' => $adminConfig['permissions'],
   'dateFormat' => $dateFormat,

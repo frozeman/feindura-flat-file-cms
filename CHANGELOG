@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-2.0.3
-Build 1020
+2.0.4
+Build 1022
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,9 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ----------
 
+2.0.4
+
+  build 1022: add CKEditor 4.0!
   build 1021: changed sitemap-index.xml to sitemap.xml
   build 1020: moved getCurrentCategoryId to StatisticFunctions class
   build 1019: add romanian translation; its now possible to set the documentroot manually, if it couldn't be resolved

@@ -5910,7 +5910,6 @@
 }
 .feindura .cke_maximized {
   background: whitesmoke;
-  padding: 10px;
 }
 .feindura textarea.cke_source {
   display: block !important;
@@ -5921,26 +5920,11 @@
   position: relative;
   display: block;
 }
-.feindura .cke_contents iframe {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  -o-box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-}
 .feindura .cke_maximized iframe {
   width: 99.5% !important;
 }
 .feindura .cke_button_iframe .cke_icon {
   background-position: 0 -1280px !important;
-}
-.feindura .cke_toolbox_collapser {
-  padding: 0 !important;
-}
-.feindura .cke_button a {
-  background-image: none !important;
-}
-.feindura .cke_button a > span {
-  cursor: pointer !important;
 }
 .feindura .cke_dialog {
   position: absolute !important;
@@ -5961,18 +5945,6 @@
   font-weight: normal !important;
   font-size: 16px !important;
   line-height: 32px !important;
-  -webkit-text-shadow: 0px 1px 2px #cccccc;
-  -moz-text-shadow: 0px 1px 2px #cccccc;
-  -ms-text-shadow: 0px 1px 2px #cccccc;
-  -o-text-shadow: 0px 1px 2px #cccccc;
-  -khtml-text-shadow: 0px 1px 2px #cccccc;
-  text-shadow: 0px 1px 2px #cccccc;
-}
-.feindura .cke_dialog_body {
-  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4) !important;
-  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4) !important;
-  -o-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4) !important;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4) !important;
 }
 .feindura .cke_dialog_footer {
   min-width: 270px;
@@ -6060,33 +6032,10 @@
   -khtml-text-shadow: none !important;
   text-shadow: none !important;
   background-color: #fff;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  -o-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
-  -moz-transition: border 200ms linear;
-  -webkit-transition: border 200ms linear;
-  -o-transition: border 200ms linear;
-  -ms-transition: border 200ms linear;
-  transition: border 200ms linear;
-  -moz-transition-duration: 200ms;
-  -webkit-transition-duration: 200ms;
-  -o-transition-duration: 200ms;
-  -ms-transition-duration: 200ms;
-  transition-duration: 200ms;
-}
-.feindura div.CodeMirror:hover {
-  border-color: rgba(82, 168, 236, 0.8) !important;
-  outline: 0 !important;
-  outline: thin dotted \9;
-  /* IE6-9 */
-
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+  -o-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
 }
 .feindura div.CodeMirror .CodeMirror-scroll * {
   font: 14px 'Lucida Sans Unicode', Helvetica, Verdana, Arial !important;
@@ -6100,7 +6049,7 @@
 }
 .feindura .cke_contents .CodeMirror {
   height: 100%;
-  border: 1px solid #b3b3b3;
+  border: none;
 }
 .feindura .cke_contents .CodeMirror-scroll {
   height: 100%;
@@ -6108,10 +6057,10 @@
 }
 .feindura .cke_contents .CodeMirror-scroll * {
   white-space: pre !important;
-  max-width: 730px;
+  max-width: 800px;
 }
 .feindura .cke_maximized .CodeMirror-scroll * {
-  max-width: 1000px;
+  max-width: 2000px;
 }
 .feindura [class^="span"] > [class^="fancyform"] {
   margin-top: 2px;

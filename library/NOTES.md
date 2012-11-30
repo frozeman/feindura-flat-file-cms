@@ -38,12 +38,14 @@ ADD PLUGINS:
 
 - codemirror
 - feinduraSnippets
+- mediaembed
 
 MODIFIED PLUGINS:
 
 - link (don't overwrite the dialogs/link_source.js, needed when updating)
-- image (replaced the Browse ['browse'] buttons: "margin-top:10px;" > "margin-top:30px;")
-- flash (replaced the Browse ['info:src'] buttons: "margin-top:10px;" > "margin-top:30px;")
+- image (replaced the Browse ['browse'] buttons: "margin-top:10px;" > "margin-top:24px;")
+- flash (replaced the Browse ['info:src'] buttons: "margin-top:10px;" > "margin-top:24px;")
+- magicline (replaced the '(a.rtl?"right":"left")+":17px;' -> '(a.rtl?"left":"right")+":17px;' and add this 'color:transparent;' [in the ckeditor.js])
 
 
 ***MooTools***

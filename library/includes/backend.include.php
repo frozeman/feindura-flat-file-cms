@@ -29,10 +29,12 @@ session_name('session');
 // prevent Full Path Disclosure, through session error
 $sessid = (isset($_COOKIE['session']))
     ? $_COOKIE['session']
-    : $sessid = session_id();
+    : session_id();
 
-if(preg_match('/^[a-z0-9]{32}$/', $sessid))
-    session_start();
+if(empty($sessid))
+  session_start();
+elseif(preg_match('/^[a-z0-9]{32}$/', $sessid))
+  session_start();
 unset($sessid);
 
 

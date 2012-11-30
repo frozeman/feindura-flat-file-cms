@@ -1,29 +1,41 @@
-# About [feindura-Skin][feindura-Skin]
+"feindura-skin" Skin
+====================
+based on the "Moono" CKEditor default skin!
 
-Absolutely based on the [BootstrapCK-Skin]!
-Just changed minor details.
 
-The [BootstrapCK-Skin][BootstrapCK-Skin] is a skin for [CKEditor][CKEditor] based on [Twitter Bootstrap][Twitter Bootstrap] styles.<br />
-Some things couldn't be changed inside the skin, like the smileys and the position of the browse buttons when inserting an image or a flash.<br />
-Here's how you fix that:
+For more information about skins, please check the [CKEditor Skin SDK](http://docs.cksource.com/CKEditor_4.x/Skin_SDK)
+documentation.
 
-## Smileys
 
-Go to <code>plugins > smiley > dialogs</code> , and replace <code>smiley.js</code> with [this one][this one].<br />
-And grab your new images over [here][here].
+Directory Structure
+-------------------
 
-## Browse buttons
+CSS parts:
+- **editor.css**: the main CSS file. It's simply loading several other files, for easier maintenance,
+- **mainui.css**: the file contains styles of entire editor outline structures,
+- **toolbar.css**: the file contains styles of the editor toolbar space (top),
+- **richcombo.css**: the file contains styles of the rich combo ui elements on toolbar,
+- **panel.css**: the file contains styles of the rich combo drop-down, it's not loaded
+until the first panel open up,
+- **elementspath.css**: the file contains styles of the editor elements path bar (bottom),
+- **menu.css**: the file contains styles of all editor menus including context menu and button drop-down,
+it's not loaded until the first menu open up,
+- **dialog.css**: the CSS files for the dialog UI, it's not loaded until the first dialog open,
+- **reset.css**: the file defines the basis of style resets among all editor UI spaces,
+- **preset.css**: the file defines the default styles of some UI elements reflecting the skin preference,
+- **editor_XYZ.css** and **dialog_XYZ.css**: browser specific CSS hacks.
 
-Go to <code>plugins > image > dialogs > image.js</code> and to <code>plugins > flash > dialogs > flash.js</code><br />
-In both, change the margin-top to 17px (instead of 10px).
+Other parts:
+- **skin.js**: the only JavaScript part of the skin that registers the skin, its browser specific files and its icons and defines the Chameleon feature,
+- **icons/**: contains all skin defined icons,
+- **images/**: contains a fill general used images,
+- **dev/**: contains SVG source of the skin icons.
 
-# Demo
-[http://kunstmaan.github.com/BootstrapCK-Skin/][http://kunstmaan.github.com/BootstrapCK-Skin/]
+License
+-------
 
-[BootstrapCK-Skin]: https://github.com/Kunstmaan/BootstrapCK-Skin "BootstrapCK-Skin"
-[CKEditor]: http://ckeditor.com/ "CKEditor"
-[Twitter Bootstrap]: http://twitter.github.com/bootstrap/ "Twitter Bootstrap"
-[this one]: http://kunstmaan.github.com/BootstrapCK-Skin/smiley.js "smiley.js"
-[here]: http://kunstmaan.github.com/BootstrapCK-Skin/smileys.zip "smileys.zip"
-[http://kunstmaan.github.com/BootstrapCK-Skin/]: http://kunstmaan.github.com/BootstrapCK-Skin/ "Demo"
-[kunstmaan]: http://www.kunstmaan.be "Kunstmaan"
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
+
+Licensed under the terms of any of the following licenses at your choice: [GPL](http://www.gnu.org/licenses/gpl.html), [LGPL](http://www.gnu.org/licenses/lgpl.html) and [MPL](http://www.mozilla.org/MPL/MPL-1.1.html).
+
+See LICENSE.md for more information.

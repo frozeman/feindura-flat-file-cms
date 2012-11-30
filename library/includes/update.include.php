@@ -534,7 +534,7 @@ if(isset($_POST) && $_POST['update'] == 'true') {
     }
 
     if(GeneralFunctions::savePage($pageContent,false,false)) { // dont save the pagesMetaData each times
-      // delete the previous files
+      // delete all the previous files (because they aren't updated)
       $categoryPath = ($pageContent['category'] == 0) ? '' : $pageContent['category'].'/';
       if(file_exists(dirname(__FILE__).'/../../pages/'.$categoryPath.$pageContent['id'].'.previous.php'))
         @unlink(dirname(__FILE__).'/../../pages/'.$categoryPath.$pageContent['id'].'.previous.php');

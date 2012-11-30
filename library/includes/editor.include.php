@@ -87,22 +87,23 @@ window.addEvent('domready',function() {
 
   // -> set the CONFIGs of the editor with PHP vars (more configs are set in the content.js)
 
-// BASE
+  // BASE
   CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['url'].GeneralFunctions::Path2URI(GeneralFunctions::getDirname($adminConfig['websitePath'])); ?>';
   CKEDITOR.config.language                  = '<?php echo $_SESSION["feinduraSession"]["backendLanguage"]; ?>';
-  CKEDITOR.config.extraPlugins              = 'Media,codemirror'; //stylesheetparser
+  CKEDITOR.config.extraPlugins              = 'codemirror,tableresize,magicline,scayt,mediaembed'; //stylesheetparser,Media
+  CKEDITOR.config.magicline_color           = '#2480f9';
   CKEDITOR.config.blockedKeystrokes.push(CKEDITOR.CTRL + 83);
   CKEDITOR.config.docType                   = '<!doctype html">';
   CKEDITOR.config.entities                  = false;
 
 <?php
-// SNIPPETS
+  // SNIPPETS
 if($adminConfig['editor']['snippets'] || $categoryConfig[$pageContent['category']]['plugins']) { ?>
   CKEDITOR.config.extraPlugins              += ',feinduraSnippets';
   CKEDITOR.config.menu_groups               += ',feinduraSnippetsGroup';
 <?php }
 
-// CSS
+  // CSS
 if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false && !empty($editorStyleFiles)) { ?>
   CKEDITOR.config.contentsCss               = ['<?php $echoStyleFile = '';
                                                       foreach($editorStyleFiles as $editorStyleFile) {
@@ -121,7 +122,7 @@ if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false && !empty($edi
 
 
 <?php
-// ENTER MODE
+  // ENTER MODE
 if($adminConfig['editor']['enterMode'] == 'br') { ?>
   CKEDITOR.config.enterMode                 = CKEDITOR.ENTER_BR;
   CKEDITOR.config.shiftEnterMode            = CKEDITOR.ENTER_P;
@@ -129,14 +130,14 @@ if($adminConfig['editor']['enterMode'] == 'br') { ?>
   CKEDITOR.config.enterMode                 = CKEDITOR.ENTER_P;
   CKEDITOR.config.shiftEnterMode            = CKEDITOR.ENTER_BR;
 
-// CUSTOM STYLES
+  // CUSTOM STYLES
 <?php } if(!$adminConfig['editor']['editorStyles']) { ?>
   CKEDITOR.config.removePlugins = 'stylescombo';
 <?php } if(GeneralFunctions::hasPermission('editorStyles') && file_exists(dirname(__FILE__)."/../../config/EditorStyles.js")) { ?>
   CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/EditorStyles.js?<?php echo md5(uniqid(rand(),1)); ?>';
 <?php }
 
-// FILEMANAGER
+  // FILEMANAGER
 if(GeneralFunctions::hasPermission('fileManager')) {
 ?>
   CKEDITOR.config.filebrowserBrowseUrl      = '<?php echo GeneralFunctions::Path2URI($adminConfig['basePath'])."library/views/windowBox/fileManager.php"; ?>';
