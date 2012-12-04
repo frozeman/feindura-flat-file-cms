@@ -25,7 +25,7 @@ $loggedOut = false;
 $resetPassword = false;
 if(isset($_POST['username'])) $_POST['username'] = XssFilter::text($_POST['username']);
 if(isset($_POST['password'])) $_POST['password'] = XssFilter::text($_POST['password']);
-//unset($_SESSION);
+//unset($_SESSION['feinduraSession']);
 
 // -> if NO USER EXISTS
 if(empty($userConfig)) {

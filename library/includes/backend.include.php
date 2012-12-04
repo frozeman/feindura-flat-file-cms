@@ -33,7 +33,7 @@ $sessid = (isset($_COOKIE['session']))
 
 if(empty($sessid))
   session_start();
-elseif(preg_match('/^[a-z0-9]{32}$/', $sessid))
+elseif(preg_match('/^[a-z0-9]{5,}$/', $sessid))
   session_start();
 unset($sessid);
 
