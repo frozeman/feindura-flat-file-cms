@@ -647,7 +647,7 @@ $langFile['statisticSetup_clearStatistics_taskLog_tip']                   = 'В�
 
 $langFile['statisticSetup_clearStatistics_question_h1']                   = 'Уверены что хотите обнулить статистику?';
 
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'Произошла общибка при удалении файла статистики.'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%sstatistic/pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'Произошла общибка при удалении файла статистики.'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%sstatistics/pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 /*
 * userSetup.php
@@ -900,8 +900,8 @@ $langFile['UPDATE_TEXT_BASEPATH']                                         = 'П�
 $langFile['UPDATE_TEXT_WEBSITEPATH']                                      = 'Сайт путь';
 $langFile['UPDATE_TEXT_SUCCESS']                                          = 'Содержимое успешно обновлена!';
 $langFile['UPDATE_BUTTON_UPDATE']                                         = 'ОБНОВЛЕНИЕ';
-$langFile['UPDATE_ERROR_MOVEUPLOADFOLDER']                                = 'Загрузить папки не могут быть перемещены! Пожалуйста, переместите папку "%s" вручную "your_feindura_folder/загрузки/".';
-$langFile['UPDATE_ERROR_MOVEPAGESFOLDER']                                 = 'Страницы не может быть скопирован! Пожалуйста, переместите папку "%s" вручную "your_feindura_folder/страниц/".';
+$langFile['UPDATE_ERROR_MOVEUPLOADFOLDER']                                = 'Загрузить папки не могут быть перемещены! Пожалуйста, переместите папку "%s" вручную "your_feindura_folder/upload/".';
+$langFile['UPDATE_ERROR_MOVEPAGESFOLDER']                                 = 'Страницы не может быть скопирован! Пожалуйста, переместите папку "%s" вручную "your_feindura_folder/pages/".';
 $langFile['UPDATE_ERROR_SAVEADMINCONFIG']                                 = 'Параметры администратора не может быть обновлен.';
 $langFile['UPDATE_ERROR_SAVECATEGORYCONFIG']                              = 'Категория параметры не могут быть обновлены.';
 $langFile['UPDATE_ERROR_SAVEUSERCONFIG']                                  = 'Настройки пользователя не может быть обновлен.';
@@ -911,6 +911,7 @@ $langFile['UPDATE_ERROR_CLEARACTIVITYLOG']                                = 'Д�
 $langFile['UPDATE_ERROR_SAVEWEBSITESTATISTICS']                           = 'Статистика сайта не может быть обновлен.';
 $langFile['UPDATE_ERROR_SAVEREFERERLOG']                                  = 'Referer Вход не может быть обновлен.';
 $langFile['UPDATE_ERROR_DELETEOLDFILES']                                  = 'Не удалось удалить старые файлы и папки, <br> Пожалуйста, проверьте эти файлы и папки и удалить их вручную:';
+$langFile['UPDATE_ERROR_RENAMESTATISTICSFOLDER']                          = 'Couldn\'t rename the "feinduraFolder/statistic" folder "feinduraFolder/statistic<strong>s</strong>, please rename it manually!"';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

@@ -481,25 +481,15 @@ class StatisticFunctions {
     // adds .php to the end if its missing
     if(substr($pageId,-4) != '.statistics.php')
       $pageId .= '.statistics.php';
+
     // ->> INCLUDE
-    if($fp = @fopen(dirname(__FILE__).'/../../statistic/pages/'.$pageId,'r')) {
-      flock($fp,LOCK_SH);
-      $pageStatistics = @include(dirname(__FILE__).'/../../statistic/pages/'.$pageId);
-      flock($fp,LOCK_UN);
-      fclose($fp);
-    }
-
-    // return content array
-    if(is_array($pageStatistics)) {
-      return $pageStatistics;
-
-    // return failure while loading the content (file exists but couldn't be loaded)
-    } elseif($pageStatistics === 1) {
+    $pageStatistics = GeneralFunctions::includeFile(dirname(__FILE__).'/../../statistics/pages/'.$pageId);
+    if($pageStatistics === null)
       return null;
-
-    // returns false if it couldn't include the file (file doesnt exists)
-    } else
+    elseif(empty($pageStatistics))
       return false;
+    else
+      return $pageStatistics;
   }
 
  /**
@@ -531,8 +521,8 @@ class StatisticFunctions {
       return false;
 
     // check if statistics folder exists
-    if(!is_dir(dirname(__FILE__).'/../../statistic/pages/'))
-      @mkdir(dirname(__FILE__).'/../../statistic/pages/',self::$adminConfig['permissions'],true);
+    if(!is_dir(dirname(__FILE__).'/../../statistics/pages/'))
+      @mkdir(dirname(__FILE__).'/../../statistics/pages/',self::$adminConfig['permissions'],true);
 
     // escape \ and '
     //$pageStatistics = XssFilter::escapeBasics($pageStatistics);
@@ -554,8 +544,8 @@ class StatisticFunctions {
     $fileContent .= "\n?>";
 
     // -> write file
-    if(file_put_contents(dirname(__FILE__).'/../../statistic/pages/'.$pageStatistics['id'].'.statistics.php', $fileContent, LOCK_EX)) {
-      @chmod(dirname(__FILE__).'/../../statistic/pages/'.$pageStatistics['id'].'.statistics.php',self::$adminConfig['permissions']);
+    if(file_put_contents(dirname(__FILE__).'/../../statistics/pages/'.$pageStatistics['id'].'.statistics.php', $fileContent, LOCK_EX)) {
+      @chmod(dirname(__FILE__).'/../../statistics/pages/'.$pageStatistics['id'].'.statistics.php',self::$adminConfig['permissions']);
       return true;
     } else
       return false;
@@ -584,7 +574,7 @@ class StatisticFunctions {
       return false;
 
     $maxEntries = self::$statisticConfig['number']['refererLog'];
-    $logFilePath = dirname(__FILE__).'/../../'.'statistic/referer.statistic.log';
+    $logFilePath = dirname(__FILE__).'/../../'.'statistics/referer.statistic.log';
     $oldLog =  false;
 
     if($logFile = @fopen($logFilePath,"r")) {
@@ -866,7 +856,7 @@ class StatisticFunctions {
     $maxTime = 600; // 3600 seconds = 1 hour
     $userAgentMd5 = md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']);
     $timeStamp = time();
-    $cacheFile = dirname(__FILE__)."/../../statistic/visitor.statistic.cache";
+    $cacheFile = dirname(__FILE__)."/../../statistics/visitor.statistic.cache";
     $newLines = array();
     $cachedLines = false;
 
@@ -924,7 +914,7 @@ class StatisticFunctions {
  /**
   * <b>Name</b> getCurrentVisitor()<br>
   *
-  * Gets the current visitor (only the CURRENT) from the visitCache file (<var>statistic/visitor.statistic.cache</var>)
+  * Gets the current visitor (only the CURRENT) from the visitCache file (<var>statistics/visitor.statistic.cache</var>)
   *
   * @return array the current visitor with $returnVisitors['ip'], $returnVisitors['time'] and $returnVisitors['type']
   *
@@ -939,7 +929,7 @@ class StatisticFunctions {
 
     //var
     $returnVisitors = array();
-    $cacheFile = dirname(__FILE__)."/../../statistic/visitor.statistic.cache";
+    $cacheFile = dirname(__FILE__)."/../../statistics/visitor.statistic.cache";
 
     if(!file_exists($cacheFile)) return $returnVisitors;
     if($currentVisitors = @file($cacheFile)) {
@@ -961,7 +951,7 @@ class StatisticFunctions {
  /**
   * <b>Name</b> getCurrentVisitors()<br>
   *
-  * Gets the current visitors (ALL) from the visitCache file (<var>statistic/visitor.statistic.cache</var>)
+  * Gets the current visitors (ALL) from the visitCache file (<var>statistics/visitor.statistic.cache</var>)
   *
   * @return array the current visitors with $returnVisitors['ip'], $returnVisitors['time'] and $returnVisitors['type']
   *
@@ -976,7 +966,7 @@ class StatisticFunctions {
 
     //var
     $returnVisitors = array();
-    $cacheFile = dirname(__FILE__)."/../../statistic/visitor.statistic.cache";
+    $cacheFile = dirname(__FILE__)."/../../statistics/visitor.statistic.cache";
 
     if(!file_exists($cacheFile)) return $returnVisitors;
     if($currentVisitors = @file($cacheFile)) {
@@ -1063,8 +1053,8 @@ class StatisticFunctions {
     //   $dump .= 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."\n";
     //   $dump .= ($hasCurrentVisitors) ? 'got it in the visitor.statistic.cache!'."\n\n" : 'is not in the visitor.statistic.cache'."\n\n".
 
-    //   $dump .= (is_file(dirname(__FILE__)."/../../statistic/website.statistic.php")) ? "website.statistic.php exist!"."\n" : "website.statistic.php is gone!!?"."\n";
-    //   $dump .= 'Include again the website.statistic.php: '.print_r(include(dirname(__FILE__)."/../../statistic/website.statistic.php"),true)."\n\n";
+    //   $dump .= (is_file(dirname(__FILE__)."/../../statistics/website.statistic.php")) ? "website.statistic.php exist!"."\n" : "website.statistic.php is gone!!?"."\n";
+    //   $dump .= 'Include again the website.statistic.php: '.print_r(include(dirname(__FILE__)."/../../statistics/website.statistic.php"),true)."\n\n";
 
     //   $dump .= '$GLOBALS["websiteStatistic"): '.print_r($GLOBALS["websiteStatistic"],true)."\n";
     //   $dump .= '$GLOBALS["feindura_websiteStatistic"]: '.print_r($GLOBALS["feindura_websiteStatistic"],true)."\n";
@@ -1076,7 +1066,7 @@ class StatisticFunctions {
 
     // COUNT if the user/robot isn't already counted
     // **********************************************
-    if(self::$websiteStatistic !== 1 && ((isset($_SESSION['feinduraSession']['log']['visited']) && $_SESSION['feinduraSession']['log']['visited'] === false) ||
+    if(!self::$websiteStatistic['locked'] && ((isset($_SESSION['feinduraSession']['log']['visited']) && $_SESSION['feinduraSession']['log']['visited'] === false) ||
        (!isset($_SESSION['feinduraSession']['log']['visited']) && $hasCurrentVisitors === false))) {
 
       // ->> CHECKS if the user is NOT a BOT/SPIDER
@@ -1143,12 +1133,12 @@ class StatisticFunctions {
       $statisticFile .= "\n?>";
 
       // -> SAVE the flat file
-      if(file_put_contents(dirname(__FILE__)."/../../statistic/website.statistic.php", $statisticFile, LOCK_EX))
+      if(file_put_contents(dirname(__FILE__)."/../../statistics/website.statistic.php", $statisticFile, LOCK_EX))
         // saves the user as visited
         $_SESSION['feinduraSession']['log']['visited'] = true;
 
       // -> add permissions on the first creation
-      if(self::$websiteStatistic["userVisitCount"] === 1) @chmod(dirname(__FILE__)."/../../statistic/website.statistic.php", self::$adminConfig['permissions']);
+      if(self::$websiteStatistic["userVisitCount"] === 1) @chmod(dirname(__FILE__)."/../../statistics/website.statistic.php", self::$adminConfig['permissions']);
 
 
     // ->> save the time of the last visited page

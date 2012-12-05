@@ -82,8 +82,8 @@ if(isBlocked() === false && $_POST['save']) {
     $logText = 0;
 
     // delete statistics, if still exist
-    if(is_file(dirname(__FILE__).'/../../statistic/pages/'.$page.'.statistics.php'))
-      @unlink(dirname(__FILE__).'/../../statistic/pages/'.$page.'.statistics.php');
+    if(is_file(dirname(__FILE__).'/../../statistics/pages/'.$page.'.statistics.php'))
+      @unlink(dirname(__FILE__).'/../../statistics/pages/'.$page.'.statistics.php');
 
   // *** SAVE PAGE ----------------------
   } else {

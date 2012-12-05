@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0.4
-Build 1023
+Build 1025
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,8 @@ ChangeLog:
 
 2.0.4
 
+  build 1025: renamed the "statistic" folder to "statistics"
+  build 1024: hopefully this fixed the reset statistics issue!
   build 1023: fixed some statistic issues
   build 1022: add CKEditor 4.0!
   build 1021: changed sitemap-index.xml to sitemap.xml

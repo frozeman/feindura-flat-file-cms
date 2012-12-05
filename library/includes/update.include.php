@@ -167,6 +167,7 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   // try to MOVE the PAGES FOLDER
   $copyError = false;
   $copySuccess = false;
+  sleep(1);
   if(!empty($adminConfig['savePath']) && is_dir(DOCUMENTROOT.$adminConfig['savePath'])) {
     copyDir(DOCUMENTROOT.$adminConfig['savePath'],dirname(__FILE__).'/../../pages/',$copyError);
     $copySuccess = true;
@@ -176,6 +177,23 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   } elseif($copyError) {
     $updateErrors[] = sprintf($langFile['UPDATE_ERROR_MOVEPAGESFOLDER'],$adminConfig['savePath']);
     $updateSuccessful = false;
+  }
+
+  // rename the STATISTICS FOLDER
+  $copyError = false;
+  $copySuccess = false;
+  sleep(1);
+  if(is_dir(dirname(__FILE__).'/../../statistic')) {
+    copyDir(dirname(__FILE__).'/../../statistic', dirname(__FILE__).'/../../statistics',$copyError);
+    $copySuccess = true;
+
+    if(!$copyError && $copySuccess) {
+      GeneralFunctions::deleteFolder(dirname(__FILE__).'/../../statistic');
+      $websiteStatistic = include(dirname(__FILE__).'/../../statistics/website.statistic.php');
+    } elseif($copyError) {
+      $updateErrors[] = $langFile['UPDATE_ERROR_RENAMESTATISTICSFOLDER'];
+      $updateSuccessful = false;
+    }
   }
 
   // save the $pagesMetaData array
@@ -576,7 +594,7 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   }
 
   // ->> CLEAR activity log
-  if($taskLogFile = fopen(dirname(__FILE__)."/../../statistic/activity.statistic.log","wb")) {
+  if($taskLogFile = fopen(dirname(__FILE__)."/../../statistics/activity.statistic.log","wb")) {
     fclose($taskLogFile);
 
     saveActivityLog(24); // <- SAVE the task in a LOG FILE
@@ -587,47 +605,49 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   }
 
   // ->> SAVE WEBSITE STATISTIC
-  $time = $websiteStatistic['firstVisit'];
-  if(substr($time,4,1) == '-')
-    $websiteStatistic['firstVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
+  if(until(1002)) {
+    $time = $websiteStatistic['firstVisit'];
+    if(substr($time,4,1) == '-')
+      $websiteStatistic['firstVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
 
-  $time = $websiteStatistic['lastVisit'];
-  if(substr($time,4,1) == '-')
-    $websiteStatistic['lastVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
+    $time = $websiteStatistic['lastVisit'];
+    if(substr($time,4,1) == '-')
+      $websiteStatistic['lastVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
 
-  $data = $websiteStatistic['browser'];
-    if(strpos($data,'|#|') !== false)
-      $websiteStatistic['browser'] = changeToSerializedDataString($data,'|#|');
-    elseif(strpos($data,'|') !== false)
-      $websiteStatistic['browser'] = changeToSerializedDataString($data,'|');
-    elseif(!empty($data) && substr($data,0,2) != 'a:')
-      $websiteStatistic['browser'] = changeToSerializedDataString($data,' ');
+    $data = $websiteStatistic['browser'];
+      if(strpos($data,'|#|') !== false)
+        $websiteStatistic['browser'] = changeToSerializedDataString($data,'|#|');
+      elseif(strpos($data,'|') !== false)
+        $websiteStatistic['browser'] = changeToSerializedDataString($data,'|');
+      elseif(!empty($data) && substr($data,0,2) != 'a:')
+        $websiteStatistic['browser'] = changeToSerializedDataString($data,' ');
 
-  // rename
-  $websiteStatistic['robotVisitCount'] = (isset($websiteStatistic['spiderVisitCount'])) ? $websiteStatistic['spiderVisitCount'] : $websiteStatistic['robotVisitCount'];
+    // rename
+    $websiteStatistic['robotVisitCount'] = (isset($websiteStatistic['spiderVisitCount'])) ? $websiteStatistic['spiderVisitCount'] : $websiteStatistic['robotVisitCount'];
 
-  if($statisticFile = fopen(dirname(__FILE__)."/../../statistic/website.statistic.php","wb")) {
+    if($statisticFile = fopen(dirname(__FILE__)."/../../statistics/website.statistic.php","wb")) {
 
-    flock($statisticFile,LOCK_EX);
-    fwrite($statisticFile,"<?php\n");
+      flock($statisticFile,LOCK_EX);
+      fwrite($statisticFile,"<?php\n");
 
-    fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    ".XssFilter::int($websiteStatistic["userVisitCount"],0).";\n");
-    fwrite($statisticFile,"\$websiteStatistic['robotVisitCount'] =  ".XssFilter::int($websiteStatistic["robotVisitCount"],0).";\n\n");
+      fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    ".XssFilter::int($websiteStatistic["userVisitCount"],0).";\n");
+      fwrite($statisticFile,"\$websiteStatistic['robotVisitCount'] =  ".XssFilter::int($websiteStatistic["robotVisitCount"],0).";\n\n");
 
-    fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        ".XssFilter::int($websiteStatistic["firstVisit"],0).";\n");
-    fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         ".XssFilter::int($websiteStatistic["lastVisit"],0).";\n\n");
+      fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        ".XssFilter::int($websiteStatistic["firstVisit"],0).";\n");
+      fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         ".XssFilter::int($websiteStatistic["lastVisit"],0).";\n\n");
 
-    fwrite($statisticFile,"\$websiteStatistic['browser'] =      '".$websiteStatistic["browser"]."';\n\n");
+      fwrite($statisticFile,"\$websiteStatistic['browser'] =      '".$websiteStatistic["browser"]."';\n\n");
 
-    fwrite($statisticFile,"return \$websiteStatistic;");
+      fwrite($statisticFile,"return \$websiteStatistic;");
 
-    fwrite($statisticFile,"\n?>");
-    flock($statisticFile,LOCK_UN);
-    fclose($statisticFile);
+      fwrite($statisticFile,"\n?>");
+      flock($statisticFile,LOCK_UN);
+      fclose($statisticFile);
 
-  } else {
-    $updateErrors[] = $langFile['UPDATE_ERROR_SAVEWEBSITESTATISTICS'];
-    $updateSuccessful = false;
+    } else {
+      $updateErrors[] = $langFile['UPDATE_ERROR_SAVEWEBSITESTATISTICS'];
+      $updateSuccessful = false;
+    }
   }
 
   // ->> refresh the Feeds
@@ -642,9 +662,9 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   }
 
   // ->> SAVE referer log
-  $oldLog = file(dirname(__FILE__)."/../../statistic/referer.statistic.log");
+  $oldLog = file(dirname(__FILE__)."/../../statistics/referer.statistic.log");
 
-  if($logFile = fopen(dirname(__FILE__)."/../../statistic/referer.statistic.log","wb")) {
+  if($logFile = fopen(dirname(__FILE__)."/../../statistics/referer.statistic.log","wb")) {
 
     // -> write the new log file
     flock($logFile,LOCK_EX);
@@ -707,7 +727,7 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   $deleteFiles[] = 'library/thirdparty/javascripts/mootools-core-1.3.1.js';
   $deleteFiles[] = 'library/thirdparty/javascripts/mootools-more-1.3.1.1.js';
   $deleteFiles[] = 'library/thirdparty/spiders.txt';
-  $deleteFiles[] = 'statistic/visit.statistic.cache';
+  $deleteFiles[] = 'statistics/visit.statistic.cache';
   $deleteFiles[] = 'library/thirdparty/PHP/sessionLister.php';
   $deleteFiles[] = 'library/processes.loader.php';
   $deleteFiles[] = 'config/plugins.config.php';

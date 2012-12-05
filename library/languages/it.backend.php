@@ -640,7 +640,7 @@ $langFile['statisticSetup_clearStatistics_taskLog_tip']                   = 'Eli
 
 $langFile['statisticSetup_clearStatistics_question_h1']                   = 'Sei sicuro di voler cancellare queste statistiche?';
 
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'Errore durante l&#145;eliminazione delle statistiche della pagina.'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%sstatistic/pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'Errore durante l&#145;eliminazione delle statistiche della pagina.'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%sstatistics/pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 /*
 * userSetup.php
@@ -904,6 +904,7 @@ $langFile['UPDATE_ERROR_CLEARACTIVITYLOG']                                = 'Reg
 $langFile['UPDATE_ERROR_SAVEWEBSITESTATISTICS']                           = 'Statistiche del sito web non può essere aggiornata.';
 $langFile['UPDATE_ERROR_SAVEREFERERLOG']                                  = 'Log Referer non può essere aggiornata.';
 $langFile['UPDATE_ERROR_DELETEOLDFILES']                                  = 'Impossibile rimuovere i file vecchi e cartelle, <br> Si prega di verificare i file e cartelle, e rimuovere manualmente:';
+$langFile['UPDATE_ERROR_RENAMESTATISTICSFOLDER']                          = 'Couldn\'t rename the "feinduraFolder/statistic" folder "feinduraFolder/statistic<strong>s</strong>, please rename it manually!"';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

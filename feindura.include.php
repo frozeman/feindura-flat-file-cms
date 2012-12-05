@@ -43,6 +43,8 @@ elseif(preg_match('/^[a-z0-9]{5,}$/', $sessid))
   session_start();
 unset($sessid);
 
+// for statistics testing
+// unset($_SESSION['feinduraSession']['log']);
 
 // -> CHECKS if cookies are enabled
 if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'] != 'true')

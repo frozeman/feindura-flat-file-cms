@@ -190,7 +190,7 @@ function userCache() {
   $maxTime = 200; // 2min+, 3600 seconds = 1 hour
   $timeStamp = time();
   $browser = StatisticFunctions::getBrowser();
-  $cacheFile = dirname(__FILE__)."/../../statistic/user.statistic.cache";
+  $cacheFile = dirname(__FILE__)."/../../statistics/user.statistic.cache";
   $newLines = array();
   $cachedLines = false;
 
@@ -523,8 +523,8 @@ function createBasicFilesAndFolders() {
     if(mkdir(dirname(__FILE__).'/../../pages',$GLOBALS['adminConfig']['permissions']))
       file_put_contents(dirname(__FILE__).'/../../pages/VERSION', "feindura - content version\n".VERSION."\n".BUILD);
   // statistic folder
-  if(!is_dir(dirname(__FILE__).'/../../statistic'))
-    mkdir(dirname(__FILE__).'/../../statistic',$GLOBALS['adminConfig']['permissions']);
+  if(!is_dir(dirname(__FILE__).'/../../statistics'))
+    mkdir(dirname(__FILE__).'/../../statistics',$GLOBALS['adminConfig']['permissions']);
   // backups folder
   if(!is_dir(dirname(__FILE__).'/../../backups'))
     mkdir(dirname(__FILE__).'/../../backups',$GLOBALS['adminConfig']['permissions']);
@@ -1411,7 +1411,7 @@ function savePrettyUrlCode(&$ERRORWINDOW) {
 function saveActivityLog($task, $object = false) {
 
   $maxEntries = $GLOBALS['statisticConfig']['number']['taskLog'];
-  $logFilePath = dirname(__FILE__).'/../../'.'statistic/activity.statistic.log';
+  $logFilePath = dirname(__FILE__).'/../../'.'statistics/activity.statistic.log';
   $oldLog = false;
 
   if($logFile = @fopen($logFilePath,"r")) {
@@ -1815,7 +1815,7 @@ function createBackup($backupFile) {
   // -> generate archive
   require_once(dirname(__FILE__).'/../thirdparty/PHP/pclzip.lib.php');
   $archive = new PclZip($backupFile);
-  $catchError = $archive->add('config/,statistic/,pages/',PCLZIP_OPT_REMOVE_PATH, $GLOBALS['adminConfig']['realBasePath']);//,PCLZIP_OPT_SET_CHMOD,$GLOBALS['adminConfig']['permissions']);
+  $catchError = $archive->add('config/,statistics/,pages/',PCLZIP_OPT_REMOVE_PATH, $GLOBALS['adminConfig']['realBasePath']);//,PCLZIP_OPT_SET_CHMOD,$GLOBALS['adminConfig']['permissions']);
 
   if($catchError == 0)
     return $archive->errorInfo(true);
@@ -2715,7 +2715,7 @@ function basicFilesAreWriteableWarning() {
   $return = false;
 
   $checkFolders[] = dirname(__FILE__).'/../../config/';
-  $checkFolders[] = dirname(__FILE__).'/../../statistic/';
+  $checkFolders[] = dirname(__FILE__).'/../../statistics/';
   $checkFolders[] = dirname(__FILE__).'/../../pages/';
   $checkFolders[] = dirname(__FILE__).'/../../upload/';
   $checkFolders[] = $adminConfig['websiteFilesPath'];

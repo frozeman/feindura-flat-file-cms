@@ -1708,6 +1708,7 @@ class Feindura extends FeinduraBase {
     $pages = $this->loadPagesByType($idType,$ids);
 
 
+
     // -> SORT PAGES
     // sorts by CATEGORIES like in the backend
     if($sortPages === true) {

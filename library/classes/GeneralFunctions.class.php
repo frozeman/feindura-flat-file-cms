@@ -937,6 +937,43 @@ class GeneralFunctions {
   }
 
  /**
+  * <b>Name</b> includeFile()<br>
+  *
+  * Includes a file by returning its content (has to be array), but checks if its locked first.
+  *
+  * @param string  $path           the path to the file to include
+  *
+  *
+  * @return array|false|null the content of the file if it could be included properly, FALSE if the file doesn't exist and NULL if it couldn't be read, because its locked.
+  *
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  public static function includeFile($path) {
+    if(file_exists($path)) {
+        $fo = fopen($path, 'rb');
+        $locked = flock($fo, LOCK_SH);
+
+        if($locked) {
+            $content = include($path);
+            flock($fo, LOCK_UN);
+            fclose($fo);
+
+            if(is_array($content))
+              return $content;
+            else
+              return null;
+        } else
+            return null;
+    } else
+      return false;
+  }
+
+ /**
   * <b>Name</b> readPage()<br>
   *
   * Loads the $pageContent array of a page.
@@ -1089,8 +1126,8 @@ class GeneralFunctions {
         @unlink(dirname(__FILE__).'/../../pages/'.$categoryPath.$pageContent['id'].'.previous.php');
 
       // delete statistics
-      if(is_file(dirname(__FILE__).'/../../statistic/pages/'.$pageContent['id'].'.statistics.php'))
-        @unlink(dirname(__FILE__).'/../../../statistic/pages/'.$pageContent['id'].'.statistics.php');
+      if(is_file(dirname(__FILE__).'/../../statistics/pages/'.$pageContent['id'].'.statistics.php'))
+        @unlink(dirname(__FILE__).'/../../../statistics/pages/'.$pageContent['id'].'.statistics.php');
 
       // delete thumbnail
       if(!empty($pageContent['thumbnail']))
@@ -2037,7 +2074,7 @@ class GeneralFunctions {
 
             // Store the content of the snippet in a variable
             ob_start();
-              include(dirname(__FILE__).'/../../snippets/'.$feindura_match[3]);
+              @include(dirname(__FILE__).'/../../snippets/'.$feindura_match[3]);
               $snippet = ob_get_contents();
             ob_end_clean();
 

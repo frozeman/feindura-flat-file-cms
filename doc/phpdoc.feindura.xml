@@ -27,7 +27,7 @@
     <ignore>library/thirdparty</ignore>
     <ignore>pages/*</ignore>
     <ignore>config/*</ignore>
-    <ignore>statistic/*</ignore>
+    <ignore>statistics/*</ignore>
   </files>
   <transformer>
     <target>/Users/frozeman/Development/Server/_feindura-doc2</target>
