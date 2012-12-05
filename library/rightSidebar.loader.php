@@ -197,8 +197,8 @@ if((!empty($_GET['page']) && empty($_GET['site']))) { // || $_GET['site'] == 'pa
       echo '<div class="box">';
       echo '<h1><img src="library/images/icons/activityLogIcon.png" alt="icon" style="position:relative; top:-2px;margin-right: 4px;"> '.$langFile['DASHBOARD_TITLE_ACTIVITY'].'</h1>';
 
-      if(file_exists(dirname(__FILE__).'/../statistic/activity.statistic.log') &&
-         $logContent = file(dirname(__FILE__).'/../statistic/activity.statistic.log')) {
+      if(file_exists(dirname(__FILE__).'/../statistics/activity.statistic.log') &&
+         $logContent = file(dirname(__FILE__).'/../statistics/activity.statistic.log')) {
 
          // echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat; top: 0px;"></div>';
          echo '<div id="sideBarActivityLog">';

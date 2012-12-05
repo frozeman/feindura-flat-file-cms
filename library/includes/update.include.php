@@ -152,6 +152,7 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   // try to MOVE the UPLOAD FOLDER to the new place
   $copyError = false;
   $copySuccess = false;
+  sleep(1);
   if(!empty($adminConfig['uploadPath']) && is_dir(DOCUMENTROOT.$adminConfig['uploadPath'])) {
     copyDir(DOCUMENTROOT.$adminConfig['uploadPath'],dirname(__FILE__).'/../../upload/',$copyError);
     $copySuccess = true;
@@ -167,6 +168,7 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   // try to MOVE the PAGES FOLDER
   $copyError = false;
   $copySuccess = false;
+  sleep(1);
   if(!empty($adminConfig['savePath']) && is_dir(DOCUMENTROOT.$adminConfig['savePath'])) {
     copyDir(DOCUMENTROOT.$adminConfig['savePath'],dirname(__FILE__).'/../../pages/',$copyError);
     $copySuccess = true;
@@ -176,6 +178,22 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   } elseif($copyError) {
     $updateErrors[] = sprintf($langFile['UPDATE_ERROR_MOVEPAGESFOLDER'],$adminConfig['savePath']);
     $updateSuccessful = false;
+  }
+
+  // rename the statistics folder
+  $copyError = false;
+  $copySuccess = false;
+  sleep(1);
+  if(is_dir(dirname(__FILE__).'/../../statistic')) {
+    copyDir(dirname(__FILE__).'/../../statistic', dirname(__FILE__).'/../../statistics',$copyError);
+    $copySuccess = true;
+
+    if(!$copyError && $copySuccess) {
+      GeneralFunctions::deleteFolder(dirname(__FILE__).'/../../statistic');
+    } elseif($copyError) {
+      $updateErrors[] = $langFile['UPDATE_ERROR_RENAMESTATISTICSFOLDER'];
+      $updateSuccessful = false;
+    }
   }
 
   // save the $pagesMetaData array
@@ -576,7 +594,7 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   }
 
   // ->> CLEAR activity log
-  if($taskLogFile = fopen(dirname(__FILE__)."/../../statistic/activity.statistic.log","wb")) {
+  if($taskLogFile = fopen(dirname(__FILE__)."/../../statistics/activity.statistic.log","wb")) {
     fclose($taskLogFile);
 
     saveActivityLog(24); // <- SAVE the task in a LOG FILE
@@ -606,7 +624,7 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   // rename
   $websiteStatistic['robotVisitCount'] = (isset($websiteStatistic['spiderVisitCount'])) ? $websiteStatistic['spiderVisitCount'] : $websiteStatistic['robotVisitCount'];
 
-  if($statisticFile = fopen(dirname(__FILE__)."/../../statistic/website.statistic.php","wb")) {
+  if($statisticFile = fopen(dirname(__FILE__)."/../../statistics/website.statistic.php","wb")) {
 
     flock($statisticFile,LOCK_EX);
     fwrite($statisticFile,"<?php\n");
@@ -642,9 +660,9 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   }
 
   // ->> SAVE referer log
-  $oldLog = file(dirname(__FILE__)."/../../statistic/referer.statistic.log");
+  $oldLog = file(dirname(__FILE__)."/../../statistics/referer.statistic.log");
 
-  if($logFile = fopen(dirname(__FILE__)."/../../statistic/referer.statistic.log","wb")) {
+  if($logFile = fopen(dirname(__FILE__)."/../../statistics/referer.statistic.log","wb")) {
 
     // -> write the new log file
     flock($logFile,LOCK_EX);
@@ -707,7 +725,7 @@ if(isset($_POST) && $_POST['update'] == 'true') {
   $deleteFiles[] = 'library/thirdparty/javascripts/mootools-core-1.3.1.js';
   $deleteFiles[] = 'library/thirdparty/javascripts/mootools-more-1.3.1.1.js';
   $deleteFiles[] = 'library/thirdparty/spiders.txt';
-  $deleteFiles[] = 'statistic/visit.statistic.cache';
+  $deleteFiles[] = 'statistics/visit.statistic.cache';
   $deleteFiles[] = 'library/thirdparty/PHP/sessionLister.php';
   $deleteFiles[] = 'library/processes.loader.php';
   $deleteFiles[] = 'config/plugins.config.php';

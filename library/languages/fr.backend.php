@@ -606,7 +606,7 @@ $langFile['statisticSetup_clearStatistics_refererLog_tip']                = 'Une
 $langFile['statisticSetup_clearStatistics_taskLog']                       = 'Logs des dernièrses activités';
 $langFile['statisticSetup_clearStatistics_taskLog_tip']                   = 'Contient une liste des dernières activités.';
 $langFile['statisticSetup_clearStatistics_question_h1']                   = 'Voulez vous vraiment éffacer ces statistiques?';
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'une erreur s&#145;est produite pendant l&#145;éffacement des statistiques du site web.'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%sstatistic/pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'une erreur s&#145;est produite pendant l&#145;éffacement des statistiques du site web.'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%sstatistics/pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 /*
 * userSetup.php
@@ -858,6 +858,7 @@ $langFile['UPDATE_ERROR_CLEARACTIVITYLOG']                                = 'jou
 $langFile['UPDATE_ERROR_SAVEWEBSITESTATISTICS']                           = 'Statistiques du Site n&#145;a pas pu être mis à jour.';
 $langFile['UPDATE_ERROR_SAVEREFERERLOG']                                  = 'Connexion Referer ne pouvait pas être mis à jour.';
 $langFile['UPDATE_ERROR_DELETEOLDFILES']                                  = 'Impossible de supprimer les anciens fichiers et dossiers, <br> S&#145;il vous plaît vérifier ces fichiers et dossiers, et de les supprimer manuellement:';
+$langFile['UPDATE_ERROR_RENAMESTATISTICSFOLDER']                          = 'Couldn\'t rename the "feinduraFolder/statistic" folder "feinduraFolder/statistic<strong>s</strong>, please rename it manually!"';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

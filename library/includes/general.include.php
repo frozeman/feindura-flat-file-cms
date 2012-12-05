@@ -80,7 +80,8 @@ require_once(dirname(__FILE__)."/../functions/sort.functions.php");
  *
  * @global array $GLOBALS['adminConfig']
  */
-if(!$adminConfig = @include(dirname(__FILE__)."/../../config/admin.config.php"))
+$adminConfig = GeneralFunctions::includeFile(dirname(__FILE__)."/../../config/admin.config.php");
+if(empty($adminConfig))
   $adminConfig = array();
 if(empty($adminConfig['permissions'])) $adminConfig['permissions'] = 0755;
 $GLOBALS['adminConfig'] = $adminConfig;
@@ -92,7 +93,8 @@ $GLOBALS['adminConfig'] = $adminConfig;
  *
  * @global array $GLOBALS['statisticConfig']
  */
-if(!$statisticConfig = @include(dirname(__FILE__)."/../../config/statistic.config.php"))
+$statisticConfig = GeneralFunctions::includeFile(dirname(__FILE__)."/../../config/statistic.config.php");
+if(empty($statisticConfig))
   $statisticConfig = array();
 $GLOBALS['statisticConfig'] = $statisticConfig;
 
@@ -103,7 +105,10 @@ $GLOBALS['statisticConfig'] = $statisticConfig;
  *
  * @global array $GLOBALS['websiteStatistic']
  */
-if(!$websiteStatistic = @include(dirname(__FILE__)."/../../statistic/website.statistic.php"))
+$websiteStatistic = GeneralFunctions::includeFile(dirname(__FILE__)."/../../statistics/website.statistic.php");
+if($websiteStatistic === null)
+  $websiteStatistic = array('locked' => true);
+elseif(empty($websiteStatistic))
   $websiteStatistic = array();
 $GLOBALS['websiteStatistic'] = $websiteStatistic;
 
@@ -114,9 +119,11 @@ $GLOBALS['websiteStatistic'] = $websiteStatistic;
  *
  * @global array $GLOBALS['pagesMetaData']
  */
-if(!$pagesMetaData = @include(dirname(__FILE__)."/../../pages/pagesMetaData.array.php"))
+$pagesMetaData = GeneralFunctions::includeFile(dirname(__FILE__)."/../../pages/pagesMetaData.array.php");
+if(empty($pagesMetaData))
   $pagesMetaData = array();
 $GLOBALS['pagesMetaData'] = $pagesMetaData;
+
 
 /**
  * Set the Timezone
@@ -156,7 +163,8 @@ if(!defined('FEINDURA_UPDATE') &&
  *
  * @global array $GLOBALS['websiteConfig']
  */
-if(!$websiteConfig = @include(dirname(__FILE__)."/../../config/website.config.php"))
+$websiteConfig = GeneralFunctions::includeFile(dirname(__FILE__)."/../../config/website.config.php");
+if(empty($websiteConfig))
   $websiteConfig = array();
 $GLOBALS['websiteConfig'] = $websiteConfig;
 
@@ -167,7 +175,8 @@ $GLOBALS['websiteConfig'] = $websiteConfig;
  *
  * @global array $GLOBALS['categoryConfig']
  */
-if(!$categoryConfig = @include(dirname(__FILE__)."/../../config/category.config.php"))
+$categoryConfig = GeneralFunctions::includeFile(dirname(__FILE__)."/../../config/category.config.php");
+if(empty($categoryConfig))
   $categoryConfig = array();
 $GLOBALS['categoryConfig'] = $categoryConfig;
 
@@ -179,7 +188,8 @@ $GLOBALS['categoryConfig'] = $categoryConfig;
  *
  * @global array $GLOBALS['userConfig']
  */
-if(!$userConfig = @include(dirname(__FILE__)."/../../config/user.config.php"))
+$userConfig = GeneralFunctions::includeFile(dirname(__FILE__)."/../../config/user.config.php");
+if(empty($userConfig))
   $userConfig = array();
 $GLOBALS['userConfig'] = $userConfig;
 
@@ -191,7 +201,8 @@ $GLOBALS['userConfig'] = $userConfig;
  *
  * @global array $GLOBALS['languageNames']
  */
-if(!$languageNames = @include(dirname(__FILE__)."/../../library/thirdparty/languages.array.php"))
+$languageNames = GeneralFunctions::includeFile(dirname(__FILE__)."/../../library/thirdparty/languages.array.php");
+if(empty($languageNames))
   $languageNames = array();
 natsort($languageNames);
 $GLOBALS['languageNames'] = $languageNames;

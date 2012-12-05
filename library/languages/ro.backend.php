@@ -633,7 +633,7 @@ $langFile['statisticSetup_clearStatistics_taskLog_tip']                   = 'Lis
 
 $langFile['statisticSetup_clearStatistics_question_h1']                   = 'Sigur vrei sa stergi aceste statistici?';
 
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'Eroare la stergerea statisticilor paginii.'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%sstatistic/pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'Eroare la stergerea statisticilor paginii.'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%sstatistics/pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 /*
 * userSetup.php
@@ -895,6 +895,7 @@ $langFile['UPDATE_ERROR_CLEARACTIVITYLOG']                                = 'Log
 $langFile['UPDATE_ERROR_SAVEWEBSITESTATISTICS']                           = 'Statisticile website nu pot fi actualizate.';
 $langFile['UPDATE_ERROR_SAVEREFERERLOG']                                  = 'Referer Log nu poate fi actualizat.';
 $langFile['UPDATE_ERROR_DELETEOLDFILES']                                  = 'Nu pot sterge folderele si fisierele vechi,<br>Verificati si stergeti manual aceste foldere si fisiere:';
+$langFile['UPDATE_ERROR_RENAMESTATISTICSFOLDER']                          = 'Couldn\'t rename the "feinduraFolder/statistic" folder "feinduraFolder/statistic<strong>s</strong>, please rename it manually!"';
 
 
 // -----------------------------------------------------------------------------------------------

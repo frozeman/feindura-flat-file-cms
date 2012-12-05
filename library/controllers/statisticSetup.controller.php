@@ -93,8 +93,8 @@ if($_POST['sendClearstatistics']) {
 
   // ->> CLEAR WEBSITE-STATISTIC
   if($_POST['clearStatistics_websiteStatistic'] == 'true' &&
-     is_file(dirname(__FILE__)."/../../statistic/website.statistic.php") &&
-     unlink(dirname(__FILE__)."/../../statistic/website.statistic.php")) {
+     is_file(dirname(__FILE__)."/../../statistics/website.statistic.php") &&
+     unlink(dirname(__FILE__)."/../../statistics/website.statistic.php")) {
 
     // set documentSaved status
     $DOCUMENTSAVED = true;
@@ -104,7 +104,7 @@ if($_POST['sendClearstatistics']) {
 
   // ->> CLEAR REFERER-LOG
   if($_POST['clearStatistics_refererLog'] == 'true' &&
-     $refererLogFile = fopen(dirname(__FILE__)."/../../statistic/referer.statistic.log","wb")) {
+     $refererLogFile = fopen(dirname(__FILE__)."/../../statistics/referer.statistic.log","wb")) {
     fclose($refererLogFile);
 
     // set documentSaved status
@@ -115,7 +115,7 @@ if($_POST['sendClearstatistics']) {
 
   // ->> CLEAR ACTIVITY-LOG
   if($_POST['clearStatistics_taskLog'] == 'true' &&
-     $taskLogFile = fopen(dirname(__FILE__)."/../../statistic/activity.statistic.log","wb")) {
+     $taskLogFile = fopen(dirname(__FILE__)."/../../statistics/activity.statistic.log","wb")) {
     fclose($taskLogFile);
 
     // set documentSaved status

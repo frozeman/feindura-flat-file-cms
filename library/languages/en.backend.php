@@ -635,7 +635,7 @@ $langFile['statisticSetup_clearStatistics_taskLog_tip']                   = 'A l
 
 $langFile['statisticSetup_clearStatistics_question_h1']                   = 'Are you sure you want to delete these statistics?';
 
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'Error while deleting the page statistics.'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%sstatistic/pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read']     = 'Error while deleting the page statistics.'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%sstatistics/pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 /*
 * userSetup.php
@@ -897,6 +897,7 @@ $langFile['UPDATE_ERROR_CLEARACTIVITYLOG']                                = 'Act
 $langFile['UPDATE_ERROR_SAVEWEBSITESTATISTICS']                           = 'Website Statistics couldn&#145;t be updated.';
 $langFile['UPDATE_ERROR_SAVEREFERERLOG']                                  = 'Referer Log couldn&#145;t be updated.';
 $langFile['UPDATE_ERROR_DELETEOLDFILES']                                  = 'Could not remove old files and folders,<br>Please check these files and folders, and remove them manually:';
+$langFile['UPDATE_ERROR_RENAMESTATISTICSFOLDER']                          = 'Couldn\'t rename the "feinduraFolder/statistic" folder "feinduraFolder/statistic<strong>s</strong>, please rename it manually!"';
 
 
 // -----------------------------------------------------------------------------------------------

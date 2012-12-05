@@ -274,8 +274,8 @@ if(!empty($userConfig[USERID]['info'])) {
 
     // ---------------------------------
     // -> SHOW REFERER LOG
-    if(file_exists(dirname(__FILE__).'/../../statistic/referer.statistic.log') &&
-       $logContent = file(dirname(__FILE__).'/../../statistic/referer.statistic.log')) {
+    if(file_exists(dirname(__FILE__).'/../../statistics/referer.statistic.log') &&
+       $logContent = file(dirname(__FILE__).'/../../statistics/referer.statistic.log')) {
 
       // echo '<div class="verticalSeparator"></div>';
       echo '<div class="spacer"></div>';
