@@ -26,47 +26,49 @@ div.feinduraPlugin_contactForm {
   width: 98%;
 }
 
-#contactForm_field_housenumber, #contactForm_field_zipcode {
+.feinduraPlugin_contactForm .contactForm_field_housenumber, .feinduraPlugin_contactForm .contactForm_field_zipcode {
   width: 30%;
 }
-#contactForm_field_street, #contactForm_field_city {
+.feinduraPlugin_contactForm .contactForm_field_street, .feinduraPlugin_contactForm .contactForm_field_city {
   width: 59%;
 }
 
-#contactForm_field_street, #contactForm_field_zipcode {
+.feinduraPlugin_contactForm .contactForm_field_street, .feinduraPlugin_contactForm .contactForm_field_zipcode {
   margin-right: 4px;
 }
 
-#contactForm_field_message {
+.feinduraPlugin_contactForm .contactForm_field_message {
   width: 98%;
 }
 
-#contactForm_field_captchaDiv {
+.feinduraPlugin_contactForm .contactForm_field_captchaDiv {
   display: inline;
   position: relative;
   top: -25px;
   left: 85px;
   width: 70px;
 }
-#contactForm_field_captcha {
+.feinduraPlugin_contactForm .contactForm_field_captcha,
+.feinduraPlugin_contactForm td[colspan] input.contactForm_field_captcha {
   width: 70px;
 }
 
-#contactForm_captchaNumbers {
+.feinduraPlugin_contactForm .contactForm_captchaNumbers {
   margin-top: 15px;
   line-height: 0px;
 }
 
-#contactForm_button_send {
+.feinduraPlugin_contactForm .contactForm_button_send,
+.feinduraPlugin_contactForm td[colspan] input.contactForm_button_send {
   width: auto;
 }
 
-#contactForm_text_mandatoryfields {
+.feinduraPlugin_contactForm .contactForm_text_mandatoryfields {
   font-size: 11px;
 }
 
 /* ERROR */
-#contactForm_error {
+.feinduraPlugin_contactForm .contactForm_error {
 }
 
 /* captcha */
