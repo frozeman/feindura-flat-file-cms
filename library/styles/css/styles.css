@@ -4904,9 +4904,6 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   background-color: #fff;
 }
 .feindura #windowBoxBasics {
@@ -4918,9 +4915,6 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   background-color: #fff;
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
@@ -4950,9 +4944,6 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .blue {
   color: #3a79a5 !important;
@@ -5102,9 +5093,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -o-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
@@ -5263,9 +5251,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura a.logout,
 .feindura a.frontend,
@@ -5465,9 +5450,6 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
   filter: alpha(opacity=50);
   -ms-opacity: 0.5;
@@ -5500,9 +5482,6 @@
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura #contentBlocked > div {
   top: 250px;
@@ -5525,9 +5504,6 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   background-color: #fff;
   behavior: url('library/thirdparty/javascripts/PIE.htc');
 }
@@ -5545,9 +5521,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .insetBlock div.divBlocked {
   margin: 0 -9px;
@@ -5577,9 +5550,6 @@
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   border-top-left-radius: 6px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   background: #f3f3f3;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f3f3f3), color-stop(1, #ffffff));
   background: -moz-linear-gradient(center bottom, #f3f3f3 0%, #ffffff 100%);
@@ -5610,9 +5580,6 @@
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
   border-top-left-radius: 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .messagePopUp.feindura {
   z-index: 20030;
@@ -5782,9 +5749,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -o-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
@@ -5863,9 +5827,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 30px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 30px rgba(0, 0, 0, 0.4);
   -o-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.30000000000000004), inset 0 0px 30px rgba(0, 0, 0, 0.4);
@@ -6209,9 +6170,6 @@
   -webkit-border-radius: 9px;
   -moz-border-radius: 9px;
   border-radius: 9px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .textboxlist-bit-box-deletable {
   padding-right: 20px;
@@ -6278,9 +6236,6 @@
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.30000000000000004);
   -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.30000000000000004);
   -o-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.30000000000000004);
@@ -6304,9 +6259,6 @@
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
   filter: alpha(opacity=100);
   -ms-opacity: 1;
@@ -6341,9 +6293,6 @@
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .textboxlist-autocomplete-result-focus {
   background: #bbcef1;
@@ -6627,9 +6576,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996), inset 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996), inset 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
   -o-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996), inset 0 0 10px rgba(0, 0, 0, 0.19999999999999996);
@@ -6779,9 +6725,6 @@
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   behavior: url('library/thirdparty/javascripts/PIE.htc');
 }
 .feindura .mainBody .subMenu menu.right {
@@ -6927,9 +6870,6 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   background-color: #fff;
   behavior: url('library/thirdparty/javascripts/PIE.htc');
 }
@@ -6985,9 +6925,6 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura #leftSidebar .box:first-child h1,
 .feindura #rightSidebar .box:first-child h1 {
@@ -7025,9 +6962,6 @@
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura #leftSidebar .box .spacer.arrow,
 .feindura #rightSidebar .box .spacer.arrow {
@@ -7135,9 +7069,6 @@
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   border-top-left-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura #rightSidebar .sidebarMenu .top span {
   position: absolute;
@@ -7178,9 +7109,6 @@
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura #rightSidebar .sidebarMenu:first-child .top img.icon {
   margin-left: 5px;
@@ -7206,9 +7134,6 @@
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura #rightSidebar .sidebarMenu .bottom a:hover,
 .feindura #rightSidebar .sidebarMenu .bottom a:focus {
@@ -7543,9 +7468,6 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .mainContent .block.hidden {
   display: block;
@@ -7591,9 +7513,6 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .mainContent .block > h1 > span {
   max-width: 695px;
@@ -7688,9 +7607,6 @@
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .mainContent .block h2 a {
   background-image: none;
@@ -7723,9 +7639,6 @@
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .mainContent .block .verticalSeparator {
   height: 5px;
@@ -7752,9 +7665,6 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .mainContent .block.open .content {
   margin-top: -10px;
@@ -7773,9 +7683,6 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .mainContent .block.open > h1,
 .feindura .mainContent .block.open > h1:hover,
@@ -7797,9 +7704,6 @@
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .mainContent .block.plain {
   padding-top: 20px;
@@ -7969,9 +7873,6 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   background-color: #fff;
 }
 .feindura .loginBox img.logo {
@@ -8036,9 +7937,6 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   background-color: #fff;
 }
 .feindura .updateBox p.versions {
@@ -8052,9 +7950,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .updateBox img.icon {
   position: absolute;
@@ -8131,9 +8026,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -o-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
@@ -8389,9 +8281,6 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .block.listPages > h1 {
   position: relative;
@@ -8446,9 +8335,6 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .block.listPages .block > h1:hover {
   -webkit-border-top-right-radius: 10px;
@@ -8463,9 +8349,6 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .block.listPages .block > h1 > a {
   padding-top: 12px;
@@ -8512,9 +8395,6 @@
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -o-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
@@ -8536,9 +8416,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
   -o-box-shadow: 0 0 5px rgba(0, 0, 0, 0.30000000000000004);
@@ -8557,9 +8434,6 @@
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 25px;
   border-top-left-radius: 25px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   background: url('../../images/bg/listPages_pageBar_blue.png') repeat-x;
 }
 .feindura .block.listPages .block ul li:hover {
@@ -8661,9 +8535,6 @@
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
   -o-box-shadow: 0 0 5px rgba(0, 0, 0, 0.19999999999999996);
@@ -8721,9 +8592,6 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .block.listPages div.listPagesHead > div {
   white-space: nowrap;
@@ -8778,9 +8646,6 @@
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 4px;
   border-top-left-radius: 4px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .block.listPages div.subCategoryArrowLine:after,
 .feindura .block.listPages div.subCategoryArrowLine:before {
@@ -8885,9 +8750,6 @@
   border-bottom-right-radius: 2px !important;
   border-bottom-left-radius: 2px !important;
   border-top-left-radius: 5px !important;
-  -moz-background-clip: padding !important;
-  -webkit-background-clip: padding-box !important;
-  background-clip: padding-box !important;
 }
 .feindura .editor .content {
   overflow: visible !important;
@@ -8977,9 +8839,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
   -o-box-shadow: 0 0 10px rgba(0, 0, 0, 0.30000000000000004);
@@ -9231,9 +9090,6 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   background-color: #fff;
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), inset 0 0px 50px rgba(0, 0, 0, 0.050000000000000044);
@@ -9279,9 +9135,6 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .windowBox h2 {
   margin-bottom: 10px;
@@ -9408,9 +9261,6 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   background-color: #fff;
   background: #ffceba;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffceba), color-stop(1, #ffebe2));
@@ -9444,9 +9294,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   margin-bottom: 20px;
 }
 .feindura #errorWindow.feindura .rawError {
@@ -9476,9 +9323,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura ul.jsMultipleSelect li.jsMultipleSelectOption,
 .feindura ul.jsMultipleSelectDestination li.jsMultipleSelectOption {
@@ -9586,9 +9430,6 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .datepicker_feindura .today {
   border-color: #dd6e1f !important;
@@ -9677,9 +9518,6 @@
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
 .feindura .datepicker_feindura .header .title {
   text-align: center;

@@ -377,7 +377,7 @@ class StatisticFunctions {
   *    - 1.0 initial release
   *
   */
-  public function getCurrentCategoryId($startCategory = null) {
+  public static function getCurrentCategoryId($startCategory = null) {
 
     // ->> GET CATEGORY is an ID
     // *************************

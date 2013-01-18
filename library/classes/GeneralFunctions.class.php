@@ -1988,7 +1988,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public function replaceLinks($pageContentString,$sessionId = false,$language = false,$fullUrl = false) {
+  public static function replaceLinks($pageContentString,$sessionId = false,$language = false,$fullUrl = false) {
     if(preg_match_all ('#\?*feinduraPageID\=([0-9]+)#i', $pageContentString, $matches,PREG_SET_ORDER)) {
       // replace each link
       foreach($matches as $match) {
@@ -2023,7 +2023,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   *
   */
-  public function replaceSnippets($pageContentString, $pageId, $removeSnippets = false) {
+  public static function replaceSnippets($pageContentString, $pageId, $removeSnippets = false) {
 
     // get the Feindura class to be used inside the snippets/plugins
     if(!$removeSnippets) {
@@ -2042,7 +2042,7 @@ class GeneralFunctions {
     $feindura_pageContentString = $pageContentString;
 
 
-    if(preg_match_all ('#<img(?:(?!class).)*class\=\"(feinduraSnippet|feinduraPlugin)\"(?:(?:(?!style).)*style\=\"((?:(?!").)*)")?(?:(?!title).)*title\="((?:(?!").)*)"(?:(?!>).)*>#i', $feindura_pageContentString, $matches,PREG_SET_ORDER)) {
+    if(preg_match_all ('#<img(?:(?!>).)*class\=\"(feinduraSnippet|feinduraPlugin)\"(?:(?:(?!>).)*style\=\"((?:(?!").)*)")?(?:(?!>).)*title\="((?:(?!").)*)"(?:(?!>).)*>#i', $feindura_pageContentString, $matches,PREG_SET_ORDER)) {
       // DebugTools::dump($matches);
 
       // replace each link
