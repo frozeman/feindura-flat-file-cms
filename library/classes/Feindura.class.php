@@ -1185,8 +1185,8 @@ class Feindura extends FeinduraBase {
     if($this->adminConfig['prettyURL'])
       $metaTags .= '  <base href="'.$this->adminConfig['url'].GeneralFunctions::Path2URI(GeneralFunctions::getDirname($this->adminConfig['websitePath'])).'"'.$tagEnding."\n\n";
 
-    // -> add other META TAGs
-    $metaTags .= '  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"'.$tagEnding.' <!-- enable google chrome frame, if available -->'."\n\n";
+    // -> add other META TAGs (deactivated, should user choose self)
+    // $metaTags .= '  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"'.$tagEnding.' <!-- enable google chrome frame, if available -->'."\n\n";
 
     // -> add author
     if($author && is_string($author))
