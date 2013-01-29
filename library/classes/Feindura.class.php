@@ -1130,8 +1130,7 @@ class Feindura extends FeinduraBase {
   * {@example createMetaTags.example.php}
   *
   * @param string|false $author         (optional) the author of the website
-  * @param bool         $openGraph      (optional) if TRUE it add the following open graph meta tags: "og:site_name", "og:url", "og:title", "og:description" and "og:image", you should add ( prefix="og: http://ogp.me/ns#" ) to the <html> tag, like this <html prefix="og: http://ogp.me/ns#">
-  * @param bool         $googleSnippets (optional) if TRUE it add the following google snippets meta tags: "url", "name", "description" and "image"
+  * @param bool         $socialTags      (optional) if TRUE it add the following open graph meta tags: "og:site_name", "og:url", "og:title", "og:description" and "og:image", you should add ( prefix="og: http://ogp.me/ns#" ) to the <html> tag, like this <html prefix="og: http://ogp.me/ns#">. It will also add the following Twitter Cards: twitter:url, twitter:title, twitter:description and twitter:image. Be sure to register your website at https://dev.twitter.com/form/participate-twitter-cards . It will also add the following google snippets meta tags: "url", "name", "description" and "image".
   *
   * @uses Feindura::$page                         to load the page title of the right page
   * @uses Feindura::$category                     to load the page title of the right page
@@ -1151,7 +1150,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function createMetaTags($author = false, $openGraph = true, $googleSnippets = true) {
+  public function createMetaTags($author = false, $socialTags = true) {
 
     // vars
     $metaTags = '';
@@ -1228,15 +1227,14 @@ class Feindura extends FeinduraBase {
 
 
     // Generate content for open graph and google snippets
-    if($openGraph || $googleSnippets) {
+    if($socialTags) {
       $pageTitle = $pageNameInTitle.$this->getLocalized($this->websiteConfig,'title');
       $pageDescription = str_replace('"','&quot;',strip_tags($this->getLocalized($currentPage,'description')));
       $pagePic = (!empty($currentPage['thumbnail']))
         ? $this->adminConfig['url'].$this->adminConfig['basePath'].'upload/thumbnails/'.$currentPage['thumbnail']
         : '';
-    }
 
-    if($openGraph) {
+      // FACEBOOK OPEN GRAPH
       $metaTags .= "\n".'  <!-- Open Graph Protocol -->'."\n";
       $metaTags .= '  <meta property="og:site_name" content="'.$this->getLocalized($this->websiteConfig,'title').'">'."\n";
       $metaTags .= '  <meta property="og:url" content="'.$this->createHref($currentPage,true).'">'."\n";
@@ -1250,9 +1248,23 @@ class Feindura extends FeinduraBase {
         if(!empty($pagePic))
           $metaTags .= '  <meta property="og:image" content="'.$pagePic.'">'."\n";
       }
-    }
 
-    if($googleSnippets) {
+      // TWITTER CARDS
+      $metaTags .= "\n".'  <!-- Twitter Cards -->'."\n";
+      $metaTags .= '  <meta name="twitter:card" content="summary">'."\n";
+      $metaTags .= '  <meta name="twitter:url" content="'.$this->createHref($currentPage,true).'">'."\n";
+
+      if($currentPage) {
+
+        if(!empty($pageTitle))
+          $metaTags .= '  <meta name="twitter:title" content="'.$pageTitle.'">'."\n";
+        if(!empty($pageDescription))
+          $metaTags .= '  <meta name="twitter:description" content="'.$pageDescription.'">'."\n";
+        if(!empty($pagePic))
+          $metaTags .= '  <meta name="twitter:image" content="'.$pagePic.'">'."\n";
+      }
+
+      // GOOGLE SNIPPETS
       $metaTags .= "\n".'  <!-- Google+ Snippets -->'."\n";
       $metaTags .= '  <meta itemprop="url" content="'.$this->createHref($currentPage,true).'">'."\n";
 
@@ -1402,9 +1414,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link createMetaTags()}
   * @ignore
   */
-  public function createMetaTag($author = false, $openGraph = true, $googleSnippets = true) {
+  public function createMetaTag($author = false, $socialTags = true) {
     // call the right function
-    return $this->createMetaTags($author, $openGraph, $googleSnippets);
+    return $this->createMetaTags($author, $socialTags);
   }
 
  /**

@@ -35,21 +35,38 @@ $feindura = new Feindura();
   <meta charset="UTF-8">
   <title>Welcome - An Example Website</title>
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> <!-- enable google chrome frame, if available -->
-
-  <meta name="author" content="Max Musterman">
-  <meta name="publisher" content="Somebody From the Backend">
-  <meta name="copyright" content="Somebody From the Backend">
+  <meta name="author" content="John Doe">
+  <meta name="publisher" content="John Doe">
+  <meta name="copyright" content="John Doe">
+  <meta name="keywords" content="feindura,cms,flat file">
+  <meta name="description" content="The website of feindura">
   <meta name="generator" content="feindura - Flat File CMS 1.2 build:999">
+
+  <!-- Open Graph Protocol -->
+  <meta property="og:site_name" content="feindura - Flat File CMS">
+  <meta property="og:url" content="http://feindura.org/page/welcome/">
+  <meta property="og:title" content="Welcome | feindura - Flat File CMS">
+  <meta property="og:description" content="The website of feindura">
+  <meta property="og:image" content="http://feindura.org/cms/upload/thumbnails/thumb_page66_50a104f97f1c1.jpg">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:site_name" content="feindura - Flat File CMS">
+  <meta name="twitter:url" content="http://feindura.org/page/welcome/">
+  <meta name="twitter:title" content="Welcome | feindura - Flat File CMS">
+  <meta name="twitter:description" content="The website of feindura">
+  <meta name="twitter:image" content="http://feindura.org/cms/upload/thumbnails/thumb_page66_50a104f97f1c1.jpg">
+
+  <!-- Google+ Snippets -->
+  <meta itemprop="url" content="http://feindura.org/page/welcome/">
+  <meta itemprop="name" content="Welcome | feindura - Flat File CMS">
+  <meta itemprop="description" content="The website of feindura">
+  <meta itemprop="image" content="http://feindura.org/cms/upload/thumbnails/thumb_page66_50a104f97f1c1.jpg">
+
 
   <link rel="alternate" type="application/atom+xml" title="Eine Beispiel Website (Atom, DE)" href="http://localhost/cms/pages/atom.de.xml">
   <link rel="alternate" type="application/rss+xml" title="Eine Beispiel Website (RSS 2.0, DE)" href="http://localhost/cms/pages/rss2.de.xml">
   <link rel="alternate" type="application/atom+xml" title="An Example Website (Atom, EN)" href="http://localhost/cms/pages/atom.en.xml">
   <link rel="alternate" type="application/rss+xml" title="An Example Website (RSS 2.0, EN)" href="http://localhost/cms/pages/rss2.en.xml">
-
-  <link rel="stylesheet" type="text/css" href="/cms/plugins/contactForm/css/style.css">
-  <link rel="stylesheet" type="text/css" href="/cms/plugins/imageGallery/milkbox/css/milkbox.css">
-  <link rel="stylesheet" type="text/css" href="/cms/plugins/imageGallery/milkbox copy/css/milkbox.css">
 
 </head>
 <body>
