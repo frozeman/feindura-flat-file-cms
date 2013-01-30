@@ -135,8 +135,8 @@ if($categoryConfig[$_GET['category']]['showSubCategory']) {
       echo '<option>-</option>';
       // ->> goes trough categories and list them
       foreach($categoryConfig as $listCategory) {
-        // overjump the non-category
-        if($listCategory['id'] == 0) continue;
+        // overjump the non-category and the same category
+        if($listCategory['id'] == 0 || $listCategory['id'] == $pageContent['category']) continue;
 
         $selected = ($listCategory['id'] == $pageContent['subCategory']) ? ' selected="selected"' : $selected = '';
         echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.GeneralFunctions::getLocalized($listCategory,'name').'</option>'."\n";

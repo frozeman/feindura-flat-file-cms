@@ -758,9 +758,10 @@ class GeneralFunctions {
   * @return array|false an array with the parent pages in the order from the current category on, or FALSE if this category is not a subcategory
   *
   * @access public
-  * @version 1.0
+  * @version 1.0.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.0.1 fix when parent category is sub category
   *    - 1.0 initial release
   *
   */
@@ -776,6 +777,10 @@ class GeneralFunctions {
         if(($categoryId != 0 && self::$categoryConfig[$categoryId]['isSubCategory'])) {
 
           $parentPageId = unserialize(self::$categoryConfig[$categoryId]['isSubCategoryOf']);
+
+          // if the parent category is the same as the sub category, stop the while loop
+          if(current($parentPageId) == $categoryId)
+            break;
 
           // -> determines which page was visited the last. therefor is assumed to be the parent page of the sub category
           if(is_array($_SESSION['feinduraSession']['log']['visitedPagesOrder']) && count($parentPageId) > 1) {
