@@ -15,7 +15,10 @@ array(
     'title'              => 'Welcome',
     'href'               => '?page=1',
     'pageId'             => 1,
-    'categoryId'         => 0
+    'category'           => false,
+    'categoryId'         => 0,
+    'subCategory'        => 'Another Category',
+    'subCategoryId'      => 3
     ),
   array(
     'position'           => 'last',
@@ -26,7 +29,10 @@ array(
     'title'              => 'Example Category: Example Page 1',
     'href'               => '?page=5$category=1',
     'pageId'             => 5,
-    'categoryId'         => 1
+    'category'           => 'Example Category',
+    'categoryId'         => 1,
+    'subCategory'        => false,
+    'subCategoryId'      => false
     ),
   array(
     'menuItem' => '</ul>',

@@ -878,7 +878,10 @@ class FeinduraBase {
     $menuItem['tags']              = false;
     $menuItem['id']                = false;
     $menuItem['pageId']            = false; // same as 'id'
+    $menuItem['category']          = false;
     $menuItem['categoryId']        = false;
+    $menuItem['subCategory']       = false;
+    $menuItem['subCategoryId']     = false;
     $menuItemCopy = $menuItem;
 
     // if "table", separate the array
@@ -1021,8 +1024,17 @@ class FeinduraBase {
         $menuItemCopy['pageId']              = $link['id'];
         $menuItemCopy['id']                  = $link['id'];
       }
+
       if($link['category'])
         $menuItemCopy['categoryId']          = $link['category'];
+      if($link['category'] && $link['category'] != 0)
+        $menuItemCopy['category']            = $this->getLocalized($this->categoryConfig[$link['category']],'name');
+
+      if($link['subCategory']) {
+        $menuItemCopy['subCategory']         = $this->getLocalized($this->categoryConfig[$link['subCategory']],'name');
+        $menuItemCopy['subCategoryId']       = $link['subCategory'];
+      }
+
       if($link['flag'])
         $menuItemCopy['flag']                = $link['flag'];
       if($link['pageDate'])

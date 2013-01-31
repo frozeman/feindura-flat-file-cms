@@ -21,7 +21,10 @@ array(
                     'end'   => 1325303455 // will be 0 when its not a date range
                     ),
     'pageId' or 'id'     => 5,
-    'categoryId'         => 1
+    'category'           => 'Example Category',
+    'categoryId'         => 1,
+    'subCategory'        => 'Another Category',
+    'subCategoryId'      => 3
     ),
   array(
     'position'           => 2,
@@ -38,7 +41,10 @@ array(
                     'end'   => 0
                     ),
     'pageId' or 'id'     => 8,
-    'categoryId'         => 1
+    'category'           => 'Example Category',
+    'categoryId'         => 1,
+    'subCategory'        => false,
+    'subCategoryId'      => false
     ),
   array(
     'position'           => 'last',
@@ -55,7 +61,10 @@ array(
                     'end'   => 0
                     ),
     'pageId' or 'id'     => 9,
-    'categoryId'         => 1
+    'category'           => 'Example Category',
+    'categoryId'         => 1,
+    'subCategory'        => false,
+    'subCategoryId'      => false
     ),
   array(
     'menuItem' or 'item' => '</ul>',

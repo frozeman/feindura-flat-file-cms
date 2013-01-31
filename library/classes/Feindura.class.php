@@ -2731,13 +2731,14 @@ class Feindura extends FeinduraBase {
           if($this->categoryConfig[$parentPageContent['category']]['isSubCategory'])
             $this->linkShowCategory = false;
 
-          $link['link']     = $this->createLink($parentPageContent);
-          $link['href']     = $this->createHref($parentPageContent);
-          $link['id']       = $parentPageContent['id'];
-          $link['category'] = $parentPageContent['category'];
-          $link['tags']     = $this->getLocalized($parentPageContent,'tags');
+          $link['link']        = $this->createLink($parentPageContent);
+          $link['href']        = $this->createHref($parentPageContent);
+          $link['id']          = $parentPageContent['id'];
+          $link['category']    = $parentPageContent['category'];
+          $link['subCategory'] = $parentPageContent['subCategory'];
+          $link['tags']        = $this->getLocalized($parentPageContent,'tags');
 
-          $link['title']    = $this->createTitle($parentPageContent,
+          $link['title']       = $this->createTitle($parentPageContent,
                                               $this->linkLength,
                                               false, // $titleAsLink
                                               $this->linkShowPageDate,
