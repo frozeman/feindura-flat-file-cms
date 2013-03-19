@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0.4
-Build 1029
+Build 1030
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ----------
 
+  build 1030: add 503 response header if in maintenance mode
   build 1029: createMenu and createBreadCrumbmenu now also returns the subCategory id and name, when a page has a sub category
   build 1028: fixed issue, where parent category could be the same as the sub category
   build 1027: createMetaTags(): removed opengraph and google snippets parameter add $socialTags

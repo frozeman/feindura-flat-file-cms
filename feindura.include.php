@@ -64,6 +64,15 @@ header('Content-Type:text/html; charset=UTF-8');
 if($websiteConfig['multiLanguageWebsite']['active'] && strlen($_SESSION['feinduraSession']['websiteLanguage']) === 2)
   header('Content-Language:'.$_SESSION['feinduraSession']['websiteLanguage']);
 
+// send service unavailable header for search engines
+if($websiteConfig['maintenance']) {
+    $protocol = "HTTP/1.0";
+    if ( "HTTP/1.1" == $_SERVER["SERVER_PROTOCOL"] )
+      $protocol = "HTTP/1.1";
+    header( "$protocol 503 Service Unavailable", true, 503 );
+    header( "Retry-After: 3600" );
+}
+
 // -> rename the config var names
 $feindura_adminConfig      = $adminConfig;
 $feindura_websiteConfig    = $websiteConfig;
