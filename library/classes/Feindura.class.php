@@ -3139,6 +3139,7 @@ class Feindura extends FeinduraBase {
 
                     // -> add div around the plugin
                     // $divStyles = (is_string($divStyles)) ? ' style="'.$divStyles.'"' : ''; // DEACTIVATED dont add the styles from the plugin placeholder
+                    $divStyles = '';
                     $pluginReturn = '<div class="feinduraPlugins feinduraPlugin_'.$pluginName.'" id="feinduraPlugin_'.$pluginName.'_'.$pageContent['id'].'"'.$divStyles.'>'.$pluginReturn.'</div>';
 
                     // add plugin stylesheets
