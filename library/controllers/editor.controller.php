@@ -154,6 +154,7 @@ if(isBlocked() === false && $_POST['save']) {
     $_POST['lastSaveDate'] = time();
     $_POST['lastSaveAuthor'] = $_SESSION['feinduraSession']['login']['user'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
+    $_POST['editedLink'] = $pageContent['editedLink'];
 
     // PAGE DATE
     if($categoryConfig[$category]['showPageDate']) {
