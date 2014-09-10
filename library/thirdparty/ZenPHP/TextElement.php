@@ -9,7 +9,7 @@ class TextElement extends Element {
 		$this->content = $content;
 	}
 	
-	function addChild($child){
+	function addChild(Element $child){
 		if ($this->getParent() != null)
 			$this->getParent()->addChild($child);
 	}
