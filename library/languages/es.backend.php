@@ -184,11 +184,11 @@ $langFile['LOG_CLEARSTATISTICS_REFERERLOG']                               = 'Reg
 $langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG']                              = 'Registro de actividades eliminado';
 
 $langFile['LOG_PAGESETUP_SAVED']                                          = 'Configuración de la página guardada';
-$langFile['LOG_PAGESETUP_CATEGORIES_SAVED']                               = 'Categorias guardadas';
+$langFile['LOG_PAGESETUP_CATEGORIES_SAVED']                               = 'Categorías guardadas';
 
 $langFile['LOG_PAGESETUP_CATEGORIES_NEW']                                 = 'Nueva categoria creada';
-$langFile['LOG_PAGESETUP_CATEGORIES_DELETED']                             = 'Categoria eliminada';
-$langFile['LOG_PAGESETUP_CATEGORIES_MOVED']                               = 'Categoria movida';
+$langFile['LOG_PAGESETUP_CATEGORIES_DELETED']                             = 'Categoría eliminada';
+$langFile['LOG_PAGESETUP_CATEGORIES_MOVED']                               = 'Categoría movida';
 
 $langFile['LOG_FILE_SAVED']                                               = 'Fichero guardado';
 $langFile['LOG_FILE_DELETED']                                             = 'Fichero eliminado';
@@ -204,8 +204,8 @@ $langFile['LOG_PAGELANGUAGE_ADD']                                         = 'Añ
 $langFile['STATUS_PAGE_PUBLIC']                                           = 'La página es pública';
 $langFile['STATUS_PAGE_NONPUBLIC']                                        = 'La página no es visible';
 
-$langFile['STATUS_CATEGORY_PUBLIC']                                       = 'La categoria es publica';
-$langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'La categoria no es visible';
+$langFile['STATUS_CATEGORY_PUBLIC']                                       = 'La categoría es pública';
+$langFile['STATUS_CATEGORY_NONPUBLIC']                                    = 'La categoría no es visible';
 
 // USER LIST
 $langFile['USER_TEXT_USER']                                               = 'Usuario';
@@ -360,7 +360,7 @@ $langFile['SORTABLEPAGELIST_functions_editPage']                          = 'Edi
 
 $langFile['SORTABLEPAGELIST_TIP_CHANGESTATUS']                            = 'Pulsa aquí para cambiar el estado';
 
-$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING']                     = 'Idiomas perdidos';
+$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING']                     = 'Idiomas ausentes';
 
 $langFile['file_error_read']                                              = '<b>No se puede leer la página.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['SORTABLEPAGELIST_setStartPage_error_save']                     .= $langFile['ERROR_SAVE_FILE'].' &quot;%sconfig/website.config.php&quot;'; // also in en.shared.php
@@ -457,7 +457,7 @@ $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']                              = 'Fil
 $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'HTML seguro (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6" target="_blank">detalles</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'El código HTML será filtrado con los ajustes más seguros. Esto significa que por ejemplo las etiquetas &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; and &lt;script&gt; no están permitidas.';
 $langFile['ADMINSETUP_TEXT_EDITOR_EDITORSTYLES']                          = 'activar selección de estilo';
-$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'La seleccio de estilos te permite utilizar elementos HTML propios en el editor HTML.[br][br][span class=hint]Si esta opción está activada, puedes editar/crear elementos HTML más abajo.[/span]';
+$langFile['ADMINSETUP_TIP_EDITOR_EDITORSTYLES']                           = 'La selección de estilos te permite utilizar elementos HTML propios en el editor HTML.[br][br][span class=hint]Si esta opción está activada, puedes editar/crear elementos HTML más abajo.[/span]';
 $langFile['ADMINSETUP_TEXT_EDITOR_SNIPPETS']                              = 'activar bloques de código';
 $langFile['ADMINSETUP_TIP_EDITOR_SNIPPETS']                               = 'Permite introducir bloques de código en las páginas.[br]Pulsa sobre el icono: [img class=icons src=library/thirdparty/ckeditor/plugins/feinduraSnippets/feinduraSnippetsIcon.png] del editor HTML[br][br][span class=hint]Si esta opción está activada, puedes editar/crear bloques de código más abajo.[/span]';
 $langFile['adminSetup_editorSettings_field1']                             = 'Modo tecla INTRO';
@@ -538,7 +538,7 @@ $langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS']                     = 'Si 
 $langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY']                     = 'Si se dejan todos los campos en blanco entonces se utilizará la configuración de hojas de estilos de la '.$langFile['adminSetup_editorSettings_h1'].'.';
 
 $langFile['PAGESETUP_CATEGORY_TEXT_CATEGORYSTATUS']                       = 'Estado de la categoría';
-$langFile['PAGESETUP_CATEGORY_TIP_CATEGORYSTATUS']                        = 'Indica si la categoria es visible en el sitio web.';
+$langFile['PAGESETUP_CATEGORY_TIP_CATEGORYSTATUS']                        = 'Indica si la categoría es visible en el sitio web.';
 $langFile['PAGESETUP_CATEGORY_TEXT_CREATEPAGES']                          = 'Crear/Eliminar páginas';
 $langFile['PAGESETUP_CATEGORY_TIP_CREATEPAGES']                           = 'Indica si el usuario puede crear y eliminar página en esta categoría.';
 $langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS']                     = 'Subir miniaturas';
@@ -583,7 +583,7 @@ $langFile['websiteSetup_websiteConfig_h1']                                = 'Con
 $langFile['websiteSetup_websiteConfig_field1']                            = 'Título del sitio web';
 $langFile['websiteSetup_websiteConfig_field1_tip']                        = 'El título del sitio web que se monstrará en la barra del navegador.';
 $langFile['websiteSetup_websiteConfig_field2']                            = 'Editor';
-$langFile['websiteSetup_websiteConfig_field2_tip']                        = 'El nombre de la organciación/empresa/persona que ha creado el sitio web.';
+$langFile['websiteSetup_websiteConfig_field2_tip']                        = 'El nombre del organismo/empresa/persona que ha creado el sitio web.';
 $langFile['websiteSetup_websiteConfig_field3']                            = 'Derechos de autor';
 $langFile['websiteSetup_websiteConfig_field3_tip']                        = 'El dueño de los derechos de autor del sitio web.';
 $langFile['websiteSetup_websiteConfig_field4']                            = 'Palabras clave para motores de búsqueda';
