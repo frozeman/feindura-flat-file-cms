@@ -25,7 +25,7 @@ $pluginLangFile['feinduraPlugin_description']  = 'Creates a slide show from imag
 /* CONFIG ************************************************************************************ */
 
 $pluginLangFile['path']                  = 'path to the images';
-$pluginLangFile['path_tip']              = 'absolut path of the folderr, which contains the images::e.g &quot;/upload/slideshow1&quot;';
+$pluginLangFile['path_tip']              = 'absolut path of the folder, which contains the images::e.g &quot;/upload/slideshow1&quot;';
 $pluginLangFile['imageWidthNumber']      = 'image width';
 $pluginLangFile['imageWidthNumber_tip']  = 'in pixel';
 $pluginLangFile['imageHeightNumber']     = 'image height';
