@@ -1,6 +1,6 @@
 <?php
 /**
- * ENGLISH (EN) plugin language file
+ * SPANISH (ES) plugin language file
  * 
  * NEEDS a RETURN $pluginLangFile; at the END
  * 
@@ -19,20 +19,20 @@
 
 /* PLUGIN ************************************************************************************ */
 
-$pluginLangFile['feinduraPlugin_title']        = 'Slide show from folder';
-$pluginLangFile['feinduraPlugin_description']  = 'Creates a slide show from images in a folder. The images will be automatically resized to the given size. See <a href="http://www.johannes-fischer.de/labs/nivoo-slider/">Nivooslider</a>.';
+$pluginLangFile['feinduraPlugin_title']        = 'Rotador de imágenes desde una carpeta';
+$pluginLangFile['feinduraPlugin_description']  = 'Crea un rotador de imágenes a partir de la imágenes contenidas en una carpeta. Las imágenes se redimensionan automáticamente al tamaño seleccionado. Ver <a href="http://www.johannes-fischer.de/labs/nivoo-slider/">Nivooslider</a>.';
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['path']                  = 'path to the images';
-$pluginLangFile['path_tip']              = 'absolut path of the folder, which contains the images::e.g &quot;/upload/slideshow1&quot;';
-$pluginLangFile['imageWidthNumber']      = 'image width';
-$pluginLangFile['imageWidthNumber_tip']  = 'in pixel';
-$pluginLangFile['imageHeightNumber']     = 'image height';
-$pluginLangFile['imageHeightNumber_tip'] = 'in pixel';
-$pluginLangFile['intervalNumber']         = 'Interval';
-$pluginLangFile['intervalNumber_tip']     = 'in seconds';
-$pluginLangFile['effectSelection']       = 'Effect';
+$pluginLangFile['path']                  = 'Ruta a las imágenes';
+$pluginLangFile['path_tip']              = 'Ruta absoluta de la carpeta que contiene las imágnes::e.g &quot;/upload/slideshow1&quot;';
+$pluginLangFile['imageWidthNumber']      = 'Anchura de la imagen';
+$pluginLangFile['imageWidthNumber_tip']  = 'en pixels';
+$pluginLangFile['imageHeightNumber']     = 'Altura de la imagen';
+$pluginLangFile['imageHeightNumber_tip'] = 'en pixels';
+$pluginLangFile['intervalNumber']         = 'Intervalo';
+$pluginLangFile['intervalNumber_tip']     = 'en segundos';
+$pluginLangFile['effectSelection']       = 'Efecto';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************
