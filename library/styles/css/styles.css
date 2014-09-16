@@ -6582,6 +6582,10 @@
   left: 180px;
   background: url("../../images/buttons/langSelection_ro.png") no-repeat;
 }
+.feindura header.main .sideBar .languageSelection a.es {
+  left: 210px;
+  background: url("../../images/buttons/langSelection_es.png") no-repeat;
+}
 .feindura header.main a.feinduraLogo {
   z-index: 1;
   position: absolute;

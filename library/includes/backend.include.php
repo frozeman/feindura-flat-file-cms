@@ -163,6 +163,9 @@ if(empty($_SESSION['feinduraSession']['backendLanguageLocale'])) {
     case 'ro':
       $_SESSION['feinduraSession']['backendLanguageLocale'] = 'ro-RO';
       break;
+    case 'es':
+      $_SESSION['feinduraSession']['backendLanguageLocale'] = 'es-ES';
+      break;
     default:
       $_SESSION['feinduraSession']['backendLanguageLocale'] = 'en-GB';
       break;
@@ -180,6 +183,7 @@ unset($backendLangFile,$sharedLangFile);
 // ...is used in the GeneralFunctions::formatDate() function
 switch ($_SESSION['feinduraSession']['backendLanguage']) {
   case 'fr':
+  case 'es':
     $backendDateFormat = 'D/M/Y';
     break;
   case 'en':

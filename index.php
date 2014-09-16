@@ -261,12 +261,13 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
         <div class="languageSelection">
           <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','en-US'); ?>" tabindex="20" class="en-us toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'en-US') echo ' active'; ?>" title="English US::"></a>
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','en-GB'); ?>" tabindex="20" class="en-gb toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'en-GB') echo ' active'; ?>" title="English GB::"></a>
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','de-DE'); ?>" tabindex="21" class="de toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'de-DE') echo ' active'; ?>" title="Deutsch::"></a>
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','fr-FR'); ?>" tabindex="22" class="fr toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'fr-FR') echo ' active'; ?>" title="français::"></a>
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','it-IT'); ?>" tabindex="23" class="it toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'it-IT') echo ' active'; ?>" title="italiano::"></a>
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','ru-RU'); ?>" tabindex="24" class="ru toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'ru-RU') echo ' active'; ?>" title="русский::"></a>
-          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','ro-RO'); ?>" tabindex="25" class="ro toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'ro-RO') echo ' active'; ?>" title="român::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','en-GB'); ?>" tabindex="21" class="en-gb toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'en-GB') echo ' active'; ?>" title="English GB::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','de-DE'); ?>" tabindex="22" class="de toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'de-DE') echo ' active'; ?>" title="Deutsch::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','fr-FR'); ?>" tabindex="23" class="fr toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'fr-FR') echo ' active'; ?>" title="français::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','it-IT'); ?>" tabindex="24" class="it toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'it-IT') echo ' active'; ?>" title="italiano::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','ru-RU'); ?>" tabindex="25" class="ru toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'ru-RU') echo ' active'; ?>" title="русский::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','ro-RO'); ?>" tabindex="26" class="ro toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'ro-RO') echo ' active'; ?>" title="român::"></a>
+          <a href="<?php echo GeneralFunctions::addParameterToUrl('backendLanguage','es-ES'); ?>" tabindex="27" class="es toolTipBottom<?php if($_SESSION['feinduraSession']['backendLanguageLocale'] == 'es-ES') echo ' active'; ?>" title="Español::"></a>
 
         </div>
       </div>
