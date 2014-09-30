@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not,see <http://www.gnu.org/licenses/>.
 _____________________________________________
 
-This File contains internal notes, which are helpfull when editing on feindura.
+This File contains internal notes, which are helpful when editing on feindura.
 
 
 ### Temporary

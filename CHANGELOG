@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-2.0.5
-Build 1025
+2.0.6
+Build 1027
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,6 +21,10 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ----------
+
+2.0.6
+
+  build 1027: path fix for feindura creditor skin
 
 2.0.5
 
